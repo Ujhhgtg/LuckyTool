@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">指紋アイコンを置き換え</string>
     <string name="replace_fingerprint_icon_switch_summary">解像度約216×216の画像がおすすめです</string>
     <string name="replace_fingerprint_icon_path">指紋アイコンのパス</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">Sound Related</string>
+    <string name="media_volume_level">メディアのボリュームレベル</string>
+    <string name="media_volume_level_summary">0に設定するとこの機能を無効にします。システムの再起動後に有効化されます</string>
+    <string name="minimum_volume_level_can_be_zero">最小音量レベルは0に設定できます</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">その他</string>
     <string name="Miscellaneous_summary">難易度の高いカテゴリはこちらに配置されます</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">10分以上経つと OTG が自動的にオフになる制限を無効化します</string>
     <string name="remove_storage_limit">ストレージの制限を削除</string>
     <string name="remove_storage_limit_summary">フォルダが使用できない制限を解除します</string>
-    <string name="media_volume_level">メディアのボリュームレベル</string>
-    <string name="media_volume_level_summary">0に設定するとこの機能を無効にします。システムの再起動後に有効化されます</string>
-    <string name="minimum_volume_level_can_be_zero">最小音量レベルは0に設定できます</string>
     <string name="open_screen_power_save">バッテリーの画面で省エネモードを開けるようにする</string>
     <string name="open_screen_power_save_summary">設定 - バッテリー - その他の設定 - 省エネモード の順で開けます</string>
     <string name="open_battery_health">バッテリーの状態を開けるようにする</string>

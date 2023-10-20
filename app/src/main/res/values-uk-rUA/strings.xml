@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">Замінити іконку відбитка пальця</string>
     <string name="replace_fingerprint_icon_switch_summary">Рекомендована роздільна здатність зображення близько 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Шлях до іконки відбитка пальця</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">Sound Related</string>
+    <string name="media_volume_level">Рівень гучності мультимедіа</string>
+    <string name="media_volume_level_summary">Встановіть 0, щоб вимкнути цю функцію, перезавантажте систему, щоб зміни набули чинності</string>
+    <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Різне</string>
     <string name="Miscellaneous_summary">Функції, які складно класифікувати, будуть розміщені тут</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">Вимкнути автоматичне вимкнення OTG через 10 хвилин</string>
     <string name="remove_storage_limit">Видалити обмеження сховища</string>
     <string name="remove_storage_limit_summary">Зняти обмеження на використання сховища</string>
-    <string name="media_volume_level">Рівень гучності мультимедіа</string>
-    <string name="media_volume_level_summary">Встановіть 0, щоб вимкнути цю функцію, перезавантажте систему, щоб зміни набули чинності</string>
-    <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <string name="open_screen_power_save">Відкрити режим енергозбереження</string>
     <string name="open_screen_power_save_summary">Налаштування - Батарея - Додаткові налаштування - Енергозбереження екрану</string>
     <string name="open_battery_health">Відкрити стан батареї</string>

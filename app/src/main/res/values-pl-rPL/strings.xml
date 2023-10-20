@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">Zastąp ikonę odcisku palca</string>
     <string name="replace_fingerprint_icon_switch_summary">Zalecana rozdzielczość obrazu = 216x216</string>
     <string name="replace_fingerprint_icon_path">Ścieżka ikony odcisku</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">Sound Related</string>
+    <string name="media_volume_level">Kroki głośności multimediów</string>
+    <string name="media_volume_level_summary">0 = funkcja wyłączona. Zrestartuj urządzenie, aby zastosować zmiany</string>
+    <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Pozostałe funkcje</string>
     <string name="Miscellaneous_summary">Znajdziesz tutaj funkcje, które ciężko było dopasować do kategorii</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">Połączenie OTG nie zostanie wyłączone po 10 minutach bezczynności</string>
     <string name="remove_storage_limit">Usuń ograniczenie dostępu do pamięci</string>
     <string name="remove_storage_limit_summary">Usuwa ograniczenie „Ten folder nie może być używany”, podczas próby przypisania folderu dla danej aplikacji</string>
-    <string name="media_volume_level">Kroki głośności multimediów</string>
-    <string name="media_volume_level_summary">0 = funkcja wyłączona. Zrestartuj urządzenie, aby zastosować zmiany</string>
-    <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <string name="open_screen_power_save">Dodaj stronę „Oszczędzanie energii ekranu”</string>
     <string name="open_screen_power_save_summary">Ustawienia &gt; Bateria &gt; Więcej ustawień &gt; Oszczędzanie energii ekranu</string>
     <string name="open_battery_health">Dodaj stronę „Stan baterii”</string>

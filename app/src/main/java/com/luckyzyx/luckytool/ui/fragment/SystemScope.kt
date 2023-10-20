@@ -2327,6 +2327,36 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override fun isEnableRestartMenu(): Boolean = true
 }
 
+class SoundRelated : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.android.systemui")
+
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SeekBarPreference(context).apply {
+                title = getString(R.string.media_volume_level)
+                summary = getString(R.string.media_volume_level_summary)
+                key = "media_volume_level"
+                setDefaultValue(0)
+                max = 50
+                min = 0
+                showSeekBarValue = true
+                updatesContinuously = false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.minimum_volume_level_can_be_zero)
+                key = "minimum_volume_level_can_be_zero"
+                setDefaultValue(false)
+                isVisible = SDK >= A12
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}
+
 class Miscellaneous : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.android.systemui",
@@ -2364,6 +2394,19 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            addPreference(Preference(context).apply {
+                title = getString(R.string.SoundRelated)
+                summary = arraySummaryDot(
+                    getString(R.string.media_volume_level),
+                    getString(R.string.minimum_volume_level_can_be_zero)
+                )
+                key = "SoundRelated"
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_miscellaneous_to_soundRelated, title)
+                    true
+                }
+            })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.show_charging_ripple)
                 summary = getString(R.string.show_charging_ripple_summary)
@@ -2384,24 +2427,6 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.remove_storage_limit_summary)
                 key = "remove_storage_limit"
                 setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SeekBarPreference(context).apply {
-                title = getString(R.string.media_volume_level)
-                summary = getString(R.string.media_volume_level_summary)
-                key = "media_volume_level"
-                setDefaultValue(0)
-                max = 50
-                min = 0
-                showSeekBarValue = true
-                updatesContinuously = false
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.minimum_volume_level_can_be_zero)
-                key = "minimum_volume_level_can_be_zero"
-                setDefaultValue(false)
-                isVisible = SDK >= A12
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

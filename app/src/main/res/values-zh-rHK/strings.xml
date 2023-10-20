@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">替换指纹图标开关</string>
     <string name="replace_fingerprint_icon_switch_summary">推荐图片分辨率为216x 216左右</string>
     <string name="replace_fingerprint_icon_path">指纹图标路径</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">声音相关</string>
+    <string name="media_volume_level">媒体音量阶数</string>
+    <string name="media_volume_level_summary">设置为0关闭功能，系统重启生效</string>
+    <string name="minimum_volume_level_can_be_zero">音量阶数最低可为 0</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">杂项</string>
     <string name="Miscellaneous_summary">分类困难的功能将被放置于此</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">禁用OTG超过十分钟自动关闭</string>
     <string name="remove_storage_limit">移除存储限制</string>
     <string name="remove_storage_limit_summary">移除无法使用此文件夹的限制</string>
-    <string name="media_volume_level">媒体音量阶数</string>
-    <string name="media_volume_level_summary">设置为0关闭功能，系统重启生效</string>
-    <string name="minimum_volume_level_can_be_zero">音量阶数最低可为 0</string>
     <string name="open_screen_power_save">打开电池屏幕省电入口</string>
     <string name="open_screen_power_save_summary">设置-电池-更多设置-屏幕省电</string>
     <string name="open_battery_health">打开电池健康入口</string>

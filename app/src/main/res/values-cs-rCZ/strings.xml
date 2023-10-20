@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">Nahradit přepínač ikony otisku prstu</string>
     <string name="replace_fingerprint_icon_switch_summary">Doporučené rozlišení obrázku je přibližně 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Cesta k ikoně otisku prstu</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">Sound Related</string>
+    <string name="media_volume_level">Úroveň hlasitosti médií</string>
+    <string name="media_volume_level_summary">Nastavte na 0 pro vypnutí této funkce, restartujte systém, aby se změny projevily</string>
+    <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Různé</string>
     <string name="Miscellaneous_summary">Zde jsou umístěna různá další specifická nastavení</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">Zakázat automatické vypnutí OTG po deseti minutách</string>
     <string name="remove_storage_limit">Odstranit limit úložiště</string>
     <string name="remove_storage_limit_summary">Odstranit omezení, že tuto složku nelze použít</string>
-    <string name="media_volume_level">Úroveň hlasitosti médií</string>
-    <string name="media_volume_level_summary">Nastavte na 0 pro vypnutí této funkce, restartujte systém, aby se změny projevily</string>
-    <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
     <string name="open_screen_power_save">Přidejte tlačítko pro zobrazení a ovládání úspory energie obrazovky</string>
     <string name="open_screen_power_save_summary">Nastavení - Baterie - Další nastavení - Úspora napájení obrazovky</string>
     <string name="open_battery_health">Přidat tlačítko pro zjištění zdraví baterie</string>

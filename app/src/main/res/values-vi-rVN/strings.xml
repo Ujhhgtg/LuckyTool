@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">Thay thế công tắc biểu tượng thanh trượt bên</string>
     <string name="replace_fingerprint_icon_switch_summary">Độ phân giải hình ảnh được đề xuất là khoảng 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Chọn biểu tượng</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">Sound Related</string>
+    <string name="media_volume_level">Mức âm lượng</string>
+    <string name="media_volume_level_summary">Đặt thành 0 để tắt chức năng này, khởi động lại hệ thống để có hiệu lực</string>
+    <string name="minimum_volume_level_can_be_zero">Mức âm lượng có thể thấp đến mức 0</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Khác</string>
     <string name="Miscellaneous_summary">Các danh mục có độ khó sẽ được đặt tại đây</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">Vô hiệu hóa tự động tắt OTG khi hơn mười phút</string>
     <string name="remove_storage_limit">Xóa giới hạn lưu trữ</string>
     <string name="remove_storage_limit_summary">Xóa giới hạn không thể sử dụng thư mục này</string>
-    <string name="media_volume_level">Mức âm lượng</string>
-    <string name="media_volume_level_summary">Đặt thành 0 để tắt chức năng này, khởi động lại hệ thống để có hiệu lực</string>
-    <string name="minimum_volume_level_can_be_zero">Mức âm lượng có thể thấp đến mức 0</string>
     <string name="open_screen_power_save">Mở lối vào màn hình tiết kiệm pin</string>
     <string name="open_screen_power_save_summary">Cài đặt - Pin - Cài đặt khác - Tiết kiệm năng lượng màn hình</string>
     <string name="open_battery_health">Mở lối vào tình trạng pin</string>

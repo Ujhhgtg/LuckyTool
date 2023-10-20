@@ -426,6 +426,11 @@
     <string name="replace_fingerprint_icon_switch">Заменить иконку отпечатка пальца</string>
     <string name="replace_fingerprint_icon_switch_summary">Рекомендуемое разрешение изображения около 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Путь к иконке отпечатка пальца</string>
+    <!--SoundRelated-->
+    <string name="SoundRelated">Sound Related</string>
+    <string name="media_volume_level">Уровень громкости мультимедиа</string>
+    <string name="media_volume_level_summary">Установите 0, чтобы отключить эту функцию, перезагрузите систему, чтобы изменения вступили в силу</string>
+    <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Разное</string>
     <string name="Miscellaneous_summary">Функции, которые сложно классифицировать, будут размещены здесь</string>
@@ -435,9 +440,6 @@
     <string name="disable_otg_auto_off_summary">Отключить автоматическое отключение OTG через 10 минут</string>
     <string name="remove_storage_limit">Удалить ограничение хранилища</string>
     <string name="remove_storage_limit_summary">Снять ограничение, на использование хранилища</string>
-    <string name="media_volume_level">Уровень громкости мультимедиа</string>
-    <string name="media_volume_level_summary">Установите 0, чтобы отключить эту функцию, перезагрузите систему, чтобы изменения вступили в силу</string>
-    <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
     <string name="open_screen_power_save">Открыть режим энергосбережения</string>
     <string name="open_screen_power_save_summary">Настройки - Батарея - Дополнительные настройки - Энергосбережение экрана</string>
     <string name="open_battery_health">Открыть состояние батареи</string>

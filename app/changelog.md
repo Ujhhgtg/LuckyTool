@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.2_beta
+
+- [更改] 创建声音相关分区
+
 ### 1.1.1
 
 - [修复] 状态栏移动数据图标Hook异常 C12.1
