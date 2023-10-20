@@ -463,6 +463,23 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 }
             },
             Preference(context).apply {
+                key = "com.coloros.weather2"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryDot(
+                    getString(R.string.disable_weather_jump_browser),
+                    getString(R.string.remove_weather_some_page_bottom_ads)
+                )
+                isVisible = context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusWeather, title)
+                    true
+                }
+            },
+            Preference(context).apply {
                 key = "com.ruet_cse_1503050.ragib.appbackup.pro"
                 setPrefsIconRes(key) { resource, show ->
                     icon = resource

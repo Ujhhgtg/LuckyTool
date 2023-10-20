@@ -427,7 +427,7 @@
     <string name="replace_fingerprint_icon_switch_summary">Рекомендуемое разрешение изображения около 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Путь к иконке отпечатка пальца</string>
     <!--SoundRelated-->
-    <string name="SoundRelated">Sound Related</string>
+    <string name="SoundRelated">Звук</string>
     <string name="media_volume_level">Уровень громкости мультимедиа</string>
     <string name="media_volume_level_summary">Установите 0, чтобы отключить эту функцию, перезагрузите систему, чтобы изменения вступили в силу</string>
     <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
@@ -605,6 +605,9 @@
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений со страницы-заставки в магазине</string>
     <string name="remove_market_update_page_app_recommend">Удалить рекомендации приложений со страницы обновления магазина</string>
     <string name="remove_market_download_page_app_recommend">Удалить рекомендации приложений со страницы загрузки из магазина</string>
+    <!--OplusWeather-->
+    <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
+    <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

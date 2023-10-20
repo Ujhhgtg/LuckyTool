@@ -3274,6 +3274,7 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.remove_ads_from_weather_page_summary)
                 key = "remove_ads_from_weather_page"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
             })
         }
@@ -3504,6 +3505,29 @@ class OplusMarket : BaseScopePreferenceFeagment() {
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_market_download_page_app_recommend)
                 key = "remove_market_download_page_app_recommend"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}
+
+class OplusWeather : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.coloros.weather2")
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_weather_some_page_bottom_ads)
+                key = "remove_weather_some_page_bottom_ads"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_weather_jump_browser)
+                key = "disable_weather_jump_browser"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

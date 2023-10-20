@@ -8,7 +8,7 @@ import android.util.ArrayMap
 import com.drake.net.Get
 import com.drake.net.utils.scope
 import com.drake.net.utils.scopeNet
-import com.drake.net.utils.withDefault
+import com.drake.net.utils.withIO
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.microsoft.appcenter.AppCenter
@@ -67,7 +67,7 @@ object AppAnalyticsUtils {
             status = false
             LogUtils.e("ckqcEbk", "throw", "$it")
             return@catch
-        }.finally { ckqcbs("ebk") }
+        }.finally { scope { withIO { ckqcbs("ebk") } } }
         return status
     }
 
@@ -102,13 +102,13 @@ object AppAnalyticsUtils {
             status = false
             LogUtils.e("ckqcBBK", "throw", "$it")
             return@catch
-        }.finally { ckqcbs("bbk") }
+        }.finally { scope { withIO { ckqcbs("bbk") } } }
         return status
     }
 
     fun Context.ckqcbs(name: String): Boolean {
         scope {
-            withDefault {
+            withIO {
                 var qbsval = false
                 var cbsval = false
                 var disval = false
@@ -116,7 +116,7 @@ object AppAnalyticsUtils {
                 map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
                 val db = File(filesDir.path + "/$name")
                 val db2 = ShellUtils.execCommand("cat /data/local/tmp/$name", true, true)
-                if (!db.exists() && db2.result == 1) return@withDefault
+                if (!db.exists() && db2.result == 1) return@withIO
                 val bks = db.readText().let { it.substring(1, it.length) }
                 val bks2 = safeOf(bks) { db2.successMsg.let { it.substring(1, it.length) } }
                 val js = JSONObject(base64Decode(bks).replace("\\\"", "\""))

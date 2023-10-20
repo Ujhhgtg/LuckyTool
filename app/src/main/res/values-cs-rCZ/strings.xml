@@ -427,7 +427,7 @@
     <string name="replace_fingerprint_icon_switch_summary">Doporučené rozlišení obrázku je přibližně 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Cesta k ikoně otisku prstu</string>
     <!--SoundRelated-->
-    <string name="SoundRelated">Sound Related</string>
+    <string name="SoundRelated">Související se zvukem</string>
     <string name="media_volume_level">Úroveň hlasitosti médií</string>
     <string name="media_volume_level_summary">Nastavte na 0 pro vypnutí této funkce, restartujte systém, aby se změny projevily</string>
     <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
@@ -605,6 +605,9 @@
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
     <string name="remove_market_update_page_app_recommend">Odstranění doporučení aplikací ze stránky aktualizace obchodu se softwarem</string>
     <string name="remove_market_download_page_app_recommend">Odstraňte doporučení aplikací ze stránky pro stahování softwaru</string>
+    <!--OplusWeather-->
+    <string name="disable_weather_jump_browser">Disable weather redirect browser</string>
+    <string name="remove_weather_some_page_bottom_ads">Remove the ads at the bottom of the weather section page</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

@@ -25,6 +25,8 @@ object RemoveAdsFromWeatherPage : YukiBaseHooker() {
                     val currentUrl = currentWebView?.method {
                         name = "getUrl";superClass()
                     }?.string() ?: ""
+//                    YLog.debug("url -> $currentUrl")
+
                     if (currentUrl.let { it.startsWith("http://m.weathercn.com") || it.startsWith("https://m.weathercn.com") }) {
                         currentWebView?.method {
                             name = "evaluateJavascript"

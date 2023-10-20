@@ -605,6 +605,9 @@
     <string name="remove_market_splash_page_app_recommend">移除商店启动页应用推荐</string>
     <string name="remove_market_update_page_app_recommend">移除商店更新页应用推荐</string>
     <string name="remove_market_download_page_app_recommend">移除商店下载页应用推荐</string>
+    <!--OplusWeather-->
+    <string name="disable_weather_jump_browser">禁用天气跳转浏览器</string>
+    <string name="remove_weather_some_page_bottom_ads">移除天气部分页面底部广告</string>
     <!--Everyimage-->
     <string name="skip_startup_page">跳过启动页</string>
     <string name="vip_download">下载原图</string>

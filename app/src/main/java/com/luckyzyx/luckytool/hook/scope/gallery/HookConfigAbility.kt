@@ -67,8 +67,8 @@ object HookConfigAbility : YukiBaseHooker() {
                                 "feature_is_support_photo_editor_watermark" -> if (waterMark) resultTrue()
                                 "feature_is_support_privacy_watermark" -> if (waterMark) resultTrue()
                                 "feature_is_support_lns" -> {
-                                    //                            loggerD(msg = "ConfigAbility -> lns call -> $result")
-                                    //                            resultTrue()
+//                                    loggerD(msg = "ConfigAbility -> lns call -> $result")
+//                                    resultTrue()
                                 }
                             }
                         }

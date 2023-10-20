@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -99,12 +100,11 @@ open class MainActivity : AppCompatActivity() {
                 if (current.contains(HomeFragment::class.java.simpleName)) show()
             }
         }
-        if (!BuildConfig.DEBUG) putBoolean(SettingsPrefs, "enable_module_print_logs", false)
-        scopeLife(dispatcher = Dispatchers.Default) {
+        putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
+        scopeLife(Lifecycle.Event.ON_START, Dispatchers.IO) {
             putBoolean(SettingsPrefs, "boot_complete", ckqcEbk())
             putBoolean(SettingsPrefs, "boot_complete_final", ckqcBBK())
         }
-        PermissionUtils(this).checkPermissions()
     }
 
     private fun initDynamicShortcuts() {

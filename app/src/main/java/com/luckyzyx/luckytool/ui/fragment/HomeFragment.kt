@@ -56,29 +56,29 @@ class HomeFragment : Fragment(), MenuProvider {
             }
         }
 
-        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true)) {
-            UpdateUtils(requireActivity()).checkUpdate(
-                getVersionName, getVersionCode
-            ) { versionName, versionCode, function ->
-                if (getVersionCode < versionCode) {
-                    function()
-                    binding.updateView.apply {
-                        isVisible = true
-                        text =
-                            getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
-                    }
-                    binding.statusCard.setOnClickListener { function() }
+//        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true)) {
+        UpdateUtils(requireActivity()).checkUpdate(
+            getVersionName, getVersionCode
+        ) { versionName, versionCode, function ->
+            if (getVersionCode < versionCode) {
+                function()
+                binding.updateView.apply {
+                    isVisible = true
+                    text =
+                        getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
                 }
-                binding.statusCard.apply {
-                    if (context.getBoolean(SettingsPrefs, "hidden_function", false)) {
-                        setOnLongClickListener {
-                            function()
-                            true
-                        }
+                binding.statusCard.setOnClickListener { function() }
+            }
+            binding.statusCard.apply {
+                if (context.getBoolean(SettingsPrefs, "hidden_function", false)) {
+                    setOnLongClickListener {
+                        function()
+                        true
                     }
                 }
             }
         }
+//        }
 
         binding.fpsTitle.text = getString(R.string.fps_title)
         binding.fpsSummary.text = getString(R.string.fps_summary)
