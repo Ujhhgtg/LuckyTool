@@ -16,9 +16,6 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
 
         //Source OplusSplitScreenManagerService
         "com.android.server.wm.OplusSplitScreenManagerService".toClass().apply {
-            method { name = "isInBlackList" }.hook {
-                if (isEnable) replaceToFalse()
-            }
             method { name = "supportsSplitScreenByVendorPolicy";paramCount = 3 }.hook {
                 before {
                     if (!isEnable) return@before
@@ -34,7 +31,7 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
                         name = "isInForbidActivityList";paramCount = 1
                     }?.invoke<Boolean>(activityName)
                     if (isSafeSenterUI == true) resultFalse()
-                    else if (isInForbidActivityList == true) resultFalse()
+                    else if (candidate && isInForbidActivityList == true) resultFalse()
                     else resultTrue()
                 }
             }

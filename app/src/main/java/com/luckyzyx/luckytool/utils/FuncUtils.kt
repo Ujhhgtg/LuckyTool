@@ -926,7 +926,7 @@ fun forceUninstallApp(packName: String) {
 /**
  * 卸载模块
  */
-fun Context.removeModule() {
+suspend fun Context.removeModule() {
     getUsers().forEach { uninstallApp(BuildConfig.APPLICATION_ID, it) }
     getUsers().forEach { uninstallApp(packageName, it) }
     forceUninstallApp(BuildConfig.APPLICATION_ID)
@@ -1147,66 +1147,65 @@ fun getScreenOrientation(resource: Resources, result: (Boolean) -> Unit) {
  * 获取设备用户
  * @return Array<String>
  */
-fun getUsers(): Array<String> {
-    ShellUtils.execCommand("ls /data/user/ -mF", true, true).apply {
-        return if (result == 0 && successMsg != null && successMsg.isNotBlank()) {
-            successMsg?.replace(" ", "")?.replace("/", "")?.split(",")?.toTypedArray() ?: arrayOf()
-        } else arrayOf()
+suspend fun getUsers(): Array<String> {
+    return withDefault {
+        ShellUtils.execCommand("ls /data/user/ -mF", true, true).let {
+            if (it.result == 0 && it.successMsg.isNullOrBlank().not()) {
+                it.successMsg.replaceSpace.replace("/", "").split(",").toTypedArray()
+            } else arrayOf()
+        }
     }
 }
 
-fun Context.getQSlist(): ArrayList<String> {
-    val list = ArrayList<String>()
-    getUsers().forEach { u ->
-        val dir1 = getString(R.string.tencent_files, u)
-        val command1 = "if [[ -d $dir1 ]]; then\n  ls $dir1 -mF\nfi"
-        val list1 = ShellUtils.execCommand(command1, true, true).let { its ->
-            if (its.result == 0 && its.successMsg != null && its.successMsg.isNotBlank()) {
-                its.successMsg?.replace(" ", "")?.split(",")?.toMutableList()?.apply {
-                    removeIf { it.contains("/").not() }
-                    removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
-                } ?: arrayListOf()
-            } else arrayListOf()
+suspend fun Context.getQSlist(): ArrayList<String> {
+    return withDefault {
+        val cachelist = ArrayList<String>()
+        getUsers().forEach { u ->
+            val dir1 = getString(R.string.tencent_files, u)
+            val command1 = "if [[ -d $dir1 ]]; then\n  ls $dir1 -mF\nfi"
+            val list1 = ShellUtils.execCommand(command1, true, true).let { its ->
+                if (its.result == 0 && its.successMsg.isNullOrBlank().not()) {
+                    its.successMsg.replaceSpace.split(",").toMutableList().apply {
+                        removeIf { it.contains("/").not() }
+                        removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
+                    }
+                } else arrayListOf()
+            }
+            val dir2 = getString(R.string.tencent_qstore, u)
+            val command2 = "if [[ -d $dir2 ]]; then\n  ls $dir2 -mF\nfi"
+            var list2 = ShellUtils.execCommand(command2, true, true).let { its ->
+                if (its.result == 0 && its.successMsg.isNullOrBlank().not()) {
+                    its.successMsg.replaceSpace.split(",").toMutableList().apply {
+                        removeIf { it.contains("/").not() }
+                        removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
+                    }
+                } else arrayListOf()
+            }
+            if (list2.isEmpty()) list2 = list1
+            val finals = list1.filter { list2.contains(it) }.toMutableList().apply {
+                forEachIndexed { index, s -> this[index] = s.replace("/", "") }
+            }
+            cachelist.addAll(finals)
         }
-        list.addAll(list1)
-        val dir2 = getString(R.string.tencent_configs, u)
-        val command2 = "if [[ -d $dir2 ]]; then\n  ls $dir2 -mF\nfi"
-        val list2 = ShellUtils.execCommand(command2, true, true).let { its ->
-            if (its.result == 0 && its.successMsg != null && its.successMsg.isNotBlank()) {
-                its.successMsg?.replace(" ", "")?.split(",")?.toMutableList()?.apply {
-                    removeIf { it.contains("/").not() }
-                    removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
-                } ?: arrayListOf()
-            } else arrayListOf()
-        }
-        list.addAll(list2)
+        cachelist
     }
-    return list
 }
 
-fun Context.getQStatus(id: String): Boolean {
-    if (getQSlist().contains("$id/")) return true
-    return false
-}
-
-fun Context.getCSid(): String? {
-    getUsers().forEach { u ->
-        val dir = getString(R.string.cool_black, u)
-        val command =
-            "if [[ -f $dir ]]; then\n  cat $dir | grep 'name=\"uid\"' | cut -d \">\" -f2 | cut -d \"<\" -f1\nfi"
-        val uid = ShellUtils.execCommand(command, true, true).let { its ->
-            if (its.result == 0 && its.successMsg != null && its.successMsg.isNotBlank()) {
-                its.successMsg?.replace(" ", "")
-            } else null
+suspend fun Context.getCSid(): ArrayList<String> {
+    return withDefault {
+        val cachelist = ArrayList<String>()
+        getUsers().forEach { u ->
+            val dir = getString(R.string.cool_black, u)
+            val command = "cat $dir | grep 'name=\"uid\"'"
+            val str = ShellUtils.execCommand(command, true, true).let { its ->
+                if (its.result == 0 && its.successMsg.isNullOrBlank().not()) {
+                    its.successMsg.replaceSpace.filterNumber
+                } else ""
+            }
+            if (str.isNotBlank()) cachelist.add(str)
         }
-        if (!uid.isNullOrBlank()) return uid
+        cachelist.apply { removeIf { it.isBlank() } }
     }
-    return null
-}
-
-fun Context.getCStatus(id: String): Boolean {
-    if (getCSid() == id) return true
-    return false
 }
 
 /**

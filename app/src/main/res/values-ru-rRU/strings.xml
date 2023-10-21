@@ -480,8 +480,9 @@
     <string name="settings_application">Приложение</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
-    <string name="settings_phone_preference">О телефоне</string>
+    <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
+    <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>
     <string name="customize_device_sharing_page_parameters">Настройка параметров страницы совместного доступа к устройствам</string>
     <string name="settings_developer_preference">Параметры разработчика</string>
     <string name="remove_dpi_restart_recovery">Удалить восстановление DPI</string>

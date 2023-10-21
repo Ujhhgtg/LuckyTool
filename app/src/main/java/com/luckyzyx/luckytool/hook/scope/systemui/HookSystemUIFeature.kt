@@ -10,6 +10,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
 object HookSystemUIFeature : YukiBaseHooker() {
+    var callback: ((key: String, value: Any) -> Unit)? = null
+
     override fun onHook() {
         loadHooker(HookFeatureOption)
         loadHooker(HookStatusBarFeature)
@@ -44,12 +46,14 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
             dataChannel.wait<Int>("custom_volume_dialog_background_transparency") {
                 volumeBlur = it
+                callback?.invoke("custom_volume_dialog_background_transparency", it)
             }
             //锁屏充电显示瓦数
             var showWattage =
                 prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
             dataChannel.wait<Boolean>("force_lock_screen_charging_show_wattage") {
                 showWattage = it
+                callback?.invoke("force_lock_screen_charging_show_wattage", it)
             }
             //WARP充电器样式
             var warpCharge =
@@ -217,6 +221,15 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //全局搜索按钮
             val searchBtnMode =
                 prefs(ModulePrefs).getString("set_control_center_search_button_mode", "0")
+            //锁屏充电显示瓦数
+            var showWattage =
+                prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
+
+            callback = { key: String, value: Any ->
+                when (key) {
+                    "force_lock_screen_charging_show_wattage" -> showWattage = value as Boolean
+                }
+            }
 
             //Source FlavorOneFeatureOption
             "com.oplusos.systemui.common.feature.FlavorOneFeatureOption".toClass().apply {
@@ -229,6 +242,9 @@ object HookSystemUIFeature : YukiBaseHooker() {
                             }
                         }
                     }
+                }
+                method { name = "isShowChargingWattage" }.hook {
+                    if (showWattage) replaceToTrue()
                 }
             }
         }
@@ -259,8 +275,11 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //音量对话框背景透明度
             var volumeBlur =
                 prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
-            dataChannel.wait<Int>("custom_volume_dialog_background_transparency") {
-                volumeBlur = it
+
+            callback = { key: String, value: Any ->
+                when (key) {
+                    "custom_volume_dialog_background_transparency" -> volumeBlur = value as Int
+                }
             }
 
             //Source VolumeFeatureOption

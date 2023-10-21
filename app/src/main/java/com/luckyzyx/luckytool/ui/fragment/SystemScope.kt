@@ -2461,8 +2461,9 @@ class Settings : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //状态栏
             addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.settings_lock_screen)
+                title = getString(R.string.settings_status_bar)
                 key = "settings_status_bar"
                 isIconSpaceReserved = false
             })
@@ -2473,7 +2474,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //锁屏
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_lock_screen)
                 key = "settings_lock_screen"
@@ -2486,7 +2487,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //显示
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_display)
                 key = "settings_display"
@@ -2525,7 +2526,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 isVisible = getOSVersionCode >= 27
                 isIconSpaceReserved = false
             })
-
+            //应用
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_application)
                 key = "settings_application"
@@ -2543,31 +2544,36 @@ class Settings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.settings_phone_preference)
-                key = "settings_phone_preference"
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.set_processor_click_page)
-                summary = "%s"
-                key = "set_processor_click_page"
-                entries = resources.getStringArray(R.array.set_processor_click_page_entries)
-                entryValues = arrayOf("0", "1", "2")
-                setDefaultValue("0")
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.customize_device_sharing_page_parameters)
-                key = "customize_device_sharing_page_parameters"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-
+            //关于本机
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.settings_about_device)
+                    key = "settings_about_device"
+                    isIconSpaceReserved = false
+                })
+                addPreference(DropDownPreference(context).apply {
+                    title = getString(R.string.set_processor_click_page)
+                    summary = "%s"
+                    key = "set_processor_click_page"
+                    entries = resources.getStringArray(R.array.set_processor_click_page_entries)
+                    entryValues = arrayOf("0", "1", "2")
+                    setDefaultValue("0")
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.screen_physics_size_shown_cm)
+                    key = "screen_physics_size_shown_cm"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.customize_device_sharing_page_parameters)
+                    key = "customize_device_sharing_page_parameters"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
+            //其他首选项
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_other_preference)
                 key = "settings_other_preference"
@@ -2605,7 +2611,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //开发者选项
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_developer_preference)
                 key = "settings_developer_preference"
@@ -2618,7 +2624,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //应用详情相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AppDetailsRelated)
                 key = "AppDetailsRelated"
@@ -2972,6 +2978,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_danmaku_notification_whitelist)
                 key = "remove_danmaku_notification_whitelist"
                 setDefaultValue(false)
+                isVisible = SDK < A14
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

@@ -11,7 +11,6 @@ import com.luckyzyx.luckytool.hook.scope.launcher.RecentTaskListClearButton
 import com.luckyzyx.luckytool.hook.scope.launcher.RemoveAppUpdateDot
 import com.luckyzyx.luckytool.hook.scope.launcher.RemoveBottomAppIconOfRecentTaskList
 import com.luckyzyx.luckytool.hook.scope.launcher.RemoveFolderPreviewBackground
-import com.luckyzyx.luckytool.hook.scope.launcher.RemoveLauncherHighTempreatureProtection
 import com.luckyzyx.luckytool.hook.scope.launcher.StackedTaskLayout
 import com.luckyzyx.luckytool.hook.scope.launcher.UnlockTaskLocks
 import com.luckyzyx.luckytool.utils.A13
@@ -57,10 +56,6 @@ object HookLauncher : YukiBaseHooker() {
         //解锁后台任务锁定限制
         if (prefs(ModulePrefs).getBoolean("unlock_task_locks", false)) {
             loadHooker(UnlockTaskLocks)
-        }
-        //移除桌面高温保护
-        if (prefs(ModulePrefs).getBoolean("remove_launcher_high_tempreature_protection", false)) {
-            loadHooker(RemoveLauncherHighTempreatureProtection)
         }
         //允许锁定或解锁已排除活动
         if (prefs(ModulePrefs).getBoolean("allow_locking_unlocking_of_excluded_activity", false)) {

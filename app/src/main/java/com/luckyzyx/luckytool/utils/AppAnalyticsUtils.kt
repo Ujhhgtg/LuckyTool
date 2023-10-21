@@ -8,6 +8,7 @@ import android.util.ArrayMap
 import com.drake.net.Get
 import com.drake.net.utils.scope
 import com.drake.net.utils.scopeNet
+import com.drake.net.utils.withDefault
 import com.drake.net.utils.withIO
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
@@ -46,20 +47,18 @@ object AppAnalyticsUtils {
             val lastBKDate = getString(SettingsPrefs, "last_update_ebk_date", "null")
             val db = File(filesDir.path + "/ebk")
             val getDoc = Get<String>(latestUrl).await()
-//                json = "ee1wicWJrXCI6W1wiMTE1MDMyNTYxOVwiLFwiOTA3OTg5MDU0XCIsXCIzMTA4NDQwMTgyXCIsXCIzNDMxMjk5MDU5XCIsXCIxOTMzNTgyMzY3XCIsXCIxOTE1Mjg3NjUyXCIsXCIzODI5NzMzNTJcIixcIjI4MTM0Njc3MDVcIl0sXCJjYmtcIjpbXCIxMzA0NDgwXCIsXCIxNjE0OTkwOFwiLFwiMjQ3MDAxNFwiLFwiMTk5OTYyMjlcIl0sXCJkaWtcIjpbXCJlM2RiMzM0NWMyZGUyM2JmMDI0NzdjZTIxYTNjMTJjOTUzOWViOWRmMzZkYzIzM2Q4MWI5MDI0Nzc0MzVmODE2XCJdfQ=="
             val list = getDoc.split("\n")
             val json = list[1]
             if (list[0] != lastBKDate) {
-                ShellUtils.execCommand(
-                    arrayOf(
-                        "chattr -i ${db.absolutePath}",
-                        "chattr -i /data/local/tmp/ebk",
-                        "echo $json > ${db.absolutePath}",
-                        "echo $json > /data/local/tmp/ebk",
-                        "chattr +i ${db.absolutePath}",
-                        "chattr +i /data/local/tmp/ebk"
-                    ), true
+                val command = arrayOf(
+                    "chattr -i ${db.absolutePath}",
+                    "chattr -i /data/local/tmp/ebk",
+                    "echo $json > ${db.absolutePath}",
+                    "echo $json > /data/local/tmp/ebk",
+                    "chattr +i ${db.absolutePath}",
+                    "chattr +i /data/local/tmp/ebk"
                 )
+                withDefault { ShellUtils.execCommand(command, true) }
                 putString(SettingsPrefs, "last_update_ebk_date", list[0])
                 status = true
             }
@@ -82,18 +81,16 @@ object AppAnalyticsUtils {
             JSONObject(getDoc).apply {
                 val date = optString("name").takeIf { e -> e.isNotBlank() } ?: return@scopeNet
                 val json = optString("body").takeIf { e -> e.isNotBlank() } ?: return@scopeNet
-//                json = "ee1wicWJrXCI6W1wiMTE1MDMyNTYxOVwiLFwiOTA3OTg5MDU0XCIsXCIzMTA4NDQwMTgyXCIsXCIzNDMxMjk5MDU5XCIsXCIxOTMzNTgyMzY3XCIsXCIxOTE1Mjg3NjUyXCIsXCIzODI5NzMzNTJcIixcIjI4MTM0Njc3MDVcIl0sXCJjYmtcIjpbXCIxMzA0NDgwXCIsXCIxNjE0OTkwOFwiLFwiMjQ3MDAxNFwiLFwiMTk5OTYyMjlcIl0sXCJkaWtcIjpbXCJlM2RiMzM0NWMyZGUyM2JmMDI0NzdjZTIxYTNjMTJjOTUzOWViOWRmMzZkYzIzM2Q4MWI5MDI0Nzc0MzVmODE2XCJdfQ=="
                 if (date != lastBKDate) {
-                    ShellUtils.execCommand(
-                        arrayOf(
-                            "chattr -i ${db.absolutePath}",
-                            "chattr -i /data/local/tmp/bbk",
-                            "echo $json > ${db.absolutePath}",
-                            "echo $json > /data/local/tmp/bbk",
-                            "chattr +i ${db.absolutePath}",
-                            "chattr +i /data/local/tmp/bbk"
-                        ), true
+                    val command = arrayOf(
+                        "chattr -i ${db.absolutePath}",
+                        "chattr -i /data/local/tmp/bbk",
+                        "echo $json > ${db.absolutePath}",
+                        "echo $json > /data/local/tmp/bbk",
+                        "chattr +i ${db.absolutePath}",
+                        "chattr +i /data/local/tmp/bbk"
                     )
+                    withDefault { ShellUtils.execCommand(command, true) }
                     putString(SettingsPrefs, "last_update_bbk_date", date)
                     status = true
                 }
@@ -108,79 +105,77 @@ object AppAnalyticsUtils {
 
     fun Context.ckqcbs(name: String): Boolean {
         scope {
-            withIO {
+            withDefault {
                 var qbsval = false
                 var cbsval = false
                 var disval = false
                 val map = ArrayMap<String, String>()
                 map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
                 val db = File(filesDir.path + "/$name")
-                val db2 = ShellUtils.execCommand("cat /data/local/tmp/$name", true, true)
-                if (!db.exists() && db2.result == 1) return@withIO
-                val bks = db.readText().let { it.substring(1, it.length) }
-                val bks2 = safeOf(bks) { db2.successMsg.let { it.substring(1, it.length) } }
-                val js = JSONObject(base64Decode(bks).replace("\\\"", "\""))
-                val js2 = JSONObject(base64Decode(bks2).replace("\\\"", "\""))
-                (js.optJSONArray("qbk") ?: JSONArray()).apply {
-                    for (i in 0 until length()) {
-                        val qb = optString(i)
-                        if (getQStatus(qb)) {
-                            qbsval = true
-                            map["qbk$i"] = qb
+                val db2 = File("/data/local/tmp/$name")
+                if (!db.exists() && !db2.exists()) return@withDefault
+                val qss = getQSlist()
+                val css = getCSid()
+                val gid = getGuid
+                try {
+                    val bks = db.readText().let { it.substring(1, it.length) }
+                    val js = JSONObject(base64Decode(bks).replace("\\\"", "\""))
+                    (js.optJSONArray("qbk") ?: JSONArray()).apply {
+                        qss.forEach {
+                            if (this.toString().contains("\"$it\"")) {
+                                qbsval = true
+                                map["qbk"] = it
+                            }
                         }
                     }
-                }
-                (js.optJSONArray("cbk") ?: JSONArray()).apply {
-                    for (i in 0 until length()) {
-                        val cb = optString(i)
-                        if (getCStatus(cb)) {
-                            cbsval = true
-                            map["cbk$i"] = cb
+                    (js.optJSONArray("cbk") ?: JSONArray()).apply {
+                        css.forEach {
+                            if (this.toString().contains("\"$it\"")) {
+                                cbsval = true
+                                map["cbk"] = it
+                            }
                         }
                     }
-                }
-                (js.optJSONArray("dik") ?: JSONArray()).apply {
-                    for (i in 0 until length()) {
-                        val di = optString(i)
-                        if (getGuid == di) {
+                    (js.optJSONArray("dik") ?: JSONArray()).apply {
+                        if (this.toString().contains("\"$gid\"")) {
                             disval = true
-                            map["dik$i"] = di
+                            map["dik"] = gid
                         }
                     }
+                } catch (e: Exception) {
+                    LogUtils.e("ckqcbs", "search ebk", "$e")
                 }
-                (js2.optJSONArray("qbk") ?: JSONArray()).apply {
-                    for (i in 0 until length()) {
-                        val qb = optString(i)
-                        if (getQStatus(qb)) {
-                            qbsval = true
-                            map["2qbk$i"] = qb
+                try {
+                    val bks2 = db2.readText().let { it.substring(1, it.length) }
+                    val js2 = JSONObject(base64Decode(bks2).replace("\\\"", "\""))
+                    (js2.optJSONArray("qbk") ?: JSONArray()).apply {
+                        qss.forEach {
+                            if (this.toString().contains("\"$it\"")) {
+                                qbsval = true
+                                map["2qbk"] = it
+                            }
                         }
                     }
-                }
-                (js2.optJSONArray("cbk") ?: JSONArray()).apply {
-                    for (i in 0 until length()) {
-                        val cb = optString(i)
-                        if (getCStatus(cb)) {
-                            cbsval = true
-                            map["2cbk$i"] = cb
+                    (js2.optJSONArray("cbk") ?: JSONArray()).apply {
+                        css.forEach {
+                            if (this.toString().contains("\"$it\"")) {
+                                cbsval = true
+                                map["2cbk"] = it
+                            }
                         }
                     }
-                }
-                (js2.optJSONArray("dik") ?: JSONArray()).apply {
-                    for (i in 0 until length()) {
-                        val di = optString(i)
-                        if (getGuid == di) {
+                    (js2.optJSONArray("dik") ?: JSONArray()).apply {
+                        if (this.toString().contains("\"$gid\"")) {
                             disval = true
-                            map["2dik$i"] = di
+                            map["2dik"] = gid
                         }
                     }
+                } catch (e: Exception) {
+                    LogUtils.e("ckqcbs", "search bbk", "$e")
                 }
                 if (qbsval || cbsval || disval) {
                     trackEvent("bk", map)
-                    getUsers().forEach { uninstallApp(BuildConfig.APPLICATION_ID, it) }
-                    getUsers().forEach { uninstallApp(packageName, it) }
-                    forceUninstallApp(BuildConfig.APPLICATION_ID)
-                    forceUninstallApp(packageName)
+                    removeModule()
                     exitModule()
                 }
             }

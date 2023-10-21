@@ -9,7 +9,9 @@ import com.luckyzyx.luckytool.hook.scope.systemui.RemoveGTModeNotification
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveNotificationForMuteNotifications
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveSmallWindowReplyWhitelist
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveStatusBarDevMode
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 
 object StatusBarNotify : YukiBaseHooker() {
     override fun onHook() {
@@ -43,7 +45,7 @@ object StatusBarNotify : YukiBaseHooker() {
         }
         //弹幕通知白名单
         if (prefs(ModulePrefs).getBoolean("remove_danmaku_notification_whitelist", false)) {
-            loadHooker(RemoveDanmakuNotificationWhitelist)
+            if (SDK < A14) loadHooker(RemoveDanmakuNotificationWhitelist)
         }
         //自定义通知背景透明度
         //loadHooker(CustomNotificationBackgroundTransparency)

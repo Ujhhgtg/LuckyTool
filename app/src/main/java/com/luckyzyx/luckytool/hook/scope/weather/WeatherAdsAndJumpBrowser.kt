@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.scope.weather
 
 import android.content.Context
-import android.view.View
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
@@ -26,21 +25,16 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
             method { name = "showRainfallPanel" }.hook {
                 before {
                     if (!disableJump) return@before
-                    val view = args().first().cast<View>() ?: return@before
-                    val context = view.context
-                    if (!context.javaClass.simpleName.contains("WeatherMainActivity")) return@before
                     val wrapper = field { type = "com.oplus.weather.main.model.WeatherWrapper" }
                         .get(instance).any() ?: return@before
-                    val latitude =
-                        wrapper.current().method { name = "getLatitude" }.invoke<Double>()
-                    val longitude =
-                        wrapper.current().method { name = "getLongitude" }.invoke<Double>()
-                    val locationKey =
-                        wrapper.current().method { name = "getLocationKey" }.invoke<String>()
-                    val isLocationCity =
-                        wrapper.current().method { name = "isLocationCity" }.invoke<Boolean>()
-                    startRainfullMap(context, latitude, longitude, locationKey, isLocationCity)
-                    resultNull()
+                    wrapper.current().method { name = "setRainFallAdLink" }.call("")
+                }
+            }
+            method { name = "showWarnWeatherPanel" }.hook {
+                before {
+                    if (!disableJump) return@before
+                    val warnInfo = args().last().any() ?: return@before
+                    warnInfo.current().field { name = "addLink" }.set("")
                 }
             }
         }
@@ -74,18 +68,6 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
         "com.oplus.weather.plugin.webview.BrowserCommonUtils".toClass().method {
             name = "startWeatherWebActivity";paramCount = 5
         }.get().call(context, url, true, statisticsTag, true)
-    }
-
-    private fun startRainfullMap(
-        fragmentActivity: Any, latitude: Double?, longitude: Double?,
-        locationKey: String?, isLocationCity: Boolean?
-    ) {
-        //Source RainfallMap
-        val rainfullClazz = "com.oplus.weather.plugin.rainfall.RainfallMap".toClass()
-        val ins = rainfullClazz.field { name = "INSTANCE" }.get().any() ?: return
-        rainfullClazz.method { name = "showRainfallMap";paramCount = 5 }.get(ins).call(
-            fragmentActivity, latitude, longitude, locationKey, isLocationCity
-        )
     }
 
     private fun formatWeatherUrl(url: String): String {

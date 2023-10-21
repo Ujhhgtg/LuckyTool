@@ -78,10 +78,31 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (getChargeWattage != 0) resultTrue()
                     }
                 }
-//                method { name = "showTechnology" }.hook {
-//                    if (showWattage) replaceToTrue()
-//                }
             }
+
+            //Source ChargeLevelAndLogoFlavorOneView
+            "com.oplus.systemui.keyguard.charginganim.siphonanim.view.ChargeLevelAndLogoFlavorOneView".toClassOrNull()
+                ?.apply {
+                    method { param(TypefaceClass) }.hook {
+                        after {
+                            if (!userTypeface) return@after
+                            instance<LinearLayout>().allViews.forEach {
+                                if (it.javaClass == TextViewClass) {
+                                    (it as TextView).typeface = Typeface.DEFAULT_BOLD
+                                }
+                            }
+                        }
+                    }
+                    method { name = "showTextLogo" }.hook {
+                        before {
+                            when (textLogo) {
+                                "1" -> resultTrue()
+                                "2" -> resultFalse()
+                                else -> return@before
+                            }
+                        }
+                    }
+                }
         }
     }
 

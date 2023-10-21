@@ -10,6 +10,7 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -21,6 +22,7 @@ object HookSettingsFeature : YukiBaseHooker() {
         loadHooker(HookSysFeature)
         loadHooker(HookAppFeatureProvider)
         loadHooker(HookExpUst)
+        loadHooker(HookCustomizeFeature)
     }
 
     private object HookSysFeature : YukiBaseHooker() {
@@ -172,6 +174,59 @@ object HookSettingsFeature : YukiBaseHooker() {
                                     "com.android.settings.processor_detail_gen2" -> if (processorDetail == "2") resultTrue()
                                     //com.android.settings.ultimate_cleanup
                                     "com.android.settings.ultimate_cleanup" -> if (processManagement) resultTrue()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private object HookCustomizeFeature : YukiBaseHooker() {
+        override fun onHook() {
+            val screenSizeCM = prefs(ModulePrefs).getBoolean("screen_physics_size_shown_cm", false)
+
+            //Source CustomizeFeatureUtils
+            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+                dexKitBridge.findClass {
+                    matcher {
+                        fields {
+                            addForType(IntType.name)
+                            addForType(BooleanType.name)
+                            addForType(BooleanClass.name)
+                            addForType(ListClass.name)
+                        }
+                        methods {
+                            add { paramCount(0);returnType(BooleanType.name) }
+                            add { paramCount(0);returnType(StringClass.name) }
+                            add { paramCount(0);returnType(ListClass.name) }
+                            add { paramCount(0);returnType(ContentResolverClass.name) }
+                            add {
+                                paramTypes(ContextClass.name)
+                                returnType(UnitType.name)
+                            }
+                            add {
+                                paramTypes(ContextClass.name)
+                                returnType(BooleanType.name)
+                            }
+                            add {
+                                paramTypes(StringClass.name)
+                                returnType(BooleanType.name)
+                            }
+
+                        }
+                        usingStrings("CustomizeFeatureUtils")
+                    }
+                }.apply {
+                    checkDataList("HookCustomizeFeature")
+                    val member = first()
+                    member.name.toClass().apply {
+                        method { param(StringClass);returnType = BooleanType }.hookAll {
+                            before {
+                                when (args().first().string()) {
+                                    //Source DeviceInfoUtils 屏幕尺寸显示厘米
+                                    "com.android.settings.screen_physics_size_cm" -> if (screenSizeCM) resultTrue()
                                 }
                             }
                         }

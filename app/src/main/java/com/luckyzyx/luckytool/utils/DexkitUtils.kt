@@ -31,7 +31,7 @@ object DexkitUtils {
     fun ClassDataList.checkDataList(instance: String, onlyOne: Boolean = true): ClassDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
-            size > 1 && onlyOne -> {
+            size != 1 && onlyOne -> {
                 var find = ""
                 forEach { find += "[${it.name}]" }
                 YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
@@ -55,7 +55,7 @@ object DexkitUtils {
     fun MethodDataList.checkDataList(instance: String, onlyOne: Boolean = true): MethodDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
-            size > 1 && onlyOne -> {
+            size != 1 && onlyOne -> {
                 var find = ""
                 forEach { find += "[${it.className}|${it.methodName}]" }
                 YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
