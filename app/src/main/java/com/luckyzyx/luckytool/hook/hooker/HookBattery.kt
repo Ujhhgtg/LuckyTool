@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.hooker
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.battery.BatteryFeatureProvider
-import com.luckyzyx.luckytool.hook.scope.battery.BatteryHealthDataTips
+import com.luckyzyx.luckytool.hook.scope.battery.DisplayModuleCalculatesBatteryHealthData
 import com.luckyzyx.luckytool.hook.scope.battery.HookBatteryNotify
 import com.luckyzyx.luckytool.hook.scope.battery.RemoveBatteryTemperatureControl
 import com.luckyzyx.luckytool.hook.scope.battery.UnlockStartupLimit
@@ -29,9 +29,9 @@ object HookBattery : YukiBaseHooker() {
             loadHooker(RemoveBatteryTemperatureControl)
         }
 
-        //电池健康数据提示
-        if (SDK >= A13 && prefs(ModulePrefs).getBoolean("fix_battery_health_data_display", false)) {
-            loadHooker(BatteryHealthDataTips)
+        //显示模块计算电池健康数据
+        if (prefs(ModulePrefs).getBoolean("display_module_calculates_battery_health_data", false)) {
+            if (SDK >= A13) loadHooker(DisplayModuleCalculatesBatteryHealthData)
         }
 
         //charge_protection_switch_state

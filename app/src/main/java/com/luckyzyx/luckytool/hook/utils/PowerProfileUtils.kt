@@ -9,7 +9,7 @@ import com.luckyzyx.luckytool.hook.scope.systemui.RemoveDoNotDisturbModeNotifica
 @Suppress("unused")
 class PowerProfileUtils(val classLoader: ClassLoader?) {
 
-    val clazz = "com.android.internal.os.PowerProfile".toClass()
+    val clazz = "com.android.internal.os.PowerProfile".toClass(classLoader)
 
     fun buildInstance(context: Context?): Any? {
         return clazz.buildOf(context) {

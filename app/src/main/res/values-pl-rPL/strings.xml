@@ -270,10 +270,13 @@
     <string name="battery_information_display_mode_summary">Wyświetlaj napięcie baterii i inne informacje na pasku stanu</string>
     <string name="battery_information_show_charge">Pokaż informacje o ładowaniu</string>
     <string name="battery_information_show_charge_summary">Podczas ładowania napięcie i teoretyczna moc ładowania będą wyświetlane na pasku stanu</string>
-    <string name="battery_information_show_simple_mode">Simple display mode</string>
     <string name="battery_information_show_dual_voltage">Show dual voltage</string>
+    <string name="battery_information_show_battery_health">Show battery health</string>
+    <string name="battery_information_always_show_positive_current">Always displays positive current</string>
+    <string name="battery_information_show_simple_mode">Simple display mode</string>
     <string name="battery_information_show_update_time">Pokaż czas aktualizacji</string>
     <string name="battery_information_show_update_time_summary">Wyświetl czas aktualizacji aktualnych danych na pasku stanu</string>
+    <string name="battery_information_custom_font_size">Custom notification font size</string>
     <string name="battery_status_unknown">Nieznany</string>
     <string name="battery_status_charging">Ładowanie</string>
     <string name="battery_status_discharging">Rozładowywanie</string>
@@ -282,6 +285,7 @@
     <string name="battery_temperature">Temp.</string>
     <string name="battery_voltage">Napięcie</string>
     <string name="battery_electric_current">Aktualna</string>
+    <string name="battery_health">Hlt</string>
     <string name="battery_charger_voltage">Napięcie</string>
     <string name="battery_charger_type">Type</string>
     <string name="battery_power">Zasilanie</string>
@@ -459,9 +463,9 @@
     <string name="restore_default_battery_optimization_whitelist">Przywróć domyślną białą listę optymalizacji baterii</string>
     <string name="disable_customize_battery_optimization_whiteList">Disable custom battery optimization whitelist</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">If the APP is manually granted the `ignore battery optimization` permission by the user, After enabling this function, the APP will not be automatically added to the battery optimization whitelist</string>
-    <string name="fix_battery_health_data_display">Fix battery health data display</string>
-    <string name="fix_battery_health_data_display_summary">Do not use this feature when the system supports battery health\nThe accuracy of the data cannot be guaranteed</string>
-    <string name="fix_battery_health_data_display_tips">Try rebooting the system</string>
+    <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
+    <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
     <!--Settings-->
     <string name="settings_status_bar">StatusBar</string>
     <string name="enable_statusbar_clock_format">Enable status bar clock format</string>
@@ -678,7 +682,7 @@
     <string name="HidePageRelated">Ukryte strony</string>
     <string name="process_manager">Menedżer procesów</string>
     <string name="very_dark_mode">Dodatkowe przyciemnienie ekranu</string>
-    <string name="battery_health">Stan baterii</string>
+    <string name="battery_health_page">Battery Health Page</string>
     <string name="battery_optimization">Optymalizacja baterii</string>
     <string name="camera_algo_page">Algorytmy kamery</string>
     <string name="browser_concise_mode">Tryb zwięzły przeglądarki</string>

@@ -1435,6 +1435,26 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         }
                     })
                     addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.battery_information_show_battery_health)
+                        key = "battery_information_show_battery_health"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            true
+                        }
+                    })
+                    addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.battery_information_always_show_positive_current)
+                        key = "battery_information_always_show_positive_current"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            true
+                        }
+                    })
+                    addPreference(SwitchPreference(context).apply {
                         title = getString(R.string.battery_information_show_simple_mode)
                         key = "battery_information_show_simple_mode"
                         setDefaultValue(false)
@@ -1449,6 +1469,20 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         summary = getString(R.string.battery_information_show_update_time_summary)
                         key = "battery_information_show_update_time"
                         setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            true
+                        }
+                    })
+                    addPreference(SeekBarPreference(context).apply {
+                        title = getString(R.string.battery_information_custom_font_size)
+                        key = "battery_information_custom_font_size"
+                        setDefaultValue(11)
+                        max = 16
+                        min = 11
+                        showSeekBarValue = true
+                        updatesContinuously = false
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
                             context.dataChannel("com.android.systemui").put(key, newValue)
@@ -2696,30 +2730,14 @@ class Battery : BaseScopePreferenceFeagment() {
             })
             if (context.getBoolean(ModulePrefs, "open_battery_health", false)) {
                 addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.fix_battery_health_data_display)
-                    summary = getString(R.string.fix_battery_health_data_display_summary)
-                    key = "fix_battery_health_data_display"
+                    title = getString(R.string.display_module_calculates_battery_health_data)
+                    summary =
+                        getString(R.string.display_module_calculates_battery_health_data_summary)
+                    key = "display_module_calculates_battery_health_data"
                     setDefaultValue(false)
                     isVisible = SDK >= A13
                     isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, _ ->
-                        (activity as MainActivity).restart()
-                        true
-                    }
                 })
-                if (context.getBoolean(ModulePrefs, "fix_battery_health_data_display")) {
-                    addPreference(EditTextPreference(context).apply {
-                        title = "自定义电池设计容量"
-                        dialogTitle = title
-                        summary = context.getString(
-                            ModulePrefs, "fix_battery_health_design_capacity", "0"
-                        ) + " mAh"
-                        key = "fix_battery_health_design_capacity"
-                        setDefaultValue("0")
-                        isVisible = false //SDK >= A13
-                        isIconSpaceReserved = false
-                    })
-                }
             }
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.open_screen_power_save)

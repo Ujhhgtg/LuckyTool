@@ -45,11 +45,13 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.dataChannel
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.hooker.HookAndroid.prefs
+import com.luckyzyx.luckytool.hook.utils.PowerProfileUtils
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.*
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcbs
@@ -58,6 +60,7 @@ import kotlinx.coroutines.Dispatchers
 import java.io.*
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 import kotlin.random.Random
 import kotlin.system.exitProcess
@@ -1308,3 +1311,24 @@ fun Context.checkModuleValied(isValied: (Boolean) -> Unit) {
 }
 
 val redOneTextColor = Color.parseColor("#c41442")
+
+/**
+ * 反射计算电池健康度
+ * @param context Context
+ * @return Int?
+ */
+fun calcLocalHealth(context: Context): Int? {
+    return try {
+        val curValue = safeOfNull {
+            BufferedReader(FileReader("/sys/class/oplus_chg/battery/battery_fcc"))
+                .readLine().filterNumber.toFloatOrNull()
+        }
+        val powerIns = PowerProfileUtils(null).buildInstance(context)
+        val designValue = PowerProfileUtils(null).getBatteryCapacity(powerIns)
+        if (curValue == null || designValue == null) null
+        else (curValue / designValue * 100.0F).roundToInt()
+    } catch (e: Exception) {
+        YLog.error("StatusBarBatteryHealth Error", e)
+        null
+    }
+}

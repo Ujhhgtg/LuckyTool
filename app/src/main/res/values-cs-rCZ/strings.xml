@@ -270,10 +270,13 @@
     <string name="battery_information_display_mode_summary">Zobrazit napětí baterie a další informace ve stavové liště</string>
     <string name="battery_information_show_charge">Zobrazit informace o nabíjení</string>
     <string name="battery_information_show_charge_summary">Při nabíjení se na stavové liště zobrazuje napětí a teoretický nabíjecí výkon nabíječky</string>
-    <string name="battery_information_show_simple_mode">Jednoduchý režim zobrazení</string>
     <string name="battery_information_show_dual_voltage">Ukázat dvojí napětí</string>
+    <string name="battery_information_show_battery_health">Zobrazit zdraví baterie</string>
+    <string name="battery_information_always_show_positive_current">Vždy zobrazovat kladný proud</string>
+    <string name="battery_information_show_simple_mode">Jednoduchý režim zobrazení</string>
     <string name="battery_information_show_update_time">Zobrazit čas aktualizace</string>
     <string name="battery_information_show_update_time_summary">Zobrazit čas aktualizace aktuálních dat ve stavové liště</string>
+    <string name="battery_information_custom_font_size">Custom notification font size</string>
     <string name="battery_status_unknown">Neznámý</string>
     <string name="battery_status_charging">Nabíjení</string>
     <string name="battery_status_discharging">Vybíjení</string>
@@ -282,6 +285,7 @@
     <string name="battery_temperature">Teplota</string>
     <string name="battery_voltage">Napětí</string>
     <string name="battery_electric_current">Cur</string>
+    <string name="battery_health">Hlt</string>
     <string name="battery_charger_voltage">Napětí</string>
     <string name="battery_charger_type">Typ</string>
     <string name="battery_power">Spotřeba</string>
@@ -459,9 +463,9 @@
     <string name="restore_default_battery_optimization_whitelist">Obnovit výchozí optimalizaci baterie v seznamu povolených</string>
     <string name="disable_customize_battery_optimization_whiteList">Zakázat vlastní seznam optimalizovaných aplikací baterie</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">Pokud uživatel aplikaci ručně udělil oprávnění `ignorovat optimalizaci baterie`, nebude aplikace po zapnutí této funkce automaticky přidána na seznam povolených aplikací optimalizace baterie</string>
-    <string name="fix_battery_health_data_display">Opravit zobrazení dat o zdraví baterie</string>
-    <string name="fix_battery_health_data_display_summary">Nepoužívejte tuto funkci, pokud systém podporuje zdraví baterie\nPřesnost dat nelze garantovat</string>
-    <string name="fix_battery_health_data_display_tips">Zkuste restartovat systém</string>
+    <string name="display_module_calculates_battery_health_data">Zobrazit výpočet údajů o stavu baterie</string>
+    <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
     <!--Settings-->
     <string name="settings_status_bar">Stavová lišta</string>
     <string name="enable_statusbar_clock_format">Povolit formát hodin ve stavové liště</string>
@@ -480,9 +484,9 @@
     <string name="settings_application">Aplikace</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>
     <string name="force_display_disabled_apps_manager">Vynutit zobrazení správce zakázaných aplikací</string>
-    <string name="settings_about_device">About Device</string>
+    <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
-    <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>
+    <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
     <string name="customize_device_sharing_page_parameters">Konfigurace nastavení stránky sdílení zařízení</string>
     <string name="settings_developer_preference">Možnosti pro vývojáře</string>
     <string name="remove_dpi_restart_recovery">Zabránit návratu DPI na původní hodnotu po restartování zařízení</string>
@@ -678,7 +682,7 @@
     <string name="HidePageRelated">Skrytá nastavení</string>
     <string name="process_manager">Správce procesů</string>
     <string name="very_dark_mode">Velmi tmavý režim</string>
-    <string name="battery_health">Zdraví baterie</string>
+    <string name="battery_health_page">Stránka zdraví baterie</string>
     <string name="battery_optimization">Optimalizace baterie</string>
     <string name="camera_algo_page">Stránka nastavení algoritmů kamery</string>
     <string name="browser_concise_mode">Stručný režim prohlížeče</string>

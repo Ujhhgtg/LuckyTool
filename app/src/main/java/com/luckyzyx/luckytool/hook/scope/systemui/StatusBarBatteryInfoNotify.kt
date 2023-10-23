@@ -6,10 +6,13 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.BatteryManager
+import android.util.TypedValue
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.os.EnvironmentCompat
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
@@ -18,13 +21,13 @@ import com.luckyzyx.luckytool.utils.DevicesConfigUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatDouble
 import com.luckyzyx.luckytool.utils.getBooleanProperty
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getStringProperty
 import com.luckyzyx.luckytool.utils.safeOf
-import com.luckyzyx.luckytool.utils.safeOfNull
 import java.io.StringReader
 import java.util.Locale
 import java.util.Properties
@@ -65,7 +68,14 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private var showChargerInfo: Boolean = false
     private var showUpdateTime: Boolean = false
     private var isDualVol: Boolean = false
+    private var isHealth: Boolean = false
+    private var isPositive: Boolean = false
     private var isSimple: Boolean = false
+    private var fontSize: Int = 11
+
+    private const val channelNotifyId = 112233
+    private const val channelId = "luckytool_notify"
+    private const val channelName = "LuckyTool"
 
     override fun onHook() {
         var thisContext: Context? = null
@@ -92,10 +102,27 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             isDualVol = it
             initSend(thisContext)
         }
+        isHealth =
+            prefs(ModulePrefs).getBoolean("battery_information_show_battery_health", false)
+        dataChannel.wait<Boolean>("battery_information_show_battery_health") {
+            isHealth = it
+            initSend(thisContext)
+        }
+        isPositive =
+            prefs(ModulePrefs).getBoolean("battery_information_always_show_positive_current", false)
+        dataChannel.wait<Boolean>("battery_information_always_show_positive_current") {
+            isPositive = it
+            initSend(thisContext)
+        }
         isSimple =
             prefs(ModulePrefs).getBoolean("battery_information_show_simple_mode", false)
         dataChannel.wait<Boolean>("battery_information_show_simple_mode") {
             isSimple = it
+            initSend(thisContext)
+        }
+        fontSize = prefs(ModulePrefs).getInt("battery_information_custom_font_size", 11)
+        dataChannel.wait<Int>("battery_information_custom_font_size") {
+            fontSize = it
             initSend(thisContext)
         }
 
@@ -105,7 +132,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             registerReceiver(Intent.ACTION_BATTERY_CHANGED) { context: Context, _: Intent ->
                 thisContext = context
                 context.injectModuleAppResources()
-                safeOfNull { initInfo(context) }
+                initInfo(context)
                 initSend(context)
             }
             //OplusBatteryService
@@ -116,67 +143,71 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
                 chargeWattage = (intent.getIntExtra("chargewattage", 0))
                 ppsMode = (intent.getIntExtra("pps_chg_mode", 0))
 
-                safeOfNull { initInfo(context) }
+                initInfo(context)
                 initSend(context)
             }
         }
     }
 
     private fun initInfo(context: Context) {
-        chargeInfo = getChargeInfo()
-        statusValue = chargeInfo.getIntProperty("battery_status")
-        status = when (statusValue) {
-            2 -> context.getString(R.string.battery_status_charging)
-            3 -> context.getString(R.string.battery_status_discharging)
-            4 -> context.getString(R.string.battery_status_not_charging)
-            5 -> context.getString(R.string.battery_status_full)
-            else -> context.getString(R.string.battery_status_unknown)
-        }
-        isCharging = statusValue == 2 || statusValue == 5
-        plugged = when (getPlugType(chargeInfo)) {
-            0 -> "Battery"
-            BatteryManager.BATTERY_PLUGGED_AC -> "AC"
-            BatteryManager.BATTERY_PLUGGED_USB -> "USB"
-            BatteryManager.BATTERY_PLUGGED_WIRELESS -> "WIRELESS"
-            BatteryManager.BATTERY_PLUGGED_DOCK -> "DOCK"
-            else -> "Null"
-        }
-        isWireless = plugged == "WIRELESS"
-        level = chargeInfo.getIntProperty("battery_capacity")
-        level_sub = chargeInfo.getIntProperty("sub_soc")
-        temperature = chargeInfo.getIntProperty("battery_temp") / 10.0
-        if (temperature > 100 || temperature < 0) temperature = 0.0
-        temperature_noplug = chargeInfo.getIntProperty("battery_temp_not_plug") / 10.0
-        isSeriesDual = DevicesConfigUtils.isSeriesDualBattery == true
-        isParallelDual = DevicesConfigUtils.isParallelDualBattery == true
-        chargerType = chargeInfo.getStringProperty("charger_type", "Null").toString()
-        voltage = chargeInfo.getIntProperty("battery_voltage_now") / 1000.0
-        voltage2 = if (isSeriesDual) chargeInfo.getIntProperty("battery_voltage_min") / 1000.0
-        else if (isParallelDual) chargeInfo.getIntProperty("sub_voltage") / 1000.0
-        else 0.0
-        chargerVoltage = chargeInfo.getIntProperty("battery_charge_now")
-        if (isMTKPlatformBoard == false) {
-            voltage /= 1000.0
-            voltage2 /= 1000.0
-        }
-        electricCurrent = chargeInfo.getIntProperty("battery_current_now")
-        if (abs(electricCurrent) > 10000) electricCurrent /= 1000
-        if (isWireless) {
-            val isAirSVOOC = DevicesConfigUtils.isAirSVOOCSupport
-            val mChargerWirelessOnline = chargeInfo.getBooleanProperty("chargerWirelessOnline")
-            val mBatteryReverse = chargeInfo.getIntProperty("wireless_enable_tx")
-            wirelessCur = chargeInfo.getIntProperty("wireless_current_now")
-            wirelessVol = if (isAirSVOOC == true) {
-                if (mChargerWirelessOnline || mBatteryReverse == 2 || mBatteryReverse == 1) {
-                    chargeInfo.getIntProperty("wireless_voltage_now") / 1000.0
-                } else chargerVoltage * 1.0
-            } else chargeInfo.getIntProperty("wireless_voltage_now") / 1000.0
+        try {
+            chargeInfo = getChargeInfo()
+            statusValue = chargeInfo.getIntProperty("battery_status")
+            status = when (statusValue) {
+                2 -> context.getString(R.string.battery_status_charging)
+                3 -> context.getString(R.string.battery_status_discharging)
+                4 -> context.getString(R.string.battery_status_not_charging)
+                5 -> context.getString(R.string.battery_status_full)
+                else -> context.getString(R.string.battery_status_unknown)
+            }
+            isCharging = statusValue == 2 || statusValue == 5
+            plugged = when (getPlugType(chargeInfo)) {
+                0 -> "Battery"
+                BatteryManager.BATTERY_PLUGGED_AC -> "AC"
+                BatteryManager.BATTERY_PLUGGED_USB -> "USB"
+                BatteryManager.BATTERY_PLUGGED_WIRELESS -> "WIRELESS"
+                BatteryManager.BATTERY_PLUGGED_DOCK -> "DOCK"
+                else -> "Null"
+            }
+            isWireless = plugged == "WIRELESS"
+            level = chargeInfo.getIntProperty("battery_capacity")
+            level_sub = chargeInfo.getIntProperty("sub_soc")
+            temperature = chargeInfo.getIntProperty("battery_temp") / 10.0
+            if (temperature > 100 || temperature < 0) temperature = 0.0
+            temperature_noplug = chargeInfo.getIntProperty("battery_temp_not_plug") / 10.0
+            isSeriesDual = DevicesConfigUtils.isSeriesDualBattery == true
+            isParallelDual = DevicesConfigUtils.isParallelDualBattery == true
+            chargerType = chargeInfo.getStringProperty("charger_type", "Null").toString()
+            voltage = chargeInfo.getIntProperty("battery_voltage_now") / 1000.0
+            voltage2 = if (isSeriesDual) chargeInfo.getIntProperty("battery_voltage_min") / 1000.0
+            else if (isParallelDual) chargeInfo.getIntProperty("sub_voltage") / 1000.0
+            else 0.0
+            chargerVoltage = chargeInfo.getIntProperty("battery_charge_now")
+            if (isMTKPlatformBoard == false) {
+                voltage /= 1000.0
+                voltage2 /= 1000.0
+            }
+            electricCurrent = chargeInfo.getIntProperty("battery_current_now")
+            if (abs(electricCurrent) > 10000) electricCurrent /= 1000
+            if (isWireless) {
+                val isAirSVOOC = DevicesConfigUtils.isAirSVOOCSupport
+                val mChargerWirelessOnline = chargeInfo.getBooleanProperty("chargerWirelessOnline")
+                val mBatteryReverse = chargeInfo.getIntProperty("wireless_enable_tx")
+                wirelessCur = chargeInfo.getIntProperty("wireless_current_now")
+                wirelessVol = if (isAirSVOOC == true) {
+                    if (mChargerWirelessOnline || mBatteryReverse == 2 || mBatteryReverse == 1) {
+                        chargeInfo.getIntProperty("wireless_voltage_now") / 1000.0
+                    } else chargerVoltage * 1.0
+                } else chargeInfo.getIntProperty("wireless_voltage_now") / 1000.0
+            }
+        } catch (e: Exception) {
+            YLog.error("StatusBarBatteryInfoNotify -> InitInfo", e)
         }
     }
 
     private fun createChannel(context: Context) {
         val channel = NotificationChannel(
-            "luckytool_notify", "LuckyTool", NotificationManager.IMPORTANCE_DEFAULT
+            channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
             setSound(null, null)
         }
@@ -199,6 +230,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         }
     }
 
+    @SuppressLint("DiscouragedApi")
     private fun sendNotification(
         context: Context,
         isCharging: Boolean,
@@ -246,47 +278,64 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             in 0..9 -> R.drawable.round_battery_0_bar_24
             else -> R.drawable.round_battery_unknown_24
         }
-        val power = formatDouble("%.3f", abs(powerCalc) * 1.0)
+        val power = formatDouble("%.2f", abs(powerCalc) * 1.0).toString() + "W"
         val wattage = if (chargeWattage != 0) "${chargeWattage}W" else ""
 
         val tem =
             if (isSimple) "${temperature}℃" else "${context.getString(R.string.battery_temperature)}: ${temperature}℃"
+        val formatVol = formatDouble("%.2f", voltage)
+        val formatVol2 = formatDouble("%.2f", voltage2)
         val vol = if (isSimple) {
-            if (isDualVol && (isSeriesDual || isParallelDual)) "${voltage}V ${voltage2}V"
-            else "${voltage}V"
+            if (isDualVol && (isSeriesDual || isParallelDual)) "${formatVol}V ${formatVol2}V"
+            else "${formatVol}V"
         } else {
-            (if (isDualVol && (isSeriesDual || isParallelDual)) "${context.getString(R.string.battery_voltage)}: ${voltage}V ${voltage2}V"
-            else "${context.getString(R.string.battery_voltage)}: ${voltage}V")
+            (if (isDualVol && (isSeriesDual || isParallelDual)) "${context.getString(R.string.battery_voltage)}: ${formatVol}V ${formatVol2}V"
+            else "${context.getString(R.string.battery_voltage)}: ${formatVol}V")
         }
-        val cur =
-            if (isSimple) "${electricCurrent}mA" else "${context.getString(R.string.battery_electric_current)}: ${electricCurrent}mA"
+        val formatCur = if (abs(electricCurrent) >= 1000) {
+            formatDouble("%.1f", electricCurrent / 1000.0).apply {
+                if (isPositive) abs(this)
+            }.toString() + "A"
+        } else if (isPositive) abs(electricCurrent).toString() + "mA"
+        else "${electricCurrent}mA"
+        val cur = if (isSimple) formatCur
+        else "${context.getString(R.string.battery_electric_current)}: $formatCur"
+        val health = if (isHealth) {
+            val value = calcLocalHealth(context).toString() + "%"
+            if (isSimple) value else "${context.getString(R.string.battery_health)}: $value"
+        } else ""
 
         val sp = if (isSimple) "$level%" else "$status: $level%"
-        val ct =
-            if (isSimple) "$plugged $chargerType" else "${context.getString(R.string.battery_charger_type)}: $plugged $chargerType"
-        val pwr =
-            if (isSimple) "${power}W" else "${context.getString(R.string.battery_power)}: ${power}W"
-        val tech = if (isSimple) "$technology $wattage" else {
-            "${context.getString(R.string.battery_technology)}: $technology $wattage"
-        } + if (isUpdateTime) "\n" else ""
+        val ct = if (isSimple) "$plugged $chargerType"
+        else "${context.getString(R.string.battery_charger_type)}: $plugged $chargerType"
+        val pwr = if (isSimple) power
+        else "${context.getString(R.string.battery_power)}: $power"
+        val tech = if (isSimple) "$technology $wattage"
+        else "${context.getString(R.string.battery_technology)}: $technology $wattage" +
+                if (isUpdateTime) "\n" else ""
 
+        val formatWireVol = formatDouble("%.2f", wirelessVol)
         val wireVol =
-            if (isSimple) "${wirelessVol}V" else "${context.getString(R.string.battery_voltage)}: ${wirelessVol}V"
+            if (isSimple) "${formatWireVol}V" else "${context.getString(R.string.battery_voltage)}: ${formatWireVol}V"
         val wireCur =
             if (isSimple) "${wirelessCur}mA" else "${context.getString(R.string.battery_electric_current)}: ${wirelessCur}mA"
-        val wirePwrCalc = formatDouble("%.3f", wirelessVol * wirelessCur / 1000.0)
+        val wirePwrCalc = formatDouble("%.2f", wirelessVol * wirelessCur / 1000.0)
         val wirePwr =
             if (isSimple) "${wirePwrCalc}W" else "${context.getString(R.string.battery_power)}: ${wirePwrCalc}W"
 
-        val batteryInfo = if (isSimple) "$tem $vol $cur ${power}W" else "$tem $vol $cur"
+        val batteryInfo = (if (isSimple) "$tem $vol $cur $power"
+        else "$tem $vol $cur") + if (isHealth) " $health" else ""
         val chargeInfo = if (isCharging) {
             if (isSimple) {
-                if (isWireless) "$wireVol $wireCur $wirePwr\n$sp $tech" else "$sp $ct $tech"
+                if (isWireless) "$wireVol $wireCur $wirePwr\n$sp $tech"
+                else "$sp $ct $tech"
             } else {
                 if (statusValue == 5) {
-                    if (isWireless) "$sp $tech" else "$sp $tech"
+                    if (isWireless) "$sp $tech"
+                    else "$sp $tech"
                 } else {
-                    if (isWireless) "$wireVol $wireCur $wirePwr\n$sp $tech" else "$sp $ct $pwr\n$tech"
+                    if (isWireless) "$sp $wireVol $wireCur $wirePwr\n$ct $tech"
+                    else "$sp $ct $pwr\n$tech"
                 }
             }
         } else ""
@@ -295,23 +344,28 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
                     formatDate("HH:mm:ss")
         } else ""
 
-        val notify = NotificationCompat.Builder(context, "luckytool_notify").apply {
+        val remoteViews = RemoteViews(packageName, R.layout.layout_battery_notify_view)
+        val info = batteryInfo +
+                (if (chargeInfo.isNotBlank()) "\n$chargeInfo" else "") +
+                (if (updateTime.isNotBlank()) "\n$updateTime" else "")
+        remoteViews.setTextViewText(R.id.battery_notify_tv, info)
+        remoteViews.setTextViewTextSize(
+            R.id.battery_notify_tv, TypedValue.COMPLEX_UNIT_SP, fontSize.toFloat()
+        )
+
+        val notify = NotificationCompat.Builder(context, channelId).apply {
             setAutoCancel(false)
             setOngoing(true)
             setSmallIcon(if (isCharging) R.drawable.ic_round_battery_charging_full_24 else batteryIcon)
-            setContentTitle(batteryInfo)
-            if (isCharging || isUpdateTime) {
-                setStyle(
-                    NotificationCompat.BigTextStyle().bigText("$chargeInfo$updateTime")
-                )
-            }
+            setCustomContentView(remoteViews)
+            setCustomBigContentView(remoteViews)
             priority = NotificationCompat.PRIORITY_DEFAULT
         }.build()
-        NotifyUtils.sendNotification(context, 112233, notify)
+        NotifyUtils.sendNotification(context, channelNotifyId, notify)
     }
 
     private fun clearNotification(context: Context) {
-        NotifyUtils.clearNotification(context, 112233)
+        NotifyUtils.clearNotification(context, channelNotifyId)
     }
 
     @SuppressLint("DeprecatedSinceApi")

@@ -270,10 +270,13 @@
     <string name="battery_information_display_mode_summary">Отображать напряжение батареи и другую информацию в строке состояния</string>
     <string name="battery_information_show_charge">Показать информацию о зарядке</string>
     <string name="battery_information_show_charge_summary">При зарядке напряжение и теоретическая сила зарядки будут отображаться в строке состояния</string>
-    <string name="battery_information_show_simple_mode">Статический режим экрана</string>
     <string name="battery_information_show_dual_voltage">Отображение двух напряжений</string>
+    <string name="battery_information_show_battery_health">Show battery health</string>
+    <string name="battery_information_always_show_positive_current">Always displays positive current</string>
+    <string name="battery_information_show_simple_mode">Статический режим экрана</string>
     <string name="battery_information_show_update_time">Показать время обновления</string>
     <string name="battery_information_show_update_time_summary">Отображать время обновления данных в строке состояния</string>
+    <string name="battery_information_custom_font_size">Custom notification font size</string>
     <string name="battery_status_unknown">Неизвестно</string>
     <string name="battery_status_charging">Зарядка</string>
     <string name="battery_status_discharging">Разрядка</string>
@@ -282,6 +285,7 @@
     <string name="battery_temperature">Температура</string>
     <string name="battery_voltage">Напряжение</string>
     <string name="battery_electric_current">Ток</string>
+    <string name="battery_health">Hlt</string>
     <string name="battery_charger_voltage">Напряжение</string>
     <string name="battery_charger_type">Тип</string>
     <string name="battery_power">Мощность</string>
@@ -459,9 +463,9 @@
     <string name="restore_default_battery_optimization_whitelist">Восстановить белый список оптимизации батареи по умолчанию</string>
     <string name="disable_customize_battery_optimization_whiteList">Отключить белый список оптимизации батареи</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">Если приложению вручную предоставлено разрешение \"Игнорировать оптимизацию батареи\", после включения этой функции приложение не будет автоматически добавлено в белый список оптимизации батареи</string>
-    <string name="fix_battery_health_data_display">Исправить отображение данных о состоянии батареи</string>
-    <string name="fix_battery_health_data_display_summary">Не используйте эту функцию, если система поддерживает работоспособность батареи\nТочность данных не гарантируется.</string>
-    <string name="fix_battery_health_data_display_tips">Попробуйте перезагрузить систему</string>
+    <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
+    <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Вычисляемая максимальная ёмкость</string>
     <!--Settings-->
     <string name="settings_status_bar">Строка состояния</string>
     <string name="enable_statusbar_clock_format">Включить формат часов в строке состояния</string>
@@ -480,9 +484,9 @@
     <string name="settings_application">Приложение</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
-    <string name="settings_about_device">About Device</string>
+    <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
-    <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>
+    <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
     <string name="customize_device_sharing_page_parameters">Настройка параметров страницы совместного доступа к устройствам</string>
     <string name="settings_developer_preference">Параметры разработчика</string>
     <string name="remove_dpi_restart_recovery">Удалить восстановление DPI</string>
@@ -678,7 +682,7 @@
     <string name="HidePageRelated">Скрытые настройки</string>
     <string name="process_manager">Управление процессом</string>
     <string name="very_dark_mode">Очень тёмный режим</string>
-    <string name="battery_health">Состояние батареи</string>
+    <string name="battery_health_page">Battery Health Page</string>
     <string name="battery_optimization">Оптимизация батареи</string>
     <string name="camera_algo_page">Страница алгоритмов камеры</string>
     <string name="browser_concise_mode">Режим настройки браузера</string>

@@ -8,7 +8,6 @@ import com.luckyzyx.luckytool.hook.scope.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scope.android.DarkModeService
 import com.luckyzyx.luckytool.hook.scope.android.DisableDynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scope.android.DisableFlagSecure
-import com.luckyzyx.luckytool.hook.scope.android.FixBatteryHealthDataDisplay
 import com.luckyzyx.luckytool.hook.scope.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scope.android.HookNotificationManager
 import com.luckyzyx.luckytool.hook.scope.android.HookWindowManagerService
@@ -24,7 +23,6 @@ import com.luckyzyx.luckytool.hook.scope.android.ScreenColorTemperatureRGBPalett
 import com.luckyzyx.luckytool.hook.scope.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scope.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scope.android.ZoomWindow
-
 
 object HookAndroid : YukiBaseHooker() {
 
@@ -82,9 +80,6 @@ object HookAndroid : YukiBaseHooker() {
 
         //禁用访问设备日志对话框
         loadHooker(RemoveAccessDeviceLogDialog)
-
-        //修复电池健康数据显示
-        loadHooker(FixBatteryHealthDataDisplay)
 
         //禁用动态刷新率
         loadHooker(DisableDynamicRefreshRate)

@@ -270,10 +270,13 @@
     <string name="battery_information_display_mode_summary">バッテリー電圧などをステータスバーに表示します</string>
     <string name="battery_information_show_charge">充電中の情報を表示</string>
     <string name="battery_information_show_charge_summary">充電中に充電器の電圧と理論値の充電電力がステータスバーに表示されます</string>
-    <string name="battery_information_show_simple_mode">シンプル表示モード</string>
     <string name="battery_information_show_dual_voltage">デュアル電圧を表示</string>
+    <string name="battery_information_show_battery_health">Show battery health</string>
+    <string name="battery_information_always_show_positive_current">Always displays positive current</string>
+    <string name="battery_information_show_simple_mode">シンプル表示モード</string>
     <string name="battery_information_show_update_time">更新時刻を表示</string>
     <string name="battery_information_show_update_time_summary">現在のデータの更新時間をステータスバーに表示します</string>
+    <string name="battery_information_custom_font_size">Custom notification font size</string>
     <string name="battery_status_unknown">不明</string>
     <string name="battery_status_charging">充電中</string>
     <string name="battery_status_discharging">放電中</string>
@@ -282,6 +285,7 @@
     <string name="battery_temperature">温度</string>
     <string name="battery_voltage">Vol</string>
     <string name="battery_electric_current">Cur</string>
+    <string name="battery_health">Hlt</string>
     <string name="battery_charger_voltage">Vol</string>
     <string name="battery_charger_type">タイプ</string>
     <string name="battery_power">Pwr</string>
@@ -459,9 +463,9 @@
     <string name="restore_default_battery_optimization_whitelist">デフォルトのバッテリー最適化ホワイトリストを復元します</string>
     <string name="disable_customize_battery_optimization_whiteList">カスタムバッテリー最適化ホワイトリストを無効にする</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">ユーザーによって「バッテリーの最適化を無視」権限がアプリに許可されている場合、 この機能を有効にすると自動的にアプリがバッテリー最適化ホワイトリストに追加されなくなります。</string>
-    <string name="fix_battery_health_data_display">バッテリーの状態データ表示を修正</string>
-    <string name="fix_battery_health_data_display_summary">システムがバッテリーの状態表示に対応している場合はこの機能を使用しないでください\nデータの精度は無保証です</string>
-    <string name="fix_battery_health_data_display_tips">システムを再起動してみてください</string>
+    <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
+    <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
     <!--Settings-->
     <string name="settings_status_bar">ステータスバー</string>
     <string name="enable_statusbar_clock_format">ステータスバーの時計形式を有効化</string>
@@ -678,7 +682,7 @@
     <string name="HidePageRelated">隠されたページ関連</string>
     <string name="process_manager">プロセスマネージャー</string>
     <string name="very_dark_mode">画面の輝度をさらに下げる</string>
-    <string name="battery_health">バッテリーの状態</string>
+    <string name="battery_health_page">Battery Health Page</string>
     <string name="battery_optimization">バッテリーの最適化</string>
     <string name="camera_algo_page">カメラアルゴリズムのページ</string>
     <string name="browser_concise_mode">ブラウザコンサイスモード</string>

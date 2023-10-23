@@ -70,10 +70,15 @@ class ExtractOTAFragment : Fragment() {
                         dataList.add(
                             """
                             PackName: $packName
+                            
                             Size: ${formatDataSize(size)} ($size)
+                            
                             ActiveUrl: $activeUrl
+                            
                             Url: $url
+                            
                             MD5: $md5
+                            
                             ${getString(R.string.extract_ota_source)}: @LuckyTool
                             """.trimIndent()
                         )
