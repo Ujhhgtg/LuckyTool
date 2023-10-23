@@ -5,18 +5,33 @@ import com.highcapable.yukihookapi.hook.factory.method
 
 object RemoveBatteryTemperatureControl : YukiBaseHooker() {
     override fun onHook() {
-        //Source ThermalControlConfig
-        "com.oplus.thermalcontrol.ThermalControlConfig".toClass().apply {
-            method { name = "isThermalControlEnable" }.hook {
-                replaceToFalse()
-            }
-        }
         //Source ThermalControllerCenter
         "com.oplus.thermalcontrol.ThermalControllerCenter".toClass().apply {
             method { name = "onStart" }.hook {
-                after { method { name = "onDestory" }.get(instance).call() }
+                intercept()
             }
-            method { name { it.startsWith("send") || it.startsWith("start") } }.hookAll {
+            method { name { it.startsWith("send") } }.hookAll {
+                intercept()
+            }
+            method { name { it.startsWith("start") } }.hookAll {
+                intercept()
+            }
+        }
+        //Source ThermalControlMonitor
+        "com.oplus.thermalcontrol.ThermalControlMonitor".toClass().apply {
+            method { name = "startMonitor" }.hook {
+                intercept()
+            }
+            method { name { it.startsWith("register") } }.hookAll {
+                intercept()
+            }
+        }
+        //Source ThermalControlUtils
+        "com.oplus.thermalcontrol.ThermalControlUtils".toClass().apply {
+            method { name = "onStart" }.hook {
+                intercept()
+            }
+            method { name { it.startsWith("register") } }.hookAll {
                 intercept()
             }
         }

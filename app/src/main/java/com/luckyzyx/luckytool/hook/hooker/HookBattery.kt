@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.battery.BatteryFeatureProvider
 import com.luckyzyx.luckytool.hook.scope.battery.DisplayModuleCalculatesBatteryHealthData
 import com.luckyzyx.luckytool.hook.scope.battery.HookBatteryNotify
+import com.luckyzyx.luckytool.hook.scope.battery.LauncherHighTempreatureProtection
 import com.luckyzyx.luckytool.hook.scope.battery.RemoveBatteryTemperatureControl
 import com.luckyzyx.luckytool.hook.scope.battery.UnlockStartupLimit
 import com.luckyzyx.luckytool.utils.A13
@@ -27,6 +28,7 @@ object HookBattery : YukiBaseHooker() {
         //移除电池温度控制
         if (prefs(ModulePrefs).getBoolean("remove_battery_temperature_control", false)) {
             loadHooker(RemoveBatteryTemperatureControl)
+            loadHooker(LauncherHighTempreatureProtection)
         }
 
         //显示模块计算电池健康数据

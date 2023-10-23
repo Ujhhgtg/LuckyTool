@@ -281,8 +281,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val power = formatDouble("%.2f", abs(powerCalc) * 1.0).toString() + "W"
         val wattage = if (chargeWattage != 0) "${chargeWattage}W" else ""
 
-        val tem =
-            if (isSimple) "${temperature}℃" else "${context.getString(R.string.battery_temperature)}: ${temperature}℃"
+        val tem = if (isSimple) "${temperature}℃"
+        else "${context.getString(R.string.battery_temperature)}: ${temperature}℃"
         val formatVol = formatDouble("%.2f", voltage)
         val formatVol2 = formatDouble("%.2f", voltage2)
         val vol = if (isSimple) {
@@ -315,13 +315,19 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
                 if (isUpdateTime) "\n" else ""
 
         val formatWireVol = formatDouble("%.2f", wirelessVol)
-        val wireVol =
-            if (isSimple) "${formatWireVol}V" else "${context.getString(R.string.battery_voltage)}: ${formatWireVol}V"
-        val wireCur =
-            if (isSimple) "${wirelessCur}mA" else "${context.getString(R.string.battery_electric_current)}: ${wirelessCur}mA"
+        val wireVol = if (isSimple) "${formatWireVol}V"
+        else "${context.getString(R.string.battery_voltage)}: ${formatWireVol}V"
+        val formatwireCur = if (abs(wirelessCur) >= 1000) {
+            formatDouble("%.1f", wirelessCur / 1000.0).apply {
+                if (isPositive) abs(this)
+            }.toString() + "A"
+        } else if (isPositive) abs(wirelessCur).toString() + "mA"
+        else "${wirelessCur}mA"
+        val wireCur = if (isSimple) formatwireCur
+        else "${context.getString(R.string.battery_electric_current)}: $formatwireCur"
         val wirePwrCalc = formatDouble("%.2f", wirelessVol * wirelessCur / 1000.0)
-        val wirePwr =
-            if (isSimple) "${wirePwrCalc}W" else "${context.getString(R.string.battery_power)}: ${wirePwrCalc}W"
+        val wirePwr = if (isSimple) "${wirePwrCalc}W"
+        else "${context.getString(R.string.battery_power)}: ${wirePwrCalc}W"
 
         val batteryInfo = (if (isSimple) "$tem $vol $cur $power"
         else "$tem $vol $cur") + if (isHealth) " $health" else ""
@@ -340,8 +346,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             }
         } else ""
         val updateTime = if (isUpdateTime) {
-            if (isSimple) formatDate("HH:mm:ss") else "${context.getString(R.string.battery_update_time)}: " +
-                    formatDate("HH:mm:ss")
+            if (isSimple) formatDate("HH:mm:ss")
+            else "${context.getString(R.string.battery_update_time)}: " + formatDate("HH:mm:ss")
         } else ""
 
         val remoteViews = RemoteViews(packageName, R.layout.layout_battery_notify_view)
