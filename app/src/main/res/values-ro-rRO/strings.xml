@@ -304,7 +304,7 @@
     <string name="LockScreenClockComponent">Lock Screen Clock Component</string>
     <string name="lock_screen_clock_redone_mode">Lock screen clock red one mode</string>
     <string name="apply_lock_screen_dual_clock_redone">Apply to lock screen dual clock</string>
-    <string name="remove_lock_screen_redone">Remove lock screen red 1</string>
+    <string name="lock_screen_custom_component_style">Customize lock screen component style</string>
     <string name="set_lock_screen_centered">Lockscreen clock component centered</string>
     <string name="set_lock_screen_centered_summary">Only for systems where the lock screen cannot be centered in the settings</string>
     <string name="lock_screen_clock_use_user_typeface">Lockscreen clock components use user fonts</string>

@@ -161,7 +161,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 }
                 title = getString(R.string.LockScreen)
                 summary = arraySummaryDot(
-                    getString(R.string.remove_lock_screen_redone),
+                    getString(R.string.lock_screen_clock_redone_mode),
                     getString(R.string.remove_lock_screen_bottom_right_camera)
                 )
                 setOnPreferenceClickListener {

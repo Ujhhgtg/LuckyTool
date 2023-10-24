@@ -271,12 +271,12 @@
     <string name="battery_information_show_charge">Показать информацию о зарядке</string>
     <string name="battery_information_show_charge_summary">При зарядке напряжение и теоретическая сила зарядки будут отображаться в строке состояния</string>
     <string name="battery_information_show_dual_voltage">Отображение двух напряжений</string>
-    <string name="battery_information_show_battery_health">Show battery health</string>
-    <string name="battery_information_always_show_positive_current">Always displays positive current</string>
+    <string name="battery_information_show_battery_health">Показывать здоровье батареи</string>
+    <string name="battery_information_always_show_positive_current">Всегда показывает положительное текущее значение</string>
     <string name="battery_information_show_simple_mode">Статический режим экрана</string>
     <string name="battery_information_show_update_time">Показать время обновления</string>
     <string name="battery_information_show_update_time_summary">Отображать время обновления данных в строке состояния</string>
-    <string name="battery_information_custom_font_size">Custom notification font size</string>
+    <string name="battery_information_custom_font_size">Пользовательский размер шрифта уведомления</string>
     <string name="battery_status_unknown">Неизвестно</string>
     <string name="battery_status_charging">Зарядка</string>
     <string name="battery_status_discharging">Разрядка</string>
@@ -285,7 +285,7 @@
     <string name="battery_temperature">Температура</string>
     <string name="battery_voltage">Напряжение</string>
     <string name="battery_electric_current">Ток</string>
-    <string name="battery_health">Hlt</string>
+    <string name="battery_health">Здоровье</string>
     <string name="battery_charger_voltage">Напряжение</string>
     <string name="battery_charger_type">Тип</string>
     <string name="battery_power">Мощность</string>
@@ -304,7 +304,7 @@
     <string name="LockScreenClockComponent">Часы на экране блокировки</string>
     <string name="lock_screen_clock_redone_mode">Красные часы на экране блокировки</string>
     <string name="apply_lock_screen_dual_clock_redone">Применить к двойным часам на экране блокировки</string>
-    <string name="remove_lock_screen_redone">Удалить красные часы с экрана блокировки</string>
+    <string name="lock_screen_custom_component_style">Customize lock screen component style</string>
     <string name="set_lock_screen_centered">Часы экрана блокировки по центру</string>
     <string name="set_lock_screen_centered_summary">Только для систем, в которых экран блокировки нельзя отцентрировать в настройках</string>
     <string name="lock_screen_clock_use_user_typeface">Часы на экране блокировки используют пользовательские шрифты</string>
@@ -465,7 +465,7 @@
     <string name="disable_customize_battery_optimization_whiteList_summary">Если приложению вручную предоставлено разрешение \"Игнорировать оптимизацию батареи\", после включения этой функции приложение не будет автоматически добавлено в белый список оптимизации батареи</string>
     <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
     <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
-    <string name="display_module_calculates_battery_health_data_tips">Вычисляемая максимальная ёмкость</string>
+    <string name="display_module_calculates_battery_health_data_tips">- вычисляемая максимальная ёмкость</string>
     <!--Settings-->
     <string name="settings_status_bar">Строка состояния</string>
     <string name="enable_statusbar_clock_format">Включить формат часов в строке состояния</string>
@@ -682,7 +682,7 @@
     <string name="HidePageRelated">Скрытые настройки</string>
     <string name="process_manager">Управление процессом</string>
     <string name="very_dark_mode">Очень тёмный режим</string>
-    <string name="battery_health_page">Battery Health Page</string>
+    <string name="battery_health_page">Состояние батареи</string>
     <string name="battery_optimization">Оптимизация батареи</string>
     <string name="camera_algo_page">Страница алгоритмов камеры</string>
     <string name="browser_concise_mode">Режим настройки браузера</string>

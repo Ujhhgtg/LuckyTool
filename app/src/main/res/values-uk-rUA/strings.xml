@@ -304,7 +304,7 @@
     <string name="LockScreenClockComponent">Lock Screen Clock Component</string>
     <string name="lock_screen_clock_redone_mode">Червоний годинник на екрані блокування</string>
     <string name="apply_lock_screen_dual_clock_redone">Застосувати до подвійного годинника на екрані блокування</string>
-    <string name="remove_lock_screen_redone">Видалити червоний годинник з екрану блокування</string>
+    <string name="lock_screen_custom_component_style">Customize lock screen component style</string>
     <string name="set_lock_screen_centered">Lockscreen clock component centered</string>
     <string name="set_lock_screen_centered_summary">Тільки для систем, в яких екран блокування не можна відцентрувати в налаштуваннях</string>
     <string name="lock_screen_clock_use_user_typeface">Lockscreen clock components use user fonts</string>

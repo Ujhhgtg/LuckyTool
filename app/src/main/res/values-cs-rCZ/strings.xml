@@ -276,7 +276,7 @@
     <string name="battery_information_show_simple_mode">Jednoduchý režim zobrazení</string>
     <string name="battery_information_show_update_time">Zobrazit čas aktualizace</string>
     <string name="battery_information_show_update_time_summary">Zobrazit čas aktualizace aktuálních dat ve stavové liště</string>
-    <string name="battery_information_custom_font_size">Custom notification font size</string>
+    <string name="battery_information_custom_font_size">Vlastní velikost písma oznámení</string>
     <string name="battery_status_unknown">Neznámý</string>
     <string name="battery_status_charging">Nabíjení</string>
     <string name="battery_status_discharging">Vybíjení</string>
@@ -304,7 +304,7 @@
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
     <string name="lock_screen_clock_redone_mode">Režim červené jedničky na zamykací obrazovce</string>
     <string name="apply_lock_screen_dual_clock_redone">Použít na dolní hodiny na uzamčené obrazovce</string>
-    <string name="remove_lock_screen_redone">Odstranit červenou jedničku na zamykací obrazovce</string>
+    <string name="lock_screen_custom_component_style">Customize lock screen component style</string>
     <string name="set_lock_screen_centered">Komponenta hodin na zamykací obrazovce - ve středu </string>
     <string name="set_lock_screen_centered_summary">Pouze pro systémy, u kterých nelze vycentrovat uzamčenou obrazovku z nastavení</string>
     <string name="lock_screen_clock_use_user_typeface">Komponenty hodin na zamykací obrazovce použijí uživatelské fonty</string>
