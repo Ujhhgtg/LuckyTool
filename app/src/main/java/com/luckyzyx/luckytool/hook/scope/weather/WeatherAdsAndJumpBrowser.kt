@@ -38,6 +38,26 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
                 }
             }
         }
+
+        //Source RainReminder -> Channel com.oplus.weather.service.rain
+        "com.oplus.weather.service.service.RainReminder".toClass().apply {
+            method { name = "createIntentOpenWeatherMainActivity" }.hook {
+                before {
+                    if (!disableJump) return@before
+                    args().last().set("")
+                }
+            }
+        }
+
+        //Source WarnReminder -> Channel oppo.oplus.weather.warnWeather
+        "com.oplus.weather.service.service.WarnReminder".toClass().apply {
+            method { name = "getWarnWeatherIntent" }.hook {
+                before {
+                    if (!disableJump) return@before
+                    args().last().set("")
+                }
+            }
+        }
     }
 
     private fun YukiMemberHookCreator.MemberHookCreator.hookBefore(

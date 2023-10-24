@@ -261,8 +261,6 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             6 -> "UFCS" //null
             else -> "Error: $chargerTechnology"
         }
-//        loggerD(msg = "StatusBarBatteryInfo: chargerTechnology -> $chargerTechnology")
-//        loggerD(msg = "StatusBarBatteryInfo: technology -> $technology")
         val powerCalc = if (isSeriesDual || isParallelDual) {
             (voltage + voltage2) * electricCurrent / 1000.0
         } else voltage * electricCurrent / 1000.0
@@ -311,8 +309,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val pwr = if (isSimple) power
         else "${context.getString(R.string.battery_power)}: $power"
         val tech = if (isSimple) "$technology $wattage"
-        else "${context.getString(R.string.battery_technology)}: $technology $wattage" +
-                if (isUpdateTime) "\n" else ""
+        else "${context.getString(R.string.battery_technology)}: $technology $wattage"
 
         val formatWireVol = formatDouble("%.2f", wirelessVol)
         val wireVol = if (isSimple) "${formatWireVol}V"

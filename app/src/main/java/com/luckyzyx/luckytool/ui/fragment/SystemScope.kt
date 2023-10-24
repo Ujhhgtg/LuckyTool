@@ -1479,7 +1479,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         title = getString(R.string.battery_information_custom_font_size)
                         key = "battery_information_custom_font_size"
                         setDefaultValue(11)
-                        max = 16
+                        max = 20
                         min = 11
                         showSeekBarValue = true
                         updatesContinuously = false
