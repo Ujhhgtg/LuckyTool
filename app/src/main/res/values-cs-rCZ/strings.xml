@@ -270,8 +270,8 @@
     <string name="battery_information_display_mode_summary">Zobrazit napětí baterie a další informace ve stavové liště</string>
     <string name="battery_information_show_charge">Zobrazit informace o nabíjení</string>
     <string name="battery_information_show_charge_summary">Při nabíjení se na stavové liště zobrazuje napětí a teoretický nabíjecí výkon nabíječky</string>
-    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
-    <string name="battery_information_show_voltage">Show voltage</string>
+    <string name="battery_information_voltage_display_mode">Režim zobrazení napětí</string>
+    <string name="battery_information_show_voltage">Zobrazit napětí</string>
     <string name="battery_information_show_dual_voltage">Ukázat dvojí napětí</string>
     <string name="battery_information_show_battery_health">Zobrazit zdraví baterie</string>
     <string name="battery_information_always_show_positive_current">Vždy zobrazovat kladný proud</string>
