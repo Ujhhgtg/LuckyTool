@@ -22,7 +22,7 @@ object HookSettingsFeature : YukiBaseHooker() {
         loadHooker(HookSysFeature)
         loadHooker(HookAppFeatureProvider)
         loadHooker(HookExpUst)
-        loadHooker(HookCustomizeFeature)
+        if (SDK >= A13) loadHooker(HookCustomizeFeature)
     }
 
     private object HookSysFeature : YukiBaseHooker() {

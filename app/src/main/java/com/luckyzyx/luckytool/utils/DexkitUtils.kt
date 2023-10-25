@@ -9,7 +9,7 @@ import org.luckypray.dexkit.query.MethodDataList
 @Suppress("MemberVisibilityCanBePrivate")
 object DexkitUtils {
     const val tag = "LuckyTool"
-    val debug = BuildConfig.DEBUG
+    const val debug = BuildConfig.DEBUG
 
     /**
      * 创建Dexkit安全实例
@@ -28,7 +28,9 @@ object DexkitUtils {
      * @param onlyOne Boolean
      * @return ClassDataList
      */
-    fun ClassDataList.checkDataList(instance: String, onlyOne: Boolean = true): ClassDataList {
+    fun ClassDataList.checkDataList(
+        instance: String, onlyOne: Boolean = true, isDebug: Boolean = false
+    ): ClassDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
             size != 1 && onlyOne -> {
@@ -37,7 +39,7 @@ object DexkitUtils {
                 YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
             }
 
-            size == 1 -> if (debug) YLog.debug(
+            size == 1 -> if (debug || isDebug) YLog.debug(
                 "$instance -> findMethod ${first().name}",
                 tag = tag
             )
@@ -52,7 +54,9 @@ object DexkitUtils {
      * @param onlyOne Boolean
      * @return MethodDataList
      */
-    fun MethodDataList.checkDataList(instance: String, onlyOne: Boolean = true): MethodDataList {
+    fun MethodDataList.checkDataList(
+        instance: String, onlyOne: Boolean = true, isDebug: Boolean = false
+    ): MethodDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
             size != 1 && onlyOne -> {
@@ -61,7 +65,7 @@ object DexkitUtils {
                 YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
             }
 
-            size == 1 -> if (debug) YLog.debug(
+            size == 1 -> if (debug || isDebug) YLog.debug(
                 "$instance -> findMethod ${first().className}|${first().methodName}",
                 tag = tag
             )

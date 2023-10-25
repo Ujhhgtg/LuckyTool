@@ -243,8 +243,11 @@ object HookSystemUIFeature : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "isShowChargingWattage" }.hook {
-                    if (showWattage) replaceToTrue()
+                //C14 Realme
+                if (hasMethod { name = "isShowChargingWattage" }) {
+                    method { name = "isShowChargingWattage" }.hook {
+                        if (showWattage) replaceToTrue()
+                    }
                 }
             }
         }
