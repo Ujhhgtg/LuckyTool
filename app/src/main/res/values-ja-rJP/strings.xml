@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">バッテリー電圧などをステータスバーに表示します</string>
     <string name="battery_information_show_charge">充電中の情報を表示</string>
     <string name="battery_information_show_charge_summary">充電中に充電器の電圧と理論値の充電電力がステータスバーに表示されます</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">デュアル電圧を表示</string>
     <string name="battery_information_show_battery_health">Show battery health</string>
     <string name="battery_information_always_show_positive_current">Always displays positive current</string>

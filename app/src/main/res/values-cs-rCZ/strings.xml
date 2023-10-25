@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">Zobrazit napětí baterie a další informace ve stavové liště</string>
     <string name="battery_information_show_charge">Zobrazit informace o nabíjení</string>
     <string name="battery_information_show_charge_summary">Při nabíjení se na stavové liště zobrazuje napětí a teoretický nabíjecí výkon nabíječky</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">Ukázat dvojí napětí</string>
     <string name="battery_information_show_battery_health">Zobrazit zdraví baterie</string>
     <string name="battery_information_always_show_positive_current">Vždy zobrazovat kladný proud</string>
@@ -610,7 +612,7 @@
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
     <string name="remove_market_update_page_app_recommend">Odstranění doporučení aplikací ze stránky aktualizace obchodu se softwarem</string>
     <string name="remove_market_download_page_app_recommend">Odstraňte doporučení aplikací ze stránky pro stahování softwaru</string>
-    <string name="remove_market_mine_page_app_recommend">Remove app recommendations from market mine page</string>
+    <string name="remove_market_mine_page_app_recommend">Odstranění doporučení aplikací z hlavní stránky obchodu se softwarem</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>
     <string name="remove_weather_some_page_bottom_ads">Odstranit reklamy v dolní části stránky počasí</string>

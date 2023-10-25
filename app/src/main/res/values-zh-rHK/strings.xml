@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">在状态栏显示电池电压等信息</string>
     <string name="battery_information_show_charge">显示充电信息</string>
     <string name="battery_information_show_charge_summary">充电时，在状态栏显示充电器的电压和理论充电功率</string>
+    <string name="battery_information_voltage_display_mode">电压显示模式</string>
+    <string name="battery_information_show_voltage">显示电压</string>
     <string name="battery_information_show_dual_voltage">显示双电压</string>
     <string name="battery_information_show_battery_health">显示电池健康度</string>
     <string name="battery_information_always_show_positive_current">始终显示正数电流</string>

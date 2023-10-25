@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">Відображати напругу батареї та іншу інформацію у рядку стану</string>
     <string name="battery_information_show_charge">Показати інформацію про зарядку</string>
     <string name="battery_information_show_charge_summary">Під час заряджання напруга та теоретична сила заряджання відображатимуться у рядку стану</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">Показувати дві напруги</string>
     <string name="battery_information_show_battery_health">Show battery health</string>
     <string name="battery_information_always_show_positive_current">Always displays positive current</string>

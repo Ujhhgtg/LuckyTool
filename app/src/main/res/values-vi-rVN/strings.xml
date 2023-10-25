@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">Hiển thị điện áp pin và các thông tin khác trên thanh trạng thái</string>
     <string name="battery_information_show_charge">Hiện thông tin sạc</string>
     <string name="battery_information_show_charge_summary">Khi sạc, điện áp và năng lượng sạc lý thuyết của bộ sạc sẽ được hiển thị trên thanh trạng thái</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">Hiển thị điện áp kép</string>
     <string name="battery_information_show_battery_health">Show battery health</string>
     <string name="battery_information_always_show_positive_current">Always displays positive current</string>

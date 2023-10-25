@@ -81,6 +81,12 @@
         <item>@string/battery_information_notify_only_charging</item>
     </string-array>
     
+    <string-array name="battery_information_voltage_display_mode_entries">
+        <item>@string/common_words_close</item>
+        <item>@string/battery_information_show_voltage</item>
+        <item>@string/battery_information_show_dual_voltage</item>
+    </string-array>
+    
     <string-array name="remove_fingerprint_icon_mode_entries">
         <item>@string/common_words_close</item>
         <item>@string/remove_fingerprint_icon</item>

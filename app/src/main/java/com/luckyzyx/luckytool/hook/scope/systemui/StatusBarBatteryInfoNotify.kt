@@ -24,6 +24,8 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatDouble
+import com.luckyzyx.luckytool.utils.formatStringLine
+import com.luckyzyx.luckytool.utils.formatStringSpace
 import com.luckyzyx.luckytool.utils.getBooleanProperty
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getStringProperty
@@ -67,7 +69,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private lateinit var displayMode: String
     private var showChargerInfo: Boolean = false
     private var showUpdateTime: Boolean = false
-    private var isDualVol: Boolean = false
+    private var showVolMode: String = "0"
     private var isHealth: Boolean = false
     private var isPositive: Boolean = false
     private var isSimple: Boolean = false
@@ -96,10 +98,10 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             showUpdateTime = it
             initSend(thisContext)
         }
-        isDualVol =
-            prefs(ModulePrefs).getBoolean("battery_information_show_dual_voltage", false)
-        dataChannel.wait<Boolean>("battery_information_show_dual_voltage") {
-            isDualVol = it
+        showVolMode =
+            prefs(ModulePrefs).getString("battery_information_voltage_display_mode", "0")
+        dataChannel.wait<String>("battery_information_voltage_display_mode") {
+            showVolMode = it
             initSend(thisContext)
         }
         isHealth =
@@ -219,11 +221,11 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         when (displayMode) {
             "1" -> sendNotification(
                 context, showChargerInfo && isCharging,
-                showUpdateTime, isSimple, isDualVol
+                showUpdateTime, isSimple, showVolMode
             )
 
             "2" -> if (isCharging) sendNotification(
-                context, showChargerInfo, showUpdateTime, isSimple, isDualVol
+                context, showChargerInfo, showUpdateTime, isSimple, showVolMode
             ) else clearNotification(context)
 
             else -> clearNotification(context)
@@ -232,22 +234,17 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
 
     @SuppressLint("DiscouragedApi")
     private fun sendNotification(
-        context: Context,
-        isCharging: Boolean,
-        isUpdateTime: Boolean,
-        isSimple: Boolean,
-        isDualVol: Boolean
+        context: Context, isCharging: Boolean, isUpdateTime: Boolean,
+        isSimple: Boolean, showVolMode: String
     ) {
         createChannel(context)
         //com.oplusos.systemui.keyguard.charginganim.ChargingTypeConstants
         val technology = when (chargerTechnology) {
-            0 -> {
-                when (ppsMode) {
-                    1 -> "PPS"
-                    3 -> "PublicUFCS"
-                    4 -> "PrivateUFCS"
-                    else -> "Normal"
-                }
+            0 -> when (ppsMode) {
+                1 -> "PPS"
+                3 -> "PublicUFCS"
+                4 -> "PrivateUFCS"
+                else -> "Normal"
             }
 
             1 -> "VOOC"
@@ -283,12 +280,19 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         else "${context.getString(R.string.battery_temperature)}: ${temperature}℃"
         val formatVol = formatDouble("%.2f", voltage)
         val formatVol2 = formatDouble("%.2f", voltage2)
-        val vol = if (isSimple) {
-            if (isDualVol && (isSeriesDual || isParallelDual)) "${formatVol}V ${formatVol2}V"
-            else "${formatVol}V"
-        } else {
-            (if (isDualVol && (isSeriesDual || isParallelDual)) "${context.getString(R.string.battery_voltage)}: ${formatVol}V ${formatVol2}V"
-            else "${context.getString(R.string.battery_voltage)}: ${formatVol}V")
+        val vol = when (showVolMode) {
+            "1" -> if (isSimple) "${formatVol}V"
+            else "${context.getString(R.string.battery_voltage)}: ${formatVol}V"
+
+            "2" -> if (isSeriesDual || isParallelDual) {
+                if (isSimple) "${formatVol}V ${formatVol2}V"
+                else "${context.getString(R.string.battery_voltage)}: ${formatVol}V ${formatVol2}V"
+            } else {
+                if (isSimple) "${formatVol}V"
+                else "${context.getString(R.string.battery_voltage)}: ${formatVol}V"
+            }
+
+            else -> ""
         }
         val formatCur = if (abs(electricCurrent) >= 1000) {
             formatDouble("%.1f", electricCurrent / 1000.0).apply {
@@ -326,19 +330,18 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val wirePwr = if (isSimple) "${wirePwrCalc}W"
         else "${context.getString(R.string.battery_power)}: ${wirePwrCalc}W"
 
-        val batteryInfo = (if (isSimple) "$tem $vol $cur $power"
-        else "$tem $vol $cur") + if (isHealth) " $health" else ""
+        val batteryInfo = if (isSimple) formatStringSpace(tem, vol, cur, power, health)
+        else formatStringSpace(tem, vol, cur, health)
+
         val chargeInfo = if (isCharging) {
             if (isSimple) {
-                if (isWireless) "$wireVol $wireCur $wirePwr\n$sp $tech"
-                else "$sp $ct $tech"
+                if (isWireless) formatStringSpace(wireVol, wireCur, wirePwr, "\n", sp, tech)
+                else formatStringSpace(sp, ct, tech)
             } else {
-                if (statusValue == 5) {
-                    if (isWireless) "$sp $tech"
-                    else "$sp $tech"
-                } else {
-                    if (isWireless) "$sp $wireVol $wireCur $wirePwr\n$ct $tech"
-                    else "$sp $ct $pwr\n$tech"
+                if (statusValue == 5) formatStringSpace(sp, tech)
+                else {
+                    if (isWireless) formatStringSpace(sp, wireVol, wireCur, wirePwr, "\n", ct, tech)
+                    else formatStringSpace(sp, ct, pwr, "\n", tech)
                 }
             }
         } else ""
@@ -348,9 +351,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else ""
 
         val remoteViews = RemoteViews(packageName, R.layout.layout_battery_notify_view)
-        val info = batteryInfo +
-                (if (chargeInfo.isNotBlank()) "\n$chargeInfo" else "") +
-                (if (updateTime.isNotBlank()) "\n$updateTime" else "")
+        val info = formatStringLine(batteryInfo, chargeInfo, updateTime)
         remoteViews.setTextViewText(R.id.battery_notify_tv, info)
         remoteViews.setTextViewTextSize(
             R.id.battery_notify_tv, TypedValue.COMPLEX_UNIT_SP, fontSize.toFloat()

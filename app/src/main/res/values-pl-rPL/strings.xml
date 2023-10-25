@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">Wyświetlaj napięcie baterii i inne informacje na pasku stanu</string>
     <string name="battery_information_show_charge">Pokaż informacje o ładowaniu</string>
     <string name="battery_information_show_charge_summary">Podczas ładowania napięcie i teoretyczna moc ładowania będą wyświetlane na pasku stanu</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">Show dual voltage</string>
     <string name="battery_information_show_battery_health">Show battery health</string>
     <string name="battery_information_always_show_positive_current">Always displays positive current</string>

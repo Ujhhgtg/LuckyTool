@@ -270,6 +270,8 @@
     <string name="battery_information_display_mode_summary">Отображать напряжение батареи и другую информацию в строке состояния</string>
     <string name="battery_information_show_charge">Показать информацию о зарядке</string>
     <string name="battery_information_show_charge_summary">При зарядке напряжение и теоретическая сила зарядки будут отображаться в строке состояния</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">Отображение двух напряжений</string>
     <string name="battery_information_show_battery_health">Показывать здоровье батареи</string>
     <string name="battery_information_always_show_positive_current">Всегда показывает положительное текущее значение</string>
@@ -610,7 +612,7 @@
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений со страницы-заставки в магазине</string>
     <string name="remove_market_update_page_app_recommend">Удалить рекомендации приложений со страницы обновления магазина</string>
     <string name="remove_market_download_page_app_recommend">Удалить рекомендации приложений со страницы загрузки из магазина</string>
-    <string name="remove_market_mine_page_app_recommend">Remove app recommendations from market mine page</string>
+    <string name="remove_market_mine_page_app_recommend">Удалить рекомендации приложений со страницы обновления магазина</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
     <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>

@@ -298,6 +298,8 @@
     <string name="battery_information_display_mode_summary">Display battery voltage and other information in the statusbar</string>
     <string name="battery_information_show_charge">Show charging information</string>
     <string name="battery_information_show_charge_summary">When charging, the voltage and theoretical charging power of the charger will be displayed on the statusbar</string>
+    <string name="battery_information_voltage_display_mode">Voltage display mode</string>
+    <string name="battery_information_show_voltage">Show voltage</string>
     <string name="battery_information_show_dual_voltage">Show dual voltage</string>
     <string name="battery_information_show_battery_health">Show battery health</string>
     <string name="battery_information_always_show_positive_current">Always displays positive current</string>

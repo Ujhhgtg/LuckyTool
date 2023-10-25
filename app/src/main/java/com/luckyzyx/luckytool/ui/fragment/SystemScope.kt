@@ -1424,10 +1424,15 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                             true
                         }
                     })
-                    addPreference(SwitchPreference(context).apply {
-                        title = getString(R.string.battery_information_show_dual_voltage)
-                        key = "battery_information_show_dual_voltage"
-                        setDefaultValue(false)
+                    addPreference(DropDownPreference(context).apply {
+                        title = getString(R.string.battery_information_voltage_display_mode)
+                        summary =
+                            arraySummaryLine(getString(R.string.common_words_current_mode) + ": %s")
+                        key = "battery_information_voltage_display_mode"
+                        entries =
+                            resources.getStringArray(R.array.battery_information_voltage_display_mode_entries)
+                        entryValues = arrayOf("0", "1", "2")
+                        setDefaultValue("0")
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
                             context.dataChannel("com.android.systemui").put(key, newValue)

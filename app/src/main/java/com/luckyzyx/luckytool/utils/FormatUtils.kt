@@ -101,3 +101,27 @@ val String.replaceBlankLine: String
         }
         return finalString
     }
+
+fun formatStringSpace(vararg info: String): String {
+    var str = ""
+    info.forEachIndexed { index, it ->
+        if (it != "\n") {
+            if (it.isBlank()) return@forEachIndexed
+            if (index > 0 && info[index - 1] != "\n") str += " "
+        }
+        str += it
+    }
+    return str
+}
+
+fun formatStringLine(vararg info: String): String {
+    var str = ""
+    info.forEachIndexed { index, it ->
+        if (it != "\n") {
+            if (it.isBlank()) return@forEachIndexed
+            if (index > 0 && info[index - 1] != "\n") str += "\n"
+        }
+        str += it
+    }
+    return str
+}
