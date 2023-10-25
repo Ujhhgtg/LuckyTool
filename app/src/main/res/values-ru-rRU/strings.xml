@@ -304,7 +304,7 @@
     <string name="LockScreenClockComponent">Часы на экране блокировки</string>
     <string name="lock_screen_clock_redone_mode">Красные часы на экране блокировки</string>
     <string name="apply_lock_screen_dual_clock_redone">Применить к двойным часам на экране блокировки</string>
-    <string name="lock_screen_custom_component_style">Customize lock screen component style</string>
+    <string name="lock_screen_custom_component_style">Настроить стиль компонента на экране блокировки</string>
     <string name="set_lock_screen_centered">Часы экрана блокировки по центру</string>
     <string name="set_lock_screen_centered_summary">Только для систем, в которых экран блокировки нельзя отцентрировать в настройках</string>
     <string name="lock_screen_clock_use_user_typeface">Часы на экране блокировки используют пользовательские шрифты</string>
@@ -465,7 +465,7 @@
     <string name="disable_customize_battery_optimization_whiteList_summary">Если приложению вручную предоставлено разрешение \"Игнорировать оптимизацию батареи\", после включения этой функции приложение не будет автоматически добавлено в белый список оптимизации батареи</string>
     <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
     <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
-    <string name="display_module_calculates_battery_health_data_tips">- вычисляемая максимальная ёмкость</string>
+    <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
     <!--Settings-->
     <string name="settings_status_bar">Строка состояния</string>
     <string name="enable_statusbar_clock_format">Включить формат часов в строке состояния</string>
@@ -610,6 +610,7 @@
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений со страницы-заставки в магазине</string>
     <string name="remove_market_update_page_app_recommend">Удалить рекомендации приложений со страницы обновления магазина</string>
     <string name="remove_market_download_page_app_recommend">Удалить рекомендации приложений со страницы загрузки из магазина</string>
+    <string name="remove_market_mine_page_app_recommend">Remove app recommendations from market mine page</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
     <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>

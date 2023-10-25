@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hooker
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.market.RemoveMarketDownloadPageAppRecommend
+import com.luckyzyx.luckytool.hook.scope.market.RemoveMarketMinePageAppRecommend
 import com.luckyzyx.luckytool.hook.scope.market.RemoveMarketSplashPageAppRecommend
 import com.luckyzyx.luckytool.hook.scope.market.RemoveMarketUpdatePageAppRecommend
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -19,6 +20,10 @@ object HookMarket : YukiBaseHooker() {
         //移除商店下载页应用推荐
         if (prefs(ModulePrefs).getBoolean("remove_market_download_page_app_recommend", false)) {
             loadHooker(RemoveMarketDownloadPageAppRecommend)
+        }
+        //移除软件商店我的页面应用推荐
+        if (prefs(ModulePrefs).getBoolean("remove_market_mine_page_app_recommend", false)) {
+            loadHooker(RemoveMarketMinePageAppRecommend)
         }
     }
 }

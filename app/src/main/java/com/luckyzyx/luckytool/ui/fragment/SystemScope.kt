@@ -3544,6 +3544,12 @@ class OplusMarket : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_market_mine_page_app_recommend)
+                key = "remove_market_mine_page_app_recommend"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 

@@ -30,6 +30,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.arraySummaryDot
+import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
@@ -271,7 +272,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 title = context.getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_ads_from_download_dialog),
-                    getString(R.string.remove_ads_from_weather_page),
+                    getString(R.string.remove_ads_at_download_page_bottom),
                 )
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -353,7 +354,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     isIconSpaceReserved = show
                 }
                 title = context.getAppLabel(key)
-                summary = arraySummaryDot(
+                summary = arraySummaryLine(
                     getString(R.string.remove_market_splash_page_app_recommend),
                     getString(R.string.remove_market_update_page_app_recommend)
                 )
@@ -469,7 +470,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     isIconSpaceReserved = show
                 }
                 title = context.getAppLabel(key)
-                summary = arraySummaryDot(
+                summary = arraySummaryLine(
                     getString(R.string.disable_weather_jump_browser),
                     getString(R.string.remove_weather_some_page_bottom_ads)
                 )
@@ -479,6 +480,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Other App
             Preference(context).apply {
                 key = "com.ruet_cse_1503050.ragib.appbackup.pro"
                 setPrefsIconRes(key) { resource, show ->

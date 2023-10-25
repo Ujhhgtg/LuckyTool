@@ -7,6 +7,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
@@ -24,6 +25,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
     }
 
     object HookWeatherAdsAndJump : YukiBaseHooker() {
+        val WeatherWrapper = "com.oplus.weather.main.model.WeatherWrapper"
         override fun onHook() {
             val removeAds =
                 prefs(ModulePrefs).getBoolean("remove_weather_some_page_bottom_ads", false)
@@ -46,8 +48,8 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
                 method { name = "showRainfallPanel" }.hook {
                     before {
                         if (!disableJump) return@before
-                        val wrapper = field { type = "com.oplus.weather.main.model.WeatherWrapper" }
-                            .get(instance).any() ?: return@before
+                        val wrapper = field { type = WeatherWrapper }.get(instance).any()
+                            ?: return@before
                         wrapper.current().method { name = "setRainFallAdLink" }.call("")
                     }
                 }
@@ -69,7 +71,6 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
                     }
                 }
             }
-
             //Source WarnReminder -> Channel oppo.oplus.weather.warnWeather
             "com.oplus.weather.service.service.WarnReminder".toClass().apply {
                 method { name = "getWarnWeatherIntent" }.hook {
@@ -77,6 +78,15 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
                         if (!disableJump) return@before
                         args().last().set("")
                     }
+                }
+            }
+            //Source MorningReminder -> Channel oppo.oplus.weather.morningWeather
+            "com.oplus.weather.morning.MorningReminder".toClass().apply {
+                method {
+                    param(WeatherWrapper, ContextClass)
+                    returnType(PendingIntentClass)
+                }.hook {
+                    before { if (disableJump) resultNull() }
                 }
             }
         }
