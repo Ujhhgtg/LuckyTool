@@ -25,7 +25,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
     }
 
     object HookWeatherAdsAndJump : YukiBaseHooker() {
-        val WeatherWrapper = "com.oplus.weather.main.model.WeatherWrapper"
+        private const val weatherWrapper = "com.oplus.weather.main.model.WeatherWrapper"
         override fun onHook() {
             val removeAds =
                 prefs(ModulePrefs).getBoolean("remove_weather_some_page_bottom_ads", false)
@@ -34,12 +34,11 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
 
             //Source LocalUtils
             "com.oplus.weather.utils.LocalUtils".toClass().apply {
-                method { name = "jumpToBrowser" }.hookAll { hookBefore(removeAds, disableJump) }
+                method { name = "jumpToBrowser" }.hookAll {
+                    hookBefore(removeAds, disableJump)
+                }
                 method { name = "startBrowserForUrl" }.hookAll {
-                    hookBefore(
-                        removeAds,
-                        disableJump
-                    )
+                    hookBefore(removeAds, disableJump)
                 }
             }
 
@@ -48,7 +47,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
                 method { name = "showRainfallPanel" }.hook {
                     before {
                         if (!disableJump) return@before
-                        val wrapper = field { type = WeatherWrapper }.get(instance).any()
+                        val wrapper = field { type = weatherWrapper }.get(instance).any()
                             ?: return@before
                         wrapper.current().method { name = "setRainFallAdLink" }.call("")
                     }
@@ -58,6 +57,16 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
                         if (!disableJump) return@before
                         val warnInfo = args().last().any() ?: return@before
                         warnInfo.current().field { name = "addLink" }.set("")
+                    }
+                }
+            }
+
+            //Source SecondaryPageUtil
+            "com.oplus.weather.utils.SecondaryPageUtil".toClassOrNull()?.apply {
+                method { name = "newLink" }.hook {
+                    after {
+                        if (!removeAds) return@after
+                        result = formatWeatherUrl(result<String>() ?: return@after)
                     }
                 }
             }
@@ -83,7 +92,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
             //Source MorningReminder -> Channel oppo.oplus.weather.morningWeather
             "com.oplus.weather.morning.MorningReminder".toClass().apply {
                 method {
-                    param(WeatherWrapper, ContextClass)
+                    param(weatherWrapper, ContextClass)
                     returnType(PendingIntentClass)
                 }.hook {
                     before { if (disableJump) resultNull() }
@@ -228,13 +237,14 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
     }
 
     private fun formatWeatherUrl(url: String): String {
-        return when {
-            url.contains("infoEnable=true") -> url.replace(
-                "infoEnable=true", "infoEnable=false"
-            )
-
-            url.contains("infoEnable").not() -> "${url}&infoEnable=false"
-            else -> url
-        }
+        var cacheUrl = url
+        if (cacheUrl.contains("fromWeatherApp=true")) cacheUrl = cacheUrl.replace(
+            "fromWeatherApp=true", "fromWeatherApp=false"
+        )
+        if (cacheUrl.contains("infoEnable=true")) cacheUrl = cacheUrl.replace(
+            "infoEnable=true", "infoEnable=false"
+        )
+        if (cacheUrl.contains("infoEnable").not()) cacheUrl += "&infoEnable=false"
+        return cacheUrl
     }
 }
