@@ -316,7 +316,8 @@
     <string name="force_lock_screen_charging_show_wattage">Các thành phần sạc buộc phải hiển thị công suất</string>
     <string name="lock_screen_charging_use_user_typeface">Linh kiện sạc sử dụng phông chữ của người dùng</string>
     <string name="set_full_screen_charging_animation_mode">Chế độ hoạt hình sạc toàn màn hình</string>
-    <string name="LockScreenCarrier">Hiển thị và tùy chỉnh nhà cung cấp dịch vụ tùy chỉnh</string>
+    <string name="LockScreenStatusBar">Lock Screen StatusBar</string>
+    <string name="hide_lock_screen_status_bar_display">Hide lock screen statusbar display</string>
     <string name="remove_statusbar_carriers">Xóa thanh trạng thái mạng</string>
     <string name="statusbar_carriers_use_user_typeface">StatusBar Carrier sử dụng phông chữ người dùng</string>
     <string name="LockScreenButton">Nút khóa màn hình</string>

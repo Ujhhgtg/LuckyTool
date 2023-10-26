@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hooker
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.systemui.ForceEnableScreenOffMusicSupport
+import com.luckyzyx.luckytool.hook.scope.systemui.HideLockScreenStatusBarDisplay
 import com.luckyzyx.luckytool.hook.scope.systemui.LockScreenBottomButton
 import com.luckyzyx.luckytool.hook.scope.systemui.LockScreenCarriers
 import com.luckyzyx.luckytool.hook.scope.systemui.LockScreenChargingComponent
@@ -32,6 +33,11 @@ object HookLockScreen : YukiBaseHooker() {
 
         //锁屏状态栏运营商
         loadHooker(LockScreenCarriers)
+
+        //隐藏锁屏状态栏显示
+        if (prefs(ModulePrefs).getBoolean("hide_lock_screen_status_bar_display", false)) {
+            loadHooker(HideLockScreenStatusBarDisplay)
+        }
 
         //移除SOS紧急联络按钮
         if (prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_sos_button", false)) {

@@ -1763,6 +1763,31 @@ class LockScreen : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //状态栏组件
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.LockScreenStatusBar)
+                key = "LockScreenStatusBar"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.hide_lock_screen_status_bar_display)
+                key = "hide_lock_screen_status_bar_display"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_statusbar_carriers)
+                key = "remove_statusbar_carriers"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.statusbar_carriers_use_user_typeface)
+                key = "statusbar_carriers_use_user_typeface"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //时钟组件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.LockScreenClockComponent)
                 key = "LockScreenClockComponent"
@@ -1816,7 +1841,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //充电组件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.LockScreenChargingComponent)
                 key = "LockScreenChargingComponent"
@@ -1891,25 +1916,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.LockScreenCarrier)
-                key = "LockScreenCarrier"
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_statusbar_carriers)
-                key = "remove_statusbar_carriers"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.statusbar_carriers_use_user_typeface)
-                key = "statusbar_carriers_use_user_typeface"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-
+            //锁屏按钮
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.LockScreenButton)
                 key = "LockScreenButton"
@@ -1982,7 +1989,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-
+            //锁屏事件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.LockScreenEvent)
                 key = "LockScreenEvent"

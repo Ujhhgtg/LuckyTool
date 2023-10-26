@@ -316,7 +316,8 @@
     <string name="force_lock_screen_charging_show_wattage">Force charging components display wattage</string>
     <string name="lock_screen_charging_use_user_typeface">Charging components use user fonts</string>
     <string name="set_full_screen_charging_animation_mode">Full screen charging animation mode</string>
-    <string name="LockScreenCarrier">Оператор на екрані блокування</string>
+    <string name="LockScreenStatusBar">Lock Screen StatusBar</string>
+    <string name="hide_lock_screen_status_bar_display">Hide lock screen statusbar display</string>
     <string name="remove_statusbar_carriers">Видалити оператора у рядку стану</string>
     <string name="statusbar_carriers_use_user_typeface">Оператори використовують користувацькі шрифти в рядку стану</string>
     <string name="LockScreenButton">Кнопки екрану блокування</string>
