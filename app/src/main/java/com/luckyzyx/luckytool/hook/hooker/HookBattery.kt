@@ -8,13 +8,19 @@ import com.luckyzyx.luckytool.hook.scope.battery.LauncherHighTempreatureProtecti
 import com.luckyzyx.luckytool.hook.scope.battery.RemoveBatteryTemperatureControl
 import com.luckyzyx.luckytool.hook.scope.battery.UnlockStartupLimit
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
 object HookBattery : YukiBaseHooker() {
     override fun onHook() {
+        if (SDK < A13) try {
+            DexkitUtils.create(appInfo.sourceDir)?.close()
+        } catch (e: UnsatisfiedLinkError) {
+            return
+        }
+
         //BatteryFeatureProvider
-        //屏幕省电 电池健康
         loadHooker(BatteryFeatureProvider)
 
         //电池通知
@@ -35,9 +41,6 @@ object HookBattery : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("display_module_calculates_battery_health_data", false)) {
             if (SDK >= A13) loadHooker(DisplayModuleCalculatesBatteryHealthData)
         }
-
-        //charge_protection_switch_state
-        //smart_long_charge_protection_switch_state
 
     }
 }

@@ -2760,6 +2760,7 @@ class Battery : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.open_screen_power_save_summary)
                 key = "open_screen_power_save"
                 setDefaultValue(false)
+                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -2788,20 +2789,6 @@ class Battery : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            if (context.getBoolean(
-                    ModulePrefs, "restore_default_battery_optimization_whitelist", false
-                )
-            ) {
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.disable_customize_battery_optimization_whiteList)
-                    summary =
-                        getString(R.string.disable_customize_battery_optimization_whiteList_summary)
-                    key = "disable_customize_battery_optimization_whiteList"
-                    setDefaultValue(false)
-                    isVisible = false
-                    isIconSpaceReserved = false
-                })
-            }
         }
     }
 

@@ -6,10 +6,20 @@ import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.ClassDataList
 import org.luckypray.dexkit.query.MethodDataList
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "MayBeConstant")
 object DexkitUtils {
     const val tag = "LuckyTool"
-    const val debug = BuildConfig.DEBUG
+    val debug = BuildConfig.DEBUG
+
+    /**
+     * 创建Dexkit安全实例
+     * @param appPath String
+     * @return DexKitBridge?
+     */
+    fun create(appPath: String): DexKitBridge? {
+        System.loadLibrary("dexkit")
+        return DexKitBridge.create(appPath)
+    }
 
     /**
      * 创建Dexkit安全实例

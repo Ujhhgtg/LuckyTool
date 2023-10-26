@@ -54,7 +54,7 @@ object BatteryFeatureProvider : YukiBaseHooker() {
                         returnType = BooleanType
                     }.hook {
                         before {
-                            when (args(1).cast<String>()) {
+                            when (args(1).string()) {
                                 //屏幕省电
                                 "com.oplus.battery.cabc_level_dynamic_enable" -> if (openScreenPowerSave) resultTrue()
                                 //电池健康
