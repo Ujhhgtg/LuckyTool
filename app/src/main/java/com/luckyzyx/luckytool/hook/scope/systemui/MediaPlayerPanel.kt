@@ -148,12 +148,45 @@ object MediaPlayerPanel : YukiBaseHooker() {
             dataChannel.wait<String>("set_media_player_display_mode") { mode = it }
 
             //Source OplusQsMediaCarouselController
-            "com.oplus.systemui.qs.media.OplusQsMediaCarouselController".toClass().apply {
+            val controller = "com.oplus.systemui.qs.media.OplusQsMediaCarouselController"
+            if (controller.toClass().hasMethod { name = "setCurrentMediaData" }.not()) {
+                //Source OplusQSContainerImpl
+                "com.oplus.systemui.qs.OplusQSContainerImpl".toClass().apply {
+                    method { name = "setQsMediaPanelShown" }.hook {
+                        before {
+                            val status = when (mode) {
+                                "1" -> true
+                                "2" -> false
+                                "3" -> getMediaData() != null
+                                else -> return@before
+                            }
+                            args().first().set(status)
+                        }
+                    }
+                }
+                //Source OplusQSTileMediaContainerController
+                "com.oplus.systemui.qs.OplusQSTileMediaContainerController".toClass().apply {
+                    method { name = "setQsMediaPanelShown" }.hook {
+                        before {
+                            val status = when (mode) {
+                                "1" -> true
+                                "2" -> false
+                                "3" -> getMediaData() != null
+                                else -> return@before
+                            }
+                            args().first().set(status)
+                        }
+                    }
+                }
+                return
+            }
+            controller.toClass().apply {
                 method { name = "setCurrentMediaData" }.hook {
                     after {
                         val status = when (mode) {
                             "1" -> true
                             "2" -> false
+                            "3" -> getMediaData() != null
                             else -> return@after
                         }
                         val mediaModeChangeListener = field { name = "mediaModeChangeListener" }
@@ -166,6 +199,7 @@ object MediaPlayerPanel : YukiBaseHooker() {
                         val status = when (mode) {
                             "1" -> true
                             "2" -> false
+                            "3" -> getMediaData() != null
                             else -> return@after
                         }
                         val mediaModeChangeListener = args().first().any() ?: return@after
