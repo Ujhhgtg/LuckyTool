@@ -42,7 +42,7 @@ object LockScreenComponent : YukiBaseHooker() {
         override fun onHook() {
             val mode = prefs(ModulePrefs).getString("lock_screen_custom_component_style", "0")
 
-            //Source ClockRegistry
+            //Source ClockRegistry lock_screen_custom_clock_face
             "com.android.systemui.shared.clocks.ClockRegistry".toClass().apply {
                 method { name = "getSettings" }.hook {
                     after {
@@ -50,12 +50,16 @@ object LockScreenComponent : YukiBaseHooker() {
                         val res = result<Any>() ?: return@after
                         val clockId = res.current().method { name = "getClockId" }.invoke<String>()
                             ?: return@after
-                        if (clockId.contains("DualClock")) return@after
-                        val provider = when (mode) {
+                        val provider = if (clockId.contains("DualClock").not()) when (mode) {
                             "1" -> SingleClockProvider
                             "2" -> RedHorizontalSingleClockProvider
                             else -> return@after
+                        } else when (mode) {
+                            "1" -> DualClockProvider
+                            "2" -> RedHorizontalDualClockProvider
+                            else -> return@after
                         }
+                        provider.toClassOrNull() ?: return@after
                         result = ClockSettings.toClass().buildOf(provider, null) {
                             param(StringClass, IntClass)
                         }

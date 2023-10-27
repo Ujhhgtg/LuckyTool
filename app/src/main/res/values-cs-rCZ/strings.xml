@@ -316,8 +316,8 @@
     <string name="force_lock_screen_charging_show_wattage">Zobrazení příkonu nabíjecích komponentů</string>
     <string name="lock_screen_charging_use_user_typeface">Komponenta nabíjení použije na zamykací obrazovce uživatelské písmo</string>
     <string name="set_full_screen_charging_animation_mode">Režim animace nabíjení na celé obrazovce</string>
-    <string name="LockScreenStatusBar">Lock Screen StatusBar</string>
-    <string name="hide_lock_screen_status_bar_display">Hide lock screen statusbar display</string>
+    <string name="LockScreenStatusBar">Stavová lišta zamykací obrazovky</string>
+    <string name="hide_lock_screen_status_bar_display">Skrýt zobrazení stavové lišty na zamykací obrazovce</string>
     <string name="remove_statusbar_carriers">Odstranit název operátora ze stavové lišty</string>
     <string name="statusbar_carriers_use_user_typeface">Použít vlastní font textu operátora ve stavové liště</string>
     <string name="LockScreenButton">Tlačítka na zamykací obrazovce</string>
