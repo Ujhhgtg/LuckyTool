@@ -7,7 +7,9 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import de.robv.android.xposed.XposedBridge
 import java.lang.reflect.Member
 import java.lang.reflect.Method
+import java.util.function.BiConsumer
 import java.util.function.BiPredicate
+
 
 object DisableFlagSecure : YukiBaseHooker() {
     private var deoptimizeMethod: Method? = null
@@ -49,6 +51,15 @@ object DisableFlagSecure : YukiBaseHooker() {
                     "com.android.server.wm.DisplayContent$\$ExternalSyntheticLambda$i".toClassOrNull()
                 if (c != null && BiPredicate::class.java.isAssignableFrom(c)) {
                     deoptimizeMethod(c, "test")
+                }
+            }
+            val windowManagerService = "com.android.server.wm.WindowManagerService".toClass()
+            deoptimizeMethod(windowManagerService, "relayoutWindow")
+            for (i in 0..19) {
+                val c =
+                    "com.android.server.wm.RootWindowContainer$\$ExternalSyntheticLambda$i".toClassOrNull()
+                if (c != null && BiConsumer::class.java.isAssignableFrom(c)) {
+                    deoptimizeMethod(c, "accept")
                 }
             }
         } catch (e: Exception) {

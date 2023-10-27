@@ -24,6 +24,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 电池通知电压显示模式
 - [适配] 电池通知健康数据来源 C12.1
 - [添加] 隐藏锁屏状态栏显示
+- [适配] 同步上游Disable FLAG_SECURE
 
 ### 1.1.1
 
