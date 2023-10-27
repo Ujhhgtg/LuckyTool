@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.2_beta
+### 1.1.2
 
 - [更改] 声音功能迁移至声音分区
 - [添加] 移除天气部分页面底部广告
@@ -24,7 +24,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 电池通知电压显示模式
 - [适配] 电池通知健康数据来源 C12.1
 - [添加] 隐藏锁屏状态栏显示
-- [适配] 同步上游Disable FLAG_SECURE
+- [适配] 同步上游DisableFLAG_SECURE
 
 ### 1.1.1
 

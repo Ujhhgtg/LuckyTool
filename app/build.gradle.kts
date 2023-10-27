@@ -35,7 +35,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.1.2_beta"
+        versionName = "1.1.2"
         buildConfigField("String", "APP_CENTER_SECRET", "\"${getAppCenterSecret()}\"")
     }
 
@@ -131,7 +131,7 @@ dependencies {
     //Apache DigestUtils md5 sha256
 //    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
     //libsu
-    val libsuVersion = "5.0.5"
+    val libsuVersion = "5.2.1"
     implementation("com.github.topjohnwu.libsu:core:${libsuVersion}")
     implementation("com.github.topjohnwu.libsu:service:${libsuVersion}")
 //    implementation "com.github.topjohnwu.libsu:nio:${libsuVersion}"
