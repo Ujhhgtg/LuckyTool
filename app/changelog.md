@@ -25,6 +25,26 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [适配] 电池通知健康数据来源 C12.1
 - [添加] 隐藏锁屏状态栏显示
 - [适配] 同步上游DisableFLAG_SECURE
+- [Change] Sound function moved to sound partition
+- [Add] Remove ads at the bottom of the weather section page
+- [Add] Disable weather jump browser
+- [Fix] Serious lagging problem on some models
+- [Fix] Lock screen styles of some Realme models
+- [Add] Screen physical size shown in centimeters
+- [Remove] Fix battery health data display
+- [Add] Display module calculates battery health data
+- [Add] Battery notification always shows positive current
+- [Add] Battery notification showing battery health
+- [Add] Battery notification custom font size
+- [Optimize] Hook logic related to battery temperature control
+- [Fix] Disable weather notifications to jump to the browser
+- [Add] Custom lock screen component style C14
+- [Fix] Weather Ads and Jump Browser C12.1
+- [Add] Remove Store My Page App Recommendations
+- [Add] Battery notification voltage display mode
+- [Fix] Battery notification health data source C12.1
+- [Add] Hide lock screen status bar display
+- [Fix] Synchronize upstream DisableFLAG_SECURE
 
 ### 1.1.1
 
