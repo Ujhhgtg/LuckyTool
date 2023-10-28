@@ -301,12 +301,14 @@
     <string name="set_aod_style_mode">Set aod style mode</string>
     <string name="force_enable_screen_off_music_support">Force enable screen-off music support</string>
     <string name="force_enable_screen_off_music_support_summary">Applicable only to models that do not support screen-off music</string>
-    <!--LockScreenAod-->
+    <!--LockScreen-->
     <string name="LockScreen">Lockscreen Related</string>
     <string name="LockScreenClockComponent">Lock Screen Clock Component</string>
     <string name="lock_screen_clock_redone_mode">Червоний годинник на екрані блокування</string>
     <string name="apply_lock_screen_dual_clock_redone">Застосувати до подвійного годинника на екрані блокування</string>
     <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
+    <string name="force_display_clock_style_options">Force display of clock style options</string>
+    <string name="force_display_clock_style_options_summary">Force the clock style option to be displayed in \"Settings - Desktop and Lock Screen\", only effective for OPPO/Realme styles</string>
     <string name="set_lock_screen_centered">Lockscreen clock component centered</string>
     <string name="set_lock_screen_centered_summary">Тільки для систем, в яких екран блокування не можна відцентрувати в налаштуваннях</string>
     <string name="lock_screen_clock_use_user_typeface">Lockscreen clock components use user fonts</string>
@@ -337,7 +339,7 @@
     <string name="remove_alarmclock_widget_redone">Видалити червоний годинник у віджеті годинника на робочому столі</string>
     <string name="remove_alarmclock_widget_redone_pro">Видалити червоний годинник у віджеті годинника на робочому столі</string>
     <string name="remove_alarmclock_widget_redone_pro_summary">Доступно лише тоді, коли звичайна версія не допомагає, інакше це викликає неминучу помилку</string>
-    <!--Desktop-->
+    <!--Launcher-->
     <string name="Desktop">Робочий стіл</string>
     <string name="AppBadgeRelated">Іконка додатку</string>
     <string name="remove_the_dot_after_app_update">Видаляти крапку після оновлення додатка</string>

@@ -62,6 +62,9 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //移除我的设备
             val removeMyDevice =
                 prefs(ModulePrefs).getBoolean("remove_control_center_mydevice", false)
+            //强制显示时钟样式选项
+            val forceDisplayClockStyle =
+                prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)
 
             //Source FeatureOption
             "com.oplusos.systemui.common.feature.FeatureOption".toClass().apply {
@@ -148,6 +151,12 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 if (hasMethod { name = "isSupportMyDevice" }) {
                     method { name = "isSupportMyDevice" }.hook {
                         if (removeMyDevice) replaceToFalse()
+                    }
+                }
+                //C12
+                if (SDK < A13 && hasMethod { name = "isSupportLandClock" }) {
+                    method { name = "isSupportLandClock" }.hook {
+                        if (forceDisplayClockStyle) replaceToTrue()
                     }
                 }
             }

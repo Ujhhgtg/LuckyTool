@@ -25,6 +25,7 @@ import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
 import com.highcapable.yukihookapi.hook.type.java.IntClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -35,6 +36,9 @@ object LockScreenComponent : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A14) loadHooker(LockScreenComponentStyle)
         else loadHooker(LockScreenComponentStyleC13)
+        if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {
+            if (SDK == A13) loadHooker(ForceDisplayClockStyleOptionsV13)
+        }
         loadHooker(LockScreenComponentFont)
     }
 
@@ -51,7 +55,7 @@ object LockScreenComponent : YukiBaseHooker() {
             "com.android.systemui.colorextraction.SysuiColorExtractor" //C14
         private const val clockSettings = "com.android.systemui.plugins.ClockSettings" //C14
         override fun onHook() {
-            val mode = prefs(ModulePrefs).getString("lock_screen_custom_component_style", "0")
+            val mode = prefs(ModulePrefs).getString("lock_screen_custom_clock_component_style", "0")
 
             //Source ClockRegistry lock_screen_custom_clock_face
             "com.android.systemui.shared.clocks.ClockRegistry".toClass().apply {
@@ -134,7 +138,7 @@ object LockScreenComponent : YukiBaseHooker() {
             "com.android.systemui.colorextraction.SysuiColorExtractor"
 
         override fun onHook() {
-            val mode = prefs(ModulePrefs).getString("lock_screen_custom_component_style", "0")
+            val mode = prefs(ModulePrefs).getString("lock_screen_custom_clock_component_style", "0")
 
             //Source SettingsWrapper lock_screen_custom_clock_face
             "com.android.keyguard.clock.SettingsWrapper".toClass().apply {

@@ -301,12 +301,14 @@
     <string name="set_aod_style_mode">Установить режим стиля AOD</string>
     <string name="force_enable_screen_off_music_support">Включить поддержку музыки при отключенном экране</string>
     <string name="force_enable_screen_off_music_support_summary">Применимо только к моделям, которые не поддерживают музыку при отключенном экране</string>
-    <!--LockScreenAod-->
+    <!--LockScreen-->
     <string name="LockScreen">Экран блокировки</string>
     <string name="LockScreenClockComponent">Часы на экране блокировки</string>
     <string name="lock_screen_clock_redone_mode">Красные часы на экране блокировки</string>
     <string name="apply_lock_screen_dual_clock_redone">Применить к двойным часам на экране блокировки</string>
     <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
+    <string name="force_display_clock_style_options">Force display of clock style options</string>
+    <string name="force_display_clock_style_options_summary">Force the clock style option to be displayed in \"Settings - Desktop and Lock Screen\", only effective for OPPO/Realme styles</string>
     <string name="set_lock_screen_centered">Часы экрана блокировки по центру</string>
     <string name="set_lock_screen_centered_summary">Только для систем, в которых экран блокировки нельзя отцентрировать в настройках</string>
     <string name="lock_screen_clock_use_user_typeface">Часы на экране блокировки используют пользовательские шрифты</string>
@@ -337,7 +339,7 @@
     <string name="remove_alarmclock_widget_redone">Удалить красные часы в виджете часов на рабочем столе</string>
     <string name="remove_alarmclock_widget_redone_pro">Удалить красные часы в виджете часов на рабочем столе</string>
     <string name="remove_alarmclock_widget_redone_pro_summary">Доступно только тогда, когда обычная версия не помогает, иначе это вызовет неизбежную ошибку</string>
-    <!--Desktop-->
+    <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
     <string name="remove_the_dot_after_app_update">Удалить точку после обновления приложения</string>

@@ -301,12 +301,14 @@
     <string name="set_aod_style_mode">设置息屏样式模式</string>
     <string name="force_enable_screen_off_music_support">强制启用息屏音乐支持</string>
     <string name="force_enable_screen_off_music_support_summary">仅适用于不支持息屏音乐的机型</string>
-    <!--LockScreenAod-->
+    <!--LockScreen-->
     <string name="LockScreen">锁屏相关</string>
     <string name="LockScreenClockComponent">锁屏时钟组件</string>
     <string name="lock_screen_clock_redone_mode">锁屏时钟红一模式</string>
     <string name="apply_lock_screen_dual_clock_redone">应用到锁屏双时钟</string>
     <string name="lock_screen_custom_clock_component_style">自定义锁屏时钟组件样式</string>
+    <string name="force_display_clock_style_options">强制显示时钟样式选项</string>
+    <string name="force_display_clock_style_options_summary">强制显示在“设置 - 桌面和锁屏”中的时钟样式选项，仅对 OPPO/Realme 样式生效</string>
     <string name="set_lock_screen_centered">锁屏时钟组件居中</string>
     <string name="set_lock_screen_centered_summary">仅限于设置里无法设置锁屏居中的系统使用</string>
     <string name="lock_screen_clock_use_user_typeface">锁屏时钟组件使用用户字体</string>
@@ -337,7 +339,7 @@
     <string name="remove_alarmclock_widget_redone">移除桌面时钟组件红一</string>
     <string name="remove_alarmclock_widget_redone_pro">移除桌面时钟组件红一·增强版</string>
     <string name="remove_alarmclock_widget_redone_pro_summary">仅当常规版本未生效时可用，否则它将导致不可避免的错误</string>
-    <!--Desktop-->
+    <!--Launcher-->
     <string name="Desktop">桌面相关</string>
     <string name="AppBadgeRelated">应用徽章相关</string>
     <string name="remove_the_dot_after_app_update">移除 APP 更新后圆点</string>
