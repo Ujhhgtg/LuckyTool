@@ -12,14 +12,14 @@ object DisableHeadphoneHighVolumeWarning : YukiBaseHooker() {
         //Sourcce VolumeDialogImplEx
         VariousClass(
             "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
-            "com.android.systemui.volume.VolumeDialogImpl" //C14
+            "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14
         ).toClass().apply {
             method { name = "showSafetyWarningH" }.hook {
                 before {
                     val mContext = field { name = "mContext" }.get(instance).cast<Context>()
                         ?: return@before
-                    val audioManager =
-                        mContext.getSystemService(Context.AUDIO_SERVICE) ?: return@before
+                    val audioManager = mContext.getSystemService(Context.AUDIO_SERVICE)
+                        ?: return@before
                     audioManager.current().method { name = "disableSafeMediaVolume" }.call()
                     resultNull()
                 }

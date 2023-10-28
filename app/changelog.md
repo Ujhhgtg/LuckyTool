@@ -6,6 +6,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 ### 1.1.3_beta
 
 - [适配] 部分机型电池健康度数据异常
+- [适配] 耳机高音量警告对话框 C14
 
 ### 1.1.2
 
