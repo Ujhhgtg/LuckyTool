@@ -1818,14 +1818,13 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.lock_screen_custom_component_style)
+                title = getString(R.string.lock_screen_custom_clock_component_style)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "lock_screen_custom_component_style"
                 entries =
-                    resources.getStringArray(R.array.lock_screen_custom_component_style_entries)
+                    resources.getStringArray(R.array.lock_screen_custom_clock_component_style_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

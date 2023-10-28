@@ -306,7 +306,7 @@
     <string name="LockScreenClockComponent">锁屏时钟组件</string>
     <string name="lock_screen_clock_redone_mode">锁屏时钟红一模式</string>
     <string name="apply_lock_screen_dual_clock_redone">应用到锁屏双时钟</string>
-    <string name="lock_screen_custom_component_style">自定义锁屏组件样式</string>
+    <string name="lock_screen_custom_clock_component_style">自定义锁屏时钟组件样式</string>
     <string name="set_lock_screen_centered">锁屏时钟组件居中</string>
     <string name="set_lock_screen_centered_summary">仅限于设置里无法设置锁屏居中的系统使用</string>
     <string name="lock_screen_clock_use_user_typeface">锁屏时钟组件使用用户字体</string>

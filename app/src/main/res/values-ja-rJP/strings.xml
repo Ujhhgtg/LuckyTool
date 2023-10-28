@@ -306,7 +306,7 @@
     <string name="LockScreenClockComponent">ロック画面の時計コンポーネント</string>
     <string name="lock_screen_clock_redone_mode">ロック画面時計の赤い「1」表示</string>
     <string name="apply_lock_screen_dual_clock_redone">ロック画面のデュアル時計に適用</string>
-    <string name="lock_screen_custom_component_style">Customize lock screen component style</string>
+    <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
     <string name="set_lock_screen_centered">ロック画面の時計コンポーネントを中央に表示</string>
     <string name="set_lock_screen_centered_summary">設定でロック画面の中央に配置ができないシステムのみが対象です</string>
     <string name="lock_screen_clock_use_user_typeface">ロック画面の時計コンポーネントにユーザー指定のフォントを使用</string>

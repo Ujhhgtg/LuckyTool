@@ -184,7 +184,7 @@
         <item>@string/set_click_statusbar_scroll_to_top_mode_remove_white_list</item>
     </string-array>
     
-    <string-array name="lock_screen_custom_component_style_entries">
+    <string-array name="lock_screen_custom_clock_component_style_entries">
         <item>@string/common_words_default</item>
         <item>OPPO/Realme</item>
         <item>OnePlus</item>

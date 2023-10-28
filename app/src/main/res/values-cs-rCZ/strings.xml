@@ -306,7 +306,7 @@
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
     <string name="lock_screen_clock_redone_mode">Režim červené jedničky na zamykací obrazovce</string>
     <string name="apply_lock_screen_dual_clock_redone">Použít na dolní hodiny na uzamčené obrazovce</string>
-    <string name="lock_screen_custom_component_style">Přizpůsobit vzhled komponent zámku obrazovky</string>
+    <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
     <string name="set_lock_screen_centered">Komponenta hodin na zamykací obrazovce - ve středu </string>
     <string name="set_lock_screen_centered_summary">Pouze pro systémy, u kterých nelze vycentrovat uzamčenou obrazovku z nastavení</string>
     <string name="lock_screen_clock_use_user_typeface">Komponenty hodin na zamykací obrazovce použijí uživatelské fonty</string>
