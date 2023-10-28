@@ -1,21 +1,26 @@
 package com.luckyzyx.luckytool.hook.scope.systemui
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.view.allViews
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.LayoutInflaterClass
+import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.java.IntClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.A14
@@ -125,25 +130,14 @@ object LockScreenComponent : YukiBaseHooker() {
                 method { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter) return@after
-                        instance<LinearLayout>().setPadding(0, 20.dp, 0, 0)
-
-                        field { name = "mTvWeek" }.get(instance).cast<TextView>()
-                            ?.setCenterHorizontally()
-
-//                    field { name = "mTvHour" }.get(instance).cast<TextView>()
-//                    field { name = "mTvMinute" }.get(instance).cast<TextView>()
-
-                        (field { name = "mTvColon" }.get(instance)
-                            .cast<TextView>()?.parent as RelativeLayout).setCenterHorizontally()
-
-                        field { name = "mTvDate" }.get(instance).cast<TextView>()
-                            ?.setCenterHorizontally()
-
-                        field { name = "mTvLunarCalendar" }.get(instance).cast<TextView>()
-                            ?.setCenterHorizontally()
-
-                        field { name = "mTvExtraContent" }.get(instance).cast<TextView>()
-                            ?.setCenterHorizontally()
+                        instance<LinearLayout>().apply {
+                            setPadding(0, 20.dp, 0, 0)
+                            allViews.forEachIndexed { _, view ->
+                                if (view.javaClass extends TextViewClass) {
+                                    view.setCenterHorizontally()
+                                }
+                            }
+                        }
                     }
                 }
                 method { name = "setTextFont" }.hook {
@@ -160,10 +154,54 @@ object LockScreenComponent : YukiBaseHooker() {
                     if (userTypeface) intercept()
                 }
             }
+
+            //Source SingleClockView
+            VariousClass(
+                "com.oplusos.systemui.keyguard.clock.SingleClockView", //C13
+                "com.oplus.systemui.shared.clocks.SingleClockView" //C14
+            ).toClass().apply {
+                method { name = "onFinishInflate" }.hook {
+                    after {
+                        if (!isCenter && !userTypeface) return@after
+                        instance<LinearLayout>().apply {
+                            setPadding(0, 20.dp, 0, 0)
+                            allViews.forEachIndexed { _, view ->
+                                if (view.javaClass extends TextViewClass) {
+                                    if (isCenter) view.setCenterHorizontally()
+                                    if (userTypeface) (view as TextView).typeface =
+                                        Typeface.DEFAULT_BOLD
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Source DualClockView
+            VariousClass(
+                "com.oplusos.systemui.keyguard.clock.DualClockView", //C13
+                "com.oplus.systemui.shared.clocks.DualClockView" //C14
+            ).toClass().apply {
+                method { name = "onFinishInflate" }.hook {
+                    after {
+                        if (!userTypeface) return@after
+                        instance<LinearLayout>().allViews.forEachIndexed { _, view ->
+                            if (view.javaClass extends TextViewClass) {
+                                (view as TextView).typeface = Typeface.DEFAULT_BOLD
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     private fun View.setCenterHorizontally() {
+        val parentView = parent as ViewGroup
+        if (parentView is RelativeLayout) {
+            parentView.setCenterHorizontally()
+            return
+        }
         layoutParams = LinearLayout.LayoutParams(layoutParams).apply {
             gravity = Gravity.CENTER_HORIZONTAL
         }
