@@ -10,7 +10,6 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -192,8 +191,6 @@ object HookSettingsFeature : YukiBaseHooker() {
                 dexKitBridge.findClass {
                     matcher {
                         fields {
-                            addForType(IntType.name)
-                            addForType(BooleanType.name)
                             addForType(BooleanClass.name)
                             addForType(ListClass.name)
                         }
@@ -203,25 +200,27 @@ object HookSettingsFeature : YukiBaseHooker() {
                             add { paramCount(0);returnType(ListClass.name) }
                             add { paramCount(0);returnType(ContentResolverClass.name) }
                             add {
-                                paramTypes(ContextClass.name)
-                                returnType(UnitType.name)
+                                paramTypes(StringClass.name)
+                                returnType(BooleanType.name)
                             }
                             add {
-                                paramTypes(ContextClass.name)
+                                paramTypes(StringClass.name, BooleanType.name)
+                                returnType(BooleanType.name)
+                            }
+                            add {
+                                paramTypes("android.os.PersistableBundle")
                                 returnType(BooleanType.name)
                             }
                             add {
                                 paramTypes(StringClass.name)
-                                returnType(BooleanType.name)
+                                returnType(ListClass.name)
                             }
-
                         }
                         usingStrings("CustomizeFeatureUtils")
                     }
                 }.apply {
                     checkDataList("HookCustomizeFeature")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method { param(StringClass);returnType = BooleanType }.hookAll {
                             before {
                                 when (args().first().string()) {
