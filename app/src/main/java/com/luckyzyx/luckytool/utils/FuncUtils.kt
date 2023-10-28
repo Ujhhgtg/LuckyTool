@@ -1317,19 +1317,21 @@ val redOneTextColor = Color.parseColor("#c41442")
  * @param context Context
  * @return Int?
  */
-fun calcLocalHealth(context: Context): Int? {
+fun calcLocalHealth(context: Context): Int {
     return try {
         val curFile = if (SDK >= A13) "/sys/class/oplus_chg/battery/battery_fcc"
         else "/sys/class/power_supply/battery/charge_full"
         val curValue = safeOfNull {
-            BufferedReader(FileReader(curFile)).readLine().filterNumber.toFloatOrNull()
+            BufferedReader(FileReader(curFile)).readLine().filterNumber.toDoubleOrNull()
         }
         val powerIns = PowerProfileUtils(null).buildInstance(context)
         val designValue = PowerProfileUtils(null).getBatteryCapacity(powerIns)
-        if (curValue == null || designValue == null) -1
+        var calc = if (curValue == null || designValue == null) -1
         else (curValue / designValue * 100.0F).roundToInt()
+        if (calc > 100) calc /= 1000
+        calc
     } catch (e: Exception) {
-        YLog.error("StatusBarBatteryHealth Error", e)
+        YLog.error("Calc Local Health Error", e)
         -1
     }
 }

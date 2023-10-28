@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.3_beta
+
+- [适配] 部分机型电池健康度数据异常
+
 ### 1.1.2
 
 - [更改] 声音功能迁移至声音分区
