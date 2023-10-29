@@ -352,12 +352,21 @@
     <string name="launcher_layout_max_rows">Maximum number of lines in desktop layout</string>
     <string name="launcher_layout_max_columns">Maximum Desktop Layout Columns</string>
     <string name="RecentTaskListRelated">Recent task list related</string>
-    <string name="long_press_app_icon_open_app_details">Long press the app icon to open the app details</string>
-    <string name="remove_recent_task_list_clear_button">Remove recent task list clear button</string>
-    <string name="remove_bottom_app_icon_of_recent_task_list">Remove the APP icon at the bottom of the recent task list</string>
     <string name="enable_stacked_task_layout">Enable stacked task layout</string>
     <string name="set_task_stacking_level">Set task stacking level</string>
     <string name="fix_current_task_to_the_top">Fix the current task to the top</string>
+    <string name="long_press_app_icon_open_app_details">Long press the app icon to open the app details</string>
+    <string name="remove_bottom_app_icon_of_recent_task_list">Remove the APP icon at the bottom of the recent task list</string>
+    <string name="remove_recent_task_list_clear_button">Remove recent task list clear button</string>
+    <string name="unlock_task_locks">Unlocks the number of background tasks</string>
+    <string name="allow_locking_unlocking_of_excluded_activity">Allow locking or unlocking of excluded activities</string>
+    <string name="custom_app_floating_window_display_mode">Customize application floating window display mode</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">Disable floating window</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
+    <string name="zoom_window_support_list">Custom Zoom Window Support List</string>
+    <string name="zoom_window_support_list_summary">Enable according to your needs, otherwise there will be irreparable problems</string>
+    <string name="force_all_apps_support_split_screen">Force all apps to support split screen</string>
     <string name="PaginationComponentRelated">Pagination Component Related</string>
     <string name="remove_pagination_component">Remove pagination component</string>
     <string name="remove_folder_pagination_component">Remove folder pagination component</string>
@@ -375,13 +384,11 @@
     <string name="disable_splash_screen_summary">Since the splash screen animation has been removed, there will be a 1–2 second gap period when the APP is started.If you mind, please do not turn it on</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">App Related List</string>
-    <string name="enable_zoom_window">Enable support list</string>
-    <string name="zoom_window_support_list">Custom Zoom Window Support List</string>
-    <string name="zoom_window_support_list_summary">Enable according to your needs, otherwise there will be irreparable problems</string>
     <string name="multi_app_enable">Enable replacement list</string>
     <string name="multi_app_custom_list">Replace App Clone Support List</string>
     <string name="multi_app_custom_list_summary">After the function is turned on, the original list of app clones will be replaced by this list, too many will cause lag</string>
     <string name="dark_mode_support_list">Custom dark mode support list</string>
+    <string name="enable_dark_mode_list">Enable custom lists</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">App Installation Related</string>
     <string name="PackageInstaller_summary">Need to be used with the core patch</string>
@@ -405,11 +412,16 @@
     <string name="remove_adb_install_confirm_summary">Use ADB to install APP without tapping</string>
     <string name="unlock_startup_limit">Unlock Self-Startup Limit</string>
     <string name="unlock_startup_limit_summary">Unlock app self-startup limit</string>
-    <string name="unlock_task_locks">Unlocks the number of background tasks</string>
-    <string name="unlock_default_desktop_limit">Unlock default desktop restrictions</string>
-    <string name="force_all_apps_support_split_screen">Force all apps to support split screen</string>
+    <!--AppDetailsRelated-->
+    <string name="AppDetailsRelated">App Details Related</string>
+    <string name="show_package_name_in_app_details">Show package name in app details</string>
+    <string name="show_last_update_time_in_app_details">Show last update time in app details</string>
+    <string name="enable_long_press_to_copy_in_app_details">Enable long press to copy in app details</string>
+    <string name="click_icon_open_market_page">Click on the icon to open the store page</string>
+    <string name="allow_disabling_system_apps">Allow disabling system apps</string>
+    <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>
     <string name="remove_app_uninstall_button_blacklist">Remove blacklist of app uninstall button</string>
-    <string name="allow_locking_unlocking_of_excluded_activity">Allow locking or unlocking of excluded activities</string>
+    <string name="enable_custom_app_language">Enable custom app language</string>
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">Floating Window / Dialog Related</string>
     <string name="disable_duplicate_floating_window">Disable Duplicate Window</string>
@@ -487,6 +499,7 @@
     <string name="enable_screen_color_temperature_rgb_palette">Enable screen color temperature RGB palette</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">May be overridden by DC function</string>
     <string name="settings_application">Application</string>
+    <string name="unlock_default_desktop_limit">Unlock default desktop restrictions</string>
     <string name="force_display_process_management">Force display of process management</string>
     <string name="force_display_disabled_apps_manager">Force display of disabled apps manager</string>
     <string name="settings_about_device">About Device</string>
@@ -500,14 +513,6 @@
     <string name="remove_top_account_display">Remove top account display</string>
     <string name="remove_settings_bottom_laboratory">Remove settings bottom laboratory</string>
     <string name="force_display_bottom_google_settings">Force to show Google at the bottom of the settings</string>
-    <string name="AppDetailsRelated">App Details Related</string>
-    <string name="show_package_name_in_app_details">Show package name in app details</string>
-    <string name="show_last_update_time_in_app_details">Show last update time in app details</string>
-    <string name="enable_long_press_to_copy_in_app_details">Enable long press to copy in app details</string>
-    <string name="click_icon_open_market_page">Click on the icon to open the store page</string>
-    <string name="allow_disabling_system_apps">Allow disabling system apps</string>
-    <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>
-    <string name="enable_custom_app_language">Enable custom app language</string>
     <!--Camera-->
     <string name="CameraWaterMark">WaterMark</string>
     <string name="remove_watermark_word_limit">Remove Watermark Word Length Limit</string>

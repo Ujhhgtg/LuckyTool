@@ -306,9 +306,9 @@
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
     <string name="lock_screen_clock_redone_mode">Režim červené jedničky na zamykací obrazovce</string>
     <string name="apply_lock_screen_dual_clock_redone">Použít na dolní hodiny na uzamčené obrazovce</string>
-    <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
-    <string name="force_display_clock_style_options">Force display of clock style options</string>
-    <string name="force_display_clock_style_options_summary">Force the clock style option to be displayed in \"Settings - Desktop and Lock Screen\", only effective for OPPO/Realme styles</string>
+    <string name="lock_screen_custom_clock_component_style">Přizpůsobit styl součásti hodin na zamykací obrazovce</string>
+    <string name="force_display_clock_style_options">Vynutit zobrazení stylu hodin</string>
+    <string name="force_display_clock_style_options_summary">Vynutit zobrazení stylu hodin v \"Nastavení - Plocha a Zamykání obrazovka\", platí pouze pro OPPO/Realme styly</string>
     <string name="set_lock_screen_centered">Komponenta hodin na zamykací obrazovce - ve středu </string>
     <string name="set_lock_screen_centered_summary">Pouze pro systémy, u kterých nelze vycentrovat uzamčenou obrazovku z nastavení</string>
     <string name="lock_screen_clock_use_user_typeface">Komponenty hodin na zamykací obrazovce použijí uživatelské fonty</string>
@@ -352,12 +352,21 @@
     <string name="launcher_layout_max_rows">Maximální počet řádků v rozvržení plochy</string>
     <string name="launcher_layout_max_columns">Maximální počet sloupců v rozložení plochy</string>
     <string name="RecentTaskListRelated">Nastavení související se seznamem nedávných aplikací</string>
-    <string name="long_press_app_icon_open_app_details">Dlouhým stiskem ikony aplikace otevřete detaily aplikace</string>
-    <string name="remove_recent_task_list_clear_button">Odstranit tlačítko pro vymazání nedávných aplikací</string>
-    <string name="remove_bottom_app_icon_of_recent_task_list">Odstranit ikonu aplikace v dolní části seznamu nedávných úkolů</string>
     <string name="enable_stacked_task_layout">Povolit těsnější rozvržení v seznamu úloh</string>
     <string name="set_task_stacking_level">Nastavit úroveň stohování úloh</string>
     <string name="fix_current_task_to_the_top">Opravit aktuální úlohu na začátek/vrchol </string>
+    <string name="long_press_app_icon_open_app_details">Dlouhým stiskem ikony aplikace otevřete detaily aplikace</string>
+    <string name="remove_bottom_app_icon_of_recent_task_list">Odstranit ikonu aplikace v dolní části seznamu nedávných úkolů</string>
+    <string name="remove_recent_task_list_clear_button">Odstranit tlačítko pro vymazání nedávných aplikací</string>
+    <string name="unlock_task_locks">Odemkne počet úloh na pozadí</string>
+    <string name="allow_locking_unlocking_of_excluded_activity">Povolit blokování nebo odemykání vyloučených aktivit</string>
+    <string name="custom_app_floating_window_display_mode">Customize application floating window display mode</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">Disable floating window</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
+    <string name="zoom_window_support_list">Vlastní nastavení přiblížení</string>
+    <string name="zoom_window_support_list_summary">Povolte podle vašich potřeb, jinak dojde k nenapravitelným problémům</string>
+    <string name="force_all_apps_support_split_screen">Donutit všechny aplikace podporovat rozdělenou obrazovku</string>
     <string name="PaginationComponentRelated">Související se stránkováním (plochy spouštěče)</string>
     <string name="remove_pagination_component">Odstranit komponentu stránkování</string>
     <string name="remove_folder_pagination_component">Odstranit komponentu stránkování složky</string>
@@ -375,13 +384,11 @@
     <string name="disable_splash_screen_summary">Vzhledem k tomu, že animace úvodní obrazovky byla odstraněna, bude po spuštění aplikace 1 až 2 sekundy prodleva startu aplikace. Pokud vám to vadí, prosím toto nezapínejte</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Nastavení související se seznamem aplikací</string>
-    <string name="enable_zoom_window">Povolit seznam podporovatelů</string>
-    <string name="zoom_window_support_list">Vlastní nastavení přiblížení</string>
-    <string name="zoom_window_support_list_summary">Povolte podle vašich potřeb, jinak dojde k nenapravitelným problémům</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
     <string name="dark_mode_support_list">Vlastní seznam aplikací podporující tmavý režim</string>
+    <string name="enable_dark_mode_list">Enable custom lists</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Nastavení týkající se instalace aplikací</string>
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
@@ -405,11 +412,16 @@
     <string name="remove_adb_install_confirm_summary">Použít ADB k instalaci aplikace bez klepnutí</string>
     <string name="unlock_startup_limit">Odemknout limit automatického spuštění</string>
     <string name="unlock_startup_limit_summary">Odemknout limit automatického spuštění aplikace</string>
-    <string name="unlock_task_locks">Odemkne počet úloh na pozadí</string>
-    <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
-    <string name="force_all_apps_support_split_screen">Donutit všechny aplikace podporovat rozdělenou obrazovku</string>
+    <!--AppDetailsRelated-->
+    <string name="AppDetailsRelated">Podrobnosti o aplikaci</string>
+    <string name="show_package_name_in_app_details">Zobrazit název balíčku v podrobnostech aplikace</string>
+    <string name="show_last_update_time_in_app_details">Zobrazit čas poslední aktualizace v podrobnostech aplikace</string>
+    <string name="enable_long_press_to_copy_in_app_details">Povolit dlouhé stisknutí pro zkopírování podrobností aplikace</string>
+    <string name="click_icon_open_market_page">Klikněte na ikonu pro otevření Google play obchodu</string>
+    <string name="allow_disabling_system_apps">Povolit zakázání systémových aplikací</string>
+    <string name="allow_disabling_system_apps_summary">Tento modul neodpovídá za to, že systémovou aplikaci nelze obnovit v důsledku zásahů uživatele.</string>
     <string name="remove_app_uninstall_button_blacklist">Odstranit černou listinu tlačítka pro odinstalaci</string>
-    <string name="allow_locking_unlocking_of_excluded_activity">Povolit blokování nebo odemykání vyloučených aktivit</string>
+    <string name="enable_custom_app_language">Povolit vlastní jazyk aplikace</string>
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">Plovoucí okno / dialogové okno</string>
     <string name="disable_duplicate_floating_window">Zakázat plovoucí oznámení o zkopírovaném textu či položce</string>
@@ -487,6 +499,7 @@
     <string name="enable_screen_color_temperature_rgb_palette">Povolit paletu pro teplotu barev obrazovky RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
     <string name="settings_application">Aplikace</string>
+    <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>
     <string name="force_display_disabled_apps_manager">Vynutit zobrazení správce zakázaných aplikací</string>
     <string name="settings_about_device">O zařízení</string>
@@ -500,14 +513,6 @@
     <string name="remove_top_account_display">Odstranit zobrazení ikony profilu v horní části</string>
     <string name="remove_settings_bottom_laboratory">Odstranit nastavení laboratoře</string>
     <string name="force_display_bottom_google_settings">Vynutit zobrazení Google v dolní části nastavení</string>
-    <string name="AppDetailsRelated">Podrobnosti o aplikaci</string>
-    <string name="show_package_name_in_app_details">Zobrazit název balíčku v podrobnostech aplikace</string>
-    <string name="show_last_update_time_in_app_details">Zobrazit čas poslední aktualizace v podrobnostech aplikace</string>
-    <string name="enable_long_press_to_copy_in_app_details">Povolit dlouhé stisknutí pro zkopírování podrobností aplikace</string>
-    <string name="click_icon_open_market_page">Klikněte na ikonu pro otevření Google play obchodu</string>
-    <string name="allow_disabling_system_apps">Povolit zakázání systémových aplikací</string>
-    <string name="allow_disabling_system_apps_summary">Tento modul neodpovídá za to, že systémovou aplikaci nelze obnovit v důsledku zásahů uživatele.</string>
-    <string name="enable_custom_app_language">Povolit vlastní jazyk aplikace</string>
     <!--Camera-->
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit délky textu vodoznaku</string>

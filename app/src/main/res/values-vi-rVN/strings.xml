@@ -352,12 +352,21 @@
     <string name="launcher_layout_max_rows">Số dòng tối đa trong bố cục màn hình chính</string>
     <string name="launcher_layout_max_columns">Cột tối đa ở màn hình chính</string>
     <string name="RecentTaskListRelated">Danh sách nhiệm vụ gần đây liên quan</string>
-    <string name="long_press_app_icon_open_app_details">Nhấn và giữ biểu tượng ứng dụng để mở chi tiết ứng dụng</string>
-    <string name="remove_recent_task_list_clear_button">Xóa nút xóa danh sách tác vụ gần đây</string>
-    <string name="remove_bottom_app_icon_of_recent_task_list">Xóa biểu tượng APP ở cuối danh sách tác vụ gần đây</string>
     <string name="enable_stacked_task_layout">Bật bố cục tác vụ xếp chồng lên nhau</string>
     <string name="set_task_stacking_level">Đặt mức xếp chồng nhiệm vụ</string>
     <string name="fix_current_task_to_the_top">Cố định nhiệm vụ hiện tại lên đầu</string>
+    <string name="long_press_app_icon_open_app_details">Nhấn và giữ biểu tượng ứng dụng để mở chi tiết ứng dụng</string>
+    <string name="remove_bottom_app_icon_of_recent_task_list">Xóa biểu tượng APP ở cuối danh sách tác vụ gần đây</string>
+    <string name="remove_recent_task_list_clear_button">Xóa nút xóa danh sách tác vụ gần đây</string>
+    <string name="unlock_task_locks">Mở khóa số lượng tác vụ nền</string>
+    <string name="allow_locking_unlocking_of_excluded_activity">Cho phép khóa/mở khóa các hoạt động bị loại trừ</string>
+    <string name="custom_app_floating_window_display_mode">Customize application floating window display mode</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">Disable floating window</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
+    <string name="zoom_window_support_list">Danh sách hỗ trợ cửa sổ thu phóng tùy chỉnh</string>
+    <string name="zoom_window_support_list_summary">Kích hoạt theo nhu cầu của bạn, nếu không sẽ có những vấn đề không thể khắc phục được</string>
+    <string name="force_all_apps_support_split_screen">Buộc tất cả các ứng dụng hỗ trợ chia đôi màn hình</string>
     <string name="PaginationComponentRelated">Thành phần phân trang liên quan</string>
     <string name="remove_pagination_component">Xóa thành phần phân trang</string>
     <string name="remove_folder_pagination_component">Xóa thành phần phân trang thư mục</string>
@@ -375,13 +384,11 @@
     <string name="disable_splash_screen_summary">Vì hoạt ảnh mặt nạ khởi động đã bị xóa nên sẽ có khoảng cách 1–2 giây khi ứng dụng khởi động. Vui lòng không mở nó nếu bạn thấy phiền</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Danh sách ứng dụng liên quan</string>
-    <string name="enable_zoom_window">Bật danh sách hỗ trợ</string>
-    <string name="zoom_window_support_list">Danh sách hỗ trợ cửa sổ thu phóng tùy chỉnh</string>
-    <string name="zoom_window_support_list_summary">Kích hoạt theo nhu cầu của bạn, nếu không sẽ có những vấn đề không thể khắc phục được</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>
     <string name="dark_mode_support_list">Tuỳ chỉnh danh sách hỗ trợ chế độ tối</string>
+    <string name="enable_dark_mode_list">Enable custom lists</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Cài đặt ứng dụng</string>
     <string name="PackageInstaller_summary">Cần được sử dụng với bản vá lõi</string>
@@ -405,11 +412,16 @@
     <string name="remove_adb_install_confirm_summary">Sử dụng ADB để cài đặt APP mà không cần nhấn</string>
     <string name="unlock_startup_limit">Mở khóa giới hạn ứng dụng tự khởi động</string>
     <string name="unlock_startup_limit_summary">Mở khóa giới hạn ứng dụng tự khởi động</string>
-    <string name="unlock_task_locks">Mở khóa số lượng tác vụ nền</string>
-    <string name="unlock_default_desktop_limit">Mở khóa các hạn chế mặc định của máy tính để bàn</string>
-    <string name="force_all_apps_support_split_screen">Buộc tất cả các ứng dụng hỗ trợ chia đôi màn hình</string>
+    <!--AppDetailsRelated-->
+    <string name="AppDetailsRelated">Kệ ứng dụng</string>
+    <string name="show_package_name_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
+    <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
+    <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
+    <string name="click_icon_open_market_page">Nhấp vào biểu tượng để mở trang cửa hàng</string>
+    <string name="allow_disabling_system_apps">Cho phép tắt ứng dụng hệ thống</string>
+    <string name="allow_disabling_system_apps_summary">Mô-đun này không chịu trách nhiệm về việc không thể khôi phục các ứng dụng hệ thống do thao tác của người dùng.</string>
     <string name="remove_app_uninstall_button_blacklist">Xóa danh sách đen nút gỡ cài đặt ứng dụng</string>
-    <string name="allow_locking_unlocking_of_excluded_activity">Cho phép khóa/mở khóa các hoạt động bị loại trừ</string>
+    <string name="enable_custom_app_language">Enable custom app language</string>
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">Cửa sổ nổi/Hộp thoại</string>
     <string name="disable_duplicate_floating_window">Vô hiệu hóa cửa sổ trùng lặp</string>
@@ -487,6 +499,7 @@
     <string name="enable_screen_color_temperature_rgb_palette">Bật bảng màu RGB nhiệt độ màu màn hình</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Có thể bị ghi đè bởi chức năng DC</string>
     <string name="settings_application">Ứng dụng</string>
+    <string name="unlock_default_desktop_limit">Mở khóa các hạn chế mặc định của máy tính để bàn</string>
     <string name="force_display_process_management">Buộc hiển thị quản lý quy trình</string>
     <string name="force_display_disabled_apps_manager">Buộc hiển thị trình quản lý ứng dụng bị vô hiệu hóa</string>
     <string name="settings_about_device">About Device</string>
@@ -500,14 +513,6 @@
     <string name="remove_top_account_display">Xóa hiển thị tài khoản hàng đầu</string>
     <string name="remove_settings_bottom_laboratory">Xóa phòng thí nghiệm phía dưới cài đặt</string>
     <string name="force_display_bottom_google_settings">Buộc hiển thị Google ở cuối cài đặt</string>
-    <string name="AppDetailsRelated">Kệ ứng dụng</string>
-    <string name="show_package_name_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
-    <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
-    <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
-    <string name="click_icon_open_market_page">Nhấp vào biểu tượng để mở trang cửa hàng</string>
-    <string name="allow_disabling_system_apps">Cho phép tắt ứng dụng hệ thống</string>
-    <string name="allow_disabling_system_apps_summary">Mô-đun này không chịu trách nhiệm về việc không thể khôi phục các ứng dụng hệ thống do thao tác của người dùng.</string>
-    <string name="enable_custom_app_language">Enable custom app language</string>
     <!--Camera-->
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn từ hình mờ</string>

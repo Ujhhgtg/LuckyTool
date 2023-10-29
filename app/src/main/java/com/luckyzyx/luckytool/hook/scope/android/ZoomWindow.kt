@@ -10,8 +10,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object ZoomWindow : YukiBaseHooker() {
     override fun onHook() {
-        var isEnable = prefs(ModulePrefs).getBoolean("enable_zoom_window", false)
-        dataChannel.wait<Boolean>("enable_zoom_window") { isEnable = it }
+        var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
+        dataChannel.wait<String>("custom_app_floating_window_display_mode") { mode = it }
         var supportList = prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
         dataChannel.wait<Set<String>>("zoom_window_support_list") { supportList = it }
 
@@ -22,13 +22,20 @@ object ZoomWindow : YukiBaseHooker() {
                 param(StringClass, IntType, StringClass, BundleClass)
             }.hook {
                 before {
-                    if (!isEnable) return@before
-                    val target = args(0).string()
-                    val packName = if (target.contains("/")) {
-                        target.split("/").takeIf { e -> e.isNotEmpty() }?.get(0)
-                            ?: return@before
-                    } else target
-                    if (supportList.contains(packName)) resultTrue()
+                    when (mode) {
+                        "1" -> resultFalse()
+                        "2" -> resultTrue()
+                        "3" -> {
+                            val target = args().first().string()
+                            val packName = if (target.contains("/")) {
+                                target.split("/").takeIf { e -> e.isNotEmpty() }?.get(0)
+                                    ?: return@before
+                            } else target
+                            if (supportList.contains(packName)) resultTrue()
+                        }
+
+                        else -> return@before
+                    }
                 }
             }
         }

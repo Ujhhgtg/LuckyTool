@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,14 +57,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.enableSwitch.apply {
-            text = context.getString(R.string.enable_zoom_window)
-            isChecked = context.getBoolean(ModulePrefs, "enable_zoom_window", false)
-            setOnCheckedChangeListener { buttonView, isChecked ->
-                if (buttonView.isPressed) {
-                    context.putBoolean(ModulePrefs, "enable_zoom_window", isChecked)
-                    requireActivity().dataChannel("android").put("enable_zoom_window", isChecked)
-                }
-            }
+            isVisible = false
         }
 
         binding.searchViewLayout.apply {

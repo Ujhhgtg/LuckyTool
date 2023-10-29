@@ -48,7 +48,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.enableSwitch.apply {
-            text = context.getString(R.string.enable_zoom_window)
+            text = context.getString(R.string.enable_dark_mode_list)
             isChecked = context.getBoolean(ModulePrefs, "dark_mode_list_enable", false)
             setOnCheckedChangeListener { buttonView, isChecked ->
                 if (buttonView.isPressed) {

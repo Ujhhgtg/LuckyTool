@@ -352,12 +352,21 @@
     <string name="launcher_layout_max_rows">ホーム画面レイアウトの最大行数</string>
     <string name="launcher_layout_max_columns">ホーム画面レイアウトの最大カラム数</string>
     <string name="RecentTaskListRelated">アプリ履歴関連</string>
-    <string name="long_press_app_icon_open_app_details">アプリのアイコンを長押ししてアプリ詳細を開く</string>
-    <string name="remove_recent_task_list_clear_button">最近のタスクリストのクリアボタンを削除</string>
-    <string name="remove_bottom_app_icon_of_recent_task_list">アプリ履歴リストの下部にあるアプリアイコンを削除</string>
     <string name="enable_stacked_task_layout">タスクを積み上げるレイアウトにする</string>
     <string name="set_task_stacking_level">タスクの積み上げレベルを設定</string>
     <string name="fix_current_task_to_the_top">現在のタスクを一番上に固定</string>
+    <string name="long_press_app_icon_open_app_details">アプリのアイコンを長押ししてアプリ詳細を開く</string>
+    <string name="remove_bottom_app_icon_of_recent_task_list">アプリ履歴リストの下部にあるアプリアイコンを削除</string>
+    <string name="remove_recent_task_list_clear_button">最近のタスクリストのクリアボタンを削除</string>
+    <string name="unlock_task_locks">バックグラウンドタスク数の制限を解除</string>
+    <string name="allow_locking_unlocking_of_excluded_activity">除外されたアクティビティのロックまたはロック解除を許可</string>
+    <string name="custom_app_floating_window_display_mode">Customize application floating window display mode</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">Disable floating window</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
+    <string name="zoom_window_support_list">カスタムズームウィンドウのサポートリスト</string>
+    <string name="zoom_window_support_list_summary">必要に応じて有効化をしてください。取り返しのつかない問題が発生するかもしれません</string>
+    <string name="force_all_apps_support_split_screen">すべてのアプリで画面分割対応を強制する</string>
     <string name="PaginationComponentRelated">ページネーション関連</string>
     <string name="remove_pagination_component">ページネーションを削除</string>
     <string name="remove_folder_pagination_component">フォルダのページネーションを削除</string>
@@ -375,13 +384,11 @@
     <string name="disable_splash_screen_summary">Since the splash screen animation has been removed, there will be a 1–2 second gap period when the APP is started.If you mind, please do not turn it on</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">アプリ関連のリスト</string>
-    <string name="enable_zoom_window">サポートリストを有効化</string>
-    <string name="zoom_window_support_list">カスタムズームウィンドウのサポートリスト</string>
-    <string name="zoom_window_support_list_summary">必要に応じて有効化をしてください。取り返しのつかない問題が発生するかもしれません</string>
     <string name="multi_app_enable">リストの置き換えを有効化</string>
     <string name="multi_app_custom_list">アプリクローン対応リストを置き換え</string>
     <string name="multi_app_custom_list_summary">機能を有効化後、アプリクローンの元のリストは新しいリストに置き換えられます。リストの項目が多すぎるとラグが発生します</string>
     <string name="dark_mode_support_list">カスタムダークモードのサポートリスト</string>
+    <string name="enable_dark_mode_list">Enable custom lists</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">アプリインストール関連</string>
     <string name="PackageInstaller_summary">コアパッチとの併用が必要です</string>
@@ -405,11 +412,16 @@
     <string name="remove_adb_install_confirm_summary">ADBを使用してタップをせずにアプリをインストールします</string>
     <string name="unlock_startup_limit">自動起動の制限を解除</string>
     <string name="unlock_startup_limit_summary">アプリの自動起動の制限を解除します</string>
-    <string name="unlock_task_locks">バックグラウンドタスク数の制限を解除</string>
-    <string name="unlock_default_desktop_limit">デフォルトホーム画面の制限を解除</string>
-    <string name="force_all_apps_support_split_screen">すべてのアプリで画面分割対応を強制する</string>
+    <!--AppDetailsRelated-->
+    <string name="AppDetailsRelated">アプリの詳細関連</string>
+    <string name="show_package_name_in_app_details">パッケージ名をアプリ詳細に表示</string>
+    <string name="show_last_update_time_in_app_details">アプリ詳細に最終更新日時を表示する</string>
+    <string name="enable_long_press_to_copy_in_app_details">アプリ詳細で長押ししてコピーできるようにする</string>
+    <string name="click_icon_open_market_page">アイコンをタップしてストアページを開く</string>
+    <string name="allow_disabling_system_apps">Allow disabling system apps</string>
+    <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>
     <string name="remove_app_uninstall_button_blacklist">アプリのアンインストールボタンのブラックリストを削除</string>
-    <string name="allow_locking_unlocking_of_excluded_activity">除外されたアクティビティのロックまたはロック解除を許可</string>
+    <string name="enable_custom_app_language">Enable custom app language</string>
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">フローティングウィンドウ / ダイアログ関連</string>
     <string name="disable_duplicate_floating_window">複製ウィンドウを無効化</string>
@@ -487,6 +499,7 @@
     <string name="enable_screen_color_temperature_rgb_palette">画面の色温度 RGB パレットを有効化</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">DC 調光で上書きされる可能性があります</string>
     <string name="settings_application">Application</string>
+    <string name="unlock_default_desktop_limit">デフォルトホーム画面の制限を解除</string>
     <string name="force_display_process_management">Force display of process management</string>
     <string name="force_display_disabled_apps_manager">Force display of disabled apps manager</string>
     <string name="settings_about_device">About Device</string>
@@ -500,14 +513,6 @@
     <string name="remove_top_account_display">トップのアカウント表示を削除</string>
     <string name="remove_settings_bottom_laboratory">設定下部のラボを削除</string>
     <string name="force_display_bottom_google_settings">設定の下部に強制的に Google を表示</string>
-    <string name="AppDetailsRelated">アプリの詳細関連</string>
-    <string name="show_package_name_in_app_details">パッケージ名をアプリ詳細に表示</string>
-    <string name="show_last_update_time_in_app_details">アプリ詳細に最終更新日時を表示する</string>
-    <string name="enable_long_press_to_copy_in_app_details">アプリ詳細で長押ししてコピーできるようにする</string>
-    <string name="click_icon_open_market_page">アイコンをタップしてストアページを開く</string>
-    <string name="allow_disabling_system_apps">Allow disabling system apps</string>
-    <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>
-    <string name="enable_custom_app_language">Enable custom app language</string>
     <!--Camera-->
     <string name="CameraWaterMark">WaterMark</string>
     <string name="remove_watermark_word_limit">ウォーターマークの文字数制限を解除</string>

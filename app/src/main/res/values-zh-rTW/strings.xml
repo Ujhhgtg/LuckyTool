@@ -352,12 +352,21 @@
     <string name="launcher_layout_max_rows">桌面布局最大行数</string>
     <string name="launcher_layout_max_columns">桌面布局最大列数</string>
     <string name="RecentTaskListRelated">最近任务列表相关</string>
-    <string name="long_press_app_icon_open_app_details">长按应用图标打开应用详情</string>
-    <string name="remove_recent_task_list_clear_button">移除最近任务列表清除按钮</string>
-    <string name="remove_bottom_app_icon_of_recent_task_list">移除最近任务列表底部 APP 图标</string>
     <string name="enable_stacked_task_layout">启用堆叠任务布局</string>
     <string name="set_task_stacking_level">设置任务堆叠等级</string>
     <string name="fix_current_task_to_the_top">修复当前任务置顶</string>
+    <string name="long_press_app_icon_open_app_details">长按应用图标打开应用详情</string>
+    <string name="remove_bottom_app_icon_of_recent_task_list">移除最近任务列表底部 APP 图标</string>
+    <string name="remove_recent_task_list_clear_button">移除最近任务列表清除按钮</string>
+    <string name="unlock_task_locks">解锁后台任务锁定数量</string>
+    <string name="allow_locking_unlocking_of_excluded_activity">允许锁定/解锁已排除活动</string>
+    <string name="custom_app_floating_window_display_mode">自定义应用浮窗显示模式</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">禁用浮窗</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">移除白名单</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">自定义白名单</string>
+    <string name="zoom_window_support_list">自定义小窗支持列表</string>
+    <string name="zoom_window_support_list_summary">按需启用，否则将出现其他异常问题</string>
+    <string name="force_all_apps_support_split_screen">强制所有应用支持分屏</string>
     <string name="PaginationComponentRelated">分页组件相关</string>
     <string name="remove_pagination_component">移除分页组件</string>
     <string name="remove_folder_pagination_component">移除文件夹分页组件</string>
@@ -375,13 +384,11 @@
     <string name="disable_splash_screen_summary">由于启动遮罩动画被移除，所以当APP启动时会有1–2秒的空档，介意勿开</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">应用相关列表</string>
-    <string name="enable_zoom_window">启用支持列表</string>
-    <string name="zoom_window_support_list">自定义小窗支持列表</string>
-    <string name="zoom_window_support_list_summary">按需启用，否则将出现其他异常问题</string>
     <string name="multi_app_enable">启用替换列表</string>
     <string name="multi_app_custom_list">替换应用分身支持列表</string>
     <string name="multi_app_custom_list_summary">开启功能后，原有的应用分身列表将被此列表替换，数量过多会造成卡顿</string>
     <string name="dark_mode_support_list">自定义暗色模式支持列表</string>
+    <string name="enable_dark_mode_list">启用自定义列表</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">应用安装相关</string>
     <string name="PackageInstaller_summary">需搭配核心破解使用</string>
@@ -405,11 +412,16 @@
     <string name="remove_adb_install_confirm_summary">无需点击即可直接使用ADB安装APP</string>
     <string name="unlock_startup_limit">解锁应用自启数量限制</string>
     <string name="unlock_startup_limit_summary">解锁应用自启动数量限制</string>
-    <string name="unlock_task_locks">解锁后台任务锁定数量</string>
-    <string name="unlock_default_desktop_limit">解锁默认桌面限制</string>
-    <string name="force_all_apps_support_split_screen">强制所有应用支持分屏</string>
+    <!--AppDetailsRelated-->
+    <string name="AppDetailsRelated">应用详情相关</string>
+    <string name="show_package_name_in_app_details">应用详情显示包名</string>
+    <string name="show_last_update_time_in_app_details">应用详情显示最后更新时间</string>
+    <string name="enable_long_press_to_copy_in_app_details">应用详情启用长按复制</string>
+    <string name="click_icon_open_market_page">点击图标打开商店页面</string>
+    <string name="allow_disabling_system_apps">允许停用系统应用</string>
+    <string name="allow_disabling_system_apps_summary">由于用户操作导致无法恢复系统应用，本模块概不负责!</string>
     <string name="remove_app_uninstall_button_blacklist">移除应用卸载按钮黑名单</string>
-    <string name="allow_locking_unlocking_of_excluded_activity">允许锁定/解锁已排除活动</string>
+    <string name="enable_custom_app_language">启用自定义应用语言</string>
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">悬浮窗/对话框相关</string>
     <string name="disable_duplicate_floating_window">禁用复制悬浮窗</string>
@@ -487,6 +499,7 @@
     <string name="enable_screen_color_temperature_rgb_palette">启用屏幕色温 RGB 调色板</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">可能会被DC功能覆盖</string>
     <string name="settings_application">应用</string>
+    <string name="unlock_default_desktop_limit">解锁默认桌面限制</string>
     <string name="force_display_process_management">强制显示进程管理</string>
     <string name="force_display_disabled_apps_manager">强制显示已停用应用管理器</string>
     <string name="settings_about_device">关于本机</string>
@@ -500,14 +513,6 @@
     <string name="remove_top_account_display">移除顶部账户显示</string>
     <string name="remove_settings_bottom_laboratory">移除设置底部实验室</string>
     <string name="force_display_bottom_google_settings">强制显示设置底部Google</string>
-    <string name="AppDetailsRelated">应用详情相关</string>
-    <string name="show_package_name_in_app_details">应用详情显示包名</string>
-    <string name="show_last_update_time_in_app_details">应用详情显示最后更新时间</string>
-    <string name="enable_long_press_to_copy_in_app_details">应用详情启用长按复制</string>
-    <string name="click_icon_open_market_page">点击图标打开商店页面</string>
-    <string name="allow_disabling_system_apps">允许停用系统应用</string>
-    <string name="allow_disabling_system_apps_summary">由于用户操作导致无法恢复系统应用，本模块概不负责!</string>
-    <string name="enable_custom_app_language">启用自定义应用语言</string>
     <!--Camera-->
     <string name="CameraWaterMark">水印</string>
     <string name="remove_watermark_word_limit">移除水印字数限制</string>

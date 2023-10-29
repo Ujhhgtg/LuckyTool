@@ -1507,11 +1507,14 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
 }
 
 class Launcher : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.coloros.alarmclock", "com.android.launcher")
+    override val scopes = arrayOf(
+        "com.coloros.alarmclock", "com.android.launcher", "com.oppo.launcher"
+    )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //时钟组件
             addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.alarmclock_widget_redone_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
@@ -1526,6 +1529,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            //应用徽章
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AppBadgeRelated)
                 key = "AppBadgeRelated"
@@ -1557,6 +1561,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            //文件夹布局
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.FolderLayoutRelated)
                 key = "FolderLayoutRelated"
@@ -1590,6 +1595,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            //分页组件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.PaginationComponentRelated)
                 key = "PaginationComponentRelated"
@@ -1613,6 +1619,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            //最近任务列表
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.RecentTaskListRelated)
                 key = "RecentTaskListRelated"
@@ -1664,6 +1671,58 @@ class Launcher : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.unlock_task_locks)
+                key = "unlock_task_locks"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.allow_locking_unlocking_of_excluded_activity)
+                key = "allow_locking_unlocking_of_excluded_activity"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.custom_app_floating_window_display_mode)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "custom_app_floating_window_display_mode"
+                entries =
+                    resources.getStringArray(R.array.custom_app_floating_window_display_mode_entries)
+                entryValues = arrayOf("0", "1", "2", "3")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.dataChannel("android").put(key, newValue)
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            addPreference(Preference(context).apply {
+                title = getString(R.string.zoom_window_support_list)
+                summary = getString(R.string.zoom_window_support_list_summary)
+                key = "zoom_window_support_list"
+                isVisible = context.getString(
+                    ModulePrefs, "custom_app_floating_window_display_mode", "0"
+                ) == "3"
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_launcher_to_zoomWindowFragment, title)
+                    true
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.force_all_apps_support_split_screen)
+                key = "force_all_apps_support_split_screen"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.dataChannel("android").put(key, newValue as Boolean)
+                    true
+                }
+            })
+            //桌面布局
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.launcher_layout_related)
                 key = "DesktopLayoutRelated"
@@ -1702,6 +1761,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            //桌面事件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.launcher_events)
                 key = "LauncherEvents"
@@ -2077,16 +2137,14 @@ class Application : BaseScopePreferenceFeagment() {
         "com.oplus.battery",
         "com.oplus.safecenter",
         "com.coloros.safecenter",
-        "com.android.launcher",
-        "com.oppo.launcher",
         "com.android.settings",
-        "com.android.packageinstaller",
-        "com.android.permissioncontroller"
+        "com.android.packageinstaller"
     )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //应用启动
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AppStartupRelated)
                 key = "AppStartupRelated"
@@ -2104,21 +2162,11 @@ class Application : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-
+            //应用列表
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.APPRelatedList)
                 key = "APPRelatedList"
                 isIconSpaceReserved = false
-            })
-            addPreference(Preference(context).apply {
-                title = getString(R.string.zoom_window_support_list)
-                summary = getString(R.string.zoom_window_support_list_summary)
-                key = "zoom_window_support_list"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.action_application_to_zoomWindowFragment, title)
-                    true
-                }
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.dark_mode_support_list)
@@ -2140,7 +2188,7 @@ class Application : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-
+            //应用安装
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AppInstallationRelated)
                 summary = getString(R.string.PackageInstaller_summary)
@@ -2202,7 +2250,7 @@ class Application : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //其他限制
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.ApplyOtherRestrictions)
                 key = "ApplyOtherRestrictions"
@@ -2215,28 +2263,42 @@ class Application : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            //应用详情相关
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.AppDetailsRelated)
+                key = "AppDetailsRelated"
+                isIconSpaceReserved = false
+            })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.unlock_task_locks)
-                key = "unlock_task_locks"
+                title = getString(R.string.show_package_name_in_app_details)
+                key = "show_package_name_in_app_details"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.unlock_default_desktop_limit)
-                key = "unlock_default_desktop_limit"
+                title = getString(R.string.show_last_update_time_in_app_details)
+                key = "show_last_update_time_in_app_details"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.force_all_apps_support_split_screen)
-                key = "force_all_apps_support_split_screen"
+                title = getString(R.string.enable_long_press_to_copy_in_app_details)
+                key = "enable_long_press_to_copy_in_app_details"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("android").put(key, newValue as Boolean)
-                    true
-                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.click_icon_open_market_page)
+                key = "click_icon_open_market_page"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.allow_disabling_system_apps)
+                summary = getString(R.string.allow_disabling_system_apps_summary)
+                key = "allow_disabling_system_apps"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_app_uninstall_button_blacklist)
@@ -2246,9 +2308,10 @@ class Application : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.allow_locking_unlocking_of_excluded_activity)
-                key = "allow_locking_unlocking_of_excluded_activity"
+                title = getString(R.string.enable_custom_app_language)
+                key = "enable_custom_app_language"
                 setDefaultValue(false)
+                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
         }
@@ -2530,7 +2593,7 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
 }
 
 class Settings : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.settings")
+    override val scopes = arrayOf("com.android.settings", "com.android.permissioncontroller")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -2604,6 +2667,12 @@ class Settings : BaseScopePreferenceFeagment() {
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_application)
                 key = "settings_application"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.unlock_default_desktop_limit)
+                key = "unlock_default_desktop_limit"
+                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -2696,50 +2765,6 @@ class Settings : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.remove_dpi_restart_recovery_summary)
                 key = "remove_dpi_restart_recovery"
                 setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            //应用详情相关
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.AppDetailsRelated)
-                key = "AppDetailsRelated"
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.show_package_name_in_app_details)
-                key = "show_package_name_in_app_details"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.show_last_update_time_in_app_details)
-                key = "show_last_update_time_in_app_details"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_long_press_to_copy_in_app_details)
-                key = "enable_long_press_to_copy_in_app_details"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.click_icon_open_market_page)
-                key = "click_icon_open_market_page"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.allow_disabling_system_apps)
-                summary = getString(R.string.allow_disabling_system_apps_summary)
-                key = "allow_disabling_system_apps"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_custom_app_language)
-                key = "enable_custom_app_language"
-                setDefaultValue(false)
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
         }

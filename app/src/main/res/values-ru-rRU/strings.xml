@@ -306,9 +306,9 @@
     <string name="LockScreenClockComponent">Часы на экране блокировки</string>
     <string name="lock_screen_clock_redone_mode">Красные часы на экране блокировки</string>
     <string name="apply_lock_screen_dual_clock_redone">Применить к двойным часам на экране блокировки</string>
-    <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
-    <string name="force_display_clock_style_options">Force display of clock style options</string>
-    <string name="force_display_clock_style_options_summary">Force the clock style option to be displayed in \"Settings - Desktop and Lock Screen\", only effective for OPPO/Realme styles</string>
+    <string name="lock_screen_custom_clock_component_style">Настройка стиля компонента часов на экране блокировки</string>
+    <string name="force_display_clock_style_options">Принудительно отображать параметры стиля часов</string>
+    <string name="force_display_clock_style_options_summary">Включить отображение стиля часов в \"Настройки - Рабочий стол и экран блокировки\", работает только для стилей OPPO/Realme</string>
     <string name="set_lock_screen_centered">Часы экрана блокировки по центру</string>
     <string name="set_lock_screen_centered_summary">Только для систем, в которых экран блокировки нельзя отцентрировать в настройках</string>
     <string name="lock_screen_clock_use_user_typeface">Часы на экране блокировки используют пользовательские шрифты</string>
@@ -352,12 +352,21 @@
     <string name="launcher_layout_max_rows">Количество строк для сетки рабочего стола</string>
     <string name="launcher_layout_max_columns">Количество столбцов для сетки рабочего стола</string>
     <string name="RecentTaskListRelated">Список недавних задач</string>
-    <string name="long_press_app_icon_open_app_details">Удерживайте иконку приложения, чтобы открыть детали приложения</string>
-    <string name="remove_recent_task_list_clear_button">Удалить кнопку очистки списка последних задач</string>
-    <string name="remove_bottom_app_icon_of_recent_task_list">Удалить иконку приложения в нижней части списка недавних задач</string>
     <string name="enable_stacked_task_layout">Включить раскладку задач</string>
     <string name="set_task_stacking_level">Установить уровень стека задач</string>
     <string name="fix_current_task_to_the_top">Закрепить текущую задачу наверху</string>
+    <string name="long_press_app_icon_open_app_details">Удерживайте иконку приложения, чтобы открыть детали приложения</string>
+    <string name="remove_bottom_app_icon_of_recent_task_list">Удалить иконку приложения в нижней части списка недавних задач</string>
+    <string name="remove_recent_task_list_clear_button">Удалить кнопку очистки списка последних задач</string>
+    <string name="unlock_task_locks">Разблокировать количество заблокированных фоновых задач</string>
+    <string name="allow_locking_unlocking_of_excluded_activity">Разрешить блокировку или разблокировку исключенных действий</string>
+    <string name="custom_app_floating_window_display_mode">Customize application floating window display mode</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">Disable floating window</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
+    <string name="zoom_window_support_list">Пользовательское окно масштаба</string>
+    <string name="zoom_window_support_list_summary">Включить в соответствии с вашими потребностями, в противном случае возникнут непоправимые проблемы</string>
+    <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
     <string name="PaginationComponentRelated">Компоненты страницы</string>
     <string name="remove_pagination_component">Удалить компонент разбивки на страницы</string>
     <string name="remove_folder_pagination_component">Удалить компонент разбивки на папки</string>
@@ -375,13 +384,11 @@
     <string name="disable_splash_screen_summary">Поскольку анимация заставки была удалена, при запуске приложения будет пауза в 1–2 секунды. Если вы не возражаете, пожалуйста, не включайте ее</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Список приложений</string>
-    <string name="enable_zoom_window">Включить список поддержки</string>
-    <string name="zoom_window_support_list">Пользовательское окно масштаба</string>
-    <string name="zoom_window_support_list_summary">Включить в соответствии с вашими потребностями, в противном случае возникнут непоправимые проблемы</string>
     <string name="multi_app_enable">Включить список замены</string>
     <string name="multi_app_custom_list">Заменить список клонирования приложений</string>
     <string name="multi_app_custom_list_summary">После включения функции исходный список клонов приложений будет заменен этим списком, слишком большое количество приведет к задержке</string>
     <string name="dark_mode_support_list">Приложения поддерживающие темный режим</string>
+    <string name="enable_dark_mode_list">Enable custom lists</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Установка приложения</string>
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
@@ -405,11 +412,16 @@
     <string name="remove_adb_install_confirm_summary">Установите приложение напрямую с помощью ADB</string>
     <string name="unlock_startup_limit">Разблокировать ограничение на автозапуск приложения</string>
     <string name="unlock_startup_limit_summary">Разблокировать ограничение на количество автозапусков приложения</string>
-    <string name="unlock_task_locks">Разблокировать количество заблокированных фоновых задач</string>
-    <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
-    <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
+    <!--AppDetailsRelated-->
+    <string name="AppDetailsRelated">Сведения о приложении</string>
+    <string name="show_package_name_in_app_details">Показывать имя пакета в подробностях приложения</string>
+    <string name="show_last_update_time_in_app_details">Показывать время последнего обновления в подробностях приложения</string>
+    <string name="enable_long_press_to_copy_in_app_details">Включить долгое нажатие для копирования сведений о приложении</string>
+    <string name="click_icon_open_market_page">Нажмите на иконку, чтобы открыть страницу магазина</string>
+    <string name="allow_disabling_system_apps">Разрешить отключение системных приложений</string>
+    <string name="allow_disabling_system_apps_summary">Этот модуль не несет ответственности, если системное приложение не может быть восстановлено из-за действий пользователя</string>
     <string name="remove_app_uninstall_button_blacklist">Удалить черный список кнопки удаления приложения</string>
-    <string name="allow_locking_unlocking_of_excluded_activity">Разрешить блокировку или разблокировку исключенных действий</string>
+    <string name="enable_custom_app_language">Включить пользовательский язык приложения</string>
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">Плавающее окно/Диалоговое окно</string>
     <string name="disable_duplicate_floating_window">Отключить дублирование плавающего окна</string>
@@ -487,6 +499,7 @@
     <string name="enable_screen_color_temperature_rgb_palette">Включить цветовую температуру экрана в палитре RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Может быть переопределено функцией DC</string>
     <string name="settings_application">Приложение</string>
+    <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
     <string name="settings_about_device">Об устройстве</string>
@@ -500,14 +513,6 @@
     <string name="remove_top_account_display">Удалить отображение аккаунта в настройках</string>
     <string name="remove_settings_bottom_laboratory">Удалить настройки лаборатории</string>
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
-    <string name="AppDetailsRelated">Сведения о приложении</string>
-    <string name="show_package_name_in_app_details">Показывать имя пакета в подробностях приложения</string>
-    <string name="show_last_update_time_in_app_details">Показывать время последнего обновления в подробностях приложения</string>
-    <string name="enable_long_press_to_copy_in_app_details">Включить долгое нажатие для копирования сведений о приложении</string>
-    <string name="click_icon_open_market_page">Нажмите на иконку, чтобы открыть страницу магазина</string>
-    <string name="allow_disabling_system_apps">Разрешить отключение системных приложений</string>
-    <string name="allow_disabling_system_apps_summary">Этот модуль не несет ответственности, если системное приложение не может быть восстановлено из-за действий пользователя</string>
-    <string name="enable_custom_app_language">Включить пользовательский язык приложения</string>
     <!--Camera-->
     <string name="CameraWaterMark">Водяной знак</string>
     <string name="remove_watermark_word_limit">Удалить ограничение на количество слов водяного знака</string>
