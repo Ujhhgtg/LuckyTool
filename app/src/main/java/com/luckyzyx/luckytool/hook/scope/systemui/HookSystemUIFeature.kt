@@ -85,7 +85,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
                         if (notifyImportance) replaceToTrue()
                     }
                 }
-                //C13
+                //C12 C13
                 if (hasMethod { name = "isVolumeBlurDisabled" }) {
                     method { name = "isVolumeBlurDisabled" }.hook {
                         if (volumeBlur > -1) replaceToFalse()
@@ -203,7 +203,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
                     if (notifyImportance) replaceToTrue()
                 }
 
-                //C13 C14
+                //C12 C13 C14
                 if (SDK >= A13) method {
                     name = if (SDK >= A14) "isGaussBlurDisabled"
                     else "getGaussBlurDisabled"

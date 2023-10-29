@@ -536,7 +536,7 @@ class DonateFragment : Fragment() {
     fun init(context: Context) {
         scopeLife {
             binding.searchViewLayout.apply {
-                hint = "Name / PackageName"
+                hint = "Name"
                 isHintEnabled = true
                 isHintAnimationEnabled = true
             }
