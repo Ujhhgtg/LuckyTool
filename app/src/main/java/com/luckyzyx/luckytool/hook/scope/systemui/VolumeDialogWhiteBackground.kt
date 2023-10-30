@@ -30,6 +30,7 @@ object VolumeDialogWhiteBackground : YukiBaseHooker() {
             }
             method { param(DialogInterfaceClass) }.hook {
                 before {
+                    if (customAlpha < 0) return@before
                     val value = customAlpha * 25
                     field { name = "mVerticalRowsLayerDrawable" }.get(instance)
                         .cast<LayerDrawable>()?.apply {

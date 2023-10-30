@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.hook.scope.systemui.NotificationBackgroundTransPar
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveControlCenterUserSwitcher
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveStatusBarBottomNetworkWarn
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
@@ -32,7 +33,7 @@ object StatusBarControlCenter : YukiBaseHooker() {
         loadHooker(RemoveStatusBarBottomNetworkWarn)
 
         //通知背景透明度
-        loadHooker(NotificationBackgroundTransParency)
+        if (SDK >= A14) loadHooker(NotificationBackgroundTransParency)
 
         //控制中心背景透明度
         loadHooker(ControlCenterBackgroundTransParency)

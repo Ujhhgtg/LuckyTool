@@ -1,14 +1,17 @@
 package com.luckyzyx.luckytool.hook.scope.systemui
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.extends
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.BackgroundBlurDrawableUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
 object NotificationBackgroundTransParency : YukiBaseHooker() {
+    @SuppressLint("DiscouragedApi")
     override fun onHook() {
         var customAlpha =
             prefs(ModulePrefs).getInt("custom_notification_background_transparency", -1)
@@ -16,6 +19,7 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
             customAlpha = it
         }
         if (customAlpha < 0) return
+
         //Source NotificationBackgroundViewExtImp
         "com.oplus.systemui.statusbar.notification.row.NotificationBackgroundViewExtImp".toClass()
             .apply {
@@ -24,6 +28,7 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
                 }
                 method { name = "decideBlurDrawable" }.hook {
                     after {
+                        if (customAlpha < 0) return@after
                         val value = customAlpha * 25
                         val res = result<Drawable>() ?: return@after
                         BackgroundBlurDrawableUtils(appClassLoader).apply {
@@ -46,20 +51,17 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
                     args().first().set(1)
                 }
             }
-            method { name = "getBlurViewType" }.hook {
-                replaceTo(2)
-            }
-            method { name = "setBlurViewType" }.hook {
-                before {
-                    args().first().set(2)
+        }
+
+        //Source ExpandableNotificationRow
+        "com.android.systemui.statusbar.notification.row.ExpandableNotificationRow".toClass()
+            .apply {
+                method { name = "updateBackground";superClass() }.hook {
+                    before {
+                        if (customAlpha > 0) field { name = "mShowNoBackground" }.get(instance)
+                            .setFalse()
+                    }
                 }
             }
-            method { name = "isKgOccluded" }.hook {
-                replaceToFalse()
-            }
-            method { name = "getTempForbidBlur" }.hook {
-                replaceToFalse()
-            }
-        }
     }
 }
