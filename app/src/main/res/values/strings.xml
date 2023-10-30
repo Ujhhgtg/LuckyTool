@@ -184,7 +184,6 @@
     <string name="remove_small_window_reply_whitelist">Remove small window reply whitelist</string>
     <string name="set_small_window_reply_blacklist">Set small window reply blacklist</string>
     <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist, each line can only fill in one package name</string>
-    <string name="custom_notification_background_transparency">Custom notification background transparency</string>
     
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">StatusBar Icon</string>
@@ -212,6 +211,7 @@
     
     <string name="StatusBarSmallIconStatus">StatusBar Small Icon Status</string>
     <string name="status_bar_icon_vertical_center">Statusbar icon vertical center</string>
+    
     <!--StatusBarControlCenter-->
     <string name="StatusBarControlCenter">StatusBar ControlCenter</string>
     
@@ -232,6 +232,7 @@
     <string name="ControlCenterNotificationCenter">Control Center Notification Center</string>
     <string name="enable_notification_align_both_sides">Enable notification align both sides</string>
     <string name="enable_notification_importance_classification">Enable notification importance classification</string>
+    <string name="custom_notification_background_transparency">Custom notification background transparency</string>
     
     <string name="ControlCenter_UI_Related">Control Center UI Related</string>
     <string name="set_media_player_display_mode">Set media player display mode</string>

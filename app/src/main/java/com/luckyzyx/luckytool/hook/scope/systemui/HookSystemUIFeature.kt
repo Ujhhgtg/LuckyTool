@@ -21,6 +21,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
             loadHooker(HookQSFeatureOption)
             loadHooker(HookVolumeFeatureOption)
         }
+        if (SDK < A13) loadHooker(HookRegionalGaussBlurController)
     }
 
     private object HookFeatureOption : YukiBaseHooker() {
@@ -300,6 +301,21 @@ object HookSystemUIFeature : YukiBaseHooker() {
                     method { name = "isVolumeBlurDisabled" }.hook {
                         if (volumeBlur > -1) replaceToFalse()
                     }
+                }
+            }
+        }
+    }
+
+    private object HookRegionalGaussBlurController : YukiBaseHooker() {
+        override fun onHook() {
+            //高斯模糊
+            val enableBlur =
+                prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
+
+            //Source RegionalGaussBlurController C12
+            "com.oplusos.util.blur.RegionalGaussBlurController".toClass().apply {
+                method { name = "getNormalBannerShouldDisableBlur" }.hook {
+                    if (enableBlur) replaceToFalse()
                 }
             }
         }

@@ -15,9 +15,6 @@ val A11 get() = Build.VERSION_CODES.R
 /**Android12 31 S*/
 val A12 get() = Build.VERSION_CODES.S
 
-/**Android12.1 32 S_V2*/
-val A121 get() = Build.VERSION_CODES.S_V2
-
 /**Android13 33 TIRAMISU*/
 val A13 get() = Build.VERSION_CODES.TIRAMISU
 

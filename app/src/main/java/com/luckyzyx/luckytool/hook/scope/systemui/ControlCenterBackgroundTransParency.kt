@@ -6,7 +6,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
 
-object ControlCenterWhiteBackground : YukiBaseHooker() {
+object ControlCenterBackgroundTransParency : YukiBaseHooker() {
     override fun onHook() {
         var customAlpha =
             prefs(ModulePrefs).getInt("custom_control_center_background_transparency", -1)

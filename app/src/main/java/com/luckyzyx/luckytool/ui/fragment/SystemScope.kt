@@ -723,43 +723,25 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
-                addPreference(EditTextPreference(context).apply {
-                    title = getString(R.string.set_small_window_reply_blacklist)
-                    dialogTitle = title
-                    summary = context.getString(
-                        ModulePrefs, "set_small_window_reply_blacklist", "None"
-                    )
-                    if (summary.isNullOrBlank()) summary = "None"
-                    dialogMessage = getString(R.string.set_small_window_reply_blacklist_message)
-                    key = "set_small_window_reply_blacklist"
-                    setDefaultValue("None")
-                    isIconSpaceReserved = false
-                    setOnBindEditTextListener {
-                        it.setText((summary as String).replaceBlankLine)
-                    }
-                    setOnPreferenceChangeListener { _, newValue ->
-                        val format = (newValue as String).replaceBlankLine
-                        summary = format.ifBlank { "None" }
-                        context.dataChannel("com.android.systemui").put(key, format)
-                        true
-                    }
-                })
-            }
-            addPreference(SeekBarPreference(context).apply {
-                title = getString(R.string.custom_notification_background_transparency)
-                summary = getString(R.string.force_enable_systemui_blur_feature_tips)
-                key = "custom_notification_background_transparency"
-                setDefaultValue(-1)
-                max = 10
-                min = -1
-                showSeekBarValue = true
-                updatesContinuously = false
-                isVisible = getOSVersionCode >= 25
-                isVisible = false
+            addPreference(EditTextPreference(context).apply {
+                title = getString(R.string.set_small_window_reply_blacklist)
+                dialogTitle = title
+                summary = context.getString(
+                    ModulePrefs, "set_small_window_reply_blacklist", "None"
+                )
+                if (summary.isNullOrBlank()) summary = "None"
+                dialogMessage = getString(R.string.set_small_window_reply_blacklist_message)
+                key = "set_small_window_reply_blacklist"
+                setDefaultValue("None")
+                isVisible = context.getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")
                 isIconSpaceReserved = false
+                setOnBindEditTextListener {
+                    it.setText((summary as String).replaceBlankLine)
+                }
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    val format = (newValue as String).replaceBlankLine
+                    summary = format.ifBlank { "None" }
+                    context.dataChannel("com.android.systemui").put(key, format)
                     true
                 }
             })
@@ -903,6 +885,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //时钟相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.ControlCenter_Clock_Related)
                 key = "ControlCenter_Clock_Related"
@@ -976,27 +959,24 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.statusbar_control_center_date_fix_lunar_horizontal)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "statusbar_control_center_date_fix_lunar_horizontal"
+                entries =
+                    resources.getStringArray(R.array.statusbar_control_center_date_fix_lunar_horizontal_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isVisible = SDK >= A13 && isZh(context) && context.getBoolean(
                     ModulePrefs, "statusbar_control_center_date_show_lunar", false
                 )
-            ) {
-                addPreference(DropDownPreference(context).apply {
-                    title = getString(R.string.statusbar_control_center_date_fix_lunar_horizontal)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
-                    key = "statusbar_control_center_date_fix_lunar_horizontal"
-                    entries =
-                        resources.getStringArray(R.array.statusbar_control_center_date_fix_lunar_horizontal_entries)
-                    entryValues = arrayOf("0", "1", "2")
-                    setDefaultValue("0")
-                    isVisible = SDK >= A13 && isZh(context)
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
-                        true
-                    }
-                })
-            }
-
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    true
+                }
+            })
+            //通知中心
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.ControlCenterNotificationCenter)
                 key = "ControlCenterNotificationCenter"
@@ -1015,7 +995,23 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isVisible = SDK < A14
                 isIconSpaceReserved = false
             })
-
+            addPreference(SeekBarPreference(context).apply {
+                title = getString(R.string.custom_notification_background_transparency)
+                summary = getString(R.string.force_enable_systemui_blur_feature_tips)
+                key = "custom_notification_background_transparency"
+                setDefaultValue(-1)
+                max = 10
+                min = -1
+                showSeekBarValue = true
+                updatesContinuously = false
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    true
+                }
+            })
+            //UI相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.ControlCenter_UI_Related)
                 key = "ControlCenter_UI_Related"
