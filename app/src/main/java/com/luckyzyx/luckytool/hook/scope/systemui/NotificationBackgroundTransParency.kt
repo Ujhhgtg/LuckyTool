@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scope.systemui
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
@@ -11,6 +12,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
 object NotificationBackgroundTransParency : YukiBaseHooker() {
+    private var disableBlur = false
+
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         var customAlpha =
@@ -26,7 +29,17 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
                 method { name = "getOplusStyle";superClass() }.hook {
                     replaceToTrue()
                 }
+                method { name = "drawBlur";superClass() }.hook {
+                    replaceToTrue()
+                }
                 method { name = "decideBlurDrawable" }.hook {
+                    before {
+                        if (customAlpha < 0) return@before
+                        if (!disableBlur) method { name = "getRowBlurDelegate";superClass() }
+                            .get(instance).call()?.current()?.method {
+                                name = "setBlurType";superClass()
+                            }?.call(1)
+                    }
                     after {
                         if (customAlpha < 0) return@after
                         val value = customAlpha * 25
@@ -41,14 +54,12 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
                 }
             }
 
-        //Source RowBlurDelegate
-        "com.oplus.systemui.blur.RowBlurDelegate".toClass().apply {
-            method { name = "getBlurType" }.hook {
-                replaceTo(1)
-            }
-            method { name = "setBlurType" }.hook {
+        //Source OplusRowsBlurManager
+        "com.oplus.systemui.blur.OplusRowsBlurManager".toClass().apply {
+            method { name = "blurMediaPanel" }.hook {
                 before {
-                    args().first().set(1)
+                    if (customAlpha < 0) return@before
+                    disableBlur = args().first().boolean()
                 }
             }
         }
