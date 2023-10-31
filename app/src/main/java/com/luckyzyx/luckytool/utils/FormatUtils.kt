@@ -2,6 +2,9 @@ package com.luckyzyx.luckytool.utils
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Formatter
 import java.util.Locale
@@ -35,6 +38,17 @@ fun formatDate(format: String, param: Any): String {
  */
 fun formatDate(format: String, param: Any?, locale: Locale?): String {
     return SimpleDateFormat(format, locale ?: Locale.getDefault()).format(param ?: Date())
+}
+
+/**
+ * 格式化UTC时间戳
+ * @param format String
+ * @param timeMillis Long
+ * @return String?
+ */
+fun formatDateTimeMillis(format: String, timeMillis: Long): String? {
+    val instant = Instant.ofEpochMilli(timeMillis).atOffset(ZoneOffset.UTC)
+    return DateTimeFormatter.ofPattern(format).format(instant)
 }
 
 /**
@@ -124,4 +138,30 @@ fun formatStringLine(vararg info: String): String {
         str += it
     }
     return str
+}
+
+/**
+ * 格式化农历显示
+ * @receiver String
+ * @param mode Int
+ * @return String
+ */
+fun String.formatLunar(mode: Int): String {
+    return try {
+        when (mode) {
+            1 -> substring(length - 2)
+            2 -> if (length > 8) substring(length - 5)
+            else if (length > 4) substring(length - 4)
+            else this
+
+            3 -> if (length > 8) substring(length - 7)
+            else if (length > 4) substring(length - 6)
+            else this
+
+            else -> this
+        }
+    } catch (e: Exception) {
+        LogUtils.e(LogUtils.globalTag, "formatLunar", "$e")
+        this
+    }
 }

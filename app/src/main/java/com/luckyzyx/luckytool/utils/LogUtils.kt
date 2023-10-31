@@ -5,8 +5,7 @@ import com.luckyzyx.luckytool.BuildConfig
 
 @Suppress("MemberVisibilityCanBePrivate")
 object LogUtils {
-
-    private const val globalTag = "LuckyTool"
+    const val globalTag = "LuckyTool"
     var enable = BuildConfig.DEBUG
 
     fun d(tag: String, method: String, msg: String) {

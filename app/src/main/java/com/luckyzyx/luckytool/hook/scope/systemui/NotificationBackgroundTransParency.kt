@@ -67,10 +67,11 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
         //Source ExpandableNotificationRow
         "com.android.systemui.statusbar.notification.row.ExpandableNotificationRow".toClass()
             .apply {
-                method { name = "updateBackground";superClass() }.hook {
+                method { name = "updateBackgroundForGroupState" }.hook {
                     before {
-                        if (customAlpha > 0) field { name = "mShowNoBackground" }.get(instance)
-                            .setFalse()
+                        if (customAlpha > 0) field {
+                            name = "mShowGroupBackgroundWhenExpanded"
+                        }.get(instance).setTrue()
                     }
                 }
             }

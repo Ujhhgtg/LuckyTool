@@ -14,8 +14,10 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.formatLunar
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 import java.util.Locale
 import kotlin.math.abs
@@ -31,7 +33,6 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         var fixWidth =
             prefs(ModulePrefs).getBoolean("statusbar_control_center_date_fix_width", false)
         dataChannel.wait<Boolean>("statusbar_control_center_date_fix_width") { fixWidth = it }
-
         var fixLunar =
             prefs(ModulePrefs).getString("statusbar_control_center_date_fix_lunar_horizontal", "0")
         dataChannel.wait<String>("statusbar_control_center_date_fix_lunar_horizontal") {
@@ -43,23 +44,24 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper", //C13
             "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper" //C14
         ).toClass().apply {
-            method {
-                name = "getChineseDateInfo"
-                paramCount = 2
-            }.hook {
+            method { name = "getChineseDateInfo";paramCount = 2 }.hook {
                 after {
-                    if (removeComma) result = result<String>()?.replace("，", " ")
+                    if (!removeComma && !showLunar) return@after
+                    var res = result<String>() ?: return@after
+                    if (removeComma) res = res.replace("，", " ")
                     if (showLunar) {
                         val context = args().last().cast<Context>() ?: return@after
-                        val lunarInstance = LunarHelperUtils(appClassLoader).buildInstance(context)
-                        val lunarDate = LunarHelperUtils(appClassLoader).getDateToString(
-                            lunarInstance, System.currentTimeMillis()
-                        ).let {
-                            if ((it.isNullOrBlank()) || (it.length < 8)) ""
-                            else " " + it.substring(4, it.length)
+                        val lunarDate = LunarHelperUtils(appClassLoader).let {
+                            val lunarInstance = it.buildInstance(context)
+                            it.generateLunarDate(lunarInstance)
                         }
-                        result = result<String>() + lunarDate
+                        res += when {
+                            lunarDate.isNullOrBlank() -> ""
+                            lunarDate.length > 5 -> " " + lunarDate.formatLunar(2)
+                            else -> lunarDate
+                        }
                     }
+                    result = res
                 }
             }
         }
@@ -136,6 +138,16 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        if (SDK < A14) return
+        //Source SingleClockView 修复OPPO样式与显示农历冲突
+        "com.oplus.systemui.shared.clocks.SingleClockView".toClass().apply {
+            method { name = "updateDate" }.hook {
+                before {
+                    if (showLunar) field { name = "canShowLunarCalendar" }.get(instance).setFalse()
                 }
             }
         }

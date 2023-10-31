@@ -7,8 +7,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.*
 import android.widget.Filter
 import android.widget.ImageView
@@ -17,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -166,19 +165,8 @@ class LoggerFragment : Fragment(), MenuProvider {
             }
             dialog.findViewById<TextInputEditText>(R.id.log_filter)?.apply {
                 setText(filterString)
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        s: CharSequence?, start: Int, count: Int, after: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence?, start: Int, before: Int, count: Int
-                    ) {
-                        filterString = s.toString()
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {}
+                addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
+                    filterString = text.toString()
                 })
             }
         }

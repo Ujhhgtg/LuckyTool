@@ -3211,7 +3211,9 @@ class OplusOta : BaseScopePreferenceFeagment() {
                     "getprop ro.boot.veritymode", false, true
                 )
                 val status = if (getStatus.result == 1) "null"
-                else getStatus.successMsg.toString().ifBlank { "null" }
+                else getStatus.successMsg.toString().let {
+                    if (it != "enforcing") "error" else it
+                }
                 title = getString(R.string.restore_ota_update_verity)
                 summary = getString(R.string.restore_ota_update_verity_summary, status)
                 key = "restore_ota_update_verity"

@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.formatLunar
 import com.luckyzyx.luckytool.utils.is24
 import java.lang.reflect.Method
 import java.util.Calendar
@@ -117,9 +118,10 @@ object StatusBarClock : YukiBaseHooker() {
     }
 
     private fun initLunar(context: Context) {
-        val instance = LunarHelperUtils(appClassLoader).buildInstance(context)
-        nowLunar =
-            LunarHelperUtils(appClassLoader).getDateToString(instance, System.currentTimeMillis())
+        nowLunar = LunarHelperUtils(appClassLoader).let {
+            val instance = it.buildInstance(context)
+            it.generateLunarDate(instance)
+        }
     }
 
     private fun TextView.initView() {
@@ -163,16 +165,17 @@ object StatusBarClock : YukiBaseHooker() {
 
     private fun getFormat(format: String, nowTime: Date, nowLunar: String?): String {
         var finalFormat: String = format
-        if (finalFormat.contains("NNNN")) finalFormat = finalFormat.replace("NNNN", nowLunar!!)
+        if (finalFormat.contains("NNNN")) finalFormat = finalFormat.replace(
+            "NNNN", nowLunar!!.formatLunar(4)
+        )
         if (finalFormat.contains("NNN")) finalFormat = finalFormat.replace(
-            "NNN", nowLunar!!.substring(2, nowLunar.length)
+            "NNN", nowLunar!!.formatLunar(3)
         )
         if (finalFormat.contains("NN")) finalFormat = finalFormat.replace(
-            "NN", nowLunar!!.substring(4, nowLunar.length)
+            "NN", nowLunar!!.formatLunar(2)
         )
         if (finalFormat.contains("N")) {
-            val startInt = if (nowLunar!!.length > 8) 7 else 6
-            finalFormat = finalFormat.replace("N", nowLunar.substring(startInt, nowLunar.length))
+            finalFormat = finalFormat.replace("N", nowLunar!!.formatLunar(1))
         }
         if (finalFormat.contains("dddd")) finalFormat = finalFormat.replace("dddd", "dd号")
         if (finalFormat.contains("ddd")) finalFormat = finalFormat.replace("ddd", "d号")
