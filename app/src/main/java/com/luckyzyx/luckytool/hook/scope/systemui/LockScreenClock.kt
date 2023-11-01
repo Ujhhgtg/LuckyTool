@@ -24,7 +24,6 @@ import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
-import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
@@ -67,23 +66,16 @@ object LockScreenClock : YukiBaseHooker() {
                 after {
                     if (!isCenter && !userTypeface) return@after
                     instance<ViewGroup>().apply {
-                        if (isCenter) setPadding(0, 20.dp, 0, 0)
-                        children.forEachIndexed { _, view ->
-                            if (isCenter) view.setCenterHorizontally()
-                            if (view.javaClass extends TextViewClass) {
-                                if (userTypeface) (view as TextView).typeface =
-                                    Typeface.DEFAULT_BOLD
-                            } else {
-                                if (view.javaClass extends ViewGroupClass) {
-                                    (view as ViewGroup).children.forEachIndexed { _, view2 ->
-                                        if (view2.javaClass extends TextViewClass) {
-                                            if (userTypeface) (view2 as TextView).typeface =
-                                                Typeface.DEFAULT_BOLD
-                                        }
-                                    }
-                                }
+                        if (isCenter) {
+                            setPadding(0, 20.dp, 0, 0)
+                            children.forEachIndexed { _, view ->
+                                view.setCenterHorizontally()
                             }
                         }
+                        if (userTypeface) allViews.filter { it.javaClass extends TextViewClass }
+                            .forEachIndexed { _, view ->
+                                (view as TextView).typeface = Typeface.DEFAULT
+                            }
                     }
                 }
             }
@@ -134,11 +126,10 @@ object LockScreenClock : YukiBaseHooker() {
             method { name = "onFinishInflate" }.hook {
                 after {
                     if (!userTypeface) return@after
-                    instance<ViewGroup>().allViews.forEachIndexed { _, view ->
-                        if (view.javaClass extends TextViewClass) {
-                            (view as TextView).typeface = Typeface.DEFAULT_BOLD
+                    instance<ViewGroup>().allViews.filter { it.javaClass extends TextViewClass }
+                        .forEachIndexed { _, view ->
+                            (view as TextView).typeface = Typeface.DEFAULT
                         }
-                    }
                 }
             }
             method { param { it.contains(weatherInfoClazz) } }.hookAll {
@@ -203,12 +194,18 @@ object LockScreenClock : YukiBaseHooker() {
         ).toClass().apply {
             method { name = "onFinishInflate" }.hook {
                 after {
-                    if (!isCenter) return@after
+                    if (!isCenter && !userTypeface) return@after
                     instance<ViewGroup>().apply {
-                        setPadding(0, 20.dp, 0, 0)
-                        children.forEachIndexed { _, view ->
-                            view.setCenterHorizontally()
+                        if (isCenter) {
+                            setPadding(0, 20.dp, 0, 0)
+                            children.forEachIndexed { _, view ->
+                                view.setCenterHorizontally()
+                            }
                         }
+                        if (userTypeface) allViews.filter { it.javaClass extends TextViewClass }
+                            .forEachIndexed { _, view ->
+                                (view as TextView).typeface = Typeface.DEFAULT
+                            }
                     }
                 }
             }
@@ -221,6 +218,15 @@ object LockScreenClock : YukiBaseHooker() {
             "com.oplusos.systemui.keyguard.clock.RedHorizontalDualClockView", //C13
             "com.oplus.systemui.shared.clocks.RedHorizontalDualClockView" //C14
         ).toClassOrNull()?.apply {
+            method { name = "onFinishInflate" }.hook {
+                after {
+                    if (!userTypeface) return@after
+                    instance<ViewGroup>().allViews.filter { it.javaClass extends TextViewClass }
+                        .forEachIndexed { _, view ->
+                            (view as TextView).typeface = Typeface.DEFAULT
+                        }
+                }
+            }
             if (hasMethod { param { it.contains(timeInfoClazz) };paramCount = 3 }) {
                 method { param { it.contains(timeInfoClazz) };paramCount = 3 }.hookAll {
                     after {
