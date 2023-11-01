@@ -38,7 +38,7 @@ class LunarHelperUtils(val classLoader: ClassLoader?) {
      * @param time Long
      * @return String?
      */
-    fun getDateToString(instance: Any?, time: Long): String? {
+    fun getDateToString(instance: Any?, time: Long = System.currentTimeMillis()): String? {
         return clazz.method {
             name = "getDateToString"
             param(LongType)
@@ -50,9 +50,9 @@ class LunarHelperUtils(val classLoader: ClassLoader?) {
      * @param instance Any
      * @return String
      */
-    fun generateLunarDate(instance: Any?): String? {
+    fun generateLunarDate(instance: Any?, time: Long = System.currentTimeMillis()): String? {
         return try {
-            val date = Date()
+            val date = Date(time)
             val year = formatDate("yyyy", date).toInt()
             val month = formatDate("MM", date).toInt()
             val day = formatDate("dd", date).toInt()

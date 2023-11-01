@@ -14,7 +14,6 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatLunar
@@ -29,7 +28,10 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         dataChannel.wait<Boolean>("remove_control_center_date_comma") { removeComma = it }
         var showLunar =
             prefs(ModulePrefs).getBoolean("statusbar_control_center_date_show_lunar", false)
-        dataChannel.wait<Boolean>("statusbar_control_center_date_show_lunar") { showLunar = it }
+        dataChannel.wait<Boolean>("statusbar_control_center_date_show_lunar") {
+            showLunar = it
+            LockScreenClock.callback?.invoke("statusbar_control_center_date_show_lunar", it)
+        }
         var fixWidth =
             prefs(ModulePrefs).getBoolean("statusbar_control_center_date_fix_width", false)
         dataChannel.wait<Boolean>("statusbar_control_center_date_fix_width") { fixWidth = it }
@@ -138,16 +140,6 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             }
                         }
                     }
-                }
-            }
-        }
-
-        if (SDK < A14) return
-        //Source SingleClockView 修复OPPO样式与显示农历冲突
-        "com.oplus.systemui.shared.clocks.SingleClockView".toClass().apply {
-            method { name = "updateDate" }.hook {
-                before {
-                    if (showLunar) field { name = "canShowLunarCalendar" }.get(instance).setFalse()
                 }
             }
         }

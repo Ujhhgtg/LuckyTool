@@ -1,48 +1,34 @@
 package com.luckyzyx.luckytool.hook.scope.systemui
 
 import android.content.Context
-import android.graphics.Typeface
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.view.allViews
-import androidx.core.view.children
-import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.LayoutInflaterClass
-import com.highcapable.yukihookapi.hook.type.android.TextViewClass
-import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
 import com.highcapable.yukihookapi.hook.type.java.IntClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.dp
 import java.util.function.Supplier
 
-object LockScreenComponent : YukiBaseHooker() {
+object LockScreenComponentStyle : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK >= A14) loadHooker(LockScreenComponentStyle)
-        else loadHooker(LockScreenComponentStyleC13)
+        if (SDK >= A14) loadHooker(LockScreenComponentStyleV14)
+        else loadHooker(LockScreenComponentStyleV13)
         if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {
             if (SDK == A13) loadHooker(ForceDisplayClockStyleOptionsV13)
         }
-        loadHooker(LockScreenComponentFont)
     }
 
-    object LockScreenComponentStyle : YukiBaseHooker() {
+    object LockScreenComponentStyleV14 : YukiBaseHooker() {
         private const val singleClockProvider =
             "com.oplus.systemui.shared.clocks.SingleClockProvider" //C14
         private const val dualClockProvider =
@@ -125,7 +111,7 @@ object LockScreenComponent : YukiBaseHooker() {
         }
     }
 
-    object LockScreenComponentStyleC13 : YukiBaseHooker() {
+    object LockScreenComponentStyleV13 : YukiBaseHooker() {
         private const val singleClockController =
             "com.oplusos.systemui.keyguard.clock.SingleClockController"
         private const val dualClockController =
@@ -215,99 +201,6 @@ object LockScreenComponent : YukiBaseHooker() {
                     }
                 }
             }
-        }
-    }
-
-    object LockScreenComponentFont : YukiBaseHooker() {
-        override fun onHook() {
-            val isCenter = prefs(ModulePrefs).getBoolean("set_lock_screen_centered", false)
-            val userTypeface =
-                prefs(ModulePrefs).getBoolean("lock_screen_clock_use_user_typeface", false)
-
-            //Source RedHorizontalSingleClockView
-            VariousClass(
-                "com.oplusos.systemui.keyguard.clock.RedHorizontalSingleClockView", //C13
-                "com.oplus.systemui.shared.clocks.RedHorizontalSingleClockView" //C14
-            ).toClass().apply {
-                method { name = "onFinishInflate" }.hook {
-                    after {
-                        if (!isCenter) return@after
-                        instance<LinearLayout>().apply {
-                            setPadding(0, 20.dp, 0, 0)
-                            children.forEachIndexed { _, view ->
-                                view.setCenterHorizontally()
-                            }
-                        }
-                    }
-                }
-                method { name = "setTextFont" }.hook {
-                    if (userTypeface) intercept()
-                }
-            }
-
-            //Source RedHorizontalDualClockView
-            VariousClass(
-                "com.oplusos.systemui.keyguard.clock.RedHorizontalDualClockView", //C13
-                "com.oplus.systemui.shared.clocks.RedHorizontalDualClockView" //C14
-            ).toClassOrNull()?.apply {
-                method { name = "setTextFont" }.hook {
-                    if (userTypeface) intercept()
-                }
-            }
-
-            //Source SingleClockView
-            VariousClass(
-                "com.oplusos.systemui.keyguard.clock.SingleClockView", //C13
-                "com.oplus.systemui.shared.clocks.SingleClockView" //C14
-            ).toClass().apply {
-                method { name = "onFinishInflate" }.hook {
-                    after {
-                        if (!isCenter && !userTypeface) return@after
-                        instance<LinearLayout>().apply {
-                            if (isCenter) setPadding(0, 20.dp, 0, 0)
-                            children.forEachIndexed { _, view ->
-                                if (isCenter) view.setCenterHorizontally()
-                                if (view.javaClass extends TextViewClass) {
-                                    if (userTypeface) (view as TextView).typeface =
-                                        Typeface.DEFAULT_BOLD
-                                } else {
-                                    if (view.javaClass extends ViewGroupClass) {
-                                        (view as ViewGroup).children.forEachIndexed { _, view2 ->
-                                            if (view2.javaClass extends TextViewClass) {
-                                                if (userTypeface) (view2 as TextView).typeface =
-                                                    Typeface.DEFAULT_BOLD
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //Source DualClockView
-            VariousClass(
-                "com.oplusos.systemui.keyguard.clock.DualClockView", //C13
-                "com.oplus.systemui.shared.clocks.DualClockView" //C14
-            ).toClass().apply {
-                method { name = "onFinishInflate" }.hook {
-                    after {
-                        if (!userTypeface) return@after
-                        instance<LinearLayout>().allViews.forEachIndexed { _, view ->
-                            if (view.javaClass extends TextViewClass) {
-                                (view as TextView).typeface = Typeface.DEFAULT_BOLD
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun View.setCenterHorizontally() {
-        layoutParams = LinearLayout.LayoutParams(layoutParams).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
         }
     }
 }

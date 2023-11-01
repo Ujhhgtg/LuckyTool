@@ -204,10 +204,6 @@ object HookSettingsFeature : YukiBaseHooker() {
                                 returnType(BooleanType.name)
                             }
                             add {
-                                paramTypes(StringClass.name, BooleanType.name)
-                                returnType(BooleanType.name)
-                            }
-                            add {
                                 paramTypes("android.os.PersistableBundle")
                                 returnType(BooleanType.name)
                             }
