@@ -135,11 +135,9 @@ fun Context.getDeviceInfo(
     controller: IGlobalFuncController? = null, isLog: Boolean = false
 ): String {
     return """
-        ${getString(R.string.brand)}: ${Build.BRAND}
-        ${getString(R.string.model)}: ${Build.MODEL}
-        ${getString(R.string.product)}: ${Build.PRODUCT}
+        ${getString(R.string.model)}: ${Build.BRAND} ${Build.MODEL}
+        ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
         ${getString(R.string.system)}: ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})[$getOSVersionName]
-        ${getString(R.string.device)}: ${Build.DEVICE}
         ${getString(R.string.market_name)}: ${controller?.marketName}
         ${getString(R.string.build_version)}: ${Build.DISPLAY}
         ${getString(R.string.version)}: ${controller?.otaVersion}

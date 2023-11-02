@@ -27,10 +27,9 @@ object ZoomWindow : YukiBaseHooker() {
                         "2" -> resultTrue()
                         "3" -> {
                             val target = args().first().string()
-                            val packName = if (target.contains("/")) {
-                                target.split("/").takeIf { e -> e.isNotEmpty() }?.get(0)
-                                    ?: return@before
-                            } else target
+                            val packName = if (target.contains("/").not()) target
+                            else target.split("/").takeIf { e -> e.isNotEmpty() }?.get(0)
+                                ?: target
                             if (supportList.contains(packName)) resultTrue()
                         }
 

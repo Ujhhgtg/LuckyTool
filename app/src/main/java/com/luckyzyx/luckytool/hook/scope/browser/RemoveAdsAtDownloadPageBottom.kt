@@ -19,7 +19,7 @@ object RemoveAdsAtDownloadPageBottom : YukiBaseHooker() {
                     returnType(UnitType.name)
                     usingNumbers(0, 8, 500L)
                     addUsingField {
-                        matcher {
+                        field {
                             addPutMethod {
                                 paramTypes("com.heytap.browser.downloads.entity.RecommendConfig")
                                 returnType(UnitType.name)
@@ -28,7 +28,7 @@ object RemoveAdsAtDownloadPageBottom : YukiBaseHooker() {
                         }
                     }
                     addUsingField {
-                        matcher {
+                        field {
                             addPutMethod {
                                 paramCount(0)
                                 returnType(UnitType.name)
@@ -37,7 +37,7 @@ object RemoveAdsAtDownloadPageBottom : YukiBaseHooker() {
                         }
                     }
                     addUsingField {
-                        matcher {
+                        field {
                             addPutMethod {
                                 paramCount(0)
                                 returnType(UnitType.name)

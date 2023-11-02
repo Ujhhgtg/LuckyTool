@@ -16,7 +16,7 @@ object UnlockDefaultDesktopLimit : YukiBaseHooker() {
             val forceMethod = dexKitBridge.findMethod {
                 matcher {
                     addUsingField {
-                        matcher {
+                        field {
                             addPutMethod {
                                 paramTypes(ContextClass.name)
                                 returnType(UnitType.name)
@@ -50,7 +50,7 @@ object UnlockDefaultDesktopLimit : YukiBaseHooker() {
                 searchPackages(forceMethod.first().className)
                 matcher {
                     addUsingField {
-                        matcher {
+                        field {
                             addPutMethod {
                                 paramTypes(ContextClass.name)
                                 returnType(UnitType.name)

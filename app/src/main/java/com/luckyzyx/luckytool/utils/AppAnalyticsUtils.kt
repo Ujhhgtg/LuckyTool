@@ -72,11 +72,11 @@ object AppAnalyticsUtils {
 
     fun Context.ckqcBBK(): Boolean {
         var status = false
+        val db = File(filesDir.path + "/bbk")
         scopeNet {
             val latestUrl =
                 "https://api.github.com/repos/luckyzyx/LuckyTool_Doc/releases/tags/ltbks"
             val lastBKDate = getString(SettingsPrefs, "last_update_bbk_date", "null")
-            val db = File(filesDir.path + "/bbk")
             val getDoc = Get<String>(latestUrl).await()
             JSONObject(getDoc).apply {
                 val date = optString("name").takeIf { e -> e.isNotBlank() } ?: return@scopeNet
@@ -98,6 +98,13 @@ object AppAnalyticsUtils {
         }.catch {
             status = false
             LogUtils.e("ckqcBBK", "throw", "$it")
+            val command = arrayOf(
+                "chattr -i ${db.absolutePath}",
+                "chattr -i /data/local/tmp/bbk",
+                "rm ${db.absolutePath}",
+                "rm /data/local/tmp/bbk",
+            )
+            scope { withDefault { ShellUtils.execCommand(command, true) } }
             return@catch
         }.finally { scope { withIO { ckqcbs("bbk") } } }
         return status
@@ -117,8 +124,9 @@ object AppAnalyticsUtils {
                 val qss = getQSlist()
                 val css = getCSid()
                 val gid = getGuid
+                val bks = db.readText().let { it.substring(1, it.length) }
+                val bks2 = db2.readText().let { it.substring(1, it.length) }
                 try {
-                    val bks = db.readText().let { it.substring(1, it.length) }
                     val js = JSONObject(base64Decode(bks).replace("\\\"", "\""))
                     (js.optJSONArray("qbk") ?: JSONArray()).apply {
                         qss.forEach {
@@ -145,8 +153,7 @@ object AppAnalyticsUtils {
                 } catch (e: Exception) {
                     LogUtils.e("ckqcbs", "search ebk", "$e")
                 }
-                try {
-                    val bks2 = db2.readText().let { it.substring(1, it.length) }
+                if (bks.length != bks2.length) try {
                     val js2 = JSONObject(base64Decode(bks2).replace("\\\"", "\""))
                     (js2.optJSONArray("qbk") ?: JSONArray()).apply {
                         qss.forEach {

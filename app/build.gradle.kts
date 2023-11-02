@@ -8,8 +8,8 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android") version "1.9.10"
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    id("org.jetbrains.kotlin.android") version "1.9.20"
+    id("com.google.devtools.ksp") version "1.9.20-1.0.13"
     id("com.joom.paranoid")
     id("stringfog")
 }
@@ -98,7 +98,7 @@ dependencies {
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
 
     //Dexkit
-    implementation("org.luckypray:dexkit:2.0.0-rc6")
+    implementation("org.luckypray:dexkit:2.0.0-rc7")
 
     //Material主题
     implementation("com.google.android.material:material:1.10.0")
@@ -110,8 +110,8 @@ dependencies {
     //下拉刷新控件
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     //一个强大并且灵活的RecyclerViewAdapter
 //    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
     // 权限请求框架

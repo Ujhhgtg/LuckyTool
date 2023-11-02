@@ -89,6 +89,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
 
     private fun getPreferences(context: Context): List<Preference> {
         return listOf(
+            //Android
             Preference(context).apply {
                 key = "android"
                 setPrefsIconRes(android.R.mipmap.sym_def_app_icon) { resource, show ->
@@ -102,6 +103,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //StatusBar
             Preference(context).apply {
                 key = "StatusBar"
                 setPrefsIconRes("com.android.systemui") { resource, show ->
@@ -119,6 +121,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Launcher
             Preference(context).apply {
                 key = "com.android.launcher"
                 setPrefsIconRes(key) { resource, show ->
@@ -137,6 +140,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Aod
             Preference(context).apply {
                 key = "com.oplus.aod"
                 setPrefsIconRes(key) { resource, show ->
@@ -154,6 +158,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //LockScreen
             Preference(context).apply {
                 key = "LockScreen"
                 setPrefsIconRes("com.android.systemui") { resource, show ->
@@ -170,6 +175,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Screenshot
             Preference(context).apply {
                 key = "com.oplus.screenshot"
                 setPrefsIconRes(key) { resource, show ->
@@ -187,6 +193,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Application
             Preference(context).apply {
                 key = "com.android.packageinstaller"
                 setPrefsIconRes(key) { resource, show ->
@@ -202,6 +209,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Miscellaneous
             Preference(context).apply {
                 key = "Miscellaneous"
                 setPrefsIconRes("com.android.systemui") { resource, show ->
@@ -215,6 +223,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Battery
             Preference(context).apply {
                 key = "com.oplus.battery"
                 setPrefsIconRes(key) { resource, show ->
@@ -224,7 +233,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 title = context.getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.open_battery_health),
-                    getString(R.string.open_screen_power_save)
+                    getString(R.string.remove_battery_temperature_control)
                 )
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -232,6 +241,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Settings
             Preference(context).apply {
                 key = "com.android.settings"
                 setPrefsIconRes(key) { resource, show ->
@@ -248,6 +258,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Mms
             Preference(context).apply {
                 key = "com.android.mms"
                 setPrefsIconRes(key) { resource, show ->
@@ -263,6 +274,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Browser
             Preference(context).apply {
                 key = "com.heytap.browser"
                 setPrefsIconRes(key) { resource, show ->
@@ -280,6 +292,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Camera
             Preference(context).apply {
                 val isOneplusCamera = context.checkPackName("com.oneplus.camera")
                 key = if (isOneplusCamera) "com.oneplus.camera" else "com.oplus.camera"
@@ -298,6 +311,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Gallery
             Preference(context).apply {
                 key = "com.coloros.gallery3d"
                 setPrefsIconRes(key) { resource, show ->
@@ -315,6 +329,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Games
             Preference(context).apply {
                 key = "com.oplus.games"
                 setPrefsIconRes(key) { resource, show ->
@@ -332,6 +347,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Theme
             Preference(context).apply {
                 val isHeytap = context.checkPackName("com.heytap.themestore")
                 key = if (isHeytap) "com.heytap.themestore" else "com.oplus.themestore"
@@ -347,6 +363,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Market
             Preference(context).apply {
                 key = "com.heytap.market"
                 setPrefsIconRes(key) { resource, show ->
@@ -364,6 +381,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //CloudService
             Preference(context).apply {
                 key = "com.heytap.cloud"
                 setPrefsIconRes(key) { resource, show ->
@@ -378,6 +396,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //OTA
             Preference(context).apply {
                 key = "com.oplus.ota"
                 setPrefsIconRes(key) { resource, show ->
@@ -395,6 +414,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Pictorial
             Preference(context).apply {
                 key = "com.heytap.pictorial"
                 setPrefsIconRes(key) { resource, show ->
@@ -412,6 +432,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Gesture
             Preference(context).apply {
                 key = "com.oplus.gesture"
                 setPrefsIconRes(key) { resource, show ->
@@ -429,6 +450,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Directui
             Preference(context).apply {
                 key = "com.coloros.directui"
                 setPrefsIconRes(key) { resource, show ->
@@ -447,6 +469,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //QuickSearchBox
             Preference(context).apply {
                 key = "com.heytap.quicksearchbox"
                 setPrefsIconRes(key) { resource, show ->
@@ -463,6 +486,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Weather
             Preference(context).apply {
                 key = "com.coloros.weather2"
                 setPrefsIconRes(key) { resource, show ->

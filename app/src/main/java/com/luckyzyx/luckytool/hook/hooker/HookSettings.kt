@@ -38,6 +38,10 @@ object HookSettings : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("remove_top_account_display", false)) {
             loadHooker(RemoveTopAccountDisplay)
         }
+
+        //oplus.software.video.rm_memc false
+        //oplus.software.display.pixelworks_enable true
+
         //视频动态插帧
         if (prefs(ModulePrefs).getBoolean("video_frame_insertion_support_2K120", false)) {
             loadHooker(HookIris5Controller)

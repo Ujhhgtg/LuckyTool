@@ -1116,8 +1116,6 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     context.dataChannel("com.android.systemui").put(key, newValue)
-                    context.dataChannel("com.android.systemui")
-                        .put("set_media_player_display_mode_for_tile_rows", newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -1137,15 +1135,15 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getString(ModulePrefs, "set_media_player_display_mode") == "1") {
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.force_enable_media_toggle_button)
-                    key = "force_enable_media_toggle_button"
-                    setDefaultValue(false)
-                    isVisible = SDK == A13
-                    isIconSpaceReserved = false
-                })
-            }
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.force_enable_media_toggle_button)
+                key = "force_enable_media_toggle_button"
+                setDefaultValue(false)
+                isVisible = SDK == A13 && context.getString(
+                    ModulePrefs, "set_media_player_display_mode"
+                ) == "1"
+                isIconSpaceReserved = false
+            })
 
             //磁贴长按事件
             addPreference(PreferenceCategory(context).apply {
@@ -1240,7 +1238,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                     isVisible = SDK < A13
                     isIconSpaceReserved = false
                 })
-                //C13
+                //C13+
                 addPreference(SeekBarPreference(context).apply {
                     title = getString(R.string.tile_unexpanded_columns_vertical)
                     key = "tile_unexpanded_columns_vertical_c13"
@@ -2589,11 +2587,27 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
 }
 
 class Settings : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.settings", "com.android.permissioncontroller")
+    override val scopes = arrayOf(
+        "com.android.settings", "com.android.permissioncontroller", "com.oplus.onet"
+    )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //连接与共享
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.settings_connection_sharing)
+                key = "settings_connection_sharing"
+                isVisible = false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.force_display_multi_screen_connect)
+                key = "force_display_multi_screen_connect"
+                setDefaultValue(false)
+                isVisible = false
+                isIconSpaceReserved = false
+            })
             //状态栏
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_status_bar)

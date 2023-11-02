@@ -173,7 +173,6 @@
     <string name="remove_small_window_reply_whitelist">移除浮窗回复白名单</string>
     <string name="set_small_window_reply_blacklist">设置浮窗回复黑名单</string>
     <string name="set_small_window_reply_blacklist_message">填写需要添加到黑名单的包名，每行只能填写一个包名</string>
-    <string name="custom_notification_background_transparency">自定义通知背景透明度</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">状态栏图标</string>
     <string name="StatusBarIcon_summary">状态栏图标相关</string>
@@ -211,6 +210,7 @@
     <string name="ControlCenterNotificationCenter">控制中心通知中心</string>
     <string name="enable_notification_align_both_sides">启用通知两侧对齐</string>
     <string name="enable_notification_importance_classification">启用通知重要性分类</string>
+    <string name="custom_notification_background_transparency">自定义通知背景透明度</string>
     <string name="ControlCenter_UI_Related">控制中心UI相关</string>
     <string name="set_media_player_display_mode">设置媒体播放器显示模式</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">无媒体播放时隐藏</string>
@@ -484,6 +484,8 @@
     <string name="display_module_calculates_battery_health_data_summary">启用后将在系统数据下方显示模块计算的健康数据</string>
     <string name="display_module_calculates_battery_health_data_tips">计算容量</string>
     <!--Settings-->
+    <string name="settings_connection_sharing">连接与共享</string>
+    <string name="force_display_multi_screen_connect">强制显示跨屏互联</string>
     <string name="settings_status_bar">状态栏</string>
     <string name="enable_statusbar_clock_format">启用状态栏时钟格式</string>
     <string name="enable_statusbar_clock_format_summary">启用部分系统不支持修改状态栏时钟格式的选项</string>

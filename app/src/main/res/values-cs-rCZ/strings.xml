@@ -173,7 +173,6 @@
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu, na každém řádku může být vyplněn pouze jeden název balíčku</string>
-    <string name="custom_notification_background_transparency">Vlastní průhlednost pozadí panelu notifikací</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Ikony ve stavové liště</string>
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>
@@ -211,6 +210,7 @@
     <string name="ControlCenterNotificationCenter">Oznamovací centrum Ovládacího centra</string>
     <string name="enable_notification_align_both_sides">Povolit zarovnání notifikací z obou stran</string>
     <string name="enable_notification_importance_classification">Povolit klasifikaci důležitosti pro notifikace</string>
+    <string name="custom_notification_background_transparency">Vlastní průhlednost pozadí panelu notifikací</string>
     <string name="ControlCenter_UI_Related">Nastavení související s UI</string>
     <string name="set_media_player_display_mode">Nastavit režim zobrazení přehrávače médií</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Skrýt pokud se nepřehrávají žádná média</string>
@@ -316,7 +316,7 @@
     <string name="set_lock_screen_warp_charging_style">Nastavit styl warp nabíjení</string>
     <string name="set_lock_screen_charging_text_logo_style">Nastavit styl loga nabíjení</string>
     <string name="force_lock_screen_charging_show_wattage">Zobrazení příkonu nabíjecích komponentů</string>
-    <string name="lock_screen_charging_use_user_typeface">Komponenta nabíjení použije na zamykací obrazovce uživatelské písmo</string>
+    <string name="lock_screen_charging_use_user_typeface">Komponenta nabíjení použije na zamykací obrazovce použije uživatelské písmo</string>
     <string name="set_full_screen_charging_animation_mode">Režim animace nabíjení na celé obrazovce</string>
     <string name="LockScreenStatusBar">Stavová lišta zamykací obrazovky</string>
     <string name="hide_lock_screen_status_bar_display">Skrýt zobrazení stavové lišty na zamykací obrazovce</string>
@@ -360,10 +360,10 @@
     <string name="remove_recent_task_list_clear_button">Odstranit tlačítko pro vymazání nedávných aplikací</string>
     <string name="unlock_task_locks">Odemkne počet úloh na pozadí</string>
     <string name="allow_locking_unlocking_of_excluded_activity">Povolit blokování nebo odemykání vyloučených aktivit</string>
-    <string name="custom_app_floating_window_display_mode">Customize application floating window display mode</string>
-    <string name="custom_app_floating_window_display_mode_disable_float_window">Disable floating window</string>
-    <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
-    <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
+    <string name="custom_app_floating_window_display_mode">Nastavení režimu zobrazení aplikace plovoucí okno</string>
+    <string name="custom_app_floating_window_display_mode_disable_float_window">Zakázat plovoucí okno</string>
+    <string name="custom_app_floating_window_display_mode_remove_whitelist">Odstranit seznam povolených</string>
+    <string name="custom_app_floating_window_display_mode_custom_whitelist">Vlastní seznam povolených</string>
     <string name="zoom_window_support_list">Vlastní nastavení přiblížení</string>
     <string name="zoom_window_support_list_summary">Povolte podle vašich potřeb, jinak dojde k nenapravitelným problémům</string>
     <string name="force_all_apps_support_split_screen">Donutit všechny aplikace podporovat rozdělenou obrazovku</string>
@@ -388,7 +388,7 @@
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
     <string name="dark_mode_support_list">Vlastní seznam aplikací podporující tmavý režim</string>
-    <string name="enable_dark_mode_list">Enable custom lists</string>
+    <string name="enable_dark_mode_list">Povolit vlastní seznamy</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Nastavení týkající se instalace aplikací</string>
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
@@ -484,6 +484,8 @@
     <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
     <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
     <!--Settings-->
+    <string name="settings_connection_sharing">Connection and share</string>
+    <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
     <string name="settings_status_bar">Stavová lišta</string>
     <string name="enable_statusbar_clock_format">Povolit formát hodin ve stavové liště</string>
     <string name="enable_statusbar_clock_format_summary">Povolit změny některým systémům, které nepodporují možnost změny formátu hodin ve stavové liště</string>
@@ -523,7 +525,7 @@
     <string name="CameraFilter">Filtr</string>
     <string name="enable_master_filter">Povolit hlavní filtr</string>
     <string name="enable_jiangwen_filter">Povolit filtr Jiang Wen</string>
-    <string name="enable_10_bit_image_support">Povolit podporu pro 10 bitové obrázky</string>
+    <string name="enable_10_bit_image_support">Povolit podporu pro 10bitové obrázky</string>
     <string name="enable_10_bit_image_support_summary">Povolení této funkce na některých modelech může způsobit, že se fotka zbarví dozelena</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Vodoznak</string>

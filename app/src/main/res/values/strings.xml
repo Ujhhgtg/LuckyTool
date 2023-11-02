@@ -543,6 +543,9 @@
     <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
     
     <!--Settings-->
+    <string name="settings_connection_sharing">Connection and share</string>
+    <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
+    
     <string name="settings_status_bar">StatusBar</string>
     <string name="enable_statusbar_clock_format">Enable status bar clock format</string>
     <string name="enable_statusbar_clock_format_summary">Enable some systems that do not support the option to modify the status bar clock format</string>

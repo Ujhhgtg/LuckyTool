@@ -173,7 +173,6 @@
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen, mỗi dòng chỉ được điền một tên gói</string>
-    <string name="custom_notification_background_transparency">Độ trong suốt của nền thông báo tùy chỉnh</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
@@ -211,6 +210,7 @@
     <string name="ControlCenterNotificationCenter">Trung tâm điều khiển Trung tâm thông báo</string>
     <string name="enable_notification_align_both_sides">Bật thông báo căn chỉnh cả hai bên</string>
     <string name="enable_notification_importance_classification">Bật phân loại mức độ quan trọng của thông báo</string>
+    <string name="custom_notification_background_transparency">Độ trong suốt của nền thông báo tùy chỉnh</string>
     <string name="ControlCenter_UI_Related">Giao diện người dùng của trung tâm điều khiển</string>
     <string name="set_media_player_display_mode">Đặt chế độ hiển thị trình phát phương tiện</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Hide when no media is playing</string>
@@ -484,6 +484,8 @@
     <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
     <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
     <!--Settings-->
+    <string name="settings_connection_sharing">Connection and share</string>
+    <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
     <string name="settings_status_bar">Thanh trạng thái</string>
     <string name="enable_statusbar_clock_format">Bật định dạng đồng hồ trên thanh trạng thái</string>
     <string name="enable_statusbar_clock_format_summary">Bật tùy chọn một số hệ thống không hỗ trợ sửa đổi định dạng đồng hồ trên thanh trạng thái</string>

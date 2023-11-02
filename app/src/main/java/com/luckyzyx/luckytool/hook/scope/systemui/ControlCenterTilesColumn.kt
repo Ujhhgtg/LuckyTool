@@ -38,9 +38,9 @@ object ControlCenterTiles : YukiBaseHooker() {
             )
             dataChannel.wait<Boolean>("auto_expand_tile_rows_horizontal") { autoExpandTile = it }
 
-            callback = { k: String, v: String ->
-                when (k) {
-                    "set_media_player_display_mode" -> mediaMode = v
+            callback = { key: String, value: String ->
+                when (key) {
+                    "set_media_player_display_mode" -> mediaMode = value
                 }
             }
 
@@ -57,23 +57,18 @@ object ControlCenterTiles : YukiBaseHooker() {
                     before {
                         getScreenOrientation(instance<ViewGroup>()) {
                             val mRows = field { name = "mRows" }.get(instance).int()
-                            val newRows = if (it) {
-//                            if (MediaPlayerPanel.getMediaData() != null && mRows > 4) 4
-//                            else rowExpandedVerticalC13
-                                rowExpandedVerticalC13
-                            } else {
-                                if (autoExpandTile) {
-                                    when (mediaMode) {
-                                        "2" -> 2
-                                        "3" -> {
-                                            if (MediaPlayerPanel.getMediaData() == null) 2
-                                            else return@getScreenOrientation
-                                        }
-
-                                        else -> return@getScreenOrientation
+                            val newRows = if (it) rowExpandedVerticalC13
+                            else if (autoExpandTile) {
+                                when (mediaMode) {
+                                    "2" -> 2
+                                    "3" -> {
+                                        if (MediaPlayerPanel.getMediaData() == null) 2
+                                        else return@getScreenOrientation
                                     }
-                                } else return@getScreenOrientation
-                            }
+
+                                    else -> return@getScreenOrientation
+                                }
+                            } else return@getScreenOrientation
                             field { name = "mRows" }.get(instance).set(newRows)
                             result = mRows != newRows
                         }
