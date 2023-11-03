@@ -485,8 +485,8 @@
     <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
     <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
     <!--Settings-->
-    <string name="settings_connection_sharing">Connection and share</string>
-    <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
+    <string name="settings_connection_sharing">Подключение и поделиться</string>
+    <string name="force_display_multi_screen_connect">Принудительное отображение мультиэкранного подключения</string>
     <string name="settings_status_bar">Строка состояния</string>
     <string name="enable_statusbar_clock_format">Включить формат часов в строке состояния</string>
     <string name="enable_statusbar_clock_format_summary">Включите некоторые системы, которые не поддерживают возможность изменения формата часов в строке состояния</string>
@@ -505,6 +505,8 @@
     <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
+    <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
+    <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>

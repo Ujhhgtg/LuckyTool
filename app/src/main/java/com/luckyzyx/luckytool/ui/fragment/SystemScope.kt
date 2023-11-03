@@ -2697,6 +2697,14 @@ class Settings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.auto_unlock_restricted_settings)
+                summary = getString(R.string.auto_unlock_restricted_settings_summary)
+                key = "auto_unlock_restricted_settings"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
             //关于本机
             if (SDK >= A13) {
                 addPreference(PreferenceCategory(context).apply {
@@ -3237,12 +3245,8 @@ class OplusOta : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     val value = if (newValue as Boolean) "enforcing" else "\"\""
-                    val command = "resetprop ro.boot.veritymode $value"
-                    context.toast(command)
-                    val exec = ShellUtils.execCommand(command, true, true)
-                    if (exec.result == 0) {
-                        summary = getString(R.string.restore_ota_update_verity_summary, value)
-                    } else (activity as MainActivity).restart()
+                    ShellUtils.execCommand("resetprop ro.boot.veritymode $value", true, true)
+                    (activity as MainActivity).restart()
                     true
                 }
             })

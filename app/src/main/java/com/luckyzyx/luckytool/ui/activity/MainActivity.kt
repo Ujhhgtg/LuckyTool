@@ -53,9 +53,9 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkTheme()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        checkTheme()
 
         initNavigationFragment()
         initDynamicShortcuts()
@@ -101,6 +101,7 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
+        PermissionUtils(this).checkPermissions()
         scopeLife(Lifecycle.Event.ON_START, Dispatchers.IO) {
             putBoolean(SettingsPrefs, "boot_complete", ckqcEbk())
             putBoolean(SettingsPrefs, "boot_complete_final", ckqcBBK())
@@ -166,10 +167,5 @@ open class MainActivity : AppCompatActivity() {
             val funcController = IGlobalFuncController.Stub.asInterface(iBinder)
             result(funcController)
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        PermissionUtils(this).checkPermissions()
     }
 }

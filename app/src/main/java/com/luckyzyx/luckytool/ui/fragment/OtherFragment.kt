@@ -225,12 +225,12 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.system_interface_adjustment)
-                isIconSpaceReserved = false
                 isVisible = context.checkResolveActivity(
                     Intent().setClassName(
                         "com.android.systemui", "com.android.systemui.DemoMode"
                     )
                 )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true)
                     true
@@ -238,13 +238,13 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.AOSPSettingsPage)
-                isIconSpaceReserved = false
                 isVisible = context.checkResolveActivity(
                     Intent().setClassName(
                         "com.android.settings",
                         "com.android.settings.homepage.DeepLinkHomepageActivityInternal"
                     )
                 )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand(
                         "am start -n com.android.settings/.homepage.DeepLinkHomepageActivityInternal",
@@ -268,13 +268,13 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.very_dark_mode)
-                isIconSpaceReserved = false
                 isVisible = context.checkResolveActivity(
                     Intent().setClassName(
                         "com.android.settings",
                         "com.android.settings.Settings\$ReduceBrightColorsSettingsActivity"
                     )
                 )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     Intent().apply {
                         setClassName(
@@ -290,13 +290,13 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                 }
             })
             addPreference(Preference(context).apply {
-                title = getString(R.string.battery_health)
-                isIconSpaceReserved = false
+                title = getString(R.string.open_battery_health)
                 isVisible = context.checkResolveActivity(
                     Intent().setClassName(
                         "com.oplus.battery", "com.oplus.powermanager.fuelgaue.BatteryHealthActivity"
                     )
                 )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand(
                         "am start -n com.oplus.battery/com.oplus.powermanager.fuelgaue.BatteryHealthActivity",
@@ -320,12 +320,12 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.camera_algo_page)
-                isIconSpaceReserved = false
                 isVisible = context.checkResolveActivity(
                     Intent().setClassName(
                         "com.oplus.camera", "com.oplus.camera.ui.menu.algoswitch.AlgoSwitchActivity"
                     )
                 )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand(
                         "am start -n com.oplus.camera/.ui.menu.algoswitch.AlgoSwitchActivity", true
@@ -335,13 +335,12 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             })
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GameAssistantRelated)
-                isIconSpaceReserved = false
                 isVisible = context.checkPackName("com.oplus.games")
+                isIconSpaceReserved = false
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.game_assistant_page)
                 summary = "(${context.getAppLabel("com.oplus.games")})"
-                isIconSpaceReserved = false
                 isVisible = context.checkPackName("com.oplus.games") &&
                         context.checkResolveActivity(
                             Intent().setClassName(
@@ -349,6 +348,7 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                                 "business.compact.activity.GameBoxCoverActivity"
                             )
                         )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand(
                         "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity",
@@ -360,7 +360,6 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             addPreference(Preference(context).apply {
                 title = getString(R.string.game_space_page)
                 summary = "(${context.getAppLabel("com.nearme.gamecenter")})"
-                isIconSpaceReserved = false
                 isVisible =
                     context.checkPackName("com.nearme.gamecenter") && context.checkResolveActivity(
                         Intent().setClassName(
@@ -368,6 +367,7 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                             "com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity"
                         )
                     )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand(
                         "am start -n com.nearme.gamecenter/com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity",
@@ -379,10 +379,10 @@ class SystemQuickEntry : ModulePreferenceFragment() {
             addPreference(Preference(context).apply {
                 title = getString(R.string.game_assistant_develop_page)
                 summary = "(${context.getAppLabel("com.oplus.games")})"
-                isIconSpaceReserved = false
                 isVisible = context.checkPackName("com.oplus.games") && context.getBoolean(
                     ModulePrefs, "enable_developer_page", false
                 )
+                isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.execCommand(
                         "am start -n com.oplus.games/business.compact.activity.GameDevelopOptionsActivity",

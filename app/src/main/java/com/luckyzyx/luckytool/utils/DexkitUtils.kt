@@ -1,15 +1,14 @@
 package com.luckyzyx.luckytool.utils
 
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.luckyzyx.luckytool.BuildConfig
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.ClassDataList
+import org.luckypray.dexkit.query.FieldDataList
 import org.luckypray.dexkit.query.MethodDataList
 
-@Suppress("MemberVisibilityCanBePrivate", "MayBeConstant")
+@Suppress("MemberVisibilityCanBePrivate")
 object DexkitUtils {
     const val tag = "LuckyTool"
-    val debug = BuildConfig.DEBUG
 
     /**
      * 创建Dexkit安全实例
@@ -43,15 +42,15 @@ object DexkitUtils {
     ): ClassDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
-            size != 1 && onlyOne -> {
+            size != 1 && (onlyOne || isDebug) -> {
                 var find = ""
                 forEach { find += "[${it.name}]" }
-                YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
+                if (isDebug) YLog.debug("$instance -> findMethod size ($size) -> $find", tag = tag)
+                else YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
             }
 
-            size == 1 -> if (debug || isDebug) YLog.debug(
-                "$instance -> findMethod ${first().name}",
-                tag = tag
+            size == 1 -> if (isDebug) YLog.debug(
+                "$instance -> findMethod ${first().name}", tag = tag
             )
         }
         return this
@@ -69,15 +68,34 @@ object DexkitUtils {
     ): MethodDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
-            size != 1 && onlyOne -> {
+            size != 1 && (onlyOne || isDebug) -> {
                 var find = ""
                 forEach { find += "[${it.className}|${it.methodName}]" }
-                YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
+                if (isDebug) YLog.debug("$instance -> findMethod size ($size) -> $find", tag = tag)
+                else YLog.error("$instance -> findMethod size ($size) -> $find", tag = tag)
             }
 
-            size == 1 -> if (debug || isDebug) YLog.debug(
-                "$instance -> findMethod ${first().className}|${first().methodName}",
-                tag = tag
+            size == 1 -> if (isDebug) YLog.debug(
+                "$instance -> findMethod ${first().className}|${first().methodName}", tag = tag
+            )
+        }
+        return this
+    }
+
+    fun FieldDataList.checkDataList(
+        instance: String, onlyOne: Boolean = true, isDebug: Boolean = false
+    ): FieldDataList {
+        when {
+            isNullOrEmpty() -> YLog.error("$instance -> findField isNullOrEmpty", tag = tag)
+            size != 1 && (onlyOne || isDebug) -> {
+                var find = ""
+                forEach { find += "[${it.className}|${it.fieldName}]" }
+                if (isDebug) YLog.debug("$instance -> findField size ($size) -> $find", tag = tag)
+                else YLog.error("$instance -> findField size ($size) -> $find", tag = tag)
+            }
+
+            size == 1 -> if (isDebug) YLog.debug(
+                "$instance -> findField ${first().className}|${first().fieldName}", tag = tag
             )
         }
         return this

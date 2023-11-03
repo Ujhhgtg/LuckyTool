@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hooker
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.settings.AllowDisablingSystemApps
+import com.luckyzyx.luckytool.hook.scope.settings.AutoUnlockRestrictedSettings
 import com.luckyzyx.luckytool.hook.scope.settings.CustomizeDeviceSharingPageParameters
 import com.luckyzyx.luckytool.hook.scope.settings.DarkModeList
 import com.luckyzyx.luckytool.hook.scope.settings.EnableCustomAppLanguage
@@ -89,6 +90,10 @@ object HookSettings : YukiBaseHooker() {
         //启用自定义应用语言
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
             loadHooker(EnableCustomAppLanguage)
+        }
+        //自动解锁受限制的设置
+        if (prefs(ModulePrefs).getBoolean("auto_unlock_restricted_settings", false)) {
+            if (SDK >= A13) loadHooker(AutoUnlockRestrictedSettings)
         }
 
         //<string name="single_pulse_EM_mode_title">单脉冲调光模式</string>

@@ -504,6 +504,8 @@
     <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>
     <string name="force_display_disabled_apps_manager">Vynutit zobrazení správce zakázaných aplikací</string>
+    <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
+    <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
