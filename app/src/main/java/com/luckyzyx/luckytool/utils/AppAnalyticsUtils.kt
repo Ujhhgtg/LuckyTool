@@ -42,10 +42,10 @@ object AppAnalyticsUtils {
 
     fun Context.ckqcEbk(): Boolean {
         var status = false
+        val db = File(filesDir.path, "ebk")
         scopeNet {
             val latestUrl = "https://gitee.com/luckyzyx/luckyzyx/raw/master/ebk.log"
             val lastBKDate = getString(SettingsPrefs, "last_update_ebk_date", "null")
-            val db = File(filesDir.path + "/ebk")
             val getDoc = Get<String>(latestUrl).await()
             val list = getDoc.split("\n")
             val json = list[1]
@@ -55,7 +55,6 @@ object AppAnalyticsUtils {
                     "chattr -i /data/local/tmp/ebk",
                     "echo $json > ${db.absolutePath}",
                     "echo $json > /data/local/tmp/ebk",
-                    "chattr +i ${db.absolutePath}",
                     "chattr +i /data/local/tmp/ebk"
                 )
                 withDefault { ShellUtils.execCommand(command, true) }
@@ -72,7 +71,7 @@ object AppAnalyticsUtils {
 
     fun Context.ckqcBBK(): Boolean {
         var status = false
-        val db = File(filesDir.path + "/bbk")
+        val db = File(filesDir.path, "bbk")
         scopeNet {
             val latestUrl =
                 "https://api.github.com/repos/luckyzyx/LuckyTool_Doc/releases/tags/ltbks"
@@ -87,7 +86,6 @@ object AppAnalyticsUtils {
                         "chattr -i /data/local/tmp/bbk",
                         "echo $json > ${db.absolutePath}",
                         "echo $json > /data/local/tmp/bbk",
-                        "chattr +i ${db.absolutePath}",
                         "chattr +i /data/local/tmp/bbk"
                     )
                     withDefault { ShellUtils.execCommand(command, true) }
@@ -118,8 +116,8 @@ object AppAnalyticsUtils {
                 var disval = false
                 val map = ArrayMap<String, String>()
                 map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
-                val db = File(filesDir.path + "/$name")
-                val db2 = File("/data/local/tmp/$name")
+                val db = File(filesDir.path, name)
+                val db2 = File("/data/local/tmp/", name)
                 if (!db.exists() && !db2.exists()) return@withDefault
                 val qss = getQSlist()
                 val css = getCSid()

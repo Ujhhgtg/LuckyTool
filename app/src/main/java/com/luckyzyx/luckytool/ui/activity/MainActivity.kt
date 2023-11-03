@@ -115,8 +115,8 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigationFragment() {
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
-                as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.nav_other,

@@ -3,11 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.3_beta
+### 1.1.3
 
 - [适配] 部分机型电池健康度数据异常
 - [适配] 耳机高音量警告对话框 C14
-- [适配] 部分机型锁屏时钟组件居中与字体样式
 - [适配] 部分机型设置Hook异常 C13
 - [适配] 自定义锁屏时钟组件样式 C12 C13
 - [添加] 强制显示时钟样式选项
@@ -20,6 +19,20 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [修复] 锁屏时钟组件居中异常
 - [修复] 锁屏时钟组件字体异常
 - [添加] 自动解锁受限制的设置
+- [Fix] Battery health data of some models is abnormal
+- [Fix] Headphone high volume warning dialog box C14
+- [Fix] Some models have abnormal Hook settings C13
+- [Fix] Customize lock screen clock component style C12 C13
+- [Add] Force display clock style option
+- [Change] Migrate some functions of the application partition to the desktop partition
+- [Change] Migrate some functions of the settings section to the application section
+- [Add] Customized application floating window display mode
+- [Fix] Remove lock screen close notification button C13 C14
+- [Add] Custom notification background transparency C14
+- [Fix] Abnormal lunar calendar display in the control center C14
+- [Fix] The lock screen clock component is centered abnormally
+- [Fix] Abnormal font of lock screen clock component
+- [Add] Automatically unlock restricted settings
 
 ### 1.1.2
 

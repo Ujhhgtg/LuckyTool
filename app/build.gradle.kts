@@ -35,7 +35,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.1.3_beta"
+        versionName = "1.1.3"
         buildConfigField("String", "APP_CENTER_SECRET", "\"${getAppCenterSecret()}\"")
     }
 
@@ -99,6 +99,11 @@ dependencies {
 
     //Dexkit
     implementation("org.luckypray:dexkit:2.0.0-rc7")
+
+    //BetterAndroid
+    implementation("com.highcapable.betterandroid:ui-component:1.0.0")
+//    implementation("com.highcapable.betterandroid:ui-extension:1.0.0")
+//    implementation("com.highcapable.betterandroid:system-extension:1.0.0")
 
     //Material主题
     implementation("com.google.android.material:material:1.10.0")
