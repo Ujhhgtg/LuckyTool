@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.drake.net.utils.scopeLife
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.factory.prefs
@@ -53,9 +52,9 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initTheme()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        checkTheme()
 
         initNavigationFragment()
         initDynamicShortcuts()
@@ -128,19 +127,18 @@ open class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-        val bottomNavigationView = binding.navView
-        bottomNavigationView.labelVisibilityMode = BottomNavigationView.LABEL_VISIBILITY_SELECTED
-        bottomNavigationView.setupWithNavController(navController)
-        bottomNavigationView.setOnItemSelectedListener {
-            NavigationUI.onNavDestinationSelected(it, navController)
-            true
+        binding.navView.apply {
+            labelVisibilityMode = BottomNavigationView.LABEL_VISIBILITY_SELECTED
+            setupWithNavController(navController)
+            setOnItemSelectedListener {
+                NavigationUI.onNavDestinationSelected(it, navController)
+                true
+            }
         }
     }
 
-    private fun checkTheme() {
-        if (ThemeUtils.isDynamicColor(this)) {
-            DynamicColors.applyToActivityIfAvailable(this)
-        }
+    private fun initTheme() {
+        ThemeUtils.initDynamicColor(this)
         val themeMode = getString(SettingsPrefs, "dark_theme", "MODE_NIGHT_FOLLOW_SYSTEM")
         ThemeUtils.initTheme(themeMode)
     }

@@ -2,6 +2,7 @@
 
 package com.luckyzyx.luckytool.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
@@ -33,6 +34,12 @@ object ThemeUtils {
      */
     fun isNightMode(configuration: Configuration): Boolean {
         return (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    fun initDynamicColor(activity: Activity) {
+        if (isDynamicColor(activity)) {
+            DynamicColors.applyToActivityIfAvailable(activity)
+        }
     }
 
     /**

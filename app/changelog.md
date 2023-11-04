@@ -6,6 +6,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 ### 1.1.4_beta
 
 - [适配] 媒体播放器显示模式 C13.2
+- [修复] 模块底部导航栏动态取色异常
 
 ### 1.1.3
 
