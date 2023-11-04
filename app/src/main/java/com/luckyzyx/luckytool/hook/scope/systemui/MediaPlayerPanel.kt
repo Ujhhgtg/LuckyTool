@@ -12,8 +12,8 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.DependencyUtils
+import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
@@ -211,21 +211,10 @@ object MediaPlayerPanel : YukiBaseHooker() {
     }
 
     fun getMediaData(): Any? {
-        val clazz = VariousClass(
-            "com.oplus.systemui.qs.media.OplusQsMediaCarouselController\$MediaPlayerData",  //C13
-            "com.oplus.systemui.media.OplusMediaControllerImpl\$MediaPlayerData"  //C14
-        ).toClass()
-        val mediaPlayerData = clazz.field { name = "INSTANCE" }.get().any() ?: return null
-        val firstActiveMediaOrSortKey = mediaPlayerData.current().method {
-            name = if (SDK >= A14) "getFirstActiveMediaSortKey" else "firstActiveMedia"
-        }.call() ?: return null
-        if (SDK >= A14) mediaPlayerData.current().method {
-            name = "getMediaDataKey";paramCount = 1
-        }.call(firstActiveMediaOrSortKey) ?: return null
-        val getData = firstActiveMediaOrSortKey.current().method {
-            name = "getData";emptyParam()
-        }.call()
-        return getData
+        val mediaDataInstance = MediaPlayerDataUtils(appClassLoader)
+        val mediaPlayerData = mediaDataInstance.getMediaPlayerData()
+        val firstActiveMediaKey = mediaDataInstance.getFirstActiveMediaSortKey(mediaPlayerData)
+        return mediaDataInstance.getMediaData(mediaPlayerData, firstActiveMediaKey)
     }
 
     fun Any.connectSet(startId: Int, startSide: Int, endId: Int, endSide: Int, margin: Int) {

@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.4_beta
+
+- [适配] 媒体播放器显示模式 C13.2
+
 ### 1.1.3
 
 - [适配] 部分机型电池健康度数据异常
