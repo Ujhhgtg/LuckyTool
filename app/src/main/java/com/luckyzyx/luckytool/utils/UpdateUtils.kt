@@ -20,9 +20,9 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.textview.MaterialTextView
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import io.noties.markwon.Markwon
 import org.json.JSONObject
 import java.io.File
-import java.text.DecimalFormat
 
 @Obfuscate
 class UpdateUtils(val context: Context) {
@@ -62,16 +62,16 @@ class UpdateUtils(val context: Context) {
                             addView(MaterialTextView(context).apply {
                                 setPadding(20.dp, 0, 20.dp, 0)
                                 val version =
-                                    "${context.getString(R.string.version_name)}: $name($code)\n"
+                                    "${context.getString(R.string.version_name)}: $name($code)"
                                 val count =
-                                    "${context.getString(R.string.download_count)}: $downloadCount\n"
+                                    "${context.getString(R.string.download_count)}: $downloadCount"
                                 val size =
-                                    "${context.getString(R.string.file_size)}: " + DecimalFormat(
-                                        "0.0"
-                                    ).format(fileSize / (1024 * 1024)).toString() + "MB\n"
-                                val changelog =
-                                    "${context.getString(R.string.update_logs)}: \n$changeLog"
-                                text = "${version}${count}${size}${changelog}"
+                                    "${context.getString(R.string.file_size)}: " + formatFileSize(
+                                        fileSize
+                                    )
+                                val finalText =
+                                    "# LuckyTool v$name\r\n- $version\r\n- $count\r\n- $size\r\n$changeLog"
+                                Markwon.create(context).setMarkdown(this, finalText)
                             })
                         })
                         setPositiveButton(context.getString(R.string.direct_update)) { _, _ ->

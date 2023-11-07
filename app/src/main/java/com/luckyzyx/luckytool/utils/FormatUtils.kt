@@ -73,19 +73,19 @@ fun formatSpace(string: String): String {
 }
 
 /**
- * 格式化数据大小
- * @param str String
+ * 格式化文件大小
+ * @param size Float
  * @return String
  */
-fun formatDataSize(str: String): String {
-    val int = str.toFloatOrNull() ?: return str
-    return if (int >= (1024 * 1024 * 1024)) {
-        DecimalFormat("0.00").format(int / (1024 * 1024 * 1024)).toString() + " GB"
-    } else if (int >= (1024 * 1024)) {
-        DecimalFormat("0.00").format(int / (1024 * 1024)).toString() + " MB"
-    } else if (int >= (1024)) {
-        DecimalFormat("0.00").format(int / (1024)).toString() + " KB"
-    } else "$int B"
+fun formatFileSize(size: Float?): String {
+    if (size == null || size.isInfinite() || size.isNaN()) return size.toString()
+    return if (size >= (1024 * 1024 * 1024)) {
+        DecimalFormat("0.00").format(size / (1024 * 1024 * 1024)).toString() + " GB"
+    } else if (size >= (1024 * 1024)) {
+        DecimalFormat("0.00").format(size / (1024 * 1024)).toString() + " MB"
+    } else if (size >= (1024)) {
+        DecimalFormat("0.00").format(size / (1024)).toString() + " KB"
+    } else "$size B"
 }
 
 /**

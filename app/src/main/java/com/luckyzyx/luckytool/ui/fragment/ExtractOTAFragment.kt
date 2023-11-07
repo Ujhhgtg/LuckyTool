@@ -18,7 +18,7 @@ import com.luckyzyx.luckytool.utils.SQLiteUtils.getTableData
 import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
 import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.copyStr
-import com.luckyzyx.luckytool.utils.formatDataSize
+import com.luckyzyx.luckytool.utils.formatFileSize
 import java.io.File
 
 class ExtractOTAFragment : Fragment() {
@@ -71,7 +71,7 @@ class ExtractOTAFragment : Fragment() {
                             """
                             PackName: $packName
                             
-                            Size: ${formatDataSize(size)} ($size)
+                            Size: ${formatFileSize(size.toFloatOrNull())} ($size)
                             
                             ActiveUrl: $activeUrl
                             
