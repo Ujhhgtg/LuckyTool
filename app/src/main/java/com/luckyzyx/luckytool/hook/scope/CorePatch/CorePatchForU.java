@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class CorePatchForU extends CorePatchForT {
@@ -37,5 +38,15 @@ public class CorePatchForU extends CorePatchForT {
                         }
                     }
                 });
+    
+        var ntService = XposedHelpers.findClassIfExists("com.nothing.server.ex.NtConfigListServiceImpl",
+                loadPackageParam.classLoader);
+        if (ntService != null) {
+            findAndHookMethod(ntService, "isInstallingAppForbidden", java.lang.String.class,
+                    new ReturnConstant(prefs, "bypassBlock", false));
+        
+            findAndHookMethod(ntService, "isStartingAppForbidden", java.lang.String.class,
+                    new ReturnConstant(prefs, "bypassBlock", false));
+        }
     }
 }

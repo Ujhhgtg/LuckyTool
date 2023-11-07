@@ -1322,10 +1322,11 @@ fun calcLocalHealth(context: Context): Int {
         val curValue = safeOfNull {
             BufferedReader(FileReader(curFile)).readLine().filterNumber.toDoubleOrNull()
         }
-        val powerIns = PowerProfileUtils(null).buildInstance(context)
-        val designValue = PowerProfileUtils(null).getBatteryCapacity(powerIns)
+        val designValue = PowerProfileUtils(null).let {
+            it.getBatteryCapacity(it.buildInstance(context))
+        }
         var calc = if (curValue == null || designValue == null) -1
-        else (curValue / designValue * 100.0F).roundToInt()
+        else (curValue / designValue * 100.0).roundToInt()
         if (calc > 100) calc /= 1000
         calc
     } catch (e: Exception) {

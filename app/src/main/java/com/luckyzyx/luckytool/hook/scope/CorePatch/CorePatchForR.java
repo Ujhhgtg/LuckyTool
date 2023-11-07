@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.hook.scope.CorePatch;
 
 
+import static com.luckyzyx.luckytool.utils.SPUtilsKt.ModulePrefs;
+
 import android.app.AndroidAppHelper;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -31,11 +33,15 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-/** @noinspection ALL*/
+/**
+ * @noinspection ALL
+ */
 public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     
     public static final String TAG = XposedHelper.TAG;
     private final static Method deoptimizeMethod;
+    
+    final XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, ModulePrefs);
     
     static {
         Method m = null;
@@ -57,15 +63,13 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
         }
     }
     
-    final XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, "conf");
-    
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if (BuildConfig.DEBUG) {
             XposedBridge.log("D/" + TAG + " downgrade=" + prefs.getBoolean("downgrade", true));
             XposedBridge.log("D/" + TAG + " authcreak=" + prefs.getBoolean("authcreak", true));
             XposedBridge.log("D/" + TAG + " digestCreak=" + prefs.getBoolean("digestCreak", true));
-            XposedBridge.log("D/" + TAG + " UsePreSig=" + prefs.getBoolean("UsePreSig", false));
+            XposedBridge.log("D/" + TAG + " UsePreSig=" + prefs.getBoolean("UsePreSig", true));
             XposedBridge.log("D/" + TAG + " enhancedMode=" + prefs.getBoolean("enhancedMode", false));
             XposedBridge.log("D/" + TAG + " bypassBlock=" + prefs.getBoolean("bypassBlock", true));
         }
@@ -153,7 +157,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
             public void afterHookedMethod(MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
                 if (prefs.getBoolean("digestCreak", true)) {
-                    if (!prefs.getBoolean("UsePreSig", false)) {
+                    if (!prefs.getBoolean("UsePreSig", true)) {
                         final Object block = constructor.newInstance(param.args[0]);
                         Object[] infos = (Object[]) XposedHelpers.callMethod(block, "getSignerInfos");
                         Object info = infos[0];
@@ -178,7 +182,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                     if (throwable != null || parseErr != null) {
                         Signature[] lastSigs = null;
                         try {
-                            if (prefs.getBoolean("UsePreSig", false)) {
+                            if (prefs.getBoolean("UsePreSig", true)) {
                                 PackageManager PM = AndroidAppHelper.currentApplication().getPackageManager();
                                 if (PM == null) {
                                     XposedBridge.log("E/" + TAG + " " + BuildConfig.APPLICATION_ID + " Cannot get the Package Manager... Are you using MiUI?");
