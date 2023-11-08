@@ -191,8 +191,8 @@
     <string name="remove_high_performance_mode_icon">移除高性能模式图标</string>
     <string name="remove_statusbar_securepayment_icon">移除状态栏支付保护图标</string>
     <string name="remove_green_dot_privacy_prompt">移除绿点隐私提示</string>
-    <string name="remove_green_capsule_prompt">移除绿色胶囊提示</string>
-    <string name="remove_green_capsule_prompt_summary">移除绿色的Wi-Fi热点图标</string>
+    <string name="remove_system_prompt_icon">移除系统提示图标</string>
+    <string name="remove_system_prompt_icon_summary">移除电话、投屏、录屏、热点时的提示图标</string>
     <string name="StatusBarSmallIconStatus">状态栏小图标状态</string>
     <string name="status_bar_icon_vertical_center">状态栏图标垂直居中</string>
     <!--StatusBarControlCenter-->

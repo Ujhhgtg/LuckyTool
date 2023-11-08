@@ -191,8 +191,8 @@
     <string name="remove_high_performance_mode_icon">Удалить иконку режима высокой производительности</string>
     <string name="remove_statusbar_securepayment_icon">Удалить иконку защиты платежа в строке состояния</string>
     <string name="remove_green_dot_privacy_prompt">Удалить запрос на конфиденциальность</string>
-    <string name="remove_green_capsule_prompt">Удалить запрос капсулы</string>
-    <string name="remove_green_capsule_prompt_summary">Удалить иконку точки доступа Wi-Fi</string>
+    <string name="remove_system_prompt_icon">Remove system prompt icon</string>
+    <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
     <string name="StatusBarSmallIconStatus">Статус маленькой иконки в строке состояния</string>
     <string name="status_bar_icon_vertical_center">Иконка строки состояния по вертикали в центре</string>
     <!--StatusBarControlCenter-->
@@ -505,8 +505,8 @@
     <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
-    <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
-    <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
+    <string name="auto_unlock_restricted_settings">Автоматическая разблокировка ограниченных настроек</string>
+    <string name="auto_unlock_restricted_settings_summary">Это ограничение автоматически снимается при нажатии на серый вариант</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>

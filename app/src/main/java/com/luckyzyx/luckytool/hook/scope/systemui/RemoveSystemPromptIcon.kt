@@ -1,13 +1,13 @@
 package com.luckyzyx.luckytool.hook.scope.systemui
 
+import android.view.View
+import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.utils.A14
-import com.luckyzyx.luckytool.utils.SDK
 
-object RemoveGreenCapsulePrompt : YukiBaseHooker() {
+object RemoveSystemPromptIcon : YukiBaseHooker() {
     override fun onHook() {
         //Source SystemPromptView
         VariousClass(
@@ -16,14 +16,17 @@ object RemoveGreenCapsulePrompt : YukiBaseHooker() {
         ).toClass().apply {
             method { name = "updateViewVisible" }.hook {
                 before {
-                    field { name = "disable" }.get(instance).setTrue()
+                    instance<View>().isVisible = false
+                    resultNull()
                 }
             }
-            method {
-                name = if (SDK >= A14) "disable"
-                else "setViewVisibleByDisable"
+            if (hasMethod { name = "setViewVisibleByDisable" }) method {
+                name = "setViewVisibleByDisable"
             }.hook {
-                before { args().first().setTrue() }
+                before {
+                    instance<View>().isVisible = false
+                    resultNull()
+                }
             }
         }
     }

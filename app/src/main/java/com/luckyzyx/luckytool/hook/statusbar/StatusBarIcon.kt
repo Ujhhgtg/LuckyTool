@@ -3,10 +3,10 @@ package com.luckyzyx.luckytool.hook.statusbar
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.systemui.BluetoothIconRelated
 import com.luckyzyx.luckytool.hook.scope.systemui.MobileDataIconRelated
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveGreenCapsulePrompt
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveGreenDotPrivacyPrompt
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveHighPerformanceModeIcon
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveStatusBarSecurePayment
+import com.luckyzyx.luckytool.hook.scope.systemui.RemoveSystemPromptIcon
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveWiFiDataInout
 import com.luckyzyx.luckytool.hook.scope.systemui.StatusBarIconVerticalCenter
 import com.luckyzyx.luckytool.utils.A13
@@ -35,9 +35,9 @@ object StatusBarIcon : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("remove_green_dot_privacy_prompt", false)) {
             loadHooker(RemoveGreenDotPrivacyPrompt)
         }
-        //移除绿色胶囊提示
-        if (prefs(ModulePrefs).getBoolean("remove_green_capsule_prompt", false)) {
-            loadHooker(RemoveGreenCapsulePrompt)
+        //移除系统提示图标
+        if (prefs(ModulePrefs).getBoolean("remove_system_prompt_icon", false)) {
+            loadHooker(RemoveSystemPromptIcon)
         }
         //状态栏图标垂直居中
         if (prefs(ModulePrefs).getBoolean("status_bar_icon_vertical_center", false)) {

@@ -853,9 +853,9 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_green_capsule_prompt)
-                summary = getString(R.string.remove_green_capsule_prompt_summary)
-                key = "remove_green_capsule_prompt"
+                title = getString(R.string.remove_system_prompt_icon)
+                summary = getString(R.string.remove_system_prompt_icon_summary)
+                key = "remove_system_prompt_icon"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

@@ -191,8 +191,8 @@
     <string name="remove_high_performance_mode_icon">高パフォーマンスモードアイコンを削除</string>
     <string name="remove_statusbar_securepayment_icon">ステータスバーの支払い保護アイコンを削除</string>
     <string name="remove_green_dot_privacy_prompt">緑のドットのプライバシープロンプトを削除</string>
-    <string name="remove_green_capsule_prompt">緑色のカプセルのプロンプトを削除</string>
-    <string name="remove_green_capsule_prompt_summary"> Wi-Fi ホットスポットの緑のアイコンを削除します</string>
+    <string name="remove_system_prompt_icon">Remove system prompt icon</string>
+    <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
     <string name="StatusBarSmallIconStatus">ステータスバー上の小さいステータスアイコン</string>
     <string name="status_bar_icon_vertical_center">ステータスバーアイコンを縦中央揃えにする</string>
     <!--StatusBarControlCenter-->
