@@ -1,15 +1,26 @@
 package com.luckyzyx.luckytool.hook.scope.launcher
 
+import android.content.Intent
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 
 object AllowLockingUnLockingOfExcludedActivity : YukiBaseHooker() {
     override fun onHook() {
-        //Search OplusTaskShortcutsFactory -> showLock / showUnlock
+        //Search OplusTaskShortcutsFactory -> showLock / showUnlock C13
+        //Search OplusLockManager -> isTaskAllowLock / isTaskAllowUnlock C14
         //Source OplusLockManager -> Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS (8388608 / 0x00800000)
         "com.oplus.quickstep.applock.OplusLockManager".toClass().apply {
-            method { name = "isExcludedFromRecents" }.hook {
-                replaceToFalse()
+            val methodName = if (hasMethod { name = "isAppLockable" }) "isAppLockable"
+            else "isAppSupportLock"
+            method { name = methodName }.hook {
+                before {
+                    val intent = args().last().cast<Intent>() ?: return@before
+                    val flag = intent.flags
+                    if (flag == Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) {
+                        intent.removeFlags(flag)
+                    }
+                }
             }
         }
     }

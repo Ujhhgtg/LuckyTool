@@ -9,6 +9,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [修复] 模块底部导航栏动态取色异常
 - [修复] 核心破解配置读取异常
 - [添加] 更新对话框支持MarkDown语法
+- [适配] 允许锁定/解锁已排除活动 C14
 
 ### 1.1.3
 

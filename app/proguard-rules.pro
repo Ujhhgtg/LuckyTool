@@ -94,3 +94,9 @@
 # androidx
 -keep public class * extends androidx.annotation.** { *; }
 -keep public class * extends androidx.core.content.FileProvider
+
+#-keep class * extends android.app.Activity
+#-keep class * implements androidx.viewbinding.ViewBinding {
+#    <init>();
+#    *** inflate(android.view.LayoutInflater);
+#}
