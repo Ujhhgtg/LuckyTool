@@ -535,10 +535,13 @@
     <string name="replace_oneplus_model_watermark">OnePlus モデルの透かしを置き換え</string>
     <string name="replace_oneplus_model_watermark_summary">透かしを編集するとき、[Shot On OnePlus] がカスタマイズされたモデルに置き換えられます</string>
     <!--OplusGames-->
-    <string name="remove_root_check">ゲームフィルターの制限を削除</string>
-    <string name="remove_root_check_summary">ゲームフィルターからRoot検出による制限を削除します</string>
+    <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">起動時のアニメーションを削除</string>
     <string name="remove_welfare_page">Digital Wellbeing のページを削除</string>
+    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
+    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_root_check">ゲームフィルターの制限を削除</string>
+    <string name="remove_root_check_summary">ゲームフィルターからRoot検出による制限を削除します</string>
     <string name="remove_some_vip_limit">VIP 制限を解除する</string>
     <string name="remove_some_vip_limit_summary">ネットワークアクセラレーション、ゲームフィルターなどのロックを解除します。\n機能するかは自分でテストしてください</string>
     <string name="enable_developer_page">開発者ページを有効化</string>

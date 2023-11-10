@@ -535,10 +535,13 @@
     <string name="replace_oneplus_model_watermark">替换 OnePlus 机型水印</string>
     <string name="replace_oneplus_model_watermark_summary">编辑水印时, 将 [Shot On OnePlus] 替换为自定义机型</string>
     <!--OplusGames-->
-    <string name="remove_root_check">移除游戏滤镜限制</string>
-    <string name="remove_root_check_summary">移除游戏滤镜的Root检测限制</string>
+    <string name="OplusGamesLayout">布局</string>
     <string name="remove_startup_animation">移除启动动画</string>
     <string name="remove_welfare_page">移除福利页面</string>
+    <string name="remove_tool_recommendation_card">移除工具推荐卡片</string>
+    <string name="OplusGamesTool">工具</string>
+    <string name="remove_root_check">移除游戏滤镜限制</string>
+    <string name="remove_root_check_summary">移除游戏滤镜的Root检测限制</string>
     <string name="remove_some_vip_limit">移除部分VIP限制</string>
     <string name="remove_some_vip_limit_summary">解锁网络加速、游戏滤镜等\n具体内容自行测试</string>
     <string name="enable_developer_page">启用开发者页面</string>

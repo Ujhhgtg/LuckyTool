@@ -535,10 +535,13 @@
     <string name="replace_oneplus_model_watermark">Thay thế hình mờ mô hình OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">Khi chỉnh sửa hình mờ, hãy thay thế [Shot On OnePlus] bằng mẫu tùy chỉnh của bạn</string>
     <!--OplusGames-->
-    <string name="remove_root_check">Xóa giới hạn bộ lọc trò chơi</string>
-    <string name="remove_root_check_summary">Xóa giới hạn phát hiện root cho bộ lọc trò chơi</string>
+    <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Xóa hoạt ảnh khởi động</string>
     <string name="remove_welfare_page">Xóa trang phúc lợi</string>
+    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
+    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_root_check">Xóa giới hạn bộ lọc trò chơi</string>
+    <string name="remove_root_check_summary">Xóa giới hạn phát hiện root cho bộ lọc trò chơi</string>
     <string name="remove_some_vip_limit">Xóa giới hạn thiết bị</string>
     <string name="remove_some_vip_limit_summary">Mở khóa khả năng tăng tốc mạng, bộ lọc trò chơi, v. v.\nVui lòng tự kiểm tra chức năng cụ thể</string>
     <string name="enable_developer_page">Bật chế độ nhà phát triển</string>

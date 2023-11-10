@@ -191,8 +191,8 @@
     <string name="remove_high_performance_mode_icon">Удалить иконку режима высокой производительности</string>
     <string name="remove_statusbar_securepayment_icon">Удалить иконку защиты платежа в строке состояния</string>
     <string name="remove_green_dot_privacy_prompt">Удалить запрос на конфиденциальность</string>
-    <string name="remove_system_prompt_icon">Remove system prompt icon</string>
-    <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
+    <string name="remove_system_prompt_icon">Удалить иконку системных подсказок</string>
+    <string name="remove_system_prompt_icon_summary">Удалить иконки подсказок в режиме вызова, телетрансляции, записи и точки доступа</string>
     <string name="StatusBarSmallIconStatus">Статус маленькой иконки в строке состояния</string>
     <string name="status_bar_icon_vertical_center">Иконка строки состояния по вертикали в центре</string>
     <!--StatusBarControlCenter-->
@@ -536,10 +536,13 @@
     <string name="replace_oneplus_model_watermark">Заменить водяной знак модели OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">При редактировании водяного знака [Снято на OnePlus] будет заменено выбранной моделью</string>
     <!--OplusGames-->
-    <string name="remove_root_check">Удалить определение игрового фильтра</string>
-    <string name="remove_root_check_summary">Удалить обнаружение рута из игровых фильтров</string>
+    <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Удалить стартовую анимацию</string>
     <string name="remove_welfare_page">Удалить страницу социальных услуг</string>
+    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
+    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_root_check">Удалить определение игрового фильтра</string>
+    <string name="remove_root_check_summary">Удалить обнаружение рута из игровых фильтров</string>
     <string name="remove_some_vip_limit">Снять некоторые VIP-ограничения</string>
     <string name="remove_some_vip_limit_summary">Разблокируйте сетевое ускорение, игровые фильтры и т. д.\nПожалуйста, протестируйте конкретную функцию самостоятельно</string>
     <string name="enable_developer_page">Включить меню разработчика</string>

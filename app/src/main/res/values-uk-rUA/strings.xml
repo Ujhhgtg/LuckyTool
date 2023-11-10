@@ -535,10 +535,13 @@
     <string name="replace_oneplus_model_watermark">Replace OnePlus model watermark</string>
     <string name="replace_oneplus_model_watermark_summary">When editing the watermark, [Shot On OnePlus] will be replaced with the customized model</string>
     <!--OplusGames-->
-    <string name="remove_root_check">Видалити визначення ігрового фільтра</string>
-    <string name="remove_root_check_summary">Видалити виявлення рута з ігрових фільтрів</string>
+    <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Видалити стартову анімацію</string>
     <string name="remove_welfare_page">Видалити сторінку соціальних послуг</string>
+    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
+    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_root_check">Видалити визначення ігрового фільтра</string>
+    <string name="remove_root_check_summary">Видалити виявлення рута з ігрових фільтрів</string>
     <string name="remove_some_vip_limit">Зняти деякі VIP-обмеження</string>
     <string name="remove_some_vip_limit_summary">Розблокуйте мережне прискорення, ігрові фільтри тощо.\nБудь ласка, протестуйте конкретну функцію самостійно</string>
     <string name="enable_developer_page">Увімкнути меню розробника</string>

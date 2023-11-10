@@ -11,6 +11,7 @@ import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveGameAssistantTemperatu
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveRootCheck
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveSomeVipLimit
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveStartupAnimation
+import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveToolRecommendationCard
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveWelfarePage
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppSet
@@ -64,6 +65,10 @@ object HookOplusGames : YukiBaseHooker() {
             //移除游戏助手温度检测
             if (prefs(ModulePrefs).getBoolean("remove_game_assistant_temperature_detection")) {
                 loadHooker(RemoveGameAssistantTemperatureDetection)
+            }
+            //移除游戏助手工具推荐卡片
+            if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
+                loadHooker(RemoveToolRecommendationCard)
             }
 
             //res/layout/layout_perf_cpu_setting_panel_land.xml

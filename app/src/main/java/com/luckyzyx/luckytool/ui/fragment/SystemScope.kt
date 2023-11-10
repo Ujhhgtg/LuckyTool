@@ -757,6 +757,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //WIFI
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusBarWIFIIcon)
                 key = "StatusBarWIFIIcon"
@@ -768,7 +769,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //移动数据
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusBarMobileDataIcon)
                 key = "StatusBarMobileDataIcon"
@@ -812,7 +813,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-
+            //蓝牙
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusBarBluetoothIcon)
                 key = "StatusBarBluetoothIcon"
@@ -828,7 +829,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-
+            //其他
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusBarOtherIcon)
                 key = "StatusBarOtherIcon"
@@ -859,7 +860,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //图标状态
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusBarSmallIconStatus)
                 key = "StatusBarSmallIconStatus"
@@ -3009,11 +3010,9 @@ class OplusGames : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_root_check)
-                summary = getString(R.string.remove_root_check_summary)
-                key = "remove_root_check"
-                setDefaultValue(false)
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.OplusGamesLayout)
+                key = "OplusGamesLayout"
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -3025,6 +3024,24 @@ class OplusGames : BaseScopePreferenceFeagment() {
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_welfare_page)
                 key = "remove_welfare_page"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_tool_recommendation_card)
+                key = "remove_tool_recommendation_card"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.OplusGamesTool)
+                key = "OplusGamesTool"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_root_check)
+                summary = getString(R.string.remove_root_check_summary)
+                key = "remove_root_check"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

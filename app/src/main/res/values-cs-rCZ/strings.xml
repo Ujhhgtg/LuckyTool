@@ -191,8 +191,8 @@
     <string name="remove_high_performance_mode_icon">Odstranit ikonu režimu vysokého výkonu</string>
     <string name="remove_statusbar_securepayment_icon">Skrýt ikonu ochrany plateb</string>
     <string name="remove_green_dot_privacy_prompt">Odstranit zelenou tečku využívání mikrofonu nebo kamery</string>
-    <string name="remove_system_prompt_icon">Remove system prompt icon</string>
-    <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
+    <string name="remove_system_prompt_icon">Odstranit ikonu výzvy systému</string>
+    <string name="remove_system_prompt_icon_summary">Odstranit ikony výzvy v režimu hovoru, v režimu odesílání do TV a chromecast, nahrávání a hotspotu</string>
     <string name="StatusBarSmallIconStatus">Stav malé ikony ve stavové liště</string>
     <string name="status_bar_icon_vertical_center">Vycentrujte položky ve stavové liště</string>
     <!--StatusBarControlCenter-->
@@ -535,10 +535,13 @@
     <string name="replace_oneplus_model_watermark">Nahradit model vodoznaku OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">Při úpravách vodoznaku bude [Shot On OnePlus] nahrazen upraveným modelem</string>
     <!--OplusGames-->
-    <string name="remove_root_check">Odstranit limit herního filtru</string>
-    <string name="remove_root_check_summary">Odstranit limit detekce root pro herní filtr</string>
+    <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Odstranit úvodní animaci</string>
     <string name="remove_welfare_page">Odstranit stránku o blahobytu (welfare)</string>
+    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
+    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_root_check">Odstranit limit herního filtru</string>
+    <string name="remove_root_check_summary">Odstranit limit detekce root pro herní filtr</string>
     <string name="remove_some_vip_limit">Odstranit některá VIP omezení</string>
     <string name="remove_some_vip_limit_summary">Odemkněte zrychlení sítě, herní filtry, atd. \nProsím, sami otestujte konkrétní funkce</string>
     <string name="enable_developer_page">Povolit vývojářský režim</string>
