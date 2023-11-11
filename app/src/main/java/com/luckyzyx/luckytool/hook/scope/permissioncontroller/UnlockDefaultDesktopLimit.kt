@@ -5,96 +5,103 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import com.luckyzyx.luckytool.utils.SDK
 import org.luckypray.dexkit.query.enums.UsingType
 
 object UnlockDefaultDesktopLimit : YukiBaseHooker() {
     override fun onHook() {
-        //Source FeatureOption -> oplus.software.defaultapp.remove_force_launcher
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            val forceMethod = dexKitBridge.findMethod {
-                matcher {
-                    addUsingField {
-                        field {
-                            addPutMethod {
-                                paramTypes(ContextClass.name)
-                                returnType(UnitType.name)
-                                usingStrings(
-                                    "oplus.software.pms_app_frozen",
-                                    "oplus.software.defaultapp.remove_force_launcher",
-                                    "oplus.hardware.type.tablet"
-                                )
+        if (SDK >= A13) loadHooker(UnlockDefaultDesktop)
+        else loadHooker(UnlockDefaultDesktopV12)
+    }
+
+    object UnlockDefaultDesktop : YukiBaseHooker() {
+        override fun onHook() {
+            //Source FeatureOption -> oplus.software.defaultapp.remove_force_launcher
+            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+                dexKitBridge.findMethod {
+                    matcher {
+                        addUsingField {
+                            field {
+                                addPutMethod {
+                                    paramTypes(ContextClass.name)
+                                    returnType(UnitType)
+                                    usingStrings(
+                                        "oplus.software.pms_app_frozen",
+                                        "oplus.software.defaultapp.remove_force_launcher",
+                                        "oplus.hardware.type.tablet"
+                                    )
+                                }
+                                addGetMethod {
+                                    paramCount(0)
+                                    returnType(BooleanType)
+                                }
                             }
-                            addGetMethod {
-                                paramCount(0)
-                                returnType(BooleanType.name)
-                            }
+                            usingType(UsingType.Get)
                         }
-                        usingType(UsingType.Get)
+                        paramCount(0)
+                        returnType(BooleanType.name)
+                        callMethods {
+                            add {
+                                paramTypes("java.util.List")
+                                returnType(UnitType)
+                            }
+                            count(1)
+                        }
                     }
-                    paramCount(0)
-                    returnType(BooleanType.name)
-                    addCall {
-                        declaredClass {
-                            usingStrings("DefaultApp")
+                }.apply {
+                    checkDataList("UnlockDefaultDesktopLimit finalMethod")
+                    val member = first()
+                    member.className.toClass().apply {
+                        method { name = member.methodName }.hook {
+                            replaceToTrue()
                         }
-                        paramTypes("java.util.List")
-                        returnType(UnitType.name)
-                        usingStrings("DefaultApp")
                     }
                 }
-            }.checkDataList("UnlockDefaultDesktopLimit allMethod", false)
+            }
+        }
+    }
 
-            val tableMethod = dexKitBridge.findMethod {
-                searchPackages(forceMethod.first().className)
-                matcher {
-                    addUsingField {
-                        field {
-                            addPutMethod {
-                                paramTypes(ContextClass.name)
-                                returnType(UnitType.name)
-                                usingStrings(
-                                    "oplus.software.pms_app_frozen",
-                                    "oplus.software.defaultapp.remove_force_launcher",
-                                    "oplus.hardware.type.tablet"
-                                )
+    object UnlockDefaultDesktopV12 : YukiBaseHooker() {
+        override fun onHook() {
+            //Source FeatureOption -> oplus.software.defaultapp.remove_force_launcher
+            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+                dexKitBridge.findMethod {
+                    matcher {
+                        addUsingField {
+                            field {
+                                addPutMethod {
+                                    paramTypes(ContextClass.name)
+                                    returnType(UnitType)
+                                    usingStrings(
+                                        "oplus.software.pms_app_frozen",
+                                        "oplus.software.defaultapp.remove_force_launcher",
+                                        "oplus.hardware.type.tablet"
+                                    )
+                                }
+                                addGetMethod {
+                                    paramCount(0)
+                                    returnType(BooleanType)
+                                }
                             }
-                            addGetMethod {
-                                paramCount(0)
-                                returnType(BooleanType.name)
-                            }
+                            usingType(UsingType.Get)
                         }
-                        usingType(UsingType.Get)
-                    }
-                    paramCount(0)
-                    returnType(BooleanType.name)
-                    addCall {
-                        declaredClass {
-                            usingStrings("DefaultApp")
+                        paramCount(0)
+                        returnType(BooleanType.name)
+                        addCall {
+                            paramTypes("java.util.List")
+                            returnType(UnitType)
                         }
-                        paramTypes("java.util.List")
-                        returnType(UnitType.name)
-                        usingStrings("DefaultApp")
                     }
-                    addCall {
-                        declaredClass {
-                            usingStrings("DefaultApp")
+                }.apply {
+                    checkDataList("UnlockDefaultDesktopLimitV12")
+                    val member = first()
+                    member.className.toClass().apply {
+                        method { name = member.methodName;emptyParam() }.hook {
+                            replaceToTrue()
                         }
-                        paramCount(6)
-                        returnType(UnitType.name)
-                        usingStrings("DefaultApp")
-                    }
-                }
-            }.checkDataList("UnlockDefaultDesktopLimit tableMethod")
-
-            forceMethod.apply {
-                remove(tableMethod.first())
-                checkDataList("UnlockDefaultDesktopLimit finalMethod")
-                val member = first()
-                member.className.toClass().apply {
-                    method { name = member.methodName }.hook {
-                        replaceToTrue()
                     }
                 }
             }

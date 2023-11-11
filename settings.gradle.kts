@@ -16,9 +16,11 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+//        mavenLocal {
+//            content { includeGroup("com.highcapable.flexiui") }
+//        }
         google()
         mavenCentral()
-//        mavenLocal { content { includeGroup("com.highcapable.yukihookapi") } }
         maven { setUrl("https://jitpack.io") }
         maven { setUrl("https://api.xposed.info") }
         maven { setUrl("https://maven.aliyun.com/repository/public") }
