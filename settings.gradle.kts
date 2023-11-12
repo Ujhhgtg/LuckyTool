@@ -16,9 +16,9 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-//        mavenLocal {
-//            content { includeGroup("com.highcapable.flexiui") }
-//        }
+        mavenLocal {
+            content { includeGroup("com.highcapable.flexiui") }
+        }
         google()
         mavenCentral()
         maven { setUrl("https://jitpack.io") }

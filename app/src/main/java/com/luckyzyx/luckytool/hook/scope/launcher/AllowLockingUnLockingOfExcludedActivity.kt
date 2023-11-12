@@ -17,7 +17,7 @@ object AllowLockingUnLockingOfExcludedActivity : YukiBaseHooker() {
                 before {
                     val intent = args().last().cast<Intent>() ?: return@before
                     val flag = intent.flags
-                    if (flag == Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) {
+                    if (flag and Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS == Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) {
                         intent.removeFlags(flag)
                     }
                 }
