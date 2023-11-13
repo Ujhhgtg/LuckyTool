@@ -451,6 +451,8 @@
     <string name="SoundRelated">Sound Related</string>
     <string name="media_volume_level">Рівень гучності мультимедіа</string>
     <string name="media_volume_level_summary">Встановіть 0, щоб вимкнути цю функцію, перезавантажте систему, щоб зміни набули чинності</string>
+    <string name="enable_super_volume_mode">Enable super volume mode</string>
+    <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
     <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Різне</string>

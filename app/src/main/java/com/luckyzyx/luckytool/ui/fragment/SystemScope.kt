@@ -2477,6 +2477,20 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_super_volume_mode)
+                key = "enable_super_volume_mode"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_super_volume_mode_for_calls)
+                key = "enable_super_volume_mode_for_calls"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.minimum_volume_level_can_be_zero)
                 key = "minimum_volume_level_can_be_zero"
                 setDefaultValue(false)

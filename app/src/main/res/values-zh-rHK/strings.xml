@@ -451,6 +451,8 @@
     <string name="SoundRelated">声音相关</string>
     <string name="media_volume_level">媒体音量阶数</string>
     <string name="media_volume_level_summary">设置为0关闭功能，系统重启生效</string>
+    <string name="enable_super_volume_mode">启用超级音量模式</string>
+    <string name="enable_super_volume_mode_for_calls">启用通话超级音量模式</string>
     <string name="minimum_volume_level_can_be_zero">音量阶数最低可为 0</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">杂项</string>

@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.hook.hooker.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -13,6 +14,8 @@ object HookSystemUIFeature : YukiBaseHooker() {
     var callback: ((key: String, value: Any) -> Unit)? = null
 
     override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
+
         loadHooker(HookFeatureOption)
         loadHooker(HookStatusBarFeature)
         loadHooker(HookNotificationAppFeature)

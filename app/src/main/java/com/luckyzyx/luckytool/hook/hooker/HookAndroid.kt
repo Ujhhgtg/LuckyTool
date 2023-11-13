@@ -27,6 +27,9 @@ import com.luckyzyx.luckytool.hook.scope.android.ZoomWindow
 object HookAndroid : YukiBaseHooker() {
 
     override fun onHook() {
+        //HookFeatureConfigManager.kt
+        loadHooker(HookGlobalFeatureConfig)
+
         //移除状态栏上层警告
         loadHooker(RemoveStatusBarTopNotification)
 

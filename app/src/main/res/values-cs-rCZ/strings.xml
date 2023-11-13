@@ -451,6 +451,8 @@
     <string name="SoundRelated">Související se zvukem</string>
     <string name="media_volume_level">Úroveň hlasitosti médií</string>
     <string name="media_volume_level_summary">Nastavte na 0 pro vypnutí této funkce, restartujte systém, aby se změny projevily</string>
+    <string name="enable_super_volume_mode">Enable super volume mode</string>
+    <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
     <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Různé</string>
@@ -535,11 +537,11 @@
     <string name="replace_oneplus_model_watermark">Nahradit model vodoznaku OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">Při úpravách vodoznaku bude [Shot On OnePlus] nahrazen upraveným modelem</string>
     <!--OplusGames-->
-    <string name="OplusGamesLayout">Layout</string>
+    <string name="OplusGamesLayout">Rozložení</string>
     <string name="remove_startup_animation">Odstranit úvodní animaci</string>
     <string name="remove_welfare_page">Odstranit stránku o blahobytu (welfare)</string>
-    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
-    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_tool_recommendation_card">Odstranit kartu doporučující aplikace</string>
+    <string name="OplusGamesTool">Nástroj</string>
     <string name="remove_root_check">Odstranit limit herního filtru</string>
     <string name="remove_root_check_summary">Odstranit limit detekce root pro herní filtr</string>
     <string name="remove_some_vip_limit">Odstranit některá VIP omezení</string>

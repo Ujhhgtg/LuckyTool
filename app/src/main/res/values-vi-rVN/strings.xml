@@ -451,6 +451,8 @@
     <string name="SoundRelated">Sound Related</string>
     <string name="media_volume_level">Mức âm lượng</string>
     <string name="media_volume_level_summary">Đặt thành 0 để tắt chức năng này, khởi động lại hệ thống để có hiệu lực</string>
+    <string name="enable_super_volume_mode">Enable super volume mode</string>
+    <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
     <string name="minimum_volume_level_can_be_zero">Mức âm lượng có thể thấp đến mức 0</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Khác</string>
