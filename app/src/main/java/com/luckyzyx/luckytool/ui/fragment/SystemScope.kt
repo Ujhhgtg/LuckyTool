@@ -1946,6 +1946,20 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     context.dataChannel("com.android.systemui").put(key, newValue)
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.lock_screen_show_real_charging_technology)
+                key = "lock_screen_show_real_charging_technology"
+                setDefaultValue(false)
+                isVisible = SDK >= A13 && context.getString(
+                    ModulePrefs, "set_lock_screen_charging_text_logo_style"
+                ) != "2"
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.dataChannel("com.android.systemui").put(key, newValue)
                     true
                 }
             })

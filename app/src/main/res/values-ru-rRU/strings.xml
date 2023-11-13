@@ -315,6 +315,7 @@
     <string name="LockScreenChargingComponent">Зарядка на экране блокировки</string>
     <string name="set_lock_screen_warp_charging_style">Установить стиль зарядки warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Установить стиль текстового логотипа зарядки</string>
+    <string name="lock_screen_show_real_charging_technology">Charging components show real charging technology</string>
     <string name="force_lock_screen_charging_show_wattage">Принудительно отображать мощность зарядки</string>
     <string name="lock_screen_charging_use_user_typeface">Компоненты зарядки используют пользовательские шрифты</string>
     <string name="set_full_screen_charging_animation_mode">Анимация во весь экран при зарядке</string>
@@ -452,8 +453,8 @@
     <string name="SoundRelated">Звук</string>
     <string name="media_volume_level">Уровень громкости мультимедиа</string>
     <string name="media_volume_level_summary">Установите 0, чтобы отключить эту функцию, перезагрузите систему, чтобы изменения вступили в силу</string>
-    <string name="enable_super_volume_mode">Enable super volume mode</string>
-    <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
+    <string name="enable_super_volume_mode">Включить режим супер громкости</string>
+    <string name="enable_super_volume_mode_for_calls">Включить режим супер громкости для звонков</string>
     <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Разное</string>

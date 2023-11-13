@@ -315,6 +315,7 @@
     <string name="LockScreenChargingComponent">Thành phần sạc màn hình khóa</string>
     <string name="set_lock_screen_warp_charging_style">Đặt kiểu sạc Warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Đặt kiểu Logo văn bản</string>
+    <string name="lock_screen_show_real_charging_technology">Charging components show real charging technology</string>
     <string name="force_lock_screen_charging_show_wattage">Các thành phần sạc buộc phải hiển thị công suất</string>
     <string name="lock_screen_charging_use_user_typeface">Linh kiện sạc sử dụng phông chữ của người dùng</string>
     <string name="set_full_screen_charging_animation_mode">Chế độ hoạt hình sạc toàn màn hình</string>

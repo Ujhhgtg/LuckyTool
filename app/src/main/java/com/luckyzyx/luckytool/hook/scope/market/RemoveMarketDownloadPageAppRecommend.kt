@@ -9,7 +9,7 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 
 object RemoveMarketDownloadPageAppRecommend : YukiBaseHooker() {
     override fun onHook() {
-        //Source DownloadManageFragment
+        //Source DownloadManagerAdapter
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             dexKitBridge.findMethod {
                 searchPackages("com.heytap.cdo.client.ui.downloadmgr")
@@ -17,18 +17,18 @@ object RemoveMarketDownloadPageAppRecommend : YukiBaseHooker() {
                     addParamType(ListClass.name)
                     returnType(UnitType)
                     addInvoke {
+                        name("notifyDataSetChanged")
+                    }
+                    addCall {
                         addParamType(ListClass.name)
                         returnType(UnitType)
-                        addInvoke {
-                            name("notifyDataSetChanged")
-                        }
                     }
                 }
             }.apply {
-                checkDataList("RemoveMarketDownloadPageAppRecommend", false, isDebug = true)
+                checkDataList("RemoveMarketDownloadPageAppRecommend", false)
                 forEach {
                     it.className.toClass().method { name = it.methodName;param(ListClass) }
-                        .hookAll {
+                        .hook {
                             before {
                                 args().first().cast<ArrayList<Any>>()?.clear()
                             }

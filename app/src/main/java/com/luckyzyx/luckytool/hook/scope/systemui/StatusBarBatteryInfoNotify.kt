@@ -16,11 +16,10 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
-import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.DevicesConfigUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.NotifyUtils
-import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatDouble
@@ -239,25 +238,9 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     ) {
         createChannel(context)
         //com.oplusos.systemui.keyguard.charginganim.ChargingTypeConstants
-        val technology = when (chargerTechnology) {
-            0 -> when (ppsMode) {
-                1 -> "PPS"
-                3 -> "PublicUFCS"
-                4 -> "PrivateUFCS"
-                else -> "Normal"
-            }
-
-            1 -> "VOOC"
-            2 -> "SUPERVOOC"
-            20 -> "SUPERVOOC2.0"
-            30 -> "SUPERVOOC Athena Foreign Pro"
-            25 -> "VOOC Beta Pro"
-            3 -> "PD"
-            4 -> "QC"
-            5 -> "PPS" //null
-            6 -> "UFCS" //null
-            else -> "Error: $chargerTechnology"
-        }
+        val technology = BatteryControllerUtils(appClassLoader).getTechnologyName(
+            chargerTechnology, ppsMode
+        )
         val powerCalc = if (isSeriesDual || isParallelDual) {
             (voltage + voltage2) * electricCurrent / 1000.0
         } else voltage * electricCurrent / 1000.0
@@ -283,7 +266,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val typeStr = safeOf("Type") { context.getString(R.string.battery_charger_type) }
         val pwrStr = safeOf("Pwr") { context.getString(R.string.battery_power) }
         val techStr = safeOf("Tech") { context.getString(R.string.battery_technology) }
-        val updateTimeStr = safeOf("Tech") { context.getString(R.string.battery_update_time) }
+        val updateTimeStr = safeOf("UpdateTime") { context.getString(R.string.battery_update_time) }
 
         val power = formatDouble("%.2f", abs(powerCalc) * 1.0).toString() + "W"
         val wattage = if (chargeWattage != 0) "${chargeWattage}W" else ""
@@ -387,8 +370,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     @SuppressLint("DeprecatedSinceApi")
     private fun getChargeInfo(): Properties = safeOf(Properties()) {
         val queryChargeInfo = IChargerUtils(appClassLoader).let {
-            val ins = if (SDK >= A14) it.getInstance() else it.getInstanceC13()
-            it.queryChargeInfo(ins)
+            it.queryChargeInfo(it.getInstance())
         }
         return Properties().apply {
             load(StringReader(queryChargeInfo))

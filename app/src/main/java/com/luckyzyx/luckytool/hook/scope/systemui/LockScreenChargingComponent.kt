@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scope.systemui
 
 import android.graphics.Typeface
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.allViews
@@ -11,6 +12,7 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
+import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
@@ -36,6 +38,11 @@ object LockScreenChargingComponent : YukiBaseHooker() {
             var textLogo =
                 prefs(ModulePrefs).getString("set_lock_screen_charging_text_logo_style", "0")
             dataChannel.wait<String>("set_lock_screen_charging_text_logo_style") { textLogo = it }
+            var showRealTech =
+                prefs(ModulePrefs).getBoolean("lock_screen_show_real_charging_technology", false)
+            dataChannel.wait<Boolean>("lock_screen_show_real_charging_technology") {
+                showRealTech = it
+            }
             var showWattage =
                 prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
             dataChannel.wait<Boolean>("force_lock_screen_charging_show_wattage") {
@@ -72,13 +79,59 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (!showWattage) return@before
                         val chargeInfoObserver = args().first().any() ?: return@before
                         val getChargeWattage = chargeInfoObserver.current().method {
-                            name = "getChargeWattage"
-                            emptyParam()
+                            name = "getChargeWattage";emptyParam()
                         }.invoke<String>()?.toIntOrNull() ?: return@before
                         if (getChargeWattage != 0) resultTrue()
                     }
                 }
             }
+
+            //Source OplusChargeAnimImpl
+            "com.oplus.charge.viewmodel.OplusChargeAnimImpl".toClass().apply {
+                method { name = "getTechnologyStr" }.hook {
+                    before {
+                        if (!showRealTech) return@before
+                        val chargeInfoObserver = args().first().any() ?: return@before
+                        val technology = chargeInfoObserver.current().method {
+                            name = "getmChargerTechnology"
+                        }.invoke<Int>() ?: return@before
+                        val ppsMode = chargeInfoObserver.current().method {
+                            name = "getmPpsState"
+                        }.invoke<Int>() ?: return@before
+                        val ismIsWirelessCharge = chargeInfoObserver.current().method {
+                            name = "ismIsWirelessCharge"
+                        }.invoke<Boolean>() ?: return@before
+                        if (ismIsWirelessCharge) return@before
+                        result = BatteryControllerUtils(appClassLoader).getTechnologyName(
+                            technology, ppsMode
+                        )
+                    }
+                }
+            }
+
+            //Source OplusChargeAnimFlavorOneImpl
+            "com.oplus.systemui.keyguard.charginganim.siphonanim.viewmodel.OplusChargeAnimFlavorOneImpl".toClassOrNull()
+                ?.apply {
+                    method { name = "getTechnologyStr" }.hook {
+                        before {
+                            if (!showRealTech) return@before
+                            val chargeInfoObserver = args().first().any() ?: return@before
+                            val technology = chargeInfoObserver.current().method {
+                                name = "getmChargerTechnology"
+                            }.invoke<Int>() ?: return@before
+                            val ppsMode = chargeInfoObserver.current().method {
+                                name = "getmPpsState"
+                            }.invoke<Int>() ?: return@before
+                            val ismIsWirelessCharge = chargeInfoObserver.current().method {
+                                name = "ismIsWirelessCharge"
+                            }.invoke<Boolean>() ?: return@before
+                            if (ismIsWirelessCharge) return@before
+                            result = BatteryControllerUtils(appClassLoader).getTechnologyName(
+                                technology, ppsMode
+                            )
+                        }
+                    }
+                }
 
             //Source ChargeLevelAndLogoFlavorOneView
             "com.oplus.systemui.keyguard.charginganim.siphonanim.view.ChargeLevelAndLogoFlavorOneView".toClassOrNull()
@@ -115,10 +168,19 @@ object LockScreenChargingComponent : YukiBaseHooker() {
             }
             var warpCharge =
                 prefs(ModulePrefs).getString("set_lock_screen_warp_charging_style", "0")
-            dataChannel.wait<String>("set_lock_screen_warp_charging_style") { warpCharge = it }
+            dataChannel.wait<String>("set_lock_screen_warp_charging_style") {
+                warpCharge = it
+            }
             var textLogo =
                 prefs(ModulePrefs).getString("set_lock_screen_charging_text_logo_style", "0")
-            dataChannel.wait<String>("set_lock_screen_charging_text_logo_style") { textLogo = it }
+            dataChannel.wait<String>("set_lock_screen_charging_text_logo_style") {
+                textLogo = it
+            }
+            var showRealTech =
+                prefs(ModulePrefs).getBoolean("lock_screen_show_real_charging_technology", false)
+            dataChannel.wait<Boolean>("lock_screen_show_real_charging_technology") {
+                showRealTech = it
+            }
             var showWattage =
                 prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
             dataChannel.wait<Boolean>("force_lock_screen_charging_show_wattage") {
@@ -146,6 +208,23 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                 "2" -> resultFalse()
                                 else -> return@before
                             }
+                        }
+                    }
+                    method { name = "updateLogoResource" }.hook {
+                        after {
+                            if (warpCharge != "2" || !showRealTech) return@after
+                            val context = instance<View>().context
+                            val showText = method { name = "showTextLogo" }.get(instance)
+                                .invoke<Boolean>() ?: return@after
+                            val mTextLogo = field { name = "mTextLogo" }.get(instance)
+                                .cast<TextView>() ?: return@after
+                            if (showText) mTextLogo.text =
+                                BatteryControllerUtils(appClassLoader).let {
+                                    val ins = it.getInstance(context)
+                                    val tech = it.getChargerTechnology(ins)
+                                    val pps = it.getPPSMode(ins)
+                                    it.getTechnologyName(tech, pps)
+                                }
                         }
                     }
                 }
@@ -184,6 +263,23 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             }
                         }
                     }
+                    method { name = "updateLogoResource" }.hook {
+                        after {
+                            if (warpCharge != "2" || !showRealTech) return@after
+                            val context = instance<View>().context
+                            val showText = method { name = "showTextLogo" }.get(instance)
+                                .invoke<Boolean>() ?: return@after
+                            val mTextLogo = field { name = "mTextLogo" }.get(instance)
+                                .cast<TextView>() ?: return@after
+                            if (showText) mTextLogo.text =
+                                BatteryControllerUtils(appClassLoader).let {
+                                    val ins = it.getInstance(context)
+                                    val tech = it.getChargerTechnology(ins)
+                                    val pps = it.getPPSMode(ins)
+                                    it.getTechnologyName(tech, pps)
+                                }
+                        }
+                    }
                 }
         }
     }
@@ -197,7 +293,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
             }
             var textLogo =
                 prefs(ModulePrefs).getString("set_lock_screen_charging_text_logo_style", "0")
-            dataChannel.wait<String>("set_lock_screen_charging_text_logo_style") { textLogo = it }
+            dataChannel.wait<String>("set_lock_screen_charging_text_logo_style") {
+                textLogo = it
+            }
             var showWattage =
                 prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
             dataChannel.wait<Boolean>("force_lock_screen_charging_show_wattage") {
