@@ -17,10 +17,7 @@ object AutoClickInstallButton : YukiBaseHooker() {
         }
         //Source InstallAppProgress
         "com.android.packageinstaller.oplus.InstallAppProgress".toClass().apply {
-            method {
-                name = "onPackageInstalled"
-                paramCount = 1
-            }.hook {
+            method { name = "onPackageInstalled";paramCount = 1 }.hook {
                 after {
                     if (args().first().int() == 0) field {
                         name = "mDoneButton"

@@ -19,10 +19,7 @@ object PageIndicator : YukiBaseHooker() {
 
         //Source OplusPageIndicator
         "com.android.launcher.pageindicators.OplusPageIndicator".toClass().apply {
-            method {
-                name = "onDraw"
-                param(CanvasClass)
-            }.hook {
+            method { name = "onDraw";param(CanvasClass) }.hook {
                 before {
                     val view = instance<View>()
                     when (view.parent.javaClass.canonicalName) {
@@ -36,20 +33,15 @@ object PageIndicator : YukiBaseHooker() {
                             resultNull()
                         }
 
-                        else -> YLog.debug(msg = "${PageIndicator.packageName}\nError -> PageIndicator")
+                        else -> YLog.debug("${this@PageIndicator.packageName}\nError -> PageIndicator")
                     }
                 }
             }
         }
 
         //Source PageIndicatorTouchHelper
-        val cls = "com.android.launcher.pageindicators.PageIndicatorTouchHelper".hasClass()
-        if (!cls) return
-        "com.android.launcher.pageindicators.PageIndicatorTouchHelper".toClass().apply {
-            method {
-                name = "dispatchTouchEvent"
-                param(MotionEventClass)
-            }.hook {
+        "com.android.launcher.pageindicators.PageIndicatorTouchHelper".toClassOrNull()?.apply {
+            method { name = "dispatchTouchEvent";param(MotionEventClass) }.hook {
                 if (disableSliding) replaceToFalse()
             }
         }

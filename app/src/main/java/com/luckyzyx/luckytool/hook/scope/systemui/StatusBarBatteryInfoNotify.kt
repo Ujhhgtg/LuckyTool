@@ -156,11 +156,11 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             chargeInfo = getChargeInfo()
             statusValue = chargeInfo.getIntProperty("battery_status")
             status = when (statusValue) {
-                2 -> context.getString(R.string.battery_status_charging)
-                3 -> context.getString(R.string.battery_status_discharging)
-                4 -> context.getString(R.string.battery_status_not_charging)
-                5 -> context.getString(R.string.battery_status_full)
-                else -> context.getString(R.string.battery_status_unknown)
+                2 -> safeOf("Charging") { context.getString(R.string.battery_status_charging) }
+                3 -> safeOf("Discharging") { context.getString(R.string.battery_status_discharging) }
+                4 -> safeOf("Not Charging") { context.getString(R.string.battery_status_not_charging) }
+                5 -> safeOf("Full") { context.getString(R.string.battery_status_full) }
+                else -> safeOf("Unknown") { context.getString(R.string.battery_status_unknown) }
             }
             isCharging = statusValue == 2 || statusValue == 5
             plugged = when (getPlugType(chargeInfo)) {
@@ -262,34 +262,46 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             (voltage + voltage2) * electricCurrent / 1000.0
         } else voltage * electricCurrent / 1000.0
 
-        val batteryIcon = when (level) {
-            100 -> R.drawable.round_battery_full_24
-            in 80..99 -> R.drawable.round_battery_6_bar_24
-            in 65..79 -> R.drawable.round_battery_5_bar_24
-            in 50..64 -> R.drawable.round_battery_4_bar_24
-            in 35..49 -> R.drawable.round_battery_3_bar_24
-            in 25..34 -> R.drawable.round_battery_2_bar_24
-            in 10..24 -> R.drawable.round_battery_1_bar_24
-            in 0..9 -> R.drawable.round_battery_0_bar_24
-            else -> R.drawable.round_battery_unknown_24
+        val batteryIcon = safeOf(android.R.drawable.sym_def_app_icon) {
+            if (isCharging) R.drawable.ic_round_battery_charging_full_24
+            else when (level) {
+                100 -> R.drawable.round_battery_full_24
+                in 80..99 -> R.drawable.round_battery_6_bar_24
+                in 65..79 -> R.drawable.round_battery_5_bar_24
+                in 50..64 -> R.drawable.round_battery_4_bar_24
+                in 35..49 -> R.drawable.round_battery_3_bar_24
+                in 25..34 -> R.drawable.round_battery_2_bar_24
+                in 10..24 -> R.drawable.round_battery_1_bar_24
+                in 0..9 -> R.drawable.round_battery_0_bar_24
+                else -> R.drawable.round_battery_unknown_24
+            }
         }
+        val tempStr = safeOf("Temp") { context.getString(R.string.battery_temperature) }
+        val volStr = safeOf("Vol") { context.getString(R.string.battery_voltage) }
+        val curStr = safeOf("Cur") { context.getString(R.string.battery_electric_current) }
+        val hltStr = safeOf("Cur") { context.getString(R.string.battery_health) }
+        val typeStr = safeOf("Type") { context.getString(R.string.battery_charger_type) }
+        val pwrStr = safeOf("Pwr") { context.getString(R.string.battery_power) }
+        val techStr = safeOf("Tech") { context.getString(R.string.battery_technology) }
+        val updateTimeStr = safeOf("Tech") { context.getString(R.string.battery_update_time) }
+
         val power = formatDouble("%.2f", abs(powerCalc) * 1.0).toString() + "W"
         val wattage = if (chargeWattage != 0) "${chargeWattage}W" else ""
 
         val tem = if (isSimple) "${temperature}℃"
-        else "${context.getString(R.string.battery_temperature)}: ${temperature}℃"
+        else "${tempStr}: ${temperature}℃"
         val formatVol = formatDouble("%.2f", voltage)
         val formatVol2 = formatDouble("%.2f", voltage2)
         val vol = when (showVolMode) {
             "1" -> if (isSimple) "${formatVol}V"
-            else "${context.getString(R.string.battery_voltage)}: ${formatVol}V"
+            else "${volStr}: ${formatVol}V"
 
             "2" -> if (isSeriesDual || isParallelDual) {
                 if (isSimple) "${formatVol}V ${formatVol2}V"
-                else "${context.getString(R.string.battery_voltage)}: ${formatVol}V ${formatVol2}V"
+                else "${volStr}: ${formatVol}V ${formatVol2}V"
             } else {
                 if (isSimple) "${formatVol}V"
-                else "${context.getString(R.string.battery_voltage)}: ${formatVol}V"
+                else "${volStr}: ${formatVol}V"
             }
 
             else -> ""
@@ -301,23 +313,23 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else if (isPositive) abs(electricCurrent).toString() + "mA"
         else "${electricCurrent}mA"
         val cur = if (isSimple) formatCur
-        else "${context.getString(R.string.battery_electric_current)}: $formatCur"
+        else "${curStr}: $formatCur"
         val health = if (isHealth) {
             val value = calcLocalHealth(context).toString() + "%"
-            if (isSimple) value else "${context.getString(R.string.battery_health)}: $value"
+            if (isSimple) value else "${hltStr}: $value"
         } else ""
 
         val sp = if (isSimple) "$level%" else "$status: $level%"
         val ct = if (isSimple) "$plugged $chargerType"
-        else "${context.getString(R.string.battery_charger_type)}: $plugged $chargerType"
+        else "${typeStr}: $plugged $chargerType"
         val pwr = if (isSimple) power
-        else "${context.getString(R.string.battery_power)}: $power"
+        else "${pwrStr}: $power"
         val tech = if (isSimple) "$technology $wattage"
-        else "${context.getString(R.string.battery_technology)}: $technology $wattage"
+        else "${techStr}: $technology $wattage"
 
         val formatWireVol = formatDouble("%.2f", wirelessVol)
         val wireVol = if (isSimple) "${formatWireVol}V"
-        else "${context.getString(R.string.battery_voltage)}: ${formatWireVol}V"
+        else "${volStr}: ${formatWireVol}V"
         val formatwireCur = if (abs(wirelessCur) >= 1000) {
             formatDouble("%.1f", wirelessCur / 1000.0).apply {
                 if (isPositive) abs(this)
@@ -325,10 +337,10 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else if (isPositive) abs(wirelessCur).toString() + "mA"
         else "${wirelessCur}mA"
         val wireCur = if (isSimple) formatwireCur
-        else "${context.getString(R.string.battery_electric_current)}: $formatwireCur"
+        else "${curStr}: $formatwireCur"
         val wirePwrCalc = formatDouble("%.2f", wirelessVol * wirelessCur / 1000.0)
         val wirePwr = if (isSimple) "${wirePwrCalc}W"
-        else "${context.getString(R.string.battery_power)}: ${wirePwrCalc}W"
+        else "${pwrStr}: ${wirePwrCalc}W"
 
         val batteryInfo = if (isSimple) formatStringSpace(tem, vol, cur, power, health)
         else formatStringSpace(tem, vol, cur, health)
@@ -347,7 +359,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else ""
         val updateTime = if (isUpdateTime) {
             if (isSimple) formatDate("HH:mm:ss")
-            else "${context.getString(R.string.battery_update_time)}: " + formatDate("HH:mm:ss")
+            else "${updateTimeStr}: " + formatDate("HH:mm:ss")
         } else ""
 
         val remoteViews = RemoteViews(packageName, R.layout.layout_battery_notify_view)
@@ -360,7 +372,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val notify = NotificationCompat.Builder(context, channelId).apply {
             setAutoCancel(false)
             setOngoing(true)
-            setSmallIcon(if (isCharging) R.drawable.ic_round_battery_charging_full_24 else batteryIcon)
+            setSmallIcon(batteryIcon)
             setCustomContentView(remoteViews)
             setCustomBigContentView(remoteViews)
             priority = NotificationCompat.PRIORITY_DEFAULT

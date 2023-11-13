@@ -37,10 +37,10 @@ object UnlockStartupLimitOld : YukiBaseHooker() {
                     methods {
                         add { paramTypes(ListClass.name) }
                         add { paramTypes(StringClass.name) }
-                        add { returnType(UnitType.name) }
-                        add { returnType(ListClass.name) }
-                        add { returnType(BooleanType.name) }
-                        add { returnType(ApplicationInfoClass.name) }
+                        add { returnType(UnitType) }
+                        add { returnType(ListClass) }
+                        add { returnType(BooleanType) }
+                        add { returnType(ApplicationInfoClass) }
                     }
                     usingStrings("StartupManager")
                 }

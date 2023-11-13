@@ -16,11 +16,11 @@ object CustomizeLongScreenshotMaxCapturedPages : YukiBaseHooker() {
                 matcher {
                     fieldCount(0)
                     methods {
-                        add { returnType(IntType.name) }
-                        add { returnType(BooleanType.name) }
+                        add { returnType(IntType) }
+                        add { returnType(BooleanType) }
                         add {
                             paramTypes(IntType.name, IntType.name)
-                            returnType(IntType.name)
+                            returnType(IntType)
                         }
                     }
                     usingStrings("StitchLimitUtils")

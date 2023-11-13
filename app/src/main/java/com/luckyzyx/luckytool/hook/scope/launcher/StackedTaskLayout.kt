@@ -23,9 +23,9 @@ object StackedTaskLayout : YukiBaseHooker() {
         "com.android.launcher3.DeviceProfile".toClass().apply {
             constructor { paramCount(8..11) }.hook {
                 after {
-                    if (SDK >= A13) field {
-                        name = "overviewPageSpacing"
-                    }.get(instance).set(-(level * 10).dp)
+                    if (SDK >= A13) field { name = "overviewPageSpacing" }.get(instance).set(
+                        -(level * 10).dp
+                    )
                 }
             }
         }
@@ -33,10 +33,7 @@ object StackedTaskLayout : YukiBaseHooker() {
         //Source RecentsView
         "com.android.quickstep.views.RecentsView".toClass().apply {
             if (SDK < A13) {
-                method {
-                    name = "setPageSpacing"
-                    superClass()
-                }.hook {
+                method { name = "setPageSpacing";superClass() }.hook {
                     before { args().first().set(-(level * 10).dp) }
                 }
             }

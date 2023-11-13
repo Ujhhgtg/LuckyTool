@@ -30,31 +30,30 @@ object HookConfigAbility : YukiBaseHooker() {
                         addForType(ContextClass.name)
                     }
                     methods {
-                        add { name = "close";paramCount = 0 }
-                        add { name = "contains";paramTypes = listOf(StringClass.name) }
-                        add { returnType = AutoCloseable::class.java.name }
+                        add { name = "close";paramCount(0) }
+                        add { name = "contains";paramTypes(StringClass.name) }
+                        add { returnType(AutoCloseable::class.java) }
                         add {
-                            paramTypes = listOf(StringClass.name, IntType.name)
-                            returnType = IntClass.name
+                            paramTypes(StringClass.name, IntType.name)
+                            returnType(IntClass)
                         }
                         add {
-                            paramTypes = listOf(StringClass.name, LongType.name)
-                            returnType = LongClass.name
+                            paramTypes(StringClass.name, LongType.name)
+                            returnType(LongClass)
                         }
                         add {
-                            paramTypes = listOf(StringClass.name, StringClass.name)
-                            returnType = StringClass.name
+                            paramTypes(StringClass.name, StringClass.name)
+                            returnType(StringClass)
                         }
                         add {
-                            paramTypes = listOf(StringClass.name, BooleanType.name)
-                            returnType = BooleanClass.name
+                            paramTypes(StringClass.name, BooleanType.name)
+                            returnType(BooleanClass)
                         }
                     }
                 }
             }.apply {
                 checkDataList("HookConfigAbility")
-                val member = first()
-                member.name.toClass().apply {
+                first().name.toClass().apply {
                     method {
                         param(StringClass, BooleanType)
                         returnType = BooleanClass

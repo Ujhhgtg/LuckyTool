@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.scope.android
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 
-class HookFeatureConfigManager(private val features: Map<String, Any>) : YukiBaseHooker() {
+class HookFeatureConfigManager(private val features: Map<String, Boolean>) : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusFeatureConfigManager
         "com.oplus.content.OplusFeatureConfigManager".toClassOrNull()?.apply {

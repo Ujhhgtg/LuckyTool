@@ -23,7 +23,6 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
             method { name = "getFolderBackgroundAnimator" }.hook {
                 intercept()
             }
-
         }
     }
 }

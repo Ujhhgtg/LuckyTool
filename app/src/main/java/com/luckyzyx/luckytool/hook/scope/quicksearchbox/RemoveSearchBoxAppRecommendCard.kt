@@ -14,10 +14,7 @@ object RemoveSearchBoxAppRecommendCard : YukiBaseHooker() {
                 paramCount(3..4)
             }.hook {
                 before {
-                    args().first().list<Any>().toMutableList().apply {
-                        clear()
-                        args().first().set(ArrayList(this))
-                    }
+                    args().first().cast<java.util.ArrayList<Any>>()?.clear()
                 }
             }
         }

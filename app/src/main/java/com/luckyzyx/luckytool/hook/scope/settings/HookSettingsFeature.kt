@@ -10,6 +10,7 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.luckyzyx.luckytool.hook.hooker.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -18,6 +19,8 @@ import com.luckyzyx.luckytool.utils.SDK
 
 object HookSettingsFeature : YukiBaseHooker() {
     override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
+
         loadHooker(HookSysFeature)
         loadHooker(HookAppFeatureProvider)
         loadHooker(HookExpUst)
@@ -28,8 +31,6 @@ object HookSettingsFeature : YukiBaseHooker() {
         override fun onHook() {
             val memcVideo = false
             //prefs(ModulePrefs).getBoolean("force_display_video_memc_frame_insertion", false)
-            val rgbPalette =
-                prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)
 
             //Source SysFeatureUtils
             DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -39,24 +40,21 @@ object HookSettingsFeature : YukiBaseHooker() {
                             addForType(BooleanClass.name)
                         }
                         methods {
-                            add { paramCount(0);returnType(BooleanType.name) }
-                            add { paramTypes(ContextClass.name);returnType(BooleanType.name) }
-                            add { paramTypes(StringClass.name);returnType(BooleanType.name) }
+                            add { paramCount(0);returnType(BooleanType) }
+                            add { paramTypes(ContextClass.name);returnType(BooleanType) }
+                            add { paramTypes(StringClass.name);returnType(BooleanType) }
                         }
                         usingStrings("SysFeatureUtils")
                     }
                 }.apply {
                     checkDataList("HookSysFeature")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method { param(StringClass);returnType = BooleanType }.hookAll {
                             before {
                                 when (args().first().string()) {
                                     //Source Iris5SettingsFragment -> iris5_motion_fluency_optimization_switch
                                     "oplus.software.video.rm_memc" -> if (memcVideo) resultFalse()
                                     "oplus.software.display.pixelworks_enable" -> if (memcVideo) resultTrue()
-                                    //Source ColorModeFragment -> oplus.software.display.rgb_ball_support
-                                    "oplus.software.display.rgb_ball_support" -> if ((rgbPalette)) resultTrue()
                                     //Source OplusPwmDevelopController -> oplus.software.display.pwm_switch.support
                                     //"oplus.software.display.pwm_switch.support" -> resultTrue()
                                 }
@@ -81,9 +79,9 @@ object HookSettingsFeature : YukiBaseHooker() {
                 dexKitBridge.findClass {
                     matcher {
                         methods {
-                            add { returnType(StringClass.name) }
-                            add { returnType(BooleanType.name) }
-                            add { returnType(ApplicationInfoClass.name) }
+                            add { returnType(StringClass) }
+                            add { returnType(BooleanType) }
+                            add { returnType(ApplicationInfoClass) }
                             add { paramTypes(StringClass.name) }
                             add { paramTypes(IntType.name) }
                             add { paramTypes(IntType.name, StringClass.name) }
@@ -94,8 +92,7 @@ object HookSettingsFeature : YukiBaseHooker() {
                     }
                 }.apply {
                     checkDataList("HookExpUst")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method { param(IntType);returnType = BooleanType }.hookAll {
                             before {
                                 when (args().first().int()) {
@@ -128,35 +125,34 @@ object HookSettingsFeature : YukiBaseHooker() {
                                 paramTypes(
                                     ContentResolverClass.name, StringClass.name, BooleanType.name
                                 )
-                                returnType(BooleanType.name)
+                                returnType(BooleanType)
                             }
                             add {
                                 paramTypes(
                                     ContentResolverClass.name, StringClass.name, IntType.name
                                 )
-                                returnType(IntType.name)
+                                returnType(IntType)
                             }
                             add {
                                 paramTypes(
                                     ContentResolverClass.name, StringClass.name, StringClass.name
                                 )
-                                returnType(StringClass.name)
+                                returnType(StringClass)
                             }
                             add {
                                 paramTypes(ContentResolverClass.name, StringClass.name)
-                                returnType(ListClass.name)
+                                returnType(ListClass)
                             }
                             add {
                                 paramTypes(ContentResolverClass.name, StringClass.name)
-                                returnType(BooleanType.name)
+                                returnType(BooleanType)
                             }
                         }
                         usingStrings("AppFeatureProviderUtils")
                     }
                 }.apply {
                     checkDataList("HookAppFeatureProvider")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method {
                             param(ContentResolverClass, StringClass)
                             returnType = BooleanType
@@ -195,21 +191,21 @@ object HookSettingsFeature : YukiBaseHooker() {
                             addForType(ListClass.name)
                         }
                         methods {
-                            add { paramCount(0);returnType(BooleanType.name) }
-                            add { paramCount(0);returnType(StringClass.name) }
-                            add { paramCount(0);returnType(ListClass.name) }
-                            add { paramCount(0);returnType(ContentResolverClass.name) }
+                            add { paramCount(0);returnType(BooleanType) }
+                            add { paramCount(0);returnType(StringClass) }
+                            add { paramCount(0);returnType(ListClass) }
+                            add { paramCount(0);returnType(ContentResolverClass) }
                             add {
                                 paramTypes(StringClass.name)
-                                returnType(BooleanType.name)
+                                returnType(BooleanType)
                             }
                             add {
                                 paramTypes("android.os.PersistableBundle")
-                                returnType(BooleanType.name)
+                                returnType(BooleanType)
                             }
                             add {
                                 paramTypes(StringClass.name)
-                                returnType(ListClass.name)
+                                returnType(ListClass)
                             }
                         }
                         usingStrings("CustomizeFeatureUtils")

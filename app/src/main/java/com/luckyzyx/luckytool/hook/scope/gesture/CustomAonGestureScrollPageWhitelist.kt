@@ -35,8 +35,8 @@ object CustomAonGestureScrollPageWhitelist : YukiBaseHooker() {
                         addForType(ListClass.name)
                     }
                     methods {
-                        add { paramTypes(StringClass.name);returnType(IntType.name) }
-                        add { paramTypes(ListClass.name);returnType(UnitType.name) }
+                        add { paramTypes(StringClass.name);returnType(IntType) }
+                        add { paramTypes(ListClass.name);returnType(UnitType) }
                     }
                     usingStrings("com.ss.android.ugc.aweme", "com.smile.gifmaker")
                 }

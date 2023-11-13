@@ -25,18 +25,15 @@ object UnlockStartupLimit : YukiBaseHooker() {
                         count(4..6)
                     }
                     methods {
-                        add { paramCount(0);returnType(IntType.name) }
-                        add { paramTypes(IntentClass.name);returnType(UnitType.name) }
-                        add { paramTypes(BundleClass.name);returnType(UnitType.name) }
+                        add { paramCount(0);returnType(IntType) }
+                        add { paramTypes(IntentClass.name);returnType(UnitType) }
+                        add { paramTypes(BundleClass.name);returnType(UnitType) }
                     }
                 }
             }.apply {
                 checkDataList("UnlockStartupLimit")
                 first().name.toClass().apply {
-                    method {
-                        emptyParam()
-                        returnType = IntType
-                    }.hook {
+                    method { emptyParam();returnType = IntType }.hook {
                         replaceTo(999)
                     }
                 }

@@ -24,9 +24,7 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
                         "share_view", "id",
                         this@CustomizeDeviceSharingPageParameters.packageName
                     ).takeIf { it != 0 } ?: return@after
-                    val shareView = activity.findViewById<ViewGroup>(shareViewId)
-                        ?: return@after
-
+                    val shareView = activity.findViewById<ViewGroup>(shareViewId) ?: return@after
                     shareView.children.forEach {
                         //title_phone_ly / bran_share_card / about_share_card_bg
                         if (it is ViewGroup) it.forEach { it2 ->

@@ -36,13 +36,13 @@ object RemoveWatermarkWordLimit : YukiBaseHooker() {
                         addForType(BooleanType.name)
                     }
                     methods {
-                        add { name = "onDestroy";returnType(UnitType.name) }
-                        add { name = "onPause";returnType(UnitType.name) }
-                        add { name = "onPreferenceChange";returnType(BooleanType.name) }
-                        add { name = "onPreferenceClick";returnType(BooleanType.name) }
-                        add { paramTypes(BundleClass.name);returnType(UnitType.name) }
-                        add { paramTypes(BundleClass.name);returnType(BooleanType.name) }
-                        add { paramTypes(StringClass.name);returnType(UnitType.name) }
+                        add { name("onDestroy");returnType(UnitType) }
+                        add { name("onPause");returnType(UnitType) }
+                        add { name("onPreferenceChange");returnType(BooleanType) }
+                        add { name("onPreferenceClick");returnType(BooleanType) }
+                        add { paramTypes(BundleClass.name);returnType(UnitType) }
+                        add { paramTypes(BundleClass.name);returnType(BooleanType) }
+                        add { paramTypes(StringClass.name);returnType(UnitType) }
                     }
                     if (isNew) usingStrings("CameraSubSettingFragment")
                     else usingStrings(

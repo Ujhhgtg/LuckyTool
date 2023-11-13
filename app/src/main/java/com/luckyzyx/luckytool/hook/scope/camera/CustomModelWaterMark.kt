@@ -38,7 +38,7 @@ object CustomModelWaterMark : YukiBaseHooker() {
                         methods {
                             add {
                                 paramCount(0)
-                                returnType(StringClass.name)
+                                returnType(StringClass)
                             }
                             count(2..4)
                         }
@@ -46,8 +46,7 @@ object CustomModelWaterMark : YukiBaseHooker() {
                     }
                 }.apply {
                     checkDataList("HookCameraModelWaterMark MarketUtil")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method { emptyParam();returnType = StringClass }.hookAll {
                             after {
                                 val res = result<String>() ?: return@after
@@ -62,13 +61,13 @@ object CustomModelWaterMark : YukiBaseHooker() {
                 dexKitBridge.findClass {
                     matcher {
                         methods {
-                            add { returnType(PaintClass.name) }
-                            add { returnType(BitmapClass.name) }
-                            add { returnType(UnitType.name) }
-                            add { returnType(IntType.name) }
-                            add { returnType(FloatType.name) }
-                            add { returnType(BooleanType.name) }
-                            add { returnType(StringClass.name) }
+                            add { returnType(PaintClass) }
+                            add { returnType(BitmapClass) }
+                            add { returnType(UnitType) }
+                            add { returnType(IntType) }
+                            add { returnType(FloatType) }
+                            add { returnType(BooleanType) }
+                            add { returnType(StringClass) }
                             add { paramCount(8) }
                             add { paramTypes(StringClass.name) }
                             add { paramTypes(ContextClass.name, FloatType.name) }
@@ -78,8 +77,7 @@ object CustomModelWaterMark : YukiBaseHooker() {
                     }
                 }.apply {
                     checkDataList("HookCameraModelWaterMark WatermarkHelper")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method { param(StringClass);returnType = StringClass }.hookAll {
                             after {
                                 val res = result<String>() ?: return@after

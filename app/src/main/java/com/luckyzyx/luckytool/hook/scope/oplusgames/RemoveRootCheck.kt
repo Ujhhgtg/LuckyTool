@@ -26,7 +26,7 @@ object RemoveRootCheck : YukiBaseHooker() {
                     }
                     methods {
                         add { name = "clear";paramCount(0) }
-                        add { paramCount(0);returnType(BundleClass.name) }
+                        add { paramCount(0);returnType(BundleClass) }
                     }
                 }
             }.apply {

@@ -16,6 +16,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getAppVersion
 import com.luckyzyx.luckytool.utils.openMarketIntent
+import com.luckyzyx.luckytool.utils.safeOf
 
 object HookAppDetails : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi", "SetTextI18n")
@@ -63,8 +64,11 @@ object HookAppDetails : YukiBaseHooker() {
                     )
                     context.injectModuleAppResources()
                     val updateStr = formatDate("YYYY/MM/dd HH:mm:ss", packageInfo.lastUpdateTime)
-                    val updateTime =
-                        if (isLastUpdateTime) "\n${context.getString(R.string.last_update_time)} $updateStr" else ""
+                    val lastUpdateTimeString = safeOf("Last update Time") {
+                        context.getString(R.string.last_update_time)
+                    }
+                    val updateTime = if (isLastUpdateTime) "\n${lastUpdateTimeString} $updateStr"
+                    else ""
                     if (isIconMarket) appIcon.setOnClickListener {
                         it.context.openMarketIntent(packName)
                     }

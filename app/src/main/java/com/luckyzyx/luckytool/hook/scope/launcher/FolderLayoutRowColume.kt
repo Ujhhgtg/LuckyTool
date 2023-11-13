@@ -16,36 +16,21 @@ object FolderLayoutRowColume : YukiBaseHooker() {
         val columns = prefs(ModulePrefs).getInt("set_icon_columns_in_folder", 3)
         //Source OplusDeviceProfile
         "com.android.launcher3.OplusDeviceProfile".toClass().apply {
-            method {
-                name = "updateOplusFolderCellSize"
-                paramCount = 2
-            }.hook {
+            method { name = "updateOplusFolderCellSize";paramCount = 2 }.hook {
                 after {
-                    val folderPageMarginLRDp = field {
-                        name = "inv"
-                        superClass()
-                    }.get(instance).any()?.current()?.field {
-                        name = "folderDisplayOption"
-                    }?.any()?.current()?.field {
-                        name = "folderPageMarginLRDp"
-                    }?.float()
-                    val metrics = field {
-                        name = "mInfo"
-                        superClass()
-                    }.get(instance).any()?.current()?.field {
-                        name = "metrics"
-                    }?.cast<DisplayMetrics>()
+                    val folderPageMarginLRDp =
+                        field { name = "inv";superClass() }.get(instance).any()
+                            ?.current()?.field { name = "folderDisplayOption" }?.any()
+                            ?.current()?.field { name = "folderPageMarginLRDp" }?.float()
+                    val metrics = field { name = "mInfo";superClass() }.get(instance).any()
+                        ?.current()?.field { name = "metrics" }?.cast<DisplayMetrics>()
                     val lrMargin = pxFromDp(folderPageMarginLRDp, metrics) ?: 0
                     val f = args().first().float()
-                    val availableWidthPx = field {
-                        name = "availableWidthPx"
-                        superClass()
-                    }.get(instance).int()
-                    field {
-                        name = "folderCellWidthPx"
-                        superClass()
-                    }.get(instance)
-                        .set((((availableWidthPx - (lrMargin * 2)) / columns) * f).toInt())
+                    val availableWidthPx = field { name = "availableWidthPx";superClass() }
+                        .get(instance).int()
+                    field { name = "folderCellWidthPx";superClass() }.get(instance).set(
+                        (((availableWidthPx - (lrMargin * 2)) / columns) * f).toInt()
+                    )
                 }
             }
         }

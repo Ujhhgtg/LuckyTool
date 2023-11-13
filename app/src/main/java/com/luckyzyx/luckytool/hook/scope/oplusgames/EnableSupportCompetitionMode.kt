@@ -20,8 +20,8 @@ object EnableSupportCompetitionMode : YukiBaseHooker() {
                         addForType(ListClass.name)
                     }
                     methods {
-                        add { paramCount(0);returnType(ListClass.name) }
-                        add { paramCount(0);returnType(BooleanType.name) }
+                        add { paramCount(0);returnType(ListClass) }
+                        add { paramCount(0);returnType(BooleanType) }
                         add { paramTypes(StringClass.name, ArrayListClass.name) }
                     }
                 }

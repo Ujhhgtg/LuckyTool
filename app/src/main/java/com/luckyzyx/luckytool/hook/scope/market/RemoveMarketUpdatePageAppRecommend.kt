@@ -19,22 +19,27 @@ import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.luckypray.dexkit.query.matchers.MethodMatcher
 
 object RemoveMarketUpdatePageAppRecommend : YukiBaseHooker() {
     override fun onHook() {
-        //Source AppUpdateFragment
+        val cardDto = "com.heytap.cdo.card.domain.dto.CardDto"
+        val imageLoader = "com.nearme.imageloader.ImageLoader"
+
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //Source AppUpdateFragment
             dexKitBridge.findMethod {
                 searchPackages("com.heytap.cdo.client.ui.upgrademgr")
                 matcher {
                     addParamType(ListClass.name)
-                    returnType(UnitType.name)
-                    addInvoke(MethodMatcher().name("notifyDataSetChanged"))
-                    addCall {
+                    returnType(UnitType)
+                    usingNumbers(114.0F)
+                    addInvoke {
                         addParamType(ListClass.name)
-                        returnType(UnitType.name)
-                        usingNumbers(114.0F)
+                        returnType(UnitType)
+                        usingNumbers(0)
+                        addInvoke {
+                            name("notifyDataSetChanged")
+                        }
                     }
                 }
             }.apply {
@@ -43,18 +48,13 @@ object RemoveMarketUpdatePageAppRecommend : YukiBaseHooker() {
                 member.className.toClass().apply {
                     method { name = member.methodName;param(ListClass) }.hook {
                         before {
-                            val list = args().first().list<Any>().toMutableList()
-                            list.clear()
-                            args().first().set(ArrayList(list))
+                            args().first().cast<ArrayList<Any>>()?.clear()
                         }
                     }
                 }
             }
-        }
-        val cardDto = "com.heytap.cdo.card.domain.dto.CardDto"
-        val imageLoader = "com.nearme.imageloader.ImageLoader"
-        //Source APPUpdateItemHolder list_item_product_upgrade
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+
+            //Source APPUpdateItemHolder list_item_product_upgrade
             dexKitBridge.findClass {
                 searchPackages("com.heytap.cdo.client.ui.upgrademgr")
                 matcher {
@@ -67,24 +67,24 @@ object RemoveMarketUpdatePageAppRecommend : YukiBaseHooker() {
                     methods {
                         add {
                             paramTypes(ContextClass.name, IntType.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                         add {
                             paramTypes(
                                 ContextClass.name, StringClass.name, IntType.name, IntType.name
                             )
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                         add {
                             paramTypes(ViewClass.name, BooleanType.name, BooleanType.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                         add {
-                            paramTypes(LayoutInflaterClass.name);returnType(ViewClass.name)
+                            paramTypes(LayoutInflaterClass.name);returnType(ViewClass)
                         }
                         add {
                             paramTypes(ViewGroup_LayoutParamsClass.name, ValueAnimatorClass.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
 
                     }

@@ -9,10 +9,7 @@ object AutoClickUnInstallButton : YukiBaseHooker() {
     override fun onHook() {
         //Source UninstallerActivity
         "com.android.packageinstaller.UninstallerActivity".toClass().apply {
-            method {
-                name = "showUninstallConfirmation"
-                paramCount = 1
-            }.hook {
+            method { name = "showUninstallConfirmation";paramCount = 1 }.hook {
                 after {
                     field { name = "mUnInstallButton" }.get(instance).cast<Button>()?.callOnClick()
                 }

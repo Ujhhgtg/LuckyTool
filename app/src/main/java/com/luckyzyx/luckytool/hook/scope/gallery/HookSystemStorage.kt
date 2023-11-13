@@ -28,13 +28,13 @@ object HookSystemStorage : YukiBaseHooker() {
                         addForType(ContextClass.name)
                     }
                     methods {
-                        add { paramCount(2);returnType(IntClass.name) }
-                        add { paramCount(2);returnType(LongClass.name) }
-                        add { paramCount(2);returnType(BooleanClass.name) }
-                        add { paramCount(2);returnType(StringClass.name) }
-                        add { paramCount(2);returnType(UnitType.name) }
-                        add { paramCount(0);returnType(BooleanType.name) }
-                        add { paramCount(4);returnType(BooleanType.name) }
+                        add { paramCount(2);returnType(IntClass) }
+                        add { paramCount(2);returnType(LongClass) }
+                        add { paramCount(2);returnType(BooleanClass) }
+                        add { paramCount(2);returnType(StringClass) }
+                        add { paramCount(2);returnType(UnitType) }
+                        add { paramCount(0);returnType(BooleanType) }
+                        add { paramCount(4);returnType(BooleanType) }
                     }
                     usingStrings("configNode")
                 }

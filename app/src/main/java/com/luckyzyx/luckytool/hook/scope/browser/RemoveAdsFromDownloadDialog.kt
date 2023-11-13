@@ -11,6 +11,11 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 
 object RemoveAdsFromDownloadDialog : YukiBaseHooker() {
     override fun onHook() {
+        val adRequest = "com.opos.feed.api.params.AdRequest"
+        val feedAdNative = "com.opos.feed.api.FeedAdNative"
+        val recyclerAdHelper = "com.opos.feed.api.RecyclerAdHelper"
+        val adInteractionListener = "com.opos.feed.api.params.AdInteractionListener"
+
         //Source DownloadCardAdProvider
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             dexKitBridge.findClass {
@@ -18,17 +23,17 @@ object RemoveAdsFromDownloadDialog : YukiBaseHooker() {
                     fields {
                         addForType(ContextClass.name)
                         addForType(StringClass.name)
-                        addForType("com.opos.feed.api.FeedAdNative")
-                        addForType("com.opos.feed.api.RecyclerAdHelper")
-                        addForType("com.opos.feed.api.params.AdInteractionListener")
+                        addForType(feedAdNative)
+                        addForType(recyclerAdHelper)
+                        addForType(adInteractionListener)
                     }
                     methods {
                         add {
                             paramTypes(ContextClass.name, IntType.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
-                        add { returnType("com.opos.feed.api.params.AdRequest") }
-                        add { returnType("com.opos.feed.api.RecyclerAdHelper") }
+                        add { returnType(adRequest) }
+                        add { returnType(recyclerAdHelper) }
                     }
                     usingStrings("DownloadCardAdProvider")
                 }
@@ -37,7 +42,7 @@ object RemoveAdsFromDownloadDialog : YukiBaseHooker() {
                 first().name.toClass().apply {
                     method {
                         paramCount(1)
-                        returnType("com.opos.feed.api.params.AdRequest")
+                        returnType(adRequest)
                     }.hook { replaceTo(null) }
                 }
             }

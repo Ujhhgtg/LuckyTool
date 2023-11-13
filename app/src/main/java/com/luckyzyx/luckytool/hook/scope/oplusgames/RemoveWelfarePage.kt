@@ -2,10 +2,10 @@ package com.luckyzyx.luckytool.hook.scope.oplusgames
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import java.util.concurrent.CopyOnWriteArrayList
 
 object RemoveWelfarePage : YukiBaseHooker() {
     override fun onHook() {
@@ -17,13 +17,9 @@ object RemoveWelfarePage : YukiBaseHooker() {
                 returnType = UnitType
             }.hook {
                 before {
-                    val list = args().first().list<Any>().toMutableList()
-                    list.removeLastOrNull() ?: return@before
-                    if (list.size >= 2) {
-                        YLog.debug("${this@RemoveWelfarePage.packageName}\nError -> RemoveWelfarePage")
-                        return@before
+                    args().first().cast<CopyOnWriteArrayList<Any>>()?.apply {
+                        removeIf { indexOf(it) != 0 }
                     }
-                    args().first().set(java.util.ArrayList(list))
                 }
             }
         }

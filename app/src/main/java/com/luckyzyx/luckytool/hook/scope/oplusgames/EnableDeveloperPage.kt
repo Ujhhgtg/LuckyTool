@@ -8,10 +8,7 @@ object EnableDeveloperPage : YukiBaseHooker() {
     override fun onHook() {
         //Source GameDevelopOptionsActivity
         "business.compact.activity.GameDevelopOptionsActivity".toClass().apply {
-            method {
-                name = "onCreate"
-                paramCount = 1
-            }.hook {
+            method { name = "onCreate";paramCount = 1 }.hook {
                 before {
                     instance<Activity>().intent.apply {
                         putExtra("gameDevelopOptions", simpleName)

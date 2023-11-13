@@ -29,11 +29,11 @@ object RemoveImageSaveWaterMark : YukiBaseHooker() {
                         addForType(StringClass.name)
                     }
                     methods {
-                        add { returnType(HandlerClass.name) }
-                        add { returnType(BitmapClass.name) }
-                        add { returnType(BooleanType.name) }
+                        add { returnType(HandlerClass) }
+                        add { returnType(BitmapClass) }
+                        add { returnType(BooleanType) }
                         add { paramTypes(ContextClass.name) }
-                        add { paramCount(5);returnType(BitmapClass.name) }
+                        add { paramCount(5);returnType(BitmapClass) }
                         add { paramTypes("com.heytap.pictorial.core.bean.BasePictorialData") }
                     }
                 }

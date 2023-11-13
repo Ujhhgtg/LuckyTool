@@ -7,14 +7,39 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object HookGlobalFeatureConfig : YukiBaseHooker() {
     override fun onHook() {
-        val list = ArrayMap<String, Any>().apply {
+        val list = ArrayMap<String, Boolean>().apply {
+            //Source SystemUI 启用超级音量模式
             if (prefs(ModulePrefs).getBoolean("enable_super_volume_mode", false)) {
                 put("oplus.software.audio.super_volume", true)
                 put("oplus.software.audio.super_volume_3x", true)
             }
+            //Source SystemUI 启用通话超级音量模式
             if (prefs(ModulePrefs).getBoolean("enable_super_volume_mode_for_calls", false)) {
                 put("oplus.software.audio.super_volume_call_earpiece", true)
                 put("oplus.software.audio.super_volume_call_earpiece_disable", false)
+            }
+            //Source Settings 启用RGB色温球 ColorModeFragment
+            if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)
+            ) {
+                put("oplus.software.display.rgb_ball_support", true)
+            }
+            //Source Mms 移除验证码悬浮窗 FeatureOption.java / com.oplus.common -> C12
+            if (prefs(ModulePrefs).getBoolean("remove_verification_code_floating_window", false)) {
+                put("oplus.software.inputmethod.verify_code_enable", false)
+            }
+            //Source Gestures 启用隔空手势
+            if (prefs(ModulePrefs).getBoolean("force_enable_aon_gestures", false)) {
+                put("oplus.software.aon_enable", true)
+                put("oplus.software.aon_gestureui_enable", true)
+            }
+            //Source Gestures 启用音量键控制手电筒手势
+            if (prefs(ModulePrefs).getBoolean("enable_volume_key_control_flashlight", false)) {
+                put("oplus.software.powerkey_disbale_turnoff_torch", false)
+                put("oplus.software.key_quickoperate_torch", true)
+            }
+            //Source PermissionController 解锁默认桌面限制
+            if (prefs(ModulePrefs).getBoolean("unlock_default_desktop_limit", false)) {
+                put("oplus.software.defaultapp.remove_force_launcher", false)
             }
         }
         loadHooker(HookFeatureConfigManager(list))

@@ -36,7 +36,7 @@ object HookBatteryNotify : YukiBaseHooker() {
                     methods {
                         add {
                             paramTypes(StringClass.name, BooleanType.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                     }
                     usingStrings("NotifyUtil")

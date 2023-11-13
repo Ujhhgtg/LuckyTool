@@ -65,8 +65,9 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
             "com.oplus.weather.utils.SecondaryPageUtil".toClassOrNull()?.apply {
                 method { name = "newLink" }.hook {
                     after {
-                        if (!removeAds) return@after
-                        result = formatWeatherUrl(result<String>() ?: return@after)
+                        if (removeAds) result = formatWeatherUrl(
+                            result<String>() ?: return@after
+                        )
                     }
                 }
             }
@@ -75,8 +76,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
             "com.oplus.weather.service.service.RainReminder".toClass().apply {
                 method { name = "createIntentOpenWeatherMainActivity" }.hook {
                     before {
-                        if (!disableJump) return@before
-                        args().last().set("")
+                        if (disableJump) args().last().set("")
                     }
                 }
             }
@@ -84,8 +84,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
             "com.oplus.weather.service.service.WarnReminder".toClass().apply {
                 method { name = "getWarnWeatherIntent" }.hook {
                     before {
-                        if (!disableJump) return@before
-                        args().last().set("")
+                        if (disableJump) args().last().set("")
                     }
                 }
             }

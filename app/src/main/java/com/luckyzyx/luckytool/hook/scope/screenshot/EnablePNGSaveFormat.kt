@@ -20,8 +20,8 @@ object EnablePNGSaveFormat : YukiBaseHooker() {
                     }
                     methods {
                         add { name("values") }
-                        add { returnType(StringClass.name) }
-                        add { returnType(Bitmap.CompressFormat::class.java.name) }
+                        add { returnType(StringClass) }
+                        add { returnType(Bitmap.CompressFormat::class.java) }
                     }
                     usingStrings("image/jpeg", "image/png")
                 }

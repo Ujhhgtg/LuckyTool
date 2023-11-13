@@ -19,19 +19,16 @@ object RemoveNetworkRestriction : YukiBaseHooker() {
             dexKitBridge.findClass {
                 matcher {
                     methods {
-                        add { paramCount(0);returnType(IntType.name) }
-                        add { paramCount(1..2);returnType(BooleanType.name) }
-                        add { paramTypes(IntType.name);returnType(IntType.name) }
-                        add { paramTypes(IntType.name);returnType(BooleanType.name) }
-                        add { paramTypes(ContextClass.name);returnType(BooleanType.name) }
-                        add { paramTypes(ContextClass.name);returnType(StringClass.name) }
+                        add { paramCount(0);returnType(IntType) }
+                        add { paramCount(1..2);returnType(BooleanType) }
+                        add { paramTypes(IntType.name);returnType(IntType) }
+                        add { paramTypes(IntType.name);returnType(BooleanType) }
+                        add { paramTypes(ContextClass.name);returnType(BooleanType) }
+                        add { paramTypes(ContextClass.name);returnType(StringClass) }
                     }
                     usingStrings(
-                        "NetworkUtil",
-                        "connectivity",
-                        "getNetworkTypeString",
-                        "isMobileDataNetwork",
-                        "isNetworkConnected"
+                        "NetworkUtil", "connectivity", "getNetworkTypeString",
+                        "isMobileDataNetwork", "isNetworkConnected"
                     )
                 }
             }.apply {

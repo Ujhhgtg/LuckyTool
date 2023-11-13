@@ -12,7 +12,10 @@ object RemoveInstallAds : YukiBaseHooker() {
         //Source InstallAppProgress
         "com.android.packageinstaller.oplus.InstallAppProgress".toClass().apply {
             method { name = "initView" }.hook {
-                after { ins = instance;ins?.removeViews() }
+                after {
+                    ins = instance
+                    ins?.removeViews()
+                }
             }
         }
         //Source InstallAppProgress

@@ -23,7 +23,7 @@ object AutoUnlockRestrictedSettings : YukiBaseHooker() {
                     paramCount(0)
                     returnType(BooleanType)
                     addCall {
-                        name = "performClick"
+                        name("performClick")
                         returnType(UnitType)
                     }
                     addUsingField {

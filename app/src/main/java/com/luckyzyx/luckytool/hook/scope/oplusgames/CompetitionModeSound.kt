@@ -29,11 +29,11 @@ object CompetitionModeSound : YukiBaseHooker() {
                     methods {
                         add {
                             paramCount(0)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                         add {
                             paramTypes(IntType.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                     }
                 }

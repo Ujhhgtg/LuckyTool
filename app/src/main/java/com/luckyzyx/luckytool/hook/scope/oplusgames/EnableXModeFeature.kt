@@ -12,10 +12,7 @@ object EnableXModeFeature : YukiBaseHooker() {
             method { emptyParam();returnType = BooleanType }.hookAll {
                 replaceToTrue()
             }
-            method {
-                paramCount = 1
-                returnType = AnyClass
-            }.hook {
+            method { paramCount = 1;returnType = AnyClass }.hook {
                 after { resultTrue() }
             }
         }

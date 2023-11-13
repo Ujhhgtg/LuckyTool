@@ -25,20 +25,19 @@ object HookFunctionManager : YukiBaseHooker() {
                     methods {
                         add {
                             paramTypes(StringClass.name)
-                            returnType(BooleanType.name)
+                            returnType(BooleanType)
                             usingStrings("FunctionSwitchManager", "getGroupName", "spKey")
                         }
                         add {
                             paramCount(1..5)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                     }
                     usingStrings("FunctionSwitchManager")
                 }
             }.apply {
                 checkDataList("HookFunctionManager")
-                val member = first()
-                member.name.toClass().apply {
+                first().name.toClass().apply {
                     method {
                         param(StringClass)
                         returnType(BooleanType)

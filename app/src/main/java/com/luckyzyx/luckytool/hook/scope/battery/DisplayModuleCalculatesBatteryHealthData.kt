@@ -12,6 +12,7 @@ import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.calcLocalHealth
+import com.luckyzyx.luckytool.utils.safeOf
 
 object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
     @SuppressLint("SetTextI18n", "DiscouragedApi")
@@ -32,8 +33,9 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
                     val dataView = field { type = TextViewClass }.get(instance).cast<TextView>()
                         ?: return@after
                     val health = calcLocalHealth(context)
-                    val tips =
+                    val tips = safeOf(" Calc") {
                         context.getString(R.string.display_module_calculates_battery_health_data_tips)
+                    }
                     contentView.apply {
                         gravity = Gravity.START
                         text = "$text\n\nLuckyTool$tips"

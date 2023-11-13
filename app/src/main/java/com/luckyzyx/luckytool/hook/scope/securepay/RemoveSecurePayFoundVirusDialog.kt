@@ -26,10 +26,10 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
                         addForType(CheckBoxClass.name)
                     }
                     methods {
-                        add { paramCount(0);returnType(UnitType.name) }
-                        add { paramCount(4..8);returnType(UnitType.name) }
-                        add { paramCount(0);returnType(BooleanType.name) }
-                        add { paramTypes(ViewClass.name);returnType(UnitType.name) }
+                        add { paramCount(0);returnType(UnitType) }
+                        add { paramCount(4..8);returnType(UnitType) }
+                        add { paramCount(0);returnType(BooleanType) }
+                        add { paramTypes(ViewClass.name);returnType(UnitType) }
                         add {
                             paramTypes(
                                 ContextClass.name,
@@ -38,21 +38,17 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
                                 DialogInterfaceClass.name,
                                 IntType.name
                             )
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                     }
                 }
             }.apply {
                 checkDataList("RemoveSecurePayFoundVirusDialog")
                 first().name.toClass().apply {
-                    method {
-                        param(VagueType, StringClass)
-                        returnType = UnitType
-                    }.hook { intercept() }
-                    method {
-                        emptyParam()
-                        returnType = UnitType
-                    }.hookAll {
+                    method { param(VagueType, StringClass);returnType = UnitType }.hook {
+                        intercept()
+                    }
+                    method { emptyParam();returnType = UnitType }.hookAll {
                         intercept()
                     }
                 }

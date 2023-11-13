@@ -202,8 +202,8 @@ object AlarmClockWidget : YukiBaseHooker() {
                             addForType(HandlerClass.name)
                         }
                         methods {
-                            add { returnType(BooleanType.name) }
-                            add { returnType(HandlerClass.name) }
+                            add { returnType(BooleanType) }
+                            add { returnType(HandlerClass) }
                             add { paramTypes(ContextClass.name) }
                             add { paramTypes(ContextClass.name, StringClass.name) }
                             add {
@@ -215,8 +215,7 @@ object AlarmClockWidget : YukiBaseHooker() {
                     }
                 }.apply {
                     checkDataList("AlarmClock13")
-                    val member = first()
-                    member.name.toClass().apply {
+                    first().name.toClass().apply {
                         method {
                             param { it[0] == ContextClass && it[1] == StringClass }
                             paramCount(2..3)

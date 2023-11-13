@@ -42,11 +42,11 @@ object RemoveMarketMinePageAppRecommend : YukiBaseHooker() {
                         add { returnType(cdoNestedScrollListView) }
                         add {
                             paramTypes(viewLayerWrapDto)
-                            returnType(MapClass.name)
+                            returnType(MapClass)
                         }
                         add {
                             paramTypes(viewLayerWrapDto, BooleanType.name)
-                            returnType(UnitType.name)
+                            returnType(UnitType)
                         }
                     }
                     usingStrings("MineFragment")
