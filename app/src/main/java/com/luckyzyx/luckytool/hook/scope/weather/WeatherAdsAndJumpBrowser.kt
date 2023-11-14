@@ -236,6 +236,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
     }
 
     private fun formatWeatherUrl(url: String): String {
+        if (url.isBlank()) return url
         var cacheUrl = url
         if (cacheUrl.contains("fromWeatherApp=true")) cacheUrl = cacheUrl.replace(
             "fromWeatherApp=true", "fromWeatherApp=false"

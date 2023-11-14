@@ -720,6 +720,11 @@
     <string name="disable_weather_jump_browser">Disable weather redirect browser</string>
     <string name="remove_weather_some_page_bottom_ads">Remove the ads at the bottom of the weather section page</string>
     
+    <!--OplusCalendar-->
+    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
+    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
+    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
+    
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

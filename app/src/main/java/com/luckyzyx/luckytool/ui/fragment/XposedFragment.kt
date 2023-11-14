@@ -490,7 +490,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
             Preference(context).apply {
                 key = "com.coloros.weather2"
                 setPrefsIconRes(key) { resource, show ->
-                    icon = resource
+                    icon = fixIconSize(resource)
                     isIconSpaceReserved = show
                 }
                 title = context.getAppLabel(key)
@@ -498,9 +498,27 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.disable_weather_jump_browser),
                     getString(R.string.remove_weather_some_page_bottom_ads)
                 )
-                isVisible = context.checkPackName(key)
+                isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusWeather, title)
+                    true
+                }
+            },
+            //Calendar
+            Preference(context).apply {
+                key = "com.coloros.calendar"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_holiday_page_information_flow),
+                    getString(R.string.remove_almanac_page_information_flow)
+                )
+                isVisible = context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusCalendar, title)
                     true
                 }
             },

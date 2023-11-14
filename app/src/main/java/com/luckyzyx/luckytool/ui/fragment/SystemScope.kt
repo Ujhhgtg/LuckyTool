@@ -3680,3 +3680,35 @@ class OplusWeather : BaseScopePreferenceFeagment() {
 
     override fun isEnableRestartMenu(): Boolean = true
 }
+
+class OplusCalendar : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.coloros.calendar")
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_holiday_page_information_flow)
+                key = "remove_holiday_page_information_flow"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_almanac_page_information_flow)
+                key = "remove_almanac_page_information_flow"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_horoscope_page_information_flow)
+                key = "remove_horoscope_page_information_flow"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}

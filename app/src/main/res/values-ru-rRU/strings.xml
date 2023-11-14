@@ -315,7 +315,7 @@
     <string name="LockScreenChargingComponent">Зарядка на экране блокировки</string>
     <string name="set_lock_screen_warp_charging_style">Установить стиль зарядки warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Установить стиль текстового логотипа зарядки</string>
-    <string name="lock_screen_show_real_charging_technology">Charging components show real charging technology</string>
+    <string name="lock_screen_show_real_charging_technology">Компоненты зарядки показывают реальную технологию зарядки</string>
     <string name="force_lock_screen_charging_show_wattage">Принудительно отображать мощность зарядки</string>
     <string name="lock_screen_charging_use_user_typeface">Компоненты зарядки используют пользовательские шрифты</string>
     <string name="set_full_screen_charging_animation_mode">Анимация во весь экран при зарядке</string>
@@ -635,6 +635,10 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
     <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>
+    <!--OplusCalendar-->
+    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
+    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
+    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

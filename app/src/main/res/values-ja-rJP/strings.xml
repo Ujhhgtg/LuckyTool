@@ -634,6 +634,10 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">天気のブラウザーリダイレクトを無効化</string>
     <string name="remove_weather_some_page_bottom_ads">天気セクションページの下部にある広告を削除</string>
+    <!--OplusCalendar-->
+    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
+    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
+    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
     <!--Everyimage-->
     <string name="skip_startup_page">スタートアップページをスキップ</string>
     <string name="vip_download">オリジナルをダウンロードする</string>

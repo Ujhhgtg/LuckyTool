@@ -315,7 +315,7 @@
     <string name="LockScreenChargingComponent">Komponenta nabíjení na zamykací obrazovce</string>
     <string name="set_lock_screen_warp_charging_style">Nastavit styl warp nabíjení</string>
     <string name="set_lock_screen_charging_text_logo_style">Nastavit styl loga nabíjení</string>
-    <string name="lock_screen_show_real_charging_technology">Charging components show real charging technology</string>
+    <string name="lock_screen_show_real_charging_technology">Komponenty nabíjení zobrazují skutečnou technologii nabíjení</string>
     <string name="force_lock_screen_charging_show_wattage">Zobrazení příkonu nabíjecích komponentů</string>
     <string name="lock_screen_charging_use_user_typeface">Komponenta nabíjení použije na zamykací obrazovce použije uživatelské písmo</string>
     <string name="set_full_screen_charging_animation_mode">Režim animace nabíjení na celé obrazovce</string>
@@ -452,8 +452,8 @@
     <string name="SoundRelated">Související se zvukem</string>
     <string name="media_volume_level">Úroveň hlasitosti médií</string>
     <string name="media_volume_level_summary">Nastavte na 0 pro vypnutí této funkce, restartujte systém, aby se změny projevily</string>
-    <string name="enable_super_volume_mode">Enable super volume mode</string>
-    <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
+    <string name="enable_super_volume_mode">Povolit režim superhlasitosti</string>
+    <string name="enable_super_volume_mode_for_calls">Povolit režim superhlasitosti pro hovory</string>
     <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Různé</string>
@@ -634,6 +634,10 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>
     <string name="remove_weather_some_page_bottom_ads">Odstranit reklamy v dolní části stránky počasí</string>
+    <!--OplusCalendar-->
+    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
+    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
+    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

@@ -15,6 +15,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookAndroid
 import com.luckyzyx.luckytool.hook.hooker.HookAutoStart
 import com.luckyzyx.luckytool.hook.hooker.HookBattery
 import com.luckyzyx.luckytool.hook.hooker.HookBrowser
+import com.luckyzyx.luckytool.hook.hooker.HookCalendar
 import com.luckyzyx.luckytool.hook.hooker.HookCamera
 import com.luckyzyx.luckytool.hook.hooker.HookCloudService
 import com.luckyzyx.luckytool.hook.hooker.HookDialogRelated
@@ -186,6 +187,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.heytap.market", HookMarket)
         //天气
         loadApp("com.coloros.weather2", HookWeather)
+        //日历
+        loadApp("com.coloros.calendar", HookCalendar)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
