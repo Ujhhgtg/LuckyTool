@@ -84,27 +84,50 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (getChargeWattage != 0) resultTrue()
                     }
                 }
+                if (hasMethod { name = "getTechnologyStr" }) {
+                    method { name = "getTechnologyStr" }.hook {
+                        before {
+                            if (!showRealTech) return@before
+                            val chargeInfoObserver = args().last().any() ?: return@before
+                            val technology = chargeInfoObserver.current().method {
+                                name = "getmChargerTechnology"
+                            }.invoke<Int>() ?: return@before
+                            val ppsMode = chargeInfoObserver.current().method {
+                                name = "getmPpsState"
+                            }.invoke<Int>() ?: return@before
+                            val ismIsWirelessCharge = chargeInfoObserver.current().method {
+                                name = "ismIsWirelessCharge"
+                            }.invoke<Boolean>() ?: return@before
+                            if (ismIsWirelessCharge) return@before
+                            result = BatteryControllerUtils(appClassLoader).getTechnologyName(
+                                technology, ppsMode
+                            )
+                        }
+                    }
+                }
             }
 
             //Source OplusChargeAnimImpl
             "com.oplus.charge.viewmodel.OplusChargeAnimImpl".toClass().apply {
-                method { name = "getTechnologyStr" }.hook {
-                    before {
-                        if (!showRealTech) return@before
-                        val chargeInfoObserver = args().first().any() ?: return@before
-                        val technology = chargeInfoObserver.current().method {
-                            name = "getmChargerTechnology"
-                        }.invoke<Int>() ?: return@before
-                        val ppsMode = chargeInfoObserver.current().method {
-                            name = "getmPpsState"
-                        }.invoke<Int>() ?: return@before
-                        val ismIsWirelessCharge = chargeInfoObserver.current().method {
-                            name = "ismIsWirelessCharge"
-                        }.invoke<Boolean>() ?: return@before
-                        if (ismIsWirelessCharge) return@before
-                        result = BatteryControllerUtils(appClassLoader).getTechnologyName(
-                            technology, ppsMode
-                        )
+                if (hasMethod { name = "getTechnologyStr" }) {
+                    method { name = "getTechnologyStr" }.hook {
+                        before {
+                            if (!showRealTech) return@before
+                            val chargeInfoObserver = args().last().any() ?: return@before
+                            val technology = chargeInfoObserver.current().method {
+                                name = "getmChargerTechnology"
+                            }.invoke<Int>() ?: return@before
+                            val ppsMode = chargeInfoObserver.current().method {
+                                name = "getmPpsState"
+                            }.invoke<Int>() ?: return@before
+                            val ismIsWirelessCharge = chargeInfoObserver.current().method {
+                                name = "ismIsWirelessCharge"
+                            }.invoke<Boolean>() ?: return@before
+                            if (ismIsWirelessCharge) return@before
+                            result = BatteryControllerUtils(appClassLoader).getTechnologyName(
+                                technology, ppsMode
+                            )
+                        }
                     }
                 }
             }
