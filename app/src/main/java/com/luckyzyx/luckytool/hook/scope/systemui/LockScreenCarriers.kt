@@ -71,7 +71,17 @@ object LockScreenCarriers : YukiBaseHooker() {
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
                     }
                 }
+                constructor { paramCount = 3;superClass() }.hook {
+                    after {
+                        if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
+                    }
+                }
                 method { name = "onConfigurationChanged" }.hook {
+                    after {
+                        if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
+                    }
+                }
+                method { name = "onConfigurationChanged";superClass() }.hook {
                     after {
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
                     }

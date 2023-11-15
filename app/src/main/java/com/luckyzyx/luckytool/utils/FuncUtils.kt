@@ -338,6 +338,18 @@ val getGuid: String
     }
 
 /**
+ * 获取招募ID
+ * /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml
+ */
+val getRecruit: String
+    get() = ShellUtils.execCommand(
+        "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | grep ota_register_trigger_id | cut -f2 -d '>' | cut -f1 -d '<'",
+        true, true
+    ).let {
+        if (it.result == 0 && it.successMsg.isNullOrBlank().not()) it.successMsg else "null"
+    }
+
+/**
  * 获取prop数据
  * @param key String
  */

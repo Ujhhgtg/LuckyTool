@@ -16,7 +16,6 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.luckyzyx.luckytool.IGlobalFuncController
@@ -92,7 +91,6 @@ class HomeFragment : Fragment(), MenuProvider {
 
         binding.systemInfo.apply {
             setOnLongClickListener {
-                val isRealmeUI: Boolean
                 val oplusOtaDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setTitle("OPLUS OTA")
                     setView(R.layout.layout_oplusota_dialog)
@@ -115,23 +113,6 @@ class HomeFragment : Fragment(), MenuProvider {
                                 true
                             }
                         }
-                val realmeuiVersionLayout =
-                    oplusOtaDialog.findViewById<TextInputLayout>(R.id.oplusota_realmeui_version_layout)
-                val realmeuiVersion =
-                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_realmeui_version)
-                        ?.apply {
-                            setText(getProp("ro.build.version.realmeui"))
-                            setOnLongClickListener {
-                                context.copyStr(text as CharSequence)
-                                true
-                            }
-                        }
-                if (realmeuiVersion?.text.toString()
-                        .isBlank() || realmeuiVersion?.text.toString() == "null"
-                ) {
-                    isRealmeUI = false
-                    realmeuiVersionLayout?.isVisible = false
-                } else isRealmeUI = true
                 val nvIdentifier =
                     oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_nv_identifier)
                         ?.apply {
@@ -149,15 +130,24 @@ class HomeFragment : Fragment(), MenuProvider {
                             true
                         }
                     }
+                val recruit =
+                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_recruit)?.apply {
+                        setText(getRecruit)
+                        setOnLongClickListener {
+                            context.copyStr(text as CharSequence)
+                            true
+                        }
+                    }
                 oplusOtaDialog.findViewById<MaterialButton>(R.id.oplusota_copyall)?.apply {
                     setOnClickListener {
-                        context.copyStr("ro.product.name -> ${productModel?.text}\nro.build.version.ota -> ${otaVersion?.text}\n${if (isRealmeUI) "ro.build.version.realmeui -> ${realmeuiVersion?.text}\n" else ""}ro.build.oplus_nv_id -> ${nvIdentifier?.text}\nguid -> ${guid?.text}\n")
+                        context.copyStr("ro.product.name -> ${productModel?.text}\nro.build.version.ota -> ${otaVersion?.text}\nro.build.oplus_nv_id -> ${nvIdentifier?.text}\nguid -> ${guid?.text}\nrecruit -> ${recruit?.text}\n")
                     }
                 }
                 true
             }
         }
 
+        binding.donateTvTitle.text = getString(R.string.donate_tv_title) + " by: 忆清鸣、luckyzyx"
         binding.donateTvView.apply {
             setOnClickListener {
                 val url = if (isZh(requireActivity())) "https://docs.qq.com/doc/DS2ZDZlNIeUlpdlV1"

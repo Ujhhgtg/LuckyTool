@@ -50,25 +50,6 @@
         </com.google.android.material.textfield.TextInputLayout>
         
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/oplusota_realmeui_version_layout"
-                android:hint="ro.build.version.realmeui"
-                app:hintEnabled="true"
-                app:hintAnimationEnabled="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                tools:ignore="HardcodedText">
-            
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/oplusota_realmeui_version"
-                    android:textSize="14sp"
-                    android:focusable="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-        
-        </com.google.android.material.textfield.TextInputLayout>
-        
-        <com.google.android.material.textfield.TextInputLayout
                 android:hint="ro.build.oplus_nv_id"
                 app:hintEnabled="true"
                 app:hintAnimationEnabled="true"
@@ -85,7 +66,7 @@
                     android:layout_height="wrap_content" />
         
         </com.google.android.material.textfield.TextInputLayout>
-        
+    
         <com.google.android.material.textfield.TextInputLayout
                 android:hint="guid"
                 app:hintEnabled="true"
@@ -94,14 +75,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 tools:ignore="HardcodedText">
-            
+        
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/oplusota_guid"
                     android:textSize="14sp"
                     android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+    
+        </com.google.android.material.textfield.TextInputLayout>
+    
+        <com.google.android.material.textfield.TextInputLayout
+                android:hint="recruit"
+                app:hintEnabled="true"
+                app:hintAnimationEnabled="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                tools:ignore="HardcodedText">
         
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/oplusota_recruit"
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+    
         </com.google.android.material.textfield.TextInputLayout>
         
         <com.google.android.material.textview.MaterialTextView

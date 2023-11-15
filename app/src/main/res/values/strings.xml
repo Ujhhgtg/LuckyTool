@@ -780,7 +780,7 @@
     <string name="device_guid">Device GUID</string>
     <string name="oplusota_copy_tip">Long press the input box to copy it individually</string>
     <string name="oplusota_copyall">Copy All</string>
-    <string name="authorized" translatable="false">未经开发者授权,禁止私自搬运转载分享\n提倡授之以渔,切莫授之以鱼</string>
+    <string name="authorized" translatable="false">禁止私自搬运、转载、分享、分流\n提倡授之以渔,切莫授之以鱼</string>
     
     <!--Donate-->
     <string name="donate_tv_title">Support Development</string>
