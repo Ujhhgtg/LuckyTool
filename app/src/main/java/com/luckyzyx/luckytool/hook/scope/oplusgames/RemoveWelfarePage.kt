@@ -5,7 +5,6 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import java.util.concurrent.CopyOnWriteArrayList
 
 object RemoveWelfarePage : YukiBaseHooker() {
     override fun onHook() {
@@ -17,9 +16,9 @@ object RemoveWelfarePage : YukiBaseHooker() {
                 returnType = UnitType
             }.hook {
                 before {
-                    args().first().cast<CopyOnWriteArrayList<Any>>()?.apply {
-                        removeIf { indexOf(it) != 0 }
-                    }
+                    val list = args().first().list<Any>()
+                    val first = list.getOrNull(0) ?: return@before
+                    args().first().set(ArrayList(arrayListOf(first)))
                 }
             }
         }

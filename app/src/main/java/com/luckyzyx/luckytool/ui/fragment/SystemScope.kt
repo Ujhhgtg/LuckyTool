@@ -2513,7 +2513,10 @@ class SoundRelated : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_app_specific_media_volume)
-                summary = getString(R.string.enable_app_specific_media_volume_summary)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system),
+                    getString(R.string.enable_app_specific_media_volume_summary)
+                )
                 key = "enable_app_specific_media_volume"
                 setDefaultValue(false)
                 isVisible = SDK >= A13

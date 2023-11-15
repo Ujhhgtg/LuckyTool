@@ -30,11 +30,11 @@ object AlarmClockWidget : YukiBaseHooker() {
         dataChannel.wait<String>("alarmclock_widget_redone_mode") { redMode = it }
 
         val clazz = "com.coloros.widget.smallweather.OnePlusWidget".toClassOrNull() ?: return
-        if (clazz.hasMethod { param(StringClass, StringClass) }) {
-            loadHooker(AlarmClock12)
-        } else if (clazz.hasMethod { returnType(RemoteViewsClass) }) {
-            loadHooker(AlarmClock13)
-        } else loadHooker(AlarmClock131())
+        when {
+            clazz.hasMethod { param(StringClass, StringClass) } -> loadHooker(AlarmClock12)
+            clazz.hasMethod { returnType(RemoteViewsClass) } -> loadHooker(AlarmClock13)
+            else -> loadHooker(AlarmClock131())
+        }
     }
 
     private class AlarmClock131 : YukiBaseHooker() {

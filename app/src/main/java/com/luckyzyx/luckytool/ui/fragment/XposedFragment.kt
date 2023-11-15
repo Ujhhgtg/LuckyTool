@@ -53,7 +53,9 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {}
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        init()
+    }
 
     private fun init() {
         val dialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
@@ -566,11 +568,6 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 }
             }
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        init()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

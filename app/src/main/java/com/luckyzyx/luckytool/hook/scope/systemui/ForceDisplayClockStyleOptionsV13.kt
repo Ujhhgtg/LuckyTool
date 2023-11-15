@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scope.systemui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
@@ -17,7 +18,10 @@ object ForceDisplayClockStyleOptionsV13 : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source KeyguardLauncherPageProvider
-        "com.oplus.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider".toClass().apply {
+        VariousClass(
+            "com.oplusos.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider", //C13.0
+            "com.oplus.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider" //C13.1
+        ).toClass().apply {
             method { name = "initKeyguardLandClockPf" }.hook {
                 before {
                     val isFlavorTwoDevice = flavorTwoFeatureOption.toClass().method {
