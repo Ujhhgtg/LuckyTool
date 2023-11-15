@@ -456,6 +456,8 @@
     <string name="enable_super_volume_mode">启用超级音量模式</string>
     <string name="enable_super_volume_mode_for_calls">启用通话超级音量模式</string>
     <string name="minimum_volume_level_can_be_zero">音量阶数最低可为 0</string>
+    <string name="enable_app_specific_media_volume">启用应用专属媒体音量</string>
+    <string name="enable_app_specific_media_volume_summary">此功能需要系统支持才能生效</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">杂项</string>
     <string name="Miscellaneous_summary">分类困难的功能将被放置于此</string>

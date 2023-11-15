@@ -456,6 +456,8 @@
     <string name="enable_super_volume_mode">Enable super volume mode</string>
     <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
     <string name="minimum_volume_level_can_be_zero">最小音量レベルは0に設定できます</string>
+    <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
+    <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">その他</string>
     <string name="Miscellaneous_summary">難易度の高いカテゴリはこちらに配置されます</string>

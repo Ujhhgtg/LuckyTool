@@ -237,6 +237,9 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //锁屏充电显示瓦数
             var showWattage =
                 prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
+            //应用专属媒体音量
+            val specificVolume =
+                prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)
 
             callback = { key: String, value: Any ->
                 when (key) {
@@ -260,6 +263,12 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 if (hasMethod { name = "isShowChargingWattage" }) {
                     method { name = "isShowChargingWattage" }.hook {
                         if (showWattage) replaceToTrue()
+                    }
+                }
+                //C13.1 C14.0
+                if (hasMethod { name = "isFlavorOneMultiMediaDevice" }) {
+                    method { name = "isFlavorOneMultiMediaDevice" }.hook {
+                        if (specificVolume) replaceToTrue()
                     }
                 }
             }

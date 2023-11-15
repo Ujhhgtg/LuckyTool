@@ -41,7 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed musí být vypnut pro vynucení ikon v seznamu aplikací</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Záloha/Obnovení/Vymazání</string>
-    <string name="get_log_cat_log">Get LogCat log</string>
+    <string name="get_log_cat_log">Získat LogCat log</string>
     <string name="backup_data">Zálohovat data</string>
     <string name="restore_data">Obnovit data</string>
     <string name="data_backup_complete">Zálohování dat bylo dokončeno!</string>
@@ -456,6 +456,8 @@
     <string name="enable_super_volume_mode">Povolit režim superhlasitosti</string>
     <string name="enable_super_volume_mode_for_calls">Povolit režim superhlasitosti pro hovory</string>
     <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
+    <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
+    <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Různé</string>
     <string name="Miscellaneous_summary">Zde jsou umístěna různá další specifická nastavení</string>
@@ -636,9 +638,9 @@
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>
     <string name="remove_weather_some_page_bottom_ads">Odstranit reklamy v dolní části stránky počasí</string>
     <!--OplusCalendar-->
-    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
-    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
-    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
+    <string name="remove_holiday_page_information_flow">Smazat vlákno s informacemi o dovolené z OnePlus kalendáře</string>
+    <string name="remove_almanac_page_information_flow">Smazat vlákno s informacemi o stránce almanachu</string>
+    <string name="remove_horoscope_page_information_flow">Odstranění proudu informací o horoskopu</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

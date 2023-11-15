@@ -41,7 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed должен быть отключен, чтобы принудительно отображались иконки на рабочем столе</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Бэкап/Восстановление/Очистка</string>
-    <string name="get_log_cat_log">Get LogCat log</string>
+    <string name="get_log_cat_log">Получить лог</string>
     <string name="backup_data">Резервное копирование данных</string>
     <string name="restore_data">Восстановление данных</string>
     <string name="data_backup_complete">Бэкап создан!</string>
@@ -457,6 +457,8 @@
     <string name="enable_super_volume_mode">Включить режим супер громкости</string>
     <string name="enable_super_volume_mode_for_calls">Включить режим супер громкости для звонков</string>
     <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
+    <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
+    <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Разное</string>
     <string name="Miscellaneous_summary">Функции, которые сложно классифицировать, будут размещены здесь</string>

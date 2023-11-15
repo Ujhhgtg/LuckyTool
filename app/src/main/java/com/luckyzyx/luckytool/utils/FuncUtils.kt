@@ -802,14 +802,7 @@ fun isZh(context: Context): Boolean {
  * @param packNames Array<String>
  */
 fun Context.openApp(packNames: Array<String>) {
-    packNames.forEach {
-        packageManager.getLaunchIntentForPackage(it)?.apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-            startActivity(this)
-        }
-    }
+    openApp(packNames.firstOrNull())
 }
 
 /**
@@ -817,7 +810,8 @@ fun Context.openApp(packNames: Array<String>) {
  * @receiver Context
  * @param packName String
  */
-fun Context.openApp(packName: String) {
+fun Context.openApp(packName: String?) {
+    if (packName.isNullOrBlank()) return
     packageManager.getLaunchIntentForPackage(packName)?.apply {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)

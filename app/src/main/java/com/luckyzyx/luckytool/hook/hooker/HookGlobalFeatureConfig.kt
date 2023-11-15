@@ -18,6 +18,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.audio.super_volume_call_earpiece", true)
                 put("oplus.software.audio.super_volume_call_earpiece_disable", false)
             }
+            //Source SystemUI FlavorOneFeatureOption 启用应用专属媒体音量
+            if (prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)) {
+                put("oplus.software.multi_app.volume.adjust.support", true)
+            }
             //Source Settings 启用RGB色温球 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)
             ) {

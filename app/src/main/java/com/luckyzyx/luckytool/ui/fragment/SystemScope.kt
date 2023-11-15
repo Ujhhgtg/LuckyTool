@@ -2474,7 +2474,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
 }
 
 class SoundRelated : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.systemui")
+    override val scopes = arrayOf("com.android.systemui", "com.android.settings")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -2509,6 +2509,14 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 key = "minimum_volume_level_can_be_zero"
                 setDefaultValue(false)
                 isVisible = SDK >= A12
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_app_specific_media_volume)
+                summary = getString(R.string.enable_app_specific_media_volume_summary)
+                key = "enable_app_specific_media_volume"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
         }
@@ -2616,9 +2624,7 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
 }
 
 class Settings : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf(
-        "com.android.settings", "com.android.permissioncontroller", "com.oplus.onet"
-    )
+    override val scopes = arrayOf("com.android.settings", "com.android.permissioncontroller")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs

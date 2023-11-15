@@ -456,6 +456,8 @@
     <string name="enable_super_volume_mode">Enable super volume mode</string>
     <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
     <string name="minimum_volume_level_can_be_zero">Mức âm lượng có thể thấp đến mức 0</string>
+    <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
+    <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Khác</string>
     <string name="Miscellaneous_summary">Các danh mục có độ khó sẽ được đặt tại đây</string>

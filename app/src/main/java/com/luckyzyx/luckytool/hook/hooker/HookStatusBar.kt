@@ -20,7 +20,7 @@ object HookStatusBar : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("hide_inactive_signal_labels_gen2x2", false)) {
             loadHooker(HideInActiveSignalLabelsGen2x2)
         }
-        
+
         //res/layout/bubble_expanded_view.xml
         //<string name="bubble_close">关闭对话</string>
         //<string name="open_app">进入应用</string>
