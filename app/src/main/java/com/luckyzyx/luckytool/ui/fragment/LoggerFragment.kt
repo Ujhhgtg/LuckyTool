@@ -214,6 +214,7 @@ class LoggerFragment : Fragment(), MenuProvider {
             Environment.DIRECTORY_DOWNLOADS + "/LuckyTool"
         )
         if (!dir.exists()) dir.mkdirs()
+
         logsDir = File(requireActivity().cacheDir, "logs")
         logsDir.listFiles()?.forEach { if (it.exists()) it.delete() }
         if (logsDir.exists()) logsDir.delete()

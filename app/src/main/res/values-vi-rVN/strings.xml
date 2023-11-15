@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed phải được tắt để buộc các biểu tượng trên màn hình</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Sao lưu/Khôi phục/Xoá</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">Backup Data</string>
     <string name="restore_data">Khôi phục dữ liệu</string>
     <string name="data_backup_complete">Sao lưu dữ liệu hoàn tất!</string>

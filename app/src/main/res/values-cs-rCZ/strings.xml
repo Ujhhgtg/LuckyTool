@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed musí být vypnut pro vynucení ikon v seznamu aplikací</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Záloha/Obnovení/Vymazání</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">Zálohovat data</string>
     <string name="restore_data">Obnovit data</string>
     <string name="data_backup_complete">Zálohování dat bylo dokončeno!</string>

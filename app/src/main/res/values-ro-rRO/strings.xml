@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed trebuie să fie oprit pentru a forța pictogramele desktop</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Backup/Restaurare/Șterge</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">Copie de rezervă date</string>
     <string name="restore_data">Restaurare date</string>
     <string name="data_backup_complete">Crearea copiei de rezervă este gata!</string>

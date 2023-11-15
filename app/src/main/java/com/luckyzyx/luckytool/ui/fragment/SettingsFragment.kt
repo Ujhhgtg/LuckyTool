@@ -27,7 +27,6 @@ import com.drake.net.utils.scopeNetLife
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
-import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
 import com.luckyzyx.luckytool.databinding.LayoutDonateItemBinding
@@ -49,6 +48,7 @@ import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.isZh
+import com.luckyzyx.luckytool.utils.logcatToFile
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putInt
@@ -151,6 +151,7 @@ class SettingsFragment : ModulePreferenceFragment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = SettingsPrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //主题
             addPreference(PreferenceCategory(context).apply {
                 setTitle(R.string.theme_title)
                 setSummary(R.string.theme_title_summary)
@@ -180,18 +181,9 @@ class SettingsFragment : ModulePreferenceFragment() {
                     true
                 }
             })
-
+            //其他
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.other_settings)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                key = "enable_module_print_logs"
-                title = getString(R.string.enable_module_print_logs)
-                summary = getString(R.string.enable_module_print_logs_summary)
-                setDefaultValue(BuildConfig.DEBUG)
-                isChecked = BuildConfig.DEBUG
-                isVisible = false
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -253,11 +245,24 @@ class SettingsFragment : ModulePreferenceFragment() {
                     true
                 }
             })
-
+            //备份
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.backup_restore_clear)
                 key = "backup_restore_clear"
                 isIconSpaceReserved = false
+            })
+            addPreference(Preference(context).apply {
+                title = getString(R.string.get_log_cat_log)
+                key = "get_log_cat_log"
+                isPersistent = false
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    val name = "logcat_" + formatDate("yyMMdd_HHmmss") + ".log"
+                    val file = File(context.cacheDir.path, name)
+                    logcatToFile(file)
+                    FileUtils.shareFile(context, "Share LogCat File", file)
+                    true
+                }
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.backup_data)
@@ -293,7 +298,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                     true
                 }
             })
-
+            //关于
             addPreference(PreferenceCategory(context).apply {
                 setTitle(R.string.about_title)
                 isIconSpaceReserved = false

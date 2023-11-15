@@ -144,6 +144,7 @@ fun Context.getDeviceInfo(
         ${getString(R.string.flash)}: ${controller?.flashInfo}
         LCD: ${controller?.lcdInfo}
         PAS: ${controller?.pcbInfo} ${controller?.snInfo}
+        RTD: $getRecruit
     """.trimIndent().let {
         if (isLog) "$it\n${getString(R.string.module_version)} $getVersionName($getVersionCode)\n\n" else it
     }
@@ -1344,5 +1345,16 @@ fun calcLocalHealth(context: Context): Int {
     } catch (e: Exception) {
         YLog.error("Calc Local Health Error", e)
         -1
+    }
+}
+
+fun logcatToFile(file: File) {
+    try {
+        if (file.exists()) file.delete()
+        file.createNewFile()
+        val cmd = "logcat -d -f" + file.absolutePath
+        Runtime.getRuntime().exec(cmd)
+    } catch (e: Exception) {
+        LogUtils.e(LogUtils.globalTag, "logcatToFile", "$e", true)
     }
 }

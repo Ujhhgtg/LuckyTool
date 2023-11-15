@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed должен быть отключен, чтобы принудительно отображались иконки на рабочем столе</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Бэкап/Восстановление/Очистка</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">Резервное копирование данных</string>
     <string name="restore_data">Восстановление данных</string>
     <string name="data_backup_complete">Бэкап создан!</string>
@@ -636,9 +637,9 @@
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
     <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>
     <!--OplusCalendar-->
-    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
-    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
-    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
+    <string name="remove_holiday_page_information_flow">Удалить поток информации о праздниках</string>
+    <string name="remove_almanac_page_information_flow">Удалить поток информации об альманахе</string>
+    <string name="remove_horoscope_page_information_flow">Удаление потока информации о гороскопе</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

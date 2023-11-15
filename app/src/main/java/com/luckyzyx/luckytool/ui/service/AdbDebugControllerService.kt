@@ -20,8 +20,7 @@ class AdbDebugControllerService : RootService() {
 
         override fun setAdbPort(port: Int) {
             SystemPropertiesUtils(null).set(
-                "service.adb.tcp.port",
-                (if (port == 0) "" else port).toString()
+                "service.adb.tcp.port", (if (port == 0) "" else port).toString()
             )
         }
 
@@ -49,7 +48,7 @@ class AdbDebugControllerService : RootService() {
                     }
                 }
             } catch (e: Exception) {
-                LogUtils.e(tag, "getIpAddress", "$e")
+                LogUtils.e(tag, "getIpAddress", "$e", true)
                 return null
             }
             return null

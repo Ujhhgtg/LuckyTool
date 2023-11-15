@@ -41,7 +41,7 @@ class RefreshRateControllerService : RootService() {
                 LogUtils.d(tag, "getRefreshRateDisplay", "surfaceFlinger is null")
                 return false
             } catch (e: RemoteException) {
-                LogUtils.d(tag, "getRefreshRateDisplay ", "$e")
+                LogUtils.e(tag, "getRefreshRateDisplay ", "$e", true)
                 return false
             }
         }
@@ -58,7 +58,7 @@ class RefreshRateControllerService : RootService() {
                 }
                 LogUtils.d(tag, "setRefreshRateDisplay", "surfaceFlinger is null")
             } catch (e: RemoteException) {
-                LogUtils.d(tag, "setRefreshRateDisplay ", "$e")
+                LogUtils.e(tag, "setRefreshRateDisplay ", "$e", true)
             }
         }
 
@@ -106,8 +106,8 @@ class RefreshRateControllerService : RootService() {
                 }
                 LogUtils.d(tag, "getSupportModes", "Size ${list.size}")
                 list
-            } catch (e: Throwable) {
-                LogUtils.d(tag, "getSupportModes", " $e")
+            } catch (e: Exception) {
+                LogUtils.e(tag, "getSupportModes", "$e", true)
                 list
             }
         }
@@ -123,16 +123,16 @@ class RefreshRateControllerService : RootService() {
                     return
                 }
                 LogUtils.d(tag, "setRefreshRateMode", "surfaceFlinger is null")
-            } catch (e: Throwable) {
-                LogUtils.d(tag, "setRefreshRateMode", "$e")
+            } catch (e: Exception) {
+                LogUtils.e(tag, "setRefreshRateMode", "$e", true)
             }
         }
 
         override fun resetRefreshRateMode() {
             try {
                 setRefreshRateMode(-1)
-            } catch (e: Throwable) {
-                LogUtils.d(tag, "resetRefreshRateMode", "$e")
+            } catch (e: Exception) {
+                LogUtils.e(tag, "resetRefreshRateMode", "$e", true)
             }
         }
     }

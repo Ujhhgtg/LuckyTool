@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">Wymaga wyłączenia „Wymuś aplikacjom pokazywanie ikon launchera” w ustawieniach LSPosed</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Kopia zapasowa i przywracanie</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">Wykonaj kopię</string>
     <string name="restore_data">Przywróć kopię</string>
     <string name="data_backup_complete">Wykonano kopię zapasową!</string>

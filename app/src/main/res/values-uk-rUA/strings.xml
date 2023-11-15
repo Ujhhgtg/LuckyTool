@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed має бути вимкнено, щоб примусово відображалися іконки на робочому столі</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Резервне копіювання/Відновлення/Видалення даних</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">Резервне копіювання даних</string>
     <string name="restore_data">Відновлення даних</string>
     <string name="data_backup_complete">Резервне копіювання даних завершено!</string>

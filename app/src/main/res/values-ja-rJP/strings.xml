@@ -41,6 +41,7 @@
     <string name="hide_desktop_module_icon_summary">ホーム画面でのアイコンを強制的に表示するには、LSPosed をオフにする必要があります</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">バックアップ/復元/クリア</string>
+    <string name="get_log_cat_log">Get LogCat log</string>
     <string name="backup_data">データをバックアップ</string>
     <string name="restore_data">データを復元</string>
     <string name="data_backup_complete">データのバックアップが完了しました!</string>
