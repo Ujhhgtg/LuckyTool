@@ -21,6 +21,9 @@ object HookStatusBar : YukiBaseHooker() {
             loadHooker(HideInActiveSignalLabelsGen2x2)
         }
 
+        //流体云
+        //com.oplus.pantanal.seedling.util.SeedlingTool
+
         //res/layout/bubble_expanded_view.xml
         //<string name="bubble_close">关闭对话</string>
         //<string name="open_app">进入应用</string>

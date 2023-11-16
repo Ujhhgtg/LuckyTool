@@ -10,8 +10,10 @@ import com.highcapable.yukihookapi.hook.type.java.IntClass
 import com.highcapable.yukihookapi.hook.type.java.LongClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import org.luckypray.dexkit.DexKitBridge
 
 class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -54,7 +56,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
                             configNode.contains("feature_is_support_privacy_watermark") -> if (waterMark) resultTrue()
                             //debug.gallery.lns / os.graphic.gallery.photoview.lns
-                            configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
+                            configNode.contains("feature_is_support_lns") -> if (SDK >= A14 && lnsImage) resultTrue()
                         }
                     }
                 }

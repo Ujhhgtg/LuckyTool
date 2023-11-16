@@ -540,7 +540,7 @@
     <string name="enable_10_bit_image_support_summary">Включение этой функции на некоторых моделях может привести к тому, что фото станет зеленым</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Водяной знак</string>
-    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
+    <string name="enable_lns_cut_photo">Вырезать часть фото</string>
     <string name="enable_watermark_editing">Включить изменение водяного знака</string>
     <string name="replace_oneplus_model_watermark">Заменить водяной знак модели OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">При редактировании водяного знака [Снято на OnePlus] будет заменено выбранной моделью</string>
@@ -645,6 +645,10 @@
     <string name="remove_holiday_page_information_flow">Удалить поток информации о праздниках</string>
     <string name="remove_almanac_page_information_flow">Удалить поток информации об альманахе</string>
     <string name="remove_horoscope_page_information_flow">Удаление потока информации о гороскопе</string>
+    <!--OplusSmartSidebar-->
+    <string name="unlock_transfer_dock">Unlock transfer dock</string>
+    <string name="unlock_recent_files">Unlock recent files</string>
+    <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

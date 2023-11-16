@@ -10,8 +10,10 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongClass
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import org.luckypray.dexkit.DexKitBridge
 
 class HookConfigAbility(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -63,7 +65,7 @@ class HookConfigAbility(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             "feature_is_support_hassel_watermark" -> if (waterMark) resultTrue()
                             "feature_is_support_photo_editor_watermark" -> if (waterMark) resultTrue()
                             "feature_is_support_privacy_watermark" -> if (waterMark) resultTrue()
-                            "feature_is_support_lns" -> if (lnsImage) resultTrue()
+                            "feature_is_support_lns" -> if (SDK >= A14 && lnsImage) resultTrue()
                         }
                     }
                 }

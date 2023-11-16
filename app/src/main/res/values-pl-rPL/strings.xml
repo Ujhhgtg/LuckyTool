@@ -644,6 +644,10 @@
     <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
     <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
     <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
+    <!--OplusSmartSidebar-->
+    <string name="unlock_transfer_dock">Unlock transfer dock</string>
+    <string name="unlock_recent_files">Unlock recent files</string>
+    <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Pomiń stronę początkową</string>
     <string name="vip_download">Pobierz oryginał</string>

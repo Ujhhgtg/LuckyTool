@@ -2713,18 +2713,20 @@ class Settings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //声音
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.settings_sound)
-                key = "settings_sound"
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_holographic_audio)
-                key = "enable_holographic_audio"
-                setDefaultValue(false)
-                isVisible = SDK >= A14
-                isIconSpaceReserved = false
-            })
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.settings_sound)
+                    key = "settings_sound"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_holographic_audio)
+                    key = "enable_holographic_audio"
+                    setDefaultValue(false)
+                    isVisible = SDK >= A13
+                    isIconSpaceReserved = false
+                })
+            }
             //应用
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_application)
@@ -3735,6 +3737,38 @@ class OplusCalendar : BaseScopePreferenceFeagment() {
                 key = "remove_horoscope_page_information_flow"
                 setDefaultValue(false)
                 isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}
+
+class OplusSmartSidebar : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.coloros.smartsidebar")
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.unlock_transfer_dock)
+                key = "unlock_transfer_dock"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.unlock_recent_files)
+                key = "unlock_recent_files"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.unlock_fluid_cloud)
+                key = "unlock_fluid_cloud"
+                setDefaultValue(false)
+                isVisible = false//SDK >= A13
                 isIconSpaceReserved = false
             })
         }

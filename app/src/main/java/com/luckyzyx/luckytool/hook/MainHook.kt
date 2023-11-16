@@ -41,6 +41,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookQuickSearchBox
 import com.luckyzyx.luckytool.hook.hooker.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hooker.HookScreenshot
 import com.luckyzyx.luckytool.hook.hooker.HookSettings
+import com.luckyzyx.luckytool.hook.hooker.HookSmartSidebar
 import com.luckyzyx.luckytool.hook.hooker.HookStatusBar
 import com.luckyzyx.luckytool.hook.hooker.HookThemeStore
 import com.luckyzyx.luckytool.hook.hooker.HookUIEngine
@@ -189,6 +190,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.coloros.weather2", HookWeather)
         //日历
         loadApp("com.coloros.calendar", HookCalendar)
+        //智能侧边栏
+        loadApp("com.coloros.smartsidebar", HookSmartSidebar)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

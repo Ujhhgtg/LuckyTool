@@ -518,9 +518,27 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.remove_holiday_page_information_flow),
                     getString(R.string.remove_almanac_page_information_flow)
                 )
-                isVisible = context.checkPackName(key)
+                isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusCalendar, title)
+                    true
+                }
+            },
+            //SmartSidebar
+            Preference(context).apply {
+                key = "com.coloros.smartsidebar"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.unlock_transfer_dock),
+                    getString(R.string.unlock_recent_files)
+                )
+                isVisible = SDK >= A13 && context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusSmartSidebar, title)
                     true
                 }
             },
