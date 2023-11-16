@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.utils.sysui
 import android.content.Context
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.hook.scope.android.HookSystemProperties.toClass
+import com.luckyzyx.luckytool.hook.hooker.HookLockScreen.toClass
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class ClockSwitchHelper(val classLoader: ClassLoader?) {

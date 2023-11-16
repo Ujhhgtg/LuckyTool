@@ -31,6 +31,7 @@ object HookSettingsFeature : YukiBaseHooker() {
         override fun onHook() {
             val memcVideo = false
             //prefs(ModulePrefs).getBoolean("force_display_video_memc_frame_insertion", false)
+            val holoAudio = prefs(ModulePrefs).getBoolean("enable_holographic_audio", false)
 
             //Source SysFeatureUtils
             DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -60,10 +61,10 @@ object HookSettingsFeature : YukiBaseHooker() {
                                 }
                             }
                         }
-//                        ro.oplus.audio.support.meta_audio
-//                        method { name = "isHoloAudioSupported" }.hook {
-//                            replaceToTrue()
-//                        }
+                        //Source HoloAudioController -> ro.oplus.audio.support.meta_audio
+                        method { name = "isHoloAudioSupported" }.hook {
+                            if (holoAudio) replaceToTrue()
+                        }
                     }
                 }
             }

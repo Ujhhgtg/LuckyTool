@@ -578,6 +578,9 @@
     <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
     <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
     
+    <string name="settings_sound">Sound</string>
+    <string name="enable_holographic_audio">Enable holographic audio</string>
+    
     <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
     <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>

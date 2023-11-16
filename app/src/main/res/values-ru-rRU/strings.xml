@@ -457,8 +457,8 @@
     <string name="enable_super_volume_mode">Включить режим супер громкости</string>
     <string name="enable_super_volume_mode_for_calls">Включить режим супер громкости для звонков</string>
     <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
-    <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
-    <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
+    <string name="enable_app_specific_media_volume">Включить громкость мультимедиа для конкретных приложений</string>
+    <string name="enable_app_specific_media_volume_summary">Эта функция требует системной поддержки</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Разное</string>
     <string name="Miscellaneous_summary">Функции, которые сложно классифицировать, будут размещены здесь</string>
@@ -513,6 +513,8 @@
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
     <string name="auto_unlock_restricted_settings">Автоматическая разблокировка ограниченных настроек</string>
     <string name="auto_unlock_restricted_settings_summary">Это ограничение автоматически снимается при нажатии на серый вариант</string>
+    <string name="settings_sound">Sound</string>
+    <string name="enable_holographic_audio">Enable holographic audio</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>

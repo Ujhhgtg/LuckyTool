@@ -512,6 +512,8 @@
     <string name="force_display_disabled_apps_manager">强制显示已停用应用管理器</string>
     <string name="auto_unlock_restricted_settings">自动解锁受限制的设置</string>
     <string name="auto_unlock_restricted_settings_summary">点击灰色选项时自动解锁此限制</string>
+    <string name="settings_sound">声音</string>
+    <string name="enable_holographic_audio">启用全息音频</string>
     <string name="settings_about_device">关于本机</string>
     <string name="set_processor_click_page">设置处理器点击页面</string>
     <string name="screen_physics_size_shown_cm">屏幕物理尺寸显示为厘米</string>

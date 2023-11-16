@@ -4,15 +4,15 @@
     <string name="xposeddescription">Xposed modul optimalizovaný pro rozšíření na ColorOS\nVývojář: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funkce</string>
-    <string name="nav_home">Úvod</string>
+    <string name="nav_home">Domovská stránka</string>
     <string name="nav_other">Ostatní</string>
     <string name="nav_log">Protokoly</string>
     <string name="nav_setting">Nastavení</string>
     <string name="fragment_source">Zdrojový kód</string>
     <!-- Settings -->
-    <string name="theme_title">Vzhled</string>
+    <string name="theme_title">Motiv</string>
     <string name="theme_title_summary">Stránka bude automaticky aktualizována</string>
-    <string name="use_dynamic_color">Dynamický vzhled</string>
+    <string name="use_dynamic_color">Dynamické barvy</string>
     <string name="use_dynamic_color_summary">Použít dynamické barvy</string>
     <string name="dark_theme">Tmavý vzhled</string>
     <string name="follow_system">Podle systému</string>
@@ -41,7 +41,7 @@
     <string name="hide_desktop_module_icon_summary">LSPosed musí být vypnut pro vynucení ikon v seznamu aplikací</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Záloha/Obnovení/Vymazání</string>
-    <string name="get_log_cat_log">Získat LogCat log</string>
+    <string name="get_log_cat_log">Získat LogCat protokol</string>
     <string name="backup_data">Zálohovat data</string>
     <string name="restore_data">Obnovit data</string>
     <string name="data_backup_complete">Zálohování dat bylo dokončeno!</string>
@@ -512,6 +512,8 @@
     <string name="force_display_disabled_apps_manager">Vynutit zobrazení správce zakázaných aplikací</string>
     <string name="auto_unlock_restricted_settings">Automaticky odemknout omezená nastavení</string>
     <string name="auto_unlock_restricted_settings_summary">Toto omezení je automaticky zrušeno po kliknutí na zašedlou možnost</string>
+    <string name="settings_sound">Sound</string>
+    <string name="enable_holographic_audio">Enable holographic audio</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>

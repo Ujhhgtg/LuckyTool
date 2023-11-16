@@ -2711,6 +2711,19 @@ class Settings : BaseScopePreferenceFeagment() {
                 isVisible = getOSVersionCode >= 27
                 isIconSpaceReserved = false
             })
+            //声音
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.settings_sound)
+                key = "settings_sound"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_holographic_audio)
+                key = "enable_holographic_audio"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
             //应用
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_application)

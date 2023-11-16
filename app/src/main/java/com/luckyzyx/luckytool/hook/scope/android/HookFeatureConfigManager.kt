@@ -5,6 +5,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 
 class HookFeatureConfigManager(private val features: Map<String, Boolean>) : YukiBaseHooker() {
     override fun onHook() {
+        if (features.isEmpty()) return
         //Source OplusFeatureConfigManager
         "com.oplus.content.OplusFeatureConfigManager".toClassOrNull()?.apply {
             method { name = "hasFeature";paramCount = 1 }.hook {
