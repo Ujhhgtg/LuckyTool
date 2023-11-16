@@ -8,11 +8,11 @@ import com.highcapable.yukihookapi.hook.type.android.HandlerClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.luckypray.dexkit.DexKitBridge
 
-object HookBatteryNotify : YukiBaseHooker() {
+class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Channel high_performance_channel_id 5
         val highPerformance =
@@ -25,49 +25,47 @@ object HookBatteryNotify : YukiBaseHooker() {
 //        val smartRapidCharge = prefs(ModulePrefs).getBoolean("remove_smart_rapid_charging_notification", false)
 
         //Source NotifyUtil
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(ContextClass.name)
+                    addForType(HandlerClass.name)
+                    addForType(NotificationManager::class.java.name)
+                }
+                methods {
+                    add {
+                        paramTypes(StringClass.name, BooleanType.name)
+                        returnType(UnitType)
+                    }
+                }
+                usingStrings("NotifyUtil")
+            }
+        }.apply {
+            checkDataList("HookBatteryNotify NotifyUtil")
+            val clsName = first().name
+
+            if (highPerformance) dexKitBridge.findMethod {
+                searchPackages(clsName)
                 matcher {
-                    fields {
-                        addForType(ContextClass.name)
-                        addForType(HandlerClass.name)
-                        addForType(NotificationManager::class.java.name)
-                    }
-                    methods {
-                        add {
-                            paramTypes(StringClass.name, BooleanType.name)
-                            returnType(UnitType)
-                        }
-                    }
-                    usingStrings("NotifyUtil")
+                    addUsingString("high_performance_channel_id")
+                    addUsingString("ACTION_HIGH_PERFORMANCE")
+                    addUsingNumber(5)
                 }
             }.apply {
-                checkDataList("HookBatteryNotify NotifyUtil")
-                val clsName = first().name
-
-                if (highPerformance) dexKitBridge.findMethod {
-                    searchPackages(clsName)
-                    matcher {
-                        addUsingString("high_performance_channel_id")
-                        addUsingString("ACTION_HIGH_PERFORMANCE")
-                        addUsingNumber(5)
-                    }
-                }.apply {
-                    checkDataList("HookBatteryNotify highPerformance")
-                    val member = first()
-                    member.className.toClass().apply {
-                        method { name = member.methodName;emptyParam() }.hook {
-                            intercept()
-                        }
+                checkDataList("HookBatteryNotify highPerformance")
+                val member = first()
+                member.className.toClass().apply {
+                    method { name = member.methodName;emptyParam() }.hook {
+                        intercept()
                     }
                 }
+            }
 
-                if (highBatteryConsumption) clsName.toClass().apply {
-                    method {
-                        param(StringClass, BooleanType)
-                        paramCount = 2
-                    }.hookAll { intercept() }
-                }
+            if (highBatteryConsumption) clsName.toClass().apply {
+                method {
+                    param(StringClass, BooleanType)
+                    paramCount = 2
+                }.hookAll { intercept() }
             }
         }
     }

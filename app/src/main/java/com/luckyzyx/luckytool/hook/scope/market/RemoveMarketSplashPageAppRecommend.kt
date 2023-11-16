@@ -8,45 +8,43 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 
-object RemoveMarketSplashPageAppRecommend : YukiBaseHooker() {
+class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val splashDto = "com.heytap.cdo.splash.domain.dto.v2.SplashDto"
         val mediaDto = "com.heytap.cdo.splash.domain.dto.v2.MediaComponentDto"
         val imageDto = "com.heytap.cdo.splash.domain.dto.v2.ImageComponentDto"
 
         //Source SplashTransaction
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                searchPackages("com.nearme.splash.net")
-                matcher {
-                    fields {
-                        addForType(IntType.name)
-                        addForType(LongType.name)
-                        addForType(BooleanType.name)
-                        addForType(AtomicBooleanClass.name)
-                    }
-                    methods {
-                        add { paramTypes(StringClass.name);returnType(BooleanType) }
-                        add { paramTypes(BooleanType.name);returnType(splashDto) }
-                        add {
-                            paramTypes(BooleanType.name, IntType.name, splashDto)
-                            returnType(UnitType)
-                        }
-                        add { paramTypes(splashDto, BooleanType.name, mediaDto) }
-                        add { paramTypes(splashDto, BooleanType.name, imageDto) }
-                    }
-                    usingStrings("getSplashData")
+        dexKitBridge.findClass {
+            searchPackages("com.nearme.splash.net")
+            matcher {
+                fields {
+                    addForType(IntType.name)
+                    addForType(LongType.name)
+                    addForType(BooleanType.name)
+                    addForType(AtomicBooleanClass.name)
                 }
-            }.apply {
-                checkDataList("RemoveMarketSplashPageAppRecommend")
-                val member = first()
-                member.name.toClass().apply {
-                    method { param(BooleanType);returnType(splashDto) }.hook {
-                        replaceTo(null)
+                methods {
+                    add { paramTypes(StringClass.name);returnType(BooleanType) }
+                    add { paramTypes(BooleanType.name);returnType(splashDto) }
+                    add {
+                        paramTypes(BooleanType.name, IntType.name, splashDto)
+                        returnType(UnitType)
                     }
+                    add { paramTypes(splashDto, BooleanType.name, mediaDto) }
+                    add { paramTypes(splashDto, BooleanType.name, imageDto) }
+                }
+                usingStrings("getSplashData")
+            }
+        }.apply {
+            checkDataList("RemoveMarketSplashPageAppRecommend")
+            val member = first()
+            member.name.toClass().apply {
+                method { param(BooleanType);returnType(splashDto) }.hook {
+                    replaceTo(null)
                 }
             }
         }

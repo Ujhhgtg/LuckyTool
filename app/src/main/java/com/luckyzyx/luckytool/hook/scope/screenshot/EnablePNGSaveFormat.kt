@@ -4,45 +4,43 @@ import android.graphics.Bitmap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 
-object EnablePNGSaveFormat : YukiBaseHooker() {
+class EnablePNGSaveFormat(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
         //Source ImageFileFormat -> JPEG / PNG
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                matcher {
-                    fields {
-                        addForType(StringClass.name)
-                        addForType(Bitmap.CompressFormat::class.java.name)
-                    }
-                    methods {
-                        add { name("values") }
-                        add { returnType(StringClass) }
-                        add { returnType(Bitmap.CompressFormat::class.java) }
-                    }
-                    usingStrings("image/jpeg", "image/png")
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(StringClass.name)
+                    addForType(Bitmap.CompressFormat::class.java.name)
                 }
-            }.apply {
-                checkDataList("EnablePNGSaveFormat")
-                first().name.toClass().apply {
-                    method { returnType = StringClass }.hookAll {
-                        after {
-                            result = when (result<String>()) {
-                                "image/jpeg" -> "image/png"
-                                ".jpg" -> ".png"
-                                else -> return@after
-                            }
+                methods {
+                    add { name("values") }
+                    add { returnType(StringClass) }
+                    add { returnType(Bitmap.CompressFormat::class.java) }
+                }
+                usingStrings("image/jpeg", "image/png")
+            }
+        }.apply {
+            checkDataList("EnablePNGSaveFormat")
+            first().name.toClass().apply {
+                method { returnType = StringClass }.hookAll {
+                    after {
+                        result = when (result<String>()) {
+                            "image/jpeg" -> "image/png"
+                            ".jpg" -> ".png"
+                            else -> return@after
                         }
                     }
-                    method { returnType = Bitmap.CompressFormat::class.java }.hook {
-                        after {
-                            result = when (result<Bitmap.CompressFormat>()) {
-                                Bitmap.CompressFormat.JPEG -> Bitmap.CompressFormat.PNG
-                                else -> return@after
-                            }
+                }
+                method { returnType = Bitmap.CompressFormat::class.java }.hook {
+                    after {
+                        result = when (result<Bitmap.CompressFormat>()) {
+                            Bitmap.CompressFormat.JPEG -> Bitmap.CompressFormat.PNG
+                            else -> return@after
                         }
                     }
                 }

@@ -20,27 +20,25 @@ object HookBattery : YukiBaseHooker() {
             return
         }
 
-        //BatteryFeatureProvider
-        loadHooker(BatteryFeatureProvider)
-
-        //电池通知
-        loadHooker(HookBatteryNotify)
-
-        //移除自启数量限制
-        if (prefs(ModulePrefs).getBoolean("unlock_startup_limit", false)) {
-            if (SDK >= A13) loadHooker(UnlockStartupLimit)
-        }
-
-        //移除电池温度控制
-        if (prefs(ModulePrefs).getBoolean("remove_battery_temperature_control", false)) {
-            loadHooker(RemoveBatteryTemperatureControl)
-            loadHooker(LauncherHighTempreatureProtection)
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //BatteryFeatureProvider
+            loadHooker(BatteryFeatureProvider(dexKitBridge))
+            //电池通知
+            loadHooker(HookBatteryNotify(dexKitBridge))
+            //移除自启数量限制
+            if (prefs(ModulePrefs).getBoolean("unlock_startup_limit", false)) {
+                if (SDK >= A13) loadHooker(UnlockStartupLimit(dexKitBridge))
+            }
+            //移除电池温度控制
+            if (prefs(ModulePrefs).getBoolean("remove_battery_temperature_control", false)) {
+                loadHooker(RemoveBatteryTemperatureControl)
+                loadHooker(LauncherHighTempreatureProtection(dexKitBridge))
+            }
         }
 
         //显示模块计算电池健康数据
         if (prefs(ModulePrefs).getBoolean("display_module_calculates_battery_health_data", false)) {
             if (SDK >= A13) loadHooker(DisplayModuleCalculatesBatteryHealthData)
         }
-
     }
 }

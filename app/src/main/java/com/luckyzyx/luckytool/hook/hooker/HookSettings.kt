@@ -19,29 +19,36 @@ import com.luckyzyx.luckytool.hook.scope.settings.RemoveDpiRestartRecovery
 import com.luckyzyx.luckytool.hook.scope.settings.RemoveSettingsBottomLaboratory
 import com.luckyzyx.luckytool.hook.scope.settings.RemoveTopAccountDisplay
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
 
 object HookSettings : YukiBaseHooker() {
     override fun onHook() {
-        //HookSettingsFeature
-        loadHooker(HookSettingsFeature)
+        loadHooker(HookGlobalFeatureConfig)
+        loadHooker(HookGlobalSystemProperties)
+
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //HookSettingsFeature
+            loadHooker(HookSettingsFeature(dexKitBridge))
+            //暗色模式列表
+            if (prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)) {
+                loadHooker(DarkModeList)
+            }
+            //自动解锁受限制的设置
+            if (prefs(ModulePrefs).getBoolean("auto_unlock_restricted_settings", false)) {
+                if (SDK >= A13) loadHooker(AutoUnlockRestrictedSettings)
+            }
+        }
 
         //应用详情页
         loadHooker(HookAppDetails)
 
-        //暗色模式列表
-        if (prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)) {
-            loadHooker(DarkModeList)
-        }
         //移除顶部账号显示
         if (prefs(ModulePrefs).getBoolean("remove_top_account_display", false)) {
             loadHooker(RemoveTopAccountDisplay)
         }
-
-        //oplus.software.video.rm_memc false
-        //oplus.software.display.pixelworks_enable true
 
         //视频动态插帧
         if (prefs(ModulePrefs).getBoolean("video_frame_insertion_support_2K120", false)) {
@@ -90,10 +97,6 @@ object HookSettings : YukiBaseHooker() {
         //启用自定义应用语言
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
             loadHooker(EnableCustomAppLanguage)
-        }
-        //自动解锁受限制的设置
-        if (prefs(ModulePrefs).getBoolean("auto_unlock_restricted_settings", false)) {
-            if (SDK >= A13) loadHooker(AutoUnlockRestrictedSettings)
         }
 
         //<string name="single_pulse_EM_mode_title">单脉冲调光模式</string>

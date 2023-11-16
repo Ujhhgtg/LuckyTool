@@ -9,40 +9,38 @@ import com.highcapable.yukihookapi.hook.type.android.SparseIntArrayClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 
-object CompetitionModeSound : YukiBaseHooker() {
-    const val key = "remove_competition_mode_sound"
+class CompetitionModeSound(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+    val key = "remove_competition_mode_sound"
     override fun onHook() {
         //Source SoundPoolPlayManager -> competition_mode_sound
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                matcher {
-                    fields {
-                        addForType(ContextClass.name)
-                        addForType(BooleanType.name)
-                        addForType(SoundPool::class.java.name)
-                        addForType(AudioManager::class.java.name)
-                        addForType(SparseIntArrayClass.name)
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(ContextClass.name)
+                    addForType(BooleanType.name)
+                    addForType(SoundPool::class.java.name)
+                    addForType(AudioManager::class.java.name)
+                    addForType(SparseIntArrayClass.name)
+                }
+                methods {
+                    add {
+                        paramCount(0)
+                        returnType(UnitType)
                     }
-                    methods {
-                        add {
-                            paramCount(0)
-                            returnType(UnitType)
-                        }
-                        add {
-                            paramTypes(IntType.name)
-                            returnType(UnitType)
-                        }
+                    add {
+                        paramTypes(IntType.name)
+                        returnType(UnitType)
                     }
                 }
-            }.apply {
-                checkDataList("CompetitionModeSound")
-                first().name.toClass().apply {
-                    method { param(IntType) }.hookAll {
-                        before { if (args().first().int() == 9) resultNull() }
-                    }
+            }
+        }.apply {
+            checkDataList("CompetitionModeSound")
+            first().name.toClass().apply {
+                method { param(IntType) }.hookAll {
+                    before { if (args().first().int() == 9) resultNull() }
                 }
             }
         }

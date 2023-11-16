@@ -6,10 +6,10 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 
-object RemoveAdsFromDownloadDialog : YukiBaseHooker() {
+class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val adRequest = "com.opos.feed.api.params.AdRequest"
         val feedAdNative = "com.opos.feed.api.FeedAdNative"
@@ -17,34 +17,32 @@ object RemoveAdsFromDownloadDialog : YukiBaseHooker() {
         val adInteractionListener = "com.opos.feed.api.params.AdInteractionListener"
 
         //Source DownloadCardAdProvider
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                matcher {
-                    fields {
-                        addForType(ContextClass.name)
-                        addForType(StringClass.name)
-                        addForType(feedAdNative)
-                        addForType(recyclerAdHelper)
-                        addForType(adInteractionListener)
-                    }
-                    methods {
-                        add {
-                            paramTypes(ContextClass.name, IntType.name)
-                            returnType(UnitType)
-                        }
-                        add { returnType(adRequest) }
-                        add { returnType(recyclerAdHelper) }
-                    }
-                    usingStrings("DownloadCardAdProvider")
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(ContextClass.name)
+                    addForType(StringClass.name)
+                    addForType(feedAdNative)
+                    addForType(recyclerAdHelper)
+                    addForType(adInteractionListener)
                 }
-            }.apply {
-                checkDataList("RemoveAdsFromDownloadDialog")
-                first().name.toClass().apply {
-                    method {
-                        paramCount(1)
-                        returnType(adRequest)
-                    }.hook { replaceTo(null) }
+                methods {
+                    add {
+                        paramTypes(ContextClass.name, IntType.name)
+                        returnType(UnitType)
+                    }
+                    add { returnType(adRequest) }
+                    add { returnType(recyclerAdHelper) }
                 }
+                usingStrings("DownloadCardAdProvider")
+            }
+        }.apply {
+            checkDataList("RemoveAdsFromDownloadDialog")
+            first().name.toClass().apply {
+                method {
+                    paramCount(1)
+                    returnType(adRequest)
+                }.hook { replaceTo(null) }
             }
         }
     }

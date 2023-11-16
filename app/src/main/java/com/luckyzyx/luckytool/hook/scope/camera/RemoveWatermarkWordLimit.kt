@@ -9,12 +9,12 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppSet
+import org.luckypray.dexkit.DexKitBridge
 
-object RemoveWatermarkWordLimit : YukiBaseHooker() {
+class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val appSet = getAppSet(ModulePrefs, packageName)
         val isNew = "com.oplus.camera.setting.CameraSettingActivity".hasClass()
@@ -26,37 +26,35 @@ object RemoveWatermarkWordLimit : YukiBaseHooker() {
 
         //Source CameraSubSettingFragment -> camera_namelength_outofrange -> filter
         //Source CameraSloganSettingFragment -> camera_namelength_outofrange -> filter
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                searchPackages("com.oplus.camera.setting", "com.oplus.camera.ui.menu.setting")
-                matcher {
-                    fields {
-                        addForType(IntType.name)
-                        addForType(LongType.name)
-                        addForType(BooleanType.name)
-                    }
-                    methods {
-                        add { name("onDestroy");returnType(UnitType) }
-                        add { name("onPause");returnType(UnitType) }
-                        add { name("onPreferenceChange");returnType(BooleanType) }
-                        add { name("onPreferenceClick");returnType(BooleanType) }
-                        add { paramTypes(BundleClass.name);returnType(UnitType) }
-                        add { paramTypes(BundleClass.name);returnType(BooleanType) }
-                        add { paramTypes(StringClass.name);returnType(UnitType) }
-                    }
-                    if (isNew) usingStrings("CameraSubSettingFragment")
-                    else usingStrings(
-                        "CameraSloganSettingFragment",
-                        "isSloganEnable",
-                        "isVideoSloganEnable"
-                    )
+        dexKitBridge.findClass {
+            searchPackages("com.oplus.camera.setting", "com.oplus.camera.ui.menu.setting")
+            matcher {
+                fields {
+                    addForType(IntType.name)
+                    addForType(LongType.name)
+                    addForType(BooleanType.name)
                 }
-            }.apply {
-                checkDataList("RemoveWatermarkWordLimit")
-                (first().name + clazz).toClass().apply {
-                    method { name = "filter";returnType = CharSequenceClass }.hook {
-                        intercept()
-                    }
+                methods {
+                    add { name("onDestroy");returnType(UnitType) }
+                    add { name("onPause");returnType(UnitType) }
+                    add { name("onPreferenceChange");returnType(BooleanType) }
+                    add { name("onPreferenceClick");returnType(BooleanType) }
+                    add { paramTypes(BundleClass.name);returnType(UnitType) }
+                    add { paramTypes(BundleClass.name);returnType(BooleanType) }
+                    add { paramTypes(StringClass.name);returnType(UnitType) }
+                }
+                if (isNew) usingStrings("CameraSubSettingFragment")
+                else usingStrings(
+                    "CameraSloganSettingFragment",
+                    "isSloganEnable",
+                    "isVideoSloganEnable"
+                )
+            }
+        }.apply {
+            checkDataList("RemoveWatermarkWordLimit")
+            (first().name + clazz).toClass().apply {
+                method { name = "filter";returnType = CharSequenceClass }.hook {
+                    intercept()
                 }
             }
         }

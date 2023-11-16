@@ -2698,6 +2698,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.video_frame_insertion_support_2K120_summary)
                 key = "video_frame_insertion_support_2K120"
                 setDefaultValue(false)
+                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

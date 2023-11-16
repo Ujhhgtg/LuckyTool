@@ -10,11 +10,11 @@ import com.highcapable.yukihookapi.hook.type.java.IntClass
 import com.highcapable.yukihookapi.hook.type.java.LongClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.luckypray.dexkit.DexKitBridge
 
-object HookSystemStorage : YukiBaseHooker() {
+class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
         //启用水印编辑
@@ -23,43 +23,38 @@ object HookSystemStorage : YukiBaseHooker() {
         val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
 
         //Source OtherSystemStorage
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                matcher {
-                    fields {
-                        addForType(ContextClass.name)
-                    }
-                    methods {
-                        add { paramCount(2);returnType(IntClass) }
-                        add { paramCount(2);returnType(LongClass) }
-                        add { paramCount(2);returnType(BooleanClass) }
-                        add { paramCount(2);returnType(StringClass) }
-                        add { paramCount(2);returnType(UnitType) }
-                        add { paramCount(0);returnType(BooleanType) }
-                        add { paramCount(4);returnType(BooleanType) }
-                    }
-                    usingStrings("configNode")
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(ContextClass.name)
                 }
-            }.apply {
-                checkDataList("HookSystemStorage")
-                first().name.toClass().apply {
-                    method {
-                        param(VagueType, BooleanType)
-                        returnType = BooleanClass
-                    }.hook {
-                        after {
-                            val configNode = args().first().any()?.toString() ?: return@after
-                            when {
-                                //com.oplus.camera.support.custom.hasselblad.watermark
-                                configNode.contains("feature_is_support_watermark") -> if (waterMark) resultTrue()
-                                configNode.contains("feature_is_support_hassel_watermark") -> if (waterMark) resultTrue()
-                                //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
-                                configNode.contains("feature_is_support_photo_editor_watermark") -> if (waterMark) resultTrue()
-                                //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
-                                configNode.contains("feature_is_support_privacy_watermark") -> if (waterMark) resultTrue()
-                                //debug.gallery.lns / os.graphic.gallery.photoview.lns
-                                configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
-                            }
+                methods {
+                    add { paramCount(2);returnType(IntClass) }
+                    add { paramCount(2);returnType(LongClass) }
+                    add { paramCount(2);returnType(BooleanClass) }
+                    add { paramCount(2);returnType(StringClass) }
+                    add { paramCount(2);returnType(UnitType) }
+                    add { paramCount(0);returnType(BooleanType) }
+                    add { paramCount(4);returnType(BooleanType) }
+                }
+                usingStrings("configNode")
+            }
+        }.apply {
+            checkDataList("HookSystemStorage")
+            first().name.toClass().apply {
+                method { param(VagueType, BooleanType);returnType = BooleanClass }.hook {
+                    after {
+                        val configNode = args().first().any()?.toString() ?: return@after
+                        when {
+                            //com.oplus.camera.support.custom.hasselblad.watermark
+                            configNode.contains("feature_is_support_watermark") -> if (waterMark) resultTrue()
+                            configNode.contains("feature_is_support_hassel_watermark") -> if (waterMark) resultTrue()
+                            //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
+                            configNode.contains("feature_is_support_photo_editor_watermark") -> if (waterMark) resultTrue()
+                            //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
+                            configNode.contains("feature_is_support_privacy_watermark") -> if (waterMark) resultTrue()
+                            //debug.gallery.lns / os.graphic.gallery.photoview.lns
+                            configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
                         }
                     }
                 }

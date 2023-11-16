@@ -13,6 +13,7 @@ import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveSomeVipLimit
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveStartupAnimation
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveToolRecommendationCard
 import com.luckyzyx.luckytool.hook.scope.oplusgames.RemoveWelfarePage
+import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppSet
 
@@ -20,9 +21,24 @@ object HookOplusGames : YukiBaseHooker() {
     override fun onHook() {
         if (packageName == "com.oplus.games") {
             val appSet = getAppSet(ModulePrefs, packageName)
-
             //非ColorOS官方安装器直接返回
             if (appSet[2] == "0") return
+
+            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+                //游戏滤镜-->Root检测
+                if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
+                    loadHooker(RemoveRootCheck(dexKitBridge))
+                }
+                //启用赛事支持模式
+                if (prefs(ModulePrefs).getBoolean("enable_support_competition_mode", false)) {
+                    loadHooker(EnableSupportCompetitionMode(dexKitBridge))
+                }
+
+                //移除赛事模式音效
+                if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
+                    loadHooker(CompetitionModeSound(dexKitBridge))
+                }
+            }
 
             //HookCloudConditionFeature
             loadHooker(CloudConditionFeature(appSet))
@@ -30,10 +46,6 @@ object HookOplusGames : YukiBaseHooker() {
             //自定义媒体播放器支持
             loadHooker(CustomMediaPlayerSupport)
 
-            //游戏滤镜-->Root检测
-            if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
-                loadHooker(RemoveRootCheck)
-            }
             //简洁页面
             if (prefs(ModulePrefs).getBoolean("remove_startup_animation", false)) {
                 loadHooker(RemoveStartupAnimation)
@@ -45,14 +57,6 @@ object HookOplusGames : YukiBaseHooker() {
             //启用X模式
             if (prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
                 loadHooker(EnableXModeFeature)
-            }
-            //启用赛事支持模式
-            if (prefs(ModulePrefs).getBoolean("enable_support_competition_mode", false)) {
-                loadHooker(EnableSupportCompetitionMode)
-            }
-            //移除赛事模式音效
-            if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
-                loadHooker(CompetitionModeSound)
             }
             //移除游戏助手福利页面
             if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {

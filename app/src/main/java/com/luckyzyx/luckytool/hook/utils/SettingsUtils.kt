@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.utils
 
 import android.content.ContentResolver
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.hook.scope.camera.RemoveWatermarkWordLimit.toClass
+import com.highcapable.yukihookapi.hook.factory.toClass
 
 @Suppress("unused", "PropertyName")
 class SettingsUtils(val classLoader: ClassLoader?) {

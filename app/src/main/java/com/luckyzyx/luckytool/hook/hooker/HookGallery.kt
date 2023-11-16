@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.gallery.HookConfigAbility
 import com.luckyzyx.luckytool.hook.scope.gallery.HookFunctionManager
 import com.luckyzyx.luckytool.hook.scope.gallery.HookSystemStorage
+import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppSet
 
@@ -12,12 +13,13 @@ object HookGallery : YukiBaseHooker() {
         val appSet = getAppSet(ModulePrefs, packageName)
         if (appSet[1].toIntOrNull()?.let { it < 13005000 } == true) return
 
-        //HookOtherSystemStorage
-        loadHooker(HookSystemStorage)
-        //HookConfigAbility
-        loadHooker(HookConfigAbility)
-        //HookFunctionManager
-        loadHooker(HookFunctionManager)
-
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //HookOtherSystemStorage
+            loadHooker(HookSystemStorage(dexKitBridge))
+            //HookConfigAbility
+            loadHooker(HookConfigAbility(dexKitBridge))
+            //HookFunctionManager
+            loadHooker(HookFunctionManager(dexKitBridge))
+        }
     }
 }
