@@ -3012,6 +3012,13 @@ class OplusGallery : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_lns_cut_photo)
+                key = "enable_lns_cut_photo"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GalleryWaterMark)
                 key = "GalleryWaterMark"

@@ -539,6 +539,7 @@
     <string name="enable_10_bit_image_support_summary">Bật tính năng này trên một số kiểu máy có thể khiến ảnh chuyển sang màu xanh lục</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Dấu chìm</string>
+    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <string name="enable_watermark_editing">Bật chỉnh sửa hình mờ</string>
     <string name="replace_oneplus_model_watermark">Thay thế hình mờ mô hình OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">Khi chỉnh sửa hình mờ, hãy thay thế [Shot On OnePlus] bằng mẫu tùy chỉnh của bạn</string>

@@ -23,6 +23,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 模块设置-获取LogCat日志
 - [添加] 启用应用专属媒体音量
 - [添加] 启用全息音频
+- [添加] 启用闪速抠图
 
 ### 1.1.3
 

@@ -19,6 +19,8 @@ object HookSystemStorage : YukiBaseHooker() {
     override fun onHook() {
         //启用水印编辑
         val waterMark = prefs(ModulePrefs).getBoolean("enable_watermark_editing", false)
+        //启用闪速抠图
+        val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
 
         //Source OtherSystemStorage
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -56,10 +58,7 @@ object HookSystemStorage : YukiBaseHooker() {
                                 //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
                                 configNode.contains("feature_is_support_privacy_watermark") -> if (waterMark) resultTrue()
                                 //debug.gallery.lns / os.graphic.gallery.photoview.lns
-                                configNode.contains("feature_is_support_lns") -> {
-//                                    loggerD(msg = "configNode -> lns call -> $result")
-//                                    resultTrue()
-                                }
+                                configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
                             }
                         }
                     }

@@ -21,6 +21,8 @@ object HookConfigAbility : YukiBaseHooker() {
         val waterMark = prefs(ModulePrefs).getBoolean("enable_watermark_editing", false)
         //替换OnePlus机型水印
         val notOplus = prefs(ModulePrefs).getBoolean("replace_oneplus_model_watermark", false)
+        //启用闪速抠图
+        val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
 
         //Source ConfigAbilityImpl
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -65,10 +67,7 @@ object HookConfigAbility : YukiBaseHooker() {
                                 "feature_is_support_hassel_watermark" -> if (waterMark) resultTrue()
                                 "feature_is_support_photo_editor_watermark" -> if (waterMark) resultTrue()
                                 "feature_is_support_privacy_watermark" -> if (waterMark) resultTrue()
-                                "feature_is_support_lns" -> {
-//                                    loggerD(msg = "ConfigAbility -> lns call -> $result")
-//                                    resultTrue()
-                                }
+                                "feature_is_support_lns" -> if (lnsImage) resultTrue()
                             }
                         }
                     }

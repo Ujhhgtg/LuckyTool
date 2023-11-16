@@ -513,8 +513,8 @@
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
     <string name="auto_unlock_restricted_settings">Автоматическая разблокировка ограниченных настроек</string>
     <string name="auto_unlock_restricted_settings_summary">Это ограничение автоматически снимается при нажатии на серый вариант</string>
-    <string name="settings_sound">Sound</string>
-    <string name="enable_holographic_audio">Enable holographic audio</string>
+    <string name="settings_sound">Звук</string>
+    <string name="enable_holographic_audio">Включить голографическое аудио</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
@@ -540,6 +540,7 @@
     <string name="enable_10_bit_image_support_summary">Включение этой функции на некоторых моделях может привести к тому, что фото станет зеленым</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Водяной знак</string>
+    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <string name="enable_watermark_editing">Включить изменение водяного знака</string>
     <string name="replace_oneplus_model_watermark">Заменить водяной знак модели OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">При редактировании водяного знака [Снято на OnePlus] будет заменено выбранной моделью</string>

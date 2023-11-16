@@ -539,6 +539,7 @@
     <string name="enable_10_bit_image_support_summary">Povolení této funkce na některých modelech může způsobit, že se fotka zbarví dozelena</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Vodoznak</string>
+    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <string name="enable_watermark_editing">Povolit úpravy vodoznaků</string>
     <string name="replace_oneplus_model_watermark">Nahradit model vodoznaku OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">Při úpravách vodoznaku bude [Shot On OnePlus] nahrazen upraveným modelem</string>
