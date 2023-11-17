@@ -387,12 +387,16 @@ fun TileService.closeCollapse() {
  * @param context Context
  */
 fun jumpEngineermode(context: Context) {
-    val activity = if (SDK >= A14) "aftersale.AfterSalePage" else "EngineerModeMain"
-    if (context.checkPackName("com.oppo.engineermode")) {
-        ShellUtils.execCommand("am start -n com.oppo.engineermode/.$activity", true)
-    } else if (context.checkPackName("com.oplus.engineermode")) {
-        ShellUtils.execCommand("am start -n com.oplus.engineermode/.$activity", true)
+    val packName = when {
+        context.checkPackName("com.oppo.engineermode") -> "com.oppo.engineermode"
+        context.checkPackName("com.oplus.engineermode") -> "com.oplus.engineermode"
+        else -> return
     }
+    val isMain = context.checkResolveActivity(
+        Intent().setClassName(packName, "${packName}.EngineerModeMain")
+    )
+    val activity = if (isMain) "EngineerModeMain" else "aftersale.AfterSalePage"
+    ShellUtils.execCommand("am start -n $packName/.$activity", true)
 }
 
 /**
@@ -400,15 +404,12 @@ fun jumpEngineermode(context: Context) {
  * @param context Context
  */
 fun jumpBatteryInfo(context: Context) {
-    if (context.checkPackName("com.oppo.engineermode")) {
-        ShellUtils.execCommand(
-            "am start -n com.oppo.engineermode/.charge.modeltest.BatteryInfoShow", true
-        )
-    } else if (context.checkPackName("com.oplus.engineermode")) {
-        ShellUtils.execCommand(
-            "am start -n com.oplus.engineermode/.charge.modeltest.BatteryInfoShow", true
-        )
+    val packName = when {
+        context.checkPackName("com.oppo.engineermode") -> "com.oppo.engineermode"
+        context.checkPackName("com.oplus.engineermode") -> "com.oplus.engineermode"
+        else -> return
     }
+    ShellUtils.execCommand("am start -n $packName/.charge.modeltest.BatteryInfoShow", true)
 }
 
 /**
@@ -501,23 +502,20 @@ fun jumpBattery(context: Context) {
  * @param context Context
  */
 fun jumpRunningApp(context: Context) {
-    val isoppoRunning = Intent().setClassName(
-        "com.android.settings", "com.coloros.settings.feature.process.RunningApplicationActivity"
-    )
-    val isoplusRunning = Intent().setClassName(
-        "com.android.settings", "com.oplus.settings.feature.process.RunningApplicationActivity"
-    )
-    if (context.checkResolveActivity(isoppoRunning)) {
-        ShellUtils.execCommand(
-            "am start -n com.android.settings/com.coloros.settings.feature.process.RunningApplicationActivity",
-            true
-        )
-    } else if (context.checkResolveActivity(isoplusRunning)) {
-        ShellUtils.execCommand(
-            "am start -n com.android.settings/com.oplus.settings.feature.process.RunningApplicationActivity",
-            true
-        )
+    val oppoActivity = "com.coloros.settings.feature.process.RunningApplicationActivity"
+    val oplusActivity = "com.oplus.settings.feature.process.RunningApplicationActivity"
+    val activity = when {
+        context.checkResolveActivity(
+            Intent().setClassName("com.android.settings", oppoActivity)
+        ) -> oppoActivity
+
+        context.checkResolveActivity(
+            Intent().setClassName("com.android.settings", oplusActivity)
+        ) -> oplusActivity
+
+        else -> return
     }
+    ShellUtils.execCommand("am start -n com.android.settings/$activity", true)
 }
 
 /**
@@ -557,9 +555,8 @@ fun Context.getComponentEnabled(component: ComponentName): Int? {
 val getFlashInfo
     get(): String = ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry", true, true)
         .let {
-            if ((it.result == 0 && it.successMsg.isNullOrBlank()
-                    .not())
-            ) formatSpace(it.successMsg.replaceSpace.uppercase())
+            if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
+                formatSpace(it.successMsg.replaceSpace.uppercase())
             else "null"
         }
 
@@ -570,9 +567,8 @@ val getLcdInfo: String
     get() : String = ShellUtils.execCommand(
         "cat /proc/devinfo/lcd | sed 's/^.*\t//g; s/$/\n/g; s/\n/ /g;'", true, true
     ).let {
-        if ((it.result == 0 && it.successMsg.isNullOrBlank()
-                .not())
-        ) it.successMsg.replaceSpace.uppercase()
+        if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
+            it.successMsg.replaceSpace.uppercase()
         else "null"
     }
 
@@ -583,9 +579,8 @@ val getPcbInfo: String
     get() : String = ShellUtils.execCommand(
         "echo \$(getprop gsm.serial)\$(getprop vendor.gsm.serial)", true, true
     ).let {
-        if ((it.result == 0 && it.successMsg.isNullOrBlank()
-                .not())
-        ) it.successMsg.replaceSpace.uppercase()
+        if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
+            it.successMsg.replaceSpace.uppercase()
         else "null"
     }
 
@@ -596,9 +591,8 @@ val getSnInfo: String
     get() : String = ShellUtils.execCommand(
         "getprop ro.serialno", true, true
     ).let {
-        if ((it.result == 0 && it.successMsg.isNullOrBlank()
-                .not())
-        ) it.successMsg.replaceSpace.uppercase()
+        if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
+            it.successMsg.replaceSpace.uppercase()
         else "null"
     }
 
@@ -613,8 +607,7 @@ val Float.dp: Float // [xxhdpi](360 -> 1080)
 
 val Int.dp: Int
     get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP,
-        this.toFloat(),
+        android.util.TypedValue.COMPLEX_UNIT_DIP, this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
 
@@ -625,8 +618,7 @@ val Float.sp: Float // [xxhdpi](360 -> 1080)
 
 val Int.sp: Int
     get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_SP,
-        this.toFloat(),
+        android.util.TypedValue.COMPLEX_UNIT_SP, this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
 

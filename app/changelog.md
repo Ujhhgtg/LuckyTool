@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.5_beta
+
+- [优化] 工程模式快捷跳转入口
+
 ### 1.1.4
 
 - [适配] 媒体播放器显示模式 C13.2
