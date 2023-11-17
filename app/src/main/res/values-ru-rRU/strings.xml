@@ -646,9 +646,9 @@
     <string name="remove_almanac_page_information_flow">Удалить поток информации об альманахе</string>
     <string name="remove_horoscope_page_information_flow">Удаление потока информации о гороскопе</string>
     <!--OplusSmartSidebar-->
-    <string name="unlock_transfer_dock">Unlock transfer dock</string>
-    <string name="unlock_recent_files">Unlock recent files</string>
-    <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>
+    <string name="unlock_transfer_dock">Разблокировать панель передачи</string>
+    <string name="unlock_recent_files">Разблокировать последние файлы</string>
+    <string name="unlock_fluid_cloud">Разблокировать облако</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

@@ -18,7 +18,7 @@ dependencyResolutionManagement {
     repositories {
         mavenLocal {
             content { includeGroup("com.highcapable.flexiui") }
-//            content { includeGroup("com.highcapable.yukihookapi") }
+            content { includeGroup("com.highcapable.yukihookapi") }
         }
         google()
         mavenCentral()

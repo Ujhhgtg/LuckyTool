@@ -35,7 +35,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.1.4_beta"
+        versionName = "1.1.4"
         buildConfigField("String", "APP_CENTER_SECRET", "\"${getAppCenterSecret()}\"")
     }
 
@@ -92,7 +92,7 @@ dependencies {
     compileOnly("de.robv.android.xposed:api:82")
     //YukiHookAPI
 //    implementation("com.highcapable.yukireflection:api:1.0.2")
-    implementation("com.highcapable.yukihookapi:api:1.2.0")
+    implementation("com.highcapable.yukihookapi:api:1.2.0-fix")
     ksp("com.highcapable.yukihookapi:ksp-xposed:1.2.0")
 //    implementation(files("libs/yukihookapi-release.jar"))
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")

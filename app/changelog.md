@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.4_beta
+### 1.1.4
 
 - [适配] 媒体播放器显示模式 C13.2
 - [修复] 模块底部导航栏动态取色异常
@@ -26,6 +26,27 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 相册-启用闪速抠图
 - [添加] 智能侧边栏-启用中转站
 - [添加] 智能侧边栏-启用最近文件
+- [Fix] Media player display mode C13.2
+- [Fix] Abnormal dynamic color selection in the navigation bar at the bottom of the module
+- [Fix] Core cracking configuration reading exception
+- [Optimize] Update dialog box supports MarkDown syntax
+- [Fix] Allow locked unlock excluded activities C14
+- [Fix] Remove status bar system prompt icon C14
+- [Add] Removed game assistant tool recommendation card
+- [Fix] Number of background task locks C14
+- [Fix] Unlock default desktop restriction Hook exception C12.1
+- [Add] Enable super volume mode
+- [Add] Enable super volume mode for calls
+- [Add] Lock screen charging component shows actual charging technology
+- [Add] Remove calendar holiday page information flow
+- [Add] Remove calendar page information flow
+- [Add] Remove calendar horoscope page information flow
+- [Add] Module Settings - Get LogCat logs
+- [Add] Enable app-specific media volume
+- [Add] Settings - Enable holographic audio
+- [Add] Gallery - Enable flash cutout
+- [Add] Smart Sidebar - Enable transfer station
+- [Add] Smart Sidebar - enable recent files
 
 ### 1.1.3
 
