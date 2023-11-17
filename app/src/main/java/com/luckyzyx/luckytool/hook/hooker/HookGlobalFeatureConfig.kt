@@ -3,23 +3,33 @@ package com.luckyzyx.luckytool.hook.hooker
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.android.HookFeatureConfigManager
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookGlobalFeatureConfig : YukiBaseHooker() {
     override fun onHook() {
+        val code = getOSVersionCode
         val list = ArrayMap<String, Boolean>().apply {
             //Source SystemUI 启用超级音量模式
-            if (prefs(ModulePrefs).getBoolean("enable_super_volume_mode", false)) {
+            if (SDK >= A13 &&
+                prefs(ModulePrefs).getBoolean("enable_super_volume_mode", false)
+            ) {
                 put("oplus.software.audio.super_volume", true)
                 put("oplus.software.audio.super_volume_3x", true)
             }
             //Source SystemUI 启用通话超级音量模式
-            if (prefs(ModulePrefs).getBoolean("enable_super_volume_mode_for_calls", false)) {
+            if (code >= 27 &&
+                prefs(ModulePrefs).getBoolean("enable_super_volume_mode_for_calls", false)
+            ) {
                 put("oplus.software.audio.super_volume_call_earpiece", true)
                 put("oplus.software.audio.super_volume_call_earpiece_disable", false)
             }
             //Source SystemUI FlavorOneFeatureOption 启用应用专属媒体音量
-            if (prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)) {
+            if (code >= 27 &&
+                prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)
+            ) {
                 put("oplus.software.multi_app.volume.adjust.support", true)
             }
             //Source Settings 启用RGB色温球 ColorModeFragment

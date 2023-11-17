@@ -13,11 +13,16 @@ import androidx.core.view.MenuProvider
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.ThemeUtils
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.restartScopes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 @Suppress("unused")
 abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuProvider {
+
+    val osName = getOSVersionName
+    val osCode = getOSVersionCode
 
     /**
      * 相关作用域

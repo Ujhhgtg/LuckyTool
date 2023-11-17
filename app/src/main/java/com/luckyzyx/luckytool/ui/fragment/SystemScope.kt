@@ -2501,7 +2501,7 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_super_volume_mode_for_calls)
                 key = "enable_super_volume_mode_for_calls"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
+                isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -2519,7 +2519,7 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 )
                 key = "enable_app_specific_media_volume"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
+                isVisible = osCode >= 28
                 isIconSpaceReserved = false
             })
         }
@@ -2713,7 +2713,7 @@ class Settings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //声音
-            if (SDK >= A13) {
+            if (osCode >= 27) {
                 addPreference(PreferenceCategory(context).apply {
                     title = getString(R.string.settings_sound)
                     key = "settings_sound"
@@ -2723,7 +2723,6 @@ class Settings : BaseScopePreferenceFeagment() {
                     title = getString(R.string.enable_holographic_audio)
                     key = "enable_holographic_audio"
                     setDefaultValue(false)
-                    isVisible = SDK >= A13
                     isIconSpaceReserved = false
                 })
             }
