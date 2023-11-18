@@ -6,6 +6,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 ### 1.1.5_beta
 
 - [优化] 工程模式快捷跳转入口
+- [适配] 锁屏顶部图标 C14
 
 ### 1.1.4
 
