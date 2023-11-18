@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
@@ -62,9 +63,7 @@ class OtherFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    fun init(context: Context) {
         binding.quickEntry.setOnClickListener {
             navigatePage(R.id.action_nav_other_to_systemQuickEntry, getString(R.string.quick_entry))
         }
@@ -175,17 +174,19 @@ class OtherFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        initController()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init(requireActivity())
     }
 
-    private fun initController() {
+    override fun onResume() {
+        super.onResume()
         if (adbController == null) requireActivity().bindRootService(
             AdbDebugControllerService::class.java, { _: ComponentName?, iBinder: IBinder? ->
                 adbController = IAdbDebugController.Stub.asInterface(iBinder)
-                binding.remoteAdbDebug.isVisible = adbController != null
+                init(requireActivity())
             })
+        else init(requireActivity())
     }
 }
 

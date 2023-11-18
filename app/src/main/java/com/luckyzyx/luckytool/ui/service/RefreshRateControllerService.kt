@@ -14,7 +14,7 @@ import com.topjohnwu.superuser.ipc.RootService
 
 class RefreshRateControllerService : RootService() {
     val tag = "RefreshRateControllerService"
-    val isDebug = true
+    val isDebug = false
 
     companion object {
         private const val serviceName = "SurfaceFlinger"
