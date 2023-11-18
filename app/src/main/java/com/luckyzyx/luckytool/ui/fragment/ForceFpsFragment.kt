@@ -43,11 +43,15 @@ class ForceFpsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentFpsBinding.inflate(inflater)
         return binding.root
     }
 
     fun init(context: Context) {
+        binding.swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.setOnRefreshListener { init(requireActivity()) }
+        if (controller == null) return
         scopeLife {
             clearAllData()
             fpsMode = context.getInt(SettingsPrefs, "fps_mode", 1)
@@ -117,13 +121,11 @@ class ForceFpsFragment : Fragment() {
                     context.changeFpsMode(-1)
                 }
             }
-            binding.swipeRefreshLayout.isRefreshing = false
         }
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.swipeRefreshLayout.isRefreshing = true
-        binding.swipeRefreshLayout.setOnRefreshListener { init(requireActivity()) }
         if (controller == null) requireActivity().bindRootService(
             RefreshRateControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
