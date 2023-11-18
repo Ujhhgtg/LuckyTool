@@ -258,7 +258,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     val name = "logcat_" + formatDate("yyMMdd_HHmmss") + ".log"
-                    val file = File(context.cacheDir.path, name)
+                    val file = FileUtils.checkLogCatDir(context, name)
                     logcatToFile(file)
                     FileUtils.shareFile(context, "Share LogCat File", file)
                     true

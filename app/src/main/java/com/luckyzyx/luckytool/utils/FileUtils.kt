@@ -10,6 +10,7 @@ import android.os.Environment
 import android.os.SystemClock
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.TextUtils
 import androidx.core.content.FileProvider
 import com.luckyzyx.luckytool.BuildConfig
@@ -212,5 +213,41 @@ object FileUtils {
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             context.startActivity(Intent.createChooser(share, title))
         }
+    }
+
+    /**
+     * 检查文件读写权限
+     * @param context Context
+     */
+    fun checkRWPermission(context: Context) {
+        if (!Environment.isExternalStorageManager()) {
+            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+            context.startActivity(intent.setData(Uri.parse("package:${context.packageName}")))
+        }
+    }
+
+    /**
+     * 检查获取LogCat目录
+     * @receiver Context
+     */
+    fun checkLogCatDir(context: Context, fileName: String): File {
+        val file = File(context.cacheDir.path, "logcat").apply {
+            if (isFile) delete()
+            if (!exists()) mkdirs()
+        }
+        return File(file.path, fileName)
+    }
+
+    /**
+     * 检查获取Download目录
+     * @receiver Context
+     */
+    fun checkDownloadDir(context: Context, fileName: String): File {
+        checkRWPermission(context)
+        val file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).apply {
+            if (isFile) delete()
+            if (!exists()) mkdirs()
+        }
+        return File(file.path, fileName)
     }
 }

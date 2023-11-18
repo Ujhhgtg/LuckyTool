@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.systemui.BluetoothIconRelated
+import com.luckyzyx.luckytool.hook.scope.systemui.HideInActiveSignalLabelsGen2x2
 import com.luckyzyx.luckytool.hook.scope.systemui.MobileDataIconRelated
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveGreenDotPrivacyPrompt
 import com.luckyzyx.luckytool.hook.scope.systemui.RemoveHighPerformanceModeIcon
@@ -43,7 +44,10 @@ object StatusBarIcon : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("status_bar_icon_vertical_center", false)) {
             if (SDK <= A13) loadHooker(StatusBarIconVerticalCenter)
         }
-
+        //隐藏未使用信号标签
+        if (prefs(ModulePrefs).getBoolean("hide_inactive_signal_labels_gen2x2", false)) {
+            loadHooker(HideInActiveSignalLabelsGen2x2)
+        }
         //seeding_card_container
         //com.oplus.systemui.statusbar.seeding.OplusSeedlingCardContainer
     }

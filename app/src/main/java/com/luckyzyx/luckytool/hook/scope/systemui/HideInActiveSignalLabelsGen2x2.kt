@@ -11,7 +11,7 @@ object HideInActiveSignalLabelsGen2x2 : YukiBaseHooker() {
         val cls = VariousClass(
             "com.oplus.systemui.statusbar.policy.MobileIconSets", //C13
             "com.oplusos.systemui.statusbar.policy.MobileIconSets" //C14
-        ).toClass( initialize = true)
+        ).toClass(initialize = true)
 
         //Source MobileIconSets -> Companion -> config_isSystemUiExpSignalUi
         "${cls.canonicalName}\$Companion".toClass().apply {

@@ -32,6 +32,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             ) {
                 put("oplus.software.multi_app.volume.adjust.support", true)
             }
+//            put("oplus.software.support_fluid_entry", true)
             //Source Settings 启用RGB色温球 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)
             ) {

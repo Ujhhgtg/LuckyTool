@@ -14,10 +14,11 @@ import com.topjohnwu.superuser.ipc.RootService
 
 class RefreshRateControllerService : RootService() {
     val tag = "RefreshRateControllerService"
+    val isDebug = true
 
     companion object {
         private const val serviceName = "SurfaceFlinger"
-        private const val interfaceClazz = "android.ui.ISurfaceComposer"
+        private const val interfaceName = "android.ui.ISurfaceComposer"
 
         private val surfaceFlinger by lazy {
             ServiceManagerUtils(null).getService(serviceName)
@@ -27,10 +28,11 @@ class RefreshRateControllerService : RootService() {
     override fun onBind(intent: Intent) = object : IRefreshRateController.Stub() {
         override fun getRefreshRateDisplay(): Boolean {
             try {
+                if (surfaceFlinger == null) surfaceFlinger
                 if (surfaceFlinger != null) {
                     val obtain = Parcel.obtain()
                     val obtain2 = Parcel.obtain()
-                    obtain.writeInterfaceToken(interfaceClazz)
+                    obtain.writeInterfaceToken(interfaceName)
                     obtain.writeInt(2)
                     surfaceFlinger?.transact(1034, obtain, obtain2, 0)
                     val status = obtain2.readBoolean()
@@ -38,7 +40,7 @@ class RefreshRateControllerService : RootService() {
                     obtain.recycle()
                     return status
                 }
-                LogUtils.d(tag, "getRefreshRateDisplay", "surfaceFlinger is null")
+                LogUtils.d(tag, "getRefreshRateDisplay", "surfaceFlinger is null", isDebug)
                 return false
             } catch (e: RemoteException) {
                 LogUtils.e(tag, "getRefreshRateDisplay ", "$e", true)
@@ -48,15 +50,16 @@ class RefreshRateControllerService : RootService() {
 
         override fun setRefreshRateDisplay(status: Boolean) {
             try {
+                if (surfaceFlinger == null) surfaceFlinger
                 if (surfaceFlinger != null) {
                     val obtain = Parcel.obtain()
-                    obtain.writeInterfaceToken(interfaceClazz)
+                    obtain.writeInterfaceToken(interfaceName)
                     obtain.writeInt(if (status) 1 else 0)
                     surfaceFlinger?.transact(1034, obtain, null, 0)
                     obtain.recycle()
                     return
                 }
-                LogUtils.d(tag, "setRefreshRateDisplay", "surfaceFlinger is null")
+                LogUtils.d(tag, "setRefreshRateDisplay", "surfaceFlinger is null", isDebug)
             } catch (e: RemoteException) {
                 LogUtils.e(tag, "setRefreshRateDisplay ", "$e", true)
             }
@@ -68,21 +71,26 @@ class RefreshRateControllerService : RootService() {
             return try {
                 DisplayManagerUtils(null).apply {
                     val displayManager = getService(context)
-                    LogUtils.d(tag, "getSupportModes", "${displayManager.javaClass}")
+                    LogUtils.d(tag, "getSupportModes", "${displayManager.javaClass}", isDebug)
                     val display = displayManager.getDisplay(0)
-                    LogUtils.d(tag, "getSupportModes", "${display.javaClass}")
+                    LogUtils.d(tag, "getSupportModes", "${display.javaClass}", isDebug)
                     val displayInfo = displayInfoClazz.buildOf { emptyParam() } ?: return list
-                    LogUtils.d(tag, "getSupportModes", "${displayInfo.javaClass}")
+                    LogUtils.d(tag, "getSupportModes", "${displayInfo.javaClass}", isDebug)
                     if (display.getDisplayInfo(displayInfo) != true) return list
-                    LogUtils.d(tag, "getSupportModes", "getDisplayInfo true")
+                    LogUtils.d(tag, "getSupportModes", "getDisplayInfo true", isDebug)
                     val dynamicInfo = getDynamicDisplayInfo(displayInfo)
-                    LogUtils.d(tag, "getSupportModes", "${dynamicInfo?.javaClass}")
+                    LogUtils.d(tag, "getSupportModes", "${dynamicInfo?.javaClass}", isDebug)
                     val supportedDisplayModes = dynamicInfo?.current()?.field {
                         name = "supportedDisplayModes"
                     }?.array<Any>()
-                    LogUtils.d(tag, "getSupportModes", "AllMode ${supportedDisplayModes?.toList()}")
+                    LogUtils.d(
+                        tag,
+                        "getSupportModes",
+                        "AllMode ${supportedDisplayModes?.toList()}",
+                        isDebug
+                    )
                     supportedDisplayModes?.forEach {
-                        LogUtils.d(tag, "getSupportModes", "Mode $it")
+                        LogUtils.d(tag, "getSupportModes", "Mode $it", isDebug)
                         val id = it.current().field { name = "id" }.cast<Int>() ?: return@forEach
                         val width = it.current().field { name = "width" }.cast<Int>()
                         val height = it.current().field { name = "height" }.cast<Int>()
@@ -101,10 +109,10 @@ class RefreshRateControllerService : RootService() {
                             refreshRate, appVsyncOffsetNanos, presentationDeadlineNanos, group
                         )
                         list.add(id, mode)
-                        LogUtils.d(tag, "getSupportModes", "Mode is add")
+                        LogUtils.d(tag, "getSupportModes", "Mode is add", isDebug)
                     }
                 }
-                LogUtils.d(tag, "getSupportModes", "Size ${list.size}")
+                LogUtils.d(tag, "getSupportModes", "Size ${list.size}", isDebug)
                 list
             } catch (e: Exception) {
                 LogUtils.e(tag, "getSupportModes", "$e", true)
@@ -114,15 +122,16 @@ class RefreshRateControllerService : RootService() {
 
         override fun setRefreshRateMode(modeId: Int) {
             try {
+                if (surfaceFlinger == null) surfaceFlinger
                 if (surfaceFlinger != null) {
                     val obtain = Parcel.obtain()
-                    obtain.writeInterfaceToken(interfaceClazz)
+                    obtain.writeInterfaceToken(interfaceName)
                     obtain.writeInt(modeId)
                     surfaceFlinger?.transact(1035, obtain, null, 0)
                     obtain.recycle()
                     return
                 }
-                LogUtils.d(tag, "setRefreshRateMode", "surfaceFlinger is null")
+                LogUtils.d(tag, "setRefreshRateMode", "surfaceFlinger is null", isDebug)
             } catch (e: Exception) {
                 LogUtils.e(tag, "setRefreshRateMode", "$e", true)
             }

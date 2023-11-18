@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.luckyzyx.luckytool.utils
 
 import java.text.DecimalFormat

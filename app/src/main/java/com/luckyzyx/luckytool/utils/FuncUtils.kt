@@ -1338,8 +1338,7 @@ fun logcatToFile(file: File) {
     try {
         if (file.exists()) file.delete()
         file.createNewFile()
-        val cmd = "logcat -d -f" + file.absolutePath
-        Runtime.getRuntime().exec(cmd)
+        ShellUtils.execCommand("logcat -d -f ${file.absolutePath}", true)
     } catch (e: Exception) {
         LogUtils.e(LogUtils.globalTag, "logcatToFile", "$e", true)
     }

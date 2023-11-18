@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
 import android.provider.Settings
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -105,7 +104,7 @@ class UpdateUtils(val context: Context) {
 
     @SuppressLint("ClickableViewAccessibility")
     fun downloadFile(context: Context, apkName: String, url: String) {
-        val apkFile = File(Environment.getExternalStorageDirectory().path + "/Download/$apkName")
+        val apkFile = FileUtils.checkDownloadDir(context, apkName)
         var downloadScope: NetCoroutineScope = scopeNet { }
         val downloadDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.downloading))
