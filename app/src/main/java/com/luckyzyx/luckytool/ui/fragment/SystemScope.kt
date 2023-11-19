@@ -2602,6 +2602,7 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.allow_untrusted_touch)
+                summary = getString(R.string.allow_untrusted_touch_summary)
                 key = "allow_untrusted_touch"
                 setDefaultValue(false)
                 isVisible = SDK >= A12

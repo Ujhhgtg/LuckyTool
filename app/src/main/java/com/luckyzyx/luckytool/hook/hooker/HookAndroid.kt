@@ -7,7 +7,6 @@ import com.luckyzyx.luckytool.hook.scope.android.AppSplashScreen
 import com.luckyzyx.luckytool.hook.scope.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scope.android.DarkModeService
 import com.luckyzyx.luckytool.hook.scope.android.DisableDynamicRefreshRate
-import com.luckyzyx.luckytool.hook.scope.android.DisableFlagSecure
 import com.luckyzyx.luckytool.hook.scope.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scope.android.HookNotificationManager
 import com.luckyzyx.luckytool.hook.scope.android.HookWindowManagerService
@@ -62,9 +61,6 @@ object HookAndroid : YukiBaseHooker() {
 
         //移除遮罩Splash Screen
         loadHooker(AppSplashScreen)
-
-        //禁用FLAG_SECURE
-        loadHooker(DisableFlagSecure)
 
         //允许不受信任的触摸
         loadHooker(AllowUntrustedTouch)

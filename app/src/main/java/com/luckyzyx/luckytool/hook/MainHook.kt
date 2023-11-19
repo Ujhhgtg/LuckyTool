@@ -52,6 +52,7 @@ import com.luckyzyx.luckytool.hook.scope.CorePatch.CorePatchForS
 import com.luckyzyx.luckytool.hook.scope.CorePatch.CorePatchForT
 import com.luckyzyx.luckytool.hook.scope.CorePatch.CorePatchForU
 import com.luckyzyx.luckytool.hook.scope.alarmclock.AlarmClockWidget
+import com.luckyzyx.luckytool.hook.scope.android.DisableFlagSecure
 import com.luckyzyx.luckytool.hook.scope.systemui.HookSystemUIFeature
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarBattery
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock
@@ -214,6 +215,7 @@ object MainHook : IYukiHookXposedInit {
                         else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
                     }
                 }
+                DisableFlagSecure().handleLoadPackage(lpparam)
             }
         }
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->

@@ -533,6 +533,7 @@
     <string name="performance_mode_and_standby_optimization">Performance Mode and Standby Optimization</string>
     <string name="performance_mode_and_standby_optimization_summary">Settings - Battery - More settings</string>
     <string name="allow_untrusted_touch">Allow untrusted touch</string>
+    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
     <string name="disable_dynamic_refresh_rate">Disable dynamic refresh rate</string>
     <string name="disable_dynamic_refresh_rate_summary">Mainly solve the frame drop problem when the screen is not touched (Note: This will also disable dynamic refresh rate for devices with hardware-level LTPO screens)</string>
     <string name="set_volume_bar_display_position">Set the volume bar display position</string>
