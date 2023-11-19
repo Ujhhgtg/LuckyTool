@@ -8,17 +8,18 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.MapClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.luckypray.dexkit.DexKitBridge
 
-class CloudConditionFeature(private val appSet: Array<String>) : YukiBaseHooker() {
+class CloudConditionFeature(private val appSet: Array<String>, val dexKitBridge: DexKitBridge) :
+    YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookOplusFeature)
         loadHooker(HookCloudCondition)
 
         val versionCode = appSet[1].toIntOrNull()?.takeIf { it > 80130000 } ?: 0
-        if (versionCode > 80130000) loadHooker(HookCloudApiImpl)
+        if (versionCode > 80130000) loadHooker(HookCloudApiImpl(dexKitBridge))
     }
 
     private object HookOplusFeature : YukiBaseHooker() {
@@ -148,7 +149,7 @@ class CloudConditionFeature(private val appSet: Array<String>) : YukiBaseHooker(
         }
     }
 
-    private object HookCloudApiImpl : YukiBaseHooker() {
+    private class HookCloudApiImpl(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper
             val gpuControl = prefs(ModulePrefs).getBoolean("enable_adreno_gpu_controller", false)
@@ -160,37 +161,35 @@ class CloudConditionFeature(private val appSet: Array<String>) : YukiBaseHooker(
                 prefs(ModulePrefs).getBoolean("enable_one_plus_characteristic", false)
 
             //Source CloudApiImpl
-            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-                dexKitBridge.findClass {
-                    matcher {
-                        usingStrings("cloudKey", "defaultDate", "spFileName")
-                        methods {
-                            add { paramCount(0);returnType(ListClass.name) }
-                            add { paramCount(1);returnType(ListClass.name) }
-                            add { paramCount(2);returnType(BooleanType.name) }
-                        }
+            dexKitBridge.findClass {
+                matcher {
+                    usingStrings("cloudKey", "defaultDate", "spFileName")
+                    methods {
+                        add { paramCount(0);returnType(ListClass.name) }
+                        add { paramCount(1);returnType(ListClass.name) }
+                        add { paramCount(2);returnType(BooleanType.name) }
                     }
-                }.apply {
-                    checkDataList("HookCloudApiImpl")
-                    val member = first()
-                    member.name.toClass().apply {
-                        method {
-                            name = "isFunctionEnabledFromCloud"
-                            paramCount = 2
-                        }.hook {
-                            before {
-                                when (args().first().string()) {
-                                    //GPU控制器云控 -> isCloudSupportGpuControlPanel
-                                    "gpu_control_panel" -> if (gpuControl) resultTrue()
-                                    //OnePlus特性
-                                    "one_plus_characteristic" -> if (oneplusCharacteristic) resultTrue()
-                                    //超级分辨率云控 -> cloudSRSupport
-                                    "super_resolution_config" -> if (superResolution) resultTrue()
-                                    //全超分辨率云控 -> isSupportFullSupperResolution
-                                    "super_resolution_config_full" -> if (superResolution) resultTrue()
-                                    //游戏滤镜
-                                    //                            "game_filter_config" -> resultTrue()
-                                }
+                }
+            }.apply {
+                checkDataList("HookCloudApiImpl")
+                val member = first()
+                member.name.toClass().apply {
+                    method {
+                        name = "isFunctionEnabledFromCloud"
+                        paramCount = 2
+                    }.hook {
+                        before {
+                            when (args().first().string()) {
+                                //GPU控制器云控 -> isCloudSupportGpuControlPanel
+                                "gpu_control_panel" -> if (gpuControl) resultTrue()
+                                //OnePlus特性
+                                "one_plus_characteristic" -> if (oneplusCharacteristic) resultTrue()
+                                //超级分辨率云控 -> cloudSRSupport
+                                "super_resolution_config" -> if (superResolution) resultTrue()
+                                //全超分辨率云控 -> isSupportFullSupperResolution
+                                "super_resolution_config_full" -> if (superResolution) resultTrue()
+                                //游戏滤镜
+                                //                            "game_filter_config" -> resultTrue()
                             }
                         }
                     }

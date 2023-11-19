@@ -25,6 +25,8 @@ object HookOplusGames : YukiBaseHooker() {
             if (appSet[2] == "0") return
 
             DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+                //HookCloudConditionFeature
+                loadHooker(CloudConditionFeature(appSet, dexKitBridge))
                 //游戏滤镜-->Root检测
                 if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
                     loadHooker(RemoveRootCheck(dexKitBridge))
@@ -39,9 +41,6 @@ object HookOplusGames : YukiBaseHooker() {
                     loadHooker(CompetitionModeSound(dexKitBridge))
                 }
             }
-
-            //HookCloudConditionFeature
-            loadHooker(CloudConditionFeature(appSet))
 
             //自定义媒体播放器支持
             loadHooker(CustomMediaPlayerSupport)

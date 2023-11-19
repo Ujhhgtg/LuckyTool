@@ -29,11 +29,11 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
         dexKitBridge.findMethod {
             searchPackages("com.heytap.cdo.client.ui.upgrademgr")
             matcher {
-                addParamType(ListClass.name)
+                addParamType(ListClass)
                 returnType(UnitType)
                 usingNumbers(114.0F)
                 addInvoke {
-                    addParamType(ListClass.name)
+                    addParamType(ListClass)
                     returnType(UnitType)
                     usingNumbers(0)
                     addInvoke {
@@ -65,24 +65,24 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
                 }
                 methods {
                     add {
-                        paramTypes(ContextClass.name, IntType.name)
+                        paramTypes(ContextClass, IntType)
                         returnType(UnitType)
                     }
                     add {
                         paramTypes(
-                            ContextClass.name, StringClass.name, IntType.name, IntType.name
+                            ContextClass, StringClass, IntType, IntType
                         )
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(ViewClass.name, BooleanType.name, BooleanType.name)
+                        paramTypes(ViewClass, BooleanType, BooleanType)
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(LayoutInflaterClass.name);returnType(ViewClass)
+                        paramTypes(LayoutInflaterClass);returnType(ViewClass)
                     }
                     add {
-                        paramTypes(ViewGroup_LayoutParamsClass.name, ValueAnimatorClass.name)
+                        paramTypes(ViewGroup_LayoutParamsClass, ValueAnimatorClass)
                         returnType(UnitType)
                     }
 

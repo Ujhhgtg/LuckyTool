@@ -29,14 +29,10 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
                         add { paramCount(0);returnType(UnitType) }
                         add { paramCount(4..8);returnType(UnitType) }
                         add { paramCount(0);returnType(BooleanType) }
-                        add { paramTypes(ViewClass.name);returnType(UnitType) }
+                        add { paramTypes(ViewClass);returnType(UnitType) }
                         add {
                             paramTypes(
-                                ContextClass.name,
-                                StringClass.name,
-                                IntType.name,
-                                DialogInterfaceClass.name,
-                                IntType.name
+                                ContextClass, StringClass, IntType, DialogInterfaceClass, IntType
                             )
                             returnType(UnitType)
                         }

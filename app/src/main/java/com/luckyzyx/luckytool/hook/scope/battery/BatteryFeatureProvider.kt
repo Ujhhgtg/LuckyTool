@@ -24,22 +24,22 @@ class BatteryFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             matcher {
                 methods {
                     add {
-                        paramTypes(ContentResolverClass.name, StringClass.name)
-                        returnType(BooleanType.name)
+                        paramTypes(ContentResolverClass, StringClass)
+                        returnType(BooleanType)
                     }
                     add {
-                        paramTypes(ContentResolverClass.name, StringClass.name, IntType.name)
-                        returnType(IntType.name)
+                        paramTypes(ContentResolverClass, StringClass, IntType)
+                        returnType(IntType)
                     }
                     add {
                         paramTypes(
-                            ContentResolverClass.name, StringClass.name, BooleanType.name
+                            ContentResolverClass, StringClass, BooleanType
                         )
-                        returnType(BooleanType.name)
+                        returnType(BooleanType)
                     }
                     add {
-                        paramTypes(ContentResolverClass.name, StringClass.name)
-                        returnType(ListClass.name)
+                        paramTypes(ContentResolverClass, StringClass)
+                        returnType(ListClass)
                     }
                 }
             }

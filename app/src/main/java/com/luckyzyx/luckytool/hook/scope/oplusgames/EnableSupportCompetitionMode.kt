@@ -21,7 +21,7 @@ class EnableSupportCompetitionMode(val dexKitBridge: DexKitBridge) : YukiBaseHoo
                 methods {
                     add { paramCount(0);returnType(ListClass) }
                     add { paramCount(0);returnType(BooleanType) }
-                    add { paramTypes(StringClass.name, ArrayListClass.name) }
+                    add { paramTypes(StringClass, ArrayListClass) }
                 }
             }
         }.apply {

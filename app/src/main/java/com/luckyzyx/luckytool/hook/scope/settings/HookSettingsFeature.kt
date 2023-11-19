@@ -33,11 +33,11 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         add { returnType(StringClass) }
                         add { returnType(BooleanType) }
                         add { returnType(ApplicationInfoClass) }
-                        add { paramTypes(StringClass.name) }
-                        add { paramTypes(IntType.name) }
-                        add { paramTypes(IntType.name, StringClass.name) }
-                        add { paramTypes(StringClass.name) }
-                        add { paramTypes(StringClass.name, StringClass.name) }
+                        add { paramTypes(StringClass) }
+                        add { paramTypes(IntType) }
+                        add { paramTypes(IntType, StringClass) }
+                        add { paramTypes(StringClass) }
+                        add { paramTypes(StringClass, StringClass) }
                     }
                     usingStrings("screen_off_timeout")
                 }
@@ -72,28 +72,28 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     methods {
                         add {
                             paramTypes(
-                                ContentResolverClass.name, StringClass.name, BooleanType.name
+                                ContentResolverClass, StringClass, BooleanType
                             )
                             returnType(BooleanType)
                         }
                         add {
                             paramTypes(
-                                ContentResolverClass.name, StringClass.name, IntType.name
+                                ContentResolverClass, StringClass, IntType
                             )
                             returnType(IntType)
                         }
                         add {
                             paramTypes(
-                                ContentResolverClass.name, StringClass.name, StringClass.name
+                                ContentResolverClass, StringClass, StringClass
                             )
                             returnType(StringClass)
                         }
                         add {
-                            paramTypes(ContentResolverClass.name, StringClass.name)
+                            paramTypes(ContentResolverClass, StringClass)
                             returnType(ListClass)
                         }
                         add {
-                            paramTypes(ContentResolverClass.name, StringClass.name)
+                            paramTypes(ContentResolverClass, StringClass)
                             returnType(BooleanType)
                         }
                     }
@@ -143,7 +143,7 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         add { paramCount(0);returnType(ListClass) }
                         add { paramCount(0);returnType(ContentResolverClass) }
                         add {
-                            paramTypes(StringClass.name)
+                            paramTypes(StringClass)
                             returnType(BooleanType)
                         }
                         add {
@@ -151,7 +151,7 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             returnType(BooleanType)
                         }
                         add {
-                            paramTypes(StringClass.name)
+                            paramTypes(StringClass)
                             returnType(ListClass)
                         }
                     }

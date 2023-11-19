@@ -31,7 +31,7 @@ class CompetitionModeSound(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(IntType.name)
+                        paramTypes(IntType)
                         returnType(UnitType)
                     }
                 }

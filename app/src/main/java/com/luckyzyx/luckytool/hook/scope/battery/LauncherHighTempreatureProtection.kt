@@ -28,8 +28,8 @@ class LauncherHighTempreatureProtection(val dexKitBridge: DexKitBridge) : YukiBa
                 }
                 methods {
                     add { name("handleMessage") }
-                    add { paramTypes(ContextClass.name) }
-                    add { paramTypes(IntType.name, IntType.name) }
+                    add { paramTypes(ContextClass) }
+                    add { paramTypes(IntType, IntType) }
                 }
             }
         }.apply {

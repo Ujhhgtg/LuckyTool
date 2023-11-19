@@ -28,7 +28,7 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
                 }
                 methods {
                     add {
-                        paramTypes(ContextClass.name, IntType.name)
+                        paramTypes(ContextClass, IntType)
                         returnType(UnitType)
                     }
                     add { returnType(adRequest) }

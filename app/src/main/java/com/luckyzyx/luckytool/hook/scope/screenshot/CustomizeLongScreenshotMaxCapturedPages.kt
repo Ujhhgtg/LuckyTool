@@ -18,7 +18,7 @@ class CustomizeLongScreenshotMaxCapturedPages(val dexKitBridge: DexKitBridge) : 
                     add { returnType(IntType) }
                     add { returnType(BooleanType) }
                     add {
-                        paramTypes(IntType.name, IntType.name)
+                        paramTypes(IntType, IntType)
                         returnType(IntType)
                     }
                 }

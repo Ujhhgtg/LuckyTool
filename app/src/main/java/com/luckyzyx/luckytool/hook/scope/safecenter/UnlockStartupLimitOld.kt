@@ -12,47 +12,45 @@ import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.MapClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 
-object UnlockStartupLimitOld : YukiBaseHooker() {
+class UnlockStartupLimitOld(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
         //Source StartupManager.java
         //Search -> auto_start_max_allow_count -> update max allow count
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                searchPackages(
-                    "com.coloros.safecenter.startupapp",
-                    "com.oplus.safecenter.startupapp"
-                )
-                matcher {
-                    fields {
-                        addForType(IntType.name)
-                        addForType(AnyClass.name)
-                        addForType(MapClass.name)
-                        addForType(BooleanType.name)
-                        addForType(ContextClass.name)
-                    }
-                    methods {
-                        add { paramTypes(ListClass.name) }
-                        add { paramTypes(StringClass.name) }
-                        add { returnType(UnitType) }
-                        add { returnType(ListClass) }
-                        add { returnType(BooleanType) }
-                        add { returnType(ApplicationInfoClass) }
-                    }
-                    usingStrings("StartupManager")
+        dexKitBridge.findClass {
+            searchPackages(
+                "com.coloros.safecenter.startupapp",
+                "com.oplus.safecenter.startupapp"
+            )
+            matcher {
+                fields {
+                    addForType(IntType.name)
+                    addForType(AnyClass.name)
+                    addForType(MapClass.name)
+                    addForType(BooleanType.name)
+                    addForType(ContextClass.name)
                 }
-            }.apply {
-                checkDataList("UnlockStartupLimitOld")
-                first().name.toClass().apply {
-                    method {
-                        param(ContextClass)
-                        returnType = UnitType
-                    }.hookAll {
-                        after { field { type = IntType }.get().set(10000) }
-                    }
+                methods {
+                    add { paramTypes(ListClass) }
+                    add { paramTypes(StringClass) }
+                    add { returnType(UnitType) }
+                    add { returnType(ListClass) }
+                    add { returnType(BooleanType) }
+                    add { returnType(ApplicationInfoClass) }
+                }
+                usingStrings("StartupManager")
+            }
+        }.apply {
+            checkDataList("UnlockStartupLimitOld")
+            first().name.toClass().apply {
+                method {
+                    param(ContextClass)
+                    returnType = UnitType
+                }.hookAll {
+                    after { field { type = IntType }.get().set(10000) }
                 }
             }
         }

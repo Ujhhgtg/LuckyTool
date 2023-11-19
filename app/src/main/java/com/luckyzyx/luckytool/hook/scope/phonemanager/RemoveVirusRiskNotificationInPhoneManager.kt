@@ -8,8 +8,9 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 
-object RemoveVirusRiskNotificationInPhoneManager : YukiBaseHooker() {
+class RemoveVirusRiskNotificationInPhoneManager(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source VirusScanNotifyListener
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -20,7 +21,7 @@ object RemoveVirusRiskNotificationInPhoneManager : YukiBaseHooker() {
                         addForType(StringClass.name)
                     }
                     methods {
-                        add { paramTypes(ArrayListClass.name) }
+                        add { paramTypes(ArrayListClass) }
                         add { returnType(IntType) }
                         add { returnType(StringClass) }
                     }

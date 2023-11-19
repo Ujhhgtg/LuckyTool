@@ -23,7 +23,7 @@ class HookFunctionManager(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
                 methods {
                     add {
-                        paramTypes(StringClass.name)
+                        paramTypes(StringClass)
                         returnType(BooleanType)
                         usingStrings("FunctionSwitchManager", "getGroupName", "spKey")
                     }

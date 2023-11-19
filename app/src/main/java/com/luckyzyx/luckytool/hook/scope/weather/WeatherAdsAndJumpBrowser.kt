@@ -6,6 +6,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.factory.toClass
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
@@ -13,15 +14,15 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.luckypray.dexkit.DexKitBridge
 
-object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
+class WeatherAdsAndJumpBrowser(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A13) loadHooker(HookWeatherAdsAndJump)
-        else loadHooker(HookWeatherAdsAndJumpC12)
+        else loadHooker(HookWeatherAdsAndJumpC12(dexKitBridge))
     }
 
     object HookWeatherAdsAndJump : YukiBaseHooker() {
@@ -124,7 +125,7 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
         }
     }
 
-    object HookWeatherAdsAndJumpC12 : YukiBaseHooker() {
+    class HookWeatherAdsAndJumpC12(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         private var startWebView = ""
         override fun onHook() {
             val removeAds =
@@ -132,75 +133,72 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
             val disableJump = prefs(ModulePrefs).getBoolean("disable_weather_jump_browser", false)
             if (!removeAds && !disableJump) return
 
-
-            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-                //Source OppoUtils
-                dexKitBridge.findClass {
-                    searchPackages("com.coloros.weather.utils")
-                    matcher {
-                        fields {
-                            addForType(BooleanType.name)
-                            addForType("java.util.regex.Pattern")
-                        }
-                        methods {
-                            add {
-                                paramTypes(
-                                    IntType.name, ContextClass.name, StringClass.name,
-                                    StringClass.name, BooleanType.name, BooleanType.name
-                                )
-                                returnType(UnitType.name)
-                                usingStrings(
-                                    "OppoUtils", "frontCode", "infoEnable", "fromWeatherApp"
-                                )
-                            }
-                            add {
-                                paramTypes(
-                                    ContextClass.name, IntType.name, StringClass.name,
-                                    StringClass.name, BooleanType.name
-                                )
-                                returnType(UnitType.name)
-                                usingStrings(
-                                    "com.heytap.browser",
-                                    "com.android.browser",
-                                    "com.coloros.browser"
-                                )
-                            }
-
-                        }
+            //Source OppoUtils
+            dexKitBridge.findClass {
+                searchPackages("com.coloros.weather.utils")
+                matcher {
+                    fields {
+                        addForType(BooleanType.name)
+                        addForType("java.util.regex.Pattern")
                     }
-                }.apply {
-                    checkDataList("HookWeatherAdsAndJumpC12 OppoUtils")
-                    first().name.toClass().apply {
-                        method {
-                            param(
+                    methods {
+                        add {
+                            paramTypes(
                                 IntType, ContextClass, StringClass,
                                 StringClass, BooleanType, BooleanType
                             )
                             returnType(UnitType)
-                        }.hookAll { hookBefore(removeAds, disableJump) }
-                        method {
-                            param(
-                                ContextClass, IntType, StringClass, StringClass, BooleanType
+                            usingStrings(
+                                "OppoUtils", "frontCode", "infoEnable", "fromWeatherApp"
+                            )
+                        }
+                        add {
+                            paramTypes(
+                                ContextClass, IntType, StringClass,
+                                StringClass, BooleanType
                             )
                             returnType(UnitType)
-                        }.hookAll { hookBefore(removeAds, disableJump) }
+                            usingStrings(
+                                "com.heytap.browser",
+                                "com.android.browser",
+                                "com.coloros.browser"
+                            )
+                        }
+
                     }
                 }
-                dexKitBridge.findMethod {
-                    searchPackages("com.coloros.weather.plugin.webview")
-                    matcher {
-                        paramCount(5)
-                        returnType(UnitType.name)
-                        usingNumbers(536870912)
-                        usingStrings(
-                            "context", "url", "statisticsTag",
-                            "intent_params_url", "intent_params_isFirst", "intent_params_statistics"
+            }.apply {
+                checkDataList("HookWeatherAdsAndJumpC12 OppoUtils")
+                first().name.toClass().apply {
+                    method {
+                        param(
+                            IntType, ContextClass, StringClass,
+                            StringClass, BooleanType, BooleanType
                         )
-                    }
-                }.apply {
-                    checkDataList("HookWeatherAdsAndJumpC12 BrowserCommonUtils")
-                    startWebView = first().className
+                        returnType(UnitType)
+                    }.hookAll { hookBefore(removeAds, disableJump) }
+                    method {
+                        param(
+                            ContextClass, IntType, StringClass, StringClass, BooleanType
+                        )
+                        returnType(UnitType)
+                    }.hookAll { hookBefore(removeAds, disableJump) }
                 }
+            }
+            dexKitBridge.findMethod {
+                searchPackages("com.coloros.weather.plugin.webview")
+                matcher {
+                    paramCount(5)
+                    returnType(UnitType)
+                    usingNumbers(536870912)
+                    usingStrings(
+                        "context", "url", "statisticsTag",
+                        "intent_params_url", "intent_params_isFirst", "intent_params_statistics"
+                    )
+                }
+            }.apply {
+                checkDataList("HookWeatherAdsAndJumpC12 BrowserCommonUtils")
+                startWebView = first().className
             }
         }
 
@@ -229,22 +227,24 @@ object WeatherAdsAndJumpBrowser : YukiBaseHooker() {
         }
     }
 
-    private fun startWebActivity(clazz: String, context: Any, url: String, statisticsTag: String) {
-        //Source BrowserCommonUtils -> startWeatherWebActivity
-        clazz.toClass().method { paramCount = 5 }.get()
-            .call(context, url, true, statisticsTag, true)
-    }
+    companion object {
+        fun startWebActivity(clazz: String, context: Any, url: String, statisticsTag: String) {
+            //Source BrowserCommonUtils -> startWeatherWebActivity
+            clazz.toClass().method { paramCount = 5 }.get()
+                .call(context, url, true, statisticsTag, true)
+        }
 
-    private fun formatWeatherUrl(url: String): String {
-        if (url.isBlank()) return url
-        var cacheUrl = url
-        if (cacheUrl.contains("fromWeatherApp=true")) cacheUrl = cacheUrl.replace(
-            "fromWeatherApp=true", "fromWeatherApp=false"
-        )
-        if (cacheUrl.contains("infoEnable=true")) cacheUrl = cacheUrl.replace(
-            "infoEnable=true", "infoEnable=false"
-        )
-        if (cacheUrl.contains("infoEnable").not()) cacheUrl += "&infoEnable=false"
-        return cacheUrl
+        fun formatWeatherUrl(url: String): String {
+            if (url.isBlank()) return url
+            var cacheUrl = url
+            if (cacheUrl.contains("fromWeatherApp=true")) cacheUrl = cacheUrl.replace(
+                "fromWeatherApp=true", "fromWeatherApp=false"
+            )
+            if (cacheUrl.contains("infoEnable=true")) cacheUrl = cacheUrl.replace(
+                "infoEnable=true", "infoEnable=false"
+            )
+            if (cacheUrl.contains("infoEnable").not()) cacheUrl += "&infoEnable=false"
+            return cacheUrl
+        }
     }
 }

@@ -30,8 +30,8 @@ object DarkModeList : YukiBaseHooker() {
                         addForType(MapClass.name)
                     }
                     methods {
-                        add { paramTypes(Reader::class.java.name) }
-                        add { paramTypes(InputStreamClass.name) }
+                        add { paramTypes(Reader::class.java) }
+                        add { paramTypes(InputStreamClass) }
                     }
                     usingStrings("DarkModeFileUtils")
                 }

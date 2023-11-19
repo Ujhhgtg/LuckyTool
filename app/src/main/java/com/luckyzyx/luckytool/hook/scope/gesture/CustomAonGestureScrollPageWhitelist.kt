@@ -10,12 +10,12 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.replaceSpace
+import org.luckypray.dexkit.DexKitBridge
 
-object CustomAonGestureScrollPageWhitelist : YukiBaseHooker() {
+class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val scrollList =
             prefs(ModulePrefs).getString("custom_aon_gesture_scroll_page_whitelist", "None")
@@ -23,40 +23,38 @@ object CustomAonGestureScrollPageWhitelist : YukiBaseHooker() {
         if (scrollList.isBlank() || scrollList == "None") return
 
         //Search com.ss.android.ugc.aweme / com.smile.gifmaker
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                matcher {
-                    fields {
-                        addForType(ContextClass.name)
-                        addForType(ArrayListClass.name)
-                        addForType(ArrayMapClass.name)
-                        addForType(IntType.name)
-                        addForType(FloatType.name)
-                        addForType(ListClass.name)
-                    }
-                    methods {
-                        add { paramTypes(StringClass.name);returnType(IntType) }
-                        add { paramTypes(ListClass.name);returnType(UnitType) }
-                    }
-                    usingStrings("com.ss.android.ugc.aweme", "com.smile.gifmaker")
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(ContextClass.name)
+                    addForType(ArrayListClass.name)
+                    addForType(ArrayMapClass.name)
+                    addForType(IntType.name)
+                    addForType(FloatType.name)
+                    addForType(ListClass.name)
                 }
-            }.apply {
-                checkDataList("CustomAonGestureScrollPageWhitelist")
-                val member = first()
-                member.name.toClass().apply {
-                    method { emptyParam();returnType = ListClass }.hookAll {
-                        after {
-                            val field = result<List<String>>() ?: return@after
-                            if (field.isEmpty()) return@after
-                            result = field.toMutableList().apply {
-                                if (contains("com.ss.android.ugc.aweme") || contains("com.smile.gifmaker")) {
-                                    val listString = scrollList.replaceSpace
-                                    if (listString.contains("\n")) {
-                                        listString.split("\n").forEach { s ->
-                                            if (s.isNotBlank()) add(s)
-                                        }
-                                    } else add(scrollList)
-                                }
+                methods {
+                    add { paramTypes(StringClass);returnType(IntType) }
+                    add { paramTypes(ListClass);returnType(UnitType) }
+                }
+                usingStrings("com.ss.android.ugc.aweme", "com.smile.gifmaker")
+            }
+        }.apply {
+            checkDataList("CustomAonGestureScrollPageWhitelist")
+            val member = first()
+            member.name.toClass().apply {
+                method { emptyParam();returnType = ListClass }.hookAll {
+                    after {
+                        val field = result<List<String>>() ?: return@after
+                        if (field.isEmpty()) return@after
+                        result = field.toMutableList().apply {
+                            if (contains("com.ss.android.ugc.aweme") || contains("com.smile.gifmaker")) {
+                                val listString = scrollList.replaceSpace
+                                if (listString.contains("\n")) {
+                                    listString.split("\n").forEach { s ->
+                                        if (s.isNotBlank()) add(s)
+                                    }
+                                } else add(scrollList)
                             }
                         }
                     }

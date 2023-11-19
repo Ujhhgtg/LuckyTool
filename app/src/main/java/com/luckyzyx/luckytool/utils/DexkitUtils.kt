@@ -2,9 +2,9 @@ package com.luckyzyx.luckytool.utils
 
 import com.highcapable.yukihookapi.hook.log.YLog
 import org.luckypray.dexkit.DexKitBridge
-import org.luckypray.dexkit.query.ClassDataList
-import org.luckypray.dexkit.query.FieldDataList
-import org.luckypray.dexkit.query.MethodDataList
+import org.luckypray.dexkit.result.ClassDataList
+import org.luckypray.dexkit.result.FieldDataList
+import org.luckypray.dexkit.result.MethodDataList
 
 @Suppress("MemberVisibilityCanBePrivate")
 object DexkitUtils {
@@ -15,7 +15,7 @@ object DexkitUtils {
      * @param appPath String
      * @return DexKitBridge?
      */
-    fun create(appPath: String): DexKitBridge? {
+    fun create(appPath: String): DexKitBridge {
         System.loadLibrary("dexkit")
         return DexKitBridge.create(appPath)
     }
@@ -27,7 +27,7 @@ object DexkitUtils {
      */
     fun create(appPath: String, result: (DexKitBridge) -> Unit) {
         System.loadLibrary("dexkit")
-        DexKitBridge.create(appPath)?.use { result(it) }
+        DexKitBridge.create(appPath).use { result(it) }
     }
 
     /**

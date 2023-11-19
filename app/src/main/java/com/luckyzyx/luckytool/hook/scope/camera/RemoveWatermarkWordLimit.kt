@@ -39,9 +39,9 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                     add { name("onPause");returnType(UnitType) }
                     add { name("onPreferenceChange");returnType(BooleanType) }
                     add { name("onPreferenceClick");returnType(BooleanType) }
-                    add { paramTypes(BundleClass.name);returnType(UnitType) }
-                    add { paramTypes(BundleClass.name);returnType(BooleanType) }
-                    add { paramTypes(StringClass.name);returnType(UnitType) }
+                    add { paramTypes(BundleClass);returnType(UnitType) }
+                    add { paramTypes(BundleClass);returnType(BooleanType) }
+                    add { paramTypes(StringClass);returnType(UnitType) }
                 }
                 if (isNew) usingStrings("CameraSubSettingFragment")
                 else usingStrings(

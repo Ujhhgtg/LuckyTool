@@ -26,10 +26,10 @@ object HookKsWeb : YukiBaseHooker() {
                         addForType(SharedPreferencesClass.name)
                     }
                     methods {
-                        add { paramCount(0);returnType(IntType.name) }
-                        add { paramCount(0);returnType(BooleanType.name) }
-                        add { paramTypes(IntType.name);returnType(UnitType.name) }
-                        add { paramTypes(ContextClass.name);returnType(UnitType.name) }
+                        add { paramCount(0);returnType(IntType) }
+                        add { paramCount(0);returnType(BooleanType) }
+                        add { paramTypes(IntType);returnType(UnitType) }
+                        add { paramTypes(ContextClass);returnType(UnitType) }
                     }
                     usingStrings(
                         "EXTEND TO PRO VERSION",

@@ -28,8 +28,8 @@ class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
                     addForType(AtomicBooleanClass.name)
                 }
                 methods {
-                    add { paramTypes(StringClass.name);returnType(BooleanType) }
-                    add { paramTypes(BooleanType.name);returnType(splashDto) }
+                    add { paramTypes(StringClass);returnType(BooleanType) }
+                    add { paramTypes(BooleanType);returnType(splashDto) }
                     add {
                         paramTypes(BooleanType.name, IntType.name, splashDto)
                         returnType(UnitType)

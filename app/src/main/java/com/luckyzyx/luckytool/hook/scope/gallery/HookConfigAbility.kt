@@ -32,22 +32,22 @@ class HookConfigAbility(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
                 methods {
                     add { name = "close";paramCount(0) }
-                    add { name = "contains";paramTypes(StringClass.name) }
+                    add { name = "contains";paramTypes(StringClass) }
                     add { returnType(AutoCloseable::class.java) }
                     add {
-                        paramTypes(StringClass.name, IntType.name)
+                        paramTypes(StringClass, IntType)
                         returnType(IntClass)
                     }
                     add {
-                        paramTypes(StringClass.name, LongType.name)
+                        paramTypes(StringClass, LongType)
                         returnType(LongClass)
                     }
                     add {
-                        paramTypes(StringClass.name, StringClass.name)
+                        paramTypes(StringClass, StringClass)
                         returnType(StringClass)
                     }
                     add {
-                        paramTypes(StringClass.name, BooleanType.name)
+                        paramTypes(StringClass, BooleanType)
                         returnType(BooleanClass)
                     }
                 }

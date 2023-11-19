@@ -13,13 +13,13 @@ class RemoveMarketDownloadPageAppRecommend(val dexKitBridge: DexKitBridge) : Yuk
         dexKitBridge.findMethod {
             searchPackages("com.heytap.cdo.client.ui.downloadmgr")
             matcher {
-                addParamType(ListClass.name)
+                addParamType(ListClass)
                 returnType(UnitType)
                 addInvoke {
                     name("notifyDataSetChanged")
                 }
                 addCall {
-                    addParamType(ListClass.name)
+                    addParamType(ListClass)
                     returnType(UnitType)
                 }
             }

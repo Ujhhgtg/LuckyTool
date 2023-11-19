@@ -23,7 +23,7 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
                 usingNumbers(0, 8, 500L)
                 addUsingField {
                     field {
-                        addPutMethod {
+                        addWriteMethod {
                             paramTypes(recommendConfig)
                             returnType(UnitType)
                         }
@@ -32,7 +32,7 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
                 }
                 addUsingField {
                     field {
-                        addPutMethod {
+                        addWriteMethod {
                             paramCount(0)
                             returnType(UnitType)
                         }
@@ -41,7 +41,7 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
                 }
                 addUsingField {
                     field {
-                        addPutMethod {
+                        addWriteMethod {
                             paramCount(0)
                             returnType(UnitType)
                         }

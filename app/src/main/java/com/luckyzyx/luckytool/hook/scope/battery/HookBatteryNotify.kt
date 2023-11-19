@@ -34,7 +34,7 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
                 methods {
                     add {
-                        paramTypes(StringClass.name, BooleanType.name)
+                        paramTypes(StringClass, BooleanType)
                         returnType(UnitType)
                     }
                 }

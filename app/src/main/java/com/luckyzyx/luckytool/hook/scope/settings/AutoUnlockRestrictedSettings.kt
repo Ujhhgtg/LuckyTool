@@ -40,7 +40,7 @@ object AutoUnlockRestrictedSettings : YukiBaseHooker() {
             val fields = dexKitBridge.findField {
                 searchPackages(member.className)
                 matcher {
-                    addGetMethod {
+                    addReadMethod {
                         name(member.methodName)
                         paramCount(0)
                         returnType(BooleanType)
@@ -51,12 +51,12 @@ object AutoUnlockRestrictedSettings : YukiBaseHooker() {
                 searchPackages(member.className)
                 matcher {
                     type(BooleanType)
-                    addGetMethod {
+                    addReadMethod {
                         name(member.methodName)
                         paramCount(0)
                         returnType(BooleanType)
                     }
-                    addPutMethod {
+                    addWriteMethod {
                         paramTypes(BooleanType.name)
                         returnType(BooleanType)
                     }

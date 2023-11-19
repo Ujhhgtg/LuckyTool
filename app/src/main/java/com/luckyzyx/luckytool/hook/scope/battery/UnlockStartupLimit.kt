@@ -25,8 +25,8 @@ class UnlockStartupLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
                 methods {
                     add { paramCount(0);returnType(IntType) }
-                    add { paramTypes(IntentClass.name);returnType(UnitType) }
-                    add { paramTypes(BundleClass.name);returnType(UnitType) }
+                    add { paramTypes(IntentClass);returnType(UnitType) }
+                    add { paramTypes(BundleClass);returnType(UnitType) }
                 }
             }
         }.apply {
