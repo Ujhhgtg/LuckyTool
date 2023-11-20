@@ -950,8 +950,8 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.statusbar_control_center_date_fix_width)
-                key = "statusbar_control_center_date_fix_width"
+                title = getString(R.string.statusbar_control_center_date_disable_text_scroll)
+                key = "statusbar_control_center_date_disable_text_scroll"
                 setDefaultValue(false)
                 isVisible = SDK >= A13 && isZh(context)
                 isIconSpaceReserved = false
@@ -961,9 +961,9 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.statusbar_control_center_date_fix_lunar_horizontal)
+                title = getString(R.string.statusbar_control_center_date_set_display_mode_horizontal)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "statusbar_control_center_date_fix_lunar_horizontal"
+                key = "statusbar_control_center_date_set_display_mode_horizontal"
                 entries =
                     resources.getStringArray(R.array.statusbar_control_center_date_fix_lunar_horizontal_entries)
                 entryValues = arrayOf("0", "1", "2")

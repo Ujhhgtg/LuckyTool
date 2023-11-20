@@ -32,13 +32,21 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             showLunar = it
             LockScreenClock.callback?.invoke("statusbar_control_center_date_show_lunar", it)
         }
-        var fixWidth =
-            prefs(ModulePrefs).getBoolean("statusbar_control_center_date_fix_width", false)
-        dataChannel.wait<Boolean>("statusbar_control_center_date_fix_width") { fixWidth = it }
-        var fixLunar =
-            prefs(ModulePrefs).getString("statusbar_control_center_date_fix_lunar_horizontal", "0")
-        dataChannel.wait<String>("statusbar_control_center_date_fix_lunar_horizontal") {
-            fixLunar = it
+        var disableScroll =
+            prefs(ModulePrefs).getBoolean(
+                "statusbar_control_center_date_disable_text_scroll",
+                false
+            )
+        dataChannel.wait<Boolean>("statusbar_control_center_date_disable_text_scroll") {
+            disableScroll = it
+        }
+        var displayMode =
+            prefs(ModulePrefs).getString(
+                "statusbar_control_center_date_set_display_mode_horizontal",
+                "0"
+            )
+        dataChannel.wait<String>("statusbar_control_center_date_set_display_mode_horizontal") {
+            displayMode = it
         }
 
         //Source WeatherInfoParseHelper -> cn_comma
@@ -78,6 +86,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             if (hasMethod { name = "updateQsDateView" }.not()) return@apply
             method { name = "updateQsDateView" }.hook {
                 after {
+                    val res = instance<ViewGroup>().resources
                     val mTmpConstraintSet =
                         field { name = "mTmpConstraintSet" }.get(instance).any()
                             ?: return@after
@@ -86,12 +95,11 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                     val mQsDateView = field { name = "mQsDateView" }.get(instance).cast<TextView>()
                         ?: return@after
 
-                    if (fixWidth) mTmpConstraintSet.current().method {
+                    if (disableScroll) mTmpConstraintSet.current().method {
                         name = "constrainWidth"
                     }.call(mQsDateView.id, ConstraintLayout.LayoutParams.WRAP_CONTENT)
 
-                    if (showLunar && (fixLunar != "0")) {
-                        val res = instance<ViewGroup>().resources
+                    if (showLunar && (displayMode != "0")) {
                         //162dp
                         val qs_footer_date_width = res.getDimensionPixelSize(
                             res.getIdentifier(
@@ -124,12 +132,17 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             if (it) return@getScreenOrientation
                             if (translationX == 0 || translationY == 0) return@getScreenOrientation
 
-                            when (fixLunar) {
+                            when (displayMode) {
                                 "1" -> mTmpConstraintSet.current().method {
                                     name = "constrainWidth"
                                 }.call(mQsDateView.id, qs_footer_date_width * 2)
 
                                 "2" -> {
+                                    mTmpConstraintSet.current().method {
+                                        name = "constrainWidth"
+                                    }.call(
+                                        mQsDateView.id, ConstraintLayout.LayoutParams.WRAP_CONTENT
+                                    )
                                     mTmpConstraintSet.current().method {
                                         name = "setTranslationX"
                                     }.call(mQsDateView.id, translationX.toFloat())
