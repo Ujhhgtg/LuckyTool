@@ -260,6 +260,24 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //Phone
+            Preference(context).apply {
+                key = "com.android.phone"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.force_display_five_g_switch),
+                    getString(R.string.force_display_preferred_network_type)
+                )
+                isVisible = SDK >= A13 && context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusPhone, title)
+                    true
+                }
+            },
             //Mms
             Preference(context).apply {
                 key = "com.android.mms"

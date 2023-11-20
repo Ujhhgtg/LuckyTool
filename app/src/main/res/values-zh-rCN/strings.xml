@@ -474,6 +474,7 @@
     <string name="performance_mode_and_standby_optimization">性能模式和待机优化</string>
     <string name="performance_mode_and_standby_optimization_summary">设置 - 电池 - 更多设置</string>
     <string name="allow_untrusted_touch">允许不受信任的触摸</string>
+    <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
     <string name="disable_dynamic_refresh_rate">禁用动态刷新率</string>
     <string name="disable_dynamic_refresh_rate_summary">主要解决屏幕无触摸时的掉帧问题\n(注意：这将会同时禁用拥有硬件级别 LTPO 屏幕设备的动态刷新率功能)</string>
     <string name="set_volume_bar_display_position">设置音量条显示位置</string>
@@ -624,6 +625,10 @@
     <string name="replace_side_slider_icon_on_right">替换右侧侧滑图标</string>
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">移除验证码悬浮窗</string>
+    <!--OplusPhone-->
+    <string name="force_display_five_g_switch">强制显示 5G 开关</string>
+    <string name="force_display_preferred_network_type">强制显示首选网络类型</string>
+    <string name="force_display_volte_calls">强制显示 VoLTE 高清通话</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">移除天气页面底部信息流广告</string>
     <string name="remove_ads_from_weather_page_summary">通过在页面 m.weathercn.com 注入 JS 来实现屏蔽广告的效果，适用于通过天气 APP 跳转到的近 15 日天气等需要浏览器的功能</string>

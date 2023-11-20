@@ -474,6 +474,7 @@
     <string name="performance_mode_and_standby_optimization">Chế độ hiệu suất và Tối ưu hóa chế độ chờ</string>
     <string name="performance_mode_and_standby_optimization_summary">Cài đặt - Pin - Cài đặt khác</string>
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
+    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
     <string name="disable_dynamic_refresh_rate">Tắt tốc độ làm mới động</string>
     <string name="disable_dynamic_refresh_rate_summary">Mainly solve the frame drop problem when the screen is not touched</string>
     <string name="set_volume_bar_display_position">Đặt vị trí hiển thị thanh âm lượng</string>
@@ -624,6 +625,10 @@
     <string name="replace_side_slider_icon_on_right">Thay thế biểu tượng trượt bên phải</string>
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">Xóa cửa sổ nổi mã xác minh</string>
+    <!--OplusPhone-->
+    <string name="force_display_five_g_switch">Force display of 5G switch</string>
+    <string name="force_display_preferred_network_type">Force display of preferred network type</string>
+    <string name="force_display_volte_calls">Force display of VoLTE calls</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Remove weather page bottom information flow ads</string>
     <string name="remove_ads_from_weather_page_summary">By injecting JS into the page m.weathercn.com to achieve the effect of blocking ads, it is suitable for functions that require a browser, such as the weather of the past 15 days that you jump to through the weather app</string>

@@ -474,6 +474,7 @@
     <string name="performance_mode_and_standby_optimization">Optimalizace výkonu a pohotovostního režimu</string>
     <string name="performance_mode_and_standby_optimization_summary">Nastavení - Baterie - Další nastavení</string>
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
+    <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
     <string name="disable_dynamic_refresh_rate">Zakázat dynamickou obnovovací frekvenci</string>
     <string name="disable_dynamic_refresh_rate_summary">Řeší hlavně problém s poklesem snímku, když se obrazovky nedotýkáte</string>
     <string name="set_volume_bar_display_position">Nastavit pozici zobrazení panelu hlasitosti</string>
@@ -624,6 +625,10 @@
     <string name="replace_side_slider_icon_on_right">Nahradit pravou ikonu bočního posuvníku</string>
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">Odstranit plovoucí okno s ověřovacím kódem</string>
+    <!--OplusPhone-->
+    <string name="force_display_five_g_switch">Force display of 5G switch</string>
+    <string name="force_display_preferred_network_type">Force display of preferred network type</string>
+    <string name="force_display_volte_calls">Force display of VoLTE calls</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Odstranění reklam na spodní straně informačního toku o počasí</string>
     <string name="remove_ads_from_weather_page_summary">Vložením JS do stránky m.weathercn.com, aby se dosáhlo efektu blokování reklamy, se hodí funkce, které vyžadují prohlížeč, jako je počasí za posledních 15 dní, na které se přejde přes aplikaci počasí</string>

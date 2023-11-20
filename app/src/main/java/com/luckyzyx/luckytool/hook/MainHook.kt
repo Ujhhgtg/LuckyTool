@@ -35,6 +35,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookOplusOta
 import com.luckyzyx.luckytool.hook.hooker.HookOtherApp
 import com.luckyzyx.luckytool.hook.hooker.HookPackageInstaller
 import com.luckyzyx.luckytool.hook.hooker.HookPermissionController
+import com.luckyzyx.luckytool.hook.hooker.HookPhone
 import com.luckyzyx.luckytool.hook.hooker.HookPhoneManager
 import com.luckyzyx.luckytool.hook.hooker.HookPictorial
 import com.luckyzyx.luckytool.hook.hooker.HookQuickSearchBox
@@ -67,6 +68,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+
 
 @InjectYukiHookWithXposed(isUsingResourcesHook = false)
 object MainHook : IYukiHookXposedInit {
@@ -175,6 +177,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.heytap.pictorial", HookPictorial)
         //信息
         loadApp("com.android.mms", HookOplusMMS)
+        //电话服务
+        loadApp("com.android.phone", HookPhone)
         //浏览器
         loadApp("com.heytap.browser", HookBrowser)
         //手势体感
