@@ -6,7 +6,6 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
@@ -118,7 +117,7 @@ class WeatherAdsAndJumpBrowser(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                     val newUrl = args(2).cast<String>()
                     if (newUrl.isNullOrBlank()) return@before
                     val clazz = "com.oplus.weather.plugin.webview.BrowserCommonUtils"
-                    startWebActivity(clazz, context, newUrl, statisticsTag)
+                    startWebActivity(clazz.toClass(), context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
@@ -220,7 +219,7 @@ class WeatherAdsAndJumpBrowser(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                     val newUrl = args(2).cast<String>()
                     if (newUrl.isNullOrBlank()) return@before
                     val clazz = startWebView.takeIf { it.isNotBlank() } ?: return@before
-                    startWebActivity(clazz, context, newUrl, statisticsTag)
+                    startWebActivity(clazz.toClass(), context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
@@ -228,10 +227,9 @@ class WeatherAdsAndJumpBrowser(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
     }
 
     companion object {
-        fun startWebActivity(clazz: String, context: Any, url: String, statisticsTag: String) {
+        fun startWebActivity(clazz: Class<*>, context: Any, url: String, statisticsTag: String) {
             //Source BrowserCommonUtils -> startWeatherWebActivity
-            clazz.toClass().method { paramCount = 5 }.get()
-                .call(context, url, true, statisticsTag, true)
+            clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
         }
 
         fun formatWeatherUrl(url: String): String {

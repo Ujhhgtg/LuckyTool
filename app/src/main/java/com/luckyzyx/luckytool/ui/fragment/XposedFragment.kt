@@ -500,7 +500,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.disable_weather_jump_browser),
                     getString(R.string.remove_weather_some_page_bottom_ads)
                 )
-                isVisible = SDK >= A13 && context.checkPackName(key)
+                isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusWeather, title)
                     true
