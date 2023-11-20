@@ -8,6 +8,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [优化] 工程模式快捷跳转入口
 - [适配] 锁屏顶部图标 C14
 - [更改] 同步上游DisableFLAG_SECURE
+- [修复] 锁屏手电筒调用异常 C12 C13
 
 ### 1.1.4
 

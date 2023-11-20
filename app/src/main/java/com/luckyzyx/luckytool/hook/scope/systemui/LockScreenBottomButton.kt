@@ -22,57 +22,60 @@ import com.luckyzyx.luckytool.utils.safeOfNull
 
 object LockScreenBottomButton : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK < A14) {
-            loadHooker(LockScreenBottomButtonC13)
-            return
-        }
+        if (SDK >= A14) loadHooker(LockScreenBottomButton)
+        else loadHooker(LockScreenBottomButtonC13)
+    }
 
-        var leftButton =
-            prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_left_button", false)
-        dataChannel.wait<Boolean>("remove_lock_screen_bottom_left_button") { leftButton = it }
-        var rightButton =
-            prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_right_camera", false)
-        dataChannel.wait<Boolean>("remove_lock_screen_bottom_right_camera") { rightButton = it }
-        var autoCloseScreen = prefs(ModulePrefs).getBoolean(
-            "lock_screen_switch_flashlight_auto_close_screen", false
-        )
-        dataChannel.wait<Boolean>("lock_screen_switch_flashlight_auto_close_screen") {
-            autoCloseScreen = it
-        }
+    object LockScreenBottomButton : YukiBaseHooker() {
+        override fun onHook() {
+            var leftButton =
+                prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_left_button", false)
+            dataChannel.wait<Boolean>("remove_lock_screen_bottom_left_button") { leftButton = it }
+            var rightButton =
+                prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_right_camera", false)
+            dataChannel.wait<Boolean>("remove_lock_screen_bottom_right_camera") { rightButton = it }
+            var autoCloseScreen = prefs(ModulePrefs).getBoolean(
+                "lock_screen_switch_flashlight_auto_close_screen", false
+            )
+            dataChannel.wait<Boolean>("lock_screen_switch_flashlight_auto_close_screen") {
+                autoCloseScreen = it
+            }
 
-        //Source KeyguardBottomAreaViewBinder
-        "com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder".toClass().apply {
-            method { name = "updateButton" }.hook {
-                before {
-                    if ((leftButton || rightButton).not()) return@before
-                    val view = args().first().cast<View>() ?: return@before
-                    when (safeOfNull { view.resources.getResourceEntryName(view.id) }) {
-                        "start_button" -> if (leftButton) {
-                            view.isVisible = false
-                            resultNull()
-                        }
+            //Source KeyguardBottomAreaViewBinder
+            "com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder".toClass().apply {
+                method { name = "updateButton" }.hook {
+                    before {
+                        if ((leftButton || rightButton).not()) return@before
+                        val view = args().first().cast<View>() ?: return@before
+                        when (safeOfNull { view.resources.getResourceEntryName(view.id) }) {
+                            "start_button" -> if (leftButton) {
+                                view.isVisible = false
+                                resultNull()
+                            }
 
-                        "end_button" -> if (rightButton) {
-                            view.isVisible = false
-                            resultNull()
+                            "end_button" -> if (rightButton) {
+                                view.isVisible = false
+                                resultNull()
+                            }
                         }
                     }
                 }
             }
-        }
 
-        //Source KeyguardQuickAffordanceInteractor
-        "com.android.systemui.keyguard.domain.interactor.KeyguardQuickAffordanceInteractor".toClass()
-            .apply {
-                method { name = "onQuickAffordanceTriggered" }.hook {
-                    after {
-                        if (leftButton || !autoCloseScreen) return@after
-                        val context = field { name = "appContext" }.get(instance).cast<Context>()
-                            ?: return@after
-                        closeScreen(context)
+            //Source KeyguardQuickAffordanceInteractor
+            "com.android.systemui.keyguard.domain.interactor.KeyguardQuickAffordanceInteractor".toClass()
+                .apply {
+                    method { name = "onQuickAffordanceTriggered" }.hook {
+                        after {
+                            if (leftButton || !autoCloseScreen) return@after
+                            val context =
+                                field { name = "appContext" }.get(instance).cast<Context>()
+                                    ?: return@after
+                            closeScreen(context)
+                        }
                     }
                 }
-            }
+        }
     }
 
     object LockScreenBottomButtonC13 : YukiBaseHooker() {
@@ -144,7 +147,8 @@ object LockScreenBottomButton : YukiBaseHooker() {
                 method { name = "launchLeftAffordance" }.hook {
                     before {
                         if (!useFlashLight) return@before
-                        method { name = "baseLaunchLeftAffordance" }.get(instance).call()
+                        method { name = "baseLaunchLeftAffordance";superClass() }.get(instance)
+                            .call()
                         val mFlashlightController =
                             field { name = "mFlashlightController" }.get(instance).any()
                         val isEnable = mFlashlightController?.getIsEnable() ?: true
