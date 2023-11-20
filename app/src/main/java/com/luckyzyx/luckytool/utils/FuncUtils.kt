@@ -957,6 +957,7 @@ fun Context.restartAllScope() {
             continue
         }
         commands.add("pkill -9 $scope")
+        commands.add("killall $scope")
         commands.add("am force-stop $scope")
         getAppVersion(scope)
     }
@@ -983,6 +984,7 @@ fun Context.restartAllScope(scopes: Array<String>) {
             commands.add("kill -9 `pgrep systemui`")
             continue
         }
+        commands.add("pkill -9 $scope")
         commands.add("killall $scope")
         commands.add("am force-stop $scope")
         getAppVersion(scope)
