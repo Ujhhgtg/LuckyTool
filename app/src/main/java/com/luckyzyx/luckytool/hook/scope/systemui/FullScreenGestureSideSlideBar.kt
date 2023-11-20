@@ -46,7 +46,7 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
                         1 -> BitmapFactory.decodeFile(rightPath)
                         else -> return@before
                     }
-                    res?.let { args(0).set(it) }
+                    res?.let { args().first().set(it) }
                 }
             }
         }

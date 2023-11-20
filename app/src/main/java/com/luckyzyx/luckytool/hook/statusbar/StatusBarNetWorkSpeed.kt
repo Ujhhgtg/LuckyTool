@@ -47,7 +47,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             }.hook {
                 before {
                     if (networkSpeed && (args().first().long() == 4000L)) {
-                        args(0).set(1000L)
+                        args().first().set(1000L)
                     }
                 }
             }

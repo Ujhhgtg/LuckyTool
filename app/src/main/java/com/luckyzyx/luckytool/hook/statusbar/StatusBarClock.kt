@@ -70,7 +70,7 @@ object StatusBarClock : YukiBaseHooker() {
         "com.android.systemui.statusbar.policy.Clock".toClass().apply {
             constructor { paramCount = 3 }.hook {
                 after {
-                    context = args(0).cast<Context>()
+                    context = args().first().cast<Context>()
                     val clockView = instance<TextView>()
                     if (clockView.resources.getResourceEntryName(clockView.id) != "clock") return@after
                     val d: Method = clockView.javaClass.superclass.getDeclaredMethod("updateClock")
