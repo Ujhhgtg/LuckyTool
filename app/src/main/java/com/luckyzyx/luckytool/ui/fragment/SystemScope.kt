@@ -3722,21 +3722,18 @@ class OplusCalendar : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_holiday_page_information_flow)
                 key = "remove_holiday_page_information_flow"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_almanac_page_information_flow)
                 key = "remove_almanac_page_information_flow"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_horoscope_page_information_flow)
                 key = "remove_horoscope_page_information_flow"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
         }

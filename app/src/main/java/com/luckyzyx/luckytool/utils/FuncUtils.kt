@@ -137,8 +137,8 @@ fun Context.getDeviceInfo(
     val systemVersion = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})[OS $getOSVersionName]"
     return """
         ${getString(R.string.model)}: ${Build.BRAND} ${Build.MODEL}
-        ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
         ${getString(R.string.market_name)}: ${controller?.marketName}
+        ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
         ${getString(R.string.system)}: $systemVersion
         ${getString(R.string.build_version)}: ${Build.DISPLAY}
         ${getString(R.string.version)}: ${controller?.otaVersion}

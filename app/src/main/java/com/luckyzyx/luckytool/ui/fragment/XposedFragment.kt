@@ -518,7 +518,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.remove_holiday_page_information_flow),
                     getString(R.string.remove_almanac_page_information_flow)
                 )
-                isVisible = SDK >= A13 && context.checkPackName(key)
+                isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusCalendar, title)
                     true
