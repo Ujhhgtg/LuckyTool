@@ -3016,30 +3016,6 @@ class OplusGallery : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_photo_view_thumb_line)
-                key = "enable_photo_view_thumb_line"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_photo_editor_gif_synthesis)
-                key = "enable_photo_editor_gif_synthesis"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_photo_listview_senior_picked)
-                key = "enable_photo_listview_senior_picked"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_lns_cut_photo)
-                key = "enable_lns_cut_photo"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
             //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GalleryWaterMark)
@@ -3068,6 +3044,45 @@ class OplusGallery : BaseScopePreferenceFeagment() {
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_jiangwen_filter)
                 key = "enable_gallery_jiangwen_filter"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //视图
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.GalleryView)
+                key = "GalleryView"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_photo_listview_senior_picked)
+                key = "enable_photo_listview_senior_picked"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_photo_view_thumb_line_display_mode)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "set_photo_view_thumb_line_display_mode"
+                entries = resources.getStringArray(R.array.universal_switch_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+            })
+            //编辑器
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.GalleryEditor)
+                key = "GalleryEditor"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_photo_editor_gif_synthesis)
+                key = "enable_photo_editor_gif_synthesis"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_lns_cut_photo)
+                key = "enable_lns_cut_photo"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

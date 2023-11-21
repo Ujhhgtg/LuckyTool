@@ -540,13 +540,15 @@
     <string name="enable_10_bit_image_support_summary">Enabling this feature on some models may cause the photo to turn green</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">WaterMark</string>
-    <string name="enable_photo_view_thumb_line">Enable photo thumb line</string>
-    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
-    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
-    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <string name="enable_watermark_editing">Enable watermark editing</string>
     <string name="replace_oneplus_model_watermark">Replace OnePlus model watermark</string>
     <string name="replace_oneplus_model_watermark_summary">When editing the watermark, [Shot On OnePlus] will be replaced with the customized model</string>
+    <string name="GalleryView">View</string>
+    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
+    <string name="set_photo_view_thumb_line_display_mode">Set photo view thumb line display mode</string>
+    <string name="GalleryEditor">Editor</string>
+    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
+    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Remove startup animation</string>

@@ -69,7 +69,6 @@ import com.luckyzyx.luckytool.utils.SettingsPrefs
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-
 @InjectYukiHookWithXposed(isUsingResourcesHook = false)
 object MainHook : IYukiHookXposedInit {
     override fun onInit() = configs {

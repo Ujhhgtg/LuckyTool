@@ -475,7 +475,7 @@
     <string name="performance_mode_and_standby_optimization">Режим производительности и оптимизация режима ожидания</string>
     <string name="performance_mode_and_standby_optimization_summary">Настройки - Батарея - Дополнительные настройки</string>
     <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
-    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
+    <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>
     <string name="disable_dynamic_refresh_rate">Отключить динамическую частоту обновления</string>
     <string name="disable_dynamic_refresh_rate_summary">В основном решает проблему падения кадров, когда экран не трогают</string>
     <string name="set_volume_bar_display_position">Установить положение отображения панели громкости</string>
@@ -541,13 +541,15 @@
     <string name="enable_10_bit_image_support_summary">Включение этой функции на некоторых моделях может привести к тому, что фото станет зеленым</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Водяной знак</string>
-    <string name="enable_photo_view_thumb_line">Enable photo thumb line</string>
-    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
-    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
-    <string name="enable_lns_cut_photo">Вырезать часть фото</string>
     <string name="enable_watermark_editing">Включить изменение водяного знака</string>
     <string name="replace_oneplus_model_watermark">Заменить водяной знак модели OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">При редактировании водяного знака [Снято на OnePlus] будет заменено выбранной моделью</string>
+    <string name="GalleryView">View</string>
+    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
+    <string name="set_photo_view_thumb_line_display_mode">Set photo view thumb line display mode</string>
+    <string name="GalleryEditor">Editor</string>
+    <string name="enable_photo_editor_gif_synthesis">Включить синтез GIF</string>
+    <string name="enable_lns_cut_photo">Вырезать часть фото</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Разметка</string>
     <string name="remove_startup_animation">Удалить стартовую анимацию</string>
@@ -630,9 +632,9 @@
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">Удалить плавающее окно с проверочным кодом</string>
     <!--OplusPhone-->
-    <string name="force_display_five_g_switch">Force display of 5G switch</string>
-    <string name="force_display_preferred_network_type">Force display of preferred network type</string>
-    <string name="force_display_volte_calls">Force display of VoLTE calls</string>
+    <string name="force_display_five_g_switch">Принудительно отображать переключатель 5G</string>
+    <string name="force_display_preferred_network_type">Принудительно отображать тип сети</string>
+    <string name="force_display_volte_calls">Принудительно отображать вызовы VoLTE</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Удалить рекламу на странице с информацией о погоде</string>
     <string name="remove_ads_from_weather_page_summary">Внедрив JS на страницу m.weathercn.com для достижения эффекта блокировки рекламы, он подходит для функций, требующих браузера, таких как погода за последние 15 дней, к которой вы переходите через приложение погоды</string>
