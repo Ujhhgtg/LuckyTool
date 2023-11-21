@@ -3020,31 +3020,26 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_photo_view_thumb_line)
                 key = "enable_photo_view_thumb_line"
                 setDefaultValue(false)
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_photo_editor_gif_synthesis)
                 key = "enable_photo_editor_gif_synthesis"
                 setDefaultValue(false)
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_photo_listview_senior_picked)
                 key = "enable_photo_listview_senior_picked"
                 setDefaultValue(false)
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_lns_cut_photo)
                 key = "enable_lns_cut_photo"
                 setDefaultValue(false)
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
-            if (SDK < A13) return
             //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GalleryWaterMark)
@@ -3055,7 +3050,6 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_watermark_editing)
                 key = "enable_watermark_editing"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -3063,7 +3057,6 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.replace_oneplus_model_watermark_summary)
                 key = "replace_oneplus_model_watermark"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             //滤镜
@@ -3076,7 +3069,6 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_jiangwen_filter)
                 key = "enable_gallery_jiangwen_filter"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
         }

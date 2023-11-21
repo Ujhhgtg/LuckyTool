@@ -341,7 +341,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 title = context.getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.enable_watermark_editing),
-                    getString(R.string.replace_oneplus_model_watermark)
+                    getString(R.string.enable_lns_cut_photo)
                 )
                 isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {

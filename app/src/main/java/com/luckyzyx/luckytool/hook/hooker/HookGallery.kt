@@ -11,7 +11,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 object HookGallery : YukiBaseHooker() {
     override fun onHook() {
         val appSet = getAppSet(ModulePrefs, packageName)
-        if (appSet[1].toIntOrNull()?.let { it < 13005000 } == true) return
+        if (appSet[1].toIntOrNull()?.let { it < 13000000 } == true) return
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //HookOtherSystemStorage
