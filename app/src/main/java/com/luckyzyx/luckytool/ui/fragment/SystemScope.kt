@@ -961,7 +961,8 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.statusbar_control_center_date_set_display_mode_horizontal)
+                title =
+                    getString(R.string.statusbar_control_center_date_set_display_mode_horizontal)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "statusbar_control_center_date_set_display_mode_horizontal"
                 entries =
@@ -3016,16 +3017,38 @@ class OplusGallery : BaseScopePreferenceFeagment() {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_photo_view_thumb_line)
+                key = "enable_photo_view_thumb_line"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_photo_editor_gif_synthesis)
+                key = "enable_photo_editor_gif_synthesis"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_photo_listview_senior_picked)
+                key = "enable_photo_listview_senior_picked"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_lns_cut_photo)
                 key = "enable_lns_cut_photo"
                 setDefaultValue(false)
                 isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
+            if (SDK < A13) return
+            //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GalleryWaterMark)
                 key = "GalleryWaterMark"
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -3043,10 +3066,10 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
+            //滤镜
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraFilter)
                 key = "GalleryFilter"
-                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

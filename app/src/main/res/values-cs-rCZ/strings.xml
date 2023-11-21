@@ -540,6 +540,9 @@
     <string name="enable_10_bit_image_support_summary">Povolení této funkce na některých modelech může způsobit, že se fotka zbarví dozelena</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Vodoznak</string>
+    <string name="enable_photo_view_thumb_line">Enable photo thumb line</string>
+    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
+    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
     <string name="enable_lns_cut_photo">Povolit vyříznutí části fotky</string>
     <string name="enable_watermark_editing">Povolit úpravy vodoznaků</string>
     <string name="replace_oneplus_model_watermark">Nahradit model vodoznaku OnePlus</string>
@@ -626,9 +629,9 @@
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">Odstranit plovoucí okno s ověřovacím kódem</string>
     <!--OplusPhone-->
-    <string name="force_display_five_g_switch">Force display of 5G switch</string>
-    <string name="force_display_preferred_network_type">Force display of preferred network type</string>
-    <string name="force_display_volte_calls">Force display of VoLTE calls</string>
+    <string name="force_display_five_g_switch">Vynutit zobrazení přepínače 5G</string>
+    <string name="force_display_preferred_network_type">Vynutit zobrazení preferovaného typu sítě</string>
+    <string name="force_display_volte_calls">Vynutit zobrazení VoLTE volání</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Odstranění reklam na spodní straně informačního toku o počasí</string>
     <string name="remove_ads_from_weather_page_summary">Vložením JS do stránky m.weathercn.com, aby se dosáhlo efektu blokování reklamy, se hodí funkce, které vyžadují prohlížeč, jako je počasí za posledních 15 dní, na které se přejde přes aplikaci počasí</string>

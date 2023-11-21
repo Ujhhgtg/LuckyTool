@@ -540,6 +540,9 @@
     <string name="enable_10_bit_image_support_summary">部分机型启用此功能可能会导致照片变绿</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">水印</string>
+    <string name="enable_photo_view_thumb_line">启用照片时间线</string>
+    <string name="enable_photo_editor_gif_synthesis">启用 Gif 合成</string>
+    <string name="enable_photo_listview_senior_picked">启用高级筛选</string>
     <string name="enable_lns_cut_photo">启用闪速抠图</string>
     <string name="enable_watermark_editing">启用水印编辑</string>
     <string name="replace_oneplus_model_watermark">替换 OnePlus 机型水印</string>

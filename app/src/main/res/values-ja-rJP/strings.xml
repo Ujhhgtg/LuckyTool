@@ -540,6 +540,9 @@
     <string name="enable_10_bit_image_support_summary">この機能を有効にすると、一部のモデルでは写真が緑色になる可能性があります</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">透かし</string>
+    <string name="enable_photo_view_thumb_line">Enable photo thumb line</string>
+    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
+    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
     <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <string name="enable_watermark_editing">透かしの編集を有効化</string>
     <string name="replace_oneplus_model_watermark">OnePlus モデルの透かしを置き換え</string>

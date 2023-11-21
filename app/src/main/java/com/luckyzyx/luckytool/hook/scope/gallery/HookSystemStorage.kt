@@ -17,10 +17,17 @@ import org.luckypray.dexkit.DexKitBridge
 class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
-        //启用水印编辑
+        //水印编辑
         val waterMark = prefs(ModulePrefs).getBoolean("enable_watermark_editing", false)
-        //启用闪速抠图
+        //闪速抠图
         val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
+        //时间线
+        val thumbLine = prefs(ModulePrefs).getBoolean("enable_photo_view_thumb_line", false)
+        //GIF合成
+        val gifSynthesis = prefs(ModulePrefs).getBoolean("enable_photo_editor_gif_synthesis", false)
+        //自由筛选
+        val seniorPicked =
+            prefs(ModulePrefs).getBoolean("enable_photo_listview_senior_picked", false)
 
         //Source OtherSystemStorage
         dexKitBridge.findClass {
@@ -55,6 +62,12 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             configNode.contains("feature_is_support_privacy_watermark") -> if (waterMark) resultTrue()
                             //debug.gallery.lns / os.graphic.gallery.photoview.lns
                             configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
+                            //debug.gallery.gif.support.synthesis / os.graphic.gallery.photoeditor.gif_synthesis
+                            configNode.contains("feature_is_support_gif_synthesis") -> if (gifSynthesis) resultTrue()
+                            //os.graphic.gallery.photolistview.senior_picked
+                            configNode.contains("feature_is_support_senior_picked") -> if (seniorPicked) resultTrue()
+                            //debug.gallery.photo.photothumbline / os.graphic.gallery.photoview.thumb_line
+                            configNode.contains("feature_is_support_photo_thumb_line") -> if (thumbLine) resultTrue()
                         }
                     }
                 }

@@ -541,6 +541,9 @@
     <string name="enable_10_bit_image_support_summary">Включение этой функции на некоторых моделях может привести к тому, что фото станет зеленым</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">Водяной знак</string>
+    <string name="enable_photo_view_thumb_line">Enable photo thumb line</string>
+    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
+    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
     <string name="enable_lns_cut_photo">Вырезать часть фото</string>
     <string name="enable_watermark_editing">Включить изменение водяного знака</string>
     <string name="replace_oneplus_model_watermark">Заменить водяной знак модели OnePlus</string>
