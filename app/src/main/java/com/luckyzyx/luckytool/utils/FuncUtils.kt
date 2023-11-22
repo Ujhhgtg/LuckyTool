@@ -134,7 +134,8 @@ fun getAppSet(prefsName: String, packName: String): Array<String> {
 fun Context.getDeviceInfo(
     controller: IGlobalFuncController? = null, isLog: Boolean = false
 ): String {
-    val systemVersion = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})[OS $getOSVersionName]"
+    val systemVersion =
+        "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT}) OS $getOSVersionName($getOSVersionCode)"
     return """
         ${getString(R.string.model)}: ${Build.BRAND} ${Build.MODEL}
         ${getString(R.string.market_name)}: ${controller?.marketName}
