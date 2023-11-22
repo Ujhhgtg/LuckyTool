@@ -23,9 +23,9 @@ class IChargerUtils(val classLoader: ClassLoader?) {
     }
 
     fun getInstance(): Any? {
-        return if (clazz.hasMethod { name = "getService";emptyParam() })
+        return if (clazz.hasMethod { name = "getService";emptyParam() }) {
             clazz.method { name = "getService";emptyParam() }.get().call()
-        else stub.method { name = "asInterface";param(IBinderClass) }.get().call(getService())
+        } else stub.method { name = "asInterface";param(IBinderClass) }.get().call(getService())
     }
 
     fun queryChargeInfo(ins: Any?): String? {

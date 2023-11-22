@@ -111,9 +111,10 @@ object LockScreenClock : YukiBaseHooker() {
                         val ins = it.buildInstance(context)
                         it.generateLunarDate(ins)
                     }
-                    if (hasField { name = "mTvTraditionalCalendar" }) field {
-                        name = "mTvTraditionalCalendar"
-                    }.get(instance).cast<TextView>()?.text = lunarInfo
+                    if (hasField { name = "mTvTraditionalCalendar" }) {
+                        field { name = "mTvTraditionalCalendar" }.get(instance).cast<TextView>()
+                            ?.text = lunarInfo
+                    }
                     resultNull()
                 }
             }
