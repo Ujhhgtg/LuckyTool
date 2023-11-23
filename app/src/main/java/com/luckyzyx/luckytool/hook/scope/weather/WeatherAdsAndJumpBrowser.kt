@@ -12,15 +12,15 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 import org.luckypray.dexkit.DexKitBridge
 
-class WeatherAdsAndJumpBrowser(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+class WeatherAdsAndJumpBrowser(private val appSet: Array<String>, val dexKitBridge: DexKitBridge) :
+    YukiBaseHooker() {
     override fun onHook() {
-        if (SDK >= A13) loadHooker(HookWeatherAdsAndJump)
+        val isNew = appSet[1].toIntOrNull()?.let { it >= 13000000 } ?: return
+        if (isNew) loadHooker(HookWeatherAdsAndJump)
         else loadHooker(HookWeatherAdsAndJumpC12(dexKitBridge))
     }
 
@@ -88,8 +88,8 @@ class WeatherAdsAndJumpBrowser(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                     }
                 }
             }
-            //Source MorningReminder -> Channel oppo.oplus.weather.morningWeather
-            "com.oplus.weather.morning.MorningReminder".toClass().apply {
+            //Source MorningReminder -> Channel oppo.oplus.weather.morningWeather C13.1
+            "com.oplus.weather.morning.MorningReminder".toClassOrNull()?.apply {
                 method {
                     param(weatherWrapper, ContextClass)
                     returnType(PendingIntentClass)
