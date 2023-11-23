@@ -544,8 +544,8 @@
     <string name="replace_oneplus_model_watermark">Nahradit model vodoznaku OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">Při úpravách vodoznaku bude [Shot On OnePlus] nahrazen upraveným modelem</string>
     <string name="GalleryView">Zobrazení</string>
-    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
-    <string name="set_photo_view_thumb_line_display_mode">Set photo view thumb line display mode</string>
+    <string name="enable_photo_listview_senior_picked">Povolit pokročilé filtrování</string>
+    <string name="set_photo_view_thumb_line_display_mode">Nastavit režim zobrazení miniatur snímků</string>
     <string name="GalleryEditor">Editor</string>
     <string name="enable_photo_editor_gif_synthesis">Povolit syntézu gif</string>
     <string name="enable_lns_cut_photo">Povolit vyříznutí části fotky</string>

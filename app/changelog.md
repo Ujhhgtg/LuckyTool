@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.5_beta
+### 1.1.5
 
 - [优化] 工程模式快捷跳转入口
 - [适配] 锁屏顶部图标 C14
@@ -23,6 +23,24 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [修复] 锁屏手电筒自动息屏异常 C14
 - [适配] 游戏助手V9.0.0
 - [修复] 天气晨间播报通知Hook异常 C13.0
+- [Optimize] Engineering mode quick jump entrance
+- [Fix] Lock screen top icon C14
+- [Change] Sync upstream DisableFLAG_SECURE
+- [Fix] Lock screen flashlight call exception C12 C13
+- [Change] Open calendar scope related functions C12
+- [Change] Open weather scope related functions C12
+- [Add] Force display to enable 5G
+- [Add] Force display of VoLTE HD calls
+- [Add] Force display of preferred network type
+- [Change] Control center date function key value and description
+- [Fix] Abnormal display of date horizontal screen status in Control Center
+- [Add] Enable advanced filtering of photo albums
+- [Add] Enable photo album GIF synthesis
+- [Add] Set photo thumb line display mode
+- [Change] Open album scope related functions C13
+- [Fix] Automatic screen lock screen flashlight abnormality C14
+- [Fix] Game Assistant V9.0.0
+- [Fix] Weather morning broadcast notification Hook exception C13.0
 
 ### 1.1.4
 

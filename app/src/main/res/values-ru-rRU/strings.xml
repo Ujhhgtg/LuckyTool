@@ -544,10 +544,10 @@
     <string name="enable_watermark_editing">Включить изменение водяного знака</string>
     <string name="replace_oneplus_model_watermark">Заменить водяной знак модели OnePlus</string>
     <string name="replace_oneplus_model_watermark_summary">При редактировании водяного знака [Снято на OnePlus] будет заменено выбранной моделью</string>
-    <string name="GalleryView">View</string>
-    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
-    <string name="set_photo_view_thumb_line_display_mode">Set photo view thumb line display mode</string>
-    <string name="GalleryEditor">Editor</string>
+    <string name="GalleryView">Просмотр</string>
+    <string name="enable_photo_listview_senior_picked">Включить просмотр списка фото</string>
+    <string name="set_photo_view_thumb_line_display_mode">Установить режим отображения миниатюры изображения</string>
+    <string name="GalleryEditor">Редактор</string>
     <string name="enable_photo_editor_gif_synthesis">Включить синтез GIF</string>
     <string name="enable_lns_cut_photo">Вырезать часть фото</string>
     <!--OplusGames-->
