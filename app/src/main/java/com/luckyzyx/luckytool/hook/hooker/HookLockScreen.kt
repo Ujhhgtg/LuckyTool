@@ -37,22 +37,18 @@ object HookLockScreen : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("hide_lock_screen_status_bar_display", false)) {
             loadHooker(HideLockScreenStatusBarDisplay)
         }
-
         //移除SOS紧急联络按钮
         if (prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_sos_button", false)) {
             if (SDK >= A13) loadHooker(RemoveLockScreenBottomSOSButton)
         }
-
         //移除锁屏顶部图标
         if (prefs(ModulePrefs).getBoolean("remove_top_lock_screen_icon", false)) {
             loadHooker(RemoveTopLockScreenIcon)
         }
-
         //移除锁屏关闭通知按钮
         if (prefs(ModulePrefs).getBoolean("remove_lock_screen_close_notification_button", false)) {
             loadHooker(RemoveLockScreenCloseNotificationButton)
         }
-
         //移除息屏音乐白名单
         if (prefs(ModulePrefs).getBoolean("remove_aod_music_whitelist", false)) {
             if (SDK >= A13) loadHooker(RemoveAodMusicWhitelist)

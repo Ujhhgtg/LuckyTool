@@ -28,12 +28,12 @@ object LockScreenBottomButton : YukiBaseHooker() {
 
     object LockScreenBottomButton : YukiBaseHooker() {
         override fun onHook() {
-            var leftButton =
+            var rmLeft =
                 prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_left_button", false)
-            dataChannel.wait<Boolean>("remove_lock_screen_bottom_left_button") { leftButton = it }
-            var rightButton =
+            dataChannel.wait<Boolean>("remove_lock_screen_bottom_left_button") { rmLeft = it }
+            var rmRight =
                 prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_right_camera", false)
-            dataChannel.wait<Boolean>("remove_lock_screen_bottom_right_camera") { rightButton = it }
+            dataChannel.wait<Boolean>("remove_lock_screen_bottom_right_camera") { rmRight = it }
             var autoCloseScreen = prefs(ModulePrefs).getBoolean(
                 "lock_screen_switch_flashlight_auto_close_screen", false
             )
@@ -45,32 +45,28 @@ object LockScreenBottomButton : YukiBaseHooker() {
             "com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder".toClass().apply {
                 method { name = "updateButton" }.hook {
                     before {
-                        if ((leftButton || rightButton).not()) return@before
-                        val view = args().first().cast<View>() ?: return@before
-                        when (safeOfNull { view.resources.getResourceEntryName(view.id) }) {
-                            "start_button" -> if (leftButton) {
-                                view.isVisible = false
-                                resultNull()
+                        val viewModel = args(1).any() ?: return@before
+                        when (viewModel.current().field { name = "slotId" }.string()) {
+                            "bottom_start" -> if (rmLeft) {
+                                viewModel.current().method { name = "setVisible" }.call(false)
                             }
 
-                            "end_button" -> if (rightButton) {
-                                view.isVisible = false
-                                resultNull()
+                            "bottom_end" -> if (rmRight) {
+                                viewModel.current().method { name = "setVisible" }.call(false)
                             }
                         }
                     }
                 }
             }
 
-            //Source KeyguardQuickAffordanceInteractor
-            "com.android.systemui.keyguard.domain.interactor.KeyguardQuickAffordanceInteractor".toClass()
+            //Source OplusFlashlightQuickAffordanceConfig
+            "com.oplus.systemui.keyguard.data.quickaffordance.OplusFlashlightQuickAffordanceConfig".toClass()
                 .apply {
-                    method { name = "onQuickAffordanceTriggered" }.hook {
+                    method { name = "onTriggered" }.hook {
                         after {
-                            if (leftButton || !autoCloseScreen) return@after
-                            val context =
-                                field { name = "appContext" }.get(instance).cast<Context>()
-                                    ?: return@after
+                            if (rmLeft || !autoCloseScreen) return@after
+                            val context = field { name = "context";superClass() }.get(instance)
+                                .cast<Context>() ?: return@after
                             closeScreen(context)
                         }
                     }
@@ -81,13 +77,13 @@ object LockScreenBottomButton : YukiBaseHooker() {
     object LockScreenBottomButtonC13 : YukiBaseHooker() {
         override fun onHook() {
             //affordance_magazine
-            var leftButton =
+            var rmLeft =
                 prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_left_button", false)
-            dataChannel.wait<Boolean>("remove_lock_screen_bottom_left_button") { leftButton = it }
+            dataChannel.wait<Boolean>("remove_lock_screen_bottom_left_button") { rmLeft = it }
             //affordance_camera
-            var rightButton =
+            var rmRight =
                 prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_right_camera", false)
-            dataChannel.wait<Boolean>("remove_lock_screen_bottom_right_camera") { rightButton = it }
+            dataChannel.wait<Boolean>("remove_lock_screen_bottom_right_camera") { rmRight = it }
 
             //affordance_flashlight
             var useFlashLight = prefs(ModulePrefs).getBoolean(
@@ -133,7 +129,7 @@ object LockScreenBottomButton : YukiBaseHooker() {
                 }
                 method { name = "updateLeftAffordanceVisibility" }.hook {
                     after {
-                        if (leftButton) {
+                        if (rmLeft) {
                             field { name = "mLeftAffordanceView";superClass() }.get(instance)
                                 .cast<View>()?.isVisible = false
                             return@after
@@ -160,7 +156,7 @@ object LockScreenBottomButton : YukiBaseHooker() {
                 }
                 method { name = "updateCameraVisibility" }.hook {
                     before {
-                        if (!rightButton) return@before
+                        if (!rmRight) return@before
                         field { name = "mRightAffordanceView";superClass() }.get(instance)
                             .cast<ImageView>()?.isVisible = false
                         resultNull()
