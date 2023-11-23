@@ -8,8 +8,20 @@ import com.highcapable.yukihookapi.hook.type.java.UnitType
 
 object RemoveWelfarePage : YukiBaseHooker() {
     override fun onHook() {
+        val mainPanelView = "business.mainpanel.MainPanelView".toClassOrNull()
+        if (mainPanelView == null) {
+            "business.mainpanel.main.MainPanelFragment".toClass().apply {
+                method { name = "addRadioButton" }.hook {
+                    before {
+                        if (args().first().string() == "welfare") resultNull()
+                    }
+                }
+            }
+            return
+        }
+
         //Source MainPanelView
-        "business.mainpanel.MainPanelView".toClass().apply {
+        mainPanelView.apply {
             method {
                 param { it[0] == ListClass && it[1] == BooleanType }
                 paramCount(2..3)

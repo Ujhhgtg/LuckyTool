@@ -8,7 +8,7 @@ import com.highcapable.yukihookapi.hook.type.java.UnitType
 object RemoveToolRecommendationCard : YukiBaseHooker() {
     override fun onHook() {
         //Source ToolsRecommendCardLayout
-        "business.module.toolsrecommend.ToolsRecommendCardLayout".toClass().apply {
+        "business.module.toolsrecommend.ToolsRecommendCardLayout".toClassOrNull()?.apply {
             method { param(ListClass);returnType = UnitType }.hook {
                 before {
                     args().first().set(ArrayList<Any>())

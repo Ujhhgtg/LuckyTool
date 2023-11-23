@@ -35,7 +35,6 @@ object HookOplusGames : YukiBaseHooker() {
                 if (prefs(ModulePrefs).getBoolean("enable_support_competition_mode", false)) {
                     loadHooker(EnableSupportCompetitionMode(dexKitBridge))
                 }
-
                 //移除赛事模式音效
                 if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
                     loadHooker(CompetitionModeSound(dexKitBridge))
@@ -45,7 +44,7 @@ object HookOplusGames : YukiBaseHooker() {
             //自定义媒体播放器支持
             loadHooker(CustomMediaPlayerSupport)
 
-            //简洁页面
+            //移除启动动画
             if (prefs(ModulePrefs).getBoolean("remove_startup_animation", false)) {
                 loadHooker(RemoveStartupAnimation)
             }

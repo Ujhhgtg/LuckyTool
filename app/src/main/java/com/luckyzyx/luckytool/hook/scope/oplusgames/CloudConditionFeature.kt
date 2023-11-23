@@ -36,16 +36,53 @@ class CloudConditionFeature(private val appSet: Array<String>, val dexKitBridge:
             //Source SuperResolutionHelper
             val superResolution =
                 prefs(ModulePrefs).getBoolean("enable_super_resolution_feature", false)
+            //Source CoolingBackClipHelper
+            val xMode = prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)
 
+            val companion = "com.oplus.addon.OplusFeatureHelper\$Companion".toClassOrNull()
+            if (companion == null) {
+                //Source OplusFeatureHelper
+                "com.oplus.addon.OplusFeatureHelper".toClass().apply {
+                    method { param(StringClass, BooleanType);returnType = BooleanType }.hook {
+                        after {
+                            when (args().first().string()) {
+                                //feature -> isSupportFrameInsert
+                                "oplus.software.display.game.memc_enable" -> if (pickleFeature || fpsFeature || powerFeature) resultTrue()
+                                //插帧pickleFeature -> isSupportUniqueFrameInsert
+                                "oplus.software.display.game.memc_increase_fps_limit_mode" -> if (pickleFeature) resultTrue()
+                                //提升帧率feature -> isSupportIncreaseFps
+                                "oplus.software.display.game.memc_increase_fps_mode" -> if (fpsFeature) resultTrue()
+                                //优化功耗feature -> isSupportOptimisePower
+                                "oplus.software.display.game.memc_optimise_power_mode" -> if (powerFeature) resultTrue()
+                                //GPU控制器 -> isSupportGpuControl
+                                "oplus.gpu.controlpanel.support" -> if (gpuControl) resultTrue()
+                                //GT模式 -> isSupportGtMode
+                                "oplus.software.support.gt.mode" -> if (gtMode) resultTrue()
+                                //超级分辨率 -> issupportSupperResolution
+                                "oplus.software.display.game.sr_enable" -> if (superResolution) resultTrue()
+                                //全超分辨率 -> isSupportFullSupperResolution
+                                "oplus.software.display.game.sr.fully_enable" -> if (superResolution) resultTrue()
+                                //X模式 -> isSupportBackClipFull
+                                "oplus.software.general.cooling.back.clip.enable" -> if (xMode) resultTrue()
+//                            //isSupportBackClipFull
+//                            "oplus.software.general.cooling.back.clip.enable" -> {
+//                                loggerD(msg = "isSupportBackClipFull")
+//                                resultFalse()
+//                            }
+//                            //极客性能面板 -> isSupportCpuSettingExtension
+//                            "oplus.software.performance_setting_extension" -> resultTrue()
+
+                            }
+                        }
+                    }
+                }
+                return
+            }
             //Source OplusFeatureHelper
             "com.oplus.addon.OplusFeatureHelper\$Companion".toClass().apply {
-                method {
-                    param { it[1] == StringClass && it[2] == BooleanType && it[3] == IntType && it[4] == AnyClass }
-                    paramCount = 5
-                    returnType = BooleanType
-                }.hook {
+                method { param(StringClass, BooleanType);returnType = BooleanType }.hook {
                     after {
-                        when (args(1).string()) {
+                        when (args().first().string()) {
                             //feature -> isSupportFrameInsert
                             "oplus.software.display.game.memc_enable" -> if (pickleFeature || fpsFeature || powerFeature) resultTrue()
                             //插帧pickleFeature -> isSupportUniqueFrameInsert
@@ -62,6 +99,8 @@ class CloudConditionFeature(private val appSet: Array<String>, val dexKitBridge:
                             "oplus.software.display.game.sr_enable" -> if (superResolution) resultTrue()
                             //全超分辨率 -> isSupportFullSupperResolution
                             "oplus.software.display.game.sr.fully_enable" -> if (superResolution) resultTrue()
+                            //X模式 -> isSupportBackClipFull
+                            "oplus.software.general.cooling.back.clip.enable" -> if (xMode) resultTrue()
 //                            //isSupportBackClipFull
 //                            "oplus.software.general.cooling.back.clip.enable" -> {
 //                                loggerD(msg = "isSupportBackClipFull")
