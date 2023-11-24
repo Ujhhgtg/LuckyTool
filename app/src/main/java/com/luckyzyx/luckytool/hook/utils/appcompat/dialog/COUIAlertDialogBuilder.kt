@@ -55,91 +55,91 @@ class COUIAlertDialogBuilder {
         }
     }
 
-    fun Any.setTitle(charSequence: CharSequence): Any? {
-        return this.current().method {
+    fun setTitle(charSequence: CharSequence) {
+        if (builder != null) builder!!.current().method {
             name = "setTitle"
             param(CharSequenceClass)
         }.call(charSequence)
     }
 
-    fun Any.setTitle(int: Int): Any? {
-        return this.current().method {
+    fun setTitle(int: Int) {
+        if (builder != null) builder!!.current().method {
             name = "setTitle"
             param(IntType)
         }.call(int)
     }
 
-    fun Any.setMessage(charSequence: CharSequence): Any? {
-        return this.current().method {
+    fun setMessage(charSequence: CharSequence) {
+        if (builder != null) builder!!.current().method {
             name = "setMessage"
             param(CharSequenceClass)
         }.call(charSequence)
     }
 
-    fun Any.setMessage(int: Int): Any? {
-        return this.current().method {
+    fun setMessage(int: Int) {
+        if (builder != null) builder!!.current().method {
             name = "setMessage"
             param(IntType)
         }.call(int)
     }
 
-    fun Any.setPositiveButton(
+    fun setPositiveButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
-    ): Any? {
-        return this.current().method {
+    ) {
+        if (builder != null) builder!!.current().method {
             name = "setPositiveButton"
             param(CharSequenceClass, DialogInterface_OnClickListenerClass)
         }.call(charSequence, onClickListener)
     }
 
-    fun Any.setPositiveButton(int: Int, onClickListener: DialogInterface.OnClickListener?): Any? {
-        return this.current().method {
+    fun setPositiveButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
+        if (builder != null) builder!!.current().method {
             name = "setPositiveButton"
             param(IntType, DialogInterface_OnClickListenerClass)
         }.call(int, onClickListener)
     }
 
-    fun Any.setNeutralButton(
+    fun setNeutralButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
-    ): Any? {
-        return this.current().method {
+    ) {
+        if (builder != null) builder!!.current().method {
             name = "setNeutralButton"
             param(CharSequenceClass, DialogInterface_OnClickListenerClass)
         }.call(charSequence, onClickListener)
     }
 
-    fun Any.setNeutralButton(int: Int, onClickListener: DialogInterface.OnClickListener?): Any? {
-        return this.current().method {
+    fun setNeutralButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
+        if (builder != null) builder!!.current().method {
             name = "setNeutralButton"
             param(IntType, DialogInterface_OnClickListenerClass)
         }.call(int, onClickListener)
     }
 
-    fun Any.setNegativeButton(
+    fun setNegativeButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
-    ): Any? {
-        return this.current().method {
+    ) {
+        if (builder != null) builder!!.current().method {
             name = "setNegativeButton"
             param(CharSequenceClass, DialogInterface_OnClickListenerClass)
         }.call(charSequence, onClickListener)
     }
 
-    fun Any.setNegativeButton(int: Int, onClickListener: DialogInterface.OnClickListener?): Any? {
-        return this.current().method {
+    fun setNegativeButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
+        if (builder != null) builder!!.current().method {
             name = "setNegativeButton"
             param(IntType, DialogInterface_OnClickListenerClass)
         }.call(int, onClickListener)
     }
 
-    fun Any.setView(int: Int): Any? {
-        return this.current().method {
+    fun setView(int: Int) {
+        if (builder != null) builder!!.current().method {
             name = "setView"
             param(IntType)
         }.call(int)
     }
 
-    fun Any.setView(view: View): Any? {
-        return this.current().method {
+    fun setView(view: View) {
+        if (builder != null) builder!!.current().method {
             name = "setView"
             param(ViewClass)
         }.call(view)

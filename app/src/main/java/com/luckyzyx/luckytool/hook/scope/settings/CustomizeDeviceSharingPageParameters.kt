@@ -21,8 +21,7 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
                 after {
                     val activity = instance<Activity>()
                     val shareViewId = activity.resources.getIdentifier(
-                        "share_view", "id",
-                        this@CustomizeDeviceSharingPageParameters.packageName
+                        "share_view", "id", this@CustomizeDeviceSharingPageParameters.packageName
                     ).takeIf { it != 0 } ?: return@after
                     val shareView = activity.findViewById<ViewGroup>(shareViewId) ?: return@after
                     shareView.children.forEach {
@@ -44,18 +43,17 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
 
     private fun TextView.setClickInfo() {
         setOnClickListener {
+            var editText: EditText? = null
+            var dialog: Any? = null
             COUIAlertDialogBuilder(context, "COUIAlertDialog.SingleInput", appClassLoader).apply {
-                var editText: EditText? = null
-                var dialog: Any? = null
-                dialog = builder?.apply {
-                    setTitle(text)
-                    setNegativeButton(android.R.string.cancel, null)
-                    setPositiveButton(android.R.string.ok) { _, _ ->
-                        val newText = editText?.text as CharSequence
-                        if (newText.isNotBlank()) text = newText
-                        dialog?.dismiss()
-                    }
-                }?.show()
+                setTitle(text)
+                setNegativeButton(android.R.string.cancel, null)
+                setPositiveButton(android.R.string.ok) { _, _ ->
+                    val newText = editText?.text as CharSequence
+                    if (newText.isNotBlank()) text = newText
+                    dialog?.dismiss()
+                }
+                dialog = builder?.show()
                 editText = dialog?.getEditText("edit_text_1")
                 editText?.setText(text)
             }
