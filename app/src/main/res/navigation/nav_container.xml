@@ -239,8 +239,15 @@
                 app:popEnterAnim="@anim/fragment_enter_pop"
                 app:popExitAnim="@anim/fragment_exit_pop" />
         <action
-                android:id="@+id/action_nav_function_to_oplusPhone"
-                app:destination="@id/oplusPhone"
+                android:id="@+id/action_nav_function_to_oplusTeleService"
+                app:destination="@id/oplusTeleService"
+                app:enterAnim="@anim/fragment_enter"
+                app:exitAnim="@anim/fragment_exit"
+                app:popEnterAnim="@anim/fragment_enter_pop"
+                app:popExitAnim="@anim/fragment_exit_pop" />
+        <action
+                android:id="@+id/action_nav_function_to_oplusPhoneManager"
+                app:destination="@id/oplusPhoneManager"
                 app:enterAnim="@anim/fragment_enter"
                 app:exitAnim="@anim/fragment_exit"
                 app:popEnterAnim="@anim/fragment_enter_pop"
@@ -586,8 +593,12 @@
             android:name="com.luckyzyx.luckytool.ui.fragment.OplusSmartSidebar"
             android:label="{title_label}" />
     <fragment
-            android:id="@+id/oplusPhone"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusPhone"
+            android:id="@+id/oplusTeleService"
+            android:name="com.luckyzyx.luckytool.ui.fragment.OplusTeleService"
+            android:label="{title_label}" />
+    <fragment
+            android:id="@+id/oplusPhoneManager"
+            android:name="com.luckyzyx.luckytool.ui.fragment.OplusPhoneManager"
             android:label="{title_label}" />
 
 </navigation>

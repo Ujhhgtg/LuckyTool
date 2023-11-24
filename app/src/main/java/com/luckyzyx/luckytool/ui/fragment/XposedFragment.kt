@@ -260,7 +260,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
-            //Phone
+            //TeleService
             Preference(context).apply {
                 key = "com.android.phone"
                 setPrefsIconRes(key) { resource, show ->
@@ -274,7 +274,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 )
                 isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_nav_function_to_oplusPhone, title)
+                    navigatePage(R.id.action_nav_function_to_oplusTeleService, title)
                     true
                 }
             },
@@ -557,6 +557,24 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusSmartSidebar, title)
+                    true
+                }
+            },
+            //PhoneManager
+            Preference(context).apply {
+                key = "com.coloros.phonemanager"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_secure_pay_found_virus_dialog),
+                    getString(R.string.remove_virus_risk_notification_in_phone_manager)
+                )
+                isVisible = context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusPhoneManager, title)
                     true
                 }
             },

@@ -41,6 +41,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookPictorial
 import com.luckyzyx.luckytool.hook.hooker.HookQuickSearchBox
 import com.luckyzyx.luckytool.hook.hooker.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hooker.HookScreenshot
+import com.luckyzyx.luckytool.hook.hooker.HookSecurePay
 import com.luckyzyx.luckytool.hook.hooker.HookSettings
 import com.luckyzyx.luckytool.hook.hooker.HookSmartSidebar
 import com.luckyzyx.luckytool.hook.hooker.HookStatusBar
@@ -98,10 +99,10 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.android.systemui", StatusBarNetWorkSpeed)
         //状态栏通知
         loadApp("com.android.systemui", StatusBarNotify)
-        loadApp("com.coloros.phonemanager", HookPhoneManager)
 
         //状态栏通知限制
         loadApp("com.android.systemui", StatusBarNotifiyLimit)
+        //通知管理
         loadApp("com.oplus.notificationmanager", HookNotificationManager)
 
         //状态栏图标
@@ -138,9 +139,7 @@ object MainHook : IYukiHookXposedInit {
         //应用安装器
         loadApp("com.android.packageinstaller", HookPackageInstaller)
         //对话框相关
-        loadApp("com.android.systemui", "com.coloros.securepay") {
-            loadHooker(HookDialogRelated)
-        }
+        loadApp("com.android.systemui", HookDialogRelated)
         //全面屏手势相关
         loadApp("com.android.systemui", HookGestureRelated)
         //指纹相关
@@ -196,6 +195,10 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.coloros.calendar", HookCalendar)
         //智能侧边栏
         loadApp("com.coloros.smartsidebar", HookSmartSidebar)
+        //手机管家
+        loadApp("com.coloros.phonemanager", HookPhoneManager)
+        //支付保护
+        loadApp("com.coloros.securepay", HookSecurePay)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

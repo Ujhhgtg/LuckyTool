@@ -3,6 +3,11 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.6_beta
+
+- [更改] 音量对话框相关功能移至声音分区
+- [更改] 新建手机管家功能分区
+
 ### 1.1.5
 
 - [优化] 工程模式快捷跳转入口

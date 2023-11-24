@@ -660,12 +660,6 @@ class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_virus_risk_notification_in_phone_manager)
-                key = "remove_virus_risk_notification_in_phone_manager"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_gt_mode_notification)
                 key = "remove_gt_mode_notification"
                 setDefaultValue(false)
@@ -2331,9 +2325,7 @@ class Application : BaseScopePreferenceFeagment() {
 }
 
 class DialogRelated : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf(
-        "com.android.systemui", "com.oplus.exsystemservice", "com.coloros.securepay"
-    )
+    override val scopes = arrayOf("com.android.systemui", "com.oplus.exsystemservice")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -2346,13 +2338,6 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 isVisible = getOSVersionCode >= 26
                 isIconSpaceReserved = false
 
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.disable_headphone_high_volume_warning)
-                summary = getString(R.string.disable_headphone_high_volume_warning_summary)
-                key = "disable_headphone_high_volume_warning"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_low_battery_dialog_warning)
@@ -2368,43 +2353,13 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_secure_pay_found_virus_dialog)
-                key = "remove_secure_pay_found_virus_dialog"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_access_device_log_dialog)
                 key = "remove_access_device_log_dialog"
                 setDefaultValue(false)
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
-            })
-            addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.set_volume_bar_display_position)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "set_volume_bar_display_position"
-                entries = resources.getStringArray(R.array.set_volume_bar_display_position_entries)
-                entryValues = arrayOf("0", "1", "2")
-                setDefaultValue("0")
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SeekBarPreference(context).apply {
-                title = getString(R.string.custom_volume_dialog_background_transparency)
-                summary = getString(R.string.force_enable_systemui_blur_feature_tips)
-                key = "custom_volume_dialog_background_transparency"
-                setDefaultValue(-1)
-                max = 10
-                min = -1
-                showSeekBarValue = true
-                updatesContinuously = false
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
-                    true
-                }
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.reduce_power_menu_display_delay)
@@ -2480,6 +2435,13 @@ class SoundRelated : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_headphone_high_volume_warning)
+                summary = getString(R.string.disable_headphone_high_volume_warning_summary)
+                key = "disable_headphone_high_volume_warning"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             addPreference(SeekBarPreference(context).apply {
                 title = getString(R.string.media_volume_level)
                 summary = getString(R.string.media_volume_level_summary)
@@ -2522,6 +2484,31 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = osCode >= 28
                 isIconSpaceReserved = false
+            })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_volume_bar_display_position)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "set_volume_bar_display_position"
+                entries = resources.getStringArray(R.array.set_volume_bar_display_position_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SeekBarPreference(context).apply {
+                title = getString(R.string.custom_volume_dialog_background_transparency)
+                summary = getString(R.string.force_enable_systemui_blur_feature_tips)
+                key = "custom_volume_dialog_background_transparency"
+                setDefaultValue(-1)
+                max = 10
+                min = -1
+                showSeekBarValue = true
+                updatesContinuously = false
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    true
+                }
             })
         }
     }
@@ -3421,7 +3408,7 @@ class OplusMMS : BaseScopePreferenceFeagment() {
     override fun isEnableRestartMenu(): Boolean = true
 }
 
-class OplusPhone : BaseScopePreferenceFeagment() {
+class OplusTeleService : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.phone")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -3829,6 +3816,29 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
                 key = "unlock_fluid_cloud"
                 setDefaultValue(false)
                 isVisible = false//SDK >= A13
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}
+
+class OplusPhoneManager : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.coloros.phonemanager", "com.coloros.securepay")
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_virus_risk_notification_in_phone_manager)
+                key = "remove_virus_risk_notification_in_phone_manager"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_secure_pay_found_virus_dialog)
+                key = "remove_secure_pay_found_virus_dialog"
+                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
         }
