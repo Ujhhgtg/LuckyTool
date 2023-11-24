@@ -12,8 +12,10 @@ import com.luckyzyx.luckytool.utils.SDK
 
 object StatusBarTile : YukiBaseHooker() {
     override fun onHook() {
-        //磁贴长按事件
-        loadHooker(LongPressTileOpenThePage)
+        //磁贴长按跳转事件
+        if (prefs(ModulePrefs).getBoolean("restore_some_tile_long_press_event", false)) {
+            if (SDK == A13) loadHooker(LongPressTileOpenThePage)
+        }
 
         //媒体播放器
         if (SDK >= A13) loadHooker(MediaPlayerPanel)

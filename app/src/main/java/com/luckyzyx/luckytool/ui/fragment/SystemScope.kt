@@ -1095,6 +1095,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //媒体播放器
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.MediaPlayer)
                 key = "MediaPlayer"
@@ -1140,23 +1141,21 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 ) == "1"
                 isIconSpaceReserved = false
             })
-
-            //磁贴长按事件
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.TileLongClickEvent)
-                key = "TileLongClickEvent"
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.restore_some_tile_long_press_event)
-                summary = getString(R.string.restore_some_tile_long_press_event_summary)
-                key = "restore_some_tile_long_press_event"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-
+            if (SDK == A13) {
+                //磁贴长按事件
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.TileLongClickEvent)
+                    key = "TileLongClickEvent"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.restore_some_tile_long_press_event)
+                    summary = getString(R.string.restore_some_tile_long_press_event_summary)
+                    key = "restore_some_tile_long_press_event"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //磁贴布局相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.TileLayoutRelated)
