@@ -211,10 +211,7 @@ object MediaPlayerPanel : YukiBaseHooker() {
     }
 
     fun getMediaData(): Any? {
-        val mediaDataInstance = MediaPlayerDataUtils(appClassLoader)
-        val mediaPlayerData = mediaDataInstance.getMediaPlayerData()
-        val firstActiveMediaKey = mediaDataInstance.getFirstActiveMediaSortKey(mediaPlayerData)
-        return mediaDataInstance.getMediaData(mediaPlayerData, firstActiveMediaKey)
+        return MediaPlayerDataUtils(appClassLoader).checkMediaDataStatus()
     }
 
     fun Any.connectSet(startId: Int, startSide: Int, endId: Int, endSide: Int, margin: Int) {

@@ -14,11 +14,11 @@ class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
         "com.oplus.systemui.media.OplusMediaControllerImpl\$MediaPlayerData"  //C14
     ).toClass(classLoader)
 
-    fun getMediaPlayerData(): Any? {
+    private fun getMediaPlayerData(): Any? {
         return clazz.field { name = "INSTANCE" }.get().any()
     }
 
-    fun getFirstActiveMediaSortKey(mediaPlayerData: Any?): Any? {
+    private fun getFirstActiveMediaSortKey(mediaPlayerData: Any?): Any? {
         if (mediaPlayerData == null) return null
         val isSortKey = mediaPlayerData.javaClass.hasMethod { name = "getFirstActiveMediaSortKey" }
         return mediaPlayerData.current().method {
@@ -26,7 +26,7 @@ class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
         }.call()
     }
 
-    fun getMediaData(mediaPlayerData: Any?, firstActiveMediaSortKey: Any?): Any? {
+    private fun getMediaData(mediaPlayerData: Any?, firstActiveMediaSortKey: Any?): Any? {
         if (mediaPlayerData == null || firstActiveMediaSortKey == null) return null
         val isGetMediaKey = mediaPlayerData.javaClass.hasMethod { name = "getMediaDataKey" }
         if (isGetMediaKey) mediaPlayerData.current().method {
@@ -36,5 +36,11 @@ class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
             name = "getData";emptyParam()
         }.call()
         return getData
+    }
+
+    fun checkMediaDataStatus(): Any? {
+        val mediaPlayerData = getMediaPlayerData()
+        val firstActiveMediaKey = getFirstActiveMediaSortKey(mediaPlayerData)
+        return getMediaData(mediaPlayerData, firstActiveMediaKey)
     }
 }

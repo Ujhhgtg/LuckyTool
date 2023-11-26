@@ -1125,7 +1125,9 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 )
                 key = "auto_expand_tile_rows_horizontal"
                 setDefaultValue(false)
-                isVisible = SDK >= A14
+                isVisible = SDK >= A14 && context.getString(
+                    ModulePrefs, "set_media_player_display_mode", "0"
+                ) != "0"
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     context.dataChannel("com.android.systemui").put(key, newValue)

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -62,7 +63,7 @@ object ControlCenterTiles : YukiBaseHooker() {
                                 when (mediaMode) {
                                     "2" -> 2
                                     "3" -> {
-                                        if (MediaPlayerPanel.getMediaData() == null) 2
+                                        if (MediaPlayerDataUtils(appClassLoader).checkMediaDataStatus() == null) 2
                                         else return@getScreenOrientation
                                     }
 
