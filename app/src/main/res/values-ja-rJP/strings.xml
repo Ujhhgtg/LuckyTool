@@ -305,6 +305,7 @@
     <!--LockScreen-->
     <string name="LockScreen">ロック画面関連</string>
     <string name="LockScreenClockComponent">ロック画面の時計コンポーネント</string>
+    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
     <string name="lock_screen_clock_redone_mode">ロック画面時計の赤い「1」表示</string>
     <string name="apply_lock_screen_dual_clock_redone">ロック画面のデュアル時計に適用</string>
     <string name="lock_screen_custom_clock_component_style">ロック画面の時計コンポーネントのスタイルを編集</string>

@@ -305,6 +305,7 @@
     <!--LockScreen-->
     <string name="LockScreen">Màn hình khóa</string>
     <string name="LockScreenClockComponent">Thành phần đồng hồ màn hình khóa</string>
+    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
     <string name="lock_screen_clock_redone_mode">Đồng hồ khóa màn hình màu đỏ một chế độ</string>
     <string name="apply_lock_screen_dual_clock_redone">Áp dụng cho màn hình khóa đồng hồ kép</string>
     <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>

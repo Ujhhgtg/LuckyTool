@@ -1849,67 +1849,82 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 key = "LockScreenClockComponent"
                 isIconSpaceReserved = false
             })
-            addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.lock_screen_clock_redone_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "lock_screen_clock_redone_mode"
-                entries =
-                    resources.getStringArray(R.array.statusbar_control_center_clock_red_one_mode_entries)
-                entryValues = arrayOf("0", "1", "2")
-                setDefaultValue("0")
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
-                    true
-                }
-            })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.apply_lock_screen_dual_clock_redone)
-                key = "apply_lock_screen_dual_clock_redone"
+                title = getString(R.string.remove_lock_screen_clock_component)
+                key = "remove_lock_screen_clock_component"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     context.dataChannel("com.android.systemui").put(key, newValue)
-                    true
-                }
-            })
-            addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.lock_screen_custom_clock_component_style)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "lock_screen_custom_clock_component_style"
-                entries =
-                    resources.getStringArray(R.array.lock_screen_custom_clock_component_style_entries)
-                entryValues = arrayOf("0", "1", "2")
-                setDefaultValue("0")
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, _ ->
                     (activity as MainActivity).restart()
                     true
                 }
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.force_display_clock_style_options)
-                summary = getString(R.string.force_display_clock_style_options_summary)
-                key = "force_display_clock_style_options"
-                setDefaultValue(false)
-                isVisible = context.getString(
-                    ModulePrefs, "lock_screen_custom_clock_component_style", "0"
-                ) == "1"
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.set_lock_screen_centered)
-                summary = getString(R.string.set_lock_screen_centered_summary)
-                key = "set_lock_screen_centered"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.lock_screen_clock_use_user_typeface)
-                key = "lock_screen_clock_use_user_typeface"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (
+                context.getBoolean(ModulePrefs, "remove_lock_screen_clock_component", false).not()
+            ) {
+                addPreference(DropDownPreference(context).apply {
+                    title = getString(R.string.lock_screen_clock_redone_mode)
+                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    key = "lock_screen_clock_redone_mode"
+                    entries =
+                        resources.getStringArray(R.array.statusbar_control_center_clock_red_one_mode_entries)
+                    entryValues = arrayOf("0", "1", "2")
+                    setDefaultValue("0")
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        true
+                    }
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.apply_lock_screen_dual_clock_redone)
+                    key = "apply_lock_screen_dual_clock_redone"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        true
+                    }
+                })
+                addPreference(DropDownPreference(context).apply {
+                    title = getString(R.string.lock_screen_custom_clock_component_style)
+                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    key = "lock_screen_custom_clock_component_style"
+                    entries =
+                        resources.getStringArray(R.array.lock_screen_custom_clock_component_style_entries)
+                    entryValues = arrayOf("0", "1", "2")
+                    setDefaultValue("0")
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.force_display_clock_style_options)
+                    summary = getString(R.string.force_display_clock_style_options_summary)
+                    key = "force_display_clock_style_options"
+                    setDefaultValue(false)
+                    isVisible = context.getString(
+                        ModulePrefs, "lock_screen_custom_clock_component_style", "0"
+                    ) == "1"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.set_lock_screen_centered)
+                    summary = getString(R.string.set_lock_screen_centered_summary)
+                    key = "set_lock_screen_centered"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.lock_screen_clock_use_user_typeface)
+                    key = "lock_screen_clock_use_user_typeface"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //充电组件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.LockScreenChargingComponent)

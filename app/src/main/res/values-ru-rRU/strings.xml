@@ -305,6 +305,7 @@
     <!--LockScreen-->
     <string name="LockScreen">Экран блокировки</string>
     <string name="LockScreenClockComponent">Часы на экране блокировки</string>
+    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
     <string name="lock_screen_clock_redone_mode">Красные часы на экране блокировки</string>
     <string name="apply_lock_screen_dual_clock_redone">Применить к двойным часам на экране блокировки</string>
     <string name="lock_screen_custom_clock_component_style">Настройка стиля компонента часов на экране блокировки</string>

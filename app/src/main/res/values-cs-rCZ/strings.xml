@@ -305,6 +305,7 @@
     <!--LockScreen-->
     <string name="LockScreen">Zamykací obrazovka</string>
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
+    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
     <string name="lock_screen_clock_redone_mode">Režim červené jedničky na zamykací obrazovce</string>
     <string name="apply_lock_screen_dual_clock_redone">Použít na dolní hodiny na uzamčené obrazovce</string>
     <string name="lock_screen_custom_clock_component_style">Přizpůsobit styl součásti hodin na zamykací obrazovce</string>

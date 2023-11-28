@@ -340,6 +340,7 @@
     <string name="LockScreen">Lockscreen Related</string>
     
     <string name="LockScreenClockComponent">Lock Screen Clock Component</string>
+    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
     <string name="lock_screen_clock_redone_mode">Lock screen clock red one mode</string>
     <string name="apply_lock_screen_dual_clock_redone">Apply to lock screen dual clock</string>
     <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
