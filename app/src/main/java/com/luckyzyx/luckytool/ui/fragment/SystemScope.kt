@@ -1608,6 +1608,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 title = getString(R.string.disable_pagination_component_sliding)
                 key = "disable_pagination_component_sliding"
                 setDefaultValue(false)
+                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             //最近任务列表
