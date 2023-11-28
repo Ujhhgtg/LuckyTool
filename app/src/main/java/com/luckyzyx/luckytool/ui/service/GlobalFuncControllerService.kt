@@ -54,7 +54,7 @@ class GlobalFuncControllerService : RootService() {
         }
 
         override fun getSnInfo(): String {
-            return getProp("ro.serialno", "null").uppercase()
+            return getProp("ro.serialno", "null")
         }
     }
 }
