@@ -2890,14 +2890,6 @@ class Battery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.performance_mode_and_standby_optimization)
-                summary = getString(R.string.performance_mode_and_standby_optimization_summary)
-                key = "performance_mode_and_standby_optimization"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_battery_temperature_control)
                 summary = getString(R.string.remove_battery_temperature_control_summary)
                 key = "remove_battery_temperature_control"

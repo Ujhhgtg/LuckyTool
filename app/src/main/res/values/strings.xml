@@ -531,8 +531,6 @@
     <string name="open_screen_power_save_summary">Settings - Battery - More settings - Screen Power Saving</string>
     <string name="open_battery_health">Open battery health entrance</string>
     <string name="open_battery_health_summary">Settings - Battery - Battery Health</string>
-    <string name="performance_mode_and_standby_optimization">Performance Mode and Standby Optimization</string>
-    <string name="performance_mode_and_standby_optimization_summary">Settings - Battery - More settings</string>
     <string name="allow_untrusted_touch">Allow untrusted touch</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
     <string name="disable_dynamic_refresh_rate">Disable dynamic refresh rate</string>

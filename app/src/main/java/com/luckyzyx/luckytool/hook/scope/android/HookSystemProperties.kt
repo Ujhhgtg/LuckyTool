@@ -17,7 +17,7 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
                     val value = props[key]
-                    if (value != null && value is String) result = props[key]
+                    if (value != null && value is String) result = value
                 }
             }
             method { name = "getBoolean";returnType = BooleanType }.hook {
@@ -25,7 +25,7 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
                     val value = props[key]
-                    if (value != null && value is Boolean) result = props[key]
+                    if (value != null && value is Boolean) result = value
                 }
             }
             method { name = "getInt";returnType = IntType }.hook {
@@ -33,7 +33,7 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
                     val value = props[key]
-                    if (value != null && value is Int) result = props[key]
+                    if (value != null && value is Int) result = value
                 }
             }
             method { name = "getLong";returnType = LongType }.hook {
@@ -41,7 +41,7 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
                     val value = props[key]
-                    if (value != null && value is Long) result = props[key]
+                    if (value != null && value is Long) result = value
                 }
             }
         }

@@ -30,6 +30,7 @@ object HookSettings : YukiBaseHooker() {
         loadHooker(HookGlobalSystemProperties)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            loadHooker(HookGlobalFeatureProvider(dexKitBridge))
             //HookSettingsFeature
             loadHooker(HookSettingsFeature(dexKitBridge))
             //暗色模式列表

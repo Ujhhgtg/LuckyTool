@@ -472,8 +472,6 @@
     <string name="open_screen_power_save_summary">Налаштування - Батарея - Додаткові налаштування - Енергозбереження екрану</string>
     <string name="open_battery_health">Відкрити стан батареї</string>
     <string name="open_battery_health_summary">Налаштування - Батарея - Стан батареї</string>
-    <string name="performance_mode_and_standby_optimization">Режим продуктивності та оптимізація режиму очікування</string>
-    <string name="performance_mode_and_standby_optimization_summary">Налаштування - Батарея - Додаткові налаштування</string>
     <string name="allow_untrusted_touch">Дозволити небажані торкання</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
     <string name="disable_dynamic_refresh_rate">Disable dynamic refresh rate</string>

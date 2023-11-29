@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hooker
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scope.battery.BatteryFeatureProvider
 import com.luckyzyx.luckytool.hook.scope.battery.DisplayModuleCalculatesBatteryHealthData
 import com.luckyzyx.luckytool.hook.scope.battery.HookBatteryNotify
 import com.luckyzyx.luckytool.hook.scope.battery.LauncherHighTempreatureProtection
@@ -21,8 +20,7 @@ object HookBattery : YukiBaseHooker() {
         }
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            //BatteryFeatureProvider
-            loadHooker(BatteryFeatureProvider(dexKitBridge))
+            loadHooker(HookGlobalFeatureProvider(dexKitBridge))
             //电池通知
             loadHooker(HookBatteryNotify(dexKitBridge))
             //移除自启数量限制

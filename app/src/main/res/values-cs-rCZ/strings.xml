@@ -305,7 +305,7 @@
     <!--LockScreen-->
     <string name="LockScreen">Zamykací obrazovka</string>
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
-    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
+    <string name="remove_lock_screen_clock_component">Odstranit komponentu hodin na zamykací obrazovce</string>
     <string name="lock_screen_clock_redone_mode">Režim červené jedničky na zamykací obrazovce</string>
     <string name="apply_lock_screen_dual_clock_redone">Použít na dolní hodiny na uzamčené obrazovce</string>
     <string name="lock_screen_custom_clock_component_style">Přizpůsobit styl součásti hodin na zamykací obrazovce</string>
@@ -472,8 +472,6 @@
     <string name="open_screen_power_save_summary">Nastavení - Baterie - Další nastavení - Úspora napájení obrazovky</string>
     <string name="open_battery_health">Přidat tlačítko pro zjištění zdraví baterie</string>
     <string name="open_battery_health_summary">Nastavení - Baterie - Zdraví baterie</string>
-    <string name="performance_mode_and_standby_optimization">Optimalizace výkonu a pohotovostního režimu</string>
-    <string name="performance_mode_and_standby_optimization_summary">Nastavení - Baterie - Další nastavení</string>
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
     <string name="disable_dynamic_refresh_rate">Zakázat dynamickou obnovovací frekvenci</string>

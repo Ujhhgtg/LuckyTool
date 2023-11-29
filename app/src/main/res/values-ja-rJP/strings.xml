@@ -472,8 +472,6 @@
     <string name="open_screen_power_save_summary">設定 - バッテリー - その他の設定 - 省エネモード の順で開けます</string>
     <string name="open_battery_health">バッテリーの状態を開けるようにする</string>
     <string name="open_battery_health_summary">設定 - バッテリー - バッテリーの状態 の順で開けます</string>
-    <string name="performance_mode_and_standby_optimization">パフォーマンスモードとスタンバイの最適化</string>
-    <string name="performance_mode_and_standby_optimization_summary">設定 - バッテリー - 詳細設定 の順で開けます</string>
     <string name="allow_untrusted_touch">信頼できないタッチ操作を許可</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
     <string name="disable_dynamic_refresh_rate">動的リフレッシュレートを無効化</string>

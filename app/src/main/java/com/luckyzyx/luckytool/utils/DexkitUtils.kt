@@ -100,4 +100,13 @@ object DexkitUtils {
         }
         return this
     }
+
+//    fun FieldMatcher.type(any: Any): FieldMatcher {
+//        return when (any) {
+//            is String -> type(any)
+//            is Class<*> -> type(any)
+//            is ClassMatcher -> type(any)
+//            else -> this
+//        }
+//    }
 }
