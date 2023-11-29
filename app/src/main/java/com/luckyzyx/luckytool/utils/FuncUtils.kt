@@ -224,6 +224,17 @@ fun Context.checkResolveActivity(intent: Intent): Boolean = safeOfFalse {
 }
 
 /**
+ * 判断Activity是否存在
+ * @receiver Context
+ * @param packName String
+ * @param className String
+ * @return Boolean
+ */
+fun Context.checkResolveActivity(packName: String, className: String): Boolean = safeOfFalse {
+    return checkResolveActivity(Intent().setClassName(packName, className))
+}
+
+/**
  * Toast快捷方法
  * @param msg 字符串
  * @param long 显示时长
@@ -411,7 +422,17 @@ fun jumpBatteryInfo(context: Context) {
         context.checkPackName("com.oplus.engineermode") -> "com.oplus.engineermode"
         else -> return
     }
-    ShellUtils.execCommand("am start -n $packName/.charge.modeltest.BatteryInfoShow", true)
+    val containerV14 = "$packName.entrance.EngineerFragmentContainer"
+    val containerV13 = "$packName.core.sdk.entrance.EngineerFragmentContainer"
+    val chargeTestClazz = "$packName.aftersale.manualtest.ASChargeTestFragmentCompat"
+    if (context.checkResolveActivity(packName, containerV14)) ShellUtils.execCommand(
+        "am start -n $packName/$containerV14 -e fragment $chargeTestClazz",
+        true
+    )
+    if (context.checkResolveActivity(packName, containerV13)) ShellUtils.execCommand(
+        "am start -n $packName/$containerV13 -e fragment $chargeTestClazz",
+        true
+    )
 }
 
 /**
