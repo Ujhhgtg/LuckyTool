@@ -10,7 +10,9 @@ import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.allViews
 import androidx.core.view.children
@@ -372,6 +374,52 @@ object LockScreenClock : YukiBaseHooker() {
     private fun View.setCenterHorizontally() {
         layoutParams = LinearLayout.LayoutParams(layoutParams).apply {
             gravity = Gravity.CENTER_HORIZONTAL
+        }
+        when (this) {
+            is RelativeLayout -> {
+                children.forEachIndexed { _, view ->
+                    if (view is LinearLayout) {
+                        view.children.forEachIndexed { _, views ->
+                            views.layoutParams =
+                                LinearLayout.LayoutParams(views.layoutParams).apply {
+                                    gravity = Gravity.CENTER_HORIZONTAL
+                                }
+                        }
+                    }
+                }
+            }
+
+            is FrameLayout -> {
+                children.forEachIndexed { _, view ->
+                    view.layoutParams = FrameLayout.LayoutParams(view.layoutParams).apply {
+                        gravity = Gravity.CENTER_HORIZONTAL
+                    }
+                    if (view is LinearLayout) {
+                        view.children.forEachIndexed { _, views ->
+                            views.layoutParams =
+                                LinearLayout.LayoutParams(views.layoutParams).apply {
+                                    gravity = Gravity.CENTER_HORIZONTAL
+                                }
+                        }
+                    }
+                }
+            }
+
+            is LinearLayout -> {
+                children.forEachIndexed { _, view ->
+                    view.layoutParams = LinearLayout.LayoutParams(view.layoutParams).apply {
+                        gravity = Gravity.CENTER_HORIZONTAL
+                    }
+                    if (view is LinearLayout) {
+                        view.children.forEachIndexed { _, views ->
+                            views.layoutParams =
+                                LinearLayout.LayoutParams(views.layoutParams).apply {
+                                    gravity = Gravity.CENTER_HORIZONTAL
+                                }
+                        }
+                    }
+                }
+            }
         }
     }
 
