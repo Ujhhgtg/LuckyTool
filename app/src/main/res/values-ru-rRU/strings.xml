@@ -767,6 +767,7 @@
     <string name="get_installed_apps_permission">Получить разрешения для установленных приложений</string>
     <!--Typeface-->
     <string name="use_user_typeface">Использовать пользовательский шрифт</string>
+    <string name="use_bold_font_style">Use bold font style</string>
     <!--CommonWords-->
     <string name="common_words_enable">Включить</string>
     <string name="common_words_disable">Отключить</string>

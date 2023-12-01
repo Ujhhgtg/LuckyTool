@@ -13,7 +13,6 @@ import androidx.preference.SwitchPreference
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -42,6 +41,7 @@ import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.replaceBlankLine
+import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.toast
 
 class Android : BaseScopePreferenceFeagment() {
@@ -355,7 +355,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                         context.getBoolean(ModulePrefs, "statusbar_clock_show_doublerow", false)
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -370,7 +370,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -385,7 +385,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -420,7 +420,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     setDefaultValue("HH:mm:ss")
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         (activity as MainActivity).restart()
                         true
                     }
@@ -439,7 +439,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     isVisible = row >= 2
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -454,7 +454,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -484,7 +484,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -506,6 +506,24 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                 key = "statusbar_network_user_typeface"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.use_bold_font_style)
+                key = "statusbar_network_use_bold_font_style"
+                setDefaultValue(false)
+                isVisible = context.getBoolean(
+                    ModulePrefs, "statusbar_network_user_typeface", false
+                )
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
             })
             if (context.getString(ModulePrefs, "statusbar_network_layout", "0") != "0") {
                 addPreference(SwitchPreference(context).apply {
@@ -514,7 +532,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -525,7 +543,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -540,7 +558,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -554,7 +572,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -569,7 +587,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                         updatesContinuously = false
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -735,7 +753,7 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 setOnPreferenceChangeListener { _, newValue ->
                     val format = (newValue as String).replaceBlankLine
                     summary = format.ifBlank { "None" }
-                    context.dataChannel("com.android.systemui").put(key, format)
+                    context.sendPrefsValue("com.android.systemui", key, format)
                     true
                 }
             })
@@ -787,7 +805,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -803,7 +821,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -819,7 +837,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -902,7 +920,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -917,7 +935,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 isVisible = SDK >= A13
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -927,7 +945,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -938,7 +956,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isVisible = isZh(context)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -950,7 +968,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13 && isZh(context)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -968,7 +986,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1003,7 +1021,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A14
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1047,7 +1065,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1064,7 +1082,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1079,7 +1097,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 updatesContinuously = false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1112,7 +1130,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -1130,7 +1148,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 ) != "0"
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1399,7 +1417,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                     setDefaultValue("0")
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         (activity as MainActivity).restart()
                         true
                     }
@@ -1415,7 +1433,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1430,7 +1448,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         setDefaultValue("0")
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1440,7 +1458,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1450,7 +1468,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1460,7 +1478,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1471,7 +1489,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1485,7 +1503,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                         updatesContinuously = false
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
-                            context.dataChannel("com.android.systemui").put(key, newValue)
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
                             true
                         }
                     })
@@ -1516,7 +1534,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.coloros.alarmclock").put(key, newValue)
+                    context.sendPrefsValue("com.coloros.alarmclock", key, newValue)
                     true
                 }
             })
@@ -1685,7 +1703,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("android").put(key, newValue)
+                    context.sendPrefsValue("android", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -1710,7 +1728,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("android").put(key, newValue as Boolean)
+                    context.sendPrefsValue("android", key, newValue as Boolean)
                     true
                 }
             })
@@ -1855,7 +1873,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -1873,7 +1891,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                     setDefaultValue("0")
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -1883,7 +1901,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.dataChannel("com.android.systemui").put(key, newValue)
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
                         true
                     }
                 })
@@ -1942,7 +1960,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 isVisible = SDK == A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -1957,7 +1975,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -1971,7 +1989,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 ) != "2"
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1982,7 +2000,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -1992,7 +2010,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -2010,7 +2028,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 isVisible = getOSVersionCode in 27..29
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -2032,7 +2050,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
@@ -2046,7 +2064,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 ) == false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -2059,7 +2077,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 ) == false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -2069,7 +2087,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })
@@ -2523,7 +2541,7 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 updatesContinuously = false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
                     true
                 }
             })

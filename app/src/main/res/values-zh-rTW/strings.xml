@@ -766,6 +766,7 @@
     <string name="get_installed_apps_permission">获取应用列表权限</string>
     <!--Typeface-->
     <string name="use_user_typeface">使用用户字体</string>
+    <string name="use_bold_font_style">使用粗体字体样式</string>
     <!--CommonWords-->
     <string name="common_words_enable">启用</string>
     <string name="common_words_disable">禁用</string>

@@ -766,6 +766,7 @@
     <string name="get_installed_apps_permission">インストールされたアプリの権限を取得する</string>
     <!--Typeface-->
     <string name="use_user_typeface">ユーザー書体を使用</string>
+    <string name="use_bold_font_style">Use bold font style</string>
     <!--CommonWords-->
     <string name="common_words_enable">有効</string>
     <string name="common_words_disable">無効</string>

@@ -5,13 +5,14 @@ import android.graphics.Typeface
 import android.net.TrafficStats
 import android.util.TypedValue
 import android.view.Gravity
-import android.widget.FrameLayout
+import android.view.ViewGroup
 import android.widget.FrameLayout.LayoutParams
 import android.widget.TextView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import java.text.DecimalFormat
@@ -54,8 +55,11 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         }
 
         val layoutMode = prefs(ModulePrefs).getString("statusbar_network_layout", "0")
-        val userTypeface =
-            prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)
+        var userTypeface = prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)
+        dataChannel.wait<Boolean>("statusbar_network_user_typeface") { userTypeface = it }
+        var useBoldFont =
+            prefs(ModulePrefs).getBoolean("statusbar_network_use_bold_font_style", false)
+        dataChannel.wait<Boolean>("statusbar_network_use_bold_font_style") { useBoldFont = it }
         var noSpace = prefs(ModulePrefs).getBoolean("statusbar_network_no_space", false)
         dataChannel.wait<Boolean>("statusbar_network_no_space") { noSpace = it }
         var noSecond = prefs(ModulePrefs).getBoolean("statusbar_network_no_second", false)
@@ -73,44 +77,36 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         //Source NetworkSpeedView
         VariousClass(
             "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
-            "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView"
+            "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14
         ).toClass().apply {
             method { name = "onFinishInflate" }.hook {
                 after {
-                    val mView = instance<FrameLayout>()
-                    val mSpeedNumber =
-                        field { name = "mSpeedNumber" }.get(instance).cast<TextView>()
-                    val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance).cast<TextView>()
-                    if (userTypeface) {
-                        mSpeedNumber?.typeface = Typeface.DEFAULT_BOLD
-                        mSpeedUnit?.typeface = Typeface.DEFAULT_BOLD
-                    }
+                    val view = instance<ViewGroup>()
                     when (layoutMode) {
                         "1" -> {
                             val speedUnit: TextView? =
-                                mView.resources.getIdentifier(
+                                view.resources.getIdentifier(
                                     "unit", "id",
-                                    StatusBarNetWorkSpeed.packageName
-                                )
-                                    .let { mView.findViewById(it) }
-                            mView.removeView(speedUnit)
+                                    this@StatusBarNetWorkSpeed.packageName
+                                ).let { view.findViewById(it) }
+                            view.removeView(speedUnit)
                         }
                     }
                     //5.34dp
-                    if (bMargin <= 0) bMargin = instance<FrameLayout>().resources.let {
+                    if (bMargin <= 0) bMargin = view.resources.let {
                         it.getDimensionPixelSize(
                             it.getIdentifier(
                                 "network_speed_number_margin_bottom",
-                                "dimen", StatusBarNetWorkSpeed.packageName
+                                "dimen", this@StatusBarNetWorkSpeed.packageName
                             )
                         )
                     }
                     //7.34dp
-                    if (tMargin <= 0) tMargin = instance<FrameLayout>().resources.let {
+                    if (tMargin <= 0) tMargin = view.resources.let {
                         it.getDimensionPixelSize(
                             it.getIdentifier(
                                 "network_speed_unit_margin_top",
-                                "dimen", StatusBarNetWorkSpeed.packageName
+                                "dimen", this@StatusBarNetWorkSpeed.packageName
                             )
                         )
                     }
@@ -118,20 +114,34 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             }
             method { name = "updateNetworkSpeed" }.hook {
                 before {
+                    val mSpeedNumber = field { name = "mSpeedNumber" }.get(instance)
+                        .cast<TextView>() ?: return@before
+                    val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance)
+                        .cast<TextView>() ?: return@before
+                    val mDefaultBoldFont =
+                        field { type = TypefaceClass }.get(instance).cast<Typeface>()
+                    if (userTypeface) {
+                        mSpeedNumber.typeface =
+                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                        mSpeedUnit.typeface =
+                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                    } else {
+                        mSpeedNumber.typeface = mDefaultBoldFont
+                        mSpeedUnit.typeface = mDefaultBoldFont
+                    }
+
                     if (layoutMode == "0") return@before
-                    instance<FrameLayout>().apply {
+                    instance<ViewGroup>().apply {
                         layoutParams?.width = LayoutParams.WRAP_CONTENT
                         setPadding(0, 0, 0, getBottomPadding.dp)
                     }
-                    val mSpeedNumber =
-                        field { name = "mSpeedNumber" }.get(instance).cast<TextView>()
-                    val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance).cast<TextView>()
+
                     when (layoutMode) {
                         "1" -> {
                             var speed = args().first().string()
                             if (noSecond) speed = speed.replace("/s", "")
                             if (noSpace) speed = speed.replace(" ", "")
-                            mSpeedNumber?.apply {
+                            mSpeedNumber.apply {
                                 text = speed
                                 setTextSize(
                                     TypedValue.COMPLEX_UNIT_DIP,
@@ -145,7 +155,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         }
 
                         "2" -> {
-                            mSpeedNumber?.apply {
+                            mSpeedNumber.apply {
                                 text = getTotalUpSpeed().let {
                                     if (noSecond) it.replace(
                                         "/s", ""
@@ -160,7 +170,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                         bottomMargin = bMargin + (setInterval.dp / 2)
                                     }
                             }
-                            mSpeedUnit?.apply {
+                            mSpeedUnit.apply {
                                 text = getTotalDownloadSpeed().let {
                                     if (noSecond) it.replace(
                                         "/s", ""
@@ -177,7 +187,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             }
                         }
                     }
-                    instance<FrameLayout>().requestLayout()
+                    instance<ViewGroup>().requestLayout()
                     resultNull()
                 }
             }

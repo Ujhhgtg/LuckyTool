@@ -149,6 +149,7 @@
     <string name="statusbar_clock_custom_format">Clock format</string>
     <string name="statusbar_clock_custom_fontsize">Clock font size</string>
     <string name="statusbar_clock_fontsize_summary">If it is 0, the font size will not be modified</string>
+    
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">StatusBar NetWorkSpeed</string>
     <string name="set_network_speed">Set status bar speed refresh rate 1 s</string>
@@ -873,6 +874,7 @@
     
     <!--Typeface-->
     <string name="use_user_typeface">Use user typeface</string>
+    <string name="use_bold_font_style">Use bold font style</string>
     
     <!--CommonWords-->
     <string name="common_words_enable">Enable</string>

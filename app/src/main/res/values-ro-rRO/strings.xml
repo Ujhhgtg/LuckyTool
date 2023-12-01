@@ -766,6 +766,7 @@
     <string name="get_installed_apps_permission">Get permissions for installed apps</string>
     <!--Typeface-->
     <string name="use_user_typeface">Use user typeface</string>
+    <string name="use_bold_font_style">Use bold font style</string>
     <!--CommonWords-->
     <string name="common_words_enable">Enable</string>
     <string name="common_words_disable">Disable</string>

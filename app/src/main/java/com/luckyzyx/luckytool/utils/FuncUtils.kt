@@ -1368,3 +1368,14 @@ fun logcatToFile(file: File) {
         LogUtils.e(LogUtils.globalTag, "logcatToFile", "$e", true)
     }
 }
+
+/**
+ * 发送Prefs键值到dataChannel
+ * @receiver Context
+ * @param packName String
+ * @param key String
+ * @param newValue Any
+ */
+fun Context.sendPrefsValue(packName: String, key: String, newValue: Any) {
+    dataChannel(packName).put(key, newValue)
+}

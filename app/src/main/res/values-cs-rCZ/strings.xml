@@ -766,6 +766,7 @@
     <string name="get_installed_apps_permission">Získat oprávnění pro nainstalované aplikace</string>
     <!--Typeface-->
     <string name="use_user_typeface">Použít uživatelský typ písma</string>
+    <string name="use_bold_font_style">Use bold font style</string>
     <!--CommonWords-->
     <string name="common_words_enable">Povolit</string>
     <string name="common_words_disable">Zakázat</string>
