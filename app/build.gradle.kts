@@ -69,8 +69,7 @@ android {
     applicationVariants.all {
         val buildType = buildType.name
         val version = "$versionName($versionCode)"
-        println("version -> $version")
-        println("buildType -> $buildType")
+        println("buildVersion -> $version ($buildType)")
         outputs.all {
             @Suppress("DEPRECATION")
             if (this is com.android.build.gradle.api.ApkVariantOutput) {
@@ -92,17 +91,18 @@ dependencies {
     compileOnly("de.robv.android.xposed:api:82")
     //YukiHookAPI
 //    implementation("com.highcapable.yukireflection:api:1.0.2")
+    //noinspection GradleDependency
     implementation("com.highcapable.yukihookapi:api:1.2.0-fix")
     ksp("com.highcapable.yukihookapi:ksp-xposed:1.2.0")
 //    implementation(files("libs/yukihookapi-release.jar"))
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
 
     //Dexkit
-    implementation("org.luckypray:dexkit:2.0.0-rc8")
+    implementation("org.luckypray:dexkit:2.0.0-rc9")
 
     //BetterAndroid
-    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
-    implementation("com.highcapable.betterandroid:ui-component:1.0.0")
+//    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
+    implementation("com.highcapable.betterandroid:ui-component:1.0.2")
 //    implementation("com.highcapable.betterandroid:ui-extension:1.0.0")
 //    implementation("com.highcapable.betterandroid:system-extension:1.0.0")
 
@@ -143,7 +143,7 @@ dependencies {
 //    implementation "com.github.topjohnwu.libsu:nio:${libsuVersion}"
 
     //Microsoft AppCenter
-    val appCenterSdkVersion = "5.0.2"
+    val appCenterSdkVersion = "5.0.3"
     implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
     implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
 
