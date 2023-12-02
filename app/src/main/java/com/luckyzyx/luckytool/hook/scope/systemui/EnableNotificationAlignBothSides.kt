@@ -49,10 +49,11 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 }
             }
 
-            val ubiquitousExpandableRow =
-                "com.oplusos.systemui.statusbar.notification.row.UbiquitousExpandableRow"
             //Source UbiquitousExpandableRow
-            ubiquitousExpandableRow.toClassOrNull()?.apply {
+            VariousClass(
+                "com.oplusos.systemui.statusbar.notification.row.UbiquitousExpandableRow", //C13
+                "com.oplus.systemui.statusbar.notification.row.UbiquitousExpandableRow" //C14 or null
+            ).toClassOrNull()?.apply {
                 method { name = "onFinishInflate" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
@@ -60,6 +61,18 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
             }
+
+            //Source NotificationSeedingController C14
+            "com.oplus.systemui.plugins.seedling.notification.NotificationSeedingController".toClassOrNull()
+                ?.apply {
+                    method { name = "onCreateView" }.hook {
+                        after {
+                            field { name = "parent" }.get(instance).cast<ViewGroup>()
+                                ?.setViewWidth()
+                        }
+                    }
+                }
+
         }
     }
 
