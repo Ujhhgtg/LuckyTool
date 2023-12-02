@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -15,7 +16,6 @@ import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import androidx.core.view.MenuProvider
 import androidx.core.widget.NestedScrollView
-import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
@@ -46,6 +46,7 @@ import kotlinx.coroutines.Dispatchers
 import java.util.Arrays
 
 class XposedFragment : ModulePreferenceFragment(), MenuProvider {
+    val tags = "XposedFragment"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -57,6 +58,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
         init()
     }
 
+    @SuppressLint("RestrictedApi")
     private fun init() {
         val dialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
             setTitle(getString(R.string.common_words_loading))
@@ -70,19 +72,13 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
             })
         }.create()
         scopeDialog(dialog, false, Dispatchers.Default) {
-            if (preferenceScreen != null) return@scopeDialog
-            val destination = findNavController().currentBackStack.value.lastOrNull()?.destination
-            if (!destination.toString().contains(this@XposedFragment::class.java.simpleName)) {
-                return@scopeDialog
-            }
             preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
                 getPreferences(context).forEachIndexed { index, preference ->
                     try {
-                        if (preferenceScreen != null) preferenceScreen = preferenceScreen.apply {
-                            addPreference(preference)
-                        } else addPreference(preference)
+                        addPreference(preference)
                     } catch (_: Throwable) {
                         withMain { context.toast("Error: $index ${preference.key}") }
+                        return@forEachIndexed
                     }
                 }
             }
@@ -358,8 +354,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 }
                 title = context.getAppLabel(key)
                 summary = arraySummaryDot(
-                    getString(R.string.remove_root_check),
-                    getString(R.string.enable_developer_page)
+                    getString(R.string.remove_root_check), getString(R.string.enable_developer_page)
                 )
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -592,8 +587,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     navigatePage(R.id.action_nav_xposed_to_alphaBackupPro, title)
                     true
                 }
-            },
-            Preference(context).apply {
+            }, Preference(context).apply {
                 key = "ru.kslabs.ksweb"
                 setPrefsIconRes(key) { resource, show ->
                     icon = resource
@@ -606,8 +600,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     navigatePage(R.id.action_nav_function_to_ksWeb, title)
                     true
                 }
-            },
-            Preference(context).apply {
+            }, Preference(context).apply {
                 key = "com.dv.adm"
                 setPrefsIconRes(key) { resource, show ->
                     icon = resource
@@ -620,8 +613,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     navigatePage(R.id.action_nav_function_to_ADM, title)
                     true
                 }
-            }
-        )
+            })
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
