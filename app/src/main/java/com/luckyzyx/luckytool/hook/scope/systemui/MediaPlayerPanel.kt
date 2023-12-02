@@ -148,8 +148,9 @@ object MediaPlayerPanel : YukiBaseHooker() {
             dataChannel.wait<String>("set_media_player_display_mode") { mode = it }
 
             //Source OplusQsMediaCarouselController
-            val controller = "com.oplus.systemui.qs.media.OplusQsMediaCarouselController"
-            if (controller.toClass().hasMethod { name = "setCurrentMediaData" }.not()) {
+            val controllerClazz =
+                "com.oplus.systemui.qs.media.OplusQsMediaCarouselController".toClass()
+            if (controllerClazz.hasMethod { name = "setCurrentMediaData" }.not()) {
                 //Source OplusQSContainerImpl
                 "com.oplus.systemui.qs.OplusQSContainerImpl".toClass().apply {
                     method { name = "setQsMediaPanelShown" }.hook {
@@ -180,7 +181,7 @@ object MediaPlayerPanel : YukiBaseHooker() {
                 }
                 return
             }
-            controller.toClass().apply {
+            controllerClazz.apply {
                 method { name = "setCurrentMediaData" }.hook {
                     after {
                         val status = when (mode) {

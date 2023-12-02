@@ -228,10 +228,13 @@
     <string name="custom_control_center_background_transparency">カスタムコントロールセンターの背景の透明度</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">ステータスバーのタイル</string>
-    <string name="MediaPlayer">メディアプレイヤー</string>
+    <string name="SpecialTiles">Special Tiles</string>
     <string name="auto_expand_tile_rows_horizontal">水平方向のタイル行数を自動的に増やす</string>
     <string name="auto_expand_tile_rows_horizontal_summary">メディアプレイヤーが非表示のとき、水平モードで2列のタイルを表示します</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">以下のタイル機能のスイッチをオンにする必要があります</string>
+    <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
+    <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
+    <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
     <string name="TileLongClickEvent">タイルの長押しイベント</string>
     <string name="restore_some_tile_long_press_event">タイルの長押しイベントを復活させる</string>
     <string name="restore_some_tile_long_press_event_summary">Wi-Fi、Bluetooth、ホットスポットなどのタイルを長押ししたときに対応するページを開くようにします</string>

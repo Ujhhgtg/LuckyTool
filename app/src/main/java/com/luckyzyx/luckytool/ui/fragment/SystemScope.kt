@@ -1113,54 +1113,100 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            //媒体播放器
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.MediaPlayer)
-                key = "MediaPlayer"
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.set_media_player_display_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "set_media_player_display_mode"
-                entries = resources.getStringArray(R.array.set_media_player_display_mode_entries)
-                entryValues = arrayOf("0", "1", "2", "3")
-                setDefaultValue("0")
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.sendPrefsValue("com.android.systemui", key, newValue)
-                    (activity as MainActivity).restart()
-                    true
-                }
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.auto_expand_tile_rows_horizontal)
-                summary = arraySummaryLine(
-                    getString(R.string.auto_expand_tile_rows_horizontal_summary),
-                    getString(R.string.auto_expand_tile_rows_horizontal_summary_2)
-                )
-                key = "auto_expand_tile_rows_horizontal"
-                setDefaultValue(false)
-                isVisible = SDK >= A14 && context.getString(
-                    ModulePrefs, "set_media_player_display_mode", "0"
-                ) != "0"
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.sendPrefsValue("com.android.systemui", key, newValue)
-                    true
-                }
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.force_enable_media_toggle_button)
-                key = "force_enable_media_toggle_button"
-                setDefaultValue(false)
-                isVisible = SDK == A13 && context.getString(
-                    ModulePrefs, "set_media_player_display_mode"
-                ) == "1"
-                isIconSpaceReserved = false
-            })
+            //特殊磁贴
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.SpecialTiles)
+                    key = "SpecialTiles"
+                    isIconSpaceReserved = false
+                })
+                addPreference(DropDownPreference(context).apply {
+                    title = getString(R.string.set_media_player_display_mode)
+                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    key = "set_media_player_display_mode"
+                    entries =
+                        resources.getStringArray(R.array.set_media_player_display_mode_entries)
+                    entryValues = arrayOf("0", "1", "2", "3")
+                    setDefaultValue("0")
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.auto_expand_tile_rows_horizontal)
+                    summary = arraySummaryLine(
+                        getString(R.string.auto_expand_tile_rows_horizontal_summary),
+                        getString(R.string.auto_expand_tile_rows_horizontal_summary_2)
+                    )
+                    key = "auto_expand_tile_rows_horizontal"
+                    setDefaultValue(false)
+                    isVisible = SDK >= A14 && context.getString(
+                        ModulePrefs, "set_media_player_display_mode", "0"
+                    ) != "0"
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.force_enable_media_toggle_button)
+                    key = "force_enable_media_toggle_button"
+                    setDefaultValue(false)
+                    isVisible = context.getString(
+                        ModulePrefs, "set_media_player_display_mode"
+                    ) == "1"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.control_center_custom_gaps_for_special_tile)
+                    key = "control_center_custom_gaps_for_special_tile"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                addPreference(SeekBarPreference(context).apply {
+                    title = getString(R.string.control_center_special_tile_top_gap)
+                    key = "control_center_special_tile_top_gap"
+                    setDefaultValue(0)
+                    max = 20
+                    min = 0
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isVisible = context.getBoolean(
+                        ModulePrefs, "control_center_custom_gaps_for_special_tile", false
+                    )
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+                addPreference(SeekBarPreference(context).apply {
+                    title = getString(R.string.control_center_special_tile_bottom_gap)
+                    key = "control_center_special_tile_bottom_gap"
+                    setDefaultValue(0)
+                    max = 20
+                    min = 0
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isVisible = context.getBoolean(
+                        ModulePrefs, "control_center_custom_gaps_for_special_tile", false
+                    )
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+            }
             if (SDK == A13) {
                 //磁贴长按事件
                 addPreference(PreferenceCategory(context).apply {

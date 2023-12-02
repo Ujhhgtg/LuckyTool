@@ -6,6 +6,7 @@ import com.luckyzyx.luckytool.hook.scope.systemui.FixTileAlignBothSides
 import com.luckyzyx.luckytool.hook.scope.systemui.LongPressTileOpenThePage
 import com.luckyzyx.luckytool.hook.scope.systemui.MediaPlayerPanel
 import com.luckyzyx.luckytool.hook.scope.systemui.RestorePageLayoutRowCountForEditTiles
+import com.luckyzyx.luckytool.hook.scope.systemui.SpecialTileTopGap
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -15,6 +16,11 @@ object StatusBarTile : YukiBaseHooker() {
         //磁贴长按跳转事件
         if (prefs(ModulePrefs).getBoolean("restore_some_tile_long_press_event", false)) {
             if (SDK == A13) loadHooker(LongPressTileOpenThePage)
+        }
+
+        //特殊磁贴间隙
+        if (prefs(ModulePrefs).getBoolean("control_center_custom_gaps_for_special_tile", false)) {
+            if (SDK >= A13) loadHooker(SpecialTileTopGap)
         }
 
         //媒体播放器

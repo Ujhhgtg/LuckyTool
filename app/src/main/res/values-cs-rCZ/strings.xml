@@ -228,10 +228,13 @@
     <string name="custom_control_center_background_transparency">Vlastní průhlednost pozadí ovládacího centra</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Dlaždice stavové lišty</string>
-    <string name="MediaPlayer">Přehrávač médií</string>
+    <string name="SpecialTiles">Special Tiles</string>
     <string name="auto_expand_tile_rows_horizontal">Automaticky rozbalit počet řádků horizontálních dlaždic</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Musíte povolit přepínač funkce dlaždic níže</string>
+    <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
+    <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
+    <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
     <string name="TileLongClickEvent">Událost daždice při dlouhém stisku</string>
     <string name="restore_some_tile_long_press_event">Obnovit některé události dlouhého stisku</string>
     <string name="restore_some_tile_long_press_event_summary">Obnovit WiFi, Bluetooth, osobní hotspot a další události dlouhého stisku pro otevření odpovídající stránky</string>
