@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import androidx.core.view.MenuProvider
+import androidx.core.view.setPadding
 import androidx.core.widget.NestedScrollView
 import androidx.preference.Preference
 import com.drake.net.utils.scopeDialog
@@ -55,6 +56,11 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
     }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+//        init()
+    }
+
+    override fun onResume() {
+        super.onResume()
         init()
     }
 
@@ -66,7 +72,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 addView(LinearProgressIndicator(context).apply {
                     layoutParams =
                         LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-                    setPadding(20.dp, 20.dp, 20.dp, 0)
+                    setPadding(20.dp)
                     isIndeterminate = true
                 })
             })

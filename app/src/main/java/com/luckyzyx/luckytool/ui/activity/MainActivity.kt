@@ -24,9 +24,24 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
 import com.luckyzyx.luckytool.ui.fragment.HomeFragment
 import com.luckyzyx.luckytool.ui.service.GlobalFuncControllerService
-import com.luckyzyx.luckytool.utils.*
+import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcBBK
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcEbk
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.OtherPrefs
+import com.luckyzyx.luckytool.utils.PermissionUtils
+import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.SettingsPrefs
+import com.luckyzyx.luckytool.utils.ShellUtils
+import com.luckyzyx.luckytool.utils.ShortcutUtils
+import com.luckyzyx.luckytool.utils.ThemeUtils
+import com.luckyzyx.luckytool.utils.bindRootService
+import com.luckyzyx.luckytool.utils.checkVerify
+import com.luckyzyx.luckytool.utils.dialogCentered
+import com.luckyzyx.luckytool.utils.exitModule
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.putBoolean
 import kotlinx.coroutines.Dispatchers
 import kotlin.system.exitProcess
 

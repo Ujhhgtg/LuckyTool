@@ -12,7 +12,7 @@ object ThemeUtils {
 
     private val supportDynamicColor = DynamicColors.isDynamicColorAvailable()
 
-    fun isDynamicColor(context: Context): Boolean {
+    private fun isDynamicColor(context: Context): Boolean {
         val useDynamicColor = context.getBoolean(SettingsPrefs, "use_dynamic_color", false)
         return supportDynamicColor && useDynamicColor
     }
