@@ -37,6 +37,7 @@
         <item>com.coloros.weather2</item>
         <item>com.coloros.calendar</item>
         <item>com.coloros.smartsidebar</item>
+        <item>com.oplus.multiapp</item>
         
         <item>ru.kslabs.ksweb</item>
         <item>com.dv.adm</item>
@@ -204,6 +205,12 @@
         <item>@string/custom_app_floating_window_display_mode_disable_float_window</item>
         <item>@string/custom_app_floating_window_display_mode_remove_whitelist</item>
         <item>@string/custom_app_floating_window_display_mode_custom_whitelist</item>
+    </string-array>
+    
+    <string-array name="set_multi_app_support_mode_entries">
+        <item>@string/common_words_default</item>
+        <item>@string/common_words_whitelist</item>
+        <item>@string/set_multi_app_support_mode_all_apps</item>
     </string-array>
 
 </resources>

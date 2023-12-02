@@ -28,6 +28,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookLauncher
 import com.luckyzyx.luckytool.hook.hooker.HookLockScreen
 import com.luckyzyx.luckytool.hook.hooker.HookMarket
 import com.luckyzyx.luckytool.hook.hooker.HookMiscellaneous
+import com.luckyzyx.luckytool.hook.hooker.HookMultiApp
 import com.luckyzyx.luckytool.hook.hooker.HookNotificationManager
 import com.luckyzyx.luckytool.hook.hooker.HookOplusGames
 import com.luckyzyx.luckytool.hook.hooker.HookOplusMMS
@@ -199,6 +200,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.coloros.phonemanager", HookPhoneManager)
         //支付保护
         loadApp("com.coloros.securepay", HookSecurePay)
+        //应用分身
+        loadApp("com.oplus.multiapp", HookMultiApp)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

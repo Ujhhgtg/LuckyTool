@@ -23,13 +23,13 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.FragmentApplistFunctionLayoutBinding
+import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
 import com.luckyzyx.luckytool.utils.*
 
 class DarkModeFragment : Fragment(), MenuProvider {
 
-    private lateinit var binding: FragmentApplistFunctionLayoutBinding
+    private lateinit var binding: FragmentDarkModeApplistLayoutBinding
     private var appListAllDatas = ArrayList<AppInfo>()
     private var darkModeAdapter: DarkModeAdapter? = null
     private val scopes = arrayOf("com.android.settings")
@@ -41,7 +41,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
         setupMenuProvider(this)
         isShowSystemApp =
             requireActivity().getBoolean(ModulePrefs, "show_system_app_dark_mode", false)
-        binding = FragmentApplistFunctionLayoutBinding.inflate(inflater)
+        binding = FragmentDarkModeApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
 

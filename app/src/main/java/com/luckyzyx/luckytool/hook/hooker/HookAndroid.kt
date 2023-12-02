@@ -11,7 +11,7 @@ import com.luckyzyx.luckytool.hook.scope.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scope.android.HookNotificationManager
 import com.luckyzyx.luckytool.hook.scope.android.HookWindowManagerService
 import com.luckyzyx.luckytool.hook.scope.android.MediaVolumeLevel
-import com.luckyzyx.luckytool.hook.scope.android.MultiApp
+import com.luckyzyx.luckytool.hook.scope.android.MultiAppConfig
 import com.luckyzyx.luckytool.hook.scope.android.RemoveAccessDeviceLogDialog
 import com.luckyzyx.luckytool.hook.scope.android.RemoveAppUninstallButtonBlackList
 import com.luckyzyx.luckytool.hook.scope.android.RemovePasswordTimeoutVerification
@@ -48,7 +48,7 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(MediaVolumeLevel)
 
         //应用分身限制
-        loadHooker(MultiApp)
+        loadHooker(MultiAppConfig)
 
         //USB安装确认
         loadHooker(ADBInstallConfirm)

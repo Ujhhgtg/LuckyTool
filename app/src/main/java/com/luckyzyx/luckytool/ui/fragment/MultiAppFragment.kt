@@ -22,7 +22,7 @@ import com.drake.net.utils.withIO
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.FragmentApplistFunctionLayoutBinding
+import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.utils.AppInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -37,7 +37,7 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 class MultiAppFragment : Fragment(), MenuProvider {
 
-    private lateinit var binding: FragmentApplistFunctionLayoutBinding
+    private lateinit var binding: FragmentMutliAppApplistLayoutBinding
     private var appListAllDatas = ArrayList<AppInfo>()
     private var multiAppAdapter: MultiAppAdapter? = null
     private var isShowSystemApp = false
@@ -48,22 +48,11 @@ class MultiAppFragment : Fragment(), MenuProvider {
         setupMenuProvider(this)
         isShowSystemApp =
             requireActivity().getBoolean(ModulePrefs, "show_system_app_multi_app", false)
-        binding = FragmentApplistFunctionLayoutBinding.inflate(inflater)
+        binding = FragmentMutliAppApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.enableSwitch.apply {
-            text = getString(R.string.multi_app_enable)
-            isChecked = context.getBoolean(ModulePrefs, "multi_app_enable", false)
-            setOnCheckedChangeListener { buttonView, isChecked ->
-                if (buttonView.isPressed) {
-                    context.putBoolean(ModulePrefs, "multi_app_enable", isChecked)
-                    requireActivity().dataChannel("android").put("multi_app_enable", isChecked)
-                }
-            }
-        }
-
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             isHintEnabled = true

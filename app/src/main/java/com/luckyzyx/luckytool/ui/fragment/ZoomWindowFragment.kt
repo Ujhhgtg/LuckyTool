@@ -26,7 +26,7 @@ import com.drake.net.utils.withIO
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.FragmentApplistFunctionLayoutBinding
+import com.luckyzyx.luckytool.databinding.FragmentZoomWindowApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.utils.AppInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -39,7 +39,7 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 class ZoomWindowFragment : Fragment(), MenuProvider {
 
-    private lateinit var binding: FragmentApplistFunctionLayoutBinding
+    private lateinit var binding: FragmentZoomWindowApplistLayoutBinding
     private var appListAllDatas = ArrayList<AppInfo>()
     private var zoomWindowAdapter: ZoomWindowAdapter? = null
     private var isShowSystemApp = false
@@ -50,7 +50,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
         setupMenuProvider(this)
         isShowSystemApp =
             requireActivity().getBoolean(ModulePrefs, "show_system_app_zoom_window", false)
-        binding = FragmentApplistFunctionLayoutBinding.inflate(inflater)
+        binding = FragmentZoomWindowApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
 

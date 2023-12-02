@@ -1924,8 +1924,8 @@ class LockScreen : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (
-                context.getBoolean(ModulePrefs, "remove_lock_screen_clock_component", false).not()
+            if (context.getBoolean(ModulePrefs, "remove_lock_screen_clock_component", false)
+                    .not()
             ) {
                 addPreference(DropDownPreference(context).apply {
                     title = getString(R.string.lock_screen_clock_redone_mode)
@@ -2223,7 +2223,8 @@ class Application : BaseScopePreferenceFeagment() {
         "com.oplus.safecenter",
         "com.coloros.safecenter",
         "com.android.settings",
-        "com.android.packageinstaller"
+        "com.android.packageinstaller",
+        "com.oplus.multiapp"
     )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -2263,10 +2264,29 @@ class Application : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_multi_app_support_mode)
+                summary = arraySummaryLine(
+                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.need_restart_system)
+                )
+                key = "set_multi_app_support_mode"
+                entries = resources.getStringArray(R.array.set_multi_app_support_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("android", key, newValue)
+                    context.sendPrefsValue("com.oplus.multiapp", key, newValue)
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
             addPreference(Preference(context).apply {
                 title = getString(R.string.multi_app_custom_list)
                 summary = getString(R.string.multi_app_custom_list_summary)
                 key = "multi_app_custom_list"
+                isVisible = context.getString(ModulePrefs, "set_multi_app_support_mode", "0") == "1"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_application_to_multiFragment, title)

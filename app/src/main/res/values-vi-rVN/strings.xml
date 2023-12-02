@@ -390,6 +390,8 @@
     <string name="disable_splash_screen_summary">Vì hoạt ảnh mặt nạ khởi động đã bị xóa nên sẽ có khoảng cách 1–2 giây khi ứng dụng khởi động. Vui lòng không mở nó nếu bạn thấy phiền</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Danh sách ứng dụng liên quan</string>
+    <string name="set_multi_app_support_mode">Set multi app support mode</string>
+    <string name="set_multi_app_support_mode_all_apps">Full app list</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>

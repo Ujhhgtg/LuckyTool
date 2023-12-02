@@ -390,6 +390,8 @@
     <string name="disable_splash_screen_summary">スプラッシュ画面を削除すると、アプリ開始時に1～2秒の遅延が発生します。気になる場合はオフにしてください</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">アプリ関連のリスト</string>
+    <string name="set_multi_app_support_mode">Set multi app support mode</string>
+    <string name="set_multi_app_support_mode_all_apps">Full app list</string>
     <string name="multi_app_enable">リストの置き換えを有効化</string>
     <string name="multi_app_custom_list">アプリクローン対応リストを置き換え</string>
     <string name="multi_app_custom_list_summary">機能を有効化後、アプリクローンの元のリストは新しいリストに置き換えられます。リストの項目が多すぎるとラグが発生します</string>

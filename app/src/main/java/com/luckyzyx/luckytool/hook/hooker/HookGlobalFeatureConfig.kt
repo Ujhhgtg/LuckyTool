@@ -64,6 +64,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("unlock_default_desktop_limit", false)) {
                 put("oplus.software.defaultapp.remove_force_launcher", false)
             }
+            //Source MultiApp AppFeatureUtil isRlmPhone
+            when (prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")) {
+                "1" -> put("oplus.software.multiapp_support_rlm", false)
+                "2" -> put("oplus.software.multiapp_support_rlm", true)
+            }
         }
         loadHooker(HookFeatureConfigManager(list))
     }

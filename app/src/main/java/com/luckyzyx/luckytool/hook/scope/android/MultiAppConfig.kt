@@ -3,22 +3,21 @@ package com.luckyzyx.luckytool.hook.scope.android
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
-object MultiApp : YukiBaseHooker() {
+object MultiAppConfig : YukiBaseHooker() {
     override fun onHook() {
-        var isEnable = prefs(ModulePrefs).getBoolean("multi_app_enable", false)
-        dataChannel.wait<Boolean>("multi_app_enable") { isEnable = it }
+        var mode = prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")
+        dataChannel.wait<String>("set_multi_app_support_mode") { mode = it }
         var enabledMulti = prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet())
         dataChannel.wait<Set<String>>("multi_app_custom_list") { enabledMulti = it }
 
         //Source OplusMultiAppConfig
         "com.oplus.multiapp.OplusMultiAppConfig".toClass().apply {
-            method { name = "getAllowedPkgList";returnType = ListClass }.hook {
+            method { name = "setAllowedPkgList" }.hook {
                 before {
-                    if (!isEnable || enabledMulti.isEmpty()) return@before
-                    result = java.util.ArrayList(enabledMulti)
+                    if (mode != "1" || enabledMulti.isEmpty()) return@before
+                    args().first().set(java.util.ArrayList(enabledMulti))
                 }
             }
         }

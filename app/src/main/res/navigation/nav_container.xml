@@ -368,7 +368,7 @@
             android:id="@+id/multiAppFragment"
             android:name="com.luckyzyx.luckytool.ui.fragment.MultiAppFragment"
             android:label="{title_label}"
-            tools:layout="@layout/fragment_applist_function_layout" />
+            tools:layout="@layout/fragment_applist_layout" />
     <fragment
             android:id="@+id/statusBar"
             android:name="com.luckyzyx.luckytool.ui.fragment.StatusBar"
