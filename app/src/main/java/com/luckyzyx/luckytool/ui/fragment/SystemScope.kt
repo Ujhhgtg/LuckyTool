@@ -275,7 +275,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 title = getString(R.string.statusbar_clock_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "statusbar_clock_mode"
-                entries = resources.getStringArray(R.array.statusbar_clock_mode_entries)
+                setEntries(R.array.statusbar_clock_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -492,7 +492,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                 title = getString(R.string.statusbar_network_layout)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "statusbar_network_layout"
-                entries = resources.getStringArray(R.array.statusbar_network_layout_entries)
+                setEntries(R.array.statusbar_network_layout_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -1361,7 +1361,7 @@ class StatusBarLayout : BaseScopePreferenceFeagment() {
                 title = getString(R.string.statusbar_layout_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "statusbar_layout_mode"
-                entries = resources.getStringArray(R.array.statusbar_layout_mode_entries)
+                setEntries(R.array.statusbar_layout_mode_entries)
                 entryValues = arrayOf("0", "1")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -1858,7 +1858,7 @@ class Aod : BaseScopePreferenceFeagment() {
                 title = getString(R.string.set_aod_style_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "set_aod_style_mode"
-                entries = resources.getStringArray(R.array.set_aod_style_mode_entries)
+                setEntries(R.array.set_aod_style_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isVisible = SDK == A13
@@ -2271,7 +2271,11 @@ class Application : BaseScopePreferenceFeagment() {
                     getString(R.string.need_restart_system)
                 )
                 key = "set_multi_app_support_mode"
-                entries = resources.getStringArray(R.array.set_multi_app_support_mode_entries)
+                var modes = resources.getStringArray(R.array.set_multi_app_support_mode_entries)
+                if (getOSVersionCode < 27 && modes.size == 3) {
+                    modes = modes.toMutableList().apply { removeLastOrNull() }.toTypedArray()
+                }
+                entries = modes
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -2494,7 +2498,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_fingerprint_icon_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "remove_fingerprint_icon_mode"
-                entries = resources.getStringArray(R.array.remove_fingerprint_icon_mode_entries)
+                setEntries(R.array.remove_fingerprint_icon_mode_entries)
                 entryValues = arrayOf("0", "1", "2", "3")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -2590,7 +2594,7 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.set_volume_bar_display_position)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "set_volume_bar_display_position"
-                entries = resources.getStringArray(R.array.set_volume_bar_display_position_entries)
+                setEntries(R.array.set_volume_bar_display_position_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isVisible = SDK >= A13
@@ -2859,7 +2863,7 @@ class Settings : BaseScopePreferenceFeagment() {
                     title = getString(R.string.set_processor_click_page)
                     summary = "%s"
                     key = "set_processor_click_page"
-                    entries = resources.getStringArray(R.array.set_processor_click_page_entries)
+                    setEntries(R.array.set_processor_click_page_entries)
                     entryValues = arrayOf("0", "1", "2")
                     setDefaultValue("0")
                     isIconSpaceReserved = false
@@ -3143,7 +3147,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.set_photo_view_thumb_line_display_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "set_photo_view_thumb_line_display_mode"
-                entries = resources.getStringArray(R.array.universal_switch_entries)
+                setEntries(R.array.universal_switch_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false

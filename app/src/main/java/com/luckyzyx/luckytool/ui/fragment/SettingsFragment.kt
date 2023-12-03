@@ -172,7 +172,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 key = "dark_theme"
                 title = getString(R.string.dark_theme)
                 summary = "%s"
-                entries = resources.getStringArray(R.array.dark_theme)
+                setEntries(R.array.dark_theme)
                 entryValues = resources.getStringArray(R.array.dark_theme_value)
                 setDefaultValue("MODE_NIGHT_FOLLOW_SYSTEM")
                 isIconSpaceReserved = false
@@ -211,7 +211,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                     getString(R.string.switch_autostart_function_caller_summary)
                 )
                 key = "switch_autostart_function_caller"
-                entries = resources.getStringArray(R.array.switch_autostart_function_caller_entries)
+                setEntries(R.array.switch_autostart_function_caller_entries)
                 entryValues = arrayOf("0", "1")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
