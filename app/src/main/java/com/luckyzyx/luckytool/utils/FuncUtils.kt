@@ -2,8 +2,21 @@
 
 package com.luckyzyx.luckytool.utils
 
-import android.content.*
-import android.content.pm.PackageManager.*
+import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.ComponentName
+import android.content.ContentValues
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.ServiceConnection
+import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
+import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED
+import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER
+import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+import android.content.pm.PackageManager.DONT_KILL_APP
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -52,13 +65,14 @@ import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.hooker.HookAndroid.prefs
 import com.luckyzyx.luckytool.hook.utils.PowerProfileUtils
+import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.*
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcbs
 import com.topjohnwu.superuser.ipc.RootService
 import kotlinx.coroutines.Dispatchers
-import java.io.*
-import java.util.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.util.regex.Pattern
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -134,13 +148,13 @@ fun getAppSet(prefsName: String, packName: String): Array<String> {
 fun Context.getDeviceInfo(
     controller: IGlobalFuncController? = null, isLog: Boolean = false
 ): String {
-    val systemVersion =
-        "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT}) OS $getOSVersionName($getOSVersionCode)"
+    val androidVer = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
+    val osVer = "OS $getOSVersionName($getOSVersionCode)"
     return """
         ${getString(R.string.model)}: ${Build.BRAND} ${Build.MODEL}
-        ${getString(R.string.market_name)}: ${controller?.marketName}
+        ${getString(R.string.market_name)}: ${getModelMarketName()}
         ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
-        ${getString(R.string.system)}: $systemVersion
+        ${getString(R.string.system)}: $androidVer $osVer
         ${getString(R.string.build_version)}: ${Build.DISPLAY}
         ${getString(R.string.version)}: ${controller?.otaVersion}
         ${getString(R.string.flash)}: ${controller?.flashInfo}
@@ -320,6 +334,14 @@ fun setParameter(context: Context, name: String, key: String?, value: String?) {
 }
 
 /**
+ * 获取机型市场名
+ * @return String?
+ */
+fun getModelMarketName(): String? {
+    return SystemPropertiesUtils(null).get("ro.vendor.oplus.market.name")
+}
+
+/**
  * 获取主板ID
  * @return String
  */
@@ -387,11 +409,16 @@ fun getProp(key: String, root: Boolean): String = safeOf("null") {
  * 打开空活动以关闭折叠面板
  * @receiver TileService
  */
+@SuppressLint("StartActivityAndCollapseDeprecated")
 @Suppress("DEPRECATION")
 fun TileService.closeCollapse() {
-    Intent(Intent.ACTION_VIEW).apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivityAndCollapse(this)
+    try {
+        Intent(Intent.ACTION_VIEW).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivityAndCollapse(this)
+        }
+    } catch (_: UnsupportedOperationException) {
+
     }
 }
 

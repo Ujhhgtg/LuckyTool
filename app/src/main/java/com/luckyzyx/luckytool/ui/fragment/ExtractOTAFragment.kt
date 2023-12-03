@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
 import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.formatFileSize
+import com.luckyzyx.luckytool.utils.getModelMarketName
 import java.io.File
 
 class ExtractOTAFragment : Fragment() {
@@ -26,9 +28,7 @@ class ExtractOTAFragment : Fragment() {
     private lateinit var binding: FragmentExtractOtaBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentExtractOtaBinding.inflate(inflater)
         return binding.root
@@ -45,10 +45,10 @@ class ExtractOTAFragment : Fragment() {
             binding.noOtaData.isVisible = true
             binding.copyOtaData.isEnabled = false
             val data = withDefault {
-                val command =
-                    "cp /data/user/0/com.oplus.ota/databases/ota.db ${context.cacheDir.path}"
+                val cachePath = context.cacheDir.path
+                val command = "cp /data/user/0/com.oplus.ota/databases/ota.db $cachePath"
                 ShellUtils.execCommand(command, true)
-                val dbFile = File(context.cacheDir.path + "/ota.db")
+                val dbFile = File(cachePath, "ota.db")
                 val table = if (dbFile.exists()) {
                     val db = SQLiteUtils.openDataBase(dbFile.path, readOnly)
                     db?.getTableData("pkgList")
@@ -69,6 +69,8 @@ class ExtractOTAFragment : Fragment() {
                         val url = table.getStringOrNull(urlColumn) ?: "Null"
                         dataList.add(
                             """
+                            Model: ${getModelMarketName()} ${Build.MODEL}
+                            
                             PackName: $packName
                             
                             Size: ${formatFileSize(size.toFloatOrNull())} ($size)
