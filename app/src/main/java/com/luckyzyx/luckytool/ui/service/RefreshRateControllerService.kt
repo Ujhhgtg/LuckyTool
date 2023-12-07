@@ -141,7 +141,7 @@ class RefreshRateControllerService : RootService() {
             try {
                 setRefreshRateMode(-1)
             } catch (e: Exception) {
-                LogUtils.e(tag, "resetRefreshRateMode", "$e", true)
+//                LogUtils.e(tag, "resetRefreshRateMode", "$e", true)
             }
         }
     }

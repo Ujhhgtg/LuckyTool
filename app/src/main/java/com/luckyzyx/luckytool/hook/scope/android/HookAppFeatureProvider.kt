@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scope.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
@@ -16,29 +17,16 @@ class HookAppFeatureProvider(
         //Source AppFeatureProviderUtils
         dexKitBridge.findClass {
             matcher {
-                methods {
-                    add {
-                        paramTypes(
-                            ContentResolverClass, StringClass, BooleanType
-                        )
-                        returnType(BooleanType)
-                    }
-                    add {
-                        paramTypes(
-                            ContentResolverClass, StringClass, StringClass
-                        )
-                        returnType(StringClass)
-                    }
-                    add {
-                        paramTypes(ContentResolverClass, StringClass)
-                        returnType(BooleanType)
-                    }
-                }
-                usingStrings("AppFeatureProviderUtils")
+                addMethod { paramTypes(ContentResolverClass, null, StringClass) }
+                addMethod { paramTypes(ContentResolverClass, null) }
+                usingStrings(
+                    "AppFeatureProviderUtils",
+                    "content://com.oplus.customize.coreapp.configmanager.configprovider.AppFeatureProvider"
+                )
             }
         }.apply {
             checkDataList("AppFeatureProviderUtils ($packageName)")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     param(ContentResolverClass, StringClass)
                     returnType = BooleanType
@@ -61,7 +49,10 @@ class HookAppFeatureProvider(
                         if (value != null && value is Boolean) result = value
                     }
                 }
-                method {
+                if (hasMethod {
+                        param(ContentResolverClass, StringClass, StringClass)
+                        returnType = StringClass
+                    }) method {
                     param(ContentResolverClass, StringClass, StringClass)
                     returnType = StringClass
                 }.hook {
