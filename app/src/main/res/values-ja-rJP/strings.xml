@@ -484,6 +484,7 @@
     <string name="set_volume_bar_display_position">音量バーの表示位置を設定</string>
     <string name="force_enable_systemui_blur_feature">システム UI のぼかし機能を強制的に有効化</string>
     <string name="force_enable_systemui_blur_feature_tips">有効にする前に「システム UI のぼかし機能を強制的に有効化」オプションをオンにする必要があります。\nオプションは「その他」のページにあります。</string>
+    <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     <!--Battery-->
     <string name="remove_battery_temperature_control">バッテリー温度制御を削除</string>
     <string name="remove_battery_temperature_control_summary">高温によりカメラ、ライト、ホットスポット、ビデオ拡張エンジンなど各種機能が使用できなくなる制限を無効化します</string>

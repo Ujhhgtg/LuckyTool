@@ -545,6 +545,7 @@
     <string name="set_volume_bar_display_position">Set the volume bar display position</string>
     <string name="force_enable_systemui_blur_feature">Force enable the systemui blur feature</string>
     <string name="force_enable_systemui_blur_feature_tips">Preconditions: You need to turn on the option to “force enable the blur feature of the systemui”\nFunctional location: Miscellaneous</string>
+    <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     
     <!--Battery-->
     <string name="remove_battery_temperature_control">Remove battery temperature control</string>

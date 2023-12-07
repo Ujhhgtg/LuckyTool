@@ -52,7 +52,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("HookSystemStorage")
-            fetchOne().name.toClass().apply {
+            single().name.toClass().apply {
                 method { param(VagueType, BooleanType);returnType = BooleanClass }.hook {
                     after {
                         val configNode = args().first().any().toString()
@@ -111,7 +111,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("HookConfigAbility")
-            fetchOne().name.toClass().apply {
+            single().name.toClass().apply {
                 method { param(StringClass, BooleanType);returnType = BooleanClass }.hook {
                     after {
                         when (args().first().string()) {

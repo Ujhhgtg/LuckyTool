@@ -15,7 +15,7 @@ object HookBattery : YukiBaseHooker() {
     override fun onHook() {
         if (SDK < A13) try {
             DexkitUtils.create(appInfo.sourceDir).close()
-        } catch (e: UnsatisfiedLinkError) {
+        } catch (_: UnsatisfiedLinkError) {
             return
         }
 

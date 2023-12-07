@@ -228,13 +228,13 @@
     <string name="custom_control_center_background_transparency">Tùy chỉnh độ trong suốt của nền trung tâm điều khiển</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Ô thanh trạng thái</string>
-    <string name="SpecialTiles">Special Tiles</string>
+    <string name="SpecialTiles">Ô đặc biệt</string>
     <string name="auto_expand_tile_rows_horizontal">Tự động mở rộng số lượng ô hàng ngang</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Chế độ hàng ngang sẽ hiển thị hai hàng ô khi trình phát đa phương tiện bị ẩn</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Bạn cần bật công tắc chính của chức năng xếp ô bên dưới</string>
-    <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
-    <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
-    <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
+    <string name="control_center_custom_gaps_for_special_tile">Tùy chỉnh khoảng cách màn hình ngang ô đặc biệt</string>
+    <string name="control_center_special_tile_top_gap">Đặt khoảng cách trên cùng của ô đặc biệt</string>
+    <string name="control_center_special_tile_bottom_gap">Đặt khoảng cách dưới cùng của ô đặc biệt</string>
     <string name="TileLongClickEvent">Sự kiện nhấp chuột dài</string>
     <string name="restore_some_tile_long_press_event">Khôi phục một số sự kiện nhấn và giữ ô xếp</string>
     <string name="restore_some_tile_long_press_event_summary">Khôi phục WiFi, Bluetooth, điểm phát sóng cá nhân và các sự kiện nhấn và giữ ô xếp khác để mở trang tương ứng</string>
@@ -390,8 +390,8 @@
     <string name="disable_splash_screen_summary">Vì hoạt ảnh mặt nạ khởi động đã bị xóa nên sẽ có khoảng cách 1–2 giây khi ứng dụng khởi động. Vui lòng không mở nó nếu bạn thấy phiền</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Danh sách ứng dụng liên quan</string>
-    <string name="set_multi_app_support_mode">Set multi app support mode</string>
-    <string name="set_multi_app_support_mode_all_apps">Full app list</string>
+    <string name="set_multi_app_support_mode">Đặt chế độ hỗ trợ nhân bản ứng dụng</string>
+    <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>
@@ -484,6 +484,7 @@
     <string name="set_volume_bar_display_position">Đặt vị trí hiển thị thanh âm lượng</string>
     <string name="force_enable_systemui_blur_feature">Buộc kích hoạt tính năng làm mờ giao diện hệ thống</string>
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>
+    <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     <!--Battery-->
     <string name="remove_battery_temperature_control">Loại bỏ kiểm soát nhiệt độ pin</string>
     <string name="remove_battery_temperature_control_summary">Loại bỏ các hạn chế ngăn cản việc sử dụng một số chức năng, chẳng hạn như máy ảnh, đèn pin, điểm phát sóng, công cụ hiển thị màn hình, v.v.</string>
@@ -771,7 +772,7 @@
     <string name="get_installed_apps_permission">Nhận quyền danh sách ứng dụng</string>
     <!--Typeface-->
     <string name="use_user_typeface">Sử dụng kiểu chữ người dùng</string>
-    <string name="use_bold_font_style">Use bold font style</string>
+    <string name="use_bold_font_style">Sử dụng kiểu chữ đậm</string>
     <!--CommonWords-->
     <string name="common_words_enable">Bật</string>
     <string name="common_words_disable">Tắt</string>

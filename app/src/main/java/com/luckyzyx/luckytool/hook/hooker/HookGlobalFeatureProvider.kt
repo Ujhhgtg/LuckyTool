@@ -26,6 +26,10 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("force_display_process_management", false)) {
                 put("com.android.settings.ultimate_cleanup", true)
             }
+            //Source Settings DeviceInfoUtils 屏幕尺寸显示厘米
+            if (prefs(ModulePrefs).getBoolean("screen_physics_size_shown_cm", false)) {
+                put("com.android.settings.screen_physics_size_cm", true)
+            }
             //Source Battery 屏幕省电
             if (prefs(ModulePrefs).getBoolean("open_screen_power_save", false)) {
                 put("com.oplus.battery.cabc_level_dynamic_enable", true)

@@ -4,7 +4,9 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.externalstorage.RemoveStorageLimit
 import com.luckyzyx.luckytool.hook.scope.systemui.DisableOTGAutoOff
 import com.luckyzyx.luckytool.hook.scope.systemui.ShowChargingRipple
+import com.luckyzyx.luckytool.hook.scope.systemui.ShowManualLockButtonPowerMenu
 import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
@@ -18,6 +20,10 @@ object HookMiscellaneous : YukiBaseHooker() {
             //禁用OTG自动关闭
             if (prefs(ModulePrefs).getBoolean("disable_otg_auto_off", false)) {
                 loadHooker(DisableOTGAutoOff)
+            }
+            //电源菜单显示手动锁定按钮
+            if (prefs(ModulePrefs).getBoolean("show_manual_lock_button_power_menu", false)) {
+                if (SDK >= A13) loadHooker(ShowManualLockButtonPowerMenu)
             }
         }
 

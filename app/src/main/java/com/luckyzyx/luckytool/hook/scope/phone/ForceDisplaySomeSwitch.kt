@@ -30,9 +30,9 @@ class ForceDisplaySomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }
         }.apply {
             checkDataList("ForceDisplaySomeSwitch changeVolteSwitchConfig")
-            fetchOne().className.toClass().apply {
+            single().className.toClass().apply {
                 method {
-                    name = fetchOne().methodName
+                    name = single().methodName
                     param(IntType, BooleanType, StringClass)
                 }.hook {
                     before {
@@ -57,9 +57,9 @@ class ForceDisplaySomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }
         }.apply {
             checkDataList("ForceDisplaySomeSwitch changeNetworkModeConfig")
-            fetchOne().className.toClass().apply {
+            single().className.toClass().apply {
                 method {
-                    name = fetchOne().methodName
+                    name = single().methodName
                     param(IntType, BooleanType, StringClass)
                 }.hook {
                     before {

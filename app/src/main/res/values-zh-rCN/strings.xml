@@ -484,6 +484,7 @@
     <string name="set_volume_bar_display_position">设置音量条显示位置</string>
     <string name="force_enable_systemui_blur_feature">强制启用系统界面模糊特性</string>
     <string name="force_enable_systemui_blur_feature_tips">前提条件：需要开启选项“强制启用系统模糊特性”\n功能位置：杂项</string>
+    <string name="show_manual_lock_button_power_menu">电源菜单显示手动锁定按钮</string>
     <!--Battery-->
     <string name="remove_battery_temperature_control">移除电池温度控制</string>
     <string name="remove_battery_temperature_control_summary">移除部分功能无法使用的限制，例如：相机、手电筒、热点、画面显示引擎等</string>

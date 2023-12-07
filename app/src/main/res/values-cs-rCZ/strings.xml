@@ -228,13 +228,13 @@
     <string name="custom_control_center_background_transparency">Vlastní průhlednost pozadí ovládacího centra</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Dlaždice stavové lišty</string>
-    <string name="SpecialTiles">Special Tiles</string>
+    <string name="SpecialTiles">Speciální dlaždice</string>
     <string name="auto_expand_tile_rows_horizontal">Automaticky rozbalit počet řádků horizontálních dlaždic</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Musíte povolit přepínač funkce dlaždic níže</string>
-    <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
-    <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
-    <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
+    <string name="control_center_custom_gaps_for_special_tile">Přizpůsobit vodorovnou mezeru obrazovky speciálních dlaždic</string>
+    <string name="control_center_special_tile_top_gap">Nastavit horní mezeru pro speciální dlaždice</string>
+    <string name="control_center_special_tile_bottom_gap">Nastavit spodní mezeru pro speciální dlaždice</string>
     <string name="TileLongClickEvent">Událost daždice při dlouhém stisku</string>
     <string name="restore_some_tile_long_press_event">Obnovit některé události dlouhého stisku</string>
     <string name="restore_some_tile_long_press_event_summary">Obnovit WiFi, Bluetooth, osobní hotspot a další události dlouhého stisku pro otevření odpovídající stránky</string>
@@ -390,8 +390,8 @@
     <string name="disable_splash_screen_summary">Vzhledem k tomu, že animace úvodní obrazovky byla odstraněna, bude po spuštění aplikace 1 až 2 sekundy prodleva startu aplikace. Pokud vám to vadí, prosím toto nezapínejte</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Nastavení související se seznamem aplikací</string>
-    <string name="set_multi_app_support_mode">Set multi app support mode</string>
-    <string name="set_multi_app_support_mode_all_apps">Full app list</string>
+    <string name="set_multi_app_support_mode">Nastavit režim podpory více aplikací</string>
+    <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
@@ -484,6 +484,7 @@
     <string name="set_volume_bar_display_position">Nastavit pozici zobrazení panelu hlasitosti</string>
     <string name="force_enable_systemui_blur_feature">Vynutit povolení systémového rozostření</string>
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
+    <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     <!--Battery-->
     <string name="remove_battery_temperature_control">Odebrat kontrolu teploty baterie</string>
     <string name="remove_battery_temperature_control_summary">Odstranit omezení, kvůli kterým nelze použít různé funkce, například: fotoaparát, svítilna, hotspot, displej atd.</string>
@@ -771,7 +772,7 @@
     <string name="get_installed_apps_permission">Získat oprávnění pro nainstalované aplikace</string>
     <!--Typeface-->
     <string name="use_user_typeface">Použít uživatelský typ písma</string>
-    <string name="use_bold_font_style">Use bold font style</string>
+    <string name="use_bold_font_style">Použít tučný font písma</string>
     <!--CommonWords-->
     <string name="common_words_enable">Povolit</string>
     <string name="common_words_disable">Zakázat</string>
