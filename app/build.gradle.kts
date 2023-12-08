@@ -8,8 +8,8 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android") version "1.9.20"
-    id("com.google.devtools.ksp") version "1.9.20-1.0.13"
+    id("org.jetbrains.kotlin.android") version "1.9.21"
+    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
     id("com.joom.paranoid")
     id("stringfog")
 }
