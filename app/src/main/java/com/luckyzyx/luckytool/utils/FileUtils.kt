@@ -201,7 +201,7 @@ object FileUtils {
      * @param title String
      * @param file File
      */
-    fun shareFile(context: Context, title: String, file: File) {
+    fun shareFile(context: Context, title: CharSequence, file: File) {
         if (file.exists()) {
             val share = Intent(Intent.ACTION_SEND)
             val contentUri = FileProvider.getUriForFile(
@@ -213,6 +213,19 @@ object FileUtils {
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             context.startActivity(Intent.createChooser(share, title))
         }
+    }
+
+    /**
+     * 分享文本内容
+     * @param context Context
+     * @param content CharSequence?
+     */
+    fun shareString(context: Context, title: CharSequence, content: CharSequence?) {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(Intent.EXTRA_TEXT, content)
+        sendIntent.type = "text/plain"
+        context.startActivity(Intent.createChooser(sendIntent, title))
     }
 
     /**
@@ -244,10 +257,11 @@ object FileUtils {
      */
     fun checkDownloadDir(context: Context, fileName: String): File {
         checkRWPermission(context)
-        val file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).apply {
-            if (isFile) delete()
-            if (!exists()) mkdirs()
-        }
+        val file =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).apply {
+                if (isFile) delete()
+                if (!exists()) mkdirs()
+            }
         return File(file.path, fileName)
     }
 }
