@@ -6,7 +6,7 @@ import com.luckyzyx.luckytool.hook.scope.systemui.DisableOTGAutoOff
 import com.luckyzyx.luckytool.hook.scope.systemui.ShowChargingRipple
 import com.luckyzyx.luckytool.hook.scope.systemui.ShowManualLockButtonPowerMenu
 import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
@@ -23,7 +23,7 @@ object HookMiscellaneous : YukiBaseHooker() {
             }
             //电源菜单显示手动锁定按钮
             if (prefs(ModulePrefs).getBoolean("show_manual_lock_button_power_menu", false)) {
-                if (SDK >= A13) loadHooker(ShowManualLockButtonPowerMenu)
+                if (SDK >= A14) loadHooker(ShowManualLockButtonPowerMenu)
             }
         }
 

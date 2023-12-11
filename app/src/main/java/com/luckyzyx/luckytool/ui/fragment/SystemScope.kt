@@ -2718,7 +2718,7 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 title = getString(R.string.show_manual_lock_button_power_menu)
                 key = "show_manual_lock_button_power_menu"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
+                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
         }
