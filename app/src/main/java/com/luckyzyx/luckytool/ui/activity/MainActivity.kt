@@ -25,8 +25,8 @@ import com.luckyzyx.luckytool.databinding.ActivityMainBinding
 import com.luckyzyx.luckytool.ui.fragment.HomeFragment
 import com.luckyzyx.luckytool.ui.service.GlobalFuncControllerService
 import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcBBK
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcEbk
+import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGiteeBlackList
+import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGithubBlackList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -117,8 +117,8 @@ open class MainActivity : AppCompatActivity() {
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
         PermissionUtils(this).checkPermissions()
         scopeLife(Lifecycle.Event.ON_START, Dispatchers.IO) {
-            putBoolean(SettingsPrefs, "boot_complete", ckqcEbk())
-            putBoolean(SettingsPrefs, "boot_complete_final", ckqcBBK())
+            checkGiteeBlackList()
+            checkGithubBlackList()
         }
     }
 

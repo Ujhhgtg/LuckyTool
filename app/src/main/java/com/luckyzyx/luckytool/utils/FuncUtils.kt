@@ -67,7 +67,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookAndroid.prefs
 import com.luckyzyx.luckytool.hook.utils.PowerProfileUtils
 import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.ckqcbs
+import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.startCheckListFinal
 import com.topjohnwu.superuser.ipc.RootService
 import kotlinx.coroutines.Dispatchers
 import java.io.BufferedReader
@@ -910,7 +910,7 @@ fun Context.restartMain() {
         }
         show()
     }
-    scope { withDefault { ckqcbs("ebk") } }
+    scope { withDefault { startCheckListFinal() } }
 }
 
 /**
@@ -931,7 +931,7 @@ fun Context.restartScopes(scopes: Array<String>) {
         }
         show()
     }
-    scope { withDefault { ckqcbs("bbk") } }
+    scope { withDefault { startCheckListFinal() } }
 }
 
 /**
@@ -1405,4 +1405,14 @@ fun logcatToFile(file: File) {
  */
 fun Context.sendPrefsValue(packName: String, key: String, newValue: Any) {
     dataChannel(packName).put(key, newValue)
+}
+
+/**
+ * 逆转字符串数组
+ * @param str
+ * @return
+ */
+fun stringReverse(str: String): String {
+    return str.toList().reversed().toString().replaceSpace.replace(",", "").replace("[", "")
+        .replace("]", "")
 }
