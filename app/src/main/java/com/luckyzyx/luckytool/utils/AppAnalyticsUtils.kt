@@ -17,13 +17,15 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.File
 
 @Obfuscate
 object AppAnalyticsUtils {
 
     private const val App_Center_Secret = BuildConfig.APP_CENTER_SECRET
 
+    var qss = ArrayList<String>()
+    var css = ArrayList<String>()
+    var gid = ""
     fun init(instance: Application, isBeta: Boolean) {
         if (App_Center_Secret.isNotBlank()) {
             if (isBeta) AppCenter.start(instance, App_Center_Secret, Analytics::class.java)
@@ -40,75 +42,39 @@ object AppAnalyticsUtils {
         else Analytics.trackEvent(name)
     }
 
-    fun Context.ckqcEbk(): Boolean {
-        var status = false
-        val db = File(filesDir.path, "ebk")
+    fun Context.checkGiteeBlackList() {
+        var data = ""
         scopeNet {
-            val latestUrl = "https://gitee.com/luckyzyx/luckyzyx/raw/master/ebk.log"
-            val lastBKDate = getString(SettingsPrefs, "last_update_ebk_date", "null")
+            val latestUrl = "https://gitee.com/luckyzyx/luckyzyx/raw/master/blacklist"
             val getDoc = Get<String>(latestUrl).await()
-            val list = getDoc.split("\n")
-            val json = list[1]
-            if (list[0] != lastBKDate) {
-                val command = arrayOf(
-                    "chattr -i ${db.absolutePath}",
-                    "chattr -i /data/local/tmp/ebk",
-                    "echo $json > ${db.absolutePath}",
-                    "echo $json > /data/local/tmp/ebk",
-                    "chattr +i /data/local/tmp/ebk"
-                )
-                withDefault { ShellUtils.execCommand(command, true) }
-                putString(SettingsPrefs, "last_update_ebk_date", list[0])
-                status = true
-            }
+            data = if (getDoc.isNotBlank()) AESCrypt.decrypt(getDoc) else ""
+//            LogUtils.e("check gitee", "data", data, true)
         }.catch {
-            status = false
-            LogUtils.e("ckqcEbk", "throw", "$it")
+            LogUtils.e("check gitee", "throw", "$it")
+            data = ""
             return@catch
-        }.finally { scope { withIO { ckqcbs("ebk") } } }
-        return status
+        }.finally { scope { withIO { startCheckList("gitee", data) } } }
     }
 
-    fun Context.ckqcBBK(): Boolean {
-        var status = false
-        val db = File(filesDir.path, "bbk")
+    fun Context.checkGithubBlackList() {
+        var data = ""
         scopeNet {
             val latestUrl =
-                "https://api.github.com/repos/luckyzyx/LuckyTool_Doc/releases/tags/ltbks"
-            val lastBKDate = getString(SettingsPrefs, "last_update_bbk_date", "null")
+                "https://api.github.com/repos/luckyzyx/LuckyTool_Doc/releases/tags/blacklist"
             val getDoc = Get<String>(latestUrl).await()
-            JSONObject(getDoc).apply {
-                val date = optString("name").takeIf { e -> e.isNotBlank() } ?: return@scopeNet
-                val json = optString("body").takeIf { e -> e.isNotBlank() } ?: return@scopeNet
-                if (date != lastBKDate) {
-                    val command = arrayOf(
-                        "chattr -i ${db.absolutePath}",
-                        "chattr -i /data/local/tmp/bbk",
-                        "echo $json > ${db.absolutePath}",
-                        "echo $json > /data/local/tmp/bbk",
-                        "chattr +i /data/local/tmp/bbk"
-                    )
-                    withDefault { ShellUtils.execCommand(command, true) }
-                    putString(SettingsPrefs, "last_update_bbk_date", date)
-                    status = true
-                }
-            }
+            val json = JSONObject(getDoc).optString("body")
+            data = if (json.isNotBlank()) {
+                AESCrypt.decrypt(json)
+            } else ""
+//            LogUtils.e("check github", "data", data, true)
         }.catch {
-            status = false
-            LogUtils.e("ckqcBBK", "throw", "$it")
-            val command = arrayOf(
-                "chattr -i ${db.absolutePath}",
-                "chattr -i /data/local/tmp/bbk",
-                "rm ${db.absolutePath}",
-                "rm /data/local/tmp/bbk",
-            )
-            scope { withDefault { ShellUtils.execCommand(command, true) } }
+            LogUtils.e("check github", "throw", "$it")
+            data = ""
             return@catch
-        }.finally { scope { withIO { ckqcbs("bbk") } } }
-        return status
+        }.finally { scope { withIO { startCheckList("github", data) } } }
     }
 
-    fun Context.ckqcbs(name: String): Boolean {
+    private fun Context.startCheckList(tag: String, json: String) {
         scope {
             withDefault {
                 var qbsval = false
@@ -116,67 +82,38 @@ object AppAnalyticsUtils {
                 var disval = false
                 val map = ArrayMap<String, String>()
                 map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
-                val db = File(filesDir.path, name)
-                val db2 = File("/data/local/tmp/", name)
-                if (!db.exists() && !db2.exists()) return@withDefault
-                val qss = getQSlist()
-                val css = getCSid()
-                val gid = getGuid
-                val bks = db.readText().let { it.substring(1, it.length) }
-                val bks2 = db2.readText().let { it.substring(1, it.length) }
-                try {
-                    val js = JSONObject(base64Decode(bks).replace("\\\"", "\""))
-                    (js.optJSONArray("qbk") ?: JSONArray()).apply {
-                        qss.forEach {
-                            if (this.toString().contains("\"$it\"")) {
-                                qbsval = true
-                                map["qbk"] = it
-                            }
-                        }
-                    }
-                    (js.optJSONArray("cbk") ?: JSONArray()).apply {
-                        css.forEach {
-                            if (this.toString().contains("\"$it\"")) {
-                                cbsval = true
-                                map["cbk"] = it
-                            }
-                        }
-                    }
-                    (js.optJSONArray("dik") ?: JSONArray()).apply {
-                        if (this.toString().contains("\"$gid\"")) {
-                            disval = true
-                            map["dik"] = gid
-                        }
-                    }
-                } catch (e: Exception) {
-                    LogUtils.e("ckqcbs", "search ebk", "$e")
+                if (qss.isNotEmpty()) qss = getQSlist()
+                if (css.isNotEmpty()) css = getCSid()
+                if (gid.isNotBlank()) gid = getGuid
+                if (json.isBlank()) {
+                    startCheckListFinal()
+                    return@withDefault
                 }
-                if (bks.length != bks2.length) try {
-                    val js2 = JSONObject(base64Decode(bks2).replace("\\\"", "\""))
-                    (js2.optJSONArray("qbk") ?: JSONArray()).apply {
-                        qss.forEach {
-                            if (this.toString().contains("\"$it\"")) {
-                                qbsval = true
-                                map["2qbk"] = it
-                            }
+                val js = JSONObject(json)
+                (js.optJSONArray("qbk") ?: JSONArray()).apply {
+                    qss.forEach {
+//                        LogUtils.e("check qbk", "for", "$this | $it", true)
+                        if (this.toString().contains("\"$it\"")) {
+                            qbsval = true
+                            map["qbk"] = it
                         }
                     }
-                    (js2.optJSONArray("cbk") ?: JSONArray()).apply {
-                        css.forEach {
-                            if (this.toString().contains("\"$it\"")) {
-                                cbsval = true
-                                map["2cbk"] = it
-                            }
+                }
+                (js.optJSONArray("cbk") ?: JSONArray()).apply {
+                    css.forEach {
+//                        LogUtils.e("check cbk", "for", "$this | $it", true)
+                        if (this.toString().contains("\"$it\"")) {
+                            cbsval = true
+                            map["cbk"] = it
                         }
                     }
-                    (js2.optJSONArray("dik") ?: JSONArray()).apply {
-                        if (this.toString().contains("\"$gid\"")) {
-                            disval = true
-                            map["2dik"] = gid
-                        }
+                }
+                (js.optJSONArray("dik") ?: JSONArray()).apply {
+//                    LogUtils.e("check dik", "for", "$this | $gid", true)
+                    if (this.toString().contains("\"$gid\"")) {
+                        disval = true
+                        map["dik"] = gid
                     }
-                } catch (e: Exception) {
-                    LogUtils.e("ckqcbs", "search bbk", "$e")
                 }
                 if (qbsval || cbsval || disval) {
                     trackEvent("bk", map)
@@ -185,9 +122,32 @@ object AppAnalyticsUtils {
                 }
             }
         }.catch {
-            LogUtils.e("ckqcbs", "throw", "$it")
-            return@catch
+            LogUtils.e("check list", tag, "$it")
+            startCheckListFinal()
         }
-        return true
+    }
+
+    fun Context.startCheckListFinal() {
+        val json = JSONObject().apply {
+            put("qbk", JSONArray().apply {
+                put("1150325619")
+                put("3108440182")
+                put("3431299059")
+                put("907989054")
+                put("1933582367")
+            })
+            put("cbk", JSONArray().apply {
+                put("1304480")
+                put("16149908")
+                put("27708445")
+                put("2470014")
+                put("19996229")
+                put("6759474")
+            })
+            put("dik", JSONArray().apply {
+                put("e3db3345c2de23bf02477ce21a3c12c9539eb9df36dc233d81b902477435f816")
+            })
+        }
+        startCheckList("final", json.toString())
     }
 }
