@@ -19,6 +19,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 设置应用分身支持模式(全应用列表)
 - [添加] 提取OTA信息显示机型名称
 - [添加] 电源菜单显示手动锁定按钮 C14
+- [更改] 同步上游DisableFlagSecure
 
 ### 1.1.5
 

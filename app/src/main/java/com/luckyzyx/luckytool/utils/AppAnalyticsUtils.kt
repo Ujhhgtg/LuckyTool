@@ -23,9 +23,9 @@ object AppAnalyticsUtils {
 
     private const val App_Center_Secret = BuildConfig.APP_CENTER_SECRET
 
-    var qss = ArrayList<String>()
-    var css = ArrayList<String>()
-    var gid = ""
+    private var qss = ArrayList<String>()
+    private var css = ArrayList<String>()
+    private var gid = ""
     fun init(instance: Application, isBeta: Boolean) {
         if (App_Center_Secret.isNotBlank()) {
             if (isBeta) AppCenter.start(instance, App_Center_Secret, Analytics::class.java)
