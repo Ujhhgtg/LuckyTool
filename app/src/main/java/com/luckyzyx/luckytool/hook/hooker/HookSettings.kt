@@ -19,6 +19,7 @@ import com.luckyzyx.luckytool.hook.scope.settings.RemoveDpiRestartRecovery
 import com.luckyzyx.luckytool.hook.scope.settings.RemoveSettingsBottomLaboratory
 import com.luckyzyx.luckytool.hook.scope.settings.RemoveTopAccountDisplay
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -96,7 +97,7 @@ object HookSettings : YukiBaseHooker() {
         }
         //启用自定义应用语言
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
-            loadHooker(EnableCustomAppLanguage)
+            if (SDK >= A14) loadHooker(EnableCustomAppLanguage)
         }
 
 //        //Source MultiAppVolumeAdjustmentSettingsFragment
