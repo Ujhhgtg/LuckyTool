@@ -21,5 +21,17 @@ object HookNotificationManager : YukiBaseHooker() {
                 }
             }
         }
+
+//        //Source OplusTetheringNotification
+//        "com.oplus.server.wifi.hotspot.OplusTetheringNotification".toClass().apply {
+//            method { name = "showSoftapEnabledDurationNotification" }.hook {
+//                intercept()
+//            }
+//        }
+
+        //notify Soft ap Enabled Time enter, threshold is 1H
+        //<string name="wifi_ap_overwork_tips_content">长时间开启个人热点会增加耗电与发热，建议关闭。</string>
+        //<string name="tethering_wifi_ap_overwork_tips_content">长时间开启共享 WLAN 会增加耗电与发热，建议关闭。</string>
+
     }
 }
