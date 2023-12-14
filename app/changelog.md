@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.7_beta
+
+- [修复] DisableFlagSecure Hook异常 C14
+
 ### 1.1.6
 
 - [更改] 音量对话框相关功能移至声音分区

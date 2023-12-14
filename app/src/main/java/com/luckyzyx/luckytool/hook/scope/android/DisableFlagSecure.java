@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.hook.scope.android;
 
 import static com.luckyzyx.luckytool.utils.SPUtilsKt.ModulePrefs;
 
-import android.os.Build;
 import android.util.Log;
 
 import com.luckyzyx.luckytool.BuildConfig;
@@ -59,19 +58,19 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
             } catch (Throwable t) {
                 if (isDebug) XposedBridge.log(t);
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                try {
-                    XposedHelpers.findAndHookMethod(
-                            "com.android.server.wm.WindowManagerService",
-                            loadPackageParam.classLoader,
-                            "registerScreenCaptureObserver",
-                            "android.os.IBinder",
-                            "android.app.IScreenCaptureObserver",
-                            XC_MethodReplacement.DO_NOTHING);
-                } catch (Throwable t) {
-                    if (isDebug) XposedBridge.log(t);
-                }
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+//                try {
+//                    XposedHelpers.findAndHookMethod(
+//                            "com.android.server.wm.WindowManagerService",
+//                            loadPackageParam.classLoader,
+//                            "registerScreenCaptureObserver",
+//                            "android.os.IBinder",
+//                            "android.app.IScreenCaptureObserver",
+//                            XC_MethodReplacement.DO_NOTHING);
+//                } catch (Throwable t) {
+//                    if (isDebug) XposedBridge.log(t);
+//                }
+//            }
             try {
                 deoptimizeMethod(XposedHelpers.findClass("com.android.server.wm.WindowStateAnimator", loadPackageParam.classLoader), "createSurfaceLocked");
                 var c = XposedHelpers.findClass("com.android.server.display.DisplayManagerService", loadPackageParam.classLoader);

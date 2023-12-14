@@ -1,6 +1,7 @@
 <resources>
     <string-array name="xposed_scope">
         <item>android</item>
+        <item>oplus</item>
         <item>com.android.systemui</item>
         <item>com.oplus.battery</item>
         <item>com.android.settings</item>
