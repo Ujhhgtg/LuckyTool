@@ -485,7 +485,7 @@
     <string name="set_volume_bar_display_position">Установить положение отображения панели громкости</string>
     <string name="force_enable_systemui_blur_feature">Включить функцию системного размытия</string>
     <string name="force_enable_systemui_blur_feature_tips">Уловие: Вам необходимо включить опцию \"Включить функцию размытия в системе\"\nРасположение функции: Разное</string>
-    <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
+    <string name="show_manual_lock_button_power_menu">Показывать ручную кнопку блокировки в меню питания</string>
     <!--Battery-->
     <string name="remove_battery_temperature_control">Убрать управление температурой батареи</string>
     <string name="remove_battery_temperature_control_summary">Удалить ограничение, что различные функции не могут быть использованы, например: камера, фонарик, точка доступа, механизм отображения экрана и т.д.</string>

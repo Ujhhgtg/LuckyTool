@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">对ColorOS系统进行扩展优化的Xposed模块\n开发者：忆清鸣、luckyzyx</string>
+    <string name="xposeddescription">对 ColorOS 扩展优化的 Xposed 模块\n开发者：忆清鸣、luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">功能</string>
     <string name="nav_home">主页</string>
@@ -11,7 +11,7 @@
     <string name="fragment_source">源代码</string>
     <!-- Settings -->
     <string name="theme_title">主题</string>
-    <string name="theme_title_summary">将自动刷新页面</string>
+    <string name="theme_title_summary">页面将自动刷新</string>
     <string name="use_dynamic_color">动态取色</string>
     <string name="use_dynamic_color_summary">使用动态取色</string>
     <string name="dark_theme">深色主题</string>
@@ -22,68 +22,68 @@
     <string name="privacy_agreement">隐私协议</string>
     <string name="auto_check_update">自动检查更新</string>
     <string name="auto_check_update_summary">打开模块主页时自动检查更新</string>
-    <string name="tile_auto_start">允许内置磁贴自启</string>
-    <string name="tile_auto_start_summary">当宿主端模块版本与本地模块版本一致时， 若启用此功能，屏幕解锁后将自动触发已打开磁贴的功能\n若触发失败，请重启作用域和检查Root权限</string>
-    <string name="read_agreement">您需要阅读并同意以下内容才可以使用此模块</string>
-    <string name="clear_all_data">清除全部数据</string>
-    <string name="clear_all_data_summary">清除模块中的所有功能数据</string>
-    <string name="clear_all_data_message">确定要清除模块所有功能数据，清除后需要重新设置功能？</string>
+    <string name="tile_auto_start">允许内置磁贴自动启动</string>
+    <string name="tile_auto_start_summary">当宿主端模块版本与本地模块版本一致时，并启用此功能，屏幕解锁后将自动触发已打开磁贴的功能\n如果触发失败，请重启作用域和检查 Root 权限</string>
+    <string name="read_agreement">您需要阅读并同意以下内容后才能使用本模块</string>
+    <string name="clear_all_data">清除所有数据</string>
+    <string name="clear_all_data_summary">清除模块所有功能的数据</string>
+    <string name="clear_all_data_message">确定要清除模块所有功能的数据？\n您需要在清除数据后重设功能。</string>
     <!-- Other Settings -->
     <string name="other_settings">其他设置</string>
     <string name="enable_module_print_logs">启用模块打印日志</string>
-    <string name="enable_module_print_logs_summary">此功能仅用于打印模块App本身的运行日志\n关闭开关后将获取日志文件</string>
-    <string name="switch_autostart_function_caller">切换自启功能调用者</string>
-    <string name="switch_autostart_function_caller_summary">1、模块调用方式将打开模块的新页面并触发自启功能， 当屏幕解锁时可能导致无法触摸几秒钟\n2、系统界面调用方式将使用系统界面进程调用自启功能， 需要给予系统界面Root权限，否则无法触发</string>
-    <string name="switch_autostart_function_caller_module">调用模块</string>
-    <string name="switch_autostart_function_caller_systemui">调用系统界面</string>
+    <string name="enable_module_print_logs_summary">此功能仅用于打印模块 App 本身的运行日志\n当此开关关闭时，将获取日志文件</string>
+    <string name="switch_autostart_function_caller">切换自启功能的调用者</string>
+    <string name="switch_autostart_function_caller_summary">1.模块调用方式，将打开模块的新页面并触发自启功能，当屏幕解锁时可能导致无法触摸几秒钟\n2.系统界面调用方式，将使用系统界面进程调用自启功能， 需要给予系统界面 Root 权限，否则无法触发自动启动</string>
+    <string name="switch_autostart_function_caller_module">模块调用</string>
+    <string name="switch_autostart_function_caller_systemui">系统界面调用</string>
     <string name="hide_function_page_icon">隐藏功能页面图标</string>
     <string name="hide_desktop_module_icon">隐藏桌面模块图标</string>
-    <string name="hide_desktop_module_icon_summary">必须关闭LSPosed强制显示桌面图标</string>
+    <string name="hide_desktop_module_icon_summary">LSPosed 内必须关闭强制显示桌面图标</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">备份/恢复/清除</string>
-    <string name="get_log_cat_log">获取LogCat日志</string>
+    <string name="get_log_cat_log">获取 LogCat 日志</string>
     <string name="backup_data">备份数据</string>
     <string name="restore_data">恢复数据</string>
-    <string name="data_backup_complete">数据备份完成!</string>
-    <string name="data_backup_error">数据备份错误!</string>
-    <string name="data_restore_complete">数据恢复完成!</string>
+    <string name="data_backup_complete">数据备份已完成！</string>
+    <string name="data_backup_error">数据备份错误！</string>
+    <string name="data_restore_complete">数据恢复已完成！</string>
     <!-- About -->
     <string name="about_title">关于</string>
     <string name="about_author">作者</string>
     <string name="donate">捐赠打赏</string>
-    <string name="donate_message">务必在捐赠时备注昵称或ID</string>
+    <string name="donate_message">捐赠时请务必备注您的昵称或 ID</string>
     <string name="donate_summary">您的捐赠将是模块更新的动力</string>
     <string name="qq">QQ</string>
     <string name="wechat">微信</string>
     <string name="alipay">支付宝</string>
     <string name="donation_list">捐赠列表</string>
     <string name="feedback_download">反馈与下载</string>
-    <string name="feedback_download_summary">TG频道, 群组, 仓库等</string>
+    <string name="feedback_download_summary">TG 频道，群组，仓库等</string>
     <string name="coolmarket">酷安主页</string>
     <string name="module_doc">模块文档</string>
     <string name="qq_channel">QQ 频道</string>
-    <string name="telegram_channel">Telegram频道</string>
-    <string name="telegram_group">Telegram群组</string>
-    <string name="lsposed_repo">LSPosed仓库</string>
-    <string name="github_repo">Github仓库</string>
-    <string name="open_source">开放源代码</string>
-    <string name="open_source_summary">点击查看开放源代码列表</string>
+    <string name="telegram_channel">Telegram 频道</string>
+    <string name="telegram_group">Telegram 群组</string>
+    <string name="lsposed_repo">LSPosed 仓库</string>
+    <string name="github_repo">Github 仓库</string>
+    <string name="open_source">开源</string>
+    <string name="open_source_summary">点击查看开源列表</string>
     <string name="participate_translation">参与模块翻译</string>
-    <string name="participate_translation_summary">前往Crowdin贡献你的翻译</string>
+    <string name="participate_translation_summary">前往 Crowdin 贡献您的翻译</string>
     <!-- check lsposed -->
     <string name="system_not_support">当前系统不支持!</string>
     <string name="unsupported_xposed">检测到模块未激活\n请使用LSPosed %1$s 及以上版本勾选模块作用域\n如果已完成此步骤，可尝试点击“确定”退出并重新打开模块</string>
     <string name="unsupported_os">不受支持的系统</string>
-    <string name="unsupported_os_summary">由于该模块仅支持ColorOS 12及以上系统，请务必做好安全措施！</string>
+    <string name="unsupported_os_summary">由于该模块仅支持 ColorOS 12 及以上系统，请务必采取安全措施！</string>
     <string name="no_root">无 Root 权限</string>
-    <string name="no_root_summary">未检测到Root权限，部分功能将无法使用！</string>
+    <string name="no_root_summary">未检测到 Root 权限，部分功能将无法使用！</string>
     <!-- Menu -->
     <string name="menu_reboot">重启菜单</string>
     <string name="menu_settings">设置菜单</string>
-    <string name="restart_scope">重启作用域</string>
+    <string name="restart_scope">重启作用域进程</string>
     <string name="need_restart_scope">需要重启作用域</string>
     <string name="need_restart_system">需要重启系统</string>
-    <string name="restart_scope_message">确定要重启除系统框架以外的所有作用域？\n模块不生效时使用！\n请确保已勾选所有对应作用域！</string>
+    <string name="restart_scope_message">确定要重启除系统框架以外的所有作用域进程？\n模块不生效时使用！\n请确保已勾选所有对应作用域！</string>
     <string name="restart_only_this_page_scope">仅重启此页作用域</string>
     <string name="reboot">重启系统</string>
     <string name="fast_reboot">快速重启</string>
@@ -96,19 +96,19 @@
     <string name="package_name">包名</string>
     <string name="version">版本</string>
     <!-- CorePatch -->
-    <string name="ColorOSCorePatchTip">ColorOS官方安装器需要另外开启其他功能使用\n功能列表-应用相关-应用安装相关</string>
+    <string name="ColorOSCorePatchTip">ColorOS 官方安装程序需要启用其他功能来使用\n功能列表 - 应用相关 - 应用安装相关</string>
     <string name="corepatch">核心破解</string>
     <string name="corepatch_summary">解除安装限制, 支持 Android 11–14</string>
     <string name="downgr">允许降级安装应用</string>
-    <string name="downgr_summary">允许应用在安装新版本的情况下直接覆盖安装旧版本</string>
+    <string name="downgr_summary">允许应用的旧版本覆盖安装新版本</string>
     <string name="authcreak">禁用软件包管理器签名验证</string>
     <string name="authcreak_summary">关闭安装应用时的签名验证, 可以安装被篡改的应用</string>
-    <string name="digestCreak">禁用APK签名验证</string>
-    <string name="digestCreak_summary">允许直接覆盖安装同包名不同签名的应用</string>
-    <string name="UsePreSig">安装时始终使用已装APP的签名</string>
-    <string name="UsePreSig_summary">不是一般的!危险! 仅在绝对需要时启用</string>
+    <string name="digestCreak">禁用 APK 签名验证</string>
+    <string name="digestCreak_summary">允许不同签名的应用程序覆盖安装</string>
+    <string name="UsePreSig">安装时始终使用已安装应用的签名</string>
+    <string name="UsePreSig_summary">高风险操作！仅在绝对需要时启用！</string>
     <string name="enhancedMode">增强模式</string>
-    <string name="enhancedMode_summary">可以解决一些App内部的完整性校验, 一般不需要开启</string>
+    <string name="enhancedMode_summary">可以解决一些应用程序内部的完整性校验，一般不需要启用</string>
     <string name="usepresig_warn">所有安装包可以覆盖已安装的App!\n安装未知的安装包时请务必小心</string>
     <!--Status Bar-->
     <string name="StatusBar">状态栏相关</string>
@@ -137,10 +137,10 @@
     <string name="statusbar_clock_doublerow_fontsize">双排字体大小</string>
     <string name="statusbar_clock_custom_format">时钟格式</string>
     <string name="statusbar_clock_custom_fontsize">时钟字体大小</string>
-    <string name="statusbar_clock_fontsize_summary">若为0, 则不修改字体大小</string>
+    <string name="statusbar_clock_fontsize_summary">若为 0，则不修改字体大小</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">状态栏网速</string>
-    <string name="set_network_speed">设置状态栏网速刷新率1s</string>
+    <string name="set_network_speed">设置状态栏网速刷新率为 1 秒</string>
     <string name="enable_double_row_network_speed">启用双行网速</string>
     <string name="set_network_speed_font_size">设置网速字体大小</string>
     <string name="set_network_speed_padding_bottom">设置网速底部对齐</string>
@@ -152,22 +152,22 @@
     <string name="StatusBarNotice">状态栏通知</string>
     <string name="StatusBarNotice_summary">状态栏通知相关</string>
     <string name="RemoveStatusBarNotifications">移除状态栏通知</string>
-    <string name="remove_statusbar_devmode">移除状态栏开发者选项通知</string>
+    <string name="remove_statusbar_devmode">移除开发者选项通知</string>
     <string name="remove_charging_completed">移除充电完成通知</string>
-    <string name="remove_statusbar_top_notification">移除状态栏应用上层通知</string>
+    <string name="remove_statusbar_top_notification">移除应用上层通知</string>
     <string name="remove_statusbar_top_notification_summary">移除状态栏“此应用在其他应用上层显示”</string>
-    <string name="remove_vpn_active_notification">移除VPN已激活通知</string>
-    <string name="remove_vpn_active_notification_summary">移除状态栏VPN已激活通知</string>
+    <string name="remove_vpn_active_notification">移除 VPN 活动通知</string>
+    <string name="remove_vpn_active_notification_summary">移除状态栏 VPN 活动通知</string>
     <string name="remove_flashlight_open_notification">移除手电筒已开启通知</string>
-    <string name="remove_app_high_battery_consumption_warning">移除应用后台耗电异常优化警告</string>
-    <string name="remove_app_high_battery_consumption_warning_summary">移除应用后台电池快速耗电，建议立即优化的警告</string>
+    <string name="remove_app_high_battery_consumption_warning">移除应用耗电异常警告</string>
+    <string name="remove_app_high_battery_consumption_warning_summary">移除后台应用耗电异常，需要优化的警告</string>
     <string name="remove_high_performance_mode_notifications">移除高性能模式通知</string>
     <string name="remove_do_not_disturb_mode_notification">移除免打扰模式通知</string>
     <string name="remove_hotspot_power_consumption_notification">移除个人热点耗电通知</string>
-    <string name="remove_hotspot_power_consumption_notification_summary">通知: 长时间开启个人热点会增加耗电与发热</string>
+    <string name="remove_hotspot_power_consumption_notification_summary">通知：长时间开启个人热点会增加耗电与发热</string>
     <string name="remove_smart_rapid_charging_notification">移除“了解智能快速充电”通知</string>
     <string name="remove_notifications_for_mute_notifications">移除通知勿扰通知</string>
-    <string name="remove_virus_risk_notification_in_phone_manager">移除手机管家发现病毒风险通知</string>
+    <string name="remove_virus_risk_notification_in_phone_manager">移除手机管家的病毒风险通知</string>
     <string name="remove_gt_mode_notification">移除 GT 模式通知</string>
     <string name="allow_long_press_notification_modifiable">允许长按通知可修改</string>
     <string name="remove_notification_manager_limit">移除通知管理限制</string>
@@ -177,8 +177,8 @@
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">状态栏图标</string>
     <string name="StatusBarIcon_summary">状态栏图标相关</string>
-    <string name="StatusBarWIFIIcon">WiFi 图标</string>
-    <string name="remove_wifi_data_inout">移除WiFi数据箭头</string>
+    <string name="StatusBarWIFIIcon">Wi-Fi 图标</string>
+    <string name="remove_wifi_data_inout">移除 Wi-Fi 数据箭头</string>
     <string name="StatusBarMobileDataIcon">移动数据图标</string>
     <string name="remove_mobile_data_icon">移除移动数据图标</string>
     <string name="remove_mobile_data_inout">移除移动数据箭头</string>
@@ -190,10 +190,10 @@
     <string name="hide_icon_when_bluetooth_not_connected">未连接蓝牙时隐藏图标</string>
     <string name="StatusBarOtherIcon">其他图标</string>
     <string name="remove_high_performance_mode_icon">移除高性能模式图标</string>
-    <string name="remove_statusbar_securepayment_icon">移除状态栏支付保护图标</string>
-    <string name="remove_green_dot_privacy_prompt">移除绿点隐私提示</string>
+    <string name="remove_statusbar_securepayment_icon">移除支付保护图标</string>
+    <string name="remove_green_dot_privacy_prompt">移除隐私绿点提示</string>
     <string name="remove_system_prompt_icon">移除系统提示图标</string>
-    <string name="remove_system_prompt_icon_summary">移除电话、投屏、录屏、热点时的提示图标</string>
+    <string name="remove_system_prompt_icon_summary">移除电话、投屏、录制、热点的提示图标</string>
     <string name="StatusBarSmallIconStatus">状态栏小图标状态</string>
     <string name="status_bar_icon_vertical_center">状态栏图标垂直居中</string>
     <!--StatusBarControlCenter-->
@@ -203,16 +203,16 @@
     <string name="statusbar_control_center_clock_colon_style">控制中心时钟冒号样式</string>
     <string name="fix_clock_colon_style">修复时钟冒号样式</string>
     <string name="fix_clock_colon_style_summary">开启时恢复系统默认冒号，关闭时使用官方定制冒号</string>
-    <string name="statusbar_control_center_clock_red_one_mode">控制中心红一模式</string>
-    <string name="remove_control_center_clock_red_one">移除控制中心时钟红一</string>
+    <string name="statusbar_control_center_clock_red_one_mode">控制中心“红 1”模式</string>
+    <string name="remove_control_center_clock_red_one">移除控制中心时钟“红 1”</string>
     <string name="remove_control_center_date_comma">移除控制中心日期逗号</string>
     <string name="fix_control_center_date_display">修复控制中心日期显示</string>
     <string name="fix_control_center_date_display_suammry">修复日期无法完整显示的问题</string>
-    <string name="ControlCenterNotificationCenter">控制中心通知中心</string>
+    <string name="ControlCenterNotificationCenter">控制中心/通知中心</string>
     <string name="enable_notification_align_both_sides">启用通知两侧对齐</string>
     <string name="enable_notification_importance_classification">启用通知重要性分类</string>
     <string name="custom_notification_background_transparency">自定义通知背景透明度</string>
-    <string name="ControlCenter_UI_Related">控制中心UI相关</string>
+    <string name="ControlCenter_UI_Related">控制中心 UI 相关</string>
     <string name="set_media_player_display_mode">设置媒体播放器显示模式</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">无媒体播放时隐藏</string>
     <string name="force_enable_media_toggle_button">强制启用媒体切换按钮</string>
@@ -224,7 +224,7 @@
     <string name="remove_control_center_networkwarn">移除控制中心底部安全警告信息</string>
     <string name="remove_control_center_networkwarn_dialog">移除对话框</string>
     <string name="remove_control_center_networkwarn_dialog_and_text">移除安全警告信息与对话框</string>
-    <string name="remove_control_center_networkwarn_summary">连接VPN后，将在控制中心底部显示一行文字\n安装CA证书后，提示网络可能受到监控</string>
+    <string name="remove_control_center_networkwarn_summary">连接 VPN 后，将在控制中心底部显示一行文字\n安装 CA 证书后，提示网络可能受到监控</string>
     <string name="custom_control_center_background_transparency">自定义控制中心背景透明度</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">状态栏磁贴</string>
@@ -237,10 +237,10 @@
     <string name="control_center_special_tile_bottom_gap">设置特殊磁贴底部间隙</string>
     <string name="TileLongClickEvent">磁贴长按事件</string>
     <string name="restore_some_tile_long_press_event">恢复部分磁贴长按事件</string>
-    <string name="restore_some_tile_long_press_event_summary">恢复WiFi、蓝牙、个人热点等磁贴的长按打开对应页面事件</string>
-    <string name="long_press_wifi_tile_open_the_page">长按WIFI磁贴打开页面</string>
+    <string name="restore_some_tile_long_press_event_summary">恢复 Wi-Fi、蓝牙、个人热点等磁贴的长按打开对应页面事件</string>
+    <string name="long_press_wifi_tile_open_the_page">长按 Wi-Fi 磁贴打开页面</string>
     <string name="long_press_mobile_data_tile_open_the_page">长按移动数据磁贴打开页面</string>
-    <string name="long_press_wifi_hotspot_tile_open_the_page">长按WiFi热点磁贴打开页面</string>
+    <string name="long_press_wifi_hotspot_tile_open_the_page">长按 Wi-Fi 热点磁贴打开页面</string>
     <string name="long_press_bluetooth_tile_open_the_page">长按蓝牙磁贴打开页面</string>
     <string name="long_press_screenshot_tile_open_the_page">长按截屏磁贴打开页面</string>
     <string name="long_press_dnd_tile_open_the_page">长按免打扰磁贴打开页面</string>
@@ -248,12 +248,12 @@
     <string name="fix_tile_align_both_sides">修复磁贴两侧对齐</string>
     <string name="fix_tile_align_both_sides_summary">修复磁贴未扩展时两侧布局溢出</string>
     <string name="control_center_tile_enable">控制中心磁贴功能总开关</string>
-    <string name="tile_unexpanded_columns_vertical">磁贴未展开列数(竖屏)</string>
-    <string name="tile_unexpanded_columns_horizontal">磁贴未展开列数(横屏)</string>
-    <string name="tile_expanded_columns_vertical">展开磁贴列数(竖屏)</string>
-    <string name="tile_expanded_columns_horizontal">展开磁贴列数(横屏)</string>
-    <string name="tile_expanded_rows_vertical">展开磁贴行数(竖屏)</string>
-    <string name="tile_columns_horizontal_c13">磁贴列数(横屏)</string>
+    <string name="tile_unexpanded_columns_vertical">磁贴未展开列数（竖屏）</string>
+    <string name="tile_unexpanded_columns_horizontal">磁贴未展开列数（横屏）</string>
+    <string name="tile_expanded_columns_vertical">展开磁贴列数（竖屏）</string>
+    <string name="tile_expanded_columns_horizontal">展开磁贴列数（横屏）</string>
+    <string name="tile_expanded_rows_vertical">展开磁贴行数（竖屏）</string>
+    <string name="tile_columns_horizontal_c13">磁贴列数（横屏）</string>
     <!--StatusBarLayout-->
     <string name="StatusBarLayout">状态栏布局</string>
     <string name="statusbar_layout_mode">状态栏布局模式</string>
@@ -261,7 +261,7 @@
     <string name="statusbar_layout_compatible_mode">屏幕兼容模式</string>
     <string name="statusbar_layout_left_margin">状态栏左边距</string>
     <string name="statusbar_layout_right_margin">状态栏右边距</string>
-    <string name="statusbar_layout_margin_tip">若为0, 则不修改边距大小</string>
+    <string name="statusbar_layout_margin_tip">若为 0， 则不修改边距大小</string>
     <!--StatusBarBattery-->
     <string name="StatusBarBattery">状态栏电池</string>
     <string name="remove_statusbar_battery_percent">移除状态栏电量百分号</string>
@@ -309,7 +309,7 @@
     <string name="LockScreen">锁屏相关</string>
     <string name="LockScreenClockComponent">锁屏时钟组件</string>
     <string name="remove_lock_screen_clock_component">移除锁屏时钟组件</string>
-    <string name="lock_screen_clock_redone_mode">锁屏时钟红一模式</string>
+    <string name="lock_screen_clock_redone_mode">锁屏时钟“红 1”模式</string>
     <string name="apply_lock_screen_dual_clock_redone">应用到锁屏双时钟</string>
     <string name="lock_screen_custom_clock_component_style">自定义锁屏时钟组件样式</string>
     <string name="force_display_clock_style_options">强制显示时钟样式选项</string>
@@ -319,7 +319,7 @@
     <string name="lock_screen_clock_use_user_typeface">锁屏时钟组件使用用户字体</string>
     <string name="LockScreenChargingComponent">锁屏充电组件</string>
     <string name="set_lock_screen_warp_charging_style">设置 Warp 充电样式</string>
-    <string name="set_lock_screen_charging_text_logo_style">设置文本LOGO样式</string>
+    <string name="set_lock_screen_charging_text_logo_style">设置文本 Logo 样式</string>
     <string name="lock_screen_show_real_charging_technology">充电组件显示实际充电技术</string>
     <string name="force_lock_screen_charging_show_wattage">充电组件强制显示瓦数</string>
     <string name="lock_screen_charging_use_user_typeface">充电组件使用用户字体</string>
@@ -335,23 +335,23 @@
     <string name="lock_screen_switch_flashlight_auto_close_screen">开关手电筒自动息屏</string>
     <string name="remove_lock_screen_bottom_right_camera">移除锁屏右下角相机</string>
     <string name="remove_lock_screen_close_notification_button">移除锁屏关闭通知按钮</string>
-    <string name="remove_lock_screen_bottom_sos_button">移除SOS紧急联系按钮</string>
-    <string name="remove_lock_screen_bottom_sos_button_summary">移除解锁页面底部的SOS紧急按钮</string>
+    <string name="remove_lock_screen_bottom_sos_button">移除 SOS 紧急联系按钮</string>
+    <string name="remove_lock_screen_bottom_sos_button_summary">移除解锁页面底部的 SOS 紧急按钮</string>
     <string name="LockScreenEvent">锁屏事件</string>
-    <string name="remove_72hour_password_verification">移除72小时密码验证</string>
-    <string name="remove_72hour_password_verification_summary">移除开机后72小时内不使用密码解锁的安全限制, 系统重启生效</string>
+    <string name="remove_72hour_password_verification">移除每 72 小时的密码验证</string>
+    <string name="remove_72hour_password_verification_summary">移除开机后 72 小时内不使用密码解锁的安全限制，系统重启生效</string>
     <!--AlarmClock-->
-    <string name="alarmclock_widget_redone_mode">时钟组件红一模式</string>
-    <string name="remove_alarmclock_widget_redone">移除桌面时钟组件红一</string>
-    <string name="remove_alarmclock_widget_redone_pro">移除桌面时钟组件红一·增强版</string>
+    <string name="alarmclock_widget_redone_mode">时钟组件“红 1”模式</string>
+    <string name="remove_alarmclock_widget_redone">移除桌面时钟组件“红 1”</string>
+    <string name="remove_alarmclock_widget_redone_pro">移除桌面时钟组件“红 1”增强版</string>
     <string name="remove_alarmclock_widget_redone_pro_summary">仅当常规版本未生效时可用，否则它将导致不可避免的错误</string>
     <!--Launcher-->
     <string name="Desktop">桌面相关</string>
-    <string name="AppBadgeRelated">应用徽章相关</string>
-    <string name="remove_the_dot_after_app_update">移除 APP 更新后圆点</string>
-    <string name="remove_app_shortcut_badge">移除应用快捷方式徽章</string>
-    <string name="remove_app_work_badge">移除应用工作空间徽章</string>
-    <string name="remove_app_clone_badge">移除应用分身徽章</string>
+    <string name="AppBadgeRelated">应用徽标相关</string>
+    <string name="remove_the_dot_after_app_update">移除 APP 更新后的圆点</string>
+    <string name="remove_app_shortcut_badge">移除应用快捷方式徽标</string>
+    <string name="remove_app_work_badge">移除应用工作空间徽标</string>
+    <string name="remove_app_clone_badge">移除应用分身徽标</string>
     <string name="launcher_layout_related">桌面布局相关</string>
     <string name="launcher_layout_row_colume">设置桌面布局支持的最大行列数</string>
     <string name="launcher_layout_enable">桌面图标布局总开关</string>
@@ -387,7 +387,7 @@
     <!--AppStartupRelated-->
     <string name="AppStartupRelated">应用启动相关</string>
     <string name="disable_splash_screen">关闭应用遮罩</string>
-    <string name="disable_splash_screen_summary">由于启动遮罩动画被移除，所以当APP启动时会有1–2秒的空档，介意勿开</string>
+    <string name="disable_splash_screen_summary">由于移除启动遮罩动画，APP 启动时会有 1–2 秒的间隔期。如果介意，请勿开启</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">应用相关列表</string>
     <string name="set_multi_app_support_mode">设置应用分身支持模式</string>
@@ -400,25 +400,25 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">应用安装相关</string>
     <string name="PackageInstaller_summary">需搭配核心破解使用</string>
-    <string name="skip_apk_scan">跳过Apk扫描</string>
-    <string name="skip_apk_scan_summary">Apk病毒扫描相关</string>
+    <string name="skip_apk_scan">跳过 APK 扫描</string>
+    <string name="skip_apk_scan_summary">APK 病毒扫描相关</string>
     <string name="allow_downgrade_install">允许降级安装</string>
     <string name="allow_downgrade_install_summary">移除低/相同版本警告等</string>
-    <string name="disable_apk_signature_verification">禁用APK签名校验</string>
-    <string name="disable_apk_signature_verification_summary">可以安装不同签名的APP, 搭配核心破解使用</string>
+    <string name="disable_apk_signature_verification">禁用 APK 签名校验</string>
+    <string name="disable_apk_signature_verification_summary">可以安装不同签名的应用程序，搭配核心破解使用</string>
     <string name="remove_install_ads">移除安装完成广告</string>
     <string name="remove_install_ads_summary">切记关闭设置-安全应用推荐</string>
     <string name="auto_click_install_button">自动点击安装按钮</string>
     <string name="auto_click_uninstall_button">自动点击卸载按钮</string>
-    <string name="replase_aosp_installer">替换AOSP安装器</string>
-    <string name="replase_aosp_installer_summary">替换为AOSP原生安装器</string>
+    <string name="replase_aosp_installer">替换 AOSP 安装器</string>
+    <string name="replase_aosp_installer_summary">替换为 AOSP 原生安装器</string>
     <string name="show_packagename_and_versioncode">显示包名和版本号</string>
     <string name="show_packagename_and_versioncode_summary">在安装页面顶部显示包名和版本号</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">其他限制</string>
-    <string name="remove_adb_install_confirm">移除ADB安装确认</string>
-    <string name="remove_adb_install_confirm_summary">无需点击即可直接使用ADB安装APP</string>
-    <string name="unlock_startup_limit">解锁应用自启数量限制</string>
+    <string name="remove_adb_install_confirm">移除 ADB 安装确认</string>
+    <string name="remove_adb_install_confirm_summary">无需点击即可直接使用 ADB 安装应用程序</string>
+    <string name="unlock_startup_limit">解锁应用自启动限制</string>
     <string name="unlock_startup_limit_summary">解锁应用自启动数量限制</string>
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">应用详情相关</string>
@@ -441,7 +441,7 @@
     <string name="remove_warning_dialog_that_app_runs_on_desktop">移除应用显示在桌面上的警告对话框</string>
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">发现有应用运行在系统桌面上的警告对话框</string>
     <string name="remove_usb_connect_dialog">移除 USB 连接对话框</string>
-    <string name="remove_usb_connect_dialog_summary">连接USB后默认选择文件传输模式</string>
+    <string name="remove_usb_connect_dialog_summary">连接 USB 后默认选择文件传输模式</string>
     <string name="remove_secure_pay_found_virus_dialog">移除支付保护发现病毒对话框</string>
     <string name="remove_access_device_log_dialog">移除访问设备日志对话框</string>
     <string name="custom_volume_dialog_background_transparency">自定义音量对话框背景透明度</string>
@@ -453,12 +453,12 @@
     <string name="remove_fingerprint_press_animation">移除指纹按压动画</string>
     <string name="remove_fingerprint_icon_and_press_animation">移除指纹图标和按压动画</string>
     <string name="replace_fingerprint_icon_switch">替换指纹图标开关</string>
-    <string name="replace_fingerprint_icon_switch_summary">推荐图片分辨率为216x 216左右</string>
+    <string name="replace_fingerprint_icon_switch_summary">推荐图片分辨率为 216x 216 左右</string>
     <string name="replace_fingerprint_icon_path">指纹图标路径</string>
     <!--SoundRelated-->
     <string name="SoundRelated">声音相关</string>
     <string name="media_volume_level">媒体音量阶数</string>
-    <string name="media_volume_level_summary">设置为0关闭功能，系统重启生效</string>
+    <string name="media_volume_level_summary">设置为 0 关闭此功能，重启系统生效</string>
     <string name="enable_super_volume_mode">启用超级音量模式</string>
     <string name="enable_super_volume_mode_for_calls">启用通话超级音量模式</string>
     <string name="minimum_volume_level_can_be_zero">音量阶数最低可为 0</string>
@@ -469,8 +469,8 @@
     <string name="Miscellaneous_summary">分类困难的功能将被放置于此</string>
     <string name="show_charging_ripple">充电显示充电纹波</string>
     <string name="show_charging_ripple_summary">仅在连接充电器时有效</string>
-    <string name="disable_otg_auto_off">禁用OTG自动关闭</string>
-    <string name="disable_otg_auto_off_summary">禁用OTG超过十分钟自动关闭</string>
+    <string name="disable_otg_auto_off">禁用 OTG 自动关闭</string>
+    <string name="disable_otg_auto_off_summary">禁用 OTG 10 分钟未使用自动关闭</string>
     <string name="remove_storage_limit">移除存储限制</string>
     <string name="remove_storage_limit_summary">移除无法使用此文件夹的限制</string>
     <string name="open_screen_power_save">打开电池屏幕省电入口</string>
@@ -508,7 +508,7 @@
     <string name="force_display_dc_backlight_mode">强制显示低亮无频闪护眼</string>
     <string name="force_display_dc_backlight_mode_summary">无法保证一定有效，仅用于显示功能选项</string>
     <string name="force_display_video_memc_frame_insertion">强制显示视频动态插帧MEMC</string>
-    <string name="video_frame_insertion_support_2K120">视频插帧支持 2K120</string>
+    <string name="video_frame_insertion_support_2K120">视频插帧支持 2K/120 帧</string>
     <string name="video_frame_insertion_support_2K120_summary">若你的设备不支持 MEMC，请勿使用此功能</string>
     <string name="enable_screen_color_temperature_rgb_palette">启用屏幕色温 RGB 调色板</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">可能会被DC功能覆盖</string>
@@ -530,7 +530,7 @@
     <string name="settings_other_preference">其他首选项</string>
     <string name="remove_top_account_display">移除顶部账户显示</string>
     <string name="remove_settings_bottom_laboratory">移除设置底部实验室</string>
-    <string name="force_display_bottom_google_settings">强制显示设置底部Google</string>
+    <string name="force_display_bottom_google_settings">强制显示设置底部 Google</string>
     <!--Camera-->
     <string name="CameraWaterMark">水印</string>
     <string name="remove_watermark_word_limit">移除水印字数限制</string>
@@ -541,7 +541,7 @@
     <string name="CameraFilter">滤镜</string>
     <string name="enable_master_filter">启用大师滤镜</string>
     <string name="enable_jiangwen_filter">启用姜文滤镜</string>
-    <string name="enable_10_bit_image_support">启用10亿色影像支持</string>
+    <string name="enable_10_bit_image_support">启用 10 亿色影像支持</string>
     <string name="enable_10_bit_image_support_summary">部分机型启用此功能可能会导致照片变绿</string>
     <!--Gallery-->
     <string name="GalleryWaterMark">水印</string>
@@ -561,13 +561,13 @@
     <string name="remove_tool_recommendation_card">移除工具推荐卡片</string>
     <string name="OplusGamesTool">工具</string>
     <string name="remove_root_check">移除游戏滤镜限制</string>
-    <string name="remove_root_check_summary">移除游戏滤镜的Root检测限制</string>
-    <string name="remove_some_vip_limit">移除部分VIP限制</string>
+    <string name="remove_root_check_summary">移除游戏滤镜的 Root 检测限制</string>
+    <string name="remove_some_vip_limit">移除部分 VIP 限制</string>
     <string name="remove_some_vip_limit_summary">解锁网络加速、游戏滤镜等\n具体内容自行测试</string>
     <string name="enable_developer_page">启用开发者页面</string>
     <string name="enable_eva_theme">启用 EVA 主题</string>
     <string name="enable_developer_page_summary">启用此功能并重启作用域后\n即可通过快捷入口跳转进入</string>
-    <string name="enable_adreno_gpu_controller">启用Adreno GPU控制器</string>
+    <string name="enable_adreno_gpu_controller">启用 Adreno GPU 控制器</string>
     <string name="enable_support_competition_mode">启用赛事支持模式</string>
     <string name="remove_competition_mode_sound">移除赛事模式音效</string>
     <string name="enable_increase_fps_limit_feature">启用游戏插帧</string>
@@ -576,7 +576,7 @@
     <string name="enable_gt_mode_feature">启用 GT 模式</string>
     <string name="enable_x_mode_feature">启用 X 模式</string>
     <string name="enable_super_resolution_feature">启用超级分辨率</string>
-    <string name="enable_one_plus_characteristic">启用 One Plus 特征</string>
+    <string name="enable_one_plus_characteristic">启用 OnePlus 特征</string>
     <string name="custom_media_player_support">自定义媒体播放器支持</string>
     <string name="custom_media_player_support_message">填写需要添加的媒体播放器的包名，每行只能填写一个包名</string>
     <string name="remove_danmaku_notification_whitelist">移除弹幕通知白名单</string>
@@ -587,7 +587,7 @@
     <string name="remove_network_limit">移除数据网络限制</string>
     <string name="remove_network_limit_summary">移除备份/恢复无法使用移动数据的限制</string>
     <!--ThemeStore-->
-    <string name="unlock_themestore_vip">解锁部分功能VIP</string>
+    <string name="unlock_themestore_vip">解锁部分功能 VIP</string>
     <string name="unlock_themestore_vip_summary">解锁部分功能, 可自行尝试</string>
     <!--Screenshot-->
     <string name="Screenshot">截屏相关</string>
@@ -630,7 +630,7 @@
     <string name="remove_rotate_screen_button">移除旋转屏幕按钮</string>
     <string name="CustomSideSliderIcon">自定义侧滑条图标</string>
     <string name="replace_side_slider_icon_switch">替换侧滑条图标开关</string>
-    <string name="replace_side_slider_icon_switch_summary">建议图标宽度在100px左右</string>
+    <string name="replace_side_slider_icon_switch_summary">建议图标宽度在 100px 左右</string>
     <string name="replace_side_slider_icon_on_left">替换左侧侧滑图标</string>
     <string name="replace_side_slider_icon_on_right">替换右侧侧滑图标</string>
     <!--OplusMMS-->
@@ -672,7 +672,7 @@
     <string name="adm_unlock_pro">解锁 Pro</string>
     <!--Home-->
     <string name="fps_title">强制刷新率</string>
-    <string name="fps_summary">与其他动态刷新率进程冲突, 例如dfps</string>
+    <string name="fps_summary">与其他动态刷新率进程冲突，例如 dfps</string>
     <string name="brand">品牌</string>
     <string name="model">型号</string>
     <string name="product">产品</string>

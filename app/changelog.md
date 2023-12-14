@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.6_beta
+### 1.1.6
 
 - [更改] 音量对话框相关功能移至声音分区
 - [更改] 新建手机管家功能分区
@@ -21,6 +21,22 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 电源菜单显示手动锁定按钮 C14
 - [更改] 同步上游DisableFlagSecure
 - [修复] 自定义应用语言Hook异常
+- [Change] Volume dialog related functions moved to the sound section
+- [Change] Create new mobile phone manager function partition
+- [Optimize] Tile long press jump event C13
+- [Fix] Remove large folder paging component
+- [Add] Remove lock screen clock component
+- [Remove] Battery performance mode and standby optimization features
+- [Optimize] Charging test quick entry jump logic
+- [Fix] Some clock components are centered abnormally
+- [Add] Use bold font style for status bar network speed
+- [Add] Customize special tile horizontal screen gap
+- [Fix] Xiaobu recommends alignment of takeaway service notifications
+- [Add] Set application clone support mode (full application list)
+- [Add] Extract OTA information to display model name
+- [Add] Power menu shows manual lock button C14
+- [Change] Sync upstream DisableFlagSecure
+- [Fix] Custom application language Hook exception
 
 ### 1.1.5
 
