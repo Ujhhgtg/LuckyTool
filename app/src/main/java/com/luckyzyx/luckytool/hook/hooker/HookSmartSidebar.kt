@@ -7,7 +7,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 
 object HookSmartSidebar : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = getAppSet(ModulePrefs, packageName)
+        val appSet = prefs(ModulePrefs).getAppSet(packageName)
         appSet[1].toIntOrNull().takeIf { it != null && it >= 14000000 } ?: return
 
         //HookFeatureOption

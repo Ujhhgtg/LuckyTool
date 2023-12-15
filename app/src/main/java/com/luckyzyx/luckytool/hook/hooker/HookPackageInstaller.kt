@@ -13,7 +13,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 
 object HookPackageInstaller : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = getAppSet(ModulePrefs, packageName)
+        val appSet = prefs(ModulePrefs).getAppSet(packageName)
 
         //非ColorOS官方安装器直接返回
         if (appSet[2] == "null") return

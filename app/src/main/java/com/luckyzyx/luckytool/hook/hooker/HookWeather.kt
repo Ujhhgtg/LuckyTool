@@ -8,7 +8,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 
 object HookWeather : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = getAppSet(ModulePrefs, packageName)
+        val appSet = prefs(ModulePrefs).getAppSet(packageName)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //天气广告与跳转浏览器

@@ -13,7 +13,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 
 object HookCamera : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = getAppSet(ModulePrefs, packageName)
+        val appSet = prefs(ModulePrefs).getAppSet(packageName)
         if (appSet[2] == "null") return
 
         //HookCameraConfig

@@ -16,7 +16,7 @@ import org.luckypray.dexkit.DexKitBridge
 
 class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = getAppSet(ModulePrefs, packageName)
+        val appSet = prefs(ModulePrefs).getAppSet(packageName)
         val isNew = "com.oplus.camera.setting.CameraSettingActivity".hasClass()
         val clazz = if (isNew) "$5"
         else when (appSet[2]) {

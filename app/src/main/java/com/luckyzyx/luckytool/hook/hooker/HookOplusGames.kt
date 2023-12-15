@@ -20,7 +20,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 object HookOplusGames : YukiBaseHooker() {
     override fun onHook() {
         if (packageName == "com.oplus.games") {
-            val appSet = getAppSet(ModulePrefs, packageName)
+            val appSet = prefs(ModulePrefs).getAppSet(packageName)
             //非ColorOS官方安装器直接返回
             if (appSet[2] == "0") return
 

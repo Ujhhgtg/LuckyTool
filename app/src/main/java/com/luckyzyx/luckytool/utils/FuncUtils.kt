@@ -60,10 +60,10 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.LongType
+import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.hook.hooker.HookAndroid.prefs
 import com.luckyzyx.luckytool.hook.utils.PowerProfileUtils
 import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.ui.activity.MainActivity
@@ -123,12 +123,13 @@ fun Context.getAppVersion(packName: String, save: Boolean = true): ArrayList<Str
 
 /**
  * 获取APP版本数组
- * @param prefsName String
+ * @receiver YukiHookPrefsBridge
  * @param packName String
+ * @return Array<String>
  */
-fun getAppSet(prefsName: String, packName: String): Array<String> {
+fun YukiHookPrefsBridge.getAppSet(packName: String): Array<String> {
     val newArray = arrayOf("null", "null", "null")
-    prefs(prefsName).getStringSet(packName, ArraySet()).toTypedArray().apply {
+    getStringSet(packName, ArraySet()).toTypedArray().apply {
         if (isEmpty()) return newArray
         forEach {
             if (it.isNullOrEmpty()) return@forEach

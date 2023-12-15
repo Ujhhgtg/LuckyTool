@@ -10,7 +10,7 @@ import com.luckyzyx.luckytool.utils.getAppSet
 
 object HookScreenshot : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = getAppSet(ModulePrefs, packageName)
+        val appSet = prefs(ModulePrefs).getAppSet(packageName)
         //移除截屏隐私限制
         if (prefs(ModulePrefs).getBoolean("remove_screenshot_privacy_limit", false)) {
             loadHooker(RemoveScreenshotPrivacyLimit)
