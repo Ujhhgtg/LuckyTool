@@ -12,7 +12,6 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import java.text.DecimalFormat
@@ -118,18 +117,12 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         .cast<TextView>() ?: return@before
                     val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance)
                         .cast<TextView>() ?: return@before
-                    val mDefaultBoldFont =
-                        field { type = TypefaceClass }.get(instance).cast<Typeface>()
                     if (userTypeface) {
                         mSpeedNumber.typeface =
                             if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
                         mSpeedUnit.typeface =
                             if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                    } else {
-                        mSpeedNumber.typeface = mDefaultBoldFont
-                        mSpeedUnit.typeface = mDefaultBoldFont
                     }
-
                     if (layoutMode == "0") return@before
                     instance<ViewGroup>().apply {
                         layoutParams?.width = LayoutParams.WRAP_CONTENT

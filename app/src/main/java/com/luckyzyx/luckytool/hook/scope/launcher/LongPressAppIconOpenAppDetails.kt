@@ -37,10 +37,7 @@ object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
 
         //Source DockIconView
         "com.oplus.quickstep.dock.DockIconView".toClass().apply {
-            method {
-                name = "setIcon"
-                paramCount = 1
-            }.hook {
+            method { name = "setIcon";paramCount = 1 }.hook {
                 after {
                     val task = method { name = "getTask" }.get(instance).call() ?: return@after
                     val key = task.current().field { name = "key" }.any() ?: return@after
