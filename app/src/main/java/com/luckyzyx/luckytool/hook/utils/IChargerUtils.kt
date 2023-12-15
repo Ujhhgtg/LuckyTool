@@ -5,7 +5,8 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.IBinderClass
-import com.luckyzyx.luckytool.hook.scope.systemui.StatusBarBatteryInfoNotify.toClass
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.luckyzyx.luckytool.hook.hooker.HookAndroid.toClass
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 class IChargerUtils(val classLoader: ClassLoader?) {
@@ -23,9 +24,9 @@ class IChargerUtils(val classLoader: ClassLoader?) {
     }
 
     fun getInstance(): Any? {
-        return if (clazz.hasMethod { name = "getService";emptyParam() }) {
-            clazz.method { name = "getService";emptyParam() }.get().call()
-        } else stub.method { name = "asInterface";param(IBinderClass) }.get().call(getService())
+        return if (stub.hasMethod { name = "asInterface";param(IBinderClass);returnType(clazz) }) {
+            stub.method { name = "asInterface";param(IBinderClass) }.get().call(getService())
+        } else clazz.method { name = "getService";param(BooleanType) }.get().call(true)
     }
 
     fun queryChargeInfo(ins: Any?): String? {
