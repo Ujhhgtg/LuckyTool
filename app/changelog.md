@@ -5,7 +5,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
 ### 1.1.7_beta
 
-- [修复] DisableFlagSecure Hook异常 C14
+- [更改] 同步上游DisableFlagSecure
 - [更改] 取消状态栏网速非用户字体时的Hook
 
 ### 1.1.6

@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scope.android;
 
 import static com.luckyzyx.luckytool.utils.SPUtilsKt.ModulePrefs;
 
+import android.os.Build;
 import android.util.Log;
 
 import com.luckyzyx.luckytool.BuildConfig;
@@ -21,7 +22,6 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class DisableFlagSecure implements IXposedHookLoadPackage {
     final XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, ModulePrefs);
-    static boolean isDebug = true;//BuildConfig.DEBUG;
     private final static Method deoptimizeMethod;
     
     static {
@@ -30,7 +30,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
             //noinspection JavaReflectionMemberAccess
             m = XposedBridge.class.getDeclaredMethod("deoptimizeMethod", Member.class);
         } catch (Throwable t) {
-            if (isDebug) XposedBridge.log(t);
+            XposedBridge.log(t);
         }
         deoptimizeMethod = m;
     }
@@ -49,6 +49,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         if (loadPackageParam.packageName.equals("android")) {
             boolean isEnable = prefs.getBoolean("disable_flag_secure", false);
             if (!isEnable) return;
+            
             try {
                 Class<?> windowsState = XposedHelpers.findClass("com.android.server.wm.WindowState", loadPackageParam.classLoader);
                 XposedHelpers.findAndHookMethod(
@@ -56,21 +57,21 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                         "isSecureLocked",
                         XC_MethodReplacement.returnConstant(false));
             } catch (Throwable t) {
-                if (isDebug) XposedBridge.log(t);
+                XposedBridge.log(t);
             }
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-//                try {
-//                    XposedHelpers.findAndHookMethod(
-//                            "com.android.server.wm.WindowManagerService",
-//                            loadPackageParam.classLoader,
-//                            "registerScreenCaptureObserver",
-//                            "android.os.IBinder",
-//                            "android.app.IScreenCaptureObserver",
-//                            XC_MethodReplacement.DO_NOTHING);
-//                } catch (Throwable t) {
-//                    if (isDebug) XposedBridge.log(t);
-//                }
-//            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                try {
+                    XposedHelpers.findAndHookMethod(
+                            "com.android.server.wm.ActivityTaskManagerService",
+                            loadPackageParam.classLoader,
+                            "registerScreenCaptureObserver",
+                            "android.os.IBinder",
+                            "android.app.IScreenCaptureObserver",
+                            XC_MethodReplacement.DO_NOTHING);
+                } catch (Throwable t) {
+                    XposedBridge.log(t);
+                }
+            }
             try {
                 deoptimizeMethod(XposedHelpers.findClass("com.android.server.wm.WindowStateAnimator", loadPackageParam.classLoader), "createSurfaceLocked");
                 var c = XposedHelpers.findClass("com.android.server.display.DisplayManagerService", loadPackageParam.classLoader);
@@ -98,7 +99,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                     }
                 }
             } catch (Throwable t) {
-                if (isDebug) XposedBridge.log(t);
+                XposedBridge.log(t);
             }
             try {
                 Class<?> windowsManagerServiceImpl = XposedHelpers.findClassIfExists("com.android.server.wm.WindowManagerServiceImpl", loadPackageParam.classLoader);
@@ -109,13 +110,13 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                             XC_MethodReplacement.returnConstant(false));
                 }
             } catch (Throwable t) {
-                if (isDebug) XposedBridge.log(t);
+                XposedBridge.log(t);
             }
         } else if (loadPackageParam.packageName.equals("com.flyme.systemuiex")) {
             try {
                 XposedHelpers.findAndHookMethod("android.view.SurfaceControl$ScreenshotHardwareBuffer", loadPackageParam.classLoader, "containsSecureLayers", XC_MethodReplacement.returnConstant(false));
             } catch (Throwable t) {
-                if (isDebug) XposedBridge.log(t);
+                XposedBridge.log(t);
             }
         }
     }
