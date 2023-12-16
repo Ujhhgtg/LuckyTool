@@ -1437,7 +1437,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                     summary = getString(R.string.statusbar_clock_fontsize_summary)
                     key = "statusbar_power_font_size"
                     setDefaultValue(0)
-                    max = 10
+                    max = 15
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false
