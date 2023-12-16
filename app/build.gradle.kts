@@ -98,16 +98,16 @@ dependencies {
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
 
     //Dexkit
-    implementation("org.luckypray:dexkit:2.0.0-rc9")
+    implementation("org.luckypray:dexkit:2.0.0")
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
-    implementation("com.highcapable.betterandroid:ui-component:1.0.2")
+    implementation("com.highcapable.betterandroid:ui-component:1.0.3")
 //    implementation("com.highcapable.betterandroid:ui-extension:1.0.0")
 //    implementation("com.highcapable.betterandroid:system-extension:1.0.0")
 
     //Material主题
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     //约束布局
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -143,7 +143,7 @@ dependencies {
 //    implementation "com.github.topjohnwu.libsu:nio:${libsuVersion}"
 
     //Microsoft AppCenter
-    val appCenterSdkVersion = "5.0.3"
+    val appCenterSdkVersion = "5.0.4"
     implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
     implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
 
