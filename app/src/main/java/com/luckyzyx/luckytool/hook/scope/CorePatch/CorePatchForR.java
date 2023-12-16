@@ -22,6 +22,7 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -33,9 +34,6 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-/**
- * @noinspection ALL
- */
 public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     
     public static final String TAG = XposedHelper.TAG;
@@ -46,6 +44,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
     static {
         Method m = null;
         try {
+            //noinspection JavaReflectionMemberAccess
             m = XposedBridge.class.getDeclaredMethod("deoptimizeMethod", Member.class);
         } catch (Throwable t) {
             XposedBridge.log("E/" + TAG + " " + Log.getStackTraceString(t));
@@ -161,6 +160,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                         final Object block = constructor.newInstance(param.args[0]);
                         Object[] infos = (Object[]) XposedHelpers.callMethod(block, "getSignerInfos");
                         Object info = infos[0];
+                        //noinspection unchecked
                         List<X509Certificate> verifiedSignerCertChain = (List<X509Certificate>) XposedHelpers.callMethod(info, "getCertificateChain", block);
                         param.setResult(verifiedSignerCertChain.toArray(
                                 new X509Certificate[0]));
@@ -193,8 +193,8 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                                     } else {
                                         pI = PM.getPackageArchiveInfo((String) methodHookParam.args[0], 0);
                                     }
-                                    PackageInfo InstpI = PM.getPackageInfo(pI.packageName, PackageManager.GET_SIGNATURES);
-                                    lastSigs = InstpI.signatures;
+                                    PackageInfo InstpI = PM.getPackageInfo(pI.packageName, PackageManager.GET_SIGNING_CERTIFICATES);
+                                    lastSigs = InstpI.signingInfo.getSigningCertificateHistory();
                                 }
                             }
                         } catch (Throwable ignored) {
@@ -214,11 +214,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                             }
                         } catch (Throwable ignored) {
                         }
-                        if (lastSigs != null) {
-                            signingDetailsArgs[0] = lastSigs;
-                        } else {
-                            signingDetailsArgs[0] = new Signature[]{new Signature(SIGNATURE)};
-                        }
+                        signingDetailsArgs[0] = Objects.requireNonNullElseGet(lastSigs, () -> new Signature[]{new Signature(SIGNATURE)});
                         Object newInstance = findConstructorExact.newInstance(signingDetailsArgs);
                         
                         //修复 java.lang.ClassCastException: Cannot cast android.content.pm.PackageParser$SigningDetails to android.util.apk.ApkSignatureVerifier$SigningDetailsWithDigests

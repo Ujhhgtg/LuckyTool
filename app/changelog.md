@@ -7,6 +7,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
 - [更改] 同步上游DisableFlagSecure
 - [更改] 取消状态栏网速非用户字体时的Hook
+- [更改] 同步上游CorePatch
 
 ### 1.1.6
 
