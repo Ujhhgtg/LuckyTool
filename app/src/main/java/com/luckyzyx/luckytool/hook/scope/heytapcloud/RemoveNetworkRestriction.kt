@@ -42,7 +42,7 @@ class RemoveNetworkRestriction(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
             }
         }.apply {
             checkDataList("RemoveNetworkRestriction")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { emptyParam();returnType = IntType }.hookAll {
                     after { if (result<Int>() == 1) result = 2 }
                 }

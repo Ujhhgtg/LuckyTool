@@ -168,7 +168,7 @@ class WeatherAdsAndJumpBrowser(private val appSet: Array<String>, val dexKitBrid
                 }
             }.apply {
                 checkDataList("HookWeatherAdsAndJumpC12 OppoUtils")
-                first().name.toClass().apply {
+                single().name.toClass().apply {
                     method {
                         param(
                             IntType, ContextClass, StringClass,
@@ -197,7 +197,7 @@ class WeatherAdsAndJumpBrowser(private val appSet: Array<String>, val dexKitBrid
                 }
             }.apply {
                 checkDataList("HookWeatherAdsAndJumpC12 BrowserCommonUtils")
-                startWebView = first().className
+                startWebView = single().className
             }
         }
 

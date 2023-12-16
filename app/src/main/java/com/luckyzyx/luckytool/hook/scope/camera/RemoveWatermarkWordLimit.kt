@@ -52,7 +52,7 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
             }
         }.apply {
             checkDataList("RemoveWatermarkWordLimit")
-            (first().name + clazz).toClass().apply {
+            (single().name + clazz).toClass().apply {
                 method { name = "filter";returnType = CharSequenceClass }.hook {
                     intercept()
                 }

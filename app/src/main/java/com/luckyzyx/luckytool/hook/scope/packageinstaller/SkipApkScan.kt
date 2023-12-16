@@ -5,7 +5,6 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
-import java.util.*
 
 class SkipApkScan(private val commit: String) : YukiBaseHooker() {
 

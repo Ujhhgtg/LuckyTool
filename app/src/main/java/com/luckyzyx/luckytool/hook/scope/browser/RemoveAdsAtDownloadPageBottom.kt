@@ -51,7 +51,7 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
             }
         }.apply {
             checkDataList("RemoveAdsAtDownloadPageBottom")
-            val member = first()
+            val member = single()
             member.className.toClass().apply {
                 method {
                     name = member.methodName

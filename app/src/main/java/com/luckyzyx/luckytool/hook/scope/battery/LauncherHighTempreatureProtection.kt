@@ -34,7 +34,7 @@ class LauncherHighTempreatureProtection(val dexKitBridge: DexKitBridge) : YukiBa
             }
         }.apply {
             checkDataList("LauncherHighTempreatureProtection")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 constructor { paramCount = 3 }.hook {
                     intercept()
                 }

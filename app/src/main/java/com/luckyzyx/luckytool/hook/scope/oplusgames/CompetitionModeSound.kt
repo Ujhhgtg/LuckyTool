@@ -38,7 +38,7 @@ class CompetitionModeSound(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("CompetitionModeSound")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { param(IntType) }.hookAll {
                     before { if (args().first().int() == 9) resultNull() }
                 }

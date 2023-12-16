@@ -26,7 +26,7 @@ class EnablePNGSaveFormat(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("EnablePNGSaveFormat")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { returnType = StringClass }.hookAll {
                     after {
                         result = when (result<String>()) {

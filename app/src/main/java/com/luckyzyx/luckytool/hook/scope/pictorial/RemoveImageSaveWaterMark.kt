@@ -38,7 +38,7 @@ class RemoveImageSaveWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
             }
         }.apply {
             checkDataList("RemoveImageSaveWaterMark")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     param(BooleanType, VagueType, BitmapClass, BooleanType)
                     returnType = BitmapClass

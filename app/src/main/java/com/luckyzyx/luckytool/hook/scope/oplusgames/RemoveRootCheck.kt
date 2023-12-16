@@ -30,7 +30,7 @@ class RemoveRootCheck(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("RemoveRootCheck")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { emptyParam();returnType = BundleClass }.hook {
                     after { result<Bundle>()?.putInt("isSafe", 0) }
                 }

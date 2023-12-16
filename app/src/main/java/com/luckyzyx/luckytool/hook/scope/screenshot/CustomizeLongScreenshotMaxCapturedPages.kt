@@ -26,7 +26,7 @@ class CustomizeLongScreenshotMaxCapturedPages(val dexKitBridge: DexKitBridge) : 
             }
         }.apply {
             checkDataList("CustomizeLongScreenshotMaxCapturedPages")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     param { it[1] == IntType }
                     paramCount = 2

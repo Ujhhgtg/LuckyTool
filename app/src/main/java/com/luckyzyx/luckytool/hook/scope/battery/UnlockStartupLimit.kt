@@ -31,7 +31,7 @@ class UnlockStartupLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("UnlockStartupLimit")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { emptyParam();returnType = IntType }.hook {
                     replaceTo(999)
                 }

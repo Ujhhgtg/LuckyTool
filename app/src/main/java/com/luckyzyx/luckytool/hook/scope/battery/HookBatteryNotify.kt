@@ -42,7 +42,7 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("HookBatteryNotify NotifyUtil")
-            val clsName = first().name
+            val clsName = single().name
 
             if (highPerformance) dexKitBridge.findMethod {
                 searchPackages(clsName)
@@ -53,7 +53,7 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("HookBatteryNotify highPerformance")
-                val member = first()
+                val member = single()
                 member.className.toClass().apply {
                     method { name = member.methodName;emptyParam() }.hook {
                         intercept()

@@ -40,7 +40,7 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("RemoveSecurePayFoundVirusDialog")
-                first().name.toClass().apply {
+                single().name.toClass().apply {
                     method { param(VagueType, StringClass);returnType = UnitType }.hook {
                         intercept()
                     }

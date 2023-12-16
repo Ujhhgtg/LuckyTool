@@ -36,7 +36,7 @@ class HookFunctionManager(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("HookFunctionManager")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { param(StringClass);returnType(BooleanType) }.hook {
                     after {
                         when (args().first().string()) {

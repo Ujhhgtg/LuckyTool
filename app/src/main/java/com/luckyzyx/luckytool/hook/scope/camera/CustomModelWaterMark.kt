@@ -37,7 +37,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("HookCameraModelWaterMark MarketUtil")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { emptyParam();returnType = StringClass }.hookAll {
                     after {
                         val res = result<String>() ?: return@after
@@ -68,7 +68,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("HookCameraModelWaterMark WatermarkHelper")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method { param(StringClass);returnType = StringClass }.hookAll {
                     after {
                         val res = result<String>() ?: return@after

@@ -12,7 +12,7 @@ import com.highcapable.yukihookapi.hook.type.java.AnyClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class COUISwitch {
 
     private val clazzString = "com.coui.appcompat.couiswitch.COUISwitch"

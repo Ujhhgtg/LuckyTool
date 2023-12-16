@@ -45,7 +45,7 @@ class UnlockStartupLimitOld(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("UnlockStartupLimitOld")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     param(ContextClass)
                     returnType = UnitType

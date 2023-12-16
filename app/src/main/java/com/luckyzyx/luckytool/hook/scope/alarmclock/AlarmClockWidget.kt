@@ -215,7 +215,7 @@ object AlarmClockWidget : YukiBaseHooker() {
                     }
                 }.apply {
                     checkDataList("AlarmClock13")
-                    first().name.toClass().apply {
+                    single().name.toClass().apply {
                         method {
                             param { it[0] == ContextClass && it[1] == StringClass }
                             paramCount(2..3)

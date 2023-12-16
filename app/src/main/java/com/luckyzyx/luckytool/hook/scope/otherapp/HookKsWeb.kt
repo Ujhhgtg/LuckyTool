@@ -40,7 +40,7 @@ object HookKsWeb : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("HookKsWeb")
-                first().name.toClass().apply {
+                single().name.toClass().apply {
                     method { emptyParam();returnType = BooleanType }.hookAll {
                         before {
                             field { type = BooleanType }.get(instance).setTrue()

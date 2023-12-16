@@ -26,7 +26,7 @@ class EnableSupportCompetitionMode(val dexKitBridge: DexKitBridge) : YukiBaseHoo
             }
         }.apply {
             checkDataList("EnableSupportCompetitionMode")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     emptyParam()
                     returnType = BooleanType

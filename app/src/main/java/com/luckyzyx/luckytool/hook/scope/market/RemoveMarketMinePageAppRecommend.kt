@@ -52,7 +52,7 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
             }
         }.apply {
             checkDataList("MineFragment")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     param(viewLayerWrapDto, BooleanType)
                     returnType(UnitType)

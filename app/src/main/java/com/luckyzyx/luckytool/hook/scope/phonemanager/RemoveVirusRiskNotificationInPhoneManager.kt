@@ -6,33 +6,30 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.luckypray.dexkit.DexKitBridge
 
 class RemoveVirusRiskNotificationInPhoneManager(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source VirusScanNotifyListener
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            dexKitBridge.findClass {
-                matcher {
-                    fields {
-                        addForType(ContextClass.name)
-                        addForType(StringClass.name)
-                    }
-                    methods {
-                        add { paramTypes(ArrayListClass) }
-                        add { returnType(IntType) }
-                        add { returnType(StringClass) }
-                    }
-                    usingStrings("VirusScanNotifyListener")
+        dexKitBridge.findClass {
+            matcher {
+                fields {
+                    addForType(ContextClass.name)
+                    addForType(StringClass.name)
                 }
-            }.apply {
-                checkDataList("RemoveVirusRiskNotificationInPhoneManager")
-                first().name.toClass().apply {
-                    method { param(ArrayListClass) }.hookAll {
-                        intercept()
-                    }
+                methods {
+                    add { paramTypes(ArrayListClass) }
+                    add { returnType(IntType) }
+                    add { returnType(StringClass) }
+                }
+                usingStrings("VirusScanNotifyListener")
+            }
+        }.apply {
+            checkDataList("RemoveVirusRiskNotificationInPhoneManager")
+            single().name.toClass().apply {
+                method { param(ArrayListClass) }.hookAll {
+                    intercept()
                 }
             }
         }

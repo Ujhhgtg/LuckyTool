@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.utils
 
+import android.annotation.SuppressLint
 import com.highcapable.yukihookapi.hook.log.YLog
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.result.ClassDataList
@@ -25,6 +26,7 @@ object DexkitUtils {
      * @param appPath String
      * @param result Function1<DexKitBridge, Unit>
      */
+    @SuppressLint("DuplicateCreateDexKit")
     fun create(appPath: String, result: (DexKitBridge) -> Unit) {
         System.loadLibrary("dexkit")
         DexKitBridge.create(appPath).use { result(it) }
@@ -50,7 +52,7 @@ object DexkitUtils {
             }
 
             size == 1 -> if (isDebug) YLog.debug(
-                "$instance -> findMethod ${first().name}", tag = tag
+                "$instance -> findMethod ${single().name}", tag = tag
             )
         }
         return this
@@ -76,7 +78,7 @@ object DexkitUtils {
             }
 
             size == 1 -> if (isDebug) YLog.debug(
-                "$instance -> findMethod ${first().className}|${first().methodName}", tag = tag
+                "$instance -> findMethod ${single().className}|${single().methodName}", tag = tag
             )
         }
         return this
@@ -95,7 +97,7 @@ object DexkitUtils {
             }
 
             size == 1 -> if (isDebug) YLog.debug(
-                "$instance -> findField ${first().className}|${first().fieldName}", tag = tag
+                "$instance -> findField ${single().className}|${single().fieldName}", tag = tag
             )
         }
         return this

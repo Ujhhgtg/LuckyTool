@@ -45,7 +45,7 @@ object HookADM : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("HookADM")
-                first().name.toClass().apply {
+                single().name.toClass().apply {
                     method {
                         modifiers { isStatic }
                         param(ActivityClass)

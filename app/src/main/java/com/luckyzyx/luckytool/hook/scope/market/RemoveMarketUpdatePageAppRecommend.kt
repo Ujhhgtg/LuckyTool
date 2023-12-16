@@ -43,7 +43,7 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             }
         }.apply {
             checkDataList("RemoveMarketUpdatePageAppRecommend AppUpdateFragment")
-            val member = first()
+            val member = single()
             member.className.toClass().apply {
                 method { name = member.methodName;param(ListClass) }.hook {
                     before {
@@ -90,7 +90,7 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             }
         }.apply {
             checkDataList("RemoveMarketUpdatePageAppRecommend APPUpdateItemHolder")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
                     returnType(UnitType)

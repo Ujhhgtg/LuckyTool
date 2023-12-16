@@ -7,7 +7,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class BackgroundBlurDrawableUtils(val classLoader: ClassLoader?) {
     val clazz = "com.android.internal.graphics.drawable.BackgroundBlurDrawable".toClass(classLoader)
     val aggregatorClazz =

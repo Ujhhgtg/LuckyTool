@@ -41,8 +41,7 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
             }
         }.apply {
             checkDataList("CustomAonGestureScrollPageWhitelist")
-            val member = first()
-            member.name.toClass().apply {
+            single().name.toClass().apply {
                 method { emptyParam();returnType = ListClass }.hookAll {
                     after {
                         val field = result<List<String>>() ?: return@after

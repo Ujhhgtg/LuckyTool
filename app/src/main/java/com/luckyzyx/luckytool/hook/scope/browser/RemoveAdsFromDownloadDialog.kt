@@ -38,7 +38,7 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
             }
         }.apply {
             checkDataList("RemoveAdsFromDownloadDialog")
-            first().name.toClass().apply {
+            single().name.toClass().apply {
                 method {
                     paramCount(1)
                     returnType(adRequest)

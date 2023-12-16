@@ -41,7 +41,7 @@ class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             }
         }.apply {
             checkDataList("RemoveMarketSplashPageAppRecommend")
-            val member = first()
+            val member = single()
             member.name.toClass().apply {
                 method { param(BooleanType);returnType(splashDto) }.hook {
                     replaceTo(null)

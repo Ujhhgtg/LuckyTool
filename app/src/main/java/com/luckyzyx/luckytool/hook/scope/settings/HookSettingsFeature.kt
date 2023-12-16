@@ -38,7 +38,7 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("HookExpUst")
-                first().name.toClass().apply {
+                single().name.toClass().apply {
                     method { param(IntType);returnType = BooleanType }.hookAll {
                         before {
                             when (args().first().int()) {

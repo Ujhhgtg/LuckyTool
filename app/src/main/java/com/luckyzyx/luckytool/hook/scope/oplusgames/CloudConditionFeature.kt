@@ -211,8 +211,7 @@ class CloudConditionFeature(private val appSet: Array<String>, val dexKitBridge:
                 }
             }.apply {
                 checkDataList("HookCloudApiImpl")
-                val member = first()
-                member.name.toClass().apply {
+                single().name.toClass().apply {
                     method {
                         name = "isFunctionEnabledFromCloud"
                         paramCount = 2

@@ -36,7 +36,7 @@ object AutoUnlockRestrictedSettings : YukiBaseHooker() {
                         usingStrings("RestrictedPreferenceHelper")
                     }
                 }
-            }.checkDataList("AutoUnlockRestrictedSettings findMember").first()
+            }.checkDataList("AutoUnlockRestrictedSettings findMember").single()
             val fields = dexKitBridge.findField {
                 searchPackages(member.className)
                 matcher {
@@ -61,7 +61,7 @@ object AutoUnlockRestrictedSettings : YukiBaseHooker() {
                         returnType(BooleanType)
                     }
                 }
-            }.checkDataList("AutoUnlockRestrictedSettings findField AppOps").first()
+            }.checkDataList("AutoUnlockRestrictedSettings findField AppOps").single()
             val admin = fields.filter { it.typeName == BooleanType.name }.toMutableList().apply {
                 removeIf { it.fieldName == appops.fieldName }
             }.first()
