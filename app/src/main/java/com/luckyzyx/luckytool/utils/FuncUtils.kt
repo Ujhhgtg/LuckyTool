@@ -1064,43 +1064,6 @@ fun Context.bindRootService(
 }
 
 /**
- * 调用自启功能
- * @param bundle Bundle?
- */
-fun callFunc(bundle: Bundle?) {
-    scope {
-        withDefault {
-            bundle?.apply {
-                val command = ArrayList<String>()
-                val tileAutoStart = getBoolean("tileAutoStart", false)
-                //自启功能相关
-                if (getBoolean("fps_auto", false)) {
-                    val fpsMode = getInt("fps_mode", 1)
-                    val fpsCur = getInt("fps_cur", -1)
-                    if ((fpsMode == 2) && (fpsCur != -1)) {
-                        command.add("service call SurfaceFlinger 1035 i32 $fpsCur")
-                    }
-                }
-                //触控采样率相关
-                if (tileAutoStart && getBoolean("touchSamplingRate", false)) {
-                    command.add("echo > /proc/touchpanel/game_switch_enable 1")
-                }
-                //高亮度模式
-                if (tileAutoStart && getBoolean("highBrightness", false)) {
-                    command.add("echo > /sys/kernel/oplus_display/hbm 1")
-                }
-                //全局DC模式
-                if (tileAutoStart && getBoolean("globalDC", false)) {
-                    command.add("echo > /sys/kernel/oppo_display/dimlayer_hbm 1")
-                    command.add("echo > /sys/kernel/oplus_display/dimlayer_hbm 1")
-                }
-                if (command.isNotEmpty()) ShellUtils.execCommand(command, true)
-            }
-        }
-    }
-}
-
-/**
  * 获取刷新率显示状态
  * @return Boolean
  */

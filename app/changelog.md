@@ -8,6 +8,8 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [更改] 同步上游DisableFlagSecure
 - [更改] 取消状态栏网速非用户字体时的Hook
 - [更改] 同步上游CorePatch
+- [移除] 切换自启功能调用者选项
+- [优化] 使用Service处理自启功能调用
 
 ### 1.1.6
 

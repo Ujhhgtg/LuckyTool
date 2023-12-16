@@ -25,7 +25,6 @@ import com.drake.net.Get
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.scopeNetLife
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
@@ -39,7 +38,6 @@ import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.backupAllPrefs
 import com.luckyzyx.luckytool.utils.base64Decode
 import com.luckyzyx.luckytool.utils.base64Encode
@@ -199,26 +197,6 @@ class SettingsFragment : ModulePreferenceFragment() {
                 summary = getString(R.string.tile_auto_start_summary)
                 setDefaultValue(true)
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put("tile_auto_start", newValue)
-                    true
-                }
-            })
-            addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.switch_autostart_function_caller)
-                summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s\n",
-                    getString(R.string.switch_autostart_function_caller_summary)
-                )
-                key = "switch_autostart_function_caller"
-                setEntries(R.array.switch_autostart_function_caller_entries)
-                entryValues = arrayOf("0", "1")
-                setDefaultValue("0")
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.dataChannel("com.android.systemui").put(key, newValue)
-                    true
-                }
             })
             addPreference(SwitchPreference(context).apply {
                 key = "hide_function_page_icon"

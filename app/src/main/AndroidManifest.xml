@@ -59,11 +59,6 @@
         </activity-alias>
         
         <activity
-                android:name=".ui.activity.AliveActivity"
-                android:excludeFromRecents="true"
-                android:exported="false"
-                android:theme="@android:style/Theme.Translucent" />
-        <activity
                 android:name=".ui.activity.ShortcutActivity"
                 android:excludeFromRecents="true"
                 android:exported="false"
@@ -180,6 +175,14 @@
                 android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+                android:name=".ui.service.AutoStartControllerService"
+                android:exported="true"
+                tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="${applicationId}.AutoStartControllerService" />
             </intent-filter>
         </service>
         
