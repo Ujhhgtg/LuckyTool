@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
@@ -37,10 +38,12 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
                         context.getString(R.string.display_module_calculates_battery_health_data_tips)
                     }
                     contentView.apply {
+                        layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
                         gravity = Gravity.START
                         text = "$text\n\nLuckyTool$tips"
                     }
                     dataView.apply {
+                        layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
                         gravity = Gravity.END
                         text = "$text\n\n${health}%"
                     }
