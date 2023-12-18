@@ -72,7 +72,6 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                         }
                     }
                 }
-
         }
     }
 
@@ -103,7 +102,7 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         getScreenOrientation(this) {
             if (layoutParams != null) layoutParams = ViewGroup.LayoutParams(layoutParams).apply {
                 width = if (it) resources.displayMetrics.widthPixels - (qsPanelPaddingPx * 2)
-                else -1
+                else ViewGroup.LayoutParams.MATCH_PARENT
             }
         }
     }

@@ -52,6 +52,8 @@ object StatusBarClock : YukiBaseHooker() {
     private var customFontsize = prefs(ModulePrefs).getInt("statusbar_clock_custom_fontsize", 0)
 
     private val userTypeface = prefs(ModulePrefs).getBoolean("statusbar_clock_user_typeface", false)
+    private var useBoldFont =
+        prefs(ModulePrefs).getBoolean("statusbar_clock_use_bold_font_style", false)
 
     private var nowLunar: String? = null
     private var nowTime: Date? = null
@@ -64,6 +66,7 @@ object StatusBarClock : YukiBaseHooker() {
         dataChannel.wait<Int>("statusbar_clock_custom_fontsize") { customFontsize = it }
         dataChannel.wait<Int>("statusbar_clock_singlerow_fontsize") { singleRowFontSize = it }
         dataChannel.wait<Int>("statusbar_clock_doublerow_fontsize") { doubleRowFontSize = it }
+        dataChannel.wait<Boolean>("statusbar_clock_use_bold_font_style") { useBoldFont = it }
         var context: Context? = null
 
         //Source Clock
@@ -125,7 +128,7 @@ object StatusBarClock : YukiBaseHooker() {
     }
 
     private fun TextView.initView() {
-        if (userTypeface) typeface = Typeface.DEFAULT_BOLD
+        if (userTypeface) typeface = if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
         val defaultSize = 12F
         if (clockMode == "1") {
             isSingleLine = !isDoubleRow

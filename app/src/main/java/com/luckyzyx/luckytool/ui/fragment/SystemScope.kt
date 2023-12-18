@@ -466,6 +466,19 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 isVisible = context.getString(ModulePrefs, "statusbar_clock_mode", "0") != "0"
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.use_bold_font_style)
+                key = "statusbar_clock_use_bold_font_style"
+                setDefaultValue(false)
+                isVisible = context.getBoolean(
+                    ModulePrefs, "statusbar_clock_user_typeface", false
+                )
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
         }
     }
 
