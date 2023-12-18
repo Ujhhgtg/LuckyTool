@@ -6,11 +6,10 @@ import com.highcapable.yukihookapi.hook.factory.method
 
 object RemoveStatusBarSecurePayment : YukiBaseHooker() {
     override fun onHook() {
-        //Source SecurePaymentControllerExImpl
+        //Source StatusBarHelper
         VariousClass(
-            "com.oplusos.systemui.ext.SecurePaymentControllerExt",
-            "com.oplus.systemui.statusbar.phone.securepay.SecurePaymentControllerExImpl",
-            "com.oplus.systemui.statusbar.phone.dynamic.SecurePaymentController" //C14
+            "com.oplusos.systemui.statusbar.helper.StatusBarHelper", //C12 C13
+            "com.oplus.systemui.common.manager.OplusSystemUiManagerExImpl" //C14
         ).toClass().apply {
             method { name = "handlePaymentDetectionMessage" }.hook {
                 intercept()

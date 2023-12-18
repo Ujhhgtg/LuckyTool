@@ -11,6 +11,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [移除] 切换自启功能调用者选项
 - [优化] 使用Service处理自启功能调用
 - [添加] 状态栏时钟使用粗体字体样式
+- [修复] 状态栏支付保护图标Hook异常
 
 ### 1.1.6
 
