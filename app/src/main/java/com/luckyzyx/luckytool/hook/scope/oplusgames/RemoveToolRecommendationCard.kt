@@ -15,5 +15,16 @@ object RemoveToolRecommendationCard : YukiBaseHooker() {
                 }
             }
         }
+
+        //Source GameToolTileAdapter V9.0.0+
+//        "business.toolpanel.adapter.GameToolTileAdapter".toClassOrNull()?.apply {
+//            method { name = "onCreateViewHolder" }.hook {
+//                after {
+//                    val parent = args().first().cast<ViewGroup>() ?: return@after
+//                    val id = args().last().int()
+//                    if (id == 10005) result<ViewHolder>()?.itemView?.isVisible = false
+//                }
+//            }
+//        }
     }
 }
