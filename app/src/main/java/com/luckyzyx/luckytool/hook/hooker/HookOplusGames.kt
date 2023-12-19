@@ -39,6 +39,10 @@ object HookOplusGames : YukiBaseHooker() {
                 if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
                     loadHooker(CompetitionModeSound(dexKitBridge))
                 }
+                //移除游戏助手福利页面
+                if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
+                    loadHooker(RemoveWelfarePage(dexKitBridge))
+                }
             }
 
             //自定义媒体播放器支持
@@ -55,10 +59,6 @@ object HookOplusGames : YukiBaseHooker() {
             //启用X模式
             if (prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
                 loadHooker(EnableXModeFeature)
-            }
-            //移除游戏助手福利页面
-            if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
-                loadHooker(RemoveWelfarePage)
             }
             //移除部分VIP限制
             if (prefs(ModulePrefs).getBoolean("remove_some_vip_limit", false)) {

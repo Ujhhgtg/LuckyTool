@@ -12,6 +12,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [优化] 使用Service处理自启功能调用
 - [添加] 状态栏时钟使用粗体字体样式
 - [修复] 状态栏支付保护图标Hook异常
+- [适配] 游戏助手移除游戏中心Tab页面
 
 ### 1.1.6
 
