@@ -940,13 +940,18 @@ fun Context.restartScopes(scopes: Array<String>) {
  * @param packName String 包名
  * @return ArrayMap<String, String>
  */
-fun getPackageAbsolutePath(packName: String): ArrayMap<String, String> {
-    ShellUtils.execCommand("pm list packages -f | grep $packName", true, true).apply {
-        return if (result == 0 && successMsg != null && successMsg.isNotBlank()) {
+fun getPackageAbsolutePath(
+    packName: String, ignoreCase: Boolean = false
+): ArrayMap<String, String> {
+    ShellUtils.execCommand(
+        "pm list packages -f | grep $packName" + if (ignoreCase) " -i" else "",
+        true, true
+    ).apply {
+        return if (result == 0 && successMsg.isNullOrBlank().not()) {
             val map = ArrayMap<String, String>()
-            successMsg?.split("package:")?.toMutableList()?.apply {
+            successMsg.split("package:").toMutableList().apply {
                 removeIf { it.isBlank() }
-            }?.forEach {
+            }.forEach {
                 val key = it.substringAfterLast("=")
                 val value = it.substringBeforeLast("=")
                 map[key] = value

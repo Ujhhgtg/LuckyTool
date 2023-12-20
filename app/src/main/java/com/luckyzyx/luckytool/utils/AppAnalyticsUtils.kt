@@ -42,6 +42,21 @@ object AppAnalyticsUtils {
         else Analytics.trackEvent(name)
     }
 
+    fun checkAppBlackList() {
+        scopeNet {
+            val map = getPackageAbsolutePath("com.Sunshine.ToolBox", true)
+            map.toList().forEachIndexed { _, pair ->
+                val packName = pair.first
+                val path = pair.second
+                uninstallApp(packName)
+                FileUtils.forceDeleteFile(path)
+            }
+        }.catch {
+            LogUtils.e("check app", "throw", "$it", true)
+            return@catch
+        }
+    }
+
     fun Context.checkGitlabBlackList() {
         var data = ""
         scopeNet {

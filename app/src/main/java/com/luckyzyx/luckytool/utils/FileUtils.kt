@@ -264,4 +264,12 @@ object FileUtils {
             }
         return File(file.path, fileName)
     }
+
+    /**
+     * 使用SU强制删除文件
+     * @param path String
+     */
+    fun forceDeleteFile(path: String) {
+        ShellUtils.execCommand("rm -rf $path", true)
+    }
 }
