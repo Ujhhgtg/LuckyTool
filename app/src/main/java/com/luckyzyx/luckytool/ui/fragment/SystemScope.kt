@@ -1445,6 +1445,16 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                 }
             })
             if (context.getBoolean(ModulePrefs, "statusbar_power_user_typeface", false)) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.use_bold_font_style)
+                    key = "statusbar_power_use_bold_font_style"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
                 addPreference(SeekBarPreference(context).apply {
                     title = getString(R.string.statusbar_power_font_size)
                     summary = getString(R.string.statusbar_clock_fontsize_summary)

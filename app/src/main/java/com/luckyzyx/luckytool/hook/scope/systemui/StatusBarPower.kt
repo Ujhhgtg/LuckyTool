@@ -21,6 +21,8 @@ object StatusBarPower : YukiBaseHooker() {
             val removePercent =
                 prefs(ModulePrefs).getBoolean("remove_statusbar_battery_percent", false)
             val userTypeface = prefs(ModulePrefs).getBoolean("statusbar_power_user_typeface", false)
+            val useBoldFont =
+                prefs(ModulePrefs).getBoolean("statusbar_power_use_bold_font_style", false)
             val customFontSize = prefs(ModulePrefs).getInt("statusbar_power_font_size", 0)
 
             //Source BatteryViewBinder
@@ -31,7 +33,8 @@ object StatusBarPower : YukiBaseHooker() {
                             args(1).cast<TextView>()?.apply {
                                 if (removePercent) text = text.toString().replace("%", "")
                                 if (userTypeface) {
-                                    typeface = Typeface.DEFAULT_BOLD
+                                    typeface = if (useBoldFont) Typeface.DEFAULT_BOLD
+                                    else Typeface.DEFAULT
                                     setTextSize(
                                         TypedValue.COMPLEX_UNIT_DIP,
                                         if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
