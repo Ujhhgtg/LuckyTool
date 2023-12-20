@@ -42,7 +42,6 @@ class AutoStartControllerService : Service() {
                 }
             }
             if (command.isNotEmpty()) ShellUtils.execCommand(command, true)
-
         }
         return super.onStartCommand(intent, flags, startId)
     }

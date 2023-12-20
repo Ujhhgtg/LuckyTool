@@ -42,18 +42,18 @@ object AppAnalyticsUtils {
         else Analytics.trackEvent(name)
     }
 
-    fun Context.checkGiteeBlackList() {
+    fun Context.checkGitlabBlackList() {
         var data = ""
         scopeNet {
-            val latestUrl = "https://gitee.com/luckyzyx/luckyzyx/raw/master/blacklist"
+            val latestUrl = "https://gitlab.com/luckyzyx/luckyzyx.gitlab.io/raw/main/blacklist"
             val getDoc = Get<String>(latestUrl).await()
             data = if (getDoc.isNotBlank()) AESCrypt.decrypt(getDoc) else ""
-//            LogUtils.e("check gitee", "data", data, true)
+//            LogUtils.e("check gitlab", "data", data, true)
         }.catch {
-            LogUtils.e("check gitee", "throw", "$it")
+            LogUtils.e("check gitlab", "throw", "$it", true)
             data = ""
             return@catch
-        }.finally { scope { withIO { startCheckList("gitee", data) } } }
+        }.finally { scope { withIO { startCheckList("gitlab", data) } } }
     }
 
     fun Context.checkGithubBlackList() {
@@ -135,6 +135,10 @@ object AppAnalyticsUtils {
                 put("3431299059")
                 put("907989054")
                 put("1933582367")
+                put("382973352")
+                put("1204528865")
+                put("2515287786")
+                put("1848589411")
             })
             put("cbk", JSONArray().apply {
                 put("1304480")
