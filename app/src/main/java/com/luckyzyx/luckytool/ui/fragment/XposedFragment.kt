@@ -47,7 +47,6 @@ import kotlinx.coroutines.Dispatchers
 import java.util.Arrays
 
 class XposedFragment : ModulePreferenceFragment(), MenuProvider {
-    val tags = "XposedFragment"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -343,7 +342,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 title = context.getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.enable_watermark_editing),
-                    getString(R.string.enable_jiangwen_filter)
+                    getString(R.string.enable_lns_cut_photo)
                 )
                 isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -555,8 +554,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.unlock_transfer_dock),
                     getString(R.string.unlock_recent_files)
                 )
-//                isVisible = SDK >= A13 && context.checkPackName(key)
-                isVisible = false
+                isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusSmartSidebar, title)
                     true

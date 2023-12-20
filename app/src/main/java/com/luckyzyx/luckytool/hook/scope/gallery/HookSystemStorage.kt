@@ -24,14 +24,14 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //水印编辑
         val waterMark = prefs(ModulePrefs).getBoolean("enable_watermark_editing", false)
         //高级筛选
-        val seniorPicked = false
-            //prefs(ModulePrefs).getBoolean("enable_photo_listview_senior_picked", false)
+        val seniorPicked =
+            prefs(ModulePrefs).getBoolean("enable_photo_listview_senior_picked", false)
         //拇指线
         val thumbLine = prefs(ModulePrefs).getString("set_photo_view_thumb_line_display_mode", "0")
         //GIF合成
-        val gifSynthesis = false//prefs(ModulePrefs).getBoolean("enable_photo_editor_gif_synthesis", false)
+        val gifSynthesis = prefs(ModulePrefs).getBoolean("enable_photo_editor_gif_synthesis", false)
         //闪速抠图
-        val lnsImage = false//prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
+        val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
 
         //Source OtherSystemStorage
         dexKitBridge.findClass {
