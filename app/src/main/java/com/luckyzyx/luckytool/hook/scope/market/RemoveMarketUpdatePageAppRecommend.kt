@@ -94,7 +94,9 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
                 method {
                     param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
                     returnType(UnitType)
-                }.hook { intercept() }
+                }.hook {
+                    intercept()
+                }
             }
         }
     }

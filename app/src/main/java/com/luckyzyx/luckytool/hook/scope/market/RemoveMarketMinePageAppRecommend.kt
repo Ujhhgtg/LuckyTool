@@ -37,8 +37,8 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
                     add { name("onDestroy") }
                     add { name("onDestroyView") }
                     add { name("onConfigurationChanged") }
-                    add { returnType(mineActionBarView) }
-                    add { returnType(cdoNestedScrollListView) }
+//                    add { returnType(mineActionBarView) }
+//                    add { returnType(cdoNestedScrollListView) }
                     add {
                         paramTypes(viewLayerWrapDto)
                         returnType(MapClass)
