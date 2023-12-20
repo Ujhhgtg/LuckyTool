@@ -59,8 +59,8 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
 //        init()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         init()
     }
 
@@ -343,7 +343,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 title = context.getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.enable_watermark_editing),
-                    getString(R.string.enable_lns_cut_photo)
+                    getString(R.string.enable_jiangwen_filter)
                 )
                 isVisible = SDK >= A13 && context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -555,7 +555,8 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.unlock_transfer_dock),
                     getString(R.string.unlock_recent_files)
                 )
-                isVisible = SDK >= A13 && context.checkPackName(key)
+//                isVisible = SDK >= A13 && context.checkPackName(key)
+                isVisible = false
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusSmartSidebar, title)
                     true

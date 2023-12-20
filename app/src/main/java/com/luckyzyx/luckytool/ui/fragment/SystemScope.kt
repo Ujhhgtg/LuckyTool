@@ -3161,6 +3161,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_photo_listview_senior_picked)
                 key = "enable_photo_listview_senior_picked"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
             })
             addPreference(DropDownPreference(context).apply {
@@ -3176,18 +3177,21 @@ class OplusGallery : BaseScopePreferenceFeagment() {
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GalleryEditor)
                 key = "GalleryEditor"
+                isVisible = false
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_photo_editor_gif_synthesis)
                 key = "enable_photo_editor_gif_synthesis"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_lns_cut_photo)
                 key = "enable_lns_cut_photo"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
             })
         }
