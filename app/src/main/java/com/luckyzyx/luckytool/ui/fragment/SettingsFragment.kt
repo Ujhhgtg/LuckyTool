@@ -354,7 +354,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                             1 -> startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://luckyzyx.github.io/LuckyTool_Doc/")
+                                    Uri.parse("https://luckyzyx.gitlab.io/LuckyTool_Doc")
                                 )
                             )
 
@@ -555,7 +555,7 @@ class DonateFragment : Fragment() {
     private fun checkDonateData(context: Context) {
         scopeNetLife {
             val latestUrl =
-                "https://api.github.com/repos/luckyzyx/LuckyTool_Doc/releases/tags/donate_data"
+                "https://api.github.com/repos/LuckyOSTeam/LuckyOSTeam.github.io/releases/tags/luckytool_donates"
             val lastDDDate = context.getString(SettingsPrefs, "last_update_dd_date", "null")
             val getDoc = Get<String>(latestUrl).await()
             JSONObject(getDoc).apply {
@@ -569,7 +569,7 @@ class DonateFragment : Fragment() {
     private fun downloadJson(context: Context, date: String) {
         scopeNetLife {
             val file =
-                Get<File>("https://raw.gitmirror.com/luckyzyx/LuckyTool_Doc/main/donate.json") {
+                Get<File>("https://raw.gitmirror.com/LuckyOSTeam/LuckyOSTeam.github.io/main/LuckyTool/donate.json") {
                     setDownloadDir(ddFile)
                     setDownloadMd5Verify()
                     setDownloadTempFile()
