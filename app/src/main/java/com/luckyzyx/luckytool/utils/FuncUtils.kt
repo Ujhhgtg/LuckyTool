@@ -1357,8 +1357,7 @@ fun calcLocalHealth(context: Context): Int {
 
 fun logcatToFile(file: File) {
     try {
-        if (file.exists()) file.delete()
-        file.createNewFile()
+        if (!file.exists()) file.createNewFile()
         ShellUtils.execCommand("logcat -d -f ${file.absolutePath}", true)
     } catch (e: Exception) {
         LogUtils.e(LogUtils.globalTag, "logcatToFile", "$e", true)

@@ -201,6 +201,7 @@ class HomeFragment : Fragment(), MenuProvider {
         binding.authorized.apply {
             if (isZh(context)) {
                 isVisible = true
+                textSize = 16F
                 text = context.getString(R.string.authorized)
                 setTextColor(Color.RED)
             }

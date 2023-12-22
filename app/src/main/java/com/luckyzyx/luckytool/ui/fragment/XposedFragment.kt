@@ -40,6 +40,7 @@ import com.luckyzyx.luckytool.utils.getAppLabel
 import com.luckyzyx.luckytool.utils.getAppVersion
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.restartMain
+import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.toast
@@ -58,9 +59,12 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
 //        init()
     }
 
-    override fun onStart() {
-        super.onStart()
-        init()
+    override fun onResume() {
+        super.onResume()
+        val count = safeOf(0) {
+            if (preferenceScreen != null) preferenceScreen.preferenceCount else 0
+        }
+        if (count <= 0) init()
     }
 
     @SuppressLint("RestrictedApi")

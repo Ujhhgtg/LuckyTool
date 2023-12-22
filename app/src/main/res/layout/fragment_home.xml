@@ -178,7 +178,6 @@
             <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/authorized"
                     android:visibility="gone"
-                    android:textSize="18sp"
                     android:textIsSelectable="true"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
