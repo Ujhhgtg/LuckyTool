@@ -59,8 +59,8 @@ class ShortcutUtils(val context: Context) {
                             android.R.mipmap.sym_def_app_icon
                         )
                         intent = Intent(Intent.ACTION_VIEW).apply {
+                            setClass(context, ShortcutActivity::class.java)
                             putExtra("Shortcut", it)
-                            setClassName(context.packageName, ShortcutActivity::class.java.name)
                         }
                     }
 
@@ -85,8 +85,8 @@ class ShortcutUtils(val context: Context) {
                             R.drawable.ic_baseline_charging_station_24
                         )
                         intent = Intent(Intent.ACTION_VIEW).apply {
+                            setClass(context, ShortcutActivity::class.java)
                             putExtra("Shortcut", it)
-                            setClassName(context.packageName, ShortcutActivity::class.java.name)
                         }
                     }
 
@@ -96,8 +96,8 @@ class ShortcutUtils(val context: Context) {
                             android.R.mipmap.sym_def_app_icon
                         )
                         intent = Intent(Intent.ACTION_VIEW).apply {
+                            setClass(context, ShortcutActivity::class.java)
                             putExtra("Shortcut", it)
-                            setClassName(context.packageName, ShortcutActivity::class.java.name)
                         }
                     }
 
@@ -107,8 +107,8 @@ class ShortcutUtils(val context: Context) {
                             R.drawable.baseline_device_thermostat_24
                         )
                         intent = Intent(Intent.ACTION_VIEW).apply {
+                            setClass(context, ShortcutActivity::class.java)
                             putExtra("Shortcut", it)
-                            setClassName(context.packageName, ShortcutActivity::class.java.name)
                         }
                     }
                 }
