@@ -720,7 +720,7 @@
     <string name="oplusota_copyall">Копировать все</string>
     <!--Donate-->
     <string name="donate_tv_title">Поддержать разработку</string>
-    <string name="donate_tv__summary">Пожертвовать разработчику для поддержки последующих обновлений</string>
+    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
     <!-- Other -->
     <string name="quick_entry">Быстрый вход в систему</string>
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>

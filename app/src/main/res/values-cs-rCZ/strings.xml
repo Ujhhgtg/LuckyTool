@@ -719,7 +719,7 @@
     <string name="oplusota_copyall">Kopírovat vše</string>
     <!--Donate-->
     <string name="donate_tv_title">Podpořit vývojáře</string>
-    <string name="donate_tv__summary">Přispějte vývojáři na podporu budoucích aktualizací</string>
+    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>

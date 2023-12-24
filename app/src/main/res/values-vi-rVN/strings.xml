@@ -719,7 +719,7 @@
     <string name="oplusota_copyall">Sao chép tất cả</string>
     <!--Donate-->
     <string name="donate_tv_title">Hỗ trợ người phát triển</string>
-    <string name="donate_tv__summary">Đóng góp cho các nhà phát triển để hỗ trợ các bản cập nhật trong tương lai</string>
+    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>

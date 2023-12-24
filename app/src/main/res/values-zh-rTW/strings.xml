@@ -719,7 +719,7 @@
     <string name="oplusota_copyall">複製全部</string>
     <!--Donate-->
     <string name="donate_tv_title">支持开发</string>
-    <string name="donate_tv__summary">向开发者捐赠以支持后续更新</string>
+    <string name="donate_tv__summary">点击或长按即可向开发者捐赠以支持后续更新</string>
     <!-- Other -->
     <string name="quick_entry">系统快捷入口</string>
     <string name="quick_entry_summary">例如系统界面调节工具,进程管理,工程模式等</string>

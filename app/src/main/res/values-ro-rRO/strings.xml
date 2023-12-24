@@ -719,7 +719,7 @@
     <string name="oplusota_copyall">Copy All</string>
     <!--Donate-->
     <string name="donate_tv_title">Support Development</string>
-    <string name="donate_tv__summary">Donate to the developer to support subsequent updates</string>
+    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
     <!-- Other -->
     <string name="quick_entry">System Quick Entry</string>
     <string name="quick_entry_summary">e.g. System UI reconciliation tools, process management, engineering mode, etc.</string>

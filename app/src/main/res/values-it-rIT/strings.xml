@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">LuckyTool</string>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module optimized for extensions to ColorOS\nDeveloper: luckyzyx</string>
-    <string name="sharedUserLabel" translatable="false">LuckyTool user</string>
+    <string name="xposeddescription">Modulo Xposed ottimizzato per le estensioni di ColorOS\nSviluppatore: luckyzyx</string>
     <!-- Nav Menu -->
-    <string name="nav_function">Function</string>
-    <string name="nav_home">Home page</string>
-    <string name="nav_other">Other</string>
+    <string name="nav_function">Funzioni</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_other">Altro</string>
     <string name="nav_log">Logs</string>
-    <string name="nav_setting">Settings</string>
-    <string name="fragment_source">SourceCode</string>
+    <string name="nav_setting">Impostazioni</string>
+    <string name="fragment_source">Codice Sorgente</string>
     <!-- Settings -->
-    <string name="theme_title">Theme</string>
-    <string name="theme_title_summary">Page will be automatically refreshed</string>
-    <string name="use_dynamic_color">Dynamic colors</string>
-    <string name="use_dynamic_color_summary">Use dynamic colors</string>
-    <string name="dark_theme">Dark theme</string>
-    <string name="follow_system">Follow system</string>
-    <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
-    <string name="dark_theme_follow_system" translatable="false">@string/follow_system</string>
-    <string name="language">Language</string>
-    <string name="privacy_agreement">Privacy Agreement</string>
-    <string name="auto_check_update">Automatically check for updates</string>
-    <string name="auto_check_update_summary">Automatically check for updates when opening the module home page</string>
-    <string name="tile_auto_start">Allow built-in tiles to start automatically</string>
+    <string name="theme_title">Tema</string>
+    <string name="theme_title_summary">La pagina verrà automaticamente ricaricata</string>
+    <string name="use_dynamic_color">Colori dinamici</string>
+    <string name="use_dynamic_color_summary">Usa colori dinamici</string>
+    <string name="dark_theme">Tema scuro</string>
+    <string name="follow_system">Segui il sistema</string>
+    <string name="dark_theme_off">Sempre off</string>
+    <string name="dark_theme_on">Sempre on</string>
+    <string name="language">Lingua</string>
+    <string name="privacy_agreement">Accordo sulla privacy</string>
+    <string name="auto_check_update">Controlla automaticamente gli aggiornamenti</string>
+    <string name="auto_check_update_summary">Controlla automaticamente gli aggiornamenti quando apri la home del modulo</string>
+    <string name="tile_auto_start">Consenti ai tile integrati di partire automaticamente</string>
     <string name="tile_auto_start_summary">When the host-side module version number is consistent with the local module version number,and enable this function,The function of opened tiles will be automatically triggered after the screen is unlocked.If the trigger fails,please restart the scope and check Root permissions</string>
-    
-    <string name="read_agreement">You need to read and agree to the following content before you can use this module</string>
-    <string name="clear_all_data">Clear all data</string>
+    <string name="read_agreement">Devi leggere e accettare i seguenti contenuti prima di poter utilizzare questo modulo</string>
+    <string name="clear_all_data">Cancella tutti i dati</string>
     <string name="clear_all_data_summary">Clear all function data in the module</string>
     <string name="clear_all_data_message">Make sure you want to clear all the function data of the module, and you need to reset the function after clearing?</string>
     <!-- Other Settings -->
-    <string name="other_settings">Other settings</string>
+    <string name="other_settings">Altre impostazioni</string>
     <string name="enable_module_print_logs">Enable module print logs</string>
     <string name="enable_module_print_logs_summary">This function is only used to print the running log of the module App itself.\nLog files will be obtained when this switch is turned off.</string>
     <string name="switch_autostart_function_caller">Switch autostart function caller</string>
@@ -42,69 +38,63 @@
     <string name="switch_autostart_function_caller_systemui">SystemUI call</string>
     <string name="hide_function_page_icon">Hide function page icon</string>
     <string name="hide_desktop_module_icon">Hide desktop module icon</string>
-    <string name="hide_desktop_module_icon_summary">LSPosed must be turned off to force desktop icons</string>
-    
+    <string name="hide_desktop_module_icon_summary">LSPosed deve essere disattivato per forzare le icone del desktop</string>
     <!--BackupRestoreClear-->
-    <string name="backup_restore_clear">Backup/Restore/Clear</string>
+    <string name="backup_restore_clear">Backup/Ripristino/Pulizia</string>
     <string name="get_log_cat_log">Get LogCat log</string>
-    <string name="backup_data">Backup Data</string>
-    <string name="restore_data">Restore Data</string>
-    <string name="data_backup_complete">Data backup completed!</string>
-    <string name="data_backup_error">Data backup error!</string>
-    <string name="data_restore_complete">Data restore complete!</string>
-    
+    <string name="backup_data">Backup dei dati</string>
+    <string name="restore_data">Ripristino dati</string>
+    <string name="data_backup_complete">Backup dati completato!</string>
+    <string name="data_backup_error">Errore di backup dati!</string>
+    <string name="data_restore_complete">Ripristino dei dati completato!</string>
     <!-- About -->
-    <string name="about_title">About</string>
-    <string name="about_author">Author</string>
-    <string name="donate">Donate reward</string>
-    <string name="donate_message">Be sure to note your nickname or ID when donating</string>
-    <string name="donate_summary">Your donation will be the driving force for the module update</string>
+    <string name="about_title">Informazioni</string>
+    <string name="about_author">Autore</string>
+    <string name="donate">Ricompense Donazione</string>
+    <string name="donate_message">Assicurati d\'inserire il tuo nickname o ID durante la donazione</string>
+    <string name="donate_summary">La tua donazione sarà la forza trainante per l\'aggiornamento del modulo</string>
     <string name="qq">QQ</string>
     <string name="wechat">WeChat</string>
     <string name="alipay">AliPay</string>
-    <string name="patreon" translatable="false">Patreon</string>
-    <string name="paypal" translatable="false">PayPal</string>
-    <string name="donation_list">Donation List</string>
-    <string name="feedback_download">Feedback and Download</string>
-    <string name="feedback_download_summary">TG Channels, Groups, Repositories, etc.</string>
+    <string name="donation_list">Lista Donazioni</string>
+    <string name="feedback_download">Feedback e download</string>
+    <string name="feedback_download_summary">Canali Telegram, Gruppi, Repository, etc.</string>
     <string name="coolmarket">Cool Home Page</string>
-    <string name="module_doc">Module Doc</string>
+    <string name="module_doc">Documentazione Modulo</string>
     <string name="qq_channel">QQ Channel</string>
-    <string name="telegram_channel">Telegram Channel</string>
-    <string name="telegram_group">Telegram Group</string>
-    <string name="lsposed_repo">LSPosed Repository</string>
-    <string name="github_repo">Github Repository</string>
+    <string name="telegram_channel">Canale Telegram</string>
+    <string name="telegram_group">Gruppo Telegram</string>
+    <string name="lsposed_repo">Repository LSPosed</string>
+    <string name="github_repo">Repository Github</string>
     <string name="open_source">Open Source</string>
-    <string name="open_source_summary">Click to view the open source list</string>
-    <string name="participate_translation">Participate in module translations</string>
-    <string name="participate_translation_summary">Go to Crowdin to contribute your translation</string>
-    
+    <string name="open_source_summary">Fare clic per visualizzare l\'elenco open source</string>
+    <string name="participate_translation">Partecipa alle traduzioni del modulo</string>
+    <string name="participate_translation_summary">Vai su Crowdin per contribuire alla traduzione</string>
     <!-- check lsposed -->
-    <string name="system_not_support">The current system does not support!</string>
-    <string name="unsupported_xposed">Module not activated detected.\nPlease use LSPosed %1$s and above to check the module scope.\nIf you have completed this step, you can try to click OK to exit and reopen the module.</string>
-    <string name="unsupported_os">Unsupported system</string>
-    <string name="unsupported_os_summary">Because the module only supports ColorOS 12 and above systems, please be sure to take security measures!</string>
-    <string name="no_root">No Root permission</string>
-    <string name="no_root_summary">Root permission is not detected, some functions will not be available!</string>
-    
+    <string name="system_not_support">Il sistema attuale non è supportato!</string>
+    <string name="unsupported_xposed">Modulo non attivato rilevato.\nSi prega di utilizzare LSPosed %1$s e superiore per controllare l\'ambito del modulo.\nSe hai completato questo passaggio, puoi provare a fare clic su OK per uscire e riaprire il modulo.</string>
+    <string name="unsupported_os">Sistema non supportato</string>
+    <string name="unsupported_os_summary">Dato che il modulo supporta solo i sistemi ColorOS 12 e superiori, assicurati di prendere misure di sicurezza!</string>
+    <string name="no_root">Senza permessi di Root</string>
+    <string name="no_root_summary">Il permesso di root non è stato rilevato, alcune funzioni non saranno disponibili!</string>
     <!-- Menu -->
-    <string name="menu_reboot">Restart menu</string>
-    <string name="menu_settings">Set menu</string>
+    <string name="menu_reboot">Menù riavvio</string>
+    <string name="menu_settings">Imposta menu</string>
     <string name="restart_scope">Restart scoped processes</string>
     <string name="need_restart_scope">Need to restart scope</string>
-    <string name="need_restart_system">Need to restart system</string>
+    <string name="need_restart_system">Necessario riavviare il sistema</string>
     <string name="restart_scope_message">Are you sure you want to restart all scoped processes except the system framework?\nUse this if the module isn\'t working!\nMake sure all the relevant scopes are checked!</string>
     <string name="restart_only_this_page_scope">Restart only this page scope</string>
-    <string name="reboot">Restart System</string>
-    <string name="fast_reboot">Fast reboot</string>
-    <string name="menu_versioninfo">Version Information</string>
+    <string name="reboot">Riavvia il sistema</string>
+    <string name="fast_reboot">Riavvio veloce</string>
+    <string name="menu_versioninfo">Informazioni sulla versione</string>
     <string name="scope_version_info">Scope version information</string>
-    <string name="show_system_app">Show system APP</string>
+    <string name="show_system_app">Mostra App di Sistema</string>
     <!--Xposed-->
-    <string name="Android">System Related</string>
-    <string name="app_label">App Name</string>
-    <string name="package_name">Package Name</string>
-    <string name="version">Version</string>
+    <string name="Android">Correlato al sistema</string>
+    <string name="app_label">Nome app</string>
+    <string name="package_name">Nome Pacchetto</string>
+    <string name="version">Versione</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">The official Color OS installer needs to enable other functions to use\nFunction List-Application Related-Application Installation Related</string>
     <string name="corepatch">Core Patch</string>
@@ -127,7 +117,6 @@
     <string name="vibrate_when_opening_the_statusbar">Vibrate when opening the status bar</string>
     <string name="set_click_statusbar_scroll_to_top_mode">Set the mode for clicking the status bar to return to the top</string>
     <string name="set_click_statusbar_scroll_to_top_mode_remove_white_list">Remove the whitelist limit</string>
-    
     <!--StatusBarClock-->
     <string name="StatusBarClock">StatusBar Clock</string>
     <string name="statusbar_clock_mode">Status bar clock mode</string>
@@ -136,65 +125,60 @@
     <string name="statusbar_clock_show_day">Show date</string>
     <string name="statusbar_clock_show_week">Show week</string>
     <string name="statusbar_clock_show_period">Show period</string>
-    <string name="statusbar_clock_show_double_hour">Show Double Hour</string>
-    <string name="statusbar_clock_show_second">Show seconds</string>
-    <string name="statusbar_clock_hide_spaces">Hide spaces</string>
-    <string name="statusbar_clock_text_alignment">Clock Text Alignment</string>
-    <string name="statusbar_clock_left_align">Left Align</string>
-    <string name="statusbar_clock_center_align">Center Align</string>
-    <string name="statusbar_clock_right_align">Right Align</string>
-    <string name="statusbar_clock_show_doublerow">Double row display</string>
-    <string name="statusbar_clock_singlerow_fontsize">Single row font size</string>
-    <string name="statusbar_clock_doublerow_fontsize">Double row font size</string>
-    <string name="statusbar_clock_custom_format">Clock format</string>
-    <string name="statusbar_clock_custom_fontsize">Clock font size</string>
-    <string name="statusbar_clock_fontsize_summary">If it is 0, the font size will not be modified</string>
-    
+    <string name="statusbar_clock_show_double_hour">Mostra Ora con due caratteri</string>
+    <string name="statusbar_clock_show_second">Mostra i secondi</string>
+    <string name="statusbar_clock_hide_spaces">Nascondi spazi</string>
+    <string name="statusbar_clock_text_alignment">Allineamento Testo Orologio</string>
+    <string name="statusbar_clock_left_align">Allinea a Sinistra</string>
+    <string name="statusbar_clock_center_align">Allinea al centro</string>
+    <string name="statusbar_clock_right_align">Allinea a Destra</string>
+    <string name="statusbar_clock_show_doublerow">Visualizzazione doppia riga</string>
+    <string name="statusbar_clock_singlerow_fontsize">Dimensione del carattere a singola riga</string>
+    <string name="statusbar_clock_doublerow_fontsize">Dimensione del carattere a doppia riga</string>
+    <string name="statusbar_clock_custom_format">Formato orologio</string>
+    <string name="statusbar_clock_custom_fontsize">Dimensione carattere orologio</string>
+    <string name="statusbar_clock_fontsize_summary">Se è 0, la dimensione del carattere non sarà modificata</string>
     <!-- StatusBarNetWorkSpeed -->
-    <string name="StatusBarNetWorkSpeed">StatusBar NetWorkSpeed</string>
-    <string name="set_network_speed">Set status bar speed refresh rate 1 s</string>
-    <string name="enable_double_row_network_speed">Enable Double Row Network Speed</string>
-    <string name="set_network_speed_font_size">Set Network Speed Font Size</string>
+    <string name="StatusBarNetWorkSpeed">Velocità Internet nella barra di stato</string>
+    <string name="set_network_speed">Imposta la velocità di aggiornamento della barra di stato 1 s</string>
+    <string name="enable_double_row_network_speed">Abilita velocità di rete a doppia riga</string>
+    <string name="set_network_speed_font_size">Imposta dimensione carattere velocità di rete</string>
     <string name="set_network_speed_padding_bottom">Set Network Speed Padding Bottom</string>
-    <string name="statusbar_network_layout">Statusbar network speed layout</string>
+    <string name="statusbar_network_layout">Disposizione della velocità di rete nella barra di stato</string>
     <string name="statusbar_network_no_second">Remove display per second(/s)</string>
-    <string name="statusbar_network_no_space">Remove network speed space</string>
+    <string name="statusbar_network_no_space">Rimuovi spazio velocità di rete</string>
     <string name="set_network_speed_double_row_spacing">Set network speed double row spacing</string>
-    
     <!--StatusBarNotify-->
-    <string name="StatusBarNotice">StatusBar Notifications</string>
-    <string name="StatusBarNotice_summary">Status bar notification related</string>
-    <string name="RemoveStatusBarNotifications">Remove status bar notifications</string>
+    <string name="StatusBarNotice">Notifiche Barra Di Stato</string>
+    <string name="StatusBarNotice_summary">Impostazioni relative alle notifiche nella barra di stato</string>
+    <string name="RemoveStatusBarNotifications">Rimuovi notifiche nella barra di stato</string>
     <string name="remove_statusbar_devmode">Remove status bar developer option notifications</string>
     <string name="remove_charging_completed">Remove charging completion notification</string>
-    <string name="remove_statusbar_top_notification">Remove status bar app upper level notifications</string>
-    <string name="remove_statusbar_top_notification_summary">Remove status bar \"This app is displayed on top of other apps\"</string>
-    <string name="remove_vpn_active_notification">Remove VPN active</string>
-    <string name="remove_vpn_active_notification_summary">Remove status bar VPN active</string>
-    <string name="remove_flashlight_open_notification">Remove flashlight is open notification</string>
-    <string name="remove_app_high_battery_consumption_warning">Remove app high battery consumption warning</string>
-    <string name="remove_app_high_battery_consumption_warning_summary">Removed the warning that the application\'s battery consumption is abnormal and needs to be optimized immediately</string>
-    <string name="remove_high_performance_mode_notifications">Remove high performance mode notifications</string>
-    <string name="remove_do_not_disturb_mode_notification">Remove Do Not Disturb Mode Notification</string>
-    <string name="remove_hotspot_power_consumption_notification">Remove personal hotspot power consumption notification</string>
-    <string name="remove_hotspot_power_consumption_notification_summary">Notify: Turning on the personal hotspot for a long time will increase power consumption and heat</string>
+    <string name="remove_statusbar_top_notification">Rimuovi le notifiche di livello superiore dell\'app nella barra di stato</string>
+    <string name="remove_statusbar_top_notification_summary">Rimuovi \"Questa app viene visualizzata in cima ad altre app\"</string>
+    <string name="remove_vpn_active_notification">Rimuovi VPN attiva</string>
+    <string name="remove_vpn_active_notification_summary">Rimuovi VPN attiva nella barra di stato</string>
+    <string name="remove_flashlight_open_notification">Rimuovi la notifica della torcia accesa</string>
+    <string name="remove_app_high_battery_consumption_warning">Rimuovere l\'avviso di consumo batteria alta per le app</string>
+    <string name="remove_app_high_battery_consumption_warning_summary">Rimuovi l\'avviso che il consumo di batteria dell\'applicazione è anormale e deve essere ottimizzato immediatamente</string>
+    <string name="remove_high_performance_mode_notifications">Rimuovi le notifiche della modalità ad alte prestazioni</string>
+    <string name="remove_do_not_disturb_mode_notification">Rimuovi la notifica per il Non Disturbare</string>
+    <string name="remove_hotspot_power_consumption_notification">Rimuovere le notifiche di consumo energetico hotspot personale</string>
+    <string name="remove_hotspot_power_consumption_notification_summary">Notifica: Accendere l\'hotspot personale per molto tempo aumenterà il consumo di energia e il calore</string>
     <string name="remove_smart_rapid_charging_notification">Remove the “Smart rapid charging” notification</string>
     <string name="remove_notifications_for_mute_notifications">Remove notifications for muted notifications</string>
     <string name="remove_virus_risk_notification_in_phone_manager">Remove the virus risk notification in Phone Manager</string>
-    <string name="remove_gt_mode_notification">Remove GT mode notification</string>
-    
-    <string name="allow_long_press_notification_modifiable">Allow long press notifications to be modifiable</string>
-    <string name="remove_notification_manager_limit">Remove notification manager limit</string>
+    <string name="remove_gt_mode_notification">Rimuovi notifica modalità GT</string>
+    <string name="allow_long_press_notification_modifiable">Consenti di modificare le notifiche con pressione prolungata</string>
+    <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
     <string name="remove_small_window_reply_whitelist">Remove small window reply whitelist</string>
     <string name="set_small_window_reply_blacklist">Set small window reply blacklist</string>
     <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist, each line can only fill in one package name</string>
-    
     <!--StatusBarIcon-->
-    <string name="StatusBarIcon">StatusBar Icon</string>
-    <string name="StatusBarIcon_summary">Status bar icon related</string>
+    <string name="StatusBarIcon">Icona barra di stato</string>
+    <string name="StatusBarIcon_summary">Impostazioni relative alle icone nella barra di stato</string>
     <string name="StatusBarWIFIIcon">WIFI Icon</string>
     <string name="remove_wifi_data_inout">Remove WiFi data inout</string>
-    
     <string name="StatusBarMobileDataIcon">Mobile Data Icon</string>
     <string name="remove_mobile_data_icon">Remove mobile data icon</string>
     <string name="remove_mobile_data_inout">Remove Mobile data inout</string>
@@ -202,23 +186,18 @@
     <string name="hide_non_network_card_icon">Hide non-network card icons</string>
     <string name="hide_inactive_signal_labels_gen2x2">Hide inactive signal labels Gen2x2</string>
     <string name="hide_nosim_noservice">Hide SIM card no service icon</string>
-    
     <string name="StatusBarBluetoothIcon">Bluetooth Icon</string>
     <string name="hide_icon_when_bluetooth_not_connected">Hide icon when not connected to bluetooth</string>
-    
     <string name="StatusBarOtherIcon">Other Icon</string>
     <string name="remove_high_performance_mode_icon">Remove high performance mode icon</string>
     <string name="remove_statusbar_securepayment_icon">Remove status bar payment protection icons</string>
     <string name="remove_green_dot_privacy_prompt">Remove the green dot privacy prompt</string>
     <string name="remove_system_prompt_icon">Remove system prompt icon</string>
     <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
-    
     <string name="StatusBarSmallIconStatus">StatusBar Small Icon Status</string>
     <string name="status_bar_icon_vertical_center">Statusbar icon vertical center</string>
-    
     <!--StatusBarControlCenter-->
     <string name="StatusBarControlCenter">StatusBar ControlCenter</string>
-    
     <string name="ControlCenter_Clock_Related">Control Center Clock Related</string>
     <string name="control_center_clock_show_second">Control center clock show second</string>
     <string name="statusbar_control_center_clock_colon_style">Control center clock colon style</string>
@@ -227,22 +206,17 @@
     <string name="statusbar_control_center_clock_red_one_mode">Control center red one mode</string>
     <string name="remove_control_center_clock_red_one">Remove control center clock red one</string>
     <string name="remove_control_center_date_comma">Remove control center date comma</string>
-    <string name="statusbar_control_center_date_show_lunar" translatable="false">控制中心显示农历</string>
-    <string name="statusbar_control_center_date_disable_text_scroll" translatable="false">禁用竖屏日期文字滚动</string>
-    <string name="statusbar_control_center_date_set_display_mode_horizontal" translatable="false">设置横屏日期显示模式</string>
     <string name="fix_control_center_date_display">Fix control center date display</string>
     <string name="fix_control_center_date_display_suammry">Fix the problem that the date cannot be displayed completely</string>
-    
     <string name="ControlCenterNotificationCenter">Control Center Notification Center</string>
     <string name="enable_notification_align_both_sides">Enable notification align both sides</string>
     <string name="enable_notification_importance_classification">Enable notification importance classification</string>
     <string name="custom_notification_background_transparency">Custom notification background transparency</string>
-    
     <string name="ControlCenter_UI_Related">Control Center UI Related</string>
     <string name="set_media_player_display_mode">Set media player display mode</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Hide when no media is playing</string>
     <string name="force_enable_media_toggle_button">Force enable media toggle button</string>
-    <string name="set_auto_brightness_button_mode">Set auto-brightness button mode</string>
+    <string name="set_auto_brightness_button_mode">Imposta modalità pulsante luminosità automatica</string>
     <string name="remove_control_center_user_switcher">Remove control center user switcher</string>
     <string name="remove_control_center_mydevice">Remove control center my device</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Restore page layout row count for edit tiles</string>
@@ -252,10 +226,8 @@
     <string name="remove_control_center_networkwarn_dialog_and_text">Remove security warning message and dialogs</string>
     <string name="remove_control_center_networkwarn_summary">After connecting to VPN, A line of text will appear at the bottom of Control Center\nAfter installing the CA certificate, it shows that the network may be monitored</string>
     <string name="custom_control_center_background_transparency">Custom control center background transparency</string>
-    
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">StatusBar Tiles</string>
-    
     <string name="SpecialTiles">Special Tiles</string>
     <string name="auto_expand_tile_rows_horizontal">Automatically expand the number of horizontal tile rows</string>
     <string name="auto_expand_tile_rows_horizontal_summary">When the media player is hidden, two rows of tiles will be displayed in horizontal mode</string>
@@ -263,7 +235,6 @@
     <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
     <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
     <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
-    
     <string name="TileLongClickEvent">Tile Long Click Event</string>
     <string name="restore_some_tile_long_press_event">Restore some tile long press events</string>
     <string name="restore_some_tile_long_press_event_summary">Restore WiFi, Bluetooth, personal hotspot and other tile long press events to open the corresponding page</string>
@@ -273,7 +244,6 @@
     <string name="long_press_bluetooth_tile_open_the_page">Long press the Bluetooth tile to open the page</string>
     <string name="long_press_screenshot_tile_open_the_page">Long press the screenshot tile to open the page</string>
     <string name="long_press_dnd_tile_open_the_page">Long press the DND tile to open the page</string>
-    
     <string name="TileLayoutRelated">Tile Layout Related</string>
     <string name="fix_tile_align_both_sides">Fix tile alignment on both sides</string>
     <string name="fix_tile_align_both_sides_summary">Fix the overflow of the layout on both sides when the tile is not expanded</string>
@@ -284,7 +254,6 @@
     <string name="tile_expanded_columns_horizontal">Expanded tile columns (horizontal)</string>
     <string name="tile_expanded_rows_vertical">Expand tile rows (vertical)</string>
     <string name="tile_columns_horizontal_c13">Tile Columns (horizontal)</string>
-    
     <!--StatusBarLayout-->
     <string name="StatusBarLayout">Status Bar Layout</string>
     <string name="statusbar_layout_mode">Status Bar Layout Mode</string>
@@ -293,12 +262,10 @@
     <string name="statusbar_layout_left_margin">Status bar left margin</string>
     <string name="statusbar_layout_right_margin">Status bar right margin</string>
     <string name="statusbar_layout_margin_tip">If it is 0, the margin size will not be modified</string>
-    
     <!--StatusBarBattery-->
     <string name="StatusBarBattery">Status Bar Battery</string>
     <string name="remove_statusbar_battery_percent">Remove battery percentage number in statusbar</string>
     <string name="statusbar_power_font_size">Statusbar power font size</string>
-    
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">StatusBar Battery Notifications</string>
     <string name="battery_information_notify_permanent_display">Permanent display</string>
@@ -316,7 +283,6 @@
     <string name="battery_information_show_update_time">Show update time</string>
     <string name="battery_information_show_update_time_summary">Display the update time of the current data in the statusbar</string>
     <string name="battery_information_custom_font_size">Custom notification font size</string>
-    
     <string name="battery_status_unknown">Unknown</string>
     <string name="battery_status_charging">Charging</string>
     <string name="battery_status_discharging">Discharging</string>
@@ -331,7 +297,6 @@
     <string name="battery_power">Pwr</string>
     <string name="battery_technology">Tech</string>
     <string name="battery_update_time">UpdateTime</string>
-    
     <!--Aod-->
     <string name="AodRelated">Aod Related</string>
     <string name="remove_aod_music_whitelist">Remove aod music whitelist</string>
@@ -340,21 +305,18 @@
     <string name="set_aod_style_mode">Set aod style mode</string>
     <string name="force_enable_screen_off_music_support">Force enable screen-off music support</string>
     <string name="force_enable_screen_off_music_support_summary">Applicable only to models that do not support screen-off music</string>
-    
     <!--LockScreen-->
     <string name="LockScreen">Lockscreen Related</string>
-    
     <string name="LockScreenClockComponent">Lock Screen Clock Component</string>
     <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
     <string name="lock_screen_clock_redone_mode">Lock screen clock red one mode</string>
     <string name="apply_lock_screen_dual_clock_redone">Apply to lock screen dual clock</string>
     <string name="lock_screen_custom_clock_component_style">Customize lock screen clock component style</string>
     <string name="force_display_clock_style_options">Force display of clock style options</string>
-    <string name="force_display_clock_style_options_summary">Force the clock style option to be displayed in "Settings - Desktop and Lock Screen", only effective for OPPO/Realme styles</string>
+    <string name="force_display_clock_style_options_summary">Force the clock style option to be displayed in \"Settings - Desktop and Lock Screen\", only effective for OPPO/Realme styles</string>
     <string name="set_lock_screen_centered">Lockscreen clock component centered</string>
     <string name="set_lock_screen_centered_summary">Only for systems where the lock screen cannot be centered in the settings</string>
     <string name="lock_screen_clock_use_user_typeface">Lockscreen clock components use user fonts</string>
-    
     <string name="LockScreenChargingComponent">Lock Screen Charging Component</string>
     <string name="set_lock_screen_warp_charging_style">Set warp charging style</string>
     <string name="set_lock_screen_charging_text_logo_style">Set charging text logo style</string>
@@ -362,12 +324,10 @@
     <string name="force_lock_screen_charging_show_wattage">Force charging components display wattage</string>
     <string name="lock_screen_charging_use_user_typeface">Charging components use user fonts</string>
     <string name="set_full_screen_charging_animation_mode">Full screen charging animation mode</string>
-    
     <string name="LockScreenStatusBar">Lock Screen StatusBar</string>
     <string name="hide_lock_screen_status_bar_display">Hide lock screen statusbar display</string>
     <string name="remove_statusbar_carriers">Remove statusbar carriers</string>
     <string name="statusbar_carriers_use_user_typeface">StatusBar Carriers use user fonts</string>
-    
     <string name="LockScreenButton">Lock Screen Button</string>
     <string name="remove_top_lock_screen_icon">Remove top lock screen icons</string>
     <string name="remove_lock_screen_bottom_left_button">Remove lockscreen bottom left button</string>
@@ -377,32 +337,26 @@
     <string name="remove_lock_screen_close_notification_button">Remove lock screen close notification button</string>
     <string name="remove_lock_screen_bottom_sos_button">Remove SOS emergency contact button</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Removed the SOS emergency button at the bottom of the unlock page</string>
-    
     <string name="LockScreenEvent">Lock Screen Event</string>
     <string name="remove_72hour_password_verification">Remove 72-hour password authentication</string>
     <string name="remove_72hour_password_verification_summary">Removed the security restriction of not using a password to unlock within 72 hours after booting,Effective after system restart</string>
-    
     <!--AlarmClock-->
     <string name="alarmclock_widget_redone_mode">Clock widget red one mode</string>
     <string name="remove_alarmclock_widget_redone">Remove desktop clock component red one</string>
     <string name="remove_alarmclock_widget_redone_pro">Remove the desktop clock component Red One Enhanced Edition</string>
     <string name="remove_alarmclock_widget_redone_pro_summary">Only available when the regular version does not take effect, otherwise it will cause an inevitable error</string>
-    
     <!--Launcher-->
     <string name="Desktop">Desktop Related</string>
-    
     <string name="AppBadgeRelated">App badge related</string>
     <string name="remove_the_dot_after_app_update">Remove the dot after APP update</string>
     <string name="remove_app_shortcut_badge">Remove app shortcut badge</string>
     <string name="remove_app_work_badge">Remove app work badge</string>
     <string name="remove_app_clone_badge">Remove app clone badge</string>
-    
     <string name="launcher_layout_related">Desktop Layout Related</string>
     <string name="launcher_layout_row_colume">Sets the maximum number of rows and columns supported by the desktop layout</string>
     <string name="launcher_layout_enable">Desktop icon layout general switch</string>
     <string name="launcher_layout_max_rows">Maximum number of lines in desktop layout</string>
     <string name="launcher_layout_max_columns">Maximum Desktop Layout Columns</string>
-    
     <string name="RecentTaskListRelated">Recent task list related</string>
     <string name="enable_stacked_task_layout">Enable stacked task layout</string>
     <string name="set_task_stacking_level">Set task stacking level</string>
@@ -419,27 +373,21 @@
     <string name="zoom_window_support_list">Custom Zoom Window Support List</string>
     <string name="zoom_window_support_list_summary">Enable according to your needs, otherwise there will be irreparable problems</string>
     <string name="force_all_apps_support_split_screen">Force all apps to support split screen</string>
-    
     <string name="PaginationComponentRelated">Pagination Component Related</string>
     <string name="remove_pagination_component">Remove pagination component</string>
     <string name="remove_folder_pagination_component">Remove folder pagination component</string>
     <string name="disable_pagination_component_sliding">Disable pagination component sliding</string>
-    
     <string name="FolderLayoutRelated">Folder Layout Related</string>
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Enable folder layout adjustments</string>
     <string name="set_icon_columns_in_folder">Set the number of icon columns in the folder</string>
-    
     <string name="launcher_events">Launcher Events</string>
-    
     <!--Application-->
     <string name="Application">Application related</string>
-    
     <!--AppStartupRelated-->
     <string name="AppStartupRelated">Application startup related</string>
     <string name="disable_splash_screen">Disable splash screen</string>
     <string name="disable_splash_screen_summary">Since the splash screen animation has been removed, there will be a 1–2 second gap period when the APP is started.If you mind, please do not turn it on</string>
-    
     <!--APPRelatedList-->
     <string name="APPRelatedList">App Related List</string>
     <string name="set_multi_app_support_mode">Set multi app support mode</string>
@@ -449,8 +397,6 @@
     <string name="multi_app_custom_list_summary">After the function is turned on, the original list of app clones will be replaced by this list, too many will cause lag</string>
     <string name="dark_mode_support_list">Custom dark mode support list</string>
     <string name="enable_dark_mode_list">Enable custom lists</string>
-    <string name="cur_type_none" translatable="false">None</string>
-    
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">App Installation Related</string>
     <string name="PackageInstaller_summary">Need to be used with the core patch</string>
@@ -468,14 +414,12 @@
     <string name="replase_aosp_installer_summary">Replace with Google Native Installer</string>
     <string name="show_packagename_and_versioncode">Show package name and version code</string>
     <string name="show_packagename_and_versioncode_summary">Display the package name and version code at the top of the installation page</string>
-    
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">Other Limits</string>
     <string name="remove_adb_install_confirm">Remove ADB installation confirmation</string>
     <string name="remove_adb_install_confirm_summary">Use ADB to install APP without tapping</string>
     <string name="unlock_startup_limit">Unlock Self-Startup Limit</string>
     <string name="unlock_startup_limit_summary">Unlock app self-startup limit</string>
-    
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">App Details Related</string>
     <string name="show_package_name_in_app_details">Show package name in app details</string>
@@ -486,7 +430,6 @@
     <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>
     <string name="remove_app_uninstall_button_blacklist">Remove blacklist of app uninstall button</string>
     <string name="enable_custom_app_language">Enable custom app language</string>
-    
     <!--FloatingWindowDialogRelated-->
     <string name="FloatingWindowDialogRelated">Floating Window / Dialog Related</string>
     <string name="disable_duplicate_floating_window">Disable Duplicate Window</string>
@@ -503,7 +446,6 @@
     <string name="remove_access_device_log_dialog">Remove access device log dialog</string>
     <string name="custom_volume_dialog_background_transparency">Custom volume dialog background transparency</string>
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
-    
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">FingerPrint Related</string>
     <string name="remove_fingerprint_icon_mode">Remove fingerprint icon mode</string>
@@ -513,7 +455,6 @@
     <string name="replace_fingerprint_icon_switch">Replace fingerprint icon switch</string>
     <string name="replace_fingerprint_icon_switch_summary">The recommended image resolution is around 216 x 216</string>
     <string name="replace_fingerprint_icon_path">Fingerprint icon path</string>
-    
     <!--SoundRelated-->
     <string name="SoundRelated">Sound Related</string>
     <string name="media_volume_level">Media volume level</string>
@@ -523,7 +464,6 @@
     <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
     <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
-    
     <!--Miscellaneous-->
     <string name="Miscellaneous">Miscellaneous</string>
     <string name="Miscellaneous_summary">Categories with difficulty will be placed here</string>
@@ -533,7 +473,6 @@
     <string name="disable_otg_auto_off_summary">Disable OTG for more than ten minutes to automatically turn off</string>
     <string name="remove_storage_limit">Remove storage limit</string>
     <string name="remove_storage_limit_summary">Remove the restriction that this folder cannot be used</string>
-    
     <string name="open_screen_power_save">Open battery screen power saving entrance</string>
     <string name="open_screen_power_save_summary">Settings - Battery - More settings - Screen Power Saving</string>
     <string name="open_battery_health">Open battery health entrance</string>
@@ -546,7 +485,6 @@
     <string name="force_enable_systemui_blur_feature">Force enable the systemui blur feature</string>
     <string name="force_enable_systemui_blur_feature_tips">Preconditions: You need to turn on the option to “force enable the blur feature of the systemui”\nFunctional location: Miscellaneous</string>
     <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
-    
     <!--Battery-->
     <string name="remove_battery_temperature_control">Remove battery temperature control</string>
     <string name="remove_battery_temperature_control_summary">Remove the limitation that various functions cannot be used,For example: camera, flashlight, hotspot, screen display engine, etc.</string>
@@ -557,19 +495,15 @@
     <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
     <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
     <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
-    
     <!--Settings-->
     <string name="settings_connection_sharing">Connection and share</string>
     <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
-    
     <string name="settings_status_bar">StatusBar</string>
     <string name="enable_statusbar_clock_format">Enable status bar clock format</string>
     <string name="enable_statusbar_clock_format_summary">Enable some systems that do not support the option to modify the status bar clock format</string>
-    
     <string name="settings_lock_screen">LockScreen</string>
     <string name="enable_show_never_timeout">Enable screen display never timeout</string>
     <string name="enable_show_never_timeout_summary">After enabling, you can see more options in the settings</string>
-    
     <string name="settings_display">Display</string>
     <string name="force_display_dc_backlight_mode">Forced to display low brightness and no flicker eye protection</string>
     <string name="force_display_dc_backlight_mode_summary">There is no guarantee that it will work, it is only used to display function options</string>
@@ -578,33 +512,25 @@
     <string name="video_frame_insertion_support_2K120_summary">If your device does not support MEMC, please do not use this function</string>
     <string name="enable_screen_color_temperature_rgb_palette">Enable screen color temperature RGB palette</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">May be overridden by DC function</string>
-    
     <string name="settings_application">Application</string>
     <string name="unlock_default_desktop_limit">Unlock default desktop restrictions</string>
     <string name="force_display_process_management">Force display of process management</string>
     <string name="force_display_disabled_apps_manager">Force display of disabled apps manager</string>
     <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
     <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
-    
     <string name="settings_sound">Sound</string>
     <string name="enable_holographic_audio">Enable holographic audio</string>
-    
     <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
     <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>
     <string name="customize_device_sharing_page_parameters">Customize device sharing page parameters</string>
-    
     <string name="settings_developer_preference">Developer Options</string>
     <string name="remove_dpi_restart_recovery">Remove DPI restart recovery</string>
     <string name="remove_dpi_restart_recovery_summary">After enabling the feature and restarting the scope,Open the developer options page and set the minimum width</string>
-    
     <string name="settings_other_preference">Other Preferences</string>
     <string name="remove_top_account_display">Remove top account display</string>
-    <string name="disable_cn_special_edition_setting" translatable="false">禁用CN特供版设置</string>
-    <string name="force_display_content_recommend" translatable="false">强制显示内容推荐</string>
     <string name="remove_settings_bottom_laboratory">Remove settings bottom laboratory</string>
     <string name="force_display_bottom_google_settings">Force to show Google at the bottom of the settings</string>
-    
     <!--Camera-->
     <string name="CameraWaterMark">WaterMark</string>
     <string name="remove_watermark_word_limit">Remove Watermark Word Length Limit</string>
@@ -612,33 +538,27 @@
     <string name="custom_model_watermark">Custom model watermark</string>
     <string name="fix_hasselblad_custom_watermark_crash">Fix Hasselblad custom watermark crash</string>
     <string name="fix_hasselblad_custom_watermark_crash_summary">If your camera does not support Hasselblad custom watermark (white strip shape), please do not open it</string>
-    
     <string name="CameraFilter">Filter</string>
     <string name="enable_master_filter">Enable Master filter</string>
     <string name="enable_jiangwen_filter">Enable Jiang Wen filter</string>
     <string name="enable_10_bit_image_support">Enable 10 bit Images Support</string>
     <string name="enable_10_bit_image_support_summary">Enabling this feature on some models may cause the photo to turn green</string>
-    
     <!--Gallery-->
     <string name="GalleryWaterMark">WaterMark</string>
     <string name="enable_watermark_editing">Enable watermark editing</string>
     <string name="replace_oneplus_model_watermark">Replace OnePlus model watermark</string>
     <string name="replace_oneplus_model_watermark_summary">When editing the watermark, [Shot On OnePlus] will be replaced with the customized model</string>
-    
     <string name="GalleryView">View</string>
     <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
     <string name="set_photo_view_thumb_line_display_mode">Set photo view thumb line display mode</string>
-    
     <string name="GalleryEditor">Editor</string>
     <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
     <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
-    
     <!--OplusGames-->
     <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Remove startup animation</string>
     <string name="remove_welfare_page">Remove welfare page</string>
     <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
-    
     <string name="OplusGamesTool">Tool</string>
     <string name="remove_root_check">Remove Game Filter Limit</string>
     <string name="remove_root_check_summary">Remove Root Detection Limit for Game Filter</string>
@@ -663,7 +583,6 @@
     <string name="remove_game_voice_changer_whitelist">Remove game voice changer whitelist</string>
     <string name="remove_game_assistant_temperature_detection">Remove Game Assistant temperature detection</string>
     <string name="remove_game_assistant_temperature_detection_summary">Mainly solves the problem of excessive temperature in X mode</string>
-    
     <!--CloudService-->
     <string name="remove_network_limit">Remove Data Network Limit</string>
     <string name="remove_network_limit_summary">Remove backup/restore limitations that cannot use mobile data</string>
@@ -681,26 +600,21 @@
     <string name="remove_page_limit_for_long_screenshots">Remove the page limit for long screenshots</string>
     <string name="remove_page_limit_for_long_screenshots_summary">Only some scenarios are supported, please test the specific situation by yourself</string>
     <string name="enable_png_save_format">Enable PNG save format</string>
-    
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Unlock local upgrade</string>
     <string name="unlock_local_upgrade_summary">After clicking, relevant operations will be performed automatically, please wait patiently for a few seconds</string>
     <string name="restore_ota_update_verity">Resume OTA update verification</string>
     <string name="restore_ota_update_verity_summary">Current Status: [%1$s]\nTry to use this feature if the OTA update prompts for validation failure or prompts for dm-verity\nDo not ask why the feature is grayed out because the system has update validation enabled by default\nWhen validation is turned off the OTA update fails, so when the feature is turned on it locks out this feature</string>
-    
     <!--Extract OTA-->
     <string name="extract_ota_information">Extract OTA information</string>
     <string name="extract_ota_information_summary">When the new version is obtained, you can click to extract the OTA information</string>
     <string name="no_ota_data">No OTA Data</string>
     <string name="extract_ota_source">Extract Source</string>
-    
     <!--Pictorial-->
     <string name="remove_image_save_watermark">Remove image save watermark</string>
     <string name="remove_video_save_watermark">Remove video save watermark</string>
-    
     <!--OplusLinker-->
     <string name="force_display_communication_sharing">Force display of communication sharing</string>
-    
     <!--OplusGesture-->
     <string name="AonGesture">AonGesture</string>
     <string name="force_enable_aon_gestures">Force enable aon gestures</string>
@@ -709,7 +623,6 @@
     <string name="custom_aon_gesture_video_whitelist">Custom video gesture whitelist</string>
     <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist, and only one package name can be filled in each line</string>
     <string name="enable_volume_key_control_flashlight">Enable the volume keys to control the flashlight</string>
-    
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Full screen gesture related</string>
     <string name="remove_side_slider">Remove side slider</string>
@@ -720,45 +633,36 @@
     <string name="replace_side_slider_icon_switch_summary">The icon width is recommended to be around 100px</string>
     <string name="replace_side_slider_icon_on_left">Replace the side slide icon on the left</string>
     <string name="replace_side_slider_icon_on_right">Replace the side slide icon on the right</string>
-    
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">Remove verification code floating window</string>
-    
     <!--OplusPhone-->
     <string name="force_display_five_g_switch">Force display of 5G switch</string>
     <string name="force_display_preferred_network_type">Force display of preferred network type</string>
     <string name="force_display_volte_calls">Force display of VoLTE calls</string>
-    
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Remove weather page bottom information flow ads</string>
     <string name="remove_ads_from_weather_page_summary">By injecting JS into the page m.weathercn.com to achieve the effect of blocking ads, it is suitable for functions that require a browser, such as the weather of the past 15 days that you jump to through the weather app</string>
     <string name="remove_ads_from_download_dialog">Remove ads from download dialog</string>
     <string name="remove_ads_at_download_page_bottom">Remove ads at the bottom of download page</string>
-    
     <!--OplusBreeno-->
     <string name="BreenoTouch">Breeno Touch</string>
     <string name="remove_app_recommend_card">Remove app recommend card</string>
-    
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Remove app recommendations from market splash page</string>
     <string name="remove_market_update_page_app_recommend">Remove app recommendations from market update page</string>
     <string name="remove_market_download_page_app_recommend">Remove app recommendations from market download page</string>
     <string name="remove_market_mine_page_app_recommend">Remove app recommendations from market mine page</string>
-    
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Disable weather redirect browser</string>
     <string name="remove_weather_some_page_bottom_ads">Remove the ads at the bottom of the weather section page</string>
-    
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
     <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
     <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
-    
     <!--OplusSmartSidebar-->
     <string name="unlock_transfer_dock">Unlock transfer dock</string>
     <string name="unlock_recent_files">Unlock recent files</string>
     <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>
-    
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>
@@ -766,7 +670,6 @@
     <string name="remove_pro_license">Remove license detection</string>
     <!--ADM-->
     <string name="adm_unlock_pro">Unlock Pro</string>
-    
     <!--Home-->
     <string name="fps_title">Force refresh rate</string>
     <string name="fps_summary">Conflict with other dynamic refresh rate processes, such as “dpfs”</string>
@@ -814,23 +717,18 @@
     <string name="device_guid">Device GUID</string>
     <string name="oplusota_copy_tip">Long press the input box to copy it individually</string>
     <string name="oplusota_copyall">Copy All</string>
-    <string name="authorized" translatable="false">禁止引流、搬运、转载、售卖、分享、分流\n提倡授之以渔,切莫授之以鱼</string>
-    
     <!--Donate-->
     <string name="donate_tv_title">Support Development</string>
     <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
-    
     <!-- Other -->
     <string name="quick_entry">System Quick Entry</string>
     <string name="quick_entry_summary">e.g. System UI reconciliation tools, process management, engineering mode, etc.</string>
-    
     <string name="SystemDebuggingRelated">System Debugging Related</string>
     <string name="engineering_mode">Engineering Mode</string>
     <string name="charging_test">Charging Test</string>
     <string name="developer_option">Developer Options</string>
     <string name="system_interface_adjustment">SystemUI adjustment</string>
     <string name="AOSPSettingsPage">AOSP native settings page</string>
-    
     <string name="HidePageRelated">Hide page related</string>
     <string name="process_manager">Process management</string>
     <string name="very_dark_mode">Very dark mode</string>
@@ -838,16 +736,13 @@
     <string name="battery_optimization">Battery Optimization</string>
     <string name="camera_algo_page">Camera Algorithms Page</string>
     <string name="browser_concise_mode">Browser Concise Mode</string>
-    
     <string name="GameAssistantRelated">Game Assistant Related</string>
     <string name="game_assistant_page">Game Assistant Page</string>
     <string name="game_space_page">Game Space Page</string>
     <string name="game_assistant_develop_page">Game Assistant Developer Page</string>
-    
     <!--Shortcut-->
     <string name="set_module_shortcuts">Set module shortcuts</string>
     <string name="set_module_shortcuts_summary">Long press on module icon to show enabled shortcuts</string>
-    
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Remote ADB debugging</string>
     <string name="remote_adb_debug_summary">Please close it when not in use</string>
@@ -855,7 +750,6 @@
     <string name="enable_remote_adb_debugging">Enable remote ADB debugging</string>
     <string name="adb_debug_port_cannot_null">ADB debug port cannot be null</string>
     <string name="adb_tv_tip">Long press to copy</string>
-    
     <!--LOG Fragment-->
     <string name="log_save_success">LOG Saved Success!</string>
     <string name="log_save_failed">LOG Saved Failed!</string>
@@ -863,7 +757,6 @@
     <string name="log_no_data">No abnormal data</string>
     <string name="log_filter_title">Enter what to filter</string>
     <string name="log_filter_layout_hint">Such as package name, content, etc</string>
-    
     <!--Tile-->
     <string name="increase_touch_sampling_rate">Increase touch sampling rate</string>
     <string name="high_brightness_mode">High Brightness Mode</string>
@@ -872,17 +765,14 @@
     <string name="fiveg_mode">FiveG Switch</string>
     <string name="display_refresh_rate">Show/Hide Refresh Rate</string>
     <string name="google_service">Google Service</string>
-    
     <!--Permission-->
     <string name="permission_denied_toast">Permission denied, please grant permission manually: %1$s</string>
     <string name="permission_error_toast">Failed to obtain permission: %1$s</string>
     <string name="all_files_access_permission">In order to ensure the normal use of the module, please be sure to give the module permission!</string>
     <string name="get_installed_apps_permission">Get permissions for installed apps</string>
-    
     <!--Typeface-->
     <string name="use_user_typeface">Use user typeface</string>
     <string name="use_bold_font_style">Use bold font style</string>
-    
     <!--CommonWords-->
     <string name="common_words_enable">Enable</string>
     <string name="common_words_disable">Disable</string>
@@ -909,7 +799,6 @@
     <string name="common_words_whitelist">Whitelist</string>
     <string name="common_words_blacklist">Blacklist</string>
     <string name="common_words_ads">Ads</string>
-    
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Failed to connect to the network</string>
     <string name="net_networking_error">The current network is unavailable</string>
@@ -926,10 +815,5 @@
     <string name="net_error">Unknown network error</string>
     <string name="net_other_error">Unknown error</string>
     <string name="no_error_message">No error message</string>
-    
     <!--Black-->
-    <string name="tencent_files" translatable="false">/data/user/%1$s/com.tencent.mobileqq/files/</string>
-    <string name="tencent_qstore" translatable="false">/data/user/%1$s/com.tencent.mobileqq/qstore/</string>
-    <string name="cool_black" translatable="false">/data/user/%1$s/com.coolapk.market/shared_prefs/coolapk_preferences_v7.xml</string>
-
 </resources>

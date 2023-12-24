@@ -719,7 +719,7 @@
     <string name="oplusota_copyall">すべてコピー</string>
     <!--Donate-->
     <string name="donate_tv_title">開発をサポート</string>
-    <string name="donate_tv__summary">継続したアップデートを支援するため開発者に寄付してください</string>
+    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
     <!-- Other -->
     <string name="quick_entry">システムクイックエントリー</string>
     <string name="quick_entry_summary">例: システムUI調整ツール、プロセスマネージャー、エンジニアリングモードなど</string>
