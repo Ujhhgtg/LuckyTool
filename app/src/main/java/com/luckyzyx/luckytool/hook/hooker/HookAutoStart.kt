@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.drake.net.utils.scope
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.setRefresh
@@ -38,6 +39,8 @@ object HookAutoStart : YukiBaseHooker() {
                         setPackage(BuildConfig.APPLICATION_ID)
                         putExtras(bundle)
                     })
+                }.catch {
+                    YLog.debug("HookAutoStart throw", it)
                 }
             }
         }

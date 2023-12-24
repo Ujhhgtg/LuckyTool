@@ -71,24 +71,6 @@ object AppAnalyticsUtils {
         }.finally { scope { withIO { startCheckList("gitlab", data) } } }
     }
 
-    fun Context.checkGithubBlackList() {
-        var data = ""
-        scopeNet {
-            val latestUrl =
-                "https://api.github.com/repos/luckyzyx/LuckyTool_Doc/releases/tags/blacklist"
-            val getDoc = Get<String>(latestUrl).await()
-            val json = JSONObject(getDoc).optString("body")
-            data = if (json.isNotBlank()) {
-                AESCrypt.decrypt(json)
-            } else ""
-//            LogUtils.e("check github", "data", data, true)
-        }.catch {
-            LogUtils.e("check github", "throw", "$it")
-            data = ""
-            return@catch
-        }.finally { scope { withIO { startCheckList("github", data) } } }
-    }
-
     private fun Context.startCheckList(tag: String, json: String) {
         scope {
             withDefault {

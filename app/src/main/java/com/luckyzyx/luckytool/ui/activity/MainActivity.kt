@@ -26,7 +26,6 @@ import com.luckyzyx.luckytool.ui.fragment.HomeFragment
 import com.luckyzyx.luckytool.ui.service.GlobalFuncControllerService
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppBlackList
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGithubBlackList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -120,7 +119,6 @@ open class MainActivity : AppCompatActivity() {
         scopeLife(Lifecycle.Event.ON_START, Dispatchers.IO) {
             checkAppBlackList()
             checkGitlabBlackList()
-            checkGithubBlackList()
         }
     }
 
