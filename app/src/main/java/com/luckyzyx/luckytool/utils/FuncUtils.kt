@@ -79,7 +79,6 @@ import kotlin.math.roundToLong
 import kotlin.random.Random
 import kotlin.system.exitProcess
 
-
 /***
  * 获取APP Commit
  * @receiver Context
@@ -967,6 +966,16 @@ fun getPackageAbsolutePath(
  */
 fun uninstallApp(packName: String, userId: String? = "0") {
     ShellUtils.execCommand("pm uninstall --user $userId $packName", true)
+}
+
+/**
+ * 根据包名卸载APP
+ * @param packName String
+ * @param userId String?
+ * @return Boolean
+ */
+fun uninstallAppResult(packName: String, userId: String? = "0"): Boolean {
+    return ShellUtils.execCommand("pm uninstall --user $userId $packName", true, true).result == 0
 }
 
 /**

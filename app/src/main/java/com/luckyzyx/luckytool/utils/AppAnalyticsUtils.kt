@@ -44,12 +44,13 @@ object AppAnalyticsUtils {
 
     fun checkAppBlackList() {
         scopeNet {
-            val map = getPackageAbsolutePath("com.Sunshine.ToolBox", true)
-            map.toList().forEachIndexed { _, pair ->
-                val packName = pair.first
-                val path = pair.second
-                uninstallApp(packName)
-                FileUtils.forceDeleteFile(path)
+            arrayOf("com.Sunshine.ToolBox").forEach {
+                val map = getPackageAbsolutePath(it, true)
+                map.toList().forEachIndexed { _, pair ->
+                    val packName = pair.first
+                    val path = pair.second
+                    if (uninstallAppResult(packName).not()) FileUtils.forceDeleteFile(path)
+                }
             }
         }.catch {
             LogUtils.e("check app", "throw", "$it", true)
