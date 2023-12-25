@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.ui.service
+package com.luckyzyx.luckytool.service
 
 import android.content.ComponentName
 import android.os.IBinder
@@ -55,7 +55,8 @@ class ShowFPS : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(RefreshRateControllerService::class.java,
+        if (controller == null) bindRootService(
+            RefreshRateControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = IRefreshRateController.Stub.asInterface(iBinder)
                 refreshData()
@@ -95,7 +96,8 @@ class HighBrightness : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(HighBrightnessControllerService::class.java,
+        if (controller == null) bindRootService(
+            HighBrightnessControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = IHighBrightnessController.Stub.asInterface(iBinder)
                 refreshData()
@@ -140,7 +142,8 @@ class GlobalDC : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(GlobalDCControllerService::class.java,
+        if (controller == null) bindRootService(
+            GlobalDCControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = IGlobalDCController.Stub.asInterface(iBinder)
                 refreshData()
@@ -185,7 +188,8 @@ class TouchSamplingRate : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(TouchPanelControllerService::class.java,
+        if (controller == null) bindRootService(
+            TouchPanelControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = ITouchPanelController.Stub.asInterface(iBinder)
                 refreshData()
@@ -216,7 +220,8 @@ class FiveG : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(FiveGControllerService::class.java,
+        if (controller == null) bindRootService(
+            FiveGControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = IFiveGController.Stub.asInterface(iBinder)
                 refreshData()
@@ -248,7 +253,8 @@ class VeryDarkMode : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(DarkModeControllerService::class.java,
+        if (controller == null) bindRootService(
+            DarkModeControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = IDarkModeController.Stub.asInterface(iBinder)
                 refreshData()
@@ -279,7 +285,8 @@ class GoogleService : TileService() {
     }
 
     private fun startController() {
-        if (controller == null) bindRootService(GoogleServiceControllerService::class.java,
+        if (controller == null) bindRootService(
+            GoogleServiceControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
                 controller = IGoogleServiceController.Stub.asInterface(iBinder)
                 refreshData()

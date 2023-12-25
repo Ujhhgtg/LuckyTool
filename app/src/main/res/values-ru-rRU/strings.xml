@@ -771,6 +771,7 @@
     <string name="permission_error_toast">Не удалось получить разрешение: %1$s</string>
     <string name="all_files_access_permission">Для обеспечения нормального использования модуля, пожалуйста, дайте модулю права доступа!</string>
     <string name="get_installed_apps_permission">Получить разрешения для установленных приложений</string>
+    <string name="get_send_notifications_permission">Get permissions for send notification</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Self-starting function service</string>
     <string name="auto_start_service_channel_title">The self-start function is running…</string>

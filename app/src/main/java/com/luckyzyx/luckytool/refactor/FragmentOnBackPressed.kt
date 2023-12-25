@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.luckyzyx.luckytool.ui.refactor
+package com.luckyzyx.luckytool.refactor
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment

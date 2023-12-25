@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.ui.service
+package com.luckyzyx.luckytool.service
 
 import android.content.Intent
 import com.luckyzyx.luckytool.IAdbDebugController

@@ -16,7 +16,7 @@ import com.drake.net.utils.scopeLife
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.databinding.FragmentFpsBinding
-import com.luckyzyx.luckytool.ui.service.RefreshRateControllerService
+import com.luckyzyx.luckytool.service.RefreshRateControllerService
 import com.luckyzyx.luckytool.utils.DisplayMode
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.bindRootService

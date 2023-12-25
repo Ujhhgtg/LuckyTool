@@ -250,10 +250,14 @@ fun Context.checkResolveActivity(packName: String, className: String): Boolean =
 
 /**
  * Toast快捷方法
- * @param msg 字符串
- * @param long 显示时长
- * @return [Toast]
+ * @receiver Context
+ * @param id Int
+ * @param long Boolean?
  */
+fun Context.toast(id: Int, long: Boolean? = false) {
+    toast(getString(id), long)
+}
+
 fun Context.toast(msg: String, long: Boolean? = false) = if (long == true) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 } else {

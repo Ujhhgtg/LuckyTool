@@ -13,20 +13,19 @@ class PermissionUtils(val context: Activity) {
         FileUtils.checkRWPermission(context)
 
         //发送通知权限
-        XXPermissions.with(context).apply {
-            val permission = context.getString(R.string.get_send_notifications_permission)
-            permission(Permission.POST_NOTIFICATIONS)
-            request(object : OnPermissionCallback {
-                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-
-                }
-
-                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                    if (doNotAskAgain) toastDenied(permission)
-                    else toastError(permission)
-                }
-            })
-        }
+//        XXPermissions.with(context).apply {
+//            val permission = context.getString(R.string.get_send_notifications_permission)
+//            permission(Permission.NOTIFICATION_SERVICE)
+//            request(object : OnPermissionCallback {
+//                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+//                }
+//
+//                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+//                    if (doNotAskAgain) toastDenied(permission)
+//                    else toastError(permission)
+//                }
+//            })
+//        }
 
         //读取应用列表权限
         XXPermissions.with(context).apply {
