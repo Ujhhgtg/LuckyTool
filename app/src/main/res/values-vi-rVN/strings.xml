@@ -518,6 +518,7 @@
     <string name="force_display_disabled_apps_manager">Buộc hiển thị trình quản lý ứng dụng bị vô hiệu hóa</string>
     <string name="auto_unlock_restricted_settings">Tự động mở khóa cài đặt bị hạn chế</string>
     <string name="auto_unlock_restricted_settings_summary">Tự động mở khóa hạn chế này khi nhấp vào tùy chọn màu xám</string>
+    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     <string name="settings_sound">Âm thanh</string>
     <string name="enable_holographic_audio">Bật âm thanh ba chiều</string>
     <string name="settings_about_device">Thông tin thiết bị</string>

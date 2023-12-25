@@ -518,6 +518,7 @@
     <string name="force_display_disabled_apps_manager">Vynutit zobrazení správce zakázaných aplikací</string>
     <string name="auto_unlock_restricted_settings">Automaticky odemknout omezená nastavení</string>
     <string name="auto_unlock_restricted_settings_summary">Toto omezení je automaticky zrušeno po kliknutí na zašedlou možnost</string>
+    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     <string name="settings_sound">Zvuk</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
     <string name="settings_about_device">O zařízení</string>

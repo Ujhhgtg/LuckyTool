@@ -518,6 +518,7 @@
     <string name="force_display_disabled_apps_manager">Force display of disabled apps manager</string>
     <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
     <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
+    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     <string name="settings_sound">Sound</string>
     <string name="enable_holographic_audio">Enable holographic audio</string>
     <string name="settings_about_device">About Device</string>

@@ -32,11 +32,14 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             ) {
                 put("oplus.software.multi_app.volume.adjust.support", true)
             }
-//            put("oplus.software.support_fluid_entry", true)
             //Source Settings 启用RGB色温球 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)
             ) {
                 put("oplus.software.display.rgb_ball_support", true)
+            }
+            //Source Settings 启用游戏专属内存 GameBounceUtils
+            if (prefs(ModulePrefs).getBoolean("enable_dedicated_ram_for_games", false)) {
+                put("oplus.software.game_bounce_support", true)
             }
             //Source Settings Iris5SettingsFragment 启用视频动态插帧
 //            if (prefs(ModulePrefs).getBoolean("force_display_video_memc_frame_insertion", false)

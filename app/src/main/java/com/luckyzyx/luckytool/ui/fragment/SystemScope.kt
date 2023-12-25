@@ -2882,6 +2882,13 @@ class Settings : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_dedicated_ram_for_games)
+                key = "enable_dedicated_ram_for_games"
+                setDefaultValue(false)
+                isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
             //关于本机
             if (SDK >= A13) {
                 addPreference(PreferenceCategory(context).apply {

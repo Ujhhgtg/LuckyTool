@@ -519,6 +519,7 @@
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
     <string name="auto_unlock_restricted_settings">Автоматическая разблокировка ограниченных настроек</string>
     <string name="auto_unlock_restricted_settings_summary">Это ограничение автоматически снимается при нажатии на серый вариант</string>
+    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     <string name="settings_sound">Звук</string>
     <string name="enable_holographic_audio">Включить голографическое аудио</string>
     <string name="settings_about_device">Об устройстве</string>
