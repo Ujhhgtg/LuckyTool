@@ -5,7 +5,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
 
 @Suppress("unused", "MemberVisibilityCanBePrivate", "PrivatePropertyName")
-class OplusBuildUtlils(val classLoader: ClassLoader? = null) {
+class OplusBuildUtlils(val classLoader: ClassLoader?) {
 
     val clazz = "com.oplus.os.OplusBuild".toClass(classLoader)
 

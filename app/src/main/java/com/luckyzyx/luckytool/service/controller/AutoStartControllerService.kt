@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.service
+package com.luckyzyx.luckytool.service.controller
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel

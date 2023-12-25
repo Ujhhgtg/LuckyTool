@@ -29,7 +29,7 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
-import com.luckyzyx.luckytool.service.AdbDebugControllerService
+import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs

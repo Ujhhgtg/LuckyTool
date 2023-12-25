@@ -53,7 +53,7 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
             4 -> "QC"
             5 -> "PPS" //null
             6 -> "UFCS" //null
-            else -> "Error: $technology"
+            else -> "[${technology}]"
         }
     }
 }

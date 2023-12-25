@@ -1,22 +1,21 @@
-package com.luckyzyx.luckytool.service
+package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
-import com.luckyzyx.luckytool.ITouchPanelController
+import com.luckyzyx.luckytool.IHighBrightnessController
 import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
-class TouchPanelControllerService : RootService() {
+class HighBrightnessControllerService : RootService() {
     companion object {
-        private const val fileDir = "/proc/touchpanel/game_switch_enable"
+        private const val fileDir = "/sys/kernel/oplus_display/hbm"
         val file = File(fileDir)
     }
 
-    override fun onBind(intent: Intent) = object : ITouchPanelController.Stub() {
-
-        override fun checkTouchMode(): Boolean {
+    override fun onBind(intent: Intent) = object : IHighBrightnessController.Stub() {
+        override fun checkHighBrightnessMode(): Boolean {
             return try {
                 file.exists()
             } catch (_: Throwable) {
@@ -24,7 +23,7 @@ class TouchPanelControllerService : RootService() {
             }
         }
 
-        override fun getTouchMode(): Boolean {
+        override fun getHighBrightnessMode(): Boolean {
             return try {
                 when (BufferedReader(FileReader(file)).readLine()?.replaceSpace?.substring(0, 1)
                     ?.toIntOrNull()) {
@@ -37,7 +36,7 @@ class TouchPanelControllerService : RootService() {
             }
         }
 
-        override fun setTouchMode(status: Boolean) {
+        override fun setHighBrightnessMode(status: Boolean) {
             try {
                 if (file.exists()) file.writeText(if (status) "1" else "0")
             } catch (_: Throwable) {

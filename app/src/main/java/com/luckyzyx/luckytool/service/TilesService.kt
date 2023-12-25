@@ -13,6 +13,13 @@ import com.luckyzyx.luckytool.IGoogleServiceController
 import com.luckyzyx.luckytool.IHighBrightnessController
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.ITouchPanelController
+import com.luckyzyx.luckytool.service.controller.DarkModeControllerService
+import com.luckyzyx.luckytool.service.controller.FiveGControllerService
+import com.luckyzyx.luckytool.service.controller.GlobalDCControllerService
+import com.luckyzyx.luckytool.service.controller.GoogleServiceControllerService
+import com.luckyzyx.luckytool.service.controller.HighBrightnessControllerService
+import com.luckyzyx.luckytool.service.controller.RefreshRateControllerService
+import com.luckyzyx.luckytool.service.controller.TouchPanelControllerService
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.closeCollapse

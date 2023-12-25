@@ -11,6 +11,7 @@ import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.formatDate
 import java.util.Date
 
+@Suppress("unused")
 class LunarHelperUtils(val classLoader: ClassLoader?) {
     private val tags = "LunarHelperUtils"
 

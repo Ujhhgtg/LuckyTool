@@ -180,7 +180,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.AutoStartControllerService"
+                android:name=".service.controller.AutoStartControllerService"
                 android:foregroundServiceType="shortService"
                 android:exported="true"
                 tools:ignore="ExportedService">

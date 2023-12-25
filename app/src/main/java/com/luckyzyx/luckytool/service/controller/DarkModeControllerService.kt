@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.service
+package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
 import com.luckyzyx.luckytool.IDarkModeController
