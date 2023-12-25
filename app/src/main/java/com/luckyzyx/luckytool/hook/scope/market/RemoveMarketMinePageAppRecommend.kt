@@ -16,7 +16,6 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
     override fun onHook() {
         val viewLayerWrapDto = "com.heytap.cdo.card.domain.dto.ViewLayerWrapDto"
         val mineActionBarView = "com.heytap.market.mine.view.MineActionBarView"
-        val cdoNestedScrollListView = "com.nearme.widget.nestedscroll.CdoNestedScrollListView"
 
         //Source MineFragment
         dexKitBridge.findClass {
@@ -29,7 +28,6 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
                     addForType(BundleClass.name)
                     addForType(ContextClass.name)
                     addForType(mineActionBarView)
-                    addForType(cdoNestedScrollListView)
                 }
                 methods {
                     add { name("onCreate") }
