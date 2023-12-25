@@ -770,6 +770,9 @@
     <string name="permission_error_toast">Failed to obtain permission: %1$s</string>
     <string name="all_files_access_permission">In order to ensure the normal use of the module, please be sure to give the module permission!</string>
     <string name="get_installed_apps_permission">Get permissions for installed apps</string>
+    <!--Service-->
+    <string name="auto_start_service_channel_name">Self-starting function service</string>
+    <string name="auto_start_service_channel_title">The self-start function is running…</string>
     <!--Typeface-->
     <string name="use_user_typeface">Use user typeface</string>
     <string name="use_bold_font_style">Use bold font style</string>

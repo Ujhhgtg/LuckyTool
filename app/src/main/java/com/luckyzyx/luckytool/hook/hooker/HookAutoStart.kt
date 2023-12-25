@@ -34,7 +34,7 @@ object HookAutoStart : YukiBaseHooker() {
                         putInt("fps_mode", fpsMode)
                         putInt("fps_cur", currentFps)
                     }
-                    context.startService(Intent().apply {
+                    context.startForegroundService(Intent().apply {
                         action = "${BuildConfig.APPLICATION_ID}.AutoStartControllerService"
                         setPackage(BuildConfig.APPLICATION_ID)
                         putExtras(bundle)

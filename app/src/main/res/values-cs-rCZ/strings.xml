@@ -770,6 +770,9 @@
     <string name="permission_error_toast">Nepodařilo se získat oprávnění: %1$s</string>
     <string name="all_files_access_permission">Pro zajištění správného fungování modulu se prosím ujistěte, že má modul přidělena oprávnění!</string>
     <string name="get_installed_apps_permission">Získat oprávnění pro nainstalované aplikace</string>
+    <!--Service-->
+    <string name="auto_start_service_channel_name">Self-starting function service</string>
+    <string name="auto_start_service_channel_title">The self-start function is running…</string>
     <!--Typeface-->
     <string name="use_user_typeface">Použít uživatelský typ písma</string>
     <string name="use_bold_font_style">Použít tučný font písma</string>

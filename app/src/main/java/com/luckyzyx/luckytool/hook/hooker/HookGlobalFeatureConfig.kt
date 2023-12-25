@@ -62,7 +62,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             }
             //Source PermissionController 解锁默认桌面限制
             if (prefs(ModulePrefs).getBoolean("unlock_default_desktop_limit", false)) {
-                put("oplus.software.defaultapp.remove_force_launcher", false)
+                put("oplus.software.defaultapp.remove_force_launcher", true)
             }
             //Source MultiApp AppFeatureUtil isRlmPhone
             when (prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")) {

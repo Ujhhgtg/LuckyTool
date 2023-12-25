@@ -23,6 +23,8 @@
     <uses-permission android:name="com.oplus.ocs.permission.third" />
     <!--发送通知-->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!--前台服务-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     
     <application
             android:name=".ui.application.MyApplication"
@@ -179,6 +181,7 @@
         </service>
         <service
                 android:name=".ui.service.AutoStartControllerService"
+                android:foregroundServiceType="shortService"
                 android:exported="true"
                 tools:ignore="ExportedService">
             <intent-filter>

@@ -770,6 +770,9 @@
     <string name="permission_error_toast">Không xin được quyền: %1$s</string>
     <string name="all_files_access_permission">Để đảm bảo việc sử dụng bình thường của mô-đun, vui lòng đảm bảo cấp quyền cho mô-đun!</string>
     <string name="get_installed_apps_permission">Nhận quyền danh sách ứng dụng</string>
+    <!--Service-->
+    <string name="auto_start_service_channel_name">Self-starting function service</string>
+    <string name="auto_start_service_channel_title">The self-start function is running…</string>
     <!--Typeface-->
     <string name="use_user_typeface">Sử dụng kiểu chữ người dùng</string>
     <string name="use_bold_font_style">Sử dụng kiểu chữ đậm</string>

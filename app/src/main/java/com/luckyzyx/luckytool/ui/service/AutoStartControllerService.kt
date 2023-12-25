@@ -1,11 +1,20 @@
 package com.luckyzyx.luckytool.ui.service
 
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Bundle
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
 import com.drake.net.utils.scope
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.NotifyUtils
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -13,8 +22,31 @@ import kotlinx.coroutines.Dispatchers
 
 @Obfuscate
 class AutoStartControllerService : Service() {
+    @SuppressLint("InlinedApi")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val channelId = "auto_start_channel"
+        val channelNotifyId = 1001
+        val channelName = getString(R.string.auto_start_service_channel_name)
+        val channel = NotificationChannel(
+            channelId, channelName, NotificationManager.IMPORTANCE_LOW
+        )
+        NotifyUtils.createChannel(this, channel)
+
         scope(Dispatchers.Default) {
+            val notify = NotificationCompat.Builder(
+                this@AutoStartControllerService, channelId
+            ).apply {
+                setAutoCancel(false)
+                setOngoing(true)
+                setSmallIcon(R.mipmap.ic_launcher_round)
+                setContentTitle(getString(R.string.auto_start_service_channel_title))
+                priority = NotificationCompat.PRIORITY_LOW
+            }.build()
+            if (SDK >= A14) startForeground(
+                channelNotifyId, notify,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
+            ) else startForeground(channelNotifyId, notify)
+
             val bundle = intent?.extras ?: Bundle()
             val command = ArrayList<String>()
             //FPS自启
@@ -42,6 +74,7 @@ class AutoStartControllerService : Service() {
                 }
             }
             if (command.isNotEmpty()) ShellUtils.execCommand(command, true)
+            stopForeground(STOP_FOREGROUND_REMOVE)
         }
         return super.onStartCommand(intent, flags, startId)
     }
