@@ -9,7 +9,6 @@ import com.luckyzyx.luckytool.hook.scope.settings.EnableCustomAppLanguage
 import com.luckyzyx.luckytool.hook.scope.settings.EnableStatusBarClockFormat
 import com.luckyzyx.luckytool.hook.scope.settings.ForceDisplayBottomGoogleSettings
 import com.luckyzyx.luckytool.hook.scope.settings.ForceDisplayContentRecommend
-import com.luckyzyx.luckytool.hook.scope.settings.ForceDisplayDCBackLightMode
 import com.luckyzyx.luckytool.hook.scope.settings.ForceDisplayDisabledAppsManager
 import com.luckyzyx.luckytool.hook.scope.settings.ForceDisplayProcessManagement
 import com.luckyzyx.luckytool.hook.scope.settings.HookAppDetails
@@ -58,10 +57,6 @@ object HookSettings : YukiBaseHooker() {
         //移除DPI重启恢复
         if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
             loadHooker(RemoveDpiRestartRecovery)
-        }
-        //强制显示低亮无频闪护眼
-        if (prefs(ModulePrefs).getBoolean("force_display_dc_backlight_mode", false)) {
-            loadHooker(ForceDisplayDCBackLightMode)
         }
         //强制显示设置底部Google
         if (prefs(ModulePrefs).getBoolean("force_display_bottom_google_settings", false)) {

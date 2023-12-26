@@ -2803,13 +2803,6 @@ class Settings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.force_display_dc_backlight_mode)
-                summary = getString(R.string.force_display_dc_backlight_mode_summary)
-                key = "force_display_dc_backlight_mode"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.force_display_video_memc_frame_insertion)
                 summary = getString(R.string.force_display_dc_backlight_mode_summary)
                 key = "force_display_video_memc_frame_insertion"
