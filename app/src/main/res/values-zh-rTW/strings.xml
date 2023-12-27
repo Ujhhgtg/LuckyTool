@@ -520,6 +520,8 @@
     <string name="auto_unlock_restricted_settings_summary">点击灰色选项时自动解锁此限制</string>
     <string name="enable_dedicated_ram_for_games">启用游戏专属内存</string>
     <string name="settings_sound">声音</string>
+    <string name="enable_clear_voice">启用人声突显</string>
+    <string name="enable_clear_voice_tips">前提条件：需要勾选手机管家</string>
     <string name="enable_holographic_audio">启用全息音频</string>
     <string name="settings_about_device">关于本机</string>
     <string name="set_processor_click_page">设置处理器点击页面</string>

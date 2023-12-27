@@ -588,6 +588,8 @@
     <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     
     <string name="settings_sound">Sound</string>
+    <string name="enable_clear_voice">Enable clear voice</string>
+    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
     <string name="enable_holographic_audio">Enable holographic audio</string>
     
     <string name="settings_about_device">About Device</string>
@@ -668,9 +670,11 @@
     <!--CloudService-->
     <string name="remove_network_limit">Remove Data Network Limit</string>
     <string name="remove_network_limit_summary">Remove backup/restore limitations that cannot use mobile data</string>
+    
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Unlock some features VIP</string>
     <string name="unlock_themestore_vip_summary">Unlock part of the feature and try it on your own</string>
+    
     <!--Screenshot-->
     <string name="Screenshot">Screenshot</string>
     <string name="remove_system_screenshot_delay">Remove system screenshot delay</string>

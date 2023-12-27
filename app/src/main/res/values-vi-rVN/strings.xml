@@ -520,6 +520,8 @@
     <string name="auto_unlock_restricted_settings_summary">Tự động mở khóa hạn chế này khi nhấp vào tùy chọn màu xám</string>
     <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     <string name="settings_sound">Âm thanh</string>
+    <string name="enable_clear_voice">Enable clear voice</string>
+    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
     <string name="enable_holographic_audio">Bật âm thanh ba chiều</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>

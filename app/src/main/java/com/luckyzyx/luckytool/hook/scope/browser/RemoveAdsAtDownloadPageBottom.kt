@@ -13,7 +13,6 @@ import org.luckypray.dexkit.DexKitBridge
 class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val recommendConfig = "com.heytap.browser.downloads.entity.RecommendConfig"
-        val cOUITabLayout = "com.coui.appcompat.tablayout.COUITabLayout"
 
         //Source AppRecommendManager -> LinearLayout setVisibility 0/8 500L
         dexKitBridge.findMethod {
@@ -21,40 +20,28 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
                 paramCount(0)
                 returnType(UnitType)
                 usingNumbers(0, 8, 500L)
-                addUsingField {
-                    field {
+                usingFields {
+                    add {
+                        type(recommendConfig)
                         addWriteMethod {
                             paramTypes(recommendConfig)
                             returnType(UnitType)
                         }
-                        type(recommendConfig)
                     }
-                }
-                addUsingField {
-                    field {
-                        addWriteMethod {
-                            paramCount(0)
-                            returnType(UnitType)
-                        }
+                    add {
                         type(LinearLayoutClass)
-                    }
-                }
-                addUsingField {
-                    field {
                         addWriteMethod {
                             paramCount(0)
                             returnType(UnitType)
                         }
-                        type(cOUITabLayout)
                     }
                 }
             }
         }.apply {
             checkDataList("RemoveAdsAtDownloadPageBottom")
-            val member = single()
-            member.className.toClass().apply {
+            single().className.toClass().apply {
                 method {
-                    name = member.methodName
+                    name = single().methodName
                     emptyParam()
                     returnType(UnitType)
                 }.hook {

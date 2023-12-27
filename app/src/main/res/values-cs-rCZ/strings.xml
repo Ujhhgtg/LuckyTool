@@ -520,6 +520,8 @@
     <string name="auto_unlock_restricted_settings_summary">Toto omezení je automaticky zrušeno po kliknutí na zašedlou možnost</string>
     <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
     <string name="settings_sound">Zvuk</string>
+    <string name="enable_clear_voice">Enable clear voice</string>
+    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>

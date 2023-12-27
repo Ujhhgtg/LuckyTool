@@ -10,7 +10,7 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookGlobalFeatureConfig : YukiBaseHooker() {
     override fun onHook() {
-        val code = getOSVersionCode
+        val osCode = getOSVersionCode
         val list = ArrayMap<String, Boolean>().apply {
             //Source SystemUI 启用超级音量模式
             if (SDK >= A13 &&
@@ -20,14 +20,14 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.audio.super_volume_3x", true)
             }
             //Source SystemUI 启用通话超级音量模式
-            if (code >= 27 &&
+            if (osCode >= 27 &&
                 prefs(ModulePrefs).getBoolean("enable_super_volume_mode_for_calls", false)
             ) {
                 put("oplus.software.audio.super_volume_call_earpiece", true)
                 put("oplus.software.audio.super_volume_call_earpiece_disable", false)
             }
             //Source SystemUI FlavorOneFeatureOption 启用应用专属媒体音量
-            if (code >= 27 &&
+            if (osCode >= 27 &&
                 prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)
             ) {
                 put("oplus.software.multi_app.volume.adjust.support", true)
@@ -72,6 +72,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 "1" -> put("oplus.software.multiapp_support_rlm", false)
                 "2" -> put("oplus.software.multiapp_support_rlm", true)
             }
+            //Source PhoneManager VoiceCallNCVisibilityProvider
+            if (osCode >= 30 &&
+                prefs(ModulePrefs).getBoolean("enable_clear_voice", false)
+            ) put("oplus.hardware.audio.voice_isolation_support", true)
         }
         loadHooker(HookFeatureConfigManager(list))
     }

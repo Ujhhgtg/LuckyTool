@@ -2837,6 +2837,17 @@ class Settings : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
                 addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_clear_voice)
+                    summary = arraySummaryLine(
+                        getString(R.string.enable_clear_voice_tips),
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "enable_clear_voice"
+                    setDefaultValue(false)
+                    isVisible = osCode >= 30
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
                     title = getString(R.string.enable_holographic_audio)
                     key = "enable_holographic_audio"
                     setDefaultValue(false)
