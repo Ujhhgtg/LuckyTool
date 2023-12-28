@@ -518,10 +518,10 @@
     <string name="force_display_disabled_apps_manager">Vynutit zobrazení správce zakázaných aplikací</string>
     <string name="auto_unlock_restricted_settings">Automaticky odemknout omezená nastavení</string>
     <string name="auto_unlock_restricted_settings_summary">Toto omezení je automaticky zrušeno po kliknutí na zašedlou možnost</string>
-    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
+    <string name="enable_dedicated_ram_for_games">Povolit vyhrazenou RAM pro hry</string>
     <string name="settings_sound">Zvuk</string>
-    <string name="enable_clear_voice">Enable clear voice</string>
-    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
+    <string name="enable_clear_voice">Povolit vyčištění hlasu</string>
+    <string name="enable_clear_voice_tips">Předpoklad: Správce telefonu musí být zaškrtnut</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
@@ -642,6 +642,7 @@
     <string name="force_display_five_g_switch">Vynutit zobrazení přepínače 5G</string>
     <string name="force_display_preferred_network_type">Vynutit zobrazení preferovaného typu sítě</string>
     <string name="force_display_volte_calls">Vynutit zobrazení VoLTE volání</string>
+    <string name="enable_sound_sealed_call">Enable Sound-Sealed Call</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Odstranění reklam na spodní straně informačního toku o počasí</string>
     <string name="remove_ads_from_weather_page_summary">Vložením JS do stránky m.weathercn.com, aby se dosáhlo efektu blokování reklamy, se hodí funkce, které vyžadují prohlížeč, jako je počasí za posledních 15 dní, na které se přejde přes aplikaci počasí</string>
@@ -722,7 +723,7 @@
     <string name="oplusota_copyall">Kopírovat vše</string>
     <!--Donate-->
     <string name="donate_tv_title">Podpořit vývojáře</string>
-    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
+    <string name="donate_tv__summary">Kliknutím nebo podržením přispějte vývojáři k podpoře budoucích aktualizací</string>
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>
@@ -773,10 +774,10 @@
     <string name="permission_error_toast">Nepodařilo se získat oprávnění: %1$s</string>
     <string name="all_files_access_permission">Pro zajištění správného fungování modulu se prosím ujistěte, že má modul přidělena oprávnění!</string>
     <string name="get_installed_apps_permission">Získat oprávnění pro nainstalované aplikace</string>
-    <string name="get_send_notifications_permission">Get permissions for send notification</string>
+    <string name="get_send_notifications_permission">Získat oprávnění pro odesílání oznámení</string>
     <!--Service-->
-    <string name="auto_start_service_channel_name">Self-starting function service</string>
-    <string name="auto_start_service_channel_title">The self-start function is running…</string>
+    <string name="auto_start_service_channel_name">Služba automatického spouštění</string>
+    <string name="auto_start_service_channel_title">Funkce automatického startu běží…</string>
     <!--Typeface-->
     <string name="use_user_typeface">Použít uživatelský typ písma</string>
     <string name="use_bold_font_style">Použít tučný font písma</string>

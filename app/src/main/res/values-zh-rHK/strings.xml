@@ -642,6 +642,7 @@
     <string name="force_display_five_g_switch">强制显示 5G 开关</string>
     <string name="force_display_preferred_network_type">强制显示首选网络类型</string>
     <string name="force_display_volte_calls">强制显示 VoLTE 高清通话</string>
+    <string name="enable_sound_sealed_call">启用通话隐私服务</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">移除天气页面底部信息流广告</string>
     <string name="remove_ads_from_weather_page_summary">通过在页面 m.weathercn.com 注入 JS 来实现屏蔽广告的效果，适用于通过天气 APP 跳转到的近 15 日天气等需要浏览器的功能</string>

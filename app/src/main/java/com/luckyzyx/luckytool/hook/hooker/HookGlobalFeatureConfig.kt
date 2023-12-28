@@ -83,6 +83,12 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_clear_voice", false)) {
                 put("oplus.hardware.audio.voice_isolation_support", true)
             }
+
+            //Source SystemUI StatusBarFeatureOption isSupportPrivacyCallMode 通话隐私保护
+            //Source Phone OplusFeatureOption 通话隐私保护
+            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_sound_sealed_call", false)) {
+                put("oplus.hardware.audio.dipole_speaker_support", true)
+            }
         }
         loadHooker(HookFeatureConfigManager(list))
     }

@@ -642,6 +642,7 @@
     <string name="force_display_five_g_switch">Buộc hiển thị công tắc 5G</string>
     <string name="force_display_preferred_network_type">Buộc hiển thị loại mạng ưa thích</string>
     <string name="force_display_volte_calls">Buộc hiển thị cuộc gọi VoLTE</string>
+    <string name="enable_sound_sealed_call">Enable Sound-Sealed Call</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Xóa quảng cáo nguồn cấp thông tin ở cuối trang thời tiết</string>
     <string name="remove_ads_from_weather_page_summary">Bằng cách đưa JS vào trang m.weathercn.com để đạt được hiệu quả chặn quảng cáo, nó phù hợp với các chức năng yêu cầu trình duyệt như thời tiết trong 15 ngày qua phải được chuyển hướng qua APP thời tiết.</string>

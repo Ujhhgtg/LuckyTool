@@ -7,6 +7,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
 - [优化] “允许不受信任的触摸”Hook逻辑
 - [优化] 系统界面部分功能Hook逻辑
+- [添加] 通话隐私保护 C14
 
 ### 1.1.7
 

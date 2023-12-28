@@ -3572,6 +3572,13 @@ class OplusTeleService : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_sound_sealed_call)
+                key = "enable_sound_sealed_call"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
         }
     }
 

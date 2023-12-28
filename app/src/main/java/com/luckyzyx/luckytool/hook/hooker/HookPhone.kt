@@ -6,6 +6,7 @@ import com.luckyzyx.luckytool.utils.DexkitUtils
 
 object HookPhone : YukiBaseHooker() {
     override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
         loadHooker(HookGlobalSystemProperties)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
