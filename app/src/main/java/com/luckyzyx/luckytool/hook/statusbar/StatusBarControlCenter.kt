@@ -33,6 +33,7 @@ object StatusBarControlCenter : YukiBaseHooker() {
         loadHooker(RemoveStatusBarBottomNetworkWarn)
 
         //通知背景透明度
+//        loadHooker(CustomNotificationBackgroundTransparency)
         if (SDK >= A14) loadHooker(NotificationBackgroundTransParency)
 
         //控制中心背景透明度

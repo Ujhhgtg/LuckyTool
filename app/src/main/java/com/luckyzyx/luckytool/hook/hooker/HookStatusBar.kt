@@ -16,35 +16,6 @@ object HookStatusBar : YukiBaseHooker() {
             loadHooker(VibrateWhenOpeningTheStatusBar)
         }
 
-        //流体云 oplus.software.support_fluid_entry
-        //com.oplus.pantanal.seedling.util.SeedlingTool
-
-//        "com.oplus.flashback.manager.SwiggyZomatoFluidManager".toClass().apply {
-//            method { name = "isDeviceSupportFluid";returnType = BooleanType }.hookAll {
-//                after {
-//                    YLog.debug("${method.name} -> $result")
-//                    resultTrue()
-//                }
-//            }
-//        }
-//        "com.oplus.seedling.sdk.SeedlingSdk".toClass()
-//            .apply {
-//                method { name = "isSupportFluidCloud";returnType = BooleanType }.hookAll {
-//                    after {
-//                        YLog.debug("${method.name} -> $result")
-//                        resultTrue()
-//                    }
-//                }
-//            }
-//        "com.oplus.pantanal.seedling.util.SeedlingTool".toClass().apply {
-//            method { name = "isSupportFluidCloud";returnType = BooleanType }.hookAll {
-//                after {
-//                    YLog.debug("${method.name} -> $result")
-//                    resultTrue()
-//                }
-//            }
-//        }
-
         //res/layout/bubble_expanded_view.xml
         //<string name="bubble_close">关闭对话</string>
         //<string name="open_app">进入应用</string>

@@ -5,8 +5,10 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.hooker.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.hooker.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
@@ -20,25 +22,20 @@ object HookSystemUIFeature : YukiBaseHooker() {
         loadHooker(HookStatusBarFeature)
         loadHooker(HookNotificationAppFeature)
         loadHooker(HookFlavorOneFeature)
-        if (SDK >= A14) {
-            loadHooker(HookQSFeatureOption)
-            loadHooker(HookVolumeFeatureOption)
-        }
+        if (SDK >= A14) loadHooker(HookVolumeFeatureOption)
+
         if (SDK < A13) loadHooker(HookRegionalGaussBlurController)
+
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            loadHooker(HookGlobalFeatureProvider(dexKitBridge))
+        }
     }
 
     private object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
-            //自动亮度 com.android.systemui.remove_auto_brightness
-            val autoBrightnessMode =
-                prefs(ModulePrefs).getString("set_auto_brightness_button_mode", "0")
             //全屏充电动画 com.android.systemui.support_fullscreen_charge_anim
             val fullScreenChargeAnim =
                 prefs(ModulePrefs).getString("set_full_screen_charging_animation_mode", "0")
-            //通知重要性 com.android.systemui.origin_notification_behavior
-            val notifyImportance = prefs(ModulePrefs).getBoolean(
-                "enable_notification_importance_classification", false
-            )
             //高斯模糊
             val enableBlur =
                 prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
@@ -73,23 +70,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //Source FeatureOption
             "com.oplusos.systemui.common.feature.FeatureOption".toClass().apply {
                 //C12 C13
-                if (hasMethod { name = "shouldRemoveAutoBrightness" }) {
-                    method { name = "shouldRemoveAutoBrightness" }.hook {
-                        before {
-                            when (autoBrightnessMode) {
-                                "1" -> resultFalse()
-                                "2" -> resultTrue()
-                            }
-                        }
-                    }
-                }
-                //C12 C13
-                if (hasMethod { name = "isOriginNotificationBehavior" }) {
-                    method { name = "isOriginNotificationBehavior" }.hook {
-                        if (notifyImportance) replaceToTrue()
-                    }
-                }
-                //C12 C13
                 if (hasMethod { name = "isVolumeBlurDisabled" }) {
                     method { name = "isVolumeBlurDisabled" }.hook {
                         if (volumeBlur > -1) replaceToFalse()
@@ -104,17 +84,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 //C13 C14
                 if (hasMethod { name = "isOplusVolumeKeyInRight" }) {
                     method { name = "isOplusVolumeKeyInRight" }.hook {
-                        before {
-                            when (volumePosition) {
-                                "1" -> resultFalse()
-                                "2" -> resultTrue()
-                            }
-                        }
-                    }
-                }
-                //C13
-                if (hasMethod { name = "areVolumeAndPowerKeysInRight" }) {
-                    method { name = "areVolumeAndPowerKeysInRight" }.hook {
                         before {
                             when (volumePosition) {
                                 "1" -> resultFalse()
@@ -187,10 +156,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
 
     private object HookNotificationAppFeature : YukiBaseHooker() {
         override fun onHook() {
-            //通知重要性 com.android.systemui.origin_notification_behavior
-            val notifyImportance = prefs(ModulePrefs).getBoolean(
-                "enable_notification_importance_classification", false
-            )
             //高斯模糊
             val enableBlur =
                 prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
@@ -200,13 +165,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 "com.oplusos.systemui.common.util.NotificationAppFeatureOption", //C13
                 "com.oplusos.systemui.common.feature.NotificationFeatureOption" //C14
             ).toClass().apply {
-                method {
-                    name = if (SDK >= A14) "isOriginNotificationBehavior"
-                    else "originNotificationBehavior"
-                }.hook {
-                    if (notifyImportance) replaceToTrue()
-                }
-
                 //C12 C13 C14
                 if (SDK >= A13) method {
                     name = if (SDK >= A14) "isGaussBlurDisabled"
@@ -269,26 +227,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 if (hasMethod { name = "isFlavorOneMultiMediaDevice" }) {
                     method { name = "isFlavorOneMultiMediaDevice" }.hook {
                         if (specificVolume) replaceToTrue()
-                    }
-                }
-            }
-        }
-    }
-
-    private object HookQSFeatureOption : YukiBaseHooker() {
-        override fun onHook() {
-            //自动亮度 com.android.systemui.remove_auto_brightness
-            val autoBrightnessMode =
-                prefs(ModulePrefs).getString("set_auto_brightness_button_mode", "0")
-
-            //Source QSFeatureOption
-            "com.oplusos.systemui.common.feature.QSFeatureOption".toClass().apply {
-                method { name = "getShouldRemoveAutoBrightness" }.hook {
-                    before {
-                        when (autoBrightnessMode) {
-                            "1" -> resultFalse()
-                            "2" -> resultTrue()
-                        }
                     }
                 }
             }

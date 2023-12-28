@@ -33,6 +33,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             ) {
                 put("oplus.software.multi_app.volume.adjust.support", true)
             }
+
             //Source Settings 启用RGB色温球 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)
             ) {
@@ -50,10 +51,12 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 //                put("oplus.software.display.pixelworks_enable", true)
 //                put("oplus.software.display.pixelworks_x7_enable", true)
 //            }
+
             //Source Mms 移除验证码悬浮窗 FeatureOption.java / com.oplus.common -> C12
             if (prefs(ModulePrefs).getBoolean("remove_verification_code_floating_window", false)) {
                 put("oplus.software.inputmethod.verify_code_enable", false)
             }
+
             //Source Gestures 启用隔空手势
             if (prefs(ModulePrefs).getBoolean("force_enable_aon_gestures", false)) {
                 put("oplus.software.aon_enable", true)
@@ -64,15 +67,18 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.powerkey_disbale_turnoff_torch", false)
                 put("oplus.software.key_quickoperate_torch", true)
             }
+
             //Source PermissionController 解锁默认桌面限制
             if (prefs(ModulePrefs).getBoolean("unlock_default_desktop_limit", false)) {
                 put("oplus.software.defaultapp.remove_force_launcher", true)
             }
+
             //Source MultiApp AppFeatureUtil isRlmPhone
             when (prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")) {
                 "1" -> put("oplus.software.multiapp_support_rlm", false)
                 "2" -> put("oplus.software.multiapp_support_rlm", true)
             }
+
             //Source PhoneManager VoiceCallNCVisibilityProvider
             if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_clear_voice", false)) {
                 put("oplus.hardware.audio.voice_isolation_support", true)

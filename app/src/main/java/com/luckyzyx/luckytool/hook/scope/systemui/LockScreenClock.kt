@@ -147,7 +147,6 @@ object LockScreenClock : YukiBaseHooker() {
                         mTimeHour.setClockRed(mHour, redMode)
                     }
                 }
-                val hasTvTC = hasField { name = "mTvTraditionalCalendar" }
                 method { name = "updateDate" }.hook {
                     before {
                         if (!showLunar) return@before
@@ -165,6 +164,8 @@ object LockScreenClock : YukiBaseHooker() {
                             val ins = it.buildInstance(context)
                             it.generateLunarDate(ins)
                         }
+                        val hasTvTC =
+                            instance.javaClass.hasField { name = "mTvTraditionalCalendar" }
                         if (hasTvTC) field { name = "mTvTraditionalCalendar" }.get(instance)
                             .cast<TextView>()?.text = lunarInfo
                         resultNull()

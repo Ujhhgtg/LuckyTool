@@ -10,7 +10,6 @@ object RemoveChargingCompleted : YukiBaseHooker() {
         VariousClass(
             "com.coloros.systemui.notification.power.ColorosPowerNotificationWarnings", //A11
             "com.oplusos.systemui.notification.power.OplusPowerNotificationWarnings",
-            "com.coloros.systemui.notification.power.ColorosPowerNotificationWarnings",
             "com.oplus.systemui.statusbar.notification.power.OplusPowerNotificationWarnings" //C14
         ).toClass().apply {
             method { name = "showChargeErrorDialog";paramCount = 1 }.hook {

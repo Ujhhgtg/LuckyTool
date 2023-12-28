@@ -3,6 +3,11 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.8_beta
+
+- [优化] “允许不受信任的触摸”Hook逻辑
+- [优化] 系统界面部分功能Hook逻辑
+
 ### 1.1.7
 
 - [更改] 同步上游DisableFlagSecure

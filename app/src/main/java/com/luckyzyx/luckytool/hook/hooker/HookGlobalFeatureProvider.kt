@@ -9,6 +9,24 @@ import org.luckypray.dexkit.DexKitBridge
 class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val list = ArrayMap<String, Any>().apply {
+            //Source SystemUI AutoBrightnessTile 自动亮度
+            when (prefs(ModulePrefs).getString("set_auto_brightness_button_mode", "0")) {
+                "1" -> put("com.android.systemui.remove_auto_brightness", false)
+                "2" -> put("com.android.systemui.remove_auto_brightness", true)
+            }
+            //Source SystemUI NotificationFeatureOption 通知重要性
+            val notifyImportance = prefs(ModulePrefs).getBoolean(
+                "enable_notification_importance_classification", false
+            )
+            if (notifyImportance) {
+                put("com.android.systemui.origin_notification_behavior", true)
+            }
+            //Source SystemUI OpAssistNavigationDialog 音量条位置
+            when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {
+                "1" -> put("com.android.systemui.volume_and_power_key_in_right", false)
+                "2" -> put("com.android.systemui.volume_and_power_key_in_right", true)
+            }
+
             //Source Settings OplusDefaultAutofillPicker -> autofill_password 自动填充密码
             if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
                 put("com.android.settings.cn_version", false)
@@ -30,6 +48,7 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("screen_physics_size_shown_cm", false)) {
                 put("com.android.settings.screen_physics_size_cm", true)
             }
+
             //Source Battery 屏幕省电
             if (prefs(ModulePrefs).getBoolean("open_screen_power_save", false)) {
                 put("com.oplus.battery.cabc_level_dynamic_enable", true)

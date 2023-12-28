@@ -22,14 +22,14 @@ import com.luckyzyx.luckytool.hook.scope.android.ScreenColorTemperatureRGBPalett
 import com.luckyzyx.luckytool.hook.scope.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scope.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scope.android.ZoomWindow
+import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.SDK
 
 object HookAndroid : YukiBaseHooker() {
 
     override fun onHook() {
-        //HookGlobalFeatureConfig
         loadHooker(HookGlobalFeatureConfig)
-
-        //HookGlobalSystemProperties
         loadHooker(HookGlobalSystemProperties)
 
         //移除状态栏上层警告
@@ -60,10 +60,10 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(RemoveSystemScreenshotDelay)
 
         //移除遮罩Splash Screen
-        loadHooker(AppSplashScreen)
+        if (SDK >= A13) loadHooker(AppSplashScreen)
 
         //允许不受信任的触摸
-        loadHooker(AllowUntrustedTouch)
+        if (SDK >= A12) loadHooker(AllowUntrustedTouch)
 
         //缩放窗口
         loadHooker(ZoomWindow)
@@ -75,10 +75,10 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(BatteryOptimizationWhitelist)
 
         //允许APP回到顶部
-        loadHooker(ScrollToTopWhiteList)
+        if (SDK >= A13) loadHooker(ScrollToTopWhiteList)
 
         //禁用访问设备日志对话框
-        loadHooker(RemoveAccessDeviceLogDialog)
+        if (SDK >= A13) loadHooker(RemoveAccessDeviceLogDialog)
 
         //禁用动态刷新率
         loadHooker(DisableDynamicRefreshRate)
@@ -87,10 +87,10 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(SystemEnableVolumeKeyControlFlashlight)
 
         //强制所有应用支持分屏
-        loadHooker(ForceAllAppsSupportSplitScreen)
+        if (SDK >= A13) loadHooker(ForceAllAppsSupportSplitScreen)
 
         //移除应用禁止卸载黑名单
-        loadHooker(RemoveAppUninstallButtonBlackList)
+        if (SDK >= A13) loadHooker(RemoveAppUninstallButtonBlackList)
 
         //屏幕色温RGB调色板
         loadHooker(ScreenColorTemperatureRGBPalette)

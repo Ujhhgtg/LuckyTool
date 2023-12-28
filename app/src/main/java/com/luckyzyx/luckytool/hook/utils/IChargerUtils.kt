@@ -24,7 +24,7 @@ class IChargerUtils(val classLoader: ClassLoader?) {
     }
 
     fun getInstance(): Any? {
-        return if (clazz.hasMethod { name = "getService";param(BooleanType) }) {
+        return if (clazz.javaClass.hasMethod { name = "getService";param(BooleanType) }) {
             clazz.method { name = "getService";param(BooleanType) }.get().call(true)
         } else stub.method { name = "asInterface";param(IBinderClass) }.get().call(getService())
     }

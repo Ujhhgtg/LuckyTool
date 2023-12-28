@@ -2481,7 +2481,6 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_access_device_log_dialog)
                 key = "remove_access_device_log_dialog"

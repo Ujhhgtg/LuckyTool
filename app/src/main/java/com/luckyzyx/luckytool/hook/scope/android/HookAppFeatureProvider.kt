@@ -14,6 +14,7 @@ class HookAppFeatureProvider(
 ) : YukiBaseHooker() {
     override fun onHook() {
         if (features.isEmpty()) return
+
         //Source AppFeatureProviderUtils
         dexKitBridge.findClass {
             matcher {
@@ -27,6 +28,7 @@ class HookAppFeatureProvider(
         }.apply {
             checkDataList("AppFeatureProviderUtils ($packageName)")
             single().name.toClass().apply {
+                //isFeatureSupport
                 method {
                     param(ContentResolverClass, StringClass)
                     returnType = BooleanType
@@ -38,6 +40,7 @@ class HookAppFeatureProvider(
                         if (value != null && value is Boolean) result = value
                     }
                 }
+                //getBoolean
                 method {
                     param(ContentResolverClass, StringClass, BooleanType)
                     returnType = BooleanType
@@ -49,6 +52,7 @@ class HookAppFeatureProvider(
                         if (value != null && value is Boolean) result = value
                     }
                 }
+                //getString
                 if (hasMethod {
                         param(ContentResolverClass, StringClass, StringClass)
                         returnType = StringClass
