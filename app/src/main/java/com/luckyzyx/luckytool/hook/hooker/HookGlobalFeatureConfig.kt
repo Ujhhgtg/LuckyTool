@@ -4,6 +4,7 @@ import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scope.android.HookFeatureConfigManager
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -73,9 +74,9 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 "2" -> put("oplus.software.multiapp_support_rlm", true)
             }
             //Source PhoneManager VoiceCallNCVisibilityProvider
-            if (osCode >= 30 &&
-                prefs(ModulePrefs).getBoolean("enable_clear_voice", false)
-            ) put("oplus.hardware.audio.voice_isolation_support", true)
+            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_clear_voice", false)) {
+                put("oplus.hardware.audio.voice_isolation_support", true)
+            }
         }
         loadHooker(HookFeatureConfigManager(list))
     }

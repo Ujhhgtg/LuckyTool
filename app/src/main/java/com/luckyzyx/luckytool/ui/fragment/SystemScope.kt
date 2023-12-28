@@ -2844,7 +2844,7 @@ class Settings : BaseScopePreferenceFeagment() {
                     )
                     key = "enable_clear_voice"
                     setDefaultValue(false)
-                    isVisible = osCode >= 30
+                    isVisible = SDK >= A14
                     isIconSpaceReserved = false
                 })
                 addPreference(SwitchPreference(context).apply {

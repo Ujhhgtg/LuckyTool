@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.7_beta
+### 1.1.7
 
 - [更改] 同步上游DisableFlagSecure
 - [更改] 取消状态栏网速非用户字体时的Hook
@@ -13,7 +13,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 状态栏时钟使用粗体字体样式
 - [修复] 状态栏支付保护图标Hook异常
 - [适配] 游戏助手移除游戏中心Tab页面
-- [添加] 自动检测移除某后门加密程序(PS)
+- [添加] 自动检测移除后门加密程序(PS)
 - [更改] 回滚状态栏电池通知的温度与电流数值异常处理
 - [添加] 状态栏电池使用粗体字体样式
 - [适配] 软件商店我的页面应用推荐 v11.6.0
@@ -24,6 +24,26 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [移除] 移除“强制显示低亮无频闪护眼”功能
 - [添加] 启用通话人声突显 C14
 - [适配] 浏览器下载页面底部广告 v40.8.17.9
+- [Change] Sync upstream DisableFlagSecure
+- [Change] Cancel the Hook when the status bar network speed is not user font
+- [Change] Sync upstream CorePatch
+- [Remove] Removed the "Switch auto-start function caller" option
+- [Optimize] Use Service to handle self-start function calls
+- [Add] Use bold font style for status bar clock
+- [Fixed] Abnormal hook of payment protection icon in status bar
+- [Fix] Game Assistant removes the Game Center Tab page
+- [Add] Automatically detect and remove backdoor encryption program (PS)
+- [Change] Roll back the abnormal handling of temperature and current value in status bar battery
+  notification
+- [Add] Use bold font style for status bar battery
+- [Fix] Software Store My Page Application Recommendations v11.6.0
+- [Optimize] Function page loading dialog display logic
+- [Fix] Unlock default desktop restriction Hook exception
+- [Optimize] Self-start function service calling logic
+- [Add] Enable dedicated RAM for game C13.1+
+- [Remove] Removed the "Force display of low-brightness and flicker-free eye protection" function
+- [Add] Enable clear voice C14
+- [Fix] Advertisement v40.8.17.9 at the bottom of the browser download page
 
 ### 1.1.6
 
