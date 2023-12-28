@@ -62,6 +62,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private var isParallelDual = false
     private var chargerType = ""
 
+    private var iChargerIns: Any? = null
     private lateinit var chargeInfo: Properties
 
     //params
@@ -365,10 +366,10 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         NotifyUtils.clearNotification(context, channelNotifyId)
     }
 
-    @SuppressLint("DeprecatedSinceApi")
     private fun getChargeInfo(): Properties = safeOf(Properties()) {
         val queryChargeInfo = IChargerUtils(appClassLoader).let {
-            it.queryChargeInfo(it.getInstance())
+            if (iChargerIns == null) iChargerIns = it.getInstance()
+            it.queryChargeInfo(iChargerIns)
         }
         return Properties().apply {
             load(StringReader(queryChargeInfo))
