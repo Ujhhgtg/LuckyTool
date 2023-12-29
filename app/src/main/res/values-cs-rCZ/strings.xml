@@ -523,6 +523,7 @@
     <string name="enable_clear_voice">Povolit vyčištění hlasu</string>
     <string name="enable_clear_voice_tips">Předpoklad: Správce telefonu musí být zaškrtnut</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
+    <string name="settings_other_advanced_settings">Additional Settings</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>

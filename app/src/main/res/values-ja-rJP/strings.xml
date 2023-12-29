@@ -523,6 +523,7 @@
     <string name="enable_clear_voice">Enable clear voice</string>
     <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
     <string name="enable_holographic_audio">Enable holographic audio</string>
+    <string name="settings_other_advanced_settings">Additional Settings</string>
     <string name="settings_about_device">デバイス情報</string>
     <string name="set_processor_click_page">プロセッサーをタップしてページにジャンプするように設定します</string>
     <string name="screen_physics_size_shown_cm">画面の物理的な寸法をセンチメートルで表示</string>

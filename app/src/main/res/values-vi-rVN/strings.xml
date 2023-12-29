@@ -518,11 +518,12 @@
     <string name="force_display_disabled_apps_manager">Buộc hiển thị trình quản lý ứng dụng bị vô hiệu hóa</string>
     <string name="auto_unlock_restricted_settings">Tự động mở khóa cài đặt bị hạn chế</string>
     <string name="auto_unlock_restricted_settings_summary">Tự động mở khóa hạn chế này khi nhấp vào tùy chọn màu xám</string>
-    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
+    <string name="enable_dedicated_ram_for_games">Kích hoạt bộ nhớ dành riêng cho trò chơi</string>
     <string name="settings_sound">Âm thanh</string>
-    <string name="enable_clear_voice">Enable clear voice</string>
-    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
+    <string name="enable_clear_voice">Bật làm trong giọng nói</string>
+    <string name="enable_clear_voice_tips">Điều kiện tiên quyết: Bạn cần kiểm tra trình quản lý điện thoại di động</string>
     <string name="enable_holographic_audio">Bật âm thanh ba chiều</string>
+    <string name="settings_other_advanced_settings">Các thiết lập khác</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>
@@ -642,7 +643,7 @@
     <string name="force_display_five_g_switch">Buộc hiển thị công tắc 5G</string>
     <string name="force_display_preferred_network_type">Buộc hiển thị loại mạng ưa thích</string>
     <string name="force_display_volte_calls">Buộc hiển thị cuộc gọi VoLTE</string>
-    <string name="enable_sound_sealed_call">Enable Sound-Sealed Call</string>
+    <string name="enable_sound_sealed_call">Bật dịch vụ bảo mật cuộc gọi</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Xóa quảng cáo nguồn cấp thông tin ở cuối trang thời tiết</string>
     <string name="remove_ads_from_weather_page_summary">Bằng cách đưa JS vào trang m.weathercn.com để đạt được hiệu quả chặn quảng cáo, nó phù hợp với các chức năng yêu cầu trình duyệt như thời tiết trong 15 ngày qua phải được chuyển hướng qua APP thời tiết.</string>
@@ -723,7 +724,7 @@
     <string name="oplusota_copyall">Sao chép tất cả</string>
     <!--Donate-->
     <string name="donate_tv_title">Hỗ trợ người phát triển</string>
-    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
+    <string name="donate_tv__summary">Nhấp hoặc nhấn và giữ để quyên góp cho nhà phát triển nhằm hỗ trợ các bản cập nhật trong tương lai</string>
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>
@@ -774,10 +775,10 @@
     <string name="permission_error_toast">Không xin được quyền: %1$s</string>
     <string name="all_files_access_permission">Để đảm bảo việc sử dụng bình thường của mô-đun, vui lòng đảm bảo cấp quyền cho mô-đun!</string>
     <string name="get_installed_apps_permission">Nhận quyền danh sách ứng dụng</string>
-    <string name="get_send_notifications_permission">Get permissions for send notification</string>
+    <string name="get_send_notifications_permission">Nhận quyền gửi thông báo</string>
     <!--Service-->
-    <string name="auto_start_service_channel_name">Self-starting function service</string>
-    <string name="auto_start_service_channel_title">The self-start function is running…</string>
+    <string name="auto_start_service_channel_name">Dịch vụ chức năng tự khởi động</string>
+    <string name="auto_start_service_channel_title">Chức năng tự khởi động đang chạy…</string>
     <!--Typeface-->
     <string name="use_user_typeface">Sử dụng kiểu chữ người dùng</string>
     <string name="use_bold_font_style">Sử dụng kiểu chữ đậm</string>

@@ -519,11 +519,12 @@
     <string name="force_display_disabled_apps_manager">Принудительное отображение отключенного менеджера приложений</string>
     <string name="auto_unlock_restricted_settings">Автоматическая разблокировка ограниченных настроек</string>
     <string name="auto_unlock_restricted_settings_summary">Это ограничение автоматически снимается при нажатии на серый вариант</string>
-    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
+    <string name="enable_dedicated_ram_for_games">Включить выделенную ОЗУ для игр</string>
     <string name="settings_sound">Звук</string>
-    <string name="enable_clear_voice">Enable clear voice</string>
-    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
+    <string name="enable_clear_voice">Включить очистку голоса</string>
+    <string name="enable_clear_voice_tips">Требование: необходимо проверить менеджер телефона</string>
     <string name="enable_holographic_audio">Включить голографическое аудио</string>
+    <string name="settings_other_advanced_settings">Дополнительные настройки</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
@@ -643,7 +644,7 @@
     <string name="force_display_five_g_switch">Принудительно отображать переключатель 5G</string>
     <string name="force_display_preferred_network_type">Принудительно отображать тип сети</string>
     <string name="force_display_volte_calls">Принудительно отображать вызовы VoLTE</string>
-    <string name="enable_sound_sealed_call">Enable Sound-Sealed Call</string>
+    <string name="enable_sound_sealed_call">Включить звукоизолированный вызов</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Удалить рекламу на странице с информацией о погоде</string>
     <string name="remove_ads_from_weather_page_summary">Внедрив JS на страницу m.weathercn.com для достижения эффекта блокировки рекламы, он подходит для функций, требующих браузера, таких как погода за последние 15 дней, к которой вы переходите через приложение погоды</string>
@@ -724,7 +725,7 @@
     <string name="oplusota_copyall">Копировать все</string>
     <!--Donate-->
     <string name="donate_tv_title">Поддержать разработку</string>
-    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
+    <string name="donate_tv__summary">Нажмите или удерживайте для пожертвования разработчику для поддержки будущих обновлений</string>
     <!-- Other -->
     <string name="quick_entry">Быстрый вход в систему</string>
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>
@@ -775,10 +776,10 @@
     <string name="permission_error_toast">Не удалось получить разрешение: %1$s</string>
     <string name="all_files_access_permission">Для обеспечения нормального использования модуля, пожалуйста, дайте модулю права доступа!</string>
     <string name="get_installed_apps_permission">Получить разрешения для установленных приложений</string>
-    <string name="get_send_notifications_permission">Get permissions for send notification</string>
+    <string name="get_send_notifications_permission">Получить разрешения на отправку уведомлений</string>
     <!--Service-->
-    <string name="auto_start_service_channel_name">Self-starting function service</string>
-    <string name="auto_start_service_channel_title">The self-start function is running…</string>
+    <string name="auto_start_service_channel_name">Сервис автозапуска</string>
+    <string name="auto_start_service_channel_title">Функция автозапуска запущена…</string>
     <!--Typeface-->
     <string name="use_user_typeface">Использовать пользовательский шрифт</string>
     <string name="use_bold_font_style">Используйте жирный стиль шрифта</string>

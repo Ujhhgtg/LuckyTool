@@ -2892,6 +2892,19 @@ class Settings : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
+            //其他设置
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.settings_other_advanced_settings)
+                key = "settings_other_advanced_settings"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.force_display_content_recommend)
+                key = "force_display_content_recommend"
+                setDefaultValue(false)
+                isVisible = isZh(context)
+                isIconSpaceReserved = false
+            })
             //关于本机
             if (SDK >= A13) {
                 addPreference(PreferenceCategory(context).apply {
@@ -2936,13 +2949,6 @@ class Settings : BaseScopePreferenceFeagment() {
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.disable_cn_special_edition_setting)
                 key = "disable_cn_special_edition_setting"
-                setDefaultValue(false)
-                isVisible = isZh(context)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.force_display_content_recommend)
-                key = "force_display_content_recommend"
                 setDefaultValue(false)
                 isVisible = isZh(context)
                 isIconSpaceReserved = false
