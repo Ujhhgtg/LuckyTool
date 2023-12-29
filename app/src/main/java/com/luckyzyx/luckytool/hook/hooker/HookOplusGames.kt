@@ -39,10 +39,6 @@ object HookOplusGames : YukiBaseHooker() {
                 if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
                     loadHooker(CompetitionModeSound(dexKitBridge))
                 }
-                //移除游戏助手福利页面
-                if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
-                    loadHooker(RemoveWelfarePage(dexKitBridge))
-                }
             }
 
             //自定义媒体播放器支持
@@ -68,9 +64,15 @@ object HookOplusGames : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_game_assistant_temperature_detection")) {
                 loadHooker(RemoveGameAssistantTemperatureDetection)
             }
+
+            val exist = appSet[1].toIntOrNull()?.let { it < 90000000 } ?: false
+            //移除游戏助手福利页面
+            if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
+                if (exist) loadHooker(RemoveWelfarePage)
+            }
             //移除游戏助手工具推荐卡片
             if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
-                loadHooker(RemoveToolRecommendationCard)
+                if (exist) loadHooker(RemoveToolRecommendationCard)
             }
 
             //res/layout/layout_perf_cpu_setting_panel_land.xml

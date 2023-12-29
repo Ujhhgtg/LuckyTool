@@ -29,6 +29,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.getAppVersion
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
@@ -3230,6 +3231,8 @@ class OplusGames : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            val appSet = context.getAppVersion(scopes.first())
+            //布局
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.OplusGamesLayout)
                 key = "OplusGamesLayout"
@@ -3245,14 +3248,17 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_welfare_page)
                 key = "remove_welfare_page"
                 setDefaultValue(false)
+                isVisible = appSet[1].toIntOrNull()?.let { it < 90000000 } ?: false
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_tool_recommendation_card)
                 key = "remove_tool_recommendation_card"
                 setDefaultValue(false)
+                isVisible = appSet[1].toIntOrNull()?.let { it < 90000000 } ?: false
                 isIconSpaceReserved = false
             })
+            //工具
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.OplusGamesTool)
                 key = "OplusGamesTool"
