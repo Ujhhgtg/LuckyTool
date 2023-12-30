@@ -23,7 +23,7 @@
     <string name="auto_check_update">Controlla automaticamente gli aggiornamenti</string>
     <string name="auto_check_update_summary">Controlla automaticamente gli aggiornamenti quando apri la home del modulo</string>
     <string name="tile_auto_start">Consenti ai tile integrati di partire automaticamente</string>
-    <string name="tile_auto_start_summary">When the host-side module version number is consistent with the local module version number,and enable this function,The function of opened tiles will be automatically triggered after the screen is unlocked.If the trigger fails,please restart the scope and check Root permissions</string>
+    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
     <string name="read_agreement">Devi leggere e accettare i seguenti contenuti prima di poter utilizzare questo modulo</string>
     <string name="clear_all_data">Cancella tutti i dati</string>
     <string name="clear_all_data_summary">Clear all function data in the module</string>

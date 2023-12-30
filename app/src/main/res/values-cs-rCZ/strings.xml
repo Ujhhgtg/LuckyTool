@@ -23,7 +23,7 @@
     <string name="auto_check_update">Automaticky vyhledávat aktualizace</string>
     <string name="auto_check_update_summary">Automaticky kontrolovat aktualizace při otevírání domovské stránky modulu</string>
     <string name="tile_auto_start">Povolit automatické spuštění vestavěných dlaždic rychlého nastavení</string>
-    <string name="tile_auto_start_summary">Pokud je číslo verze modulu na straně hostitele v souladu s číslem verze místního modulu a povolíte tuto funkci, funkce povolených dlaždic se automaticky spustí po odemknutí obrazovky. Pokud se spuštění nezdaří, restartujte scope a zkontrolujte oprávnění Root</string>
+    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
     <string name="read_agreement">Před použitím tohoto modulu musíte přečíst a souhlasit s následujícím obsahem</string>
     <string name="clear_all_data">Vymazat všechna data</string>
     <string name="clear_all_data_summary">Vymazat všechna data funkcí v modulu</string>

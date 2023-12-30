@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
-import android.os.Bundle
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.drake.net.utils.scope
@@ -18,6 +17,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.getInt
 import kotlinx.coroutines.Dispatchers
 
 @Obfuscate
@@ -30,29 +30,27 @@ class AutoStartControllerService : Service() {
         val channel = NotificationChannel(
             channelId, channelName, NotificationManager.IMPORTANCE_LOW
         )
-        NotifyUtils.createChannel(this, channel)
+        val notify = NotificationCompat.Builder(
+            this@AutoStartControllerService, channelId
+        ).apply {
+            setAutoCancel(false)
+            setOngoing(true)
+            setSmallIcon(R.mipmap.ic_launcher_round)
+            setContentTitle(getString(R.string.auto_start_service_channel_title))
+            priority = NotificationCompat.PRIORITY_LOW
+        }.build()
 
         scope(Dispatchers.Default) {
-            val notify = NotificationCompat.Builder(
-                this@AutoStartControllerService, channelId
-            ).apply {
-                setAutoCancel(false)
-                setOngoing(true)
-                setSmallIcon(R.mipmap.ic_launcher_round)
-                setContentTitle(getString(R.string.auto_start_service_channel_title))
-                priority = NotificationCompat.PRIORITY_LOW
-            }.build()
+            NotifyUtils.createChannel(this@AutoStartControllerService, channel)
             if (SDK >= A14) startForeground(
-                channelNotifyId, notify,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
+                channelNotifyId, notify, ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
             ) else startForeground(channelNotifyId, notify)
 
-            val bundle = intent?.extras ?: Bundle()
             val command = ArrayList<String>()
             //FPS自启
-            if (bundle.getBoolean("fps_auto", false)) {
-                val fpsMode = bundle.getInt("fps_mode", 1)
-                val fpsCur = bundle.getInt("fps_cur", -1)
+            if (getBoolean(SettingsPrefs, "fps_autostart", false)) {
+                val fpsMode = getInt(SettingsPrefs, "fps_mode", 1)
+                val fpsCur = getInt(SettingsPrefs, "fps_cur", -1)
                 if ((fpsMode == 2) && (fpsCur != -1)) {
                     command.add("service call SurfaceFlinger 1035 i32 $fpsCur")
                 }
@@ -74,6 +72,7 @@ class AutoStartControllerService : Service() {
                 }
             }
             if (command.isNotEmpty()) ShellUtils.execCommand(command, true)
+        }.finally {
             stopForeground(STOP_FOREGROUND_REMOVE)
         }
         return super.onStartCommand(intent, flags, startId)

@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hooker
 
 import android.content.Intent
-import android.os.Bundle
 import com.drake.net.utils.scope
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
@@ -29,18 +28,12 @@ object HookAutoStart : YukiBaseHooker() {
                     if (fpsAutoStart && (fpsMode == 1) && (currentFps != -1)) {
                         setRefresh(context, fpsList[currentFps], fpsList[currentFps])
                     }
-                    val bundle = Bundle().apply {
-                        putBoolean("fps_auto", fpsAutoStart)
-                        putInt("fps_mode", fpsMode)
-                        putInt("fps_cur", currentFps)
-                    }
                     context.startForegroundService(Intent().apply {
                         action = "${BuildConfig.APPLICATION_ID}.AutoStartControllerService"
                         setPackage(BuildConfig.APPLICATION_ID)
-                        putExtras(bundle)
                     })
                 }.catch {
-                    YLog.debug("HookAutoStart throw", it)
+                    YLog.debug("AutoStartService throw", it)
                 }
             }
         }

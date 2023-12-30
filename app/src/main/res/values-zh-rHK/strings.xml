@@ -23,7 +23,7 @@
     <string name="auto_check_update">自動檢查更新</string>
     <string name="auto_check_update_summary">打开模块主页时自动检查更新</string>
     <string name="tile_auto_start">允许内置磁贴自启</string>
-    <string name="tile_auto_start_summary">当宿主端模块版本与本地模块版本一致时， 若启用此功能，屏幕解锁后将自动触发已打开磁贴的功能\n若触发失败，请重启作用域和检查Root权限</string>
+    <string name="tile_auto_start_summary">屏幕解锁后将自动触发已启用的磁贴功能\n若触发失败，请重启作用域和检查Root权限</string>
     <string name="read_agreement">您需要阅读并同意以下内容才可以使用此模块</string>
     <string name="clear_all_data">清除所有數據</string>
     <string name="clear_all_data_summary">清除模块中的所有功能数据</string>

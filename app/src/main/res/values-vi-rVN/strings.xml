@@ -23,7 +23,7 @@
     <string name="auto_check_update">Tự động kiểm tra cập nhật</string>
     <string name="auto_check_update_summary">Tự động kiểm tra cập nhật khi mở trang chủ module</string>
     <string name="tile_auto_start">Cho phép các ô tích hợp tự động bắt đầu</string>
-    <string name="tile_auto_start_summary">Khi số phiên bản mô-đun phía máy chủ phù hợp với số phiên bản mô-đun cục bộ và bật chức năng này, Chức năng của các ô đã mở sẽ tự động được kích hoạt sau khi màn hình được mở khóa. Nếu kích hoạt không thành công, vui lòng khởi động lại phạm vi và kiểm tra quyền Root</string>
+    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
     <string name="read_agreement">Bạn cần đọc và đồng ý với các nội dung sau trước khi có thể sử dụng mô-đun này</string>
     <string name="clear_all_data">Xóa tất cả dữ liệu</string>
     <string name="clear_all_data_summary">Xóa tất cả dữ liệu chức năng trong mô-đun</string>

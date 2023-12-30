@@ -23,7 +23,7 @@
     <string name="auto_check_update">Автоматически проверять наличие обновлений</string>
     <string name="auto_check_update_summary">Автоматически проверять наличие обновлений при открытии главной страницы модуля</string>
     <string name="tile_auto_start">Разрешить автоматический запуск встроенных плиток</string>
-    <string name="tile_auto_start_summary">Когда номер версии модуля на стороне хоста соответствует номеру версии локального модуля, включите эту функцию, функция открытых плиток будет автоматически запущена после разблокировки экрана. Если триггер не работает, перезапустите область и проверьте права root.</string>
+    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
     <string name="read_agreement">Вам нужно прочитать и согласиться со следующим содержимым, прежде чем использовать этот модуль</string>
     <string name="clear_all_data">Удалить все данные</string>
     <string name="clear_all_data_summary">Очистить все функциональные данные в модуле</string>
