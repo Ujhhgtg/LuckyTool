@@ -3248,7 +3248,6 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_welfare_page)
                 key = "remove_welfare_page"
                 setDefaultValue(false)
-                isVisible = appSet[1].toIntOrNull()?.let { it < 90000000 } ?: false
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
