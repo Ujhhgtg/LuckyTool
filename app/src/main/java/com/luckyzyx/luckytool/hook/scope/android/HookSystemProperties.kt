@@ -16,32 +16,45 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                 after {
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
-                    val value = props[key]
-                    if (value != null && value is String) result = value
+                    when (val value = props[key]) {
+                        null -> return@after
+                        is Boolean -> result = value.toString()
+                        is String -> result = value
+                    }
                 }
             }
             method { name = "getBoolean";returnType = BooleanType }.hook {
                 after {
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
-                    val value = props[key]
-                    if (value != null && value is Boolean) result = value
+                    when (val value = props[key]) {
+                        null -> return@after
+                        "true" -> resultTrue()
+                        "false" -> resultFalse()
+                        is Boolean -> result = value
+                    }
                 }
             }
             method { name = "getInt";returnType = IntType }.hook {
                 after {
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
-                    val value = props[key]
-                    if (value != null && value is Int) result = value
+                    when (val value = props[key]) {
+                        null -> return@after
+                        is Long -> result = value.toInt()
+                        is Int -> result = value
+                    }
                 }
             }
             method { name = "getLong";returnType = LongType }.hook {
                 after {
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after
-                    val value = props[key]
-                    if (value != null && value is Long) result = value
+                    when (val value = props[key]) {
+                        null -> return@after
+                        is Int -> result = value.toLong()
+                        is Long -> result = value
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.xposed.bridge.event.YukiXposedEvent
 import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
 import com.luckyzyx.luckytool.hook.hooker.HookAndroid
+import com.luckyzyx.luckytool.hook.hooker.HookAtlasService
 import com.luckyzyx.luckytool.hook.hooker.HookAutoStart
 import com.luckyzyx.luckytool.hook.hooker.HookBattery
 import com.luckyzyx.luckytool.hook.hooker.HookBrowser
@@ -45,6 +46,7 @@ import com.luckyzyx.luckytool.hook.hooker.HookScreenshot
 import com.luckyzyx.luckytool.hook.hooker.HookSecurePay
 import com.luckyzyx.luckytool.hook.hooker.HookSettings
 import com.luckyzyx.luckytool.hook.hooker.HookSmartSidebar
+import com.luckyzyx.luckytool.hook.hooker.HookSoundRecorder
 import com.luckyzyx.luckytool.hook.hooker.HookStatusBar
 import com.luckyzyx.luckytool.hook.hooker.HookThemeStore
 import com.luckyzyx.luckytool.hook.hooker.HookUIEngine
@@ -202,6 +204,10 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.coloros.securepay", HookSecurePay)
         //应用分身
         loadApp("com.oplus.multiapp", HookMultiApp)
+        //录音
+        loadApp("com.coloros.soundrecorder", HookSoundRecorder)
+        //atlasService
+        loadApp("com.oplus.atlas", HookAtlasService)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

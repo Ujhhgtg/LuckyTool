@@ -23,7 +23,7 @@
     <string name="auto_check_update">Tự động kiểm tra cập nhật</string>
     <string name="auto_check_update_summary">Tự động kiểm tra cập nhật khi mở trang chủ module</string>
     <string name="tile_auto_start">Cho phép các ô tích hợp tự động bắt đầu</string>
-    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
+    <string name="tile_auto_start_summary">Chức năng ô đã bật sẽ tự động được kích hoạt sau khi màn hình được mở khóa\nNếu kích hoạt không thành công, vui lòng khởi động lại phạm vi và kiểm tra quyền Root</string>
     <string name="read_agreement">Bạn cần đọc và đồng ý với các nội dung sau trước khi có thể sử dụng mô-đun này</string>
     <string name="clear_all_data">Xóa tất cả dữ liệu</string>
     <string name="clear_all_data_summary">Xóa tất cả dữ liệu chức năng trong mô-đun</string>
@@ -668,6 +668,9 @@
     <string name="unlock_transfer_dock">Mở khóa di chuyển thanh dock</string>
     <string name="unlock_recent_files">Mở khóa các tập tin gần đây</string>
     <string name="unlock_fluid_cloud">Bỏ chặn đám mây</string>
+    <!--OplusSoundRecorder-->
+    <string name="enable_record_calls_on_third_party_apps">Enable record calls on third-party apps</string>
+    <string name="enable_record_calls_on_third_party_apps_tips">Prerequisite: \"Three-party application call recording (com.oplus.audiomonitor)\" needs to be installed, and microphone permissions and background behavior permissions</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>

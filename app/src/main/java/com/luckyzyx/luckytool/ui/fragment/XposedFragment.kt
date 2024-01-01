@@ -28,6 +28,7 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.arraySummaryDot
@@ -579,6 +580,23 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusPhoneManager, title)
+                    true
+                }
+            },
+            //SoundRecorder
+            Preference(context).apply {
+                key = "com.coloros.soundrecorder"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.enable_record_calls_on_third_party_apps)
+                )
+                isVisible = SDK >= A14 && context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusSoundRecorder, title)
                     true
                 }
             },

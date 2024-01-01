@@ -668,6 +668,9 @@
     <string name="unlock_transfer_dock">Unlock transfer dock</string>
     <string name="unlock_recent_files">Unlock recent files</string>
     <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>
+    <!--OplusSoundRecorder-->
+    <string name="enable_record_calls_on_third_party_apps">Enable record calls on third-party apps</string>
+    <string name="enable_record_calls_on_third_party_apps_tips">Prerequisite: \"Three-party application call recording (com.oplus.audiomonitor)\" needs to be installed, and microphone permissions and background behavior permissions</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

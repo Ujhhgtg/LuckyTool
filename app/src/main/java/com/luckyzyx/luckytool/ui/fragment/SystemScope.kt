@@ -3682,6 +3682,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //音量键手电筒
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_volume_key_control_flashlight)
                 summary = getString(R.string.need_restart_system)
@@ -3690,7 +3691,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 isVisible = getOSVersionCode >= 27
                 isIconSpaceReserved = false
             })
-
+            //隔空手势
             if (SDK >= A13) {
                 addPreference(PreferenceCategory(context).apply {
                     title = getString(R.string.AonGesture)
@@ -3750,7 +3751,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     }
                 })
             }
-
+            //全面屏手势
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.FullScreenGestureRelated)
                 key = "FullScreenGestureRelated"
@@ -3774,7 +3775,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-
+            //自定义侧滑条图标
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CustomSideSliderIcon)
                 key = "CustomSideSliderIcon"
@@ -3994,6 +3995,30 @@ class OplusPhoneManager : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_secure_pay_found_virus_dialog)
                 key = "remove_secure_pay_found_virus_dialog"
                 setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}
+
+class OplusSoundRecorder : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.coloros.soundrecorder", "com.oplus.atlas")
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_record_calls_on_third_party_apps)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system),
+                    getString(R.string.enable_record_calls_on_third_party_apps_tips)
+                )
+                key = "enable_record_calls_on_third_party_apps"
+                setDefaultValue(false)
+                isEnabled = context.checkPackName("com.oplus.audiomonitor") &&
+                        context.checkPackName("com.oplus.atlas")
+                isVisible = SDK >= A14 && isZh(context)
                 isIconSpaceReserved = false
             })
         }
