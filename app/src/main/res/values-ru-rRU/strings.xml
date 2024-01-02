@@ -487,15 +487,16 @@
     <string name="force_enable_systemui_blur_feature_tips">Уловие: Вам необходимо включить опцию \"Включить функцию размытия в системе\"\nРасположение функции: Разное</string>
     <string name="show_manual_lock_button_power_menu">Показывать ручную кнопку блокировки в меню питания</string>
     <!--Battery-->
+    <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
+    <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
+    <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
+    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
     <string name="remove_battery_temperature_control">Убрать управление температурой батареи</string>
     <string name="remove_battery_temperature_control_summary">Удалить ограничение, что различные функции не могут быть использованы, например: камера, фонарик, точка доступа, механизм отображения экрана и т.д.</string>
     <string name="BatteryOptimization">Оптимизация батареи</string>
     <string name="restore_default_battery_optimization_whitelist">Восстановить белый список оптимизации батареи по умолчанию</string>
     <string name="disable_customize_battery_optimization_whiteList">Отключить белый список оптимизации батареи</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">Если приложению вручную предоставлено разрешение \"Игнорировать оптимизацию батареи\", после включения этой функции приложение не будет автоматически добавлено в белый список оптимизации батареи</string>
-    <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
-    <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
-    <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
     <!--Settings-->
     <string name="settings_connection_sharing">Подключение и поделиться</string>
     <string name="force_display_multi_screen_connect">Принудительное отображение мультиэкранного подключения</string>
@@ -670,8 +671,8 @@
     <string name="unlock_recent_files">Разблокировать последние файлы</string>
     <string name="unlock_fluid_cloud">Разблокировать облако</string>
     <!--OplusSoundRecorder-->
-    <string name="enable_record_calls_on_third_party_apps">Enable record calls on third-party apps</string>
-    <string name="enable_record_calls_on_third_party_apps_tips">Prerequisite: \"Three-party application call recording (com.oplus.audiomonitor)\" needs to be installed, and microphone permissions and background behavior permissions</string>
+    <string name="enable_record_calls_on_third_party_apps">Включить запись звонков в сторонних приложениях</string>
+    <string name="enable_record_calls_on_third_party_apps_tips">Предварительное условие: Необходимо установить \"Запись вызовов в сторонних приложениях (com.oplus.audiomonitor)\", а также дать разрешения на микрофон и работу в фоне</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

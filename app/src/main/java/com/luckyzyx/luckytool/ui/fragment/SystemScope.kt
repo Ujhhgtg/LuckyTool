@@ -3017,6 +3017,13 @@ class Battery : BaseScopePreferenceFeagment() {
                 })
             }
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_stop_charging_at_80)
+                key = "enable_stop_charging_at_80"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.open_screen_power_save)
                 summary = getString(R.string.open_screen_power_save_summary)
                 key = "open_screen_power_save"

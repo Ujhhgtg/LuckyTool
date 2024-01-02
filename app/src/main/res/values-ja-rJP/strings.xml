@@ -486,15 +486,16 @@
     <string name="force_enable_systemui_blur_feature_tips">有効にする前に「システム UI のぼかし機能を強制的に有効化」オプションをオンにする必要があります。\nオプションは「その他」のページにあります。</string>
     <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     <!--Battery-->
+    <string name="display_module_calculates_battery_health_data">バッテリーの健康データを計算して表示</string>
+    <string name="display_module_calculates_battery_health_data_summary">オンにすると、モジュールにより算出された健康データがシステムデータの下に表示されます</string>
+    <string name="display_module_calculates_battery_health_data_tips">算出された最大容量</string>
+    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
     <string name="remove_battery_temperature_control">バッテリー温度制御を削除</string>
     <string name="remove_battery_temperature_control_summary">高温によりカメラ、ライト、ホットスポット、ビデオ拡張エンジンなど各種機能が使用できなくなる制限を無効化します</string>
     <string name="BatteryOptimization">バッテリーの最適化</string>
     <string name="restore_default_battery_optimization_whitelist">デフォルトのバッテリー最適化ホワイトリストを復元します</string>
     <string name="disable_customize_battery_optimization_whiteList">カスタムバッテリー最適化ホワイトリストを無効にする</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">ユーザーによって「バッテリーの最適化を無視」権限がアプリに許可されている場合、 この機能を有効にすると自動的にアプリがバッテリー最適化ホワイトリストに追加されなくなります。</string>
-    <string name="display_module_calculates_battery_health_data">バッテリーの健康データを計算して表示</string>
-    <string name="display_module_calculates_battery_health_data_summary">オンにすると、モジュールにより算出された健康データがシステムデータの下に表示されます</string>
-    <string name="display_module_calculates_battery_health_data_tips">算出された最大容量</string>
     <!--Settings-->
     <string name="settings_connection_sharing">Connection and share</string>
     <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>

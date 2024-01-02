@@ -486,15 +486,16 @@
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>
     <string name="show_manual_lock_button_power_menu">Menu nguồn hiển thị nút khóa thủ công</string>
     <!--Battery-->
+    <string name="display_module_calculates_battery_health_data">Mô-đun hiển thị tính toán dữ liệu sức khỏe</string>
+    <string name="display_module_calculates_battery_health_data_summary">Khi được bật, dữ liệu sức khỏe do mô-đun tính toán sẽ hiển thị bên dưới dữ liệu hệ thống.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Năng lực tính toán</string>
+    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
     <string name="remove_battery_temperature_control">Loại bỏ kiểm soát nhiệt độ pin</string>
     <string name="remove_battery_temperature_control_summary">Loại bỏ các hạn chế ngăn cản việc sử dụng một số chức năng, chẳng hạn như máy ảnh, đèn pin, điểm phát sóng, công cụ hiển thị màn hình, v.v.</string>
     <string name="BatteryOptimization">Tối ưu hóa pin</string>
     <string name="restore_default_battery_optimization_whitelist">Ngăn chặn sự khôi phục của danh sách trắng tối ưu hoá pin</string>
     <string name="disable_customize_battery_optimization_whiteList">Ngăn chặn sự khôi phục của danh sách trắng tối ưu hoá pin</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">Nếu người dùng cấp quyền `bỏ qua tối ưu hóa pin` cho ứng dụng theo cách thủ công, thì sau khi bật chức năng này, ứng dụng sẽ không tự động được thêm vào danh sách cho phép tối ưu hóa pin</string>
-    <string name="display_module_calculates_battery_health_data">Mô-đun hiển thị tính toán dữ liệu sức khỏe</string>
-    <string name="display_module_calculates_battery_health_data_summary">Khi được bật, dữ liệu sức khỏe do mô-đun tính toán sẽ hiển thị bên dưới dữ liệu hệ thống.</string>
-    <string name="display_module_calculates_battery_health_data_tips">Năng lực tính toán</string>
     <!--Settings-->
     <string name="settings_connection_sharing">Kết nối và chia sẻ</string>
     <string name="force_display_multi_screen_connect">Buộc hiển thị kết nối nhiều màn hình</string>
@@ -669,8 +670,8 @@
     <string name="unlock_recent_files">Mở khóa các tập tin gần đây</string>
     <string name="unlock_fluid_cloud">Bỏ chặn đám mây</string>
     <!--OplusSoundRecorder-->
-    <string name="enable_record_calls_on_third_party_apps">Enable record calls on third-party apps</string>
-    <string name="enable_record_calls_on_third_party_apps_tips">Prerequisite: \"Three-party application call recording (com.oplus.audiomonitor)\" needs to be installed, and microphone permissions and background behavior permissions</string>
+    <string name="enable_record_calls_on_third_party_apps">Bật ghi âm cuộc gọi cho các ứng dụng của bên thứ ba</string>
+    <string name="enable_record_calls_on_third_party_apps_tips">Điều kiện tiên quyết: Cần phải cài đặt \"Ghi âm cuộc gọi của ứng dụng ba bên (com.oplus.audiomonitor)\" và phải được cấp quyền micrô cũng như toàn bộ quyền hoạt động ở chế độ nền</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>

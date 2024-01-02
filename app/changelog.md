@@ -9,6 +9,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [优化] 系统界面部分功能Hook逻辑
 - [添加] 通话隐私保护 C14
 - [添加] 启用三方应用通话录音 C14
+- [添加] 电池-充电至80% C13+
 
 ### 1.1.7
 

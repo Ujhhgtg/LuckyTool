@@ -486,15 +486,16 @@
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
     <string name="show_manual_lock_button_power_menu">Zobrazit tlačítko manuálního zámku v menu napájení</string>
     <!--Battery-->
+    <string name="display_module_calculates_battery_health_data">Zobrazit výpočet údajů o stavu baterie</string>
+    <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
+    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
     <string name="remove_battery_temperature_control">Odebrat kontrolu teploty baterie</string>
     <string name="remove_battery_temperature_control_summary">Odstranit omezení, kvůli kterým nelze použít různé funkce, například: fotoaparát, svítilna, hotspot, displej atd.</string>
     <string name="BatteryOptimization">Optimalizace baterie</string>
     <string name="restore_default_battery_optimization_whitelist">Obnovit výchozí optimalizaci baterie v seznamu povolených</string>
     <string name="disable_customize_battery_optimization_whiteList">Zakázat vlastní seznam optimalizovaných aplikací baterie</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">Pokud uživatel aplikaci ručně udělil oprávnění `ignorovat optimalizaci baterie`, nebude aplikace po zapnutí této funkce automaticky přidána na seznam povolených aplikací optimalizace baterie</string>
-    <string name="display_module_calculates_battery_health_data">Zobrazit výpočet údajů o stavu baterie</string>
-    <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
-    <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
     <!--Settings-->
     <string name="settings_connection_sharing">Připojení a sdílení</string>
     <string name="force_display_multi_screen_connect">Vynutit zobrazení připojení více obrazovek (multi-screen connect)</string>

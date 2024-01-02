@@ -72,7 +72,6 @@ class AutoStartControllerService : Service() {
                 }
             }
             if (command.isNotEmpty()) ShellUtils.execCommand(command, true)
-        }.finally {
             stopForeground(STOP_FOREGROUND_REMOVE)
         }
         return super.onStartCommand(intent, flags, startId)

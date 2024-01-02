@@ -57,6 +57,10 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("open_battery_health", false)) {
                 put("os.charge.settings.batterysettings.batteryhealth", true)
             }
+            //Source Battery 充电至80%
+            if (prefs(ModulePrefs).getBoolean("enable_stop_charging_at_80", false)) {
+                put("com.oplus.battery.one_key_power_save", true)
+            }
         }
         loadHooker(HookAppFeatureProvider(dexKitBridge, list))
     }

@@ -486,15 +486,16 @@
     <string name="force_enable_systemui_blur_feature_tips">Preconditions: You need to turn on the option to “force enable the blur feature of the systemui”\nFunctional location: Miscellaneous</string>
     <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     <!--Battery-->
+    <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
+    <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
+    <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
+    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
     <string name="remove_battery_temperature_control">Remove battery temperature control</string>
     <string name="remove_battery_temperature_control_summary">Remove the limitation that various functions cannot be used,For example: camera, flashlight, hotspot, screen display engine, etc.</string>
     <string name="BatteryOptimization">Оптимізація батареї</string>
     <string name="restore_default_battery_optimization_whitelist">Відновити білий список оптимізації батареї за замовчуванням</string>
     <string name="disable_customize_battery_optimization_whiteList">Вимкнути білий список оптимізації батареї</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">Якщо додатку вручну надано дозвіл \"Ігнорувати оптимізацію батареї\", після включення цієї функції програма не буде автоматично додана до білого списку оптимізації батареї</string>
-    <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
-    <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
-    <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
     <!--Settings-->
     <string name="settings_connection_sharing">Connection and share</string>
     <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
