@@ -302,8 +302,13 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else ""
 
         val sp = if (isSimple) "$level%" else "$status: $level%"
-        val ct = if (isSimple) "$plugged $chargerType"
-        else "${typeStr}: $plugged $chargerType"
+        val ct = if (isSimple) {
+            if (isWireless) plugged
+            else "$plugged $chargerType"
+        } else {
+            if (isWireless) "${typeStr}: $plugged"
+            else "${typeStr}: $plugged $chargerType"
+        }
         val pwr = if (isSimple) power
         else "${pwrStr}: $power"
         val tech = if (isSimple) "$technology $wattage"
