@@ -3,6 +3,8 @@
 package com.luckyzyx.luckytool.utils
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.ComponentName
@@ -11,6 +13,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED
@@ -87,8 +90,10 @@ import kotlin.system.exitProcess
  */
 @Suppress("DEPRECATION")
 fun Context.getAppCommit(packName: String): String? {
-    val commitInfo = PackageUtils(packageManager).getApplicationInfo(packName, 128)
-    return safeOfNull { commitInfo.metaData.get("versionCommit").toString() }
+    val appInfo = PackageUtils(packageManager).getApplicationInfo(
+        packName, PackageManager.GET_META_DATA
+    )
+    return safeOfNull { appInfo?.metaData?.get("versionCommit").toString() }
 }
 
 /**
@@ -101,17 +106,18 @@ fun Context.getAppVersion(packName: String, save: Boolean = true): ArrayList<Str
     safeOf(ArrayList()) {
         val arrayList = ArrayList<String>()
         val arraySet = ArraySet<String>()
-        val packageInfo = PackageUtils(packageManager).getPackageInfo(packName, 0)
-        val applicationInfo = PackageUtils(packageManager).getApplicationInfo(packName, 128)
-        val commitData = applicationInfo.metaData
-        val versionName = safeOf("null") { packageInfo.versionName.toString() }
+        val packageInfo = PackageUtils(packageManager).getPackageInfo(
+            packName, PackageManager.GET_META_DATA
+        ) ?: return@safeOf ArrayList()
+        val commitData = packageInfo.applicationInfo?.metaData
+        val versionName = packageInfo.versionName ?: "null"
         arrayList.add(versionName)
         arraySet.add("name|$versionName")
-        val versionCode = safeOf("null") { packageInfo.longVersionCode.toString() }
+        val versionCode = packageInfo.longVersionCode.toString()
         arrayList.add(versionCode)
         arraySet.add("code|$versionCode")
-        val versionCommit = safeOf("null") { commitData.get("versionCommit").toString() }
-        val versionDate = safeOf("null") { commitData.get("versionDate").toString() }
+        val versionCommit = commitData?.get("versionCommit").toString()
+        val versionDate = commitData?.get("versionDate").toString()
         //Fix the camera's commit is empty
         val commit = versionCommit.ifBlank { versionDate.ifBlank { "null" } }
         arrayList.add(commit)
@@ -172,9 +178,8 @@ fun Context.getDeviceInfo(
  * @param packName String
  * @return Boolean
  */
-@Suppress("SENSELESS_COMPARISON")
-fun Context.checkPackName(packName: String) = safeOfFalse {
-    PackageUtils(packageManager).getPackageInfo(packName, 0) != null
+fun Context.checkPackName(packName: String): Boolean {
+    return PackageUtils(packageManager).getPackageInfo(packName, 0) != null
 }
 
 /**
@@ -184,7 +189,7 @@ fun Context.checkPackName(packName: String) = safeOfFalse {
  * @return Drawable?
  */
 fun Context.getAppIcon(packName: String): Drawable? = safeOfNull {
-    return PackageUtils(packageManager).getApplicationInfo(packName, 0).loadIcon(packageManager)
+    return PackageUtils(packageManager).getApplicationInfo(packName, 0)?.loadIcon(packageManager)
 }
 
 /**
@@ -193,8 +198,8 @@ fun Context.getAppIcon(packName: String): Drawable? = safeOfNull {
  * @param packName String
  * @return String?
  */
-fun Context.getAppVersionName(packName: String): String? = safeOfNull {
-    return PackageUtils(packageManager).getPackageInfo(packName, 0).versionName
+fun Context.getAppVersionName(packName: String): String? {
+    return PackageUtils(packageManager).getPackageInfo(packName, 0)?.versionName
 }
 
 /**
@@ -203,8 +208,8 @@ fun Context.getAppVersionName(packName: String): String? = safeOfNull {
  * @param packName String
  * @return Long?
  */
-fun Context.getAppVersionCode(packName: String): Long? = safeOfNull {
-    return PackageUtils(packageManager).getPackageInfo(packName, 0).longVersionCode
+fun Context.getAppVersionCode(packName: String): Long? {
+    return PackageUtils(packageManager).getPackageInfo(packName, 0)?.longVersionCode
 }
 
 /**
@@ -224,7 +229,7 @@ fun Context.getAppLabel(packName: String): CharSequence {
  * @return CharSequence?
  */
 fun Context.getAppLabelOrNull(packName: String): CharSequence? = safeOfNull {
-    return PackageUtils(packageManager).getApplicationInfo(packName, 0).loadLabel(packageManager)
+    return PackageUtils(packageManager).getApplicationInfo(packName, 0)?.loadLabel(packageManager)
 }
 
 /**
@@ -384,7 +389,8 @@ val getGuid: String
 val getRecruit: String
     get() = ShellUtils.execCommand(
         "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | grep ota_register_trigger_id | cut -f2 -d '>' | cut -f1 -d '<'",
-        true, true
+        true,
+        true
     ).let {
         if (it.result == 0 && it.successMsg.isNullOrBlank().not()) it.successMsg else "null"
     }
@@ -413,17 +419,18 @@ fun getProp(key: String, root: Boolean): String = safeOf("null") {
  * 打开空活动以关闭折叠面板
  * @receiver TileService
  */
-@SuppressLint("StartActivityAndCollapseDeprecated")
 @Suppress("DEPRECATION")
+@SuppressLint("NewApi", "StartActivityAndCollapseDeprecated")
 fun TileService.closeCollapse() {
-    try {
-        Intent(Intent.ACTION_VIEW).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivityAndCollapse(this)
-        }
-    } catch (_: UnsupportedOperationException) {
-
-    }
+    if (SDK >= A14) startActivityAndCollapse(
+        PendingIntent.getActivity(
+            this, 0,
+            Intent(Intent.ACTION_VIEW), PendingIntent.FLAG_UPDATE_CURRENT
+        )
+    )
+    else startActivityAndCollapse(Intent(Intent.ACTION_VIEW).apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    })
 }
 
 /**
@@ -431,16 +438,14 @@ fun TileService.closeCollapse() {
  * @param context Context
  */
 fun jumpEngineermode(context: Context) {
-    val packName = when {
-        context.checkPackName("com.oppo.engineermode") -> "com.oppo.engineermode"
-        context.checkPackName("com.oplus.engineermode") -> "com.oplus.engineermode"
-        else -> return
-    }
+    val packInfo = PackageUtils(context.packageManager).getInstalledPackages(0)
+        .find { it.packageName.contains("engineermode") } ?: return
+    val packName = packInfo.packageName
     val isMain = context.checkResolveActivity(
         Intent().setClassName(packName, "${packName}.EngineerModeMain")
     )
     val activity = if (isMain) "EngineerModeMain" else "aftersale.AfterSalePage"
-    ShellUtils.execCommand("am start -n $packName/.$activity", true)
+    ShellUtils.execCommand("am start -n ${packName}/.$activity", true)
 }
 
 /**
@@ -448,22 +453,56 @@ fun jumpEngineermode(context: Context) {
  * @param context Context
  */
 fun jumpBatteryInfo(context: Context) {
-    val packName = when {
-        context.checkPackName("com.oppo.engineermode") -> "com.oppo.engineermode"
-        context.checkPackName("com.oplus.engineermode") -> "com.oplus.engineermode"
-        else -> return
-    }
-    val containerV14 = "$packName.entrance.EngineerFragmentContainer"
-    val containerV13 = "$packName.core.sdk.entrance.EngineerFragmentContainer"
+    val packInfo = PackageUtils(context.packageManager).getInstalledPackages(
+        PackageManager.GET_ACTIVITIES
+    ).find { it.packageName.contains("engineermode") } ?: return
+    val packName = packInfo.packageName
+    val activity = packInfo.activities.find {
+        it.name.contains("EngineerFragmentContainer")
+    }?.name
     val chargeTestClazz = "$packName.aftersale.manualtest.ASChargeTestFragmentCompat"
-    if (context.checkResolveActivity(packName, containerV14)) ShellUtils.execCommand(
-        "am start -n $packName/$containerV14 -e fragment $chargeTestClazz",
-        true
+    if (activity == null) LogUtils.e(
+        null, "jumpBatteryInfo", "EngineerFragmentContainer is null", true
+    ) else ShellUtils.execCommand(
+        "am start -n $packName/$activity -e fragment $chargeTestClazz", true
     )
-    if (context.checkResolveActivity(packName, containerV13)) ShellUtils.execCommand(
-        "am start -n $packName/$containerV13 -e fragment $chargeTestClazz",
-        true
-    )
+}
+
+/**
+ * 跳转到设置开发者选项页面
+ * @param context Context
+ */
+fun jumpSettingsDev(context: Context) {
+    try {
+        context.startActivity(Intent("com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS").apply {
+            setPackage("com.android.settings")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        })
+    } catch (e: ActivityNotFoundException) {
+        ShellUtils.execCommand(
+            "am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true
+        )
+    }
+}
+
+/**
+ * 跳转到系统界面调节工具
+ * @param context Context
+ */
+fun jumpSystemUIDemoMode(context: Context) {
+    try {
+        context.startActivity(Intent().apply {
+            setPackage("com.android.systemui")
+            setClassName("com.android.systemui", "com.android.systemui.DemoMode")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        })
+    } catch (e: ActivityNotFoundException) {
+        ShellUtils.execCommand(
+            "am start -n com.android.systemui/.DemoMode", true
+        )
+    }
 }
 
 /**
@@ -508,9 +547,13 @@ fun jumpOTA(context: Context) {
  */
 fun jumpPictorial(context: Context) {
     if (context.checkPackName("com.heytap.pictorial")) {
-        ShellUtils.execCommand(
-            "am start com.heytap.pictorial/.ui.SettingActivity", true
-        )
+        Intent(Intent.ACTION_MAIN).apply {
+            setPackage("com.heytap.pictorial")
+            setClassName("com.heytap.pictorial", "com.heytap.pictorial.ui.SettingActivity")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+            context.startActivity(this)
+        }
     }
 }
 
@@ -556,20 +599,16 @@ fun jumpBattery(context: Context) {
  * @param context Context
  */
 fun jumpRunningApp(context: Context) {
-    val oppoActivity = "com.coloros.settings.feature.process.RunningApplicationActivity"
-    val oplusActivity = "com.oplus.settings.feature.process.RunningApplicationActivity"
-    val activity = when {
-        context.checkResolveActivity(
-            Intent().setClassName("com.android.settings", oppoActivity)
-        ) -> oppoActivity
-
-        context.checkResolveActivity(
-            Intent().setClassName("com.android.settings", oplusActivity)
-        ) -> oplusActivity
-
-        else -> return
-    }
-    ShellUtils.execCommand("am start -n com.android.settings/$activity", true)
+    val packInfo = PackageUtils(context.packageManager).getPackageInfo(
+        "com.android.settings", PackageManager.GET_ACTIVITIES
+    ) ?: return
+    val activity = packInfo.activities.find {
+        it.name.contains("RunningApplicationActivity")
+    }?.name
+    if (activity == null) LogUtils.e(
+        null, "jumpRunningApp", "RunningApplicationActivity is null", true
+    )
+    else ShellUtils.execCommand("am start -n com.android.settings/$activity", true)
 }
 
 /**
@@ -609,8 +648,9 @@ fun Context.getComponentEnabled(component: ComponentName): Int? {
 val getFlashInfo
     get(): String = ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry", true, true)
         .let {
-            if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
-                formatSpace(it.successMsg.replaceSpace.uppercase())
+            if ((it.result == 0 && it.successMsg.isNullOrBlank()
+                    .not())
+            ) formatSpace(it.successMsg.replaceSpace.uppercase())
             else "null"
         }
 
@@ -621,8 +661,9 @@ val getLcdInfo: String
     get() : String = ShellUtils.execCommand(
         "cat /proc/devinfo/lcd | sed 's/^.*\t//g; s/$/\n/g; s/\n/ /g;'", true, true
     ).let {
-        if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
-            it.successMsg.replaceSpace.uppercase()
+        if ((it.result == 0 && it.successMsg.isNullOrBlank()
+                .not())
+        ) it.successMsg.replaceSpace.uppercase()
         else "null"
     }
 
@@ -633,8 +674,9 @@ val getPcbInfo: String
     get() : String = ShellUtils.execCommand(
         "echo \$(getprop gsm.serial)\$(getprop vendor.gsm.serial)", true, true
     ).let {
-        if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
-            it.successMsg.replaceSpace.uppercase()
+        if ((it.result == 0 && it.successMsg.isNullOrBlank()
+                .not())
+        ) it.successMsg.replaceSpace.uppercase()
         else "null"
     }
 
@@ -645,8 +687,9 @@ val getSnInfo: String
     get() : String = ShellUtils.execCommand(
         "getprop ro.serialno", true, true
     ).let {
-        if ((it.result == 0 && it.successMsg.isNullOrBlank().not()))
-            it.successMsg.replaceSpace.uppercase()
+        if ((it.result == 0 && it.successMsg.isNullOrBlank()
+                .not())
+        ) it.successMsg.replaceSpace.uppercase()
         else "null"
     }
 
@@ -661,7 +704,8 @@ val Float.dp: Float // [xxhdpi](360 -> 1080)
 
 val Int.dp: Int
     get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP, this.toFloat(),
+        android.util.TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
 
@@ -672,7 +716,8 @@ val Float.sp: Float // [xxhdpi](360 -> 1080)
 
 val Int.sp: Int
     get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_SP, this.toFloat(),
+        android.util.TypedValue.COMPLEX_UNIT_SP,
+        this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
 
@@ -947,8 +992,7 @@ fun getPackageAbsolutePath(
     packName: String, ignoreCase: Boolean = false
 ): ArrayMap<String, String> {
     ShellUtils.execCommand(
-        "pm list packages -f | grep $packName" + if (ignoreCase) " -i" else "",
-        true, true
+        "pm list packages -f | grep $packName" + if (ignoreCase) " -i" else "", true, true
     ).apply {
         return if (result == 0 && successMsg.isNullOrBlank().not()) {
             val map = ArrayMap<String, String>()
@@ -1278,8 +1322,9 @@ fun Context.zoomDrawable(drawable: Drawable, width: Int, height: Int): Drawable 
 }
 
 fun Context.checkVerify() = safeOf({ exitModule() }) {
-    val packInfo = PackageUtils(packageManager).getPackageInfo(BuildConfig.APPLICATION_ID, 0)
-    if (packInfo.packageName != packageName || packInfo.longVersionCode != getVersionCode.toLong() || packInfo.versionName != getVersionName) {
+    val packInfo =
+        PackageUtils(packageManager).getPackageInfo(BuildConfig.APPLICATION_ID, 0) ?: return@safeOf
+    if (packInfo.packageName != packageName || packInfo.versionName != getVersionName || packInfo.longVersionCode != getVersionCode.toLong()) {
         exitModule()
     }
 }

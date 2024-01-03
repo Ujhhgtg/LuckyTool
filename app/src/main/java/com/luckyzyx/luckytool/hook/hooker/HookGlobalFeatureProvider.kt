@@ -18,9 +18,7 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             val notifyImportance = prefs(ModulePrefs).getBoolean(
                 "enable_notification_importance_classification", false
             )
-            if (notifyImportance) {
-                put("com.android.systemui.origin_notification_behavior", true)
-            }
+            if (notifyImportance) put("com.android.systemui.origin_notification_behavior", true)
             //Source SystemUI OpAssistNavigationDialog 音量条位置
             when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {
                 "1" -> put("com.android.systemui.volume_and_power_key_in_right", false)
@@ -40,7 +38,8 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (processorDetail != "0") put("com.android.settings.processor_detail", true)
             //Source Settings com.android.settings.processor_detail_gen2
             if (processorDetail == "2") put("com.android.settings.processor_detail_gen2", true)
-            //Source Settings com.android.settings.ultimate_cleanup
+
+            //Source Settings 最近任务极致清理
             if (prefs(ModulePrefs).getBoolean("force_display_process_management", false)) {
                 put("com.android.settings.ultimate_cleanup", true)
             }

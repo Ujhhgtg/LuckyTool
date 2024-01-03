@@ -46,6 +46,8 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.jumpBatteryInfo
 import com.luckyzyx.luckytool.utils.jumpEngineermode
 import com.luckyzyx.luckytool.utils.jumpRunningApp
+import com.luckyzyx.luckytool.utils.jumpSettingsDev
+import com.luckyzyx.luckytool.utils.jumpSystemUIDemoMode
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
 
@@ -193,6 +195,7 @@ class OtherFragment : Fragment() {
 class SystemQuickEntry : ModulePreferenceFragment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //系统调试相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.SystemDebuggingRelated)
                 key = "SystemDebuggingRelated"
@@ -218,9 +221,7 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                 title = getString(R.string.developer_option)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true
-                    )
+                    jumpSettingsDev(context)
                     true
                 }
             })
@@ -233,7 +234,7 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true)
+                    jumpSystemUIDemoMode(context)
                     true
                 }
             })
@@ -254,6 +255,7 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                     true
                 }
             })
+            //隐藏页面相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.HidePageRelated)
                 key = "HidePageRelated"
@@ -277,14 +279,10 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    Intent().apply {
-                        setClassName(
-                            "com.android.settings",
-                            "com.android.settings.Settings\$ReduceBrightColorsSettingsActivity"
-                        )
+                    Intent("android.settings.REDUCE_BRIGHT_COLORS_SETTINGS").apply {
+                        setPackage("com.android.settings")
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-                        addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
                         startActivity(this)
                     }
                     true
@@ -313,7 +311,6 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                     Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).apply {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-                        addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
                         startActivity(this)
                     }
                     true
@@ -334,6 +331,7 @@ class SystemQuickEntry : ModulePreferenceFragment() {
                     true
                 }
             })
+            //游戏助手相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.GameAssistantRelated)
                 isVisible = context.checkPackName("com.oplus.games")

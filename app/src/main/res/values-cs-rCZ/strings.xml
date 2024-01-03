@@ -23,7 +23,7 @@
     <string name="auto_check_update">Automaticky vyhledávat aktualizace</string>
     <string name="auto_check_update_summary">Automaticky kontrolovat aktualizace při otevírání domovské stránky modulu</string>
     <string name="tile_auto_start">Povolit automatické spuštění vestavěných dlaždic rychlého nastavení</string>
-    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
+    <string name="tile_auto_start_summary">Povolené funkce dlaždic se automaticky aktivují po odemknutí obrazovky.\nPokud spuštění nefunguje, restartujte oblast a zkontrolujte oprávnění root</string>
     <string name="read_agreement">Před použitím tohoto modulu musíte přečíst a souhlasit s následujícím obsahem</string>
     <string name="clear_all_data">Vymazat všechna data</string>
     <string name="clear_all_data_summary">Vymazat všechna data funkcí v modulu</string>
@@ -489,7 +489,7 @@
     <string name="display_module_calculates_battery_health_data">Zobrazit výpočet údajů o stavu baterie</string>
     <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
     <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
-    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
+    <string name="enable_stop_charging_at_80">Povolit zastavení nabíjení na 80 %</string>
     <string name="remove_battery_temperature_control">Odebrat kontrolu teploty baterie</string>
     <string name="remove_battery_temperature_control_summary">Odstranit omezení, kvůli kterým nelze použít různé funkce, například: fotoaparát, svítilna, hotspot, displej atd.</string>
     <string name="BatteryOptimization">Optimalizace baterie</string>
@@ -524,7 +524,7 @@
     <string name="enable_clear_voice">Povolit vyčištění hlasu</string>
     <string name="enable_clear_voice_tips">Předpoklad: Správce telefonu musí být zaškrtnut</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
-    <string name="settings_other_advanced_settings">Additional Settings</string>
+    <string name="settings_other_advanced_settings">Další nastavení</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
@@ -644,7 +644,7 @@
     <string name="force_display_five_g_switch">Vynutit zobrazení přepínače 5G</string>
     <string name="force_display_preferred_network_type">Vynutit zobrazení preferovaného typu sítě</string>
     <string name="force_display_volte_calls">Vynutit zobrazení VoLTE volání</string>
-    <string name="enable_sound_sealed_call">Enable Sound-Sealed Call</string>
+    <string name="enable_sound_sealed_call">Zapnutí zvukově izolovaného hovoru</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">Odstranění reklam na spodní straně informačního toku o počasí</string>
     <string name="remove_ads_from_weather_page_summary">Vložením JS do stránky m.weathercn.com, aby se dosáhlo efektu blokování reklamy, se hodí funkce, které vyžadují prohlížeč, jako je počasí za posledních 15 dní, na které se přejde přes aplikaci počasí</string>
@@ -670,8 +670,8 @@
     <string name="unlock_recent_files">Odemknout nedávné soubory</string>
     <string name="unlock_fluid_cloud">Odemknout Fluid Cloud</string>
     <!--OplusSoundRecorder-->
-    <string name="enable_record_calls_on_third_party_apps">Enable record calls on third-party apps</string>
-    <string name="enable_record_calls_on_third_party_apps_tips">Prerequisite: \"Three-party application call recording (com.oplus.audiomonitor)\" needs to be installed, and microphone permissions and background behavior permissions</string>
+    <string name="enable_record_calls_on_third_party_apps">Povolit nahrávání hovorů v aplikacích třetích stran</string>
+    <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

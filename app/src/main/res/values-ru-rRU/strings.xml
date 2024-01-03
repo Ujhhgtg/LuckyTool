@@ -490,7 +490,7 @@
     <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
     <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
     <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
-    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
+    <string name="enable_stop_charging_at_80">Включить остановку зарядки при 80%</string>
     <string name="remove_battery_temperature_control">Убрать управление температурой батареи</string>
     <string name="remove_battery_temperature_control_summary">Удалить ограничение, что различные функции не могут быть использованы, например: камера, фонарик, точка доступа, механизм отображения экрана и т.д.</string>
     <string name="BatteryOptimization">Оптимизация батареи</string>
