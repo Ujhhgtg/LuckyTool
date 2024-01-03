@@ -93,53 +93,44 @@ fun formatFileSize(size: Float?): String {
 /**
  * 截取字符串中的数字
  */
-val CharSequence.filterNumber get() = this.replace("\\D".toRegex(), "")
+val String.filterNumber get() = replace("\\D".toRegex(), "")
 
 /**
- * 格式化字符串空格
+ * 替换字符串空格
  */
-val String.replaceSpace get() = this.replace(" ", "")
+val String.replaceSpace get() = replace(" ", "")
 
 /**
- * 格式化空白行
+ * 替换字符串空白行
  */
 val String.replaceBlankLine: String
     get() {
-        val listString = this.replaceSpace
+        val listString = replaceSpace
         if (listString.contains("\n").not()) return listString
-        val formatList = listString.split("\n").toMutableList().apply {
-            removeIf { it.isBlank() }
-        }
-        var finalString = ""
-        formatList.forEachIndexed { index, s ->
-            finalString += s
-            if (formatList.lastIndex != index) finalString += "\n"
-        }
-        return finalString
+        val formatList = listString.split("\n")
+        return formatStringAuto(formatList, "\n", false)
     }
 
-fun formatStringSpace(vararg info: String): String {
-    var str = ""
-    info.forEachIndexed { index, it ->
-        if (it != "\n") {
-            if (it.isBlank()) return@forEachIndexed
-            if (index > 0 && info[index - 1] != "\n") str += " "
-        }
-        str += it
+/**
+ * 格式化字符串自动添加文本
+ * @param formats List<String?> 要格式化的字符数组
+ * @param text String 要自动添加的文本
+ * @param allowNull Boolean 允许格式化空字符
+ * @param allowRepeat Boolean 允许重复添加文本
+ * @return String
+ */
+fun formatStringAuto(
+    formats: List<String?>, text: String,
+    allowNull: Boolean = true, allowRepeat: Boolean = true
+): String {
+    var finalText = ""
+    formats.forEachIndexed { index, str ->
+        if (allowNull.not() && str.isNullOrBlank()) return@forEachIndexed
+        finalText += str
+        if (allowRepeat.not() && str == text) return@forEachIndexed
+        if (index != formats.lastIndex) finalText += text
     }
-    return str
-}
-
-fun formatStringLine(vararg info: String): String {
-    var str = ""
-    info.forEachIndexed { index, it ->
-        if (it != "\n") {
-            if (it.isBlank()) return@forEachIndexed
-            if (index > 0 && info[index - 1] != "\n") str += "\n"
-        }
-        str += it
-    }
-    return str
+    return finalText
 }
 
 /**

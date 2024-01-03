@@ -795,32 +795,20 @@ fun Preference.fixIconSize(icon: Drawable?): Drawable? {
 
 /**
  * 格式化Summary添加逗号
- * @param string Array<out String>
+ * @param string Array<out String?>
  * @return String
  */
 fun arraySummaryDot(vararg string: String?): String {
-    var res = ""
-    string.forEachIndexed { index, s ->
-        if (s.isNullOrBlank()) return@forEachIndexed
-        res += s
-        if (index != string.lastIndex) res += ","
-    }
-    return res
+    return formatStringAuto(string.toList(), ",", false)
 }
 
 /**
  * 格式化Summary添加换行
- * @param string Array<out String>
+ * @param string Array<out String?>
  * @return String
  */
 fun arraySummaryLine(vararg string: String?): String {
-    var res = ""
-    string.forEachIndexed { index, s ->
-        if (s.isNullOrBlank()) return@forEachIndexed
-        res += s
-        if (index != string.lastIndex) res += "\n"
-    }
-    return res
+    return formatStringAuto(string.toList(), "\n", false)
 }
 
 /**

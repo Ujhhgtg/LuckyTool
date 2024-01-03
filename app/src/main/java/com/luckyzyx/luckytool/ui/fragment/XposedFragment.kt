@@ -37,6 +37,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.fixIconSize
+import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getAppLabel
 import com.luckyzyx.luckytool.utils.getAppVersion
 import com.luckyzyx.luckytool.utils.navigatePage
@@ -668,19 +669,24 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
 
     private fun Context.bottomSheet() {
         scopeLife {
+            val list = ArrayList<String>()
             val xposedScope = resources.getStringArray(R.array.xposed_scope)
             Arrays.sort(xposedScope)
-            var str = getString(R.string.scope_version_info)
+            val str = getString(R.string.scope_version_info)
+            list.add(str)
+            list.add("")
             xposedScope.forEach {
                 val arrayList = getAppVersion(it)
                 if (arrayList.isEmpty()) return@forEach
-                str += "\n\n${getAppLabel(it)} - $it - ${arrayList[0]}(${arrayList[1]})[${arrayList[2]}]"
+                list.add("${getAppLabel(it)} $it")
+                list.add("${arrayList[0]}(${arrayList[1]})[${arrayList[2]}]")
+                list.add("")
             }
             val nestedScrollView = NestedScrollView(this@bottomSheet).apply {
                 setPadding(10.dp, 20.dp, 10.dp, 20.dp)
                 addView(TextView(context).apply {
                     textSize = 16F
-                    text = str
+                    text = formatStringAuto(list, "\n")
                 })
             }
             val bottomSheetDialog = BottomSheetDialog(this@bottomSheet)
