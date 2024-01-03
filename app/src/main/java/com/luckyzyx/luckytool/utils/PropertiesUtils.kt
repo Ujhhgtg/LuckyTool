@@ -21,16 +21,16 @@ fun Properties.getStringProperty(key: String, def: String? = ""): String? {
  * 读取Int
  * @receiver Properties
  * @param key String
- * @return Int 不存在或异常时返回-1
+ * @return Int 不存在或异常时返回0
  */
 fun Properties.getIntProperty(key: String): Int {
     val stringProperty = getStringProperty(key)
     return if (TextUtils.isEmpty(stringProperty)) {
-        -1
+        0
     } else try {
         stringProperty!!.trim { it <= ' ' }.toInt()
     } catch (e: Exception) {
-        -1
+        0
     }
 }
 

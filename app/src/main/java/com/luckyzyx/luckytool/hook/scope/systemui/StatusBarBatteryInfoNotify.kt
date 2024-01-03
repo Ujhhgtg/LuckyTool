@@ -9,7 +9,6 @@ import android.os.BatteryManager
 import android.util.TypedValue
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import androidx.core.os.EnvironmentCompat
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.log.YLog
@@ -23,14 +22,11 @@ import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatDouble
-import com.luckyzyx.luckytool.utils.formatStringLine
-import com.luckyzyx.luckytool.utils.formatStringSpace
 import com.luckyzyx.luckytool.utils.getBooleanProperty
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getStringProperty
 import com.luckyzyx.luckytool.utils.safeOf
 import java.io.StringReader
-import java.util.Locale
 import java.util.Properties
 import kotlin.math.abs
 
@@ -64,6 +60,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
 
     private var iChargerIns: Any? = null
     private lateinit var chargeInfo: Properties
+    private var isMTKPlatform: Boolean? = null
 
     //params
     private lateinit var displayMode: String
@@ -184,7 +181,13 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             else if (isParallelDual) chargeInfo.getIntProperty("sub_voltage") / 1000.0
             else 0.0
             chargerVoltage = chargeInfo.getIntProperty("battery_charge_now")
-            if (isMTKPlatformBoard == false) {
+            if (isMTKPlatform == null) {
+                val value = SystemPropertiesUtils(appClassLoader).get(
+                    "ro.board.platform", "unknown"
+                ) ?: "unknown"
+                isMTKPlatform = value.lowercase().startsWith("mt")
+            }
+            if (isMTKPlatform == false) {
                 voltage /= 1000.0
                 voltage2 /= 1000.0
             }
@@ -329,18 +332,18 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val wirePwr = if (isSimple) "${wirePwrCalc}W"
         else "${pwrStr}: ${wirePwrCalc}W"
 
-        val batteryInfo = if (isSimple) formatStringSpace(tem, vol, cur, power, health)
-        else formatStringSpace(tem, vol, cur, health)
-
+        val batteryInfo = if (isSimple) formatStringInfoSpace(tem, vol, cur, power, health)
+        else formatStringInfoSpace(tem, vol, cur, health)
         val chargeInfo = if (isCharging) {
             if (isSimple) {
-                if (isWireless) formatStringSpace(wireVol, wireCur, wirePwr, "\n", sp, tech)
-                else formatStringSpace(sp, ct, tech)
+                if (isWireless) formatStringInfoSpace(wireVol, wireCur, wirePwr, "\n", sp, tech)
+                else formatStringInfoSpace(sp, ct, tech)
             } else {
-                if (statusValue == 5) formatStringSpace(sp, tech)
+                if (statusValue == 5) formatStringInfoSpace(sp, tech)
                 else {
-                    if (isWireless) formatStringSpace(sp, wireVol, wireCur, wirePwr, "\n", ct, tech)
-                    else formatStringSpace(sp, ct, pwr, "\n", tech)
+                    if (isWireless) formatStringInfoSpace(
+                        sp, wireVol, wireCur, wirePwr, "\n", ct, tech
+                    ) else formatStringInfoSpace(sp, ct, pwr, "\n", tech)
                 }
             }
         } else ""
@@ -350,7 +353,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else ""
 
         val remoteViews = RemoteViews(packageName, R.layout.layout_battery_notify_view)
-        val info = formatStringLine(batteryInfo, chargeInfo, updateTime)
+        val info = formatStringInfoLine(batteryInfo, chargeInfo, updateTime)
         remoteViews.setTextViewText(R.id.battery_notify_tv, info)
         remoteViews.setTextViewTextSize(
             R.id.battery_notify_tv, TypedValue.COMPLEX_UNIT_SP, fontSize.toFloat()
@@ -381,16 +384,6 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         }
     }
 
-    private val isMTKPlatformBoard
-        get() = getMTKSystemProp("ro.board.platform", EnvironmentCompat.MEDIA_UNKNOWN)
-            ?.lowercase(Locale.US)?.startsWith("mt")
-
-    @Suppress("SameParameterValue")
-    private fun getMTKSystemProp(key: String, def: String): String? {
-        val value = SystemPropertiesUtils(appClassLoader).get(key, def)
-        return if (value?.isBlank() == true) def else value
-    }
-
     private fun getPlugType(properties: Properties): Int {
         if (properties.getBooleanProperty("chargerAcOnline")) {
             return 1
@@ -402,5 +395,19 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             return 4
         }
         return 0
+    }
+
+    private fun formatStringInfoSpace(vararg info: String) = formatStringInfo(info.toList(), " ")
+    private fun formatStringInfoLine(vararg info: String) = formatStringInfo(info.toList(), "\n")
+    private fun formatStringInfo(infos: List<String>, text: String): String {
+        var finalText = ""
+        infos.forEachIndexed { index, it ->
+            if (it != "\n") {
+                if (it.isBlank()) return@forEachIndexed
+                if (index > 0 && infos[index - 1] != "\n") finalText += text
+            }
+            finalText += it
+        }
+        return finalText
     }
 }

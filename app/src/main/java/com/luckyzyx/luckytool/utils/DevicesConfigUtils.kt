@@ -6,12 +6,14 @@ import java.io.File
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 object DevicesConfigUtils {
 
-    var deviceConfigFile: File? = null
+    private var deviceConfigFile: File? = null
+    private var deviceConfig: JSONObject? = null
 
     fun getConfigJson(): JSONObject? {
         val file = File("/odm/etc/devices_config/devices_config.json")
-        deviceConfigFile = if (file.exists()) file else null
-        return deviceConfigFile?.readText()?.let { JSONObject(it) }
+        if (deviceConfigFile == null) deviceConfigFile = if (file.exists()) file else null
+        if (deviceConfig == null) deviceConfigFile?.readText()?.let { JSONObject(it) }
+        return deviceConfig
     }
 
     fun getChargeConfig(): JSONObject? {
