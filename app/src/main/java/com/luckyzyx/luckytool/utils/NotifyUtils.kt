@@ -48,8 +48,7 @@ object NotifyUtils {
      */
     fun checkPermission(context: Context): Boolean {
         return ActivityCompat.checkSelfPermission(
-            context,
-            POST_NOTIFICATIONS
+            context, POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -106,20 +105,14 @@ object NotifyUtils {
         if (Build.VERSION.SDK_INT >= 33) {
             if (checkPermission(activity)) {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(
-                        activity,
-                        POST_NOTIFICATIONS
+                        activity, POST_NOTIFICATIONS
                     )
-                ) {
-                    enableNotification(activity)
-                } else {
-                    ActivityCompat.requestPermissions(activity, arrayOf(POST_NOTIFICATIONS), 100)
-                }
+                ) enableNotification(activity)
+                else ActivityCompat.requestPermissions(activity, arrayOf(POST_NOTIFICATIONS), 100)
             }
         } else {
             val enabled = NotificationManagerCompat.from(activity).areNotificationsEnabled()
-            if (!enabled) {
-                enableNotification(activity)
-            }
+            if (!enabled) enableNotification(activity)
         }
     }
 
