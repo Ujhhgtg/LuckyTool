@@ -11,19 +11,41 @@ import android.content.pm.ResolveInfo
 
 class PackageUtils(private val packageManager: PackageManager) {
 
-    fun getPackageInfo(packName: String, flag: Int): PackageInfo {
-        if (SDK < A13) return packageManager.getPackageInfo(packName, flag)
-        return packageManager.getPackageInfo(packName, PackageManager.PackageInfoFlags.of(flag.toLong()))
+    fun getPackageInfo(packName: String, flag: Int): PackageInfo? {
+        return try {
+            if (SDK < A13) packageManager.getPackageInfo(packName, flag)
+            else packageManager.getPackageInfo(
+                packName, PackageManager.PackageInfoFlags.of(flag.toLong())
+            )
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
     }
 
-    fun getPackageUid(packName: String, flag: Int): Int {
-        if (SDK < A13) return packageManager.getPackageUid(packName, flag)
-        return packageManager.getPackageUid(packName, PackageManager.PackageInfoFlags.of(flag.toLong()))
+    fun getNameForUid(uid: Int): String? {
+        return packageManager.getNameForUid(uid)
     }
 
-    fun getApplicationInfo(packName: String, flag: Int): ApplicationInfo {
-        if (SDK < A13) return packageManager.getApplicationInfo(packName, flag)
-        return packageManager.getApplicationInfo(packName, PackageManager.ApplicationInfoFlags.of(flag.toLong()))
+    fun getPackageUid(packName: String, flag: Int): Int? {
+        return try {
+            if (SDK < A13) packageManager.getPackageUid(packName, flag)
+            else packageManager.getPackageUid(
+                packName, PackageManager.PackageInfoFlags.of(flag.toLong())
+            )
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
+    fun getApplicationInfo(packName: String, flag: Int): ApplicationInfo? {
+        return try {
+            if (SDK < A13) packageManager.getApplicationInfo(packName, flag)
+            else packageManager.getApplicationInfo(
+                packName, PackageManager.ApplicationInfoFlags.of(flag.toLong())
+            )
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
     }
 
     fun getInstalledPackages(flag: Int): MutableList<PackageInfo> {
@@ -32,13 +54,13 @@ class PackageUtils(private val packageManager: PackageManager) {
     }
 
     fun getInstalledApplications(flag: Int): MutableList<ApplicationInfo> {
-        if (SDK < A13) return packageManager.getInstalledApplications(flag)
-        return packageManager.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(flag.toLong()))
+        return if (SDK < A13) packageManager.getInstalledApplications(flag)
+        else packageManager.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(flag.toLong()))
     }
 
     fun resolveActivity(intent: Intent, flag: Int): ResolveInfo? {
-        if (SDK < A13) return packageManager.resolveActivity(intent, flag)
-        return packageManager.resolveActivity(intent, ResolveInfoFlags.of(flag.toLong()))
+        return if (SDK < A13) packageManager.resolveActivity(intent, flag)
+        else packageManager.resolveActivity(intent, ResolveInfoFlags.of(flag.toLong()))
     }
 }
 
