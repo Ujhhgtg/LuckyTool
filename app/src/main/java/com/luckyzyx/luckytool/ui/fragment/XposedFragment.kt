@@ -21,7 +21,6 @@ import androidx.preference.Preference
 import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withMain
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
@@ -45,6 +44,7 @@ import com.luckyzyx.luckytool.utils.restartMain
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import com.luckyzyx.luckytool.utils.showBottomSheet
 import com.luckyzyx.luckytool.utils.toast
 import kotlinx.coroutines.Dispatchers
 import java.util.Arrays
@@ -663,11 +663,11 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == 1) (activity as MainActivity).restartMain()
-        if (menuItem.itemId == 2) requireActivity().bottomSheet()
+        if (menuItem.itemId == 2) requireActivity().showBottomDialog()
         return true
     }
 
-    private fun Context.bottomSheet() {
+    private fun Context.showBottomDialog() {
         scopeLife {
             val list = ArrayList<String>()
             val xposedScope = resources.getStringArray(R.array.xposed_scope)
@@ -682,16 +682,14 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 list.add("${arrayList[0]}(${arrayList[1]})[${arrayList[2]}]")
                 list.add("")
             }
-            val nestedScrollView = NestedScrollView(this@bottomSheet).apply {
+            val nestedScrollView = NestedScrollView(this@showBottomDialog).apply {
                 setPadding(10.dp, 20.dp, 10.dp, 20.dp)
                 addView(TextView(context).apply {
                     textSize = 16F
                     text = formatStringAuto(list, "\n")
                 })
             }
-            val bottomSheetDialog = BottomSheetDialog(this@bottomSheet)
-            bottomSheetDialog.setContentView(nestedScrollView)
-            bottomSheetDialog.show()
+            showBottomSheet(nestedScrollView)
         }
     }
 }

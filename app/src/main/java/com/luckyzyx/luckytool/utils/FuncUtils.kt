@@ -58,6 +58,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.dataChannel
@@ -1429,4 +1430,17 @@ fun Context.sendPrefsValue(packName: String, key: String, newValue: Any) {
 fun stringReverse(str: String): String {
     return str.toList().reversed().toString().replaceSpace.replace(",", "").replace("[", "")
         .replace("]", "")
+}
+
+/**
+ * 创建并显示BottomSheetDialog
+ * @receiver Context
+ * @param rootView View?
+ * @return BottomSheetDialog
+ */
+fun Context.showBottomSheet(rootView: View? = null): BottomSheetDialog {
+    return BottomSheetDialog(this).apply {
+        if (rootView != null) setContentView(rootView)
+        show()
+    }
 }

@@ -152,6 +152,7 @@ dependencies {
     implementation("io.noties.markwon:core:$markwonVersion")
     implementation("io.noties.markwon:html:$markwonVersion")
     implementation("io.noties.markwon:image:$markwonVersion")
+    implementation("io.noties.markwon:ext-tables:$markwonVersion")
 
     //StringFog
     compileOnly("com.github.megatronking.stringfog:xor:5.0.0")
