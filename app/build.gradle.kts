@@ -1,4 +1,4 @@
-import com.github.megatronking.stringfog.plugin.StringFogExtension
+
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -8,10 +8,9 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android") version "1.9.21"
-    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+    id("org.jetbrains.kotlin.android") version "1.9.22"
+    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
     id("com.joom.paranoid")
-    id("stringfog")
 }
 
 android {
@@ -118,14 +117,10 @@ dependencies {
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
-    //一个强大并且灵活的RecyclerViewAdapter
-//    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
     // 权限请求框架
     implementation("com.github.getActivity:XXPermissions:18.5")
     //崩溃日志显示
     implementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9")
-    //Rikka
-//    implementation "dev.rikka.rikkax.core:core:1.4.1"
     //kotlin协程
     val kotlinxCoroutinesVersion = "1.7.3"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinxCoroutinesVersion}")
@@ -134,8 +129,6 @@ dependencies {
     //noinspection GradleDependency
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.github.liangjingkanji:Net:3.6.2")
-    //Apache DigestUtils md5 sha256
-//    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
     //libsu
     val libsuVersion = "5.2.1"
     implementation("com.github.topjohnwu.libsu:core:${libsuVersion}")
@@ -153,17 +146,6 @@ dependencies {
     implementation("io.noties.markwon:html:$markwonVersion")
     implementation("io.noties.markwon:image:$markwonVersion")
     implementation("io.noties.markwon:ext-tables:$markwonVersion")
-
-    //StringFog
-    compileOnly("com.github.megatronking.stringfog:xor:5.0.0")
-}
-
-configure<StringFogExtension> {
-    implementation = "com.github.megatronking.stringfog.xor.StringFogImpl"
-    enable = false
-    fogPackages = arrayOf("com.luckyzyx.luckytool.ui")
-    kg = com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator()
-    mode = com.github.megatronking.stringfog.plugin.StringFogMode.base64
 }
 
 fun getVersionCode(): Int {

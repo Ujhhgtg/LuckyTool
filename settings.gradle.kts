@@ -9,8 +9,6 @@ pluginManagement {
         maven { setUrl("https://maven.aliyun.com/repository/public") }
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-        //python library
-        maven { setUrl("https://chaquo.com/maven") }
     }
 }
 dependencyResolutionManagement {
@@ -27,8 +25,6 @@ dependencyResolutionManagement {
         maven { setUrl("https://maven.aliyun.com/repository/public") }
         maven { setUrl("https://maven.aliyun.com/repository/google") }
         maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
-        //python library
-        maven { setUrl("https://chaquo.com/maven") }
     }
 }
 rootProject.name = "LuckyTool"
