@@ -80,7 +80,7 @@
                 android:resource="@array/xposed_scope" />
         
         <service
-                android:name=".service.ChargingTest"
+                android:name=".service.tiles.ChargingTestTile"
                 android:exported="true"
                 android:icon="@drawable/ic_baseline_charging_station_24"
                 android:label="@string/charging_test"
@@ -90,7 +90,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.ProcessManager"
+                android:name=".service.tiles.ProcessManagerTile"
                 android:exported="true"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:label="@string/process_manager"
@@ -100,7 +100,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.ShowFPS"
+                android:name=".service.tiles.RefreshRateDisplayTile"
                 android:exported="true"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:label="@string/display_refresh_rate"
@@ -110,7 +110,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.HighBrightness"
+                android:name=".service.tiles.HighBrightnessModeTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_brightness_high_24"
                 android:label="@string/high_brightness_mode"
@@ -120,7 +120,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.GlobalDC"
+                android:name=".service.tiles.GlobalDCTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_mode_night_24"
                 android:label="@string/global_dc"
@@ -130,7 +130,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.TouchSamplingRate"
+                android:name=".service.tiles.TouchSamplingRateTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_touch_app_24"
                 android:label="@string/increase_touch_sampling_rate"
@@ -140,7 +140,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.FiveG"
+                android:name=".service.tiles.FiveGTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_5g_24"
                 android:label="@string/fiveg_mode"
@@ -150,7 +150,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.VeryDarkMode"
+                android:name=".service.tiles.ExtraDimModeTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_brightness_low_24"
                 android:label="@string/very_dark_mode"
@@ -160,7 +160,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.HighPerformanceMode"
+                android:name=".service.tiles.HighPerformanceModeTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_device_thermostat_24"
                 android:label="@string/high_performance_mode"
@@ -170,7 +170,7 @@
             </intent-filter>
         </service>
         <service
-                android:name=".service.GoogleService"
+                android:name=".service.tiles.GoogleServiceTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_google_icon_24"
                 android:label="@string/google_service"
