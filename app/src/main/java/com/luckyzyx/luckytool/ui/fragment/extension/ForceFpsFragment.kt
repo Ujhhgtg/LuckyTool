@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.ui.fragment
+package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.content.ComponentName
 import android.content.Context
@@ -14,10 +14,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.highcapable.yukihookapi.hook.factory.dataChannel
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.databinding.FragmentFpsBinding
 import com.luckyzyx.luckytool.service.controller.RefreshRateControllerService
 import com.luckyzyx.luckytool.utils.DisplayMode
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsMode
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -26,6 +30,7 @@ import com.luckyzyx.luckytool.utils.getInt
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putInt
 
+@Obfuscate
 class ForceFpsFragment : Fragment() {
 
     private lateinit var binding: FragmentFpsBinding
@@ -36,9 +41,9 @@ class ForceFpsFragment : Fragment() {
     private var fpsData = ArrayList<String>()
     private var fpsAdapter: ArrayAdapter<String>? = null
 
-    private var fpsMode = 1
     private var fpsAutostart = false
-    private var currentFps = -1
+    private var fpsMode = 1
+    private var fpsCur = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,19 +59,19 @@ class ForceFpsFragment : Fragment() {
         if (controller == null) return
         scopeLife {
             clearAllData()
-            fpsMode = context.getInt(SettingsPrefs, "fps_mode", 1)
+            fpsMode = context.getInt(SettingsPrefs, keyFpsMode, 1)
             allData = if (fpsMode == 1) getFpsMode1()
             else controller?.supportModes as java.util.ArrayList<Any?>
             initFpsData(allData)
-            currentFps = context.getInt(SettingsPrefs, "current_fps", -1)
-            fpsAutostart = context.getBoolean(SettingsPrefs, "fps_autostart", false)
+            fpsCur = context.getInt(SettingsPrefs, keyFpsCur, -1)
+            fpsAutostart = context.getBoolean(SettingsPrefs, keyFpsAutoStart, false)
             fpsAdapter = ArrayAdapter(
                 context, android.R.layout.simple_list_item_single_choice, fpsData
             )
             val isUnsupport = allData.isEmpty()
             val fpsSelfStart = binding.fpsSelfStart.apply {
                 isChecked = fpsAutostart
-                isEnabled = !isUnsupport && currentFps != -1
+                isEnabled = !isUnsupport && fpsCur != -1
                 setOnCheckedChangeListener { _, isChecked ->
                     context.updateAutoStatus(isChecked)
                 }
@@ -76,8 +81,8 @@ class ForceFpsFragment : Fragment() {
                 isVisible = !isUnsupport
                 choiceMode = ListView.CHOICE_MODE_SINGLE
                 if (!isUnsupport) adapter = fpsAdapter
-                val curFpsId = idData.indexOf(currentFps)
-                if (curFpsId != -1) setItemChecked(curFpsId, currentFps != -1)
+                val curFpsId = idData.indexOf(fpsCur)
+                if (curFpsId != -1) setItemChecked(curFpsId, fpsCur != -1)
                 onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                     fpsSelfStart.isEnabled = true
                     val id = idData[position]
@@ -158,17 +163,17 @@ class ForceFpsFragment : Fragment() {
     }
 
     private fun Context.updateFpsMode(mode: Int) {
-        putInt(SettingsPrefs, "fps_mode", mode)
-        dataChannel("com.android.systemui").put("fps_mode", mode)
+        putInt(SettingsPrefs, keyFpsMode, mode)
+        dataChannel("com.android.systemui").put(keyFpsMode, mode)
     }
 
     private fun Context.updateAutoStatus(isChecked: Boolean) {
-        putBoolean(SettingsPrefs, "fps_autostart", isChecked)
-        dataChannel("com.android.systemui").put("fps_autostart", isChecked)
+        putBoolean(SettingsPrefs, keyFpsAutoStart, isChecked)
+        dataChannel("com.android.systemui").put(keyFpsAutoStart, isChecked)
     }
 
     private fun Context.updateRefreshRateMode(mode: Int) {
-        putInt(SettingsPrefs, "current_fps", mode)
-        dataChannel("com.android.systemui").put("current_fps", mode)
+        putInt(SettingsPrefs, keyFpsCur, mode)
+        dataChannel("com.android.systemui").put(keyFpsCur, mode)
     }
 }

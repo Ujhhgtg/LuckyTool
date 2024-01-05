@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.annotation.SuppressLint
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -12,6 +13,13 @@ import com.drake.net.utils.scope
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsMode
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyHighBrightness
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTileAutoStart
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRate
 import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -22,51 +30,55 @@ import kotlinx.coroutines.Dispatchers
 
 @Obfuscate
 class AutoStartControllerService : Service() {
-    @SuppressLint("InlinedApi")
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val channelId = "auto_start_channel"
-        val channelNotifyId = 1001
-        val channelName = getString(R.string.auto_start_service_channel_name)
-        val channel = NotificationChannel(
-            channelId, channelName, NotificationManager.IMPORTANCE_LOW
-        )
-        val notify = NotificationCompat.Builder(
-            this@AutoStartControllerService, channelId
-        ).apply {
+
+    private val channelId = "auto_start_channel"
+    private val channelNotifyId = 1001
+    private lateinit var channelName: String
+
+    private lateinit var channel: NotificationChannel
+    private lateinit var notify: Notification
+
+    override fun onCreate() {
+        channelName = getString(R.string.auto_start_service_channel_name)
+        channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
+        notify = NotificationCompat.Builder(this, channelId).apply {
             setAutoCancel(false)
             setOngoing(true)
             setSmallIcon(R.mipmap.ic_launcher_round)
             setContentTitle(getString(R.string.auto_start_service_channel_title))
             priority = NotificationCompat.PRIORITY_LOW
         }.build()
+        NotifyUtils.createChannel(this@AutoStartControllerService, channel)
+    }
 
+    @SuppressLint("InlinedApi")
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         scope(Dispatchers.Default) {
-            NotifyUtils.createChannel(this@AutoStartControllerService, channel)
             if (SDK >= A14) startForeground(
                 channelNotifyId, notify, ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
             ) else startForeground(channelNotifyId, notify)
 
             val command = ArrayList<String>()
             //FPS自启
-            if (getBoolean(SettingsPrefs, "fps_autostart", false)) {
-                val fpsMode = getInt(SettingsPrefs, "fps_mode", 1)
-                val fpsCur = getInt(SettingsPrefs, "fps_cur", -1)
+            if (getBoolean(SettingsPrefs, keyFpsAutoStart, false)) {
+                val fpsMode = getInt(SettingsPrefs, keyFpsMode, 1)
+                val fpsCur = getInt(SettingsPrefs, keyFpsCur, -1)
                 if ((fpsMode == 2) && (fpsCur != -1)) {
                     command.add("service call SurfaceFlinger 1035 i32 $fpsCur")
                 }
             }
             //磁贴自启
-            if (getBoolean(SettingsPrefs, "tile_auto_start", false)) {
+            if (getBoolean(SettingsPrefs, keyTileAutoStart, false)) {
                 //触控采样率相关
-                if (getBoolean(SettingsPrefs, "touch_sampling_rate", false)) {
+                if (getBoolean(SettingsPrefs, keyTouchSamplingRate, false)) {
                     command.add("echo > /proc/touchpanel/game_switch_enable 1")
                 }
                 //高亮度模式
-                if (getBoolean(SettingsPrefs, "high_brightness_mode", false)) {
+                if (getBoolean(SettingsPrefs, keyHighBrightness, false)) {
                     command.add("echo > /sys/kernel/oplus_display/hbm 1")
                 }
                 //全局DC模式
-                if (getBoolean(SettingsPrefs, "global_dc_mode", false)) {
+                if (getBoolean(SettingsPrefs, keyGlobalDCMode, false)) {
                     command.add("echo > /sys/kernel/oppo_display/dimlayer_hbm 1")
                     command.add("echo > /sys/kernel/oplus_display/dimlayer_hbm 1")
                 }

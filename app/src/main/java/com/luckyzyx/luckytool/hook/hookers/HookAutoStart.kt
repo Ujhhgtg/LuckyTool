@@ -1,10 +1,13 @@
-package com.luckyzyx.luckytool.hook.hooker
+package com.luckyzyx.luckytool.hook.hookers
 
 import android.content.Intent
 import com.drake.net.utils.scope
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.BuildConfig
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsMode
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.setRefresh
 import kotlinx.coroutines.delay
@@ -13,12 +16,12 @@ object HookAutoStart : YukiBaseHooker() {
     override fun onHook() {
         val fpsList = arrayOf("30.0", "60.0", "90.0", "120.0", "144.0")
 
-        var fpsAutoStart = prefs(SettingsPrefs).getBoolean("fps_autostart", false)
-        dataChannel.wait<Boolean>("fps_autostart") { fpsAutoStart = it }
-        var fpsMode = prefs(SettingsPrefs).getInt("fps_mode", 1)
-        dataChannel.wait<Int>("fps_mode") { fpsMode = it }
-        var currentFps = prefs(SettingsPrefs).getInt("current_fps", -1)
-        dataChannel.wait<Int>("current_fps") { currentFps = it }
+        var fpsAutoStart = prefs(SettingsPrefs).getBoolean(keyFpsAutoStart, false)
+        dataChannel.wait<Boolean>(keyFpsAutoStart) { fpsAutoStart = it }
+        var fpsMode = prefs(SettingsPrefs).getInt(keyFpsMode, 1)
+        dataChannel.wait<Int>(keyFpsMode) { fpsMode = it }
+        var currentFps = prefs(SettingsPrefs).getInt(keyFpsCur, -1)
+        dataChannel.wait<Int>(keyFpsCur) { currentFps = it }
 
         onAppLifecycle {
             //监听锁屏解锁
