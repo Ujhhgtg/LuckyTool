@@ -1,5 +1,7 @@
 package com.luckyzyx.luckytool.utils;
 
+import com.joom.paranoid.Obfuscate;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
+@Obfuscate
 @SuppressWarnings("unused")
 public class ShellUtils {
     

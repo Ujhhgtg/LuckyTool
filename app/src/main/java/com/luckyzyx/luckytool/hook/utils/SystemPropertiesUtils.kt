@@ -5,7 +5,7 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.luckyzyx.luckytool.hook.scope.systemui.StatusBarBatteryInfoNotify.toClass
+import com.luckyzyx.luckytool.hook.scopes.systemui.StatusBarBatteryInfoNotify.toClass
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class SystemPropertiesUtils(val classLoader: ClassLoader?) {

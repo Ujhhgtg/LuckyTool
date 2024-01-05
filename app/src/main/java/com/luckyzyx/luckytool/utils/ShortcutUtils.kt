@@ -8,9 +8,11 @@ import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
 import android.util.ArrayMap
 import androidx.core.graphics.drawable.toBitmap
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.ShortcutActivity
 
+@Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class ShortcutUtils(val context: Context) {
 

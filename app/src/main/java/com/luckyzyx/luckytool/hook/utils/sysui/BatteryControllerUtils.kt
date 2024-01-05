@@ -6,7 +6,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveWiFiDataInout.toClass
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveWiFiDataInout.toClass
 
 @Suppress("unused")
 class BatteryControllerUtils(val classLoader: ClassLoader?) {

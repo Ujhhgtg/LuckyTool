@@ -23,7 +23,7 @@ import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
-import com.luckyzyx.luckytool.ui.fragment.HomeFragment
+import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppBlackList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList

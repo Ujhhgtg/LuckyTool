@@ -4,8 +4,10 @@ import android.app.Activity
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 
+@Obfuscate
 class PermissionUtils(val context: Activity) {
 
     fun checkPermissions() {

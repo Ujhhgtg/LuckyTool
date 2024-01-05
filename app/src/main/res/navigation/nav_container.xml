@@ -7,7 +7,7 @@
     
     <fragment
             android:id="@+id/nav_home"
-            android:name="com.luckyzyx.luckytool.ui.fragment.HomeFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.home.HomeFragment"
             android:label="@string/app_name"
             tools:layout="@layout/fragment_home">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
             android:id="@+id/nav_other"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OtherFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.others.OtherFragment"
             android:label="@string/nav_other"
             tools:layout="@layout/fragment_other">
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
             android:id="@+id/nav_function"
-            android:name="com.luckyzyx.luckytool.ui.fragment.XposedFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.XposedFragment"
             android:label="@string/nav_function">
         <action
                 android:id="@+id/action_nav_xposed_to_android"
@@ -262,11 +262,11 @@
     </fragment>
     <fragment
             android:id="@+id/nav_log"
-            android:name="com.luckyzyx.luckytool.ui.fragment.LoggerFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.logs.LoggerFragment"
             android:label="@string/nav_log" />
     <fragment
             android:id="@+id/nav_setting"
-            android:name="com.luckyzyx.luckytool.ui.fragment.SettingsFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.settings.SettingsFragment"
             android:label="@string/nav_setting">
         <action
                 android:id="@+id/action_nav_setting_to_sourceFragment"
@@ -285,16 +285,16 @@
     </fragment>
     <fragment
             android:id="@+id/sourceFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.SourceFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.settings.SourceFragment"
             android:label="{title_label}" />
     
     <fragment
             android:id="@+id/android"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Android"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Android"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarNotice"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarNotify"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarNotify"
             android:label="{title_label}">
         <action
                 android:id="@+id/action_statusBarNotice_to_statusBarNotifyRemoval"
@@ -306,19 +306,19 @@
     </fragment>
     <fragment
             android:id="@+id/statusBarIcon"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarIcon"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarIcon"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarControlCenter"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarControlCenter"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarControlCenter"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarClock"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarClock"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarClock"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/launcher"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Launcher"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Launcher"
             android:label="{title_label}">
         <action
                 android:id="@+id/action_launcher_to_zoomWindowFragment"
@@ -330,15 +330,15 @@
     </fragment>
     <fragment
             android:id="@+id/lockScreen"
-            android:name="com.luckyzyx.luckytool.ui.fragment.LockScreen"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.LockScreen"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/screenshot"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Screenshot"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Screenshot"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/application"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Application"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Application"
             android:label="{title_label}">
         <action
                 android:id="@+id/action_application_to_multiFragment"
@@ -357,28 +357,28 @@
     </fragment>
     <fragment
             android:id="@+id/camera"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Camera"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Camera"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusGames"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusGames"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusGames"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/cloudService"
-            android:name="com.luckyzyx.luckytool.ui.fragment.CloudService"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.CloudService"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/themeStore"
-            android:name="com.luckyzyx.luckytool.ui.fragment.ThemeStore"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.ThemeStore"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/multiAppFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.MultiAppFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.MultiAppFragment"
             android:label="{title_label}"
             tools:layout="@layout/fragment_applist_layout" />
     <fragment
             android:id="@+id/statusBar"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBar"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBar"
             android:label="{title_label}">
         <action
                 android:id="@+id/action_statusBar_to_statusBarNotice"
@@ -439,7 +439,7 @@
     </fragment>
     <fragment
             android:id="@+id/miscellaneous"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Miscellaneous"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Miscellaneous"
             android:label="{title_label}">
         <action
                 android:id="@+id/action_miscellaneous_to_dialogRelated"
@@ -465,23 +465,23 @@
     </fragment>
     <fragment
             android:id="@+id/alphaBackupPro"
-            android:name="com.luckyzyx.luckytool.ui.fragment.AlphaBackupPro"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.AlphaBackupPro"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/systemQuickEntry"
-            android:name="com.luckyzyx.luckytool.ui.fragment.SystemQuickEntry"
+            android:name="com.luckyzyx.luckytool.ui.fragment.others.QuickEntryFragment"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarNetWorkSpeed"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarNetWorkSpeed"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarNetWorkSpeed"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/dialogRelated"
-            android:name="com.luckyzyx.luckytool.ui.fragment.DialogRelated"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.DialogRelated"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusOta"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusOta"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusOta"
             android:label="{title_label}">
         <action
                 android:id="@+id/action_oplusOta_to_extractOTAFragment"
@@ -493,123 +493,123 @@
     </fragment>
     <fragment
             android:id="@+id/zoomWindowFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.ZoomWindowFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.ZoomWindowFragment"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/darkModeFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.DarkModeFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.DarkModeFragment"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/fingerPrintRelated"
-            android:name="com.luckyzyx.luckytool.ui.fragment.FingerPrintRelated"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.FingerPrintRelated"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarLayout"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarLayout"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarLayout"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/battery"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Battery"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Battery"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/settings"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Settings"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Settings"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarBattery"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarBattery"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarBattery"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/ksWeb"
-            android:name="com.luckyzyx.luckytool.ui.fragment.KsWeb"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.KsWeb"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarTiles"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarTiles"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarTiles"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/forceFpsFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.ForceFpsFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.ForceFpsFragment"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarNotifyRemoval"
-            android:name="com.luckyzyx.luckytool.ui.fragment.StatusBarNotifyRemoval"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarNotifyRemoval"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/extractOTAFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.ExtractOTAFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.ExtractOTAFragment"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/aod"
-            android:name="com.luckyzyx.luckytool.ui.fragment.Aod"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Aod"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/donateFragment"
-            android:name="com.luckyzyx.luckytool.ui.fragment.DonateFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.settings.DonateFragment"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusPictorial"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusPictorial"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusPictorial"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusMMS"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusMMS"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusMMS"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusBrowser"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusBrowser"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusBrowser"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusGesture"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusGesture"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusGesture"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/ADM"
-            android:name="com.luckyzyx.luckytool.ui.fragment.ADM"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.ADM"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusGallery"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusGallery"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusGallery"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusBreenoTouch"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusBreenoTouch"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusBreenoTouch"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusSearchBox"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusSearchBox"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusSearchBox"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusMarket"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusMarket"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusMarket"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/soundRelated"
-            android:name="com.luckyzyx.luckytool.ui.fragment.SoundRelated"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.SoundRelated"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusWeather"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusWeather"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusWeather"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusCalendar"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusCalendar"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusCalendar"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusSmartSidebar"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusSmartSidebar"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusSmartSidebar"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusTeleService"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusTeleService"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusTeleService"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusPhoneManager"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusPhoneManager"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusPhoneManager"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusSoundRecorder"
-            android:name="com.luckyzyx.luckytool.ui.fragment.OplusSoundRecorder"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusSoundRecorder"
             android:label="{title_label}" />
 
 </navigation>

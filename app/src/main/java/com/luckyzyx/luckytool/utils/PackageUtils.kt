@@ -8,7 +8,9 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 class PackageUtils(private val packageManager: PackageManager) {
 
     fun getPackageInfo(packName: String, flag: Int): PackageInfo? {

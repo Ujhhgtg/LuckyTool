@@ -1,13 +1,13 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scope.systemui.ControlCenterBackgroundTransParency
-import com.luckyzyx.luckytool.hook.scope.systemui.ControlCenterClockStyle
-import com.luckyzyx.luckytool.hook.scope.systemui.ControlCenterDateStyle
-import com.luckyzyx.luckytool.hook.scope.systemui.EnableNotificationAlignBothSides
-import com.luckyzyx.luckytool.hook.scope.systemui.NotificationBackgroundTransParency
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveControlCenterUserSwitcher
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveStatusBarBottomNetworkWarn
+import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterBackgroundTransParency
+import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterClockStyle
+import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterDateStyle
+import com.luckyzyx.luckytool.hook.scopes.systemui.EnableNotificationAlignBothSides
+import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundTransParency
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterUserSwitcher
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs

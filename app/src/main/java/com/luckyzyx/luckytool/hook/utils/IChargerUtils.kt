@@ -6,7 +6,7 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.IBinderClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.luckyzyx.luckytool.hook.hooker.HookAndroid.toClass
+import com.luckyzyx.luckytool.hook.hookers.HookAndroid.toClass
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 class IChargerUtils(val classLoader: ClassLoader?) {

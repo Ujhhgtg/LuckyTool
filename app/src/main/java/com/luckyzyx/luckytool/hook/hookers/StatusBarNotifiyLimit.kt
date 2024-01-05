@@ -1,0 +1,14 @@
+package com.luckyzyx.luckytool.hook.hookers
+
+import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.systemui.AllowLongPressNotificationModifiable
+import com.luckyzyx.luckytool.utils.ModulePrefs
+
+object StatusBarNotifiyLimit : YukiBaseHooker() {
+    override fun onHook() {
+        //允许长按通知可修改
+        if (prefs(ModulePrefs).getBoolean("allow_long_press_notification_modifiable", false)) {
+            loadHooker(AllowLongPressNotificationModifiable)
+        }
+    }
+}

@@ -1,15 +1,15 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scope.systemui.BluetoothIconRelated
-import com.luckyzyx.luckytool.hook.scope.systemui.HideInActiveSignalLabelsGen2x2
-import com.luckyzyx.luckytool.hook.scope.systemui.MobileDataIconRelated
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveGreenDotPrivacyPrompt
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveHighPerformanceModeIcon
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveStatusBarSecurePayment
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveSystemPromptIcon
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveWiFiDataInout
-import com.luckyzyx.luckytool.hook.scope.systemui.StatusBarIconVerticalCenter
+import com.luckyzyx.luckytool.hook.scopes.systemui.BluetoothIconRelated
+import com.luckyzyx.luckytool.hook.scopes.systemui.HideInActiveSignalLabelsGen2x2
+import com.luckyzyx.luckytool.hook.scopes.systemui.MobileDataIconRelated
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveGreenDotPrivacyPrompt
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveHighPerformanceModeIcon
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarSecurePayment
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSystemPromptIcon
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveWiFiDataInout
+import com.luckyzyx.luckytool.hook.scopes.systemui.StatusBarIconVerticalCenter
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK

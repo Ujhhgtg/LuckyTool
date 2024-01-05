@@ -1,14 +1,14 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveChargingCompleted
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveDanmakuNotificationWhitelist
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveDoNotDisturbModeNotification
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveFlashlightOpenNotification
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveGTModeNotification
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveNotificationForMuteNotifications
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveSmallWindowReplyWhitelist
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveStatusBarDevMode
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveChargingCompleted
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDanmakuNotificationWhitelist
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDoNotDisturbModeNotification
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveFlashlightOpenNotification
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveGTModeNotification
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveNotificationForMuteNotifications
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSmallWindowReplyWhitelist
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarDevMode
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK

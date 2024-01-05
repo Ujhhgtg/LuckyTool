@@ -4,12 +4,14 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.jumpBatteryInfo
 import com.luckyzyx.luckytool.utils.jumpHighPerformance
 import com.luckyzyx.luckytool.utils.jumpRunningApp
 
+@Obfuscate
 @Suppress("DEPRECATION")
 class ShortcutActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

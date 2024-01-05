@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -18,6 +19,7 @@ import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.restartScopes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 
+@Obfuscate
 @Suppress("unused")
 abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuProvider {
 

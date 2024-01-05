@@ -1,12 +1,12 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scope.systemui.ControlCenterTiles
-import com.luckyzyx.luckytool.hook.scope.systemui.FixTileAlignBothSides
-import com.luckyzyx.luckytool.hook.scope.systemui.LongPressTileOpenThePage
-import com.luckyzyx.luckytool.hook.scope.systemui.MediaPlayerPanel
-import com.luckyzyx.luckytool.hook.scope.systemui.RestorePageLayoutRowCountForEditTiles
-import com.luckyzyx.luckytool.hook.scope.systemui.SpecialTileTopGap
+import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterTiles
+import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
+import com.luckyzyx.luckytool.hook.scopes.systemui.LongPressTileOpenThePage
+import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel
+import com.luckyzyx.luckytool.hook.scopes.systemui.RestorePageLayoutRowCountForEditTiles
+import com.luckyzyx.luckytool.hook.scopes.systemui.SpecialTileTopGap
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK

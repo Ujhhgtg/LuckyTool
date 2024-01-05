@@ -4,7 +4,7 @@ import android.content.Context
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.luckyzyx.luckytool.hook.scope.systemui.RemoveDoNotDisturbModeNotification.toClass
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDoNotDisturbModeNotification.toClass
 
 @Suppress("unused")
 class PowerProfileUtils(val classLoader: ClassLoader?) {

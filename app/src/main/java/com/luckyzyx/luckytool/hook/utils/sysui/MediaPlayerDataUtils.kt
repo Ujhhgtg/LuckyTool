@@ -4,7 +4,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.luckyzyx.luckytool.hook.scope.systemui.MediaPlayerPanel.toClass
+import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel.toClass
 
 @Suppress("unused")
 class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
