@@ -102,7 +102,7 @@ dependencies {
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
-    implementation("com.highcapable.betterandroid:ui-component:1.0.3")
+    implementation("com.highcapable.betterandroid:ui-component:1.0.4")
 //    implementation("com.highcapable.betterandroid:ui-extension:1.0.0")
 //    implementation("com.highcapable.betterandroid:system-extension:1.0.0")
 
