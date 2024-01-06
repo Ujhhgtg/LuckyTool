@@ -241,7 +241,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         createChannel(context)
         //com.oplusos.systemui.keyguard.charginganim.ChargingTypeConstants
         val technology = BatteryControllerUtils(appClassLoader).getTechnologyName(
-            chargerTechnology, ppsMode
+            chargerTechnology, ppsMode, isWireless
         )
         val powerCalc = if (isSeriesDual || isParallelDual) {
             (voltage + voltage2) * electricCurrent / 1000.0
