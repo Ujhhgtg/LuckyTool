@@ -53,19 +53,17 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("HookBatteryNotify highPerformance")
-                val member = single()
-                member.className.toClass().apply {
-                    method { name = member.methodName;emptyParam() }.hook {
+                single().className.toClass().apply {
+                    method { name = single().methodName;emptyParam() }.hook {
                         intercept()
                     }
                 }
             }
 
             if (highBatteryConsumption) clsName.toClass().apply {
-                method {
-                    param(StringClass, BooleanType)
-                    paramCount = 2
-                }.hookAll { intercept() }
+                method { param(StringClass, BooleanType);returnType = UnitType }.hookAll {
+                    intercept()
+                }
             }
         }
     }

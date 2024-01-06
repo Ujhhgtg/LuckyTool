@@ -98,9 +98,8 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val ismIsWirelessCharge = chargeInfoObserver.current().method {
                                 name = "ismIsWirelessCharge"
                             }.invoke<Boolean>() ?: return@before
-                            if (ismIsWirelessCharge) return@before
                             result = BatteryControllerUtils(appClassLoader).getTechnologyName(
-                                technology, ppsMode
+                                technology, ppsMode, ismIsWirelessCharge
                             )
                         }
                     }
@@ -123,9 +122,8 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val ismIsWirelessCharge = chargeInfoObserver.current().method {
                                 name = "ismIsWirelessCharge"
                             }.invoke<Boolean>() ?: return@before
-                            if (ismIsWirelessCharge) return@before
                             result = BatteryControllerUtils(appClassLoader).getTechnologyName(
-                                technology, ppsMode
+                                technology, ppsMode, ismIsWirelessCharge
                             )
                         }
                     }
@@ -148,9 +146,8 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val ismIsWirelessCharge = chargeInfoObserver.current().method {
                                 name = "ismIsWirelessCharge"
                             }.invoke<Boolean>() ?: return@before
-                            if (ismIsWirelessCharge) return@before
                             result = BatteryControllerUtils(appClassLoader).getTechnologyName(
-                                technology, ppsMode
+                                technology, ppsMode, ismIsWirelessCharge
                             )
                         }
                     }
@@ -243,10 +240,11 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                 .cast<TextView>() ?: return@after
                             if (showText) mTextLogo.text =
                                 BatteryControllerUtils(appClassLoader).let {
-                                    val ins = it.getInstance(context)
+                                    val ins = it.getInstance(context) ?: return@after
                                     val tech = it.getChargerTechnology(ins)
                                     val pps = it.getPPSMode(ins)
-                                    it.getTechnologyName(tech, pps)
+                                    val isWireless = it.isWirelessCharging(ins)
+                                    it.getTechnologyName(tech, pps, isWireless)
                                 }
                         }
                     }
@@ -296,10 +294,11 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                 .cast<TextView>() ?: return@after
                             if (showText) mTextLogo.text =
                                 BatteryControllerUtils(appClassLoader).let {
-                                    val ins = it.getInstance(context)
+                                    val ins = it.getInstance(context) ?: return@after
                                     val tech = it.getChargerTechnology(ins)
                                     val pps = it.getPPSMode(ins)
-                                    it.getTechnologyName(tech, pps)
+                                    val isWireless = it.isWirelessCharging(ins)
+                                    it.getTechnologyName(tech, pps, isWireless)
                                 }
                         }
                     }

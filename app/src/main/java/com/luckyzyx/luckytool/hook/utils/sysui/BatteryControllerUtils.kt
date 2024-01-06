@@ -7,6 +7,8 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveWiFiDataInout.toClass
+import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.SDK
 
 @Suppress("unused")
 class BatteryControllerUtils(val classLoader: ClassLoader?) {
@@ -22,19 +24,29 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
         else clazz.method { name = "getInstance" }.get().call()
     }
 
-    fun getChargerTechnology(instance: Any?): Int? {
-        return instance?.current()?.method { name = "getChargerTechnology" }?.invoke<Int>()
+    fun getChargerTechnology(instance: Any): Int {
+        return instance.current().method { name = "getChargerTechnology" }.int()
     }
 
-    fun getChargerWattage(instance: Any?): Int? {
-        return instance?.current()?.method { name = "getChargerWattage" }?.invoke<Int>()
+    fun getChargerWattage(instance: Any): Int {
+        return instance.current().method { name = "getChargerWattage" }.int()
     }
 
-    fun getPPSMode(instance: Any?): Int? {
-        return instance?.current()?.method { name = "getChargeMode" }?.invoke<Int>()
+    fun getPPSMode(instance: Any): Int {
+        return instance.current().field {
+            name = if (SDK >= A14) "chargeMode" else "mPPSState"
+        }.int()
     }
 
-    fun getTechnologyName(technology: Int? = 0, ppsMode: Int? = 0): String {
+    fun isWirelessCharging(instance: Any): Boolean {
+        return instance.current().method {
+            name = if (SDK >= A14) "getWirelessCharging" else "isWirelessCharging"
+        }.boolean()
+    }
+
+    fun getTechnologyName(
+        technology: Int? = 0, ppsMode: Int? = 0, isWireless: Boolean = false
+    ): String {
         return when (technology) {
             0 -> when (ppsMode) {
                 1 -> "PrivatePPS"
@@ -44,11 +56,11 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
                 else -> "Normal"
             }
 
-            1 -> "VOOC"
-            2 -> "SUPERVOOC"
-            20 -> "SUPERVOOC2.0"
-            30 -> "SUPERVOOC Athena Foreign Pro"
-            25 -> "VOOC Beta Pro"
+            1 -> if (isWireless) "AirVOOC" else "VOOC"
+            2 -> if (isWireless) "AirSVOOC" else "SUPERVOOC"
+            20 -> if (isWireless) "AirSVOOC2" else "SUPERVOOC2.0"
+            30 -> if (isWireless) "AirSVOOC" else "SUPERVOOC Athena Foreign Pro"
+            25 -> if (isWireless) "AirVOOC" else "VOOC Beta Pro"
             3 -> "PD"
             4 -> "QC"
             5 -> "PPS" //null
