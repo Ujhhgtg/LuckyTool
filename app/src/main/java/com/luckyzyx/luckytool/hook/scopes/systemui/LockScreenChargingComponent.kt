@@ -84,6 +84,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (getChargeWattage != 0) resultTrue()
                     }
                 }
+                method { name = "showTechnology" }.hook {
+                    if (showRealTech) replaceToTrue()
+                }
                 if (hasMethod { name = "getTechnologyStr" }) {
                     method { name = "getTechnologyStr" }.hook {
                         before {

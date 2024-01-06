@@ -463,7 +463,7 @@ fun jumpBatteryInfo(context: Context) {
     }?.name
     val chargeTestClazz = "$packName.aftersale.manualtest.ASChargeTestFragmentCompat"
     if (activity == null) LogUtils.e(
-        null, "jumpBatteryInfo", "EngineerFragmentContainer is null", true
+        "jumpBatteryInfo", "activity", "EngineerFragmentContainer is null", true
     ) else ShellUtils.execCommand(
         "am start -n $packName/$activity -e fragment $chargeTestClazz", true
     )
@@ -607,7 +607,7 @@ fun jumpRunningApp(context: Context) {
         it.name.contains("RunningApplicationActivity")
     }?.name
     if (activity == null) LogUtils.e(
-        null, "jumpRunningApp", "RunningApplicationActivity is null", true
+        "jumpRunningApp", "activity", "RunningApplicationActivity is null", true
     )
     else ShellUtils.execCommand("am start -n com.android.settings/$activity", true)
 }
@@ -1407,7 +1407,7 @@ fun logcatToFile(file: File) {
         if (!file.exists()) file.createNewFile()
         ShellUtils.execCommand("logcat -d -f ${file.absolutePath}", true)
     } catch (e: Exception) {
-        LogUtils.e(LogUtils.globalTag, "logcatToFile", "$e", true)
+        LogUtils.e("logcatToFile", "logcat", "$e", true)
     }
 }
 
