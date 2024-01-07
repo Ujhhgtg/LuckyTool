@@ -2,17 +2,9 @@ package com.luckyzyx.luckytool.hook.utils
 
 import android.content.ContentResolver
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
 
-@Suppress("unused", "PropertyName")
-class SettingsUtils(val classLoader: ClassLoader?) {
-
-    val clazz = "android.provider.Settings".toClass(classLoader)
-
-    val Global = "android.provider.Settings\$Global".toClass(classLoader)
-    val Secure = "android.provider.Settings\$Secure".toClass(classLoader)
-    val System = "android.provider.Settings\$System".toClass(classLoader)
-
+@Suppress("unused")
+object SettingsUtils {
     fun getIntForUser(type: Class<*>, cr: ContentResolver, key: String, userHandle: Int): Int? {
         return type.method {
             name = "getIntForUser"
