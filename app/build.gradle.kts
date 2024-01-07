@@ -7,8 +7,8 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android") version "1.9.22"
-    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
+    id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
     id("com.joom.paranoid")
 }
 
@@ -83,8 +83,10 @@ android {
 }
 
 dependencies {
-//    implementation(fileTree("libs").include("*.jar"))
+    //implementation(fileTree("libs").include("*.jar"))
 
+    //hidden-api-stub
+    compileOnly(project(":hidden-api-stub"))
     //Xposed基础
     compileOnly("de.robv.android.xposed:api:82")
     //YukiHookAPI

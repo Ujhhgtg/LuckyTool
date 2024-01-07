@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
+import android.os.SystemProperties
 import com.luckyzyx.luckytool.IAdbDebugController
-import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
@@ -14,12 +14,12 @@ class AdbDebugControllerService : RootService() {
 
     override fun onBind(intent: Intent) = object : IAdbDebugController.Stub() {
         override fun getAdbPort(): Int {
-            val port = SystemPropertiesUtils(null).get("service.adb.tcp.port")
+            val port = SystemProperties.get("service.adb.tcp.port")
             return if (port.isNullOrBlank()) 0 else port.toInt()
         }
 
         override fun setAdbPort(port: Int) {
-            SystemPropertiesUtils(null).set(
+            SystemProperties.set(
                 "service.adb.tcp.port", (if (port == 0) "" else port).toString()
             )
         }

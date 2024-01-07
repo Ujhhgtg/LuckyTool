@@ -33,6 +33,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.SystemClock
+import android.os.SystemProperties
 import android.provider.Settings
 import android.service.quicksettings.TileService
 import android.text.SpannableString
@@ -69,7 +70,6 @@ import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.PowerProfileUtils
-import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.startCheckListFinal
 import com.topjohnwu.superuser.ipc.RootService
@@ -348,7 +348,7 @@ fun setParameter(context: Context, name: String, key: String?, value: String?) {
  * @return String?
  */
 fun getModelMarketName(): String? {
-    return SystemPropertiesUtils(null).get("ro.vendor.oplus.market.name")
+    return SystemProperties.get("ro.vendor.oplus.market.name")
 }
 
 /**

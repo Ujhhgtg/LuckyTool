@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
+import android.os.SystemProperties
 import com.luckyzyx.luckytool.IGlobalFuncController
-import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.utils.formatSpace
 import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
@@ -10,9 +10,6 @@ import java.io.File
 
 class GlobalFuncControllerService : RootService() {
     override fun onBind(intent: Intent) = object : IGlobalFuncController.Stub() {
-        override fun getProp(key: String, def: String): String {
-            return SystemPropertiesUtils(null).get(key, def) ?: def
-        }
 
         override fun getFileText(dir: String): String {
             val file = File(dir)
@@ -21,11 +18,11 @@ class GlobalFuncControllerService : RootService() {
         }
 
         override fun getOtaVersion(): String {
-            return getProp("ro.build.version.ota", "null")
+            return SystemProperties.get("ro.build.version.ota", "null")
         }
 
         override fun getMarketName(): String {
-            return getProp("ro.vendor.oplus.market.name", "null")
+            return SystemProperties.get("ro.vendor.oplus.market.name", "null")
 
         }
 
@@ -47,14 +44,14 @@ class GlobalFuncControllerService : RootService() {
         }
 
         override fun getPcbInfo(): String {
-            val gms = getProp("gsm.serial", "")
-            val vendor = getProp("vendor.gsm.serial", "null")
+            val gms = SystemProperties.get("gsm.serial", "")
+            val vendor = SystemProperties.get("vendor.gsm.serial", "null")
             return (gms + vendor).replaceSpace
 
         }
 
         override fun getSnInfo(): String {
-            return getProp("ro.serialno", "null")
+            return SystemProperties.get("ro.serialno", "null")
         }
     }
 }

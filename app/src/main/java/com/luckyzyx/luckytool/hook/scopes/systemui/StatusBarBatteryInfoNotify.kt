@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.BatteryManager
+import android.os.SystemProperties
 import android.util.TypedValue
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
@@ -14,7 +15,6 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
-import com.luckyzyx.luckytool.hook.utils.SystemPropertiesUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.DevicesConfigUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -181,12 +181,9 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             else if (isParallelDual) chargeInfo.getIntProperty("sub_voltage") / 1000.0
             else 0.0
             chargerVoltage = chargeInfo.getIntProperty("battery_charge_now")
-            if (isMTKPlatform == null) {
-                val value = SystemPropertiesUtils(appClassLoader).get(
-                    "ro.board.platform", "unknown"
-                ) ?: "unknown"
-                isMTKPlatform = value.lowercase().startsWith("mt")
-            }
+            if (isMTKPlatform == null) isMTKPlatform = SystemProperties.get(
+                "ro.board.platform", "unknown"
+            ).lowercase().startsWith("mt")
             if (isMTKPlatform == false) {
                 voltage /= 1000.0
                 voltage2 /= 1000.0

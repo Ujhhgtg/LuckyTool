@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool;
 
 interface IGlobalFuncController {
-    String getProp(String key,String def);
     String getFileText(String dir);
     String getOtaVersion();
     String getMarketName();
