@@ -2,12 +2,11 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
+import com.android.internal.graphics.drawable.BackgroundBlurDrawable
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.hook.utils.BackgroundBlurDrawableUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
@@ -44,11 +43,9 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
                         if (customAlpha < 0) return@after
                         val value = customAlpha * 25
                         val res = result<Drawable>() ?: return@after
-                        BackgroundBlurDrawableUtils(appClassLoader).apply {
-                            if (res.javaClass extends clazz) {
-                                res.setBlurRadius(value.dp)
-                                res.alpha = value
-                            }
+                        if (res is BackgroundBlurDrawable) {
+                            res.setBlurRadius(value.dp)
+                            res.alpha = value
                         }
                     }
                 }

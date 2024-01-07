@@ -1,13 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.drawable.LayerDrawable
+import com.android.internal.graphics.drawable.BackgroundBlurDrawable
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
-import com.luckyzyx.luckytool.hook.utils.BackgroundBlurDrawableUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
@@ -34,23 +34,26 @@ object VolumeDialogWhiteBackground : YukiBaseHooker() {
                     val value = customAlpha * 25
                     field { name = "mVerticalRowsLayerDrawable" }.get(instance)
                         .cast<LayerDrawable>()?.apply {
-                            BackgroundBlurDrawableUtils(appClassLoader).apply {
-                                getDrawable(0)?.setBlurRadius(value.dp)
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
                     field { name = "mVolumeMoreLayerDrawable" }.get(instance).cast<LayerDrawable>()
                         ?.apply {
-                            BackgroundBlurDrawableUtils(appClassLoader).apply {
-                                getDrawable(0)?.setBlurRadius(value.dp)
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
                     if (hasField { name = "mVolumeCaptionLayerDrawable" }.not()) return@before
                     field { name = "mVolumeCaptionLayerDrawable" }.get(instance)
                         .cast<LayerDrawable>()?.apply {
-                            BackgroundBlurDrawableUtils(appClassLoader).apply {
-                                getDrawable(0)?.setBlurRadius(value.dp)
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
