@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
+import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.luckyzyx.luckytool.IDarkModeController
 import com.luckyzyx.luckytool.hook.utils.IColorDisplayUtils
 import com.topjohnwu.superuser.ipc.RootService
@@ -8,7 +10,7 @@ import com.topjohnwu.superuser.ipc.RootService
 class DarkModeControllerService : RootService() {
     companion object {
 
-        private val iColorDisplayManager by lazy {
+        private val iColorDisplayManagerInternal by lazy {
             IColorDisplayUtils(null).getInstance()
         }
     }
@@ -16,12 +18,15 @@ class DarkModeControllerService : RootService() {
     override fun onBind(intent: Intent) = object : IDarkModeController.Stub() {
 
         override fun checkDarkMode(): Boolean {
-            return iColorDisplayManager != null
+            return iColorDisplayManagerInternal != null
         }
 
         override fun getDarkMode(): Boolean {
             return try {
-                IColorDisplayUtils(null).isReduceBrightColorsActivated(iColorDisplayManager) == true
+                iColorDisplayManagerInternal?.current()?.method {
+                    name = "isReduceBrightColorsActivated"
+                    emptyParam()
+                }?.boolean() ?: false
             } catch (_: Throwable) {
                 false
             }
@@ -29,8 +34,10 @@ class DarkModeControllerService : RootService() {
 
         override fun setDarkMode(status: Boolean) {
             try {
-                IColorDisplayUtils(null)
-                    .setReduceBrightColorsActivated(iColorDisplayManager, status)
+                iColorDisplayManagerInternal?.current()?.method {
+                    name = "setReduceBrightColorsActivated"
+                    param(BooleanType)
+                }?.call(status)
             } catch (_: Throwable) {
 
             }
