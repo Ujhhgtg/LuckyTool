@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.utils
 
 import android.content.Context
 import android.os.IBinder
+import android.os.ServiceManager
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
@@ -18,7 +19,7 @@ class ITelephonyUtils(val classLoader: ClassLoader?) {
     val constants = "com.android.internal.telephony.RILConstants".toClass(classLoader)
 
     fun getService(): IBinder? {
-        return ServiceManagerUtils(null).getService(Context.TELEPHONY_SERVICE)
+        return ServiceManager.getService(Context.TELEPHONY_SERVICE)
     }
 
     fun getInstance(iBinder: IBinder?): Any? {

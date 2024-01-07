@@ -3,11 +3,11 @@ package com.luckyzyx.luckytool.service.controller
 import android.content.Intent
 import android.os.Parcel
 import android.os.RemoteException
+import android.os.ServiceManager
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.hook.utils.DisplayManagerUtils
-import com.luckyzyx.luckytool.hook.utils.ServiceManagerUtils
 import com.luckyzyx.luckytool.utils.DisplayMode
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
@@ -21,7 +21,7 @@ class RefreshRateControllerService : RootService() {
         private const val interfaceName = "android.ui.ISurfaceComposer"
 
         private val surfaceFlinger by lazy {
-            ServiceManagerUtils(null).getService(serviceName)
+            ServiceManager.getService(serviceName)
         }
     }
 

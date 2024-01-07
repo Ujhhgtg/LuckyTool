@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.utils
 
 import android.os.IBinder
+import android.os.ServiceManager
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
@@ -20,7 +21,7 @@ class IChargerUtils(val classLoader: ClassLoader?) {
     val serviceName = "vendor.oplus.hardware.charger.ICharger/default"
 
     private fun getService(): IBinder? {
-        return ServiceManagerUtils(classLoader).getService(serviceName)
+        return ServiceManager.getService(serviceName)
     }
 
     fun getInstance(): Any? {
