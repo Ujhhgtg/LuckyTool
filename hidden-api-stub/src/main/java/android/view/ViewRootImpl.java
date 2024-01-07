@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable;
 
+/** @noinspection ALL*/
 public class ViewRootImpl {
     @RequiresApi(Build.VERSION_CODES.S)
     public BackgroundBlurDrawable createBackgroundBlurDrawable() {

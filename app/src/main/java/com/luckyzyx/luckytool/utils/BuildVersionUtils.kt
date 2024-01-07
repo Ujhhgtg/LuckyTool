@@ -4,7 +4,7 @@ package com.luckyzyx.luckytool.utils
 
 import android.os.Build
 import com.luckyzyx.luckytool.BuildConfig
-import com.luckyzyx.luckytool.hook.utils.OplusBuildUtlils
+import com.oplus.os.OplusBuild
 
 /**SDK_INT版本*/
 val SDK get() = Build.VERSION.SDK_INT
@@ -39,7 +39,7 @@ val getVersionCode get() = BuildConfig.VERSION_CODE
  * V13.2
  * V14.0
  */
-val getOSVersionName get() = safeOf("null") { OplusBuildUtlils().getOSVersionName ?: "null" }
+val getOSVersionName: String get() = OplusBuild.VERSIONS[OplusBuild.getOplusOSVERSION() - 1]
 
 /**
  * 获取OS版本号
@@ -52,4 +52,4 @@ val getOSVersionName get() = safeOf("null") { OplusBuildUtlils().getOSVersionNam
  * 29 -> (c13.2)
  * 30 -> (c14.0)
  */
-val getOSVersionCode get() = safeOf(0) { OplusBuildUtlils().getOSVersionCode ?: 0 }
+val getOSVersionCode get() = OplusBuild.getOplusOSVERSION()

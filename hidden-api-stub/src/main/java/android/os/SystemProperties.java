@@ -1,5 +1,6 @@
 package android.os;
 
+/** @noinspection ALL*/
 public class SystemProperties {
 
     public static String get(String key) {
