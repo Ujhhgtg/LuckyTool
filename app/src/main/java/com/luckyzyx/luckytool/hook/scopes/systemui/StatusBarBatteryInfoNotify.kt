@@ -377,7 +377,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             it.queryChargeInfo(iChargerIns)
         }
         return Properties().apply {
-            load(StringReader(queryChargeInfo))
+            if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))
         }
     }
 
