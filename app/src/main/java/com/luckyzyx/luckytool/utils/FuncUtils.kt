@@ -57,6 +57,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
+import com.android.internal.os.PowerProfile
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -69,7 +70,6 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.hook.utils.PowerProfileUtils
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.startCheckListFinal
 import com.topjohnwu.superuser.ipc.RootService
@@ -1389,10 +1389,8 @@ fun calcLocalHealth(context: Context): Int {
         val curValue = safeOfNull {
             BufferedReader(FileReader(curFile)).readLine().filterNumber.toDoubleOrNull()
         }
-        val designValue = PowerProfileUtils(null).let {
-            it.getBatteryCapacity(it.buildInstance(context))
-        }
-        var calc = if (curValue == null || designValue == null) -1
+        val designValue = PowerProfile(context).batteryCapacity
+        var calc = if (curValue == null) -1
         else (curValue / designValue * 100.0).roundToInt()
         if (calc > 100) calc /= 1000
         calc
