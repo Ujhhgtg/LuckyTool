@@ -227,6 +227,10 @@ class SettingsFragment : ModulePreferenceFragment() {
                 title = getString(R.string.backup_data)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
+                    FileUtils.checkDownloadDir(context, "LuckyTool").apply {
+                        if (isFile) delete()
+                        if (!exists()) mkdirs()
+                    }
                     val fileName = "LuckyTool_" + formatDate("yyyyMMdd_HHmmss") + "_backup.json"
                     backupData.launch(fileName)
                     true
@@ -236,6 +240,10 @@ class SettingsFragment : ModulePreferenceFragment() {
                 title = getString(R.string.restore_data)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
+                    FileUtils.checkDownloadDir(context, "LuckyTool").apply {
+                        if (isFile) delete()
+                        if (!exists()) mkdirs()
+                    }
                     restoreData.launch("application/json")
                     true
                 }

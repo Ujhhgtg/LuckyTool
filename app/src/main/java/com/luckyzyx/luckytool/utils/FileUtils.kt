@@ -262,7 +262,7 @@ object FileUtils {
                 if (isFile) delete()
                 if (!exists()) mkdirs()
             }
-        return File(file.path, fileName)
+        return File(file, fileName)
     }
 
     /**
