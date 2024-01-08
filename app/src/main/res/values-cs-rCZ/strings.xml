@@ -388,6 +388,7 @@
     <string name="AppStartupRelated">Nastavení související se spouštěním aplikací</string>
     <string name="disable_splash_screen">Zakázat animaci úvodní obrazovky</string>
     <string name="disable_splash_screen_summary">Vzhledem k tomu, že animace úvodní obrazovky byla odstraněna, bude po spuštění aplikace 1 až 2 sekundy prodleva startu aplikace. Pokud vám to vadí, prosím toto nezapínejte</string>
+    <string name="disable_preload_splash">Enable all app splash screen</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Nastavení související se seznamem aplikací</string>
     <string name="set_multi_app_support_mode">Nastavit režim podpory více aplikací</string>
@@ -524,6 +525,10 @@
     <string name="enable_clear_voice">Povolit vyčištění hlasu</string>
     <string name="enable_clear_voice_tips">Předpoklad: Správce telefonu musí být zaškrtnut</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
+    <string name="settings_password_and_security">Password and security</string>
+    <string name="disable_device_admin_verification_dialog">Disable Device Admin verification dialog</string>
+    <string name="settings_authority_and_privacy">Permissions and privacy</string>
+    <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>

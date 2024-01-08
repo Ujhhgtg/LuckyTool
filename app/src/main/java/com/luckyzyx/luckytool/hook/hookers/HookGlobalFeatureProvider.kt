@@ -47,6 +47,10 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("screen_physics_size_shown_cm", false)) {
                 put("com.android.settings.screen_physics_size_cm", true)
             }
+            //Source Settings VerificationDialog isVerificationDialogDisabled 禁用设备管理器验证对话框
+            if (prefs(ModulePrefs).getBoolean("disable_device_admin_verification_dialog", false)) {
+                put("com.android.settings.verification_dialog.disable", true)
+            }
 
             //Source Battery 屏幕省电
             if (prefs(ModulePrefs).getBoolean("open_screen_power_save", false)) {

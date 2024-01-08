@@ -388,6 +388,7 @@
     <string name="AppStartupRelated">Application startup related</string>
     <string name="disable_splash_screen">Disable splash screen</string>
     <string name="disable_splash_screen_summary">Since the splash screen animation has been removed, there will be a 1–2 second gap period when the APP is started.If you mind, please do not turn it on</string>
+    <string name="disable_preload_splash">Enable all app splash screen</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">App Related List</string>
     <string name="set_multi_app_support_mode">Set multi app support mode</string>
@@ -524,6 +525,10 @@
     <string name="enable_clear_voice">Enable clear voice</string>
     <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
     <string name="enable_holographic_audio">Enable holographic audio</string>
+    <string name="settings_password_and_security">Password and security</string>
+    <string name="disable_device_admin_verification_dialog">Disable Device Admin verification dialog</string>
+    <string name="settings_authority_and_privacy">Permissions and privacy</string>
+    <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Additional Settings</string>
     <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>

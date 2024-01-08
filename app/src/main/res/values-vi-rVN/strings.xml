@@ -388,6 +388,7 @@
     <string name="AppStartupRelated">Khởi động ứng dụng</string>
     <string name="disable_splash_screen">Vô hiệu hóa màn hình khởi động ứng dụng</string>
     <string name="disable_splash_screen_summary">Vì hoạt ảnh mặt nạ khởi động đã bị xóa nên sẽ có khoảng cách 1–2 giây khi ứng dụng khởi động. Vui lòng không mở nó nếu bạn thấy phiền</string>
+    <string name="disable_preload_splash">Enable all app splash screen</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Danh sách ứng dụng liên quan</string>
     <string name="set_multi_app_support_mode">Đặt chế độ hỗ trợ nhân bản ứng dụng</string>
@@ -524,6 +525,10 @@
     <string name="enable_clear_voice">Bật làm trong giọng nói</string>
     <string name="enable_clear_voice_tips">Điều kiện tiên quyết: Bạn cần kiểm tra trình quản lý điện thoại di động</string>
     <string name="enable_holographic_audio">Bật âm thanh ba chiều</string>
+    <string name="settings_password_and_security">Password and security</string>
+    <string name="disable_device_admin_verification_dialog">Disable Device Admin verification dialog</string>
+    <string name="settings_authority_and_privacy">Permissions and privacy</string>
+    <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Các thiết lập khác</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>

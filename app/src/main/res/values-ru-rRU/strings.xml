@@ -389,6 +389,7 @@
     <string name="AppStartupRelated">Запуск приложения</string>
     <string name="disable_splash_screen">Отключить заставку</string>
     <string name="disable_splash_screen_summary">Поскольку анимация заставки была удалена, при запуске приложения будет пауза в 1–2 секунды. Если вы не возражаете, пожалуйста, не включайте ее</string>
+    <string name="disable_preload_splash">Enable all app splash screen</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Список приложений</string>
     <string name="set_multi_app_support_mode">Установите режим поддержки нескольких приложений</string>
@@ -525,6 +526,10 @@
     <string name="enable_clear_voice">Включить очистку голоса</string>
     <string name="enable_clear_voice_tips">Требование: необходимо проверить менеджер телефона</string>
     <string name="enable_holographic_audio">Включить голографическое аудио</string>
+    <string name="settings_password_and_security">Password and security</string>
+    <string name="disable_device_admin_verification_dialog">Disable Device Admin verification dialog</string>
+    <string name="settings_authority_and_privacy">Permissions and privacy</string>
+    <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>

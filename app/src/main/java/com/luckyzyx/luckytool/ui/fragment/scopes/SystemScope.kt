@@ -2272,23 +2272,32 @@ class Application : BaseScopePreferenceFeagment() {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
             //应用启动
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.AppStartupRelated)
-                key = "AppStartupRelated"
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.disable_splash_screen)
-                summary = arraySummaryLine(
-                    getString(R.string.need_restart_system),
-                    getString(R.string.disable_splash_screen_summary)
-                )
-                key = "disable_splash_screen"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.AppStartupRelated)
+                    key = "AppStartupRelated"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.disable_splash_screen)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system),
+                        getString(R.string.disable_splash_screen_summary)
+                    )
+                    key = "disable_splash_screen"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.disable_preload_splash)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "disable_preload_splash"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //应用列表
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.APPRelatedList)
@@ -2777,7 +2786,8 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         "com.android.settings",
         "com.android.permissioncontroller",
         "com.oplus.safecenter",
-        "com.oplus.notificationmanager"
+        "com.oplus.notificationmanager",
+        "com.oplus.exsystemservice"
     )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -2920,19 +2930,32 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
-            //权限与隐私
+            //密码与安全
             addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.settings_authority_and_privacy)
-                key = "settings_authority_and_privacy"
+                title = getString(R.string.settings_password_and_security)
+                key = "settings_password_and_security"
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_vip_mode)
-                key = "enable_vip_mode"
+                title = getString(R.string.disable_device_admin_verification_dialog)
+                key = "disable_device_admin_verification_dialog"
                 setDefaultValue(false)
-                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
+            //权限与隐私
+            if (SDK >= A14) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.settings_authority_and_privacy)
+                    key = "settings_authority_and_privacy"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_vip_mode)
+                    key = "enable_vip_mode"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //其他设置
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_other_advanced_settings)

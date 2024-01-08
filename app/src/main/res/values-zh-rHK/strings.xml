@@ -388,6 +388,7 @@
     <string name="AppStartupRelated">应用启动相关</string>
     <string name="disable_splash_screen">关闭应用遮罩</string>
     <string name="disable_splash_screen_summary">由于启动遮罩动画被移除，所以当APP启动时会有1–2秒的空档，介意勿开</string>
+    <string name="disable_preload_splash">开启全应用启动遮罩</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">应用相关列表</string>
     <string name="set_multi_app_support_mode">设置应用分身支持模式</string>
@@ -524,6 +525,10 @@
     <string name="enable_clear_voice">启用人声突显</string>
     <string name="enable_clear_voice_tips">前提条件：需要勾选手机管家</string>
     <string name="enable_holographic_audio">启用全息音频</string>
+    <string name="settings_password_and_security">密码与安全</string>
+    <string name="disable_device_admin_verification_dialog">禁用设备管理器验证对话框</string>
+    <string name="settings_authority_and_privacy">权限和隐私</string>
+    <string name="enable_vip_mode">启用VIP模式</string>
     <string name="settings_other_advanced_settings">其他设置</string>
     <string name="settings_about_device">关于本机</string>
     <string name="set_processor_click_page">设置处理器点击页面</string>
