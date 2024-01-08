@@ -33,6 +33,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             ) {
                 put("oplus.software.multi_app.volume.adjust.support", true)
             }
+            //Source SystemUI / Launcher OplusShellStartingWindowUtils 全应用遮罩
+            if (SDK >= A13 && prefs(ModulePrefs).getBoolean("disable_preload_splash", false)) {
+                put("oplus.software.wms.disable_preload_splash", true)
+            }
 
             //Source Settings 启用RGB色温球 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_palette", false)

@@ -19,6 +19,8 @@ import com.luckyzyx.luckytool.utils.SDK
 
 object HookLauncher : YukiBaseHooker() {
     override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
+
         //分页组件
         loadHooker(PageIndicator)
         //堆叠布局
