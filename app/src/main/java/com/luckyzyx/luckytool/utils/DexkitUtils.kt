@@ -43,17 +43,17 @@ object DexkitUtils {
         instance: String, onlyOne: Boolean = true, isDebug: Boolean = false
     ): ClassDataList {
         when {
-            isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
-            size != 1 && (onlyOne || isDebug) -> {
-                if (isDebug) YLog.debug("$instance -> findMethod size ($size)", tag = tag)
-                else YLog.error("$instance -> findMethod size ($size)", tag = tag)
+            isNullOrEmpty() -> YLog.error("$instance -> findClass isNullOrEmpty", tag = tag)
+            size != 1 && (isDebug || onlyOne) -> {
+                if (isDebug) YLog.debug("$instance -> findClass size ($size)", tag = tag)
+                else YLog.error("$instance -> findClass size ($size)", tag = tag)
                 if (isDebug) forEachIndexed { index, it ->
                     YLog.debug("$instance -> findClass ($index) | ${it.name}", tag = tag)
                 }
             }
 
             size == 1 -> if (isDebug) YLog.debug(
-                "$instance -> findMethod ${single().name}", tag = tag
+                "$instance -> findClass ${single().name}", tag = tag
             )
         }
         return this
@@ -71,7 +71,7 @@ object DexkitUtils {
     ): MethodDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findMethod isNullOrEmpty", tag = tag)
-            size != 1 && (onlyOne || isDebug) -> {
+            size != 1 && (isDebug || onlyOne) -> {
                 if (isDebug) YLog.debug("$instance -> findMethod size ($size)", tag = tag)
                 else YLog.error("$instance -> findMethod size ($size)", tag = tag)
                 if (isDebug) forEachIndexed { index, it ->
@@ -82,9 +82,16 @@ object DexkitUtils {
                 }
             }
 
-            size == 1 -> if (isDebug) YLog.debug(
-                "$instance -> findMethod ${single().className}|${single().methodName}", tag = tag
-            )
+            size == 1 -> if (isDebug) {
+                YLog.debug(
+                    "$instance -> findMethod Method -> ${single().className} | ${single().methodName}",
+                    tag = tag
+                )
+                YLog.debug(
+                    "$instance -> findMethod Type -> ${single().paramTypeNames} | ${single().returnTypeName}",
+                    tag = tag
+                )
+            }
         }
         return this
     }
@@ -94,20 +101,24 @@ object DexkitUtils {
     ): FieldDataList {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> findField isNullOrEmpty", tag = tag)
-            size != 1 && (onlyOne || isDebug) -> {
+            size != 1 && (isDebug || onlyOne) -> {
                 if (isDebug) YLog.debug("$instance -> findField size ($size)", tag = tag)
                 else YLog.error("$instance -> findField size ($size)", tag = tag)
                 if (isDebug) forEachIndexed { index, it ->
                     YLog.debug(
-                        "$instance -> findField ($index) | ${it.className} | ${it.fieldName}",
+                        "$instance -> findField ($index) | ${it.className} | ${it.fieldName} | ${it.typeName}",
                         tag = tag
                     )
                 }
             }
 
-            size == 1 -> if (isDebug) YLog.debug(
-                "$instance -> findField ${single().className}|${single().fieldName}", tag = tag
-            )
+            size == 1 -> if (isDebug) {
+                YLog.debug("$instance -> findField Class -> ${single().className}", tag = tag)
+                YLog.debug(
+                    "$instance -> findField Field -> ${single().fieldName} | ${single().typeName}",
+                    tag = tag
+                )
+            }
         }
         return this
     }
