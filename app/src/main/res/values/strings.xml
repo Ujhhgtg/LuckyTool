@@ -594,6 +594,9 @@
     <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
     <string name="enable_holographic_audio">Enable holographic audio</string>
     
+    <string name="settings_authority_and_privacy">Permissions and privacy</string>
+    <string name="enable_vip_mode">Enable VIP mode</string>
+    
     <string name="settings_other_advanced_settings">Additional Settings</string>
     <string name="force_display_content_recommend" translatable="false">强制显示内容推荐</string>
     

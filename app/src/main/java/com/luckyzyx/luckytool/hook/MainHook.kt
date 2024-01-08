@@ -21,6 +21,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
 import com.luckyzyx.luckytool.hook.hookers.HookDialogRelated
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
+import com.luckyzyx.luckytool.hook.hookers.HookExSystemService
 import com.luckyzyx.luckytool.hook.hookers.HookFingerPrintRelated
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
 import com.luckyzyx.luckytool.hook.hookers.HookGesture
@@ -208,6 +209,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.coloros.soundrecorder", HookSoundRecorder)
         //atlasService
         loadApp("com.oplus.atlas", HookAtlasService)
+        //exsystemservice
+        loadApp("com.oplus.exsystemservice", HookExSystemService)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

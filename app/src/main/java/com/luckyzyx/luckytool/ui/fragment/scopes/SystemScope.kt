@@ -2773,7 +2773,12 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
 
 @Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.settings", "com.android.permissioncontroller")
+    override val scopes = arrayOf(
+        "com.android.settings",
+        "com.android.permissioncontroller",
+        "com.oplus.safecenter",
+        "com.oplus.notificationmanager"
+    )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -2913,6 +2918,19 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 key = "enable_dedicated_ram_for_games"
                 setDefaultValue(false)
                 isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
+            //权限与隐私
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.settings_authority_and_privacy)
+                key = "settings_authority_and_privacy"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_vip_mode)
+                key = "enable_vip_mode"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
                 isIconSpaceReserved = false
             })
             //其他设置
