@@ -3082,7 +3082,7 @@ class OplusBattery : BaseScopePreferenceFeagment() {
 
 @Obfuscate
 class OplusCamera : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.oneplus.camera", "com.oplus.camera")
+    override val scopes = arrayOf("com.oplus.camera", "com.oneplus.camera")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs

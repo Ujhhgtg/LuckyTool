@@ -157,7 +157,7 @@ object MainHook : IYukiHookXposedInit {
         //设置
         loadApp("com.android.settings", HookSettings)
         //相机
-        loadApp("com.oneplus.camera", "com.oplus.camera") {
+        loadApp("com.oplus.camera", "com.oneplus.camera") {
             loadHooker(HookCamera)
         }
         //相册
