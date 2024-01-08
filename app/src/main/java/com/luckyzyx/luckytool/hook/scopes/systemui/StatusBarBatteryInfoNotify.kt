@@ -58,7 +58,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private var isParallelDual = false
     private var chargerType = ""
 
-    private var iChargerIns: Any? = null
+    private var oplusCharger: Any? = null
     private lateinit var chargeInfo: Properties
     private var isMTKPlatform: Boolean? = null
 
@@ -373,8 +373,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
 
     private fun getChargeInfo(): Properties = safeOf(Properties()) {
         val queryChargeInfo = IChargerUtils(appClassLoader).let {
-            if (iChargerIns == null) iChargerIns = it.getInstance()
-            it.queryChargeInfo(iChargerIns)
+            if (oplusCharger == null) oplusCharger = it.getInstance()
+            it.queryChargeInfo(oplusCharger)
         }
         return Properties().apply {
             if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))

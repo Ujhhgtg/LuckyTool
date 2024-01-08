@@ -45,7 +45,6 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
                         val res = result<Drawable>() ?: return@after
                         if (res is BackgroundBlurDrawable) {
                             res.setBlurRadius(value.dp)
-                            res.alpha = value
                         }
                     }
                 }
