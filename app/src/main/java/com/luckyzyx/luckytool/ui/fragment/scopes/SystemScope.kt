@@ -2772,7 +2772,7 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
 }
 
 @Obfuscate
-class Settings : BaseScopePreferenceFeagment() {
+class OplusSettings : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.settings", "com.android.permissioncontroller")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -3010,7 +3010,7 @@ class Settings : BaseScopePreferenceFeagment() {
 }
 
 @Obfuscate
-class Battery : BaseScopePreferenceFeagment() {
+class OplusBattery : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.battery")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -3081,12 +3081,13 @@ class Battery : BaseScopePreferenceFeagment() {
 }
 
 @Obfuscate
-class Camera : BaseScopePreferenceFeagment() {
+class OplusCamera : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oneplus.camera", "com.oplus.camera")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraWaterMark)
                 key = "CameraWaterMark"
@@ -3129,7 +3130,7 @@ class Camera : BaseScopePreferenceFeagment() {
                 isVisible = false
                 isIconSpaceReserved = false
             })
-
+            //滤镜
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraFilter)
                 key = "CameraFilter"
@@ -3150,7 +3151,7 @@ class Camera : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-
+            //其他
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.settings_other_preference)
                 isVisible = SDK >= A13

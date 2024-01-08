@@ -539,7 +539,7 @@
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
     <!--Camera-->
     <string name="CameraWaterMark">Водяной знак</string>
-    <string name="remove_watermark_word_limit">Удалить ограничение на количество слов водяного знака</string>
+    <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
     <string name="enable_hasselblad_watermark_style">Включить стиль водяного знака Hasselblad</string>
     <string name="custom_model_watermark">Пользовательский водяной знак</string>
     <string name="fix_hasselblad_custom_watermark_crash">Исправлена ошибка пользовательского водяного знака Hasselblad</string>

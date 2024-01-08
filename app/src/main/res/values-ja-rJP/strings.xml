@@ -538,7 +538,7 @@
     <string name="force_display_bottom_google_settings">設定の下部に強制的に Google を表示</string>
     <!--Camera-->
     <string name="CameraWaterMark">透かし</string>
-    <string name="remove_watermark_word_limit">ウォーターマークの文字数制限を解除</string>
+    <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
     <string name="enable_hasselblad_watermark_style">Hasselblad ウォーターマークを有効化</string>
     <string name="custom_model_watermark">カスタムモデル透かし</string>
     <string name="fix_hasselblad_custom_watermark_crash">Hasselblad カスタムウォーターマークでのクラッシュを修正</string>

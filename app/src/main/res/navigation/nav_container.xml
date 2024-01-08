@@ -357,7 +357,7 @@
     </fragment>
     <fragment
             android:id="@+id/camera"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Camera"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusCamera"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/oplusGames"
@@ -509,11 +509,11 @@
             android:label="{title_label}" />
     <fragment
             android:id="@+id/battery"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Battery"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusBattery"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/settings"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.Settings"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusSettings"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/statusBarBattery"
