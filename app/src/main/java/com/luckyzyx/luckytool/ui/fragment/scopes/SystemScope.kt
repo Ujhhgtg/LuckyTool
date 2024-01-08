@@ -2786,8 +2786,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         "com.android.settings",
         "com.android.permissioncontroller",
         "com.oplus.safecenter",
-        "com.oplus.notificationmanager",
-        "com.oplus.exsystemservice"
+        "com.oplus.notificationmanager"
     )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
