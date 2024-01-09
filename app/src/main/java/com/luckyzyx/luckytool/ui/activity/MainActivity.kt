@@ -32,7 +32,6 @@ import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.ShortcutUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.bindRootService
@@ -42,6 +41,7 @@ import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
+import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.Dispatchers
 import kotlin.system.exitProcess
 
@@ -91,7 +91,7 @@ open class MainActivity : AppCompatActivity() {
             }
             return
         }
-        val isSu = ShellUtils.checkRootPermission()
+        val isSu = Shell.getShell().isRoot
         putBoolean(SettingsPrefs, "is_su", isSu)
         if (!isSu) {
             MaterialAlertDialogBuilder(this, dialogCentered).apply {

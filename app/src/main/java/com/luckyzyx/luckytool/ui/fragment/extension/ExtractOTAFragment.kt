@@ -18,10 +18,10 @@ import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
 import com.luckyzyx.luckytool.utils.SQLiteUtils
 import com.luckyzyx.luckytool.utils.SQLiteUtils.getTableData
 import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
-import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.formatFileSize
 import com.luckyzyx.luckytool.utils.getModelMarketName
+import com.topjohnwu.superuser.ShellUtils
 import java.io.File
 
 @Obfuscate
@@ -49,7 +49,7 @@ class ExtractOTAFragment : Fragment() {
             val data = withDefault {
                 val cachePath = context.cacheDir.path
                 val command = "cp /data/user/0/com.oplus.ota/databases/ota.db $cachePath"
-                ShellUtils.execCommand(command, true)
+                ShellUtils.fastCmd(command)
                 val dbFile = File(cachePath, "ota.db")
                 val table = if (dbFile.exists()) {
                     val db = SQLiteUtils.openDataBase(dbFile.path, readOnly)

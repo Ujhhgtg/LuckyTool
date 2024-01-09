@@ -14,13 +14,13 @@ import android.provider.Settings
 import android.text.TextUtils
 import androidx.core.content.FileProvider
 import com.luckyzyx.luckytool.BuildConfig
+import com.topjohnwu.superuser.ShellUtils
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.InputStreamReader
-
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object FileUtils {
@@ -270,6 +270,6 @@ object FileUtils {
      * @param path String
      */
     fun forceDeleteFile(path: String) {
-        ShellUtils.execCommand("rm -rf $path", true)
+        ShellUtils.fastCmd("rm -rf $path")
     }
 }

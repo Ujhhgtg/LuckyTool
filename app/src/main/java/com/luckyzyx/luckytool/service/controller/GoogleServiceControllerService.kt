@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.service.controller
 import android.content.Intent
 import com.luckyzyx.luckytool.IGoogleServiceController
 import com.luckyzyx.luckytool.utils.LogUtils
-import com.luckyzyx.luckytool.utils.ShellUtils
+import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 
 class GoogleServiceControllerService : RootService() {
@@ -17,15 +17,9 @@ class GoogleServiceControllerService : RootService() {
     override fun onBind(intent: Intent) = object : IGoogleServiceController.Stub() {
         override fun getGoogleStatus(): Boolean {
             return try {
-                val result = ShellUtils.execCommand(
-                    "settings get system $key",
-                    true, true
-                )
-                LogUtils.d(
-                    tag, "getGoogleStatus",
-                    "result -> ${result.result} | ${result.successMsg} | ${result.errorMsg}"
-                )
-                result.successMsg.toIntOrNull() == 1
+                val result = ShellUtils.fastCmd("settings get system $key")
+                LogUtils.d(tag, "getGoogleStatus", "result -> $result")
+                result.toIntOrNull() == 1
             } catch (e: Exception) {
                 LogUtils.d(tag, "getGoogleStatus", "$e")
                 false
@@ -34,11 +28,10 @@ class GoogleServiceControllerService : RootService() {
 
         override fun setGoogleStatus(status: Boolean) {
             try {
-                val result = ShellUtils.execCommand(
-                    "settings put system $key ${if (status) 1 else 0}",
-                    true, true
+                val result = ShellUtils.fastCmdResult(
+                    "settings put system $key ${if (status) 1 else 0}"
                 )
-                LogUtils.d(tag, "setGoogleStatus", "$status -> ${result.result == 0}")
+                LogUtils.d(tag, "setGoogleStatus", "$status -> $result")
             } catch (e: Exception) {
                 LogUtils.d(tag, "setGoogleStatus", "$e")
             }

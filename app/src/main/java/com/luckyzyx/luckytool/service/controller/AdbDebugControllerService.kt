@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.SystemProperties
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.utils.LogUtils
-import com.luckyzyx.luckytool.utils.ShellUtils
+import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import java.net.Inet4Address
 import java.net.NetworkInterface
@@ -30,7 +30,7 @@ class AdbDebugControllerService : RootService() {
 
         override fun restartAdb() {
             val commands = arrayOf("stop adbd", "killall -9 adbd 2>/dev/null", "start adbd")
-            ShellUtils.execCommand(commands, true)
+            ShellUtils.fastCmd(*commands)
         }
 
         fun getIpAddress(networkName: String): String? {

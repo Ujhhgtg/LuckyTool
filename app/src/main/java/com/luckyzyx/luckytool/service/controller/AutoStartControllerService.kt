@@ -23,9 +23,9 @@ import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRate
 import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getInt
+import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 
 @Obfuscate
@@ -83,7 +83,7 @@ class AutoStartControllerService : Service() {
                     command.add("echo > /sys/kernel/oplus_display/dimlayer_hbm 1")
                 }
             }
-            if (command.isNotEmpty()) ShellUtils.execCommand(command, true)
+            if (command.isNotEmpty()) ShellUtils.fastCmd(*command.toTypedArray())
             stopForeground(STOP_FOREGROUND_REMOVE)
         }
         return super.onStartCommand(intent, flags, startId)

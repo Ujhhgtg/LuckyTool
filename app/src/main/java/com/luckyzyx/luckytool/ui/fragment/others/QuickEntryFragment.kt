@@ -9,7 +9,6 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.getAppLabel
@@ -19,6 +18,7 @@ import com.luckyzyx.luckytool.utils.jumpEngineermode
 import com.luckyzyx.luckytool.utils.jumpRunningApp
 import com.luckyzyx.luckytool.utils.jumpSettingsDev
 import com.luckyzyx.luckytool.utils.jumpSystemUIDemoMode
+import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
 class QuickEntryFragment : ModulePreferenceFragment() {
@@ -77,9 +77,8 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -n com.android.settings/.homepage.DeepLinkHomepageActivityInternal",
-                        true
+                    ShellUtils.fastCmd(
+                        "am start -n com.android.settings/.homepage.DeepLinkHomepageActivityInternal"
                     )
                     true
                 }
@@ -126,9 +125,8 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -n com.oplus.battery/com.oplus.powermanager.fuelgaue.BatteryHealthActivity",
-                        true
+                    ShellUtils.fastCmd(
+                        "am start -n com.oplus.battery/com.oplus.powermanager.fuelgaue.BatteryHealthActivity"
                     )
                     true
                 }
@@ -154,8 +152,8 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -n com.oplus.camera/.ui.menu.algoswitch.AlgoSwitchActivity", true
+                    ShellUtils.fastCmd(
+                        "am start -n com.oplus.camera/.ui.menu.algoswitch.AlgoSwitchActivity"
                     )
                     true
                 }
@@ -178,9 +176,8 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                         )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity",
-                        true
+                    ShellUtils.fastCmd(
+                        "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity"
                     )
                     true
                 }
@@ -197,9 +194,8 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                     )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -n com.nearme.gamecenter/com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity",
-                        true
+                    ShellUtils.fastCmd(
+                        "am start -n com.nearme.gamecenter/com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity"
                     )
                     true
                 }
@@ -212,9 +208,8 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    ShellUtils.execCommand(
-                        "am start -n com.oplus.games/business.compact.activity.GameDevelopOptionsActivity",
-                        true
+                    ShellUtils.fastCmd(
+                        "am start -n com.oplus.games/business.compact.activity.GameDevelopOptionsActivity"
                     )
                     true
                 }

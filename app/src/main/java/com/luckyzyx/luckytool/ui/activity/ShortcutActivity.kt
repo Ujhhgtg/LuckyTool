@@ -6,10 +6,10 @@ import android.view.View
 import android.view.WindowManager
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.jumpBatteryInfo
 import com.luckyzyx.luckytool.utils.jumpHighPerformance
 import com.luckyzyx.luckytool.utils.jumpRunningApp
+import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
 @Suppress("DEPRECATION")
@@ -26,15 +26,13 @@ class ShortcutActivity : Activity() {
         intent.extras?.apply {
             when (getString("Shortcut", "null")) {
                 "module_shortcut_status_lsposed" -> {
-                    ShellUtils.execCommand(
-                        "am start 'intent:#Intent;action=android.intent.action.MAIN;category=org.lsposed.manager.LAUNCH_MANAGER;launchFlags=0x80000;component=com.android.shell/.BugreportWarningActivity;end'",
-                        true
+                    ShellUtils.fastCmd(
+                        "am start 'intent:#Intent;action=android.intent.action.MAIN;category=org.lsposed.manager.LAUNCH_MANAGER;launchFlags=0x80000;component=com.android.shell/.BugreportWarningActivity;end'"
                     )
                 }
 
-                "module_shortcut_status_oplusgames" -> ShellUtils.execCommand(
-                    "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity",
-                    true
+                "module_shortcut_status_oplusgames" -> ShellUtils.fastCmd(
+                    "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity"
                 )
 
                 "module_shortcut_status_chargingtest" -> jumpBatteryInfo(this@ShortcutActivity)

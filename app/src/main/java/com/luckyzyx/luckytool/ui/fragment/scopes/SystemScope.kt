@@ -23,7 +23,6 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.ShellUtils
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
@@ -45,6 +44,7 @@ import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.replaceBlankLine
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.toast
+import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
 class Android : BaseScopePreferenceFeagment() {
@@ -3470,8 +3470,8 @@ class OplusGames : BaseScopePreferenceFeagment() {
         )
 
     override fun callOpenMenu() {
-        ShellUtils.execCommand(
-            "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity", true
+        ShellUtils.fastCmd(
+            "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity"
         )
     }
 }
@@ -3542,19 +3542,14 @@ class OplusOta : BaseScopePreferenceFeagment() {
                             "am broadcast --user all -a android.intent.action.AIRPLANE_MODE --ez 'state' 'true'",
                             "am start com.oplus.ota/com.oplus.otaui.activity.EntryActivity"
                         )
-                        withDefault { ShellUtils.execCommand(command, true) }
+                        withDefault { ShellUtils.fastCmd(*command) }
                     }
                     true
                 }
             })
             addPreference(SwitchPreference(context).apply {
-                val getStatus = ShellUtils.execCommand(
-                    "getprop ro.boot.veritymode", false, true
-                )
-                val status = if (getStatus.result == 1) "null"
-                else getStatus.successMsg.toString().let {
-                    if (it != "enforcing") "error" else it
-                }
+                val getStatus = ShellUtils.fastCmd("getprop ro.boot.veritymode")
+                val status = if (getStatus != "enforcing") "error" else getStatus
                 title = getString(R.string.restore_ota_update_verity)
                 summary = getString(R.string.restore_ota_update_verity_summary, status)
                 key = "restore_ota_update_verity"
@@ -3564,7 +3559,7 @@ class OplusOta : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     val value = if (newValue as Boolean) "enforcing" else "\"\""
-                    ShellUtils.execCommand("resetprop ro.boot.veritymode $value", true, true)
+                    ShellUtils.fastCmd("resetprop ro.boot.veritymode $value")
                     (activity as MainActivity).restart()
                     true
                 }
