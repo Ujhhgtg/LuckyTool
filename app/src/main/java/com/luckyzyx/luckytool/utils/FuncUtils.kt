@@ -403,10 +403,10 @@ fun getProp(key: String): String = ShellUtils.fastCmd("getprop $key").let {
 fun TileService.closeCollapse() {
     if (SDK >= A14) startActivityAndCollapse(
         PendingIntent.getActivity(
-            this, 0, Intent(Intent.ACTION_VIEW), PendingIntent.FLAG_UPDATE_CURRENT
+            this, 0, Intent(), PendingIntent.FLAG_UPDATE_CURRENT
         )
     )
-    else startActivityAndCollapse(Intent(Intent.ACTION_VIEW).apply {
+    else startActivityAndCollapse(Intent().apply {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     })
 }
