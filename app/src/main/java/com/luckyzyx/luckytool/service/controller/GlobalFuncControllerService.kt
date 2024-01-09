@@ -13,8 +13,7 @@ class GlobalFuncControllerService : RootService() {
 
         override fun getFileText(dir: String): String {
             val file = File(dir)
-            return if (file.exists() && file.isFile) return file.readText()
-            else ""
+            return if (file.exists() && file.isFile) file.readText() else ""
         }
 
         override fun getOtaVersion(): String {

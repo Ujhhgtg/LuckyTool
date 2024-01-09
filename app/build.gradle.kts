@@ -129,12 +129,12 @@ dependencies {
     //Net OkHttp相关
     //noinspection GradleDependency
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.github.liangjingkanji:Net:3.6.2")
+    implementation("com.github.liangjingkanji:Net:3.6.4")
     //libsu
-    val libsuVersion = "5.2.1"
+    val libsuVersion = "5.2.2"
     implementation("com.github.topjohnwu.libsu:core:${libsuVersion}")
     implementation("com.github.topjohnwu.libsu:service:${libsuVersion}")
-//    implementation "com.github.topjohnwu.libsu:nio:${libsuVersion}"
+    implementation("com.github.topjohnwu.libsu:nio:${libsuVersion}")
 
     //Microsoft AppCenter
     val appCenterSdkVersion = "5.0.4"
