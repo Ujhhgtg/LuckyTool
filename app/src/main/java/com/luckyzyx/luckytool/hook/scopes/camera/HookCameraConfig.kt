@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.camera
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.param.HookParam
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -10,10 +11,67 @@ import com.luckyzyx.luckytool.utils.safeOfNull
 
 object HookCameraConfig : YukiBaseHooker() {
     override fun onHook() {
-        loadHooker(HookCameraConfig)
+        loadHooker(HookCameraVendorTag)
     }
 
-    private object HookCameraConfig : YukiBaseHooker() {
+    private object HookCameraVendorTag : YukiBaseHooker() {
+        override fun onHook() {
+            val is10bit = prefs(ModulePrefs).getBoolean("enable_10_bit_image_support", false)
+            val isHasselblad =
+                prefs(ModulePrefs).getBoolean("enable_hasselblad_watermark_style", false)
+            val masterFilter = prefs(ModulePrefs).getBoolean("enable_master_filter", false)
+            val jiangwenFilter = prefs(ModulePrefs).getBoolean("enable_jiangwen_filter", false)
+
+            //Source CameraUnitUtils
+            "com.oplus.ocs.camera.appinterface.adapter.CameraUnitUtils".toClass().apply {
+                method { name = "getVendorTagConfig" }.hook {
+                    after {
+                        when (@Suppress("UNUSED_VARIABLE") val key = args().first().string()) {
+                            //<string name="camera_heic_encode_10bits_title">10 亿色影像</string>
+                            //OptionKey PRE_KEY_10BIT_HEIC_ENCODE pref_10bits_heic_encode_key
+                            "com.oplus.10bits.heic.encode.support" -> if (is10bit) result("1")
+                            "com.oplus.feature.video.10bit.support" -> if (is10bit) result("1")
+
+                            //Source SloganUtil -> Shot on OnePlus / Hasselblad
+                            "com.oplus.hasselblad.watermark.support.default" -> if (isHasselblad) result(
+                                "1"
+                            )
+                            //通用哈苏水印
+                            "com.oplus.camera.support.custom.hasselblad.watermark" -> if (isHasselblad) result(
+                                "1"
+                            )
+                            //<string name="camera_hasselblad_watermark_setting_title_str">哈苏定制水印</string>
+                            //OptionKey PRE_KEY_WATERMARK_HASSELBLAD / pref_hasselblad_watermark_function_key
+                            "com.oplus.use.hasselblad.style.support" -> if (isHasselblad) result("1")
+                            //<string name="camera_beauty_makeup_watermark_setting_title">美妆定制水印</string>
+                            //OptionKey PRE_KEY_WATERMARK_MAKEUP pref_watermark_makeup_function_key
+//                        "com.oplus.feature.custom.makeup.watermark.support" -> if (isHasselblad) resultTrue()
+
+                            //Source FilterHelper 姜文滤镜
+                            "com.oplus.director.filter.support" -> if (jiangwenFilter) result("1")
+                            "com.oplus.director.filter.rus" -> if (jiangwenFilter) result("1")
+                            "com.oplus.director.filter.upgrade.support" -> if (jiangwenFilter) result(
+                                "1"
+                            )
+
+                            //res/layout/camera_watermark_makeup_visual_layout.xml
+                            //imageView_watermark_makeup_visual
+                            //key PRE_KEY_WATERMARK_MAKEUP / pref_watermark_makeup_function_key
+                            //is_slogan
+
+                            //Source FilterGroupManager 照片 / 人像 大师滤镜
+                            "com.oplus.photo.master.filter.type.list", "com.oplus.portrait.master.filter.type.list" -> if (isHasselblad && masterFilter) {
+                                result("Radiance.cube.rgb.bin,Serenity.cube.rgb.bin,Emerald.cube.rgb.bin")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Suppress("unused")
+    private object HookCameraConfigValue : YukiBaseHooker() {
         override fun onHook() {
             val is10bit = prefs(ModulePrefs).getBoolean("enable_10_bit_image_support", false)
             val isHasselblad =
@@ -94,14 +152,18 @@ object HookCameraConfig : YukiBaseHooker() {
                             //Source FilterGroupManager 照片 / 人像 大师滤镜
                             "com.oplus.photo.master.filter.type.list", "com.oplus.portrait.master.filter.type.list" -> if (isHasselblad && masterFilter) result =
                                 listOf(
-                                    "Emerald.cube.rgb.bin",
                                     "Radiance.cube.rgb.bin",
-                                    "Serenity.cube.rgb.bin"
+                                    "Serenity.cube.rgb.bin",
+                                    "Emerald.cube.rgb.bin"
                                 )
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun HookParam.result(value: Any?) {
+        result = value
     }
 }

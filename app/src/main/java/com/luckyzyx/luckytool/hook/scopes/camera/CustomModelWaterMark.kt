@@ -52,7 +52,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 )
             }
         }.apply {
-            checkDataList("CustomModelWaterMark MarketUtil", false, isDebug = true)
+            checkDataList("CustomModelWaterMark MarketUtil", false)
             var clazz = ""
             forEach {
                 if (clazz.isBlank() || clazz != it.className) clazz = it.className
@@ -76,7 +76,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 usingStrings("WatermarkHelper", "[\u4e00-\u9fa5]", "")
             }
         }.apply {
-            checkDataList("CustomModelWaterMark WatermarkHelper", isDebug = true)
+            checkDataList("CustomModelWaterMark WatermarkHelper")
             single().className.toClass().apply {
                 method {
                     name = single().methodName
