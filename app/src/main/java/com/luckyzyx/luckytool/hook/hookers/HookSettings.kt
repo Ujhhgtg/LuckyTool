@@ -40,11 +40,15 @@ object HookSettings : YukiBaseHooker() {
             loadHooker(HookSettingsFeature(dexKitBridge))
             //暗色模式列表
             if (prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)) {
-                loadHooker(DarkModeList)
+                loadHooker(DarkModeList(dexKitBridge))
             }
             //自动解锁受限制的设置
             if (prefs(ModulePrefs).getBoolean("auto_unlock_restricted_settings", false)) {
-                if (SDK >= A13) loadHooker(AutoUnlockRestrictedSettings)
+                if (SDK >= A13) loadHooker(AutoUnlockRestrictedSettings(dexKitBridge))
+            }
+            //启用应用专属媒体音量
+            if (prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)) {
+                if (osCode >= 27) loadHooker(FixAppSpecificMediaVolumePage(dexKitBridge))
             }
         }
 
@@ -101,10 +105,6 @@ object HookSettings : YukiBaseHooker() {
         //启用自定义应用语言
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
             if (SDK >= A14) loadHooker(EnableCustomAppLanguage)
-        }
-        //启用应用专属媒体音量
-        if (prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)) {
-            if (osCode >= 28) loadHooker(FixAppSpecificMediaVolumePage)
         }
 
 //        //Source MultiAppVolumeAdjustmentSettingsFragment

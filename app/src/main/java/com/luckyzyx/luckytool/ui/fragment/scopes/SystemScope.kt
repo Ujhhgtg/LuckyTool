@@ -2640,7 +2640,7 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 )
                 key = "enable_app_specific_media_volume"
                 setDefaultValue(false)
-                isVisible = osCode >= 28
+                isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
             addPreference(DropDownPreference(context).apply {
