@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPagePar
 import com.luckyzyx.luckytool.hook.scopes.settings.DarkModeList
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
+import com.luckyzyx.luckytool.hook.scopes.settings.FixAppSpecificMediaVolumePage
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayBottomGoogleSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayContentRecommend
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayDisabledAppsManager
@@ -14,6 +15,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayProcessManagement
 import com.luckyzyx.luckytool.hook.scopes.settings.HookAppDetails
 import com.luckyzyx.luckytool.hook.scopes.settings.HookIris5Controller
 import com.luckyzyx.luckytool.hook.scopes.settings.HookSettingsFeature
+import com.luckyzyx.luckytool.hook.scopes.settings.HookSettingsPreferenceFragment
 import com.luckyzyx.luckytool.hook.scopes.settings.RemoveDpiRestartRecovery
 import com.luckyzyx.luckytool.hook.scopes.settings.RemoveSettingsBottomLaboratory
 import com.luckyzyx.luckytool.hook.scopes.settings.RemoveTopAccountDisplay
@@ -22,10 +24,13 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 
 object HookSettings : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         loadHooker(HookGlobalFeatureConfig)
         loadHooker(HookGlobalSystemProperties)
 
@@ -42,6 +47,8 @@ object HookSettings : YukiBaseHooker() {
                 if (SDK >= A13) loadHooker(AutoUnlockRestrictedSettings)
             }
         }
+
+        loadHooker(HookSettingsPreferenceFragment)
 
         //应用详情页
         loadHooker(HookAppDetails)
@@ -93,6 +100,10 @@ object HookSettings : YukiBaseHooker() {
         //启用自定义应用语言
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
             if (SDK >= A14) loadHooker(EnableCustomAppLanguage)
+        }
+        //启用应用专属媒体音量
+        if (prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)) {
+            if (osCode >= 28) loadHooker(FixAppSpecificMediaVolumePage)
         }
 
 //        //Source MultiAppVolumeAdjustmentSettingsFragment
