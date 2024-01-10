@@ -515,6 +515,7 @@
     <string name="video_frame_insertion_support_2K120_summary">お使いのデバイスが MEMC に対応していない場合は、この機能を使用しないでください</string>
     <string name="enable_screen_color_temperature_rgb_palette">画面の色温度 RGB パレットを有効化</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">DC 調光で上書きされる可能性があります</string>
+    <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
     <string name="settings_application">アプリ</string>
     <string name="unlock_default_desktop_limit">デフォルトホーム画面の制限を解除</string>
     <string name="force_display_process_management">プロセス管理を強制的に表示</string>

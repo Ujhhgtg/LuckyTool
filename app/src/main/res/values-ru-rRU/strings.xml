@@ -348,8 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
-    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
-    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
+    <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
+    <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
     <string name="remove_app_shortcut_badge">Удалить иконку приложения</string>
     <string name="remove_app_work_badge">Удалить рабочую иконку приложения</string>
     <string name="remove_app_clone_badge">Удалить иконку клонированного приложения</string>
@@ -516,6 +516,7 @@
     <string name="video_frame_insertion_support_2K120_summary">Если ваше устройство не поддерживает MEMC, пожалуйста, не используйте эту функцию</string>
     <string name="enable_screen_color_temperature_rgb_palette">Включить цветовую температуру экрана в палитре RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Может быть переопределено функцией DC</string>
+    <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
     <string name="settings_application">Приложение</string>
     <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
@@ -545,7 +546,7 @@
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
     <!--Camera-->
     <string name="CameraWaterMark">Водяной знак</string>
-    <string name="remove_watermark_word_limit">Удалить ограничение символов для пользовательских водных знаков</string>
+    <string name="remove_watermark_word_limit">Удалить ограничение символов для пользовательских водяных знаков</string>
     <string name="enable_hasselblad_watermark_style">Включить стиль водяного знака Hasselblad</string>
     <string name="custom_model_watermark">Пользовательский водяной знак</string>
     <string name="fix_hasselblad_custom_watermark_crash">Исправлена ошибка пользовательского водяного знака Hasselblad</string>

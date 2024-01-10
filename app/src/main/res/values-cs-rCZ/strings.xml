@@ -515,6 +515,7 @@
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>
     <string name="enable_screen_color_temperature_rgb_palette">Povolit paletu pro teplotu barev obrazovky RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
+    <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
     <string name="settings_application">Aplikace</string>
     <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>

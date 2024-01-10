@@ -2866,6 +2866,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isVisible = getOSVersionCode >= 27
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_smart_switching_screen_resolutions)
+                key = "enable_smart_switching_screen_resolutions"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             //声音
             if (osCode >= 27) {
                 addPreference(PreferenceCategory(context).apply {

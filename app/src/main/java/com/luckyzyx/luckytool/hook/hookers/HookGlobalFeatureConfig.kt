@@ -47,6 +47,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_dedicated_ram_for_games", false)) {
                 put("oplus.software.game_bounce_support", true)
             }
+            //Source Settings ScreenResolutionFragment isResolutionAutoDisableSupport 启用智能切换屏幕分辨率
+            if (prefs(ModulePrefs).getBoolean("enable_smart_switching_screen_resolutions", false)) {
+                put("oplus.software.display.resolution_switch_disableauto_support", false)
+            }
+
             //Source Settings Iris5SettingsFragment 启用视频动态插帧
 //            if (prefs(ModulePrefs).getBoolean("force_display_video_memc_frame_insertion", false)
 //            ) {
