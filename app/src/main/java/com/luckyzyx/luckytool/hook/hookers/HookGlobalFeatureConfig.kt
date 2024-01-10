@@ -96,9 +96,9 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 
             //Source NotificationManager FeatureOption isSupportsStealthMode VIP模式
             //Source SafeCenter SettingsInsertProvider VIP模式
-            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_vip_mode", false)) {
-                put("oplus.software.stealth_security_mode", true)
-            }
+//            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_vip_mode", false)) {
+//                put("oplus.software.stealth_security_mode", true)
+//            }
         }
         loadHooker(HookFeatureConfigManager(list))
     }

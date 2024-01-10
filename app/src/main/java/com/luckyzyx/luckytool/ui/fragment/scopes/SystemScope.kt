@@ -2942,7 +2942,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //权限与隐私
-            if (SDK >= A14) {
+            if (SDK >= 666) {
                 addPreference(PreferenceCategory(context).apply {
                     title = getString(R.string.settings_authority_and_privacy)
                     key = "settings_authority_and_privacy"
@@ -2952,6 +2952,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     title = getString(R.string.enable_vip_mode)
                     key = "enable_vip_mode"
                     setDefaultValue(false)
+                    isVisible = false
                     isIconSpaceReserved = false
                 })
             }

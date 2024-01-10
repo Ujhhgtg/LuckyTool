@@ -9,6 +9,8 @@ import com.luckyzyx.luckytool.utils.SDK
 
 object HookNotificationManager : YukiBaseHooker() {
     override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
+
         //移除通知管理限制
         if (prefs(ModulePrefs).getBoolean("remove_notification_manager_limit", false)) {
             loadHooker(RemoveNotificationManagerLimit)

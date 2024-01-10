@@ -9,6 +9,8 @@ import com.luckyzyx.luckytool.utils.SDK
 
 object HookSafeCenter : YukiBaseHooker() {
     override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
+
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //移除自启数量限制
             if (SDK < A13 && prefs(ModulePrefs).getBoolean("unlock_startup_limit", false)) {
