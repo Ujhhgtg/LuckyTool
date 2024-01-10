@@ -348,7 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">ホーム画面関連</string>
     <string name="AppBadgeRelated">アプリバッジ関連</string>
-    <string name="remove_the_dot_after_app_update">アプリ更新のドットを削除</string>
+    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
+    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
     <string name="remove_app_shortcut_badge">アプリのショートカットバッジを削除</string>
     <string name="remove_app_work_badge">アプリの仕事用バッジを削除</string>
     <string name="remove_app_clone_badge">アプリのクローンバッジを削除</string>

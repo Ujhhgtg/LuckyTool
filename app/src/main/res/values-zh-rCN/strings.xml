@@ -348,7 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">桌面相关</string>
     <string name="AppBadgeRelated">应用徽标相关</string>
-    <string name="remove_the_dot_after_app_update">移除 APP 更新后的圆点</string>
+    <string name="enable_display_app_update_dot">启用App更新圆点开关</string>
+    <string name="enable_display_app_update_dot_summary">功能位置：设置-桌面与锁屏</string>
     <string name="remove_app_shortcut_badge">移除应用快捷方式徽标</string>
     <string name="remove_app_work_badge">移除应用工作空间徽标</string>
     <string name="remove_app_clone_badge">移除应用分身徽标</string>

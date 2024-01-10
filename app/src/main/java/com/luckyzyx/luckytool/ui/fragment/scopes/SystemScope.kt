@@ -1628,8 +1628,9 @@ class Launcher : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_the_dot_after_app_update)
-                key = "remove_the_dot_after_app_update"
+                title = getString(R.string.enable_display_app_update_dot)
+                summary = getString(R.string.enable_display_app_update_dot_summary)
+                key = "enable_display_app_update_dot"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

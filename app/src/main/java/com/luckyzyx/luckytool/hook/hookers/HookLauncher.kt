@@ -4,11 +4,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
 import com.luckyzyx.luckytool.hook.scopes.launcher.FolderLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
+import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeature
 import com.luckyzyx.luckytool.hook.scopes.launcher.LauncherLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.LongPressAppIconOpenAppDetails
 import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
 import com.luckyzyx.luckytool.hook.scopes.launcher.RecentTaskListClearButton
-import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveAppUpdateDot
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
 import com.luckyzyx.luckytool.hook.scopes.launcher.StackedTaskLayout
@@ -21,16 +21,15 @@ object HookLauncher : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookGlobalFeatureConfig)
 
+        //HookLauncherFeature
+        loadHooker(HookLauncherFeature)
+
         //分页组件
         loadHooker(PageIndicator)
         //堆叠布局
         loadHooker(StackedTaskLayout)
         //应用徽章
         if (SDK >= A13) loadHooker(HookAppBadge)
-        //移除APP更新圆点
-        if (prefs(ModulePrefs).getBoolean("remove_the_dot_after_app_update", false)) {
-            loadHooker(RemoveAppUpdateDot)
-        }
         //设置桌面布局行列数
         if (prefs(ModulePrefs).getBoolean("launcher_layout_enable", false)) {
             loadHooker(LauncherLayoutRowColume)

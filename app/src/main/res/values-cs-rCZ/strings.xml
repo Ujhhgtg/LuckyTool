@@ -348,7 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">Plocha</string>
     <string name="AppBadgeRelated">Odznaky aplikací</string>
-    <string name="remove_the_dot_after_app_update">Odstranit tečku po aktualizaci aplikace</string>
+    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
+    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
     <string name="remove_app_shortcut_badge">Odstranit odznak na ikoně aplikace</string>
     <string name="remove_app_work_badge">Odstranit značku pracovní aplikace</string>
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>

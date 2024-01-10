@@ -48,6 +48,7 @@ object HookSettings : YukiBaseHooker() {
             }
         }
 
+        //HookSettingsPreferenceFragment removePreference
         loadHooker(HookSettingsPreferenceFragment)
 
         //应用详情页

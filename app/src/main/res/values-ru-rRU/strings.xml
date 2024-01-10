@@ -149,9 +149,9 @@
     <string name="statusbar_network_no_space">Удалить пространство скорости сети</string>
     <string name="set_network_speed_double_row_spacing">Установить интервал скорости двухрядной сети</string>
     <!--StatusBarNotify-->
-    <string name="StatusBarNotice">Уведомления в статусбаре</string>
+    <string name="StatusBarNotice">Уведомления в статусбаре и шторке</string>
     <string name="StatusBarNotice_summary">Уведомление в статусбаре</string>
-    <string name="RemoveStatusBarNotifications">Удалить уведомления в шторке</string>
+    <string name="RemoveStatusBarNotifications">Удалить уведомления</string>
     <string name="remove_statusbar_devmode">Удалить уведомление о параметрах разработчика в шторке</string>
     <string name="remove_charging_completed">Удалить уведомление о завершении зарядки</string>
     <string name="remove_statusbar_top_notification">Удалить уведомление об отображении поверх других приложений из шторки</string>
@@ -348,7 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
-    <string name="remove_the_dot_after_app_update">Удалить точку после обновления приложения</string>
+    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
+    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
     <string name="remove_app_shortcut_badge">Удалить иконку приложения</string>
     <string name="remove_app_work_badge">Удалить рабочую иконку приложения</string>
     <string name="remove_app_clone_badge">Удалить иконку клонированного приложения</string>

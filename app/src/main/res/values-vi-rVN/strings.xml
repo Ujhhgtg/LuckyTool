@@ -348,7 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">Màn hình chính</string>
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
-    <string name="remove_the_dot_after_app_update">Xóa dấu chấm sau khi cập nhật APP</string>
+    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
+    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
     <string name="remove_app_shortcut_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_work_badge">Xóa huy hiệu không gian làm việc của ứng dụng</string>
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>
