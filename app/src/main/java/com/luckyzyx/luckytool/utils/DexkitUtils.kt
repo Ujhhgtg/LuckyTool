@@ -37,6 +37,7 @@ object DexkitUtils {
      * @receiver ClassDataList
      * @param instance String
      * @param onlyOne Boolean
+     * @param isDebug Boolean
      * @return ClassDataList
      */
     fun ClassDataList.checkDataList(
@@ -64,6 +65,7 @@ object DexkitUtils {
      * @receiver MethodDataList
      * @param instance String
      * @param onlyOne Boolean
+     * @param isDebug Boolean
      * @return MethodDataList
      */
     fun MethodDataList.checkDataList(
@@ -96,6 +98,14 @@ object DexkitUtils {
         return this
     }
 
+    /**
+     * 检查搜索到的Field列表并打印LOG
+     * @receiver FieldDataList
+     * @param instance String
+     * @param onlyOne Boolean
+     * @param isDebug Boolean
+     * @return FieldDataList
+     */
     fun FieldDataList.checkDataList(
         instance: String, onlyOne: Boolean = true, isDebug: Boolean = false
     ): FieldDataList {
