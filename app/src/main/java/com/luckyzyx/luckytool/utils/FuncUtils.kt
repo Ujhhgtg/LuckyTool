@@ -3,7 +3,6 @@
 package com.luckyzyx.luckytool.utils
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -398,17 +397,16 @@ fun getProp(key: String): String = ShellUtils.fastCmd("getprop $key").let {
  * 打开空活动以关闭折叠面板
  * @receiver TileService
  */
+@SuppressLint("StartActivityAndCollapseDeprecated")
 @Suppress("DEPRECATION")
-@SuppressLint("NewApi", "StartActivityAndCollapseDeprecated")
 fun TileService.closeCollapse() {
-    if (SDK >= A14) startActivityAndCollapse(
-        PendingIntent.getActivity(
-            this, 0, Intent(), PendingIntent.FLAG_UPDATE_CURRENT
-        )
-    )
-    else startActivityAndCollapse(Intent().apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    })
+    try {
+        startActivityAndCollapse(Intent(Intent.ACTION_VIEW).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
+    } catch (_: Exception) {
+
+    }
 }
 
 /**
