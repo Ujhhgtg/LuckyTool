@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookAutoStart
 import com.luckyzyx.luckytool.hook.hookers.HookBattery
 import com.luckyzyx.luckytool.hook.hookers.HookBrowser
 import com.luckyzyx.luckytool.hook.hookers.HookCalendar
+import com.luckyzyx.luckytool.hook.hookers.HookCallUI
 import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
 import com.luckyzyx.luckytool.hook.hookers.HookDialogRelated
@@ -178,6 +179,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.heytap.pictorial", HookPictorial)
         //信息
         loadApp("com.android.mms", HookOplusMMS)
+        //电话
+        loadApp("com.android.incallui", HookCallUI)
         //电话服务
         loadApp("com.android.phone", HookPhone)
         //浏览器

@@ -1,0 +1,9 @@
+package com.luckyzyx.luckytool.hook.hookers
+
+import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+
+object HookCallUI : YukiBaseHooker() {
+    override fun onHook() {
+        loadHooker(HookGlobalFeatureConfig)
+    }
+}

@@ -33,7 +33,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.1.8_beta"
+        versionName = "1.1.8"
         buildConfigField("String", "APP_CENTER_SECRET", "\"${getAppCenterSecret()}\"")
     }
 
@@ -108,7 +108,7 @@ dependencies {
 
     //Material主题
     implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     //约束布局
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     //快速创建Settings
@@ -134,7 +134,7 @@ dependencies {
     val libsuVersion = "5.2.2"
     implementation("com.github.topjohnwu.libsu:core:${libsuVersion}")
     implementation("com.github.topjohnwu.libsu:service:${libsuVersion}")
-    implementation("com.github.topjohnwu.libsu:nio:${libsuVersion}")
+//    implementation("com.github.topjohnwu.libsu:nio:${libsuVersion}")
 
     //Microsoft AppCenter
     val appCenterSdkVersion = "5.0.4"

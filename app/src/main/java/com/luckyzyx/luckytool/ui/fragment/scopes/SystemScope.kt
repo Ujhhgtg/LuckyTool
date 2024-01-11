@@ -3658,7 +3658,7 @@ class OplusMMS : BaseScopePreferenceFeagment() {
 
 @Obfuscate
 class OplusTeleService : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.phone")
+    override val scopes = arrayOf("com.android.phone", "com.android.incallui")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
