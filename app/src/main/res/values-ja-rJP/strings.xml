@@ -488,6 +488,7 @@
     <string name="force_enable_systemui_blur_feature_tips">有効にする前に「システム UI のぼかし機能を強制的に有効化」オプションをオンにする必要があります。\nオプションは「その他」のページにあります。</string>
     <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     <!--Battery-->
+    <string name="customize_battery_health_data_percentage">Customize battery health data percentage</string>
     <string name="display_module_calculates_battery_health_data">バッテリーの健康データを計算して表示</string>
     <string name="display_module_calculates_battery_health_data_summary">オンにすると、モジュールにより算出された健康データがシステムデータの下に表示されます</string>
     <string name="display_module_calculates_battery_health_data_tips">算出された最大容量</string>

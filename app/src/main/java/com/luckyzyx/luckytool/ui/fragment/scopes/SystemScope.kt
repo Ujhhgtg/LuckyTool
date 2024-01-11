@@ -28,6 +28,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.dialogCentered
+import com.luckyzyx.luckytool.utils.filterNumber
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getAppVersion
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -3064,44 +3065,60 @@ class OplusBattery : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.open_battery_health)
-                summary = getString(R.string.open_battery_health_summary)
-                key = "open_battery_health"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, _ ->
-                    (activity as MainActivity).restart()
-                    true
-                }
-            })
-            if (context.getBoolean(ModulePrefs, "open_battery_health", false)) {
+            if (SDK >= A13) {
                 addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.display_module_calculates_battery_health_data)
-                    summary =
-                        getString(R.string.display_module_calculates_battery_health_data_summary)
-                    key = "display_module_calculates_battery_health_data"
+                    title = getString(R.string.open_battery_health)
+                    summary = getString(R.string.open_battery_health_summary)
+                    key = "open_battery_health"
                     setDefaultValue(false)
-                    isVisible = SDK >= A13
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getBoolean(ModulePrefs, "open_battery_health", false)) {
+                    addPreference(EditTextPreference(context).apply {
+                        title = getString(R.string.customize_battery_health_data_percentage)
+                        dialogTitle = title
+                        summary = context.getString(
+                            ModulePrefs, "customize_battery_health_data_percentage", "None"
+                        )
+                        if (summary.isNullOrBlank()) summary = "None"
+                        key = "customize_battery_health_data_percentage"
+                        setDefaultValue("None")
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            newValue as String
+                            summary = if (newValue.isBlank()) "None"
+                            else "${newValue.filterNumber}%"
+                            true
+                        }
+                    })
+                    addPreference(SwitchPreference(context).apply {
+                        title =
+                            getString(R.string.display_module_calculates_battery_health_data)
+                        summary =
+                            getString(R.string.display_module_calculates_battery_health_data_summary)
+                        key = "display_module_calculates_battery_health_data"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                }
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_stop_charging_at_80)
+                    key = "enable_stop_charging_at_80"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.open_screen_power_save)
+                    summary = getString(R.string.open_screen_power_save_summary)
+                    key = "open_screen_power_save"
+                    setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
             }
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_stop_charging_at_80)
-                key = "enable_stop_charging_at_80"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.open_screen_power_save)
-                summary = getString(R.string.open_screen_power_save_summary)
-                key = "open_screen_power_save"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_battery_temperature_control)
                 summary = getString(R.string.remove_battery_temperature_control_summary)
@@ -3109,6 +3126,7 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            //电池优化
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.BatteryOptimization)
                 key = "BatteryOptimization"

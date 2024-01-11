@@ -35,7 +35,7 @@ object HookBattery : YukiBaseHooker() {
         }
 
         //显示模块计算电池健康数据
-        if (prefs(ModulePrefs).getBoolean("display_module_calculates_battery_health_data", false)) {
+        if (prefs(ModulePrefs).getBoolean("open_battery_health", false)) {
             if (SDK >= A13) loadHooker(DisplayModuleCalculatesBatteryHealthData)
         }
     }

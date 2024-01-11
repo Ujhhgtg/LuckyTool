@@ -12,12 +12,19 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.calcLocalHealth
+import com.luckyzyx.luckytool.utils.filterNumber
 import com.luckyzyx.luckytool.utils.safeOf
 
 object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
     @SuppressLint("SetTextI18n", "DiscouragedApi")
     override fun onHook() {
+        val customCalcData =
+            prefs(ModulePrefs).getString("customize_battery_health_data_percentage", "None")
+        val showCalcData =
+            prefs(ModulePrefs).getBoolean("display_module_calculates_battery_health_data", false)
+
         //Source BatteryHealthDataPreference
         "com.oplus.powermanager.fuelgaue.BatteryHealthDataPreference".toClass().apply {
             method { param(ViewClass) }.hook {
@@ -33,19 +40,24 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
                     ) ?: return@after
                     val dataView = field { type = TextViewClass }.get(instance).cast<TextView>()
                         ?: return@after
-                    val health = calcLocalHealth(context)
-                    val tips = safeOf(" Calc") {
-                        context.getString(R.string.display_module_calculates_battery_health_data_tips)
+                    if (customCalcData.filterNumber.isNotEmpty()) {
+                        dataView.text = "${customCalcData.filterNumber}%"
                     }
-                    contentView.apply {
-                        layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
-                        gravity = Gravity.START
-                        text = "$text\n\nLuckyTool$tips"
-                    }
-                    dataView.apply {
-                        layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
-                        gravity = Gravity.END
-                        text = "$text\n\n${health}%"
+                    if (showCalcData) {
+                        val health = calcLocalHealth(context)
+                        val tips = safeOf(" Calc") {
+                            context.getString(R.string.display_module_calculates_battery_health_data_tips)
+                        }
+                        contentView.apply {
+                            layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                            gravity = Gravity.START
+                            text = "$text\n\nLuckyTool$tips"
+                        }
+                        dataView.apply {
+                            layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                            gravity = Gravity.END
+                            text = "$text\n\n${health}%"
+                        }
                     }
                 }
             }

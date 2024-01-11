@@ -550,6 +550,7 @@
     <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
     
     <!--Battery-->
+    <string name="customize_battery_health_data_percentage">Customize battery health data percentage</string>
     <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
     <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
     <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
