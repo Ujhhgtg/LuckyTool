@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.8_beta
+### 1.1.8
 
 - [优化] “允许不受信任的触摸”Hook逻辑
 - [优化] 系统界面部分功能Hook逻辑
@@ -27,6 +27,28 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [适配] 多分辨率机型DPI重启恢复
 - [添加] 启用智能切换屏幕分辨率
 - [添加] 自定义电池健康数据百分比
+- [Optimize] "Allow untrusted touch" Hook logic
+- [Optimize] Hook logic for some functions of the system interface
+- [Add] Call privacy protection C14
+- [Add] Enable third-party application call recording C14
+- [Add] Enable charging to 80% bypass charging mode C13+
+- [Change] Simplified display of wireless charging type in status bar battery notification
+- [Optimize] Optimize the logic of quick entry jump method
+- [Optimize] Optimize status bar battery notification data cache to reduce power consumption
+- [Fix] Forced refresh rate auto-start failure issue
+- [Optimize] TileService naming format (need to re-add tiles)
+- [Optimize] Status bar battery notification wireless charging technology display
+- [Optimize] Lock screen charging component wireless charging technology display
+- [Fix] Abnormal transparency of status bar notification background on some models
+- [Optimize] Optimize camera custom watermark character limit
+- [Optimize] Optimize camera custom model watermark
+- [Add] Enable all application screen splash C13+
+- [Add] Disable device manager verification dialog
+- [Fix] App-specific media volume display page jump option
+- [Add] Enable Show App Update Dot Switch
+- [Fix] DPI restart recovery for multi-resolution models
+- [Add] Enable smart switching screen resolution
+- [Add] Custom battery health data percentage
 
 ### 1.1.7
 
