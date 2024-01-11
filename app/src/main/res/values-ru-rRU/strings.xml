@@ -36,13 +36,13 @@
     <string name="switch_autostart_function_caller_summary">1.Метод вызова модуля откроет новую страницу модуля и активирует функцию автозапуска. Этот метод может привести к тому, что экран станет недоступным в течение нескольких секунд, когда он разблокирован\n2.Метод вызова системного интерфейса вызовет функцию автозапуска в процессе системного интерфейса, необходимо предоставить root-права для системного интерфейса, в противном случае автозапуск не может быть запущен</string>
     <string name="switch_autostart_function_caller_module">Вызов модуля</string>
     <string name="switch_autostart_function_caller_systemui">Вызов системного пользовательского интерфейса</string>
-    <string name="hide_function_page_icon">Скрыть иконку страницы функций</string>
+    <string name="hide_function_page_icon">Скрыть иконки пунктов во вкладке функций</string>
     <string name="hide_desktop_module_icon">Скрыть иконку модуля на рабочем столе</string>
     <string name="hide_desktop_module_icon_summary">LSPosed должен быть отключен, чтобы принудительно отображались иконки на рабочем столе</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Бэкап/Восстановление/Очистка</string>
     <string name="get_log_cat_log">Получить лог</string>
-    <string name="backup_data">Резервное копирование данных</string>
+    <string name="backup_data">Бэкап данных</string>
     <string name="restore_data">Восстановление данных</string>
     <string name="data_backup_complete">Бэкап создан!</string>
     <string name="data_backup_error">Бэкап не создан!</string>
@@ -334,7 +334,7 @@
     <string name="lock_screen_bottom_left_button_replace_with_flashlight">Кнопка в левом нижнем углу экрана блокировки заменяется фонариком</string>
     <string name="lock_screen_switch_flashlight_auto_close_screen">Включите фонарик для автоматического отключения экрана</string>
     <string name="remove_lock_screen_bottom_right_camera">Удалить камеру из правого нижнего угла экрана блокировки</string>
-    <string name="remove_lock_screen_close_notification_button">Удалить кнопку уведомления о закрытии экрана блокировки</string>
+    <string name="remove_lock_screen_close_notification_button">Удалить кнопку закрытия уведомлений на экране блокировки</string>
     <string name="remove_lock_screen_bottom_sos_button">Удалить кнопку экстренного контакта SOS</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Кнопка экстренного контакта SOS внизу страницы разблокировки будет удалена</string>
     <string name="LockScreenEvent">Событие экрана блокировки</string>
@@ -393,12 +393,12 @@
     <string name="disable_preload_splash">Включить заставку для всех приложений</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Список приложений</string>
-    <string name="set_multi_app_support_mode">Установите режим поддержки нескольких приложений</string>
+    <string name="set_multi_app_support_mode">Режим клонирования приложений</string>
     <string name="set_multi_app_support_mode_all_apps">Полный список приложений</string>
     <string name="multi_app_enable">Включить список замены</string>
-    <string name="multi_app_custom_list">Заменить список клонирования приложений</string>
+    <string name="multi_app_custom_list">Настроить список клонирования приложений</string>
     <string name="multi_app_custom_list_summary">После включения функции исходный список клонов приложений будет заменен этим списком, слишком большое количество приведет к задержке</string>
-    <string name="dark_mode_support_list">Приложения поддерживающие темный режим</string>
+    <string name="dark_mode_support_list">Темный режим для приложений</string>
     <string name="enable_dark_mode_list">Включить пользовательские списки</string>
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Установка приложения</string>
@@ -421,8 +421,8 @@
     <string name="ApplyOtherRestrictions">Прочие ограничения</string>
     <string name="remove_adb_install_confirm">Удалить подтверждение установки ADB</string>
     <string name="remove_adb_install_confirm_summary">Установите приложение напрямую с помощью ADB</string>
-    <string name="unlock_startup_limit">Разблокировать ограничение на автозапуск приложения</string>
-    <string name="unlock_startup_limit_summary">Разблокировать ограничение на количество автозапусков приложения</string>
+    <string name="unlock_startup_limit">Разблокировать ограничения на автозапуск приложений</string>
+    <string name="unlock_startup_limit_summary">Разблокировать ограничения на количество автозапусков приложений</string>
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">Сведения о приложении</string>
     <string name="show_package_name_in_app_details">Показывать имя пакета в подробностях приложения</string>
@@ -475,7 +475,7 @@
     <string name="disable_otg_auto_off">Отключить автоотключение OTG</string>
     <string name="disable_otg_auto_off_summary">Отключить автоматическое отключение OTG через 10 минут</string>
     <string name="remove_storage_limit">Удалить ограничение хранилища</string>
-    <string name="remove_storage_limit_summary">Снять ограничение, на использование хранилища</string>
+    <string name="remove_storage_limit_summary">Снять ограничение, на использование хранилища (папка Android)</string>
     <string name="open_screen_power_save">Открыть режим энергосбережения</string>
     <string name="open_screen_power_save_summary">Настройки - Батарея - Дополнительные настройки - Энергосбережение экрана</string>
     <string name="open_battery_health">Открыть состояние батареи</string>
@@ -516,7 +516,7 @@
     <string name="video_frame_insertion_support_2K120_summary">Если ваше устройство не поддерживает MEMC, пожалуйста, не используйте эту функцию</string>
     <string name="enable_screen_color_temperature_rgb_palette">Включить цветовую температуру экрана в палитре RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Может быть переопределено функцией DC</string>
-    <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
+    <string name="enable_smart_switching_screen_resolutions">Включить умное переключение разрешения экрана</string>
     <string name="settings_application">Приложение</string>
     <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>
@@ -797,8 +797,8 @@
     <!--CommonWords-->
     <string name="common_words_enable">Включить</string>
     <string name="common_words_disable">Отключить</string>
-    <string name="common_words_left">Влево</string>
-    <string name="common_words_right">Вправо</string>
+    <string name="common_words_left">Слева</string>
+    <string name="common_words_right">Справа</string>
     <string name="common_words_close">Отключено</string>
     <string name="common_words_open">Открыть</string>
     <string name="common_words_share">Поделиться</string>

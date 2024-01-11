@@ -39,7 +39,7 @@ val getVersionCode get() = BuildConfig.VERSION_CODE
  * V13.2
  * V14.0
  */
-val getOSVersionName: String get() = OplusBuild.VERSIONS[OplusBuild.getOplusOSVERSION() - 1]
+val getOSVersionName: String get() = safeOf("null") { OplusBuild.VERSIONS[OplusBuild.getOplusOSVERSION() - 1] }
 
 /**
  * 获取OS版本号
