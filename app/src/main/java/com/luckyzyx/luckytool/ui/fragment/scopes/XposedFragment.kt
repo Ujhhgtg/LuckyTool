@@ -13,10 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
-import android.widget.TextView
 import androidx.core.view.MenuProvider
 import androidx.core.view.setPadding
-import androidx.core.widget.NestedScrollView
 import androidx.preference.Preference
 import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
@@ -26,6 +24,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
@@ -47,6 +46,8 @@ import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showBottomSheet
 import com.luckyzyx.luckytool.utils.toast
+import io.noties.markwon.Markwon
+import io.noties.markwon.ext.tables.TablePlugin
 import kotlinx.coroutines.Dispatchers
 import java.util.Arrays
 
@@ -671,27 +672,23 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
 
     private fun Context.showBottomDialog() {
         scopeLife {
-            val list = ArrayList<String>()
+            val dialogBinding = DialogScopeVersionInfoBinding.inflate(layoutInflater)
+            val markwon = Markwon.builder(this@showBottomDialog).apply {
+                usePlugin(TablePlugin.create(this@showBottomDialog))
+            }.build()
+            showBottomSheet(dialogBinding.root)
+            val list = ArrayList<String>().apply {
+                add("| name | package | version |")
+                add("| ------ | ------ | ------|")
+            }
             val xposedScope = resources.getStringArray(R.array.xposed_scope)
             Arrays.sort(xposedScope)
-            val str = getString(R.string.scope_version_info)
-            list.add(str)
-            list.add("")
             xposedScope.forEach {
                 val arrayList = getAppVersion(it)
                 if (arrayList.isEmpty()) return@forEach
-                list.add("${getAppLabel(it)} $it")
-                list.add("${arrayList[0]}(${arrayList[1]})[${arrayList[2]}]")
-                list.add("")
+                list.add("| ${getAppLabel(it)} | $it |  ${arrayList[0]}(${arrayList[1]})[${arrayList[2]}] |")
             }
-            val nestedScrollView = NestedScrollView(this@showBottomDialog).apply {
-                setPadding(10.dp, 20.dp, 10.dp, 20.dp)
-                addView(TextView(context).apply {
-                    textSize = 16F
-                    text = formatStringAuto(list, "\n")
-                })
-            }
-            showBottomSheet(nestedScrollView)
+            markwon.setMarkdown(dialogBinding.tv, formatStringAuto(list, "\n"))
         }
     }
 }

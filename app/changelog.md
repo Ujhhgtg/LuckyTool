@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.1.9_beta
+
+- [优化] 使用Markdown解析作用域版本信息对话框
+
 ### 1.1.8
 
 - [优化] “允许不受信任的触摸”Hook逻辑
