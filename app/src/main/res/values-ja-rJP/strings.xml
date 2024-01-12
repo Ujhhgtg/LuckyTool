@@ -547,6 +547,7 @@
     <!--Camera-->
     <string name="CameraWaterMark">透かし</string>
     <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
+    <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Hasselblad ウォーターマークを有効化</string>
     <string name="custom_model_watermark">カスタムモデル透かし</string>
     <string name="fix_hasselblad_custom_watermark_crash">Hasselblad カスタムウォーターマークでのクラッシュを修正</string>

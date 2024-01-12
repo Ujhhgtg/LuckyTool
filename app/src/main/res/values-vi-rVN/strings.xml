@@ -547,6 +547,7 @@
     <!--Camera-->
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn ký tự ở hình mờ tùy chỉnh</string>
+    <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Kích hoạt kiểu hình mờ Hasselblad</string>
     <string name="custom_model_watermark">Hình mờ máy tùy chỉnh</string>
     <string name="fix_hasselblad_custom_watermark_crash">Sửa chữa sự cố hình mờ tùy chỉnh Hasselblad</string>

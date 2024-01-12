@@ -626,6 +626,7 @@
     <!--Camera-->
     <string name="CameraWaterMark">WaterMark</string>
     <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
+    <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Enable Hasselblad Watermark Style</string>
     <string name="custom_model_watermark">Custom model watermark</string>
     <string name="fix_hasselblad_custom_watermark_crash">Fix Hasselblad custom watermark crash</string>

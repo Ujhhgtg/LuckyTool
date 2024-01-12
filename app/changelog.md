@@ -6,6 +6,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 ### 1.1.9_beta
 
 - [优化] 使用Markdown解析作用域版本信息对话框
+- [添加] 启用相机画框水印支持
 
 ### 1.1.8
 

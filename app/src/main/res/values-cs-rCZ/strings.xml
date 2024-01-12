@@ -348,8 +348,8 @@
     <!--Launcher-->
     <string name="Desktop">Plocha</string>
     <string name="AppBadgeRelated">Odznaky aplikací</string>
-    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
-    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
+    <string name="enable_display_app_update_dot">Povolit přepínač aktualizací aplikace</string>
+    <string name="enable_display_app_update_dot_summary">Umístění funkce: Nastavení - Desktop a zamykací obrazovka</string>
     <string name="remove_app_shortcut_badge">Odstranit odznak na ikoně aplikace</string>
     <string name="remove_app_work_badge">Odstranit značku pracovní aplikace</string>
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
@@ -488,7 +488,7 @@
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
     <string name="show_manual_lock_button_power_menu">Zobrazit tlačítko manuálního zámku v menu napájení</string>
     <!--Battery-->
-    <string name="customize_battery_health_data_percentage">Customize battery health data percentage</string>
+    <string name="customize_battery_health_data_percentage">Přizpůsobit údaje o stavu baterie v %</string>
     <string name="display_module_calculates_battery_health_data">Zobrazit výpočet údajů o stavu baterie</string>
     <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
     <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
@@ -516,7 +516,7 @@
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>
     <string name="enable_screen_color_temperature_rgb_palette">Povolit paletu pro teplotu barev obrazovky RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
-    <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
+    <string name="enable_smart_switching_screen_resolutions">Povolit chytré přepínání rozlišení obrazovky</string>
     <string name="settings_application">Aplikace</string>
     <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>
@@ -547,6 +547,7 @@
     <!--Camera-->
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit znaků pro vlastní vodoznaky</string>
+    <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Povolit Hasselblad styl vodoznaku</string>
     <string name="custom_model_watermark">Vlastní model vodoznak</string>
     <string name="fix_hasselblad_custom_watermark_crash">Opravit pád při použití vlastního Hasselblad vodoznaku</string>

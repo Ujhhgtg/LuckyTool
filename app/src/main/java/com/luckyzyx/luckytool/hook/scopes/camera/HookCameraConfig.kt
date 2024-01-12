@@ -17,6 +17,7 @@ object HookCameraConfig : YukiBaseHooker() {
     private object HookCameraVendorTag : YukiBaseHooker() {
         override fun onHook() {
             val is10bit = prefs(ModulePrefs).getBoolean("enable_10_bit_image_support", false)
+            val isFrame = prefs(ModulePrefs).getBoolean("enable_frame_watermark_style", false)
             val isHasselblad =
                 prefs(ModulePrefs).getBoolean("enable_hasselblad_watermark_style", false)
             val masterFilter = prefs(ModulePrefs).getBoolean("enable_master_filter", false)
@@ -40,12 +41,25 @@ object HookCameraConfig : YukiBaseHooker() {
                             "com.oplus.camera.support.custom.hasselblad.watermark" -> if (isHasselblad) result(
                                 "1"
                             )
+                            //哈苏水印指南
+                            "com.oplus.hasselblad.watermark.guide.support" -> if (isHasselblad) result(
+                                "1"
+                            )
                             //<string name="camera_hasselblad_watermark_setting_title_str">哈苏定制水印</string>
                             //OptionKey PRE_KEY_WATERMARK_HASSELBLAD / pref_hasselblad_watermark_function_key
                             "com.oplus.use.hasselblad.style.support" -> if (isHasselblad) result("1")
                             //<string name="camera_beauty_makeup_watermark_setting_title">美妆定制水印</string>
                             //OptionKey PRE_KEY_WATERMARK_MAKEUP pref_watermark_makeup_function_key
 //                        "com.oplus.feature.custom.makeup.watermark.support" -> if (isHasselblad) resultTrue()
+
+                            //画框水印
+                            "com.oplus.camera.support.frame.watermark" -> if (isFrame) result("1")
+                            //孤独星球
+                            "com.oplus.camera.support.custom.lonely.planet.watermark" -> {}
+                            //大师模式
+                            "com.oplus.feature.master.mode.support" -> {}
+                            "com.oplus.feature.master.ui.mode.support" -> {}
+                            "com.oplus.feature.master.mode.professional.name" -> {}
 
                             //Source FilterHelper 姜文滤镜
                             "com.oplus.director.filter.support" -> if (jiangwenFilter) result("1")
