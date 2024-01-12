@@ -5,12 +5,13 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
-object HookPackageInstallerFeature : YukiBaseHooker() {
+class HookPackageInstallerFeature(val clazz: Class<*>?) : YukiBaseHooker() {
     override fun onHook() {
         val isAOSP = false//(ModulePrefs).getBoolean("replase_aosp_installer", false)
         val isAds = prefs(ModulePrefs).getBoolean("remove_install_ads", false)
+
         //Source FeatureOption
-        "com.android.packageinstaller.oplus.common.FeatureOption".toClass().apply {
+        clazz?.apply {
             method { name = "init";paramCount = 1 }.hook {
                 after {
                     if (isAds) field { name = "sIsBusinessCustomProduct" }.get().setFalse()

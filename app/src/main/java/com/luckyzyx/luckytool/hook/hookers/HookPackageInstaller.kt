@@ -14,12 +14,13 @@ import com.luckyzyx.luckytool.utils.getAppSet
 object HookPackageInstaller : YukiBaseHooker() {
     override fun onHook() {
         val appSet = prefs(ModulePrefs).getAppSet(packageName)
-
-        //非ColorOS官方安装器直接返回
         if (appSet[2] == "null") return
 
+        val featureOption = "com.android.packageinstaller.oplus.common.FeatureOption"
+            .toClassOrNull() ?: return
+
         //HookFeatureOption
-        loadHooker(HookPackageInstallerFeature)
+        loadHooker(HookPackageInstallerFeature(featureOption))
 
         //跳过安装扫描
         if (prefs(ModulePrefs).getBoolean("skip_apk_scan", false)) {

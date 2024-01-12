@@ -136,7 +136,7 @@ fun Context.getAppVersion(packName: String, save: Boolean = true): ArrayList<Str
  */
 fun YukiHookPrefsBridge.getAppSet(packName: String): Array<String> {
     val newArray = arrayOf("null", "null", "null")
-    getStringSet(packName, ArraySet()).toTypedArray().apply {
+    getStringSet(packName, ArraySet()).apply {
         if (isEmpty()) return newArray
         forEach {
             if (it.isNullOrEmpty()) return@forEach
