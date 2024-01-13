@@ -13,17 +13,15 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 "1" -> put("persist.oplus.software.audio.right_volume_key", false)
                 "2" -> put("persist.oplus.software.audio.right_volume_key", true)
             }
-
-
-//            //Source SystemUI 音量对话框背景透明度
-//            val volumeBlur =
-//                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
-//            if (volumeBlur > -1) put("ro.oplus.display.disable.volume_blur", false)
-//
-//            //Source SystemUI 强制启用高斯模糊
-//            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
-//                put("ro.surface_flinger.supports_background_blur", true)
-//            }
+            //Source SystemUI 音量对话框背景透明度
+            val volumeBlur =
+                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
+            if (volumeBlur > -1) put("ro.oplus.display.disable.volume_blur", false)
+            //Source SystemUI 强制启用高斯模糊
+            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
+                put("ro.surface_flinger.supports_background_blur", true)
+                put("persist.sys.sf.disable_blurs", false)
+            }
 
             //Source Settings SysFeatureUtils isHoloAudioSupported 启用全息音频
             if (prefs(ModulePrefs).getBoolean("enable_holographic_audio", false)) {

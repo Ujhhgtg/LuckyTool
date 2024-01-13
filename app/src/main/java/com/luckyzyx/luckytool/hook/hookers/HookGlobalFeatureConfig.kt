@@ -13,6 +13,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         val list = ArrayMap<String, Boolean>().apply {
+            //Source SystemUI 强制启用高斯模糊
+            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
+                put("oplus.software.display.osie_aisdr2hdr_support", false) //C12
+            }
+
             //Source SystemUI 启用超级音量模式
             if (SDK >= A13 &&
                 prefs(ModulePrefs).getBoolean("enable_super_volume_mode", false)

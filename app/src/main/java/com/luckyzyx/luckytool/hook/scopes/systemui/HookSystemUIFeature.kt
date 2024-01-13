@@ -6,6 +6,7 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.hookers.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.HookGlobalFeatureProvider
+import com.luckyzyx.luckytool.hook.hookers.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils
@@ -17,14 +18,12 @@ object HookSystemUIFeature : YukiBaseHooker() {
 
     override fun onHook() {
         loadHooker(HookGlobalFeatureConfig)
+        loadHooker(HookGlobalSystemProperties)
 
         loadHooker(HookFeatureOption)
         loadHooker(HookStatusBarFeature)
-        loadHooker(HookNotificationAppFeature)
         loadHooker(HookFlavorOneFeature)
         if (SDK >= A14) loadHooker(HookVolumeFeatureOption)
-
-        if (SDK < A13) loadHooker(HookRegionalGaussBlurController)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             loadHooker(HookGlobalFeatureProvider(dexKitBridge))
@@ -33,19 +32,9 @@ object HookSystemUIFeature : YukiBaseHooker() {
 
     private object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
-            //高斯模糊
-            val enableBlur =
-                prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
             //音量条位置
             val volumePosition =
                 prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")
-            //音量对话框背景透明度
-            var volumeBlur =
-                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
-            dataChannel.wait<Int>("custom_volume_dialog_background_transparency") {
-                volumeBlur = it
-                callback?.invoke("custom_volume_dialog_background_transparency", it)
-            }
             //锁屏充电显示瓦数
             var showWattage =
                 prefs(ModulePrefs).getBoolean("force_lock_screen_charging_show_wattage", false)
@@ -66,18 +55,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
 
             //Source FeatureOption
             "com.oplusos.systemui.common.feature.FeatureOption".toClass().apply {
-                //C12 C13
-                if (hasMethod { name = "isVolumeBlurDisabled" }) {
-                    method { name = "isVolumeBlurDisabled" }.hook {
-                        if (volumeBlur > -1) replaceToFalse()
-                    }
-                }
-                //C12
-                if (hasMethod { name = "isAiSdr2HdrSupport" }) {
-                    method { name = "isAiSdr2HdrSupport" }.hook {
-                        if (enableBlur) replaceToFalse()
-                    }
-                }
                 //C13 C14
                 if (hasMethod { name = "isOplusVolumeKeyInRight" }) {
                     method { name = "isOplusVolumeKeyInRight" }.hook {
@@ -140,39 +117,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
         }
     }
 
-    private object HookNotificationAppFeature : YukiBaseHooker() {
-        override fun onHook() {
-            //高斯模糊
-            val enableBlur =
-                prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
-
-            //Source NotificationAppFeatureOption
-            VariousClass(
-                "com.oplusos.systemui.common.util.NotificationAppFeatureOption", //C13
-                "com.oplusos.systemui.common.feature.NotificationFeatureOption" //C14
-            ).toClass().apply {
-                //C12 C13 C14
-                if (SDK >= A13) method {
-                    name = if (SDK >= A14) "isGaussBlurDisabled"
-                    else "getGaussBlurDisabled"
-                }.hook {
-                    if (enableBlur) replaceToFalse()
-                }
-
-                if (hasMethod { name = "isPanViewBlurDisabled" }) {
-                    method { name = "isPanViewBlurDisabled" }.hook {
-                        if (enableBlur) replaceToFalse()
-                    }
-                }
-//                    method { name = "isAodMediaDisable" }
-//                    afterHook {
-//                        loggerD(msg = "isAodMediaDisable -> $result")
-//                        resultFalse()
-//                    }
-            }
-        }
-    }
-
     private object HookFlavorOneFeature : YukiBaseHooker() {
         override fun onHook() {
             //全局搜索按钮
@@ -224,11 +168,8 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //音量对话框背景透明度
             var volumeBlur =
                 prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
-
-            callback = { key: String, value: Any ->
-                when (key) {
-                    "custom_volume_dialog_background_transparency" -> volumeBlur = value as Int
-                }
+            dataChannel.wait<Int>("custom_volume_dialog_background_transparency") {
+                volumeBlur = it
             }
 
             //Source VolumeFeatureOption
@@ -237,21 +178,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
                     method { name = "isVolumeBlurDisabled" }.hook {
                         if (volumeBlur > -1) replaceToFalse()
                     }
-                }
-            }
-        }
-    }
-
-    private object HookRegionalGaussBlurController : YukiBaseHooker() {
-        override fun onHook() {
-            //高斯模糊
-            val enableBlur =
-                prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
-
-            //Source RegionalGaussBlurController C12
-            "com.oplusos.util.blur.RegionalGaussBlurController".toClass().apply {
-                method { name = "getNormalBannerShouldDisableBlur" }.hook {
-                    if (enableBlur) replaceToFalse()
                 }
             }
         }

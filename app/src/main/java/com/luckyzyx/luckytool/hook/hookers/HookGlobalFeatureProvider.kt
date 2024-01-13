@@ -35,12 +35,16 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 "2" -> put("com.android.systemui.support_fullscreen_charge_anim", false)
             }
 
-//            //Source SystemUI 强制启用高斯模糊
-//            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
-//                put("com.android.systemui.disable_volume_blur", false)
-//                put("com.android.systemui.gauss_blur_disabled", false)
-//                put("com.android.systemui.pan_view_gauss_blur_disabled", false)
-//            }
+            //Source SystemUI 音量对话框背景透明度
+            val volumeBlur =
+                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
+            if (volumeBlur > -1) put("com.android.systemui.disable_volume_blur", false)
+
+            //Source SystemUI 强制启用高斯模糊
+            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
+                put("com.android.systemui.gauss_blur_disabled", false)
+                put("com.android.systemui.pan_view_gauss_blur_disabled", false)
+            }
 
             //Source Settings OplusDefaultAutofillPicker -> autofill_password 自动填充密码
             if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
