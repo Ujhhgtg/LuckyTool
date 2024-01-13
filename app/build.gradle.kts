@@ -163,8 +163,6 @@ fun getVersionCode(): Int {
 }
 
 fun getAppCenterSecret(): String {
-    var content = ""
-    val file = rootProject.file(".secret/APP_CENTER_SECRET")
-    if (file.exists()) file.forEachLine { content = it }
-    return content
+    val file = rootProject.file("keystore/secret")
+    return if (file.exists()) file.readText() else ""
 }

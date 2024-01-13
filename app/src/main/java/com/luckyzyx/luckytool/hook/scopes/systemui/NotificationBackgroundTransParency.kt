@@ -20,7 +20,18 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
         dataChannel.wait<Int>("custom_notification_background_transparency") {
             customAlpha = it
         }
+        var panelViewAlpha = 255
+
         if (customAlpha < 0) return
+
+        //Source NotificationPanelViewController
+        "com.android.systemui.shade.NotificationPanelViewController".toClass().apply {
+            method { name = "setAlpha" }.hook {
+                before {
+                    panelViewAlpha = args().first().int()
+                }
+            }
+        }
 
         //Source NotificationBackgroundViewExtImp
         "com.oplus.systemui.statusbar.notification.row.NotificationBackgroundViewExtImp".toClass()
