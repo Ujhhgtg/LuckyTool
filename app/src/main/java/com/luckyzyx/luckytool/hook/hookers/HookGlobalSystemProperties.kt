@@ -8,6 +8,13 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 object HookGlobalSystemProperties : YukiBaseHooker() {
     override fun onHook() {
         val list = ArrayMap<String, Any>().apply {
+            //Source SystemUI OplusVolumeDialogImpl 音量条位置
+            when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {
+                "1" -> put("persist.oplus.software.audio.right_volume_key", false)
+                "2" -> put("persist.oplus.software.audio.right_volume_key", true)
+            }
+
+
 //            //Source SystemUI 音量对话框背景透明度
 //            val volumeBlur =
 //                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
