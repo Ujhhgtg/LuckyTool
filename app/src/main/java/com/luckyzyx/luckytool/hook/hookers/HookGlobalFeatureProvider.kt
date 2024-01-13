@@ -29,6 +29,12 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 "2" -> put("com.android.systemui.volume_and_power_key_in_right", true)
             }
 
+            //Source SystemUI 全屏充电动画
+            when (prefs(ModulePrefs).getString("set_full_screen_charging_animation_mode", "0")) {
+                "1" -> put("com.android.systemui.support_fullscreen_charge_anim", true)
+                "2" -> put("com.android.systemui.support_fullscreen_charge_anim", false)
+            }
+
 //            //Source SystemUI 强制启用高斯模糊
 //            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
 //                put("com.android.systemui.disable_volume_blur", false)

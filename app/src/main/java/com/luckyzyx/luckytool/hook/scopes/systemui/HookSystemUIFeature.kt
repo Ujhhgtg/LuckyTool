@@ -33,9 +33,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
 
     private object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
-            //全屏充电动画 com.android.systemui.support_fullscreen_charge_anim
-            val fullScreenChargeAnim =
-                prefs(ModulePrefs).getString("set_full_screen_charging_animation_mode", "0")
             //高斯模糊
             val enableBlur =
                 prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)
@@ -88,17 +85,6 @@ object HookSystemUIFeature : YukiBaseHooker() {
                             when (volumePosition) {
                                 "1" -> resultFalse()
                                 "2" -> resultTrue()
-                            }
-                        }
-                    }
-                }
-                //C13
-                if (hasMethod { name = "isSupportFullScreenChargeAnim" }) {
-                    method { name = "isSupportFullScreenChargeAnim" }.hook {
-                        before {
-                            when (fullScreenChargeAnim) {
-                                "1" -> resultTrue()
-                                "2" -> resultFalse()
                             }
                         }
                     }
