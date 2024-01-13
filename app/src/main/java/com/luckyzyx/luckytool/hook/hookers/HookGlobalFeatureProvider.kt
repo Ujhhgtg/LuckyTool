@@ -9,6 +9,10 @@ import org.luckypray.dexkit.DexKitBridge
 class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val list = ArrayMap<String, Any>().apply {
+            //Source SystemUI SystemPromptController updateDeveloperMode 移除状态栏开发者选项警告
+            if (prefs(ModulePrefs).getBoolean("remove_statusbar_devmode", false)) {
+                put("com.android.systemui.send_developer_mode_notification", false)
+            }
             //Source SystemUI AutoBrightnessTile 自动亮度
             when (prefs(ModulePrefs).getString("set_auto_brightness_button_mode", "0")) {
                 "1" -> put("com.android.systemui.remove_auto_brightness", false)
@@ -24,6 +28,13 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 "1" -> put("com.android.systemui.volume_and_power_key_in_right", false)
                 "2" -> put("com.android.systemui.volume_and_power_key_in_right", true)
             }
+
+//            //Source SystemUI 强制启用高斯模糊
+//            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
+//                put("com.android.systemui.disable_volume_blur", false)
+//                put("com.android.systemui.gauss_blur_disabled", false)
+//                put("com.android.systemui.pan_view_gauss_blur_disabled", false)
+//            }
 
             //Source Settings OplusDefaultAutofillPicker -> autofill_password 自动填充密码
             if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {

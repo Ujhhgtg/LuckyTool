@@ -8,7 +8,6 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveFlashlightOpenNotificat
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveGTModeNotification
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveNotificationForMuteNotifications
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSmallWindowReplyWhitelist
-import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarDevMode
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -18,10 +17,6 @@ object StatusBarNotify : YukiBaseHooker() {
         //移除充电完成通知
         if (prefs(ModulePrefs).getBoolean("remove_charging_completed", false)) {
             loadHooker(RemoveChargingCompleted)
-        }
-        //移除状态栏开发者选项警告
-        if (prefs(ModulePrefs).getBoolean("remove_statusbar_devmode", false)) {
-            loadHooker(RemoveStatusBarDevMode)
         }
         //移除手电筒已开启通知
         if (prefs(ModulePrefs).getBoolean("remove_flashlight_open_notification", false)) {

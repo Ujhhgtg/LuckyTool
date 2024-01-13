@@ -8,6 +8,16 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 object HookGlobalSystemProperties : YukiBaseHooker() {
     override fun onHook() {
         val list = ArrayMap<String, Any>().apply {
+//            //Source SystemUI 音量对话框背景透明度
+//            val volumeBlur =
+//                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
+//            if (volumeBlur > -1) put("ro.oplus.display.disable.volume_blur", false)
+//
+//            //Source SystemUI 强制启用高斯模糊
+//            if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
+//                put("ro.surface_flinger.supports_background_blur", true)
+//            }
+
             //Source Settings SysFeatureUtils isHoloAudioSupported 启用全息音频
             if (prefs(ModulePrefs).getBoolean("enable_holographic_audio", false)) {
                 put("ro.oplus.audio.support.meta_audio", 1)
