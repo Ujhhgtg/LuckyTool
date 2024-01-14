@@ -62,6 +62,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private lateinit var chargeInfo: Properties
     private var isMTKPlatform: Boolean? = null
 
+    private var curHealth = -1
+
     //params
     private lateinit var displayMode: String
     private var showChargerInfo: Boolean = false
@@ -297,7 +299,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val cur = if (isSimple) formatCur
         else "${curStr}: $formatCur"
         val health = if (isHealth) {
-            val value = calcLocalHealth(context).toString() + "%"
+            if (curHealth == -1) curHealth = calcLocalHealth(context)
+            val value = "${curHealth}%"
             if (isSimple) value else "${hltStr}: $value"
         } else ""
 
