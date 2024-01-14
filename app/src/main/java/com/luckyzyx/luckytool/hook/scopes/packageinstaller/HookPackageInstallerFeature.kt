@@ -23,25 +23,5 @@ class HookPackageInstallerFeature(val clazz: Class<*>?) : YukiBaseHooker() {
                 }
             }
         }
-
-        //search class -> DeleteStagedFileOnResult
-        //search class.method -> onCreate +4 -> class.method
-//        findClass("com.android.packageinstaller.DeleteStagedFileOnResult").hook {
-//            injectMember {
-//                method {
-//                    name = "onCreate"
-//                    param(BundleClass)
-//                }
-//                beforeHook {
-//                    args(0).setNull()
-//                    VariousClass(
-//                        "com.android.packageinstaller.oplus.common.j",
-//                        "com.android.packageinstaller.oplus.common.FeatureOption"
-//                    ).toClass().field {
-//                        type(BooleanType).index(1)
-//                    }.get().setTrue()
-//                }
-//            }
-//        }
     }
 }

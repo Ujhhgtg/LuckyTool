@@ -11,7 +11,7 @@ object AutoClickInstallButton : YukiBaseHooker() {
         "com.android.packageinstaller.oplus.OPlusPackageInstallerActivity".toClass().apply {
             method { name = "startInstallConfirm" }.hook {
                 after {
-                    field { name = "mOk" }.get(instance).cast<Button>()?.callOnClick()
+                    field { name = "mOk" }.get(instance).cast<Button>()?.performClick()
                 }
             }
         }
@@ -19,9 +19,8 @@ object AutoClickInstallButton : YukiBaseHooker() {
         "com.android.packageinstaller.oplus.InstallAppProgress".toClass().apply {
             method { name = "onPackageInstalled";paramCount = 1 }.hook {
                 after {
-                    if (args().first().int() == 0) field {
-                        name = "mDoneButton"
-                    }.get(instance).cast<Button>()?.callOnClick()
+                    if (args().first().int() == 0) field { name = "mDoneButton" }.get(instance)
+                        .cast<Button>()?.performClick()
                 }
             }
         }
