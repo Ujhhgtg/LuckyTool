@@ -316,8 +316,7 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
         return filterData.size
     }
 
-    val getFilter
-        get() = object : Filter() {
+    val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 filterData = if (constraint.isBlank()) {
                     allData

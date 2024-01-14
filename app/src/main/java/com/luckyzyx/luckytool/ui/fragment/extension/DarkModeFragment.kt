@@ -238,8 +238,7 @@ class DarkModeAdapter(
 
     override fun getItemCount(): Int = filterDatas.size
 
-    val getFilter
-        get() = object : Filter() {
+    val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 filterDatas = if (constraint.isBlank()) {
                     allDatas

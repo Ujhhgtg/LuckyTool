@@ -196,8 +196,7 @@ class MultiAppAdapter(
         return filterDatas.size
     }
 
-    val getFilter
-        get() = object : Filter() {
+    val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 filterDatas = if (constraint.isBlank()) {
                     allDatas
