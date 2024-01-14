@@ -1387,3 +1387,12 @@ fun Context.showBottomSheet(rootView: View? = null): BottomSheetDialog {
         show()
     }
 }
+
+/**
+ * 打开链接
+ * @receiver Context
+ * @param url String
+ */
+fun Context.openUrl(url: String) {
+    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+}

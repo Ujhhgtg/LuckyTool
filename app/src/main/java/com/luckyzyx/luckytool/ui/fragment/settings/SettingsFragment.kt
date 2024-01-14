@@ -30,6 +30,7 @@ import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.logcatToFile
 import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.openUrl
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putInt
 import com.luckyzyx.luckytool.utils.putString
@@ -326,6 +327,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                     val updatelist = arrayOf(
                         getString(R.string.coolmarket),
                         getString(R.string.module_doc),
+                        getString(R.string.qq_chat_group),
                         getString(R.string.qq_channel),
                         getString(R.string.telegram_channel),
                         getString(R.string.telegram_group),
@@ -333,45 +335,13 @@ class SettingsFragment : ModulePreferenceFragment() {
                     )
                     MaterialAlertDialogBuilder(context).setItems(updatelist) { _, which ->
                         when (which) {
-                            0 -> startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse("coolmarket://u/1930284")
-                                )
-                            )
-
-                            1 -> startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://luckyzyx.gitlab.io/LuckyTool_Doc")
-                                )
-                            )
-
-                            2 -> startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://pd.qq.com/s/ahjm4zyxb")
-                                )
-                            )
-
-                            3 -> startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse("https://t.me/LuckyTool")
-                                )
-                            )
-
-                            4 -> startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://t.me/+F42pfv-c0h4zNDc9")
-                                )
-                            )
-
-                            5 -> startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://modules.lsposed.org/module/com.luckyzyx.luckytool")
-                                )
-                            )
+                            0 -> context.openUrl("coolmarket://u/1930284")
+                            1 -> context.openUrl("https://luckyzyx.gitlab.io/LuckyTool_Doc")
+                            2 -> context.openUrl("http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=3fYu6lT8IHrBPKAfFTNSHbd8wcWX0oGs&authKey=dyIpjTWH8KWHMU3v6gI05T0bAzr6XigJKasMiCwmco1%2F8BRtPCN%2B1zOGgXyK7IUB&noverify=0&group_code=663884734")
+                            3 -> context.openUrl("https://pd.qq.com/s/ahjm4zyxb")
+                            4 -> context.openUrl("https://t.me/LuckyTool")
+                            5 -> context.openUrl("https://t.me/+F42pfv-c0h4zNDc9")
+                            6 -> context.openUrl("https://modules.lsposed.org/module/com.luckyzyx.luckytool")
                         }
                     }.show()
                     true

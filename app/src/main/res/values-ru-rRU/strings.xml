@@ -61,6 +61,7 @@
     <string name="feedback_download_summary">ТГ-каналы, группы, склады и т.д.</string>
     <string name="coolmarket">CoolMarket</string>
     <string name="module_doc">Документация модуля</string>
+    <string name="qq_chat_group">QQ Chat Group</string>
     <string name="qq_channel">QQ канал</string>
     <string name="telegram_channel">Канал Telegram</string>
     <string name="telegram_group">Группа Telegram</string>

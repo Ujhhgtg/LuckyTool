@@ -8,6 +8,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [优化] 使用Markdown解析作用域版本信息对话框
 - [添加] 启用相机画框水印支持
 - [优化] 优化本地电池健康数据计算逻辑
+- [添加] QQ闲聊群组跳转方式
 
 ### 1.1.8
 
