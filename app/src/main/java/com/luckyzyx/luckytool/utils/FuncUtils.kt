@@ -1312,20 +1312,30 @@ val redOneTextColor = Color.parseColor("#c41442")
  * @param context Context
  * @return Int?
  */
-fun calcLocalHealth(context: Context): Int {
+fun calcLocalHealth(context: Context, isDebug: Boolean = false): Int {
     try {
         val sohFile = File("/sys/class/oplus_chg/battery/battery_soh")
         val sohValue = safeOf(-1) {
             BufferedReader(FileReader(sohFile)).readLine().filterNumber.toIntOrNull() ?: -1
         }
+        if (isDebug) LogUtils.d(LogUtils.globalTag, "calcLocalHealth", "sohValue $sohValue", true)
         if (sohValue in 1..100) return sohValue
         val curFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_fcc")
         else File("/sys/class/power_supply/battery/charge_full")
+        if (isDebug) LogUtils.d(
+            LogUtils.globalTag, "calcLocalHealth", "curFile ${curFile.path}", true
+        )
         val curValue = safeOfNull {
             BufferedReader(FileReader(curFile)).readLine().filterNumber.toIntOrNull() ?: -1
-        } ?: return -1
+        }
+        if (isDebug) LogUtils.d(LogUtils.globalTag, "calcLocalHealth", "curValue $curValue", true)
+        if (curValue == null) return -1
         val designValue = PowerProfile(context).batteryCapacity
+        if (isDebug) LogUtils.d(
+            LogUtils.globalTag, "calcLocalHealth", "designValue $designValue", true
+        )
         var calc = safeOf(-1) { (curValue / designValue * 100.0).roundToInt() }
+        if (isDebug) LogUtils.d(LogUtils.globalTag, "calcLocalHealth", "calc $calc", true)
         if (calc > 100) calc /= 1000
         return calc
     } catch (e: Exception) {
@@ -1334,12 +1344,13 @@ fun calcLocalHealth(context: Context): Int {
     }
 }
 
-fun logcatToFile(file: File) {
-    try {
+fun logcatToFile(file: File): Boolean {
+    return try {
         if (!file.exists()) file.createNewFile()
-        ShellUtils.fastCmd("logcat -d -f ${file.absolutePath}")
+        ShellUtils.fastCmdResult("logcat -d -f ${file.absolutePath}")
     } catch (e: Exception) {
         LogUtils.e("logcatToFile", "logcat", "$e", true)
+        false
     }
 }
 

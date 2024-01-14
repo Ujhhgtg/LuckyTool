@@ -218,8 +218,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 setOnPreferenceClickListener {
                     val name = "logcat_" + formatDate("yyMMdd_HHmmss") + ".log"
                     val file = FileUtils.checkLogCatDir(context, name)
-                    logcatToFile(file)
-                    FileUtils.shareFile(context, "Share LogCat File", file)
+                    if (logcatToFile(file)) FileUtils.shareFile(context, "Share LogCat File", file)
                     true
                 }
             })
