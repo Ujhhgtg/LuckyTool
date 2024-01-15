@@ -105,6 +105,16 @@ val String.replaceSpace get() = replace(" ", "")
  */
 val String.replaceBlankLine: String
     get() {
+        if (contains("\n").not()) return this
+        val formatList = split("\n")
+        return formatStringAuto(formatList, "\n", true)
+    }
+
+/**
+ * 移除空格与空行
+ */
+val String.replaceBlankAndLine: String
+    get() {
         val listString = replaceSpace
         if (listString.contains("\n").not()) return listString
         val formatList = listString.split("\n")
@@ -131,30 +141,4 @@ fun formatStringAuto(
         if (index != formats.lastIndex) finalText += text
     }
     return finalText
-}
-
-/**
- * 格式化农历显示
- * @receiver String
- * @param mode Int
- * @return String
- */
-fun String.formatLunar(mode: Int): String {
-    return try {
-        when (mode) {
-            1 -> substring(length - 2)
-            2 -> if (length > 8) substring(length - 5)
-            else if (length > 4) substring(length - 4)
-            else this
-
-            3 -> if (length > 8) substring(length - 7)
-            else if (length > 4) substring(length - 6)
-            else this
-
-            else -> this
-        }
-    } catch (e: Exception) {
-        LogUtils.e("formatLunar", "throw", "$e")
-        this
-    }
 }

@@ -1315,7 +1315,8 @@ val redOneTextColor = Color.parseColor("#c41442")
  */
 fun Context.calcLocalHealth(isDebug: Boolean = false): Int {
     try {
-        val sohFile = File("/sys/class/oplus_chg/battery/battery_soh")
+        val sohFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_soh")
+        else File("/sys/class/power_supply/battery/batt_soh")
         val sohValue = safeOfNull {
             BufferedReader(FileReader(sohFile)).readLine().replaceSpace.toIntOrNull()
         } ?: -1
@@ -1323,13 +1324,13 @@ fun Context.calcLocalHealth(isDebug: Boolean = false): Int {
         if (sohValue in 1..100) return sohValue
 
         val fccFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_fcc")
-        else File("/sys/class/power_supply/battery/charge_full")
+        else File("/sys/class/power_supply/battery/batt_fcc")
         if (isDebug) LogUtils.d("calcLocalHealth", "curFile", fccFile.path, true)
         val curValue = safeOfNull {
             BufferedReader(FileReader(fccFile)).readLine().replaceSpace.toIntOrNull()
         } ?: -1
         if (isDebug) LogUtils.d("calcLocalHealth", "curValue", "$curValue", true)
-        if (curValue < 0) return curValue
+        if (curValue <= 0) return -1
 
         val designValue = PowerProfile(this).batteryCapacity
         if (isDebug) LogUtils.d("calcLocalHealth", "designValue", "$designValue", true)

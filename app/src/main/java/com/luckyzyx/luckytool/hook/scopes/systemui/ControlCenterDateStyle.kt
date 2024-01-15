@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import android.content.Context
 import android.text.TextUtils
 import android.util.LayoutDirection
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.formatLunar
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 import java.util.Locale
 import kotlin.math.abs
@@ -28,10 +26,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         dataChannel.wait<Boolean>("remove_control_center_date_comma") { removeComma = it }
         var showLunar =
             prefs(ModulePrefs).getBoolean("statusbar_control_center_date_show_lunar", false)
-        dataChannel.wait<Boolean>("statusbar_control_center_date_show_lunar") {
-            showLunar = it
-            LockScreenClock.callback?.invoke("statusbar_control_center_date_show_lunar", it)
-        }
+        dataChannel.wait<Boolean>("statusbar_control_center_date_show_lunar") { showLunar = it }
         var disableScroll =
             prefs(ModulePrefs).getBoolean(
                 "statusbar_control_center_date_disable_text_scroll",
@@ -49,29 +44,28 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             displayMode = it
         }
 
-        //Source WeatherInfoParseHelper -> cn_comma
+        var lunarInstance: Any? = null
+
+        //Source OplusQSDateView
         VariousClass(
-            "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper", //C13
-            "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper" //C14
+            "com.oplusos.systemui.qs.widget.OplusQSDateView", //C13
+            "com.oplus.systemui.qs.widget.OplusQSDateView" //C14
         ).toClass().apply {
-            method { name = "getChineseDateInfo";paramCount = 2 }.hook {
+            method { name = "updateClock";emptyParam() }.hook {
                 after {
                     if (!removeComma && !showLunar) return@after
-                    var res = result<String>() ?: return@after
+                    val dateView = instance<TextView>()
+                    var res = dateView.text as String
                     if (removeComma) res = res.replace("，", " ")
                     if (showLunar) {
-                        val context = args().last().cast<Context>() ?: return@after
-                        val lunarDate = LunarHelperUtils(appClassLoader).let {
-                            val lunarInstance = it.buildInstance(context)
-                            it.generateLunarDate(lunarInstance)
-                        }
-                        res += when {
-                            lunarDate.isNullOrBlank() -> ""
-                            lunarDate.length > 5 -> " " + lunarDate.formatLunar(2)
-                            else -> lunarDate
+                        LunarHelperUtils(appClassLoader).apply {
+                            if (lunarInstance == null) lunarInstance = getInstance(dateView.context)
+                            val lunarInfo = generateLunarDate(lunarInstance, 2)
+                            if (lunarInfo.isNotBlank()) res += " $lunarInfo" else return@after
                         }
                     }
-                    result = res
+                    dateView.text = res
+                    field { name = "mLastText" }.get(instance).set(res)
                 }
             }
         }

@@ -23,12 +23,10 @@ import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
-import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -38,7 +36,6 @@ import com.luckyzyx.luckytool.utils.safeOf
 import java.util.Calendar
 
 object LockScreenClock : YukiBaseHooker() {
-    var callback: ((key: String, value: Any) -> Unit)? = null
 
     override fun onHook() {
         val removeClock = prefs(ModulePrefs).getBoolean("remove_lock_screen_clock_component", false)
@@ -99,13 +96,6 @@ object LockScreenClock : YukiBaseHooker() {
             val isCenter = prefs(ModulePrefs).getBoolean("set_lock_screen_centered", false)
             val userTypeface =
                 prefs(ModulePrefs).getBoolean("lock_screen_clock_use_user_typeface", false)
-            var showLunar =
-                prefs(ModulePrefs).getBoolean("statusbar_control_center_date_show_lunar", false)
-            callback = { key: String, value: Any ->
-                when (key) {
-                    "statusbar_control_center_date_show_lunar" -> showLunar = value as Boolean
-                }
-            }
             val weatherInfoClazz = WeatherInfoParseHelper(appClassLoader).weatherInfoClazz
             val timeInfoClazz = WeatherInfoParseHelper(appClassLoader).timeInfoClazz
 
@@ -145,29 +135,6 @@ object LockScreenClock : YukiBaseHooker() {
                         val mHour = field { name = "mHour" }.get(instance).string()
                             .takeIf { e -> e.isNotBlank() } ?: return@after
                         mTimeHour.setClockRed(mHour, redMode)
-                    }
-                }
-                val hasTvTC = hasField { name = "mTvTraditionalCalendar" }
-                method { name = "updateDate" }.hook {
-                    before {
-                        if (!showLunar) return@before
-                        val context = instance<View>().context
-                        val dateView = field { name = "mDate" }.get(instance).cast<TextView>()
-                            ?: return@before
-                        val localTimeInfo = WeatherInfoParseHelper(appClassLoader)
-                            .getLocalTimeInfo(context)
-                        if (localTimeInfo != null) {
-                            val dateInfo = localTimeInfo.current().method { name = "getDateInfo" }
-                                .invoke<String>()
-                            dateView.text = dateInfo
-                        }
-                        val lunarInfo = LunarHelperUtils(appClassLoader).let {
-                            val ins = it.buildInstance(context)
-                            it.generateLunarDate(ins)
-                        }
-                        if (hasTvTC) field { name = "mTvTraditionalCalendar" }.get(instance)
-                            .cast<TextView>()?.text = lunarInfo
-                        resultNull()
                     }
                 }
             }

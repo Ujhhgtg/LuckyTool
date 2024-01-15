@@ -21,7 +21,7 @@ object HookLockScreen : YukiBaseHooker() {
         //锁屏时钟
         loadHooker(LockScreenClock)
 
-        //锁屏组件样式
+        //锁屏时钟组件样式
         loadHooker(LockScreenComponentStyle)
 
         //锁屏充电组件

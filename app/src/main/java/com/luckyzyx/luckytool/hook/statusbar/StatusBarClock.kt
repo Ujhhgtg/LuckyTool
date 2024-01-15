@@ -17,8 +17,8 @@ import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatDate
-import com.luckyzyx.luckytool.utils.formatLunar
 import com.luckyzyx.luckytool.utils.is24
+import com.luckyzyx.luckytool.utils.isZh
 import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.Date
@@ -55,8 +55,7 @@ object StatusBarClock : YukiBaseHooker() {
     private var useBoldFont =
         prefs(ModulePrefs).getBoolean("statusbar_clock_use_bold_font_style", false)
 
-    private var nowLunar: String? = null
-    private var nowTime: Date? = null
+    private var lunarInstance: Any? = null
     private var newline = ""
 
     override fun onHook() {
@@ -67,15 +66,14 @@ object StatusBarClock : YukiBaseHooker() {
         dataChannel.wait<Int>("statusbar_clock_singlerow_fontsize") { singleRowFontSize = it }
         dataChannel.wait<Int>("statusbar_clock_doublerow_fontsize") { doubleRowFontSize = it }
         dataChannel.wait<Boolean>("statusbar_clock_use_bold_font_style") { useBoldFont = it }
-        var context: Context? = null
 
         //Source Clock
         "com.android.systemui.statusbar.policy.Clock".toClass().apply {
             constructor { paramCount = 3 }.hook {
                 after {
-                    context = args().first().cast<Context>()
-                    val clockView = instance<TextView>()
-                    if (clockView.resources.getResourceEntryName(clockView.id) != "clock") return@after
+                    val clockView = instance<TextView>().apply {
+                        if (resources.getResourceEntryName(id) != "clock") return@after
+                    }
                     val d: Method = clockView.javaClass.superclass.getDeclaredMethod("updateClock")
                     val r = Runnable {
                         d.isAccessible = true
@@ -92,16 +90,17 @@ object StatusBarClock : YukiBaseHooker() {
             }
             method { name = "getSmallTime";returnType = CharSequenceClass }.hook {
                 after {
-                    instance<TextView>().apply {
+                    val clockView = instance<TextView>().apply {
                         if (resources.getResourceEntryName(id) != "clock") return@after
                         initView()
                     }
+                    val context = clockView.context
                     val mCalendar = field { name = "mCalendar" }.get(instance).cast<Calendar>()
-                    nowTime = mCalendar?.time
-                    if (clockMode == "1") result = getDate(context!!) + newline + getTime(context!!)
-                    else if (clockMode == "2") {
-                        initLunar(context!!)
-                        result = formatDate(getFormat(customFormat, nowTime!!, nowLunar), nowTime!!)
+                    val nowTime = mCalendar?.time ?: Date()
+                    result = when (clockMode) {
+                        "1" -> getDate(context, nowTime) + newline + getTime(context, nowTime)
+                        "2" -> formatDate(getFormat(context, customFormat, nowTime), nowTime)
+                        else -> return@after
                     }
                 }
             }
@@ -115,15 +114,16 @@ object StatusBarClock : YukiBaseHooker() {
             method {
                 if (SDK == A11) name = "onConfigChanged"
                 if (SDK > A11) name = "onConfigurationChanged"
-            }.hook { intercept() }
-
+            }.hook {
+                intercept()
+            }
         }
     }
 
-    private fun initLunar(context: Context) {
-        nowLunar = LunarHelperUtils(appClassLoader).let {
-            val instance = it.buildInstance(context)
-            it.generateLunarDate(instance)
+    private fun getLunar(context: Context, level: Int = 4): String {
+        LunarHelperUtils(appClassLoader).apply {
+            if (lunarInstance == null) lunarInstance = getInstance(context)
+            return generateLunarDate(lunarInstance, level)
         }
     }
 
@@ -146,10 +146,7 @@ object StatusBarClock : YukiBaseHooker() {
                 )
             }
         } else if (clockMode == "2") {
-            val formatList =
-                customFormat.takeIf { e -> e.isNotBlank() && e.contains("\n") }?.split("\n")
-                    ?.toMutableList() ?: mutableListOf("0")
-            formatList.removeIf { it.isBlank() }
+            val formatList = customFormat.split("\n")
             val rows = formatList.size
             isSingleLine = rows == 1
             setTextSize(
@@ -166,113 +163,62 @@ object StatusBarClock : YukiBaseHooker() {
         }
     }
 
-    private fun getFormat(format: String, nowTime: Date, nowLunar: String?): String {
+    private fun getFormat(context: Context, format: String, nowTime: Date): String {
         var finalFormat: String = format
         if (finalFormat.contains("NNNN")) finalFormat = finalFormat.replace(
-            "NNNN", nowLunar!!.formatLunar(4)
+            "NNNN", getLunar(context, 4)
         )
         if (finalFormat.contains("NNN")) finalFormat = finalFormat.replace(
-            "NNN", nowLunar!!.formatLunar(3)
+            "NNN", getLunar(context, 3)
         )
         if (finalFormat.contains("NN")) finalFormat = finalFormat.replace(
-            "NN", nowLunar!!.formatLunar(2)
+            "NN", getLunar(context, 2)
         )
         if (finalFormat.contains("N")) {
-            finalFormat = finalFormat.replace("N", nowLunar!!.formatLunar(1))
+            finalFormat = finalFormat.replace("N", getLunar(context, 1))
         }
         if (finalFormat.contains("dddd")) finalFormat = finalFormat.replace("dddd", "dd号")
         if (finalFormat.contains("ddd")) finalFormat = finalFormat.replace("ddd", "d号")
         if (finalFormat.contains("FF")) finalFormat = finalFormat.replace("FF", getPeriod(nowTime))
         if (finalFormat.contains("GG")) finalFormat =
-            finalFormat.replace("GG", getDoubleHour(nowTime))
+            finalFormat.replace("GG", getDiZhiHour(nowTime))
         return finalFormat
     }
 
     private fun getPeriod(nowTime: Date): String {
         return when (formatDate("HH", nowTime)) {
-            "00", "01", "02", "03", "04", "05" -> {
-                "凌晨"
-            }
-
-            "06", "07", "08", "09", "10", "11" -> {
-                "上午"
-            }
-
-            "12" -> {
-                "中午"
-            }
-
-            "13", "14", "15", "16", "17" -> {
-                "下午"
-            }
-
-            "18" -> {
-                "傍晚"
-            }
-
-            "19", "20", "21", "22", "23" -> {
-                "晚上"
-            }
-
+            "00", "01", "02", "03", "04", "05" -> "凌晨"
+            "06", "07", "08", "09", "10", "11" -> "上午"
+            "12" -> "中午"
+            "13", "14", "15", "16", "17" -> "下午"
+            "18" -> "傍晚"
+            "19", "20", "21", "22", "23" -> "晚上"
             else -> ""
         }
     }
 
-    private fun getDoubleHour(nowTime: Date): String {
-        return when (formatDate("HH", nowTime)) {
-            "23", "00" -> {
-                "子时"
-            }
-
-            "01", "02" -> {
-                "丑时"
-            }
-
-            "03", "04" -> {
-                "寅时"
-            }
-
-            "05", "06" -> {
-                "卯时"
-            }
-
-            "07", "08" -> {
-                "辰时"
-            }
-
-            "09", "10" -> {
-                "巳时"
-            }
-
-            "11", "12" -> {
-                "午时"
-            }
-
-            "13", "14" -> {
-                "未时"
-            }
-
-            "15", "16" -> {
-                "申时"
-            }
-
-            "17", "18" -> {
-                "酉时"
-            }
-
-            "19", "20" -> {
-                "戌时"
-            }
-
-            "21", "22" -> {
-                "亥时"
-            }
-
+    private fun getDiZhiHour(nowTime: Date): String {
+        val diZhiAr = LunarHelperUtils(appClassLoader).getDiZhi(lunarInstance)
+        if (diZhiAr.isNullOrEmpty() || diZhiAr.size != 12) return ""
+        val curHour = when (formatDate("HH", nowTime)) {
+            "23", "00" -> diZhiAr[0]
+            "01", "02" -> diZhiAr[1]
+            "03", "04" -> diZhiAr[2]
+            "05", "06" -> diZhiAr[3]
+            "07", "08" -> diZhiAr[4]
+            "09", "10" -> diZhiAr[5]
+            "11", "12" -> diZhiAr[6]
+            "13", "14" -> diZhiAr[7]
+            "15", "16" -> diZhiAr[8]
+            "17", "18" -> diZhiAr[9]
+            "19", "20" -> diZhiAr[10]
+            "21", "22" -> diZhiAr[11]
             else -> ""
-        }
+        }.let { if (it.isNotBlank()) it + "时" else "" }
+        return curHour
     }
 
-    private fun getDate(context: Context): String {
+    private fun getDate(context: Context, nowTime: Date): String {
         var dateFormat = ""
         if (isZh(context)) {
             if (isYear) dateFormat += "YY年"
@@ -296,37 +242,31 @@ object StatusBarClock : YukiBaseHooker() {
             }
             if (!isHideSpace && !isDoubleRow) dateFormat += " "
         }
-        return formatDate(dateFormat, nowTime!!)
+        return formatDate(dateFormat, nowTime)
     }
 
-    private fun getTime(context: Context): String {
+    private fun getTime(context: Context, nowTime: Date): String {
         var period: String
         var doubleHour: String
         var timeFormat = ""
         timeFormat += if (context.is24) "HH:mm" else "hh:mm"
         if (isSecond) timeFormat += ":ss"
-        timeFormat = formatDate(timeFormat, nowTime!!)
+        timeFormat = formatDate(timeFormat, nowTime)
         if (isPeriod) {
             if (isZh(context)) {
-                period = getPeriod(nowTime!!)
+                period = getPeriod(nowTime)
                 if (!isHideSpace) period += " "
                 timeFormat = period + timeFormat
             } else {
-                period = " " + formatDate("a", nowTime!!)
+                period = " " + formatDate("a", nowTime)
                 timeFormat += period
             }
         }
         if (isDoubleHour) {
-            doubleHour = getDoubleHour(nowTime!!)
+            doubleHour = getDiZhiHour(nowTime)
             if (!isHideSpace) doubleHour = "$doubleHour "
             timeFormat = doubleHour + timeFormat
         }
         return timeFormat
-    }
-
-    private fun isZh(context: Context): Boolean {
-        val locale = context.resources.configuration.locales[0]
-        val language = locale.language
-        return language.endsWith("zh")
     }
 }
