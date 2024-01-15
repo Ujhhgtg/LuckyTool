@@ -10,14 +10,12 @@ import com.luckyzyx.luckytool.hook.hookers.HookAndroid.toClass
 @Suppress("PrivatePropertyName")
 class IChargerUtils(val classLoader: ClassLoader?) {
 
-    val clazz = VariousClass(
-        "vendor.oplus.hardware.charger.V1_0.ICharger",  //C12 C13
-        "vendor.oplus.hardware.charger.ICharger" //C14
-    ).toClass(classLoader)
-
+    private val CLASS_OPLUS_CHARGER = "vendor.oplus.hardware.charger.V1_0.ICharger" //C12 C13
+    private val CLASS_OPLUS_CHARGER_NEW = "vendor.oplus.hardware.charger.ICharger" //C14
     private val CHARGER_STUB_CLASS = "vendor.oplus.hardware.charger.ICharger\$Stub"
     private val CHARGER_SERVICE_NAME = "vendor.oplus.hardware.charger.ICharger/default"
-    private val CLASS_OPLUS_CHARGER = "vendor.oplus.hardware.charger.V1_0.ICharger"
+
+    val clazz = VariousClass(CLASS_OPLUS_CHARGER, CLASS_OPLUS_CHARGER_NEW).toClass(classLoader)
 
     fun getInstance(): Any? {
         return if (clazz.name == CLASS_OPLUS_CHARGER) {

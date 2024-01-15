@@ -193,11 +193,10 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             electricCurrent = chargeInfo.getIntProperty("battery_current_now")
             if (isWireless) {
                 val isAirSVOOC = DevicesConfigUtils.isAirSVOOCSupport
-                val mChargerWirelessOnline = chargeInfo.getBooleanProperty("chargerWirelessOnline")
                 val mBatteryReverse = chargeInfo.getIntProperty("wireless_enable_tx")
                 wirelessCur = chargeInfo.getIntProperty("wireless_current_now")
                 wirelessVol = if (isAirSVOOC == true) {
-                    if (mChargerWirelessOnline || mBatteryReverse == 2 || mBatteryReverse == 1) {
+                    if (isWireless || mBatteryReverse == 2 || mBatteryReverse == 1) {
                         chargeInfo.getIntProperty("wireless_voltage_now") / 1000.0
                     } else chargerVoltage * 1.0
                 } else chargeInfo.getIntProperty("wireless_voltage_now") / 1000.0
@@ -379,6 +378,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             if (oplusCharger == null) oplusCharger = it.getInstance()
             it.queryChargeInfo(oplusCharger)
         }
+//        LogUtils.d("getChargeInfo", "queryChargeInfo", queryChargeInfo.toString(), true)
         return Properties().apply {
             if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))
         }
