@@ -676,6 +676,7 @@
     <string name="remove_almanac_page_information_flow">移除黄历页面信息流</string>
     <string name="remove_horoscope_page_information_flow">移除星座页面信息流</string>
     <!--OplusSmartSidebar-->
+    <string name="force_enable_buoy_automatically_hides">强制启用浮标自动隐藏</string>
     <string name="unlock_transfer_dock">解锁中转站</string>
     <string name="unlock_recent_files">解锁最近文件</string>
     <string name="unlock_fluid_cloud">解锁流体云</string>

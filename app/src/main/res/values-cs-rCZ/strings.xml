@@ -676,6 +676,7 @@
     <string name="remove_almanac_page_information_flow">Smazat vlákno s informacemi o stránce almanachu</string>
     <string name="remove_horoscope_page_information_flow">Odstranění proudu informací o horoskopu</string>
     <!--OplusSmartSidebar-->
+    <string name="force_enable_buoy_automatically_hides">Vynucená povolení se můžou automaticky skrývat</string>
     <string name="unlock_transfer_dock">Odemknout přesun doku</string>
     <string name="unlock_recent_files">Odemknout nedávné soubory</string>
     <string name="unlock_fluid_cloud">Odemknout Fluid Cloud</string>

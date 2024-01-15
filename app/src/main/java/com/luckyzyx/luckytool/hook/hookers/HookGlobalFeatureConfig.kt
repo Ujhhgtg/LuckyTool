@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.hookers
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.android.HookFeatureConfigManager
+import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -102,6 +103,13 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Source Phone OplusFeatureOption 通话隐私保护
             if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_sound_sealed_call", false)) {
                 put("oplus.hardware.audio.dipole_speaker_support", true)
+            }
+
+            //Source SmartSidebar EdgePanelFeatureOption 强制启用浮标自动隐藏
+            if (SDK == A12 &&
+                prefs(ModulePrefs).getBoolean("force_enable_buoy_automatically_hides", false)
+            ) {
+                put("oplus.software.smart_sidebar", true)
             }
 
             //Source NotificationManager FeatureOption isSupportsStealthMode VIP模式

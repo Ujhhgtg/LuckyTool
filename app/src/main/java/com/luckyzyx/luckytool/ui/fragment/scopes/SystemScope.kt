@@ -4070,6 +4070,13 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.force_enable_buoy_automatically_hides)
+                key = "force_enable_buoy_automatically_hides"
+                setDefaultValue(false)
+                isVisible = SDK == A12
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.unlock_transfer_dock)
                 key = "unlock_transfer_dock"
                 setDefaultValue(false)
@@ -4083,13 +4090,13 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.unlock_fluid_cloud)
-                key = "unlock_fluid_cloud"
-                setDefaultValue(false)
-                isVisible = false//SDK >= A13
-                isIconSpaceReserved = false
-            })
+//            addPreference(SwitchPreference(context).apply {
+//                title = getString(R.string.unlock_fluid_cloud)
+//                key = "unlock_fluid_cloud"
+//                setDefaultValue(false)
+//                isVisible = false//SDK >= A13
+//                isIconSpaceReserved = false
+//            })
         }
     }
 

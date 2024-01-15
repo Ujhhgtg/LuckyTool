@@ -676,6 +676,7 @@
     <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
     <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
     <!--OplusSmartSidebar-->
+    <string name="force_enable_buoy_automatically_hides">Forced enable buoys can automatically hide</string>
     <string name="unlock_transfer_dock">Unlock transfer dock</string>
     <string name="unlock_recent_files">Unlock recent files</string>
     <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>

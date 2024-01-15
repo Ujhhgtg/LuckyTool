@@ -26,6 +26,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
@@ -563,7 +564,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.unlock_transfer_dock),
                     getString(R.string.unlock_recent_files)
                 )
-                isVisible = SDK >= A13 && context.checkPackName(key)
+                isVisible = SDK >= A12 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusSmartSidebar, title)
                     true

@@ -61,7 +61,7 @@
     <string name="feedback_download_summary">Kênh TG, Nhóm, Repositories, v. v.</string>
     <string name="coolmarket">Trang CoolMarket</string>
     <string name="module_doc">Tài liệu mô-đun</string>
-    <string name="qq_chat_group">QQ Chat Group</string>
+    <string name="qq_chat_group">Nhóm trò chuyện QQ</string>
     <string name="qq_channel">Kênh QQ</string>
     <string name="telegram_channel">Kênh Telegram</string>
     <string name="telegram_group">Nhóm Telegram</string>
@@ -676,6 +676,7 @@
     <string name="remove_almanac_page_information_flow">Loại bỏ luồng thông tin trang niên giám</string>
     <string name="remove_horoscope_page_information_flow">Xóa luồng thông tin trang tử vi</string>
     <!--OplusSmartSidebar-->
+    <string name="force_enable_buoy_automatically_hides">Buộc bật tính năng tự động ẩn phao</string>
     <string name="unlock_transfer_dock">Mở khóa di chuyển thanh dock</string>
     <string name="unlock_recent_files">Mở khóa các tập tin gần đây</string>
     <string name="unlock_fluid_cloud">Bỏ chặn đám mây</string>
