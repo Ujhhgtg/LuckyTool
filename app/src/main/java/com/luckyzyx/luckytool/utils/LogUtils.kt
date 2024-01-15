@@ -8,23 +8,23 @@ object LogUtils {
     const val globalTag = "LuckyTool"
     var enable = BuildConfig.DEBUG
 
-    fun d(tag: String, method: String, msg: String, send: Boolean = enable) {
-        if (send) Log.d(globalTag, "$tag: $method -> $msg")
+    fun d(method: String, params: String, msg: String, send: Boolean = enable) {
+        if (send) Log.d(globalTag, "$method: $params -> $msg")
     }
 
-    fun e(tag: String, method: String, msg: String, send: Boolean = enable) {
-        if (send) Log.e(globalTag, "$tag: $method -> $msg")
+    fun e(method: String, params: String, msg: String, send: Boolean = enable) {
+        if (send) Log.e(globalTag, "$method: $params -> $msg")
     }
 
-    fun i(tag: String, method: String, msg: String, send: Boolean = enable) {
-        if (send) Log.i(globalTag, "$tag: $method -> $msg")
+    fun i(method: String, params: String, msg: String, send: Boolean = enable) {
+        if (send) Log.i(globalTag, "$method: $params -> $msg")
     }
 
-    fun v(tag: String, method: String, msg: String, send: Boolean = enable) {
-        if (send) Log.v(globalTag, "$tag: $method -> $msg")
+    fun v(method: String, params: String, msg: String, send: Boolean = enable) {
+        if (send) Log.v(globalTag, "$method: $params -> $msg")
     }
 
-    fun w(tag: String, method: String, msg: String, send: Boolean = enable) {
-        if (send) Log.w(globalTag, "$tag: $method -> $msg")
+    fun w(method: String, params: String, msg: String, send: Boolean = enable) {
+        if (send) Log.w(globalTag, "$method: $params -> $msg")
     }
 }

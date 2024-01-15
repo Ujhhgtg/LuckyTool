@@ -154,7 +154,7 @@ fun String.formatLunar(mode: Int): String {
             else -> this
         }
     } catch (e: Exception) {
-        LogUtils.e(LogUtils.globalTag, "formatLunar", "$e")
+        LogUtils.e("formatLunar", "throw", "$e")
         this
     }
 }

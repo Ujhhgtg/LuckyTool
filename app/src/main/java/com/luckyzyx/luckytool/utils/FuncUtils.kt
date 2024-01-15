@@ -1308,36 +1308,34 @@ fun Context.checkModuleValied(isValied: (Boolean) -> Unit) {
 val redOneTextColor = Color.parseColor("#c41442")
 
 /**
- * 反射计算电池健康度
- * @param context Context
- * @return Int?
+ * 计算本地电池健康度
+ * @receiver Context
+ * @param isDebug Boolean
+ * @return Int
  */
-fun calcLocalHealth(context: Context, isDebug: Boolean = false): Int {
+fun Context.calcLocalHealth(isDebug: Boolean = false): Int {
     try {
         val sohFile = File("/sys/class/oplus_chg/battery/battery_soh")
-        val sohValue = safeOf(-1) {
-            BufferedReader(FileReader(sohFile)).readLine().filterNumber.toIntOrNull() ?: -1
-        }
-        if (isDebug) LogUtils.d(LogUtils.globalTag, "calcLocalHealth", "sohValue $sohValue", true)
+        val sohValue = safeOfNull {
+            BufferedReader(FileReader(sohFile)).readLine().replaceSpace.toIntOrNull()
+        } ?: -1
+        if (isDebug) LogUtils.d("calcLocalHealth", "sohValue", "$sohValue", true)
         if (sohValue in 1..100) return sohValue
-        val curFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_fcc")
+
+        val fccFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_fcc")
         else File("/sys/class/power_supply/battery/charge_full")
-        if (isDebug) LogUtils.d(
-            LogUtils.globalTag, "calcLocalHealth", "curFile ${curFile.path}", true
-        )
+        if (isDebug) LogUtils.d("calcLocalHealth", "curFile", fccFile.path, true)
         val curValue = safeOfNull {
-            BufferedReader(FileReader(curFile)).readLine().filterNumber.toIntOrNull() ?: -1
-        }
-        if (isDebug) LogUtils.d(LogUtils.globalTag, "calcLocalHealth", "curValue $curValue", true)
-        if (curValue == null) return -1
-        val designValue = PowerProfile(context).batteryCapacity
-        if (isDebug) LogUtils.d(
-            LogUtils.globalTag, "calcLocalHealth", "designValue $designValue", true
-        )
-        var calc = safeOf(-1) { (curValue / designValue * 100.0).roundToInt() }
-        if (isDebug) LogUtils.d(LogUtils.globalTag, "calcLocalHealth", "calc $calc", true)
-        if (calc > 100) calc /= 1000
-        return calc
+            BufferedReader(FileReader(fccFile)).readLine().replaceSpace.toIntOrNull()
+        } ?: -1
+        if (isDebug) LogUtils.d("calcLocalHealth", "curValue", "$curValue", true)
+        if (curValue < 0) return curValue
+
+        val designValue = PowerProfile(this).batteryCapacity
+        if (isDebug) LogUtils.d("calcLocalHealth", "designValue", "$designValue", true)
+        val calc = safeOfNull { (curValue / designValue * 100.0).roundToInt() } ?: -1
+        if (isDebug) LogUtils.d("calcLocalHealth", "calc", "$calc", true)
+        return if (calc > 100) calc / 1000 else calc
     } catch (e: Exception) {
         YLog.error("Calc Local Health Error", e)
         return -1
