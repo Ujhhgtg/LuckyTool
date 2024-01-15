@@ -27,7 +27,7 @@ class OplusBuildUtlils(val classLoader: ClassLoader? = null) {
         null
     )
 
-    private val getOSVersions get() = clazz.field { name = "VERSIONS" }.get().cast<Array<String>>()
+    val getOSVersions get() = clazz.field { name = "VERSIONS" }.get().cast<Array<String>>()
 
     val getOSVersionCode get() = clazz.method { name = "getOplusOSVERSION" }.get().invoke<Int>()
 

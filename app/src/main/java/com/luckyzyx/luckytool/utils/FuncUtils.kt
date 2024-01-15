@@ -405,7 +405,7 @@ fun TileService.closeCollapse() {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         })
     } catch (_: Exception) {
-
+        return
     }
 }
 
