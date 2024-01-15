@@ -20,8 +20,8 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
-                    addForType(StringClass.name)
+                    addForType(ContextClass)
+                    addForType(StringClass)
                     addForType(feedAdNative)
                     addForType(recyclerAdHelper)
                     addForType(adInteractionListener)

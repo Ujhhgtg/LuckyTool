@@ -19,7 +19,7 @@ class HookFunctionManager(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(MapClass.name)
+                    addForType(MapClass)
                 }
                 methods {
                     add {

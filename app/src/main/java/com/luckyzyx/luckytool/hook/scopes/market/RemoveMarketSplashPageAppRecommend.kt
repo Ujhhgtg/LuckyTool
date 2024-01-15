@@ -22,10 +22,10 @@ class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             searchPackages("com.nearme.splash.net")
             matcher {
                 fields {
-                    addForType(IntType.name)
-                    addForType(LongType.name)
-                    addForType(BooleanType.name)
-                    addForType(AtomicBooleanClass.name)
+                    addForType(IntType)
+                    addForType(LongType)
+                    addForType(BooleanType)
+                    addForType(AtomicBooleanClass)
                 }
                 methods {
                     add { paramTypes(StringClass);returnType(BooleanType) }

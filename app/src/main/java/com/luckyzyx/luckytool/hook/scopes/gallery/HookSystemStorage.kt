@@ -37,7 +37,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
+                    addForType(ContextClass)
                 }
                 methods {
                     add { paramCount(2);returnType(IntClass) }

@@ -22,8 +22,8 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
                 searchPackages("com.coloros.securepay")
                 matcher {
                     fields {
-                        addForType(BooleanType.name)
-                        addForType(CheckBoxClass.name)
+                        addForType(BooleanType)
+                        addForType(CheckBoxClass)
                     }
                     methods {
                         add { paramCount(0);returnType(UnitType) }

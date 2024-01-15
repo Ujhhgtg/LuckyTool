@@ -9,7 +9,9 @@ object RemoveVideoSaveWaterMark : YukiBaseHooker() {
         //Source VideoWaterMarkView -> view_video_water_mark
         "com.heytap.pictorial.data.VideoWaterMarkView".toClass().apply {
             constructor().hook {
-                after { instance<LinearLayout>().removeAllViews() }
+                after {
+                    instance<LinearLayout>().removeAllViews()
+                }
             }
         }
     }

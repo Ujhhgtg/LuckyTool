@@ -19,11 +19,11 @@ class CompetitionModeSound(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
-                    addForType(BooleanType.name)
-                    addForType(SoundPool::class.java.name)
-                    addForType(AudioManager::class.java.name)
-                    addForType(SparseIntArrayClass.name)
+                    addForType(ContextClass)
+                    addForType(BooleanType)
+                    addForType(SoundPool::class.java)
+                    addForType(AudioManager::class.java)
+                    addForType(SparseIntArrayClass)
                 }
                 methods {
                     add {

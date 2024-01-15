@@ -19,8 +19,8 @@ class UnlockStartupLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(AnyClass.name)
-                    addForType(ContextClass.name)
+                    addForType(AnyClass)
+                    addForType(ContextClass)
                     count(4..6)
                 }
                 methods {

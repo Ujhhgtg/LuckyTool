@@ -22,11 +22,11 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
             searchPackages("com.heytap.market.mine")
             matcher {
                 fields {
-                    addForType(MapClass.name)
-                    addForType(StringClass.name)
-                    addForType(BooleanType.name)
-                    addForType(BundleClass.name)
-                    addForType(ContextClass.name)
+                    addForType(MapClass)
+                    addForType(StringClass)
+                    addForType(BooleanType)
+                    addForType(BundleClass)
+                    addForType(ContextClass)
                     addForType(mineActionBarView)
                 }
                 methods {

@@ -50,14 +50,8 @@ object FolderLayoutRowColume : YukiBaseHooker() {
         "com.android.launcher3.folder.big.BigFolderGridOrganizer".toClass().apply {
             method { name = "calculateGridSize" }.hook {
                 after {
-                    field {
-                        name = "mCountX"
-                        superClass()
-                    }.get(instance).set(3)
-                    field {
-                        name = "mCountY"
-                        superClass()
-                    }.get(instance).set(3)
+                    field { name = "mCountX";superClass() }.get(instance).set(3)
+                    field { name = "mCountY";superClass() }.get(instance).set(3)
                 }
             }
         }

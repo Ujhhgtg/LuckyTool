@@ -204,9 +204,9 @@ class CloudConditionFeature(private val appSet: Array<String>, val dexKitBridge:
                 matcher {
                     usingStrings("cloudKey", "defaultDate", "spFileName")
                     methods {
-                        add { paramCount(0);returnType(ListClass.name) }
-                        add { paramCount(1);returnType(ListClass.name) }
-                        add { paramCount(2);returnType(BooleanType.name) }
+                        add { paramCount(0);returnType(ListClass) }
+                        add { paramCount(1);returnType(ListClass) }
+                        add { paramCount(2);returnType(BooleanType) }
                     }
                 }
             }.apply {
@@ -227,7 +227,7 @@ class CloudConditionFeature(private val appSet: Array<String>, val dexKitBridge:
                                 //全超分辨率云控 -> isSupportFullSupperResolution
                                 "super_resolution_config_full" -> if (superResolution) resultTrue()
                                 //游戏滤镜
-                                //                            "game_filter_config" -> resultTrue()
+                                //"game_filter_config" -> resultTrue()
                             }
                         }
                     }

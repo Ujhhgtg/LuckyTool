@@ -83,32 +83,29 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                     val view = instance<ViewGroup>()
                     when (layoutMode) {
                         "1" -> {
-                            val speedUnit: TextView? =
+                            val speedUnit: TextView? = view.findViewById(
                                 view.resources.getIdentifier(
                                     "unit", "id",
                                     this@StatusBarNetWorkSpeed.packageName
-                                ).let { view.findViewById(it) }
+                                )
+                            )
                             view.removeView(speedUnit)
                         }
                     }
                     //5.34dp
-                    if (bMargin <= 0) bMargin = view.resources.let {
-                        it.getDimensionPixelSize(
-                            it.getIdentifier(
-                                "network_speed_number_margin_bottom",
-                                "dimen", this@StatusBarNetWorkSpeed.packageName
-                            )
+                    if (bMargin <= 0) bMargin = view.resources.getDimensionPixelSize(
+                        view.resources.getIdentifier(
+                            "network_speed_number_margin_bottom",
+                            "dimen", this@StatusBarNetWorkSpeed.packageName
                         )
-                    }
+                    )
                     //7.34dp
-                    if (tMargin <= 0) tMargin = view.resources.let {
-                        it.getDimensionPixelSize(
-                            it.getIdentifier(
-                                "network_speed_unit_margin_top",
-                                "dimen", this@StatusBarNetWorkSpeed.packageName
-                            )
+                    if (tMargin <= 0) tMargin = view.resources.getDimensionPixelSize(
+                        view.resources.getIdentifier(
+                            "network_speed_unit_margin_top",
+                            "dimen", this@StatusBarNetWorkSpeed.packageName
                         )
-                    }
+                    )
                 }
             }
             method { name = "updateNetworkSpeed" }.hook {
@@ -137,8 +134,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             mSpeedNumber.apply {
                                 text = speed
                                 setTextSize(
-                                    TypedValue.COMPLEX_UNIT_DIP,
-                                    getDoubleSize.toFloat() * 2
+                                    TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat() * 2
                                 )
                                 gravity = Gravity.CENTER_VERTICAL or Gravity.END
                                 layoutParams = LayoutParams(layoutParams).apply {
@@ -150,13 +146,10 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         "2" -> {
                             mSpeedNumber.apply {
                                 text = getTotalUpSpeed().let {
-                                    if (noSecond) it.replace(
-                                        "/s", ""
-                                    ) else it
+                                    if (noSecond) it.replace("/s", "") else it
                                 }
                                 setTextSize(
-                                    TypedValue.COMPLEX_UNIT_DIP,
-                                    getDoubleSize.toFloat()
+                                    TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
                                 )
                                 if (setInterval != -1) layoutParams =
                                     LayoutParams(layoutParams).apply {
@@ -165,13 +158,10 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             }
                             mSpeedUnit.apply {
                                 text = getTotalDownloadSpeed().let {
-                                    if (noSecond) it.replace(
-                                        "/s", ""
-                                    ) else it
+                                    if (noSecond) it.replace("/s", "") else it
                                 }
                                 setTextSize(
-                                    TypedValue.COMPLEX_UNIT_DIP,
-                                    getDoubleSize.toFloat()
+                                    TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
                                 )
                                 if (setInterval != -1) layoutParams =
                                     LayoutParams(layoutParams).apply {

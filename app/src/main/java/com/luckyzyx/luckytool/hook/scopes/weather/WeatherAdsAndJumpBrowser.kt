@@ -137,7 +137,7 @@ class WeatherAdsAndJumpBrowser(private val appSet: Array<String>, val dexKitBrid
                 searchPackages("com.coloros.weather.utils")
                 matcher {
                     fields {
-                        addForType(BooleanType.name)
+                        addForType(BooleanType)
                         addForType("java.util.regex.Pattern")
                     }
                     methods {

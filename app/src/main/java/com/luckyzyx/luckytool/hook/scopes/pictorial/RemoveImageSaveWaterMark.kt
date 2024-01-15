@@ -21,17 +21,17 @@ class RemoveImageSaveWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(FileClass.name)
-                    addForType(HandlerClass.name)
-                    addForType(LongType.name)
-                    addForType(BooleanType.name)
-                    addForType(StringClass.name)
+                    addForType(FileClass)
+                    addForType(HandlerClass)
+                    addForType(LongType)
+                    addForType(BooleanType)
+                    addForType(StringClass)
                 }
                 methods {
                     add { returnType(HandlerClass) }
                     add { returnType(BitmapClass) }
                     add { returnType(BooleanType) }
-                    add { paramTypes(ContextClass.name) }
+                    add { paramTypes(ContextClass) }
                     add { paramCount(5);returnType(BitmapClass) }
                     add { paramTypes("com.heytap.pictorial.core.bean.BasePictorialData") }
                 }

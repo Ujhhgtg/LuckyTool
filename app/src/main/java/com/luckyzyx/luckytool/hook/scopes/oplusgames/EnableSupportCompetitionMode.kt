@@ -16,7 +16,7 @@ class EnableSupportCompetitionMode(val dexKitBridge: DexKitBridge) : YukiBaseHoo
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ListClass.name)
+                    addForType(ListClass)
                 }
                 methods {
                     add { paramCount(0);returnType(ListClass) }

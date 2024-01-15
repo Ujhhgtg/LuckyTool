@@ -198,19 +198,15 @@ object AlarmClockWidget : YukiBaseHooker() {
                 dexKitBridge.findClass {
                     matcher {
                         fields {
-                            addForType(BooleanType.name)
-                            addForType(HandlerClass.name)
+                            addForType(BooleanType)
+                            addForType(HandlerClass)
                         }
                         methods {
                             add { returnType(BooleanType) }
                             add { returnType(HandlerClass) }
-                            add { paramTypes(ContextClass.name) }
-                            add { paramTypes(ContextClass.name, StringClass.name) }
-                            add {
-                                paramTypes(
-                                    ContextClass.name, StringClass.name, StringClass.name
-                                )
-                            }
+                            add { paramTypes(ContextClass) }
+                            add { paramTypes(ContextClass, StringClass) }
+                            add { paramTypes(ContextClass, StringClass, StringClass) }
                         }
                     }
                 }.apply {

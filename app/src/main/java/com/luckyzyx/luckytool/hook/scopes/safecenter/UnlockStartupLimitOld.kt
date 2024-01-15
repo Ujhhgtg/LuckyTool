@@ -27,11 +27,11 @@ class UnlockStartupLimitOld(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             )
             matcher {
                 fields {
-                    addForType(IntType.name)
-                    addForType(AnyClass.name)
-                    addForType(MapClass.name)
-                    addForType(BooleanType.name)
-                    addForType(ContextClass.name)
+                    addForType(IntType)
+                    addForType(AnyClass)
+                    addForType(MapClass)
+                    addForType(BooleanType)
+                    addForType(ContextClass)
                 }
                 methods {
                     add { paramTypes(ListClass) }
@@ -50,7 +50,9 @@ class UnlockStartupLimitOld(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     param(ContextClass)
                     returnType = UnitType
                 }.hookAll {
-                    after { field { type = IntType }.get().set(10000) }
+                    after {
+                        field { type = IntType }.get().set(10000)
+                    }
                 }
             }
         }

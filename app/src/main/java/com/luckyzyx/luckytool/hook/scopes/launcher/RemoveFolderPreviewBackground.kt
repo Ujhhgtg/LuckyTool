@@ -11,7 +11,9 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
         //Source OplusPreviewBackground folder_icon_bg big_folder_bg
         "com.android.launcher3.folder.OplusPreviewBackground".toClass().apply {
             method { name = "setup" }.hookAll {
-                after { field { name = "mBgDrawable" }.get(instance).setNull() }
+                after {
+                    field { name = "mBgDrawable" }.get(instance).setNull()
+                }
             }
             method { name = "drawBackground" }.hook {
                 intercept()

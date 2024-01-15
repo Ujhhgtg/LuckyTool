@@ -30,16 +30,16 @@ object HookADM : YukiBaseHooker() {
                 searchPackages("com.dv.get")
                 matcher {
                     fields {
-                        addForType(SharedPreferencesClass.name)
-                        addForType(SharedPreferences.Editor::class.java.name)
-                        addForType(HandlerClass.name)
-                        addForType(HashMapClass.name)
-                        addForType(TypefaceClass.name)
-                        addForType(ClipboardManager::class.java.name)
-                        addForType(AlarmManager::class.java.name)
-                        addForType(NotificationManager::class.java.name)
-                        addForType(MediaPlayerClass.name)
-                        addForType(PendingIntentClass.name)
+                        addForType(SharedPreferencesClass)
+                        addForType(SharedPreferences.Editor::class.java)
+                        addForType(HandlerClass)
+                        addForType(HashMapClass)
+                        addForType(TypefaceClass)
+                        addForType(ClipboardManager::class.java)
+                        addForType(AlarmManager::class.java)
+                        addForType(NotificationManager::class.java)
+                        addForType(MediaPlayerClass)
+                        addForType(PendingIntentClass)
                     }
                     usingStrings("firebase.test.lab")
                 }

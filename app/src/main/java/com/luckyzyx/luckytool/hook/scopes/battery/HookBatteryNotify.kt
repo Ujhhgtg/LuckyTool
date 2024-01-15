@@ -28,9 +28,9 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
-                    addForType(HandlerClass.name)
-                    addForType(NotificationManager::class.java.name)
+                    addForType(ContextClass)
+                    addForType(HandlerClass)
+                    addForType(NotificationManager::class.java)
                 }
                 methods {
                     add {

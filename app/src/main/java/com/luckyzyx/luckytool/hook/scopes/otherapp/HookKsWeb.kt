@@ -21,9 +21,9 @@ object HookKsWeb : YukiBaseHooker() {
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(IntType.name)
-                        addForType(BooleanType.name)
-                        addForType(SharedPreferencesClass.name)
+                        addForType(IntType)
+                        addForType(BooleanType)
+                        addForType(SharedPreferencesClass)
                     }
                     methods {
                         add { paramCount(0);returnType(IntType) }

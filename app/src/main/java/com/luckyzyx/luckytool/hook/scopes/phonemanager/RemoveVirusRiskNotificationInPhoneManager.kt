@@ -15,8 +15,8 @@ class RemoveVirusRiskNotificationInPhoneManager(val dexKitBridge: DexKitBridge) 
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
-                    addForType(StringClass.name)
+                    addForType(ContextClass)
+                    addForType(StringClass)
                 }
                 methods {
                     add { paramTypes(ArrayListClass) }

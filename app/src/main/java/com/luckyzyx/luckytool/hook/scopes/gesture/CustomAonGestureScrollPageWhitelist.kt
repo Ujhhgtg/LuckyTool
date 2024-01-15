@@ -26,12 +26,12 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
-                    addForType(ArrayListClass.name)
-                    addForType(ArrayMapClass.name)
-                    addForType(IntType.name)
-                    addForType(FloatType.name)
-                    addForType(ListClass.name)
+                    addForType(ContextClass)
+                    addForType(ArrayListClass)
+                    addForType(ArrayMapClass)
+                    addForType(IntType)
+                    addForType(FloatType)
+                    addForType(ListClass)
                 }
                 methods {
                     add { paramTypes(StringClass);returnType(IntType) }

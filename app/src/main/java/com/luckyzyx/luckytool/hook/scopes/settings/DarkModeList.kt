@@ -24,9 +24,9 @@ class DarkModeList(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(AnyClass.name)
-                    addForType(AtomicBooleanClass.name)
-                    addForType(MapClass.name)
+                    addForType(AnyClass)
+                    addForType(AtomicBooleanClass)
+                    addForType(MapClass)
                 }
                 methods {
                     add { paramTypes(Reader::class.java) }

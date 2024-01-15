@@ -10,7 +10,9 @@ object RemoveBottomAppIconOfRecentTaskList : YukiBaseHooker() {
         //Source DockView
         "com.oplus.quickstep.dock.DockView".toClass().apply {
             method { name = "setVisibilityAlpha" }.hook {
-                after { instance<ViewGroup>().isVisible = false }
+                after {
+                    instance<ViewGroup>().isVisible = false
+                }
             }
         }
     }

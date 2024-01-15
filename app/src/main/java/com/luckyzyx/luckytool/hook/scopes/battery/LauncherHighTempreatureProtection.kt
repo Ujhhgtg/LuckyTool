@@ -19,12 +19,12 @@ class LauncherHighTempreatureProtection(val dexKitBridge: DexKitBridge) : YukiBa
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(IntType.name)
-                    addForType(ContextClass.name)
-                    addForType(HandlerClass.name)
-                    addForType(PowerManagerClass.name)
-                    addForType(SharedPreferencesClass.name)
-                    addForType(BroadcastReceiverClass.name)
+                    addForType(IntType)
+                    addForType(ContextClass)
+                    addForType(HandlerClass)
+                    addForType(PowerManagerClass)
+                    addForType(SharedPreferencesClass)
+                    addForType(BroadcastReceiverClass)
                 }
                 methods {
                     add { name("handleMessage") }

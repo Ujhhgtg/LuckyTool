@@ -19,9 +19,9 @@ class RemoveRootCheck(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(StringClass.name)
-                    addForType(BooleanType.name)
-                    addForType(IntType.name)
+                    addForType(StringClass)
+                    addForType(BooleanType)
+                    addForType(IntType)
                 }
                 methods {
                     add { name = "clear";paramCount(0) }

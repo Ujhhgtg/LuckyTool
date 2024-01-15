@@ -14,8 +14,8 @@ class EnablePNGSaveFormat(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(StringClass.name)
-                    addForType(Bitmap.CompressFormat::class.java.name)
+                    addForType(StringClass)
+                    addForType(Bitmap.CompressFormat::class.java)
                 }
                 methods {
                     add { name("values") }
