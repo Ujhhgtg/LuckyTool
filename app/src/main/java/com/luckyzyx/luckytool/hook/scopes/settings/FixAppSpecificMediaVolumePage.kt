@@ -36,6 +36,10 @@ class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHo
                         val path = args(1).string()
                         val key = args().last().string()
                         if (path.contains("multi_app_volume").not()) return@before
+
+                        val assetsInputStream = safeOfNull { context.assets.open(path) }
+                        if (assetsInputStream != null) return@before
+
                         context.injectModuleAppResources()
                         if (!path.endsWith(".zip") && !path.endsWith(".lottie")) {
                             val resName = path.substringAfter("/").substringBefore(".json")
@@ -43,14 +47,14 @@ class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHo
                                 resName, "raw", BuildConfig.APPLICATION_ID
                             )
                             if (resId == 0) return@before
-                            val inputStream = safeOfNull {
+                            val rawInputStream = safeOfNull {
                                 context.resources.openRawResource(resId)
                             } ?: return@before
                             result = method {
 //                                name = "fromJsonInputStreamSync"
                                 param(InputStreamClass, StringClass)
                                 returnType = method.returnType
-                            }.get().call(inputStream, key) ?: return@before
+                            }.get().call(rawInputStream, key) ?: return@before
                         }
                     }
                 }
