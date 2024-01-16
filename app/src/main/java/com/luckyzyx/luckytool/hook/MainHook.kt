@@ -224,16 +224,16 @@ object MainHook : IYukiHookXposedInit {
     override fun onXposedEvent() {
         YukiXposedEvent.onHandleLoadPackage { lpparam: XC_LoadPackage.LoadPackageParam ->
             run {
-                if (lpparam.packageName == "android" && lpparam.processName == "android") {
-                    when (SDK) {
+                if (lpparam.packageName == "android") {
+                    if (lpparam.processName == "android") when (SDK) {
                         UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
                         TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
                         S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
                         R -> CorePatchForR().handleLoadPackage(lpparam)
                         else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
                     }
+                    DisableFlagSecure().handleLoadPackage(lpparam)
                 }
-                DisableFlagSecure().handleLoadPackage(lpparam)
             }
         }
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->

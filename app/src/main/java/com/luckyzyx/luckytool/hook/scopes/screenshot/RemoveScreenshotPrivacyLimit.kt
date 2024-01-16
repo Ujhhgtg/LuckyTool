@@ -8,24 +8,10 @@ object RemoveScreenshotPrivacyLimit : YukiBaseHooker() {
         //Source ScreenshotContext
         "com.oplus.screenshot.screenshot.core.ScreenshotContext".toClass().apply {
             method { name = "setScreenshotReject" }.hook {
-                before {
-                    val rejectCls = args().first().any()?.javaClass ?: return@before
-                    if (rejectCls.isEnum.not()) return@before
-                    val enumConstants = rejectCls.enumConstants ?: return@before
-                    enumConstants.forEach {
-                        if (it.toString() == "ACCEPTED") args().first().set(it)
-                    }
-                }
+                intercept()
             }
             method { name = "setLongshotReject" }.hook {
-                before {
-                    val rejectCls = args().first().any()?.javaClass ?: return@before
-                    if (rejectCls.isEnum.not()) return@before
-                    val enumConstants = rejectCls.enumConstants ?: return@before
-                    enumConstants.forEach {
-                        if (it.toString() == "ACCEPTED") args().first().set(it)
-                    }
-                }
+                intercept()
             }
         }
     }
