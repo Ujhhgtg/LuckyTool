@@ -24,7 +24,7 @@ object HookCamera : YukiBaseHooker() {
             val isRealme = Build.MODEL.startsWith("RM", true)
             if (SDK >= A13 && isRealme.not()) loadHooker(CustomModelWaterMark(dexKitBridge))
 
-            //移除水印字数限制
+            //移除自定义水印字数限制
             if (prefs(ModulePrefs).getBoolean("remove_watermark_word_limit", false)) {
                 loadHooker(RemoveWatermarkWordLimit(dexKitBridge))
             }

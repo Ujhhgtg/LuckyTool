@@ -3272,6 +3272,13 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_watermark_word_limit)
+                key = "remove_gallery_watermark_word_limit"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
             //滤镜
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraFilter)

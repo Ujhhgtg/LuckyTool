@@ -75,6 +75,13 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             configNode.contains("feature_is_support_gif_synthesis") -> if (gifSynthesis) resultTrue()
                             //debug.gallery.lns / os.graphic.gallery.photoview.lns
                             configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
+
+//                            photopage_detail_ic_dolby_vision
+//                            configNode.contains("brighten_version_dolby") -> if (gifSynthesis) resultTrue()
+//                            configNode.contains("feature_is_support_dolby_brighten") -> if (gifSynthesis) resultTrue()
+//                            configNode.contains("is_support_dolby_decode") -> if (gifSynthesis) resultTrue()
+//                            configNode.contains("is_support_dolby_encode") -> if (gifSynthesis) resultTrue()
+//                            configNode.contains("is_support_dolby_encode_accelerate") -> if (gifSynthesis) resultTrue()
                         }
                     }
                 }
@@ -128,6 +135,13 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
                             "feature_is_support_gif_synthesis" -> if (gifSynthesis) resultTrue()
                             "feature_is_support_lns" -> if (lnsImage) resultTrue()
+
+//                            photopage_detail_ic_dolby_vision
+//                            "brighten_version_dolby" -> if (gifSynthesis) resultTrue()
+//                            "feature_is_support_dolby_brighten" -> if (gifSynthesis) resultTrue()
+//                            "is_support_dolby_decode" -> if (gifSynthesis) resultTrue()
+//                            "is_support_dolby_encode" -> if (gifSynthesis) resultTrue()
+//                            "is_support_dolby_encode_accelerate" -> if (gifSynthesis) resultTrue()
                         }
                     }
                 }
