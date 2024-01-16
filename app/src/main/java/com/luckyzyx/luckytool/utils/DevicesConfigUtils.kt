@@ -38,23 +38,22 @@ object DevicesConfigUtils {
     val isSeriesDualBattery
         get() : Boolean? = chargeConfig?.optBoolean("series_dual_battery_support")
 
-
     /**
      * 是否为并联电池
      */
     val isParallelDualBattery
-        get() : Boolean? = chargeConfig?.getBoolean("parallel_dual_battery_support")
+        get() : Boolean? = chargeConfig?.optBoolean("parallel_dual_battery_support")
 
 
     val isVBatDeviation
-        get() : Boolean? = chargeConfig?.getBoolean("qg_vbat_deviation_support")
+        get() : Boolean? = chargeConfig?.optBoolean("qg_vbat_deviation_support")
 
 
     val isAirSVOOCSupport
-        get() = wirelessChargeConfig?.getBoolean("air_svooc_support")
+        get() = wirelessChargeConfig?.optBoolean("air_svooc_support")
 
 
     val isAirVOOCSupport
-        get() = wirelessChargeConfig?.getBoolean("air_vooc_support")
+        get() = wirelessChargeConfig?.optBoolean("air_vooc_support")
 
 }
