@@ -146,11 +146,11 @@ class LunarHelperUtils(val classLoader: ClassLoader?) {
      * @param instance Any?
      * @return Array<String>?
      */
-    fun getTianGan(instance: Any?): Array<String>? {
+    fun getTianGan(instance: Any?): Array<String> {
         return clazz.field {
             name = "mGan"
             type = StringArrayClass
-        }.get(instance).cast<Array<String>>()
+        }.get(instance).array<String>()
     }
 
     /**
@@ -158,11 +158,11 @@ class LunarHelperUtils(val classLoader: ClassLoader?) {
      * @param instance Any?
      * @return Array<String>?
      */
-    fun getDiZhi(instance: Any?): Array<String>? {
+    fun getDiZhi(instance: Any?): Array<String> {
         return clazz.field {
             name = "mZhi"
             type = StringArrayClass
-        }.get(instance).cast<Array<String>>()
+        }.get(instance).array<String>()
     }
 
     /**

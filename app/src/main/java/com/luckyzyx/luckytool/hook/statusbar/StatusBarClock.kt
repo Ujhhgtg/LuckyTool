@@ -181,7 +181,7 @@ object StatusBarClock : YukiBaseHooker() {
         if (finalFormat.contains("ddd")) finalFormat = finalFormat.replace("ddd", "d号")
         if (finalFormat.contains("FF")) finalFormat = finalFormat.replace("FF", getPeriod(nowTime))
         if (finalFormat.contains("GG")) finalFormat =
-            finalFormat.replace("GG", getDiZhiHour(nowTime))
+            finalFormat.replace("GG", getDiZhiHour(context, nowTime))
         return finalFormat
     }
 
@@ -197,22 +197,27 @@ object StatusBarClock : YukiBaseHooker() {
         }
     }
 
-    private fun getDiZhiHour(nowTime: Date): String {
-        val diZhiAr = LunarHelperUtils(appClassLoader).getDiZhi(lunarInstance)
-        if (diZhiAr.isNullOrEmpty() || diZhiAr.size != 12) return ""
+    private fun getDiZhiHour(context: Context, nowTime: Date): String {
+        val diZhiArr = LunarHelperUtils(appClassLoader).let {
+            if (lunarInstance == null) lunarInstance = it.getInstance(context)
+            it.getDiZhi(lunarInstance)
+        }
+        if (diZhiArr.isEmpty()) return ""
+        if (diZhiArr.size != 12) return ""
+
         val curHour = when (formatDate("HH", nowTime)) {
-            "23", "00" -> diZhiAr[0]
-            "01", "02" -> diZhiAr[1]
-            "03", "04" -> diZhiAr[2]
-            "05", "06" -> diZhiAr[3]
-            "07", "08" -> diZhiAr[4]
-            "09", "10" -> diZhiAr[5]
-            "11", "12" -> diZhiAr[6]
-            "13", "14" -> diZhiAr[7]
-            "15", "16" -> diZhiAr[8]
-            "17", "18" -> diZhiAr[9]
-            "19", "20" -> diZhiAr[10]
-            "21", "22" -> diZhiAr[11]
+            "23", "00" -> diZhiArr[0]
+            "01", "02" -> diZhiArr[1]
+            "03", "04" -> diZhiArr[2]
+            "05", "06" -> diZhiArr[3]
+            "07", "08" -> diZhiArr[4]
+            "09", "10" -> diZhiArr[5]
+            "11", "12" -> diZhiArr[6]
+            "13", "14" -> diZhiArr[7]
+            "15", "16" -> diZhiArr[8]
+            "17", "18" -> diZhiArr[9]
+            "19", "20" -> diZhiArr[10]
+            "21", "22" -> diZhiArr[11]
             else -> ""
         }.let { if (it.isNotBlank()) it + "时" else "" }
         return curHour
@@ -263,7 +268,7 @@ object StatusBarClock : YukiBaseHooker() {
             }
         }
         if (isDoubleHour) {
-            doubleHour = getDiZhiHour(nowTime)
+            doubleHour = getDiZhiHour(context, nowTime)
             if (!isHideSpace) doubleHour = "$doubleHour "
             timeFormat = doubleHour + timeFormat
         }
