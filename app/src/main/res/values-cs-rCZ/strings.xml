@@ -487,6 +487,7 @@
     <string name="set_volume_bar_display_position">Nastavit pozici zobrazení panelu hlasitosti</string>
     <string name="force_enable_systemui_blur_feature">Vynutit povolení systémového rozostření</string>
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">Note: When you slide the brightness bar, a blurry area will appear at the notification location. This is expected behavior and does not require feedback.</string>
     <string name="show_manual_lock_button_power_menu">Zobrazit tlačítko manuálního zámku v menu napájení</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Přizpůsobit údaje o stavu baterie v %</string>

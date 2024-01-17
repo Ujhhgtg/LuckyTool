@@ -488,6 +488,7 @@
     <string name="set_volume_bar_display_position">Установить положение отображения панели громкости</string>
     <string name="force_enable_systemui_blur_feature">Включить функцию системного размытия</string>
     <string name="force_enable_systemui_blur_feature_tips">Уловие: Вам необходимо включить опцию \"Включить функцию размытия в системе\"\nРасположение функции: Разное</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">Note: When you slide the brightness bar, a blurry area will appear at the notification location. This is expected behavior and does not require feedback.</string>
     <string name="show_manual_lock_button_power_menu">Показывать ручную кнопку блокировки в меню питания</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Настройте процент данных о состоянии батареи</string>

@@ -40,7 +40,7 @@ object HookPackageInstaller : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("auto_click_uninstall_button", false)) {
             loadHooker(AutoClickUnInstallButton)
         }
-        //显示包名与旧版本号
+        //显示包名与迭代版本号
         if (prefs(ModulePrefs).getBoolean("show_packagename_and_versioncode", false)) {
             loadHooker(ShowPackageNameAndVersionCode)
         }

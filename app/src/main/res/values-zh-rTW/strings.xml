@@ -487,6 +487,7 @@
     <string name="set_volume_bar_display_position">设置音量条显示位置</string>
     <string name="force_enable_systemui_blur_feature">强制启用系统界面模糊特性</string>
     <string name="force_enable_systemui_blur_feature_tips">前提条件：需要开启选项“强制启用系统模糊特性”\n功能位置：杂项</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">注意：当滑动亮度条时通知位置会出现模糊区域，预期行为，无需反馈</string>
     <string name="show_manual_lock_button_power_menu">电源菜单显示手动锁定按钮</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">自定义电池健康数据百分比</string>

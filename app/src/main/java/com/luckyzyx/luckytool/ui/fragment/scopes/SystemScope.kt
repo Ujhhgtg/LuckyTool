@@ -1035,7 +1035,10 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             })
             addPreference(SeekBarPreference(context).apply {
                 title = getString(R.string.custom_notification_background_transparency)
-                summary = getString(R.string.force_enable_systemui_blur_feature_tips)
+                summary = arraySummaryLine(
+                    getString(R.string.force_enable_systemui_blur_feature_tips),
+                    getString(R.string.force_enable_systemui_blur_feature_tips_2)
+                )
                 key = "custom_notification_background_transparency"
                 setDefaultValue(-1)
                 max = 10

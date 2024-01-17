@@ -58,9 +58,9 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             searchPackages("com.heytap.cdo.client.ui.upgrademgr")
             matcher {
                 fields {
-                    addForType(BooleanType.name)
-                    addForType(ViewGroupClass.name)
-                    addForType(TextViewClass.name)
+                    addForType(BooleanType)
+                    addForType(ViewGroupClass)
+                    addForType(TextViewClass)
                     addForType(imageLoader)
                 }
                 methods {

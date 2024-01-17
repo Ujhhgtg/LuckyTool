@@ -4,6 +4,7 @@ package com.luckyzyx.luckytool.utils
 
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.InstallSourceInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
@@ -26,6 +27,14 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getNameForUid(uid: Int): String? {
         return packageManager.getNameForUid(uid)
+    }
+
+    fun getInstallSourceInfo(packName: String): InstallSourceInfo? {
+        return try {
+            packageManager.getInstallSourceInfo(packName)
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
     }
 
     fun getPackageUid(packName: String, flag: Int): Int? {
