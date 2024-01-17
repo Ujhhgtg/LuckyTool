@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
-import com.drake.net.utils.withIO
+import com.drake.net.utils.withDefault
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import com.highcapable.yukihookapi.hook.factory.dataChannel
@@ -32,17 +32,23 @@ import com.luckyzyx.luckytool.utils.*
 class DarkModeFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentDarkModeApplistLayoutBinding
-    private var appListAllDatas = ArrayList<AppInfo>()
     private var darkModeAdapter: DarkModeAdapter? = null
+
+    private var allAppDatas = ArrayList<AppInfo>()
+
     private val scopes = arrayOf("com.android.settings")
+
     private var isShowSystemApp = false
+
+    private val enableSwitchKey = "dark_mode_list_enable"
+    private val showSystemAppKey = "show_system_app_dark_mode"
+    private val supportListKey = "dark_mode_support_list"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         setupMenuProvider(this)
-        isShowSystemApp =
-            requireActivity().getBoolean(ModulePrefs, "show_system_app_dark_mode", false)
+        isShowSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
         binding = FragmentDarkModeApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
@@ -50,11 +56,11 @@ class DarkModeFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.enableSwitch.apply {
             text = context.getString(R.string.enable_dark_mode_list)
-            isChecked = context.getBoolean(ModulePrefs, "dark_mode_list_enable", false)
+            isChecked = context.getBoolean(ModulePrefs, enableSwitchKey, false)
             setOnCheckedChangeListener { buttonView, isChecked ->
                 if (buttonView.isPressed) {
-                    context.putBoolean(ModulePrefs, "dark_mode_list_enable", isChecked)
-                    requireActivity().dataChannel("android").put("dark_mode_list_enable", isChecked)
+                    context.putBoolean(ModulePrefs, enableSwitchKey, isChecked)
+                    context.dataChannel("android").put(enableSwitchKey, isChecked)
                 }
             }
         }
@@ -73,7 +79,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
             setOnRefreshListener { loadData() }
         }
 
-        if (appListAllDatas.isEmpty()) loadData()
+        if (allAppDatas.isEmpty()) loadData()
     }
 
     private fun loadData() {
@@ -81,23 +87,22 @@ class DarkModeFragment : Fragment(), MenuProvider {
             binding.swipeRefreshLayout.isRefreshing = true
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
-            val enableData =
-                requireActivity().getStringSet(ModulePrefs, "dark_mode_support_list", ArraySet())
-            val formatEnableData = ArrayMap<String, Int>()
-            withIO {
-                enableData?.forEach {
-                    if (it.contains("|")) {
-                        val arr = it.split("|").toMutableList()
-                        if (arr.size < 2 || arr[1].isBlank()) arr[1] = (0).toString()
-                        formatEnableData[arr[0]] = arr[1].toInt()
-                    } else formatEnableData[it] = 0
-                }
-                appListAllDatas.clear()
+            allAppDatas.clear()
+
+            val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+            val enabledDarkMode = ArrayList<DarkModeInfo>()
+
+            enableData?.forEach {
+                val darkModeInfo = DarkModeInfo().toDarkModeInfo(it)
+                if (darkModeInfo != null) enabledDarkMode.add(darkModeInfo)
+            }
+
+            withDefault {
                 val packageManager = requireActivity().packageManager
                 val appinfos = PackageUtils(packageManager).getInstalledApplications(0)
                 for (i in appinfos) {
                     if (i.flags and ApplicationInfo.FLAG_SYSTEM == 1 && !isShowSystemApp) continue
-                    appListAllDatas.add(
+                    allAppDatas.add(
                         AppInfo(
                             i.loadIcon(packageManager),
                             i.loadLabel(packageManager),
@@ -106,8 +111,9 @@ class DarkModeFragment : Fragment(), MenuProvider {
                     )
                 }
             }
-            darkModeAdapter = DarkModeAdapter(requireActivity(), appListAllDatas, formatEnableData)
+
             binding.recyclerView.apply {
+                darkModeAdapter = DarkModeAdapter(context, allAppDatas, enabledDarkMode)
                 adapter = darkModeAdapter
                 layoutManager = LinearLayoutManager(context)
             }
@@ -141,9 +147,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
         if (menuItem.itemId == R.id.show_system_app) {
             menuItem.isChecked = !menuItem.isChecked
             isShowSystemApp = menuItem.isChecked
-            requireActivity().putBoolean(
-                ModulePrefs, "show_system_app_dark_mode", isShowSystemApp
-            )
+            requireActivity().putBoolean(ModulePrefs, showSystemAppKey, isShowSystemApp)
             loadData()
         }
         return true
@@ -152,45 +156,49 @@ class DarkModeFragment : Fragment(), MenuProvider {
 
 @Obfuscate
 class DarkModeAdapter(
-    val context: Context, datas: ArrayList<AppInfo>, enableData: ArrayMap<String, Int>
+    val context: Context,
+    allAppInfos: ArrayList<AppInfo>,
+    allEnableData: ArrayList<DarkModeInfo>
 ) : RecyclerView.Adapter<DarkModeAdapter.ViewHolder>() {
+    private val supportListKey = "dark_mode_support_list"
 
     private var allDatas = ArrayList<AppInfo>()
     private var filterDatas = ArrayList<AppInfo>()
-    private var enabledMulti = ArrayMap<String, Int>()
-    private var tempData = ArrayMap<String, Int>()
+
+    private var enabledAppData = ArrayMap<String, DarkModeInfo>()
+
     private var hasPermissions = true
 
     init {
-        if (datas.size <= 1) hasPermissions = false
-        allDatas = datas
-        enabledMulti = enableData
-        sortDatas()
-        filterDatas = datas
-    }
+        allDatas.clear()
+        filterDatas.clear()
+        enabledAppData.clear()
 
-    private fun sortDatas() {
-        //检查清理已卸载APP
-        allDatas.forEach { its ->
-            enabledMulti.forEach {
-                if (it.key == its.packName) tempData[it.key] = it.value
+        if (allAppInfos.size <= 1) hasPermissions = false
+
+        allDatas = allAppInfos.apply {
+            sortBy { it.appName.toString() }
+        }
+
+        val sortDatas = ArrayList<AppInfo>()
+        allEnableData.forEach { its ->
+            val find = allDatas.find { it.packName == its.packName }
+            if (find != null) {
+                enabledAppData[its.packName] = its
+                sortDatas.add(find)
             }
         }
-        enabledMulti.clear()
-        enabledMulti = tempData
-        //保存数据
         saveEnableList()
-        //过滤置顶
-        val tempInfo = ArrayList<AppInfo>()
-        tempData.forEach { map ->
-            allDatas.forEach {
-                if (it.packName == map.key) tempInfo.add(it)
-            }
+
+        allDatas.apply {
+            removeIf { sortDatas.contains(it) }
+            addAll(0, sortDatas.apply {
+                sortBy { it.appName.toString() }
+            })
         }
-        tempInfo.forEach {
-            allDatas.remove(it)
-            allDatas.add(0, it)
-        }
+
+        filterDatas = allDatas
+        refreshDatas()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -201,37 +209,37 @@ class DarkModeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.appIcon.setImageDrawable(filterDatas[position].appIcon)
-        holder.appName.text = filterDatas[position].appName
-        holder.packName.text = filterDatas[position].packName
+        val appIcon = filterDatas[position].appIcon
+        val appName = filterDatas[position].appName
+        val packName = filterDatas[position].packName
+        val data = enabledAppData[packName]
+
+        holder.appIcon.setImageDrawable(appIcon)
+        holder.appName.text = appName
+        holder.packName.text = packName
         holder.appInfoView.setOnClickListener(null)
         holder.switchview.setOnCheckedChangeListener(null)
         holder.sliderview.clearOnChangeListeners()
 
-        holder.switchview.isChecked = enabledMulti.contains(filterDatas[position].packName)
+        holder.switchview.isChecked = data != null
         holder.sliderLayout.isVisible = holder.switchview.isChecked
-        enabledMulti.forEach {
-            if (it.key == filterDatas[position].packName) {
-                holder.sliderview.value = it.value * 1F
-            }
-        }
+        holder.sliderview.value = data?.curType?.toFloat() ?: 0F
+
         holder.appInfoView.setOnClickListener {
-            holder.switchview.isChecked = !holder.switchview.isChecked
+            holder.switchview.performClick()
         }
         holder.switchview.setOnCheckedChangeListener { _, isChecked ->
+            enabledAppData.remove(packName)
+            holder.sliderLayout.isVisible = isChecked
             if (isChecked) {
-                enabledMulti[filterDatas[position].packName] = 0
-                holder.sliderLayout.isVisible = true
+                enabledAppData[packName] = DarkModeInfo(packName)
                 holder.sliderview.value = 0F
-            } else {
-                enabledMulti.remove(filterDatas[position].packName)
-                holder.sliderLayout.isVisible = false
             }
             saveEnableList()
         }
         holder.sliderview.addOnChangeListener { _, value, fromUser ->
             if (!fromUser) return@addOnChangeListener
-            enabledMulti[filterDatas[position].packName] = value.toInt()
+            enabledAppData[packName]?.curType = value.toInt()
             saveEnableList()
         }
     }
@@ -239,42 +247,42 @@ class DarkModeAdapter(
     override fun getItemCount(): Int = filterDatas.size
 
     val getFilter = object : Filter() {
-            override fun performFiltering(constraint: CharSequence): FilterResults {
-                filterDatas = if (constraint.isBlank()) {
-                    allDatas
-                } else {
-                    val filterlist = ArrayList<AppInfo>()
-                    allDatas.forEach {
-                        if (it.appName.toString().lowercase().contains(
-                                constraint.toString().lowercase()
-                            ) || it.packName.lowercase().contains(constraint.toString().lowercase())
-                        ) {
-                            filterlist.add(it)
-                        }
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            filterDatas = if (constraint.isBlank()) {
+                allDatas
+            } else {
+                val filterlist = ArrayList<AppInfo>()
+                allDatas.forEach {
+                    if (it.appName.toString().lowercase().contains(
+                            constraint.toString().lowercase()
+                        ) || it.packName.lowercase().contains(constraint.toString().lowercase())
+                    ) {
+                        filterlist.add(it)
                     }
-                    filterlist
                 }
-                val filterResults = FilterResults()
-                filterResults.values = filterDatas
-                return filterResults
+                filterlist
             }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                filterDatas = results?.values as ArrayList<AppInfo>
-                refreshDatas()
-            }
+            val filterResults = FilterResults()
+            filterResults.values = filterDatas
+            return filterResults
         }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun publishResults(constraint: CharSequence, results: FilterResults?) {
+            filterDatas = results?.values as ArrayList<AppInfo>
+            refreshDatas()
+        }
+    }
 
     private fun saveEnableList() {
         if (!hasPermissions) return
         val data = ArraySet<String>()
-        enabledMulti.forEach {
-            data.add("${it.key}|${it.value}")
+        enabledAppData.forEach {
+            data.add(it.value.toJSONObject().toString())
         }
-        context.putStringSet(ModulePrefs, "dark_mode_support_list", data.toSet())
-        context.dataChannel("android").put("dark_mode_support_list", data.toSet())
-        context.dataChannel("com.android.settings").put("dark_mode_support_list", data.toSet())
+        context.putStringSet(ModulePrefs, supportListKey, data.toSet())
+        context.dataChannel("android").put(supportListKey, data.toSet())
+        context.dataChannel("com.android.settings").put(supportListKey, data.toSet())
     }
 
     @SuppressLint("NotifyDataSetChanged")

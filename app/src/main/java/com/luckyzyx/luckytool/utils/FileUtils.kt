@@ -24,6 +24,26 @@ import java.io.InputStreamReader
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object FileUtils {
+
+    /**
+     * 返回cache目录
+     * @receiver Context
+     * @return File
+     */
+    fun Context.cacheFile(): File {
+        return File(cacheDir.path)
+    }
+
+    /**
+     * 返回cache目录child
+     * @receiver Context
+     * @param child String
+     * @return File
+     */
+    fun Context.cacheChild(child: String): File {
+        return File(cacheDir.path, child)
+    }
+
     /**
      * 获取文件路径
      * @param uri Uri 文件URI

@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
-import com.drake.net.utils.withIO
+import com.drake.net.utils.withDefault
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
@@ -40,16 +40,20 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 class MultiAppFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentMutliAppApplistLayoutBinding
-    private var appListAllDatas = ArrayList<AppInfo>()
     private var multiAppAdapter: MultiAppAdapter? = null
+
+    private var allAppInfos = ArrayList<AppInfo>()
+
     private var isShowSystemApp = false
+
+    private val showSystemAppKey = "show_system_app_multi_app"
+    private val supportListKey = "multi_app_custom_list"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         setupMenuProvider(this)
-        isShowSystemApp =
-            requireActivity().getBoolean(ModulePrefs, "show_system_app_multi_app", false)
+        isShowSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
         binding = FragmentMutliAppApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
@@ -69,7 +73,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
             setOnRefreshListener { loadData() }
         }
 
-        if (appListAllDatas.isEmpty()) loadData()
+        if (allAppInfos.isEmpty()) loadData()
     }
 
     private fun loadData() {
@@ -77,15 +81,16 @@ class MultiAppFragment : Fragment(), MenuProvider {
             binding.swipeRefreshLayout.isRefreshing = true
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
-            val enableData =
-                requireActivity().getStringSet(ModulePrefs, "multi_app_custom_list", ArraySet())
-            withIO {
-                appListAllDatas.clear()
+            allAppInfos.clear()
+
+            val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+
+            withDefault {
                 val packageManager = requireActivity().packageManager
                 val appinfos = PackageUtils(packageManager).getInstalledApplications(0)
                 for (i in appinfos) {
                     if (i.flags and ApplicationInfo.FLAG_SYSTEM == 1 && !isShowSystemApp) continue
-                    appListAllDatas.add(
+                    allAppInfos.add(
                         AppInfo(
                             i.loadIcon(packageManager),
                             i.loadLabel(packageManager),
@@ -94,8 +99,9 @@ class MultiAppFragment : Fragment(), MenuProvider {
                     )
                 }
             }
-            multiAppAdapter = MultiAppAdapter(requireActivity(), appListAllDatas, enableData)
+
             binding.recyclerView.apply {
+                multiAppAdapter = MultiAppAdapter(context, allAppInfos, enableData)
                 adapter = multiAppAdapter
                 layoutManager = LinearLayoutManager(context)
             }
@@ -121,9 +127,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
         if (menuItem.itemId == R.id.show_system_app) {
             menuItem.isChecked = !menuItem.isChecked
             isShowSystemApp = menuItem.isChecked
-            requireActivity().putBoolean(
-                ModulePrefs, "show_system_app_multi_app", isShowSystemApp
-            )
+            requireActivity().putBoolean(ModulePrefs, showSystemAppKey, isShowSystemApp)
             loadData()
         }
         return true
@@ -132,36 +136,39 @@ class MultiAppFragment : Fragment(), MenuProvider {
 
 @Obfuscate
 class MultiAppAdapter(
-    val context: Context, datas: ArrayList<AppInfo>, enableData: Set<String>?
+    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableData: Set<String>?
 ) : RecyclerView.Adapter<MultiAppAdapter.ViewHolder>() {
+    private val supportListKey = "multi_app_custom_list"
 
     private var allDatas = ArrayList<AppInfo>()
     private var filterDatas = ArrayList<AppInfo>()
-    private var enabledMulti = ArrayList<String>()
-    private var sortData = ArrayList<AppInfo>()
+
+    private var enabledAppData = ArrayList<String>()
+
     private var hasPermissions = true
 
     init {
-        if (datas.size <= 1) hasPermissions = false
-        allDatas = datas
-        enableData?.forEach { enabledMulti.add(it) }
-        sortDatas()
-        filterDatas = datas
-    }
+        allDatas.clear()
+        filterDatas.clear()
+        enabledAppData.clear()
 
-    private fun sortDatas() {
-        allDatas.forEach { its ->
-            if (enabledMulti.contains(its.packName)) sortData.add(0, its)
+        if (allAppInfos.size <= 1) hasPermissions = false
+
+        allDatas = allAppInfos.apply {
+            sortBy { it.appName.toString() }
         }
-        enabledMulti.clear()
-        sortData.forEach {
-            enabledMulti.add(it.packName)
+
+        val sortDatas = ArrayList<AppInfo>()
+        allEnableData?.forEach { its ->
+            val find = allDatas.find { it.packName == its }
+            if (find != null) {
+                enabledAppData.add(its)
+                sortDatas.add(find)
+            }
         }
         saveEnableList()
-        sortData.forEach {
-            allDatas.remove(it)
-            allDatas.add(0, it)
-        }
+
+        filterDatas = allAppInfos
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -172,62 +179,59 @@ class MultiAppAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.appIcon.setImageDrawable(filterDatas[position].appIcon)
-        holder.appName.text = filterDatas[position].appName
-        holder.packName.text = filterDatas[position].packName
+        val appIcon = filterDatas[position].appIcon
+        val appName = filterDatas[position].appName
+        val packName = filterDatas[position].packName
+
+        holder.appIcon.setImageDrawable(appIcon)
+        holder.appName.text = appName
+        holder.packName.text = packName
         holder.appInfoView.setOnClickListener(null)
         holder.switchview.setOnCheckedChangeListener(null)
 
-        holder.switchview.isChecked = enabledMulti.contains(filterDatas[position].packName)
+        holder.switchview.isChecked = enabledAppData.contains(packName)
         holder.appInfoView.setOnClickListener {
-            holder.switchview.isChecked = !holder.switchview.isChecked
+            holder.switchview.performClick()
         }
         holder.switchview.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                enabledMulti.add(filterDatas[position].packName)
-            } else {
-                enabledMulti.remove(filterDatas[position].packName)
-            }
+            enabledAppData.remove(packName)
+            if (isChecked) enabledAppData.add(packName)
             saveEnableList()
         }
     }
 
-    override fun getItemCount(): Int {
-        return filterDatas.size
-    }
+    override fun getItemCount(): Int = filterDatas.size
 
     val getFilter = object : Filter() {
-            override fun performFiltering(constraint: CharSequence): FilterResults {
-                filterDatas = if (constraint.isBlank()) {
-                    allDatas
-                } else {
-                    val filterlist = ArrayList<AppInfo>()
-                    allDatas.forEach {
-                        if (it.appName.toString().lowercase().contains(
-                                constraint.toString().lowercase()
-                            ) || it.packName.lowercase().contains(constraint.toString().lowercase())
-                        ) {
-                            filterlist.add(it)
-                        }
-                    }
-                    filterlist
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            filterDatas = if (constraint.isBlank()) {
+                allDatas
+            } else {
+                val filterlist = ArrayList<AppInfo>()
+                allDatas.forEach {
+                    if (it.appName.toString().lowercase().contains(
+                            constraint.toString().lowercase()
+                        ) || it.packName.lowercase().contains(constraint.toString().lowercase())
+                    ) filterlist.add(it)
                 }
-                val filterResults = FilterResults()
-                filterResults.values = filterDatas
-                return filterResults
+                filterlist
             }
-
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                @Suppress("UNCHECKED_CAST")
-                filterDatas = results?.values as ArrayList<AppInfo>
-                refreshDatas()
-            }
+            val filterResults = FilterResults()
+            filterResults.values = filterDatas
+            return filterResults
         }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun publishResults(constraint: CharSequence, results: FilterResults?) {
+            filterDatas = results?.values as ArrayList<AppInfo>
+            refreshDatas()
+        }
+    }
 
     private fun saveEnableList() {
         if (!hasPermissions) return
-        context.putStringSet(ModulePrefs, "multi_app_custom_list", enabledMulti.toSet())
-        context.dataChannel("android").put("multi_app_custom_list", enabledMulti.toSet())
+        context.putStringSet(ModulePrefs, supportListKey, enabledAppData.toSet())
+        context.dataChannel("android").put(supportListKey, enabledAppData.toSet())
     }
 
     @SuppressLint("NotifyDataSetChanged")

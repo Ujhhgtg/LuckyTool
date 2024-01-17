@@ -44,9 +44,31 @@ data class AppVerInfo(
             put("versionCommit", versionCommit)
         }
     }
+}
 
-    override fun toString(): String {
-        return toJSONObject().toString()
+data class DarkModeInfo(
+    var packName: String,
+    var curType: Int = 0,
+) : Serializable {
+    constructor() : this("")
+
+    fun toDarkModeInfo(jsonString: String?): DarkModeInfo? {
+        val jsonObject = safeOfNull { jsonString?.let { JSONObject(it) } }
+        return jsonObject?.let { toDarkModeInfo(it) }
+    }
+
+    fun toDarkModeInfo(jsonObject: JSONObject?): DarkModeInfo? {
+        if (jsonObject == null) return null
+        val packName: String = jsonObject.optString("packName")
+        val curType: Int = jsonObject.optInt("curType")
+        return DarkModeInfo(packName, curType)
+    }
+
+    fun toJSONObject(): JSONObject {
+        return JSONObject().apply {
+            put("packName", packName)
+            put("curType", curType)
+        }
     }
 }
 
