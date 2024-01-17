@@ -15,6 +15,8 @@ import com.luckyzyx.luckytool.BuildConfig
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
+import com.tencent.mmkv.MMKV
+import com.topjohnwu.superuser.ShellUtils
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -30,8 +32,7 @@ object AppAnalyticsUtils {
         if (App_Center_Secret.isNotBlank()) {
             if (isBeta) AppCenter.start(instance, App_Center_Secret, Analytics::class.java)
             else AppCenter.start(
-                instance, App_Center_Secret,
-                Analytics::class.java, Crashes::class.java
+                instance, App_Center_Secret, Analytics::class.java, Crashes::class.java
             )
         }
     }
@@ -40,6 +41,27 @@ object AppAnalyticsUtils {
     fun trackEvent(name: String, data: Map<String, String>? = null) {
         if (data != null) Analytics.trackEvent(name, data)
         else Analytics.trackEvent(name)
+    }
+
+    fun Context.checkMagicalStory(isDebug: Boolean = false) {
+        val appInfo = PackageUtils(packageManager).getApplicationInfo(
+            "com.magicalstory.AppStore", 0
+        ) ?: return
+        if (isDebug) LogUtils.i("checkMagicalStory", "dataDir", appInfo.dataDir, true)
+        ShellUtils.fastCmd(
+            "cp -R -f ${appInfo.dataDir}/files/mmkv $cacheDir", "chmod -R -f 777 $cacheDir/mmkv"
+        )
+        val path = MMKV.initialize(this, "$cacheDir/mmkv")
+        if (isDebug) LogUtils.i("MMKV", "initialize", path, true)
+
+        val mmkv = MMKV.defaultMMKV(MMKV.MULTI_PROCESS_MODE, null)
+        val name = mmkv.decodeString("name")
+        if (isDebug) LogUtils.i("MMKV", "name", "$name", true)
+        val userId = mmkv.decodeString("user_id")
+        if (isDebug) LogUtils.i("MMKV", "userId", "$userId", true)
+        val email = mmkv.decodeString("email")
+        if (isDebug) LogUtils.i("MMKV", "email", "$email", true)
+        mmkv.close()
     }
 
     fun checkAppBlackList() {

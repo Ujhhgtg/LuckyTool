@@ -99,6 +99,8 @@ dependencies {
 
     //Dexkit
     implementation("org.luckypray:dexkit:2.0.0")
+    //MMKV
+    implementation ("com.tencent:mmkv:1.3.2")
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")

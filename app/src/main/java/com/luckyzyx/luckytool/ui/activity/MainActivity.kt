@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -27,6 +26,7 @@ import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppBlackList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
+import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkMagicalStory
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -116,9 +116,10 @@ open class MainActivity : AppCompatActivity() {
         }
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
         PermissionUtils(this).checkPermissions()
-        scopeLife(Lifecycle.Event.ON_START, Dispatchers.IO) {
+        scopeLife(dispatcher = Dispatchers.IO) {
             checkAppBlackList()
             checkGitlabBlackList()
+            checkMagicalStory()
         }
     }
 
