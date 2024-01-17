@@ -12,14 +12,15 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.luckytool.utils.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge
 
-class WeatherAdsAndJumpBrowser(private val appSet: Array<String>, val dexKitBridge: DexKitBridge) :
+class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge) :
     YukiBaseHooker() {
     override fun onHook() {
-        val isNew = appSet[1].toIntOrNull()?.let { it >= 13000000 } ?: return
+        val isNew = appVer?.versionCode?.let { it >= 13000000 } ?: return
         if (isNew) loadHooker(HookWeatherAdsAndJump)
         else loadHooker(HookWeatherAdsAndJumpC12(dexKitBridge))
     }

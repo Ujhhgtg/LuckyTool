@@ -9,11 +9,11 @@ import com.luckyzyx.luckytool.hook.scopes.packageinstaller.RemoveInstallAds
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.ShowPackageNameAndVersionCode
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.SkipApkScan
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.getAppSet
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 
 object HookPackageInstaller : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = prefs(ModulePrefs).getAppSet(packageName)
+        val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
 
         //HookFeatureOption
         val featureOption = "com.android.packageinstaller.oplus.common.FeatureOption"
@@ -22,7 +22,7 @@ object HookPackageInstaller : YukiBaseHooker() {
 
         //跳过安装扫描
         if (prefs(ModulePrefs).getBoolean("skip_apk_scan", false)) {
-            loadHooker(SkipApkScan(appSet[2]))
+            loadHooker(SkipApkScan(appVer?.versionCommit))
         }
         //低/相同版本警告
         if (prefs(ModulePrefs).getBoolean("allow_downgrade_install", false)) {

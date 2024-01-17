@@ -39,7 +39,7 @@ import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getAppLabel
-import com.luckyzyx.luckytool.utils.getAppVersion
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.restartMain
 import com.luckyzyx.luckytool.utils.safeOf
@@ -685,9 +685,8 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
             val xposedScope = resources.getStringArray(R.array.xposed_scope)
             Arrays.sort(xposedScope)
             xposedScope.forEach {
-                val arrayList = getAppVersion(it)
-                if (arrayList.isEmpty()) return@forEach
-                list.add("| ${getAppLabel(it)} | $it |  ${arrayList[0]}(${arrayList[1]})[${arrayList[2]}] |")
+                val appVerInfo = getAppVerInfo(it) ?: return@forEach
+                list.add("| ${appVerInfo.appName} | $it |  ${appVerInfo.versionName}(${appVerInfo.versionCode})[${appVerInfo.versionCommit}] |")
             }
             markwon.setMarkdown(dialogBinding.tv, formatStringAuto(list, "\n"))
         }

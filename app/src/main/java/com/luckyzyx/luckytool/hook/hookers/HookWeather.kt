@@ -4,15 +4,15 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.weather.WeatherAdsAndJumpBrowser
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.getAppSet
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 
 object HookWeather : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = prefs(ModulePrefs).getAppSet(packageName)
+        val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //天气广告与跳转浏览器
-            loadHooker(WeatherAdsAndJumpBrowser(appSet,dexKitBridge))
+            loadHooker(WeatherAdsAndJumpBrowser(appVer, dexKitBridge))
         }
     }
 }

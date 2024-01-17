@@ -14,7 +14,7 @@ import com.highcapable.yukihookapi.hook.type.android.PackageInfoClass
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.formatDate
-import com.luckyzyx.luckytool.utils.getAppVersion
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.openMarketIntent
 import com.luckyzyx.luckytool.utils.safeOf
 
@@ -53,10 +53,10 @@ object HookAppDetails : YukiBaseHooker() {
                         )
                     )
                     val packName = packageInfo.packageName
-                    val appVers = context.getAppVersion(packName, false)
-                    if (appVers.size < 3) return@after
-                    val version =
-                        if (appVers[2] == "null") "${appVers[0]}(${appVers[1]})" else "${appVers[0]}(${appVers[1]})_${appVers[2]}"
+                    val appVerInfo = context.getAppVerInfo(packName, false) ?: return@after
+                    val version = "${appVerInfo.versionName}(${appVerInfo.versionCode})" +
+                            if (appVerInfo.versionCommit.isNullOrBlank()) ""
+                            else "_${appVerInfo.versionCommit}"
                     val versionText = context.getString(
                         context.resources.getIdentifier(
                             "version_text", "string", this@HookAppDetails.packageName

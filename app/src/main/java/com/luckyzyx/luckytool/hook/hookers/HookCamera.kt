@@ -9,12 +9,12 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.getAppSet
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 
 object HookCamera : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = prefs(ModulePrefs).getAppSet(packageName)
-        if (appSet[2] == "null") return
+        val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
+        if (appVer?.versionCommit.isNullOrBlank()) return
 
         //HookCameraConfig
         if (SDK >= A13) loadHooker(HookCameraConfig)

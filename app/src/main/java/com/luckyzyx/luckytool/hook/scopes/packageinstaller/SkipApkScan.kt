@@ -6,7 +6,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 
-class SkipApkScan(private val commit: String) : YukiBaseHooker() {
+class SkipApkScan(private val commit: String?) : YukiBaseHooker() {
 
     @Suppress("LocalVariableName")
     override fun onHook() {

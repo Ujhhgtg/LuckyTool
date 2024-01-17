@@ -103,30 +103,28 @@ fun Context.getAppCommit(packName: String): String? {
  * 写入SP xml文件内
  * @return [ArraySet]
  */
-@Suppress("DEPRECATION") //修复获取null
-fun Context.getAppVersion(packName: String, save: Boolean = true): ArrayList<String> =
-    safeOf(ArrayList()) {
-        val arrayList = ArrayList<String>()
-        val arraySet = ArraySet<String>()
+@Suppress("DEPRECATION")
+fun Context.getAppVerInfo(packName: String, save: Boolean = true): AppVerInfo? {
+    return safeOfNull {
         val packageInfo = PackageUtils(packageManager).getPackageInfo(
             packName, PackageManager.GET_META_DATA
-        ) ?: return@safeOf ArrayList()
-        val commitData = packageInfo.applicationInfo?.metaData
-        val versionName = packageInfo.versionName ?: "null"
-        arrayList.add(versionName)
-        arraySet.add("name|$versionName")
-        val versionCode = packageInfo.longVersionCode.toString()
-        arrayList.add(versionCode)
-        arraySet.add("code|$versionCode")
-        val versionCommit = commitData?.get("versionCommit").toString()
-        val versionDate = commitData?.get("versionDate").toString()
+        ) ?: return null
+        val appInfo = packageInfo.applicationInfo
+        val appName = appInfo?.loadLabel(packageManager)
+        val versionName = packageInfo.versionName
+        val versionCode = packageInfo.longVersionCode
+        //修复versionCommit获取null
+        val versionCommit = appInfo?.metaData?.get("versionCommit")?.toString()
+        val versionDate = appInfo?.metaData?.get("versionDate")?.toString()
         //Fix the camera's commit is empty
-        val commit = versionCommit.ifBlank { versionDate.ifBlank { "null" } }
-        arrayList.add(commit)
-        arraySet.add("commit|$commit")
-        if (save) putStringSet(ModulePrefs, packName, arraySet)
-        return arrayList
+        val commit = versionCommit.takeIf { it.isNullOrBlank().not() } ?: versionDate
+        val appVerInfo = AppVerInfo(appName, packName, versionName, versionCode, commit)
+        if (save) putStringSet(ModulePrefs, packName, ArraySet<String>().apply {
+            add(appVerInfo.toJSONObject().toString())
+        })
+        return appVerInfo
     }
+}
 
 /**
  * 获取APP版本数组
@@ -134,17 +132,9 @@ fun Context.getAppVersion(packName: String, save: Boolean = true): ArrayList<Str
  * @param packName String
  * @return Array<String>
  */
-fun YukiHookPrefsBridge.getAppSet(packName: String): Array<String> {
-    val newArray = arrayOf("null", "null", "null")
-    getStringSet(packName, ArraySet()).apply {
-        if (isEmpty()) return newArray
-        forEach {
-            if (it.isNullOrEmpty()) return@forEach
-            if (it.contains("name|")) newArray[0] = it.substring(5)
-            if (it.contains("code|")) newArray[1] = it.substring(5)
-            if (it.contains("commit|")) newArray[2] = it.substring(7)
-        }
-        return newArray
+fun YukiHookPrefsBridge.getAppVerInfo(packName: String): AppVerInfo? {
+    return getStringSet(packName, ArraySet()).let {
+        if (it.isEmpty()) null else AppVerInfo().toAppVerInfo(it.firstOrNull())
     }
 }
 
@@ -993,7 +983,7 @@ fun Context.restartAllScope() {
         commands.add("pkill -9 $scope")
         commands.add("killall $scope")
         commands.add("am force-stop $scope")
-        getAppVersion(scope)
+        getAppVerInfo(scope)
     }
     MaterialAlertDialogBuilder(this).apply {
         setMessage(getString(R.string.restart_scope_message))
@@ -1021,7 +1011,7 @@ fun Context.restartAllScope(scopes: Array<String>) {
         commands.add("pkill -9 $scope")
         commands.add("killall $scope")
         commands.add("am force-stop $scope")
-        getAppVersion(scope)
+        getAppVerInfo(scope)
     }
     scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
 }

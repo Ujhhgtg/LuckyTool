@@ -6,15 +6,15 @@ import com.luckyzyx.luckytool.hook.scopes.smartsidebar.HookFeatureOption
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.getAppSet
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 
 object HookSmartSidebar : YukiBaseHooker() {
     override fun onHook() {
-        val appSet = prefs(ModulePrefs).getAppSet(packageName)
+        val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
 
         loadHooker(HookGlobalFeatureConfig)
 
-        val v14 = appSet[1].toIntOrNull()?.let { it >= 14000000 } ?: false
+        val v14 = appVer?.versionCode?.let { it >= 14000000 } ?: false
 
         //HookFeatureOption
         if (v14) loadHooker(HookFeatureOption)

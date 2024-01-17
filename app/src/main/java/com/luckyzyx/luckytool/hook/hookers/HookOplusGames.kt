@@ -15,18 +15,18 @@ import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveToolRecommendationCar
 import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveWelfarePage
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.getAppSet
+import com.luckyzyx.luckytool.utils.getAppVerInfo
 
 object HookOplusGames : YukiBaseHooker() {
     override fun onHook() {
         if (packageName == "com.oplus.games") {
-            val appSet = prefs(ModulePrefs).getAppSet(packageName)
+            val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
             //非ColorOS官方安装器直接返回
-            if (appSet[2] == "0") return
+            if (appVer?.versionCommit == "0") return
 
             DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
                 //HookCloudConditionFeature
-                loadHooker(CloudConditionFeature(appSet, dexKitBridge))
+                loadHooker(CloudConditionFeature(appVer, dexKitBridge))
                 //游戏滤镜-->Root检测
                 if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
                     loadHooker(RemoveRootCheck(dexKitBridge))
@@ -69,7 +69,7 @@ object HookOplusGames : YukiBaseHooker() {
                 loadHooker(RemoveGameAssistantTemperatureDetection)
             }
 
-            val exist = appSet[1].toIntOrNull()?.let { it < 90000000 } ?: false
+            val exist = appVer?.versionCode?.let { it < 90000000 } ?: false
             //移除游戏助手工具推荐卡片
             if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
                 if (exist) loadHooker(RemoveToolRecommendationCard)
