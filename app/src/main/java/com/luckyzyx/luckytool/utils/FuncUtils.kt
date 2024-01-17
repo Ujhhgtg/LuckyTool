@@ -75,6 +75,7 @@ import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import kotlinx.coroutines.Dispatchers
+import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -1136,9 +1137,9 @@ fun getScreenOrientation(resource: Resources, result: (Boolean) -> Unit) {
  */
 suspend fun getUsers(): Array<String> {
     return withDefault {
-        ShellUtils.fastCmd("ls /data/user/ -mF").let {
+        ShellUtils.fastCmd("ls /data/user/ -m").let {
             if (it.isNotBlank()) {
-                it.replaceSpace.replace("/", "").split(",").toTypedArray()
+                it.replaceSpace.split(",").toTypedArray()
             } else arrayOf()
         }
     }
@@ -1149,31 +1150,31 @@ suspend fun Context.getQSlist(): ArrayList<String> {
         val cachelist = ArrayList<String>()
         getUsers().forEach { u ->
             val dir1 = getString(R.string.tencent_files, u)
-            val command1 = "if [[ -d $dir1 ]]; then\n  ls $dir1 -mF\nfi"
-            val list1 = ShellUtils.fastCmd(command1).let { its ->
-                if (its.isNotBlank()) {
-                    its.replaceSpace.split(",").toMutableList().apply {
-                        removeIf { it.contains("/").not() }
-                        removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
-                    }
-                } else arrayListOf()
+            val list1 = ArrayList<String>()
+            Shell.cmd("if [[ -d $dir1 ]]; then\n  ls $dir1 -mF\nfi").to(list1).exec()
+            val newList1 = list1.toString().replaceSpace.split(",").toMutableList().apply {
+                removeIf { it.contains("/").not() }
+                removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
             }
+//            LogUtils.e("getQSlist", "newList1", "${newList1.toList()}", true)
+
             val dir2 = getString(R.string.tencent_qstore, u)
-            val command2 = "if [[ -d $dir2 ]]; then\n  ls $dir2 -mF\nfi"
-            var list2 = ShellUtils.fastCmd(command2).let { its ->
-                if (its.isNotBlank()) {
-                    its.replaceSpace.split(",").toMutableList().apply {
-                        removeIf { it.contains("/").not() }
-                        removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
-                    }
-                } else arrayListOf()
+            val list2 = ArrayList<String>()
+            Shell.cmd("if [[ -d $dir2 ]]; then\n  ls $dir2 -mF\nfi").to(list2).exec()
+            val newList2 = list1.toString().replaceSpace.split(",").toMutableList().apply {
+                removeIf { it.contains("/").not() }
+                removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
             }
-            if (list2.isEmpty()) list2 = list1
-            val finals = list1.filter { list2.contains(it) }.toMutableList().apply {
-                forEachIndexed { index, s -> this[index] = s.replace("/", "") }
+//            LogUtils.e("getQSlist", "newList2", "${newList2.toList()}", true)
+
+            cachelist.apply {
+                addAll(newList1.union(newList2))
+                forEachIndexed { index, s ->
+                    this[index] = s.replace("/", "")
+                }
             }
-            cachelist.addAll(finals)
         }
+//        LogUtils.e("getQSlist", "cachelist", "${cachelist.toList()}", true)
         cachelist
     }
 }
@@ -1384,4 +1385,19 @@ fun Context.showBottomSheet(rootView: View? = null): BottomSheetDialog {
  */
 fun Context.openUrl(url: String) {
     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+}
+
+/**
+ * JSON数组转字符串数组
+ * @receiver JSONArray
+ * @return ArrayList<String>
+ */
+fun JSONArray.toStringList(): ArrayList<String> {
+    val list = ArrayList<String>()
+    if (length() <= 0) return list
+    for (i in 0 until length()) {
+        val str = optString(i)
+        if (str.isNotBlank()) list.add(str)
+    }
+    return list
 }

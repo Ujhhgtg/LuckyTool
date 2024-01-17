@@ -26,7 +26,6 @@ import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppBlackList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkMagicalStory
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -119,7 +118,6 @@ open class MainActivity : AppCompatActivity() {
         scopeLife(dispatcher = Dispatchers.IO) {
             checkAppBlackList()
             checkGitlabBlackList()
-            checkMagicalStory()
         }
     }
 

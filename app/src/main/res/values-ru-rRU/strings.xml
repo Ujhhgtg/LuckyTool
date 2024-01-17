@@ -22,8 +22,8 @@
     <string name="privacy_agreement">Соглашение о конфиденциальности</string>
     <string name="auto_check_update">Автоматически проверять наличие обновлений</string>
     <string name="auto_check_update_summary">Автоматически проверять наличие обновлений при открытии главной страницы модуля</string>
-    <string name="tile_auto_start">Разрешить автоматический запуск встроенных плиток</string>
-    <string name="tile_auto_start_summary">Включенные функции плитки будут автоматически активированы после разблокировки экрана.\nЕсли триггер не сработал, перезапустите область и проверьте права root.</string>
+    <string name="tile_auto_start">Разрешить автоматический запуск плиток</string>
+    <string name="tile_auto_start_summary">Выбранные плитки для шторки в модуле будут автоматически активированы после разблокировки экрана.\nЕсли триггер не сработал, перезапустите область и проверьте права root.</string>
     <string name="read_agreement">Вам нужно прочитать и согласиться со следующим содержимым, прежде чем использовать этот модуль</string>
     <string name="clear_all_data">Удалить все данные</string>
     <string name="clear_all_data_summary">Очистить все функциональные данные в модуле</string>
@@ -488,7 +488,7 @@
     <string name="set_volume_bar_display_position">Установить положение отображения панели громкости</string>
     <string name="force_enable_systemui_blur_feature">Включить функцию системного размытия</string>
     <string name="force_enable_systemui_blur_feature_tips">Уловие: Вам необходимо включить опцию \"Включить функцию размытия в системе\"\nРасположение функции: Разное</string>
-    <string name="force_enable_systemui_blur_feature_tips_2">Note: When you slide the brightness bar, a blurry area will appear at the notification location. This is expected behavior and does not require feedback.</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">Примечание. При перемещении ползунка яркости в месте уведомления появится размытая область. Это ожидаемое поведение и не требует обратной связи.</string>
     <string name="show_manual_lock_button_power_menu">Показывать ручную кнопку блокировки в меню питания</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Настройте процент данных о состоянии батареи</string>
@@ -678,7 +678,7 @@
     <string name="remove_almanac_page_information_flow">Удалить поток информации об альманахе</string>
     <string name="remove_horoscope_page_information_flow">Удаление потока информации о гороскопе</string>
     <!--OplusSmartSidebar-->
-    <string name="force_enable_buoy_automatically_hides">Forced enable buoys can automatically hide</string>
+    <string name="force_enable_buoy_automatically_hides">Принудительно включить автоматическое скрытие плавающих элементов</string>
     <string name="unlock_transfer_dock">Разблокировать панель передачи</string>
     <string name="unlock_recent_files">Разблокировать последние файлы</string>
     <string name="unlock_fluid_cloud">Разблокировать облако</string>
