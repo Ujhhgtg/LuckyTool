@@ -741,6 +741,8 @@
     <!--Donate-->
     <string name="donate_tv_title">Support Development</string>
     <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
+    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
+    <string name="detailed_donate_data">Show detailed data</string>
     <!-- Other -->
     <string name="quick_entry">Ukryte funkcje systemowe</string>
     <string name="quick_entry_summary">Ustawienia AOSP, Kalibrator System UI, Dodatkowe przyciemnianie ekranu</string>

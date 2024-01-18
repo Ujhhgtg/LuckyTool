@@ -741,6 +741,8 @@
     <!--Donate-->
     <string name="donate_tv_title">開発をサポート</string>
     <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
+    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
+    <string name="detailed_donate_data">Show detailed data</string>
     <!-- Other -->
     <string name="quick_entry">システムクイックエントリー</string>
     <string name="quick_entry_summary">例: システムUI調整ツール、プロセスマネージャー、エンジニアリングモードなど</string>

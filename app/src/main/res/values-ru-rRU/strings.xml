@@ -742,6 +742,8 @@
     <!--Donate-->
     <string name="donate_tv_title">Поддержать разработку</string>
     <string name="donate_tv__summary">Нажмите или удерживайте для пожертвования разработчику для поддержки будущих обновлений</string>
+    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
+    <string name="detailed_donate_data">Show detailed data</string>
     <!-- Other -->
     <string name="quick_entry">Быстрый вход в систему</string>
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>

@@ -487,7 +487,7 @@
     <string name="set_volume_bar_display_position">Đặt vị trí hiển thị thanh âm lượng</string>
     <string name="force_enable_systemui_blur_feature">Buộc kích hoạt tính năng làm mờ giao diện hệ thống</string>
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>
-    <string name="force_enable_systemui_blur_feature_tips_2">Note: When you slide the brightness bar, a blurry area will appear at the notification location. This is expected behavior and does not require feedback.</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">Lưu ý: Khi trượt thanh độ sáng sẽ xuất hiện vùng mờ tại vị trí thông báo. Điều này là bình thường, không phải lỗi.</string>
     <string name="show_manual_lock_button_power_menu">Menu nguồn hiển thị nút khóa thủ công</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Tùy chỉnh phần trăm dữ liệu tình trạng pin</string>
@@ -741,6 +741,8 @@
     <!--Donate-->
     <string name="donate_tv_title">Hỗ trợ người phát triển</string>
     <string name="donate_tv__summary">Nhấp hoặc nhấn và giữ để quyên góp cho nhà phát triển nhằm hỗ trợ các bản cập nhật trong tương lai</string>
+    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
+    <string name="detailed_donate_data">Show detailed data</string>
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>

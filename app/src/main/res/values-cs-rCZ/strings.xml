@@ -487,7 +487,7 @@
     <string name="set_volume_bar_display_position">Nastavit pozici zobrazení panelu hlasitosti</string>
     <string name="force_enable_systemui_blur_feature">Vynutit povolení systémového rozostření</string>
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
-    <string name="force_enable_systemui_blur_feature_tips_2">Note: When you slide the brightness bar, a blurry area will appear at the notification location. This is expected behavior and does not require feedback.</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">Poznámka. Když posunete posuvník jasu, zobrazí se v místě oznámení rozmazaná oblast. Jedná se o očekávané chování, které nevyžaduje zpětnou vazbu.</string>
     <string name="show_manual_lock_button_power_menu">Zobrazit tlačítko manuálního zámku v menu napájení</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Přizpůsobit údaje o stavu baterie v %</string>
@@ -741,6 +741,8 @@
     <!--Donate-->
     <string name="donate_tv_title">Podpořit vývojáře</string>
     <string name="donate_tv__summary">Kliknutím nebo podržením přispějte vývojáři k podpoře budoucích aktualizací</string>
+    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
+    <string name="detailed_donate_data">Show detailed data</string>
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>

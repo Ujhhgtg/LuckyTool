@@ -1,53 +1,67 @@
 package com.luckyzyx.luckytool.ui.fragment.settings
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
+import androidx.core.view.MenuProvider
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.Get
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.scopeNetLife
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
-import com.luckyzyx.luckytool.databinding.LayoutDonateItemBinding
-import com.luckyzyx.luckytool.utils.DCInfo
-import com.luckyzyx.luckytool.utils.DInfo
+import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.base64Decode
-import com.luckyzyx.luckytool.utils.base64Encode
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.safeOfNull
+import com.luckyzyx.luckytool.utils.setupMenuProvider
+import com.luckyzyx.luckytool.utils.toast
+import io.noties.markwon.Markwon
+import io.noties.markwon.ext.tables.TablePlugin
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.text.DecimalFormat
 
 @Obfuscate
-class DonateFragment : Fragment() {
+class DonateFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentDonateListBinding
-    private lateinit var ddFile: File
-    private var donateAdapter: DonateListAdapter? = null
-    private val allData = ArrayList<DInfo>()
+
+    private lateinit var donateDataFile: File
+
+    private var isShowDetailed = false
+
+    private val showDetailedKey = "show_detailed_donate_data"
+
+    private var filterString: CharSequence = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        setupMenuProvider(this)
+        isShowDetailed = requireActivity().getBoolean(SettingsPrefs, showDetailedKey, false)
         binding = FragmentDonateListBinding.inflate(inflater)
         return binding.root
     }
 
     fun init(context: Context) {
         scopeLife {
+            binding.swipeRefreshLayout.apply {
+                setOnRefreshListener { init(context) }
+                isRefreshing = true
+            }
             binding.searchViewLayout.apply {
                 hint = "Name"
                 isHintEnabled = true
@@ -56,42 +70,28 @@ class DonateFragment : Fragment() {
             binding.searchView.apply {
                 isEnabled = false
                 text = null
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        s: CharSequence?, start: Int, count: Int, after: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence?, start: Int, before: Int, count: Int
-                    ) {
-                        donateAdapter?.getFilter?.filter(s.toString())
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {}
+                addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
+                    filterString = text ?: ""
+                    loadJson(context, donateDataFile)
                 })
             }
 
-            binding.swipeRefreshLayout.apply {
-                setOnRefreshListener { init(context) }
-                isRefreshing = true
-            }
-            ddFile = File(context.filesDir.path + "/dd")
-            if (ddFile.exists()) checkDonateData(context)
+            donateDataFile = File(context.filesDir, "dd")
+            if (donateDataFile.exists()) checkDonateData(context)
             else downloadJson(context, formatDate("YYYYMMddHHmm"))
         }
     }
 
     private fun checkDonateData(context: Context) {
         scopeNetLife {
-            val latestUrl =
+            val donateDataUrl =
                 "https://api.github.com/repos/LuckyOSTeam/LuckyOSTeam.github.io/releases/tags/luckytool_donates"
-            val lastDDDate = context.getString(SettingsPrefs, "last_update_dd_date", "null")
-            val getDoc = Get<String>(latestUrl).await()
+            val lastUpdateDate = context.getString(SettingsPrefs, "last_update_dd_date", "null")
+            val getDoc = Get<String>(donateDataUrl).await()
             JSONObject(getDoc).apply {
                 val date = optString("name").takeIf { e -> e.isNotBlank() } ?: return@scopeNetLife
-                if (date != lastDDDate) downloadJson(context, date)
-                else loadJson(context, ddFile)
+                if (date != lastUpdateDate) downloadJson(context, date)
+                else loadJson(context, donateDataFile)
             }
         }.catch { return@catch }
     }
@@ -100,65 +100,111 @@ class DonateFragment : Fragment() {
         scopeNetLife {
             val file =
                 Get<File>("https://raw.gitmirror.com/LuckyOSTeam/LuckyOSTeam.github.io/main/LuckyTool/donate.json") {
-                    setDownloadDir(ddFile)
+                    setDownloadDir(donateDataFile)
                     setDownloadMd5Verify()
                     setDownloadTempFile()
                 }.await()
             if (file.exists()) {
-                loadJson(context, file)
+                initJsonFile(context, file)
                 context.putString(SettingsPrefs, "last_update_dd_date", date)
             }
-        }.catch { if (ddFile.exists()) loadJson(context, ddFile) }
+        }.catch { if (donateDataFile.exists()) loadJson(context, donateDataFile) }
+    }
+
+    private fun initJsonFile(context: Context, file: File) {
+        scopeLife {
+            if (file.readText().contains("datas")) {
+                val jsonEncrypt = AESCrypt.encrypt(file.readText())
+                file.writeText(jsonEncrypt)
+            }
+            if (file.readText().contains("datas").not()) loadJson(context, file)
+        }
     }
 
     private fun loadJson(context: Context, file: File) {
         scopeLife {
-            if (file.readText().contains("datas")) {
-                val json = base64Encode(file.readText())
-                file.writeText("e$json")
+            if (file.readText().contains("datas")) initJsonFile(context, file)
+            val jsonObject = safeOfNull {
+                val jsonDecrypt = AESCrypt.decrypt(file.readText())
+                JSONObject(jsonDecrypt)
             }
-            allData.clear()
-            val jsonObject = JSONObject(
-                base64Decode(file.readText().let { it.substring(1, it.length) })
-            )
+            if (jsonObject == null) {
+                file.delete()
+                context.toast(getString(R.string.donate_data_decode_error))
+                return@scopeLife
+            }
+
+            val list = ArrayList<String>().apply {
+                if (isShowDetailed) {
+                    add("| Name | Time | Money | Channel |")
+                    add("| :------: | :------: | :------: | :------: |")
+                } else {
+                    add("| Name | Money |")
+                    add("| :------: | :------: |")
+                }
+            }
             val datas = jsonObject.optJSONArray("datas") ?: JSONArray()
-            var count = 0.0
-            var chsCount = 0.0
+
+            var detailCount = 0
+            var rmbCount = 0.0
             var otherCount = 0.0
+
             for (i in 0 until datas.length()) {
-                val obj = datas.getJSONObject(i)
+                var dCount = 0
+                var rCount = 0.0
+                var oCount = 0.0
+
+                val obj = datas.optJSONObject(i) ?: continue
                 val name = obj.optString("name")
-                val details = obj.optJSONArray("details") ?: JSONArray()
-                val infos = ArrayList<DCInfo>()
+                if (filterString.isNotBlank() && name.contains(filterString).not()) continue
+                val details = obj.optJSONArray("details") ?: continue
                 for (o in 0 until details.length()) {
-                    count++
-                    val info = details.optJSONObject(o)
+                    val info = details.optJSONObject(o) ?: continue
+                    dCount++
+
                     val time = info.optString("time")
                     val channel = info.optString("channel")
                     val money = info.optDouble("money")
+
+                    @Suppress("UNUSED_VARIABLE")
                     val order = info.optString("order")
+
+                    @Suppress("MoveVariableDeclarationIntoWhen")
                     val unit = info.optString("unit")
-                    infos.add(DCInfo(time, channel, money, order, unit))
+
                     when (unit) {
-                        "RMB" -> chsCount += money
-                        "$" -> otherCount += money
+                        "RMB" -> rCount += money
+                        "$" -> oCount += money
                     }
+                    if (isShowDetailed) list.add("| $name | $time | $money | $channel |")
                 }
-                allData.add(DInfo(name, infos.toTypedArray()))
+                val moneyStr = when {
+                    rCount != 0.0 && oCount != 0.0 -> "$rCount RMB & $oCount $"
+                    rCount != 0.0 -> "$rCount RMB"
+                    oCount != 0.0 -> "$oCount $"
+                    else -> ""
+                }
+                detailCount += dCount
+                rmbCount += rCount
+                otherCount += oCount
+                if (isShowDetailed.not()) list.add("| $name | $moneyStr |")
             }
+
             val develop = context.getBoolean(SettingsPrefs, "hidden_function", false)
-            if (develop) allData.add(
-                0, DInfo(
-                    "$count", arrayOf(
-                        DCInfo("", "", DecimalFormat("0.00").format(chsCount).toDouble(), ""),
-                        DCInfo("", "", DecimalFormat("0.00").format(otherCount).toDouble(), "", "$")
-                    )
+            if (develop) {
+                val formatRmb = DecimalFormat("0.00").format(rmbCount).toDouble()
+                val formatOth = DecimalFormat("0.00").format(otherCount).toDouble()
+                list.add(
+                    2, if (isShowDetailed) "| develop | now | $formatRmb RMB & $formatOth $ | all |"
+                    else "| develop | $formatRmb RMB & $formatOth $ |"
                 )
-            )
-            donateAdapter = DonateListAdapter(context, allData)
-            binding.recyclerView.apply {
-                adapter = donateAdapter
-                layoutManager = LinearLayoutManager(context)
+            }
+
+            val markwon = Markwon.builder(context).apply {
+                usePlugin(TablePlugin.create(context))
+            }.build()
+            binding.tv.apply {
+                markwon.setMarkdown(this, formatStringAuto(list, "\n"))
             }
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchView.isEnabled = true
@@ -169,87 +215,22 @@ class DonateFragment : Fragment() {
         init(requireActivity())
     }
 
-    class DonateListAdapter(val context: Context, data: ArrayList<DInfo>) :
-        RecyclerView.Adapter<DonateListAdapter.ViewHolder>() {
-
-        var allDatas = ArrayList<DInfo>()
-        var filterDatas = ArrayList<DInfo>()
-
-        init {
-            allDatas = data
-            filterDatas = data
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.doante_menu, menu)
+        menu.findItem(R.id.detailed_donate_data).apply {
+            isChecked = isShowDetailed
         }
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding =
-                LayoutDonateItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return ViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.name.text = filterDatas[position].name
-            filterDatas[position].details.apply {
-                var isChs = false
-                var isOther = false
-                var count = 0.0
-                var chsCount = 0.0
-                var otherCount = 0.0
-                forEach {
-                    when (it.unit) {
-                        "RMB" -> {
-                            isChs = true
-                            chsCount += it.money
-                        }
-
-                        "$" -> {
-                            isOther = true
-                            otherCount += it.money
-                        }
-
-                        else -> count += it.money
-                    }
-                }
-                val newline = if (isChs && isOther) "\n" else ""
-                val final =
-                    (if (isChs) "$chsCount RMB" else "") + newline + (if (isOther) "$otherCount $" else "") + (if (count != 0.0) "\n$count" else "")
-                holder.money.text = final
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.detailed_donate_data -> {
+                menuItem.isChecked = !menuItem.isChecked
+                isShowDetailed = menuItem.isChecked
+                requireActivity().putBoolean(SettingsPrefs, showDetailedKey, isShowDetailed)
+                init(requireActivity())
             }
         }
-
-        val getFilter = object : Filter() {
-                override fun performFiltering(constraint: CharSequence): FilterResults {
-                    filterDatas = if (constraint.isBlank()) allDatas
-                    else {
-                        val filterlist = ArrayList<DInfo>()
-                        allDatas.forEach {
-                            if (it.name.lowercase().contains(constraint.toString().lowercase())) {
-                                filterlist.add(it)
-                            }
-                        }
-                        filterlist
-                    }
-                    val filterResults = FilterResults()
-                    filterResults.values = filterDatas
-                    return filterResults
-                }
-
-                @Suppress("UNCHECKED_CAST")
-                override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                    filterDatas = results?.values as ArrayList<DInfo>
-                    refreshDatas()
-                }
-            }
-
-        override fun getItemCount(): Int = filterDatas.size
-
-        @SuppressLint("NotifyDataSetChanged")
-        fun refreshDatas() {
-            notifyDataSetChanged()
-        }
-
-        class ViewHolder(binding: LayoutDonateItemBinding) : RecyclerView.ViewHolder(binding.root) {
-            val name = binding.donateName
-            val money = binding.donateMoney
-        }
+        return true
     }
 }

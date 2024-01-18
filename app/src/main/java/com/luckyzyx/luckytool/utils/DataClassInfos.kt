@@ -25,6 +25,7 @@ data class AppVerInfo(
         return jsonObject?.let { toAppVerInfo(it) }
     }
 
+    @Suppress("MemberVisibilityCanBePrivate", "MemberVisibilityCanBePrivate")
     fun toAppVerInfo(jsonObject: JSONObject?): AppVerInfo? {
         if (jsonObject == null) return null
         val appName: CharSequence? = jsonObject.optString("appName")
@@ -57,6 +58,7 @@ data class DarkModeInfo(
         return jsonObject?.let { toDarkModeInfo(it) }
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun toDarkModeInfo(jsonObject: JSONObject?): DarkModeInfo? {
         if (jsonObject == null) return null
         val packName: String = jsonObject.optString("packName")
@@ -71,20 +73,6 @@ data class DarkModeInfo(
         }
     }
 }
-
-@Suppress("ArrayInDataClass")
-data class DInfo(
-    val name: String,
-    val details: Array<DCInfo>
-) : Serializable
-
-data class DCInfo(
-    val time: String,
-    val channel: String,
-    val money: Double,
-    val order: String,
-    val unit: String = "RMB"
-) : Serializable
 
 data class DisplayMode(
     val id: Int,
