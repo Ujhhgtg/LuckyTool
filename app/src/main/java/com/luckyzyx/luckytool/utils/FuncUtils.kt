@@ -884,6 +884,7 @@ fun Context.restartMain() {
  * @param scopes Array<String>
  */
 fun Context.restartScopes(scopes: Array<String>) {
+    if (scopes.isEmpty()) return
     val list = arrayOf(
         getString(R.string.restart_scope), getString(R.string.restart_only_this_page_scope)
     )

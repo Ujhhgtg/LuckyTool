@@ -13,6 +13,7 @@ import com.highcapable.yukihookapi.hook.xposed.bridge.event.YukiXposedEvent
 import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
+import com.luckyzyx.luckytool.hook.hookers.HookAudioMonitor
 import com.luckyzyx.luckytool.hook.hookers.HookAutoStart
 import com.luckyzyx.luckytool.hook.hookers.HookBattery
 import com.luckyzyx.luckytool.hook.hookers.HookBrowser
@@ -209,6 +210,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.oplus.multiapp", HookMultiApp)
         //录音
         loadApp("com.coloros.soundrecorder", HookSoundRecorder)
+        //三方应用通话录音
+        loadApp("com.oplus.audiomonitor", HookAudioMonitor)
         //atlasService
         loadApp("com.oplus.atlas", HookAtlasService)
 

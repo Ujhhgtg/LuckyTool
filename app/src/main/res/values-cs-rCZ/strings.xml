@@ -684,6 +684,7 @@
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Povolit nahrávání hovorů v aplikacích třetích stran</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

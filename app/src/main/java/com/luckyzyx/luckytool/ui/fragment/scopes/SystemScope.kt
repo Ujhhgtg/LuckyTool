@@ -4139,7 +4139,9 @@ class OplusPhoneManager : BaseScopePreferenceFeagment() {
 
 @Obfuscate
 class OplusSoundRecorder : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.coloros.soundrecorder", "com.oplus.atlas")
+    override val scopes =
+        arrayOf("com.coloros.soundrecorder", "com.oplus.audiomonitor", "com.oplus.atlas")
+
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
@@ -4147,7 +4149,8 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_record_calls_on_third_party_apps)
                 summary = arraySummaryLine(
                     getString(R.string.need_restart_system),
-                    getString(R.string.enable_record_calls_on_third_party_apps_tips)
+                    getString(R.string.enable_record_calls_on_third_party_apps_tips),
+                    getString(R.string.enable_record_calls_on_third_party_apps_tips_2)
                 )
                 key = "enable_record_calls_on_third_party_apps"
                 setDefaultValue(false)

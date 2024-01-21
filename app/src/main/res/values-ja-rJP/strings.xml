@@ -23,7 +23,7 @@
     <string name="auto_check_update">自動でアップデートの確認をする</string>
     <string name="auto_check_update_summary">モジュールのホームページを開くと自動的にアップデートを確認します</string>
     <string name="tile_auto_start">内蔵タイルの自動起動を許可する</string>
-    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
+    <string name="tile_auto_start_summary">有効にしたタイル機能は画面ロック解除後に自動的にトリガーされます。\nトリガーに失敗した場合は、スコープを再起動し、root 権限を許可したか確認してください</string>
     <string name="read_agreement">このモジュールを使用する前に以下の内容に同意をする必要があります</string>
     <string name="clear_all_data">すべてのデータをクリア</string>
     <string name="clear_all_data_summary">すべての機能のデータをモジュールからクリアします</string>
@@ -41,7 +41,7 @@
     <string name="hide_desktop_module_icon_summary">ホーム画面でのアイコンを強制的に表示するには、LSPosed をオフにする必要があります</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">バックアップ/復元/クリア</string>
-    <string name="get_log_cat_log">Get LogCat log</string>
+    <string name="get_log_cat_log">LogCat ログを取得</string>
     <string name="backup_data">データをバックアップ</string>
     <string name="restore_data">データを復元</string>
     <string name="data_backup_complete">データのバックアップが完了しました!</string>
@@ -58,15 +58,15 @@
     <string name="alipay">AliPay</string>
     <string name="donation_list">寄付リスト</string>
     <string name="feedback_download">フィードバックとダウンロード</string>
-    <string name="feedback_download_summary">Telegramチャンネル、グループ、リポジトリなど</string>
+    <string name="feedback_download_summary">Telegram チャンネル、グループ、リポジトリなど</string>
     <string name="coolmarket">クールなホームページ</string>
     <string name="module_doc">モジュールドキュメント</string>
-    <string name="qq_chat_group">QQ Chat Group</string>
+    <string name="qq_chat_group">QQ チャットグループ</string>
     <string name="qq_channel">QQ チャンネル</string>
-    <string name="telegram_channel">Telegramチャンネル</string>
-    <string name="telegram_group">Telegramグループ</string>
-    <string name="lsposed_repo">LSPosedのリポジトリ</string>
-    <string name="github_repo">GitHubのリポジトリ</string>
+    <string name="telegram_channel">Telegram チャンネル</string>
+    <string name="telegram_group">Telegram グループ</string>
+    <string name="lsposed_repo">LSPosed のリポジトリ</string>
+    <string name="github_repo">GitHub のリポジトリ</string>
     <string name="open_source">オープンソース</string>
     <string name="open_source_summary">タップでオープンソースのリストを表示します</string>
     <string name="participate_translation">モジュールの翻訳に参加する</string>
@@ -193,8 +193,8 @@
     <string name="remove_high_performance_mode_icon">高パフォーマンスモードアイコンを削除</string>
     <string name="remove_statusbar_securepayment_icon">ステータスバーの支払い保護アイコンを削除</string>
     <string name="remove_green_dot_privacy_prompt">緑のドットのプライバシープロンプトを削除</string>
-    <string name="remove_system_prompt_icon">Remove system prompt icon</string>
-    <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
+    <string name="remove_system_prompt_icon">システムプロンプトアイコンを削除</string>
+    <string name="remove_system_prompt_icon_summary">通話モード、キャスト、録画、ホットスポットでプロンプトアイコンを削除します</string>
     <string name="StatusBarSmallIconStatus">ステータスバー上の小さいステータスアイコン</string>
     <string name="status_bar_icon_vertical_center">ステータスバーアイコンを縦中央揃えにする</string>
     <!--StatusBarControlCenter-->
@@ -229,13 +229,13 @@
     <string name="custom_control_center_background_transparency">カスタムコントロールセンターの背景の透明度</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">ステータスバーのタイル</string>
-    <string name="SpecialTiles">Special Tiles</string>
+    <string name="SpecialTiles">特殊タイル</string>
     <string name="auto_expand_tile_rows_horizontal">水平方向のタイル行数を自動的に増やす</string>
     <string name="auto_expand_tile_rows_horizontal_summary">メディアプレイヤーが非表示のとき、水平モードで2列のタイルを表示します</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">以下のタイル機能のスイッチをオンにする必要があります</string>
-    <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
-    <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
-    <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
+    <string name="control_center_custom_gaps_for_special_tile">特殊タイルの横画面のギャップを編集</string>
+    <string name="control_center_special_tile_top_gap">特殊タイルの上部ギャップを設定</string>
+    <string name="control_center_special_tile_bottom_gap">特殊タイルの下部ギャップを設定</string>
     <string name="TileLongClickEvent">タイルの長押しイベント</string>
     <string name="restore_some_tile_long_press_event">タイルの長押しイベントを復活させる</string>
     <string name="restore_some_tile_long_press_event_summary">Wi-Fi、Bluetooth、ホットスポットなどのタイルを長押ししたときに対応するページを開くようにします</string>
@@ -309,7 +309,7 @@
     <!--LockScreen-->
     <string name="LockScreen">ロック画面関連</string>
     <string name="LockScreenClockComponent">ロック画面の時計コンポーネント</string>
-    <string name="remove_lock_screen_clock_component">Remove lock screen clock component</string>
+    <string name="remove_lock_screen_clock_component">ロック画面の時計コンポーネントを削除</string>
     <string name="lock_screen_clock_redone_mode">ロック画面時計の赤い「1」表示</string>
     <string name="apply_lock_screen_dual_clock_redone">ロック画面のデュアル時計に適用</string>
     <string name="lock_screen_custom_clock_component_style">ロック画面の時計コンポーネントのスタイルを編集</string>
@@ -321,7 +321,7 @@
     <string name="LockScreenChargingComponent">ロック画面の充電コンポーネント</string>
     <string name="set_lock_screen_warp_charging_style">WARP 充電のスタイルを設定</string>
     <string name="set_lock_screen_charging_text_logo_style">充電テキストのロゴスタイルを設定</string>
-    <string name="lock_screen_show_real_charging_technology">Charging components show real charging technology</string>
+    <string name="lock_screen_show_real_charging_technology">充電コンポーネントに実際の充電技術を表示します</string>
     <string name="force_lock_screen_charging_show_wattage">充電コンポーネントにワット数を表示</string>
     <string name="lock_screen_charging_use_user_typeface">充電コンポーネントにユーザー指定のフォントを使用</string>
     <string name="set_full_screen_charging_animation_mode">充電アニメーションの全画面表示</string>
@@ -349,8 +349,8 @@
     <!--Launcher-->
     <string name="Desktop">ホーム画面関連</string>
     <string name="AppBadgeRelated">アプリバッジ関連</string>
-    <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
-    <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
+    <string name="enable_display_app_update_dot">アプリの更新ドット表示スイッチを有効化</string>
+    <string name="enable_display_app_update_dot_summary">機能の場所: 設定 - ホーム画面とロック画面</string>
     <string name="remove_app_shortcut_badge">アプリのショートカットバッジを削除</string>
     <string name="remove_app_work_badge">アプリの仕事用バッジを削除</string>
     <string name="remove_app_clone_badge">アプリのクローンバッジを削除</string>
@@ -390,11 +390,11 @@
     <string name="AppStartupRelated">アプリの自動起動関連</string>
     <string name="disable_splash_screen">スプラッシュ画面を無効化</string>
     <string name="disable_splash_screen_summary">スプラッシュ画面を削除すると、アプリ開始時に1～2秒の遅延が発生します。気になる場合はオフにしてください</string>
-    <string name="disable_preload_splash">Enable all app splash screen</string>
+    <string name="disable_preload_splash">すべてのアプリでスプラッシュ画面を有効化</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">アプリ関連のリスト</string>
-    <string name="set_multi_app_support_mode">Set multi app support mode</string>
-    <string name="set_multi_app_support_mode_all_apps">Full app list</string>
+    <string name="set_multi_app_support_mode">マルチアプリの対応モードを設定</string>
+    <string name="set_multi_app_support_mode_all_apps">完全なアプリリスト</string>
     <string name="multi_app_enable">リストの置き換えを有効化</string>
     <string name="multi_app_custom_list">アプリクローン対応リストを置き換え</string>
     <string name="multi_app_custom_list_summary">機能を有効化後、アプリクローンの元のリストは新しいリストに置き換えられます。リストの項目が多すぎるとラグが発生します</string>
@@ -430,7 +430,7 @@
     <string name="enable_long_press_to_copy_in_app_details">アプリ詳細で長押ししてコピーできるようにする</string>
     <string name="click_icon_open_market_page">アイコンをタップしてストアページを開く</string>
     <string name="allow_disabling_system_apps">システムアプリの無効化を許可</string>
-    <string name="allow_disabling_system_apps_summary">ユーザーの操作によりシステムアプリを復元できない場合でも、このモジュールは責任を負いません。</string>
+    <string name="allow_disabling_system_apps_summary">ユーザーの操作によりシステムアプリを復元できない場合でも、このモジュールは責任を負いません</string>
     <string name="remove_app_uninstall_button_blacklist">アプリのアンインストールボタンのブラックリストを削除</string>
     <string name="enable_custom_app_language">アプリ毎の言語設定を有効化</string>
     <!--FloatingWindowDialogRelated-->
@@ -462,11 +462,11 @@
     <string name="SoundRelated">サウンド関連</string>
     <string name="media_volume_level">メディアのボリュームレベル</string>
     <string name="media_volume_level_summary">0に設定するとこの機能を無効にします。システムの再起動後に有効化されます</string>
-    <string name="enable_super_volume_mode">Enable super volume mode</string>
-    <string name="enable_super_volume_mode_for_calls">Enable super volume mode for calls</string>
+    <string name="enable_super_volume_mode">スーパーボリュームモードを有効化</string>
+    <string name="enable_super_volume_mode_for_calls">通話のスーパーボリュームモードを有効化</string>
     <string name="minimum_volume_level_can_be_zero">最小音量レベルは0に設定できます</string>
-    <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
-    <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
+    <string name="enable_app_specific_media_volume">アプリ別のメディア音量を有効化</string>
+    <string name="enable_app_specific_media_volume_summary">この機能を有効にするにはシステムサポートが必要です</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">その他</string>
     <string name="Miscellaneous_summary">難易度の高いカテゴリはこちらに配置されます</string>
@@ -481,20 +481,20 @@
     <string name="open_battery_health">バッテリーの状態を開けるようにする</string>
     <string name="open_battery_health_summary">設定 - バッテリー - バッテリーの状態 の順で開けます</string>
     <string name="allow_untrusted_touch">信頼できないタッチ操作を許可</string>
-    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
+    <string name="allow_untrusted_touch_summary">一部のウィンドウやページがブロックされ、タッチできない問題を解決します</string>
     <string name="disable_dynamic_refresh_rate">動的リフレッシュレートを無効化</string>
     <string name="disable_dynamic_refresh_rate_summary">画面がタッチされていないときのフレームドロップの問題などを解決します（注意：LTPO パネル搭載デバイスでは動的リフレッシュレートが無効になります）</string>
     <string name="set_volume_bar_display_position">音量バーの表示位置を設定</string>
     <string name="force_enable_systemui_blur_feature">システム UI のぼかし機能を強制的に有効化</string>
     <string name="force_enable_systemui_blur_feature_tips">有効にする前に「システム UI のぼかし機能を強制的に有効化」オプションをオンにする必要があります。\nオプションは「その他」のページにあります。</string>
-    <string name="force_enable_systemui_blur_feature_tips_2">Note: When you slide the brightness bar, a blurry area will appear at the notification location. This is expected behavior and does not require feedback.</string>
-    <string name="show_manual_lock_button_power_menu">Show manual lock button in power menu</string>
+    <string name="force_enable_systemui_blur_feature_tips_2">注意：明るさバーをスライドさせると、通知の場所にぼやけた領域が表示されます。これは正しい動作なのでバグ報告しないでください</string>
+    <string name="show_manual_lock_button_power_menu">電源メニューに手動ロックボタンを表示</string>
     <!--Battery-->
-    <string name="customize_battery_health_data_percentage">Customize battery health data percentage</string>
+    <string name="customize_battery_health_data_percentage">バッテリーのヘルスデータのパーセンテージを編集</string>
     <string name="display_module_calculates_battery_health_data">バッテリーの健康データを計算して表示</string>
     <string name="display_module_calculates_battery_health_data_summary">オンにすると、モジュールにより算出された健康データがシステムデータの下に表示されます</string>
     <string name="display_module_calculates_battery_health_data_tips">算出された最大容量</string>
-    <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
+    <string name="enable_stop_charging_at_80">80%での充電停止を有効化</string>
     <string name="remove_battery_temperature_control">バッテリー温度制御を削除</string>
     <string name="remove_battery_temperature_control_summary">高温によりカメラ、ライト、ホットスポット、ビデオ拡張エンジンなど各種機能が使用できなくなる制限を無効化します</string>
     <string name="BatteryOptimization">バッテリーの最適化</string>
@@ -502,8 +502,8 @@
     <string name="disable_customize_battery_optimization_whiteList">カスタムバッテリー最適化ホワイトリストを無効にする</string>
     <string name="disable_customize_battery_optimization_whiteList_summary">ユーザーによって「バッテリーの最適化を無視」権限がアプリに許可されている場合、 この機能を有効にすると自動的にアプリがバッテリー最適化ホワイトリストに追加されなくなります。</string>
     <!--Settings-->
-    <string name="settings_connection_sharing">Connection and share</string>
-    <string name="force_display_multi_screen_connect">Force display of multi-screen connect</string>
+    <string name="settings_connection_sharing">接続と共有</string>
+    <string name="force_display_multi_screen_connect">マルチスクリーン接続を強制表示</string>
     <string name="settings_status_bar">ステータスバー</string>
     <string name="enable_statusbar_clock_format">ステータスバーの時計形式を有効化</string>
     <string name="enable_statusbar_clock_format_summary">ステータスバーの時計形式変更オプションを、非対応のシステムでも使えるようにします</string>
@@ -518,23 +518,23 @@
     <string name="video_frame_insertion_support_2K120_summary">お使いのデバイスが MEMC に対応していない場合は、この機能を使用しないでください</string>
     <string name="enable_screen_color_temperature_rgb_palette">画面の色温度 RGB パレットを有効化</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">DC 調光で上書きされる可能性があります</string>
-    <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
+    <string name="enable_smart_switching_screen_resolutions">画面解像度のスマート切り替えを有効化</string>
     <string name="settings_application">アプリ</string>
     <string name="unlock_default_desktop_limit">デフォルトホーム画面の制限を解除</string>
     <string name="force_display_process_management">プロセス管理を強制的に表示</string>
     <string name="force_display_disabled_apps_manager">無効化されたアプリの管理を強制的に表示</string>
-    <string name="auto_unlock_restricted_settings">Auto unlock restricted settings</string>
-    <string name="auto_unlock_restricted_settings_summary">This restriction is automatically lifted when clicking on the gray option</string>
-    <string name="enable_dedicated_ram_for_games">Enable dedicated RAM for games</string>
-    <string name="settings_sound">Sound</string>
-    <string name="enable_clear_voice">Enable clear voice</string>
-    <string name="enable_clear_voice_tips">Prerequisite: phone manager needs to be checked</string>
-    <string name="enable_holographic_audio">Enable holographic audio</string>
-    <string name="settings_password_and_security">Password and security</string>
-    <string name="disable_device_admin_verification_dialog">Disable Device Admin verification dialog</string>
-    <string name="settings_authority_and_privacy">Permissions and privacy</string>
-    <string name="enable_vip_mode">Enable VIP mode</string>
-    <string name="settings_other_advanced_settings">Additional Settings</string>
+    <string name="auto_unlock_restricted_settings">制限された設定を自動でアンロック</string>
+    <string name="auto_unlock_restricted_settings_summary">グレーアウトしたオプションをタップすると、制限を自動的に解除します</string>
+    <string name="enable_dedicated_ram_for_games">ゲーム専用 RAM を有効化</string>
+    <string name="settings_sound">サウンド</string>
+    <string name="enable_clear_voice">クリアボイスを有効化</string>
+    <string name="enable_clear_voice_tips">電話マネージャーを確認する必要があります</string>
+    <string name="enable_holographic_audio">ホログラフィックオーディオを有効化</string>
+    <string name="settings_password_and_security">パスワードとセキュリティ</string>
+    <string name="disable_device_admin_verification_dialog">デバイス管理者認証ダイアログを無効化</string>
+    <string name="settings_authority_and_privacy">権限とプライバシー</string>
+    <string name="enable_vip_mode">VIP モードを有効化</string>
+    <string name="settings_other_advanced_settings">詳細設定</string>
     <string name="settings_about_device">デバイス情報</string>
     <string name="set_processor_click_page">プロセッサーをタップしてページにジャンプするように設定します</string>
     <string name="screen_physics_size_shown_cm">画面の物理的な寸法をセンチメートルで表示</string>
@@ -548,8 +548,8 @@
     <string name="force_display_bottom_google_settings">設定の下部に強制的に Google を表示</string>
     <!--Camera-->
     <string name="CameraWaterMark">透かし</string>
-    <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
-    <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
+    <string name="remove_watermark_word_limit">カスタム透かしの文字数制限を削除</string>
+    <string name="enable_frame_watermark_style">フレーム透かしスタイルを有効化</string>
     <string name="enable_hasselblad_watermark_style">Hasselblad ウォーターマークを有効化</string>
     <string name="custom_model_watermark">カスタムモデル透かし</string>
     <string name="fix_hasselblad_custom_watermark_crash">Hasselblad カスタムウォーターマークでのクラッシュを修正</string>
@@ -564,18 +564,18 @@
     <string name="enable_watermark_editing">透かしの編集を有効化</string>
     <string name="replace_oneplus_model_watermark">OnePlus モデルの透かしを置き換え</string>
     <string name="replace_oneplus_model_watermark_summary">透かしを編集するとき、[Shot On OnePlus] がカスタマイズされたモデルに置き換えられます</string>
-    <string name="GalleryView">View</string>
-    <string name="enable_photo_listview_senior_picked">Enable senior picked</string>
-    <string name="set_photo_view_thumb_line_display_mode">Set photo view thumb line display mode</string>
-    <string name="GalleryEditor">Editor</string>
-    <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
-    <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
+    <string name="GalleryView">表示</string>
+    <string name="enable_photo_listview_senior_picked">シニアピックを有効化</string>
+    <string name="set_photo_view_thumb_line_display_mode">写真表示のサムネイル表示モードを設定</string>
+    <string name="GalleryEditor">エディタ</string>
+    <string name="enable_photo_editor_gif_synthesis">gif 合成を有効化</string>
+    <string name="enable_lns_cut_photo">写真の一部切り取りを有効化</string>
     <!--OplusGames-->
-    <string name="OplusGamesLayout">Layout</string>
+    <string name="OplusGamesLayout">レイアウト</string>
     <string name="remove_startup_animation">起動時のアニメーションを削除</string>
     <string name="remove_welfare_page">Digital Wellbeing のページを削除</string>
-    <string name="remove_tool_recommendation_card">Remove tool recommendation card</string>
-    <string name="OplusGamesTool">Tool</string>
+    <string name="remove_tool_recommendation_card">ツールおすすめカードを削除</string>
+    <string name="OplusGamesTool">ツール </string>
     <string name="remove_root_check">ゲームフィルターの制限を削除</string>
     <string name="remove_root_check_summary">ゲームフィルターからRoot検出による制限を削除します</string>
     <string name="remove_some_vip_limit">VIP 制限を解除する</string>
@@ -652,10 +652,10 @@
     <!--OplusMMS-->
     <string name="remove_verification_code_floating_window">検証コードのフローティングウィンドウを削除</string>
     <!--OplusPhone-->
-    <string name="force_display_five_g_switch">Force display of 5G switch</string>
-    <string name="force_display_preferred_network_type">Force display of preferred network type</string>
-    <string name="force_display_volte_calls">Force display of VoLTE calls</string>
-    <string name="enable_sound_sealed_call">Enable Sound-Sealed Call</string>
+    <string name="force_display_five_g_switch">5G スイッチを強制表示</string>
+    <string name="force_display_preferred_network_type">優先ネットワークのタイプを強制表示</string>
+    <string name="force_display_volte_calls">VoLTE 通話を強制表示</string>
+    <string name="enable_sound_sealed_call">サウンドシールド通話を有効化</string>
     <!--OplusBrowser-->
     <string name="remove_ads_from_weather_page">天気ページ下部の情報フロー広告を削除</string>
     <string name="remove_ads_from_weather_page_summary">m.weathercn.com のページに JS を注入して広告をブロックします。天気予報アプリから開ける過去15日間の天気など、ブラウザが必要な機能にも適用されます</string>
@@ -673,17 +673,18 @@
     <string name="disable_weather_jump_browser">天気のブラウザーリダイレクトを無効化</string>
     <string name="remove_weather_some_page_bottom_ads">天気セクションページの下部にある広告を削除</string>
     <!--OplusCalendar-->
-    <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
-    <string name="remove_almanac_page_information_flow">Remove almanac page information flow</string>
-    <string name="remove_horoscope_page_information_flow">Remove horoscope page information stream</string>
+    <string name="remove_holiday_page_information_flow">休日のページ情報フローを削除</string>
+    <string name="remove_almanac_page_information_flow">年鑑情報フローを削除</string>
+    <string name="remove_horoscope_page_information_flow">星占いページ情報ストリームを削除</string>
     <!--OplusSmartSidebar-->
-    <string name="force_enable_buoy_automatically_hides">Forced enable buoys can automatically hide</string>
-    <string name="unlock_transfer_dock">Unlock transfer dock</string>
-    <string name="unlock_recent_files">Unlock recent files</string>
-    <string name="unlock_fluid_cloud">Unlock Fluid Cloud</string>
+    <string name="force_enable_buoy_automatically_hides">ブイを自動的に非表示</string>
+    <string name="unlock_transfer_dock">転送ドックをアンロック</string>
+    <string name="unlock_recent_files">最近使ったファイルをアンロック</string>
+    <string name="unlock_fluid_cloud">Fluid Cloud をアンロック</string>
     <!--OplusSoundRecorder-->
-    <string name="enable_record_calls_on_third_party_apps">Enable record calls on third-party apps</string>
-    <string name="enable_record_calls_on_third_party_apps_tips">Prerequisite: \"Three-party application call recording (com.oplus.audiomonitor)\" needs to be installed, and microphone permissions and background behavior permissions</string>
+    <string name="enable_record_calls_on_third_party_apps">サードパーティアプリでの通話録音を有効化</string>
+    <string name="enable_record_calls_on_third_party_apps_tips">「サードパーティアプリ通話録音 (com.oplus.audiomonitor)」をインストールし、マイクの権限とバックグラウンド動作を許可する必要があります</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
     <!--Everyimage-->
     <string name="skip_startup_page">スタートアップページをスキップ</string>
     <string name="vip_download">オリジナルをダウンロードする</string>
@@ -740,9 +741,9 @@
     <string name="oplusota_copyall">すべてコピー</string>
     <!--Donate-->
     <string name="donate_tv_title">開発をサポート</string>
-    <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
-    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
-    <string name="detailed_donate_data">Show detailed data</string>
+    <string name="donate_tv__summary">タップまたは長押しして開発者に寄付し、今後のアップデートを支援します</string>
+    <string name="donate_data_decode_error">寄付データの解析に失敗しました。もう一度やり直してください！</string>
+    <string name="detailed_donate_data">詳細データを表示</string>
     <!-- Other -->
     <string name="quick_entry">システムクイックエントリー</string>
     <string name="quick_entry_summary">例: システムUI調整ツール、プロセスマネージャー、エンジニアリングモードなど</string>
@@ -793,13 +794,13 @@
     <string name="permission_error_toast">権限の取得に失敗しました: %1$s</string>
     <string name="all_files_access_permission">モジュールを正常に使用するために必ずモジュールの権限を許可してください!</string>
     <string name="get_installed_apps_permission">インストールされたアプリの権限を取得する</string>
-    <string name="get_send_notifications_permission">Get permissions for send notification</string>
+    <string name="get_send_notifications_permission">通知の送信権限を取得</string>
     <!--Service-->
-    <string name="auto_start_service_channel_name">Self-starting function service</string>
-    <string name="auto_start_service_channel_title">The self-start function is running…</string>
+    <string name="auto_start_service_channel_name">自己起動機能サービス</string>
+    <string name="auto_start_service_channel_title">自己起動機能を実行中です</string>
     <!--Typeface-->
     <string name="use_user_typeface">ユーザー書体を使用</string>
-    <string name="use_bold_font_style">Use bold font style</string>
+    <string name="use_bold_font_style">太字のフォントスタイルを使用</string>
     <!--CommonWords-->
     <string name="common_words_enable">有効</string>
     <string name="common_words_disable">無効</string>

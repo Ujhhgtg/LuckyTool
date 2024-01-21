@@ -684,6 +684,7 @@
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Bật ghi âm cuộc gọi cho các ứng dụng của bên thứ ba</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Điều kiện tiên quyết: Cần phải cài đặt \"Ghi âm cuộc gọi của ứng dụng ba bên (com.oplus.audiomonitor)\" và phải được cấp quyền micrô cũng như toàn bộ quyền hoạt động ở chế độ nền</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>
@@ -741,8 +742,8 @@
     <!--Donate-->
     <string name="donate_tv_title">Hỗ trợ người phát triển</string>
     <string name="donate_tv__summary">Nhấp hoặc nhấn và giữ để quyên góp cho nhà phát triển nhằm hỗ trợ các bản cập nhật trong tương lai</string>
-    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
-    <string name="detailed_donate_data">Show detailed data</string>
+    <string name="donate_data_decode_error">Phân tích dữ liệu quyên góp không thành công, vui lòng thử lại!</string>
+    <string name="detailed_donate_data">Hiển thị dữ liệu chi tiết</string>
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>

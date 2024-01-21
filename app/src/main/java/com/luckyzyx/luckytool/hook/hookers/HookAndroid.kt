@@ -8,6 +8,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
 import com.luckyzyx.luckytool.hook.scopes.android.DisableDynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
+import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookNotificationManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
 import com.luckyzyx.luckytool.hook.scopes.android.MediaVolumeLevel
@@ -94,6 +95,9 @@ object HookAndroid : YukiBaseHooker() {
 
         //屏幕色温RGB调色板
         loadHooker(ScreenColorTemperatureRGBPalette)
+
+        //三方应用通话录音保护
+        loadHooker(HookMediaProjectionManager)
 
         //Source ScanPackageUtils
 //        findClass("com.android.server.pm.ScanPackageUtils").hook {

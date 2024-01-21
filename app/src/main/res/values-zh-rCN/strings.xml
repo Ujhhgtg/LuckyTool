@@ -684,6 +684,7 @@
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">启用三方应用通话录音</string>
     <string name="enable_record_calls_on_third_party_apps_tips">前提条件：需要安装“三方应用通话录音 (com.oplus.audiomonitor)”，并且授予麦克风权限和完全后台行为权限</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">需要授予“三方应用通话录音”Root权限</string>
     <!--Everyimage-->
     <string name="skip_startup_page">跳过启动页</string>
     <string name="vip_download">下载原图</string>
