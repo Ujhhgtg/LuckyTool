@@ -20,6 +20,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [修复] 三方应用通话录音无法录制己方声音问题
 - [修复] 部分机型RGB色温球Hook异常
 - [优化] 自定义设备分享页面参数Hook逻辑
+- [更改] 相册部分功能系统版本限制下调至ColorOS13.1
 
 ### 1.1.8
 

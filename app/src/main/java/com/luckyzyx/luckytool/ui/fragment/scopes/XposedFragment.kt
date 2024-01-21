@@ -40,6 +40,7 @@ import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getAppLabel
 import com.luckyzyx.luckytool.utils.getAppVerInfo
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.restartMain
 import com.luckyzyx.luckytool.utils.safeOf
@@ -354,7 +355,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     getString(R.string.enable_watermark_editing),
                     getString(R.string.enable_lns_cut_photo)
                 )
-                isVisible = SDK >= A13 && context.checkPackName(key)
+                isVisible = getOSVersionCode >= 27 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusGallery, title)
                     true
