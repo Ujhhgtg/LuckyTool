@@ -5,11 +5,11 @@ import android.app.Activity
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.view.children
-import androidx.core.view.forEach
+import androidx.core.view.allViews
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
 
@@ -24,16 +24,12 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
                         "share_view", "id", this@CustomizeDeviceSharingPageParameters.packageName
                     ).takeIf { it != 0 } ?: return@after
                     val shareView = activity.findViewById<ViewGroup>(shareViewId) ?: return@after
-                    shareView.children.forEach {
-                        //title_phone_ly / bran_share_card / about_share_card_bg
-                        if (it is ViewGroup) it.forEach { it2 ->
-                            if (it2 is TextView) it2.setClickInfo()
-                            else if (it2 is ViewGroup) it2.forEach { it3 ->
-                                if (it3 is TextView) it3.setClickInfo()
-                                else if (it3 is ViewGroup) it3.forEach { it4 ->
-                                    if (it4 is TextView) it4.setClickInfo()
-                                }
+                    shareView.allViews.forEachIndexed { _, view ->
+                        if (view is TextView) {
+                            val name = safeOfNull {
+                                activity.resources.getResourceEntryName(view.id)
                             }
+                            if (name != "share_picture") view.setClickInfo()
                         }
                     }
                 }
