@@ -18,6 +18,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [优化] 部分功能支持列表数据缓存结构
 - [优化] 使用Markdown解析捐赠列表数据
 - [修复] 三方应用通话录音无法录制己方声音问题
+- [修复] 部分机型RGB色温球Hook异常
 
 ### 1.1.8
 

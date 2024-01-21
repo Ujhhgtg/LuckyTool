@@ -19,7 +19,6 @@ import com.luckyzyx.luckytool.hook.scopes.android.RemovePasswordTimeoutVerificat
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveStatusBarTopNotification
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveSystemScreenshotDelay
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveVPNActiveNotification
-import com.luckyzyx.luckytool.hook.scopes.android.ScreenColorTemperatureRGBPalette
 import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindow
@@ -92,9 +91,6 @@ object HookAndroid : YukiBaseHooker() {
 
         //移除应用禁止卸载黑名单
         if (SDK >= A13) loadHooker(RemoveAppUninstallButtonBlackList)
-
-        //屏幕色温RGB调色板
-        loadHooker(ScreenColorTemperatureRGBPalette)
 
         //三方应用通话录音保护
         loadHooker(HookMediaProjectionManager)
