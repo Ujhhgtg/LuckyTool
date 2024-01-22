@@ -245,6 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Long press the Bluetooth tile to open the page</string>
     <string name="long_press_screenshot_tile_open_the_page">Long press the screenshot tile to open the page</string>
     <string name="long_press_dnd_tile_open_the_page">Long press the DND tile to open the page</string>
+    <string name="TileStyleRelated">Tile Style Related</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
     <string name="TileLayoutRelated">Tile Layout Related</string>
     <string name="fix_tile_align_both_sides">Fix tile alignment on both sides</string>
     <string name="fix_tile_align_both_sides_summary">Fix the overflow of the layout on both sides when the tile is not expanded</string>

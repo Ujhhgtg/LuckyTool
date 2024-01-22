@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterTiles
+import com.luckyzyx.luckytool.hook.scopes.systemui.CustomBackGroundTransparencyForInActiveTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
 import com.luckyzyx.luckytool.hook.scopes.systemui.LongPressTileOpenThePage
 import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel
@@ -10,9 +11,12 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.SpecialTileTopGap
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object StatusBarTile : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //磁贴长按跳转事件
         if (prefs(ModulePrefs).getBoolean("restore_some_tile_long_press_event", false)) {
             if (SDK == A13) loadHooker(LongPressTileOpenThePage)
@@ -37,5 +41,9 @@ object StatusBarTile : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("restore_page_layout_row_count_for_edit_tiles", false)) {
             if (SDK >= A13) loadHooker(RestorePageLayoutRowCountForEditTiles)
         }
+
+        //自定义未启用磁贴背景透明度
+        if (osCode >= 27) loadHooker(CustomBackGroundTransparencyForInActiveTiles)
+
     }
 }

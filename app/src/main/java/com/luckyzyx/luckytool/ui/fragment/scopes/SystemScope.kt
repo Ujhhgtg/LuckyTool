@@ -1250,6 +1250,24 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            //磁贴样式相关
+            if (osCode >= 27) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.TileStyleRelated)
+                    key = "TileStyleRelated"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SeekBarPreference(context).apply {
+                    title = getString(R.string.custom_background_transparency_for_inactive_tiles)
+                    key = "custom_background_transparency_for_inactive_tiles"
+                    setDefaultValue(-1)
+                    max = 10
+                    min = -1
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                })
+            }
             //磁贴布局相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.TileLayoutRelated)

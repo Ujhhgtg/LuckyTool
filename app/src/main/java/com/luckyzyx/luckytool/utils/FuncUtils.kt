@@ -1402,3 +1402,13 @@ fun JSONArray.toStringList(): ArrayList<String> {
     }
     return list
 }
+
+/**
+ * 设置颜色透明度
+ * @param baseColor 基本颜色
+ * @param alpha 透明度 0f～1f
+ * @return
+ */
+fun setColorAlpha(baseColor: Int, alpha: Float): Int {
+    return baseColor and 0x00ffffff or ((alpha * 255.0f).roundToInt() shl 24)
+}

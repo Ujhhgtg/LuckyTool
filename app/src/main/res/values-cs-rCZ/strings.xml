@@ -245,6 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Dlouze stiskněte dlaždici Bluetooth pro otevření nastavení</string>
     <string name="long_press_screenshot_tile_open_the_page">Dlouze stiskněte dlaždici screenshotu pro otevření příslušného nastavení</string>
     <string name="long_press_dnd_tile_open_the_page">Dlouze stiskněte dlaždici režim Nerušit pro otevření nastavení</string>
+    <string name="TileStyleRelated">Tile Style Related</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
     <string name="TileLayoutRelated">Rozvržení dlaždic</string>
     <string name="fix_tile_align_both_sides">Opravit zarovnání dlaždic na obou stranách</string>
     <string name="fix_tile_align_both_sides_summary">Opravit přetečení rozložení na obou stranách, pokud není dlaždice rozbalena</string>
@@ -684,7 +686,7 @@
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Povolit nahrávání hovorů v aplikacích třetích stran</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>
-    <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">Root oprávnění musí být uděleno, aby mohly aplikace třetích stran nahrávat hovory</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>
@@ -742,8 +744,8 @@
     <!--Donate-->
     <string name="donate_tv_title">Podpořit vývojáře</string>
     <string name="donate_tv__summary">Kliknutím nebo podržením přispějte vývojáři k podpoře budoucích aktualizací</string>
-    <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
-    <string name="detailed_donate_data">Show detailed data</string>
+    <string name="donate_data_decode_error">Analýza dat darování se nezdařila, zkuste to prosím znovu!</string>
+    <string name="detailed_donate_data">Zobrazit podrobné údaje</string>
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>

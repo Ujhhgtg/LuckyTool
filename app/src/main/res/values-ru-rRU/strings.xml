@@ -245,6 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Долгое нажатие на плитку Bluetooth, чтобы открыть меню</string>
     <string name="long_press_screenshot_tile_open_the_page">Долгое нажатие на плитку скриншота, чтобы открыть меню</string>
     <string name="long_press_dnd_tile_open_the_page">Долгое нажатие на плитку \"Не беспокоить\", чтобы открыть меню</string>
+    <string name="TileStyleRelated">Tile Style Related</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
     <string name="TileLayoutRelated">Разметка шторки</string>
     <string name="fix_tile_align_both_sides">Исправить выравнивание плиток с обеих сторон</string>
     <string name="fix_tile_align_both_sides_summary">Исправить переполнение макета с обеих сторон, когда плитка не развернута</string>
@@ -685,7 +687,7 @@
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Включить запись звонков в сторонних приложениях</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Предварительное условие: Необходимо установить \"Запись вызовов в сторонних приложениях (com.oplus.audiomonitor)\", а также дать разрешения на микрофон и работу в фоне</string>
-    <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">Необходимо предоставить root-права для \"Записи вызовов сторонних приложений\"</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

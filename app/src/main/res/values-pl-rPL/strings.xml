@@ -245,6 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Przytrzymaj płytkę „Bluetooth”, aby otworzyć ustawienia</string>
     <string name="long_press_screenshot_tile_open_the_page">Przytrzymaj płytkę „Zrzut ekranu”, aby otworzyć ustawienia</string>
     <string name="long_press_dnd_tile_open_the_page">Przytrzymaj płytkę „Nie przeszkadzać”, aby otworzyć ustawienia</string>
+    <string name="TileStyleRelated">Tile Style Related</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
     <string name="TileLayoutRelated">Układ przełączników</string>
     <string name="fix_tile_align_both_sides">Napraw wyrównanie okrągłych przełączników</string>
     <string name="fix_tile_align_both_sides_summary">Naprawia błąd obustronnego przesunięcia układu okrągłych przełączników. Problem widoczny, gdy panel centrum sterowania nie jest rozszerzony</string>

@@ -16,6 +16,21 @@ object HookStatusBar : YukiBaseHooker() {
             loadHooker(VibrateWhenOpeningTheStatusBar)
         }
 
+        //Source OplusToggleSliderView
+//        "com.oplus.systemui.qs.widget.OplusToggleSliderView".toClass().apply {
+//            method { name = "onShapeChanged" }.hook {
+//                after {
+//                    val type = args().first().int()
+//                    val mSlider = field { name = "mSlider" }.get(instance).any() ?: return@after
+//                    val mThumbColorStateList = mSlider.current().field {
+//                        name = "mThumbColorStateList"
+//                    }.cast<ColorStateList>() ?: return@after
+//                    val newColorStateList = mThumbColorStateList.withAlpha(50)
+//                    mSlider.current().method { name = "setThumbColor" }.call(newColorStateList)
+//                }
+//            }
+//        }
+
         //res/layout/bubble_expanded_view.xml
         //<string name="bubble_close">关闭对话</string>
         //<string name="open_app">进入应用</string>

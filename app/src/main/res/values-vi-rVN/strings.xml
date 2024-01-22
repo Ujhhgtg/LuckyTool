@@ -245,6 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Nhấn và giữ ô Bluetooth để mở trang</string>
     <string name="long_press_screenshot_tile_open_the_page">Nhấn và giữ ô ảnh chụp màn hình để mở trang</string>
     <string name="long_press_dnd_tile_open_the_page">Nhấn và giữ ô DND để mở trang</string>
+    <string name="TileStyleRelated">Tile Style Related</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
     <string name="TileLayoutRelated">Bố cục gạch liên quan</string>
     <string name="fix_tile_align_both_sides">Sửa căn chỉnh gạch ở cả hai bên</string>
     <string name="fix_tile_align_both_sides_summary">Sửa lỗi tràn bố cục 2 bên khi không mở rộng ô xếp</string>
@@ -684,7 +686,7 @@
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Bật ghi âm cuộc gọi cho các ứng dụng của bên thứ ba</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Điều kiện tiên quyết: Cần phải cài đặt \"Ghi âm cuộc gọi của ứng dụng ba bên (com.oplus.audiomonitor)\" và phải được cấp quyền micrô cũng như toàn bộ quyền hoạt động ở chế độ nền</string>
-    <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
+    <string name="enable_record_calls_on_third_party_apps_tips_2">Cần phải cấp quyền root cho \"Ghi âm cuộc gọi ứng dụng của bên thứ ba\"</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>
