@@ -13,7 +13,7 @@ object HookMediaProjectionManager : YukiBaseHooker() {
             prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)
 
         //Source MediaProjectionManagerServiceExtImpl
-        "android.media.projection.MediaProjectionManagerServiceExtImpl".toClass().apply {
+        "android.media.projection.MediaProjectionManagerServiceExtImpl".toClassOrNull()?.apply {
             method { name = "isOplusApp";paramCount = 1 }.hook {
                 after {
                     if (!isEnable) return@after
