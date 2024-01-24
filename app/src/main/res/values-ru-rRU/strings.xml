@@ -245,8 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Долгое нажатие на плитку Bluetooth, чтобы открыть меню</string>
     <string name="long_press_screenshot_tile_open_the_page">Долгое нажатие на плитку скриншота, чтобы открыть меню</string>
     <string name="long_press_dnd_tile_open_the_page">Долгое нажатие на плитку \"Не беспокоить\", чтобы открыть меню</string>
-    <string name="TileStyleRelated">Tile Style Related</string>
-    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
+    <string name="TileStyleRelated">Стиль плиток</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Настроить прозрачность фона для неактивных плиток</string>
     <string name="TileLayoutRelated">Разметка шторки</string>
     <string name="fix_tile_align_both_sides">Исправить выравнивание плиток с обеих сторон</string>
     <string name="fix_tile_align_both_sides_summary">Исправить переполнение макета с обеих сторон, когда плитка не развернута</string>

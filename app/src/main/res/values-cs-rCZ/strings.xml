@@ -245,8 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Dlouze stiskněte dlaždici Bluetooth pro otevření nastavení</string>
     <string name="long_press_screenshot_tile_open_the_page">Dlouze stiskněte dlaždici screenshotu pro otevření příslušného nastavení</string>
     <string name="long_press_dnd_tile_open_the_page">Dlouze stiskněte dlaždici režim Nerušit pro otevření nastavení</string>
-    <string name="TileStyleRelated">Tile Style Related</string>
-    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
+    <string name="TileStyleRelated">Styly dlaždic</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Přizpůsobit průhlednost pozadí pro neaktivní dlaždice</string>
     <string name="TileLayoutRelated">Rozvržení dlaždic</string>
     <string name="fix_tile_align_both_sides">Opravit zarovnání dlaždic na obou stranách</string>
     <string name="fix_tile_align_both_sides_summary">Opravit přetečení rozložení na obou stranách, pokud není dlaždice rozbalena</string>

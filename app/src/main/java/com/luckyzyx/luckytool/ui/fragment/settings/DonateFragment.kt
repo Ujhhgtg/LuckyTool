@@ -8,6 +8,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
 import com.luckyzyx.luckytool.utils.AESCrypt
+import com.luckyzyx.luckytool.utils.DonateInfo
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatStringAuto
@@ -46,7 +49,10 @@ class DonateFragment : Fragment(), MenuProvider {
 
     private val showDetailedKey = "show_detailed_donate_data"
 
+    private var isLoaded = false
     private var filterString: CharSequence = ""
+    private var curSort = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -74,6 +80,25 @@ class DonateFragment : Fragment(), MenuProvider {
                     filterString = text ?: ""
                     loadJson(context, donateDataFile)
                 })
+            }
+            val sortList = arrayOf("默认", "升序", "降序")
+            binding.sortSpinner.apply {
+                adapter = ArrayAdapter(
+                    context, android.R.layout.simple_spinner_dropdown_item,
+                    sortList
+                )
+                onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                    ) {
+                        curSort = position
+                        loadJson(context, donateDataFile, true)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                    }
+                }
             }
 
             donateDataFile = File(context.filesDir, "dd")
@@ -116,13 +141,13 @@ class DonateFragment : Fragment(), MenuProvider {
             if (file.readText().contains("datas")) {
                 val jsonEncrypt = AESCrypt.encrypt(file.readText())
                 file.writeText(jsonEncrypt)
+                loadJson(context, file)
             } else loadJson(context, file)
         }
     }
 
-    private fun loadJson(context: Context, file: File) {
+    private fun loadJson(context: Context, file: File, isSpinnerLoad: Boolean = false) {
         scopeLife {
-            if (file.readText().contains("datas")) initJsonFile(context, file)
             val jsonObject = safeOfNull {
                 val jsonDecrypt = AESCrypt.decrypt(file.readText())
                 JSONObject(jsonDecrypt)
@@ -132,6 +157,9 @@ class DonateFragment : Fragment(), MenuProvider {
                 context.showToast(getString(R.string.donate_data_decode_error))
                 return@scopeLife
             }
+
+            if (!isLoaded && isSpinnerLoad) return@scopeLife
+            isLoaded = true
 
             val list = ArrayList<String>().apply {
                 if (isShowDetailed) {
@@ -148,6 +176,7 @@ class DonateFragment : Fragment(), MenuProvider {
             var rmbCount = 0.0
             var otherCount = 0.0
 
+            val array = ArrayList<DonateInfo>()
             for (i in 0 until datas.length()) {
                 var dCount = 0
                 var rCount = 0.0
@@ -155,8 +184,7 @@ class DonateFragment : Fragment(), MenuProvider {
 
                 val obj = datas.optJSONObject(i) ?: continue
                 val name = obj.optString("name")
-                if (filterString.isNotBlank() && name.contains(filterString).not()) continue
-                
+
                 val details = obj.optJSONArray("details") ?: continue
                 for (o in 0 until details.length()) {
                     val info = details.optJSONObject(o) ?: continue
@@ -164,40 +192,59 @@ class DonateFragment : Fragment(), MenuProvider {
 
                     val time = info.optString("time")
                     val channel = info.optString("channel")
-                    val money = info.optDouble("money")
-
-                    @Suppress("UNUSED_VARIABLE")
+                    val money = info.optDouble("money", 0.0)
                     val order = info.optString("order")
-
-                    @Suppress("MoveVariableDeclarationIntoWhen")
                     val unit = info.optString("unit")
 
                     when (unit) {
                         "RMB" -> rCount += money
                         "$" -> oCount += money
                     }
-                    if (isShowDetailed) list.add("| $name | $time | $money | $channel |")
-                }
-                val moneyStr = when {
-                    rCount != 0.0 && oCount != 0.0 -> "$rCount RMB & $oCount $"
-                    rCount != 0.0 -> "$rCount RMB"
-                    oCount != 0.0 -> "$oCount $"
-                    else -> ""
+                    if (isShowDetailed && money > 0) {
+                        array.add(DonateInfo(name, time, channel, money, order, unit))
+                    }
                 }
                 detailCount += dCount
                 rmbCount += rCount
                 otherCount += oCount
-                if (isShowDetailed.not()) list.add("| $name | $moneyStr |")
+                if (isShowDetailed.not()) {
+                    if (rCount > 0) array.add(
+                        DonateInfo(name, "all", "all", rCount, "null")
+                    )
+                    if (oCount > 0) array.add(
+                        DonateInfo(name, "all", "all", oCount, "null", "$")
+                    )
+                }
             }
 
             val develop = context.getBoolean(SettingsPrefs, "hidden_function", false)
-            if (develop) {
-                val formatRmb = DecimalFormat("0.00").format(rmbCount).toDouble()
-                val formatOth = DecimalFormat("0.00").format(otherCount).toDouble()
-                list.add(
-                    2, if (isShowDetailed) "| develop | now | $formatRmb RMB & $formatOth $ | all |"
-                    else "| develop | $formatRmb RMB & $formatOth $ |"
-                )
+            array.apply {
+                when (curSort) {
+                    1 -> sortBy { it.money }
+                    2 -> sortByDescending { it.money }
+                }
+
+                if (array.size > 0 && develop) {
+                    val formatRmb = DecimalFormat("0.00").format(rmbCount).toDouble()
+                    val formatOth = DecimalFormat("0.00").format(otherCount).toDouble()
+
+                    if (formatRmb > 0) array.add(
+                        0, DonateInfo("develop", "all", "all", formatRmb, "null")
+                    )
+                    if (formatOth > 0) array.add(
+                        1, DonateInfo("develop", "all", "all", formatOth, "null", "$")
+                    )
+                }
+
+                forEachIndexed { _, info ->
+                    if (filterString.isNotBlank() && info.name.contains(filterString).not()
+                    ) return@forEachIndexed
+                    if (isShowDetailed) {
+                        list.add("| ${info.name} | ${info.time} | ${info.money} ${info.unit} | ${info.channel} |")
+                    } else {
+                        list.add("| ${info.name} | ${info.money} ${info.unit} |")
+                    }
+                }
             }
 
             val markwon = Markwon.builder(context).apply {
@@ -228,7 +275,7 @@ class DonateFragment : Fragment(), MenuProvider {
                 menuItem.isChecked = !menuItem.isChecked
                 isShowDetailed = menuItem.isChecked
                 requireActivity().putBoolean(SettingsPrefs, showDetailedKey, isShowDetailed)
-                init(requireActivity())
+                loadJson(requireActivity(), donateDataFile)
             }
         }
         return true

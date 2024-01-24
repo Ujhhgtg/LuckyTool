@@ -245,8 +245,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Nhấn và giữ ô Bluetooth để mở trang</string>
     <string name="long_press_screenshot_tile_open_the_page">Nhấn và giữ ô ảnh chụp màn hình để mở trang</string>
     <string name="long_press_dnd_tile_open_the_page">Nhấn và giữ ô DND để mở trang</string>
-    <string name="TileStyleRelated">Tile Style Related</string>
-    <string name="custom_background_transparency_for_inactive_tiles">Customize background transparency for inactive tiles</string>
+    <string name="TileStyleRelated">Kiểu ô</string>
+    <string name="custom_background_transparency_for_inactive_tiles">Tùy chỉnh độ trong suốt cho nền ô đang không sử dụng</string>
     <string name="TileLayoutRelated">Bố cục gạch liên quan</string>
     <string name="fix_tile_align_both_sides">Sửa căn chỉnh gạch ở cả hai bên</string>
     <string name="fix_tile_align_both_sides_summary">Sửa lỗi tràn bố cục 2 bên khi không mở rộng ô xếp</string>
