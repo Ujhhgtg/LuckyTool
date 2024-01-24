@@ -229,6 +229,7 @@
     <string name="custom_control_center_background_transparency">Vlastní průhlednost pozadí ovládacího centra</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Dlaždice stavové lišty</string>
+    <string name="force_display_of_ringing_status_toggle_tiles">Force display of ringing status toggle tiles</string>
     <string name="SpecialTiles">Speciální dlaždice</string>
     <string name="auto_expand_tile_rows_horizontal">Automaticky rozbalit počet řádků horizontálních dlaždic</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>

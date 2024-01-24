@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.CustomBackGroundTransparencyForInActiveTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
+import com.luckyzyx.luckytool.hook.scopes.systemui.ForceDisplayOfRingingStatusToggleTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.LongPressTileOpenThePage
 import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel
 import com.luckyzyx.luckytool.hook.scopes.systemui.RestorePageLayoutRowCountForEditTiles
@@ -16,6 +17,11 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 object StatusBarTile : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
+
+        //强制显示响铃状态切换磁贴
+        if (prefs(ModulePrefs).getBoolean("force_display_of_ringing_status_toggle_tiles", false)) {
+            loadHooker(ForceDisplayOfRingingStatusToggleTiles)
+        }
 
         //磁贴长按跳转事件
         if (prefs(ModulePrefs).getBoolean("restore_some_tile_long_press_event", false)) {

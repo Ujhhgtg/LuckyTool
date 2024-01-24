@@ -229,6 +229,7 @@
     <string name="custom_control_center_background_transparency">自定义控制中心背景透明度</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">状态栏磁贴</string>
+    <string name="force_display_of_ringing_status_toggle_tiles">强制显示响铃状态切换磁贴</string>
     <string name="SpecialTiles">特殊磁贴</string>
     <string name="auto_expand_tile_rows_horizontal">自动扩展横屏磁贴行数</string>
     <string name="auto_expand_tile_rows_horizontal_summary">当媒体播放器隐藏时，横屏模式将显示两行磁贴</string>

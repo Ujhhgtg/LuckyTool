@@ -1141,6 +1141,13 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //静音或振动
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.force_display_of_ringing_status_toggle_tiles)
+                key = "force_display_of_ringing_status_toggle_tiles"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             //特殊磁贴
             if (SDK >= A13) {
                 addPreference(PreferenceCategory(context).apply {

@@ -229,6 +229,7 @@
     <string name="custom_control_center_background_transparency">Tùy chỉnh độ trong suốt của nền trung tâm điều khiển</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Ô thanh trạng thái</string>
+    <string name="force_display_of_ringing_status_toggle_tiles">Force display of ringing status toggle tiles</string>
     <string name="SpecialTiles">Ô đặc biệt</string>
     <string name="auto_expand_tile_rows_horizontal">Tự động mở rộng số lượng ô hàng ngang</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Chế độ hàng ngang sẽ hiển thị hai hàng ô khi trình phát đa phương tiện bị ẩn</string>
