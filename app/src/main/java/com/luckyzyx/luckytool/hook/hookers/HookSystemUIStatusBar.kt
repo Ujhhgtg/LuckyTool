@@ -1,20 +1,42 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.systemui.DoubleClickLockScreen
-import com.luckyzyx.luckytool.hook.scopes.systemui.VibrateWhenOpeningTheStatusBar
-import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarBattery
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarControlCenter
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarIcon
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarLayout
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarNetWorkSpeed
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarNotifiyLimit
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarNotify
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarTile
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarUI
 
-object HookStatusBar : YukiBaseHooker() {
+object HookSystemUIStatusBar : YukiBaseHooker() {
     override fun onHook() {
-        //双击状态栏锁屏
-        if (prefs(ModulePrefs).getBoolean("statusbar_double_click_lock_screen", false)) {
-            loadHooker(DoubleClickLockScreen)
-        }
-        //打开状态栏时振动
-        if (prefs(ModulePrefs).getBoolean("vibrate_when_opening_the_statusbar", false)) {
-            loadHooker(VibrateWhenOpeningTheStatusBar)
-        }
+        //状态栏
+        loadHooker(StatusBarUI)
+        //状态栏时钟
+        loadHooker(StatusBarClock)
+        //状态栏网速
+        loadHooker(StatusBarNetWorkSpeed)
+        //状态栏通知
+        loadHooker(StatusBarNotify)
+
+        //状态栏通知限制
+        loadHooker(StatusBarNotifiyLimit)
+
+        //状态栏图标
+        loadHooker(StatusBarIcon)
+        //状态栏控制中心
+        loadHooker(StatusBarControlCenter)
+        //状态栏磁贴
+        loadHooker(StatusBarTile)
+        //状态栏布局
+        loadHooker(StatusBarLayout)
+        //状态栏电池
+        loadHooker(StatusBarBattery)
+
 
         //Source OplusToggleSliderView
 //        "com.oplus.systemui.qs.widget.OplusToggleSliderView".toClass().apply {

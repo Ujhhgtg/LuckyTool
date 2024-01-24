@@ -1,0 +1,27 @@
+package com.luckyzyx.luckytool.hook.hookers
+
+import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.systemui.DisableOTGAutoOff
+import com.luckyzyx.luckytool.hook.scopes.systemui.ShowChargingRipple
+import com.luckyzyx.luckytool.hook.scopes.systemui.ShowManualLockButtonPowerMenu
+import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
+
+object HookSystemUiMiscellaneous : YukiBaseHooker() {
+    override fun onHook() {
+        //充电纹波
+        if (prefs(ModulePrefs).getBoolean("show_charging_ripple", false)) {
+            if (SDK >= A12) loadHooker(ShowChargingRipple)
+        }
+        //禁用OTG自动关闭
+        if (prefs(ModulePrefs).getBoolean("disable_otg_auto_off", false)) {
+            loadHooker(DisableOTGAutoOff)
+        }
+        //电源菜单显示手动锁定按钮
+        if (prefs(ModulePrefs).getBoolean("show_manual_lock_button_power_menu", false)) {
+            if (SDK >= A14) loadHooker(ShowManualLockButtonPowerMenu)
+        }
+    }
+}

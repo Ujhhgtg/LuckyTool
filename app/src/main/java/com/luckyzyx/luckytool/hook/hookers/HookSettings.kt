@@ -1,6 +1,9 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.settings.AllowDisablingSystemApps
 import com.luckyzyx.luckytool.hook.scopes.settings.AutoUnlockRestrictedSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPageParameters

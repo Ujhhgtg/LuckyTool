@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.CorePatch;
+package com.luckyzyx.luckytool.hook.CorePatch;
 
 import java.lang.reflect.InvocationTargetException;
 

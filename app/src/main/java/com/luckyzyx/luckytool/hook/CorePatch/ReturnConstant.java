@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.CorePatch;
+package com.luckyzyx.luckytool.hook.CorePatch;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;

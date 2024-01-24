@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.hookers
+package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.AllowLongPressNotificationModifiable

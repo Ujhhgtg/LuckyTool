@@ -4,9 +4,9 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.hook.hookers.HookGlobalFeatureConfig
-import com.luckyzyx.luckytool.hook.hookers.HookGlobalFeatureProvider
-import com.luckyzyx.luckytool.hook.hookers.HookGlobalSystemProperties
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils

@@ -5,7 +5,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.FullScreenGestureSideSlideBar
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveRotateScreenButton
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
-object HookGestureRelated : YukiBaseHooker() {
+object HookSystemUIGesture : YukiBaseHooker() {
     override fun onHook() {
         //全面屏手势侧滑条
         loadHooker(FullScreenGestureSideSlideBar)

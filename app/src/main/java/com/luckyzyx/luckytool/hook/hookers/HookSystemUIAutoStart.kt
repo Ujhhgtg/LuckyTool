@@ -12,7 +12,7 @@ import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.setRefresh
 import kotlinx.coroutines.delay
 
-object HookAutoStart : YukiBaseHooker() {
+object HookSystemUIAutoStart : YukiBaseHooker() {
     override fun onHook() {
         val fpsList = arrayOf("30.0", "60.0", "90.0", "120.0", "144.0")
 

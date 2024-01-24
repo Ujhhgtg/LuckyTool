@@ -10,7 +10,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
-object HookDialogRelated : YukiBaseHooker() {
+object HookSystemUIDialog : YukiBaseHooker() {
     override fun onHook() {
         //禁用复制悬浮窗
         if (prefs(ModulePrefs).getBoolean("disable_duplicate_floating_window", false)) {

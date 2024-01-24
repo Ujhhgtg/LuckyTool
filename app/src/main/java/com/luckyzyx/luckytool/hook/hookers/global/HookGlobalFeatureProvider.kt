@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.hookers
+package com.luckyzyx.luckytool.hook.hookers.global
 
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker

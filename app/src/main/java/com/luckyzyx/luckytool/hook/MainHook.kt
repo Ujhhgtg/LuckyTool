@@ -11,26 +11,26 @@ import com.highcapable.yukihookapi.hook.factory.encase
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.xposed.bridge.event.YukiXposedEvent
 import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
+import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForR
+import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForS
+import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForT
+import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForU
+import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
 import com.luckyzyx.luckytool.hook.hookers.HookAudioMonitor
-import com.luckyzyx.luckytool.hook.hookers.HookAutoStart
 import com.luckyzyx.luckytool.hook.hookers.HookBattery
 import com.luckyzyx.luckytool.hook.hookers.HookBrowser
 import com.luckyzyx.luckytool.hook.hookers.HookCalendar
 import com.luckyzyx.luckytool.hook.hookers.HookCallUI
 import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
-import com.luckyzyx.luckytool.hook.hookers.HookDialogRelated
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
-import com.luckyzyx.luckytool.hook.hookers.HookFingerPrintRelated
+import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
 import com.luckyzyx.luckytool.hook.hookers.HookGesture
-import com.luckyzyx.luckytool.hook.hookers.HookGestureRelated
 import com.luckyzyx.luckytool.hook.hookers.HookLauncher
-import com.luckyzyx.luckytool.hook.hookers.HookLockScreen
 import com.luckyzyx.luckytool.hook.hookers.HookMarket
-import com.luckyzyx.luckytool.hook.hookers.HookMiscellaneous
 import com.luckyzyx.luckytool.hook.hookers.HookMultiApp
 import com.luckyzyx.luckytool.hook.hookers.HookNotificationManager
 import com.luckyzyx.luckytool.hook.hookers.HookOplusGames
@@ -49,26 +49,11 @@ import com.luckyzyx.luckytool.hook.hookers.HookSecurePay
 import com.luckyzyx.luckytool.hook.hookers.HookSettings
 import com.luckyzyx.luckytool.hook.hookers.HookSmartSidebar
 import com.luckyzyx.luckytool.hook.hookers.HookSoundRecorder
-import com.luckyzyx.luckytool.hook.hookers.HookStatusBar
+import com.luckyzyx.luckytool.hook.hookers.HookSystemUI
 import com.luckyzyx.luckytool.hook.hookers.HookThemeStore
 import com.luckyzyx.luckytool.hook.hookers.HookUIEngine
 import com.luckyzyx.luckytool.hook.hookers.HookWeather
-import com.luckyzyx.luckytool.hook.hookers.StatusBarNotifiyLimit
-import com.luckyzyx.luckytool.hook.scopes.CorePatch.CorePatchForR
-import com.luckyzyx.luckytool.hook.scopes.CorePatch.CorePatchForS
-import com.luckyzyx.luckytool.hook.scopes.CorePatch.CorePatchForT
-import com.luckyzyx.luckytool.hook.scopes.CorePatch.CorePatchForU
-import com.luckyzyx.luckytool.hook.scopes.alarmclock.AlarmClockWidget
 import com.luckyzyx.luckytool.hook.scopes.android.DisableFlagSecure
-import com.luckyzyx.luckytool.hook.scopes.systemui.HookSystemUIFeature
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarBattery
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarControlCenter
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarIcon
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarLayout
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarNetWorkSpeed
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarNotify
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarTile
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -94,35 +79,14 @@ object MainHook : IYukiHookXposedInit {
         //系统框架
         loadSystem(HookAndroid)
 
-        //系统界面Feature
-        loadApp("com.android.systemui", HookSystemUIFeature)
-        //状态栏功能
-        loadApp("com.android.systemui", HookStatusBar)
-        //状态栏时钟
-        loadApp("com.android.systemui", StatusBarClock)
-        //状态栏网速
-        loadApp("com.android.systemui", StatusBarNetWorkSpeed)
-        //状态栏通知
-        loadApp("com.android.systemui", StatusBarNotify)
+        //系统界面
+        loadApp("com.android.systemui", HookSystemUI)
 
-        //状态栏通知限制
-        loadApp("com.android.systemui", StatusBarNotifiyLimit)
         //通知管理
         loadApp("com.oplus.notificationmanager", HookNotificationManager)
 
-        //状态栏图标
-        loadApp("com.android.systemui", StatusBarIcon)
-        //状态栏控制中心
-        loadApp("com.android.systemui", StatusBarControlCenter)
-        //状态栏磁贴
-        loadApp("com.android.systemui", StatusBarTile)
-        //状态栏布局
-        loadApp("com.android.systemui", StatusBarLayout)
-        //状态栏电池
-        loadApp("com.android.systemui", StatusBarBattery)
-
         //时钟
-        loadApp("com.coloros.alarmclock", AlarmClockWidget)
+        loadApp("com.coloros.alarmclock", HookAlarmClock)
         //桌面
         loadApp("com.oppo.launcher", "com.android.launcher") {
             loadHooker(HookLauncher)
@@ -132,8 +96,6 @@ object MainHook : IYukiHookXposedInit {
 //        loadApp("com.oplus.aod", HookAod)
         //百变引擎
         loadApp("com.oplus.uiengine", HookUIEngine)
-        //锁屏
-        loadApp("com.android.systemui", HookLockScreen)
         //截屏
         loadApp("com.oplus.screenshot", HookScreenshot)
 
@@ -143,16 +105,9 @@ object MainHook : IYukiHookXposedInit {
         }
         //应用安装器
         loadApp("com.android.packageinstaller", HookPackageInstaller)
-        //对话框相关
-        loadApp("com.android.systemui", HookDialogRelated)
-        //全面屏手势相关
-        loadApp("com.android.systemui", HookGestureRelated)
-        //指纹相关
-        loadApp("com.android.systemui", HookFingerPrintRelated)
-        //杂项
-        loadApp("com.android.systemui", "com.android.externalstorage") {
-            loadHooker(HookMiscellaneous)
-        }
+
+        //外部存储设备
+        loadApp("com.android.externalstorage", HookExternalStorage)
 
         //电池
         loadApp("com.oplus.battery", HookBattery)
@@ -219,9 +174,6 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
             loadHooker(HookOtherApp)
         }
-
-        //自启
-        loadApp("com.android.systemui", HookAutoStart)
     }
 
     override fun onXposedEvent() {
@@ -229,10 +181,14 @@ object MainHook : IYukiHookXposedInit {
             run {
                 if (lpparam.packageName == "android") {
                     if (lpparam.processName == "android") when (SDK) {
-                        UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
-                        TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
-                        S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
-                        R -> CorePatchForR().handleLoadPackage(lpparam)
+                        UPSIDE_DOWN_CAKE -> CorePatchForU()
+                            .handleLoadPackage(lpparam)
+                        TIRAMISU -> CorePatchForT()
+                            .handleLoadPackage(lpparam)
+                        S, S_V2 -> CorePatchForS()
+                            .handleLoadPackage(lpparam)
+                        R -> CorePatchForR()
+                            .handleLoadPackage(lpparam)
                         else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
                     }
                     DisableFlagSecure().handleLoadPackage(lpparam)
@@ -242,9 +198,12 @@ object MainHook : IYukiHookXposedInit {
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->
             run {
                 when (SDK) {
-                    UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
-                    TIRAMISU -> CorePatchForT().initZygote(startupParam)
-                    S, S_V2 -> CorePatchForS().initZygote(startupParam)
+                    UPSIDE_DOWN_CAKE -> CorePatchForU()
+                        .initZygote(startupParam)
+                    TIRAMISU -> CorePatchForT()
+                        .initZygote(startupParam)
+                    S, S_V2 -> CorePatchForS()
+                        .initZygote(startupParam)
                     R -> CorePatchForR().initZygote(startupParam)
                 }
             }

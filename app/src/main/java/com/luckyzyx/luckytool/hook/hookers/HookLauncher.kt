@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
 import com.luckyzyx.luckytool.hook.scopes.launcher.FolderLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
@@ -26,10 +27,13 @@ object HookLauncher : YukiBaseHooker() {
 
         //分页组件
         loadHooker(PageIndicator)
+
         //堆叠布局
         loadHooker(StackedTaskLayout)
+
         //应用徽章
         if (SDK >= A13) loadHooker(HookAppBadge)
+
         //设置桌面布局行列数
         if (prefs(ModulePrefs).getBoolean("launcher_layout_enable", false)) {
             loadHooker(LauncherLayoutRowColume)

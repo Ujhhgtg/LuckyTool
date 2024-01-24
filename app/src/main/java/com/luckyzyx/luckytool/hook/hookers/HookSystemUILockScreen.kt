@@ -16,7 +16,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
-object HookLockScreen : YukiBaseHooker() {
+object HookSystemUILockScreen : YukiBaseHooker() {
     override fun onHook() {
         //锁屏时钟
         loadHooker(LockScreenClock)

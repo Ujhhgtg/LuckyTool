@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.CorePatch;
+package com.luckyzyx.luckytool.hook.CorePatch;
 
 import android.util.Log;
 
