@@ -47,7 +47,7 @@ import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showBottomSheet
-import com.luckyzyx.luckytool.utils.toast
+import com.luckyzyx.luckytool.utils.showToast
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import kotlinx.coroutines.Dispatchers
@@ -93,7 +93,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     try {
                         addPreference(preference)
                     } catch (_: Throwable) {
-                        withMain { context.toast("Error: $index ${preference.key}") }
+                        withMain { context.showToast("Error: $index ${preference.key}") }
                         return@forEachIndexed
                     }
                 }

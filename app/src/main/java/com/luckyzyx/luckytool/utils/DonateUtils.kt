@@ -1,10 +1,10 @@
 package com.luckyzyx.luckytool.utils
 
 import android.content.Context
-import android.widget.ImageView
+import android.view.LayoutInflater
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textview.MaterialTextView
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.LayoutDonateDialogBinding
 
 @Suppress("unused")
 object DonateData {
@@ -16,15 +16,12 @@ object DonateData {
     private const val CPP = "PayPal"
 
     fun showQRCode(context: Context, base64: String) {
-        val dialog = MaterialAlertDialogBuilder(
-            context, dialogCentered
-        ).apply {
+        val binding = LayoutDonateDialogBinding.inflate(LayoutInflater.from(context))
+        MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.qq))
-            setView(R.layout.layout_donate_dialog)
+            setView(binding.root)
         }.show()
-        dialog.findViewById<MaterialTextView>(R.id.donate_message)?.text =
-            context.getString(R.string.donate_message)
-        dialog.findViewById<ImageView>(R.id.donate_image)
-            ?.setImageBitmap(base64ToBitmap(base64))
+        binding.donateImage.setImageBitmap(base64ToBitmap(base64))
+        binding.donateMessage.text = context.getString(R.string.donate_message)
     }
 }

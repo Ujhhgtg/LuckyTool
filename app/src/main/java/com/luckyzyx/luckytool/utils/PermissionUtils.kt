@@ -50,10 +50,10 @@ class PermissionUtils(val context: Activity) {
     }
 
     private fun toastDenied(permission: String) {
-        context.toast(context.getString(R.string.permission_denied_toast, permission))
+        context.showToast(context.getString(R.string.permission_denied_toast, permission))
     }
 
     private fun toastError(permission: String) {
-        context.toast(context.getString(R.string.permission_error_toast, permission))
+        context.showToast(context.getString(R.string.permission_error_toast, permission))
     }
 }

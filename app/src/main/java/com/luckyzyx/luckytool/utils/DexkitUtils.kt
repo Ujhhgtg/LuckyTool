@@ -12,7 +12,7 @@ object DexkitUtils {
     const val tag = "LuckyTool"
 
     /**
-     * 创建Dexkit安全实例
+     * 创建Dexkit实例
      * @param appPath String
      * @return DexKitBridge?
      */

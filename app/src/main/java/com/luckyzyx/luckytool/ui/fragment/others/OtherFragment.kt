@@ -17,14 +17,12 @@ import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.materialswitch.MaterialSwitch
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.textview.MaterialTextView
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
+import com.luckyzyx.luckytool.databinding.LayoutAdbDialogBinding
+import com.luckyzyx.luckytool.databinding.LayoutShortcutDialogBinding
 import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -58,13 +56,14 @@ class OtherFragment : Fragment() {
 
         binding.shortcut.apply {
             setOnClickListener {
-                val dialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setView(R.layout.layout_shortcut_dialog)
+                val binding = LayoutShortcutDialogBinding.inflate(layoutInflater)
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setView(binding.root)
                 }.show()
                 val shortcutList = ShortcutUtils(context).getShortcutList()
                 val keys = ArrayList<String>(shortcutList.keys)
                 val titles = ArrayList<String>(shortcutList.values)
-                dialog.findViewById<ListView>(R.id.shortcut_list)?.apply {
+                binding.shortcutList.apply {
                     choiceMode = ListView.CHOICE_MODE_MULTIPLE
                     adapter = ArrayAdapter(
                         context, android.R.layout.simple_list_item_multiple_choice, titles
@@ -91,43 +90,44 @@ class OtherFragment : Fragment() {
                 val getPort = adbController?.adbPort ?: return@setOnClickListener
                 var getIP = adbController?.wifiIP ?: "IP"
 
-                val adbDialog = MaterialAlertDialogBuilder(context).apply {
+                val binding = LayoutAdbDialogBinding.inflate(layoutInflater)
+                MaterialAlertDialogBuilder(context).apply {
                     setCancelable(true)
-                    setView(R.layout.layout_adb_dialog)
+                    setView(binding.root)
                 }.show()
-                val adbPortLayout = adbDialog.findViewById<TextInputLayout>(R.id.adb_port_layout)
-                val adbPort = adbDialog.findViewById<TextInputEditText>(R.id.adb_port)?.apply {
+                val adbPortLayout = binding.adbPortLayout
+                val adbPort = binding.adbPort.apply {
                     setText(
                         if (getPort == 0 || getPort == -1) {
                             context.getString(OtherPrefs, "adb_port", "6666")
                         } else getPort.toString()
                     )
                 }
-                val adbTv = adbDialog.findViewById<MaterialTextView>(R.id.adb_tv)?.apply {
+                val adbTv = binding.adbTv.apply {
                     if (getPort != 0 && getPort != -1) text = "adb connect $getIP:$getPort"
                     setOnLongClickListener {
                         context.copyStr(text.toString())
                         true
                     }
                 }
-                val adbTvTip = adbDialog?.findViewById<MaterialTextView>(R.id.adb_tv_tip)?.apply {
-                    isVisible = adbTv?.text.isNullOrBlank().not()
+                val adbTvTip = binding.adbTvTip.apply {
+                    isVisible = adbTv.text.isNullOrBlank().not()
                     setOnLongClickListener {
-                        context.copyStr(adbTv?.text.toString())
+                        context.copyStr(adbTv.text.toString())
                         true
                     }
                 }
-                adbDialog.findViewById<MaterialSwitch>(R.id.adb_switch)?.apply {
+                binding.adbSwitch.apply {
                     isEnabled = adbController != null
                     isChecked = isEnabled && getPort != 0 && getPort != -1
-                    adbPortLayout?.isEnabled = isChecked.not()
+                    adbPortLayout.isEnabled = isChecked.not()
                     setOnCheckedChangeListener { buttonView, checked ->
                         if (!buttonView.isPressed) return@setOnCheckedChangeListener
                         if (checked) {
-                            val portStr = adbPort?.text
+                            val portStr = adbPort.text
                             if (portStr.isNullOrBlank()) {
                                 isChecked = false
-                                adbTv?.text = context.getString(R.string.adb_debug_port_cannot_null)
+                                adbTv.text = context.getString(R.string.adb_debug_port_cannot_null)
                                 return@setOnCheckedChangeListener
                             }
                             scopeLife {
@@ -139,9 +139,9 @@ class OtherFragment : Fragment() {
                                     getIP = adbController?.wifiIP ?: "IP"
                                     context.putString(OtherPrefs, "adb_port", port.toString())
                                 }
-                                adbPortLayout?.isEnabled = false
-                                adbTv?.text = "adb connect $getIP:$portStr"
-                                adbTvTip?.isVisible = true
+                                adbPortLayout.isEnabled = false
+                                adbTv.text = "adb connect $getIP:$portStr"
+                                adbTvTip.isVisible = true
                                 isEnabled = true
                             }
                         } else scopeLife {
@@ -151,9 +151,9 @@ class OtherFragment : Fragment() {
                                 adbController?.restartAdb()
                                 adbController?.adbPort = 0
                             }
-                            adbPortLayout?.isEnabled = true
-                            adbTv?.text = ""
-                            adbTvTip?.isVisible = false
+                            adbPortLayout.isEnabled = true
+                            adbTv.text = ""
+                            adbTvTip.isVisible = false
                             isEnabled = true
                         }
                     }

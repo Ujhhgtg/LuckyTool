@@ -44,7 +44,7 @@ import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.replaceBlankLine
 import com.luckyzyx.luckytool.utils.sendPrefsValue
-import com.luckyzyx.luckytool.utils.toast
+import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
@@ -3759,7 +3759,7 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                             startActivity(this)
                         }
                     } catch (_: Exception) {
-                        context.toast("Error: Please check your browser version!")
+                        context.showToast("Error: Please check your browser version!")
                     }
                     true
                 }

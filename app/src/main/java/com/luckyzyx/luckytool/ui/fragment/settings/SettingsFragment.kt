@@ -36,7 +36,7 @@ import com.luckyzyx.luckytool.utils.putInt
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setComponentDisabled
-import com.luckyzyx.luckytool.utils.toast
+import com.luckyzyx.luckytool.utils.showToast
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.FileNotFoundException
@@ -88,13 +88,13 @@ class SettingsFragment : ModulePreferenceFragment() {
                     it.write(str.toByteArray())
                 }
             }
-            context.toast(getString(R.string.data_backup_complete))
+            context.showToast(getString(R.string.data_backup_complete))
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
-            context.toast(getString(R.string.data_backup_error))
+            context.showToast(getString(R.string.data_backup_error))
         } catch (e: IOException) {
             e.printStackTrace()
-            context.toast(getString(R.string.data_backup_error))
+            context.showToast(getString(R.string.data_backup_error))
         }
     }
 
@@ -119,12 +119,12 @@ class SettingsFragment : ModulePreferenceFragment() {
                         }
 
                         "String" -> context.putString(prefs, key, value as String)
-                        else -> context.toast("Error: $key")
+                        else -> context.showToast("Error: $key")
                     }
                 }
             }
         }
-        context.toast(getString(R.string.data_restore_complete))
+        context.showToast(getString(R.string.data_restore_complete))
         (activity as MainActivity).restart()
     }
 

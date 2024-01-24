@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.view.LayoutInflater
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
@@ -13,12 +14,11 @@ import com.drake.net.component.Progress
 import com.drake.net.interfaces.ProgressListener
 import com.drake.net.scope.NetCoroutineScope
 import com.drake.net.utils.scopeNet
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.textview.MaterialTextView
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.LayoutDownloadDialogBinding
 import io.noties.markwon.Markwon
 import org.json.JSONObject
 import java.io.File
@@ -85,7 +85,7 @@ class UpdateUtils(val context: Context) {
                     }
                 }
             }
-        }.catch { context.toast(context.getString(R.string.check_update_error)) }
+        }.catch { context.showToast(context.getString(R.string.check_update_error)) }
     }
 
     private fun readyDownload(context: Context, fileName: String, downloadUrl: String) {
@@ -106,10 +106,11 @@ class UpdateUtils(val context: Context) {
     fun downloadFile(context: Context, apkName: String, url: String) {
         val apkFile = FileUtils.checkDownloadDir(context, apkName)
         var downloadScope: NetCoroutineScope = scopeNet { }
+        val binding = LayoutDownloadDialogBinding.inflate(LayoutInflater.from(context))
         val downloadDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.downloading))
             setCancelable(false)
-            setView(R.layout.layout_download_dialog)
+            setView(binding.root)
         }.show()
         downloadScope = scopeNet {
             if (apkFile.exists()) {
@@ -117,7 +118,7 @@ class UpdateUtils(val context: Context) {
                 downloadDialog.dismiss()
                 return@scopeNet
             }
-            downloadDialog.findViewById<MaterialButton>(R.id.cancel_button)?.apply {
+            binding.cancelButton.apply {
                 text = context.getString(R.string.cancel_button)
                 setOnClickListener {
                     apkFile.delete()
@@ -125,16 +126,15 @@ class UpdateUtils(val context: Context) {
                     downloadDialog.dismiss()
                 }
             }
-            val downProgress =
-                downloadDialog.findViewById<LinearProgressIndicator>(R.id.down_progress)
-            val downTv = downloadDialog.findViewById<MaterialTextView>(R.id.down_tv)
+            val downProgress = binding.downProgress
+            val downTv = binding.downTv
             val downFile = Get<File>(url) {
                 setDownloadDir(apkFile)
                 setDownloadMd5Verify()
                 addDownloadListener(object : ProgressListener(100) {
                     @SuppressLint("SetTextI18n")
                     override fun onProgress(p: Progress) {
-                        downProgress?.post {
+                        downProgress.post {
                             val ps = p.progress()
                             downProgress.apply {
                                 isIndeterminate = true
@@ -143,7 +143,7 @@ class UpdateUtils(val context: Context) {
                                     progress = ps
                                 }
                             }
-                            downTv?.text = """
+                            downTv.text = """
                                 ${context.getString(R.string.download_progress)}: $ps%
                                 ${context.getString(R.string.download_speed)}: ${p.speedSize()}
                                 ${context.getString(R.string.remain_size)}: ${p.remainSize()}
@@ -159,7 +159,7 @@ class UpdateUtils(val context: Context) {
                     }
                 })
             }.await()
-            downloadDialog.findViewById<MaterialButton>(R.id.install_button)?.apply {
+            binding.installButton.apply {
                 isVisible = true
                 text = context.getString(R.string.install_button)
                 setOnClickListener {
@@ -182,7 +182,7 @@ class UpdateUtils(val context: Context) {
             intent.setDataAndType(uri, "application/vnd.android.package-archive")
             context.startActivity(intent)
         } else {
-            context.toast(context.getString(R.string.install_apk_toast))
+            context.showToast(context.getString(R.string.install_apk_toast))
             val intent = Intent(
                 Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
                 Uri.parse("package:${context.packageName}")

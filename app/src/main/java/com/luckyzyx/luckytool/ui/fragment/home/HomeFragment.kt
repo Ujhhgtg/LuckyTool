@@ -13,15 +13,14 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
+import com.luckyzyx.luckytool.databinding.LayoutOplusotaDialogBinding
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.*
 
@@ -93,56 +92,57 @@ class HomeFragment : Fragment(), MenuProvider {
 
         binding.systemInfo.apply {
             setOnLongClickListener {
-                val oplusOtaDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                val binding = LayoutOplusotaDialogBinding.inflate(layoutInflater)
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setTitle("OPLUS OTA")
-                    setView(R.layout.layout_oplusota_dialog)
+                    setView(binding.root)
                 }.show()
-                val productModel =
-                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_product_model)
-                        ?.apply {
-                            setText(getProp("ro.product.name"))
-                            setOnLongClickListener {
-                                context.copyStr(text as CharSequence)
-                                true
-                            }
-                        }
-                val otaVersion =
-                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_ota_version)
-                        ?.apply {
-                            setText(getProp("ro.build.version.ota"))
-                            setOnLongClickListener {
-                                context.copyStr(text as CharSequence)
-                                true
-                            }
-                        }
-                val nvIdentifier =
-                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_nv_identifier)
-                        ?.apply {
-                            setText(getProp("ro.build.oplus_nv_id"))
-                            setOnLongClickListener {
-                                context.copyStr(text as CharSequence)
-                                true
-                            }
-                        }
-                val guid =
-                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_guid)?.apply {
-                        setText(getGuid)
-                        setOnLongClickListener {
-                            context.copyStr(text as CharSequence)
-                            true
-                        }
+                val productModel = binding.oplusotaProductModel.apply {
+                    setText(getProp("ro.product.name"))
+                    setOnLongClickListener {
+                        context.copyStr(text as CharSequence)
+                        true
                     }
-                val recruit =
-                    oplusOtaDialog.findViewById<TextInputEditText>(R.id.oplusota_recruit)?.apply {
-                        setText(getRecruit)
-                        setOnLongClickListener {
-                            context.copyStr(text as CharSequence)
-                            true
-                        }
+                }
+                val otaVersion = binding.oplusotaOtaVersion.apply {
+                    setText(getProp("ro.build.version.ota"))
+                    setOnLongClickListener {
+                        context.copyStr(text as CharSequence)
+                        true
                     }
-                oplusOtaDialog.findViewById<MaterialButton>(R.id.oplusota_copyall)?.apply {
+                }
+                val nvIdentifier = binding.oplusotaNvIdentifier.apply {
+                    setText(getProp("ro.build.oplus_nv_id"))
+                    setOnLongClickListener {
+                        context.copyStr(text as CharSequence)
+                        true
+                    }
+                }
+                val guid = binding.oplusotaGuid.apply {
+                    setText(getGuid)
+                    setOnLongClickListener {
+                        context.copyStr(text as CharSequence)
+                        true
+                    }
+                }
+                val recruit = binding.oplusotaRecruit.apply {
+                    setText(getRecruit)
+                    setOnLongClickListener {
+                        context.copyStr(text as CharSequence)
+                        true
+                    }
+                }
+                binding.oplusotaCopyall.apply {
                     setOnClickListener {
-                        context.copyStr("ro.product.name -> ${productModel?.text}\nro.build.version.ota -> ${otaVersion?.text}\nro.build.oplus_nv_id -> ${nvIdentifier?.text}\nguid -> ${guid?.text}\nrecruit -> ${recruit?.text}\n")
+                        context.copyStr(
+                            """
+                                ro.product.name -> ${productModel.text}
+                                ro.build.version.ota -> ${otaVersion.text}
+                                ro.build.oplus_nv_id -> ${nvIdentifier.text}
+                                guid -> ${guid.text}
+                                recruit -> ${recruit.text}
+                            """.trimIndent()
+                        )
                     }
                 }
                 true

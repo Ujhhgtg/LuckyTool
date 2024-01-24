@@ -23,8 +23,6 @@ import com.drake.net.scope.AndroidScope
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.log.data.YLogData
@@ -33,6 +31,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentLogsBinding
+import com.luckyzyx.luckytool.databinding.LayoutLogFilterDialogBinding
 import com.luckyzyx.luckytool.databinding.LayoutLoginfoItemBinding
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -45,7 +44,7 @@ import com.luckyzyx.luckytool.utils.getAppIcon
 import com.luckyzyx.luckytool.utils.getAppLabel
 import com.luckyzyx.luckytool.utils.getDeviceInfo
 import com.luckyzyx.luckytool.utils.setupMenuProvider
-import com.luckyzyx.luckytool.utils.toast
+import com.luckyzyx.luckytool.utils.showToast
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -153,19 +152,20 @@ class LoggerFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == 1) loadLogger()
         if (menuItem.itemId == 2) {
-            val dialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+            val binding = LayoutLogFilterDialogBinding.inflate(layoutInflater)
+            MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                 setTitle(getString(R.string.log_filter_title))
-                setView(R.layout.layout_log_filter_dialog)
+                setView(binding.root)
                 setPositiveButton(android.R.string.ok) { _, _ ->
                     logInfoViewAdapter?.getFilter?.filter(filterString)
                 }
                 setNeutralButton(android.R.string.cancel, null)
             }.show()
-            dialog.findViewById<TextInputLayout>(R.id.log_filter_layout)?.apply {
+            binding.logFilterLayout.apply {
                 hint = getString(R.string.log_filter_layout_hint)
                 isCounterEnabled = true
             }
-            dialog.findViewById<TextInputEditText>(R.id.log_filter)?.apply {
+            binding.logFilter.apply {
                 setText(filterString)
                 addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
                     filterString = text.toString()
@@ -195,13 +195,13 @@ class LoggerFragment : Fragment(), MenuProvider {
 
     private fun saveFile(fileName: String) {
         checkDirs()
-        if (listData.isEmpty()) requireActivity().toast(getString(R.string.log_data_is_empty))
+        if (listData.isEmpty()) requireActivity().showToast(getString(R.string.log_data_is_empty))
         else createDocument.launch(fileName)
     }
 
     private fun shareFile(fileName: String) {
         checkDirs()
-        if (listData.isEmpty()) requireActivity().toast(getString(R.string.log_data_is_empty))
+        if (listData.isEmpty()) requireActivity().showToast(getString(R.string.log_data_is_empty))
         else {
             logsDir.mkdirs()
             val logFile = File(logsDir, fileName)
@@ -230,13 +230,13 @@ class LoggerFragment : Fragment(), MenuProvider {
                     it.write(str.toByteArray())
                 }
             }
-            context.toast(getString(R.string.log_save_success))
+            context.showToast(getString(R.string.log_save_success))
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
-            context.toast(getString(R.string.log_save_failed))
+            context.showToast(getString(R.string.log_save_failed))
         } catch (e: IOException) {
             e.printStackTrace()
-            context.toast(getString(R.string.log_save_failed))
+            context.showToast(getString(R.string.log_save_failed))
         }
     }
 
@@ -317,29 +317,29 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
     }
 
     val getFilter = object : Filter() {
-            override fun performFiltering(constraint: CharSequence): FilterResults {
-                filterData = if (constraint.isBlank()) {
-                    allData
-                } else {
-                    val filterlist = ArrayList<YLogData>()
-                    allData.forEach {
-                        if (it.toString().lowercase().contains(constraint.toString().lowercase())) {
-                            filterlist.add(it)
-                        }
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            filterData = if (constraint.isBlank()) {
+                allData
+            } else {
+                val filterlist = ArrayList<YLogData>()
+                allData.forEach {
+                    if (it.toString().lowercase().contains(constraint.toString().lowercase())) {
+                        filterlist.add(it)
                     }
-                    filterlist
                 }
-                val filterResults = FilterResults()
-                filterResults.values = filterData
-                return filterResults
+                filterlist
             }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                filterData = results?.values as ArrayList<YLogData>
-                refreshDatas()
-            }
+            val filterResults = FilterResults()
+            filterResults.values = filterData
+            return filterResults
         }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun publishResults(constraint: CharSequence, results: FilterResults?) {
+            filterData = results?.values as ArrayList<YLogData>
+            refreshDatas()
+        }
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun refreshDatas() {

@@ -179,7 +179,7 @@ class ShortcutUtils(val context: Context) {
      * @return Any
      */
     fun setDynamicShortcuts() = safeOf({
-        context.toast("Set Dynamic Shortcuts Error!")
+        context.showToast("Set Dynamic Shortcuts Error!")
     }) {
         val shortcutManager =
             context.getSystemService(ShortcutManager::class.java) as ShortcutManager
@@ -192,7 +192,7 @@ class ShortcutUtils(val context: Context) {
      * @param list Array<out ShortcutInfo>
      */
     fun setDynamicShortcuts(list: ArrayList<ShortcutInfo>) = safeOf({
-        context.toast("Set Dynamic Shortcuts Error!")
+        context.showToast("Set Dynamic Shortcuts Error!")
     }) {
         val shortcutManager =
             context.getSystemService(ShortcutManager::class.java) as ShortcutManager

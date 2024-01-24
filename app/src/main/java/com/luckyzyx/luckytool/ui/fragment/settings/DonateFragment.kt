@@ -27,7 +27,7 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
-import com.luckyzyx.luckytool.utils.toast
+import com.luckyzyx.luckytool.utils.showToast
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import org.json.JSONArray
@@ -116,8 +116,7 @@ class DonateFragment : Fragment(), MenuProvider {
             if (file.readText().contains("datas")) {
                 val jsonEncrypt = AESCrypt.encrypt(file.readText())
                 file.writeText(jsonEncrypt)
-            }
-            if (file.readText().contains("datas").not()) loadJson(context, file)
+            } else loadJson(context, file)
         }
     }
 
@@ -130,7 +129,7 @@ class DonateFragment : Fragment(), MenuProvider {
             }
             if (jsonObject == null) {
                 file.delete()
-                context.toast(getString(R.string.donate_data_decode_error))
+                context.showToast(getString(R.string.donate_data_decode_error))
                 return@scopeLife
             }
 
@@ -157,6 +156,7 @@ class DonateFragment : Fragment(), MenuProvider {
                 val obj = datas.optJSONObject(i) ?: continue
                 val name = obj.optString("name")
                 if (filterString.isNotBlank() && name.contains(filterString).not()) continue
+                
                 val details = obj.optJSONArray("details") ?: continue
                 for (o in 0 until details.length()) {
                     val info = details.optJSONObject(o) ?: continue

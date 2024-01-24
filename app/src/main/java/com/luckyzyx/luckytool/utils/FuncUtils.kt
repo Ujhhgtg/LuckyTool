@@ -252,11 +252,11 @@ fun Context.checkResolveActivity(packName: String, className: String): Boolean =
  * @param id Int
  * @param long Boolean?
  */
-fun Context.toast(id: Int, long: Boolean? = false) {
-    toast(getString(id), long)
+fun Context.showToast(id: Int, long: Boolean? = false) {
+    showToast(getString(id), long)
 }
 
-fun Context.toast(msg: String, long: Boolean? = false) = if (long == true) {
+fun Context.showToast(msg: String, long: Boolean? = false) = if (long == true) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 } else {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
@@ -324,7 +324,7 @@ fun setRefresh(context: Context, name: String, minRefresh: String?, peakRefresh:
 fun setParameter(context: Context, name: String, key: String?, value: String?) {
     val contentResolver = context.contentResolver
     safeOf({
-        context.toast("apply $name Hz failed!")
+        context.showToast("apply $name Hz failed!")
     }) {
         val contentValues = ContentValues(2)
         contentValues.put("name", key)
