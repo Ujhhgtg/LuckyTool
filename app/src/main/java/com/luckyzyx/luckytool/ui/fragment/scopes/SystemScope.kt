@@ -3199,6 +3199,12 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    if (newValue as Boolean) findPreference<SwitchPreference>(
+                        "enable_hasselblad_watermark_style"
+                    )?.isChecked = false
+                    true
+                }
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_hasselblad_watermark_style)
@@ -3206,6 +3212,12 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    if (newValue as Boolean) findPreference<SwitchPreference>(
+                        "enable_frame_watermark_style"
+                    )?.isChecked = false
+                    true
+                }
             })
             addPreference(EditTextPreference(context).apply {
                 title = getString(R.string.custom_model_watermark)
