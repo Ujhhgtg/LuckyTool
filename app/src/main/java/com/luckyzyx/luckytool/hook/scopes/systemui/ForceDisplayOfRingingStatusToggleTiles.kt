@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
@@ -8,7 +9,10 @@ import com.highcapable.yukihookapi.hook.factory.method
 object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
     override fun onHook() {
         //Source QSTileHostHelper
-        "com.oplus.systemui.qs.helper.QSTileHostHelper".toClass().apply {
+        VariousClass(
+            "com.oplusos.systemui.qs.helper.QSTileHostHelper",  //C13
+            "com.oplus.systemui.qs.helper.QSTileHostHelper"  //C14
+        ).toClass().apply {
             method { name = "getDfltUnsupportedTileString" }.hook {
                 after {
                     val list = result<List<String>>()?.toMutableList()?.apply {
@@ -20,7 +24,10 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         }
 
         //Source OplusQSFactoryImpl
-        "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl".toClass().apply {
+        VariousClass(
+            "com.oplusos.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C13
+            "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl"  //C14
+        ).toClass().apply {
             method { name = "createTileInternal" }.hook {
                 before {
                     val key = args().first().string()
@@ -35,7 +42,10 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         }
 
         //Source RingerModeTile
-        "com.oplus.systemui.qs.tiles.FlavorOneRingerModeTile".toClass().apply {
+        VariousClass(
+            "com.oplusos.systemui.qs.tiles.FlavorOneRingerModeTile",  //C13
+            "com.oplus.systemui.qs.tiles.FlavorOneRingerModeTile"  //C14
+        ).toClass().apply {
             method { name = "isAvailable";superClass(true) }.hook {
                 replaceToTrue()
             }

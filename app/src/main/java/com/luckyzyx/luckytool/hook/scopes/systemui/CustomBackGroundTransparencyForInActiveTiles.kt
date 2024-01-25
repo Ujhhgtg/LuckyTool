@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.drawable.ShapeDrawable
 import android.view.View
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.method
@@ -14,7 +15,7 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
         val customAlpha =
             prefs(ModulePrefs).getInt("custom_background_transparency_for_inactive_tiles", -1)
 
-        //Source OplusQsMediaPanelBgDrawable
+        //Source OplusQsMediaPanelBgDrawable status_bar_qs_tile_bg_color_inactive
         "com.oplus.systemui.qs.media.OplusQsMediaPanelBgDrawable".toClass().apply {
             constructor { paramCount = 5 }.hook {
                 before {
@@ -30,7 +31,10 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
         }
 
         //Source OplusQSTileBaseView status_bar_qs_tile_bg_color_inactive
-        "com.oplus.systemui.qs.qstileimpl.OplusQSTileBaseView".toClass().apply {
+        VariousClass(
+            "com.oplusos.systemui.qs.qstileimpl.OplusQSTileBaseView",  //C13
+            "com.oplus.systemui.qs.qstileimpl.OplusQSTileBaseView"  //C14
+        ).toClass().apply {
             method { name = "generateDrawable" }.hook {
                 after {
                     if (customAlpha < 0) return@after
@@ -49,7 +53,10 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
         }
 
         //Source OplusQSHighlightTileView status_bar_qs_tile_bg_color_inactive
-        "com.oplus.systemui.qs.qstileimpl.OplusQSHighlightTileView".toClass().apply {
+        VariousClass(
+            "com.oplusos.systemui.qs.qstileimpl.OplusQSHighlightTileView",  //C13
+            "com.oplus.systemui.qs.qstileimpl.OplusQSHighlightTileView"  //C14
+        ).toClass().apply {
             method { name = "generateDrawable" }.hook {
                 after {
                     if (customAlpha < 0) return@after
