@@ -18,6 +18,7 @@ import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForU
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
+import com.luckyzyx.luckytool.hook.hookers.HookAudioEffectCenter
 import com.luckyzyx.luckytool.hook.hookers.HookAudioMonitor
 import com.luckyzyx.luckytool.hook.hookers.HookBattery
 import com.luckyzyx.luckytool.hook.hookers.HookBrowser
@@ -169,6 +170,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.oplus.audiomonitor", HookAudioMonitor)
         //atlasService
         loadApp("com.oplus.atlas", HookAtlasService)
+        //audioEffectCenter
+        loadApp("com.oplus.audio.effectcenter", HookAudioEffectCenter)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
@@ -183,12 +186,16 @@ object MainHook : IYukiHookXposedInit {
                     if (lpparam.processName == "android") when (SDK) {
                         UPSIDE_DOWN_CAKE -> CorePatchForU()
                             .handleLoadPackage(lpparam)
+
                         TIRAMISU -> CorePatchForT()
                             .handleLoadPackage(lpparam)
+
                         S, S_V2 -> CorePatchForS()
                             .handleLoadPackage(lpparam)
+
                         R -> CorePatchForR()
                             .handleLoadPackage(lpparam)
+
                         else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
                     }
                     DisableFlagSecure().handleLoadPackage(lpparam)
@@ -200,10 +207,13 @@ object MainHook : IYukiHookXposedInit {
                 when (SDK) {
                     UPSIDE_DOWN_CAKE -> CorePatchForU()
                         .initZygote(startupParam)
+
                     TIRAMISU -> CorePatchForT()
                         .initZygote(startupParam)
+
                     S, S_V2 -> CorePatchForS()
                         .initZygote(startupParam)
+
                     R -> CorePatchForR().initZygote(startupParam)
                 }
             }

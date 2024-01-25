@@ -4176,7 +4176,12 @@ class OplusPhoneManager : BaseScopePreferenceFeagment() {
 @Obfuscate
 class OplusSoundRecorder : BaseScopePreferenceFeagment() {
     override val scopes =
-        arrayOf("com.coloros.soundrecorder", "com.oplus.audiomonitor", "com.oplus.atlas")
+        arrayOf(
+            "com.coloros.soundrecorder",
+            "com.oplus.audiomonitor",
+            "com.oplus.atlas",
+            "com.oplus.audio.effectcenter"
+        )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -4192,7 +4197,7 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isEnabled = context.checkPackName("com.oplus.audiomonitor") &&
                         context.checkPackName("com.oplus.atlas")
-                isVisible = SDK >= A14 && isZh(context)
+                isVisible = osCode >= 30 && isZh(context)
                 isIconSpaceReserved = false
             })
         }

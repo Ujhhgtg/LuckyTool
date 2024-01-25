@@ -3,17 +3,18 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.soundrecorder.HookBaseUtil
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookSoundRecorder : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         loadHooker(HookGlobalSystemProperties)
 
         //启用三方应用通话录音
         if (prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)) {
-            if (SDK >= A14) loadHooker(HookBaseUtil)
+            if (osCode >= 30) loadHooker(HookBaseUtil)
         }
     }
 }

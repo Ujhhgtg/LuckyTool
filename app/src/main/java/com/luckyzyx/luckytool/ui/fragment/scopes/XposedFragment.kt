@@ -28,7 +28,6 @@ import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.arraySummaryDot
@@ -600,7 +599,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                 summary = arraySummaryLine(
                     getString(R.string.enable_record_calls_on_third_party_apps)
                 )
-                isVisible = SDK >= A14 && context.checkPackName(key)
+                isVisible = getOSVersionCode >= 30 && context.checkPackName(key)
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_function_to_oplusSoundRecorder, title)
                     true

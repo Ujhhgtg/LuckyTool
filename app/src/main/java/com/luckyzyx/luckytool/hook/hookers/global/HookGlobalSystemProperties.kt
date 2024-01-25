@@ -4,9 +4,12 @@ import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.android.HookSystemProperties
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookGlobalSystemProperties : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         val list = ArrayMap<String, Any>().apply {
             //Source SystemUI OplusVolumeDialogImpl 音量条位置
             when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {
@@ -35,7 +38,7 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
 
             //Source SoundRecorder / AtlasService 三方应用通话录音
             if (prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)) {
-                put("ro.oplus.audio.voip_record_white_app_support", true)
+                if (osCode >= 30) put("ro.oplus.audio.voip_record_white_app_support", true)
             }
 
             //Source Android OplusFeatureMEMC 启用视频动态插帧
