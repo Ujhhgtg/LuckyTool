@@ -1,14 +1,15 @@
 package com.luckyzyx.luckytool.hook.scopes.market
 
+import android.animation.LayoutTransition
+import android.view.View
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.highcapable.yukihookapi.hook.type.android.ImageViewClass
 import com.highcapable.yukihookapi.hook.type.android.LayoutInflaterClass
+import com.highcapable.yukihookapi.hook.type.android.MotionEventClass
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
-import com.highcapable.yukihookapi.hook.type.android.ValueAnimatorClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
-import com.highcapable.yukihookapi.hook.type.android.ViewGroup_LayoutParamsClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
@@ -23,7 +24,6 @@ import org.luckypray.dexkit.DexKitBridge
 class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val cardDto = "com.heytap.cdo.card.domain.dto.CardDto"
-        val imageLoader = "com.nearme.imageloader.ImageLoader"
 
         //Source AppUpdateFragment
         dexKitBridge.findMethod {
@@ -53,43 +53,49 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             }
         }
 
-        //Source APPUpdateItemHolder list_item_product_upgrade
+        //Source APPUpdateItemHolder list_item_product_upgrade -> BaseDownloadItemHolder
         dexKitBridge.findClass {
             searchPackages("com.heytap.cdo.client.ui.upgrademgr")
             matcher {
                 fields {
+                    addForType(IntType)
                     addForType(BooleanType)
-                    addForType(ViewGroupClass)
+                    addForType(StringClass)
+                    addForType(ContextClass)
+                    addForType(ViewClass)
+                    addForType(ImageViewClass)
                     addForType(TextViewClass)
-                    addForType(imageLoader)
+                    addForType(LayoutInflaterClass)
+                    addForType(LayoutTransition::class.java)
+                    addForType(View.OnClickListener::class.java)
                 }
                 methods {
                     add {
-                        paramTypes(ContextClass, IntType)
+                        paramTypes(MapClass)
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(
-                            ContextClass, StringClass, IntType, IntType
-                        )
+                        paramTypes(ViewClass, MotionEventClass)
+                        returnType(BooleanType)
+                        usingNumbers(0, 1)
+                    }
+                    add {
+                        paramTypes(ViewClass)
+                        returnType(BooleanType)
+                        usingNumbers(0, 1)
+                    }
+                    add {
+                        paramTypes(IntType)
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(ViewClass, BooleanType, BooleanType)
+                        paramTypes(BooleanType)
                         returnType(UnitType)
                     }
-                    add {
-                        paramTypes(LayoutInflaterClass);returnType(ViewClass)
-                    }
-                    add {
-                        paramTypes(ViewGroup_LayoutParamsClass, ValueAnimatorClass)
-                        returnType(UnitType)
-                    }
-
                 }
             }
         }.apply {
-            checkDataList("RemoveMarketUpdatePageAppRecommend APPUpdateItemHolder")
+            checkDataList("RemoveMarketUpdatePageAppRecommend BaseDownloadItemHolder")
             single().name.toClass().apply {
                 method {
                     param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
