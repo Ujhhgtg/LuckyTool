@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.browser
 
 import android.view.View
 import androidx.core.view.isVisible
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
@@ -12,7 +13,10 @@ import org.luckypray.dexkit.DexKitBridge
 
 class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
-        val recommendConfig = "com.heytap.browser.downloads.entity.RecommendConfig"
+        val recommendConfig = VariousClass(
+            "com.heytap.browser.downloads.entity.RecommendConfig",  //v40.8.24.1
+            "com.heytap.browser.download.ui.downloadlist.model.RecommendConfig"  //v40.8.25.1
+        ).toClass()
 
         //Source AppRecommendManager -> LinearLayout setVisibility 0/8 500L
         dexKitBridge.findMethod {
