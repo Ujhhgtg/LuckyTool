@@ -57,9 +57,11 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
                 }.hook {
                     before {
                         val dto = args().first().any() ?: return@before
-                        val cards = dto.current().method { name = "getCards" }
-                            .invoke<List<Any>>()?.toMutableList() ?: return@before
-                        cards.removeIf { cards.indexOf(it) != 0 }
+                        val cards = dto.current().method {
+                            name = "getCards"
+                        }.invoke<List<Any>>()?.toMutableList()?.apply {
+                            removeIf { indexOf(it) != 0 }
+                        } ?: return@before
                         dto.current().method { name = "setCards" }.call(ArrayList(cards))
                     }
                 }

@@ -1,15 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.market
 
-import android.animation.LayoutTransition
-import android.view.View
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.ImageViewClass
 import com.highcapable.yukihookapi.hook.type.android.LayoutInflaterClass
-import com.highcapable.yukihookapi.hook.type.android.MotionEventClass
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
+import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
@@ -24,6 +22,7 @@ import org.luckypray.dexkit.DexKitBridge
 class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val cardDto = "com.heytap.cdo.card.domain.dto.CardDto"
+        val imageLoader = "com.nearme.imageloader.ImageLoader"
 
         //Source AppUpdateFragment
         dexKitBridge.findMethod {
@@ -53,55 +52,52 @@ class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             }
         }
 
-        //Source APPUpdateItemHolder list_item_product_upgrade -> BaseDownloadItemHolder
+        //Source APPUpdateItemHolder list_item_product_upgrade
         dexKitBridge.findClass {
             searchPackages("com.heytap.cdo.client.ui.upgrademgr")
             matcher {
                 fields {
-                    addForType(IntType)
-                    addForType(BooleanType)
-                    addForType(StringClass)
-                    addForType(ContextClass)
-                    addForType(ViewClass)
-                    addForType(ImageViewClass)
+                    addForType(ViewGroupClass)
                     addForType(TextViewClass)
-                    addForType(LayoutInflaterClass)
-                    addForType(LayoutTransition::class.java)
-                    addForType(View.OnClickListener::class.java)
+                    addForType(imageLoader)
                 }
                 methods {
                     add {
-                        paramTypes(MapClass)
+                        paramTypes(ContextClass, IntType)
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(ViewClass, MotionEventClass)
-                        returnType(BooleanType)
-                        usingNumbers(0, 1)
-                    }
-                    add {
-                        paramTypes(ViewClass)
-                        returnType(BooleanType)
-                        usingNumbers(0, 1)
-                    }
-                    add {
-                        paramTypes(IntType)
+                        paramTypes(
+                            ContextClass, StringClass, IntType, IntType
+                        )
                         returnType(UnitType)
                     }
                     add {
-                        paramTypes(BooleanType)
+                        paramTypes(ViewClass, BooleanType)
                         returnType(UnitType)
+                    }
+                    add {
+                        paramCount(0)
+                        returnType(ViewClass)
+                    }
+                    add {
+                        paramTypes(LayoutInflaterClass);returnType(ViewClass)
                     }
                 }
             }
         }.apply {
-            checkDataList("RemoveMarketUpdatePageAppRecommend BaseDownloadItemHolder")
+            checkDataList("RemoveMarketUpdatePageAppRecommend APPUpdateItemHolder")
             single().name.toClass().apply {
-                method {
-                    param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
-                    returnType(UnitType)
-                }.hook {
-                    intercept()
+                if (hasMethod {
+                        param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
+                        returnType(UnitType)
+                    }) {
+                    method {
+                        param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
+                        returnType(UnitType)
+                    }.hook {
+                        intercept()
+                    }
                 }
             }
         }
