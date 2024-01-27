@@ -22,7 +22,7 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 method { name = "onFinishInflate" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
-                method { name = "onLayout" }.hook {
+                method { name = "reInflateViews" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
             }
@@ -57,7 +57,7 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 method { name = "onFinishInflate" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
-                method { name = "onLayout" }.hook {
+                method { name = "reInflateViews" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
             }
