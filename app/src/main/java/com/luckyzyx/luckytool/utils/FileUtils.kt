@@ -12,13 +12,17 @@ import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.ArrayMap
 import androidx.core.content.FileProvider
 import com.luckyzyx.luckytool.BuildConfig
 import com.topjohnwu.superuser.ShellUtils
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserException
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
@@ -291,5 +295,63 @@ object FileUtils {
      */
     fun forceDeleteFile(path: String) {
         ShellUtils.fastCmd("rm -rf $path")
+    }
+
+    /**
+     * 解析Xml文件到Map
+     * @param file File
+     * @return Map<String, String>
+     */
+    fun parseXmlToMap(file: File): Map<String, String> {
+        val mapData = ArrayMap<String, String>()
+        try {
+            val fileInputStream = FileInputStream(file)
+            val xmlParser = android.util.Xml.newPullParser()
+            xmlParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
+            xmlParser.setInput(fileInputStream, null)
+
+            var eventType = xmlParser.eventType
+            var key: String? = null
+            var value: String? = null
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                when (eventType) {
+                    XmlPullParser.START_TAG -> {
+                        if (xmlParser.name == "string") {
+                            key = xmlParser.getAttributeValue(null, "name")
+                        }
+                        if (xmlParser.name == "int" || xmlParser.name == "boolean") {
+                            key = xmlParser.getAttributeValue(null, "name")
+                        }
+                    }
+
+                    XmlPullParser.TEXT -> {
+                        if (xmlParser.name == "string") {
+                            value = xmlParser.text
+                        }
+                        if (xmlParser.name == "int" || xmlParser.name == "boolean") {
+                            value = xmlParser.getAttributeValue(null, "value")
+                        }
+                    }
+
+                    XmlPullParser.END_TAG -> {
+                        if (xmlParser.name == "string") {
+                            if (key != null && value != null) {
+                                mapData[key] = value
+                                key = null
+                                value = null
+                            }
+                        }
+                    }
+                }
+                eventType = xmlParser.next()
+            }
+            fileInputStream.close()
+        } catch (e: XmlPullParserException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return mapData
     }
 }

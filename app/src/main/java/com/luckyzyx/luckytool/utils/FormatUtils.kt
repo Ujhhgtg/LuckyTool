@@ -134,6 +134,7 @@ fun formatStringAuto(
     allowNull: Boolean = true, allowRepeat: Boolean = true
 ): String {
     var finalText = ""
+    if (formats.isEmpty()) return finalText
     formats.forEachIndexed { index, str ->
         if (allowNull.not() && str.isNullOrBlank()) return@forEachIndexed
         finalText += str

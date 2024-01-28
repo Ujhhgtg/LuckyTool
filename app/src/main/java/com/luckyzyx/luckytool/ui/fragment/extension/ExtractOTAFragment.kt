@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemProperties
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,8 @@ import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
+import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
 import com.luckyzyx.luckytool.utils.SQLiteUtils
 import com.luckyzyx.luckytool.utils.SQLiteUtils.getTableData
@@ -23,7 +24,12 @@ import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.formatFileSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getModelMarketName
+import com.luckyzyx.luckytool.utils.getPcbInfo
+import com.luckyzyx.luckytool.utils.getRecruit
+import com.luckyzyx.luckytool.utils.getSnInfo
+import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
+import org.json.JSONObject
 
 @Obfuscate
 class ExtractOTAFragment : Fragment() {
@@ -60,6 +66,7 @@ class ExtractOTAFragment : Fragment() {
                 val list = ArrayList<String>()
                 if (cursor != null) {
                     val packNameIndex = cursor.getColumnIndex("package_name")
+//                    val versionNameIndex = cursor.getColumnIndex("version_name")
                     val sizeIndex = cursor.getColumnIndex("size")
                     val md5Index = cursor.getColumnIndex("md5")
                     val activeUrlIndex = cursor.getColumnIndex("active_url")
@@ -84,8 +91,22 @@ class ExtractOTAFragment : Fragment() {
                         list.add("")
                         list.add("MD5: $md5")
                         list.add("")
-                        list.add("${getString(R.string.extract_ota_source)}: @LuckyTool")
                     }
+                    val json = JSONObject().apply {
+                        put("product_name", Build.MODEL)
+                        put("nv_id", SystemProperties.get("ro.build.oplus_nv_id"))
+                        put("pcb", getPcbInfo)
+                        put("sn", getSnInfo)
+                        put("recruit", getRecruit)
+                    }
+                    val encrypt = safeOfNull {
+                        AESCrypt.encrypt(json.toString(), "otatoolsotatools")
+                    } ?: ""
+                    if (encrypt.isNotBlank()) {
+                        list.add("Verity: $encrypt")
+                        list.add("")
+                    }
+                    list.add("Source: @LuckyTool")
                 }
                 list
             }

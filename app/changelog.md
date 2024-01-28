@@ -26,6 +26,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 强制显示响铃状态切换磁贴 C12+
 - [修复] 软件商店更新页面信息流Hook异常 v11.8.0(89838fc)
 - [适配] 浏览器下载页面底部信息流 v40.8.25.1(c2a4a8f)
+- [优化] 提取OTA信息添加Verity字段
 
 ### 1.1.8
 
