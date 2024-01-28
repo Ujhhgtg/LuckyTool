@@ -23,6 +23,7 @@ import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.formatFileSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
+import com.luckyzyx.luckytool.utils.getGuid
 import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.getPcbInfo
 import com.luckyzyx.luckytool.utils.getRecruit
@@ -97,6 +98,7 @@ class ExtractOTAFragment : Fragment() {
                         put("nv_id", SystemProperties.get("ro.build.oplus_nv_id"))
                         put("pcb", getPcbInfo)
                         put("sn", getSnInfo)
+                        put("guid", getGuid)
                         put("recruit", getRecruit)
                     }
                     val encrypt = safeOfNull {
