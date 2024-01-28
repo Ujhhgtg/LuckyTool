@@ -23,11 +23,11 @@ import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.formatFileSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
-import com.luckyzyx.luckytool.utils.getGuid
 import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.getPcbInfo
 import com.luckyzyx.luckytool.utils.getRecruit
 import com.luckyzyx.luckytool.utils.getSnInfo
+import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
 import org.json.JSONObject
@@ -93,12 +93,12 @@ class ExtractOTAFragment : Fragment() {
                         list.add("MD5: $md5")
                         list.add("")
                     }
+                    if (list.isEmpty()) return@withDefault list
                     val json = JSONObject().apply {
                         put("product_name", Build.MODEL)
                         put("nv_id", SystemProperties.get("ro.build.oplus_nv_id"))
                         put("pcb", getPcbInfo)
                         put("sn", getSnInfo)
-                        put("guid", getGuid)
                         put("recruit", getRecruit)
                     }
                     val encrypt = safeOfNull {
@@ -123,6 +123,7 @@ class ExtractOTAFragment : Fragment() {
                     setOnClickListener { context.copyStr(binding.otaData.text) }
                 }
             }
+            if (isZh(context)) binding.tips.text = "使用此功能时,禁止随意删除任何文字"
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }

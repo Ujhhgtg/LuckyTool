@@ -18,7 +18,7 @@
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    
+            
             <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/ota_data"
                     android:textSize="16sp"
@@ -28,9 +28,9 @@
                     android:paddingHorizontal="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            
-        </androidx.core.widget.NestedScrollView>
         
+        </androidx.core.widget.NestedScrollView>
+    
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     
     <com.google.android.material.divider.MaterialDivider
@@ -70,6 +70,13 @@
                 android:id="@+id/copy_ota_data"
                 android:text="@android:string/copy"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tips"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
     
     </LinearLayout>
