@@ -184,18 +184,10 @@ object MainHook : IYukiHookXposedInit {
             run {
                 if (lpparam.packageName == "android") {
                     if (lpparam.processName == "android") when (SDK) {
-                        UPSIDE_DOWN_CAKE -> CorePatchForU()
-                            .handleLoadPackage(lpparam)
-
-                        TIRAMISU -> CorePatchForT()
-                            .handleLoadPackage(lpparam)
-
-                        S, S_V2 -> CorePatchForS()
-                            .handleLoadPackage(lpparam)
-
-                        R -> CorePatchForR()
-                            .handleLoadPackage(lpparam)
-
+                        UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
+                        TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
+                        S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
+                        R -> CorePatchForR().handleLoadPackage(lpparam)
                         else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
                     }
                     DisableFlagSecure().handleLoadPackage(lpparam)
@@ -205,15 +197,9 @@ object MainHook : IYukiHookXposedInit {
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->
             run {
                 when (SDK) {
-                    UPSIDE_DOWN_CAKE -> CorePatchForU()
-                        .initZygote(startupParam)
-
-                    TIRAMISU -> CorePatchForT()
-                        .initZygote(startupParam)
-
-                    S, S_V2 -> CorePatchForS()
-                        .initZygote(startupParam)
-
+                    UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
+                    TIRAMISU -> CorePatchForT().initZygote(startupParam)
+                    S, S_V2 -> CorePatchForS().initZygote(startupParam)
                     R -> CorePatchForR().initZygote(startupParam)
                 }
             }

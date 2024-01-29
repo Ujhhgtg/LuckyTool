@@ -69,10 +69,10 @@ object HookAppDetails : YukiBaseHooker() {
                     }
                     val updateTime = if (isLastUpdateTime) "\n${lastUpdateTimeString} $updateStr"
                     else ""
-                    if (isIconMarket) appIcon.setOnClickListener {
+                    if (isIconMarket) appIcon?.setOnClickListener {
                         it.context.openMarketIntent(packName)
                     }
-                    appSize.apply {
+                    appSize?.apply {
                         if (isEnableCopy) setTextIsSelectable(true)
                         if (isPackName) text = "$packName\n$versionText$updateTime"
                     }

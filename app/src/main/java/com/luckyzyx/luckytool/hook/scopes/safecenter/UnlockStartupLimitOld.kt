@@ -51,7 +51,7 @@ class UnlockStartupLimitOld(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     returnType = UnitType
                 }.hookAll {
                     after {
-                        field { type = IntType }.get().set(10000)
+                        field { type = IntType }.get().set(999)
                     }
                 }
             }

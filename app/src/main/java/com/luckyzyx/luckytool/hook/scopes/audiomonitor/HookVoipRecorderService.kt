@@ -11,7 +11,7 @@ object HookVoipRecorderService : YukiBaseHooker() {
         //Source OplusVoipRecorderService
         "com.oplus.audiomonitor.voiprecord.OplusVoipRecorderService".toClass().apply {
             method { name = "onCreate" }.hook {
-                after {
+                before {
                     val isSupport = SystemProperties.getBoolean(prop, false)
                     if (!isSupport) ShellUtils.fastCmd("setprop $prop true")
                 }

@@ -110,36 +110,10 @@ object HookSettings : YukiBaseHooker() {
             if (SDK >= A14) loadHooker(EnableCustomAppLanguage)
         }
 
-//        //Source MultiAppVolumeAdjustmentSettingsFragment
-//        "com.oplus.settings.feature.sound.multiappvolume.MultiAppVolumeAdjustmentSettingsFragment".toClass()
-//            .apply {
-//                method { name = "init" }.hook {
-//                    before {
-//                        val context = field { name = "mContext";superClass() }.get(instance)
-//                            .cast<Context>() ?: return@before
-//                        val mHandePreference = method {
-//                            name = "findPreference";param(CharSequenceClass);superClass()
-//                        }.get(instance).call("multi_app_volume_header") ?: return@before
-//                        val id = context.resources.getIdentifier(
-//                            "image_animation_view", "id", this@HookSettings.packageName
-//                        )
-//                        val effectiveAnimationView = mHandePreference.current().method {
-//                            name = "findViewById"
-//                        }.invoke<View>(id) ?: return@before
-//                        if (effectiveAnimationView.parent != null) (effectiveAnimationView.parent as ViewGroup).removeView(
-//                            effectiveAnimationView
-//                        )
-//                    }
-//                }
-//            }
-
         //<string name="single_pulse_EM_mode_title">单脉冲调光模式</string>
         //prefs key single_pulse_EM_mode_switch
         //com.oplus.settings.feature.othersettings.development.OplusSinglePulseEMDevelopController
         //Settings Secure display_single_pulse_settings_switch Int
-
-        //darkmode_third_app
-        //com.oplus.settings.feature.display.darkmode.ui.DarkModeSettingsFragment
 
         //LTPO
         //persist.oplus.display.vrr

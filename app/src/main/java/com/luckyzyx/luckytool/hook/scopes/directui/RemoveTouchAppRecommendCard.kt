@@ -8,7 +8,7 @@ object RemoveTouchAppRecommendCard : YukiBaseHooker() {
         //Source DirectUIMainViewMode -> AppBean
         "com.coloros.directui.repository.datasource.AppBean".toClass().apply {
             method { name = "toCardUIInfo" }.hook {
-                replaceTo(null)
+                intercept()
             }
         }
     }

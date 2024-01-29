@@ -43,7 +43,9 @@ class RemoveImageSaveWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                     param(BooleanType, VagueType, BitmapClass, BooleanType)
                     returnType = BitmapClass
                 }.hook {
-                    after { result = args(2).cast<Bitmap>() ?: return@after }
+                    after {
+                        result = args(2).cast<Bitmap>() ?: return@after
+                    }
                 }
             }
         }

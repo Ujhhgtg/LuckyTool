@@ -14,22 +14,43 @@ import com.luckyzyx.luckytool.utils.SDK
 object FolderLayoutRowColume : YukiBaseHooker() {
     override fun onHook() {
         val columns = prefs(ModulePrefs).getInt("set_icon_columns_in_folder", 3)
+
         //Source OplusDeviceProfile
         "com.android.launcher3.OplusDeviceProfile".toClass().apply {
             method { name = "updateOplusFolderCellSize";paramCount = 2 }.hook {
                 after {
-                    val folderPageMarginLRDp =
-                        field { name = "inv";superClass() }.get(instance).any()
-                            ?.current()?.field { name = "folderDisplayOption" }?.any()
-                            ?.current()?.field { name = "folderPageMarginLRDp" }?.float()
-                    val metrics = field { name = "mInfo";superClass() }.get(instance).any()
-                        ?.current()?.field { name = "metrics" }?.cast<DisplayMetrics>()
-                    val lrMargin = pxFromDp(folderPageMarginLRDp, metrics) ?: 0
-                    val f = args().first().float()
-                    val availableWidthPx = field { name = "availableWidthPx";superClass() }
-                        .get(instance).int()
+                    val isLandscape = field {
+                        name = "isLandscape";superClass()
+                    }.get(instance).boolean()
+                    val oplusInvariantDeviceProfile = field {
+                        name = "inv";superClass()
+                    }.get(instance).any() ?: return@after
+                    val folderDisplayOption = oplusInvariantDeviceProfile.current().field {
+                        name = "folderDisplayOption"
+                    }.any() ?: return@after
+                    val mInfo = field {
+                        name = "mInfo";superClass()
+                    }.get(instance).any() ?: return@after
+                    val metrics = mInfo.current().field {
+                        name = "metrics"
+                    }.cast<DisplayMetrics>()
+                    val pxFromDp = if (isLandscape) {
+                        val landscapeFolderPageMarginLRDp = folderDisplayOption.current().field {
+                            name = "landscapeFolderPageMarginLRDp"
+                        }.float()
+                        pxFromDp(landscapeFolderPageMarginLRDp, metrics)
+                    } else {
+                        val folderPageMarginLRDp = folderDisplayOption.current().field {
+                            name = "folderPageMarginLRDp"
+                        }.float()
+                        pxFromDp(folderPageMarginLRDp, metrics)
+                    } ?: return@after
+                    val float = args().first().float()
+                    val availableWidthPx = field {
+                        name = "availableWidthPx";superClass()
+                    }.get(instance).int()
                     field { name = "folderCellWidthPx";superClass() }.get(instance).set(
-                        (((availableWidthPx - (lrMargin * 2)) / columns) * f).toInt()
+                        (((availableWidthPx - (pxFromDp * 2)) / columns) * float).toInt()
                     )
                 }
             }
