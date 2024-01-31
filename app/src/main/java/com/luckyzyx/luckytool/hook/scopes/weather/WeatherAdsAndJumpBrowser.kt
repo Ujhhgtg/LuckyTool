@@ -27,6 +27,7 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
 
     object HookWeatherAdsAndJump : YukiBaseHooker() {
         private const val weatherWrapper = "com.oplus.weather.main.model.WeatherWrapper"
+        private const val BrowserCommonUtils = "com.oplus.weather.plugin.webview.BrowserCommonUtils"
         override fun onHook() {
             val removeAds =
                 prefs(ModulePrefs).getBoolean("remove_weather_some_page_bottom_ads", false)
@@ -48,8 +49,8 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                 method { name = "showRainfallPanel" }.hook {
                     before {
                         if (!disableJump) return@before
-                        val wrapper = field { type = weatherWrapper }.get(instance).any()
-                            ?: return@before
+                        val wrapper =
+                            field { type = weatherWrapper }.get(instance).any() ?: return@before
                         wrapper.current().method { name = "setRainFallAdLink" }.call("")
                     }
                 }
@@ -105,20 +106,16 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
         ) {
             before {
                 val context = args.find { it is Context } ?: return@before
-                val url = args(2).cast<String>()
-                if (url.isNullOrBlank()) return@before
-                val statisticsTag = args(3).cast<String>()
-                if (statisticsTag.isNullOrBlank()) return@before
+                val url = args(2).string()
+                val statisticsTag = args(3).string()
 
                 //CCTV
                 if (url.startsWith("heytapbrowser://")) return@before
 
                 if (removeAds) args(2).set(formatWeatherUrl(url))
                 if (disableJump) {
-                    val newUrl = args(2).cast<String>()
-                    if (newUrl.isNullOrBlank()) return@before
-                    val clazz = "com.oplus.weather.plugin.webview.BrowserCommonUtils"
-                    startWebActivity(clazz.toClass(), context, newUrl, statisticsTag)
+                    val newUrl = args(2).string()
+                    startWebActivity(BrowserCommonUtils.toClass(), context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
@@ -144,8 +141,12 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                     methods {
                         add {
                             paramTypes(
-                                IntType, ContextClass, StringClass,
-                                StringClass, BooleanType, BooleanType
+                                IntType,
+                                ContextClass,
+                                StringClass,
+                                StringClass,
+                                BooleanType,
+                                BooleanType
                             )
                             returnType(UnitType)
                             usingStrings(
@@ -154,14 +155,11 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                         }
                         add {
                             paramTypes(
-                                ContextClass, IntType, StringClass,
-                                StringClass, BooleanType
+                                ContextClass, IntType, StringClass, StringClass, BooleanType
                             )
                             returnType(UnitType)
                             usingStrings(
-                                "com.heytap.browser",
-                                "com.android.browser",
-                                "com.coloros.browser"
+                                "com.heytap.browser", "com.android.browser", "com.coloros.browser"
                             )
                         }
 
@@ -172,8 +170,12 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                 single().name.toClass().apply {
                     method {
                         param(
-                            IntType, ContextClass, StringClass,
-                            StringClass, BooleanType, BooleanType
+                            IntType,
+                            ContextClass,
+                            StringClass,
+                            StringClass,
+                            BooleanType,
+                            BooleanType
                         )
                         returnType(UnitType)
                     }.hookAll { hookBefore(removeAds, disableJump) }
@@ -192,8 +194,12 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                     returnType(UnitType)
                     usingNumbers(536870912)
                     usingStrings(
-                        "context", "url", "statisticsTag",
-                        "intent_params_url", "intent_params_isFirst", "intent_params_statistics"
+                        "context",
+                        "url",
+                        "statisticsTag",
+                        "intent_params_url",
+                        "intent_params_isFirst",
+                        "intent_params_statistics"
                     )
                 }
             }.apply {
@@ -207,18 +213,15 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
         ) {
             before {
                 val context = args.find { it is Context } ?: return@before
-                val url = args(2).cast<String>()
-                if (url.isNullOrBlank()) return@before
-                val statisticsTag = args(3).cast<String>()
-                if (statisticsTag.isNullOrBlank()) return@before
+                val url = args(2).string()
+                val statisticsTag = args(3).string()
 
                 //CCTV
                 if (url.startsWith("heytapbrowser://")) return@before
 
                 if (removeAds) args(2).set(formatWeatherUrl(url))
                 if (disableJump) {
-                    val newUrl = args(2).cast<String>()
-                    if (newUrl.isNullOrBlank()) return@before
+                    val newUrl = args(2).string()
                     val clazz = startWebView.takeIf { it.isNotBlank() } ?: return@before
                     startWebActivity(clazz.toClass(), context, newUrl, statisticsTag)
                     resultNull()
