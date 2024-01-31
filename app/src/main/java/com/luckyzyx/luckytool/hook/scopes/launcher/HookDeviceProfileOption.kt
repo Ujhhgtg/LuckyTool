@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object HookDeviceProfileOption : YukiBaseHooker() {
@@ -26,6 +27,16 @@ object HookDeviceProfileOption : YukiBaseHooker() {
                     if (enableDrawer) {
                         field { name = "numAllAppsColumns" }.get(instance).set(drawerColumn)
                     }
+                }
+            }
+        }
+
+        //Source OplusFolderUtil
+        "com.android.launcher3.folder.OplusFolderUtil".toClass().apply {
+            method { name = "getFolderMaxCol" }.hook {
+                after {
+                    val bool = args().first().boolean()
+                    if (bool) result = 3
                 }
             }
         }
