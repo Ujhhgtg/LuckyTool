@@ -31,8 +31,8 @@ object HookDeviceProfileOption : YukiBaseHooker() {
             }
         }
 
-        //Source OplusFolderUtil
-        "com.android.launcher3.folder.OplusFolderUtil".toClass().apply {
+        //Source OplusFolderUtil C13+
+        "com.android.launcher3.folder.OplusFolderUtil".toClassOrNull()?.apply {
             method { name = "getFolderMaxCol" }.hook {
                 after {
                     val bool = args().first().boolean()
