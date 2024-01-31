@@ -3,8 +3,8 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
-import com.luckyzyx.luckytool.hook.scopes.launcher.FolderLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
+import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeature
 import com.luckyzyx.luckytool.hook.scopes.launcher.LauncherLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.LongPressAppIconOpenAppDetails
@@ -25,6 +25,9 @@ object HookLauncher : YukiBaseHooker() {
         //HookLauncherFeature
         loadHooker(HookLauncherFeature)
 
+        //HookDeviceProfileOption
+        loadHooker(HookDeviceProfileOption)
+
         //分页组件
         loadHooker(PageIndicator)
 
@@ -38,10 +41,7 @@ object HookLauncher : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("launcher_layout_enable", false)) {
             loadHooker(LauncherLayoutRowColume)
         }
-        //文件夹布局调节
-        if (prefs(ModulePrefs).getBoolean("enable_folder_layout_adjustment", false)) {
-            loadHooker(FolderLayoutRowColume)
-        }
+
         //移除文件夹预览背景
         if (prefs(ModulePrefs).getBoolean("remove_folder_preview_background", false)) {
             loadHooker(RemoveFolderPreviewBackground)

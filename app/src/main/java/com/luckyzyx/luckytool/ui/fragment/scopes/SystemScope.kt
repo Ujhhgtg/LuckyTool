@@ -1710,7 +1710,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     title = getString(R.string.set_icon_columns_in_folder)
                     key = "set_icon_columns_in_folder"
                     setDefaultValue(3)
-                    max = 7
+                    max = 10
                     min = 3
                     showSeekBarValue = true
                     updatesContinuously = false
@@ -1845,6 +1845,34 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            //抽屉布局
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.launcher_drawer_layout_related)
+                key = "DrawerLayoutRelated"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_drawer_layout_adjustment)
+                key = "enable_drawer_layout_adjustment"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            if (context.getBoolean(ModulePrefs, "enable_drawer_layout_adjustment", false)) {
+                addPreference(SeekBarPreference(context).apply {
+                    title = getString(R.string.set_icon_columns_in_drawer)
+                    key = "set_icon_columns_in_drawer"
+                    setDefaultValue(4)
+                    max = 10
+                    min = 4
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                })
+            }
             //桌面布局
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.launcher_layout_related)
