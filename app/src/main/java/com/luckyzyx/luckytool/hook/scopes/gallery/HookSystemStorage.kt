@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.gallery
 
+import android.content.Context
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
@@ -14,11 +16,15 @@ import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.isZh
 import org.luckypray.dexkit.DexKitBridge
 
 class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //替换OnePlus机型水印
         val notOplus = prefs(ModulePrefs).getBoolean("replace_oneplus_model_watermark", false)
         //水印编辑
@@ -32,6 +38,9 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         val gifSynthesis = prefs(ModulePrefs).getBoolean("enable_photo_editor_gif_synthesis", false)
         //闪速抠图
         val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
+        //新春水印
+        val springFestival =
+            prefs(ModulePrefs).getBoolean("enable_spring_festival_watermark", false)
 
         //Source OtherSystemStorage
         dexKitBridge.findClass {
@@ -55,6 +64,8 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             single().name.toClass().apply {
                 method { param(VagueType, BooleanType);returnType = BooleanClass }.hook {
                     after {
+                        val context = field { type = ContextClass }.get(instance).cast<Context>()
+                            ?: return@after
                         val configNode = args().first().any().toString()
                         when {
                             //com.oplus.camera.support.custom.hasselblad.watermark
@@ -75,6 +86,13 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             configNode.contains("feature_is_support_gif_synthesis") -> if (gifSynthesis) resultTrue()
                             //debug.gallery.lns / os.graphic.gallery.photoview.lns
                             configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
+
+                            //debug.gallery.photo.editor.watermark.switcher / is_region_cn
+                            configNode.contains("feature_is_support_spring_festival_watermark") -> {
+                                if (springFestival && osCode >= 29 && isZh(context)) resultTrue()
+                            }
+
+//                            configNode.contains("feature_is_device_support_ai_eliminate") -> resultTrue()
 
 //                            photopage_detail_ic_dolby_vision
 //                            configNode.contains("brighten_version_dolby") -> if (gifSynthesis) resultTrue()

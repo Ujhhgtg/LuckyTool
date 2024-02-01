@@ -3353,6 +3353,13 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_spring_festival_watermark)
+                key = "enable_spring_festival_watermark"
+                setDefaultValue(false)
+                isVisible = osCode >= 29 && isZh(context)
+                isIconSpaceReserved = false
+            })
             //滤镜
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraFilter)

@@ -643,6 +643,7 @@
     <string name="custom_model_watermark">Custom model watermark</string>
     <string name="fix_hasselblad_custom_watermark_crash">Fix Hasselblad custom watermark crash</string>
     <string name="fix_hasselblad_custom_watermark_crash_summary">If your camera does not support Hasselblad custom watermark (white strip shape), please do not open it</string>
+    <string name="enable_spring_festival_watermark" translatable="false">启用新春水印</string>
     
     <string name="CameraFilter">Filter</string>
     <string name="enable_master_filter">Enable Master filter</string>
