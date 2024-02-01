@@ -65,10 +65,13 @@ object HookSettings : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("remove_top_account_display", false)) {
             loadHooker(RemoveTopAccountDisplay)
         }
-        //视频动态插帧
-        if (prefs(ModulePrefs).getBoolean("video_frame_insertion_support_2K120", false)) {
-            loadHooker(HookIris5Controller)
+        //视频动态插帧2K 120
+        if (prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)) {
+            if (prefs(ModulePrefs).getBoolean("video_frame_insertion_support_2K120", false)) {
+                loadHooker(HookIris5Controller)
+            }
         }
+
         //移除DPI重启恢复
         if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
             loadHooker(RemoveDpiRestartRecovery)

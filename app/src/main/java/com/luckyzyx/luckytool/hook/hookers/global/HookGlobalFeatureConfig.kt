@@ -58,14 +58,14 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.display.resolution_switch_disableauto_support", false)
             }
 
-            //Source Settings Iris5SettingsFragment 启用视频动态插帧
-//            if (prefs(ModulePrefs).getBoolean("force_display_video_memc_frame_insertion", false)
-//            ) {
-//                put("oplus.software.video.rm_memc", false)
-//                put("oplus.software.display.memc_enable", true)
-//                put("oplus.software.display.pixelworks_enable", true)
-//                put("oplus.software.display.pixelworks_x7_enable", true)
-//            }
+            //Source Settings Iris5SettingsFragment iris5_motion_fluency_optimization_switch 启用视频动态插帧
+            if (prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
+            ) {
+                put("oplus.software.display.pixelworks_enable", true)
+                put("oplus.software.display.iris_enable", true)
+                put("oplus.software.display.memc_enable", true)
+                put("oplus.software.display.game.memc_enable", true)
+            }
 
             //Source Mms 移除验证码悬浮窗 FeatureOption.java / com.oplus.common -> C12
             if (prefs(ModulePrefs).getBoolean("remove_verification_code_floating_window", false)) {

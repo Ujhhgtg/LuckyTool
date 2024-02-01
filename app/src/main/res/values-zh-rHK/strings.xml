@@ -520,7 +520,12 @@
     <string name="settings_display">显示</string>
     <string name="force_display_dc_backlight_mode">强制显示低亮无频闪护眼</string>
     <string name="force_display_dc_backlight_mode_summary">无法保证一定有效，仅用于显示功能选项</string>
-    <string name="force_display_video_memc_frame_insertion">强制显示视频动态插帧MEMC</string>
+    <string name="enable_video_memc_frame_insertion">启用视频动态插帧</string>
+    <string name="enable_video_memc_frame_insertion_summary">注意：如果设备没有独显芯片或不支持Memc，请勿使用此功能</string>
+    <string name="custom_video_dynamic_frame_insertion_configuration">自定义视频动态插帧配置</string>
+    <string name="restore_frame_insertion_configuration_data">确认恢复默认视频动态插帧配置数据?</string>
+    <string name="confirm_to_delete_this_configuration">确认删除此条配置？\n%1$s</string>
+    <string name="no_memc_data">无Memc数据</string>
     <string name="video_frame_insertion_support_2K120">视频插帧支持 2K120</string>
     <string name="video_frame_insertion_support_2K120_summary">若你的设备不支持 MEMC，请勿使用此功能</string>
     <string name="enable_screen_color_temperature_rgb_palette">启用屏幕色温 RGB 调色板</string>
@@ -834,6 +839,7 @@
     <string name="common_words_whitelist">白名单</string>
     <string name="common_words_blacklist">黑名单</string>
     <string name="common_words_ads">广告</string>
+    <string name="common_words_reset">重設</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">连接网络失败</string>
     <string name="net_networking_error">当前网络不可用</string>

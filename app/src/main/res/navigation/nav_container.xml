@@ -514,7 +514,15 @@
     <fragment
             android:id="@+id/settings"
             android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusSettings"
-            android:label="{title_label}" />
+            android:label="{title_label}">
+        <action
+                android:id="@+id/action_settings_to_memcConfigFragment"
+                app:destination="@id/memcConfigFragment"
+                app:enterAnim="@anim/fragment_enter"
+                app:exitAnim="@anim/fragment_exit"
+                app:popEnterAnim="@anim/fragment_enter_pop"
+                app:popExitAnim="@anim/fragment_exit_pop" />
+    </fragment>
     <fragment
             android:id="@+id/statusBarBattery"
             android:name="com.luckyzyx.luckytool.ui.fragment.scopes.StatusBarBattery"
@@ -610,6 +618,10 @@
     <fragment
             android:id="@+id/oplusSoundRecorder"
             android:name="com.luckyzyx.luckytool.ui.fragment.scopes.OplusSoundRecorder"
+            android:label="{title_label}" />
+    <fragment
+            android:id="@+id/memcConfigFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.MemcConfigFragment"
             android:label="{title_label}" />
 
 </navigation>

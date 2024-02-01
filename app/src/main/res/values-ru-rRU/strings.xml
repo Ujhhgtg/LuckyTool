@@ -361,7 +361,7 @@
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
     <string name="set_icon_columns_in_folder">Задать количество столбцов иконок в папке</string>
-    <string name="sync_folder_icon_column_number_preview">Sync folder icon column number to preview</string>
+    <string name="sync_folder_icon_column_number_preview">Синхронизировать иконку папки с номером столбца для предпросмотра</string>
     <string name="PaginationComponentRelated">Компоненты страницы</string>
     <string name="remove_pagination_component">Удалить компонент разбивки на страницы</string>
     <string name="remove_folder_pagination_component">Удалить компонент разбивки на папки</string>
@@ -383,9 +383,9 @@
     <string name="zoom_window_support_list">Пользовательское окно масштаба</string>
     <string name="zoom_window_support_list_summary">Включить в соответствии с вашими потребностями, в противном случае возникнут непоправимые проблемы</string>
     <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
-    <string name="launcher_drawer_layout_related">Drawer Layout Related</string>
-    <string name="enable_drawer_layout_adjustment">Enable drawer layout adjustments</string>
-    <string name="set_icon_columns_in_drawer">Set the number of icon columns in the drawer</string>
+    <string name="launcher_drawer_layout_related">Разметка папки</string>
+    <string name="enable_drawer_layout_adjustment">Включить корректировку разметки папки</string>
+    <string name="set_icon_columns_in_drawer">Задать количество столбцов иконок в папке</string>
     <string name="launcher_layout_related">Сетка рабочего стола</string>
     <string name="launcher_layout_row_colume">Установите количество строк сетки рабочего стола</string>
     <string name="launcher_layout_enable">Включить/отключить сетку иконок на рабочем столе</string>
@@ -521,7 +521,12 @@
     <string name="settings_display">Экран</string>
     <string name="force_display_dc_backlight_mode">Принудительно отображать низкую яркость и защиту глаз от мерцания</string>
     <string name="force_display_dc_backlight_mode_summary">Нет гарантии, что он будет работать, он используется только для отображения опций функций</string>
-    <string name="force_display_video_memc_frame_insertion">Принудительно отображать видео с динамической вставкой кадров MEMC</string>
+    <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
+    <string name="enable_video_memc_frame_insertion_summary">Note: If the device does not have a dedicated graphics chip or does not support Memc, please do not use this function</string>
+    <string name="custom_video_dynamic_frame_insertion_configuration">Custom video dynamic frame insertion configuration</string>
+    <string name="restore_frame_insertion_configuration_data">Confirm to restore the default video dynamic frame insertion configuration data!</string>
+    <string name="confirm_to_delete_this_configuration">Confirm to delete this configuration?\n%1$s</string>
+    <string name="no_memc_data">No Memc Data</string>
     <string name="video_frame_insertion_support_2K120">Динамическая вставка кадров видео поддерживает разрешение 2К 120 Гц (MEMC)</string>
     <string name="video_frame_insertion_support_2K120_summary">Если ваше устройство не поддерживает MEMC, пожалуйста, не используйте эту функцию</string>
     <string name="enable_screen_color_temperature_rgb_palette">Включить цветовую температуру экрана в палитре RGB</string>
@@ -835,6 +840,7 @@
     <string name="common_words_whitelist">Белый список</string>
     <string name="common_words_blacklist">Чёрный список</string>
     <string name="common_words_ads">Реклама</string>
+    <string name="common_words_reset">Reset</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Не удалось подключиться к сети</string>
     <string name="net_networking_error">Текущая сеть недоступна</string>

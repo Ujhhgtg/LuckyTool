@@ -26,6 +26,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
+
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object FileUtils {
 
@@ -307,7 +308,6 @@ object FileUtils {
         try {
             val fileInputStream = FileInputStream(file)
             val xmlParser = android.util.Xml.newPullParser()
-            xmlParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
             xmlParser.setInput(fileInputStream, null)
 
             var eventType = xmlParser.eventType
@@ -323,26 +323,22 @@ object FileUtils {
                         if (xmlParser.name == "int" || xmlParser.name == "boolean") {
                             key = xmlParser.getAttributeValue(null, "name")
                         }
-                    }
-
-                    XmlPullParser.TEXT -> {
+                        xmlParser.next()
                         if (xmlParser.name == "string") {
                             value = xmlParser.text
                         }
                         if (xmlParser.name == "int" || xmlParser.name == "boolean") {
                             value = xmlParser.getAttributeValue(null, "value")
                         }
-                    }
-
-                    XmlPullParser.END_TAG -> {
-                        if (xmlParser.name == "string") {
-                            if (key != null && value != null) {
-                                mapData[key] = value
-                                key = null
-                                value = null
-                            }
+                        if (key != null && value != null) {
+                            mapData[key] = value
+                            key = null
+                            value = null
                         }
                     }
+
+                    XmlPullParser.TEXT -> {}
+                    XmlPullParser.END_TAG -> {}
                 }
                 eventType = xmlParser.next()
             }
@@ -353,5 +349,62 @@ object FileUtils {
             e.printStackTrace()
         }
         return mapData
+    }
+
+    /**
+     * 解析Memc Xml配置文件
+     * @param inputStream InputStream
+     * @param packages ArrayList<MemcConfigPackage>
+     * @param activitys ArrayList<MemcConfigActivity>
+     */
+    fun parseMemcXml(
+        inputStream: InputStream,
+        packages: ArrayList<MemcConfigPackage>,
+        activitys: ArrayList<MemcConfigActivity>
+    ) {
+        try {
+            val xmlParser = android.util.Xml.newPullParser()
+            xmlParser.setInput(inputStream, null)
+
+            var eventType = xmlParser.eventType
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                when (eventType) {
+                    XmlPullParser.START_TAG -> {
+                        when (xmlParser.name) {
+                            "mConfigPackage" -> {
+                                val screenFrameRate: String =
+                                    xmlParser.getAttributeValue(null, "rate")
+                                val type: String = xmlParser.getAttributeValue(null, "type")
+                                xmlParser.next()
+                                val text: String = xmlParser.text
+                                if (text.isNotBlank()) {
+                                    packages.add(MemcConfigPackage(text, screenFrameRate, type))
+                                }
+                            }
+
+                            "mConfigActivity" -> {
+                                val type: String = xmlParser.getAttributeValue(null, "type")
+                                xmlParser.next()
+                                val text: String = xmlParser.text
+                                if (text.isNotBlank() && text.contains("/")) {
+                                    val packName = text.substringBefore("/")
+                                    val activity = text.substringAfter("/")
+                                    activitys.add(MemcConfigActivity(packName, activity, type))
+                                }
+                            }
+                        }
+                    }
+
+                    XmlPullParser.TEXT -> {}
+                    XmlPullParser.END_TAG -> {}
+                }
+                eventType = xmlParser.next()
+            }
+            inputStream.close()
+        } catch (e: XmlPullParserException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }

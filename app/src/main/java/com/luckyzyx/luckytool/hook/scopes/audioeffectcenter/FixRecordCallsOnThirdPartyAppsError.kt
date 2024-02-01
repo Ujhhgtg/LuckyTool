@@ -11,7 +11,7 @@ object FixRecordCallsOnThirdPartyAppsError : YukiBaseHooker() {
     private const val SpatializerDefine = "com.oplus.audio.effectcenter.manager.SpatializerDefine"
     override fun onHook() {
         //Source com.oplus.audio.effectcenter.manager.SpatializerManager
-        "com.oplus.audio.effectcenter.manager.SpatializerManager".toClass().apply {
+        "com.oplus.audio.effectcenter.manager.SpatializerManager".toClassOrNull()?.apply {
             method { name = "setSpkVolParam" }.hook {
                 before {
                     val level = args().first().int()

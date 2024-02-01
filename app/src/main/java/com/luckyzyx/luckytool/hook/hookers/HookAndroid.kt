@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.AppSplashScreen
 import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
 import com.luckyzyx.luckytool.hook.scopes.android.DisableDynamicRefreshRate
+import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookNotificationManager
@@ -96,6 +97,9 @@ object HookAndroid : YukiBaseHooker() {
 
         //三方应用通话录音保护
         loadHooker(HookMediaProjectionManager)
+
+        //视频动态插帧
+        loadHooker(EnableVideoMemcFrameInsertion)
 
         //Source ScanPackageUtils
 //        findClass("com.android.server.pm.ScanPackageUtils").hook {

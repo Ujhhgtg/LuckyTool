@@ -31,6 +31,13 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 put("ro.oplus.audio.support.meta_audio", 1)
             }
 
+            //Source Android OplusFeatureMEMC 启用视频动态插帧
+            if (prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
+            ) {
+                put("ro.oplus.display.memc_video_refreshrate", true)
+                put("vendor.display.show_memc_tomast", true)
+            }
+
             //Source Phone 启用5G
             if (prefs(ModulePrefs).getBoolean("force_display_five_g_switch", false)) {
                 put("ro.oplus.radio.hide_nr_switch", -1)
@@ -40,12 +47,6 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)) {
                 if (osCode >= 30) put("ro.oplus.audio.voip_record_white_app_support", true)
             }
-
-            //Source Android OplusFeatureMEMC 启用视频动态插帧
-//            if (prefs(ModulePrefs).getBoolean("force_display_video_memc_frame_insertion", false)) {
-//                put("ro.oplus.display.memc_video_refreshrate", true)
-//                put("vendor.display.show_memc_tomast", true)
-//            }
         }
         loadHooker(HookSystemProperties(list))
     }

@@ -520,7 +520,12 @@
     <string name="settings_display">Display</string>
     <string name="force_display_dc_backlight_mode">Примусово відображати низьку яскравість та захист очей від мерехтіння</string>
     <string name="force_display_dc_backlight_mode_summary">Немає гарантії, що він буде працювати, він використовується лише для відображення опцій функцій</string>
-    <string name="force_display_video_memc_frame_insertion">Примусово відображати відео з динамічною вставкою кадрів MEMC</string>
+    <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
+    <string name="enable_video_memc_frame_insertion_summary">Note: If the device does not have a dedicated graphics chip or does not support Memc, please do not use this function</string>
+    <string name="custom_video_dynamic_frame_insertion_configuration">Custom video dynamic frame insertion configuration</string>
+    <string name="restore_frame_insertion_configuration_data">Confirm to restore the default video dynamic frame insertion configuration data!</string>
+    <string name="confirm_to_delete_this_configuration">Confirm to delete this configuration?\n%1$s</string>
+    <string name="no_memc_data">No Memc Data</string>
     <string name="video_frame_insertion_support_2K120">Динамічна вставка кадрів відео підтримує роздільну здатність 2К 120 Гц (MEMC)</string>
     <string name="video_frame_insertion_support_2K120_summary">If your device does not support MEMC, please do not use this function</string>
     <string name="enable_screen_color_temperature_rgb_palette">Enable screen color temperature RGB palette</string>
@@ -834,6 +839,7 @@
     <string name="common_words_whitelist">Whitelist</string>
     <string name="common_words_blacklist">Blacklist</string>
     <string name="common_words_ads">Ads</string>
+    <string name="common_words_reset">Reset</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Не вдалося з’єднатися з мережею</string>
     <string name="net_networking_error">Поточна мережа недоступна</string>

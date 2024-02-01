@@ -2904,22 +2904,42 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 key = "settings_display"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.force_display_video_memc_frame_insertion)
-                summary = getString(R.string.force_display_dc_backlight_mode_summary)
-                key = "force_display_video_memc_frame_insertion"
-                setDefaultValue(false)
-                isVisible = false
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.video_frame_insertion_support_2K120)
-                summary = getString(R.string.video_frame_insertion_support_2K120_summary)
-                key = "video_frame_insertion_support_2K120"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
+            if (osCode >= 26) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_video_memc_frame_insertion)
+                    summary = arraySummaryLine(
+                        getString(R.string.enable_video_memc_frame_insertion_summary),
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "enable_video_memc_frame_insertion"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("android", key, newValue)
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getBoolean(ModulePrefs, "enable_video_memc_frame_insertion", false)) {
+                    addPreference(Preference(context).apply {
+                        title =
+                            getString(R.string.custom_video_dynamic_frame_insertion_configuration)
+                        key = "custom_video_dynamic_frame_insertion_configuration"
+                        isIconSpaceReserved = false
+                        setOnPreferenceClickListener {
+                            navigatePage(R.id.action_settings_to_memcConfigFragment, title)
+                            true
+                        }
+                    })
+                    addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.video_frame_insertion_support_2K120)
+                        summary = getString(R.string.video_frame_insertion_support_2K120_summary)
+                        key = "video_frame_insertion_support_2K120"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                }
+            }
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_screen_color_temperature_rgb_palette)
                 summary = arraySummaryLine(
@@ -2928,7 +2948,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 )
                 key = "enable_screen_color_temperature_rgb_palette"
                 setDefaultValue(false)
-                isVisible = getOSVersionCode >= 27
+                isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -3160,8 +3180,7 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                         }
                     })
                     addPreference(SwitchPreference(context).apply {
-                        title =
-                            getString(R.string.display_module_calculates_battery_health_data)
+                        title = getString(R.string.display_module_calculates_battery_health_data)
                         summary =
                             getString(R.string.display_module_calculates_battery_health_data_summary)
                         key = "display_module_calculates_battery_health_data"
@@ -4218,13 +4237,12 @@ class OplusPhoneManager : BaseScopePreferenceFeagment() {
 
 @Obfuscate
 class OplusSoundRecorder : BaseScopePreferenceFeagment() {
-    override val scopes =
-        arrayOf(
-            "com.coloros.soundrecorder",
-            "com.oplus.audiomonitor",
-            "com.oplus.atlas",
-            "com.oplus.audio.effectcenter"
-        )
+    override val scopes = arrayOf(
+        "com.coloros.soundrecorder",
+        "com.oplus.audiomonitor",
+        "com.oplus.atlas",
+        "com.oplus.audio.effectcenter"
+    )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -4238,8 +4256,8 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 )
                 key = "enable_record_calls_on_third_party_apps"
                 setDefaultValue(false)
-                isEnabled = context.checkPackName("com.oplus.audiomonitor") &&
-                        context.checkPackName("com.oplus.atlas")
+                isEnabled =
+                    context.checkPackName("com.oplus.audiomonitor") && context.checkPackName("com.oplus.atlas")
                 isVisible = osCode >= 30 && isZh(context)
                 isIconSpaceReserved = false
             })
