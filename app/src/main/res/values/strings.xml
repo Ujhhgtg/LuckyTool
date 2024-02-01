@@ -408,6 +408,7 @@
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Enable folder layout adjustments</string>
     <string name="set_icon_columns_in_folder">Set the number of icon columns in the folder</string>
+    <string name="sync_folder_icon_column_number_preview">Sync folder icon column number to preview</string>
     
     <string name="PaginationComponentRelated">Pagination Component Related</string>
     <string name="remove_pagination_component">Remove pagination component</string>

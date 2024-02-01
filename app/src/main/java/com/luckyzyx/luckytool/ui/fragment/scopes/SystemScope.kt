@@ -232,7 +232,7 @@ class StatusBar : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-
+            //状态栏事件
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusbarEvents)
                 key = "StatusbarEvents"
@@ -248,6 +248,7 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 title = getString(R.string.vibrate_when_opening_the_statusbar)
                 key = "vibrate_when_opening_the_statusbar"
                 setDefaultValue(false)
+                isVisible = osCode >= 26
                 isIconSpaceReserved = false
             })
             addPreference(DropDownPreference(context).apply {
@@ -1714,6 +1715,12 @@ class Launcher : BaseScopePreferenceFeagment() {
                     min = 3
                     showSeekBarValue = true
                     updatesContinuously = false
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.sync_folder_icon_column_number_preview)
+                    key = "sync_folder_icon_column_number_preview"
+                    setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
             }
