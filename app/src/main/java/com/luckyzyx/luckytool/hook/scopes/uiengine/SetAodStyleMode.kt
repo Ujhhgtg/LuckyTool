@@ -2,16 +2,21 @@ package com.luckyzyx.luckytool.hook.scopes.uiengine
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 
 object SetAodStyleMode : YukiBaseHooker() {
 
     override fun onHook() {
         val mode = prefs(ModulePrefs).getString("set_aod_style_mode", "0")
+        if (mode == "0") return
 
         //Source ProductFlavorOption
         "com.oplus.egview.util.ProductFlavorOption".toClass().apply {
-            method { name = "isFlavorTwoDevice" }.hook {
+            method {
+                name = if (SDK >= A14) "isFlavorTwoDeviceExp" else "isFlavorTwoDevice"
+            }.hook {
                 when (mode) {
                     "1" -> replaceToTrue()
                     "2" -> replaceToFalse()

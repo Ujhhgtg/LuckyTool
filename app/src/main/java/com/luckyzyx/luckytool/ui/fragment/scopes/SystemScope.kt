@@ -1939,6 +1939,7 @@ class Aod : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //息屏相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AodRelated)
                 key = "AodRelated"
@@ -1964,7 +1965,7 @@ class Aod : BaseScopePreferenceFeagment() {
                 setEntries(R.array.set_aod_style_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
-                isVisible = SDK == A13
+                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
