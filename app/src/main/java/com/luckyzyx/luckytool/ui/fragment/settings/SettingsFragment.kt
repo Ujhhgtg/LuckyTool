@@ -363,6 +363,7 @@ class SettingsFragment : ModulePreferenceFragment() {
             addPreference(Preference(context).apply {
                 setTitle(R.string.open_source)
                 setSummary(R.string.open_source_summary)
+                isVisible = false
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_setting_to_sourceFragment, title)
