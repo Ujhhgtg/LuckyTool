@@ -25,6 +25,9 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 method { name = "reInflateViews" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
+                method { name = "addChildNotification";paramCount = 2 }.hook {
+                    after { instance<ViewGroup>().setViewWidth() }
+                }
             }
 
         if (SDK >= A13) loadHooker(OtherNotification) else loadHooker(OtherNotificationC12)
@@ -66,6 +69,12 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
             "com.oplus.systemui.plugins.seedling.notification.NotificationSeedingController".toClassOrNull()
                 ?.apply {
                     method { name = "onCreateView" }.hook {
+                        after {
+                            field { name = "parent" }.get(instance).cast<ViewGroup>()
+                                ?.setViewWidth()
+                        }
+                    }
+                    method { name = "updateNotifSeedingViews" }.hook {
                         after {
                             field { name = "parent" }.get(instance).cast<ViewGroup>()
                                 ?.setViewWidth()
