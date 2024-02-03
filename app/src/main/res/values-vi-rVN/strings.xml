@@ -520,12 +520,12 @@
     <string name="settings_display">Hiển thị</string>
     <string name="force_display_dc_backlight_mode">Buộc phải hiển thị độ sáng thấp và không nhấp nháy để bảo vệ mắt</string>
     <string name="force_display_dc_backlight_mode_summary">Không đảm bảo rằng nó sẽ hoạt động, nó chỉ được sử dụng để hiển thị các tùy chọn chức năng</string>
-    <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
-    <string name="enable_video_memc_frame_insertion_summary">Note: If the device does not have a dedicated graphics chip or does not support Memc, please do not use this function</string>
-    <string name="custom_video_dynamic_frame_insertion_configuration">Custom video dynamic frame insertion configuration</string>
-    <string name="restore_frame_insertion_configuration_data">Confirm to restore the default video dynamic frame insertion configuration data!</string>
-    <string name="confirm_to_delete_this_configuration">Confirm to delete this configuration?\n%1$s</string>
-    <string name="no_memc_data">No Memc Data</string>
+    <string name="enable_video_memc_frame_insertion">Bật tính năng chèn khung video động</string>
+    <string name="enable_video_memc_frame_insertion_summary">Lưu ý: Không sử dụng chức năng này nếu thiết bị không có chip đồ họa rời hoặc không hỗ trợ Memc</string>
+    <string name="custom_video_dynamic_frame_insertion_configuration">Cấu hình chèn khung động video tùy chỉnh</string>
+    <string name="restore_frame_insertion_configuration_data">Xác nhận khôi phục dữ liệu cấu hình chèn khung động video mặc định!</string>
+    <string name="confirm_to_delete_this_configuration">Bạn có chắc chắn xóa cấu hình này không？\n%1$s</string>
+    <string name="no_memc_data">Không có dữ liệu Memc</string>
     <string name="video_frame_insertion_support_2K120">Chèn khung video hỗ trợ 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Nếu thiết bị của bạn không hỗ trợ MEMC, vui lòng không sử dụng chức năng này</string>
     <string name="enable_screen_color_temperature_rgb_palette">Bật bảng màu RGB nhiệt độ màu màn hình</string>
@@ -839,7 +839,7 @@
     <string name="common_words_whitelist">Danh sách trắng</string>
     <string name="common_words_blacklist">Danh sách đen</string>
     <string name="common_words_ads">Quảng cáo</string>
-    <string name="common_words_reset">Reset</string>
+    <string name="common_words_reset">Đặt lại</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Không thể kết nối tới mạng</string>
     <string name="net_networking_error">Mạng hiện tại không khả dụng</string>

@@ -35,6 +35,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 启用视频动态插帧 C13+
 - [添加] 自定义视频动态插帧配置数据 C13+
 - [更改] 关闭开放源代码跳转入口
+- [优化] 仅打包arm64-v8a,armeabi-v7a以减少模块体积
 
 ### 1.1.8
 
