@@ -21,18 +21,19 @@ import org.json.JSONObject
 @Obfuscate
 object AppAnalyticsUtils {
 
-    private const val App_Center_Secret = BuildConfig.APP_CENTER_SECRET
+    private const val normalAppCenterSecret = BuildConfig.APP_CENTER_SECRET
+    private const val betaAppCenterSecret = BuildConfig.APP_CENTER_SECRET_BETA
 
     private var qss = ArrayList<String>()
     private var css = ArrayList<String>()
     private var gid = ""
-    fun init(instance: Application, isBeta: Boolean) {
-        if (App_Center_Secret.isNotBlank()) {
-            if (isBeta) AppCenter.start(instance, App_Center_Secret, Analytics::class.java)
-            else AppCenter.start(
-                instance, App_Center_Secret, Analytics::class.java, Crashes::class.java
-            )
-        }
+    fun Application.init(isBeta: Boolean) {
+        if (isBeta) AppCenter.start(
+            this, betaAppCenterSecret, Analytics::class.java, Crashes::class.java
+        )
+        else AppCenter.start(
+            this, normalAppCenterSecret, Analytics::class.java, Crashes::class.java
+        )
     }
 
     @Suppress("MemberVisibilityCanBePrivate")

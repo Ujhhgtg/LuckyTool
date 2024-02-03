@@ -3,7 +3,7 @@ keystore
 # Crowdin
 crowdin.properties
 # AppCenter
-keystore/secret
+keystore/app_center_secret
 
 # Gradle files
 .gradle

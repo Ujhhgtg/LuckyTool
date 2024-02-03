@@ -34,7 +34,8 @@ android {
         targetSdk = 28
         versionCode = getVersionCode()
         versionName = "1.1.9_beta"
-        buildConfigField("String", "APP_CENTER_SECRET", "\"${getAppCenterSecret()}\"")
+        buildConfigField("String", "APP_CENTER_SECRET", getAppCenterSecret())
+        buildConfigField("String", "APP_CENTER_SECRET_BETA", getAppCenterSecret(true))
         ndk {
             abiFilters.addAll(arrayOf("arm64-v8a", "armeabi-v7a"))
         }
@@ -167,7 +168,10 @@ fun getVersionCode(): Int {
     } else throw GradleException("无法读取 version.properties!")
 }
 
-fun getAppCenterSecret(): String {
-    val file = rootProject.file("keystore/secret")
-    return if (file.exists()) file.readText() else ""
+fun getAppCenterSecret(isBeta: Boolean = false): String {
+    val file = rootProject.file("keystore/app_center_secret")
+    val list = if (file.exists()) file.readLines() else return ""
+    if (list.size != 2) return ""
+    return if (isBeta) list.lastOrNull() ?: ""
+    else list.firstOrNull() ?: ""
 }
