@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.1.9_beta
+### 1.1.9
 
 - [优化] 使用Markdown解析作用域版本信息对话框
 - [添加] 启用相机画框水印支持
@@ -36,6 +36,38 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 自定义视频动态插帧配置数据 C13+
 - [更改] 关闭开放源代码跳转入口
 - [优化] 仅打包arm64-v8a,armeabi-v7a以减少模块体积
+- [Optimize] Use Markdown to parse the scope version information dialog box
+- [Add] Enable camera frame watermark support
+- [Optimize] Battery health data calculation logic
+- [Add] QQ chat group jump method
+- [Optimize] Control center and clock lunar calendar calculation logic
+- [Add] Force enable sidebar float auto-hide C12
+- [Fix] Desktop clock component red one v14.51.0 (04ff761)
+- [Fix] Some models have abnormal battery notification voltage and current values.
+- [Add] Remove the word limit for custom watermarks in photo albums
+- [Optimize] Scope version information cache structure
+- [Optimize] Some functions support list data cache structure
+- [Optimize] Use Markdown to parse donation list data
+- [Fix] The problem that third-party application call recording cannot record one's own voice C13.1+
+- [Fix] Some models have abnormal RGB color temperature ball hooks
+- [Optimize] Customize device sharing page parameter Hook logic
+- [Change] The system version limit of some functions of the photo album has been lowered to
+  ColorOS13.1
+- [Add] Customize tile background transparency not enabled C13.1+
+- [Add] Donation list data sorting options
+- [Add] Force display of ring status toggle tile C12+
+- [Fix] Software store update page information flow Hook exception v11.8.0 (89838fc)
+- [Fix] Information flow at the bottom of the browser download page v40.8.25.1(c2a4a8f)
+- [Optimize] Extract OTA information and add Verity field
+- [Add] Sync folder icon column number to preview C12+
+- [Add] Desktop drawer mode layout column number C12+
+- [Fix] Weather jump browser and page information flow v14.5.2(12c5c49)
+- [Add] Enable Chinese New Year watermark in photo album C13.2+
+- [Fix] Screen notification icon style C14
+- [Add] Enable video dynamic frame insertion C13+
+- [Add] Custom video dynamic frame insertion configuration data C13+
+- [Change] Close open source code jump entrance
+- [Optimize] Only package arm64-v8a, armeabi-v7a to reduce module size
 
 ### 1.1.8
 
