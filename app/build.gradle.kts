@@ -35,6 +35,9 @@ android {
         versionCode = getVersionCode()
         versionName = "1.1.9_beta"
         buildConfigField("String", "APP_CENTER_SECRET", "\"${getAppCenterSecret()}\"")
+        ndk {
+            abiFilters.addAll(arrayOf("arm64-v8a", "armeabi-v7a"))
+        }
     }
 
     buildTypes {
@@ -100,7 +103,7 @@ dependencies {
     //Dexkit
     implementation("org.luckypray:dexkit:2.0.0")
     //MMKV
-    implementation ("com.tencent:mmkv:1.3.2")
+    implementation("com.tencent:mmkv:1.3.2")
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
