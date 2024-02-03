@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.2.0_beta
+
+- [修复] 状态栏磁贴横屏间隙Hook异常 C13.0
+
 ### 1.1.9
 
 - [优化] 使用Markdown解析作用域版本信息对话框

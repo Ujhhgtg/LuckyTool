@@ -30,7 +30,7 @@ object StatusBarTile : YukiBaseHooker() {
 
         //特殊磁贴间隙
         if (prefs(ModulePrefs).getBoolean("control_center_custom_gaps_for_special_tile", false)) {
-            if (SDK >= A13) loadHooker(SpecialTileTopGap)
+            if (osCode >= 27) loadHooker(SpecialTileTopGap)
         }
 
         //媒体播放器

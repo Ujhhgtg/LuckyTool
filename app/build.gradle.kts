@@ -33,7 +33,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.1.9"
+        versionName = "1.2.0_beta"
         buildConfigField("String", "APP_CENTER_SECRET", getAppCenterSecret())
         buildConfigField("String", "APP_CENTER_SECRET_BETA", getAppCenterSecret(true))
         ndk {

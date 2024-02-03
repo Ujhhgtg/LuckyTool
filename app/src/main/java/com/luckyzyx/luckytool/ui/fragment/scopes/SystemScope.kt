@@ -1197,51 +1197,53 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                     ) == "1"
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.control_center_custom_gaps_for_special_tile)
-                    key = "control_center_custom_gaps_for_special_tile"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("com.android.systemui", key, newValue)
-                        (activity as MainActivity).restart()
-                        true
-                    }
-                })
-                addPreference(SeekBarPreference(context).apply {
-                    title = getString(R.string.control_center_special_tile_top_gap)
-                    key = "control_center_special_tile_top_gap"
-                    setDefaultValue(0)
-                    max = 20
-                    min = 0
-                    showSeekBarValue = true
-                    updatesContinuously = false
-                    isVisible = context.getBoolean(
-                        ModulePrefs, "control_center_custom_gaps_for_special_tile", false
-                    )
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
-                })
-                addPreference(SeekBarPreference(context).apply {
-                    title = getString(R.string.control_center_special_tile_bottom_gap)
-                    key = "control_center_special_tile_bottom_gap"
-                    setDefaultValue(0)
-                    max = 20
-                    min = 0
-                    showSeekBarValue = true
-                    updatesContinuously = false
-                    isVisible = context.getBoolean(
-                        ModulePrefs, "control_center_custom_gaps_for_special_tile", false
-                    )
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
-                })
+                if (osCode >= 27) {
+                    addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.control_center_custom_gaps_for_special_tile)
+                        key = "control_center_custom_gaps_for_special_tile"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
+                            (activity as MainActivity).restart()
+                            true
+                        }
+                    })
+                    addPreference(SeekBarPreference(context).apply {
+                        title = getString(R.string.control_center_special_tile_top_gap)
+                        key = "control_center_special_tile_top_gap"
+                        setDefaultValue(0)
+                        max = 20
+                        min = 0
+                        showSeekBarValue = true
+                        updatesContinuously = false
+                        isVisible = context.getBoolean(
+                            ModulePrefs, "control_center_custom_gaps_for_special_tile", false
+                        )
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
+                    addPreference(SeekBarPreference(context).apply {
+                        title = getString(R.string.control_center_special_tile_bottom_gap)
+                        key = "control_center_special_tile_bottom_gap"
+                        setDefaultValue(0)
+                        max = 20
+                        min = 0
+                        showSeekBarValue = true
+                        updatesContinuously = false
+                        isVisible = context.getBoolean(
+                            ModulePrefs, "control_center_custom_gaps_for_special_tile", false
+                        )
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
+                }
             }
             if (SDK == A13) {
                 //磁贴长按事件
