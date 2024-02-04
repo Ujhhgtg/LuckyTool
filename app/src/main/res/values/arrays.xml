@@ -144,7 +144,7 @@
         <item>@string/common_words_disable</item>
     </string-array>
     
-    <string-array name="set_aod_style_mode_entries">
+    <string-array name="set_aod_notification_icon_style_entries">
         <item>@string/common_words_default</item>
         <item>@string/common_words_enable</item>
         <item>@string/common_words_disable</item>

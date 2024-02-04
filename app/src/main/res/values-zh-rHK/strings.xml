@@ -306,7 +306,7 @@
     <string name="remove_aod_music_whitelist">移除息屏音乐白名单</string>
     <string name="remove_aod_notification_icon_whitelist">移除通知图标白名单</string>
     <string name="restore_aod_notification_icon_color">恢复通知图标颜色</string>
-    <string name="set_aod_style_mode">设置息屏样式模式</string>
+    <string name="set_aod_notification_icon_style">设置息屏通知图标样式</string>
     <string name="force_enable_screen_off_music_support">强制启用息屏音乐支持</string>
     <string name="force_enable_screen_off_music_support_summary">仅适用于不支持息屏音乐的机型</string>
     <!--LockScreen-->

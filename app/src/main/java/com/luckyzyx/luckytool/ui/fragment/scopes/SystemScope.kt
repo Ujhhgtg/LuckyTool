@@ -1961,10 +1961,10 @@ class Aod : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(DropDownPreference(context).apply {
-                title = getString(R.string.set_aod_style_mode)
+                title = getString(R.string.set_aod_notification_icon_style)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "set_aod_style_mode"
-                setEntries(R.array.set_aod_style_mode_entries)
+                key = "set_aod_notification_icon_style"
+                setEntries(R.array.set_aod_notification_icon_style_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isVisible = SDK >= A13

@@ -306,7 +306,7 @@
     <string name="remove_aod_music_whitelist">Xóa danh sách trắng nhạc màn hình</string>
     <string name="remove_aod_notification_icon_whitelist">Xóa danh sách trắng biểu tượng thông báo</string>
     <string name="restore_aod_notification_icon_color">Khôi phục màu biểu tượng thông báo</string>
-    <string name="set_aod_style_mode">Đặt chế độ kiểu màn hình</string>
+    <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
     <string name="force_enable_screen_off_music_support">Buộc bật hỗ trợ nhạc màn hình</string>
     <string name="force_enable_screen_off_music_support_summary">Chỉ áp dụng cho các dòng máy không hỗ trợ phát nhạc trên màn hình</string>
     <!--LockScreen-->

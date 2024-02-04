@@ -6,10 +6,10 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
-object SetAodStyleMode : YukiBaseHooker() {
+object SetAodNotificationIconStyle : YukiBaseHooker() {
 
     override fun onHook() {
-        val mode = prefs(ModulePrefs).getString("set_aod_style_mode", "0")
+        val mode = prefs(ModulePrefs).getString("set_aod_notification_icon_style", "0")
         if (mode == "0") return
 
         //Source ProductFlavorOption
