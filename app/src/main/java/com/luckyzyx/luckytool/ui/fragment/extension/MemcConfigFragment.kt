@@ -195,25 +195,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 }
                 binding.addData.apply {
                     setOnClickListener {
-                        val binding = LayoutMemcConfigDialogBinding.inflate(layoutInflater)
-                        binding.packageLayout.hint = "PackageName"
-                        binding.activityLayout.isVisible = false
-                        binding.rateLayout.hint = "ScreenRate"
-                        binding.typeLayout.hint = "Type"
-
-                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                            setView(binding.root)
-                            setPositiveButton(android.R.string.ok) { _, _ ->
-                                val packageName = binding.packageName.text?.toString()
-                                val rate = binding.rateView.text?.toString()
-                                val type = binding.typeView.text?.toString()
-                                if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
-                                    val config = MemcConfigPackage(packageName, rate, type)
-                                    memcPackageAdapter?.addData(config)
-                                }
-                            }
-                            setNeutralButton(android.R.string.cancel, null)
-                        }.show()
+                        memcPackageAdapter?.addOrEditData()
                     }
                 }
 
@@ -290,29 +272,19 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
             @SuppressLint("SetTextI18n")
             override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-                val packName = filterDatas[position].packName
-                val rate = filterDatas[position].rate
-                val type = filterDatas[position].type
+                val config = filterDatas[position]
+                val packName = config.packName
+                val rate = config.rate
+                val type = config.type
 
                 holder.card.setOnClickListener(null)
                 holder.card.setOnLongClickListener(null)
 
                 holder.card.setOnClickListener {
-
+                    addOrEditData(config, position)
                 }
                 holder.card.setOnLongClickListener {
-                    MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                        setMessage(
-                            context.getString(
-                                R.string.confirm_to_delete_this_configuration, packName
-                            )
-                        )
-                        setPositiveButton(android.R.string.ok) { _, _ ->
-                            filterDatas.removeAt(position)
-                            saveAllData()
-                        }
-                        setNeutralButton(android.R.string.cancel, null)
-                    }.show()
+                    addOrEditData(config, position)
                     true
                 }
 
@@ -357,9 +329,49 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 notifyDataSetChanged()
             }
 
-            fun addData(config: MemcConfigPackage) {
-                filterDatas.add(config)
-                saveAllData()
+            fun addOrEditData(config: MemcConfigPackage? = null, position: Int? = null) {
+                val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
+                binding.packageLayout.hint = "PackageName"
+                binding.activityLayout.isVisible = false
+                binding.rateLayout.hint = "ScreenRate"
+                binding.typeLayout.hint = "Type"
+
+                if (config != null) {
+                    binding.packageName.setText(config.packName)
+                    binding.rateView.setText(config.rate)
+                    binding.typeView.setText(config.type)
+                }
+
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setView(binding.root)
+                    setPositiveButton(android.R.string.ok) { _, _ ->
+                        val packageName = binding.packageName.text?.toString()
+                        val rate = binding.rateView.text?.toString()
+                        val type = binding.typeView.text?.toString()
+                        if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
+                            val newConfig = MemcConfigPackage(packageName, rate, type)
+                            if (position != null) filterDatas[position] = newConfig
+                            else filterDatas.add(newConfig)
+                            saveAllData()
+                        }
+                    }
+                    if (config != null && position != null) {
+                        setNeutralButton(R.string.common_words_remove) { _, _ ->
+                            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                                val msg = context.getString(
+                                    R.string.confirm_to_delete_this_configuration, config.packName
+                                )
+                                setMessage(msg)
+                                setPositiveButton(android.R.string.ok) { _, _ ->
+                                    filterDatas.removeAt(position)
+                                    saveAllData()
+                                }
+                                setNeutralButton(android.R.string.cancel, null)
+                            }.show()
+                        }
+                    }
+                    setNegativeButton(android.R.string.cancel, null)
+                }.show()
             }
 
             private fun saveAllData() {
@@ -418,25 +430,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 }
                 binding.addData.apply {
                     setOnClickListener {
-                        val binding = LayoutMemcConfigDialogBinding.inflate(layoutInflater)
-                        binding.packageLayout.hint = "PackageName"
-                        binding.activityLayout.hint = "ActivityName"
-                        binding.rateLayout.isVisible = false
-                        binding.typeLayout.hint = "Type"
-
-                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                            setView(binding.root)
-                            setPositiveButton(android.R.string.ok) { _, _ ->
-                                val packageName = binding.packageName.text?.toString()
-                                val activity = binding.activityName.text?.toString()
-                                val type = binding.typeView.text?.toString()
-                                if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
-                                    val config = MemcConfigActivity(packageName, activity, type)
-                                    memcActivityAdapter?.addData(config)
-                                }
-                            }
-                            setNeutralButton(android.R.string.cancel, null)
-                        }.show()
+                        memcActivityAdapter?.addOrEditData()
                     }
                 }
 
@@ -512,29 +506,19 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             }
 
             override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-                val activity = filterDatas[position].activity
-                val packName = filterDatas[position].packName
-                val type = filterDatas[position].type
+                val config = filterDatas[position]
+                val activity = config.activity
+                val packName = config.packName
+                val type = config.type
 
                 holder.card.setOnClickListener(null)
                 holder.card.setOnLongClickListener(null)
 
                 holder.card.setOnClickListener {
-
+                    addOrEditData(config, position)
                 }
                 holder.card.setOnLongClickListener {
-                    MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                        setMessage(
-                            context.getString(
-                                R.string.confirm_to_delete_this_configuration, activity
-                            )
-                        )
-                        setPositiveButton(android.R.string.ok) { _, _ ->
-                            filterDatas.removeAt(position)
-                            saveAllData()
-                        }
-                        setNeutralButton(android.R.string.cancel, null)
-                    }.show()
+                    addOrEditData(config, position)
                     true
                 }
 
@@ -574,9 +558,50 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 }
             }
 
-            fun addData(config: MemcConfigActivity) {
-                filterDatas.add(config)
-                saveAllData()
+            fun addOrEditData(config: MemcConfigActivity? = null, position: Int? = null) {
+                val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
+                binding.packageLayout.hint = "PackageName"
+                binding.activityLayout.hint = "ActivityName"
+                binding.rateLayout.isVisible = false
+                binding.typeLayout.hint = "Type"
+
+                if (config != null) {
+                    binding.packageName.setText(config.packName)
+                    binding.activityName.setText(config.activity)
+                    binding.typeView.setText(config.type)
+                }
+
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setView(binding.root)
+                    setPositiveButton(android.R.string.ok) { _, _ ->
+                        val packageName = binding.packageName.text?.toString()
+                        val activity = binding.activityName.text?.toString()
+                        val type = binding.typeView.text?.toString()
+                        if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
+                            val newConfig = MemcConfigActivity(packageName, activity, type)
+                            if (position != null) filterDatas[position] = newConfig
+                            else filterDatas.add(newConfig)
+                            saveAllData()
+                        }
+                    }
+                    if (config != null && position != null) {
+                        setNeutralButton(R.string.common_words_remove) { _, _ ->
+                            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                                val msg = context.getString(
+                                    R.string.confirm_to_delete_this_configuration,
+                                    config.activity
+                                )
+                                setMessage(msg)
+                                setPositiveButton(android.R.string.ok) { _, _ ->
+                                    filterDatas.removeAt(position)
+                                    saveAllData()
+                                }
+                                setNeutralButton(android.R.string.cancel, null)
+                            }.show()
+                        }
+                    }
+                    setNegativeButton(android.R.string.cancel, null)
+                }.show()
             }
 
             @SuppressLint("NotifyDataSetChanged")

@@ -361,7 +361,7 @@
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>
     <string name="set_icon_columns_in_folder">Nastavte počet sloupců ikon ve složce</string>
-    <string name="sync_folder_icon_column_number_preview">Sync folder icon column number to preview</string>
+    <string name="sync_folder_icon_column_number_preview">Synchronizace ikony složky s číslem sloupce pro náhled</string>
     <string name="PaginationComponentRelated">Související se stránkováním (plochy spouštěče)</string>
     <string name="remove_pagination_component">Odstranit komponentu stránkování</string>
     <string name="remove_folder_pagination_component">Odstranit komponentu stránkování složky</string>
@@ -520,12 +520,12 @@
     <string name="settings_display">Displej</string>
     <string name="force_display_dc_backlight_mode">Vynucené zobrazení nízkého jasu a bez ochrany očí</string>
     <string name="force_display_dc_backlight_mode_summary">Neexistuje žádná záruka, že to bude fungovat, je to použito pouze pro zobrazení možností</string>
-    <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
-    <string name="enable_video_memc_frame_insertion_summary">Note: If the device does not have a dedicated graphics chip or does not support Memc, please do not use this function</string>
-    <string name="custom_video_dynamic_frame_insertion_configuration">Custom video dynamic frame insertion configuration</string>
-    <string name="restore_frame_insertion_configuration_data">Confirm to restore the default video dynamic frame insertion configuration data!</string>
-    <string name="confirm_to_delete_this_configuration">Confirm to delete this configuration?\n%1$s</string>
-    <string name="no_memc_data">No Memc Data</string>
+    <string name="enable_video_memc_frame_insertion">Povolit vkládání dynamického videosnímku</string>
+    <string name="enable_video_memc_frame_insertion_summary">Poznámka: Pokud zařízení nemá žádný grafický čip nebo nepodporuje Memc, nepoužívejte tuto funkci</string>
+    <string name="custom_video_dynamic_frame_insertion_configuration">Vlastní konfigurace dynamického vkládání videosnímků</string>
+    <string name="restore_frame_insertion_configuration_data">Potvrďte obnovení výchozích konfiguračních dat pro vkládání dynamického videosnímku!</string>
+    <string name="confirm_to_delete_this_configuration">Potvrdit odstranění této konfigurace?\n%1$s</string>
+    <string name="no_memc_data">Žádná Memc data</string>
     <string name="video_frame_insertion_support_2K120">Interpolace snímků videa je podporována při frekvenci 2K 120FPS</string>
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>
     <string name="enable_screen_color_temperature_rgb_palette">Povolit paletu pro teplotu barev obrazovky RGB</string>
@@ -839,7 +839,7 @@
     <string name="common_words_whitelist">Povolené</string>
     <string name="common_words_blacklist">Zakázané</string>
     <string name="common_words_ads">Reklamy</string>
-    <string name="common_words_reset">Reset</string>
+    <string name="common_words_reset">Obnovit</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Připojení k síti se nezdařilo</string>
     <string name="net_networking_error">Aktuální síť není k dispozici</string>
