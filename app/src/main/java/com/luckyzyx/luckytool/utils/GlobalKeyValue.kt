@@ -8,7 +8,10 @@ object GlobalKeyValue {
     const val keyTileAutoStart = "tile_auto_start"
 
     const val keyGlobalDCMode = "global_dc_mode"
+
     const val keyTouchSamplingRate = "touch_sampling_rate"
+    const val keyTouchSamplingRateLevel = "touch_sampling_rate_level"
+
     const val keyHighBrightness = "high_brightness_mode"
 
     const val memcConfigPackageList = "memc_config_package_list"

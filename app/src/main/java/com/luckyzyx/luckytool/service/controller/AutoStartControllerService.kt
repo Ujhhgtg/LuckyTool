@@ -13,6 +13,7 @@ import com.drake.net.utils.scope
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.GlobalKeyValue
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode
@@ -24,8 +25,10 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getInt
+import com.luckyzyx.luckytool.utils.getString
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
+import okhttp3.internal.toHexString
 
 @Obfuscate
 class AutoStartControllerService : Service() {
@@ -67,7 +70,11 @@ class AutoStartControllerService : Service() {
             if (getBoolean(SettingsPrefs, keyTileAutoStart, false)) {
                 //触控采样率相关
                 if (getBoolean(SettingsPrefs, keyTouchSamplingRate, false)) {
-                    command.add("echo > /proc/touchpanel/game_switch_enable 1")
+                    val level =
+                        getString(SettingsPrefs, GlobalKeyValue.keyTouchSamplingRateLevel, "0")
+                    val int16 = level?.toInt()?.toHexString() ?: 0
+                    command.add("echo > /proc/touchpanel/game_switch_enable $int16")
+                    command.add("touchHidlTest -c wo 0 26 $int16")
                 }
                 //高亮度模式
                 if (getBoolean(SettingsPrefs, keyHighBrightness, false)) {

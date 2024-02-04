@@ -779,6 +779,9 @@
     <!--Shortcut-->
     <string name="set_module_shortcuts">设置模块快捷方式</string>
     <string name="set_module_shortcuts_summary">长按模块图标即可显示已启用的快捷方式</string>
+    <!--TouchPanel-->
+    <string name="set_touch_sampling_rate_tile_level">设置触摸采样率磁贴档位</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">自行测试各个档位是否可以正常使用\n使用游戏助手打开游戏时，会覆盖当前采样率</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">远程ADB调试</string>
     <string name="remote_adb_debug_summary">不使用时请及时关闭</string>

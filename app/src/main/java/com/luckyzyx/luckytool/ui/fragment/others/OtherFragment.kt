@@ -19,11 +19,14 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
+import com.luckyzyx.luckytool.ITouchPanelController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
 import com.luckyzyx.luckytool.databinding.LayoutAdbDialogBinding
 import com.luckyzyx.luckytool.databinding.LayoutShortcutDialogBinding
 import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
+import com.luckyzyx.luckytool.service.controller.TouchPanelControllerService
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils
@@ -39,7 +42,9 @@ import com.luckyzyx.luckytool.utils.putString
 class OtherFragment : Fragment() {
 
     private lateinit var binding: FragmentOtherBinding
+
     private var adbController: IAdbDebugController? = null
+    private var touchController: ITouchPanelController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -48,7 +53,6 @@ class OtherFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
     fun init(context: Context) {
         binding.quickEntry.setOnClickListener {
             navigatePage(R.id.action_nav_other_to_systemQuickEntry, getString(R.string.quick_entry))
@@ -83,7 +87,26 @@ class OtherFragment : Fragment() {
                 }
             }
         }
+    }
 
+    private fun initTouchPanelView() {
+        val touchs = arrayOf("120", "180", "240", "360", "480", "600", "720")
+        binding.touchPanel.apply {
+            isVisible = touchController != null
+            setOnClickListener {
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setItems(touchs) { _, which ->
+                        val value = if (which > 0) touchs[which] else which.toString()
+                        context.putString(SettingsPrefs, keyTouchSamplingRateLevel, value)
+                        touchController?.touchMode = value.toInt()
+                    }
+                }.show()
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initAdbDebugView() {
         binding.remoteAdbDebug.apply {
             isVisible = adbController != null
             setOnClickListener {
@@ -172,8 +195,15 @@ class OtherFragment : Fragment() {
         if (adbController == null) requireActivity().bindRootService(
             AdbDebugControllerService::class.java, { _: ComponentName?, iBinder: IBinder? ->
                 adbController = IAdbDebugController.Stub.asInterface(iBinder)
-                init(requireActivity())
+                initAdbDebugView()
             })
-        else init(requireActivity())
+        else initAdbDebugView()
+
+        if (touchController == null) requireActivity().bindRootService(
+            TouchPanelControllerService::class.java, { _: ComponentName?, iBinder: IBinder? ->
+                touchController = ITouchPanelController.Stub.asInterface(iBinder)
+                initTouchPanelView()
+            })
+        else initTouchPanelView()
     }
 }

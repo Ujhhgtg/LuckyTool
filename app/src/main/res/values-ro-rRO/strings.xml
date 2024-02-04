@@ -779,6 +779,9 @@
     <!--Shortcut-->
     <string name="set_module_shortcuts">Set module shortcuts</string>
     <string name="set_module_shortcuts_summary">Long press on module icon to show enabled shortcuts</string>
+    <!--TouchPanel-->
+    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Remote ADB debugging</string>
     <string name="remote_adb_debug_summary">Please close it when not in use</string>

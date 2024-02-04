@@ -779,6 +779,9 @@
     <!--Shortcut-->
     <string name="set_module_shortcuts">Đặt phím tắt mô-đun</string>
     <string name="set_module_shortcuts_summary">Nhấn và giữ vào biểu tượng mô-đun để hiển thị các phím tắt đã bật</string>
+    <!--TouchPanel-->
+    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Gỡ lỗi ADB từ xa</string>
     <string name="remote_adb_debug_summary">Vui lòng đóng lại khi không sử dụng</string>

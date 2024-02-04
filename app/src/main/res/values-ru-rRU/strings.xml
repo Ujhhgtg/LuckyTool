@@ -780,6 +780,9 @@
     <!--Shortcut-->
     <string name="set_module_shortcuts">Установить ярлыки модуля</string>
     <string name="set_module_shortcuts_summary">Нажмите и удерживайте иконку модуля, чтобы отобразить включенные ярлыки</string>
+    <!--TouchPanel-->
+    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Удаленная отладка ADB</string>
     <string name="remote_adb_debug_summary">Пожалуйста, закройте его, когда он не используется</string>

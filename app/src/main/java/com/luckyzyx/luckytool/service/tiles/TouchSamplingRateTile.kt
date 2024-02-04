@@ -4,13 +4,14 @@ import android.content.ComponentName
 import android.os.IBinder
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.ITouchPanelController
 import com.luckyzyx.luckytool.service.controller.TouchPanelControllerService
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRate
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.bindRootService
+import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 
 @Obfuscate
@@ -19,17 +20,16 @@ class TouchSamplingRateTile : TileService() {
     override fun onStartListening() = startController()
 
     override fun onClick() {
+        val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "0")
         when (qsTile.state) {
             Tile.STATE_INACTIVE -> {
-                controller?.touchMode = true
+                controller?.touchMode = level?.toInt() ?: 0
                 putBoolean(SettingsPrefs, keyTouchSamplingRate, true)
-                dataChannel("com.android.systemui").put(keyTouchSamplingRate, true)
             }
 
             Tile.STATE_ACTIVE -> {
-                controller?.touchMode = false
+                controller?.touchMode = 0
                 putBoolean(SettingsPrefs, keyTouchSamplingRate, false)
-                dataChannel("com.android.systemui").put(keyTouchSamplingRate, false)
             }
 
             Tile.STATE_UNAVAILABLE -> {}
@@ -49,7 +49,7 @@ class TouchSamplingRateTile : TileService() {
     private fun refreshData() {
         qsTile.state = if (controller == null) Tile.STATE_UNAVAILABLE
         else if (!controller!!.checkTouchMode()) Tile.STATE_UNAVAILABLE
-        else if (controller!!.touchMode) Tile.STATE_ACTIVE
+        else if (controller!!.touchMode > 0) Tile.STATE_ACTIVE
         else Tile.STATE_INACTIVE
         qsTile.updateTile()
         if (qsTile.state == Tile.STATE_UNAVAILABLE) putBoolean(
