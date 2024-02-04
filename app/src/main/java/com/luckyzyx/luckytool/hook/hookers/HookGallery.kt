@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookFunctionManager
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookSystemStorage
+import com.luckyzyx.luckytool.hook.scopes.gallery.RemoveAIGCEliminationLimit
 import com.luckyzyx.luckytool.hook.scopes.gallery.RemoveGalleryWaterMarkWordLimit
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -21,6 +22,10 @@ object HookGallery : YukiBaseHooker() {
             //移除自定义水印字数限制
             if (prefs(ModulePrefs).getBoolean("remove_gallery_watermark_word_limit", false)) {
                 loadHooker(RemoveGalleryWaterMarkWordLimit(dexKitBridge))
+            }
+            //移除AIGC消除限制
+            if (prefs(ModulePrefs).getBoolean("remove_aigc_elimination_limit", false)) {
+                loadHooker(RemoveAIGCEliminationLimit(dexKitBridge))
             }
         }
     }

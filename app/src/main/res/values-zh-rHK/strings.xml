@@ -582,6 +582,7 @@
     <string name="GalleryEditor">编辑器</string>
     <string name="enable_photo_editor_gif_synthesis">启用 Gif 合成</string>
     <string name="enable_lns_cut_photo">启用闪速抠图</string>
+    <string name="remove_aigc_elimination_limit">移除 AIGC 消除限制</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">布局</string>
     <string name="remove_startup_animation">移除启动动画</string>

@@ -582,6 +582,7 @@
     <string name="GalleryEditor">Editor</string>
     <string name="enable_photo_editor_gif_synthesis">Povolit syntézu gif</string>
     <string name="enable_lns_cut_photo">Povolit vyříznutí části fotky</string>
+    <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Rozložení</string>
     <string name="remove_startup_animation">Odstranit úvodní animaci</string>

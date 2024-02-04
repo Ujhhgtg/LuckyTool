@@ -582,6 +582,7 @@
     <string name="GalleryEditor">Chỉnh sửa</string>
     <string name="enable_photo_editor_gif_synthesis">Bật bố cục Gif</string>
     <string name="enable_lns_cut_photo">Cho phép cắt một phần ảnh</string>
+    <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Bố cục</string>
     <string name="remove_startup_animation">Xóa hoạt ảnh khởi động</string>

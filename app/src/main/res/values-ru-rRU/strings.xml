@@ -583,6 +583,7 @@
     <string name="GalleryEditor">Редактор</string>
     <string name="enable_photo_editor_gif_synthesis">Включить синтез GIF</string>
     <string name="enable_lns_cut_photo">Вырезать часть фото</string>
+    <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Разметка</string>
     <string name="remove_startup_animation">Удалить стартовую анимацию</string>

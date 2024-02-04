@@ -3433,6 +3433,12 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_aigc_elimination_limit)
+                key = "remove_aigc_elimination_limit"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 
