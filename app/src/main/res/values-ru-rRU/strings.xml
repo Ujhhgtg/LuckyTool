@@ -841,6 +841,7 @@
     <string name="common_words_blacklist">Чёрный список</string>
     <string name="common_words_ads">Реклама</string>
     <string name="common_words_reset">Сброс</string>
+    <string name="common_words_import">Import</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Не удалось подключиться к сети</string>
     <string name="net_networking_error">Текущая сеть недоступна</string>

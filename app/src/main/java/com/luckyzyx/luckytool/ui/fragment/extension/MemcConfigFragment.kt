@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -46,6 +47,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import java.io.InputStream
 
 object MemcCallback {
     var callback: ((key: String, value: Any) -> Unit)? = null
@@ -107,9 +109,25 @@ class MemcConfigFragment : Fragment(), MenuProvider {
         }
     }
 
+    private val restoreData = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            val inputStream = safeOfNull {
+                requireActivity().contentResolver.openInputStream(it)
+            } ?: return@registerForActivityResult
+            resetAllConfig(inputStream)
+        }
+    }
+
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.add(0, 1, 0, getString(R.string.common_words_reset)).apply {
-            setIcon(R.drawable.ic_baseline_refresh_24)
+        menu.add(0, 1, 0, getString(R.string.common_words_import) + "Xml").apply {
+//            setIcon(R.drawable.ic_baseline_refresh_24)
+            setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
+            if (ThemeUtils.isNightMode(resources.configuration)) {
+                iconTintList = ColorStateList.valueOf(Color.WHITE)
+            }
+        }
+        menu.add(0, 2, 0, getString(R.string.common_words_reset)).apply {
+//            setIcon(R.drawable.ic_baseline_refresh_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
             if (ThemeUtils.isNightMode(resources.configuration)) {
                 iconTintList = ColorStateList.valueOf(Color.WHITE)
@@ -118,32 +136,43 @@ class MemcConfigFragment : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == 1) {
-            val version = arrayOf("x7", "x7p")
-            MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
-                setMessage(getString(R.string.restore_frame_insertion_configuration_data))
-                setPositiveButton(android.R.string.ok) { _, _ ->
-                    MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                        setItems(version) { _, which ->
-                            resetAllConfig(version[which])
-                        }
-                    }.show()
-                    resetAllConfig()
+        when (menuItem.itemId) {
+            1 -> {
+                FileUtils.checkDownloadDir(requireActivity(), "LuckyTool").apply {
+                    if (isFile) delete()
+                    if (!exists()) mkdirs()
                 }
-                setNeutralButton(android.R.string.cancel, null)
-            }.show()
+                restoreData.launch("text/xml")
+            }
+
+            2 -> {
+                val version = arrayOf("x7", "x7p")
+                MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+                    setMessage(getString(R.string.restore_frame_insertion_configuration_data))
+                    setPositiveButton(android.R.string.ok) { _, _ ->
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            setItems(version) { _, which ->
+                                resetAllConfig(null, version[which])
+                            }
+                        }.show()
+                        resetAllConfig()
+                    }
+                    setNeutralButton(android.R.string.cancel, null)
+                }.show()
+            }
         }
         return true
     }
 
-    private fun resetAllConfig(version: String = "") {
+    private fun resetAllConfig(inputStream: InputStream? = null, version: String = "") {
         scopeLife {
             val packages = java.util.ArrayList<MemcConfigPackage>()
             val activitys = java.util.ArrayList<MemcConfigActivity>()
-            val inputStream = safeOfNull {
+
+            val newInputStream = inputStream ?: safeOfNull {
                 requireActivity().resources.openRawResource(R.raw.multimedia_pixelworks_apps_x7)
             } ?: return@scopeLife
-            FileUtils.parseMemcXml(inputStream, packages, activitys)
+            FileUtils.parseMemcXml(newInputStream, packages, activitys)
 
             when (version) {
                 "x7p" -> activitys.onEachIndexed { index, config ->

@@ -840,6 +840,7 @@
     <string name="common_words_blacklist">ブラックリスト</string>
     <string name="common_words_ads">広告</string>
     <string name="common_words_reset">Reset</string>
+    <string name="common_words_import">Import</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">ネットワークに接続できませんでした</string>
     <string name="net_networking_error">現在のネットワークは利用できません</string>

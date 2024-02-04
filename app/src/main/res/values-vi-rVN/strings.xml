@@ -840,6 +840,7 @@
     <string name="common_words_blacklist">Danh sách đen</string>
     <string name="common_words_ads">Quảng cáo</string>
     <string name="common_words_reset">Đặt lại</string>
+    <string name="common_words_import">Import</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Không thể kết nối tới mạng</string>
     <string name="net_networking_error">Mạng hiện tại không khả dụng</string>
