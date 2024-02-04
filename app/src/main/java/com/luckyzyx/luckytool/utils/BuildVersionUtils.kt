@@ -57,4 +57,4 @@ val getOSVersionName: String
  * 29 -> (c13.2)
  * 30 -> (c14.0)
  */
-val getOSVersionCode get() = OplusBuild.getOplusOSVERSION()
+val getOSVersionCode get() = safeOf(0) { OplusBuild.getOplusOSVERSION() }

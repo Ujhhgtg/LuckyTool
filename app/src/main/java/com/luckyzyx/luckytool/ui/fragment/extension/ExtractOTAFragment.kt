@@ -73,6 +73,7 @@ class ExtractOTAFragment : Fragment() {
                     val activeUrlIndex = cursor.getColumnIndex("active_url")
                     val urlIndex = cursor.getColumnIndex("url")
 
+                    val otaList = ArrayList<String>()
                     while (cursor.moveToNext()) {
                         val packName = cursor.getStringOrNull(packNameIndex) ?: "Null"
                         val size = cursor.getStringOrNull(sizeIndex) ?: "Null"
@@ -80,20 +81,20 @@ class ExtractOTAFragment : Fragment() {
                         val activeUrl = cursor.getStringOrNull(activeUrlIndex) ?: "Null"
                         val url = cursor.getStringOrNull(urlIndex) ?: "Null"
 
+                        otaList.add("PackName: $packName")
+                        otaList.add("ActiveUrl: $activeUrl")
+                        otaList.add("Url: $url")
+                        otaList.add("MD5: $md5")
+                        otaList.add("Size: ${formatFileSize(size.toFloatOrNull())} ($size)")
+                        otaList.add("")
+                    }
+
+                    if (otaList.isNotEmpty()) {
                         list.add("Model: ${getModelMarketName()} ${Build.MODEL}")
                         list.add("")
-                        list.add("PackName: $packName")
-                        list.add("")
-                        list.add("Size: ${formatFileSize(size.toFloatOrNull())} ($size)")
-                        list.add("")
-                        list.add("ActiveUrl: $activeUrl")
-                        list.add("")
-                        list.add("Url: $url")
-                        list.add("")
-                        list.add("MD5: $md5")
-                        list.add("")
-                    }
-                    if (list.isEmpty()) return@withDefault list
+                        list.addAll(otaList)
+                    } else return@withDefault list
+
                     val json = JSONObject().apply {
                         put("product_name", Build.MODEL)
                         put("nv_id", SystemProperties.get("ro.build.oplus_nv_id"))

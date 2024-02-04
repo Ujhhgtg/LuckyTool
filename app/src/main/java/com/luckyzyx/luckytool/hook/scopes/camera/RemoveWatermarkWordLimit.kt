@@ -5,6 +5,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.luckypray.dexkit.DexKitBridge
 
@@ -20,10 +21,10 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                     Spanned::class.java, IntType, IntType
                 )
                 returnType(CharSequenceClass)
-                usingNumbers(0)
                 usingStrings("")
-                addUsingField {
-                    type("com.coui.appcompat.edittext.COUIEditText")
+                addInvoke {
+                    paramCount(2..3)
+                    returnType(UnitType)
                 }
             }
         }.apply {
