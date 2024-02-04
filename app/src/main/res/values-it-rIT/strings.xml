@@ -99,7 +99,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale Color OS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Relativa all\'installazione</string>
     <string name="corepatch">Corpo Patch</string>
-    <string name="corepatch_summary">Rimuovere i limiti di installazione, supporta Android 11-14</string>
+    <string name="corepatch_summary">Rimuovere i limiti di installazione, supporta Android 11–14</string>
     <string name="downgr">Consenti downgrade app</string>
     <string name="downgr_summary">Consente all\'applicazione di sovrascrivere le versioni precedenti se le nuove versioni sono installate.</string>
     <string name="authcreak">Disabilita convalida firma gestore pacchetti</string>

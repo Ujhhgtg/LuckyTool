@@ -119,9 +119,15 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == 1) {
+            val version = arrayOf("x7", "x7p")
             MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                 setMessage(getString(R.string.restore_frame_insertion_configuration_data))
                 setPositiveButton(android.R.string.ok) { _, _ ->
+                    MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                        setItems(version) { _, which ->
+                            resetAllConfig(version[which])
+                        }
+                    }.show()
                     resetAllConfig()
                 }
                 setNeutralButton(android.R.string.cancel, null)
@@ -130,14 +136,22 @@ class MemcConfigFragment : Fragment(), MenuProvider {
         return true
     }
 
-    private fun resetAllConfig() {
+    private fun resetAllConfig(version: String = "") {
         scopeLife {
             val packages = java.util.ArrayList<MemcConfigPackage>()
             val activitys = java.util.ArrayList<MemcConfigActivity>()
             val inputStream = safeOfNull {
-                requireActivity().resources.openRawResource(R.raw.multimedia_pixelworks_apps)
+                requireActivity().resources.openRawResource(R.raw.multimedia_pixelworks_apps_x7)
             } ?: return@scopeLife
             FileUtils.parseMemcXml(inputStream, packages, activitys)
+
+            when (version) {
+                "x7p" -> activitys.onEachIndexed { index, config ->
+                    activitys[index] =
+                        MemcConfigActivity(config.packName, config.activity, "258-10-0-0")
+                }
+            }
+
             val packageSet = ArraySet<String>()
             val activitySet = ArraySet<String>()
 

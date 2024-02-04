@@ -7,6 +7,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
 - [修复] 状态栏磁贴横屏间隙Hook异常 C13.0
 - [优化] 视频动态插帧配置编辑功能
+- [优化] 视频动态插帧配置重置方案选择
 
 ### 1.1.9
 
