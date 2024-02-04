@@ -15,7 +15,6 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
-import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsMode
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyHighBrightness
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTileAutoStart
@@ -51,7 +50,7 @@ class AutoStartControllerService : Service() {
         NotifyUtils.createChannel(this@AutoStartControllerService, channel)
     }
 
-    @SuppressLint("InlinedApi")
+    @SuppressLint("WrongConstant", "InlinedApi")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         scope(Dispatchers.Default) {
             if (SDK >= A14) startForeground(
@@ -61,11 +60,8 @@ class AutoStartControllerService : Service() {
             val command = ArrayList<String>()
             //FPS自启
             if (getBoolean(SettingsPrefs, keyFpsAutoStart, false)) {
-                val fpsMode = getInt(SettingsPrefs, keyFpsMode, 1)
                 val fpsCur = getInt(SettingsPrefs, keyFpsCur, -1)
-                if ((fpsMode == 2) && (fpsCur != -1)) {
-                    command.add("service call SurfaceFlinger 1035 i32 $fpsCur")
-                }
+                if (fpsCur != -1) command.add("service call SurfaceFlinger 1035 i32 $fpsCur")
             }
             //磁贴自启
             if (getBoolean(SettingsPrefs, keyTileAutoStart, false)) {

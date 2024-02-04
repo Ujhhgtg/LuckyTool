@@ -716,7 +716,7 @@
     <string name="device">设备</string>
     <string name="system">系统</string>
     <string name="fps_mode_title">方案</string>
-    <string name="fps_tips">自启功能将会在屏幕解锁1s后触发\n方案一只能重启恢复, 恢复时请关闭自启功能</string>
+    <string name="fps_tips">自启功能将在屏幕解锁1秒后触发</string>
     <string name="restore_default_refresh_rate">恢复默认刷新率</string>
     <string name="module_isactivated">模块已激活</string>
     <string name="module_notactive">模块未激活</string>

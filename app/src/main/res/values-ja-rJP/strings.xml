@@ -716,7 +716,7 @@
     <string name="device">デバイス</string>
     <string name="system">システム</string>
     <string name="fps_mode_title">オプション</string>
-    <string name="fps_tips">自動起動機能は画面のロックを解除の1秒後に実行されます\nオプション1は再起動と復元のみが使用可能です。復元時は自動起動機能をオフにしてください</string>
+    <string name="fps_tips">The self-start function will be triggered 1 s after the screen is unlocked</string>
     <string name="restore_default_refresh_rate">標準のリフレッシュレートを復元</string>
     <string name="module_isactivated">モジュールは有効です</string>
     <string name="module_notactive">モジュールは無効です</string>

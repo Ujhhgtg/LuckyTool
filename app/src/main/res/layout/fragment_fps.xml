@@ -48,48 +48,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:orientation="vertical">
-            
-            <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/fps_mode_title"
-                    android:text="@string/fps_mode_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            
-            <RadioGroup
-                    android:id="@+id/fps_mode_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                
-                <RadioButton
-                        android:id="@+id/fps_mode_1"
-                        android:text="Peak Refresh Rate"
-                        android:enabled="false"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:ignore="HardcodedText" />
-                
-                <RadioButton
-                        android:id="@+id/fps_mode_2"
-                        android:text="Surfaceflinger Backdoor"
-                        android:enabled="false"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:ignore="HardcodedText" />
-            
-            </RadioGroup>
-        
-        </LinearLayout>
-        
         <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/fps_self_start"
                 android:text="@string/fps_autostart"
