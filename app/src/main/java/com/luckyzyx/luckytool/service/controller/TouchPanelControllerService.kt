@@ -46,10 +46,15 @@ class TouchPanelControllerService : RootService() {
             try {
                 val int16 = value.toHexString()
                 if (file.exists()) file.writeText(int16)
-                else ShellUtils.fastCmd("$writeTouch $int16")
+                else callTouchHidl(int16)
             } catch (e: Throwable) {
                 LogUtils.e(tag, "setTouchMode", "$e", true)
             }
         }
+    }
+
+    fun callTouchHidl(int16: String) {
+        val command = arrayOf("start touchDaemon && ps -A | grep touchDaemon", "$writeTouch $int16")
+        ShellUtils.fastCmd(*command)
     }
 }

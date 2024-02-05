@@ -20,10 +20,10 @@ class TouchSamplingRateTile : TileService() {
     override fun onStartListening() = startController()
 
     override fun onClick() {
-        val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "0")
+        val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "1")
         when (qsTile.state) {
             Tile.STATE_INACTIVE -> {
-                controller?.touchMode = level?.toInt() ?: 0
+                controller?.touchMode = level?.toInt() ?: 1
                 putBoolean(SettingsPrefs, keyTouchSamplingRate, true)
             }
 

@@ -306,7 +306,7 @@
     <string name="remove_aod_music_whitelist">Удалить ограничение виджетов музыки на AOD</string>
     <string name="remove_aod_notification_icon_whitelist">Удалить ограничение иконок уведомлений на AOD</string>
     <string name="restore_aod_notification_icon_color">Восстановить цвет иконки уведомления</string>
-    <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
+    <string name="set_aod_notification_icon_style">Установить стиль иконки уведомления AOD</string>
     <string name="force_enable_screen_off_music_support">Включить поддержку музыки при отключенном экране</string>
     <string name="force_enable_screen_off_music_support_summary">Применимо только к моделям, которые не поддерживают музыку при отключенном экране</string>
     <!--LockScreen-->
@@ -583,7 +583,7 @@
     <string name="GalleryEditor">Редактор</string>
     <string name="enable_photo_editor_gif_synthesis">Включить синтез GIF</string>
     <string name="enable_lns_cut_photo">Вырезать часть фото</string>
-    <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
+    <string name="remove_aigc_elimination_limit">Снять ограничения на устранение AIGC</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Разметка</string>
     <string name="remove_startup_animation">Удалить стартовую анимацию</string>
@@ -718,7 +718,7 @@
     <string name="device">Устройство</string>
     <string name="system">Система</string>
     <string name="fps_mode_title">Параметры</string>
-    <string name="fps_tips">The self-start function will be triggered 1 s after the screen is unlocked</string>
+    <string name="fps_tips">Функция автозапуска сработает через 1 секунду после разблокировки экрана</string>
     <string name="restore_default_refresh_rate">Восстановить частоту обновления по умолчанию</string>
     <string name="module_isactivated">Модуль активен</string>
     <string name="module_notactive">Модуль не активен</string>
@@ -782,8 +782,8 @@
     <string name="set_module_shortcuts">Установить ярлыки модуля</string>
     <string name="set_module_shortcuts_summary">Нажмите и удерживайте иконку модуля, чтобы отобразить включенные ярлыки</string>
     <!--TouchPanel-->
-    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
-    <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
+    <string name="set_touch_sampling_rate_tile_level">Установить уровень частоты дискретизации касания плитки</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">Проверьте самостоятельно, можно ли нормально активировать каждый уровень\nКогда вы используете игровой помощник, чтобы открыть игру, текущая частота дискретизации будет перезаписана.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Удаленная отладка ADB</string>
     <string name="remote_adb_debug_summary">Пожалуйста, закройте его, когда он не используется</string>
@@ -845,7 +845,7 @@
     <string name="common_words_blacklist">Чёрный список</string>
     <string name="common_words_ads">Реклама</string>
     <string name="common_words_reset">Сброс</string>
-    <string name="common_words_import">Import</string>
+    <string name="common_words_import">Импортировать</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Не удалось подключиться к сети</string>
     <string name="net_networking_error">Текущая сеть недоступна</string>

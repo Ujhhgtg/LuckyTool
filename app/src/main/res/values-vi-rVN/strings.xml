@@ -306,7 +306,7 @@
     <string name="remove_aod_music_whitelist">Xóa danh sách trắng nhạc màn hình</string>
     <string name="remove_aod_notification_icon_whitelist">Xóa danh sách trắng biểu tượng thông báo</string>
     <string name="restore_aod_notification_icon_color">Khôi phục màu biểu tượng thông báo</string>
-    <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
+    <string name="set_aod_notification_icon_style">Đặt kiểu biểu tượng thông báo AOD</string>
     <string name="force_enable_screen_off_music_support">Buộc bật hỗ trợ nhạc màn hình</string>
     <string name="force_enable_screen_off_music_support_summary">Chỉ áp dụng cho các dòng máy không hỗ trợ phát nhạc trên màn hình</string>
     <!--LockScreen-->
@@ -582,7 +582,7 @@
     <string name="GalleryEditor">Chỉnh sửa</string>
     <string name="enable_photo_editor_gif_synthesis">Bật bố cục Gif</string>
     <string name="enable_lns_cut_photo">Cho phép cắt một phần ảnh</string>
-    <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
+    <string name="remove_aigc_elimination_limit">Xóa AIGC để xóa các hạn chế</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Bố cục</string>
     <string name="remove_startup_animation">Xóa hoạt ảnh khởi động</string>
@@ -717,7 +717,7 @@
     <string name="device">Thiết bị</string>
     <string name="system">Android</string>
     <string name="fps_mode_title">Tùy chỉnh</string>
-    <string name="fps_tips">The self-start function will be triggered 1 s after the screen is unlocked</string>
+    <string name="fps_tips">Chức năng tự khởi động sẽ được kích hoạt 1 giây sau khi màn hình được mở khóa</string>
     <string name="restore_default_refresh_rate">Khôi phục tốc độ làm mới mặc định</string>
     <string name="module_isactivated">Mô-đun đã kích hoạt</string>
     <string name="module_notactive">Mô-đun chưa kích hoạt</string>
@@ -781,8 +781,8 @@
     <string name="set_module_shortcuts">Đặt phím tắt mô-đun</string>
     <string name="set_module_shortcuts_summary">Nhấn và giữ vào biểu tượng mô-đun để hiển thị các phím tắt đã bật</string>
     <!--TouchPanel-->
-    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
-    <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
+    <string name="set_touch_sampling_rate_tile_level">Đặt mức ô tốc độ lấy mẫu cảm ứng</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">Hãy tự kiểm tra xem mỗi thiết bị có thể được sử dụng bình thường hay không\nKhi bạn sử dụng trợ lý trò chơi để mở trò chơi, tốc độ lấy mẫu hiện tại sẽ bị ghi đè.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Gỡ lỗi ADB từ xa</string>
     <string name="remote_adb_debug_summary">Vui lòng đóng lại khi không sử dụng</string>
@@ -844,7 +844,7 @@
     <string name="common_words_blacklist">Danh sách đen</string>
     <string name="common_words_ads">Quảng cáo</string>
     <string name="common_words_reset">Đặt lại</string>
-    <string name="common_words_import">Import</string>
+    <string name="common_words_import">Nhập</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Không thể kết nối tới mạng</string>
     <string name="net_networking_error">Mạng hiện tại không khả dụng</string>

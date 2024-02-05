@@ -326,10 +326,6 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 holder.card.setOnClickListener {
                     addOrEditData(config, position)
                 }
-                holder.card.setOnLongClickListener {
-                    addOrEditData(config, position)
-                    true
-                }
 
                 holder.packageName.apply {
                     text = packName
@@ -559,10 +555,6 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
                 holder.card.setOnClickListener {
                     addOrEditData(config, position)
-                }
-                holder.card.setOnLongClickListener {
-                    addOrEditData(config, position)
-                    true
                 }
 
                 holder.packageName.apply {

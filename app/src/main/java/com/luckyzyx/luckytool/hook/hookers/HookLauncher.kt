@@ -41,7 +41,6 @@ object HookLauncher : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("launcher_layout_enable", false)) {
             loadHooker(LauncherLayoutRowColume)
         }
-
         //移除文件夹预览背景
         if (prefs(ModulePrefs).getBoolean("remove_folder_preview_background", false)) {
             loadHooker(RemoveFolderPreviewBackground)
