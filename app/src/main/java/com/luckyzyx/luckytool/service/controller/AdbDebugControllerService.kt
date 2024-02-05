@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
 import android.os.SystemProperties
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ShellUtils
@@ -9,6 +10,7 @@ import com.topjohnwu.superuser.ipc.RootService
 import java.net.Inet4Address
 import java.net.NetworkInterface
 
+@Obfuscate
 class AdbDebugControllerService : RootService() {
     val tag = "AdbDebugControllerService"
 

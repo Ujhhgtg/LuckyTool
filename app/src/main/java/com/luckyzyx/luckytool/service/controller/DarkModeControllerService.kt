@@ -3,10 +3,12 @@ package com.luckyzyx.luckytool.service.controller
 import android.content.Intent
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IDarkModeController
 import com.luckyzyx.luckytool.hook.utils.IColorDisplayUtils
 import com.topjohnwu.superuser.ipc.RootService
 
+@Obfuscate
 class DarkModeControllerService : RootService() {
     companion object {
 

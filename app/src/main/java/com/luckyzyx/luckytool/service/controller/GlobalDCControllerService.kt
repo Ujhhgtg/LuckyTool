@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalDCController
 import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
@@ -8,6 +9,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
+@Obfuscate
 class GlobalDCControllerService : RootService() {
     companion object {
         private const val oppoFileDir = "/sys/kernel/oppo_display/dimlayer_hbm"

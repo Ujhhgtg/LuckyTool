@@ -1,11 +1,13 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGoogleServiceController
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 
+@Obfuscate
 class GoogleServiceControllerService : RootService() {
     val tag = "GoogleServiceControllerService"
 

@@ -18,10 +18,8 @@ import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.factory.prefs
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
-import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
-import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppBlackList
@@ -33,7 +31,6 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.checkVerify
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
@@ -172,12 +169,5 @@ open class MainActivity : AppCompatActivity() {
                 recreate()
             }
         }
-    }
-
-    fun initController(result: (IGlobalFuncController) -> Unit) {
-        bindRootService(GlobalFuncControllerService::class.java, { _, iBinder ->
-            val funcController = IGlobalFuncController.Stub.asInterface(iBinder)
-            result(funcController)
-        })
     }
 }

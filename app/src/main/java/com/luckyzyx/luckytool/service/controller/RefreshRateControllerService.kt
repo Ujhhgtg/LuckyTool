@@ -6,12 +6,14 @@ import android.os.RemoteException
 import android.os.ServiceManager
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.hook.utils.DisplayManagerUtils
 import com.luckyzyx.luckytool.utils.DisplayMode
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
 
+@Obfuscate
 class RefreshRateControllerService : RootService() {
     val tag = "RefreshRateControllerService"
     val isDebug = false

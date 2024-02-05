@@ -8,11 +8,13 @@ import android.os.ServiceManager
 import android.telephony.TelephonyManager
 import com.android.internal.telephony.ITelephony
 import com.android.internal.telephony.RILConstants
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IFiveGController
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.SDK
 import com.topjohnwu.superuser.ipc.RootService
 
+@Obfuscate
 class FiveGControllerService : RootService() {
 
     companion object {

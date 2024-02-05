@@ -2,12 +2,14 @@ package com.luckyzyx.luckytool.service.controller
 
 import android.content.Intent
 import android.os.SystemProperties
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.utils.formatSpace
 import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
 import java.io.File
 
+@Obfuscate
 class GlobalFuncControllerService : RootService() {
     override fun onBind(intent: Intent) = object : IGlobalFuncController.Stub() {
 

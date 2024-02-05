@@ -205,479 +205,482 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             }
         }
     }
+}
 
-    class MemcPackageFragment : Fragment() {
-        private lateinit var binding: FragmentMemcPackageLayoutBinding
-        private var memcPackageAdapter: MemcPackageAdapter? = null
+@Obfuscate
+class MemcPackageFragment : Fragment() {
+    private lateinit var binding: FragmentMemcPackageLayoutBinding
+    private var memcPackageAdapter: MemcPackageAdapter? = null
 
-        private val allConfigPackages = ArrayList<MemcConfigPackage>()
+    private val allConfigPackages = ArrayList<MemcConfigPackage>()
 
+    private val configPackageList = GlobalKeyValue.memcConfigPackageList
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentMemcPackageLayoutBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        scopeLife {
+            binding.searchViewLayout.apply {
+                hint = "PackageName / ActivityName"
+                isHintEnabled = true
+                isHintAnimationEnabled = true
+            }
+            binding.searchView.apply {
+                addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
+                    memcPackageAdapter?.getFilter?.filter(text)
+                })
+            }
+            binding.swipeRefreshLayout.apply {
+                setOnRefreshListener { loadData() }
+            }
+            binding.addData.apply {
+                setOnClickListener {
+                    memcPackageAdapter?.addOrEditData()
+                }
+            }
+
+            MemcCallback.callback = { key: String, value: Any ->
+                if (key == configPackageList) loadData(value)
+            }
+
+            loadData()
+        }
+    }
+
+    private fun loadData(value: Any? = null) {
+        scopeLife {
+            binding.swipeRefreshLayout.isRefreshing = true
+            binding.searchViewLayout.isEnabled = false
+            binding.searchView.text = null
+
+            allConfigPackages.clear()
+
+            if (value == null) {
+                val configPackages =
+                    requireActivity().getStringSet(ModulePrefs, configPackageList, ArraySet())
+                configPackages?.forEach {
+                    val configPackageInfo = MemcConfigPackage().toMemcConfigPackage(it)
+                    if (configPackageInfo != null) allConfigPackages.add(configPackageInfo)
+                }
+            } else {
+                @Suppress("UNCHECKED_CAST")
+                allConfigPackages.addAll(value as java.util.ArrayList<MemcConfigPackage>)
+            }
+
+            binding.noMemcData.apply {
+                isVisible = allConfigPackages.isEmpty()
+            }
+
+            binding.recyclerView.apply {
+                memcPackageAdapter = MemcPackageAdapter(context, allConfigPackages)
+                adapter = memcPackageAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            binding.searchViewLayout.isEnabled = true
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    class MemcPackageAdapter(
+        val context: Context,
+        allConfigPackages: ArrayList<MemcConfigPackage>
+    ) : RecyclerView.Adapter<MemcPackageAdapter.ViewHolder>() {
         private val configPackageList = GlobalKeyValue.memcConfigPackageList
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-        ): View {
-            binding = FragmentMemcPackageLayoutBinding.inflate(inflater)
-            return binding.root
+        private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
+
+        var allDatas = java.util.ArrayList<MemcConfigPackage>()
+        var filterDatas = java.util.ArrayList<MemcConfigPackage>()
+
+        init {
+            allDatas = allConfigPackages.apply {
+                sortBy { it.packName }
+            }
+            filterDatas = allDatas
         }
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            scopeLife {
-                binding.searchViewLayout.apply {
-                    hint = "PackageName / ActivityName"
-                    isHintEnabled = true
-                    isHintAnimationEnabled = true
-                }
-                binding.searchView.apply {
-                    addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                        memcPackageAdapter?.getFilter?.filter(text)
-                    })
-                }
-                binding.swipeRefreshLayout.apply {
-                    setOnRefreshListener { loadData() }
-                }
-                binding.addData.apply {
-                    setOnClickListener {
-                        memcPackageAdapter?.addOrEditData()
-                    }
-                }
-
-                MemcCallback.callback = { key: String, value: Any ->
-                    if (key == configPackageList) loadData(value)
-                }
-
-                loadData()
-            }
-        }
-
-        private fun loadData(value: Any? = null) {
-            scopeLife {
-                binding.swipeRefreshLayout.isRefreshing = true
-                binding.searchViewLayout.isEnabled = false
-                binding.searchView.text = null
-
-                allConfigPackages.clear()
-
-                if (value == null) {
-                    val configPackages =
-                        requireActivity().getStringSet(ModulePrefs, configPackageList, ArraySet())
-                    configPackages?.forEach {
-                        val configPackageInfo = MemcConfigPackage().toMemcConfigPackage(it)
-                        if (configPackageInfo != null) allConfigPackages.add(configPackageInfo)
-                    }
-                } else {
-                    @Suppress("UNCHECKED_CAST")
-                    allConfigPackages.addAll(value as java.util.ArrayList<MemcConfigPackage>)
-                }
-
-                binding.noMemcData.apply {
-                    isVisible = allConfigPackages.isEmpty()
-                }
-
-                binding.recyclerView.apply {
-                    memcPackageAdapter = MemcPackageAdapter(context, allConfigPackages)
-                    adapter = memcPackageAdapter
-                    layoutManager = LinearLayoutManager(context)
-                }
-
-                binding.searchViewLayout.isEnabled = true
-                binding.swipeRefreshLayout.isRefreshing = false
-            }
-        }
-
-        class MemcPackageAdapter(
-            val context: Context,
-            allConfigPackages: ArrayList<MemcConfigPackage>
-        ) : RecyclerView.Adapter<MemcPackageAdapter.ViewHolder>() {
-            private val configPackageList = GlobalKeyValue.memcConfigPackageList
-            private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
-
-            var allDatas = java.util.ArrayList<MemcConfigPackage>()
-            var filterDatas = java.util.ArrayList<MemcConfigPackage>()
-
-            init {
-                allDatas = allConfigPackages.apply {
-                    sortBy { it.packName }
-                }
-                filterDatas = allDatas
-            }
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-                val binding = LayoutMemcPackageItemBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                return ViewHolder(binding)
-            }
-
-            override fun getItemCount(): Int {
-                return filterDatas.size
-            }
-
-            @SuppressLint("SetTextI18n")
-            override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-                val config = filterDatas[position]
-                val packName = config.packName
-                val rate = config.rate
-                val type = config.type
-
-                holder.card.setOnClickListener(null)
-                holder.card.setOnLongClickListener(null)
-
-                holder.card.setOnClickListener {
-                    addOrEditData(config, position)
-                }
-
-                holder.packageName.apply {
-                    text = packName
-                }
-                holder.screenRate.apply {
-                    text = "Rate: $rate"
-                }
-                holder.commandType.apply {
-                    text = "Type: $type"
-                }
-            }
-
-            val getFilter = object : Filter() {
-                override fun performFiltering(constraint: CharSequence): FilterResults {
-                    filterDatas = if (constraint.isBlank()) {
-                        allDatas
-                    } else {
-                        val filterlist = ArrayList<MemcConfigPackage>()
-                        allDatas.forEach {
-                            if (it.packName.lowercase()
-                                    .contains(constraint.toString().lowercase())
-                            ) filterlist.add(it)
-                        }
-                        filterlist
-                    }
-                    val filterResults = FilterResults()
-                    filterResults.values = filterDatas
-                    return filterResults
-                }
-
-                @Suppress("UNCHECKED_CAST")
-                override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                    filterDatas = results?.values as ArrayList<MemcConfigPackage>
-                    refreshDatas()
-                }
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            fun refreshDatas() {
-                notifyDataSetChanged()
-            }
-
-            fun addOrEditData(config: MemcConfigPackage? = null, position: Int? = null) {
-                val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
-                binding.packageLayout.hint = "PackageName"
-                binding.activityLayout.isVisible = false
-                binding.rateLayout.hint = "ScreenRate"
-                binding.typeLayout.hint = "Type"
-
-                if (config != null) {
-                    binding.packageName.setText(config.packName)
-                    binding.rateView.setText(config.rate)
-                    binding.typeView.setText(config.type)
-                }
-
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setView(binding.root)
-                    setPositiveButton(android.R.string.ok) { _, _ ->
-                        val packageName = binding.packageName.text?.toString()
-                        val rate = binding.rateView.text?.toString()
-                        val type = binding.typeView.text?.toString()
-                        if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
-                            val newConfig = MemcConfigPackage(packageName, rate, type)
-                            if (position != null) filterDatas[position] = newConfig
-                            else filterDatas.add(newConfig)
-                            saveAllData()
-                        }
-                    }
-                    if (config != null && position != null) {
-                        setNeutralButton(R.string.common_words_remove) { _, _ ->
-                            MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                                val msg = context.getString(
-                                    R.string.confirm_to_delete_this_configuration, config.packName
-                                )
-                                setMessage(msg)
-                                setPositiveButton(android.R.string.ok) { _, _ ->
-                                    filterDatas.removeAt(position)
-                                    saveAllData()
-                                }
-                                setNeutralButton(android.R.string.cancel, null)
-                            }.show()
-                        }
-                    }
-                    setNegativeButton(android.R.string.cancel, null)
-                }.show()
-            }
-
-            private fun saveAllData() {
-                val set = ArraySet<String>()
-                filterDatas.forEach {
-                    set.add(it.toJSONObject().toString())
-                }
-                if (set.isNotEmpty()) {
-                    context.putStringSet(ModulePrefs, configPackageList, set.toSet())
-                    context.sendPrefsValue("android", configPackageList, set.toSet())
-
-                    context.sendPrefsValue("android", updateConfigList, "")
-                }
-                refreshDatas()
-            }
-
-            class ViewHolder(binding: LayoutMemcPackageItemBinding) :
-                RecyclerView.ViewHolder(binding.root) {
-                val card = binding.root
-                val packageName = binding.packageName
-                val screenRate = binding.screenRate
-                val commandType = binding.commandType
-            }
-        }
-    }
-
-    class MemcActivityFragment : Fragment() {
-        private lateinit var binding: FragmentMemcActivityLayoutBinding
-        private var memcActivityAdapter: MemcActivityAdapter? = null
-
-        private val allConfigActivitys = ArrayList<MemcConfigActivity>()
-
-        private val configActivityList = GlobalKeyValue.memcConfigActivityList
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-        ): View {
-            binding = FragmentMemcActivityLayoutBinding.inflate(inflater)
-            return binding.root
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            scopeLife {
-                binding.searchViewLayout.apply {
-                    hint = "PackageName / ActivityName"
-                    isHintEnabled = true
-                    isHintAnimationEnabled = true
-                }
-                binding.searchView.apply {
-                    addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                        memcActivityAdapter?.getFilter?.filter(text)
-                    })
-                }
-                binding.swipeRefreshLayout.apply {
-                    setOnRefreshListener { loadData() }
-                }
-                binding.addData.apply {
-                    setOnClickListener {
-                        memcActivityAdapter?.addOrEditData()
-                    }
-                }
-
-                MemcCallback.callback = { key: String, value: Any ->
-                    if (key == configActivityList) loadData(value)
-                }
-
-                loadData()
-            }
-        }
-
-        private fun loadData(value: Any? = null) {
-            scopeLife {
-                binding.swipeRefreshLayout.isRefreshing = true
-                binding.searchViewLayout.isEnabled = false
-                binding.searchView.text = null
-
-                allConfigActivitys.clear()
-
-                if (value == null) {
-                    val configActivitys =
-                        requireActivity().getStringSet(ModulePrefs, configActivityList, ArraySet())
-                    configActivitys?.forEach {
-                        val configActivityInfo = MemcConfigActivity().toMemcConfigActivity(it)
-                        if (configActivityInfo != null) allConfigActivitys.add(configActivityInfo)
-                    }
-                } else {
-                    @Suppress("UNCHECKED_CAST")
-                    allConfigActivitys.addAll(value as java.util.ArrayList<MemcConfigActivity>)
-                }
-
-                binding.noMemcData.apply {
-                    isVisible = allConfigActivitys.isEmpty()
-                }
-
-                binding.recyclerView.apply {
-                    memcActivityAdapter = MemcActivityAdapter(context, allConfigActivitys)
-                    adapter = memcActivityAdapter
-                    layoutManager = LinearLayoutManager(context)
-                }
-
-                binding.searchViewLayout.isEnabled = true
-                binding.swipeRefreshLayout.isRefreshing = false
-            }
-        }
-
-        class MemcActivityAdapter(
-            val context: Context,
-            allConfigActivitys: ArrayList<MemcConfigActivity>
-        ) : RecyclerView.Adapter<MemcActivityAdapter.ViewHolder>() {
-            private val configActivityList = GlobalKeyValue.memcConfigActivityList
-            private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
-
-            var allDatas = java.util.ArrayList<MemcConfigActivity>()
-            var filterDatas = java.util.ArrayList<MemcConfigActivity>()
-
-            init {
-                allDatas = allConfigActivitys.apply {
-                    sortBy { it.packName }
-                }
-                filterDatas = allDatas
-            }
-
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-                val binding = LayoutMemcActivityItemBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                return ViewHolder(binding)
-            }
-
-            override fun getItemCount(): Int {
-                return filterDatas.size
-            }
-
-            override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-                val config = filterDatas[position]
-                val activity = config.activity
-                val packName = config.packName
-                val type = config.type
-
-                holder.card.setOnClickListener(null)
-                holder.card.setOnLongClickListener(null)
-
-                holder.card.setOnClickListener {
-                    addOrEditData(config, position)
-                }
-
-                holder.packageName.apply {
-                    text = packName
-                }
-                holder.commandType.apply {
-                    text = type
-                }
-                holder.activityName.apply {
-                    text = activity
-                }
-            }
-
-            val getFilter = object : Filter() {
-                override fun performFiltering(constraint: CharSequence): FilterResults {
-                    filterDatas = if (constraint.isBlank()) {
-                        allDatas
-                    } else {
-                        val filterlist = ArrayList<MemcConfigActivity>()
-                        allDatas.forEach {
-                            if (it.packName.lowercase()
-                                    .contains(constraint.toString().lowercase())
-                            ) filterlist.add(it)
-                        }
-                        filterlist
-                    }
-                    val filterResults = FilterResults()
-                    filterResults.values = filterDatas
-                    return filterResults
-                }
-
-                @Suppress("UNCHECKED_CAST")
-                override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                    filterDatas = results?.values as ArrayList<MemcConfigActivity>
-                    refreshDatas()
-                }
-            }
-
-            fun addOrEditData(config: MemcConfigActivity? = null, position: Int? = null) {
-                val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
-                binding.packageLayout.hint = "PackageName"
-                binding.activityLayout.hint = "ActivityName"
-                binding.rateLayout.isVisible = false
-                binding.typeLayout.hint = "Type"
-
-                if (config != null) {
-                    binding.packageName.setText(config.packName)
-                    binding.activityName.setText(config.activity)
-                    binding.typeView.setText(config.type)
-                }
-
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setView(binding.root)
-                    setPositiveButton(android.R.string.ok) { _, _ ->
-                        val packageName = binding.packageName.text?.toString()
-                        val activity = binding.activityName.text?.toString()
-                        val type = binding.typeView.text?.toString()
-                        if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
-                            val newConfig = MemcConfigActivity(packageName, activity, type)
-                            if (position != null) filterDatas[position] = newConfig
-                            else filterDatas.add(newConfig)
-                            saveAllData()
-                        }
-                    }
-                    if (config != null && position != null) {
-                        setNeutralButton(R.string.common_words_remove) { _, _ ->
-                            MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                                val msg = context.getString(
-                                    R.string.confirm_to_delete_this_configuration,
-                                    config.activity
-                                )
-                                setMessage(msg)
-                                setPositiveButton(android.R.string.ok) { _, _ ->
-                                    filterDatas.removeAt(position)
-                                    saveAllData()
-                                }
-                                setNeutralButton(android.R.string.cancel, null)
-                            }.show()
-                        }
-                    }
-                    setNegativeButton(android.R.string.cancel, null)
-                }.show()
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            fun refreshDatas() {
-                notifyDataSetChanged()
-            }
-
-            private fun saveAllData() {
-                val set = ArraySet<String>()
-                filterDatas.forEach {
-                    set.add(it.toJSONObject().toString())
-                }
-                if (set.isNotEmpty()) {
-                    context.putStringSet(ModulePrefs, configActivityList, set.toSet())
-                    context.sendPrefsValue("android", configActivityList, set.toSet())
-
-                    context.sendPrefsValue("android", updateConfigList, "")
-                }
-                refreshDatas()
-            }
-
-            class ViewHolder(binding: LayoutMemcActivityItemBinding) :
-                RecyclerView.ViewHolder(binding.root) {
-                val card = binding.root
-                val activityName = binding.activityName
-                val packageName = binding.packageName
-                val commandType = binding.commandType
-            }
-        }
-    }
-
-    class MemcPagerAdapter(
-        fragmentManager: FragmentManager, lifecycle: Lifecycle,
-        private val fragmentList: List<Fragment>
-    ) : FragmentStateAdapter(fragmentManager, lifecycle) {
-        override fun createFragment(position: Int): Fragment {
-            return fragmentList[position]
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val binding = LayoutMemcPackageItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            return ViewHolder(binding)
         }
 
         override fun getItemCount(): Int {
-            return fragmentList.size
+            return filterDatas.size
         }
+
+        @SuppressLint("SetTextI18n")
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val config = filterDatas[position]
+            val packName = config.packName
+            val rate = config.rate
+            val type = config.type
+
+            holder.card.setOnClickListener(null)
+            holder.card.setOnLongClickListener(null)
+
+            holder.card.setOnClickListener {
+                addOrEditData(config, position)
+            }
+
+            holder.packageName.apply {
+                text = packName
+            }
+            holder.screenRate.apply {
+                text = "Rate: $rate"
+            }
+            holder.commandType.apply {
+                text = "Type: $type"
+            }
+        }
+
+        val getFilter = object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                filterDatas = if (constraint.isBlank()) {
+                    allDatas
+                } else {
+                    val filterlist = ArrayList<MemcConfigPackage>()
+                    allDatas.forEach {
+                        if (it.packName.lowercase()
+                                .contains(constraint.toString().lowercase())
+                        ) filterlist.add(it)
+                    }
+                    filterlist
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filterDatas
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
+                filterDatas = results?.values as ArrayList<MemcConfigPackage>
+                refreshDatas()
+            }
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        fun refreshDatas() {
+            notifyDataSetChanged()
+        }
+
+        fun addOrEditData(config: MemcConfigPackage? = null, position: Int? = null) {
+            val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
+            binding.packageLayout.hint = "PackageName"
+            binding.activityLayout.isVisible = false
+            binding.rateLayout.hint = "ScreenRate"
+            binding.typeLayout.hint = "Type"
+
+            if (config != null) {
+                binding.packageName.setText(config.packName)
+                binding.rateView.setText(config.rate)
+                binding.typeView.setText(config.type)
+            }
+
+            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                setView(binding.root)
+                setPositiveButton(android.R.string.ok) { _, _ ->
+                    val packageName = binding.packageName.text?.toString()
+                    val rate = binding.rateView.text?.toString()
+                    val type = binding.typeView.text?.toString()
+                    if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
+                        val newConfig = MemcConfigPackage(packageName, rate, type)
+                        if (position != null) filterDatas[position] = newConfig
+                        else filterDatas.add(newConfig)
+                        saveAllData()
+                    }
+                }
+                if (config != null && position != null) {
+                    setNeutralButton(R.string.common_words_remove) { _, _ ->
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            val msg = context.getString(
+                                R.string.confirm_to_delete_this_configuration, config.packName
+                            )
+                            setMessage(msg)
+                            setPositiveButton(android.R.string.ok) { _, _ ->
+                                filterDatas.removeAt(position)
+                                saveAllData()
+                            }
+                            setNeutralButton(android.R.string.cancel, null)
+                        }.show()
+                    }
+                }
+                setNegativeButton(android.R.string.cancel, null)
+            }.show()
+        }
+
+        private fun saveAllData() {
+            val set = ArraySet<String>()
+            filterDatas.forEach {
+                set.add(it.toJSONObject().toString())
+            }
+            if (set.isNotEmpty()) {
+                context.putStringSet(ModulePrefs, configPackageList, set.toSet())
+                context.sendPrefsValue("android", configPackageList, set.toSet())
+
+                context.sendPrefsValue("android", updateConfigList, "")
+            }
+            refreshDatas()
+        }
+
+        class ViewHolder(binding: LayoutMemcPackageItemBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            val card = binding.root
+            val packageName = binding.packageName
+            val screenRate = binding.screenRate
+            val commandType = binding.commandType
+        }
+    }
+}
+
+@Obfuscate
+class MemcActivityFragment : Fragment() {
+    private lateinit var binding: FragmentMemcActivityLayoutBinding
+    private var memcActivityAdapter: MemcActivityAdapter? = null
+
+    private val allConfigActivitys = ArrayList<MemcConfigActivity>()
+
+    private val configActivityList = GlobalKeyValue.memcConfigActivityList
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentMemcActivityLayoutBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        scopeLife {
+            binding.searchViewLayout.apply {
+                hint = "PackageName / ActivityName"
+                isHintEnabled = true
+                isHintAnimationEnabled = true
+            }
+            binding.searchView.apply {
+                addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
+                    memcActivityAdapter?.getFilter?.filter(text)
+                })
+            }
+            binding.swipeRefreshLayout.apply {
+                setOnRefreshListener { loadData() }
+            }
+            binding.addData.apply {
+                setOnClickListener {
+                    memcActivityAdapter?.addOrEditData()
+                }
+            }
+
+            MemcCallback.callback = { key: String, value: Any ->
+                if (key == configActivityList) loadData(value)
+            }
+
+            loadData()
+        }
+    }
+
+    private fun loadData(value: Any? = null) {
+        scopeLife {
+            binding.swipeRefreshLayout.isRefreshing = true
+            binding.searchViewLayout.isEnabled = false
+            binding.searchView.text = null
+
+            allConfigActivitys.clear()
+
+            if (value == null) {
+                val configActivitys =
+                    requireActivity().getStringSet(ModulePrefs, configActivityList, ArraySet())
+                configActivitys?.forEach {
+                    val configActivityInfo = MemcConfigActivity().toMemcConfigActivity(it)
+                    if (configActivityInfo != null) allConfigActivitys.add(configActivityInfo)
+                }
+            } else {
+                @Suppress("UNCHECKED_CAST")
+                allConfigActivitys.addAll(value as java.util.ArrayList<MemcConfigActivity>)
+            }
+
+            binding.noMemcData.apply {
+                isVisible = allConfigActivitys.isEmpty()
+            }
+
+            binding.recyclerView.apply {
+                memcActivityAdapter = MemcActivityAdapter(context, allConfigActivitys)
+                adapter = memcActivityAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            binding.searchViewLayout.isEnabled = true
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    class MemcActivityAdapter(
+        val context: Context,
+        allConfigActivitys: ArrayList<MemcConfigActivity>
+    ) : RecyclerView.Adapter<MemcActivityAdapter.ViewHolder>() {
+        private val configActivityList = GlobalKeyValue.memcConfigActivityList
+        private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
+
+        var allDatas = java.util.ArrayList<MemcConfigActivity>()
+        var filterDatas = java.util.ArrayList<MemcConfigActivity>()
+
+        init {
+            allDatas = allConfigActivitys.apply {
+                sortBy { it.packName }
+            }
+            filterDatas = allDatas
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val binding = LayoutMemcActivityItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            return ViewHolder(binding)
+        }
+
+        override fun getItemCount(): Int {
+            return filterDatas.size
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val config = filterDatas[position]
+            val activity = config.activity
+            val packName = config.packName
+            val type = config.type
+
+            holder.card.setOnClickListener(null)
+            holder.card.setOnLongClickListener(null)
+
+            holder.card.setOnClickListener {
+                addOrEditData(config, position)
+            }
+
+            holder.packageName.apply {
+                text = packName
+            }
+            holder.commandType.apply {
+                text = type
+            }
+            holder.activityName.apply {
+                text = activity
+            }
+        }
+
+        val getFilter = object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                filterDatas = if (constraint.isBlank()) {
+                    allDatas
+                } else {
+                    val filterlist = ArrayList<MemcConfigActivity>()
+                    allDatas.forEach {
+                        if (it.packName.lowercase()
+                                .contains(constraint.toString().lowercase())
+                        ) filterlist.add(it)
+                    }
+                    filterlist
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filterDatas
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
+                filterDatas = results?.values as ArrayList<MemcConfigActivity>
+                refreshDatas()
+            }
+        }
+
+        fun addOrEditData(config: MemcConfigActivity? = null, position: Int? = null) {
+            val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
+            binding.packageLayout.hint = "PackageName"
+            binding.activityLayout.hint = "ActivityName"
+            binding.rateLayout.isVisible = false
+            binding.typeLayout.hint = "Type"
+
+            if (config != null) {
+                binding.packageName.setText(config.packName)
+                binding.activityName.setText(config.activity)
+                binding.typeView.setText(config.type)
+            }
+
+            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                setView(binding.root)
+                setPositiveButton(android.R.string.ok) { _, _ ->
+                    val packageName = binding.packageName.text?.toString()
+                    val activity = binding.activityName.text?.toString()
+                    val type = binding.typeView.text?.toString()
+                    if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
+                        val newConfig = MemcConfigActivity(packageName, activity, type)
+                        if (position != null) filterDatas[position] = newConfig
+                        else filterDatas.add(newConfig)
+                        saveAllData()
+                    }
+                }
+                if (config != null && position != null) {
+                    setNeutralButton(R.string.common_words_remove) { _, _ ->
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            val msg = context.getString(
+                                R.string.confirm_to_delete_this_configuration,
+                                config.activity
+                            )
+                            setMessage(msg)
+                            setPositiveButton(android.R.string.ok) { _, _ ->
+                                filterDatas.removeAt(position)
+                                saveAllData()
+                            }
+                            setNeutralButton(android.R.string.cancel, null)
+                        }.show()
+                    }
+                }
+                setNegativeButton(android.R.string.cancel, null)
+            }.show()
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        fun refreshDatas() {
+            notifyDataSetChanged()
+        }
+
+        private fun saveAllData() {
+            val set = ArraySet<String>()
+            filterDatas.forEach {
+                set.add(it.toJSONObject().toString())
+            }
+            if (set.isNotEmpty()) {
+                context.putStringSet(ModulePrefs, configActivityList, set.toSet())
+                context.sendPrefsValue("android", configActivityList, set.toSet())
+
+                context.sendPrefsValue("android", updateConfigList, "")
+            }
+            refreshDatas()
+        }
+
+        class ViewHolder(binding: LayoutMemcActivityItemBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            val card = binding.root
+            val activityName = binding.activityName
+            val packageName = binding.packageName
+            val commandType = binding.commandType
+        }
+    }
+}
+
+@Obfuscate
+class MemcPagerAdapter(
+    fragmentManager: FragmentManager, lifecycle: Lifecycle,
+    private val fragmentList: List<Fragment>
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
+    override fun createFragment(position: Int): Fragment {
+        return fragmentList[position]
+    }
+
+    override fun getItemCount(): Int {
+        return fragmentList.size
     }
 }

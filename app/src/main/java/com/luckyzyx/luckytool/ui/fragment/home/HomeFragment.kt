@@ -21,6 +21,7 @@ import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.databinding.LayoutOplusotaDialogBinding
+import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.*
 
@@ -218,7 +219,7 @@ class HomeFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun initSystemInfoText(funcController: IGlobalFuncController) {
+    private fun initSystemInfoView(funcController: IGlobalFuncController?) {
         scopeLife {
             val deviceInfo = withDefault { requireActivity().getDeviceInfo(funcController) }
             binding.systemInfo.gravity = Gravity.START
@@ -226,20 +227,15 @@ class HomeFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun initController() {
-        if (homeFuncController == null) {
-            (activity as MainActivity).initController {
-                homeFuncController = it
-                initSystemInfoText(it)
-            }
-        } else {
-            initSystemInfoText(homeFuncController!!)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
-        initController()
+
+        if (homeFuncController == null) requireActivity().bindRootService(
+            GlobalFuncControllerService::class.java, { _, iBinder ->
+                homeFuncController = IGlobalFuncController.Stub.asInterface(iBinder)
+                initSystemInfoView(homeFuncController)
+            })
+        else initSystemInfoView(homeFuncController)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

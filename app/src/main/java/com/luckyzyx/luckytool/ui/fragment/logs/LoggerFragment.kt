@@ -6,7 +6,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.*
 import android.widget.Filter
 import android.widget.ImageView
@@ -33,9 +32,11 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentLogsBinding
 import com.luckyzyx.luckytool.databinding.LayoutLogFilterDialogBinding
 import com.luckyzyx.luckytool.databinding.LayoutLoginfoItemBinding
-import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
 import com.luckyzyx.luckytool.utils.ThemeUtils
+import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
@@ -107,7 +108,14 @@ class LoggerFragment : Fragment(), MenuProvider {
 
     override fun onResume() {
         super.onResume()
-        initController()
+
+        if (logFuncController == null) {
+            requireActivity().bindRootService(
+                GlobalFuncControllerService::class.java, { _, iBinder ->
+                    logFuncController = IGlobalFuncController.Stub.asInterface(iBinder)
+                })
+        }
+
         loadLogger()
     }
 
@@ -212,12 +220,9 @@ class LoggerFragment : Fragment(), MenuProvider {
     }
 
     private fun checkDirs() {
-        val dir: File = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_DOWNLOADS + "/LuckyTool"
-        )
-        if (!dir.exists()) dir.mkdirs()
+        FileUtils.checkDownloadDir(requireActivity(), "LuckyTool")
 
-        logsDir = File(requireActivity().cacheDir, "logs")
+        logsDir = requireActivity().cacheChild("logs")
         logsDir.listFiles()?.forEach { if (it.exists()) it.delete() }
         if (logsDir.exists()) logsDir.delete()
     }
@@ -252,15 +257,6 @@ class LoggerFragment : Fragment(), MenuProvider {
         }
         return str
     }
-
-    private fun initController() {
-        if (logFuncController == null) {
-            (activity as MainActivity).initController {
-                logFuncController = it
-            }
-        }
-    }
-
 }
 
 class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
