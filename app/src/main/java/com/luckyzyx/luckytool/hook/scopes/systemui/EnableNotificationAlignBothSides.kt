@@ -25,7 +25,10 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 method { name = "reInflateViews" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
-                method { name = "addChildNotification";paramCount = 2 }.hook {
+                method { name = "onConfigurationChanged" }.hook {
+                    after { instance<ViewGroup>().setViewWidth() }
+                }
+                method { name = "onUiModeChanged" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
             }
