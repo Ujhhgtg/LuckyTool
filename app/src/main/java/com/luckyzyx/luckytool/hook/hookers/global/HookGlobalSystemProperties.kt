@@ -11,6 +11,19 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         val list = ArrayMap<String, Any>().apply {
+            //LTPO VRR ADFR
+            when (prefs(ModulePrefs).getString("set_ltpo_refresh_rate_mode", "0")) {
+                "1" -> {
+                    put("persist.oplus.display.vrr", "1")
+                    put("persist.oplus.display.vrr.adfr", "2")
+                }
+
+                "2" -> {
+                    put("persist.oplus.display.vrr", "0")
+                    put("persist.oplus.display.vrr.adfr", "0")
+                }
+            }
+
             //Source SystemUI OplusVolumeDialogImpl 音量条位置
             when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {
                 "1" -> put("persist.oplus.software.audio.right_volume_key", false)

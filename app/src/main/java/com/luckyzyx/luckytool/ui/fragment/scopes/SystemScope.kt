@@ -52,59 +52,32 @@ class Android : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(Preference(context).apply {
-                title = getString(R.string.ColorOSCorePatchTip)
-                key = "ColorOSCorePatchTip"
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.allow_untrusted_touch)
+                summary = getString(R.string.allow_untrusted_touch_summary)
+                key = "allow_untrusted_touch"
+                setDefaultValue(false)
+                isVisible = SDK >= A12
                 isIconSpaceReserved = false
             })
+            //LTPO
             addPreference(PreferenceCategory(context).apply {
-                setTitle(R.string.corepatch)
-                setSummary(R.string.corepatch_summary)
-                key = "CorePatch"
+                title = "LTPO"
+                key = "OplusLTPO"
+                isIconSpaceReserved = false
+            })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_ltpo_refresh_rate_mode)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "set_ltpo_refresh_rate_mode"
+                entries = resources.getStringArray(R.array.set_ltpo_refresh_rate_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                setTitle(R.string.downgr)
-                setSummary(R.string.downgr_summary)
-                key = "downgrade"
-                setDefaultValue(true)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                setTitle(R.string.authcreak)
-                setSummary(R.string.authcreak_summary)
-                key = "authcreak"
-                setDefaultValue(true)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                setTitle(R.string.digestCreak)
-                setSummary(R.string.digestCreak_summary)
-                key = "digestCreak"
-                setDefaultValue(true)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                setTitle(R.string.UsePreSig)
-                setSummary(R.string.UsePreSig_summary)
-                key = "UsePreSig"
-                setDefaultValue(true)
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    if (newValue == true) {
-                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                            setMessage(R.string.usepresig_warn)
-                            setPositiveButton(android.R.string.ok, null)
-                            show()
-                        }
-                    }
-                    true
-                }
-            })
-            addPreference(SwitchPreference(context).apply {
-                setTitle(R.string.enhancedMode)
-                setSummary(R.string.enhancedMode_summary)
-                key = "enhancedMode"
+                title = getString(R.string.enable_full_brightness_refresh_rate_minimum_one)
+                key = "enable_full_brightness_refresh_rate_minimum_one"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
@@ -2325,6 +2298,71 @@ class Screenshot : BaseScopePreferenceFeagment() {
 }
 
 @Obfuscate
+class CorePatch : BaseScopePreferenceFeagment() {
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(Preference(context).apply {
+                title = getString(R.string.ColorOSCorePatchTip)
+                key = "ColorOSCorePatchTip"
+                isIconSpaceReserved = false
+            })
+            addPreference(PreferenceCategory(context).apply {
+                setTitle(R.string.corepatch)
+                setSummary(R.string.corepatch_summary)
+                key = "CorePatch"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.downgr)
+                setSummary(R.string.downgr_summary)
+                key = "downgrade"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.authcreak)
+                setSummary(R.string.authcreak_summary)
+                key = "authcreak"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.digestCreak)
+                setSummary(R.string.digestCreak_summary)
+                key = "digestCreak"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.UsePreSig)
+                setSummary(R.string.UsePreSig_summary)
+                key = "UsePreSig"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    if (newValue == true) {
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            setMessage(R.string.usepresig_warn)
+                            setPositiveButton(android.R.string.ok, null)
+                            show()
+                        }
+                    }
+                    true
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.enhancedMode)
+                setSummary(R.string.enhancedMode_summary)
+                key = "enhancedMode"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+        }
+    }
+}
+
+@Obfuscate
 class Application : BaseScopePreferenceFeagment() {
 
     override val scopes = arrayOf(
@@ -2421,6 +2459,16 @@ class Application : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.PackageInstaller_summary)
                 key = "PackageInstaller"
                 isIconSpaceReserved = false
+            })
+            addPreference(Preference(context).apply {
+                setTitle(R.string.corepatch)
+                setSummary(R.string.corepatch_summary)
+                key = "CorePatch"
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_application_to_corePatch, title)
+                    true
+                }
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.skip_apk_scan)
@@ -2811,21 +2859,6 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_storage_limit)
                 summary = getString(R.string.remove_storage_limit_summary)
                 key = "remove_storage_limit"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.allow_untrusted_touch)
-                summary = getString(R.string.allow_untrusted_touch_summary)
-                key = "allow_untrusted_touch"
-                setDefaultValue(false)
-                isVisible = SDK >= A12
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.disable_dynamic_refresh_rate)
-                summary = getString(R.string.disable_dynamic_refresh_rate_summary)
-                key = "disable_dynamic_refresh_rate"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

@@ -96,6 +96,9 @@
     <string name="app_label">Název aplikace</string>
     <string name="package_name">Název balíčku</string>
     <string name="version">Verze</string>
+    <!--Android-->
+    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Oficiální instalátor pro Color OS musí umožnit ostatním funkcím používat\nSeznam funkcí-Vztahující se k aplikacím-Vztahující se k instalaci aplikací</string>
     <string name="corepatch">Hlavní patch</string>
@@ -306,7 +309,7 @@
     <string name="remove_aod_music_whitelist">Odstraňte omezení hudebního widgetu na AOD</string>
     <string name="remove_aod_notification_icon_whitelist">Odebrat omezení ikony oznámení na AOD</string>
     <string name="restore_aod_notification_icon_color">Obnovit barvy ikon oznámení v AOD</string>
-    <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
+    <string name="set_aod_notification_icon_style">Nastavit styl ikony oznámení AOD</string>
     <string name="force_enable_screen_off_music_support">Vynutit přehrávání hudby při vypnutém displeji</string>
     <string name="force_enable_screen_off_music_support_summary">Aplikovatelné pouze na modelech, které nepodporují přehrávání hudby při vypnutém displeji</string>
     <!--LockScreen-->
@@ -489,8 +492,6 @@
     <string name="open_battery_health_summary">Nastavení - Baterie - Zdraví baterie</string>
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
-    <string name="disable_dynamic_refresh_rate">Zakázat dynamickou obnovovací frekvenci</string>
-    <string name="disable_dynamic_refresh_rate_summary">Řeší hlavně problém s poklesem snímku, když se obrazovky nedotýkáte</string>
     <string name="set_volume_bar_display_position">Nastavit pozici zobrazení panelu hlasitosti</string>
     <string name="force_enable_systemui_blur_feature">Vynutit povolení systémového rozostření</string>
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
@@ -582,7 +583,7 @@
     <string name="GalleryEditor">Editor</string>
     <string name="enable_photo_editor_gif_synthesis">Povolit syntézu gif</string>
     <string name="enable_lns_cut_photo">Povolit vyříznutí části fotky</string>
-    <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
+    <string name="remove_aigc_elimination_limit">Odstraňte omezení mazání AIGC</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Rozložení</string>
     <string name="remove_startup_animation">Odstranit úvodní animaci</string>
@@ -717,7 +718,7 @@
     <string name="device">Zařízení</string>
     <string name="system">Systém</string>
     <string name="fps_mode_title">Nastavení</string>
-    <string name="fps_tips">The self-start function will be triggered 1 s after the screen is unlocked</string>
+    <string name="fps_tips">Funkce automatického startu bude spuštěna 1 vteřinu po odemknutí obrazovky</string>
     <string name="restore_default_refresh_rate">Obnovit výchozí obnovovací frekvenci</string>
     <string name="module_isactivated">Modul je aktivní</string>
     <string name="module_notactive">Modul není aktivní</string>
@@ -781,8 +782,8 @@
     <string name="set_module_shortcuts">Nastavit zkratky modulu</string>
     <string name="set_module_shortcuts_summary">Dlouhým stiskem na ikony modulu zobrazíte povolené zkratky</string>
     <!--TouchPanel-->
-    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
-    <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
+    <string name="set_touch_sampling_rate_tile_level">Nastavte úroveň vzorkovací frekvence dotyku dlaždic</string>
+    <string name="set_touch_sampling_rate_tile_level_summary">Sami si vyzkoušejte, zda lze každé zařízení normálně spustit\nKdyž hru otevřete pomocí herního asistenta, aktuální vzorkovací frekvence se přepíše.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Ladění vzdáleného ADB</string>
     <string name="remote_adb_debug_summary">Prosím, zavřete to, pokus se nepoužívá</string>
@@ -844,7 +845,7 @@
     <string name="common_words_blacklist">Zakázané</string>
     <string name="common_words_ads">Reklamy</string>
     <string name="common_words_reset">Obnovit</string>
-    <string name="common_words_import">Import</string>
+    <string name="common_words_import">Importovat</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Připojení k síti se nezdařilo</string>
     <string name="net_networking_error">Aktuální síť není k dispozici</string>

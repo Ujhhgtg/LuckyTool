@@ -96,6 +96,9 @@
     <string name="app_label">应用名</string>
     <string name="package_name">包名</string>
     <string name="version">版本</string>
+    <!--Android-->
+    <string name="set_ltpo_refresh_rate_mode">设置 LTPO 刷新率模式</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">启用全亮度刷新率最低为1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">ColorOS 官方安装程序需要启用其他功能来使用\n功能列表 - 应用相关 - 应用安装相关</string>
     <string name="corepatch">核心破解</string>
@@ -489,8 +492,6 @@
     <string name="open_battery_health_summary">设置-电池-电池健康</string>
     <string name="allow_untrusted_touch">允许不受信任的触摸</string>
     <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
-    <string name="disable_dynamic_refresh_rate">禁用动态刷新率</string>
-    <string name="disable_dynamic_refresh_rate_summary">主要解决屏幕无触摸时的掉帧问题\n(注意：这将会同时禁用拥有硬件级别 LTPO 屏幕设备的动态刷新率功能)</string>
     <string name="set_volume_bar_display_position">设置音量条显示位置</string>
     <string name="force_enable_systemui_blur_feature">强制启用系统界面模糊特性</string>
     <string name="force_enable_systemui_blur_feature_tips">前提条件：需要开启选项“强制启用系统模糊特性”\n功能位置：杂项</string>

@@ -44,7 +44,7 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
                         dataView.text = "${customCalcData.filterNumber}%"
                     }
                     if (showCalcData) {
-                        val health = context.calcLocalHealth()
+                        val health = context.calcLocalHealth(true)
                         val tips = safeOf(" Calc") {
                             context.getString(R.string.display_module_calculates_battery_health_data_tips)
                         }

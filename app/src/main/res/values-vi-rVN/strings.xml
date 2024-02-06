@@ -96,6 +96,9 @@
     <string name="app_label">Tên ứng dụng</string>
     <string name="package_name">Tên gói</string>
     <string name="version">Phiên bản</string>
+    <!--Android-->
+    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
@@ -489,8 +492,6 @@
     <string name="open_battery_health_summary">Cài đặt - Pin - Tình trạng pin</string>
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
     <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
-    <string name="disable_dynamic_refresh_rate">Tắt tốc độ làm mới động</string>
-    <string name="disable_dynamic_refresh_rate_summary">Mainly solve the frame drop problem when the screen is not touched</string>
     <string name="set_volume_bar_display_position">Đặt vị trí hiển thị thanh âm lượng</string>
     <string name="force_enable_systemui_blur_feature">Buộc kích hoạt tính năng làm mờ giao diện hệ thống</string>
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>

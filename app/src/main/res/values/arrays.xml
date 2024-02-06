@@ -217,5 +217,11 @@
         <item>@string/common_words_whitelist</item>
         <item>@string/set_multi_app_support_mode_all_apps</item>
     </string-array>
+    
+    <string-array name="set_ltpo_refresh_rate_mode_entries">
+        <item>@string/common_words_default</item>
+        <item>@string/common_words_enable</item>
+        <item>@string/common_words_disable</item>
+    </string-array>
 
 </resources>

@@ -354,6 +354,13 @@
                 app:exitAnim="@anim/fragment_exit"
                 app:popEnterAnim="@anim/fragment_enter_pop"
                 app:popExitAnim="@anim/fragment_exit_pop" />
+        <action
+                android:id="@+id/action_application_to_corePatch"
+                app:destination="@id/corePatch"
+                app:enterAnim="@anim/fragment_enter"
+                app:exitAnim="@anim/fragment_exit"
+                app:popEnterAnim="@anim/fragment_enter_pop"
+                app:popExitAnim="@anim/fragment_exit_pop" />
     </fragment>
     <fragment
             android:id="@+id/camera"
@@ -622,6 +629,10 @@
     <fragment
             android:id="@+id/memcConfigFragment"
             android:name="com.luckyzyx.luckytool.ui.fragment.extension.MemcConfigFragment"
+            android:label="{title_label}" />
+    <fragment
+            android:id="@+id/corePatch"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.CorePatch"
             android:label="{title_label}" />
 
 </navigation>

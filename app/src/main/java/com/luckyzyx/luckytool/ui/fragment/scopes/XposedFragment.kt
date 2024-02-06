@@ -110,7 +110,10 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     isIconSpaceReserved = show
                 }
                 title = context.getAppLabel(key)
-                summary = arraySummaryDot(getString(R.string.corepatch))
+                summary = arraySummaryLine(
+                    getString(R.string.allow_untrusted_touch),
+                    getString(R.string.set_ltpo_refresh_rate_mode)
+                )
                 setOnPreferenceClickListener {
                     navigatePage(R.id.action_nav_xposed_to_android, title)
                     true

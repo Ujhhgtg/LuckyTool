@@ -8,12 +8,12 @@ import com.luckyzyx.luckytool.hook.scopes.android.AllowUntrustedTouch
 import com.luckyzyx.luckytool.hook.scopes.android.AppSplashScreen
 import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
-import com.luckyzyx.luckytool.hook.scopes.android.DisableDynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookNotificationManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
+import com.luckyzyx.luckytool.hook.scopes.android.LTPODynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.MediaVolumeLevel
 import com.luckyzyx.luckytool.hook.scopes.android.MultiAppConfig
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveAccessDeviceLogDialog
@@ -83,8 +83,8 @@ object HookAndroid : YukiBaseHooker() {
         //禁用访问设备日志对话框
         if (SDK >= A13) loadHooker(RemoveAccessDeviceLogDialog)
 
-        //禁用动态刷新率
-        loadHooker(DisableDynamicRefreshRate)
+        //LTPO动态刷新率
+        loadHooker(LTPODynamicRefreshRate)
 
         //启用音量键控制手电筒手势
         loadHooker(SystemEnableVolumeKeyControlFlashlight)

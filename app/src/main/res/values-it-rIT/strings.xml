@@ -96,6 +96,9 @@
     <string name="app_label">Nome app</string>
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
+    <!--Android-->
+    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale Color OS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Relativa all\'installazione</string>
     <string name="corepatch">Corpo Patch</string>
@@ -489,8 +492,6 @@
     <string name="open_battery_health_summary">Impostazioni - Batteria - Salute Batteria</string>
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
-    <string name="disable_dynamic_refresh_rate">Disabilita la frequenza di aggiornamento dinamico</string>
-    <string name="disable_dynamic_refresh_rate_summary">Risolvere principalmente il problema del frame drop quando lo schermo non viene toccato (Nota: questo disabiliterà anche la frequenza di aggiornamento dinamico per i dispositivi con schermi LTPO a livello hardware)</string>
     <string name="set_volume_bar_display_position">Imposta la posizione della barra del volume</string>
     <string name="force_enable_systemui_blur_feature">Forza l\'abilitazione della funzione di sfocatura dell\'interfaccia di sistema</string>
     <string name="force_enable_systemui_blur_feature_tips">Condizioni preliminari: È necessario attivare l\'opzione per “forzare attivare la funzione di sfocatura del systemui”\nPosizione funzionale: Varie</string>

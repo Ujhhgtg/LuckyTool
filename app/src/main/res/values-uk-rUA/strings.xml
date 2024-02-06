@@ -96,6 +96,9 @@
     <string name="app_label">Назва додатку</string>
     <string name="package_name">Ім\'я пакету</string>
     <string name="version">Версія</string>
+    <!--Android-->
+    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Офіційному інсталятору Color OS необхідно увімкнути інші функції для використання\nСписок функцій-Додатка-Встановлення додатків</string>
     <string name="corepatch">Патч ядра</string>
@@ -489,8 +492,6 @@
     <string name="open_battery_health_summary">Налаштування - Батарея - Стан батареї</string>
     <string name="allow_untrusted_touch">Дозволити небажані торкання</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
-    <string name="disable_dynamic_refresh_rate">Disable dynamic refresh rate</string>
-    <string name="disable_dynamic_refresh_rate_summary">Mainly solve the frame drop problem when the screen is not touched</string>
     <string name="set_volume_bar_display_position">Set the volume bar display position</string>
     <string name="force_enable_systemui_blur_feature">Force enable the systemui blur feature</string>
     <string name="force_enable_systemui_blur_feature_tips">Preconditions: You need to turn on the option to “force enable the blur feature of the systemui”\nFunctional location: Miscellaneous</string>
