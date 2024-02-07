@@ -54,7 +54,10 @@ class TouchPanelControllerService : RootService() {
     }
 
     fun callTouchHidl(int16: String) {
-        val command = arrayOf("start touchDaemon && ps -A | grep touchDaemon", "$writeTouch $int16")
+        val command = arrayOf(
+//            "start touchDaemon && ps -A | grep touchDaemon",
+            "$writeTouch $int16"
+        )
         ShellUtils.fastCmd(*command)
     }
 }

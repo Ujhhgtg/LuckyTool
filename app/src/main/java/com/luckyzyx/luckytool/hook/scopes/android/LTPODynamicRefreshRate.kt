@@ -23,5 +23,66 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
                 }
             }
         }
+//
+//        //Source GameEventBean
+//        "com.oplus.vrr.bean.GameEventBean".toClass().apply {
+//            method { name = "getBackLightBean" }.hook {
+//                after {
+//                    val bean = result<Any>() ?: return@after
+//                    bean.current().method { name = "setEnable" }.call(false)
+//                    YLog.info("getBackLightBean -> ${bean.toString()}")
+//                }
+//            }
+//            method { name = "getPwmBackLightBean" }.hook {
+//                after {
+//                    val bean = result<Any>() ?: return@after
+//                    bean.current().method { name = "setEnable" }.call(false)
+//                    YLog.info("getPwmBackLightBean -> ${bean.toString()}")
+//                }
+//            }
+//            method { name = "getSinglePulseBackLightBean" }.hook {
+//                after {
+//                    val bean = result<Any>() ?: return@after
+//                    bean.current().method { name = "setEnable" }.call(false)
+//                    YLog.info("getSinglePulseBackLightBean -> ${bean.toString()}")
+//                }
+//            }
+//        }
+//
+//        //Source AVTBean
+//        "com.oplus.vrr.bean.AVTBean".toClass().apply {
+//            method { name = "isEnable" }.hook {
+//                replaceToFalse()
+//            }
+//            method { name = "getAvtMinFps" }.hook {
+//                replaceTo(1)
+//            }
+//        }
+//
+//        //Source TouchIdleBean
+//        "com.oplus.vrr.bean.TouchIdleBean".toClass().apply {
+//            method { name = "isEnable" }.hook {
+//                replaceToTrue()
+//            }
+//            method { name = "isHwEnable" }.hook {
+//                replaceToTrue()
+//            }
+//            method { name = "isSwEnable" }.hook {
+//                replaceToTrue()
+//            }
+//            method { name = "isAdfrEnable" }.hook {
+//                replaceToTrue()
+//            }
+//        }
+//
+//        //Source OPlusExternalRefreshRateManager normalized_minfps
+//        "com.oplus.vrr.OPlusExternalRefreshRateManager".toClass().apply {
+//            method { name = "setAdfrMinFpsConfig" }.hook {
+//                before {
+//                    args().first().setTrue()
+//                }
+//            }
+//        }
+
     }
 }

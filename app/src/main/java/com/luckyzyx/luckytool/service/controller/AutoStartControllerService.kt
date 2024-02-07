@@ -74,7 +74,7 @@ class AutoStartControllerService : Service() {
                         getString(SettingsPrefs, GlobalKeyValue.keyTouchSamplingRateLevel, "1")
                     val int16 = level?.toInt()?.toHexString() ?: 1
                     command.add("echo > /proc/touchpanel/game_switch_enable $int16")
-                    command.add("start touchDaemon && ps -A | grep touchDaemon")
+//                    command.add("start touchDaemon && ps -A | grep touchDaemon")
                     command.add("touchHidlTest -c wo 0 26 $int16")
                 }
                 //高亮度模式
