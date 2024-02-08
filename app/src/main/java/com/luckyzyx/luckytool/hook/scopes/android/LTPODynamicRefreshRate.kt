@@ -7,8 +7,11 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 object LTPODynamicRefreshRate : YukiBaseHooker() {
 
     override fun onHook() {
-        val ltpoMinOne =
+        var ltpoMinOne =
             prefs(ModulePrefs).getBoolean("enable_full_brightness_refresh_rate_minimum_one", false)
+        dataChannel.wait<Boolean>("enable_full_brightness_refresh_rate_minimum_one") {
+            ltpoMinOne = it
+        }
 
         //Source BackLightBean
         "com.oplus.vrr.bean.BackLightBean".toClass().apply {

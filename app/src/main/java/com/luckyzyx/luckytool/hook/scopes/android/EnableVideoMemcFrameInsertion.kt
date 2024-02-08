@@ -20,17 +20,11 @@ object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
     private val configMemcCommand = HashMap<String, String>()
     override fun onHook() {
         if (getOSVersionCode < 26) return
-        var isEnable = prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
-        dataChannel.wait<Boolean>("enable_video_memc_frame_insertion") { isEnable = it }
-        var configPackages =
+        val isEnable = prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
+        val configPackages =
             prefs(ModulePrefs).getStringSet("memc_config_package_list", ArraySet())
-        dataChannel.wait<Set<String>>("memc_config_package_list") { configPackages = it }
         val configActivitys =
             prefs(ModulePrefs).getStringSet("memc_config_activity_list", ArraySet())
-        dataChannel.wait<Set<String>>("memc_config_activity_list") { configPackages = it }
-        dataChannel.wait<String>("update_memc_config_list") {
-            init(configPackages, configActivitys)
-        }
 
         //Source OplusMemcHelper
         "com.android.server.display.memc.OplusMemcHelper".toClass().apply {

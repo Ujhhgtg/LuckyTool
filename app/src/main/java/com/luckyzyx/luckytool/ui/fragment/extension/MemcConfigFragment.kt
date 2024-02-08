@@ -45,7 +45,6 @@ import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.safeOfNull
-import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import java.io.InputStream
 
@@ -63,7 +62,6 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
     private val configPackageList = GlobalKeyValue.memcConfigPackageList
     private val configActivityList = GlobalKeyValue.memcConfigActivityList
-    private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -198,10 +196,6 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             if (packageSet.isNotEmpty() && activitySet.isNotEmpty()) {
                 requireActivity().putStringSet(ModulePrefs, configPackageList, packageSet)
                 requireActivity().putStringSet(ModulePrefs, configActivityList, activitySet)
-
-                requireActivity().sendPrefsValue("android", configPackageList, packageSet)
-                requireActivity().sendPrefsValue("android", configActivityList, activitySet)
-                requireActivity().sendPrefsValue("android", updateConfigList, "")
             }
         }
     }
@@ -292,7 +286,6 @@ class MemcPackageFragment : Fragment() {
         allConfigPackages: ArrayList<MemcConfigPackage>
     ) : RecyclerView.Adapter<MemcPackageAdapter.ViewHolder>() {
         private val configPackageList = GlobalKeyValue.memcConfigPackageList
-        private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
 
         var allDatas = java.util.ArrayList<MemcConfigPackage>()
         var filterDatas = java.util.ArrayList<MemcConfigPackage>()
@@ -422,9 +415,6 @@ class MemcPackageFragment : Fragment() {
             }
             if (set.isNotEmpty()) {
                 context.putStringSet(ModulePrefs, configPackageList, set.toSet())
-                context.sendPrefsValue("android", configPackageList, set.toSet())
-
-                context.sendPrefsValue("android", updateConfigList, "")
             }
             refreshDatas()
         }
@@ -524,7 +514,6 @@ class MemcActivityFragment : Fragment() {
         allConfigActivitys: ArrayList<MemcConfigActivity>
     ) : RecyclerView.Adapter<MemcActivityAdapter.ViewHolder>() {
         private val configActivityList = GlobalKeyValue.memcConfigActivityList
-        private val updateConfigList = GlobalKeyValue.memcUpdateConfigList
 
         var allDatas = java.util.ArrayList<MemcConfigActivity>()
         var filterDatas = java.util.ArrayList<MemcConfigActivity>()
@@ -654,9 +643,6 @@ class MemcActivityFragment : Fragment() {
             }
             if (set.isNotEmpty()) {
                 context.putStringSet(ModulePrefs, configActivityList, set.toSet())
-                context.sendPrefsValue("android", configActivityList, set.toSet())
-
-                context.sendPrefsValue("android", updateConfigList, "")
             }
             refreshDatas()
         }

@@ -80,6 +80,10 @@ class Android : BaseScopePreferenceFeagment() {
                 key = "enable_full_brightness_refresh_rate_minimum_one"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("android", key, newValue)
+                    true
+                }
             })
         }
     }
@@ -2949,8 +2953,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     key = "enable_video_memc_frame_insertion"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("android", key, newValue)
+                    setOnPreferenceChangeListener { _, _ ->
                         (activity as MainActivity).restart()
                         true
                     }
@@ -2959,6 +2962,9 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     addPreference(Preference(context).apply {
                         title =
                             getString(R.string.custom_video_dynamic_frame_insertion_configuration)
+                        summary = arraySummaryLine(
+                            getString(R.string.need_restart_system)
+                        )
                         key = "custom_video_dynamic_frame_insertion_configuration"
                         isIconSpaceReserved = false
                         setOnPreferenceClickListener {

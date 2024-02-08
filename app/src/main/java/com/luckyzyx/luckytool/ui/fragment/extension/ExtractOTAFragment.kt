@@ -105,10 +105,7 @@ class ExtractOTAFragment : Fragment() {
                     val encrypt = safeOfNull {
                         AESCrypt.encrypt(json.toString(), "otatoolsotatools")
                     } ?: ""
-                    if (encrypt.isNotBlank()) {
-                        list.add("Verity: $encrypt")
-                        list.add("")
-                    }
+                    if (encrypt.isNotBlank()) list.add("Verity: $encrypt")
                     list.add("Source: @LuckyTool")
                 }
                 list
