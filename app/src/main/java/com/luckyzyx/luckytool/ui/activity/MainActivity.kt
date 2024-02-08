@@ -103,10 +103,13 @@ open class MainActivity : AppCompatActivity() {
         if (getOSVersionCode < 23) {
             val current = navController.currentDestination.toString()
             MaterialAlertDialogBuilder(this, dialogCentered).apply {
+                setCancelable(false)
                 setTitle(getString(R.string.unsupported_os))
                 setMessage(getString(R.string.unsupported_os_summary))
-                setNeutralButton(getString(R.string.common_words_ignore), null)
                 setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
+                if (getOSVersionCode > 0) setNeutralButton(
+                    getString(R.string.common_words_ignore), null
+                )
                 if (current.contains(HomeFragment::class.java.simpleName)) show()
             }
         }
