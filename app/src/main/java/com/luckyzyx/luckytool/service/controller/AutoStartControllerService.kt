@@ -13,13 +13,13 @@ import com.drake.net.utils.scope
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
-import com.luckyzyx.luckytool.utils.GlobalKeyValue
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyHighBrightness
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTileAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRate
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -70,8 +70,7 @@ class AutoStartControllerService : Service() {
             if (getBoolean(SettingsPrefs, keyTileAutoStart, false)) {
                 //触控采样率相关
                 if (getBoolean(SettingsPrefs, keyTouchSamplingRate, false)) {
-                    val level =
-                        getString(SettingsPrefs, GlobalKeyValue.keyTouchSamplingRateLevel, "1")
+                    val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "1")
                     val int16 = level?.toInt()?.toHexString() ?: 1
                     command.add("echo > /proc/touchpanel/game_switch_enable $int16")
 //                    command.add("start touchDaemon && ps -A | grep touchDaemon")

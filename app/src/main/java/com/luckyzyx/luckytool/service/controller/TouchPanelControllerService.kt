@@ -4,7 +4,6 @@ import android.content.Intent
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.ITouchPanelController
 import com.luckyzyx.luckytool.utils.LogUtils
-import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import okhttp3.internal.toHexString
@@ -15,8 +14,11 @@ class TouchPanelControllerService : RootService() {
     val tag = "TouchPanelControllerService"
 
     companion object {
-        private const val fileDir = "/proc/touchpanel/game_switch_enable"
-        val file = File(fileDir)
+        private const val touchPanelDir = "/proc/touchpanel/game_switch_enable"
+        private const val touchHidlDir = "/odm/bin/touchHidlTest"
+        private val touchPanel = File(touchPanelDir)
+        private val touchHidl = File(touchHidlDir)
+        private val mode = if (touchPanel.exists()) 1 else if (touchHidl.exists()) 2 else 0
 
         private const val readTouch = "touchHidlTest -c ro 0 26"
         private const val writeTouch = "touchHidlTest -c wo 0 26"
@@ -25,7 +27,7 @@ class TouchPanelControllerService : RootService() {
     override fun onBind(intent: Intent) = object : ITouchPanelController.Stub() {
         override fun checkTouchMode(): Boolean {
             return try {
-                file.exists() || ShellUtils.fastCmdResult(readTouch)
+                mode != 0
             } catch (e: Throwable) {
                 LogUtils.e(tag, "checkTouchMode", "$e", true)
                 false
@@ -34,8 +36,11 @@ class TouchPanelControllerService : RootService() {
 
         override fun getTouchMode(): Int {
             return try {
-                if (file.exists()) file.readText().replaceSpace.substringBefore(",").toInt()
-                else ShellUtils.fastCmd(readTouch).replaceSpace.substringBefore(",").toInt()
+                when (mode) {
+                    1 -> touchPanel.readText().substringBefore(",").toInt()
+                    2 -> ShellUtils.fastCmd(readTouch).substringBefore(",").toInt()
+                    else -> 0
+                }
             } catch (e: Throwable) {
                 LogUtils.e(tag, "getTouchMode", "$e", true)
                 0
@@ -45,19 +50,13 @@ class TouchPanelControllerService : RootService() {
         override fun setTouchMode(value: Int) {
             try {
                 val int16 = value.toHexString()
-                if (file.exists()) file.writeText(int16)
-                else callTouchHidl(int16)
+                when (mode) {
+                    1 -> touchPanel.writeText(int16)
+                    2 -> ShellUtils.fastCmd("$writeTouch $int16")
+                }
             } catch (e: Throwable) {
                 LogUtils.e(tag, "setTouchMode", "$e", true)
             }
         }
-    }
-
-    fun callTouchHidl(int16: String) {
-        val command = arrayOf(
-//            "start touchDaemon && ps -A | grep touchDaemon",
-            "$writeTouch $int16"
-        )
-        ShellUtils.fastCmd(*command)
     }
 }

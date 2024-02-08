@@ -1031,12 +1031,16 @@ fun Context.bindRootService(
     onDisconnected: (ComponentName?) -> Unit = {}
 ) {
     val intent = Intent(this, clazz)
-    RootService.bind(intent, object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) =
-            onConnected(name, service)
+    val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(componentName: ComponentName?, iBinder: IBinder?) {
+            onConnected(componentName, iBinder)
+        }
 
-        override fun onServiceDisconnected(name: ComponentName?) = onDisconnected(name)
-    })
+        override fun onServiceDisconnected(componentName: ComponentName?) {
+            onDisconnected(componentName)
+        }
+    }
+    RootService.bind(intent, serviceConnection)
 }
 
 /**

@@ -135,7 +135,7 @@ class RefreshRateControllerService : RootService() {
                 }
                 LogUtils.d(tag, "setRefreshRateMode", "surfaceFlinger is null", isDebug)
             } catch (e: Exception) {
-                LogUtils.e(tag, "setRefreshRateMode", "$e", true)
+                if (modeId >= 0) LogUtils.e(tag, "setRefreshRateMode", "$e", true)
             }
         }
 
