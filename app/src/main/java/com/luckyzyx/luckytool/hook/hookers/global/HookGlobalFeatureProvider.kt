@@ -72,6 +72,10 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("disable_device_admin_verification_dialog", false)) {
                 put("com.android.settings.verification_dialog.disable", true)
             }
+            //Source Settings SmartTouchController isSupportSmartTouch 隔膜触控
+            if (prefs(ModulePrefs).getBoolean("enable_touch_membrane_protector_mode", false)) {
+                put("feature.super_settings_smart_touch.support", true)
+            }
 
             //Source Battery 屏幕省电
             if (prefs(ModulePrefs).getBoolean("open_screen_power_save", false)) {

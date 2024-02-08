@@ -16,6 +16,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [更改] CorePatch功能移至应用安装分区
 - [添加] 设置LTPO刷新率模式
 - [添加] 全亮度LTPO刷新率最低为1
+- [添加] 启用隔膜触控模式 C13.1+
 
 ### 1.1.9
 

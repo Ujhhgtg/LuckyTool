@@ -3096,6 +3096,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_touch_membrane_protector_mode)
+                key = "enable_touch_membrane_protector_mode"
+                setDefaultValue(false)
+                isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.force_display_content_recommend)
                 key = "force_display_content_recommend"
                 setDefaultValue(false)

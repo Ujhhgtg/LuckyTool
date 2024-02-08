@@ -628,6 +628,7 @@
     <string name="enable_vip_mode">Enable VIP mode</string>
     
     <string name="settings_other_advanced_settings">Additional Settings</string>
+    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
     <string name="force_display_content_recommend" translatable="false">强制显示内容推荐</string>
     
     <string name="settings_about_device">About Device</string>

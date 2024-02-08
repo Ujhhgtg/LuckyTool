@@ -548,6 +548,7 @@
     <string name="settings_authority_and_privacy">Permissions and privacy</string>
     <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Additional Settings</string>
+    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
     <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
     <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>

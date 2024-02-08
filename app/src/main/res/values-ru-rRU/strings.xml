@@ -97,8 +97,8 @@
     <string name="package_name">Имя пакета</string>
     <string name="version">Версия</string>
     <!--Android-->
-    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
+    <string name="set_ltpo_refresh_rate_mode">Установить режим частоты обновления LTPO</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Включить полную яркость, частота обновления минимум 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Официальному установщику Color OS необходимо включить другие функции для использования\nСписок функций-Приложения-Установка приложений</string>
     <string name="corepatch">Патчи ядра</string>
@@ -549,6 +549,7 @@
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
+    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>

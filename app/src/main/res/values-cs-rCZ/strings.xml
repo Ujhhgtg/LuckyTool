@@ -548,6 +548,7 @@
     <string name="settings_authority_and_privacy">Oprávnění a soukromí</string>
     <string name="enable_vip_mode">Aktivovat VIP režim</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
+    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>

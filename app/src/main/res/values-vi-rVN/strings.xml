@@ -97,8 +97,8 @@
     <string name="package_name">Tên gói</string>
     <string name="version">Phiên bản</string>
     <!--Android-->
-    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
+    <string name="set_ltpo_refresh_rate_mode">Đặt chế độ tốc độ làm mới LTPO</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Kích hoạt độ sáng đầy đủ tốc độ làm mới tối thiểu 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
@@ -548,6 +548,7 @@
     <string name="settings_authority_and_privacy">Quyền và quyền riêng tư</string>
     <string name="enable_vip_mode">Bật chế độ VIP</string>
     <string name="settings_other_advanced_settings">Các thiết lập khác</string>
+    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>
