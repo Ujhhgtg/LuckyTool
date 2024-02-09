@@ -68,7 +68,10 @@ class Android : BaseScopePreferenceFeagment() {
             })
             addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.set_ltpo_refresh_rate_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = arraySummaryLine(
+                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.need_restart_system)
+                )
                 key = "set_ltpo_refresh_rate_mode"
                 entries = resources.getStringArray(R.array.set_ltpo_refresh_rate_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -77,13 +80,12 @@ class Android : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_full_brightness_refresh_rate_minimum_one)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system)
+                )
                 key = "enable_full_brightness_refresh_rate_minimum_one"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    context.sendPrefsValue("android", key, newValue)
-                    true
-                }
             })
         }
     }

@@ -118,6 +118,40 @@ object HookSmartSidebar : YukiBaseHooker() {
 //            }
 //        }
 
+
+//        //Source OnlineEntryBean
+//        "com.oplus.smartsidebar.permanent.repository.database.OnlineEntryBean".toClass().apply {
+//            constructor { param { it.first() == LongClass && it.last() == MapClass } }.hook {
+//                after {
+//                    val aliasName = method { name = "getAliasName" }.get(instance).string()
+//                    if (aliasName.contains("scene_backstageaudio")) {
+//                        YLog.debug(instance.toString())
+//
+//                        field {
+//                            name = "businessPkgVersionLimitMax"
+//                        }.get(instance).set("20000")
+//                    }
+//                }
+//            }
+//        }
+
+//        OnlineEntryBean(
+//        id=16, name=听剧模式, language=zh_CN,
+//        nameTranslated=听剧模式,
+//        aliasName=scene_backstageaudio,
+//        functionType=1,
+//        pictureLink="https://sidebar-iconfs-cn.allawnfs.com/sidebar-admin//pictures/13-听剧模式.png",
+//        actionLink=action#service#oplus.intent.action.BACKGROUND_STREAM_SERVICE,
+//        actionExtraMap={},
+//        recommend=null, recommendOrder=null,
+//        business=听剧模式,
+//        businessPkgName=com.oplus.exsystemservice,
+//        businessPkgVersionLimit=0,
+//        businessPkgVersionLimitMax=10018,
+//        businessMetaData=, extra=, availableBusinessPkgName=com.oplus.exsystemservice,
+//        screenSplitActionLink=##, screenSplitActionExtraMap={})
+
+//
 //        "com.oplus.smartsidebar.utils.a0\$a".toClass().apply {
 //            method {
 //                param(
@@ -126,14 +160,50 @@ object HookSmartSidebar : YukiBaseHooker() {
 //                returnType = BooleanType
 //            }.hook {
 //                before {
-//                    val info = args().first().any() ?: return@before
-//                    val aliasName = info.current().method { name = "getAliasName" }.string()
+//                    val bean = args().first().any() ?: return@before
+//                    val aliasName = bean.current().method { name = "getAliasName" }.string()
 //                    if (aliasName.contains("scene_backstageaudio")) {
+//
+//                        val businessPkgName = bean.current().field {
+//                            name = "businessPkgName"
+//                        }.string()
+//                        bean.current().field {
+//                            name = "availableBusinessPkgName"
+//                        }.set(businessPkgName)
+//
 //                        resultTrue()
 //                    }
 //                }
 //            }
 //        }
+//
+//        "com.oplus.smartsidebar.panelview.edgepanel.data.viewdatahandlers.AllAppDataHandlerImpl".toClass()
+//            .apply {
+//                method { name = "onAppItemClicked" }.hook {
+//                    before {
+//                        val data = args().first().any() ?: return@before
+//                        val bool = args().last().boolean()
+//
+//                        val bean = data.current().method { name = "getEntryBean" }.call()
+//                        YLog.debug("AllAppDataHandlerImpl($bool) ${bean.toString()}")
+//
+//                    }
+//                }
+//            }
+//
+//        "com.oplus.smartsidebar.panelview.edgepanel.data.viewdatahandlers.UserListDataHandlerImpl".toClass()
+//            .apply {
+//                method { name = "onItemClick" }.hook {
+//                    before {
+//                        val data = args().first().any() ?: return@before
+//                        val bool = args().last().boolean()
+//
+//                        val bean = data.current().method { name = "getEntryBean" }.call()
+//                        YLog.debug("UserListDataHandlerImpl($bool) ${bean.toString()}")
+//
+//                    }
+//                }
+//            }
 
     }
 }

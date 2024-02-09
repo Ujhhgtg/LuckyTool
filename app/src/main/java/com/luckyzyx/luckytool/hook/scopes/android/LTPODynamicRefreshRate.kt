@@ -7,11 +7,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 object LTPODynamicRefreshRate : YukiBaseHooker() {
 
     override fun onHook() {
-        var ltpoMinOne =
+        val ltpoMinOne =
             prefs(ModulePrefs).getBoolean("enable_full_brightness_refresh_rate_minimum_one", false)
-        dataChannel.wait<Boolean>("enable_full_brightness_refresh_rate_minimum_one") {
-            ltpoMinOne = it
-        }
 
         //Source BackLightBean
         "com.oplus.vrr.bean.BackLightBean".toClass().apply {
@@ -29,25 +26,43 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
 //
 //        //Source GameEventBean
 //        "com.oplus.vrr.bean.GameEventBean".toClass().apply {
-//            method { name = "getBackLightBean" }.hook {
-//                after {
-//                    val bean = result<Any>() ?: return@after
+//            method { name = "setBackLightBean" }.hook {
+//                before {
+//                    val bean = args().first().any() ?: return@before
+//                    YLog.info("setBackLightBean -> ${bean.toString()}")
+//
 //                    bean.current().method { name = "setEnable" }.call(false)
-//                    YLog.info("getBackLightBean -> ${bean.toString()}")
+//                    val mNitsToMinFPS = bean.current().field { name = "mNitsToMinFPS" }
+//                        .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
+//                    YLog.info("setBackLightBean mNitsToMinFPS -> ${!mNitsToMinFPS.isNullOrEmpty()}")
+//
+//                    mNitsToMinFPS?.clear()
 //                }
 //            }
-//            method { name = "getPwmBackLightBean" }.hook {
-//                after {
-//                    val bean = result<Any>() ?: return@after
+//            method { name = "setPwmBackLightBean" }.hook {
+//                before {
+//                    val bean = args().first().any() ?: return@before
+//                    YLog.info("setPwmBackLightBean -> ${bean.toString()}")
+//
 //                    bean.current().method { name = "setEnable" }.call(false)
-//                    YLog.info("getPwmBackLightBean -> ${bean.toString()}")
+//                    val mNitsToMinFPS = bean.current().field { name = "mNitsToMinFPS" }
+//                        .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
+//                    YLog.info("setPwmBackLightBean mNitsToMinFPS -> ${!mNitsToMinFPS.isNullOrEmpty()}")
+//
+//                    mNitsToMinFPS?.clear()
 //                }
 //            }
-//            method { name = "getSinglePulseBackLightBean" }.hook {
-//                after {
-//                    val bean = result<Any>() ?: return@after
+//            method { name = "setSinglePulseBackLightBean" }.hook {
+//                before {
+//                    val bean = args().first().any() ?: return@before
+//                    YLog.info("setSinglePulseBackLightBean -> ${bean.toString()}")
+//
 //                    bean.current().method { name = "setEnable" }.call(false)
-//                    YLog.info("getSinglePulseBackLightBean -> ${bean.toString()}")
+//                    val mNitsToMinFPS = bean.current().field { name = "mNitsToMinFPS" }
+//                        .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
+//                    YLog.info("setSinglePulseBackLightBean mNitsToMinFPS -> ${!mNitsToMinFPS.isNullOrEmpty()}")
+//
+//                    mNitsToMinFPS?.clear()
 //                }
 //            }
 //        }

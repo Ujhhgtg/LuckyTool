@@ -548,7 +548,7 @@
     <string name="settings_authority_and_privacy">Quyền và quyền riêng tư</string>
     <string name="enable_vip_mode">Bật chế độ VIP</string>
     <string name="settings_other_advanced_settings">Các thiết lập khác</string>
-    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
+    <string name="enable_touch_membrane_protector_mode">Kích hoạt chế độ bảo vệ màn cảm ứng</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>

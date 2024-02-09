@@ -22,6 +22,9 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 method { name = "onFinishInflate" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
+                method { name = "onLayout" }.hook {
+                    after { instance<ViewGroup>().setViewWidth() }
+                }
                 method { name = "reInflateViews" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
@@ -29,6 +32,9 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
                 method { name = "onUiModeChanged" }.hook {
+                    after { instance<ViewGroup>().setViewWidth() }
+                }
+                method { name = "onNotificationUpdated" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
             }
@@ -61,6 +67,9 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.notification.row.UbiquitousExpandableRow" //C14 or null
             ).toClassOrNull()?.apply {
                 method { name = "onFinishInflate" }.hook {
+                    after { instance<ViewGroup>().setViewWidth() }
+                }
+                method { name = "onLayout" }.hook {
                     after { instance<ViewGroup>().setViewWidth() }
                 }
                 method { name = "reInflateViews" }.hook {
@@ -108,13 +117,13 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
 
     @SuppressLint("DiscouragedApi")
     private fun View.setViewWidth() {
-        if (qsPanelPaddingPx == 0) qsPanelPaddingPx = resources.getDimensionPixelSize(
+        qsPanelPaddingPx = resources.getDimensionPixelSize(
             resources.getIdentifier("qs_header_panel_side_padding", "dimen", packageName)
         )
+        val targetWidth = resources.displayMetrics.widthPixels - (qsPanelPaddingPx * 2)
         getScreenOrientation(this) {
             if (layoutParams != null) layoutParams = ViewGroup.LayoutParams(layoutParams).apply {
-                width = if (it) resources.displayMetrics.widthPixels - (qsPanelPaddingPx * 2)
-                else ViewGroup.LayoutParams.MATCH_PARENT
+                width = if (it) targetWidth else ViewGroup.LayoutParams.MATCH_PARENT
             }
         }
     }
