@@ -104,7 +104,7 @@ dependencies {
     //Dexkit
     implementation("org.luckypray:dexkit:2.0.0")
     //MMKV
-    implementation("com.tencent:mmkv:1.3.2")
+    implementation("com.tencent:mmkv:1.3.3")
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
@@ -122,8 +122,8 @@ dependencies {
     //下拉刷新控件
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     // 权限请求框架
     implementation("com.github.getActivity:XXPermissions:18.5")
     //崩溃日志显示
