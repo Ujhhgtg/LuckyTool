@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import com.luckyzyx.luckytool.utils.SDK
 import org.luckypray.dexkit.DexKitBridge
 
 class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -28,8 +30,26 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                 }
             }
         }.apply {
-            checkDataList("RemoveWatermarkWordLimit")
-            single().className.toClass().apply {
+            val onlyOne = SDK >= A13
+            checkDataList("RemoveWatermarkWordLimit", onlyOne, isDebug = true)
+            if (onlyOne.not() && size == 2) {
+                forEach {
+                    it.className.toClass().apply {
+                        method {
+                            name = "filter"
+                            param(
+                                CharSequenceClass, IntType, IntType,
+                                Spanned::class.java, IntType, IntType
+                            )
+                            returnType = CharSequenceClass
+                        }.hook {
+                            before {
+                                result = args().first().cast<CharSequence>() ?: return@before
+                            }
+                        }
+                    }
+                }
+            } else single().className.toClass().apply {
                 method {
                     name = "filter"
                     param(
