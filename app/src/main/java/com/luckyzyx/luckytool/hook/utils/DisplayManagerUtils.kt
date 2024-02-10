@@ -3,8 +3,9 @@ package com.luckyzyx.luckytool.hook.utils
 import android.content.Context
 import android.hardware.display.DisplayManager
 import android.view.Display
+import android.view.DisplayAddress
+import android.view.DisplayInfo
 import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.scopes.systemui.FingerPrintIconAnim.toClass
 
@@ -17,29 +18,37 @@ class DisplayManagerUtils(val classLoader: ClassLoader?) {
     val displayInfoClazz = "android.view.DisplayInfo".toClass(classLoader)
     val addressPhysicalClazz = "android.view.DisplayAddress\$Physical".toClass(classLoader)
 
-    fun getService(context: Context): DisplayManager {
+    fun getDisplayManagerService(context: Context): DisplayManager {
         return context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     }
 
-    fun Display.getDisplayInfo(outDisplayInfo: Any?): Boolean? {
+    fun Display.getDisplayInfo(outDisplayInfo: DisplayInfo?): Boolean {
         return displayClazz.method {
             name = "getDisplayInfo"
             param(displayInfoClazz)
-        }.get(this).invoke<Boolean>(outDisplayInfo)
+        }.get(this).invoke<Boolean>(outDisplayInfo) ?: false
     }
 
-    fun getDynamicDisplayInfo(displayInfo: Any): Any? {
-        val address = displayInfo.current().field { name = "address" }.any() ?: return null
-        val extend = address.javaClass extends addressPhysicalClazz
-        val physicalDisplayId = getPhysicalDisplayId(address)
-        return SurfaceControlUtils(classLoader).let {
-            if (it.isDisplayToken()) {
-                val token = if (extend) it.getPhysicalDisplayToken(physicalDisplayId)
-                else it.getInternalDisplayToken()
-                it.getDynamicDisplayInfo(token)
-            } else {
-                val id = if (extend) physicalDisplayId else 0
-                it.getDynamicDisplayInfo(id)
+    fun getDynamicDisplayInfo(displayInfo: DisplayInfo): Any? {
+        return if (displayInfo.address is DisplayAddress.Physical) {
+            val physicalDisplayId =
+                (displayInfo.address as DisplayAddress.Physical).physicalDisplayId
+            SurfaceControlUtils(classLoader).let {
+                if (it.isDisplayToken()) {
+                    val token = it.getPhysicalDisplayToken(physicalDisplayId)
+                    it.getDynamicDisplayInfo(token)
+                } else {
+                    it.getDynamicDisplayInfo(physicalDisplayId)
+                }
+            }
+        } else {
+            SurfaceControlUtils(classLoader).let {
+                if (it.isDisplayToken()) {
+                    val token = it.getInternalDisplayToken()
+                    it.getDynamicDisplayInfo(token)
+                } else {
+                    it.getDynamicDisplayInfo(0)
+                }
             }
         }
     }

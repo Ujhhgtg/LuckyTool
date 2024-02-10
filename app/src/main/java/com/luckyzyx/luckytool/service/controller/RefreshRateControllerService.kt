@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Parcel
 import android.os.RemoteException
 import android.os.ServiceManager
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.current
+import android.view.DisplayInfo
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.hook.utils.DisplayManagerUtils
+import com.luckyzyx.luckytool.hook.utils.DynamicDisplayInfoUtils
 import com.luckyzyx.luckytool.utils.DisplayMode
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
@@ -16,7 +16,7 @@ import com.topjohnwu.superuser.ipc.RootService
 @Obfuscate
 class RefreshRateControllerService : RootService() {
     val tag = "RefreshRateControllerService"
-    val isDebug = false
+    val isDebug = true
 
     companion object {
         private const val serviceName = "SurfaceFlinger"
@@ -72,49 +72,27 @@ class RefreshRateControllerService : RootService() {
             val context = this@RefreshRateControllerService
             return try {
                 DisplayManagerUtils(null).apply {
-                    val displayManager = getService(context)
+                    val displayManager = getDisplayManagerService(context)
                     LogUtils.d(tag, "getSupportModes", "${displayManager.javaClass}", isDebug)
                     val display = displayManager.getDisplay(0)
                     LogUtils.d(tag, "getSupportModes", "${display.javaClass}", isDebug)
-                    val displayInfo = displayInfoClazz.buildOf { emptyParam() } ?: return list
-                    LogUtils.d(tag, "getSupportModes", "${displayInfo.javaClass}", isDebug)
-                    if (display.getDisplayInfo(displayInfo) != true) return list
+                    val displayInfo = DisplayInfo()
+                    if (!display.getDisplayInfo(displayInfo)) return list
                     LogUtils.d(tag, "getSupportModes", "getDisplayInfo true", isDebug)
-                    val dynamicInfo = getDynamicDisplayInfo(displayInfo)
-                    LogUtils.d(tag, "getSupportModes", "${dynamicInfo?.javaClass}", isDebug)
-                    val supportedDisplayModes = dynamicInfo?.current()?.field {
-                        name = "supportedDisplayModes"
-                    }?.array<Any>()
-                    LogUtils.d(
-                        tag,
-                        "getSupportModes",
-                        "AllMode ${supportedDisplayModes?.toList()}",
-                        isDebug
-                    )
-                    supportedDisplayModes?.forEach {
-                        LogUtils.d(tag, "getSupportModes", "Mode $it", isDebug)
-                        val id = it.current().field { name = "id" }.cast<Int>() ?: return@forEach
-                        val width = it.current().field { name = "width" }.cast<Int>()
-                        val height = it.current().field { name = "height" }.cast<Int>()
-                        val xDpi = it.current().field { name = "xDpi" }.cast<Float>()
-                        val yDpi = it.current().field { name = "yDpi" }.cast<Float>()
-                        val refreshRate = it.current().field { name = "refreshRate" }.cast<Float>()
-                        val appVsyncOffsetNanos = it.current().field {
-                            name = "appVsyncOffsetNanos"
-                        }.cast<Long>()
-                        val presentationDeadlineNanos = it.current().field {
-                            name = "presentationDeadlineNanos"
-                        }.cast<Long>()
-                        val group = it.current().field { name = "group" }.cast<Int>()
-                        val mode = DisplayMode(
-                            id, width, height, xDpi, yDpi,
-                            refreshRate, appVsyncOffsetNanos, presentationDeadlineNanos, group
-                        )
-                        list.add(id, mode)
-                        LogUtils.d(tag, "getSupportModes", "Mode is add", isDebug)
+                    val dynamicInfo = getDynamicDisplayInfo(displayInfo) ?: return list
+                    LogUtils.d(tag, "getSupportModes", "${dynamicInfo.javaClass}", isDebug)
+                    DynamicDisplayInfoUtils(dynamicInfo).apply {
+                        val allDisplayModes = getSupportedDisplayModes()
+                        LogUtils.d(tag, "getSupportModes", "${allDisplayModes.toList()}", isDebug)
+                        allDisplayModes.forEach {
+                            LogUtils.d(tag, "getSupportModes", "Mode $it", isDebug)
+                            val mode = getDisplayMode(it) ?: return@forEach
+                            list.add(mode.first, mode.second)
+                            LogUtils.d(tag, "getSupportModes", "Mode is add", isDebug)
+                        }
                     }
                 }
-                LogUtils.d(tag, "getSupportModes", "Size ${list.size}", isDebug)
+                LogUtils.d(tag, "getSupportModes", "Final size ${list.size}", isDebug)
                 list
             } catch (e: Exception) {
                 LogUtils.e(tag, "getSupportModes", "$e", true)
