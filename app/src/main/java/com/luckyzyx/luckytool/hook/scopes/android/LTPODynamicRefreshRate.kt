@@ -1,72 +1,77 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object LTPODynamicRefreshRate : YukiBaseHooker() {
+
+    private const val BackLightBean = "com.oplus.vrr.bean.BackLightBean"
 
     override fun onHook() {
         val ltpoMinOne =
             prefs(ModulePrefs).getBoolean("enable_full_brightness_refresh_rate_minimum_one", false)
 
         //Source BackLightBean
-        "com.oplus.vrr.bean.BackLightBean".toClass().apply {
-            method { name = "getStrategyList" }.hook {
-                after {
-                    if (!ltpoMinOne) return@after
-                    result<ArrayList<HashMap<Float, Float>>>()?.forEachIndexed { _, map ->
-                        map.keys.forEachIndexed { _, nits ->
-                            map[nits] = 1F
+        "com.oplus.vrr.OPlusFeatureManager".toClass().apply {
+            method {
+                name { it.startsWith("on") }
+                param(BackLightBean)
+            }.hookAll {
+                before {
+                    if (!ltpoMinOne) return@before
+                    val bean = args().first().any() ?: return@before
+                    val mNitsToMinFPS = bean.current().field {
+                        name = "mNitsToMinFPS"
+                    }.cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
+                    mNitsToMinFPS?.onEach { (fps, list) ->
+                        list.forEach { map ->
+                            map.keys.forEach {
+                                map[it] = 1F
+                            }
                         }
+                        mNitsToMinFPS[fps] = list
                     }
                 }
             }
         }
-//
-//        //Source GameEventBean
-//        "com.oplus.vrr.bean.GameEventBean".toClass().apply {
-//            method { name = "setBackLightBean" }.hook {
-//                before {
-//                    val bean = args().first().any() ?: return@before
-//                    YLog.info("setBackLightBean -> ${bean.toString()}")
-//
-//                    bean.current().method { name = "setEnable" }.call(false)
-//                    val mNitsToMinFPS = bean.current().field { name = "mNitsToMinFPS" }
-//                        .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
-//                    YLog.info("setBackLightBean mNitsToMinFPS -> ${!mNitsToMinFPS.isNullOrEmpty()}")
-//
-//                    mNitsToMinFPS?.clear()
-//                }
-//            }
-//            method { name = "setPwmBackLightBean" }.hook {
-//                before {
-//                    val bean = args().first().any() ?: return@before
-//                    YLog.info("setPwmBackLightBean -> ${bean.toString()}")
-//
-//                    bean.current().method { name = "setEnable" }.call(false)
-//                    val mNitsToMinFPS = bean.current().field { name = "mNitsToMinFPS" }
-//                        .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
-//                    YLog.info("setPwmBackLightBean mNitsToMinFPS -> ${!mNitsToMinFPS.isNullOrEmpty()}")
-//
-//                    mNitsToMinFPS?.clear()
-//                }
-//            }
-//            method { name = "setSinglePulseBackLightBean" }.hook {
-//                before {
-//                    val bean = args().first().any() ?: return@before
-//                    YLog.info("setSinglePulseBackLightBean -> ${bean.toString()}")
-//
-//                    bean.current().method { name = "setEnable" }.call(false)
-//                    val mNitsToMinFPS = bean.current().field { name = "mNitsToMinFPS" }
-//                        .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
-//                    YLog.info("setSinglePulseBackLightBean mNitsToMinFPS -> ${!mNitsToMinFPS.isNullOrEmpty()}")
-//
-//                    mNitsToMinFPS?.clear()
-//                }
-//            }
-//        }
-//
+
+        //Source OPlusOnlineConfigManager
+        "com.oplus.vrr.OPlusOnlineConfigManager".toClass().apply {
+            method { name = "createGameEvent" }.hook {
+                after {
+                    val bean = result<Any>() ?: return@after
+
+//                    val mPkgNames = bean.current().method { name = "getPkgNames" }.call()
+//                    YLog.info("GameEventBean ${mPkgNames.toString()}")
+
+                    val mBackLightBean = bean.current().field { name = "mBackLightBean" }.any()
+                    if (mBackLightBean != null) {
+                        mBackLightBean.current().field { name = "mEnable" }.setFalse()
+                        mBackLightBean.current().field { name = "mNitsToMinFPS" }
+                            .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
+                    }
+
+                    val mPwmBackLightBean =
+                        bean.current().field { name = "mPwmBackLightBean" }.any()
+                    if (mPwmBackLightBean != null) {
+                        mPwmBackLightBean.current().field { name = "mEnable" }.setFalse()
+                        mPwmBackLightBean.current().field { name = "mNitsToMinFPS" }
+                            .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
+                    }
+
+                    val mSinglePulseBackLightBean =
+                        bean.current().field { name = "mBackLightBean" }.any()
+                    if (mSinglePulseBackLightBean != null) {
+                        mSinglePulseBackLightBean.current().field { name = "mEnable" }.setFalse()
+                        mSinglePulseBackLightBean.current().field { name = "mNitsToMinFPS" }
+                            .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
+                    }
+                }
+            }
+        }
+
 //        //Source AVTBean
 //        "com.oplus.vrr.bean.AVTBean".toClass().apply {
 //            method { name = "isEnable" }.hook {

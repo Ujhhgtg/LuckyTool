@@ -169,10 +169,6 @@ class LoggerFragment : Fragment(), MenuProvider {
                 }
                 setNeutralButton(android.R.string.cancel, null)
             }.show()
-            binding.logFilterLayout.apply {
-                hint = getString(R.string.log_filter_layout_hint)
-                isCounterEnabled = true
-            }
             binding.logFilter.apply {
                 setText(filterString)
                 addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
