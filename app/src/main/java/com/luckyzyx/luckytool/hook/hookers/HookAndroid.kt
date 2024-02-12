@@ -101,6 +101,20 @@ object HookAndroid : YukiBaseHooker() {
         //视频动态插帧
         loadHooker(EnableVideoMemcFrameInsertion)
 
+//        //Source OplusAppStartConfirmManager
+//        "com.android.server.wm.OplusAppStartConfirmManager".toClass().apply {
+//            method { name = "getCheckConformIntent";returnType = IntentClass }.hook {
+//                after {
+//                    val callerPkg = args().first().string()
+//                    val activityInfo = args(1).cast<ActivityInfo>() ?: return@after
+//                    val targetPkg = activityInfo.packageName
+//                    YLog.debug("$callerPkg -> $targetPkg")
+//
+//                    if (callerPkg == "com.microsoft.launcher") resultNull()
+//                }
+//            }
+//        }
+
         //Source ScanPackageUtils
 //        findClass("com.android.server.pm.ScanPackageUtils").hook {
 //            injectMember {

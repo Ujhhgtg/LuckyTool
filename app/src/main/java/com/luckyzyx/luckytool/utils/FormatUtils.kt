@@ -14,31 +14,12 @@ import java.util.regex.Pattern
 
 /**
  * 格式化Date
- * @param format String
- * @return String 格式
- */
-fun formatDate(format: String): String {
-    return formatDate(format, null, null)
-}
-
-/**
- * 格式化Date
- * @param format String 格式
- * @param param Any 要格式的对象
- * @return String
- */
-fun formatDate(format: String, param: Any): String {
-    return formatDate(format, param, null)
-}
-
-/**
- * 格式化Date
  * @param format String 格式
  * @param param Any? 要格式的对象
  * @param locale Locale? 区域
  * @return String
  */
-fun formatDate(format: String, param: Any?, locale: Locale?): String {
+fun formatDate(format: String, param: Any? = null, locale: Locale? = null): String {
     return SimpleDateFormat(format, locale ?: Locale.getDefault()).format(param ?: Date())
 }
 

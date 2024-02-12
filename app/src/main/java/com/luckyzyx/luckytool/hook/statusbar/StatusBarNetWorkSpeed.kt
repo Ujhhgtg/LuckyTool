@@ -14,6 +14,7 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
+import com.luckyzyx.luckytool.utils.safeOf
 import java.text.DecimalFormat
 
 object StatusBarNetWorkSpeed : YukiBaseHooker() {
@@ -80,28 +81,28 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         ).toClass().apply {
             method { name = "onFinishInflate" }.hook {
                 after {
-                    val view = instance<ViewGroup>()
+                    val viewGroup = instance<ViewGroup>()
                     when (layoutMode) {
                         "1" -> {
-                            val speedUnit: TextView? = view.findViewById(
-                                view.resources.getIdentifier(
+                            val speedUnit: TextView? = viewGroup.findViewById(
+                                viewGroup.resources.getIdentifier(
                                     "unit", "id",
                                     this@StatusBarNetWorkSpeed.packageName
                                 )
                             )
-                            view.removeView(speedUnit)
+                            viewGroup.removeView(speedUnit)
                         }
                     }
                     //5.34dp
-                    if (bMargin <= 0) bMargin = view.resources.getDimensionPixelSize(
-                        view.resources.getIdentifier(
+                    if (bMargin <= 0) bMargin = viewGroup.resources.getDimensionPixelSize(
+                        viewGroup.resources.getIdentifier(
                             "network_speed_number_margin_bottom",
                             "dimen", this@StatusBarNetWorkSpeed.packageName
                         )
                     )
                     //7.34dp
-                    if (tMargin <= 0) tMargin = view.resources.getDimensionPixelSize(
-                        view.resources.getIdentifier(
+                    if (tMargin <= 0) tMargin = viewGroup.resources.getDimensionPixelSize(
+                        viewGroup.resources.getIdentifier(
                             "network_speed_unit_margin_top",
                             "dimen", this@StatusBarNetWorkSpeed.packageName
                         )
@@ -114,12 +115,14 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         .cast<TextView>() ?: return@before
                     val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance)
                         .cast<TextView>() ?: return@before
+
                     if (userTypeface) {
                         mSpeedNumber.typeface =
                             if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
                         mSpeedUnit.typeface =
                             if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
                     }
+
                     if (layoutMode == "0") return@before
                     instance<ViewGroup>().apply {
                         layoutParams?.width = LayoutParams.WRAP_CONTENT
@@ -145,28 +148,30 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
                         "2" -> {
                             mSpeedNumber.apply {
-                                text = getTotalUpSpeed().let {
-                                    if (noSecond) it.replace("/s", "") else it
+                                text = getTotalUpSpeed().apply {
+                                    if (noSecond) replace("/s", "")
+                                    if (noSpace) replace(" ", "")
                                 }
                                 setTextSize(
                                     TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
                                 )
-                                if (setInterval != -1) layoutParams =
-                                    LayoutParams(layoutParams).apply {
-                                        bottomMargin = bMargin + (setInterval.dp / 2)
-                                    }
+                                layoutParams = LayoutParams(layoutParams).apply {
+                                    if (setInterval != -1) bottomMargin =
+                                        bMargin + (setInterval.dp / 2)
+                                }
                             }
                             mSpeedUnit.apply {
-                                text = getTotalDownloadSpeed().let {
-                                    if (noSecond) it.replace("/s", "") else it
+                                text = getTotalDownloadSpeed().apply {
+                                    if (noSecond) replace("/s", "")
+                                    if (noSpace) replace(" ", "")
                                 }
                                 setTextSize(
                                     TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
                                 )
-                                if (setInterval != -1) layoutParams =
-                                    LayoutParams(layoutParams).apply {
-                                        topMargin = tMargin + (setInterval.dp / 2)
-                                    }
+                                layoutParams = LayoutParams(layoutParams).apply {
+                                    if (setInterval != -1) topMargin =
+                                        tMargin + (setInterval.dp / 2)
+                                }
                             }
                         }
                     }
@@ -194,22 +199,28 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
         //计算上传速度
         val bytes = ((mCurrentTotalUp * 1000.0) / (mCurrentIntervals * 1.0)).toFloat()
-        if (bytes.isInfinite() || bytes.isNaN()) return "0B/s"
+        if (bytes.isInfinite() || bytes.isNaN()) return "0 B/s"
         val unit: String
         if (bytes >= (1024 * 1024)) {
-            totalUpSpeed = DecimalFormat("0.0").format(bytes / (1024 * 1024)).toFloat()
+            totalUpSpeed = safeOf(-1F) {
+                DecimalFormat("0.0").format(bytes / (1024 * 1024)).toFloat()
+            }
             unit = "MB/s"
         } else if (bytes >= 1024) {
-            totalUpSpeed = DecimalFormat("0.0").format(bytes / 1024).toFloat()
+            totalUpSpeed = safeOf(-1F) {
+                DecimalFormat("0.0").format(bytes / 1024).toFloat()
+            }
             unit = "KB/s"
         } else {
-            totalUpSpeed = DecimalFormat("0.0").format(bytes).toFloat()
+            totalUpSpeed = safeOf(-1F) {
+                DecimalFormat("0.0").format(bytes).toFloat()
+            }
             unit = "B/s"
         }
         //保存当前的流量总和和上次的时间戳
         mLastTotalUp = currentTotalTxBytes
         lastTimeStampTotalUp = nowTimeStampTotalUp
-        return totalUpSpeed.toString() + unit
+        return "$totalUpSpeed $unit"
     }
 
     //获取总的下行速度
@@ -229,22 +240,28 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
         //计算下行速度
         val bytes = ((mCurrentTotalDown * 1000.0) / (mCurrentIntervals * 1.0)).toFloat()
-        if (bytes.isInfinite() || bytes.isNaN()) return "0B/s"
+        if (bytes.isInfinite() || bytes.isNaN()) return "0 B/s"
         val unit: String
         if (bytes >= (1024 * 1024)) {
-            totalDownSpeed = DecimalFormat("0.0").format(bytes / (1024 * 1024)).toFloat()
+            totalDownSpeed = safeOf(-1F) {
+                DecimalFormat("0.0").format(bytes / (1024 * 1024)).toFloat()
+            }
             unit = "MB/s"
         } else if (bytes >= 1024) {
-            totalDownSpeed = DecimalFormat("0.0").format(bytes / 1024).toFloat()
+            totalDownSpeed = safeOf(-1F) {
+                DecimalFormat("0.0").format(bytes / 1024).toFloat()
+            }
             unit = "KB/s"
         } else {
-            totalDownSpeed = DecimalFormat("0.0").format(bytes).toFloat()
+            totalDownSpeed = safeOf(-1F) {
+                DecimalFormat("0.0").format(bytes).toFloat()
+            }
             unit = "B/s"
         }
         //保存当前的流量总和和上次的时间戳
         mLastTotalDown = currentTotalRxBytes
         lastTimeStampTotalDown = nowTimeStampTotalDown
 
-        return totalDownSpeed.toString() + unit
+        return "$totalDownSpeed $unit"
     }
 }

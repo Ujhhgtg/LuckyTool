@@ -177,6 +177,22 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
             loadHooker(HookOtherApp)
         }
+
+
+
+
+
+
+        //oplus.app.action.CHECK_ALLOW_START_ACTIVITY
+        //com.oplusos.securitypermission.permission.ui.AppStartConfirmDialogActivity
+
+
+        //com.android.server.wm.OplusAppStartConfirmManager
+
+
+
+
+
     }
 
     override fun onXposedEvent() {
