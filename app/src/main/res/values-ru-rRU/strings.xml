@@ -549,7 +549,7 @@
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
-    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
+    <string name="enable_touch_membrane_protector_mode">Включить режим защиты сенсорной мембраны</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
@@ -697,6 +697,7 @@
     <string name="unlock_transfer_dock">Разблокировать панель передачи</string>
     <string name="unlock_recent_files">Разблокировать последние файлы</string>
     <string name="unlock_fluid_cloud">Разблокировать облако</string>
+    <string name="enable_run_in_background">Enable run in background</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Включить запись звонков в сторонних приложениях</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Предварительное условие: Необходимо установить \"Запись вызовов в сторонних приложениях (com.oplus.audiomonitor)\", а также дать разрешения на микрофон и работу в фоне</string>

@@ -97,8 +97,8 @@
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
     <!--Android-->
-    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
+    <string name="set_ltpo_refresh_rate_mode">Imposta la modalità di aggiornamento LTPO</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Abilita la frequenza di aggiornamento completa della luminosità minimo 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale Color OS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Relativa all\'installazione</string>
     <string name="corepatch">Corpo Patch</string>
@@ -115,7 +115,7 @@
     <string name="enhancedMode_summary">È possibile risolvere alcuni controlli di integrità interna all\'interno dell\'app, che non è necessario abilitare</string>
     <string name="usepresig_warn">!!! Tutti i pacchetti possono sovrascrivere l\'app installata!!\nper installare pacchetti sconosciuti</string>
     <!--Status Bar-->
-    <string name="StatusBar">Correlato StatusBar</string>
+    <string name="StatusBar">StatusBar</string>
     <string name="StatusbarEvents">Eventi StatusBar</string>
     <string name="statusbar_double_click_lock_screen">Doppio clic sulla barra di stato per bloccare la schermata</string>
     <string name="vibrate_when_opening_the_statusbar">Vibra all\'apertura della barra di stato</string>
@@ -202,7 +202,7 @@
     <string name="status_bar_icon_vertical_center">Centro verticale icona barra di stato</string>
     <!--StatusBarControlCenter-->
     <string name="StatusBarControlCenter">StatusBar ControlCenter</string>
-    <string name="ControlCenter_Clock_Related">Interfaccia Utente Collegata Al Centro Controllo</string>
+    <string name="ControlCenter_Clock_Related">Interfaccia Utente Collegata al Centro Controllo</string>
     <string name="control_center_clock_show_second">Visualizza i secondi dell\'orologio</string>
     <string name="statusbar_control_center_clock_colon_style">Controllo stile orologio centrale</string>
     <string name="fix_clock_colon_style">Correggi lo stile dell\'orologio</string>
@@ -212,11 +212,11 @@
     <string name="remove_control_center_date_comma">Rimuovi virgola della data del centro di controllo</string>
     <string name="fix_control_center_date_display">Correggi la data del centro di controllo</string>
     <string name="fix_control_center_date_display_suammry">Risolvere il problema che la data non può essere visualizzata completamente</string>
-    <string name="ControlCenterNotificationCenter">Centro Notifiche Centro Controllo</string>
+    <string name="ControlCenterNotificationCenter">Centro Notifiche del Centro Controllo</string>
     <string name="enable_notification_align_both_sides">Abilita allineamento notifiche su entrambi i lati</string>
     <string name="enable_notification_importance_classification">Abilita classificazione importanza notifiche</string>
     <string name="custom_notification_background_transparency">Trasparenza sfondo notifica personalizzata</string>
-    <string name="ControlCenter_UI_Related">Interfaccia Utente Collegata Al Centro Controllo</string>
+    <string name="ControlCenter_UI_Related">Relativo all\'interfaccia utente del Centro di controllo</string>
     <string name="set_media_player_display_mode">Imposta modalità di visualizzazione lettore multimediale</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Nascondi quando nessun media è in riproduzione</string>
     <string name="force_enable_media_toggle_button">Forza il pulsante di attivazione multimediale</string>
@@ -231,9 +231,9 @@
     <string name="remove_control_center_networkwarn_summary">Dopo la connessione a VPN, apparirà una riga di testo in fondo al Centro di controllo\nDopo l\'installazione del certificato CA, mostra che la rete può essere monitorata</string>
     <string name="custom_control_center_background_transparency">Trasparenza sfondo centro controllo personalizzato</string>
     <!--StatusBar Tiles-->
-    <string name="StatusBarTiles">Barra di stato</string>
-    <string name="force_display_of_ringing_status_toggle_tiles">Forza visualizzazione delle caselle di stato suoneria</string>
-    <string name="SpecialTiles">Tiles Speciali</string>
+    <string name="StatusBarTiles">Tiles barra di stato</string>
+    <string name="force_display_of_ringing_status_toggle_tiles">Forza la visualizzazione dei tiles di attivazione/disattivazione dello stato della chiamata</string>
+    <string name="SpecialTiles">Tile speciali</string>
     <string name="auto_expand_tile_rows_horizontal">Espandi automaticamente il numero di righe orizzontali dei tile</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Quando il lettore multimediale è nascosto, due righe di tiles saranno visualizzate in modalità orizzontale</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Necessità di attivare l\'interruttore della funzione tile qui sotto</string>
@@ -548,7 +548,7 @@
     <string name="settings_authority_and_privacy">Autorizzazioni e privacy</string>
     <string name="enable_vip_mode">Abilita modalità VIP</string>
     <string name="settings_other_advanced_settings">Impostazioni Aggiuntive</string>
-    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
+    <string name="enable_touch_membrane_protector_mode">Abilita la modalità di protezione della membrana touch</string>
     <string name="settings_about_device">Informazioni sul dispositivo</string>
     <string name="set_processor_click_page">Impostare il processore per fare clic per saltare alla pagina</string>
     <string name="screen_physics_size_shown_cm">Le dimensioni fisiche dello schermo sono mostrate in centimetri</string>
@@ -696,6 +696,7 @@
     <string name="unlock_transfer_dock">Sblocca dock di trasferimento</string>
     <string name="unlock_recent_files">Sblocca file recenti</string>
     <string name="unlock_fluid_cloud">Sblocca Fluid Cloud</string>
+    <string name="enable_run_in_background">Enable run in background</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Abilita registrazione chiamate su applicazioni di terze parti</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Prerequisito: è necessario che sia installata l\'applicazione di registrazione delle chiamate a tre (com.oplus.audiomonitor), le autorizzazioni del microfono e le autorizzazioni del comportamento in background</string>

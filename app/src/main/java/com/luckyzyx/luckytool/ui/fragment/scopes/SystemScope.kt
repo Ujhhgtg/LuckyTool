@@ -4254,13 +4254,13 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-//            addPreference(SwitchPreference(context).apply {
-//                title = getString(R.string.unlock_fluid_cloud)
-//                key = "unlock_fluid_cloud"
-//                setDefaultValue(false)
-//                isVisible = false//SDK >= A13
-//                isIconSpaceReserved = false
-//            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_run_in_background)
+                key = "enable_run_in_background"
+                setDefaultValue(false)
+                isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
         }
     }
 

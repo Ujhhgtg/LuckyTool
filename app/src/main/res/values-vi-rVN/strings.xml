@@ -696,6 +696,7 @@
     <string name="unlock_transfer_dock">Mở khóa di chuyển thanh dock</string>
     <string name="unlock_recent_files">Mở khóa các tập tin gần đây</string>
     <string name="unlock_fluid_cloud">Bỏ chặn đám mây</string>
+    <string name="enable_run_in_background">Enable run in background</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Bật ghi âm cuộc gọi cho các ứng dụng của bên thứ ba</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Điều kiện tiên quyết: Cần phải cài đặt \"Ghi âm cuộc gọi của ứng dụng ba bên (com.oplus.audiomonitor)\" và phải được cấp quyền micrô cũng như toàn bộ quyền hoạt động ở chế độ nền</string>
