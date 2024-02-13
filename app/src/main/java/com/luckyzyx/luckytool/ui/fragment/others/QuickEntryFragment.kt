@@ -18,6 +18,7 @@ import com.luckyzyx.luckytool.utils.jumpEngineermode
 import com.luckyzyx.luckytool.utils.jumpRunningApp
 import com.luckyzyx.luckytool.utils.jumpSettingsDev
 import com.luckyzyx.luckytool.utils.jumpSystemUIDemoMode
+import com.luckyzyx.luckytool.utils.jumpVeryDarkMode
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
@@ -107,12 +108,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    Intent("android.settings.REDUCE_BRIGHT_COLORS_SETTINGS").apply {
-                        setPackage("com.android.settings")
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-                        startActivity(this)
-                    }
+                    jumpVeryDarkMode(context)
                     true
                 }
             })

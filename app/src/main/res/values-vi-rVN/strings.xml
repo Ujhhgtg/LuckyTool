@@ -801,7 +801,7 @@
     <string name="log_filter_title">Nhập nội dung cần lọc</string>
     <string name="log_filter_layout_hint">Chẳng hạn như tên gói, nội dung, v.v.</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">Tăng tỷ lệ lấy mẫu cảm ứng</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">Chế độ độ sáng cao</string>
     <string name="high_performance_mode">Chế độ hiệu suất cao</string>
     <string name="global_dc">DC toàn cầu</string>

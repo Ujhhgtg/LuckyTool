@@ -801,7 +801,7 @@
     <string name="log_filter_title">输入要过滤的内容</string>
     <string name="log_filter_layout_hint">例如包名、内容等</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">增加触摸采样率</string>
+    <string name="touch_sampling_rate">触控采样率</string>
     <string name="high_brightness_mode">高亮度模式</string>
     <string name="high_performance_mode">高性能模式</string>
     <string name="global_dc">全局 DC</string>

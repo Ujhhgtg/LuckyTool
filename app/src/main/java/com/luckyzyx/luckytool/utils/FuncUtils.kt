@@ -35,6 +35,7 @@ import android.os.SystemClock
 import android.os.SystemProperties
 import android.provider.Settings
 import android.service.quicksettings.TileService
+import android.telephony.SubscriptionManager
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.ArrayMap
@@ -84,6 +85,7 @@ import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 import kotlin.random.Random
 import kotlin.system.exitProcess
+
 
 /***
  * 获取APP Commit
@@ -559,6 +561,33 @@ fun jumpRunningApp(context: Context) {
         "jumpRunningApp", "activity", "RunningApplicationActivity is null", true
     )
     else ShellUtils.fastCmd("am start -n com.android.settings/$activity")
+}
+
+/**
+ * 跳转极暗模式
+ * @param context Context
+ */
+fun jumpVeryDarkMode(context: Context) {
+    Intent("android.settings.REDUCE_BRIGHT_COLORS_SETTINGS").apply {
+        setPackage("com.android.settings")
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        context.startActivity(this)
+    }
+}
+
+/**
+ * 跳转移动网络
+ * @param context Context
+ */
+fun jumpMobileNetwork(context: Context) {
+    Intent("android.settings.NETWORK_OPERATOR_SETTINGS").apply {
+        val id = SubscriptionManager.getDefaultDataSubscriptionId()
+        if (id != -1) putExtra("android.provider.extra.SUB_ID", id)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        context.startActivity(this)
+    }
 }
 
 /**

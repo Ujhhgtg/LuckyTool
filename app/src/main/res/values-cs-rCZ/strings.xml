@@ -801,7 +801,7 @@
     <string name="log_filter_title">Zadejte, co filtrovat</string>
     <string name="log_filter_layout_hint">Např. název balíčku, obsah, a tak dále</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">Zvyšit vzorkovací frekvenci dotyku</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">Režim vysokého jasu</string>
     <string name="high_performance_mode">Režim vysokého výkonu</string>
     <string name="global_dc">Globální DC</string>

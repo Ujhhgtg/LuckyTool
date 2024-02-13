@@ -697,7 +697,7 @@
     <string name="unlock_transfer_dock">Разблокировать панель передачи</string>
     <string name="unlock_recent_files">Разблокировать последние файлы</string>
     <string name="unlock_fluid_cloud">Разблокировать облако</string>
-    <string name="enable_run_in_background">Enable run in background</string>
+    <string name="enable_run_in_background">Включить запуск в фоновом режиме</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Включить запись звонков в сторонних приложениях</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Предварительное условие: Необходимо установить \"Запись вызовов в сторонних приложениях (com.oplus.audiomonitor)\", а также дать разрешения на микрофон и работу в фоне</string>
@@ -802,7 +802,7 @@
     <string name="log_filter_title">Поиск по фильтру</string>
     <string name="log_filter_layout_hint">Например, имя пакета, и т.д.</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">Увеличьте частоту дискретизации касания</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">Режим высокой яркости</string>
     <string name="high_performance_mode">Режим высокой производительности</string>
     <string name="global_dc">Глобальный DC</string>

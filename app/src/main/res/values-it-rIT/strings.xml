@@ -801,7 +801,7 @@
     <string name="log_filter_title">Inserisci cosa filtrare</string>
     <string name="log_filter_layout_hint">Come nome del pacchetto, contenuto, ecc</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">Aumenta la frequenza di campionamento del tocco</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">Modalità alta luminosità</string>
     <string name="high_performance_mode">Modalità ad alte prestazioni</string>
     <string name="global_dc">Global DC</string>

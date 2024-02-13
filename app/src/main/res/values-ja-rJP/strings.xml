@@ -801,7 +801,7 @@
     <string name="log_filter_title">絞り込む項目を入力</string>
     <string name="log_filter_layout_hint">パッケージ名、コンテンツなど</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">タッチサンプリングレートを上げる</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">高輝度モード</string>
     <string name="high_performance_mode">高パフォーマンスモード</string>
     <string name="global_dc">グローバルDC</string>

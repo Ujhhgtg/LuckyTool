@@ -1,14 +1,25 @@
 package com.luckyzyx.luckytool.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.service.tiles.ChargingTestTile
+import com.luckyzyx.luckytool.service.tiles.ExtraDimModeTile
+import com.luckyzyx.luckytool.service.tiles.FiveGTile
+import com.luckyzyx.luckytool.service.tiles.ProcessManagerTile
+import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.jumpBatteryInfo
 import com.luckyzyx.luckytool.utils.jumpHighPerformance
+import com.luckyzyx.luckytool.utils.jumpMobileNetwork
 import com.luckyzyx.luckytool.utils.jumpRunningApp
+import com.luckyzyx.luckytool.utils.jumpVeryDarkMode
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
@@ -40,6 +51,21 @@ class ShortcutActivity : Activity() {
                 "module_shortcut_status_performance" -> jumpHighPerformance(this@ShortcutActivity)
             }
         }
+        checkTileLongClick()
         finish()
+    }
+
+    @SuppressLint("NewApi")
+    fun checkTileLongClick() {
+        if (SDK < A13) return
+        val componentName: ComponentName = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME)
+            ?: return
+//        LogUtils.d("checkTileLongClick", "componentName", componentName.toString(), true)
+        when (componentName.className) {
+            ChargingTestTile::class.java.name -> jumpBatteryInfo(this)
+            ProcessManagerTile::class.java.name -> jumpRunningApp(this)
+            ExtraDimModeTile::class.java.name -> jumpVeryDarkMode(this)
+            FiveGTile::class.java.name -> jumpMobileNetwork(this)
+        }
     }
 }

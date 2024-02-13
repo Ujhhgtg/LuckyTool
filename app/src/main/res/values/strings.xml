@@ -926,7 +926,7 @@
     <string name="log_filter_layout_hint">Such as package name, content, etc</string>
     
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">Increase touch sampling rate</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">High Brightness Mode</string>
     <string name="high_performance_mode">High performance mode</string>
     <string name="global_dc">Global DC</string>

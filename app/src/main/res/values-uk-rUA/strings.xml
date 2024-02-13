@@ -801,7 +801,7 @@
     <string name="log_filter_title">Введіть, що фільтрувати</string>
     <string name="log_filter_layout_hint">Наприклад, ім\'я пакета і т.д.</string>
     <!--Tile-->
-    <string name="increase_touch_sampling_rate">Збільшення частоти дискретизації дотику</string>
+    <string name="touch_sampling_rate">Touch sampling rate</string>
     <string name="high_brightness_mode">Режим високої яскравості (HBM)</string>
     <string name="high_performance_mode">Режим високої продуктивності</string>
     <string name="global_dc">Глобальний DC</string>
