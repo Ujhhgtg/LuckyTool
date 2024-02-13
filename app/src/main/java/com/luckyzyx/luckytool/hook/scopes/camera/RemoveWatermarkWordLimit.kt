@@ -31,7 +31,7 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
             }
         }.apply {
             val onlyOne = SDK >= A13
-            checkDataList("RemoveWatermarkWordLimit", onlyOne, isDebug = true)
+            checkDataList("RemoveWatermarkWordLimit", onlyOne)
             if (onlyOne.not() && size == 2) {
                 forEach {
                     it.className.toClass().apply {
