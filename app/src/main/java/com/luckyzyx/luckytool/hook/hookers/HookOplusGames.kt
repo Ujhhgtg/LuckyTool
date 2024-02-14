@@ -1,18 +1,19 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.CloudConditionFeature
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.CompetitionModeSound
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.CustomMediaPlayerSupport
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.EnableDeveloperPage
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.EnableSupportCompetitionMode
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.EnableXModeFeature
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveGameAssistantTemperatureDetection
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveRootCheck
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveSomeVipLimit
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveStartupAnimation
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveToolRecommendationCard
-import com.luckyzyx.luckytool.hook.scopes.oplusgames.RemoveWelfarePage
+import com.luckyzyx.luckytool.hook.scopes.games.CloudConditionFeature
+import com.luckyzyx.luckytool.hook.scopes.games.CompetitionModeSound
+import com.luckyzyx.luckytool.hook.scopes.games.CustomBarrageNotificationWhitelist
+import com.luckyzyx.luckytool.hook.scopes.games.CustomMediaPlayerSupport
+import com.luckyzyx.luckytool.hook.scopes.games.EnableDeveloperPage
+import com.luckyzyx.luckytool.hook.scopes.games.EnableSupportCompetitionMode
+import com.luckyzyx.luckytool.hook.scopes.games.EnableXModeFeature
+import com.luckyzyx.luckytool.hook.scopes.games.RemoveGameAssistantTemperatureDetection
+import com.luckyzyx.luckytool.hook.scopes.games.RemoveRootCheck
+import com.luckyzyx.luckytool.hook.scopes.games.RemoveSomeVipLimit
+import com.luckyzyx.luckytool.hook.scopes.games.RemoveStartupAnimation
+import com.luckyzyx.luckytool.hook.scopes.games.RemoveToolRecommendationCard
+import com.luckyzyx.luckytool.hook.scopes.games.RemoveWelfarePage
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
@@ -68,12 +69,16 @@ object HookOplusGames : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_game_assistant_temperature_detection")) {
                 loadHooker(RemoveGameAssistantTemperatureDetection)
             }
+            //自定义弹幕通知白名单
+            loadHooker(CustomBarrageNotificationWhitelist)
 
             val exist = appVer?.versionCode?.let { it < 90000000 } ?: false
             //移除游戏助手工具推荐卡片
             if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
                 if (exist) loadHooker(RemoveToolRecommendationCard)
             }
+
+
 
             //res/layout/layout_perf_cpu_setting_panel_land.xml
             //res/layout/layout_perf_cpu_setting_panel_child.xml

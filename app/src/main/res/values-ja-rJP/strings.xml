@@ -53,7 +53,6 @@
     <string name="donate">寄付のリワード</string>
     <string name="donate_message">寄付を行う際は必ずニックネームやIDを明記してください</string>
     <string name="donate_summary">あなたの寄付がモジュールの開発への原動力となります</string>
-    <string name="qq">QQ</string>
     <string name="wechat">WeChat</string>
     <string name="alipay">AliPay</string>
     <string name="donation_list">寄付リスト</string>
@@ -321,7 +320,7 @@
     <string name="apply_lock_screen_dual_clock_redone">ロック画面のデュアル時計に適用</string>
     <string name="lock_screen_custom_clock_component_style">ロック画面の時計コンポーネントのスタイルを編集</string>
     <string name="force_display_clock_style_options">時計スタイルのオプションを強制表示</string>
-    <string name="force_display_clock_style_options_summary">時計スタイルのオプションを強制的に「設定 -> ホーム画面とロック画面」に表示します。OPPO/realmeデバイスでのみ有効です</string>
+    <string name="force_display_clock_style_options_summary">時計スタイルのオプションを強制的に「設定 -&gt; ホーム画面とロック画面」に表示します。OPPO/realmeデバイスでのみ有効です</string>
     <string name="set_lock_screen_centered">ロック画面の時計コンポーネントを中央に表示</string>
     <string name="set_lock_screen_centered_summary">設定でロック画面の中央に配置ができないシステムのみが対象です</string>
     <string name="lock_screen_clock_use_user_typeface">ロック画面の時計コンポーネントにユーザー指定のフォントを使用</string>
@@ -421,7 +420,7 @@
     <string name="disable_apk_signature_verification">APKの署名チェックを無効化</string>
     <string name="disable_apk_signature_verification_summary">様々な署名付きのアプリをインストール可能にします。コアパッチを使用してください</string>
     <string name="remove_install_ads">インストール完了後の広告を削除</string>
-    <string name="remove_install_ads_summary">設定 -> セキュリティアプリの推奨 の順でオフにできます</string>
+    <string name="remove_install_ads_summary">設定 -&gt; セキュリティアプリの推奨 の順でオフにできます</string>
     <string name="auto_click_install_button">インストールボタンを自動的に押す</string>
     <string name="auto_click_uninstall_button">アンインストールボタンを自動的に押す</string>
     <string name="replase_aosp_installer">AOSPインストーラーに置き換え</string>
@@ -615,6 +614,8 @@
     <string name="remove_game_voice_changer_whitelist">ボイスチェンジャーのホワイトリストを削除</string>
     <string name="remove_game_assistant_temperature_detection">ゲームアシスタントの温度検出を削除</string>
     <string name="remove_game_assistant_temperature_detection_summary">主にXモードでの温度制御の問題を解決します</string>
+    <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
+    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
     <!--CloudService-->
     <string name="remove_network_limit">データ通信の制限を削除</string>
     <string name="remove_network_limit_summary">バックアップと復元でモバイルデータが使用できない制限を削除します</string>

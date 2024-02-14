@@ -53,7 +53,6 @@
     <string name="donate">Ricompense Donazione</string>
     <string name="donate_message">Assicurati d\'inserire il tuo nickname o ID durante la donazione</string>
     <string name="donate_summary">La tua donazione sarà la forza trainante per l\'aggiornamento del modulo</string>
-    <string name="qq">QQ</string>
     <string name="wechat">Wechat</string>
     <string name="alipay">AliPay</string>
     <string name="donation_list">Lista Donazioni</string>
@@ -615,6 +614,8 @@
     <string name="remove_game_voice_changer_whitelist">Rimuovi Lista bianca cambio voce gioco</string>
     <string name="remove_game_assistant_temperature_detection">Rimuovi rilevamento temperatura Assistente Gioco</string>
     <string name="remove_game_assistant_temperature_detection_summary">Risolve principalmente il problema della temperatura eccessiva in modalità X</string>
+    <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
+    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
     <!--CloudService-->
     <string name="remove_network_limit">Rimuovi Limite Rete Dati</string>
     <string name="remove_network_limit_summary">Rimuovi le limitazioni di backup/ripristino che non possono utilizzare i dati mobili</string>

@@ -3589,6 +3589,26 @@ class OplusGames : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            addPreference(EditTextPreference(context).apply {
+                title = getString(R.string.custom_barrage_notification_whitelist)
+                dialogTitle = title
+                summary = context.getString(
+                    ModulePrefs, "custom_barrage_notification_whitelist", "None"
+                )
+                if (summary.isNullOrBlank()) summary = "None"
+                dialogMessage = getString(R.string.custom_barrage_notification_whitelist_message)
+                key = "custom_barrage_notification_whitelist"
+                setDefaultValue("None")
+                isIconSpaceReserved = false
+                setOnBindEditTextListener {
+                    it.setText((summary as String).replaceBlankLine)
+                }
+                setOnPreferenceChangeListener { _, newValue ->
+                    val format = (newValue as String).replaceBlankLine
+                    summary = format.ifBlank { "None" }
+                    true
+                }
+            })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_danmaku_notification_whitelist)
                 key = "remove_danmaku_notification_whitelist"

@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.oplusgames
+package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.app.Activity
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker

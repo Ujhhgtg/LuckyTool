@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.oplusgames
+package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.view.View
 import androidx.core.view.isVisible

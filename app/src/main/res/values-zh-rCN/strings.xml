@@ -53,7 +53,6 @@
     <string name="donate">捐赠打赏</string>
     <string name="donate_message">捐赠时请务必备注您的昵称或 ID</string>
     <string name="donate_summary">您的捐赠将是模块更新的动力</string>
-    <string name="qq">QQ</string>
     <string name="wechat">微信</string>
     <string name="alipay">支付宝</string>
     <string name="donation_list">捐赠列表</string>
@@ -615,6 +614,8 @@
     <string name="remove_game_voice_changer_whitelist">移除游戏变声白名单</string>
     <string name="remove_game_assistant_temperature_detection">移除游戏助手温度检测</string>
     <string name="remove_game_assistant_temperature_detection_summary">主要解决在 X 模式中温度过高问题</string>
+    <string name="custom_barrage_notification_whitelist">自定义弹幕通知白名单</string>
+    <string name="custom_barrage_notification_whitelist_message">在基于原有白名单的基础上添加应用，每行填写一个包名</string>
     <!--CloudService-->
     <string name="remove_network_limit">移除数据网络限制</string>
     <string name="remove_network_limit_summary">移除备份/恢复无法使用移动数据的限制</string>

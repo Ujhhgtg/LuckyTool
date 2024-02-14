@@ -53,7 +53,6 @@
     <string name="donate">Darovat odměnu</string>
     <string name="donate_message">Ujistěte se, že jste při darování napsali vaši přezdívku nebo ID daru</string>
     <string name="donate_summary">Váš příspěvek bude hnací silou pro další vývoj a aktualizace</string>
-    <string name="qq">QQ</string>
     <string name="wechat">WeChat</string>
     <string name="alipay">AliPay</string>
     <string name="donation_list">Seznam darů</string>
@@ -615,6 +614,8 @@
     <string name="remove_game_voice_changer_whitelist">Odstranit omezení měniče hlasu</string>
     <string name="remove_game_assistant_temperature_detection">Odstranit detekci teploty asistenta hry</string>
     <string name="remove_game_assistant_temperature_detection_summary">Především řeší problém nadměrné teploty v X módu</string>
+    <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
+    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
     <!--CloudService-->
     <string name="remove_network_limit">Odstranit limit datové sítě</string>
     <string name="remove_network_limit_summary">Odstraňte omezení, že zálohování/obnova nemůže používat mobilní data</string>

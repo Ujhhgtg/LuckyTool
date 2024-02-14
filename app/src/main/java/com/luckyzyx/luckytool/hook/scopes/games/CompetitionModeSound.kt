@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.oplusgames
+package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.media.AudioManager
 import android.media.SoundPool

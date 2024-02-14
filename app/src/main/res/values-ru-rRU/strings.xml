@@ -53,7 +53,6 @@
     <string name="donate">Пожертвовать</string>
     <string name="donate_message">Обязательно укажите свой никнейм или ID при пожертвовании</string>
     <string name="donate_summary">Работа над обновлениями для модуля продолжается благодаря вашим пожертвованиям</string>
-    <string name="qq">QQ</string>
     <string name="wechat">WeChat</string>
     <string name="alipay">AliPay</string>
     <string name="donation_list">Список донатов</string>
@@ -616,6 +615,8 @@
     <string name="remove_game_voice_changer_whitelist">Удалить ограничения для смены голоса</string>
     <string name="remove_game_assistant_temperature_detection">Удалить определение температуры игрового помощника</string>
     <string name="remove_game_assistant_temperature_detection_summary">В основном решает проблему чрезмерной температуры в режиме X</string>
+    <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
+    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
     <!--CloudService-->
     <string name="remove_network_limit">Удалить ограничения сети передачи данных</string>
     <string name="remove_network_limit_summary">Удалить ограничение, согласно которому резервное копирование/восстановление не может использовать мобильные данные</string>
