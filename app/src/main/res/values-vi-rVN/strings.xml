@@ -216,6 +216,7 @@
     <string name="enable_notification_align_both_sides">Bật thông báo căn chỉnh cả hai bên</string>
     <string name="enable_notification_importance_classification">Bật phân loại mức độ quan trọng của thông báo</string>
     <string name="custom_notification_background_transparency">Độ trong suốt của nền thông báo tùy chỉnh</string>
+    <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
     <string name="ControlCenter_UI_Related">Giao diện người dùng của trung tâm điều khiển</string>
     <string name="set_media_player_display_mode">Đặt chế độ hiển thị trình phát phương tiện</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Ẩn khi không có phương tiện nào đang phát</string>

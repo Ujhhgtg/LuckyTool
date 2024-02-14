@@ -216,6 +216,7 @@
     <string name="enable_notification_align_both_sides">Увімкнути вирівнювання повідомлень по обидва боки</string>
     <string name="enable_notification_importance_classification">Увімкнути класифікацію важливості сповіщень</string>
     <string name="custom_notification_background_transparency">Custom notification background transparency</string>
+    <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
     <string name="ControlCenter_UI_Related">Інтерфейс користувача центру управління</string>
     <string name="set_media_player_display_mode">Set media player display mode</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Hide when no media is playing</string>

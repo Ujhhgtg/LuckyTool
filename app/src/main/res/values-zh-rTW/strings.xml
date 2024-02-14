@@ -216,6 +216,7 @@
     <string name="enable_notification_align_both_sides">启用通知两侧对齐</string>
     <string name="enable_notification_importance_classification">启用通知重要性分类</string>
     <string name="custom_notification_background_transparency">自定义通知背景透明度</string>
+    <string name="enable_notification_background_blur_effect">启用通知背景模糊效果</string>
     <string name="ControlCenter_UI_Related">控制中心UI相关</string>
     <string name="set_media_player_display_mode">设置媒体播放器显示模式</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">无媒体播放时隐藏</string>

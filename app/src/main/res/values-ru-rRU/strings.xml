@@ -216,6 +216,7 @@
     <string name="enable_notification_align_both_sides">Включить выравнивание уведомлений по обе стороны</string>
     <string name="enable_notification_importance_classification">Включить классификацию важности уведомлений</string>
     <string name="custom_notification_background_transparency">Прозрачность фона уведомлений</string>
+    <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
     <string name="ControlCenter_UI_Related">Пользовательский интерфейс шторки</string>
     <string name="set_media_player_display_mode">Установить режим отображения медиаплеера</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Скрывать, когда нет воспроизведения</string>

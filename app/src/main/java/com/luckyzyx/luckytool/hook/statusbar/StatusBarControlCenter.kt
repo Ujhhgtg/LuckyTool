@@ -5,7 +5,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterBackgroundTransP
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterClockStyle
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterDateStyle
 import com.luckyzyx.luckytool.hook.scopes.systemui.EnableNotificationAlignBothSides
-import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundTransParency
+import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundBlurAlpha
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterUserSwitcher
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
 import com.luckyzyx.luckytool.utils.A13
@@ -34,7 +34,7 @@ object StatusBarControlCenter : YukiBaseHooker() {
 
         //通知背景透明度
 //        loadHooker(CustomNotificationBackgroundTransparency)
-        if (SDK >= A14) loadHooker(NotificationBackgroundTransParency)
+        if (SDK >= A14) loadHooker(NotificationBackgroundBlurAlpha)
 
         //控制中心背景透明度
         loadHooker(ControlCenterBackgroundTransParency)

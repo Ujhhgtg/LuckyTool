@@ -10,7 +10,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
-object NotificationBackgroundTransParency : YukiBaseHooker() {
+object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
     private var disableBlur = false
 
     @SuppressLint("DiscouragedApi")
@@ -20,27 +20,39 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
         dataChannel.wait<Int>("custom_notification_background_transparency") {
             customAlpha = it
         }
-        var panelViewAlpha = 255
+        var enableBlur =
+            prefs(ModulePrefs).getBoolean("enable_notification_background_blur_effect", false)
+        dataChannel.wait<Boolean>("enable_notification_background_blur_effect") {
+            enableBlur = it
+        }
 
-        if (customAlpha < 0) return
-
-        //Source NotificationPanelViewController
-        "com.android.systemui.shade.NotificationPanelViewController".toClass().apply {
-            method { name = "setAlpha" }.hook {
-                before {
-                    panelViewAlpha = args().first().int()
+        //Source NotificationBackgroundView
+        "com.android.systemui.statusbar.notification.row.NotificationBackgroundView".toClass()
+            .apply {
+                method { name = "draw";paramCount = 2 }.hook {
+                    before {
+                        if (customAlpha < 0 || enableBlur) return@before
+                        val alphaValue = customAlpha * 25
+                        val mBackground = args().last().cast<Drawable>() ?: return@before
+                        mBackground.alpha = alphaValue
+                    }
                 }
             }
-        }
 
         //Source NotificationBackgroundViewExtImp
         "com.oplus.systemui.statusbar.notification.row.NotificationBackgroundViewExtImp".toClass()
             .apply {
                 method { name = "getOplusStyle";superClass() }.hook {
-                    replaceToTrue()
+                    before {
+                        if (customAlpha < 0) return@before
+                        if (enableBlur) resultTrue() else resultFalse()
+                    }
                 }
                 method { name = "drawBlur";superClass() }.hook {
-                    replaceToTrue()
+                    before {
+                        if (customAlpha < 0) return@before
+                        if (enableBlur) resultTrue() else resultFalse()
+                    }
                 }
                 method { name = "decideBlurDrawable" }.hook {
                     before {
@@ -77,9 +89,8 @@ object NotificationBackgroundTransParency : YukiBaseHooker() {
             .apply {
                 method { name = "updateBackgroundForGroupState" }.hook {
                     before {
-                        if (customAlpha > 0) field {
-                            name = "mShowGroupBackgroundWhenExpanded"
-                        }.get(instance).setTrue()
+                        if (customAlpha < 0 || !enableBlur) return@before
+                        field { name = "mShowGroupBackgroundWhenExpanded" }.get(instance).setTrue()
                     }
                 }
             }

@@ -1010,14 +1010,13 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_notification_importance_classification)
                 key = "enable_notification_importance_classification"
                 setDefaultValue(false)
-                isVisible = SDK < A14
+                isVisible = osCode < 30
                 isIconSpaceReserved = false
             })
             addPreference(SeekBarPreference(context).apply {
                 title = getString(R.string.custom_notification_background_transparency)
                 summary = arraySummaryLine(
-                    getString(R.string.force_enable_systemui_blur_feature_tips),
-                    getString(R.string.force_enable_systemui_blur_feature_tips_2)
+                    getString(R.string.force_enable_systemui_blur_feature_tips)
                 )
                 key = "custom_notification_background_transparency"
                 setDefaultValue(-1)
@@ -1025,7 +1024,22 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 min = -1
                 showSeekBarValue = true
                 updatesContinuously = false
-                isVisible = SDK >= A14
+                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_notification_background_blur_effect)
+                summary = arraySummaryLine(
+                    getString(R.string.force_enable_systemui_blur_feature_tips),
+                    getString(R.string.force_enable_systemui_blur_feature_tips_2)
+                )
+                key = "enable_notification_background_blur_effect"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     context.sendPrefsValue("com.android.systemui", key, newValue)
