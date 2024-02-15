@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
-### 1.2.0_beta
+### 1.2.0
 
 - [修复] 状态栏磁贴横屏间隙Hook异常 C13.0
 - [优化] 视频动态插帧配置增删查改与重置功能
@@ -23,6 +23,27 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [添加] 模块部分磁贴支持长按跳转
 - [优化] 分离通知背景模糊效果开关 C14
 - [添加] 自定义弹幕通知白名单
+- [优化] 仅打包arm64-v8a以减少模块体积
+- [Fix] Hook exception in status bar tile horizontal screen gap C13.0
+- [Optimize] Video dynamic frame insertion configuration addition, deletion, checking,
+  modification and reset functions
+- [Add] Video dynamic frame insertion configuration import Xml function
+- [Remove] Remove forced refresh rate option 1
+- [Add] Touch sampling rate tile switch
+- [Change] Set screen notification icon style key value and string
+- [Fix] Camera custom watermark character limit v4.004.162 (23-12-05 12:28)
+- [Add] Remove Album AIGC elimination restriction
+- [Change] CorePatch functionality moved to app installation partition
+- [Add] Set LTPO refresh rate mode
+- [Add] Full brightness LTPO refresh rate minimum 1
+- [Add] Enable diaphragm touch mode C13.1+
+- [Optimize] Status bar notification center alignment
+- [Add] Enable sidebar run in background C13.1
+- [Add] Support dial-up password to open the module
+- [Add] Some module tiles support long press to jump.
+- [Optimize] Separate notification background blur effect switch C14
+- [Add] Customized bullet notification whitelist
+- [Optimize] Only package arm64-v8a to reduce module size
 
 ### 1.1.9
 
