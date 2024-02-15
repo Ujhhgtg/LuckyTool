@@ -153,7 +153,6 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                                 resetAllConfig(null, version[which])
                             }
                         }.show()
-                        resetAllConfig()
                     }
                     setNeutralButton(android.R.string.cancel, null)
                 }.show()
