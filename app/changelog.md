@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
+### 1.2.1_beta
+
+- [优化] 内置CDN更新渠道地址
+
 ### 1.2.0
 
 - [修复] 状态栏磁贴横屏间隙Hook异常 C13.0

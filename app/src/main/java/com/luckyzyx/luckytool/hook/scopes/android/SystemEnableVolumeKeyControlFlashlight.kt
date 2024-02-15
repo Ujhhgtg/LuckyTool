@@ -14,12 +14,13 @@ object SystemEnableVolumeKeyControlFlashlight : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("enable_volume_key_control_flashlight", false)
 
         //Source OplusScreenOffTorchHelper
-        val clazz = "com.android.server.power.OplusScreenOffTorchHelper".toClassOrNull()
-        clazz?.method { name = "getInstance";param(ContextClass) }?.hook {
-            after {
-                if (!isEnable) return@after
-                val context = args().first().cast<Context>() ?: return@after
-                if (result == null) result = clazz.buildOf(context) { param(ContextClass) }
+        "com.android.server.power.OplusScreenOffTorchHelper".toClassOrNull()?.apply {
+            method { name = "getInstance";param(ContextClass) }.hook {
+                after {
+                    if (!isEnable) return@after
+                    val context = args().first().cast<Context>() ?: return@after
+                    if (result == null) result = buildOf(context) { param(ContextClass) }
+                }
             }
         }
     }
