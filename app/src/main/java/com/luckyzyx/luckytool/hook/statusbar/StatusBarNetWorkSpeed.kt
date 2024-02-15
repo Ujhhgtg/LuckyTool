@@ -148,10 +148,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
                         "2" -> {
                             mSpeedNumber.apply {
-                                text = getTotalUpSpeed().apply {
-                                    if (noSecond) replace("/s", "")
-                                    if (noSpace) replace(" ", "")
-                                }
+                                text = getTotalUpSpeed(noSpace, noSecond)
                                 setTextSize(
                                     TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
                                 )
@@ -161,10 +158,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                 }
                             }
                             mSpeedUnit.apply {
-                                text = getTotalDownloadSpeed().apply {
-                                    if (noSecond) replace("/s", "")
-                                    if (noSpace) replace(" ", "")
-                                }
+                                text = getTotalDownloadSpeed(noSpace, noSecond)
                                 setTextSize(
                                     TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
                                 )
@@ -183,7 +177,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
     }
 
     //获取总的上行速度
-    private fun getTotalUpSpeed(): String {
+    private fun getTotalUpSpeed(noSpace: Boolean, noSecond: Boolean): String {
         //换算后的上行速度
         val totalUpSpeed: Float
         val currentTotalTxBytes = TrafficStats.getTotalTxBytes()
@@ -220,11 +214,15 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         //保存当前的流量总和和上次的时间戳
         mLastTotalUp = currentTotalTxBytes
         lastTimeStampTotalUp = nowTimeStampTotalUp
-        return "$totalUpSpeed $unit"
+
+        var finalText = "$totalUpSpeed $unit"
+        if (noSpace) finalText = finalText.replace(" ", "")
+        if (noSecond) finalText = finalText.replace("/s", "")
+        return finalText
     }
 
     //获取总的下行速度
-    private fun getTotalDownloadSpeed(): String {
+    private fun getTotalDownloadSpeed(noSpace: Boolean, noSecond: Boolean): String {
         //换算后的下行速度
         val totalDownSpeed: Float
         val currentTotalRxBytes = TrafficStats.getTotalRxBytes()
@@ -262,6 +260,9 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         mLastTotalDown = currentTotalRxBytes
         lastTimeStampTotalDown = nowTimeStampTotalDown
 
-        return "$totalDownSpeed $unit"
+        var finalText = "$totalDownSpeed $unit"
+        if (noSpace) finalText = finalText.replace(" ", "")
+        if (noSecond) finalText = finalText.replace("/s", "")
+        return finalText
     }
 }

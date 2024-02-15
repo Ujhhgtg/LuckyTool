@@ -536,18 +536,16 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getString(ModulePrefs, "statusbar_network_layout", "0") == "1") {
-                    addPreference(SwitchPreference(context).apply {
-                        title = getString(R.string.statusbar_network_no_space)
-                        key = "statusbar_network_no_space"
-                        setDefaultValue(false)
-                        isIconSpaceReserved = false
-                        setOnPreferenceChangeListener { _, newValue ->
-                            context.sendPrefsValue("com.android.systemui", key, newValue)
-                            true
-                        }
-                    })
-                }
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.statusbar_network_no_space)
+                    key = "statusbar_network_no_space"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
                 addPreference(SeekBarPreference(context).apply {
                     title = getString(R.string.set_network_speed_font_size)
                     key = "set_network_speed_font_size"

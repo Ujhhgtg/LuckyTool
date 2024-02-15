@@ -6,6 +6,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 ### 1.2.1_beta
 
 - [优化] 内置CDN更新渠道地址
+- [修复] 状态栏双行网速移除每秒字符问题
 
 ### 1.2.0
 
