@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import android.util.ArraySet
 import android.view.LayoutInflater
@@ -27,9 +26,9 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentZoomWindowApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
-import com.luckyzyx.luckytool.utils.AppInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -97,17 +96,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
 
             withDefault {
                 val packageManager = requireActivity().packageManager
-                val appinfos = PackageUtils(packageManager).getInstalledApplications(0)
-                for (i in appinfos) {
-                    if (i.flags and ApplicationInfo.FLAG_SYSTEM == 1 && !isShowSystemApp) continue
-                    allAppDatas.add(
-                        AppInfo(
-                            i.loadIcon(packageManager),
-                            i.loadLabel(packageManager).toString(),
-                            i.packageName,
-                        )
-                    )
-                }
+                allAppDatas = PackageUtils(packageManager).getInstalledAppInfos(0, isShowSystemApp)
             }
 
             binding.recyclerView.apply {
@@ -158,7 +147,7 @@ class ZoomWindowAdapter(
         if (allAppInfos.size <= 1) hasPermissions = false
 
         allDatas = allAppInfos.apply {
-            sortBy { it.appName }
+            sortBy { it.name }
         }
 
         val sortDatas = ArrayList<AppInfo>()
@@ -174,7 +163,7 @@ class ZoomWindowAdapter(
         allDatas.apply {
             removeIf { sortDatas.contains(it) }
             addAll(0, sortDatas.apply {
-                sortBy { it.appName }
+                sortBy { it.name }
             })
         }
 
@@ -189,9 +178,10 @@ class ZoomWindowAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val appIcon = filterDatas[position].appIcon
-        val appName = filterDatas[position].appName
-        val packName = filterDatas[position].packName
+        val appInfo = filterDatas[position]
+        val appIcon = appInfo.icon
+        val appName = appInfo.name
+        val packName = appInfo.packName
 
         holder.appIcon.setImageDrawable(appIcon)
         holder.appName.text = appName
@@ -219,9 +209,8 @@ class ZoomWindowAdapter(
             } else {
                 val filterlist = ArrayList<AppInfo>()
                 allDatas.forEach {
-                    if (it.appName.toString().lowercase()
-                            .contains(constraint.toString().lowercase()) || it.packName.lowercase()
-                            .contains(constraint.toString().lowercase())
+                    if (it.name.lowercase().contains(constraint.toString().lowercase())
+                        || it.packName.lowercase().contains(constraint.toString().lowercase())
                     ) filterlist.add(it)
                 }
                 filterlist

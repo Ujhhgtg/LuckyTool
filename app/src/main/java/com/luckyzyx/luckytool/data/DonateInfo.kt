@@ -1,0 +1,14 @@
+package com.luckyzyx.luckytool.data
+
+import com.joom.paranoid.Obfuscate
+import java.io.Serializable
+
+@Obfuscate
+data class DonateInfo(
+    val name: String,
+    val time: String,
+    val channel: String,
+    val money: Double,
+    val order: String,
+    val unit: String = "RMB",
+) : Serializable
