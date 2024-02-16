@@ -7,6 +7,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 
 - [优化] 内置CDN更新渠道地址
 - [修复] 状态栏双行网速移除每秒字符问题
+- [优化] 状态栏双行网速计算逻辑
 
 ### 1.2.0
 
