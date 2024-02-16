@@ -21,9 +21,9 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.ITouchPanelController
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
+import com.luckyzyx.luckytool.databinding.DialogShortcutLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
-import com.luckyzyx.luckytool.databinding.LayoutAdbDialogBinding
-import com.luckyzyx.luckytool.databinding.LayoutShortcutDialogBinding
 import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
 import com.luckyzyx.luckytool.service.controller.TouchPanelControllerService
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
@@ -60,7 +60,7 @@ class OtherFragment : Fragment() {
 
         binding.shortcut.apply {
             setOnClickListener {
-                val binding = LayoutShortcutDialogBinding.inflate(layoutInflater)
+                val binding = DialogShortcutLayoutBinding.inflate(layoutInflater)
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setView(binding.root)
                 }.show()
@@ -113,7 +113,7 @@ class OtherFragment : Fragment() {
                 val getPort = adbController?.adbPort ?: return@setOnClickListener
                 var getIP = adbController?.wifiIP ?: "IP"
 
-                val binding = LayoutAdbDialogBinding.inflate(layoutInflater)
+                val binding = DialogAdbLayoutBinding.inflate(layoutInflater)
                 MaterialAlertDialogBuilder(context).apply {
                     setCancelable(true)
                     setView(binding.root)

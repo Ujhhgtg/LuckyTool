@@ -29,11 +29,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogMemcConfigLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcActivityLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcPackageLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcActivityItemBinding
-import com.luckyzyx.luckytool.databinding.LayoutMemcConfigDialogBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcPackageItemBinding
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue
@@ -363,7 +363,7 @@ class MemcPackageFragment : Fragment() {
         }
 
         fun addOrEditData(config: MemcConfigPackage? = null, position: Int? = null) {
-            val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
+            val binding = DialogMemcConfigLayoutBinding.inflate(LayoutInflater.from(context))
             binding.packageLayout.hint = "PackageName"
             binding.activityLayout.isVisible = false
             binding.rateLayout.hint = "ScreenRate"
@@ -585,7 +585,7 @@ class MemcActivityFragment : Fragment() {
         }
 
         fun addOrEditData(config: MemcConfigActivity? = null, position: Int? = null) {
-            val binding = LayoutMemcConfigDialogBinding.inflate(LayoutInflater.from(context))
+            val binding = DialogMemcConfigLayoutBinding.inflate(LayoutInflater.from(context))
             binding.packageLayout.hint = "PackageName"
             binding.activityLayout.hint = "ActivityName"
             binding.rateLayout.isVisible = false

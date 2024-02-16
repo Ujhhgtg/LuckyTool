@@ -29,8 +29,8 @@ import com.highcapable.yukihookapi.hook.xposed.channel.annotation.SendTooLargeCh
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogLogFilterLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentLogsBinding
-import com.luckyzyx.luckytool.databinding.LayoutLogFilterDialogBinding
 import com.luckyzyx.luckytool.databinding.LayoutLoginfoItemBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -160,7 +160,7 @@ class LoggerFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == 1) loadLogger()
         if (menuItem.itemId == 2) {
-            val binding = LayoutLogFilterDialogBinding.inflate(layoutInflater)
+            val binding = DialogLogFilterLayoutBinding.inflate(layoutInflater)
             MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                 setTitle(getString(R.string.log_filter_title))
                 setView(binding.root)

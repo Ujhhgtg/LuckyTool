@@ -18,7 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.LayoutDownloadDialogBinding
+import com.luckyzyx.luckytool.databinding.DialogDownloadLayoutBinding
 import io.noties.markwon.Markwon
 import org.json.JSONObject
 import java.io.File
@@ -106,7 +106,7 @@ class UpdateUtils(val context: Context) {
     fun downloadFile(context: Context, apkName: String, url: String) {
         val apkFile = FileUtils.checkDownloadDir(context, apkName)
         var downloadScope: NetCoroutineScope = scopeNet { }
-        val binding = LayoutDownloadDialogBinding.inflate(LayoutInflater.from(context))
+        val binding = DialogDownloadLayoutBinding.inflate(LayoutInflater.from(context))
         val downloadDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.downloading))
             setCancelable(false)

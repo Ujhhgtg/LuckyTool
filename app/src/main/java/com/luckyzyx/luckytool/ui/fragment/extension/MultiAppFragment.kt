@@ -23,6 +23,7 @@ import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogAppinfoSortFilterSheetBinding
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.utils.AppInfo
@@ -35,6 +36,7 @@ import com.luckyzyx.luckytool.utils.jumpMultiApp
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import com.luckyzyx.luckytool.utils.showBottomSheet
 
 @Obfuscate
 class MultiAppFragment : Fragment(), MenuProvider {
@@ -61,8 +63,11 @@ class MultiAppFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
-            isHintEnabled = true
-            isHintAnimationEnabled = true
+            setEndIconOnClickListener {
+                val binding = DialogAppinfoSortFilterSheetBinding.inflate(layoutInflater)
+                context.showBottomSheet(binding.root)
+
+            }
         }
         binding.searchView.apply {
             addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->

@@ -19,8 +19,8 @@ import com.highcapable.yukihookapi.YukiHookAPI
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogOplusotaLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
-import com.luckyzyx.luckytool.databinding.LayoutOplusotaDialogBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.*
@@ -93,7 +93,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
         binding.systemInfo.apply {
             setOnLongClickListener {
-                val binding = LayoutOplusotaDialogBinding.inflate(layoutInflater)
+                val binding = DialogOplusotaLayoutBinding.inflate(layoutInflater)
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setTitle("OPLUS OTA")
                     setView(binding.root)

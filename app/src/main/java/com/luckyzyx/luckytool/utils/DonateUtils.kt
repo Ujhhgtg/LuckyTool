@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.LayoutDonateDialogBinding
+import com.luckyzyx.luckytool.databinding.DialogDonateLayoutBinding
 
 @Suppress("unused")
 object DonateData {
@@ -16,7 +16,7 @@ object DonateData {
     private const val CPP = "PayPal"
 
     fun showQRCode(context: Context, base64: String) {
-        val binding = LayoutDonateDialogBinding.inflate(LayoutInflater.from(context))
+        val binding = DialogDonateLayoutBinding.inflate(LayoutInflater.from(context))
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.qq))
             setView(binding.root)
