@@ -103,7 +103,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
                     allAppDatas.add(
                         AppInfo(
                             i.loadIcon(packageManager),
-                            i.loadLabel(packageManager),
+                            i.loadLabel(packageManager).toString(),
                             i.packageName,
                         )
                     )
@@ -158,7 +158,7 @@ class ZoomWindowAdapter(
         if (allAppInfos.size <= 1) hasPermissions = false
 
         allDatas = allAppInfos.apply {
-            sortBy { it.appName.toString() }
+            sortBy { it.appName }
         }
 
         val sortDatas = ArrayList<AppInfo>()
@@ -174,7 +174,7 @@ class ZoomWindowAdapter(
         allDatas.apply {
             removeIf { sortDatas.contains(it) }
             addAll(0, sortDatas.apply {
-                sortBy { it.appName.toString() }
+                sortBy { it.appName }
             })
         }
 

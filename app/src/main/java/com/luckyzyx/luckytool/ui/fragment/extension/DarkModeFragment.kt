@@ -106,7 +106,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
                     allAppDatas.add(
                         AppInfo(
                             i.loadIcon(packageManager),
-                            i.loadLabel(packageManager),
+                            i.loadLabel(packageManager).toString(),
                             i.packageName,
                         )
                     )
@@ -179,7 +179,7 @@ class DarkModeAdapter(
         if (allAppInfos.size <= 1) hasPermissions = false
 
         allDatas = allAppInfos.apply {
-            sortBy { it.appName.toString() }
+            sortBy { it.appName }
         }
 
         val sortDatas = ArrayList<AppInfo>()
