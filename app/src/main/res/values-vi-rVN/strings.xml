@@ -42,7 +42,7 @@
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Sao lưu/Khôi phục/Xoá</string>
     <string name="get_log_cat_log">Lấy nhật ký LogCat</string>
-    <string name="backup_data">Backup Data</string>
+    <string name="backup_data">Sao lưu dữ liệu</string>
     <string name="restore_data">Khôi phục dữ liệu</string>
     <string name="data_backup_complete">Sao lưu dữ liệu hoàn tất!</string>
     <string name="data_backup_error">Lỗi sao lưu dữ liệu!</string>
@@ -64,8 +64,8 @@
     <string name="qq_channel">Kênh QQ</string>
     <string name="telegram_channel">Kênh Telegram</string>
     <string name="telegram_group">Nhóm Telegram</string>
-    <string name="lsposed_repo">LSPosed Repository</string>
-    <string name="github_repo">Github Repository</string>
+    <string name="lsposed_repo">Kho lưu trữ LSPosed</string>
+    <string name="github_repo">Kho lưu trữ Github</string>
     <string name="open_source">Mã nguồn mở</string>
     <string name="open_source_summary">Bấm để xem danh sách mã nguồn mở</string>
     <string name="participate_translation">Tham gia dịch module</string>
@@ -215,7 +215,7 @@
     <string name="enable_notification_align_both_sides">Bật thông báo căn chỉnh cả hai bên</string>
     <string name="enable_notification_importance_classification">Bật phân loại mức độ quan trọng của thông báo</string>
     <string name="custom_notification_background_transparency">Độ trong suốt của nền thông báo tùy chỉnh</string>
-    <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
+    <string name="enable_notification_background_blur_effect">Bật hiệu ứng làm mờ nền thông báo</string>
     <string name="ControlCenter_UI_Related">Giao diện người dùng của trung tâm điều khiển</string>
     <string name="set_media_player_display_mode">Đặt chế độ hiển thị trình phát phương tiện</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Ẩn khi không có phương tiện nào đang phát</string>
@@ -614,8 +614,8 @@
     <string name="remove_game_voice_changer_whitelist">Xóa danh sách trắng thay đổi giọng nói trò chơi</string>
     <string name="remove_game_assistant_temperature_detection">Xóa tính năng phát hiện nhiệt độ của Trợ lý trò chơi</string>
     <string name="remove_game_assistant_temperature_detection_summary">Chủ yếu giải quyết vấn đề nhiệt độ quá cao ở chế độ X</string>
-    <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
-    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
+    <string name="custom_barrage_notification_whitelist">Tùy chỉnh danh sách trắng thông báo</string>
+    <string name="custom_barrage_notification_whitelist_message">Thêm ứng dụng dựa trên danh sách trắng ban đầu và điền tên gói vào mỗi dòng</string>
     <!--CloudService-->
     <string name="remove_network_limit">Xóa giới hạn mạng dữ liệu</string>
     <string name="remove_network_limit_summary">Xóa giới hạn sao lưu/khôi phục không thể sử dụng dữ liệu di động</string>
@@ -803,7 +803,7 @@
     <string name="log_filter_title">Nhập nội dung cần lọc</string>
     <string name="log_filter_layout_hint">Chẳng hạn như tên gói, nội dung, v.v.</string>
     <!--Tile-->
-    <string name="touch_sampling_rate">Touch sampling rate</string>
+    <string name="touch_sampling_rate">Tốc độ lấy mẫu cảm ứng</string>
     <string name="high_brightness_mode">Chế độ độ sáng cao</string>
     <string name="high_performance_mode">Chế độ hiệu suất cao</string>
     <string name="global_dc">DC toàn cầu</string>
@@ -822,6 +822,18 @@
     <!--Typeface-->
     <string name="use_user_typeface">Sử dụng kiểu chữ người dùng</string>
     <string name="use_bold_font_style">Sử dụng kiểu chữ đậm</string>
+    <!--AppInfo-->
+    <string name="appinfo_sort_and_filter">Sort And Filter</string>
+    <string name="appinfo_sort_by">Sort By</string>
+    <string name="appinfo_filter">Filter</string>
+    <string name="appinfo_reverse">Reverse</string>
+    <string name="appinfo_app_name">App Name</string>
+    <string name="appinfo_package_name">Package Name</string>
+    <string name="appinfo_app_size">App Size</string>
+    <string name="appinfo_install_time">Install Time</string>
+    <string name="appinfo_last_updated_time">Last Updated Time</string>
+    <string name="appinfo_target_sdk">Target SDK</string>
+    <string name="appinfo_system_app">System App</string>
     <!--CommonWords-->
     <string name="common_words_enable">Bật</string>
     <string name="common_words_disable">Tắt</string>

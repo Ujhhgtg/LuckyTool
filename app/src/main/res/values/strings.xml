@@ -952,6 +952,20 @@
     <string name="use_user_typeface">Use user typeface</string>
     <string name="use_bold_font_style">Use bold font style</string>
     
+    <!--AppInfo-->
+    <string name="appinfo_sort_and_filter">Sort And Filter</string>
+    <string name="appinfo_sort_by">Sort By</string>
+    <string name="appinfo_filter">Filter</string>
+    <string name="appinfo_reverse">Reverse</string>
+    
+    <string name="appinfo_app_name">App Name</string>
+    <string name="appinfo_package_name">Package Name</string>
+    <string name="appinfo_app_size">App Size</string>
+    <string name="appinfo_install_time">Install Time</string>
+    <string name="appinfo_last_updated_time">Last Updated Time</string>
+    <string name="appinfo_target_sdk">Target SDK</string>
+    <string name="appinfo_system_app">System App</string>
+    
     <!--CommonWords-->
     <string name="common_words_enable">Enable</string>
     <string name="common_words_disable">Disable</string>

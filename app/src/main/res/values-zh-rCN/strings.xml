@@ -822,6 +822,18 @@
     <!--Typeface-->
     <string name="use_user_typeface">使用用户字体</string>
     <string name="use_bold_font_style">使用粗体字体样式</string>
+    <!--AppInfo-->
+    <string name="appinfo_sort_and_filter">排序与过滤</string>
+    <string name="appinfo_sort_by">排序方式</string>
+    <string name="appinfo_filter">过滤器</string>
+    <string name="appinfo_reverse">反转</string>
+    <string name="appinfo_app_name">应用名称</string>
+    <string name="appinfo_package_name">应用包名</string>
+    <string name="appinfo_app_size">应用大小</string>
+    <string name="appinfo_install_time">安装时间</string>
+    <string name="appinfo_last_updated_time">最近更新时间</string>
+    <string name="appinfo_target_sdk">Target 版本</string>
+    <string name="appinfo_system_app">系统应用</string>
     <!--CommonWords-->
     <string name="common_words_enable">启用</string>
     <string name="common_words_disable">禁用</string>

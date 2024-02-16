@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
+import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.databinding.FragmentFpsBinding
 import com.luckyzyx.luckytool.service.controller.RefreshRateControllerService
-import com.luckyzyx.luckytool.utils.DisplayMode
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.SettingsPrefs

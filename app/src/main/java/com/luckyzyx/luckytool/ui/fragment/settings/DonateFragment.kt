@@ -18,9 +18,9 @@ import com.drake.net.utils.scopeLife
 import com.drake.net.utils.scopeNetLife
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.DonateInfo
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
 import com.luckyzyx.luckytool.utils.AESCrypt
-import com.luckyzyx.luckytool.utils.DonateInfo
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatStringAuto

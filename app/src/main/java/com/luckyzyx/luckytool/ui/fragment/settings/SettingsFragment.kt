@@ -17,7 +17,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.Base64CodeUtils
-import com.luckyzyx.luckytool.utils.DonateData
+import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -288,9 +288,9 @@ class SettingsFragment : ModulePreferenceFragment() {
                     MaterialAlertDialogBuilder(context).apply {
                         setItems(donateList.toTypedArray()) { _, which ->
                             when (which) {
-                                0 -> DonateData.showQRCode(context, Base64CodeUtils.qqCode)
-                                1 -> DonateData.showQRCode(context, Base64CodeUtils.wechatCode)
-                                2 -> DonateData.showQRCode(context, Base64CodeUtils.alipayCode)
+                                0 -> DonateUtils.showQRCode(context, Base64CodeUtils.qqCode)
+                                1 -> DonateUtils.showQRCode(context, Base64CodeUtils.wechatCode)
+                                2 -> DonateUtils.showQRCode(context, Base64CodeUtils.alipayCode)
                                 3 -> if (isZh(context)) {
                                     navigatePage(
                                         R.id.action_nav_setting_to_donateFragment,

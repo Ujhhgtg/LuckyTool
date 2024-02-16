@@ -7,7 +7,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogDonateLayoutBinding
 
 @Suppress("unused")
-object DonateData {
+object DonateUtils {
     private const val CNU = "Null"
     private const val CQQ = "QQ"
     private const val CQQHB = "QQHB"

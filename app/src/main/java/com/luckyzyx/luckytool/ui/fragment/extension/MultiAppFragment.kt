@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -19,14 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.DialogAppinfoSortFilterSheetBinding
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
-import com.luckyzyx.luckytool.utils.AppInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
@@ -36,7 +37,6 @@ import com.luckyzyx.luckytool.utils.jumpMultiApp
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
-import com.luckyzyx.luckytool.utils.showBottomSheet
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @Obfuscate
@@ -47,27 +47,30 @@ class MultiAppFragment : Fragment(), MenuProvider {
 
     private var allAppInfos = ArrayList<AppInfo>()
 
-    private var isShowSystemApp = false
-
     private val showSystemAppKey = "show_system_app_multi_app"
     private val supportListKey = "multi_app_custom_list"
+
+    private lateinit var sortFilterBinding: DialogAppinfoSortFilterSheetBinding
+    private lateinit var sortFilterBottomSheet: BottomSheetDialog
+    private var isReverse = false
+    private var sortMode = 0
+    private var showSystemApp = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         setupMenuProvider(this)
-        isShowSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
+        showSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
         binding = FragmentMutliAppApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initSortFilterBottomSheet()
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                val binding = DialogAppinfoSortFilterSheetBinding.inflate(layoutInflater)
-                context.showBottomSheet(binding.root)
-
+                sortFilterBottomSheet.show()
             }
         }
         binding.searchView.apply {
@@ -76,10 +79,78 @@ class MultiAppFragment : Fragment(), MenuProvider {
             })
         }
         binding.swipeRefreshLayout.apply {
-            setOnRefreshListener { loadData() }
+            setOnRefreshListener {
+                loadData()
+            }
         }
 
         if (allAppInfos.isEmpty()) loadData()
+    }
+
+    private fun initSortFilterBottomSheet() {
+        sortFilterBinding = DialogAppinfoSortFilterSheetBinding.inflate(layoutInflater)
+        sortFilterBottomSheet = BottomSheetDialog(requireActivity()).apply {
+            setContentView(sortFilterBinding.root)
+        }
+        sortFilterBinding.sortReverse.apply {
+            setOnCheckedChangeListener { buttonView, isChecked ->
+                if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                isReverse = isChecked
+                loadData()
+            }
+        }
+        sortFilterBinding.sortChips.apply {
+            isSingleSelection = true
+            arrayOf(
+                getString(R.string.appinfo_app_name),
+                getString(R.string.appinfo_package_name),
+                getString(R.string.appinfo_app_size),
+                getString(R.string.appinfo_install_time),
+                getString(R.string.appinfo_last_updated_time),
+                getString(R.string.appinfo_target_sdk)
+            ).forEachIndexed { index, title ->
+                addView(getSortChip(index, title))
+            }
+            setOnCheckedStateChangeListener { _, checkedIds ->
+                if (checkedIds.isEmpty()) return@setOnCheckedStateChangeListener
+                sortMode = checkedIds.first() - 1
+                loadData()
+            }
+        }
+        sortFilterBinding.filterChips.apply {
+            isSingleSelection = false
+            arrayOf(getString(R.string.appinfo_system_app)).forEachIndexed { index, title ->
+                addView(getFilterChip(index, title))
+            }
+        }
+    }
+
+    private fun getSortChip(index: Int, title: String): Chip {
+        return Chip(requireActivity()).apply {
+            text = title
+            isCheckable = true
+            isClickable = true
+            isChecked = index == 0
+        }
+    }
+
+    private fun getFilterChip(index: Int, title: String): Chip {
+        return Chip(requireActivity()).apply {
+            text = title
+            isCheckable = true
+            isClickable = true
+            when (index) {
+                0 -> {
+                    isChecked = showSystemApp
+                    setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                        showSystemApp = isChecked
+                        context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
+                        loadData()
+                    }
+                }
+            }
+        }
     }
 
     private fun loadData() {
@@ -90,36 +161,53 @@ class MultiAppFragment : Fragment(), MenuProvider {
             allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+                ?.toMutableList() ?: mutableListOf()
 
+            val enableInfos = ArrayList<AppInfo>()
             withDefault {
                 val packageManager = requireActivity().packageManager
-                val appinfos = PackageUtils(packageManager).getInstalledApplications(0)
-                for (i in appinfos) {
-                    if (i.flags and ApplicationInfo.FLAG_SYSTEM == 1 && !isShowSystemApp) continue
-                    allAppInfos.add(
-                        AppInfo(
-                            i.loadIcon(packageManager),
-                            i.loadLabel(packageManager),
-                            i.packageName,
-                        )
-                    )
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
+                enableData.forEach { its ->
+                    val find = allAppInfos.find { it.packName == its }
+                    if (find != null) enableInfos.add(find)
+                }
+                allAppInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
+                enableInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
                 }
             }
 
             binding.recyclerView.apply {
-                multiAppAdapter = MultiAppAdapter(context, allAppInfos, enableData)
+                multiAppAdapter = MultiAppAdapter(context, allAppInfos, enableInfos)
                 adapter = multiAppAdapter
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
             }
+
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
         }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.app_list_menu, menu)
-        menu.findItem(R.id.show_system_app).isChecked = isShowSystemApp
         menu.add(0, 1, 0, getString(R.string.common_words_open)).apply {
             setIcon(R.drawable.baseline_open_in_new_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
@@ -131,19 +219,13 @@ class MultiAppFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == 1) jumpMultiApp(requireActivity())
-        if (menuItem.itemId == R.id.show_system_app) {
-            menuItem.isChecked = !menuItem.isChecked
-            isShowSystemApp = menuItem.isChecked
-            requireActivity().putBoolean(ModulePrefs, showSystemAppKey, isShowSystemApp)
-            loadData()
-        }
         return true
     }
 }
 
 @Obfuscate
 class MultiAppAdapter(
-    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableData: Set<String>?
+    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
 ) : RecyclerView.Adapter<MultiAppAdapter.ViewHolder>() {
     private val supportListKey = "multi_app_custom_list"
 
@@ -161,21 +243,15 @@ class MultiAppAdapter(
 
         if (allAppInfos.size <= 1) hasPermissions = false
 
-        allDatas = allAppInfos.apply {
-            sortBy { it.appName.toString() }
-        }
+        allDatas = allAppInfos
+        filterDatas = allDatas
 
-        val sortDatas = ArrayList<AppInfo>()
-        allEnableData?.forEach { its ->
-            val find = allDatas.find { it.packName == its }
-            if (find != null) {
-                enabledAppData.add(its)
-                sortDatas.add(find)
-            }
+        allEnableInfos.forEach {
+            enabledAppData.add(it.packName)
+            allDatas.remove(it)
         }
+        allDatas.addAll(0, allEnableInfos)
         saveEnableList()
-
-        filterDatas = allAppInfos
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -186,9 +262,10 @@ class MultiAppAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val appIcon = filterDatas[position].appIcon
-        val appName = filterDatas[position].appName
-        val packName = filterDatas[position].packName
+        val appInfo = filterDatas[position]
+        val appIcon = appInfo.icon
+        val appName = appInfo.name
+        val packName = appInfo.packName
 
         holder.appIcon.setImageDrawable(appIcon)
         holder.appName.text = appName
@@ -211,14 +288,12 @@ class MultiAppAdapter(
 
     val getFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
-            filterDatas = if (constraint.isBlank()) {
-                allDatas
-            } else {
+            filterDatas = if (constraint.isBlank()) allDatas
+            else {
                 val filterlist = ArrayList<AppInfo>()
                 allDatas.forEach {
-                    if (it.appName.toString().lowercase().contains(
-                            constraint.toString().lowercase()
-                        ) || it.packName.lowercase().contains(constraint.toString().lowercase())
+                    if (it.name.lowercase().contains(constraint.toString().lowercase())
+                        || it.packName.lowercase().contains(constraint.toString().lowercase())
                     ) filterlist.add(it)
                 }
                 filterlist

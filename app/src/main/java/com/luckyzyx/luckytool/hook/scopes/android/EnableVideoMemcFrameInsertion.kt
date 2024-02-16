@@ -3,8 +3,8 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.utils.MemcConfigActivity
-import com.luckyzyx.luckytool.utils.MemcConfigPackage
+import com.luckyzyx.luckytool.data.MemcConfigActivity
+import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 

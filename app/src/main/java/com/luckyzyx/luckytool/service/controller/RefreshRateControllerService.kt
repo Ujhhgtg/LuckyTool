@@ -7,9 +7,9 @@ import android.os.ServiceManager
 import android.view.DisplayInfo
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
+import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.hook.utils.DisplayManagerUtils
 import com.luckyzyx.luckytool.hook.utils.DynamicDisplayInfoUtils
-import com.luckyzyx.luckytool.utils.DisplayMode
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
 

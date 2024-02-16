@@ -11,7 +11,7 @@ import com.highcapable.yukihookapi.hook.type.java.AnyClass
 import com.highcapable.yukihookapi.hook.type.java.AtomicBooleanClass
 import com.highcapable.yukihookapi.hook.type.java.InputStreamClass
 import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.luckyzyx.luckytool.utils.DarkModeInfo
+import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge

@@ -5,7 +5,7 @@ import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.utils.DarkModeInfo
+import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.oplus.darkmode.OplusDarkModeData
 

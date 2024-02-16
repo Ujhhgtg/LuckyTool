@@ -15,18 +15,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.databinding.DialogAppinfoSortFilterSheetBinding
 import com.luckyzyx.luckytool.databinding.FragmentZoomWindowApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -44,31 +46,34 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentZoomWindowApplistLayoutBinding
     private var zoomWindowAdapter: ZoomWindowAdapter? = null
 
-    private var allAppDatas = ArrayList<AppInfo>()
-
-    private var isShowSystemApp = false
+    private var allAppInfos = ArrayList<AppInfo>()
 
     private val showSystemAppKey = "show_system_app_zoom_window"
     private val supportListKey = "zoom_window_support_list"
+
+    private lateinit var sortFilterBinding: DialogAppinfoSortFilterSheetBinding
+    private lateinit var sortFilterBottomSheet: BottomSheetDialog
+    private var isReverse = false
+    private var sortMode = 0
+    private var showSystemApp = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         setupMenuProvider(this)
-        isShowSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
+        showSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
         binding = FragmentZoomWindowApplistLayoutBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.enableSwitch.apply {
-            isVisible = false
-        }
+        initSortFilterBottomSheet()
 
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
-            isHintEnabled = true
-            isHintAnimationEnabled = true
+            setEndIconOnClickListener {
+                sortFilterBottomSheet.show()
+            }
         }
         binding.searchView.apply {
             addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
@@ -79,28 +84,119 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
             setOnRefreshListener { loadData() }
         }
 
-        if (allAppDatas.isEmpty()) loadData()
+        if (allAppInfos.isEmpty()) loadData()
     }
 
-    /**
-     * 加载数据
-     */
+    private fun initSortFilterBottomSheet() {
+        sortFilterBinding = DialogAppinfoSortFilterSheetBinding.inflate(layoutInflater)
+        sortFilterBottomSheet = BottomSheetDialog(requireActivity()).apply {
+            setContentView(sortFilterBinding.root)
+        }
+        sortFilterBinding.sortReverse.apply {
+            setOnCheckedChangeListener { buttonView, isChecked ->
+                if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                isReverse = isChecked
+                loadData()
+            }
+        }
+        sortFilterBinding.sortChips.apply {
+            isSingleSelection = true
+            arrayOf(
+                getString(R.string.appinfo_app_name),
+                getString(R.string.appinfo_package_name),
+                getString(R.string.appinfo_app_size),
+                getString(R.string.appinfo_install_time),
+                getString(R.string.appinfo_last_updated_time),
+                getString(R.string.appinfo_target_sdk)
+            ).forEachIndexed { index, title ->
+                addView(getSortChip(index, title))
+            }
+            setOnCheckedStateChangeListener { _, checkedIds ->
+                if (checkedIds.isEmpty()) return@setOnCheckedStateChangeListener
+                sortMode = checkedIds.first() - 1
+                loadData()
+            }
+        }
+        sortFilterBinding.filterChips.apply {
+            isSingleSelection = false
+            arrayOf(getString(R.string.appinfo_system_app)).forEachIndexed { index, title ->
+                addView(getFilterChip(index, title))
+            }
+        }
+    }
+
+    private fun getSortChip(index: Int, title: String): Chip {
+        return Chip(requireActivity()).apply {
+            text = title
+            isCheckable = true
+            isClickable = true
+            isChecked = index == 0
+        }
+    }
+
+    private fun getFilterChip(index: Int, title: String): Chip {
+        return Chip(requireActivity()).apply {
+            text = title
+            isCheckable = true
+            isClickable = true
+            when (index) {
+                0 -> {
+                    isChecked = showSystemApp
+                    setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                        showSystemApp = isChecked
+                        context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
+                        loadData()
+                    }
+                }
+            }
+        }
+    }
+
     private fun loadData() {
         scopeLife {
             binding.swipeRefreshLayout.isRefreshing = true
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
-            allAppDatas.clear()
+            allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+                ?.toMutableList() ?: mutableListOf()
 
+            val enableInfos = ArrayList<AppInfo>()
             withDefault {
                 val packageManager = requireActivity().packageManager
-                allAppDatas = PackageUtils(packageManager).getInstalledAppInfos(0, isShowSystemApp)
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
+                enableData.forEach { its ->
+                    val find = allAppInfos.find { it.packName == its }
+                    if (find != null) enableInfos.add(find)
+                }
+                allAppInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
+                enableInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
             }
 
             binding.recyclerView.apply {
-                zoomWindowAdapter = ZoomWindowAdapter(context, allAppDatas, enableData)
+                zoomWindowAdapter = ZoomWindowAdapter(context, allAppInfos, enableInfos)
                 adapter = zoomWindowAdapter
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
@@ -111,24 +207,17 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.app_list_menu, menu)
-        menu.findItem(R.id.show_system_app).isChecked = isShowSystemApp
+
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == R.id.show_system_app) {
-            menuItem.isChecked = !menuItem.isChecked
-            isShowSystemApp = menuItem.isChecked
-            requireActivity().putBoolean(ModulePrefs, showSystemAppKey, isShowSystemApp)
-            loadData()
-        }
         return true
     }
 }
 
 @Obfuscate
 class ZoomWindowAdapter(
-    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableData: Set<String>?
+    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
 ) : RecyclerView.Adapter<ZoomWindowAdapter.ViewHolder>() {
     private val supportListKey = "zoom_window_support_list"
 
@@ -146,28 +235,15 @@ class ZoomWindowAdapter(
 
         if (allAppInfos.size <= 1) hasPermissions = false
 
-        allDatas = allAppInfos.apply {
-            sortBy { it.name }
-        }
-
-        val sortDatas = ArrayList<AppInfo>()
-        allEnableData?.forEach { its ->
-            val find = allDatas.find { it.packName == its }
-            if (find != null) {
-                enabledAppData.add(its)
-                sortDatas.add(find)
-            }
-        }
-        saveEnableList()
-
-        allDatas.apply {
-            removeIf { sortDatas.contains(it) }
-            addAll(0, sortDatas.apply {
-                sortBy { it.name }
-            })
-        }
-
+        allDatas = allAppInfos
         filterDatas = allDatas
+
+        allEnableInfos.forEach {
+            enabledAppData.add(it.packName)
+            allDatas.remove(it)
+        }
+        allDatas.addAll(0, allEnableInfos)
+        saveEnableList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -204,9 +280,8 @@ class ZoomWindowAdapter(
 
     val getFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
-            filterDatas = if (constraint.isBlank()) {
-                allDatas
-            } else {
+            filterDatas = if (constraint.isBlank()) allDatas
+            else {
                 val filterlist = ArrayList<AppInfo>()
                 allDatas.forEach {
                     if (it.name.lowercase().contains(constraint.toString().lowercase())

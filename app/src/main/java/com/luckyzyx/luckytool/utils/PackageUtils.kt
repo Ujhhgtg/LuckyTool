@@ -10,7 +10,10 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.data.AppInfo
+import java.io.File
 
+@Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 class PackageUtils(private val packageManager: PackageManager) {
 
@@ -72,6 +75,38 @@ class PackageUtils(private val packageManager: PackageManager) {
     fun resolveActivity(intent: Intent, flag: Int): ResolveInfo? {
         return if (SDK < A13) packageManager.resolveActivity(intent, flag)
         else packageManager.resolveActivity(intent, ResolveInfoFlags.of(flag.toLong()))
+    }
+
+    fun getApplicationEnabledSetting(packName: String): Boolean {
+        return packageManager.getApplicationEnabledSetting(packName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+    }
+
+    fun getInstalledAppInfos(flag: Int, allowSystem: Boolean = false): ArrayList<AppInfo> {
+        val appInfoList = ArrayList<AppInfo>()
+        getInstalledPackages(flag).forEachIndexed { _, info ->
+            try {
+                val applicationInfo = info.applicationInfo ?: return@forEachIndexed
+                if (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM == 1 && !allowSystem) return@forEachIndexed
+                val name = applicationInfo.loadLabel(packageManager)
+                val icon = applicationInfo.loadIcon(packageManager)
+                val size = FileUtils.getFileSize(File(applicationInfo.sourceDir))
+                val versionName = info.versionName
+                val versionCode = info.longVersionCode
+                val installTime = info.firstInstallTime
+                val lastInstallTime = info.lastUpdateTime
+                val target = applicationInfo.targetSdkVersion
+                val isEnable = getApplicationEnabledSetting(info.packageName)
+                appInfoList.add(
+                    AppInfo(
+                        name.toString(), info.packageName, icon, size, versionName, versionCode,
+                        installTime, lastInstallTime, target, isEnable
+                    )
+                )
+            } catch (e: Exception) {
+                LogUtils.e("getInstalledAppInfos", info.packageName, info.toString())
+            }
+        }
+        return appInfoList
     }
 }
 

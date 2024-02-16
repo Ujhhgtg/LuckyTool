@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.utils
 
 import com.highcapable.yukihookapi.hook.factory.current
-import com.luckyzyx.luckytool.utils.DisplayMode
+import com.luckyzyx.luckytool.data.DisplayMode
 
 class DynamicDisplayInfoUtils(private val dynamicInfo: Any) {
 

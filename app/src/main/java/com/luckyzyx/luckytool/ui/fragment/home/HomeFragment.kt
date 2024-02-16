@@ -171,9 +171,9 @@ class HomeFragment : Fragment(), MenuProvider {
                 MaterialAlertDialogBuilder(context).apply {
                     setItems(donateList.toTypedArray()) { _, which ->
                         when (which) {
-                            0 -> DonateData.showQRCode(context, Base64CodeUtils.qqCode)
-                            1 -> DonateData.showQRCode(context, Base64CodeUtils.wechatCode)
-                            2 -> DonateData.showQRCode(context, Base64CodeUtils.alipayCode)
+                            0 -> DonateUtils.showQRCode(context, Base64CodeUtils.qqCode)
+                            1 -> DonateUtils.showQRCode(context, Base64CodeUtils.wechatCode)
+                            2 -> DonateUtils.showQRCode(context, Base64CodeUtils.alipayCode)
                             3 -> if (!isZh(context)) startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,

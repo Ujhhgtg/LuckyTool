@@ -70,6 +70,8 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppVerInfo
+import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.startCheckListFinal
 import com.topjohnwu.superuser.Shell

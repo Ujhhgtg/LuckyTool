@@ -15,6 +15,8 @@ import android.text.TextUtils
 import android.util.ArrayMap
 import androidx.core.content.FileProvider
 import com.luckyzyx.luckytool.BuildConfig
+import com.luckyzyx.luckytool.data.MemcConfigActivity
+import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.topjohnwu.superuser.ShellUtils
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -405,6 +407,22 @@ object FileUtils {
             e.printStackTrace()
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+    /**
+     * 获取文件大小
+     * @param file File
+     * @return Long
+     */
+    fun getFileSize(file: File): Long {
+        return try {
+            if (file.exists() && file.isFile) {
+                FileInputStream(file).channel.size()
+            } else 0L
+        } catch (e: Exception) {
+            LogUtils.e("getFileSize", file.path, "$e")
+            0L
         }
     }
 }

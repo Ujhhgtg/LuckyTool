@@ -29,6 +29,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.MemcConfigActivity
+import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.luckyzyx.luckytool.databinding.DialogMemcConfigLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcActivityLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcLayoutBinding
@@ -37,8 +39,6 @@ import com.luckyzyx.luckytool.databinding.LayoutMemcActivityItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcPackageItemBinding
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue
-import com.luckyzyx.luckytool.utils.MemcConfigActivity
-import com.luckyzyx.luckytool.utils.MemcConfigPackage
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
