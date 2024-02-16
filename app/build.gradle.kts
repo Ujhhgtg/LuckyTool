@@ -126,6 +126,8 @@ dependencies {
     implementation("com.github.getActivity:XXPermissions:18.5")
     //崩溃日志显示
     implementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9")
+    //滚动条
+    implementation("me.zhanghai.android.fastscroll:library:1.3.0")
     //kotlin协程
     val kotlinxCoroutinesVersion = "1.7.3"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinxCoroutinesVersion}")

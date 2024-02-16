@@ -37,6 +37,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @Obfuscate
 class ZoomWindowFragment : Fragment(), MenuProvider {
@@ -113,6 +114,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
                 zoomWindowAdapter = ZoomWindowAdapter(context, allAppDatas, enableData)
                 adapter = zoomWindowAdapter
                 layoutManager = LinearLayoutManager(context)
+                FastScrollerBuilder(this).useMd2Style().build()
             }
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true

@@ -27,6 +27,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
 import com.luckyzyx.luckytool.utils.*
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @Obfuscate
 class DarkModeFragment : Fragment(), MenuProvider {
@@ -116,6 +117,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
                 darkModeAdapter = DarkModeAdapter(context, allAppDatas, enabledDarkMode)
                 adapter = darkModeAdapter
                 layoutManager = LinearLayoutManager(context)
+                FastScrollerBuilder(this).useMd2Style().build()
             }
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true

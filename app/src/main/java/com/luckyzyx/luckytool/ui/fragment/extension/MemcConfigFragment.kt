@@ -46,6 +46,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import java.io.InputStream
 
 object MemcCallback {
@@ -273,6 +274,7 @@ class MemcPackageFragment : Fragment() {
                 memcPackageAdapter = MemcPackageAdapter(context, allConfigPackages)
                 adapter = memcPackageAdapter
                 layoutManager = LinearLayoutManager(context)
+                FastScrollerBuilder(this).useMd2Style().build()
             }
 
             binding.searchViewLayout.isEnabled = true
@@ -501,6 +503,7 @@ class MemcActivityFragment : Fragment() {
                 memcActivityAdapter = MemcActivityAdapter(context, allConfigActivitys)
                 adapter = memcActivityAdapter
                 layoutManager = LinearLayoutManager(context)
+                FastScrollerBuilder(this).useMd2Style().build()
             }
 
             binding.searchViewLayout.isEnabled = true
