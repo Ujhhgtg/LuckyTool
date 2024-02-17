@@ -2769,7 +2769,8 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_app_specific_media_volume)
                 summary = arraySummaryLine(
                     getString(R.string.need_restart_system),
-                    getString(R.string.enable_app_specific_media_volume_summary)
+                    getString(R.string.enable_app_specific_media_volume_summary),
+                    getString(R.string.enable_app_specific_media_volume_tips)
                 )
                 key = "enable_app_specific_media_volume"
                 setDefaultValue(false)

@@ -477,6 +477,7 @@
     <string name="minimum_volume_level_can_be_zero">音量阶数最低可为 0</string>
     <string name="enable_app_specific_media_volume">启用应用专属媒体音量</string>
     <string name="enable_app_specific_media_volume_summary">此功能需要系统支持才能生效</string>
+    <string name="enable_app_specific_media_volume_tips">部分机型由于系统代码不完整，可能会导致系统界面崩溃，务必做好保护措施</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">杂项</string>
     <string name="Miscellaneous_summary">分类困难的功能将被放置于此</string>
@@ -819,6 +820,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">自启功能服务</string>
     <string name="auto_start_service_channel_title">自启功能运行中…</string>
+    <string name="service_auto_start_controller_not_allow_tips">自启服务运行异常，请勿限制模块后台</string>
     <!--Typeface-->
     <string name="use_user_typeface">使用用户字体</string>
     <string name="use_bold_font_style">使用粗体字体样式</string>

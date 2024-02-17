@@ -477,6 +477,7 @@
     <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
     <string name="enable_app_specific_media_volume">Povolit hlasitost pro každou aplikaci zvlášť</string>
     <string name="enable_app_specific_media_volume_summary">Tato funkce vyžaduje podporu systému, aby fungovala</string>
+    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Různé</string>
     <string name="Miscellaneous_summary">Zde jsou umístěna různá další specifická nastavení</string>
@@ -819,6 +820,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Služba automatického spouštění</string>
     <string name="auto_start_service_channel_title">Funkce automatického startu běží…</string>
+    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
     <!--Typeface-->
     <string name="use_user_typeface">Použít uživatelský typ písma</string>
     <string name="use_bold_font_style">Použít tučný font písma</string>

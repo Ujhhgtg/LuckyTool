@@ -477,6 +477,7 @@
     <string name="minimum_volume_level_can_be_zero">Minimum volume level can be zero</string>
     <string name="enable_app_specific_media_volume">Enable app-specific media volume</string>
     <string name="enable_app_specific_media_volume_summary">This function requires system support to take effect</string>
+    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Різне</string>
     <string name="Miscellaneous_summary">Функції, які складно класифікувати, будуть розміщені тут</string>
@@ -819,6 +820,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Self-starting function service</string>
     <string name="auto_start_service_channel_title">The self-start function is running…</string>
+    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
     <!--Typeface-->
     <string name="use_user_typeface">Використовувати шрифт користувача</string>
     <string name="use_bold_font_style">Use bold font style</string>

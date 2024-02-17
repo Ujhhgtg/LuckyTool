@@ -478,6 +478,7 @@
     <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
     <string name="enable_app_specific_media_volume">Включить громкость мультимедиа для конкретных приложений</string>
     <string name="enable_app_specific_media_volume_summary">Эта функция требует системной поддержки</string>
+    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Разное</string>
     <string name="Miscellaneous_summary">Функции, которые сложно классифицировать, будут размещены здесь</string>
@@ -820,6 +821,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Сервис автозапуска</string>
     <string name="auto_start_service_channel_title">Функция автозапуска запущена…</string>
+    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
     <!--Typeface-->
     <string name="use_user_typeface">Использовать пользовательский шрифт</string>
     <string name="use_bold_font_style">Используйте жирный стиль шрифта</string>

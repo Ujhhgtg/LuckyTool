@@ -477,6 +477,7 @@
     <string name="minimum_volume_level_can_be_zero">Mức âm lượng có thể thấp đến mức 0</string>
     <string name="enable_app_specific_media_volume">Bật âm lượng phương tiện dành riêng cho ứng dụng</string>
     <string name="enable_app_specific_media_volume_summary">Tính năng này yêu cầu sự hỗ trợ của hệ thống để có hiệu lực</string>
+    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Khác</string>
     <string name="Miscellaneous_summary">Các danh mục có độ khó sẽ được đặt tại đây</string>
@@ -819,6 +820,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Dịch vụ chức năng tự khởi động</string>
     <string name="auto_start_service_channel_title">Chức năng tự khởi động đang chạy…</string>
+    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
     <!--Typeface-->
     <string name="use_user_typeface">Sử dụng kiểu chữ người dùng</string>
     <string name="use_bold_font_style">Sử dụng kiểu chữ đậm</string>

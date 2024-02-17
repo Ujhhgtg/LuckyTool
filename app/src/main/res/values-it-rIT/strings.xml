@@ -477,6 +477,7 @@
     <string name="minimum_volume_level_can_be_zero">Il livello di volume minimo può essere zero</string>
     <string name="enable_app_specific_media_volume">Abilita volume multimediale specifico per app</string>
     <string name="enable_app_specific_media_volume_summary">Questa funzione richiede il supporto di sistema per avere effetto</string>
+    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Varie</string>
     <string name="Miscellaneous_summary">Le categorie con difficoltà saranno posizionate qui</string>
@@ -819,6 +820,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Servizio funzione auto-avviamento</string>
     <string name="auto_start_service_channel_title">La funzione di avvio automatico è in esecuzione…</string>
+    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
     <!--Typeface-->
     <string name="use_user_typeface">Usa i caratteri Utente</string>
     <string name="use_bold_font_style">Utilizza uno stile di carattere grassetto</string>
