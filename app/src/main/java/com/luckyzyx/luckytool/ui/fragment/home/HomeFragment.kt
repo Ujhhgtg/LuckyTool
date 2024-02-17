@@ -222,8 +222,14 @@ class HomeFragment : Fragment(), MenuProvider {
     private fun initSystemInfoView(funcController: IGlobalFuncController?) {
         scopeLife {
             val deviceInfo = withDefault { requireActivity().getDeviceInfo(funcController) }
-            binding.systemInfo.gravity = Gravity.START
-            binding.systemInfo.text = deviceInfo
+            if (deviceInfo.isNotBlank()) {
+                binding.systemInfoLoading.isVisible = false
+                binding.systemInfo.apply {
+                    gravity = Gravity.START
+                    text = deviceInfo
+                    isVisible = true
+                }
+            }
         }
     }
 
