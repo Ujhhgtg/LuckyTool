@@ -30,15 +30,18 @@ object StatusBarPower : YukiBaseHooker() {
                 .apply {
                     method { name = "bind\$initView" }.hook {
                         after {
-                            args(1).cast<TextView>()?.apply {
-                                if (removePercent) text = text.toString().replace("%", "")
-                                if (userTypeface) {
-                                    typeface = if (useBoldFont) Typeface.DEFAULT_BOLD
-                                    else Typeface.DEFAULT
-                                    setTextSize(
-                                        TypedValue.COMPLEX_UNIT_DIP,
-                                        if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
-                                    )
+                            args.filterIsInstance<TextView>().forEachIndexed { _, view ->
+                                view.apply {
+                                    if (removePercent) text = text.toString()
+                                        .replace("%", "")
+                                    if (userTypeface) {
+                                        typeface = if (useBoldFont) Typeface.DEFAULT_BOLD
+                                        else Typeface.DEFAULT
+                                        setTextSize(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
+                                        )
+                                    }
                                 }
                             }
                         }
