@@ -21,11 +21,9 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.extends
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
@@ -115,7 +113,7 @@ object LockScreenClock : YukiBaseHooker() {
                                     view.setCenterHorizontally()
                                 }
                             }
-                            if (userTypeface) allViews.filter { it.javaClass extends TextViewClass }
+                            if (userTypeface) allViews.filter { it is TextView }
                                 .forEachIndexed { _, view ->
                                     (view as TextView).typeface = Typeface.DEFAULT
                                 }
@@ -146,7 +144,7 @@ object LockScreenClock : YukiBaseHooker() {
                 method { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after
-                        instance<ViewGroup>().allViews.filter { it.javaClass extends TextViewClass }
+                        instance<ViewGroup>().allViews.filter { it is TextView }
                             .forEachIndexed { _, view ->
                                 (view as TextView).typeface = Typeface.DEFAULT
                             }
@@ -222,7 +220,7 @@ object LockScreenClock : YukiBaseHooker() {
                                     view.setCenterHorizontally()
                                 }
                             }
-                            if (userTypeface) allViews.filter { it.javaClass extends TextViewClass }
+                            if (userTypeface) allViews.filter { it is TextView }
                                 .forEachIndexed { _, view ->
                                     (view as TextView).typeface = Typeface.DEFAULT
                                 }
@@ -241,7 +239,7 @@ object LockScreenClock : YukiBaseHooker() {
                 method { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after
-                        instance<ViewGroup>().allViews.filter { it.javaClass extends TextViewClass }
+                        instance<ViewGroup>().allViews.filter { it is TextView }
                             .forEachIndexed { _, view ->
                                 (view as TextView).typeface = Typeface.DEFAULT
                             }

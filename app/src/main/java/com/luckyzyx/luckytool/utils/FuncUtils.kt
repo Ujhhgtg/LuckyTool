@@ -1344,6 +1344,7 @@ fun Context.calcLocalHealth(isDebug: Boolean = false): Int {
     try {
         val sohFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_soh")
         else File("/sys/class/power_supply/battery/batt_soh")
+        if (isDebug) LogUtils.d("calcLocalHealth", "sohFile", sohFile.path, true)
         val sohValue = safeOfNull {
             BufferedReader(FileReader(sohFile)).readLine().replaceSpace.toIntOrNull()
         } ?: -1
@@ -1353,15 +1354,15 @@ fun Context.calcLocalHealth(isDebug: Boolean = false): Int {
         val fccFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_fcc")
         else File("/sys/class/power_supply/battery/batt_fcc")
         if (isDebug) LogUtils.d("calcLocalHealth", "curFile", fccFile.path, true)
-        val curValue = safeOfNull {
+        val fccValue = safeOfNull {
             BufferedReader(FileReader(fccFile)).readLine().replaceSpace.toIntOrNull()
         } ?: -1
-        if (isDebug) LogUtils.d("calcLocalHealth", "curValue", "$curValue", true)
-        if (curValue <= 0) return -1
+        if (isDebug) LogUtils.d("calcLocalHealth", "curValue", "$fccValue", true)
+        if (fccValue <= 0) return -1
 
         val designValue = PowerProfile(this).batteryCapacity
         if (isDebug) LogUtils.d("calcLocalHealth", "designValue", "$designValue", true)
-        val calc = safeOfNull { (curValue / designValue * 100.0).roundToInt() } ?: -1
+        val calc = safeOfNull { (fccValue / designValue * 100.0).roundToInt() } ?: -1
         if (isDebug) LogUtils.d("calcLocalHealth", "calc", "$calc", true)
         return if (calc > 100) calc / 1000 else calc
     } catch (e: Exception) {

@@ -16,7 +16,9 @@ object RemoveGTModeNotification : YukiBaseHooker() {
             method {
                 name = if (SDK >= A14) "notifyOpenGtMode"
                 else "showOpenGtModeNotify"
-            }.hook { intercept() }
+            }.hook {
+                intercept()
+            }
         }
     }
 }

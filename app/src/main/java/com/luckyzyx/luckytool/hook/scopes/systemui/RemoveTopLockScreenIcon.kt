@@ -11,7 +11,9 @@ object RemoveTopLockScreenIcon : YukiBaseHooker() {
         //Source LockIcon
         "com.android.systemui.statusbar.phone.LockIcon".toClass().apply {
             method { name = "updateIconVisibility" }.hook {
-                before { args().first().setFalse() }
+                before {
+                    args().first().setFalse()
+                }
             }
         }
         //Source LockIcon C14

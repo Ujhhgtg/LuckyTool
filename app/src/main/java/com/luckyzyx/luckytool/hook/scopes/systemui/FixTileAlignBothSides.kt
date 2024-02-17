@@ -64,16 +64,15 @@ object FixTileAlignBothSides : YukiBaseHooker() {
                                 getScreenOrientation(this) {
                                     if (it) setViewPadding(0)
                                     else {
-                                        val qsBrightnessMirrorSidePadding =
-                                            safeOfNull {
-                                                resources.getDimensionPixelSize(
-                                                    resources.getIdentifier(
-                                                        "qs_brightness_mirror_side_padding",
-                                                        "dimen",
-                                                        HookTileAlignHorizontal.packageName
-                                                    )
+                                        val qsBrightnessMirrorSidePadding = safeOfNull {
+                                            resources.getDimensionPixelSize(
+                                                resources.getIdentifier(
+                                                    "qs_brightness_mirror_side_padding",
+                                                    "dimen",
+                                                    HookTileAlignHorizontal.packageName
                                                 )
-                                            } ?: return@getScreenOrientation
+                                            )
+                                        } ?: return@getScreenOrientation
                                         if (isCustomTile && columnHorizontal > 4) setViewPadding(
                                             qsBrightnessMirrorSidePadding
                                         )

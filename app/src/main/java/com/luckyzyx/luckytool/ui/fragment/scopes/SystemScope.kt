@@ -395,12 +395,13 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                             m/mm/mmm/mmmm -> ${formatDate("m/mm/mmm/mmmm")}
                             s/ss/sss/ssss -> ${formatDate("s/ss/sss/ssss")}
                             z -> ${formatDate("z")}
+                            G -> ${formatDate("G")}
+                            GG -> 子时/丑时/寅时/卯时
                             N -> 初一
                             NN -> 二月初一
                             NNN -> 兔年二月初一
                             NNNN -> 癸卯兔年二月初一
                             FF -> 凌晨/上午/傍晚/晚上
-                            GG -> 子时/丑时/寅时/卯时
                         """.trimIndent()
                     key = "statusbar_clock_custom_format"
                     setDefaultValue("HH:mm:ss")

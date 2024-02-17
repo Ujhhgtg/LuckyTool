@@ -24,14 +24,14 @@ import com.luckyzyx.luckytool.hook.scopes.android.RemoveSystemScreenshotDelay
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveVPNActiveNotification
 import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
-import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindow
-import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindowConfig
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookAndroid : YukiBaseHooker() {
 
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         loadHooker(HookGlobalFeatureConfig)
         loadHooker(HookGlobalSystemProperties)
 
@@ -63,13 +63,13 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(RemoveSystemScreenshotDelay)
 
         //移除遮罩Splash Screen
-        if (SDK >= A13) loadHooker(AppSplashScreen)
+        if (osCode >= 26) loadHooker(AppSplashScreen)
 
         //允许不受信任的触摸
-        if (SDK >= A12) loadHooker(AllowUntrustedTouch)
+        if (osCode >= 23) loadHooker(AllowUntrustedTouch)
 
         //缩放窗口
-        loadHooker(ZoomWindow)
+        loadHooker(ZoomWindowConfig)
 
         //暗色模式服务
         loadHooker(DarkModeService)
@@ -78,10 +78,10 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(BatteryOptimizationWhitelist)
 
         //允许APP回到顶部
-        if (SDK >= A13) loadHooker(ScrollToTopWhiteList)
+        if (osCode >= 26) loadHooker(ScrollToTopWhiteList)
 
         //禁用访问设备日志对话框
-        if (SDK >= A13) loadHooker(RemoveAccessDeviceLogDialog)
+        if (osCode >= 26) loadHooker(RemoveAccessDeviceLogDialog)
 
         //LTPO动态刷新率
         loadHooker(LTPODynamicRefreshRate)
@@ -90,13 +90,13 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(SystemEnableVolumeKeyControlFlashlight)
 
         //强制所有应用支持分屏
-        if (SDK >= A13) loadHooker(ForceAllAppsSupportSplitScreen)
+        if (osCode >= 26) loadHooker(ForceAllAppsSupportSplitScreen)
 
         //移除应用禁止卸载黑名单
-        if (SDK >= A13) loadHooker(RemoveAppUninstallButtonBlackList)
+        if (osCode >= 26) loadHooker(RemoveAppUninstallButtonBlackList)
 
         //三方应用通话录音保护
-        loadHooker(HookMediaProjectionManager)
+        if (osCode >= 30) loadHooker(HookMediaProjectionManager)
 
         //视频动态插帧
         loadHooker(EnableVideoMemcFrameInsertion)

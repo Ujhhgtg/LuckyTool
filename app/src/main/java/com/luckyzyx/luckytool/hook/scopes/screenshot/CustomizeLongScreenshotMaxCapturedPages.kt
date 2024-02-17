@@ -31,12 +31,16 @@ class CustomizeLongScreenshotMaxCapturedPages(val dexKitBridge: DexKitBridge) : 
                     param { it[1] == IntType }
                     paramCount = 2
                     returnType = BooleanType
-                }.hook { replaceToFalse() }
+                }.hook {
+                    replaceToFalse()
+                }
                 method {
                     param { it[1] == IntType && it[2] == IntType }
                     paramCount = 3
                     returnType = IntType
-                }.hook { replaceTo(-1) }
+                }.hook {
+                    replaceTo(-1)
+                }
             }
         }
     }

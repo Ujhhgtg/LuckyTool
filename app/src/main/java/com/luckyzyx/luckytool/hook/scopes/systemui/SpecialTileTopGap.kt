@@ -23,8 +23,9 @@ object SpecialTileTopGap : YukiBaseHooker() {
         ).toClass().apply {
             method { name = "updateResources" }.hook {
                 after {
-                    val context = method { name = "getContext";superClass() }.get(instance)
-                        .invoke<Context>() ?: return@after
+                    val context = method {
+                        name = "getContext";superClass()
+                    }.get(instance).invoke<Context>() ?: return@after
                     getScreenOrientation(context) {
                         if (it) return@getScreenOrientation
                         field { name = "mTopGap" }.get(instance).set(top.dp)

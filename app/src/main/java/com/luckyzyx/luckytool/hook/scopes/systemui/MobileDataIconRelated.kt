@@ -42,9 +42,8 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             val state = args().first().any()
                             val subId = state?.current()?.field { name = "subId" }?.int()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible =
-                                subId == subId2
+                            field { name = "mMobileGroup" }.get(instance).cast<ViewGroup>()
+                                ?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
@@ -68,9 +67,8 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             val state = args().first().any()
                             val subId = state?.current()?.field { name = "subId" }?.int()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible =
-                                subId == subId2
+                            field { name = "mMobileGroup" }.get(instance).cast<ViewGroup>()
+                                ?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
@@ -89,13 +87,14 @@ object MobileDataIconRelated : YukiBaseHooker() {
                 "com.oplusos.systemui.ext.StatusBarSignalPolicyExt", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicyExImpl" //C13
             ).toClass().apply {
+                val hasController = hasMethod { name = "getIconController" }
                 method {
                     name = "setNoSims"
                     paramCount = 3
                 }.hook {
                     after {
                         if (!hideNoSS) return@after
-                        val iconController = if (hasMethod { name = "getIconController" }) method {
+                        val iconController = if (hasController) method {
                             name = "getIconController"
                         }.get(instance).call()
                         else field { name = "iconController" }.get(instance).any()

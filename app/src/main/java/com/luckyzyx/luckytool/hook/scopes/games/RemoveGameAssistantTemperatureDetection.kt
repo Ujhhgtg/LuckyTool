@@ -8,6 +8,8 @@ object RemoveGameAssistantTemperatureDetection : YukiBaseHooker() {
     override fun onHook() {
         //Source CoolingBubbleTipsHelper
         "business.module.perfmode.CoolingBubbleTipsHelper".toClass().field { type = IntType }
-            .all().forEach { if (it.int() > 0) it.set(100) }
+            .all().forEach {
+                if (it.int() > 0) it.set(100)
+            }
     }
 }

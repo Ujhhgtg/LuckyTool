@@ -16,13 +16,10 @@ object RemoveAppUninstallButtonBlackList : YukiBaseHooker() {
             method { name = "loadUninstallableConfig" }.hook {
                 after {
                     if (!isEnable) return@after
-                    val mHideUninstallIcon =
-                        field { name = "mHideUninstallIcon" }.get(instance).any()
-                    mHideUninstallIcon?.current()?.field { name = "mList" }?.set(ArraySet<String>())
-                    val mHideUninstallIconSoft =
-                        field { name = "mHideUninstallIconSoft" }.get(instance).any()
-                    mHideUninstallIconSoft?.current()?.field { name = "mList" }
-                        ?.set(ArraySet<String>())
+                    val icon = field { name = "mHideUninstallIcon" }.get(instance).any()
+                    icon?.current()?.field { name = "mList" }?.cast<ArraySet<String>>()?.clear()
+                    val iconSoft = field { name = "mHideUninstallIconSoft" }.get(instance).any()
+                    iconSoft?.current()?.field { name = "mList" }?.cast<ArraySet<String>>()?.clear()
                 }
             }
         }

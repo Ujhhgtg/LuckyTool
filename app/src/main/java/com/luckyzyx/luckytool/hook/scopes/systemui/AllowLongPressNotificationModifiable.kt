@@ -15,6 +15,7 @@ object AllowLongPressNotificationModifiable : YukiBaseHooker() {
             "com.oplusos.systemui.notification.settingspanel.controller.NotificationController", //C13.1
             "com.oplus.systemui.statusbar.notification.settingspanel.controller.NotificationController" //C14
         ).toClass().apply {
+            val hasField = hasField { name = "isAppModifiable" }
             method {
                 name = when (simpleName) {
                     "NotificationSettingsModel" -> "resolveMode"
@@ -24,7 +25,6 @@ object AllowLongPressNotificationModifiable : YukiBaseHooker() {
                 paramCount = 1
             }.hook {
                 before {
-                    val hasField = instance.javaClass.hasField { name = "isAppModifiable" }
                     if (hasField) field { name = "isAppModifiable" }.get(instance).setTrue()
                     else args().first().any()?.current()?.field { name = "isAppModifiable" }
                         ?.setTrue()

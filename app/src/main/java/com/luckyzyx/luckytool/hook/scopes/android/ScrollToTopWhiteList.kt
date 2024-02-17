@@ -11,11 +11,13 @@ object ScrollToTopWhiteList : YukiBaseHooker() {
 
         //Source OplusScrollToTopRusHelper -> OplusScrollToTopSystemManager
         "com.android.server.OplusScrollToTopRusHelper".toClass().apply {
-            if (hasMethod { name = "isInWhiteList" }) method { name = "isInWhiteList" }.hook {
-                before {
-                    when (mode) {
-                        "1" -> resultFalse()
-                        "2" -> resultTrue()
+            if (hasMethod { name = "isInWhiteList" }) {
+                method { name = "isInWhiteList" }.hook {
+                    before {
+                        when (mode) {
+                            "1" -> resultFalse()
+                            "2" -> resultTrue()
+                        }
                     }
                 }
             }

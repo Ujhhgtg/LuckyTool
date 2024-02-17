@@ -27,19 +27,16 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         var showLunar =
             prefs(ModulePrefs).getBoolean("statusbar_control_center_date_show_lunar", false)
         dataChannel.wait<Boolean>("statusbar_control_center_date_show_lunar") { showLunar = it }
-        var disableScroll =
-            prefs(ModulePrefs).getBoolean(
-                "statusbar_control_center_date_disable_text_scroll",
-                false
-            )
+        var disableScroll = prefs(ModulePrefs).getBoolean(
+            "statusbar_control_center_date_disable_text_scroll", false
+        )
         dataChannel.wait<Boolean>("statusbar_control_center_date_disable_text_scroll") {
             disableScroll = it
         }
-        var displayMode =
-            prefs(ModulePrefs).getString(
-                "statusbar_control_center_date_set_display_mode_horizontal",
-                "0"
-            )
+        var displayMode = prefs(ModulePrefs).getString(
+            "statusbar_control_center_date_set_display_mode_horizontal",
+            "0"
+        )
         dataChannel.wait<String>("statusbar_control_center_date_set_display_mode_horizontal") {
             displayMode = it
         }

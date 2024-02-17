@@ -3,6 +3,8 @@ package com.luckyzyx.luckytool.hook.scopes.audiomonitor
 import android.os.SystemProperties
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
+import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 
 object HookVoipRecorderService : YukiBaseHooker() {
@@ -13,7 +15,10 @@ object HookVoipRecorderService : YukiBaseHooker() {
             method { name = "onCreate" }.hook {
                 before {
                     val isSupport = SystemProperties.getBoolean(prop, false)
-                    if (!isSupport) ShellUtils.fastCmd("setprop $prop true")
+                    if (!isSupport) {
+                        if (Shell.getShell().isRoot) ShellUtils.fastCmd("setprop $prop true")
+                        else YLog.debug("AudioMonitor is no Root permission!")
+                    }
                 }
             }
         }

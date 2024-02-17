@@ -20,27 +20,5 @@ object HookNotificationManager : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {
             if (SDK >= A14) loadHooker(ForceDisplayClockStyleOptionsV14)
         }
-
-        //通知智能隐藏
-        //com.oplus.notificationmanager.SmartAntiVoyeurActivity
-        //com.oplus.notificationmanager.fragments.antivoyeur.SmartAntiVoyeurFragment
-//            findClass("com.oplus.notificationmanager.config.FeatureOption").hook {
-//                injectMember {
-//                    method { name = "loadFeatureOption" }
-//                    afterHook {
-//                        field { name = "IS_AON_ANT_PEEP_DISABLE" }.get().setFalse()
-//                    }
-//                }
-//                injectMember {
-//                    method { name = "loadFeatureServiceOption" }
-//                    afterHook {
-//                        field { name = "IS_AON_ANT_PEEP_DISABLE" }.get().setFalse()
-//                    }
-//                }
-//                injectMember {
-//                    method { name = "isSmartAntiVoyeurEnabled" }
-//                    replaceToTrue()
-//                }
-//            }
     }
 }

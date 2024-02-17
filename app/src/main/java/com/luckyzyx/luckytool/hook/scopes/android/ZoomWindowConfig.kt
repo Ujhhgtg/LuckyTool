@@ -8,7 +8,7 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
-object ZoomWindow : YukiBaseHooker() {
+object ZoomWindowConfig : YukiBaseHooker() {
     override fun onHook() {
         var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
         dataChannel.wait<String>("custom_app_floating_window_display_mode") { mode = it }
@@ -28,12 +28,9 @@ object ZoomWindow : YukiBaseHooker() {
                         "3" -> {
                             val target = args().first().string()
                             val packName = if (target.contains("/").not()) target
-                            else target.split("/").takeIf { e -> e.isNotEmpty() }?.get(0)
-                                ?: target
+                            else target.split("/")[0]
                             if (supportList.contains(packName)) resultTrue()
                         }
-
-                        else -> return@before
                     }
                 }
             }

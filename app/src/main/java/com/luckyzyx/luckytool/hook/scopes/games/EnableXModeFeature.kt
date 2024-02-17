@@ -13,7 +13,9 @@ object EnableXModeFeature : YukiBaseHooker() {
             "business.module.perfmode.CoolingBackClipFeature" //V9.0.0
         ).toClass().apply {
             method { paramCount = 1;returnType = AnyClass }.hook {
-                after { resultTrue() }
+                after {
+                    resultTrue()
+                }
             }
         }
     }

@@ -25,7 +25,9 @@ object RemoveBatteryTemperatureControl : YukiBaseHooker() {
             }
             if (hasMethod { name { it.contains("register") } }) method {
                 name { it.startsWith("register") }
-            }.hookAll { intercept() }
+            }.hookAll {
+                intercept()
+            }
         }
         //Source ThermalControlUtils
         "com.oplus.thermalcontrol.ThermalControlUtils".toClass().apply {

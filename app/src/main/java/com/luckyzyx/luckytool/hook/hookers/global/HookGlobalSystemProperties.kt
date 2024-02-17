@@ -9,9 +9,8 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 object HookGlobalSystemProperties : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
-
         val list = ArrayMap<String, Any>().apply {
-            //LTPO VRR ADFR
+            //Source Android LTPO VRR ADFR
             when (prefs(ModulePrefs).getString("set_ltpo_refresh_rate_mode", "0")) {
                 "1" -> {
                     put("persist.oplus.display.vrr", "1")

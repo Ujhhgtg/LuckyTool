@@ -35,8 +35,7 @@ object ForceDisplayClockStyleOptionsV14 : YukiBaseHooker() {
                         .invoke<Context>()
                     val clockTitle = context?.getString(
                         context.resources.getIdentifier(
-                            "oplus_keyguard_land_clock_type_title",
-                            "string",
+                            "oplus_keyguard_land_clock_type_title", "string",
                             this@ForceDisplayClockStyleOptionsV14.packageName
                         )
                     )
