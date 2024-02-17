@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.service.controller
 
 import android.annotation.SuppressLint
+import android.app.ForegroundServiceStartNotAllowedException
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -26,6 +27,7 @@ import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getInt
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import okhttp3.internal.toHexString
@@ -56,9 +58,17 @@ class AutoStartControllerService : Service() {
     @SuppressLint("WrongConstant", "InlinedApi")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         scope(Dispatchers.Default) {
-            if (SDK >= A14) startForeground(
-                channelNotifyId, notify, ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
-            ) else startForeground(channelNotifyId, notify)
+            try {
+                if (SDK >= A14) startForeground(
+                    channelNotifyId, notify, ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
+                ) else startForeground(channelNotifyId, notify)
+            } catch (e: ForegroundServiceStartNotAllowedException) {
+                showToast(getString(R.string.service_auto_start_controller_not_allow_tips))
+                return@scope
+            } catch (e: Exception) {
+                showToast("AutoStartControllerService cannot be started!")
+                return@scope
+            }
 
             val command = ArrayList<String>()
             //FPS自启

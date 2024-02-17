@@ -947,6 +947,7 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Self-starting function service</string>
     <string name="auto_start_service_channel_title">The self-start function is running…</string>
+    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
     
     <!--Typeface-->
     <string name="use_user_typeface">Use user typeface</string>
