@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Xóa giới hạn trình quản lý thông báo</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
-    <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen, mỗi dòng chỉ được điền một tên gói</string>
+    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
@@ -477,7 +477,7 @@
     <string name="minimum_volume_level_can_be_zero">Mức âm lượng có thể thấp đến mức 0</string>
     <string name="enable_app_specific_media_volume">Bật âm lượng phương tiện dành riêng cho ứng dụng</string>
     <string name="enable_app_specific_media_volume_summary">Tính năng này yêu cầu sự hỗ trợ của hệ thống để có hiệu lực</string>
-    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
+    <string name="enable_app_specific_media_volume_tips">Một số kiểu máy có thể khiến giao diện hệ thống bị lỗi do mã hệ thống không đầy đủ. Hãy đảm bảo thực hiện các biện pháp bảo vệ.</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Khác</string>
     <string name="Miscellaneous_summary">Các danh mục có độ khó sẽ được đặt tại đây</string>
@@ -616,7 +616,7 @@
     <string name="remove_game_assistant_temperature_detection">Xóa tính năng phát hiện nhiệt độ của Trợ lý trò chơi</string>
     <string name="remove_game_assistant_temperature_detection_summary">Chủ yếu giải quyết vấn đề nhiệt độ quá cao ở chế độ X</string>
     <string name="custom_barrage_notification_whitelist">Tùy chỉnh danh sách trắng thông báo</string>
-    <string name="custom_barrage_notification_whitelist_message">Thêm ứng dụng dựa trên danh sách trắng ban đầu và điền tên gói vào mỗi dòng</string>
+    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
     <!--CloudService-->
     <string name="remove_network_limit">Xóa giới hạn mạng dữ liệu</string>
     <string name="remove_network_limit_summary">Xóa giới hạn sao lưu/khôi phục không thể sử dụng dữ liệu di động</string>
@@ -655,7 +655,7 @@
     <string name="force_enable_aon_gestures_summary">Lưu ý: Cần phải cài đặt AONService (com.aiunit.aon) và cấp quyền cho máy ảnh!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Danh sách trắng trang trượt tùy chỉnh</string>
     <string name="custom_aon_gesture_video_whitelist">Danh sách trắng cử chỉ video tùy chỉnh</string>
-    <string name="custom_aon_gesture_whitelist_tips">Điền tên gói cần thêm vào danh sách trắng, mỗi dòng chỉ được điền một tên gói</string>
+    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">Bật phím âm lượng để điều khiển đèn pin</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Cử chỉ toàn màn hình</string>
@@ -820,22 +820,22 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Dịch vụ chức năng tự khởi động</string>
     <string name="auto_start_service_channel_title">Chức năng tự khởi động đang chạy…</string>
-    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
+    <string name="service_auto_start_controller_not_allow_tips">Dịch vụ tự khởi động đang chạy bất thường. Vui lòng không hạn chế nền mô-đun</string>
     <!--Typeface-->
     <string name="use_user_typeface">Sử dụng kiểu chữ người dùng</string>
     <string name="use_bold_font_style">Sử dụng kiểu chữ đậm</string>
     <!--AppInfo-->
-    <string name="appinfo_sort_and_filter">Sort And Filter</string>
-    <string name="appinfo_sort_by">Sort By</string>
-    <string name="appinfo_filter">Filter</string>
-    <string name="appinfo_reverse">Reverse</string>
-    <string name="appinfo_app_name">App Name</string>
-    <string name="appinfo_package_name">Package Name</string>
-    <string name="appinfo_app_size">App Size</string>
-    <string name="appinfo_install_time">Install Time</string>
-    <string name="appinfo_last_updated_time">Last Updated Time</string>
-    <string name="appinfo_target_sdk">Target SDK</string>
-    <string name="appinfo_system_app">System App</string>
+    <string name="appinfo_sort_and_filter">Sắp xếp và lọc</string>
+    <string name="appinfo_sort_by">Sắp xếp theo</string>
+    <string name="appinfo_filter">Lọc</string>
+    <string name="appinfo_reverse">Đảo ngược</string>
+    <string name="appinfo_app_name">Tên ứng dụng</string>
+    <string name="appinfo_package_name">Tên gói</string>
+    <string name="appinfo_app_size">Kích thước ứng dụng</string>
+    <string name="appinfo_install_time">Thời gian cài đặt</string>
+    <string name="appinfo_last_updated_time">Lần cập nhật cuối</string>
+    <string name="appinfo_target_sdk">Mục tiêu SDK</string>
+    <string name="appinfo_system_app">Ứng dụng hệ thống</string>
     <!--CommonWords-->
     <string name="common_words_enable">Bật</string>
     <string name="common_words_disable">Tắt</string>

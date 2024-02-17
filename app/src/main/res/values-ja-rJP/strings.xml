@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">通知マネージャーの制限を削除する</string>
     <string name="remove_small_window_reply_whitelist">スモールウィンドウの返信ホワイトリストを無効化</string>
     <string name="set_small_window_reply_blacklist">スモールウィンドウ返信のブラックリストを設定</string>
-    <string name="set_small_window_reply_blacklist_message">ブラックリストに追加するパッケージ名を入力してください。各行はパッケージ名を1つだけ入力できます。</string>
+    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">ステータスバーアイコン</string>
     <string name="StatusBarIcon_summary">ステータスバーアイコン関連</string>
@@ -616,7 +616,7 @@
     <string name="remove_game_assistant_temperature_detection">ゲームアシスタントの温度検出を削除</string>
     <string name="remove_game_assistant_temperature_detection_summary">主にXモードでの温度制御の問題を解決します</string>
     <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
-    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
+    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
     <!--CloudService-->
     <string name="remove_network_limit">データ通信の制限を削除</string>
     <string name="remove_network_limit_summary">バックアップと復元でモバイルデータが使用できない制限を削除します</string>
@@ -655,7 +655,7 @@
     <string name="force_enable_aon_gestures_summary">注意: AONService (com.aiunit.aon) をインストールする必要があり、カメラ権限の許可が必要です。</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">カスタムスクロールページのホワイトリスト設定</string>
     <string name="custom_aon_gesture_video_whitelist">カスタムビデオジェスチャーのホワイトリスト設定</string>
-    <string name="custom_aon_gesture_whitelist_tips">ホワイトリストに追加するパッケージ名を入力してください。各行に1つだけパッケージ名を入力してください</string>
+    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">音量ボタンでのライト制御を有効化</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">フルスクリーンジェスチャー関連</string>

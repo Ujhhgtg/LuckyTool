@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.ui.fragment.scopes
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.ArraySet
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.DropDownPreference
 import androidx.preference.EditTextPreference
@@ -15,6 +16,9 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.dialog.SelectAppDialogUtils
+import com.luckyzyx.luckytool.listener.OnResultSelectAppListener
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A12
@@ -34,6 +38,7 @@ import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.jumpBattery
 import com.luckyzyx.luckytool.utils.jumpGesture
@@ -42,7 +47,7 @@ import com.luckyzyx.luckytool.utils.jumpPictorial
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
-import com.luckyzyx.luckytool.utils.replaceBlankLine
+import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.ShellUtils
@@ -737,24 +742,32 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 }
             })
             if (context.getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
-                addPreference(EditTextPreference(context).apply {
+                addPreference(Preference(context).apply {
+                    key = "set_small_window_reply_blacklist_list"
                     title = getString(R.string.set_small_window_reply_blacklist)
-                    dialogTitle = title
-                    summary = context.getString(
-                        ModulePrefs, "set_small_window_reply_blacklist", "None"
+                    summary = arraySummaryLine(
+                        getString(R.string.set_small_window_reply_blacklist_message),
+                        context.getStringSet(ModulePrefs, key, ArraySet())?.toString()
                     )
-                    if (summary.isNullOrBlank()) summary = "None"
-                    dialogMessage = getString(R.string.set_small_window_reply_blacklist_message)
-                    key = "set_small_window_reply_blacklist"
-                    setDefaultValue("None")
                     isIconSpaceReserved = false
-                    setOnBindEditTextListener {
-                        it.setText((summary as String).replaceBlankLine)
-                    }
-                    setOnPreferenceChangeListener { _, newValue ->
-                        val format = (newValue as String).replaceBlankLine
-                        summary = format.ifBlank { "None" }
-                        context.sendPrefsValue("com.android.systemui", key, format)
+                    setOnPreferenceClickListener {
+                        SelectAppDialogUtils(context, key).apply {
+                            setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packName)
+                                        }
+                                    }
+                                    context.putStringSet(
+                                        preferenceManager.sharedPreferencesName, key, set.toSet()
+                                    )
+                                    context.sendPrefsValue("com.android.systemui", key, set.toSet())
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
                         true
                     }
                 })
@@ -3570,43 +3583,56 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(EditTextPreference(context).apply {
+            addPreference(Preference(context).apply {
+                key = "custom_media_player_support_list"
                 title = getString(R.string.custom_media_player_support)
-                dialogTitle = title
-                summary = context.getString(
-                    ModulePrefs, "custom_media_player_support", "None"
-                )
-                if (summary.isNullOrBlank()) summary = "None"
-                dialogMessage = getString(R.string.custom_media_player_support_message)
-                key = "custom_media_player_support"
-                setDefaultValue("None")
+                summary = context.getStringSet(ModulePrefs, key, ArraySet())?.toString()
                 isIconSpaceReserved = false
-                setOnBindEditTextListener {
-                    it.setText((summary as String).replaceBlankLine)
-                }
-                setOnPreferenceChangeListener { _, newValue ->
-                    val format = (newValue as String).replaceBlankLine
-                    summary = format.ifBlank { "None" }
+                setOnPreferenceClickListener {
+                    SelectAppDialogUtils(context, key).apply {
+                        setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                            override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                val set = ArraySet<String>().apply {
+                                    list.forEachIndexed { _, appInfo ->
+                                        add(appInfo.packName)
+                                    }
+                                }
+                                context.putStringSet(
+                                    preferenceManager.sharedPreferencesName, key, set.toSet()
+                                )
+                                (activity as MainActivity).restart()
+                            }
+                        })
+                        show()
+                    }
                     true
                 }
             })
-            addPreference(EditTextPreference(context).apply {
+            addPreference(Preference(context).apply {
+                key = "custom_barrage_notification_whitelist_list"
                 title = getString(R.string.custom_barrage_notification_whitelist)
-                dialogTitle = title
-                summary = context.getString(
-                    ModulePrefs, "custom_barrage_notification_whitelist", "None"
+                summary = arraySummaryLine(
+                    getString(R.string.custom_barrage_notification_whitelist_message),
+                    context.getStringSet(ModulePrefs, key, ArraySet()).toString()
                 )
-                if (summary.isNullOrBlank()) summary = "None"
-                dialogMessage = getString(R.string.custom_barrage_notification_whitelist_message)
-                key = "custom_barrage_notification_whitelist"
-                setDefaultValue("None")
                 isIconSpaceReserved = false
-                setOnBindEditTextListener {
-                    it.setText((summary as String).replaceBlankLine)
-                }
-                setOnPreferenceChangeListener { _, newValue ->
-                    val format = (newValue as String).replaceBlankLine
-                    summary = format.ifBlank { "None" }
+                setOnPreferenceClickListener {
+                    SelectAppDialogUtils(context, key).apply {
+                        setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                            override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                val set = ArraySet<String>().apply {
+                                    list.forEachIndexed { _, appInfo ->
+                                        add(appInfo.packName)
+                                    }
+                                }
+                                context.putStringSet(
+                                    preferenceManager.sharedPreferencesName, key, set.toSet()
+                                )
+                                (activity as MainActivity).restart()
+                            }
+                        })
+                        show()
+                    }
                     true
                 }
             })
@@ -4016,46 +4042,62 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                         context.checkPackName("com.oplus.gesture") && context.checkPackName("com.aiunit.aon")
                     isIconSpaceReserved = false
                 })
-                addPreference(EditTextPreference(context).apply {
+                addPreference(Preference(context).apply {
+                    key = "custom_aon_gesture_scroll_page_whitelist_list"
                     title = getString(R.string.custom_aon_gesture_scroll_page_whitelist)
-                    dialogTitle = title
-                    summary = context.getString(
-                        ModulePrefs, "custom_aon_gesture_scroll_page_whitelist", "None"
+                    summary = arraySummaryLine(
+                        getString(R.string.custom_aon_gesture_whitelist_tips),
+                        context.getStringSet(ModulePrefs, key, ArraySet()).toString()
                     )
-                    if (summary.isNullOrBlank()) summary = "None"
-                    dialogMessage = getString(R.string.custom_aon_gesture_whitelist_tips)
-                    key = "custom_aon_gesture_scroll_page_whitelist"
-                    setDefaultValue("None")
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isIconSpaceReserved = false
-                    setOnBindEditTextListener {
-                        it.setText((summary as String).replaceBlankLine)
-                    }
-                    setOnPreferenceChangeListener { _, newValue ->
-                        val format = (newValue as String).replaceBlankLine
-                        summary = format.ifBlank { "None" }
+                    setOnPreferenceClickListener {
+                        SelectAppDialogUtils(context, key).apply {
+                            setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packName)
+                                        }
+                                    }
+                                    context.putStringSet(
+                                        preferenceManager.sharedPreferencesName, key, set.toSet()
+                                    )
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
                         true
                     }
                 })
-                addPreference(EditTextPreference(context).apply {
+                addPreference(Preference(context).apply {
+                    key = "custom_aon_gesture_video_whitelist_list"
                     title = getString(R.string.custom_aon_gesture_video_whitelist)
-                    dialogTitle = title
-                    summary = context.getString(
-                        ModulePrefs, "custom_aon_gesture_video_whitelist", "None"
+                    summary = arraySummaryLine(
+                        getString(R.string.custom_aon_gesture_whitelist_tips),
+                        context.getStringSet(ModulePrefs, key, ArraySet()).toString()
                     )
-                    if (summary.isNullOrBlank()) summary = "None"
-                    dialogMessage = getString(R.string.custom_aon_gesture_whitelist_tips)
-                    key = "custom_aon_gesture_video_whitelist"
-                    setDefaultValue("None")
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isVisible = false //SDK >= A13
                     isIconSpaceReserved = false
-                    setOnBindEditTextListener {
-                        it.setText((summary as String).replaceBlankLine)
-                    }
-                    setOnPreferenceChangeListener { _, newValue ->
-                        val format = (newValue as String).replaceBlankLine
-                        summary = format.ifBlank { "None" }
+                    setOnPreferenceClickListener {
+                        SelectAppDialogUtils(context, key).apply {
+                            setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packName)
+                                        }
+                                    }
+                                    context.putStringSet(
+                                        preferenceManager.sharedPreferencesName, key, set.toSet()
+                                    )
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
                         true
                     }
                 })

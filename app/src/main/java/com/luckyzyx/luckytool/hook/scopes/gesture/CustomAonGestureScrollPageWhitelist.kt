@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.gesture
 
+import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ArrayMapClass
@@ -12,15 +13,17 @@ import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.replaceSpace
 import org.luckypray.dexkit.DexKitBridge
 
 class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
-        val scrollList =
-            prefs(ModulePrefs).getString("custom_aon_gesture_scroll_page_whitelist", "None")
-//        val videoList = prefs(ModulePrefs).getString("custom_aon_gesture_video_whitelist", "None")
-        if (scrollList.isBlank() || scrollList == "None") return
+        val pageSet = prefs(ModulePrefs).getStringSet(
+            "custom_aon_gesture_scroll_page_whitelist_list", ArraySet()
+        )
+//        val videoSet = prefs(ModulePrefs).getStringSet(
+//            "custom_aon_gesture_video_whitelist_list", ArraySet()
+//        )
+        if (pageSet.isEmpty()) return
 
         //Search com.ss.android.ugc.aweme / com.smile.gifmaker
         dexKitBridge.findClass {
@@ -44,16 +47,11 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
             single().name.toClass().apply {
                 method { emptyParam();returnType = ListClass }.hookAll {
                     after {
-                        val field = result<List<String>>() ?: return@after
-                        if (field.isEmpty()) return@after
-                        result = field.toMutableList().apply {
+                        val res = result<List<String>>() ?: return@after
+                        if (res.isEmpty()) return@after
+                        result = res.toMutableList().apply {
                             if (contains("com.ss.android.ugc.aweme") || contains("com.smile.gifmaker")) {
-                                val listString = scrollList.replaceSpace
-                                if (listString.contains("\n")) {
-                                    listString.split("\n").forEach { s ->
-                                        if (s.isNotBlank()) add(s)
-                                    }
-                                } else add(scrollList)
+                                addAll(pageSet)
                             }
                         }
                     }
@@ -67,10 +65,7 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
                 after {
                     val list = result<List<String>>() ?: return@after
                     result = list.toMutableList().apply {
-                        val listString = scrollList.replaceSpace
-                        if (listString.contains("\n")) {
-                            listString.split("\n").forEach { if (it.isNotBlank()) add(it) }
-                        } else add(scrollList)
+                        addAll(pageSet)
                     }
                 }
             }

@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Eliminați limita managerului de notificări</string>
     <string name="remove_small_window_reply_whitelist">Remove small window reply whitelist</string>
     <string name="set_small_window_reply_blacklist">Set small window reply blacklist</string>
-    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist, each line can only fill in one package name</string>
+    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">StatusBar Icon</string>
     <string name="StatusBarIcon_summary">Status bar icon related</string>
@@ -616,7 +616,7 @@
     <string name="remove_game_assistant_temperature_detection">Remove Game Assistant temperature detection</string>
     <string name="remove_game_assistant_temperature_detection_summary">Mainly solves the problem of excessive temperature in X mode</string>
     <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
-    <string name="custom_barrage_notification_whitelist_message">Add an application based on the original whitelist and fill in one package name per line</string>
+    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
     <!--CloudService-->
     <string name="remove_network_limit">Remove Data Network Limit</string>
     <string name="remove_network_limit_summary">Remove backup/restore limitations that cannot use mobile data</string>
@@ -655,7 +655,7 @@
     <string name="force_enable_aon_gestures_summary">Note: AONService (com.aiunit.aon) needs to be installed, and the camera permission must be granted!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Custom scroll page whitelist</string>
     <string name="custom_aon_gesture_video_whitelist">Custom video gesture whitelist</string>
-    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist, and only one package name can be filled in each line</string>
+    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">Enable the volume keys to control the flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Full screen gesture related</string>

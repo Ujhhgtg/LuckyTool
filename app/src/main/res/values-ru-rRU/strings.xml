@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
-    <string name="set_small_window_reply_blacklist_message">Заполните имя пакета, который необходимо добавить в черный список, в каждой строке можно заполнить только одно имя пакета</string>
+    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в строке состояния</string>
     <string name="StatusBarIcon_summary">Иконки в стоке состояния</string>
@@ -478,7 +478,7 @@
     <string name="minimum_volume_level_can_be_zero">Минимальный уровень громкости может быть нулевым</string>
     <string name="enable_app_specific_media_volume">Включить громкость мультимедиа для конкретных приложений</string>
     <string name="enable_app_specific_media_volume_summary">Эта функция требует системной поддержки</string>
-    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
+    <string name="enable_app_specific_media_volume_tips">Некоторые модели могут вызывать сбой пользовательского интерфейса системы из-за неполного системного кода. Пожалуйста, примите меры защиты</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Разное</string>
     <string name="Miscellaneous_summary">Функции, которые сложно классифицировать, будут размещены здесь</string>
@@ -617,7 +617,7 @@
     <string name="remove_game_assistant_temperature_detection">Удалить определение температуры игрового помощника</string>
     <string name="remove_game_assistant_temperature_detection_summary">В основном решает проблему чрезмерной температуры в режиме X</string>
     <string name="custom_barrage_notification_whitelist">Белый список настраиваемых уведомлений о заграждении</string>
-    <string name="custom_barrage_notification_whitelist_message">Добавьте приложение на основе исходного белого списка и укажите по одному имени пакета в каждой строке</string>
+    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
     <!--CloudService-->
     <string name="remove_network_limit">Удалить ограничения сети передачи данных</string>
     <string name="remove_network_limit_summary">Удалить ограничение, согласно которому резервное копирование/восстановление не может использовать мобильные данные</string>
@@ -656,7 +656,7 @@
     <string name="force_enable_aon_gestures_summary">Примечание. Необходимо установить AONService (com.aiunit.aon) и предоставить разрешение на доступ к камере!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Белый список настраиваемых страниц прокрутки</string>
     <string name="custom_aon_gesture_video_whitelist">Белый список настраиваемых видеожестов</string>
-    <string name="custom_aon_gesture_whitelist_tips">Заполните имя пакета, который необходимо добавить в белый список, и в каждой строке можно указать только одно имя пакета</string>
+    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">Включить управление фонариком кнопками громкости</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Полноэкранные жесты</string>
@@ -821,22 +821,22 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Сервис автозапуска</string>
     <string name="auto_start_service_channel_title">Функция автозапуска запущена…</string>
-    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
+    <string name="service_auto_start_controller_not_allow_tips">Служба автозапуска работает неправильно, не ограничивайте работу модуля в фоне</string>
     <!--Typeface-->
     <string name="use_user_typeface">Использовать пользовательский шрифт</string>
     <string name="use_bold_font_style">Используйте жирный стиль шрифта</string>
     <!--AppInfo-->
-    <string name="appinfo_sort_and_filter">Sort And Filter</string>
-    <string name="appinfo_sort_by">Sort By</string>
-    <string name="appinfo_filter">Filter</string>
-    <string name="appinfo_reverse">Reverse</string>
-    <string name="appinfo_app_name">App Name</string>
-    <string name="appinfo_package_name">Package Name</string>
-    <string name="appinfo_app_size">App Size</string>
-    <string name="appinfo_install_time">Install Time</string>
-    <string name="appinfo_last_updated_time">Last Updated Time</string>
-    <string name="appinfo_target_sdk">Target SDK</string>
-    <string name="appinfo_system_app">System App</string>
+    <string name="appinfo_sort_and_filter">Сортировка и фильтр</string>
+    <string name="appinfo_sort_by">Сортировать по</string>
+    <string name="appinfo_filter">Фильтр</string>
+    <string name="appinfo_reverse">Отменить</string>
+    <string name="appinfo_app_name">Имя приложения</string>
+    <string name="appinfo_package_name">Имя пакета</string>
+    <string name="appinfo_app_size">Размер приложения</string>
+    <string name="appinfo_install_time">Время установки</string>
+    <string name="appinfo_last_updated_time">Время последнего обновления</string>
+    <string name="appinfo_target_sdk">Целевая версия SDK</string>
+    <string name="appinfo_system_app">Системное приложение</string>
     <!--CommonWords-->
     <string name="common_words_enable">Включить</string>
     <string name="common_words_disable">Отключить</string>

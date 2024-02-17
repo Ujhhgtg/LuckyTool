@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
-    <string name="set_small_window_reply_blacklist_message">Compila il nome del pacchetto che deve essere aggiunto alla blacklist, ogni riga può riempire un solo nome del pacchetto</string>
+    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Icona Barra di Stato</string>
     <string name="StatusBarIcon_summary">Impostazioni relative alle icone nella Barra di Stato</string>
@@ -616,7 +616,7 @@
     <string name="remove_game_assistant_temperature_detection">Rimuovi rilevamento temperatura Assistente Gioco</string>
     <string name="remove_game_assistant_temperature_detection_summary">Risolve principalmente il problema della temperatura eccessiva in modalità X</string>
     <string name="custom_barrage_notification_whitelist">Rimuovi la Lista bianca delle notifiche Danmaku</string>
-    <string name="custom_barrage_notification_whitelist_message">Aggiungi un\'applicazione in base alla Lista Bianca originale e inserisci un nome pacchetto per riga</string>
+    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
     <!--CloudService-->
     <string name="remove_network_limit">Rimuovi Limite Rete Dati</string>
     <string name="remove_network_limit_summary">Rimuovi le limitazioni di backup/ripristino che non possono utilizzare i dati mobili</string>
@@ -655,7 +655,7 @@
     <string name="force_enable_aon_gestures_summary">Nota: AONService (com.aiunit.aon) deve essere installato e deve essere concessa l\'autorizzazione alla fotocamera!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Lista bianca della pagina di scorrimento personalizzata</string>
     <string name="custom_aon_gesture_video_whitelist">Lista Bianca gesti video personalizzati</string>
-    <string name="custom_aon_gesture_whitelist_tips">Compila il nome del pacchetto che deve essere aggiunto alla lista bianca, e solo un nome del pacchetto può essere riempito in ogni riga</string>
+    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">Abilita i tasti del volume per controllare la torcia</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Gesto a schermo intero</string>
