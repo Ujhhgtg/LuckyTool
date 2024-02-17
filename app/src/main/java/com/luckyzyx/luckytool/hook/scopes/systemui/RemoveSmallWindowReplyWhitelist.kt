@@ -19,8 +19,8 @@ object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
             method { name = "showSmallWindowReply" }.hook {
                 after {
                     val packName = args().first().string()
-                    if (list.isBlank() || list == "None") resultTrue()
-                    else {
+                    resultTrue()
+                    if (list.isNotBlank() && list != "None") {
                         val listString = list.replaceSpace
                         val blacklist = if (list.contains("\n")) {
                             listString.split("\n").toMutableList().apply {

@@ -735,28 +735,29 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            addPreference(EditTextPreference(context).apply {
-                title = getString(R.string.set_small_window_reply_blacklist)
-                dialogTitle = title
-                summary = context.getString(
-                    ModulePrefs, "set_small_window_reply_blacklist", "None"
-                )
-                if (summary.isNullOrBlank()) summary = "None"
-                dialogMessage = getString(R.string.set_small_window_reply_blacklist_message)
-                key = "set_small_window_reply_blacklist"
-                setDefaultValue("None")
-                isVisible = context.getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")
-                isIconSpaceReserved = false
-                setOnBindEditTextListener {
-                    it.setText((summary as String).replaceBlankLine)
-                }
-                setOnPreferenceChangeListener { _, newValue ->
-                    val format = (newValue as String).replaceBlankLine
-                    summary = format.ifBlank { "None" }
-                    context.sendPrefsValue("com.android.systemui", key, format)
-                    true
-                }
-            })
+            if (context.getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
+                addPreference(EditTextPreference(context).apply {
+                    title = getString(R.string.set_small_window_reply_blacklist)
+                    dialogTitle = title
+                    summary = context.getString(
+                        ModulePrefs, "set_small_window_reply_blacklist", "None"
+                    )
+                    if (summary.isNullOrBlank()) summary = "None"
+                    dialogMessage = getString(R.string.set_small_window_reply_blacklist_message)
+                    key = "set_small_window_reply_blacklist"
+                    setDefaultValue("None")
+                    isIconSpaceReserved = false
+                    setOnBindEditTextListener {
+                        it.setText((summary as String).replaceBlankLine)
+                    }
+                    setOnPreferenceChangeListener { _, newValue ->
+                        val format = (newValue as String).replaceBlankLine
+                        summary = format.ifBlank { "None" }
+                        context.sendPrefsValue("com.android.systemui", key, format)
+                        true
+                    }
+                })
+            }
         }
     }
 
