@@ -14,10 +14,10 @@ object MultiAppConfig : YukiBaseHooker() {
 
         //Source OplusMultiAppConfig
         "com.oplus.multiapp.OplusMultiAppConfig".toClass().apply {
-            method { name = "setAllowedPkgList" }.hook {
+            method { name = "getAllowedPkgList" }.hook {
                 before {
                     if (mode != "1" || enabledMulti.isEmpty()) return@before
-                    args().first().set(java.util.ArrayList(enabledMulti))
+                    result = java.util.ArrayList(enabledMulti)
                 }
             }
         }
