@@ -53,26 +53,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
     private var sortMode = 0
     private var showSystemApp = false
 
-    private var sortFilterSelector = SortFilterSelector(requireActivity()).apply {
-        setOnSortFilterListener(object : OnSortFilterListener {
-            override fun onReverseChange(isReverse: Boolean) {
-                this@MultiAppFragment.isReverse = isReverse
-            }
-
-            override fun onSortModeChange(sortMode: Int) {
-                this@MultiAppFragment.sortMode = sortMode
-            }
-
-            override fun onShowSystemChange(showSystem: Boolean) {
-                showSystemApp = showSystem
-                context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
-            }
-
-            override fun onRefreshData() {
-                loadData()
-            }
-        })
-    }
+    private lateinit var sortFilterSelector: SortFilterSelector
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -84,6 +65,26 @@ class MultiAppFragment : Fragment(), MenuProvider {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        sortFilterSelector = SortFilterSelector(requireActivity(), showSystemApp).apply {
+            setOnSortFilterListener(object : OnSortFilterListener {
+                override fun onReverseChange(isReverse: Boolean) {
+                    this@MultiAppFragment.isReverse = isReverse
+                }
+
+                override fun onSortModeChange(sortMode: Int) {
+                    this@MultiAppFragment.sortMode = sortMode
+                }
+
+                override fun onShowSystemChange(showSystem: Boolean) {
+                    showSystemApp = showSystem
+                    context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
+                }
+
+                override fun onRefreshData() {
+                    loadData()
+                }
+            })
+        }
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
@@ -119,13 +120,13 @@ class MultiAppFragment : Fragment(), MenuProvider {
                 val packageManager = requireActivity().packageManager
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
                 enableData.forEach { its ->
-                    val find = allAppInfos.find { it.packName == its }
+                    val find = allAppInfos.find { it.packageName == its }
                     if (find != null) enableInfos.add(find)
                 }
                 allAppInfos.apply {
                     when (sortMode) {
                         0 -> sortBy { it.name }
-                        1 -> sortBy { it.packName }
+                        1 -> sortBy { it.packageName }
                         2 -> sortBy { it.size }
                         3 -> sortBy { it.installTime }
                         4 -> sortBy { it.lastInstallTime }
@@ -136,7 +137,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
                 enableInfos.apply {
                     when (sortMode) {
                         0 -> sortBy { it.name }
-                        1 -> sortBy { it.packName }
+                        1 -> sortBy { it.packageName }
                         2 -> sortBy { it.size }
                         3 -> sortBy { it.installTime }
                         4 -> sortBy { it.lastInstallTime }
@@ -198,7 +199,7 @@ class MultiAppAdapter(
         filterDatas = allDatas
 
         allEnableInfos.forEach {
-            enabledAppData.add(it.packName)
+            enabledAppData.add(it.packageName)
             allDatas.remove(it)
         }
         allDatas.addAll(0, allEnableInfos)
@@ -216,7 +217,7 @@ class MultiAppAdapter(
         val appInfo = filterDatas[position]
         val appIcon = appInfo.icon
         val appName = appInfo.name
-        val packName = appInfo.packName
+        val packName = appInfo.packageName
 
         holder.appIcon.setImageDrawable(appIcon)
         holder.appName.text = appName
@@ -244,7 +245,7 @@ class MultiAppAdapter(
                 val filterlist = ArrayList<AppInfo>()
                 allDatas.forEach {
                     if (it.name.lowercase().contains(constraint.toString().lowercase())
-                        || it.packName.lowercase().contains(constraint.toString().lowercase())
+                        || it.packageName.lowercase().contains(constraint.toString().lowercase())
                     ) filterlist.add(it)
                 }
                 filterlist

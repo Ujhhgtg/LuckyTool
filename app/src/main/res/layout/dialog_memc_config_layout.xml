@@ -25,6 +25,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/package_name"
                     android:textSize="14sp"
+                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
         
@@ -42,6 +43,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/activity_name"
                     android:textSize="14sp"
+                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
         

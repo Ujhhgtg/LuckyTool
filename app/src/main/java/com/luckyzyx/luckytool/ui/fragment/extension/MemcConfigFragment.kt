@@ -2,6 +2,8 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -29,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.luckyzyx.luckytool.databinding.DialogMemcConfigLayoutBinding
@@ -37,15 +40,21 @@ import com.luckyzyx.luckytool.databinding.FragmentMemcLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcPackageLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcActivityItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcPackageItemBinding
+import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
+import com.luckyzyx.luckytool.selector.ActivityInfoSelector
+import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import com.luckyzyx.luckytool.utils.showToast
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import java.io.InputStream
 
@@ -377,18 +386,34 @@ class MemcPackageFragment : Fragment() {
                 binding.typeView.setText(config.type)
             }
 
+            var packageName = binding.packageName.text?.toString()
+            val rate = binding.rateView.text?.toString()
+            val type = binding.typeView.text?.toString()
+
+            binding.packageName.apply {
+                setOnClickListener {
+                    AppInfoSelector(context, false).apply {
+                        setOnSelectAppListener(object : OnSelectAppInfoListener {
+                            override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                if (list.isEmpty()) return
+                                setText(list.first().packageName)
+                                packageName = list.first().packageName
+                            }
+                        })
+                        show()
+                    }
+                }
+            }
+
             MaterialAlertDialogBuilder(context, dialogCentered).apply {
                 setView(binding.root)
                 setPositiveButton(android.R.string.ok) { _, _ ->
-                    val packageName = binding.packageName.text?.toString()
-                    val rate = binding.rateView.text?.toString()
-                    val type = binding.typeView.text?.toString()
                     if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
-                        val newConfig = MemcConfigPackage(packageName, rate, type)
+                        val newConfig = MemcConfigPackage(packageName!!, rate, type)
                         if (position != null) filterDatas[position] = newConfig
                         else filterDatas.add(newConfig)
                         saveAllData()
-                    }
+                    } else context.showToast("Data is incomplete!")
                 }
                 if (config != null && position != null) {
                     setNeutralButton(R.string.common_words_remove) { _, _ ->
@@ -600,18 +625,62 @@ class MemcActivityFragment : Fragment() {
                 binding.typeView.setText(config.type)
             }
 
+            var packageName = binding.packageName.text?.toString()
+            var activity = binding.activityName.text?.toString()
+            val type = binding.typeView.text?.toString()
+
+            binding.packageName.apply {
+                setOnClickListener {
+                    AppInfoSelector(context, false).apply {
+                        setOnSelectAppListener(object : OnSelectAppInfoListener {
+                            override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                if (list.isEmpty()) return
+                                setText(list.first().packageName)
+                                packageName = list.first().packageName
+                            }
+                        })
+                        show()
+                    }
+                }
+            }
+
+            binding.activityName.apply {
+                setOnClickListener {
+                    val packInfo = packageName?.let {
+                        PackageUtils(context.packageManager).getPackageInfo(
+                            it, PackageManager.GET_ACTIVITIES
+                        )
+                    }
+                    if (packageName.isNullOrBlank()) {
+                        context.showToast("PackageName is null!")
+                        return@setOnClickListener
+                    }
+                    if (packInfo == null) {
+                        context.showToast("App data is null!")
+                        return@setOnClickListener
+                    }
+                    ActivityInfoSelector(context, false, packInfo.activities).apply {
+                        setOnSelectActivityListener(object : OnSelectActivityInfoListener {
+                            override fun resultSelectActivityInfos(list: ArrayList<ActivityInfo>) {
+                                if (list.isEmpty()) return
+                                setText(list.first().name)
+                                activity = list.first().name
+                            }
+                        })
+                        show()
+                    }
+                }
+            }
+
             MaterialAlertDialogBuilder(context, dialogCentered).apply {
                 setView(binding.root)
                 setPositiveButton(android.R.string.ok) { _, _ ->
-                    val packageName = binding.packageName.text?.toString()
-                    val activity = binding.activityName.text?.toString()
-                    val type = binding.typeView.text?.toString()
                     if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
-                        val newConfig = MemcConfigActivity(packageName, activity, type)
+                        val newConfig = MemcConfigActivity(packageName!!, activity!!, type)
                         if (position != null) filterDatas[position] = newConfig
                         else filterDatas.add(newConfig)
                         saveAllData()
-                    }
+                    } else context.showToast("Data is incomplete!")
                 }
                 if (config != null && position != null) {
                     setNeutralButton(R.string.common_words_remove) { _, _ ->

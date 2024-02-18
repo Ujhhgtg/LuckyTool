@@ -9,7 +9,7 @@ import java.io.Serializable
 class AppInfo : Serializable {
 
     val name: String
-    val packName: String
+    val packageName: String
     val icon: Drawable?
     val size: Long
     val versionName: String
@@ -17,11 +17,11 @@ class AppInfo : Serializable {
     val installTime: Long
     val lastInstallTime: Long
     val target: Int
-    val isEnable: Boolean
+    var isEnable: Boolean
 
     constructor() {
         this.name = ""
-        this.packName = ""
+        this.packageName = ""
         this.icon = null
         this.size = 0L
         this.versionName = ""
@@ -34,7 +34,7 @@ class AppInfo : Serializable {
 
     constructor(
         name: String,
-        packName: String,
+        packageName: String,
         icon: Drawable,
         size: Long,
         versionName: String,
@@ -45,7 +45,7 @@ class AppInfo : Serializable {
         isEnable: Boolean,
     ) {
         this.name = name
-        this.packName = packName
+        this.packageName = packageName
         this.icon = icon
         this.size = size
         this.installTime = installTime
@@ -54,5 +54,6 @@ class AppInfo : Serializable {
         this.isEnable = isEnable
         this.versionName = versionName
         this.versionCode = versionCode
+        this.isEnable = isEnable
     }
 }

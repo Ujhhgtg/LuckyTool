@@ -17,7 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
-import com.luckyzyx.luckytool.listener.OnSelectAppListener
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -745,23 +745,24 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     key = "set_small_window_reply_blacklist_list"
                     title = getString(R.string.set_small_window_reply_blacklist)
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
                     summary = arraySummaryLine(
                         getString(R.string.set_small_window_reply_blacklist_message),
-                        context.getStringSet(ModulePrefs, key, ArraySet())?.toString()
+                        value.toString()
                     )
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        AppInfoSelector(context, key).apply {
-                            setOnSelectAppListener(object : OnSelectAppListener {
+                        AppInfoSelector(context, true).apply {
+                            setDefaultShowSystem(true)
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
                                 override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                     val set = ArraySet<String>().apply {
                                         list.forEachIndexed { _, appInfo ->
-                                            add(appInfo.packName)
+                                            add(appInfo.packageName)
                                         }
                                     }
-                                    context.putStringSet(
-                                        preferenceManager.sharedPreferencesName, key, set.toSet()
-                                    )
+                                    context.putStringSet(ModulePrefs, key, set.toSet())
                                     context.sendPrefsValue("com.android.systemui", key, set.toSet())
                                     (activity as MainActivity).restart()
                                 }
@@ -3586,20 +3587,20 @@ class OplusGames : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 key = "custom_media_player_support_list"
                 title = getString(R.string.custom_media_player_support)
-                summary = context.getStringSet(ModulePrefs, key, ArraySet())?.toString()
+                val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
+                summary = value.toString()
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    AppInfoSelector(context, key).apply {
-                        setOnSelectAppListener(object : OnSelectAppListener {
+                    AppInfoSelector(context, true).apply {
+                        setEnabledList(ArrayList(value))
+                        setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 val set = ArraySet<String>().apply {
                                     list.forEachIndexed { _, appInfo ->
-                                        add(appInfo.packName)
+                                        add(appInfo.packageName)
                                     }
                                 }
-                                context.putStringSet(
-                                    preferenceManager.sharedPreferencesName, key, set.toSet()
-                                )
+                                context.putStringSet(ModulePrefs, key, set.toSet())
                                 (activity as MainActivity).restart()
                             }
                         })
@@ -3611,23 +3612,23 @@ class OplusGames : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 key = "custom_barrage_notification_whitelist_list"
                 title = getString(R.string.custom_barrage_notification_whitelist)
+                val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
                 summary = arraySummaryLine(
                     getString(R.string.custom_barrage_notification_whitelist_message),
-                    context.getStringSet(ModulePrefs, key, ArraySet()).toString()
+                    value.toString()
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    AppInfoSelector(context, key).apply {
-                        setOnSelectAppListener(object : OnSelectAppListener {
+                    AppInfoSelector(context, true).apply {
+                        setEnabledList(ArrayList(value))
+                        setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 val set = ArraySet<String>().apply {
                                     list.forEachIndexed { _, appInfo ->
-                                        add(appInfo.packName)
+                                        add(appInfo.packageName)
                                     }
                                 }
-                                context.putStringSet(
-                                    preferenceManager.sharedPreferencesName, key, set.toSet()
-                                )
+                                context.putStringSet(ModulePrefs, key, set.toSet())
                                 (activity as MainActivity).restart()
                             }
                         })
@@ -4045,24 +4046,24 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     key = "custom_aon_gesture_scroll_page_whitelist_list"
                     title = getString(R.string.custom_aon_gesture_scroll_page_whitelist)
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
                     summary = arraySummaryLine(
                         getString(R.string.custom_aon_gesture_whitelist_tips),
-                        context.getStringSet(ModulePrefs, key, ArraySet()).toString()
+                        value.toString()
                     )
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        AppInfoSelector(context, key).apply {
-                            setOnSelectAppListener(object : OnSelectAppListener {
+                        AppInfoSelector(context, true).apply {
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
                                 override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                     val set = ArraySet<String>().apply {
                                         list.forEachIndexed { _, appInfo ->
-                                            add(appInfo.packName)
+                                            add(appInfo.packageName)
                                         }
                                     }
-                                    context.putStringSet(
-                                        preferenceManager.sharedPreferencesName, key, set.toSet()
-                                    )
+                                    context.putStringSet(ModulePrefs, key, set.toSet())
                                     (activity as MainActivity).restart()
                                 }
                             })
@@ -4074,25 +4075,25 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     key = "custom_aon_gesture_video_whitelist_list"
                     title = getString(R.string.custom_aon_gesture_video_whitelist)
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
                     summary = arraySummaryLine(
                         getString(R.string.custom_aon_gesture_whitelist_tips),
-                        context.getStringSet(ModulePrefs, key, ArraySet()).toString()
+                        value.toString()
                     )
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isVisible = false //SDK >= A13
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        AppInfoSelector(context, key).apply {
-                            setOnSelectAppListener(object : OnSelectAppListener {
+                        AppInfoSelector(context, true).apply {
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
                                 override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                     val set = ArraySet<String>().apply {
                                         list.forEachIndexed { _, appInfo ->
-                                            add(appInfo.packName)
+                                            add(appInfo.packageName)
                                         }
                                     }
-                                    context.putStringSet(
-                                        preferenceManager.sharedPreferencesName, key, set.toSet()
-                                    )
+                                    context.putStringSet(ModulePrefs, key, set.toSet())
                                     (activity as MainActivity).restart()
                                 }
                             })

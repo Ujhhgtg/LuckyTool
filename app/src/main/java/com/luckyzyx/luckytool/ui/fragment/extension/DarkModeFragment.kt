@@ -50,26 +50,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
     private var sortMode = 0
     private var showSystemApp = false
 
-    private var sortFilterSelector = SortFilterSelector(requireActivity()).apply {
-        setOnSortFilterListener(object : OnSortFilterListener {
-            override fun onReverseChange(isReverse: Boolean) {
-                this@DarkModeFragment.isReverse = isReverse
-            }
-
-            override fun onSortModeChange(sortMode: Int) {
-                this@DarkModeFragment.sortMode = sortMode
-            }
-
-            override fun onShowSystemChange(showSystem: Boolean) {
-                showSystemApp = showSystem
-                context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
-            }
-
-            override fun onRefreshData() {
-                loadData()
-            }
-        })
-    }
+    private lateinit var sortFilterSelector: SortFilterSelector
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -81,6 +62,26 @@ class DarkModeFragment : Fragment(), MenuProvider {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        sortFilterSelector = SortFilterSelector(requireActivity(), showSystemApp).apply {
+            setOnSortFilterListener(object : OnSortFilterListener {
+                override fun onReverseChange(isReverse: Boolean) {
+                    this@DarkModeFragment.isReverse = isReverse
+                }
+
+                override fun onSortModeChange(sortMode: Int) {
+                    this@DarkModeFragment.sortMode = sortMode
+                }
+
+                override fun onShowSystemChange(showSystem: Boolean) {
+                    showSystemApp = showSystem
+                    context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
+                }
+
+                override fun onRefreshData() {
+                    loadData()
+                }
+            })
+        }
         binding.enableSwitch.apply {
             text = context.getString(R.string.enable_dark_mode_list)
             isChecked = context.getBoolean(ModulePrefs, enableSwitchKey, false)
@@ -126,13 +127,13 @@ class DarkModeFragment : Fragment(), MenuProvider {
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
                 enableData.forEach { its ->
                     val darkModeInfo = DarkModeInfo().toDarkModeInfo(its) ?: return@forEach
-                    val find = allAppInfos.find { it.packName == darkModeInfo.packName }
+                    val find = allAppInfos.find { it.packageName == darkModeInfo.packName }
                     if (find != null) enabledDarkMode.add(darkModeInfo)
                 }
                 allAppInfos.apply {
                     when (sortMode) {
                         0 -> sortBy { it.name }
-                        1 -> sortBy { it.packName }
+                        1 -> sortBy { it.packageName }
                         2 -> sortBy { it.size }
                         3 -> sortBy { it.installTime }
                         4 -> sortBy { it.lastInstallTime }
@@ -209,7 +210,7 @@ class DarkModeAdapter(
 
         val sortDatas = ArrayList<AppInfo>()
         allEnableInfos.forEach { its ->
-            val find = allDatas.find { it.packName == its.packName } ?: return@forEach
+            val find = allDatas.find { it.packageName == its.packName } ?: return@forEach
             enabledAppData[its.packName] = its
             sortDatas.add(find)
             allDatas.remove(find)
@@ -230,7 +231,7 @@ class DarkModeAdapter(
         val appInfo = filterDatas[position]
         val appIcon = appInfo.icon
         val appName = appInfo.name
-        val packName = appInfo.packName
+        val packName = appInfo.packageName
         val data = enabledAppData[packName]
 
         holder.appIcon.setImageDrawable(appIcon)
@@ -272,7 +273,7 @@ class DarkModeAdapter(
                 val filterlist = ArrayList<AppInfo>()
                 allDatas.forEach {
                     if (it.name.lowercase().contains(constraint.toString().lowercase())
-                        || it.packName.lowercase().contains(constraint.toString().lowercase())
+                        || it.packageName.lowercase().contains(constraint.toString().lowercase())
                     ) filterlist.add(it)
                 }
                 filterlist

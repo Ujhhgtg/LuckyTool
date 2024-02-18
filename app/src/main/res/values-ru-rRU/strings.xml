@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
-    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
+    <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в строке состояния</string>
     <string name="StatusBarIcon_summary">Иконки в стоке состояния</string>
@@ -617,7 +617,7 @@
     <string name="remove_game_assistant_temperature_detection">Удалить определение температуры игрового помощника</string>
     <string name="remove_game_assistant_temperature_detection_summary">В основном решает проблему чрезмерной температуры в режиме X</string>
     <string name="custom_barrage_notification_whitelist">Белый список настраиваемых уведомлений о заграждении</string>
-    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
+    <string name="custom_barrage_notification_whitelist_message">Добавить приложения, основанные на оригинальном белом списке</string>
     <!--CloudService-->
     <string name="remove_network_limit">Удалить ограничения сети передачи данных</string>
     <string name="remove_network_limit_summary">Удалить ограничение, согласно которому резервное копирование/восстановление не может использовать мобильные данные</string>
@@ -656,7 +656,7 @@
     <string name="force_enable_aon_gestures_summary">Примечание. Необходимо установить AONService (com.aiunit.aon) и предоставить разрешение на доступ к камере!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Белый список настраиваемых страниц прокрутки</string>
     <string name="custom_aon_gesture_video_whitelist">Белый список настраиваемых видеожестов</string>
-    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
+    <string name="custom_aon_gesture_whitelist_tips">Введите имя пакета, который необходимо добавить в белый список</string>
     <string name="enable_volume_key_control_flashlight">Включить управление фонариком кнопками громкости</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Полноэкранные жесты</string>

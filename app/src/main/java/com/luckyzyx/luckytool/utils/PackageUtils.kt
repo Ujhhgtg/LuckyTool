@@ -16,7 +16,6 @@ import java.io.File
 @Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 class PackageUtils(private val packageManager: PackageManager) {
-
     fun getPackageInfo(packName: String, flag: Int): PackageInfo? {
         return try {
             if (SDK < A13) packageManager.getPackageInfo(packName, flag)

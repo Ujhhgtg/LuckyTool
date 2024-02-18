@@ -27,8 +27,7 @@
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:hintEnabled="true"
                 app:hintAnimationEnabled="true"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/baseline_filter_list_24"
+                app:endIconMode="clear_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             
@@ -83,6 +82,7 @@
                 android:id="@+id/btn_ok"
                 android:layout_weight="1"
                 android:text="@android:string/ok"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
     

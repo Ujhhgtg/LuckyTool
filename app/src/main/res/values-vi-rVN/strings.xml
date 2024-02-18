@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Xóa giới hạn trình quản lý thông báo</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
-    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
+    <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
@@ -616,7 +616,7 @@
     <string name="remove_game_assistant_temperature_detection">Xóa tính năng phát hiện nhiệt độ của Trợ lý trò chơi</string>
     <string name="remove_game_assistant_temperature_detection_summary">Chủ yếu giải quyết vấn đề nhiệt độ quá cao ở chế độ X</string>
     <string name="custom_barrage_notification_whitelist">Tùy chỉnh danh sách trắng thông báo</string>
-    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
+    <string name="custom_barrage_notification_whitelist_message">Thêm ứng dụng dựa trên danh sách trắng ban đầu</string>
     <!--CloudService-->
     <string name="remove_network_limit">Xóa giới hạn mạng dữ liệu</string>
     <string name="remove_network_limit_summary">Xóa giới hạn sao lưu/khôi phục không thể sử dụng dữ liệu di động</string>
@@ -655,7 +655,7 @@
     <string name="force_enable_aon_gestures_summary">Lưu ý: Cần phải cài đặt AONService (com.aiunit.aon) và cấp quyền cho máy ảnh!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Danh sách trắng trang trượt tùy chỉnh</string>
     <string name="custom_aon_gesture_video_whitelist">Danh sách trắng cử chỉ video tùy chỉnh</string>
-    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
+    <string name="custom_aon_gesture_whitelist_tips">Điền tên gói cần thêm vào danh sách trắng</string>
     <string name="enable_volume_key_control_flashlight">Bật phím âm lượng để điều khiển đèn pin</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Cử chỉ toàn màn hình</string>

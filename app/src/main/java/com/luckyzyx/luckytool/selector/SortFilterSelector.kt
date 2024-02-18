@@ -6,13 +6,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.DialogAppinfoSortFilterSheetBinding
+import com.luckyzyx.luckytool.databinding.DialogSortFilterSelectorLayoutBinding
 import com.luckyzyx.luckytool.listener.OnSortFilterListener
 
 @Obfuscate
-class SortFilterSelector(val context: Context) {
+class SortFilterSelector(val context: Context, private var showSystemApp: Boolean = false) {
 
-    private val binding = DialogAppinfoSortFilterSheetBinding.inflate(LayoutInflater.from(context))
+    private val binding =
+        DialogSortFilterSelectorLayoutBinding.inflate(LayoutInflater.from(context))
     private var bottomSheet: BottomSheetDialog = BottomSheetDialog(context).apply {
         setContentView(binding.root)
     }
@@ -58,6 +59,9 @@ class SortFilterSelector(val context: Context) {
                     text = title
                     isCheckable = true
                     isClickable = true
+                    when (index) {
+                        0 -> isChecked = showSystemApp
+                    }
                     setOnCheckedChangeListener { buttonView, isChecked ->
                         if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
                         when (index) {
