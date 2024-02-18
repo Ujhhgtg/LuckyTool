@@ -129,7 +129,7 @@ dependencies {
     //滚动条
     implementation("me.zhanghai.android.fastscroll:library:1.3.0")
     //kotlin协程
-    val kotlinxCoroutinesVersion = "1.7.3"
+    val kotlinxCoroutinesVersion = "1.8.0"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinxCoroutinesVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinxCoroutinesVersion}")
     //Net OkHttp相关
