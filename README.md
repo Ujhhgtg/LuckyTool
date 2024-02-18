@@ -30,13 +30,13 @@ AlphaBackupPro,KSWeb,ADM
 
 <div align="left">
 <p>
-   <b><a href="https://luckyzyx.github.io/LuckyTool_Doc/changelog">更新日志</a> | <a href="https://crwd.in/luckytool">参与翻译</a></b>
+   <b><a href="https://luckyzyx.gitlab.io/LuckyTool_Doc/changelog">更新日志</a> | <a href="https://crwd.in/luckytool">参与翻译</a></b>
 </p>
 </div>
 
 ## Xposed API
 
-[YukiHookAPI](https://github.com/fankes/YukiHookAPI)
+[YukiHookAPI](https://github.com/HighCapable/YukiHookAPI)
 
 ## Lsposed Repo
 
