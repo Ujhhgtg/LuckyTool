@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.dialog
+package com.luckyzyx.luckytool.selector
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,50 +15,65 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.checkbox.MaterialCheckBox
-import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
-import com.luckyzyx.luckytool.databinding.DialogAppinfoSortFilterSheetBinding
 import com.luckyzyx.luckytool.databinding.DialogApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoCheckboxItemBinding
-import com.luckyzyx.luckytool.listener.OnResultSelectAppListener
+import com.luckyzyx.luckytool.listener.OnSelectAppListener
+import com.luckyzyx.luckytool.listener.OnSortFilterListener
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getStringSet
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
+@Suppress("unused")
 @Obfuscate
-class SelectAppDialogUtils(val context: Context, val key: String) {
+class AppInfoSelector(private val context: Context, private val listKey: String) {
 
     private val binding = DialogApplistLayoutBinding.inflate(LayoutInflater.from(context))
+    private var selectAppAdapter: SelectAppDialogAdapter? = null
     private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
 //        setCancelable(false)
         setView(binding.root)
     }
-    private var selectAppAdapter: SelectAppDialogAdapter? = null
-    private var dialog: AlertDialog? = null
+    private lateinit var dialog: AlertDialog
 
     private var allAppInfos = ArrayList<AppInfo>()
 
-    private lateinit var sortFilterBinding: DialogAppinfoSortFilterSheetBinding
-    private lateinit var sortFilterBottomSheet: BottomSheetDialog
     private var isReverse = false
     private var sortMode = 0
     private var showSystemApp = false
 
-    private var onResultSelectAppListener: OnResultSelectAppListener? = null
+    private var sortFilterSelector = SortFilterSelector(context).apply {
+        setOnSortFilterListener(object : OnSortFilterListener {
+            override fun onReverseChange(isReverse: Boolean) {
+                this@AppInfoSelector.isReverse = isReverse
+            }
+
+            override fun onSortModeChange(sortMode: Int) {
+                this@AppInfoSelector.sortMode = sortMode
+            }
+
+            override fun onShowSystemChange(showSystem: Boolean) {
+                showSystemApp = showSystem
+            }
+
+            override fun onRefreshData() {
+                loadData()
+            }
+        })
+    }
+
+    private var onSelectAppListener: OnSelectAppListener? = null
 
     init {
-        initSortFilterBottomSheet()
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                sortFilterBottomSheet.show()
+                sortFilterSelector.show()
             }
         }
         binding.searchView.apply {
@@ -66,16 +81,16 @@ class SelectAppDialogUtils(val context: Context, val key: String) {
                 selectAppAdapter?.getFilter?.filter(text)
             })
         }
-        binding.swipeRefreshLayout.apply {
-            setOnRefreshListener { loadData() }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            loadData()
         }
         binding.btnCancel.setOnClickListener {
-            dialog?.dismiss()
+            dialog.dismiss()
         }
         binding.btnOk.setOnClickListener {
-            dialog?.dismiss()
+            dialog.dismiss()
             val infos = selectAppAdapter?.getEnabledInfos() ?: arrayListOf()
-            onResultSelectAppListener?.resultSelectAppInfos(infos)
+            onSelectAppListener?.resultSelectAppInfos(infos)
         }
     }
 
@@ -85,8 +100,8 @@ class SelectAppDialogUtils(val context: Context, val key: String) {
         dialog = dialogBuilder.show()
     }
 
-    fun setOnResultSelectAppListener(onResultSelectAppListener: OnResultSelectAppListener) {
-        this.onResultSelectAppListener = onResultSelectAppListener
+    fun setOnSelectAppListener(onSelectAppListener: OnSelectAppListener) {
+        this.onSelectAppListener = onSelectAppListener
     }
 
     fun setDefaultShowSystem(show: Boolean) {
@@ -100,8 +115,8 @@ class SelectAppDialogUtils(val context: Context, val key: String) {
             binding.searchView.text = null
             allAppInfos.clear()
 
-            val enableData = if (key.isNotBlank()) {
-                context.getStringSet(ModulePrefs, key, ArraySet())?.toMutableList()
+            val enableData = if (listKey.isNotBlank()) {
+                context.getStringSet(ModulePrefs, listKey, ArraySet())?.toMutableList()
                     ?: mutableListOf()
             } else mutableListOf()
 
@@ -144,73 +159,9 @@ class SelectAppDialogUtils(val context: Context, val key: String) {
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
             }
+
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
-        }
-    }
-
-    private fun initSortFilterBottomSheet() {
-        sortFilterBinding =
-            DialogAppinfoSortFilterSheetBinding.inflate(LayoutInflater.from(context))
-        sortFilterBottomSheet = BottomSheetDialog(context).apply {
-            setContentView(sortFilterBinding.root)
-        }
-        sortFilterBinding.sortReverse.apply {
-            setOnCheckedChangeListener { buttonView, isChecked ->
-                if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                isReverse = isChecked
-                loadData()
-            }
-        }
-        sortFilterBinding.sortChips.apply {
-            isSingleSelection = true
-            arrayOf(
-                context.getString(R.string.appinfo_app_name),
-                context.getString(R.string.appinfo_package_name),
-                context.getString(R.string.appinfo_app_size),
-                context.getString(R.string.appinfo_install_time),
-                context.getString(R.string.appinfo_last_updated_time),
-                context.getString(R.string.appinfo_target_sdk)
-            ).forEachIndexed { index, title ->
-                addView(getSortChip(index, title))
-            }
-            setOnCheckedStateChangeListener { _, checkedIds ->
-                if (checkedIds.isEmpty()) return@setOnCheckedStateChangeListener
-                sortMode = checkedIds.first() - 1
-                loadData()
-            }
-        }
-        sortFilterBinding.filterChips.apply {
-            isSingleSelection = false
-            arrayOf(context.getString(R.string.appinfo_system_app)).forEachIndexed { index, title ->
-                addView(getFilterChip(index, title))
-            }
-        }
-    }
-
-    private fun getSortChip(index: Int, title: String): Chip {
-        return Chip(context).apply {
-            text = title
-            isCheckable = true
-            isClickable = true
-            isChecked = index == 0
-        }
-    }
-
-    private fun getFilterChip(index: Int, title: String): Chip {
-        return Chip(context).apply {
-            text = title
-            isCheckable = true
-            isClickable = true
-            when (index) {
-                0 -> {
-                    setOnCheckedChangeListener { buttonView, isChecked ->
-                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                        showSystemApp = isChecked
-                        loadData()
-                    }
-                }
-            }
         }
     }
 

@@ -18,16 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
-import com.luckyzyx.luckytool.databinding.DialogAppinfoSortFilterSheetBinding
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
+import com.luckyzyx.luckytool.listener.OnSortFilterListener
+import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
@@ -50,11 +49,30 @@ class MultiAppFragment : Fragment(), MenuProvider {
     private val showSystemAppKey = "show_system_app_multi_app"
     private val supportListKey = "multi_app_custom_list"
 
-    private lateinit var sortFilterBinding: DialogAppinfoSortFilterSheetBinding
-    private lateinit var sortFilterBottomSheet: BottomSheetDialog
     private var isReverse = false
     private var sortMode = 0
     private var showSystemApp = false
+
+    private var sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+        setOnSortFilterListener(object : OnSortFilterListener {
+            override fun onReverseChange(isReverse: Boolean) {
+                this@MultiAppFragment.isReverse = isReverse
+            }
+
+            override fun onSortModeChange(sortMode: Int) {
+                this@MultiAppFragment.sortMode = sortMode
+            }
+
+            override fun onShowSystemChange(showSystem: Boolean) {
+                showSystemApp = showSystem
+                context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
+            }
+
+            override fun onRefreshData() {
+                loadData()
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -66,11 +84,10 @@ class MultiAppFragment : Fragment(), MenuProvider {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initSortFilterBottomSheet()
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                sortFilterBottomSheet.show()
+                sortFilterSelector.show()
             }
         }
         binding.searchView.apply {
@@ -85,72 +102,6 @@ class MultiAppFragment : Fragment(), MenuProvider {
         }
 
         if (allAppInfos.isEmpty()) loadData()
-    }
-
-    private fun initSortFilterBottomSheet() {
-        sortFilterBinding = DialogAppinfoSortFilterSheetBinding.inflate(layoutInflater)
-        sortFilterBottomSheet = BottomSheetDialog(requireActivity()).apply {
-            setContentView(sortFilterBinding.root)
-        }
-        sortFilterBinding.sortReverse.apply {
-            setOnCheckedChangeListener { buttonView, isChecked ->
-                if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                isReverse = isChecked
-                loadData()
-            }
-        }
-        sortFilterBinding.sortChips.apply {
-            isSingleSelection = true
-            arrayOf(
-                getString(R.string.appinfo_app_name),
-                getString(R.string.appinfo_package_name),
-                getString(R.string.appinfo_app_size),
-                getString(R.string.appinfo_install_time),
-                getString(R.string.appinfo_last_updated_time),
-                getString(R.string.appinfo_target_sdk)
-            ).forEachIndexed { index, title ->
-                addView(getSortChip(index, title))
-            }
-            setOnCheckedStateChangeListener { _, checkedIds ->
-                if (checkedIds.isEmpty()) return@setOnCheckedStateChangeListener
-                sortMode = checkedIds.first() - 1
-                loadData()
-            }
-        }
-        sortFilterBinding.filterChips.apply {
-            isSingleSelection = false
-            arrayOf(getString(R.string.appinfo_system_app)).forEachIndexed { index, title ->
-                addView(getFilterChip(index, title))
-            }
-        }
-    }
-
-    private fun getSortChip(index: Int, title: String): Chip {
-        return Chip(requireActivity()).apply {
-            text = title
-            isCheckable = true
-            isClickable = true
-            isChecked = index == 0
-        }
-    }
-
-    private fun getFilterChip(index: Int, title: String): Chip {
-        return Chip(requireActivity()).apply {
-            text = title
-            isCheckable = true
-            isClickable = true
-            when (index) {
-                0 -> {
-                    isChecked = showSystemApp
-                    setOnCheckedChangeListener { buttonView, isChecked ->
-                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                        showSystemApp = isChecked
-                        context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
-                        loadData()
-                    }
-                }
-            }
-        }
     }
 
     private fun loadData() {

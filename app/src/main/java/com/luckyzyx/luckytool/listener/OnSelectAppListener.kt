@@ -4,7 +4,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppInfo
 
 @Obfuscate
-interface OnResultSelectAppListener {
+interface OnSelectAppListener {
     /**
      * 返回选中AppInfo列表
      * @param list ArrayList<AppInfo>

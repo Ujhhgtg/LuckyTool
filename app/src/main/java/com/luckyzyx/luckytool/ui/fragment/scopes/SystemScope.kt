@@ -17,8 +17,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
-import com.luckyzyx.luckytool.dialog.SelectAppDialogUtils
-import com.luckyzyx.luckytool.listener.OnResultSelectAppListener
+import com.luckyzyx.luckytool.listener.OnSelectAppListener
+import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A12
@@ -751,8 +751,8 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     )
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        SelectAppDialogUtils(context, key).apply {
-                            setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                        AppInfoSelector(context, key).apply {
+                            setOnSelectAppListener(object : OnSelectAppListener {
                                 override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                     val set = ArraySet<String>().apply {
                                         list.forEachIndexed { _, appInfo ->
@@ -3589,8 +3589,8 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 summary = context.getStringSet(ModulePrefs, key, ArraySet())?.toString()
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    SelectAppDialogUtils(context, key).apply {
-                        setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                    AppInfoSelector(context, key).apply {
+                        setOnSelectAppListener(object : OnSelectAppListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 val set = ArraySet<String>().apply {
                                     list.forEachIndexed { _, appInfo ->
@@ -3617,8 +3617,8 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    SelectAppDialogUtils(context, key).apply {
-                        setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                    AppInfoSelector(context, key).apply {
+                        setOnSelectAppListener(object : OnSelectAppListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 val set = ArraySet<String>().apply {
                                     list.forEachIndexed { _, appInfo ->
@@ -4052,8 +4052,8 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        SelectAppDialogUtils(context, key).apply {
-                            setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                        AppInfoSelector(context, key).apply {
+                            setOnSelectAppListener(object : OnSelectAppListener {
                                 override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                     val set = ArraySet<String>().apply {
                                         list.forEachIndexed { _, appInfo ->
@@ -4082,8 +4082,8 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     isVisible = false //SDK >= A13
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        SelectAppDialogUtils(context, key).apply {
-                            setOnResultSelectAppListener(object : OnResultSelectAppListener {
+                        AppInfoSelector(context, key).apply {
+                            setOnSelectAppListener(object : OnSelectAppListener {
                                 override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                     val set = ArraySet<String>().apply {
                                         list.forEachIndexed { _, appInfo ->

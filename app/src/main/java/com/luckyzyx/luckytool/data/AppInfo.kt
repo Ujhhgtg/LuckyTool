@@ -4,13 +4,13 @@ import android.graphics.drawable.Drawable
 import com.joom.paranoid.Obfuscate
 import java.io.Serializable
 
-@Obfuscate
 @Suppress("MemberVisibilityCanBePrivate")
+@Obfuscate
 class AppInfo : Serializable {
 
     val name: String
     val packName: String
-    val icon: Drawable
+    val icon: Drawable?
     val size: Long
     val versionName: String
     val versionCode: Long
@@ -18,6 +18,19 @@ class AppInfo : Serializable {
     val lastInstallTime: Long
     val target: Int
     val isEnable: Boolean
+
+    constructor() {
+        this.name = ""
+        this.packName = ""
+        this.icon = null
+        this.size = 0L
+        this.versionName = ""
+        this.versionCode = 0L
+        this.installTime = 0L
+        this.lastInstallTime = 0L
+        this.target = 0
+        this.isEnable = false
+    }
 
     constructor(
         name: String,
@@ -30,8 +43,7 @@ class AppInfo : Serializable {
         lastInstallTime: Long,
         target: Int,
         isEnable: Boolean,
-
-        ) {
+    ) {
         this.name = name
         this.packName = packName
         this.icon = icon
