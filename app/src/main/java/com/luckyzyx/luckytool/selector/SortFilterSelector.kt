@@ -2,15 +2,15 @@ package com.luckyzyx.luckytool.selector
 
 import android.content.Context
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogSortFilterSelectorLayoutBinding
-import com.luckyzyx.luckytool.listener.OnSortFilterListener
+import com.luckyzyx.luckytool.listener.OnSortChipListener
 
 @Obfuscate
-class SortFilterSelector(val context: Context, private var showSystemApp: Boolean = false) {
+class SortFilterSelector(val context: Context) {
 
     private val binding =
         DialogSortFilterSelectorLayoutBinding.inflate(LayoutInflater.from(context))
@@ -18,26 +18,30 @@ class SortFilterSelector(val context: Context, private var showSystemApp: Boolea
         setContentView(binding.root)
     }
 
-    private var onSortFilterListener: OnSortFilterListener? = null
+    private var onSortChipListener: OnSortChipListener? = null
+
+    private var enableSort = false
+    private var sortChips = ArrayList<String>()
+
+    private var enableFilter = false
+    private var filterChips = ArrayList<Chip>()
 
     init {
+        initSortChips()
+        initFilterChips()
+    }
+
+    private fun initSortChips() {
+        binding.sortLayout.isVisible = enableSort
         binding.sortReverse.apply {
             setOnCheckedChangeListener { buttonView, isChecked ->
                 if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                onSortFilterListener?.onReverseChange(isChecked)
-                onSortFilterListener?.onRefreshData()
+                onSortChipListener?.onReverseChange(isChecked)
             }
         }
         binding.sortChips.apply {
             isSingleSelection = true
-            arrayOf(
-                context.getString(R.string.appinfo_app_name),
-                context.getString(R.string.appinfo_package_name),
-                context.getString(R.string.appinfo_app_size),
-                context.getString(R.string.appinfo_install_time),
-                context.getString(R.string.appinfo_last_updated_time),
-                context.getString(R.string.appinfo_target_sdk)
-            ).forEachIndexed { index, title ->
+            sortChips.forEachIndexed { index, title ->
                 val chip = Chip(context).apply {
                     text = title
                     isCheckable = true
@@ -48,40 +52,38 @@ class SortFilterSelector(val context: Context, private var showSystemApp: Boolea
             }
             setOnCheckedStateChangeListener { _, checkedIds ->
                 if (checkedIds.isEmpty()) return@setOnCheckedStateChangeListener
-                onSortFilterListener?.onSortModeChange(checkedIds.first() - 1)
-                onSortFilterListener?.onRefreshData()
+                onSortChipListener?.onSortModeChange(checkedIds.first() - 1)
             }
         }
+    }
+
+    private fun initFilterChips() {
+        binding.filterLayout.isVisible = enableFilter
         binding.filterChips.apply {
             isSingleSelection = false
-            arrayOf(context.getString(R.string.appinfo_system_app)).forEachIndexed { index, title ->
-                val chip = Chip(context).apply {
-                    text = title
-                    isCheckable = true
-                    isClickable = true
-                    when (index) {
-                        0 -> isChecked = showSystemApp
-                    }
-                    setOnCheckedChangeListener { buttonView, isChecked ->
-                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                        when (index) {
-                            0 -> {
-                                onSortFilterListener?.onShowSystemChange(isChecked)
-                                onSortFilterListener?.onRefreshData()
-                            }
-                        }
-                    }
-                }
+            filterChips.forEachIndexed { _, chip ->
                 addView(chip)
             }
         }
     }
 
-    fun setOnSortFilterListener(onSortFilterListener: OnSortFilterListener) {
-        this.onSortFilterListener = onSortFilterListener
+    fun setOnSortChipListener(onSortChipListener: OnSortChipListener) {
+        this.onSortChipListener = onSortChipListener
+    }
+
+    fun setSortChips(enable: Boolean, chips: Array<String>?) {
+        enableSort = enable
+        if (chips != null) sortChips = ArrayList(chips.toList())
+        initSortChips()
+    }
+
+    fun setFilterChips(enable: Boolean, chips: Array<Chip>?) {
+        enableFilter = enable
+        if (chips != null) filterChips = ArrayList(chips.toList())
+        initFilterChips()
     }
 
     fun show() {
-        bottomSheet.show()
+        if (enableSort || enableFilter) bottomSheet.show()
     }
 }

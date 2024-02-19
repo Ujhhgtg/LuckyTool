@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.joom.paranoid.Obfuscate
@@ -25,7 +26,7 @@ import com.luckyzyx.luckytool.databinding.DialogAppInfoSelectorLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoCheckboxItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
-import com.luckyzyx.luckytool.listener.OnSortFilterListener
+import com.luckyzyx.luckytool.listener.OnSortChipListener
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -102,21 +103,27 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
     }
 
     private fun initSortFilterSelector() {
-        sortFilterSelector = SortFilterSelector(context, showSystemApp).apply {
-            setOnSortFilterListener(object : OnSortFilterListener {
+        sortFilterSelector = SortFilterSelector(context).apply {
+            setSortChips(true, context.resources.getStringArray(R.array.sort_selector_chips))
+            setFilterChips(true, arrayOf(Chip(context).apply {
+                text = context.getString(R.string.appinfo_system_app)
+                isCheckable = true
+                isClickable = true
+                isChecked = showSystemApp
+                setOnCheckedChangeListener { buttonView, isChecked ->
+                    if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                    showSystemApp = isChecked
+                    loadData()
+                }
+            }))
+            setOnSortChipListener(object : OnSortChipListener {
                 override fun onReverseChange(isReverse: Boolean) {
                     this@AppInfoSelector.isReverse = isReverse
+                    loadData()
                 }
 
                 override fun onSortModeChange(sortMode: Int) {
                     this@AppInfoSelector.sortMode = sortMode
-                }
-
-                override fun onShowSystemChange(showSystem: Boolean) {
-                    showSystemApp = showSystem
-                }
-
-                override fun onRefreshData() {
                     loadData()
                 }
             })
@@ -246,7 +253,8 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                     allDatas.forEach {
                         if (it.name.lowercase().contains(
                                 constraint.toString().lowercase()
-                            ) || it.packageName.lowercase().contains(constraint.toString().lowercase())
+                            ) || it.packageName.lowercase()
+                                .contains(constraint.toString().lowercase())
                         ) filterlist.add(it)
                     }
                     filterlist
@@ -342,7 +350,8 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                     allDatas.forEach {
                         if (it.name.lowercase().contains(
                                 constraint.toString().lowercase()
-                            ) || it.packageName.lowercase().contains(constraint.toString().lowercase())
+                            ) || it.packageName.lowercase()
+                                .contains(constraint.toString().lowercase())
                         ) filterlist.add(it)
                     }
                     filterlist

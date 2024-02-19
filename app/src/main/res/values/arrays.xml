@@ -49,6 +49,19 @@
         <item>com.ruet_cse_1503050.ragib.appbackup.pro</item>
     </string-array>
     
+    <string-array name="sort_selector_chips">
+        <item>@string/appinfo_app_name</item>
+        <item>@string/appinfo_package_name</item>
+        <item>@string/appinfo_app_size</item>
+        <item>@string/appinfo_install_time</item>
+        <item>@string/appinfo_last_updated_time</item>
+        <item>@string/appinfo_target_sdk</item>
+    </string-array>
+    
+    <string-array name="filter_selector_chips">
+        <item>@string/appinfo_system_app</item>
+    </string-array>
+    
     <string-array name="dark_theme" translatable="false">
         <item>@string/dark_theme_off</item>
         <item>@string/dark_theme_on</item>

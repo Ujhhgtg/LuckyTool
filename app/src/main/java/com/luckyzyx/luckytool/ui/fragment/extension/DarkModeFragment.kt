@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
+import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import com.highcapable.yukihookapi.hook.factory.dataChannel
@@ -27,7 +28,7 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
-import com.luckyzyx.luckytool.listener.OnSortFilterListener
+import com.luckyzyx.luckytool.listener.OnSortChipListener
 import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.*
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -62,22 +63,27 @@ class DarkModeFragment : Fragment(), MenuProvider {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sortFilterSelector = SortFilterSelector(requireActivity(), showSystemApp).apply {
-            setOnSortFilterListener(object : OnSortFilterListener {
+        sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+            setSortChips(true, context.resources.getStringArray(R.array.sort_selector_chips))
+            setFilterChips(true, arrayOf(Chip(context).apply {
+                text = context.getString(R.string.appinfo_system_app)
+                isCheckable = true
+                isClickable = true
+                isChecked = showSystemApp
+                setOnCheckedChangeListener { buttonView, isChecked ->
+                    if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                    showSystemApp = isChecked
+                    loadData()
+                }
+            }))
+            setOnSortChipListener(object : OnSortChipListener {
                 override fun onReverseChange(isReverse: Boolean) {
                     this@DarkModeFragment.isReverse = isReverse
+                    loadData()
                 }
 
                 override fun onSortModeChange(sortMode: Int) {
                     this@DarkModeFragment.sortMode = sortMode
-                }
-
-                override fun onShowSystemChange(showSystem: Boolean) {
-                    showSystemApp = showSystem
-                    context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
-                }
-
-                override fun onRefreshData() {
                     loadData()
                 }
             })
