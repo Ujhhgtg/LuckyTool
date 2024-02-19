@@ -586,6 +586,7 @@
     <string name="enable_photo_editor_gif_synthesis">Enable gif synthesis</string>
     <string name="enable_lns_cut_photo">Enable lns Cut out part of a photo</string>
     <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
+    <string name="remove_aigc_elimination_limit_summary">Mainly solves problems that cannot be eliminated due to image violations</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Layout</string>
     <string name="remove_startup_animation">Remove startup animation</string>

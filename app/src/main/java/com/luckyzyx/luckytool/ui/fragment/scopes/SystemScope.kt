@@ -3422,7 +3422,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
 
 @Obfuscate
 class OplusGallery : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.coloros.gallery3d")
+    override val scopes = arrayOf("com.coloros.gallery3d", "com.oplus.aiunit")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -3454,9 +3454,10 @@ class OplusGallery : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_spring_festival_watermark)
+                summary = getString(R.string.enable_spring_festival_watermark_summary)
                 key = "enable_spring_festival_watermark"
                 setDefaultValue(false)
-                isVisible = osCode >= 29 && isZh(context)
+                isVisible = osCode >= 27 && isZh(context)
                 isIconSpaceReserved = false
             })
             //滤镜
@@ -3512,6 +3513,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_aigc_elimination_limit)
+                summary = getString(R.string.remove_aigc_elimination_limit_summary)
                 key = "remove_aigc_elimination_limit"
                 setDefaultValue(false)
                 isIconSpaceReserved = false

@@ -586,6 +586,7 @@
     <string name="enable_photo_editor_gif_synthesis">gif 合成を有効化</string>
     <string name="enable_lns_cut_photo">写真の一部切り取りを有効化</string>
     <string name="remove_aigc_elimination_limit">Remove AIGC elimination restrictions</string>
+    <string name="remove_aigc_elimination_limit_summary">Mainly solves problems that cannot be eliminated due to image violations</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">レイアウト</string>
     <string name="remove_startup_animation">起動時のアニメーションを削除</string>

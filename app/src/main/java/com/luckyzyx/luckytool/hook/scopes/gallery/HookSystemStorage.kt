@@ -89,10 +89,20 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
                             //debug.gallery.photo.editor.watermark.switcher / is_region_cn
                             configNode.contains("feature_is_support_spring_festival_watermark") -> {
-                                if (springFestival && osCode >= 29 && isZh(context)) resultTrue()
+                                if (springFestival && osCode >= 27 && isZh(context)) resultTrue()
                             }
 
-//                            configNode.contains("feature_is_device_support_ai_eliminate") -> resultTrue()
+                            //aigc_sdinpainting
+                            //aigc_segmentation
+//                            configNode.contains("feature_is_support_ai_eliminate") -> {
+//                                YLog.debug("configNode feature_is_support_ai_eliminate -> $result")
+//                                resultTrue()
+//                            }
+//
+//                            configNode.contains("feature_is_device_support_ai_eliminate") -> {
+//                                YLog.debug("configNode feature_is_device_support_ai_eliminate -> $result")
+//                                resultTrue()
+//                            }
 
 //                            photopage_detail_ic_dolby_vision
 //                            configNode.contains("brighten_version_dolby") -> if (gifSynthesis) resultTrue()
@@ -154,6 +164,16 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             "feature_is_support_gif_synthesis" -> if (gifSynthesis) resultTrue()
                             "feature_is_support_lns" -> if (lnsImage) resultTrue()
 
+//                            "feature_is_device_support_ai_eliminate" -> {
+//                                YLog.debug("feature_is_device_support_ai_eliminate -> $result")
+//                                resultTrue()
+//                            }
+//
+//                            "is_ai_eliminate_queued" -> {
+//                                YLog.debug("is_ai_eliminate_queued -> $result")
+//                                resultTrue()
+//                            }
+
 //                            photopage_detail_ic_dolby_vision
 //                            "brighten_version_dolby" -> if (gifSynthesis) resultTrue()
 //                            "feature_is_support_dolby_brighten" -> if (gifSynthesis) resultTrue()
@@ -161,6 +181,16 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 //                            "is_support_dolby_encode" -> if (gifSynthesis) resultTrue()
 //                            "is_support_dolby_encode_accelerate" -> if (gifSynthesis) resultTrue()
                         }
+                    }
+                }
+                method { param(StringClass, IntType);returnType = IntClass }.hook {
+                    after {
+//                        when (args().first().string()) {
+//                            "ai_eliminate_detect_state" -> {
+//                                YLog.debug("ai_eliminate_detect_state -> $result")
+//                                result = 3
+//                            }
+//                        }
                     }
                 }
             }
