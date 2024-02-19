@@ -80,7 +80,7 @@ class AutoStartControllerService : Service() {
             if (getBoolean(SettingsPrefs, keyTileAutoStart, false)) {
                 //触控采样率相关
                 if (getBoolean(SettingsPrefs, keyTouchSamplingRate, false)) {
-                    val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "1")
+                    val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
                     val int16 = level?.toInt()?.toHexString() ?: 1
                     command.add("echo > /proc/touchpanel/game_switch_enable $int16")
 //                    command.add("start touchDaemon && ps -A | grep touchDaemon")

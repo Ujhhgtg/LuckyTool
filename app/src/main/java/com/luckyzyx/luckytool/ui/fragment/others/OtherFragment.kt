@@ -8,10 +8,8 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.util.forEach
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
@@ -22,7 +20,6 @@ import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.ITouchPanelController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
-import com.luckyzyx.luckytool.databinding.DialogShortcutLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
 import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
 import com.luckyzyx.luckytool.service.controller.TouchPanelControllerService
@@ -33,7 +30,6 @@ import com.luckyzyx.luckytool.utils.ShortcutUtils
 import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dialogCentered
-import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
@@ -60,31 +56,30 @@ class OtherFragment : Fragment() {
 
         binding.shortcut.apply {
             setOnClickListener {
-                val binding = DialogShortcutLayoutBinding.inflate(layoutInflater)
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setView(binding.root)
-                }.show()
-                val shortcutList = ShortcutUtils(context).getShortcutList()
-                val keys = ArrayList<String>(shortcutList.keys)
-                val titles = ArrayList<String>(shortcutList.values)
-                binding.shortcutList.apply {
-                    choiceMode = ListView.CHOICE_MODE_MULTIPLE
-                    adapter = ArrayAdapter(
-                        context, android.R.layout.simple_list_item_multiple_choice, titles
-                    )
-                    keys.forEach {
-                        if (context.getBoolean(SettingsPrefs, it, false)) {
-                            val index = keys.indexOf(it)
-                            if (index != -1) setItemChecked(index, true)
-                        }
-                    }
-                    onItemClickListener = AdapterView.OnItemClickListener { _, view, position, _ ->
-                        val key = keys[position]
-                        val isChecked = (view as AppCompatCheckedTextView).isChecked
-                        ShortcutUtils(context).setShortcutStatus(key, isChecked)
-                        ShortcutUtils(context).setDynamicShortcuts()
+                val titles = ArrayList<CharSequence>()
+                val keys = ArrayList<String>()
+                val values = ArrayList<Boolean>()
+                ShortcutUtils(context).getDefaultShortcutList().forEachIndexed { _, bean ->
+                    if (bean.label.isNotBlank() && bean.key.isNotBlank()) {
+                        titles.add(bean.label)
+                        keys.add(bean.key)
+                        values.add(bean.isEnable)
                     }
                 }
+
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setTitle(binding.shortcutTitle.text)
+                    setMultiChoiceItems(titles.toTypedArray(), values.toBooleanArray(), null)
+                    setPositiveButton(android.R.string.ok) { dialog, _ ->
+                        val positions = (dialog as AlertDialog).listView.checkedItemPositions
+                        positions.forEach { position, isChecked ->
+                            val key = keys[position]
+                            ShortcutUtils(context).setShortcutStatus(key, isChecked)
+                        }
+                        ShortcutUtils(context).updateDynamicShortcuts()
+                    }
+                    setNeutralButton(android.R.string.cancel, null)
+                }.show()
             }
         }
     }
@@ -94,12 +89,17 @@ class OtherFragment : Fragment() {
         binding.touchPanel.apply {
             isVisible = touchController != null
             setOnClickListener {
+                val curLevel = context.getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setItems(touchs) { _, which ->
-                        val value = if (which > 0) touchs[which] else which.toString()
+                    setTitle(binding.touchTitle.text)
+                    setSingleChoiceItems(touchs, touchs.indexOf(curLevel), null)
+                    setPositiveButton(android.R.string.ok) { dialog, _ ->
+                        val position = (dialog as AlertDialog).listView.checkedItemPosition
+                        val value = if (position > 0) touchs[position] else position.toString()
                         context.putString(SettingsPrefs, keyTouchSamplingRateLevel, value)
                         touchController?.touchMode = value.toInt()
                     }
+                    setNeutralButton(android.R.string.cancel, null)
                 }.show()
             }
         }
