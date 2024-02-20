@@ -1448,3 +1448,26 @@ fun JSONArray.toStringList(): ArrayList<String> {
 fun setColorAlpha(baseColor: Int, alpha: Float): Int {
     return baseColor and 0x00ffffff or ((alpha * 255.0f).roundToInt() shl 24)
 }
+
+/**
+ * 启动后台挂机服务(听剧模式)
+ * @param context Context
+ */
+fun startBackgroundRunService(context: Context) {
+    try {
+        Intent("oplus.intent.action.BACKGROUND_STREAM_SERVICE").apply {
+            setPackage("com.oplus.exsystemservice")
+            component = ComponentName(
+                "com.oplus.exsystemservice",
+                "com.oplus.backgroundstream.RouteForegroundService"
+            )
+            context.startForegroundService(this)
+        }
+    } catch (e: Exception) {
+        LogUtils.e(
+            "startBackgroundRunService",
+            "startForegroundService Exception -> ${context.packageName}!",
+            e.toString(), true
+        )
+    }
+}

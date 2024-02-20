@@ -27,6 +27,7 @@ object HookSmartSidebar : YukiBaseHooker() {
             if (SDK == A12) loadHooker(ForceEnableBuoyAutomaticallyHides)
         }
 
+        //启用后台挂机
         if (prefs(ModulePrefs).getBoolean("enable_run_in_background", false)) {
             if (osCode >= 27) loadHooker(EnableRunInBackground)
         }

@@ -3640,6 +3640,13 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_run_in_background)
+                key = "enable_game_run_in_background"
+                setDefaultValue(false)
+                isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_danmaku_notification_whitelist)
                 key = "remove_danmaku_notification_whitelist"
                 setDefaultValue(false)

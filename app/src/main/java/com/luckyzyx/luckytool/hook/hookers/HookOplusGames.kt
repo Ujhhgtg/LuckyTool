@@ -6,6 +6,7 @@ import com.luckyzyx.luckytool.hook.scopes.games.CompetitionModeSound
 import com.luckyzyx.luckytool.hook.scopes.games.CustomBarrageNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.games.CustomMediaPlayerSupport
 import com.luckyzyx.luckytool.hook.scopes.games.EnableDeveloperPage
+import com.luckyzyx.luckytool.hook.scopes.games.EnableGameRunInBackground
 import com.luckyzyx.luckytool.hook.scopes.games.EnableSupportCompetitionMode
 import com.luckyzyx.luckytool.hook.scopes.games.EnableXModeFeature
 import com.luckyzyx.luckytool.hook.scopes.games.RemoveGameAssistantTemperatureDetection
@@ -17,9 +18,12 @@ import com.luckyzyx.luckytool.hook.scopes.games.RemoveWelfarePage
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookOplusGames : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         if (packageName == "com.oplus.games") {
             val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
             //非ColorOS官方安装器直接返回
@@ -43,6 +47,10 @@ object HookOplusGames : YukiBaseHooker() {
                 //移除游戏助手福利页面
                 if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
                     loadHooker(RemoveWelfarePage(dexKitBridge))
+                }
+                //启用游戏助手后台挂机
+                if (prefs(ModulePrefs).getBoolean("enable_game_run_in_background", false)) {
+                    if (osCode >= 27) loadHooker(EnableGameRunInBackground(dexKitBridge))
                 }
             }
 
@@ -77,8 +85,6 @@ object HookOplusGames : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
                 if (exist) loadHooker(RemoveToolRecommendationCard)
             }
-
-
 
             //res/layout/layout_perf_cpu_setting_panel_land.xml
             //res/layout/layout_perf_cpu_setting_panel_child.xml
