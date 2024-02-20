@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Baterie ve stavové liště</string>
     <string name="remove_statusbar_battery_percent">Zobrazit procento nabití baterie ve stavové liště</string>
     <string name="statusbar_power_font_size">Velikost písma napájení ve stavové liště</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Oznámení baterie ve stavové liště</string>
     <string name="battery_information_notify_permanent_display">Trvalé zobrazení</string>

@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Status Bar Battery</string>
     <string name="remove_statusbar_battery_percent">Remove battery percentage number in statusbar</string>
     <string name="statusbar_power_font_size">Statusbar power font size</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">StatusBar Battery Notifications</string>
     <string name="battery_information_notify_permanent_display">Permanent display</string>

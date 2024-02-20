@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">ステータスバーのバッテリー</string>
     <string name="remove_statusbar_battery_percent">バッテリーパーセンテージをステータスバーから削除</string>
     <string name="statusbar_power_font_size">ステータスバーの電源フォントサイズ</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">ステータスバーのバッテリー通知</string>
     <string name="battery_information_notify_permanent_display">常駐表示</string>

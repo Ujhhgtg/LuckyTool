@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Bateria</string>
     <string name="remove_statusbar_battery_percent">Usuń znak % baterii z paska stanu</string>
     <string name="statusbar_power_font_size">Rozmiar czcionki</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Powiadomienie z informacjami o zasilaniu</string>
     <string name="battery_information_notify_permanent_display">Zawsze pokazuj</string>

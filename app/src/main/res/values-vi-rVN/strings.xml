@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Thanh trạng thái Pin</string>
     <string name="remove_statusbar_battery_percent">Xóa phần trăm pin trên thanh trạng thái</string>
     <string name="statusbar_power_font_size">Cỡ chữ đồng hồ thanh trạng thái</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Tùy chỉnh Pin Thanh Trạng thái</string>
     <string name="battery_information_notify_permanent_display">Hiển thị vĩnh viễn</string>

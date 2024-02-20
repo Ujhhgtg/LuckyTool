@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Індикатор батареї</string>
     <string name="remove_statusbar_battery_percent">Видалити іконку відсотка заряду батареї з рядка стану</string>
     <string name="statusbar_power_font_size">Розмір шрифту у рядку стану</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Повідомлення про батарею у рядку стану</string>
     <string name="battery_information_notify_permanent_display">Постійне відображення</string>

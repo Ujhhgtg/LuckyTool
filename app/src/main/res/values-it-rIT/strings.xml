@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Batteria Barra di Stato</string>
     <string name="remove_statusbar_battery_percent">Rimuovi numero percentuale batteria nella Barra di Stato</string>
     <string name="statusbar_power_font_size">Dimensione carattere Alimentazione Barra di Stato</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Personalizzazione batteria Barra di Stato</string>
     <string name="battery_information_notify_permanent_display">Visualizzazione permanente</string>

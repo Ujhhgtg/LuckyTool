@@ -18,6 +18,7 @@ import com.luckyzyx.luckytool.data.DonateInfo
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
 import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.AESCrypt
+import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatStringAuto
@@ -125,6 +126,7 @@ class DonateFragment : Fragment() {
                         context.putBoolean(SettingsPrefs, showDetailedKey, showDetail)
                         dismiss()
                         initSortFilterSelector()
+                        show()
                         loadJson(context, donateDataFile)
                     }
                 }, Chip(context).apply {
@@ -157,6 +159,7 @@ class DonateFragment : Fragment() {
             }
         }.catch {
             context.showToast("Exception while checking data!")
+            LogUtils.e("checkDonateData", "checking", it.toString(), true)
             return@catch
         }
     }
@@ -172,6 +175,7 @@ class DonateFragment : Fragment() {
             if (file.exists()) encryptFile(context, file, date)
         }.catch {
             context.showToast("Exception while download data!")
+            LogUtils.e("downloadJson", "download", it.toString(), true)
             return@catch
         }
     }

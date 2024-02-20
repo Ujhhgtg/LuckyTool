@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">Индикатор батареи</string>
     <string name="remove_statusbar_battery_percent">Удалить текст процента заряда батареи из строки состояния</string>
     <string name="statusbar_power_font_size">Размер шрифта заряда батареи</string>
+    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Уведомление о батарее в панели уведомлений</string>
     <string name="battery_information_notify_permanent_display">Постоянное отображение</string>

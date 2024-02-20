@@ -273,6 +273,7 @@
     <string name="StatusBarBattery">状态栏电池</string>
     <string name="remove_statusbar_battery_percent">移除状态栏电量百分号</string>
     <string name="statusbar_power_font_size">状态栏电量字体大小</string>
+    <string name="statusbar_power_apply_to_battery_icon">应用到电池图标</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">状态栏电池通知</string>
     <string name="battery_information_notify_permanent_display">常驻显示</string>

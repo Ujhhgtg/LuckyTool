@@ -556,7 +556,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                     title = getString(R.string.set_network_speed_font_size)
                     key = "set_network_speed_font_size"
                     setDefaultValue(7)
-                    max = 8
+                    max = 10
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false
@@ -570,7 +570,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                     title = getString(R.string.set_network_speed_padding_bottom)
                     key = "set_network_speed_padding_bottom"
                     setDefaultValue(0)
-                    max = 4
+                    max = 6
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false
@@ -1502,10 +1502,6 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                     key = "statusbar_power_use_bold_font_style"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
                 })
                 addPreference(SeekBarPreference(context).apply {
                     title = getString(R.string.statusbar_power_font_size)
@@ -1519,6 +1515,13 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.statusbar_power_apply_to_battery_icon)
+                key = "statusbar_power_apply_to_battery_icon"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //状态栏电池通知
             if (SDK >= A12) {
                 addPreference(PreferenceCategory(context).apply {
                     title = getString(R.string.StatusBarBatteryNotify)
