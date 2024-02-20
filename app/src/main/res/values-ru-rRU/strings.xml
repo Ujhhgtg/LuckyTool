@@ -587,7 +587,7 @@
     <string name="enable_photo_editor_gif_synthesis">Включить синтез GIF</string>
     <string name="enable_lns_cut_photo">Вырезать часть фото</string>
     <string name="remove_aigc_elimination_limit">Снять ограничения на устранение AIGC</string>
-    <string name="remove_aigc_elimination_limit_summary">Mainly solves problems that cannot be eliminated due to image violations</string>
+    <string name="remove_aigc_elimination_limit_summary">В основном решает проблемы, которые невозможно устранить из-за нарушений изображения</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Разметка</string>
     <string name="remove_startup_animation">Удалить стартовую анимацию</string>
@@ -764,7 +764,11 @@
     <string name="donate_tv_title">Поддержать разработку</string>
     <string name="donate_tv__summary">Нажмите или удерживайте, чтобы пожертвовать разработчику для поддержки будущих обновлений</string>
     <string name="donate_data_decode_error">Ошибка разбора данных при пожертвовании, попробуйте еще раз!</string>
-    <string name="detailed_donate_data">Показать подробные данные</string>
+    <string name="donate_detailed_data">Detailed data</string>
+    <string name="donate_other_currency">Other currencies</string>
+    <string name="donate_info_time">Time</string>
+    <string name="donate_info_money">Money</string>
+    <string name="donate_info_order">Number Of Order</string>
     <!-- Other -->
     <string name="quick_entry">Быстрый вход в систему</string>
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>

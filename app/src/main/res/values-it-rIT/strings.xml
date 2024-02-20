@@ -763,7 +763,11 @@
     <string name="donate_tv_title">Sosteni lo sviluppo</string>
     <string name="donate_tv__summary">Fare clic o premere a lungo per donare allo sviluppatore per supportare gli aggiornamenti futuri</string>
     <string name="donate_data_decode_error">Analisi dei dati della donazione non riuscita, riprova!</string>
-    <string name="detailed_donate_data">Mostra dati dettagliati</string>
+    <string name="donate_detailed_data">Detailed data</string>
+    <string name="donate_other_currency">Other currencies</string>
+    <string name="donate_info_time">Time</string>
+    <string name="donate_info_money">Money</string>
+    <string name="donate_info_order">Number Of Order</string>
     <!-- Other -->
     <string name="quick_entry">Inserimento Rapido Di Sistema</string>
     <string name="quick_entry_summary">es. Strumenti di riconciliazione dell\'interfaccia utente di sistema, gestione dei processi, modalità ingegneristica, ecc.</string>

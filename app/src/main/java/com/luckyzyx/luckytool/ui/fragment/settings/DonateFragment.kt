@@ -3,23 +3,20 @@ package com.luckyzyx.luckytool.ui.fragment.settings
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.drake.net.Get
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.scopeNetLife
+import com.google.android.material.chip.Chip
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.DonateDetailInfo
 import com.luckyzyx.luckytool.data.DonateInfo
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
+import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.formatDate
@@ -29,7 +26,6 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.safeOfNull
-import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
@@ -39,71 +35,111 @@ import java.io.File
 import java.text.DecimalFormat
 
 @Obfuscate
-class DonateFragment : Fragment(), MenuProvider {
+class DonateFragment : Fragment() {
 
     private lateinit var binding: FragmentDonateListBinding
 
+    private lateinit var donateDataTempFile: File
     private lateinit var donateDataFile: File
 
-    private var isShowDetailed = false
-
     private val showDetailedKey = "show_detailed_donate_data"
+    private val showOtherCurrencyKey = "show_other_currency_donate_data"
 
-    private var isLoaded = false
     private var filterString: CharSequence = ""
-    private var curSort = 0
+
+    private lateinit var sortFilterSelector: SortFilterSelector
+    private var isReverse = false
+    private var sortMode = 0
+    private var showDetail = false
+    private var otherCurrency = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        setupMenuProvider(this)
-        isShowDetailed = requireActivity().getBoolean(SettingsPrefs, showDetailedKey, false)
+        showDetail = requireActivity().getBoolean(SettingsPrefs, showDetailedKey, false)
         binding = FragmentDonateListBinding.inflate(inflater)
         return binding.root
     }
 
-    fun init(context: Context) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.swipeRefreshLayout.apply {
+            setOnRefreshListener { initData(context) }
+            isRefreshing = true
+        }
+        binding.searchView.apply {
+            isEnabled = false
+            text = null
+            addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
+                filterString = text ?: ""
+                loadJson(context, donateDataFile)
+            })
+        }
+        initSortFilterSelector()
+        binding.searchViewLayout.apply {
+            hint = "Name"
+            setEndIconOnClickListener {
+                sortFilterSelector.show()
+            }
+        }
+
+        initData(requireActivity())
+    }
+
+    private fun initData(context: Context) {
         scopeLife {
-            binding.swipeRefreshLayout.apply {
-                setOnRefreshListener { init(context) }
-                isRefreshing = true
-            }
-            binding.searchViewLayout.apply {
-                hint = "Name"
-                isHintEnabled = true
-                isHintAnimationEnabled = true
-            }
-            binding.searchView.apply {
-                isEnabled = false
-                text = null
-                addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                    filterString = text ?: ""
-                    loadJson(context, donateDataFile)
-                })
-            }
-            val sortList = arrayOf("默认", "升序", "降序")
-            binding.sortSpinner.apply {
-                adapter = ArrayAdapter(
-                    context, android.R.layout.simple_spinner_dropdown_item,
-                    sortList
-                )
-                onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                    ) {
-                        curSort = position
-                        loadJson(context, donateDataFile, true)
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                    }
-                }
-            }
-
-            donateDataFile = File(context.filesDir, "dd")
+            donateDataTempFile = File(requireActivity().cacheDir, "dTemp")
+            donateDataFile = File(requireActivity().filesDir, "dd")
+            if (donateDataTempFile.exists()) donateDataTempFile.delete()
             if (donateDataFile.exists()) checkDonateData(context)
             else downloadJson(context, formatDate("YYYYMMddHHmm"))
+        }
+    }
+
+    private fun initSortFilterSelector() {
+        val sorts = arrayListOf(
+            getString(R.string.donate_info_time),
+            getString(R.string.donate_info_money),
+            getString(R.string.donate_info_order)
+        ).apply {
+            if (showDetail) removeLast()
+        }
+        sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+            setReverse(true) { _, isChecked ->
+                isReverse = isChecked
+                loadJson(context, donateDataFile)
+            }
+            setSortChips(true, sorts.toTypedArray(), sortMode) { _, checkedIds ->
+                sortMode = checkedIds.firstOrNull() ?: 0
+                loadJson(context, donateDataFile)
+            }
+            setFilterChips(true, arrayOf(
+                Chip(context).apply {
+                    text = getString(R.string.donate_detailed_data)
+                    isCheckable = true
+                    isClickable = true
+                    isChecked = showDetail
+                    setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                        showDetail = isChecked
+                        context.putBoolean(SettingsPrefs, showDetailedKey, showDetail)
+                        dismiss()
+                        initSortFilterSelector()
+                        loadJson(context, donateDataFile)
+                    }
+                }, Chip(context).apply {
+                    text = getString(R.string.donate_other_currency)
+                    isCheckable = true
+                    isClickable = true
+                    isChecked = otherCurrency
+                    setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                        otherCurrency = isChecked
+                        context.putBoolean(SettingsPrefs, showOtherCurrencyKey, otherCurrency)
+                        loadJson(context, donateDataFile)
+                    }
+                })
+            )
         }
     }
 
@@ -112,41 +148,45 @@ class DonateFragment : Fragment(), MenuProvider {
             val donateDataUrl =
                 "https://api.github.com/repos/LuckyOSTeam/LuckyOSTeam.github.io/releases/tags/luckytool_donates"
             val lastUpdateDate = context.getString(SettingsPrefs, "last_update_dd_date", "null")
-            val getDoc = Get<String>(donateDataUrl).await()
-            JSONObject(getDoc).apply {
-                val date = optString("name").takeIf { e -> e.isNotBlank() } ?: return@scopeNetLife
+            val getJson = Get<String>(donateDataUrl).await()
+            JSONObject(getJson).apply {
+                val date = optString("name", "")
+                if (date.isNullOrBlank()) return@apply
                 if (date != lastUpdateDate) downloadJson(context, date)
                 else loadJson(context, donateDataFile)
             }
-        }.catch { return@catch }
+        }.catch {
+            context.showToast("Exception while checking data!")
+            return@catch
+        }
     }
 
     private fun downloadJson(context: Context, date: String) {
         scopeNetLife {
             val file =
                 Get<File>("https://raw.gitmirror.com/LuckyOSTeam/LuckyOSTeam.github.io/main/LuckyTool/donate.json") {
-                    setDownloadDir(donateDataFile)
+                    setDownloadDir(donateDataTempFile)
                     setDownloadMd5Verify()
                     setDownloadTempFile()
                 }.await()
-            if (file.exists()) {
-                initJsonFile(context, file)
-                context.putString(SettingsPrefs, "last_update_dd_date", date)
-            }
-        }.catch { if (donateDataFile.exists()) loadJson(context, donateDataFile) }
-    }
-
-    private fun initJsonFile(context: Context, file: File) {
-        scopeLife {
-            if (file.readText().contains("datas")) {
-                val jsonEncrypt = AESCrypt.encrypt(file.readText())
-                file.writeText(jsonEncrypt)
-                loadJson(context, file)
-            } else loadJson(context, file)
+            if (file.exists()) encryptFile(context, file, date)
+        }.catch {
+            context.showToast("Exception while download data!")
+            return@catch
         }
     }
 
-    private fun loadJson(context: Context, file: File, isSpinnerLoad: Boolean = false) {
+    private fun encryptFile(context: Context, file: File, date: String) {
+        scopeLife {
+            val jsonEncrypt = AESCrypt.encrypt(file.readText())
+            donateDataFile.writeText(jsonEncrypt)
+            file.delete()
+            context.putString(SettingsPrefs, "last_update_dd_date", date)
+            loadJson(context, donateDataFile)
+        }
+    }
+
+    private fun loadJson(context: Context, file: File) {
         scopeLife {
             val jsonObject = safeOfNull {
                 val jsonDecrypt = AESCrypt.decrypt(file.readText())
@@ -158,126 +198,193 @@ class DonateFragment : Fragment(), MenuProvider {
                 return@scopeLife
             }
 
-            if (!isLoaded && isSpinnerLoad) return@scopeLife
-            isLoaded = true
-
-            val list = ArrayList<String>().apply {
-                if (isShowDetailed) {
-                    add("| Name | Time | Money | Channel |")
-                    add("| :------: | :------: | :------: | :------: |")
-                } else {
-                    add("| Name | Money |")
-                    add("| :------: | :------: |")
-                }
-            }
+            val markdownList = ArrayList<String>()
             val datas = jsonObject.optJSONArray("datas") ?: JSONArray()
-
-            var detailCount = 0
-            var rmbCount = 0.0
-            var otherCount = 0.0
-
-            val array = ArrayList<DonateInfo>()
-            for (i in 0 until datas.length()) {
-                var dCount = 0
-                var rCount = 0.0
-                var oCount = 0.0
-
-                val obj = datas.optJSONObject(i) ?: continue
-                val name = obj.optString("name")
-
-                val details = obj.optJSONArray("details") ?: continue
-                for (o in 0 until details.length()) {
-                    val info = details.optJSONObject(o) ?: continue
-                    dCount++
-
-                    val time = info.optString("time")
-                    val channel = info.optString("channel")
-                    val money = info.optDouble("money", 0.0)
-                    val order = info.optString("order")
-                    val unit = info.optString("unit")
-
-                    when (unit) {
-                        "RMB" -> rCount += money
-                        "$" -> oCount += money
-                    }
-                    if (isShowDetailed && money > 0) {
-                        array.add(DonateInfo(name, time, channel, money, order, unit))
-                    }
-                }
-                detailCount += dCount
-                rmbCount += rCount
-                otherCount += oCount
-                if (isShowDetailed.not()) {
-                    if (rCount > 0) array.add(
-                        DonateInfo(name, "all", "all", rCount, "null")
-                    )
-                    if (oCount > 0) array.add(
-                        DonateInfo(name, "all", "all", oCount, "null", "$")
-                    )
-                }
-            }
-
-            val develop = context.getBoolean(SettingsPrefs, "hidden_function", false)
-            array.apply {
-                when (curSort) {
-                    1 -> sortBy { it.money }
-                    2 -> sortByDescending { it.money }
-                }
-
-                if (array.size > 0 && develop) {
-                    val formatRmb = DecimalFormat("0.00").format(rmbCount).toDouble()
-                    val formatOth = DecimalFormat("0.00").format(otherCount).toDouble()
-
-                    if (formatRmb > 0) array.add(
-                        0, DonateInfo("develop", "all", "all", formatRmb, "null")
-                    )
-                    if (formatOth > 0) array.add(
-                        1, DonateInfo("develop", "all", "all", formatOth, "null", "$")
-                    )
-                }
-
-                forEachIndexed { _, info ->
-                    if (filterString.isNotBlank() && info.name.contains(filterString).not()
-                    ) return@forEachIndexed
-                    if (isShowDetailed) {
-                        list.add("| ${info.name} | ${info.time} | ${info.money} ${info.unit} | ${info.channel} |")
-                    } else {
-                        list.add("| ${info.name} | ${info.money} ${info.unit} |")
-                    }
-                }
-            }
+            if (showDetail.not()) formatUserInfo(context, datas, markdownList)
+            else formatUserDetailInfo(context, datas, markdownList)
 
             val markwon = Markwon.builder(context).apply {
                 usePlugin(TablePlugin.create(context))
             }.build()
             binding.tv.apply {
-                markwon.setMarkdown(this, formatStringAuto(list, "\n"))
+                markwon.setMarkdown(this, formatStringAuto(markdownList, "\n"))
             }
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchView.isEnabled = true
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        init(requireActivity())
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.doante_menu, menu)
-        menu.findItem(R.id.detailed_donate_data).apply {
-            isChecked = isShowDetailed
+    @Suppress("UNUSED_VARIABLE")
+    private fun formatUserInfo(
+        context: Context, jsonArray: JSONArray, markdownList: ArrayList<String>
+    ) {
+        markdownList.apply {
+            add("| Name | Money |")
+            add("| :------: | :------: |")
         }
-    }
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.itemId) {
-            R.id.detailed_donate_data -> {
-                menuItem.isChecked = !menuItem.isChecked
-                isShowDetailed = menuItem.isChecked
-                requireActivity().putBoolean(SettingsPrefs, showDetailedKey, isShowDetailed)
-                loadJson(requireActivity(), donateDataFile)
+        var totalDetailCount = 0
+        var totalRmbCount = 0.0
+        var totalOtherDetailCount = 0
+        var totalOtherCount = 0.0
+
+        val donateList = ArrayList<DonateInfo>()
+        for (i in 0 until jsonArray.length()) {
+            var userDetailCount = 0
+            var userRmbCount = 0.0
+            var userOtherDetailCount = 0
+            var userOtherCount = 0.0
+
+            val userObject = jsonArray.optJSONObject(i) ?: continue
+            val name = userObject.optString("name")
+
+            val details = userObject.optJSONArray("details") ?: continue
+            for (o in 0 until details.length()) {
+                val info = details.optJSONObject(o) ?: continue
+
+                val time = info.optString("time")
+                val channel = info.optString("channel")
+                val money = info.optDouble("money", 0.0)
+                val order = info.optString("order")
+
+                @Suppress("MoveVariableDeclarationIntoWhen")
+                val unit = info.optString("unit")
+
+                when (unit) {
+                    "RMB" -> {
+                        userDetailCount++
+                        userRmbCount += money
+                    }
+
+                    "$" -> {
+                        userOtherDetailCount++
+                        userOtherCount += money
+                    }
+                }
+            }
+
+            totalDetailCount += userDetailCount
+            totalRmbCount += userRmbCount
+            totalOtherDetailCount += userOtherDetailCount
+            totalOtherCount += userOtherCount
+
+            if (!otherCurrency && userRmbCount > 0) donateList.add(
+                DonateInfo(name, userRmbCount, userDetailCount)
+            )
+            if (otherCurrency && userOtherCount > 0) donateList.add(
+                DonateInfo(name, userOtherCount, userOtherDetailCount, "$")
+            )
+        }
+
+        val develop = context.getBoolean(SettingsPrefs, "hidden_function", false)
+        donateList.apply {
+            when (sortMode) {
+                1 -> sortBy { it.money }
+                2 -> sortBy { it.details }
+            }
+            if (isReverse) reverse()
+
+            if (donateList.size > 0 && develop) {
+                val formatRmb = DecimalFormat("0.00").format(totalRmbCount).toDouble()
+                val formatOth = DecimalFormat("0.00").format(totalOtherCount).toDouble()
+
+                if (formatRmb > 0) donateList.add(
+                    0, DonateInfo("develop", formatRmb, totalDetailCount)
+                )
+                if (formatOth > 0) donateList.add(
+                    1, DonateInfo("develop", formatOth, totalOtherDetailCount, "$")
+                )
+            }
+
+            forEachIndexed { _, info ->
+                if (filterString.isBlank() || info.name.contains(filterString, true)) {
+                    markdownList.add("| ${info.name} | ${info.money} ${info.unit} |")
+                }
             }
         }
-        return true
+    }
+
+    private fun formatUserDetailInfo(
+        context: Context, jsonArray: JSONArray, markdownList: ArrayList<String>
+    ) {
+        markdownList.apply {
+            add("| Name | Time | Money | Channel |")
+            add("| :------: | :------: | :------: | :------: |")
+        }
+
+        var totalDetailCount = 0
+        var totalRmbCount = 0.0
+        var totalOtherDetailCount = 0
+        var totalOtherCount = 0.0
+
+        val donateList = ArrayList<DonateDetailInfo>()
+        for (i in 0 until jsonArray.length()) {
+            var userDetailCount = 0
+            var userRmbCount = 0.0
+            var userOtherDetailCount = 0
+            var userOtherCount = 0.0
+
+            val userObject = jsonArray.optJSONObject(i) ?: continue
+            val name = userObject.optString("name")
+
+            val details = userObject.optJSONArray("details") ?: continue
+            for (o in 0 until details.length()) {
+                val info = details.optJSONObject(o) ?: continue
+
+                val time = info.optString("time")
+                val channel = info.optString("channel")
+                val money = info.optDouble("money", 0.0)
+                val order = info.optString("order")
+                val unit = info.optString("unit")
+
+                when (unit) {
+                    "RMB" -> {
+                        userDetailCount++
+                        userRmbCount += money
+                        if (otherCurrency) continue
+                    }
+
+                    "$" -> {
+                        userOtherDetailCount++
+                        userOtherCount += money
+                        if (!otherCurrency) continue
+                    }
+                }
+                if (money > 0) {
+                    donateList.add(DonateDetailInfo(name, time, channel, money, order, unit))
+                }
+            }
+
+            totalDetailCount += userDetailCount
+            totalRmbCount += userRmbCount
+            totalOtherDetailCount += userOtherDetailCount
+            totalOtherCount += userOtherCount
+        }
+
+        val develop = context.getBoolean(SettingsPrefs, "hidden_function", false)
+        donateList.apply {
+            when (sortMode) {
+                1 -> sortBy { it.money }
+            }
+            if (isReverse) reverse()
+
+            if (donateList.size > 0 && develop) {
+                val formatRmb = DecimalFormat("0.00").format(totalRmbCount).toDouble()
+                val formatOth = DecimalFormat("0.00").format(totalOtherCount).toDouble()
+
+                if (formatRmb > 0) donateList.add(
+                    0, DonateDetailInfo("develop", "all", "all", formatRmb, "null")
+                )
+                if (formatOth > 0) donateList.add(
+                    1, DonateDetailInfo("develop", "all", "all", formatOth, "null", "$")
+                )
+            }
+
+            forEachIndexed { _, info ->
+                if (filterString.isBlank() || info.name.contains(filterString)) {
+                    markdownList.add("| ${info.name} | ${info.time} | ${info.money} ${info.unit} | ${info.channel} |")
+                }
+            }
+        }
     }
 }

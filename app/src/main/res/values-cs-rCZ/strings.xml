@@ -763,7 +763,11 @@
     <string name="donate_tv_title">Podpořit vývojáře</string>
     <string name="donate_tv__summary">Kliknutím nebo podržením přispějte vývojáři k podpoře budoucích aktualizací</string>
     <string name="donate_data_decode_error">Analýza dat darování se nezdařila, zkuste to prosím znovu!</string>
-    <string name="detailed_donate_data">Zobrazit podrobné údaje</string>
+    <string name="donate_detailed_data">Detailed data</string>
+    <string name="donate_other_currency">Other currencies</string>
+    <string name="donate_info_time">Time</string>
+    <string name="donate_info_money">Money</string>
+    <string name="donate_info_order">Number Of Order</string>
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>

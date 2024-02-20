@@ -763,7 +763,11 @@
     <string name="donate_tv_title">支持开发</string>
     <string name="donate_tv__summary">点击或长按即可向开发者捐赠以支持后续更新</string>
     <string name="donate_data_decode_error">捐赠数据解析失败，请重试！</string>
-    <string name="detailed_donate_data">显示详细数据</string>
+    <string name="donate_detailed_data">详细数据</string>
+    <string name="donate_other_currency">其他货币</string>
+    <string name="donate_info_time">时间</string>
+    <string name="donate_info_money">金额</string>
+    <string name="donate_info_order">订单数</string>
     <!-- Other -->
     <string name="quick_entry">系统快捷入口</string>
     <string name="quick_entry_summary">例如系统界面调节工具,进程管理,工程模式等</string>

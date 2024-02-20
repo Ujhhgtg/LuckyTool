@@ -763,7 +763,11 @@
     <string name="donate_tv_title">開発をサポート</string>
     <string name="donate_tv__summary">タップまたは長押しして開発者に寄付し、今後のアップデートを支援します</string>
     <string name="donate_data_decode_error">寄付データの解析に失敗しました。もう一度やり直してください！</string>
-    <string name="detailed_donate_data">詳細データを表示</string>
+    <string name="donate_detailed_data">Detailed data</string>
+    <string name="donate_other_currency">Other currencies</string>
+    <string name="donate_info_time">Time</string>
+    <string name="donate_info_money">Money</string>
+    <string name="donate_info_order">Number Of Order</string>
     <!-- Other -->
     <string name="quick_entry">システムクイックエントリー</string>
     <string name="quick_entry_summary">例: システムUI調整ツール、プロセスマネージャー、エンジニアリングモードなど</string>

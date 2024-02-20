@@ -763,7 +763,11 @@
     <string name="donate_tv_title">Support Development</string>
     <string name="donate_tv__summary">Click or long press to donate to the developer to support future updates</string>
     <string name="donate_data_decode_error">Donation data parsing failed, please try again!</string>
-    <string name="detailed_donate_data">Show detailed data</string>
+    <string name="donate_detailed_data">Detailed data</string>
+    <string name="donate_other_currency">Other currencies</string>
+    <string name="donate_info_time">Time</string>
+    <string name="donate_info_money">Money</string>
+    <string name="donate_info_order">Number Of Order</string>
     <!-- Other -->
     <string name="quick_entry">Швидкий вхід до системи</string>
     <string name="quick_entry_summary">Наприклад, інструменти налаштування системного інтерфейсу, управління процесами, режим проекту тощо.</string>
