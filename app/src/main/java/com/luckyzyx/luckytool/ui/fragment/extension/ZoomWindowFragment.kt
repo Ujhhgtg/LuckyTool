@@ -154,6 +154,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
             }
+
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
         }
@@ -233,12 +234,13 @@ class ZoomWindowAdapter(
 
     val getFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
+            val filterStr = constraint.toString().lowercase()
             filterDatas = if (constraint.isBlank()) allDatas
             else {
                 val filterlist = ArrayList<AppInfo>()
                 allDatas.forEach {
-                    if (it.name.lowercase().contains(constraint.toString().lowercase())
-                        || it.packageName.lowercase().contains(constraint.toString().lowercase())
+                    if (it.name.lowercase().contains(filterStr)
+                        || it.packageName.lowercase().contains(filterStr)
                     ) filterlist.add(it)
                 }
                 filterlist
@@ -249,8 +251,8 @@ class ZoomWindowAdapter(
         }
 
         @Suppress("UNCHECKED_CAST")
-        override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-            filterDatas = results?.values as ArrayList<AppInfo>
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            filterDatas = results.values as ArrayList<AppInfo>
             refreshDatas()
         }
     }

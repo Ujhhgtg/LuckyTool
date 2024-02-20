@@ -170,15 +170,15 @@ class ActivityInfoSelector(
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterStr = constraint.toString().lowercase()
                 filterDatas = if (constraint.isBlank()) allDatas
                 else {
                     val filterlist = ArrayList<ActivityInfo>()
                     allDatas.forEach {
                         val label =
                             if (context != null) it.loadLabel(context.packageManager) else ""
-                        if (it.name.lowercase().contains(constraint.toString().lowercase())
-                            || label.toString().lowercase()
-                                .contains(constraint.toString().lowercase())
+                        if (it.name.lowercase().contains(filterStr)
+                            || label.toString().lowercase().contains(filterStr)
                         ) filterlist.add(it)
                     }
                     filterlist
@@ -189,8 +189,8 @@ class ActivityInfoSelector(
             }
 
             @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                filterDatas = results?.values as ArrayList<ActivityInfo>
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                filterDatas = results.values as ArrayList<ActivityInfo>
                 refreshDatas()
             }
         }
@@ -270,15 +270,15 @@ class ActivityInfoSelector(
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterStr = constraint.toString().lowercase()
                 filterDatas = if (constraint.isBlank()) allDatas
                 else {
                     val filterlist = ArrayList<ActivityInfo>()
                     allDatas.forEach {
                         val label =
                             if (context != null) it.loadLabel(context.packageManager) else ""
-                        if (it.name.lowercase().contains(constraint.toString().lowercase())
-                            || label.toString().lowercase()
-                                .contains(constraint.toString().lowercase())
+                        if (it.name.lowercase().contains(filterStr)
+                            || label.toString().lowercase().contains(filterStr)
                         ) filterlist.add(it)
                     }
                     filterlist
@@ -289,8 +289,8 @@ class ActivityInfoSelector(
             }
 
             @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                filterDatas = results?.values as ArrayList<ActivityInfo>
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                filterDatas = results.values as ArrayList<ActivityInfo>
                 refreshDatas()
             }
         }

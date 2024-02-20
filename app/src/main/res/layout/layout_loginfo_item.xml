@@ -5,8 +5,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/listPreferredItemHeight"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
-        android:clickable="true">
+        android:paddingVertical="12dp">
     
     <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/log_icon"

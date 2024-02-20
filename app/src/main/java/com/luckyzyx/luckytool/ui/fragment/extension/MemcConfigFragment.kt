@@ -343,12 +343,12 @@ class MemcPackageFragment : Fragment() {
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterStr = constraint.toString().lowercase()
                 filterDatas = if (constraint.isBlank()) {
                     allDatas
                 } else {
                     val filterlist = ArrayList<MemcConfigPackage>()
                     allDatas.forEach {
-                        val filterStr = constraint.toString().lowercase()
                         if (it.packName.lowercase().contains(filterStr)) filterlist.add(it)
                     }
                     filterlist
@@ -586,12 +586,12 @@ class MemcActivityFragment : Fragment() {
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterStr = constraint.toString().lowercase()
                 filterDatas = if (constraint.isBlank()) {
                     allDatas
                 } else {
                     val filterlist = ArrayList<MemcConfigActivity>()
                     allDatas.forEach {
-                        val filterStr = constraint.toString().lowercase()
                         if (it.packName.lowercase().contains(filterStr)
                             || it.activity.lowercase().contains(filterStr)
                         ) filterlist.add(it)

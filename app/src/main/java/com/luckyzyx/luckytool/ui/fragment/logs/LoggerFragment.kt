@@ -11,6 +11,7 @@ import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
@@ -109,12 +110,10 @@ class LoggerFragment : Fragment(), MenuProvider {
     override fun onResume() {
         super.onResume()
 
-        if (logFuncController == null) {
-            requireActivity().bindRootService(
-                GlobalFuncControllerService::class.java, { _, iBinder ->
-                    logFuncController = IGlobalFuncController.Stub.asInterface(iBinder)
-                })
-        }
+        if (logFuncController == null) requireActivity().bindRootService(
+            GlobalFuncControllerService::class.java, { _, iBinder ->
+                logFuncController = IGlobalFuncController.Stub.asInterface(iBinder)
+            })
 
         loadLogger()
     }
@@ -263,12 +262,13 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
 
     init {
         allData = data
-        filterData = data
+        filterData = allData
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            LayoutLoginfoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LayoutLoginfoItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -310,14 +310,12 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
 
     val getFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
-            filterData = if (constraint.isBlank()) {
-                allData
-            } else {
+            val filterStr = constraint.toString().lowercase()
+            filterData = if (constraint.isBlank()) allData
+            else {
                 val filterlist = ArrayList<YLogData>()
                 allData.forEach {
-                    if (it.toString().lowercase().contains(constraint.toString().lowercase())) {
-                        filterlist.add(it)
-                    }
+                    if (it.toString().lowercase().contains(filterStr)) filterlist.add(it)
                 }
                 filterlist
             }
@@ -327,8 +325,8 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
         }
 
         @Suppress("UNCHECKED_CAST")
-        override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-            filterData = results?.values as ArrayList<YLogData>
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            filterData = results.values as ArrayList<YLogData>
             refreshDatas()
         }
     }
@@ -339,7 +337,7 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
     }
 
     class ViewHolder(binding: LayoutLoginfoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val logRoot = binding.root
+        val logRoot: ConstraintLayout = binding.root
         val logIcon: ImageView = binding.logIcon
         val logTime: TextView = binding.logTime
         val logMsg: TextView = binding.logMsg
