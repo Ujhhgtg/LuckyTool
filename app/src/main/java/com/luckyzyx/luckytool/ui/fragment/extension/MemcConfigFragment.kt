@@ -327,7 +327,7 @@ class MemcPackageFragment : Fragment() {
             holder.card.setOnLongClickListener(null)
 
             holder.card.setOnClickListener {
-                addOrEditData(config, position)
+                addOrEditData(config)
             }
 
             holder.packageName.apply {
@@ -348,9 +348,8 @@ class MemcPackageFragment : Fragment() {
                 } else {
                     val filterlist = ArrayList<MemcConfigPackage>()
                     allDatas.forEach {
-                        if (it.packName.lowercase()
-                                .contains(constraint.toString().lowercase())
-                        ) filterlist.add(it)
+                        val filterStr = constraint.toString().lowercase()
+                        if (it.packName.lowercase().contains(filterStr)) filterlist.add(it)
                     }
                     filterlist
                 }
@@ -360,8 +359,8 @@ class MemcPackageFragment : Fragment() {
             }
 
             @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                filterDatas = results?.values as ArrayList<MemcConfigPackage>
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                filterDatas = results.values as ArrayList<MemcConfigPackage>
                 refreshDatas()
             }
         }
@@ -371,7 +370,7 @@ class MemcPackageFragment : Fragment() {
             notifyDataSetChanged()
         }
 
-        fun addOrEditData(config: MemcConfigPackage? = null, position: Int? = null) {
+        fun addOrEditData(config: MemcConfigPackage? = null) {
             val binding = DialogMemcConfigLayoutBinding.inflate(LayoutInflater.from(context))
             binding.packageLayout.hint = "PackageName"
             binding.activityLayout.isVisible = false
@@ -406,12 +405,15 @@ class MemcPackageFragment : Fragment() {
                     val type = binding.typeView.text?.toString()
                     if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
                         val newConfig = MemcConfigPackage(packageName, rate, type)
-                        if (position != null) filterDatas[position] = newConfig
-                        else filterDatas.add(newConfig)
+                        if (config != null) {
+                            val index = allDatas.indexOf(config)
+                            if (index != -1) allDatas[index] = newConfig
+                            else allDatas.add(newConfig)
+                        } else allDatas.add(newConfig)
                         saveAllData()
                     } else context.showToast("Data is incomplete!")
                 }
-                if (config != null && position != null) {
+                if (config != null) {
                     setNeutralButton(R.string.common_words_remove) { _, _ ->
                         MaterialAlertDialogBuilder(context, dialogCentered).apply {
                             val msg = context.getString(
@@ -419,7 +421,7 @@ class MemcPackageFragment : Fragment() {
                             )
                             setMessage(msg)
                             setPositiveButton(android.R.string.ok) { _, _ ->
-                                filterDatas.removeAt(position)
+                                allDatas.remove(config)
                                 saveAllData()
                             }
                             setNeutralButton(android.R.string.cancel, null)
@@ -432,9 +434,10 @@ class MemcPackageFragment : Fragment() {
 
         private fun saveAllData() {
             val set = ArraySet<String>()
-            filterDatas.forEach {
+            allDatas.forEach {
                 set.add(it.toJSONObject().toString())
             }
+            filterDatas = allDatas
             if (set.isNotEmpty()) {
                 context.putStringSet(ModulePrefs, configPackageList, set.toSet())
             }
@@ -567,7 +570,7 @@ class MemcActivityFragment : Fragment() {
             holder.card.setOnLongClickListener(null)
 
             holder.card.setOnClickListener {
-                addOrEditData(config, position)
+                addOrEditData(config)
             }
 
             holder.packageName.apply {
@@ -588,8 +591,9 @@ class MemcActivityFragment : Fragment() {
                 } else {
                     val filterlist = ArrayList<MemcConfigActivity>()
                     allDatas.forEach {
-                        if (it.packName.lowercase()
-                                .contains(constraint.toString().lowercase())
+                        val filterStr = constraint.toString().lowercase()
+                        if (it.packName.lowercase().contains(filterStr)
+                            || it.activity.lowercase().contains(filterStr)
                         ) filterlist.add(it)
                     }
                     filterlist
@@ -600,13 +604,13 @@ class MemcActivityFragment : Fragment() {
             }
 
             @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults?) {
-                filterDatas = results?.values as ArrayList<MemcConfigActivity>
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                filterDatas = results.values as ArrayList<MemcConfigActivity>
                 refreshDatas()
             }
         }
 
-        fun addOrEditData(config: MemcConfigActivity? = null, position: Int? = null) {
+        fun addOrEditData(config: MemcConfigActivity? = null) {
             val binding = DialogMemcConfigLayoutBinding.inflate(LayoutInflater.from(context))
             binding.packageLayout.hint = "PackageName"
             binding.activityLayout.hint = "ActivityName"
@@ -669,12 +673,14 @@ class MemcActivityFragment : Fragment() {
                     val type = binding.typeView.text?.toString()
                     if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
                         val newConfig = MemcConfigActivity(packageName, activity, type)
-                        if (position != null) filterDatas[position] = newConfig
-                        else filterDatas.add(newConfig)
+                        if (config != null) {
+                            val index = allDatas.indexOf(config)
+                            if (index != -1) allDatas[index] = newConfig
+                        } else allDatas.add(newConfig)
                         saveAllData()
                     } else context.showToast("Data is incomplete!")
                 }
-                if (config != null && position != null) {
+                if (config != null) {
                     setNeutralButton(R.string.common_words_remove) { _, _ ->
                         MaterialAlertDialogBuilder(context, dialogCentered).apply {
                             val msg = context.getString(
@@ -683,7 +689,7 @@ class MemcActivityFragment : Fragment() {
                             )
                             setMessage(msg)
                             setPositiveButton(android.R.string.ok) { _, _ ->
-                                filterDatas.removeAt(position)
+                                allDatas.remove(config)
                                 saveAllData()
                             }
                             setNeutralButton(android.R.string.cancel, null)
@@ -701,9 +707,10 @@ class MemcActivityFragment : Fragment() {
 
         private fun saveAllData() {
             val set = ArraySet<String>()
-            filterDatas.forEach {
+            allDatas.forEach {
                 set.add(it.toJSONObject().toString())
             }
+            filterDatas = allDatas
             if (set.isNotEmpty()) {
                 context.putStringSet(ModulePrefs, configActivityList, set.toSet())
             }
