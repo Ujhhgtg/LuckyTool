@@ -18,18 +18,9 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             matcher {
                 declaredClass {
                     addFieldForType(ListClass)
-                    addMethod {
-                        paramCount(0)
-                        returnType(BooleanType)
-                    }
-                    addMethod {
-                        paramCount(0)
-                        returnType(UnitType)
-                    }
-                    addMethod {
-                        paramTypes(ContextClass)
-                        returnType(UnitType)
-                    }
+                    addMethod { paramCount(0);returnType(BooleanType) }
+                    addMethod { paramCount(0);returnType(UnitType) }
+                    addMethod { paramTypes(ContextClass);returnType(UnitType) }
                 }
                 paramCount(0)
                 returnType(BooleanType)

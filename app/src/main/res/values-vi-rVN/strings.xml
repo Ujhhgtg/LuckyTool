@@ -563,6 +563,8 @@
     <string name="remove_settings_bottom_laboratory">Xóa phòng thí nghiệm phía dưới cài đặt</string>
     <string name="force_display_bottom_google_settings">Buộc hiển thị Google ở cuối cài đặt</string>
     <!--Camera-->
+    <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
+    <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn ký tự ở hình mờ tùy chỉnh</string>
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>

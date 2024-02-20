@@ -563,6 +563,8 @@
     <string name="remove_settings_bottom_laboratory">Remove settings bottom laboratory</string>
     <string name="force_display_bottom_google_settings">Примусово показувати Google внизу налаштувань</string>
     <!--Camera-->
+    <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
+    <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
     <string name="CameraWaterMark">WaterMark</string>
     <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
     <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>

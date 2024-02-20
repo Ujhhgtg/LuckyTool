@@ -563,6 +563,8 @@
     <string name="remove_settings_bottom_laboratory">Odstranit nastavení laboratoře</string>
     <string name="force_display_bottom_google_settings">Vynutit zobrazení Google v dolní části nastavení</string>
     <!--Camera-->
+    <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
+    <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit znaků pro vlastní vodoznaky</string>
     <string name="enable_frame_watermark_style">Povolit styl rámečku vodoznaku</string>

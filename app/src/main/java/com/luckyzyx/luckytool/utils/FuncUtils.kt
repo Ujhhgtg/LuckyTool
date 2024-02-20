@@ -642,15 +642,13 @@ val getLcdInfo: String
  */
 val getPcbInfo: String
     get() : String = ShellUtils.fastCmd("echo \$(getprop gsm.serial)\$(getprop vendor.gsm.serial)")
-        .let { if ((it.isNotBlank())) it.replaceSpace else "null" }
+        .ifBlank { "null" }
 
 /**
  * 获取SN信息
  */
 val getSnInfo: String
-    get() : String = ShellUtils.fastCmd("getprop ro.serialno").let {
-        if ((it.isNotBlank())) it.replaceSpace else "null"
-    }
+    get() : String = ShellUtils.fastCmd("getprop ro.serialno").ifBlank { "null" }
 
 /**
  * 正常编码中一般只会用到 [dp]/[sp] ;

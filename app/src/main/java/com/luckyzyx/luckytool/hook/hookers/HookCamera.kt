@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hookers
 
 import android.os.Build
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.camera.CustomCameraOpenGalleryByDefault
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomModelWaterMark
 import com.luckyzyx.luckytool.hook.scopes.camera.HookCameraConfig
 import com.luckyzyx.luckytool.hook.scopes.camera.RemoveWatermarkWordLimit
@@ -10,9 +11,12 @@ import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getAppVerInfo
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookCamera : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
         if (appVer?.versionCommit.isNullOrBlank()) return
 
@@ -28,6 +32,8 @@ object HookCamera : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_watermark_word_limit", false)) {
                 loadHooker(RemoveWatermarkWordLimit(dexKitBridge))
             }
+            //自定义默认打开相册
+            if (osCode >= 26) loadHooker(CustomCameraOpenGalleryByDefault(dexKitBridge))
         }
     }
 }

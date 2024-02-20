@@ -3318,6 +3318,32 @@ class OplusCamera : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(Preference(context).apply {
+                key = "custom_camera_open_gallery_by_default"
+                title = getString(R.string.custom_camera_open_gallery_by_default)
+                summary = arraySummaryLine(
+                    context.getString(ModulePrefs, key, "")?.ifBlank { "None" }
+                )
+                isVisible = osCode >= 26
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    AppInfoSelector(context, true).apply {
+                        setOnSelectAppListener(object : OnSelectAppInfoListener {
+                            override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                if (list.size > 1) {
+                                    context.showToast(getString(R.string.custom_camera_open_gallery_by_default_tips))
+                                    return
+                                }
+                                val packName = list.firstOrNull()?.packageName ?: ""
+                                context.putString(ModulePrefs, key, packName)
+                                (activity as MainActivity).restart()
+                            }
+                        })
+                        show()
+                    }
+                    true
+                }
+            })
             //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraWaterMark)
