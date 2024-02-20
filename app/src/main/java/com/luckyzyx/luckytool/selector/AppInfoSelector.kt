@@ -26,7 +26,6 @@ import com.luckyzyx.luckytool.databinding.DialogAppInfoSelectorLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoCheckboxItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
-import com.luckyzyx.luckytool.listener.OnSortChipListener
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -104,7 +103,16 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
 
     private fun initSortFilterSelector() {
         sortFilterSelector = SortFilterSelector(context).apply {
-            setSortChips(true, context.resources.getStringArray(R.array.sort_selector_chips))
+            setReverse(true) { _, isChecked ->
+                isReverse = isChecked
+                loadData()
+            }
+            setSortChips(
+                true, context.resources.getStringArray(R.array.sort_selector_chips)
+            ) { _, checkedIds ->
+                sortMode = checkedIds.firstOrNull() ?: 0
+                loadData()
+            }
             setFilterChips(true, arrayOf(Chip(context).apply {
                 text = context.getString(R.string.appinfo_system_app)
                 isCheckable = true
@@ -116,17 +124,6 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                     loadData()
                 }
             }))
-            setOnSortChipListener(object : OnSortChipListener {
-                override fun onReverseChange(isReverse: Boolean) {
-                    this@AppInfoSelector.isReverse = isReverse
-                    loadData()
-                }
-
-                override fun onSortModeChange(sortMode: Int) {
-                    this@AppInfoSelector.sortMode = sortMode
-                    loadData()
-                }
-            })
         }
     }
 
@@ -279,9 +276,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
 
     @Obfuscate
     class AppInfoMultiSelectorAdapter(
-        dialog: AlertDialog?,
-        allAppInfos: ArrayList<AppInfo>,
-        allEnableInfos: ArrayList<AppInfo>
+        dialog: AlertDialog?, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
     ) : RecyclerView.Adapter<MultiViewHolder>() {
         val context = dialog?.context
 

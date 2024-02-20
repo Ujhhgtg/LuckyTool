@@ -26,7 +26,6 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
-import com.luckyzyx.luckytool.listener.OnSortChipListener
 import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
@@ -66,7 +65,16 @@ class MultiAppFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sortFilterSelector = SortFilterSelector(requireActivity()).apply {
-            setSortChips(true, context.resources.getStringArray(R.array.sort_selector_chips))
+            setReverse(true) { _, isChecked ->
+                isReverse = isChecked
+                loadData()
+            }
+            setSortChips(
+                true, context.resources.getStringArray(R.array.sort_selector_chips)
+            ) { _, checkedIds ->
+                sortMode = checkedIds.firstOrNull() ?: 0
+                loadData()
+            }
             setFilterChips(true, arrayOf(Chip(context).apply {
                 text = context.getString(R.string.appinfo_system_app)
                 isCheckable = true
@@ -78,17 +86,6 @@ class MultiAppFragment : Fragment(), MenuProvider {
                     loadData()
                 }
             }))
-            setOnSortChipListener(object : OnSortChipListener {
-                override fun onReverseChange(isReverse: Boolean) {
-                    this@MultiAppFragment.isReverse = isReverse
-                    loadData()
-                }
-
-                override fun onSortModeChange(sortMode: Int) {
-                    this@MultiAppFragment.sortMode = sortMode
-                    loadData()
-                }
-            })
         }
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"

@@ -25,6 +25,8 @@
                 app:boxCornerRadiusBottomStart="10dp"
                 app:boxCornerRadiusBottomEnd="10dp"
                 android:layout_width="match_parent"
+                app:hintEnabled="true"
+                app:hintAnimationEnabled="true"
                 app:endIconMode="clear_text"
                 android:layout_height="wrap_content">
             

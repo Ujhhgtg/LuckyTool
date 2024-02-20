@@ -28,7 +28,6 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
-import com.luckyzyx.luckytool.listener.OnSortChipListener
 import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.*
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -64,7 +63,16 @@ class DarkModeFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sortFilterSelector = SortFilterSelector(requireActivity()).apply {
-            setSortChips(true, context.resources.getStringArray(R.array.sort_selector_chips))
+            setReverse(true) { _, isChecked ->
+                isReverse = isChecked
+                loadData()
+            }
+            setSortChips(
+                true, context.resources.getStringArray(R.array.sort_selector_chips)
+            ) { _, checkedIds ->
+                sortMode = checkedIds.firstOrNull() ?: 0
+                loadData()
+            }
             setFilterChips(true, arrayOf(Chip(context).apply {
                 text = context.getString(R.string.appinfo_system_app)
                 isCheckable = true
@@ -76,17 +84,6 @@ class DarkModeFragment : Fragment(), MenuProvider {
                     loadData()
                 }
             }))
-            setOnSortChipListener(object : OnSortChipListener {
-                override fun onReverseChange(isReverse: Boolean) {
-                    this@DarkModeFragment.isReverse = isReverse
-                    loadData()
-                }
-
-                override fun onSortModeChange(sortMode: Int) {
-                    this@DarkModeFragment.sortMode = sortMode
-                    loadData()
-                }
-            })
         }
         binding.enableSwitch.apply {
             text = context.getString(R.string.enable_dark_mode_list)

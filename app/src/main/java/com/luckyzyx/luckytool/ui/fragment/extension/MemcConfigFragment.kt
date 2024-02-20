@@ -229,9 +229,7 @@ class MemcPackageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         scopeLife {
             binding.searchViewLayout.apply {
-                hint = "PackageName / ActivityName"
-                isHintEnabled = true
-                isHintAnimationEnabled = true
+                hint = "PackageName"
             }
             binding.searchView.apply {
                 addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
@@ -475,8 +473,6 @@ class MemcActivityFragment : Fragment() {
         scopeLife {
             binding.searchViewLayout.apply {
                 hint = "PackageName / ActivityName"
-                isHintEnabled = true
-                isHintAnimationEnabled = true
             }
             binding.searchView.apply {
                 addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
