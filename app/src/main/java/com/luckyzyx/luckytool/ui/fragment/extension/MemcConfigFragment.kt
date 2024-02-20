@@ -379,23 +379,18 @@ class MemcPackageFragment : Fragment() {
             binding.typeLayout.hint = "Type"
 
             if (config != null) {
-                binding.packageName.setText(config.packName)
+                binding.packageView.setText(config.packName)
                 binding.rateView.setText(config.rate)
                 binding.typeView.setText(config.type)
             }
 
-            var packageName = binding.packageName.text?.toString()
-            val rate = binding.rateView.text?.toString()
-            val type = binding.typeView.text?.toString()
-
-            binding.packageName.apply {
+            binding.packageView.apply {
                 setOnClickListener {
                     AppInfoSelector(context, false).apply {
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 if (list.isEmpty()) return
                                 setText(list.first().packageName)
-                                packageName = list.first().packageName
                             }
                         })
                         show()
@@ -406,8 +401,11 @@ class MemcPackageFragment : Fragment() {
             MaterialAlertDialogBuilder(context, dialogCentered).apply {
                 setView(binding.root)
                 setPositiveButton(android.R.string.ok) { _, _ ->
+                    val packageName = binding.packageView.text?.toString()
+                    val rate = binding.rateView.text?.toString()
+                    val type = binding.typeView.text?.toString()
                     if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
-                        val newConfig = MemcConfigPackage(packageName!!, rate, type)
+                        val newConfig = MemcConfigPackage(packageName, rate, type)
                         if (position != null) filterDatas[position] = newConfig
                         else filterDatas.add(newConfig)
                         saveAllData()
@@ -616,23 +614,18 @@ class MemcActivityFragment : Fragment() {
             binding.typeLayout.hint = "Type"
 
             if (config != null) {
-                binding.packageName.setText(config.packName)
-                binding.activityName.setText(config.activity)
+                binding.packageView.setText(config.packName)
+                binding.activityView.setText(config.activity)
                 binding.typeView.setText(config.type)
             }
 
-            var packageName = binding.packageName.text?.toString()
-            var activity = binding.activityName.text?.toString()
-            val type = binding.typeView.text?.toString()
-
-            binding.packageName.apply {
+            binding.packageView.apply {
                 setOnClickListener {
                     AppInfoSelector(context, false).apply {
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 if (list.isEmpty()) return
                                 setText(list.first().packageName)
-                                packageName = list.first().packageName
                             }
                         })
                         show()
@@ -640,8 +633,9 @@ class MemcActivityFragment : Fragment() {
                 }
             }
 
-            binding.activityName.apply {
+            binding.activityView.apply {
                 setOnClickListener {
+                    val packageName = binding.packageView.text?.toString()
                     val packInfo = packageName?.let {
                         PackageUtils(context.packageManager).getPackageInfo(
                             it, PackageManager.GET_ACTIVITIES
@@ -660,7 +654,6 @@ class MemcActivityFragment : Fragment() {
                             override fun resultSelectActivityInfos(list: ArrayList<ActivityInfo>) {
                                 if (list.isEmpty()) return
                                 setText(list.first().name)
-                                activity = list.first().name
                             }
                         })
                         show()
@@ -671,8 +664,11 @@ class MemcActivityFragment : Fragment() {
             MaterialAlertDialogBuilder(context, dialogCentered).apply {
                 setView(binding.root)
                 setPositiveButton(android.R.string.ok) { _, _ ->
+                    val packageName = binding.packageView.text?.toString()
+                    val activity = binding.activityView.text?.toString()
+                    val type = binding.typeView.text?.toString()
                     if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
-                        val newConfig = MemcConfigActivity(packageName!!, activity!!, type)
+                        val newConfig = MemcConfigActivity(packageName, activity, type)
                         if (position != null) filterDatas[position] = newConfig
                         else filterDatas.add(newConfig)
                         saveAllData()

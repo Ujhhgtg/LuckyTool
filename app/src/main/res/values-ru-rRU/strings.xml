@@ -764,11 +764,11 @@
     <string name="donate_tv_title">Поддержать разработку</string>
     <string name="donate_tv__summary">Нажмите или удерживайте, чтобы пожертвовать разработчику для поддержки будущих обновлений</string>
     <string name="donate_data_decode_error">Ошибка разбора данных при пожертвовании, попробуйте еще раз!</string>
-    <string name="donate_detailed_data">Detailed data</string>
-    <string name="donate_other_currency">Other currencies</string>
-    <string name="donate_info_time">Time</string>
-    <string name="donate_info_money">Money</string>
-    <string name="donate_info_order">Number Of Order</string>
+    <string name="donate_detailed_data">Подробные данные</string>
+    <string name="donate_other_currency">Другие валюты</string>
+    <string name="donate_info_time">Время</string>
+    <string name="donate_info_money">Деньги</string>
+    <string name="donate_info_order">Номер заказа</string>
     <!-- Other -->
     <string name="quick_entry">Быстрый вход в систему</string>
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>
