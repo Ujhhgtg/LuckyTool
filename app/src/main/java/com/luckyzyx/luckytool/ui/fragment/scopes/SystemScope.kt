@@ -2459,16 +2459,16 @@ class Application : BaseScopePreferenceFeagment() {
             })
             addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.set_multi_app_support_mode)
+                key = "set_multi_app_support_mode"
+                val curMode = context.getString(ModulePrefs, key, "0")
                 summary = arraySummaryLine(
                     getString(R.string.common_words_current_mode) + ": %s",
-                    getString(R.string.need_restart_system)
+                    getString(R.string.need_restart_system),
+                    getString(R.string.set_multi_app_support_mode_tips)
                 )
-                key = "set_multi_app_support_mode"
-                var modes = resources.getStringArray(R.array.set_multi_app_support_mode_entries)
-                if (getOSVersionCode < 27 && modes.size == 3) {
-                    modes = modes.toMutableList().apply { removeLastOrNull() }.toTypedArray()
-                }
-                entries = modes
+                entries = if (getOSVersionCode < 27) {
+                    resources.getStringArray(R.array.set_multi_app_support_mode_low_entries)
+                } else resources.getStringArray(R.array.set_multi_app_support_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -2479,17 +2479,18 @@ class Application : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            addPreference(Preference(context).apply {
-                title = getString(R.string.multi_app_custom_list)
-                summary = getString(R.string.multi_app_custom_list_summary)
-                key = "multi_app_custom_list"
-                isVisible = context.getString(ModulePrefs, "set_multi_app_support_mode", "0") == "1"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.action_application_to_multiFragment, title)
-                    true
-                }
-            })
+            if (context.getString(ModulePrefs, "set_multi_app_support_mode", "0") == "1") {
+                addPreference(Preference(context).apply {
+                    title = getString(R.string.multi_app_custom_list)
+                    summary = getString(R.string.multi_app_custom_list_summary)
+                    key = "multi_app_custom_list"
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        navigatePage(R.id.action_application_to_multiFragment, title)
+                        true
+                    }
+                })
+            }
             //应用安装
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AppInstallationRelated)

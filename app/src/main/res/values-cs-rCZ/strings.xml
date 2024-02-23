@@ -96,8 +96,8 @@
     <string name="package_name">Název balíčku</string>
     <string name="version">Verze</string>
     <!--Android-->
-    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
+    <string name="set_ltpo_refresh_rate_mode">Nastavit režim obnovovací frekvence LTPO</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Povolit minimální obnovovací frekvenci plného jasu na 1</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Oficiální instalátor pro Color OS musí umožnit ostatním funkcím používat\nSeznam funkcí-Vztahující se k aplikacím-Vztahující se k instalaci aplikací</string>
     <string name="corepatch">Hlavní patch</string>
@@ -176,7 +176,7 @@
     <string name="remove_notification_manager_limit">Odstranit limit správce oznámení</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
-    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
+    <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Ikony ve stavové liště</string>
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>
@@ -215,7 +215,7 @@
     <string name="enable_notification_align_both_sides">Povolit zarovnání notifikací z obou stran</string>
     <string name="enable_notification_importance_classification">Povolit klasifikaci důležitosti pro notifikace</string>
     <string name="custom_notification_background_transparency">Vlastní průhlednost pozadí panelu notifikací</string>
-    <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
+    <string name="enable_notification_background_blur_effect">Povolit efekt rozostření pozadí oznámení</string>
     <string name="ControlCenter_UI_Related">Nastavení související s UI</string>
     <string name="set_media_player_display_mode">Nastavit režim zobrazení přehrávače médií</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Skrýt pokud se nepřehrávají žádná média</string>
@@ -273,7 +273,7 @@
     <string name="StatusBarBattery">Baterie ve stavové liště</string>
     <string name="remove_statusbar_battery_percent">Zobrazit procento nabití baterie ve stavové liště</string>
     <string name="statusbar_power_font_size">Velikost písma napájení ve stavové liště</string>
-    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
+    <string name="statusbar_power_apply_to_battery_icon">Použít pro ikonu baterie</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Oznámení baterie ve stavové liště</string>
     <string name="battery_information_notify_permanent_display">Trvalé zobrazení</string>
@@ -298,8 +298,8 @@
     <string name="battery_status_full">Nabito</string>
     <string name="battery_temperature">Teplota</string>
     <string name="battery_voltage">Napětí</string>
-    <string name="battery_electric_current">Cur</string>
-    <string name="battery_health">Hlt</string>
+    <string name="battery_electric_current">Aktuální</string>
+    <string name="battery_health">Zdraví</string>
     <string name="battery_charger_voltage">Napětí</string>
     <string name="battery_charger_type">Typ</string>
     <string name="battery_power">Spotřeba</string>
@@ -406,6 +406,7 @@
     <string name="APPRelatedList">Nastavení související se seznamem aplikací</string>
     <string name="set_multi_app_support_mode">Nastavit režim podpory více aplikací</string>
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
+    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app list, and you need to install the app cloneer for Realme models</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
@@ -478,7 +479,7 @@
     <string name="minimum_volume_level_can_be_zero">Minimální úroveň hlasitosti může být nula</string>
     <string name="enable_app_specific_media_volume">Povolit hlasitost pro každou aplikaci zvlášť</string>
     <string name="enable_app_specific_media_volume_summary">Tato funkce vyžaduje podporu systému, aby fungovala</string>
-    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
+    <string name="enable_app_specific_media_volume_tips">Některé modely mohou způsobit selhání systému ui kvůli neúplnému systémovému kódu. Proveďte opatření pro ochranu</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">Různé</string>
     <string name="Miscellaneous_summary">Zde jsou umístěna různá další specifická nastavení</string>
@@ -550,7 +551,7 @@
     <string name="settings_authority_and_privacy">Oprávnění a soukromí</string>
     <string name="enable_vip_mode">Aktivovat VIP režim</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
-    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
+    <string name="enable_touch_membrane_protector_mode">Povolit režim ochrany dotykové membrány</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
@@ -563,8 +564,8 @@
     <string name="remove_settings_bottom_laboratory">Odstranit nastavení laboratoře</string>
     <string name="force_display_bottom_google_settings">Vynutit zobrazení Google v dolní části nastavení</string>
     <!--Camera-->
-    <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
-    <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
+    <string name="custom_camera_open_gallery_by_default">Přizpůsobit galerii, která se otevírá ve výchozím nastavení</string>
+    <string name="custom_camera_open_gallery_by_default_tips">Povolit výběr pouze jedné galerie!</string>
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit znaků pro vlastní vodoznaky</string>
     <string name="enable_frame_watermark_style">Povolit styl rámečku vodoznaku</string>
@@ -589,7 +590,7 @@
     <string name="enable_photo_editor_gif_synthesis">Povolit syntézu gif</string>
     <string name="enable_lns_cut_photo">Povolit vyříznutí části fotky</string>
     <string name="remove_aigc_elimination_limit">Odstraňte omezení mazání AIGC</string>
-    <string name="remove_aigc_elimination_limit_summary">Mainly solves problems that cannot be eliminated due to image violations</string>
+    <string name="remove_aigc_elimination_limit_summary">Řeší především problémy, které nelze vyřešit kvůli poruchám obrazu</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Rozložení</string>
     <string name="remove_startup_animation">Odstranit úvodní animaci</string>
@@ -619,8 +620,8 @@
     <string name="remove_game_voice_changer_whitelist">Odstranit omezení měniče hlasu</string>
     <string name="remove_game_assistant_temperature_detection">Odstranit detekci teploty asistenta hry</string>
     <string name="remove_game_assistant_temperature_detection_summary">Především řeší problém nadměrné teploty v X módu</string>
-    <string name="custom_barrage_notification_whitelist">Custom barrage notification whitelist</string>
-    <string name="custom_barrage_notification_whitelist_message">Add applications based on the original whitelist</string>
+    <string name="custom_barrage_notification_whitelist">Přizpůsobte seznam povolených oznámení</string>
+    <string name="custom_barrage_notification_whitelist_message">Přidat aplikace na základě původního seznamu povolených</string>
     <!--CloudService-->
     <string name="remove_network_limit">Odstranit limit datové sítě</string>
     <string name="remove_network_limit_summary">Odstraňte omezení, že zálohování/obnova nemůže používat mobilní data</string>
@@ -659,7 +660,7 @@
     <string name="force_enable_aon_gestures_summary">Poznámka: AONService (com.aiunit.aon) musí být nainstalován a oprávnění k fotoaparátu musí být uděleno!</string>
     <string name="custom_aon_gesture_scroll_page_whitelist">Vlastní seznam povolených posuvných stránek</string>
     <string name="custom_aon_gesture_video_whitelist">Vlastní seznam gest videí</string>
-    <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
+    <string name="custom_aon_gesture_whitelist_tips">Vyplňte název balíčku, který má být přidán na bílou listinu</string>
     <string name="enable_volume_key_control_flashlight">Povolit ovládání svítilny pomocí tlačítek hlasitosti</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Gesta přes celou obrazovku</string>
@@ -703,7 +704,7 @@
     <string name="unlock_transfer_dock">Odemknout přesun doku</string>
     <string name="unlock_recent_files">Odemknout nedávné soubory</string>
     <string name="unlock_fluid_cloud">Odemknout Fluid Cloud</string>
-    <string name="enable_run_in_background">Enable run in background</string>
+    <string name="enable_run_in_background">Povolit spouštění na pozadí</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Povolit nahrávání hovorů v aplikacích třetích stran</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>
@@ -766,11 +767,11 @@
     <string name="donate_tv_title">Podpořit vývojáře</string>
     <string name="donate_tv__summary">Kliknutím nebo podržením přispějte vývojáři k podpoře budoucích aktualizací</string>
     <string name="donate_data_decode_error">Analýza dat darování se nezdařila, zkuste to prosím znovu!</string>
-    <string name="donate_detailed_data">Detailed data</string>
-    <string name="donate_other_currency">Other currencies</string>
-    <string name="donate_info_time">Time</string>
-    <string name="donate_info_money">Money</string>
-    <string name="donate_info_order">Number Of Order</string>
+    <string name="donate_detailed_data">Podrobné údaje</string>
+    <string name="donate_other_currency">Ostatní měny</string>
+    <string name="donate_info_time">Čas</string>
+    <string name="donate_info_money">Peníze</string>
+    <string name="donate_info_order">Počet objednávek</string>
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>
@@ -812,7 +813,7 @@
     <string name="log_filter_title">Zadejte, co filtrovat</string>
     <string name="log_filter_layout_hint">Např. název balíčku, obsah, a tak dále</string>
     <!--Tile-->
-    <string name="touch_sampling_rate">Touch sampling rate</string>
+    <string name="touch_sampling_rate">Vzorkovací frekvence dotyku</string>
     <string name="high_brightness_mode">Režim vysokého jasu</string>
     <string name="high_performance_mode">Režim vysokého výkonu</string>
     <string name="global_dc">Globální DC</string>
@@ -828,22 +829,22 @@
     <!--Service-->
     <string name="auto_start_service_channel_name">Služba automatického spouštění</string>
     <string name="auto_start_service_channel_title">Funkce automatického startu běží…</string>
-    <string name="service_auto_start_controller_not_allow_tips">The self-starting service is running abnormally, please do not restrict the module background</string>
+    <string name="service_auto_start_controller_not_allow_tips">Služba automatického spouštění nepracuje správně, neomezujte běh modulu na pozad</string>
     <!--Typeface-->
     <string name="use_user_typeface">Použít uživatelský typ písma</string>
     <string name="use_bold_font_style">Použít tučný font písma</string>
     <!--AppInfo-->
-    <string name="appinfo_sort_and_filter">Sort And Filter</string>
-    <string name="appinfo_sort_by">Sort By</string>
-    <string name="appinfo_filter">Filter</string>
-    <string name="appinfo_reverse">Reverse</string>
-    <string name="appinfo_app_name">App Name</string>
-    <string name="appinfo_package_name">Package Name</string>
-    <string name="appinfo_app_size">App Size</string>
-    <string name="appinfo_install_time">Install Time</string>
-    <string name="appinfo_last_updated_time">Last Updated Time</string>
-    <string name="appinfo_target_sdk">Target SDK</string>
-    <string name="appinfo_system_app">System App</string>
+    <string name="appinfo_sort_and_filter">Seřadit a filtrovat</string>
+    <string name="appinfo_sort_by">Seřadit podle</string>
+    <string name="appinfo_filter">Třídit</string>
+    <string name="appinfo_reverse">Obrátit</string>
+    <string name="appinfo_app_name">Název aplikace</string>
+    <string name="appinfo_package_name">Název balíčku</string>
+    <string name="appinfo_app_size">Velikost aplikace</string>
+    <string name="appinfo_install_time">Čas instalace</string>
+    <string name="appinfo_last_updated_time">Čas poslední aktualizace</string>
+    <string name="appinfo_target_sdk">Cílové SDK</string>
+    <string name="appinfo_system_app">Systémová aplikace</string>
     <!--CommonWords-->
     <string name="common_words_enable">Povolit</string>
     <string name="common_words_disable">Zakázat</string>

@@ -136,6 +136,8 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                 setEndIconOnClickListener {
                     sortFilterSelector.show()
                 }
+            } else {
+                endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
             }
         }
     }

@@ -225,6 +225,11 @@
         <item>@string/custom_app_floating_window_display_mode_custom_whitelist</item>
     </string-array>
     
+    <string-array name="set_multi_app_support_mode_low_entries">
+        <item>@string/common_words_default</item>
+        <item>@string/common_words_whitelist</item>
+    </string-array>
+    
     <string-array name="set_multi_app_support_mode_entries">
         <item>@string/common_words_default</item>
         <item>@string/common_words_whitelist</item>

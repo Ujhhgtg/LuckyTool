@@ -249,14 +249,14 @@ class HomeFragment : Fragment(), MenuProvider {
             setIcon(R.drawable.ic_baseline_refresh_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             if (ThemeUtils.isNightMode(resources.configuration)) {
-                this.iconTintList = ColorStateList.valueOf(Color.WHITE)
+                iconTintList = ColorStateList.valueOf(Color.WHITE)
             }
         }
         menu.add(0, 2, 0, getString(R.string.menu_settings)).apply {
             setIcon(R.drawable.ic_baseline_info_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             if (ThemeUtils.isNightMode(resources.configuration)) {
-                this.iconTintList = ColorStateList.valueOf(Color.WHITE)
+                iconTintList = ColorStateList.valueOf(Color.WHITE)
             }
         }
     }

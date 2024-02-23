@@ -19,6 +19,12 @@ class SortFilterSelector(val context: Context) {
         setContentView(binding.root)
     }
 
+    init {
+        binding.sortReverse.isVisible = false
+        binding.sortLayout.isVisible = false
+        binding.filterLayout.isVisible = false
+    }
+
     fun setReverse(enable: Boolean, listener: CompoundButton.OnCheckedChangeListener?) {
         binding.sortReverse.apply {
             isVisible = enable

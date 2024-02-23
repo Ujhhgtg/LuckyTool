@@ -273,7 +273,7 @@
     <string name="StatusBarBattery">Thanh trạng thái Pin</string>
     <string name="remove_statusbar_battery_percent">Xóa phần trăm pin trên thanh trạng thái</string>
     <string name="statusbar_power_font_size">Cỡ chữ đồng hồ thanh trạng thái</string>
-    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
+    <string name="statusbar_power_apply_to_battery_icon">Áp dụng cho biểu tượng pin</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">Tùy chỉnh Pin Thanh Trạng thái</string>
     <string name="battery_information_notify_permanent_display">Hiển thị vĩnh viễn</string>
@@ -406,6 +406,7 @@
     <string name="APPRelatedList">Danh sách ứng dụng liên quan</string>
     <string name="set_multi_app_support_mode">Đặt chế độ hỗ trợ nhân bản ứng dụng</string>
     <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
+    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app list, and you need to install the app cloneer for Realme models</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>
@@ -563,8 +564,8 @@
     <string name="remove_settings_bottom_laboratory">Xóa phòng thí nghiệm phía dưới cài đặt</string>
     <string name="force_display_bottom_google_settings">Buộc hiển thị Google ở cuối cài đặt</string>
     <!--Camera-->
-    <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
-    <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
+    <string name="custom_camera_open_gallery_by_default">Tùy chỉnh thư viện mở theo mặc định</string>
+    <string name="custom_camera_open_gallery_by_default_tips">Chỉ được phép chọn một ứng dụng thư viện ảnh!</string>
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn ký tự ở hình mờ tùy chỉnh</string>
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>
@@ -589,7 +590,7 @@
     <string name="enable_photo_editor_gif_synthesis">Bật bố cục Gif</string>
     <string name="enable_lns_cut_photo">Cho phép cắt một phần ảnh</string>
     <string name="remove_aigc_elimination_limit">Xóa AIGC để xóa các hạn chế</string>
-    <string name="remove_aigc_elimination_limit_summary">Mainly solves problems that cannot be eliminated due to image violations</string>
+    <string name="remove_aigc_elimination_limit_summary">Chủ yếu giải quyết các vấn đề không thể loại bỏ do vi phạm hình ảnh</string>
     <!--OplusGames-->
     <string name="OplusGamesLayout">Bố cục</string>
     <string name="remove_startup_animation">Xóa hoạt ảnh khởi động</string>
@@ -766,11 +767,11 @@
     <string name="donate_tv_title">Hỗ trợ người phát triển</string>
     <string name="donate_tv__summary">Nhấp hoặc nhấn và giữ để quyên góp cho nhà phát triển nhằm hỗ trợ các bản cập nhật trong tương lai</string>
     <string name="donate_data_decode_error">Phân tích dữ liệu quyên góp không thành công, vui lòng thử lại!</string>
-    <string name="donate_detailed_data">Detailed data</string>
-    <string name="donate_other_currency">Other currencies</string>
-    <string name="donate_info_time">Time</string>
-    <string name="donate_info_money">Money</string>
-    <string name="donate_info_order">Number Of Order</string>
+    <string name="donate_detailed_data">Dữ liệu chi tiết</string>
+    <string name="donate_other_currency">Các loại tiền tệ khác</string>
+    <string name="donate_info_time">Thời gian</string>
+    <string name="donate_info_money">Tiền</string>
+    <string name="donate_info_order">Số lượng đặt hàng</string>
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>
