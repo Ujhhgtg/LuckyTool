@@ -2460,7 +2460,6 @@ class Application : BaseScopePreferenceFeagment() {
             addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.set_multi_app_support_mode)
                 key = "set_multi_app_support_mode"
-                val curMode = context.getString(ModulePrefs, key, "0")
                 summary = arraySummaryLine(
                     getString(R.string.common_words_current_mode) + ": %s",
                     getString(R.string.need_restart_system),
