@@ -1,7 +1,7 @@
-**beta测试版本仅在[TG讨论群](https://t.me/+F42pfv-c0h4zNDc9)中发布测试**
+**beta测试版本仅在[TG频道的关联群组](https://t.me/LuckyTool)中发布测试**
 
 **The beta test version is only released for testing
-in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
+in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.1_beta
 
@@ -18,6 +18,7 @@ in [TG Discussion Group](https://t.me/+F42pfv-c0h4zNDc9)**
 - [修复] Memc配置过滤时修改异常问题
 - [添加] 状态栏电池样式应用到图标
 - [添加] 自定义相机默认打开相册 C13.0+
+- [添加] 模块自身请求权限对话框
 
 ### 1.2.0
 

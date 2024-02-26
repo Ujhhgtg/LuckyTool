@@ -820,12 +820,6 @@
     <string name="fiveg_mode">5G スイッチ</string>
     <string name="display_refresh_rate">リフレッシュレートを表示/非表示</string>
     <string name="google_service">Google サービス</string>
-    <!--Permission-->
-    <string name="permission_denied_toast">権限がありません。手動で権限を許可してください: %1$s</string>
-    <string name="permission_error_toast">権限の取得に失敗しました: %1$s</string>
-    <string name="all_files_access_permission">モジュールを正常に使用するために必ずモジュールの権限を許可してください!</string>
-    <string name="get_installed_apps_permission">インストールされたアプリの権限を取得する</string>
-    <string name="get_send_notifications_permission">通知の送信権限を取得</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">自己起動機能サービス</string>
     <string name="auto_start_service_channel_title">自己起動機能を実行中です</string>
@@ -873,6 +867,13 @@
     <string name="common_words_ads">広告</string>
     <string name="common_words_reset">Reset</string>
     <string name="common_words_import">Import</string>
+    <!--Permission-->
+    <string name="send_notification_permission">Send notification permission</string>
+    <string name="all_files_access_permission">All file access permission</string>
+    <string name="installed_apps_permission">Read your app list permission</string>
+    <string name="install_app_permission">Install app permissions</string>
+    <string name="permission_denied_toast">権限がありません。手動で権限を許可してください: %1$s</string>
+    <string name="permission_error_toast">権限の取得に失敗しました: %1$s</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">ネットワークに接続できませんでした</string>
     <string name="net_networking_error">現在のネットワークは利用できません</string>

@@ -114,7 +114,7 @@ open class MainActivity : AppCompatActivity() {
             }
         }
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
-        PermissionUtils(this).checkPermissions()
+        PermissionUtils(this).start()
         scopeLife(dispatcher = Dispatchers.IO) {
             checkAppBlackList()
             checkGitlabBlackList()

@@ -820,12 +820,6 @@
     <string name="fiveg_mode">Перемикач 5G</string>
     <string name="display_refresh_rate">Показати/приховати частоту оновлення</string>
     <string name="google_service">Google Service</string>
-    <!--Permission-->
-    <string name="permission_denied_toast">Permission denied, please grant permission manually: %1$s</string>
-    <string name="permission_error_toast">Failed to obtain permission: %1$s</string>
-    <string name="all_files_access_permission">Для забезпечення нормального використання модуля, будь ласка, дайте модулю права доступу!</string>
-    <string name="get_installed_apps_permission">Get permissions for installed apps</string>
-    <string name="get_send_notifications_permission">Get permissions for send notification</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Self-starting function service</string>
     <string name="auto_start_service_channel_title">The self-start function is running…</string>
@@ -873,6 +867,13 @@
     <string name="common_words_ads">Ads</string>
     <string name="common_words_reset">Reset</string>
     <string name="common_words_import">Import</string>
+    <!--Permission-->
+    <string name="send_notification_permission">Send notification permission</string>
+    <string name="all_files_access_permission">All file access permission</string>
+    <string name="installed_apps_permission">Read your app list permission</string>
+    <string name="install_app_permission">Install app permissions</string>
+    <string name="permission_denied_toast">Permission denied, please grant permission manually: %1$s</string>
+    <string name="permission_error_toast">Failed to obtain permission: %1$s</string>
     <!--Net 网络请求异常-->
     <string name="net_connect_error">Не вдалося з’єднатися з мережею</string>
     <string name="net_networking_error">Поточна мережа недоступна</string>

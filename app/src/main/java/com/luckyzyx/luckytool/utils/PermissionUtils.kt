@@ -1,51 +1,104 @@
 package com.luckyzyx.luckytool.utils
 
 import android.app.Activity
-import com.hjq.permissions.OnPermissionCallback
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogPermissionLayoutBinding
 
 @Obfuscate
 class PermissionUtils(val context: Activity) {
 
-    fun checkPermissions() {
-        //文件读写权限
-        FileUtils.checkRWPermission(context)
+    val binding = DialogPermissionLayoutBinding.inflate(context.layoutInflater)
+    private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
+        setCancelable(false)
+        setView(binding.root)
+    }
+    private var dialog: AlertDialog? = null
 
-        //发送通知权限
-//        XXPermissions.with(context).apply {
-//            val permission = context.getString(R.string.get_send_notifications_permission)
-//            permission(Permission.NOTIFICATION_SERVICE)
-//            request(object : OnPermissionCallback {
-//                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-//                }
-//
-//                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-//                    if (doNotAskAgain) toastDenied(permission)
-//                    else toastError(permission)
-//                }
-//            })
-//        }
+    private var notifyStatus = false
+    private var storageStatus = false
+    private var appListStatus = false
+    private var installAppStatus = false
 
-        //读取应用列表权限
-        XXPermissions.with(context).apply {
-            val permission = context.getString(R.string.get_installed_apps_permission)
-            permission(Permission.GET_INSTALLED_APPS)
-            request(object : OnPermissionCallback {
-                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+    fun init(): Boolean {
+        notifyStatus = XXPermissions.isGranted(context, Permission.NOTIFICATION_SERVICE)
+        refreshNotifyChip(notifyStatus)
+        storageStatus = XXPermissions.isGranted(context, Permission.MANAGE_EXTERNAL_STORAGE)
+        refreshStorageChip(storageStatus)
+        appListStatus = XXPermissions.isGranted(context, Permission.GET_INSTALLED_APPS)
+        refreshAppListChip(appListStatus)
+        installAppStatus = XXPermissions.isGranted(context, Permission.REQUEST_INSTALL_PACKAGES)
+        refreshInstallAppChip(installAppStatus)
 
+        val status = notifyStatus && storageStatus && appListStatus && installAppStatus
+        if (status) {
+            dialogBuilder.setOnDismissListener(null)
+            dialog?.setOnDismissListener(null)
+            dialog?.dismiss()
+        }
+        return status
+    }
+
+    fun start() {
+        if (init()) return
+        dialogBuilder.setOnDismissListener { context.exitModule() }
+        dialog?.setOnDismissListener { context.exitModule() }
+        dialog = dialogBuilder.show()
+    }
+
+    private fun refreshNotifyChip(status: Boolean) {
+        binding.notifyChip.apply {
+            isEnabled = !status
+            if (status) return@apply
+            setOnClickListener {
+                XXPermissions.with(context).apply {
+                    permission(Permission.NOTIFICATION_SERVICE)
+                    request { _, _ -> init() }
                 }
+            }
+        }
+    }
 
-                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                    if (doNotAskAgain) {
-                        toastDenied(permission)
-                        XXPermissions.startPermissionActivity(context, permissions)
-                        return
-                    } else toastError(permission)
+    private fun refreshStorageChip(status: Boolean) {
+        binding.storageChip.apply {
+            isEnabled = !status
+            if (status) return@apply
+            setOnClickListener {
+                XXPermissions.with(context).apply {
+                    permission(Permission.MANAGE_EXTERNAL_STORAGE)
+                    request { _, _ -> init() }
                 }
-            })
+            }
+        }
+    }
+
+    private fun refreshAppListChip(status: Boolean) {
+        binding.appListChip.apply {
+            isEnabled = !status
+            if (status) return@apply
+            setOnClickListener {
+                XXPermissions.with(context).apply {
+                    permission(Permission.GET_INSTALLED_APPS)
+                    request { _, _ -> init() }
+                }
+            }
+        }
+    }
+
+    private fun refreshInstallAppChip(status: Boolean) {
+        binding.installAppChip.apply {
+            isEnabled = !status
+            if (status) return@apply
+            setOnClickListener {
+                XXPermissions.with(context).apply {
+                    permission(Permission.REQUEST_INSTALL_PACKAGES)
+                    request { _, _ -> init() }
+                }
+            }
         }
     }
 

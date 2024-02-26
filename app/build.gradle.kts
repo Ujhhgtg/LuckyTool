@@ -123,7 +123,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     // 权限请求框架
-    implementation("com.github.getActivity:XXPermissions:18.5")
+    implementation("com.github.getActivity:XXPermissions:18.6")
     //崩溃日志显示
     implementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9")
     //滚动条

@@ -100,3 +100,6 @@
 #    <init>();
 #    *** inflate(android.view.LayoutInflater);
 #}
+
+# XXPermissions
+-keep class com.hjq.permissions.** {*;}
