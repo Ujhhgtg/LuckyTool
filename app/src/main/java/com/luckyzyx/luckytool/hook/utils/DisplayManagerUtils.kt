@@ -7,7 +7,7 @@ import android.view.DisplayAddress
 import android.view.DisplayInfo
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.hook.scopes.systemui.FingerPrintIconAnim.toClass
+import com.highcapable.yukihookapi.hook.factory.toClass
 
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
