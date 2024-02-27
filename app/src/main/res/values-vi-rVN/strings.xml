@@ -238,6 +238,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">Chế độ hàng ngang sẽ hiển thị hai hàng ô khi trình phát đa phương tiện bị ẩn</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Bạn cần bật công tắc chính của chức năng xếp ô bên dưới</string>
     <string name="control_center_custom_gaps_for_special_tile">Tùy chỉnh khoảng cách màn hình ngang ô đặc biệt</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
     <string name="control_center_special_tile_top_gap">Đặt khoảng cách trên cùng của ô đặc biệt</string>
     <string name="control_center_special_tile_bottom_gap">Đặt khoảng cách dưới cùng của ô đặc biệt</string>
     <string name="TileLongClickEvent">Sự kiện nhấp chuột dài</string>
@@ -574,12 +575,12 @@
     <string name="CameraFilter">Bộ lọc</string>
     <string name="enable_master_filter">Bật bộ lọc chính</string>
     <string name="enable_jiangwen_filter">Kích hoạt bộ lọc Jiang Wen</string>
-    <string name="enable_grand_tour_filter">Enable GrandTour filter</string>
-    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
-    <string name="camera_video_filter_settings">Video filter settings</string>
-    <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
-    <string name="camera_filter_retention">AI Color Portrait</string>
-    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
+    <string name="enable_grand_tour_filter">Bật bộ lọc du lịch</string>
+    <string name="camera_portrait_filter_settings">Cài đặt bộ lọc chân dung</string>
+    <string name="camera_video_filter_settings">Cài đặt bộ lọc video</string>
+    <string name="camera_filter_color_extraction">Đỏ/Xanh lá/Xanh da trời</string>
+    <string name="camera_filter_retention">Màu chân dung AI</string>
+    <string name="camera_filter_bokeh_flare_portrait">Chân dung xóa phông</string>
     <string name="enable_10_bit_image_support">Bật hỗ trợ hình ảnh 10 bit</string>
     <string name="enable_10_bit_image_support_summary">Bật tính năng này trên một số kiểu máy có thể khiến ảnh chuyển sang màu xanh lục</string>
     <!--Gallery-->
@@ -872,10 +873,10 @@
     <string name="common_words_reset">Đặt lại</string>
     <string name="common_words_import">Nhập</string>
     <!--Permission-->
-    <string name="send_notification_permission">Send notification permission</string>
-    <string name="all_files_access_permission">All file access permission</string>
-    <string name="installed_apps_permission">Read your app list permission</string>
-    <string name="install_app_permission">Install app permissions</string>
+    <string name="send_notification_permission">Gửi quyền thông báo</string>
+    <string name="all_files_access_permission">Tất cả quyền truy cập tập tin</string>
+    <string name="installed_apps_permission">Quyền đọc danh sách ứng dụng</string>
+    <string name="install_app_permission">Quyền cài đặt ứng dụng</string>
     <string name="permission_denied_toast">Quyền bị từ chối, vui lòng cấp quyền theo cách thủ công: %1$s</string>
     <string name="permission_error_toast">Không xin được quyền: %1$s</string>
     <!--Net 网络请求异常-->

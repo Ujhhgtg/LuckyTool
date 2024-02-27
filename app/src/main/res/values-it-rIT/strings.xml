@@ -238,6 +238,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">Quando il lettore multimediale è nascosto, due righe di tiles saranno visualizzate in modalità orizzontale</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">In seguito è necessario attivare il tile</string>
     <string name="control_center_custom_gaps_for_special_tile">Personalizza lo spazio orizzontale dello schermo per i tile speciali</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
     <string name="control_center_special_tile_top_gap">Imposta lo spazio superiore per i tiles speciali</string>
     <string name="control_center_special_tile_bottom_gap">Imposta lo spazio inferiore per i tiles speciali</string>
     <string name="TileLongClickEvent">Evento Pressione Prolungata Tile</string>

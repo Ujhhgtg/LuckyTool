@@ -238,6 +238,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">メディアプレイヤーが非表示のとき、水平モードで2列のタイルを表示します</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">以下のタイル機能のスイッチをオンにする必要があります</string>
     <string name="control_center_custom_gaps_for_special_tile">特殊タイルの横画面のギャップを編集</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
     <string name="control_center_special_tile_top_gap">特殊タイルの上部ギャップを設定</string>
     <string name="control_center_special_tile_bottom_gap">特殊タイルの下部ギャップを設定</string>
     <string name="TileLongClickEvent">タイルの長押しイベント</string>

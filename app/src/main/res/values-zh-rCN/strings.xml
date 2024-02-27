@@ -238,6 +238,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">当媒体播放器隐藏时，横屏模式将显示两行磁贴</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">需要打开下方磁贴功能总开关</string>
     <string name="control_center_custom_gaps_for_special_tile">自定义特殊磁贴横屏间隙</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">部分机型启用磁贴自动扩展会导致亮度条显示在屏幕外，此时必须启用此项功能</string>
     <string name="control_center_special_tile_top_gap">设置特殊磁贴顶部间隙</string>
     <string name="control_center_special_tile_bottom_gap">设置特殊磁贴底部间隙</string>
     <string name="TileLongClickEvent">磁贴长按事件</string>

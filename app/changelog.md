@@ -22,6 +22,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用相机旅行滤镜 C13.0+
 - [添加] 相机人像滤镜设置 C13.0+
 - [添加] 相机视频滤镜设置 C13.0+
+- [优化] 状态栏磁贴部分开关控制逻辑
 
 ### 1.2.0
 

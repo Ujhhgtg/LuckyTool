@@ -1181,78 +1181,88 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.auto_expand_tile_rows_horizontal)
-                    summary = arraySummaryLine(
-                        getString(R.string.auto_expand_tile_rows_horizontal_summary),
-                        getString(R.string.auto_expand_tile_rows_horizontal_summary_2)
-                    )
-                    key = "auto_expand_tile_rows_horizontal"
-                    setDefaultValue(false)
-                    isVisible = SDK >= A14 && context.getString(
-                        ModulePrefs, "set_media_player_display_mode", "0"
-                    ) != "0"
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
-                })
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.force_enable_media_toggle_button)
-                    key = "force_enable_media_toggle_button"
-                    setDefaultValue(false)
-                    isVisible = context.getString(
-                        ModulePrefs, "set_media_player_display_mode"
-                    ) == "1"
-                    isIconSpaceReserved = false
-                })
+                if (context.getString(ModulePrefs, "set_media_player_display_mode", "0") != "0") {
+                    if (SDK >= A14) addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.auto_expand_tile_rows_horizontal)
+                        summary = arraySummaryLine(
+                            getString(R.string.auto_expand_tile_rows_horizontal_summary),
+                            getString(R.string.auto_expand_tile_rows_horizontal_summary_2)
+                        )
+                        key = "auto_expand_tile_rows_horizontal"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            context.sendPrefsValue("com.android.systemui", key, newValue)
+                            if (newValue as Boolean) {
+                                findPreference<SwitchPreference>("control_center_custom_gaps_for_special_tile")
+                                    ?.isChecked = true
+                                findPreference<SwitchPreference>("control_center_tile_enable")
+                                    ?.isChecked = true
+                            }
+                            (activity as MainActivity).restart()
+                            true
+                        }
+                    })
+                }
+                if (context.getString(ModulePrefs, "set_media_player_display_mode") == "1") {
+                    addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.force_enable_media_toggle_button)
+                        key = "force_enable_media_toggle_button"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                }
                 if (osCode >= 27) {
                     addPreference(SwitchPreference(context).apply {
                         title = getString(R.string.control_center_custom_gaps_for_special_tile)
+                        if (context.getBoolean(ModulePrefs, "auto_expand_tile_rows_horizontal")) {
+                            summary =
+                                getString(R.string.control_center_custom_gaps_for_special_tile_summary)
+                        }
                         key = "control_center_custom_gaps_for_special_tile"
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
                             context.sendPrefsValue("com.android.systemui", key, newValue)
+                            if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")
+                                ?.isChecked = false
                             (activity as MainActivity).restart()
                             true
                         }
                     })
-                    addPreference(SeekBarPreference(context).apply {
-                        title = getString(R.string.control_center_special_tile_top_gap)
-                        key = "control_center_special_tile_top_gap"
-                        setDefaultValue(0)
-                        max = 20
-                        min = 0
-                        showSeekBarValue = true
-                        updatesContinuously = false
-                        isVisible = context.getBoolean(
+                    if (context.getBoolean(
                             ModulePrefs, "control_center_custom_gaps_for_special_tile", false
                         )
-                        isIconSpaceReserved = false
-                        setOnPreferenceChangeListener { _, newValue ->
-                            context.sendPrefsValue("com.android.systemui", key, newValue)
-                            true
-                        }
-                    })
-                    addPreference(SeekBarPreference(context).apply {
-                        title = getString(R.string.control_center_special_tile_bottom_gap)
-                        key = "control_center_special_tile_bottom_gap"
-                        setDefaultValue(0)
-                        max = 20
-                        min = 0
-                        showSeekBarValue = true
-                        updatesContinuously = false
-                        isVisible = context.getBoolean(
-                            ModulePrefs, "control_center_custom_gaps_for_special_tile", false
-                        )
-                        isIconSpaceReserved = false
-                        setOnPreferenceChangeListener { _, newValue ->
-                            context.sendPrefsValue("com.android.systemui", key, newValue)
-                            true
-                        }
-                    })
+                    ) {
+                        addPreference(SeekBarPreference(context).apply {
+                            title = getString(R.string.control_center_special_tile_top_gap)
+                            key = "control_center_special_tile_top_gap"
+                            setDefaultValue(10)
+                            max = 20
+                            min = 0
+                            showSeekBarValue = true
+                            updatesContinuously = false
+                            isIconSpaceReserved = false
+                            setOnPreferenceChangeListener { _, newValue ->
+                                context.sendPrefsValue("com.android.systemui", key, newValue)
+                                true
+                            }
+                        })
+                        addPreference(SeekBarPreference(context).apply {
+                            title = getString(R.string.control_center_special_tile_bottom_gap)
+                            key = "control_center_special_tile_bottom_gap"
+                            setDefaultValue(0)
+                            max = 20
+                            min = 0
+                            showSeekBarValue = true
+                            updatesContinuously = false
+                            isIconSpaceReserved = false
+                            setOnPreferenceChangeListener { _, newValue ->
+                                context.sendPrefsValue("com.android.systemui", key, newValue)
+                                true
+                            }
+                        })
+                    }
                 }
             }
             if (SDK == A13) {
@@ -1314,7 +1324,9 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 key = "control_center_tile_enable"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, _ ->
+                setOnPreferenceChangeListener { _, newValue ->
+                    if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")
+                        ?.isChecked = false
                     (activity as MainActivity).restart()
                     true
                 }
@@ -3324,9 +3336,8 @@ class OplusCamera : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 key = "custom_camera_open_gallery_by_default"
                 title = getString(R.string.custom_camera_open_gallery_by_default)
-                summary = arraySummaryLine(
-                    context.getString(ModulePrefs, key, "")?.ifBlank { "None" }
-                )
+                summary =
+                    arraySummaryLine(context.getString(ModulePrefs, key, "")?.ifBlank { "None" })
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
@@ -4196,8 +4207,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     title = getString(R.string.custom_aon_gesture_scroll_page_whitelist)
                     val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
                     summary = arraySummaryLine(
-                        getString(R.string.custom_aon_gesture_whitelist_tips),
-                        value.toString()
+                        getString(R.string.custom_aon_gesture_whitelist_tips), value.toString()
                     )
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isIconSpaceReserved = false
@@ -4225,8 +4235,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     title = getString(R.string.custom_aon_gesture_video_whitelist)
                     val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
                     summary = arraySummaryLine(
-                        getString(R.string.custom_aon_gesture_whitelist_tips),
-                        value.toString()
+                        getString(R.string.custom_aon_gesture_whitelist_tips), value.toString()
                     )
                     isEnabled = context.checkPackName("com.aiunit.aon")
                     isVisible = false //SDK >= A13

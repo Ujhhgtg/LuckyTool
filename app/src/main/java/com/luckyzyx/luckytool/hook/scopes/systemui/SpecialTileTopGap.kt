@@ -11,7 +11,7 @@ import com.luckyzyx.luckytool.utils.getScreenOrientation
 
 object SpecialTileTopGap : YukiBaseHooker() {
     override fun onHook() {
-        var top = prefs(ModulePrefs).getInt("control_center_special_tile_top_gap", 0)
+        var top = prefs(ModulePrefs).getInt("control_center_special_tile_top_gap", 10)
         dataChannel.wait<Int>("control_center_special_tile_top_gap") { top = it }
         var bottom = prefs(ModulePrefs).getInt("control_center_special_tile_bottom_gap", 0)
         dataChannel.wait<Int>("control_center_special_tile_bottom_gap") { bottom = it }

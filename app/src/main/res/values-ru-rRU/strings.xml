@@ -224,20 +224,21 @@
     <string name="remove_control_center_user_switcher">Удалить переключатель пользователей в шторке</string>
     <string name="remove_control_center_mydevice">Удалить \"Мои устройства\" из шторки</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Восстановить количество строк разметки быстрых настроек для редактирования плиток</string>
-    <string name="set_control_center_search_button_mode">Установить режим кнопки поиска в быстрых настройках</string>
+    <string name="set_control_center_search_button_mode">Установить режим кнопки поиска в шторке</string>
     <string name="remove_control_center_networkwarn">Удалить сообщение безопасности внизу шторки</string>
     <string name="remove_control_center_networkwarn_dialog">Удалить диалог</string>
     <string name="remove_control_center_networkwarn_dialog_and_text">Удалить предупреждение системы безопасности и диалоги</string>
     <string name="remove_control_center_networkwarn_summary">После подключения к VPN в нижней части шторки появится сообщение\nПосле установки сертификата CA сеть можно будет мониторить</string>
     <string name="custom_control_center_background_transparency">Прозрачность фона шторки</string>
     <!--StatusBar Tiles-->
-    <string name="StatusBarTiles">Плитки в быстрых настройках</string>
+    <string name="StatusBarTiles">Плитки быстрых настроек</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Принудительное отображение плитки переключения статуса звонка</string>
     <string name="SpecialTiles">Специальные плитки</string>
     <string name="auto_expand_tile_rows_horizontal">Автоматически развернуть количество горизонтальных плиток</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Когда медиаплеер скрыт, два ряда плиток будут отображаться в горизонтальном режиме</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Необходимо включить настройку плиток ниже</string>
     <string name="control_center_custom_gaps_for_special_tile">Настроить горизонтальный разрыв для специальных плиток</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
     <string name="control_center_special_tile_top_gap">Установить верхний разрыв для специальных плиток</string>
     <string name="control_center_special_tile_bottom_gap">Установить верхний разрыв для специальных плиток</string>
     <string name="TileLongClickEvent">Долгое нажатие на плитку</string>
@@ -290,7 +291,7 @@
     <string name="battery_information_show_simple_mode">Статический режим экрана</string>
     <string name="battery_information_show_update_time">Частота обновления информации о батарее</string>
     <string name="battery_information_show_update_time_summary">Изменить частоту обновления информации о батарее в шторке</string>
-    <string name="battery_information_custom_font_size">Пользовательский размер шрифта информации о батарее</string>
+    <string name="battery_information_custom_font_size">Размер шрифта информации о батарее</string>
     <string name="battery_status_unknown">Неизвестно</string>
     <string name="battery_status_charging">Зарядка</string>
     <string name="battery_status_discharging">Разрядка</string>

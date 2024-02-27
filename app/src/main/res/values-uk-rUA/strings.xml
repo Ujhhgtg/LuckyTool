@@ -238,6 +238,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">When the media player is hidden, two rows of tiles will be displayed in horizontal mode</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Need to turn on the switch of the tile function below</string>
     <string name="control_center_custom_gaps_for_special_tile">Customize the horizontal screen gap for special tiles</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
     <string name="control_center_special_tile_top_gap">Set top gap for special tiles</string>
     <string name="control_center_special_tile_bottom_gap">Set bottom gap for special tiles</string>
     <string name="TileLongClickEvent">Довге натискання на плитку</string>

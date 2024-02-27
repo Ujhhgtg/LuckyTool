@@ -238,6 +238,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Musíte povolit přepínač funkce dlaždic níže</string>
     <string name="control_center_custom_gaps_for_special_tile">Přizpůsobit vodorovnou mezeru obrazovky speciálních dlaždic</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
     <string name="control_center_special_tile_top_gap">Nastavit horní mezeru pro speciální dlaždice</string>
     <string name="control_center_special_tile_bottom_gap">Nastavit spodní mezeru pro speciální dlaždice</string>
     <string name="TileLongClickEvent">Událost daždice při dlouhém stisku</string>
