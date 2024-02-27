@@ -118,7 +118,7 @@
     <string name="StatusbarEvents">События статусбара и шторки</string>
     <string name="statusbar_double_click_lock_screen">Дважды нажмите на статусбар для блокировки экрана</string>
     <string name="vibrate_when_opening_the_statusbar">Вибрация при открытии шторки</string>
-    <string name="set_click_statusbar_scroll_to_top_mode">Нажатие на статусбар возвращает к верхней части страницы</string>
+    <string name="set_click_statusbar_scroll_to_top_mode">Нажатие на статусбар вернёт в начало</string>
     <string name="set_click_statusbar_scroll_to_top_mode_remove_white_list">Удалить лимит белого списка</string>
     <!--StatusBarClock-->
     <string name="StatusBarClock">Часы в статусбаре</string>
@@ -155,10 +155,10 @@
     <string name="StatusBarNotice">Уведомления в статусбаре и шторке</string>
     <string name="StatusBarNotice_summary">Уведомление в статусбаре</string>
     <string name="RemoveStatusBarNotifications">Удалить уведомления</string>
-    <string name="remove_statusbar_devmode">Удалить уведомление о режиме разработчика в панели уведомлений</string>
+    <string name="remove_statusbar_devmode">Удалить уведомление о режиме разработчика в шторке</string>
     <string name="remove_charging_completed">Удалить уведомление о завершении зарядки</string>
-    <string name="remove_statusbar_top_notification">Удалить уведомление об отображении поверх других приложений из панели уведомлений</string>
-    <string name="remove_statusbar_top_notification_summary">Удалить уведомление \"Это приложение отображается поверх других приложений\" в панели уведомлений</string>
+    <string name="remove_statusbar_top_notification">Удалить уведомление об отображении поверх других приложений из шторки</string>
+    <string name="remove_statusbar_top_notification_summary">Удалить уведомление \"Это приложение отображается поверх других приложений\" в шторке</string>
     <string name="remove_vpn_active_notification">Удалить уведомление о соединении через VPN</string>
     <string name="remove_vpn_active_notification_summary">Удалить уведомление о соединении VPN в статусбаре</string>
     <string name="remove_flashlight_open_notification">Удалить уведомление о включенном фонарике</string>
@@ -200,23 +200,23 @@
     <string name="StatusBarSmallIconStatus">Статус маленькой иконки в статусбаре</string>
     <string name="status_bar_icon_vertical_center">Иконка в статусбаре по вертикали по центру</string>
     <!--StatusBarControlCenter-->
-    <string name="StatusBarControlCenter">Управление панелью уведомлений</string>
+    <string name="StatusBarControlCenter">Управление шторкой</string>
     <string name="ControlCenter_Clock_Related">Управление часами</string>
-    <string name="control_center_clock_show_second">Часы в панели уведомлений показывают секунды</string>
-    <string name="statusbar_control_center_clock_colon_style">Стиль двоеточия часов в панели уведомлений</string>
+    <string name="control_center_clock_show_second">Часы в шторке показывают секунды</string>
+    <string name="statusbar_control_center_clock_colon_style">Стиль двоеточия часов в шторке</string>
     <string name="fix_clock_colon_style">Исправить стиль двоеточия часов</string>
     <string name="fix_clock_colon_style_summary">Вернитесь к обычному двоеточию, когда оно включено, и используйте официальное пользовательское двоеточие, когда оно выключено</string>
-    <string name="statusbar_control_center_clock_red_one_mode">Управление красной цифрой 1 в панели уведомлений</string>
-    <string name="remove_control_center_clock_red_one">Удалить красную цифру 1 в часах из панели уведомлений</string>
-    <string name="remove_control_center_date_comma">Удалить запятую из даты в панели уведомлений</string>
-    <string name="fix_control_center_date_display">Исправить отображение даты в панели уведомлений</string>
+    <string name="statusbar_control_center_clock_red_one_mode">Управление красной цифрой 1 в шторке</string>
+    <string name="remove_control_center_clock_red_one">Удалить красную цифру 1 в часах из шторки</string>
+    <string name="remove_control_center_date_comma">Удалить запятую из даты в шторке</string>
+    <string name="fix_control_center_date_display">Исправить отображение даты в шторке</string>
     <string name="fix_control_center_date_display_suammry">Устранить проблему, из-за которой дата может отображаться не полностью</string>
-    <string name="ControlCenterNotificationCenter">Уведомления в панели уведомлений</string>
+    <string name="ControlCenterNotificationCenter">Уведомления в шторке</string>
     <string name="enable_notification_align_both_sides">Включить выравнивание уведомлений по обе стороны</string>
     <string name="enable_notification_importance_classification">Включить классификацию важности уведомлений</string>
     <string name="custom_notification_background_transparency">Прозрачность фона уведомлений</string>
     <string name="enable_notification_background_blur_effect">Включить эффект размытия фона уведомления</string>
-    <string name="ControlCenter_UI_Related">Пользовательский интерфейс панели уведомлений</string>
+    <string name="ControlCenter_UI_Related">Пользовательский интерфейс шторки</string>
     <string name="set_media_player_display_mode">Установить режим отображения медиаплеера</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Скрывать, когда нет воспроизведения</string>
     <string name="force_enable_media_toggle_button">Принудительно включить кнопку переключения медиа</string>
@@ -225,10 +225,10 @@
     <string name="remove_control_center_mydevice">Удалить \"Мои устройства\" из шторки</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Восстановить количество строк разметки быстрых настроек для редактирования плиток</string>
     <string name="set_control_center_search_button_mode">Установить режим кнопки поиска в быстрых настройках</string>
-    <string name="remove_control_center_networkwarn">Удалить сообщение безопасности в нижней части панели уведомлений</string>
+    <string name="remove_control_center_networkwarn">Удалить сообщение безопасности внизу шторки</string>
     <string name="remove_control_center_networkwarn_dialog">Удалить диалог</string>
     <string name="remove_control_center_networkwarn_dialog_and_text">Удалить предупреждение системы безопасности и диалоги</string>
-    <string name="remove_control_center_networkwarn_summary">После подключения к VPN в нижней части панели уведомлений появится сообщение.\n После установки сертификата CA сеть можно будет мониторить</string>
+    <string name="remove_control_center_networkwarn_summary">После подключения к VPN в нижней части шторки появится сообщение\nПосле установки сертификата CA сеть можно будет мониторить</string>
     <string name="custom_control_center_background_transparency">Прозрачность фона шторки</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Плитки в быстрых настройках</string>
@@ -253,8 +253,8 @@
     <string name="custom_background_transparency_for_inactive_tiles">Настроить прозрачность фона для неактивных плиток</string>
     <string name="TileLayoutRelated">Разметка быстрых настроек</string>
     <string name="fix_tile_align_both_sides">Исправить выравнивание плиток с обеих сторон</string>
-    <string name="fix_tile_align_both_sides_summary">Исправить переполнение макета с обеих сторон, когда панель быстрых настроек не развернута</string>
-    <string name="control_center_tile_enable">Настроить плитки в быстрых настройках</string>
+    <string name="fix_tile_align_both_sides_summary">Исправить переполнение макета с обеих сторон, когда шторка настроек не развернута</string>
+    <string name="control_center_tile_enable">Настроить плитки быстрых настроек</string>
     <string name="tile_unexpanded_columns_vertical">Неразвернутые столбцы плиток (вертикально)</string>
     <string name="tile_unexpanded_columns_horizontal">Неразвернутые столбцы плиток (горизонтально)</string>
     <string name="tile_expanded_columns_vertical">Развернутые столбцы плиток (вертикально)</string>
@@ -275,13 +275,13 @@
     <string name="statusbar_power_font_size">Размер шрифта заряда батареи</string>
     <string name="statusbar_power_apply_to_battery_icon">Применить к иконке батареи</string>
     <!--StatusBarBatteryNotify-->
-    <string name="StatusBarBatteryNotify">Уведомление о батарее в панели уведомлений</string>
+    <string name="StatusBarBatteryNotify">Уведомление о батарее в шторке</string>
     <string name="battery_information_notify_permanent_display">Постоянное отображение</string>
     <string name="battery_information_notify_only_charging">Только во время зарядки</string>
     <string name="battery_information_display_mode">Отображение информации о батарее</string>
-    <string name="battery_information_display_mode_summary">Отображать напряжение батареи и другую информацию в панели уведомлений</string>
+    <string name="battery_information_display_mode_summary">Отображать напряжение батареи и другую информацию в шторке</string>
     <string name="battery_information_show_charge">Показать информацию о зарядке</string>
-    <string name="battery_information_show_charge_summary">При зарядке напряжение и теоретическая сила зарядки будут отображаться в панели уведомлений</string>
+    <string name="battery_information_show_charge_summary">При зарядке напряжение и теоретическая сила зарядки будут отображаться в шторке</string>
     <string name="battery_information_voltage_display_mode">Режим отображения напряжения</string>
     <string name="battery_information_show_voltage">Отображать напряжение</string>
     <string name="battery_information_show_dual_voltage">Отображение двух напряжений</string>
@@ -289,7 +289,7 @@
     <string name="battery_information_always_show_positive_current">Всегда показывает положительное текущее значение</string>
     <string name="battery_information_show_simple_mode">Статический режим экрана</string>
     <string name="battery_information_show_update_time">Частота обновления информации о батарее</string>
-    <string name="battery_information_show_update_time_summary">Изменить частоту обновления информации о батарее в панели уведомлений</string>
+    <string name="battery_information_show_update_time_summary">Изменить частоту обновления информации о батарее в шторке</string>
     <string name="battery_information_custom_font_size">Пользовательский размер шрифта информации о батарее</string>
     <string name="battery_status_unknown">Неизвестно</string>
     <string name="battery_status_charging">Зарядка</string>
@@ -401,7 +401,7 @@
     <!--AppStartupRelated-->
     <string name="AppStartupRelated">Запуск приложения</string>
     <string name="disable_splash_screen">Отключить заставку</string>
-    <string name="disable_splash_screen_summary">Если удалить анимация, то при запуске приложения будет пауза в 1–2 секунды</string>
+    <string name="disable_splash_screen_summary">Поскольку анимация заставки была удалена, при запуске приложения будет пауза в 1–2 секунды. Рекомендуется не включать</string>
     <string name="disable_preload_splash">Включить заставку для всех приложений</string>
     <!--APPRelatedList-->
     <string name="APPRelatedList">Список приложений</string>
@@ -572,11 +572,15 @@
     <string name="enable_frame_watermark_style">Включить стиль рамки водяного знака</string>
     <string name="enable_hasselblad_watermark_style">Включить стиль водяного знака Hasselblad</string>
     <string name="custom_model_watermark">Пользовательский водяной знак</string>
-    <string name="fix_hasselblad_custom_watermark_crash">Исправление ошибки пользовательского водяного знака Hasselblad</string>
-    <string name="fix_hasselblad_custom_watermark_crash_summary">Если ваша камера не поддерживает пользовательский водяной знак Hasselblad, пожалуйста, не включайте его</string>
     <string name="CameraFilter">Фильтр</string>
     <string name="enable_master_filter">Включить основной фильтр</string>
     <string name="enable_jiangwen_filter">Включить фильтр Jiang Wen</string>
+    <string name="enable_grand_tour_filter">Enable GrandTour filter</string>
+    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
+    <string name="camera_video_filter_settings">Video filter settings</string>
+    <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
+    <string name="camera_filter_retention">AI Color Portrait</string>
+    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
     <string name="enable_10_bit_image_support">Включить поддержку 10-битных изображений</string>
     <string name="enable_10_bit_image_support_summary">Включение этой функции на некоторых моделях может привести к тому, что фото станет зеленым</string>
     <!--Gallery-->
@@ -797,7 +801,7 @@
     <string name="set_module_shortcuts">Установить ярлыки модуля</string>
     <string name="set_module_shortcuts_summary">Нажмите и удерживайте иконку модуля, чтобы отобразить включенные ярлыки</string>
     <!--TouchPanel-->
-    <string name="set_touch_sampling_rate_tile_level">Установить уровень частоты дискретизации касания плитки</string>
+    <string name="set_touch_sampling_rate_tile_level">Установить уровень частоты дискретизации касания</string>
     <string name="set_touch_sampling_rate_tile_level_summary">Проверьте самостоятельно, можно ли нормально активировать каждый уровень\nКогда вы используете игровой помощник, чтобы открыть игру, текущая частота дискретизации будет перезаписана.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">Удаленная отладка ADB</string>
@@ -869,10 +873,10 @@
     <string name="common_words_reset">Сброс</string>
     <string name="common_words_import">Импортировать</string>
     <!--Permission-->
-    <string name="send_notification_permission">Send notification permission</string>
-    <string name="all_files_access_permission">All file access permission</string>
-    <string name="installed_apps_permission">Read your app list permission</string>
-    <string name="install_app_permission">Install app permissions</string>
+    <string name="send_notification_permission">Разрешение на отправку уведомлений</string>
+    <string name="all_files_access_permission">Все разрешения на доступ к файлам</string>
+    <string name="installed_apps_permission">Просмотр прав доступа к списку приложений</string>
+    <string name="install_app_permission">Установить разрешения приложения</string>
     <string name="permission_denied_toast">В доступе отказано, пожалуйста, предоставьте разрешение вручную: %1$s</string>
     <string name="permission_error_toast">Не удалось получить разрешение: %1$s</string>
     <!--Net 网络请求异常-->

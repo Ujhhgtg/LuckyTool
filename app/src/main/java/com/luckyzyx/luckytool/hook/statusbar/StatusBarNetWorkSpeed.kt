@@ -198,7 +198,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
         //计算上传速度
         val bytes = (currentTotalUp / (timeIntervals / 1000.0)).toFloat()
-        if (bytes.isInfinite() || bytes.isNaN()) return "0 B/s"
+        if (bytes.isInfinite() || bytes.isNaN() || bytes < 0F) return "0 B/s"
         val unit: String
         if (bytes >= (1024 * 1024)) {
             totalUpSpeed = safeOf(0F) {
@@ -247,7 +247,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
         //计算下行速度
         val bytes = (currentTotalDown / (timeIntervals / 1000.0)).toFloat()
-        if (bytes.isInfinite() || bytes.isNaN()) return "0 B/s"
+        if (bytes.isInfinite() || bytes.isNaN() || bytes < 0F) return "0 B/s"
         val unit: String
         if (bytes >= (1024 * 1024)) {
             totalDownSpeed = safeOf(0F) {

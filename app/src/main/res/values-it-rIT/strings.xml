@@ -571,11 +571,15 @@
     <string name="enable_frame_watermark_style">Abilita Stile Frame Filigrana</string>
     <string name="enable_hasselblad_watermark_style">Abilita Stile Filigrana Hasselblad</string>
     <string name="custom_model_watermark">Filigrana modello personalizzato</string>
-    <string name="fix_hasselblad_custom_watermark_crash">Correzione crash filigrana personalizzata Hasselblad</string>
-    <string name="fix_hasselblad_custom_watermark_crash_summary">Se la tua fotocamera non supporta la filigrana personalizzata Hasselblad (forma a striscia bianca), non aprirla</string>
     <string name="CameraFilter">Filtro</string>
     <string name="enable_master_filter">Abilita il filtro principale</string>
     <string name="enable_jiangwen_filter">Attiva il filtro Jiang Wen</string>
+    <string name="enable_grand_tour_filter">Enable GrandTour filter</string>
+    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
+    <string name="camera_video_filter_settings">Video filter settings</string>
+    <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
+    <string name="camera_filter_retention">AI Color Portrait</string>
+    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
     <string name="enable_10_bit_image_support">Abilita Supporto Immagini a 10 bit</string>
     <string name="enable_10_bit_image_support_summary">Abilitando questa funzione su alcuni modelli la foto potrebbe diventare verde</string>
     <!--Gallery-->

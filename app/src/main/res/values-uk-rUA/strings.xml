@@ -571,11 +571,15 @@
     <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Увімкнути стиль водяного знаку Hasselblad</string>
     <string name="custom_model_watermark">Custom model watermark</string>
-    <string name="fix_hasselblad_custom_watermark_crash">Виправлена ​​помилка водяного знаку користувача Hasselblad</string>
-    <string name="fix_hasselblad_custom_watermark_crash_summary">Якщо ваша камера не підтримує користувальницький водяний знак Hasselblad, будь ласка, не вмикайте його</string>
     <string name="CameraFilter">Filter</string>
     <string name="enable_master_filter">Enable Master filter</string>
     <string name="enable_jiangwen_filter">Enable Jiang Wen filter</string>
+    <string name="enable_grand_tour_filter">Enable GrandTour filter</string>
+    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
+    <string name="camera_video_filter_settings">Video filter settings</string>
+    <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
+    <string name="camera_filter_retention">AI Color Portrait</string>
+    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
     <string name="enable_10_bit_image_support">Увімкнути підтримку 10-розрядних зображень</string>
     <string name="enable_10_bit_image_support_summary">Enabling this feature on some models may cause the photo to turn green</string>
     <!--Gallery-->

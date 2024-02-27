@@ -7,8 +7,8 @@ import java.io.Serializable
 
 @Obfuscate
 data class ShortcutBean(
-    val label: String,
     val key: String,
+    val label: String,
     val icon: Icon? = null,
     var intent: Intent? = null,
     var isEnable: Boolean = false

@@ -5,6 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.ArraySet
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.util.forEach
 import androidx.preference.DropDownPreference
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -17,6 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.data.CameraFilter
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
@@ -3356,91 +3359,198 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_frame_watermark_style)
-                key = "enable_frame_watermark_style"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    if (newValue as Boolean) findPreference<SwitchPreference>(
-                        "enable_hasselblad_watermark_style"
-                    )?.isChecked = false
-                    true
-                }
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_hasselblad_watermark_style)
-                key = "enable_hasselblad_watermark_style"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    if (newValue as Boolean) findPreference<SwitchPreference>(
-                        "enable_frame_watermark_style"
-                    )?.isChecked = false
-                    true
-                }
-            })
-            addPreference(EditTextPreference(context).apply {
-                title = getString(R.string.custom_model_watermark)
-                dialogTitle = title
-                summary = context.getString(
-                    ModulePrefs, "custom_model_watermark", "None"
-                )
-                if (summary.isNullOrBlank()) summary = "None"
-                key = "custom_model_watermark"
-                setDefaultValue("None")
-                isIconSpaceReserved = false
-                isVisible = SDK >= A13 && Build.MODEL.contains("RM", true).not()
-                setOnPreferenceChangeListener { _, newValue ->
-                    summary = (newValue as String).ifBlank { "None" }
-                    true
-                }
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.fix_hasselblad_custom_watermark_crash)
-                summary = getString(R.string.fix_hasselblad_custom_watermark_crash_summary)
-                key = "fix_hasselblad_custom_watermark_crash"
-                setDefaultValue(false)
-                isVisible = false
-                isIconSpaceReserved = false
-            })
+            if (SDK >= A13) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_frame_watermark_style)
+                    key = "enable_frame_watermark_style"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        if (newValue as Boolean) findPreference<SwitchPreference>(
+                            "enable_hasselblad_watermark_style"
+                        )?.isChecked = false
+                        true
+                    }
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_hasselblad_watermark_style)
+                    key = "enable_hasselblad_watermark_style"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        if (newValue as Boolean) findPreference<SwitchPreference>(
+                            "enable_frame_watermark_style"
+                        )?.isChecked = false
+                        true
+                    }
+                })
+                addPreference(EditTextPreference(context).apply {
+                    title = getString(R.string.custom_model_watermark)
+                    dialogTitle = title
+                    summary = context.getString(
+                        ModulePrefs, "custom_model_watermark", "None"
+                    )
+                    if (summary.isNullOrBlank()) summary = "None"
+                    key = "custom_model_watermark"
+                    setDefaultValue("None")
+                    isIconSpaceReserved = false
+                    isVisible = Build.MODEL.contains("RM", true).not()
+                    setOnPreferenceChangeListener { _, newValue ->
+                        summary = (newValue as String).ifBlank { "None" }
+                        true
+                    }
+                })
+            }
             //滤镜
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.CameraFilter)
-                key = "CameraFilter"
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_master_filter)
-                key = "enable_master_filter"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_jiangwen_filter)
-                key = "enable_jiangwen_filter"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.CameraFilter)
+                    key = "CameraFilter"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_master_filter)
+                    key = "enable_master_filter"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        if (newValue as Boolean) findPreference<SwitchPreference>(
+                            "enable_hasselblad_watermark_style"
+                        )?.isChecked = true
+                        true
+                    }
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_jiangwen_filter)
+                    key = "enable_jiangwen_filter"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_grand_tour_filter)
+                    key = "enable_grand_tour_filter"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(Preference(context).apply {
+                    val defaultFilters = ArrayList<CameraFilter>().apply {
+                        add(CameraFilter("retention", getString(R.string.camera_filter_retention)))
+                        add(
+                            CameraFilter(
+                                "bokeh_flare_portrait",
+                                getString(R.string.camera_filter_bokeh_flare_portrait)
+                            )
+                        )
+                    }
+                    title = getString(R.string.camera_portrait_filter_settings)
+                    key = "camera_portrait_filter_settings"
+                    (context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()).forEach {
+                        defaultFilters.find { its -> its.key == it }?.isEnable = true
+                    }
+                    val keys = ArrayList<String>()
+                    val titles = ArrayList<String>()
+                    val values = ArrayList<Boolean>()
+                    val enabledTitle = ArrayList<String>()
+                    defaultFilters.forEachIndexed { _, filter ->
+                        keys.add(filter.key)
+                        titles.add(filter.title)
+                        values.add(filter.isEnable)
+                        if (filter.isEnable) enabledTitle.add(filter.title)
+                    }
+                    summary = enabledTitle.toString()
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            setTitle(title)
+                            setMultiChoiceItems(
+                                titles.toTypedArray(), values.toBooleanArray(), null
+                            )
+                            setPositiveButton(android.R.string.ok) { dialog, _ ->
+                                val positions =
+                                    (dialog as AlertDialog).listView.checkedItemPositions
+                                val set = ArraySet<String>()
+                                positions.forEach { position, _ ->
+                                    val key = keys[position]
+                                    set.add(key)
+                                }
+                                context.putStringSet(ModulePrefs, key, set.toSet())
+                                (activity as MainActivity).restart()
+                            }
+                            setNeutralButton(android.R.string.cancel, null)
+                        }.show()
+                        true
+                    }
+                })
+                addPreference(Preference(context).apply {
+                    val defaultFilters = ArrayList<CameraFilter>().apply {
+                        add(
+                            CameraFilter(
+                                "color_extraction",
+                                getString(R.string.camera_filter_color_extraction)
+                            )
+                        )
+                        add(CameraFilter("retention", getString(R.string.camera_filter_retention)))
+                        add(
+                            CameraFilter(
+                                "bokeh_flare_portrait",
+                                getString(R.string.camera_filter_bokeh_flare_portrait)
+                            )
+                        )
+                    }
+                    title = getString(R.string.camera_video_filter_settings)
+                    key = "camera_video_filter_settings"
+                    (context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()).forEach {
+                        defaultFilters.find { its -> its.key == it }?.isEnable = true
+                    }
+                    val keys = ArrayList<String>()
+                    val titles = ArrayList<String>()
+                    val values = ArrayList<Boolean>()
+                    val enabledTitle = ArrayList<String>()
+                    defaultFilters.forEachIndexed { _, filter ->
+                        keys.add(filter.key)
+                        titles.add(filter.title)
+                        values.add(filter.isEnable)
+                        if (filter.isEnable) enabledTitle.add(filter.title)
+                    }
+                    summary = enabledTitle.toString()
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            setTitle(title)
+                            setMultiChoiceItems(
+                                titles.toTypedArray(), values.toBooleanArray(), null
+                            )
+                            setPositiveButton(android.R.string.ok) { dialog, _ ->
+                                val positions =
+                                    (dialog as AlertDialog).listView.checkedItemPositions
+                                val set = ArraySet<String>()
+                                positions.forEach { position, _ ->
+                                    val key = keys[position]
+                                    set.add(key)
+                                }
+                                context.putStringSet(ModulePrefs, key, set.toSet())
+                                (activity as MainActivity).restart()
+                            }
+                            setNeutralButton(android.R.string.cancel, null)
+                        }.show()
+                        true
+                    }
+                })
+            }
             //其他
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.settings_other_preference)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_10_bit_image_support)
-                summary = getString(R.string.enable_10_bit_image_support_summary)
-                key = "enable_10_bit_image_support"
-                setDefaultValue(false)
-                isVisible = SDK >= A13
-                isIconSpaceReserved = false
-            })
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.settings_other_preference)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_10_bit_image_support)
+                    summary = getString(R.string.enable_10_bit_image_support_summary)
+                    key = "enable_10_bit_image_support"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
         }
     }
 

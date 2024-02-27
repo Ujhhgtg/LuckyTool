@@ -56,17 +56,16 @@ class OtherFragment : Fragment() {
 
         binding.shortcut.apply {
             setOnClickListener {
-                val titles = ArrayList<CharSequence>()
                 val keys = ArrayList<String>()
+                val titles = ArrayList<CharSequence>()
                 val values = ArrayList<Boolean>()
                 ShortcutUtils(context).getDefaultShortcutList().forEachIndexed { _, bean ->
                     if (bean.label.isNotBlank() && bean.key.isNotBlank()) {
-                        titles.add(bean.label)
                         keys.add(bean.key)
+                        titles.add(bean.label)
                         values.add(bean.isEnable)
                     }
                 }
-
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setTitle(binding.shortcutTitle.text)
                     setMultiChoiceItems(titles.toTypedArray(), values.toBooleanArray(), null)

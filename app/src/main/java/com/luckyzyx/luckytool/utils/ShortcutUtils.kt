@@ -24,7 +24,7 @@ class ShortcutUtils(val context: Context) {
         val defaultList = ArrayList<ShortcutBean>()
         safeOfNull {
             ShortcutBean(
-                "LSPosed", "module_shortcut_status_lsposed", Icon.createWithResource(
+                "module_shortcut_status_lsposed", "LSPosed", Icon.createWithResource(
                     context.packageName,
                     android.R.mipmap.sym_def_app_icon
                 )
@@ -39,16 +39,16 @@ class ShortcutUtils(val context: Context) {
             )
         if (existOplusGame) safeOfNull {
             ShortcutBean(
+                "module_shortcut_status_oplusgames",
                 context.getAppLabel("com.oplus.games").toString(),
-                "module_shortcut_status_oplusgames", Icon.createWithResource(
+                Icon.createWithResource(
                     context.packageName, R.mipmap.oplusgames_icon
                 )
             )
         }?.let { defaultList.add(it) }
         safeOfNull {
             ShortcutBean(
-                context.getString(R.string.charging_test),
-                "module_shortcut_status_chargingtest",
+                "module_shortcut_status_chargingtest", context.getString(R.string.charging_test),
                 Icon.createWithResource(
                     context.packageName, R.drawable.ic_baseline_charging_station_24
                 )
@@ -56,8 +56,8 @@ class ShortcutUtils(val context: Context) {
         }?.let { defaultList.add(it) }
         safeOfNull {
             ShortcutBean(
-                context.getString(R.string.process_manager),
                 "module_shortcut_status_processmanager",
+                context.getString(R.string.process_manager),
                 Icon.createWithResource(
                     context.packageName, android.R.mipmap.sym_def_app_icon
                 )
@@ -65,8 +65,8 @@ class ShortcutUtils(val context: Context) {
         }?.let { defaultList.add(it) }
         safeOfNull {
             ShortcutBean(
-                context.getString(R.string.high_performance_mode),
                 "module_shortcut_status_performance",
+                context.getString(R.string.high_performance_mode),
                 Icon.createWithResource(
                     context.packageName, R.drawable.baseline_device_thermostat_24
                 )

@@ -661,14 +661,19 @@
     <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Enable Hasselblad Watermark Style</string>
     <string name="custom_model_watermark">Custom model watermark</string>
-    <string name="fix_hasselblad_custom_watermark_crash">Fix Hasselblad custom watermark crash</string>
-    <string name="fix_hasselblad_custom_watermark_crash_summary">If your camera does not support Hasselblad custom watermark (white strip shape), please do not open it</string>
     <string name="enable_spring_festival_watermark" translatable="false">启用新春水印</string>
     <string name="enable_spring_festival_watermark_summary" translatable="false">前提条件: 相册必须支持新春水印</string>
     
     <string name="CameraFilter">Filter</string>
     <string name="enable_master_filter">Enable Master filter</string>
     <string name="enable_jiangwen_filter">Enable Jiang Wen filter</string>
+    <string name="enable_grand_tour_filter">Enable GrandTour filter</string>
+    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
+    <string name="camera_video_filter_settings">Video filter settings</string>
+    <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
+    <string name="camera_filter_retention">AI Color Portrait</string>
+    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
+    
     <string name="enable_10_bit_image_support">Enable 10 bit Images Support</string>
     <string name="enable_10_bit_image_support_summary">Enabling this feature on some models may cause the photo to turn green</string>
     
