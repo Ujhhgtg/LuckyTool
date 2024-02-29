@@ -3498,9 +3498,9 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                                 val positions =
                                     (dialog as AlertDialog).listView.checkedItemPositions
                                 val set = ArraySet<String>()
-                                positions.forEach { position, _ ->
+                                positions.forEach { position, isChecked ->
                                     val key = keys[position]
-                                    set.add(key)
+                                    if (isChecked) set.add(key)
                                 }
                                 context.putStringSet(ModulePrefs, key, set.toSet())
                                 (activity as MainActivity).restart()
@@ -3553,9 +3553,9 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                                 val positions =
                                     (dialog as AlertDialog).listView.checkedItemPositions
                                 val set = ArraySet<String>()
-                                positions.forEach { position, _ ->
+                                positions.forEach { position, isChecked ->
                                     val key = keys[position]
-                                    set.add(key)
+                                    if (isChecked) set.add(key)
                                 }
                                 context.putStringSet(ModulePrefs, key, set.toSet())
                                 (activity as MainActivity).restart()
