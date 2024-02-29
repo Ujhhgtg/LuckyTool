@@ -101,6 +101,9 @@ object HookAndroid : YukiBaseHooker() {
         //视频动态插帧
         loadHooker(EnableVideoMemcFrameInsertion)
 
+        //三段式按键
+//        loadHooker(HookAlertSlider)
+
 //        //Source OplusAppStartConfirmManager
 //        "com.android.server.wm.OplusAppStartConfirmManager".toClass().apply {
 //            method { name = "getCheckConformIntent";returnType = IntentClass }.hook {
@@ -144,49 +147,10 @@ object HookAndroid : YukiBaseHooker() {
 //            }
 //        }
 
-        //com.oplus.vrr.OPlusRefreshRateService RefreshRateHandler
-        //handleSinglePulseModeChange
-        //com.android.server.display.OplusFeatureSinglePulseDinmming
-        //display_pwm_settings_switch
-//        findClass("com.android.server.wm.OplusRefreshRatePolicyImpl").hook {
-//            injectMember {
-//                constructor { paramCount(3) }
-//                afterHook {
-//                    field { name = "mSupportPWMSwitch" }.get(instance).setTrue()
-//                }
-//            }
-//        }
-//        findClass("com.android.server.display.OplusSmartBrightnessController").hook {
-//            injectMember {
-//                method { name = "updateSupportedFeatureState" }
-//                afterHook {
-//                    field { name = "mPWMBacklightSupport" }.get(instance).setTrue()
-//                }
-//            }
-//        }
-
         //电源菜单显示延迟
         //loadHooker(ReducePowerMenuDisplayDelay)
 
         //OPLUS_FEATURE_POWERKEY_SHORT_PRESS_SHUTDOWN = "oplus.software.short_press_powerkey_shutdown";
         //OPLUS_FEATURE_POWERKEY_SHUTDOWN = "oplus.software.long_press_powerkey_shutdown";
-
-        //Share
-        //com.android.internal.app.ChooserActivity
-        //201589207 查看应用详情 oplus_resolver_target_pin_detail
-        //Source OplusResolverPagerAdapter
-
-        //201850903 0x0c080017 oplus_ic_corp_icon_badge_multiapp
-        //201850911 0x0c08001f oplus_ic_corp_badge_case_multiapp
-        //201850912 0x0c080020 oplus_ic_corp_badge_no_background_multiapp
-//        findClass("android.util.IconDrawableFactory").hook {
-//            injectMember {
-//                method {
-//                    name = "getBadgedIcon"
-//                    paramCount = 3
-//                }
-//                intercept()
-//            }
-//        }
     }
 }

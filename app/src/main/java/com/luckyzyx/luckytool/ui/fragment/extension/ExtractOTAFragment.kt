@@ -30,7 +30,7 @@ import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
-import org.json.JSONObject
+import java.util.Random
 
 @Obfuscate
 class ExtractOTAFragment : Fragment() {
@@ -95,15 +95,11 @@ class ExtractOTAFragment : Fragment() {
                         list.addAll(otaList)
                     } else return@withDefault list
 
-                    val json = JSONObject().apply {
-                        put("product_name", Build.MODEL)
-                        put("nv_id", SystemProperties.get("ro.build.oplus_nv_id"))
-                        put("pcb", getPcbInfo)
-                        put("sn", getSnInfo)
-                        put("recruit", getRecruit)
-                    }
+                    val nvId = SystemProperties.get("ro.build.oplus_nv_id")
+                    val random = Random().nextInt().toString()
+                    val data = random + "|${Build.MODEL}|$nvId|$getPcbInfo|$getSnInfo|$getRecruit"
                     val encrypt = safeOfNull {
-                        AESCrypt.encrypt(json.toString(), "otatoolsotatools")
+                        AESCrypt.encrypt(data, "otatoolsotatools")
                     } ?: ""
                     if (encrypt.isNotBlank()) list.add("Verity: $encrypt")
                     list.add("Source: @LuckyTool")
@@ -121,7 +117,7 @@ class ExtractOTAFragment : Fragment() {
                     setOnClickListener { context.copyStr(binding.otaData.text) }
                 }
             }
-            if (isZh(context)) binding.tips.text = "使用此功能时,禁止随意删除任何文字"
+            if (isZh(context)) binding.tips.text = "使用此功能时,禁止删除与遗漏数据"
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }

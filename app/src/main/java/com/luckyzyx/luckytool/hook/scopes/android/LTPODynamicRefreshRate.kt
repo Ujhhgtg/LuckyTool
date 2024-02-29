@@ -10,8 +10,11 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
     private const val BackLightBean = "com.oplus.vrr.bean.BackLightBean"
 
     override fun onHook() {
+        val ltpoMode = prefs(ModulePrefs).getString("set_ltpo_refresh_rate_mode", "0")
         val ltpoMinOne =
             prefs(ModulePrefs).getBoolean("enable_full_brightness_refresh_rate_minimum_one", false)
+
+        if (ltpoMode != "1") return
 
         //Source BackLightBean
         "com.oplus.vrr.OPlusFeatureManager".toClass().apply {

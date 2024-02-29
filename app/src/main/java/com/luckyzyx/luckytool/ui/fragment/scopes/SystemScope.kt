@@ -85,16 +85,23 @@ class Android : BaseScopePreferenceFeagment() {
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_full_brightness_refresh_rate_minimum_one)
-                summary = arraySummaryLine(
-                    getString(R.string.need_restart_system)
-                )
-                key = "enable_full_brightness_refresh_rate_minimum_one"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (context.getString(ModulePrefs, "set_ltpo_refresh_rate_mode", "0") == "1") {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_full_brightness_refresh_rate_minimum_one)
+                    summary = arraySummaryLine(
+                        getString(R.string.enable_full_brightness_refresh_rate_minimum_one_summary),
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "enable_full_brightness_refresh_rate_minimum_one"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
         }
     }
 }

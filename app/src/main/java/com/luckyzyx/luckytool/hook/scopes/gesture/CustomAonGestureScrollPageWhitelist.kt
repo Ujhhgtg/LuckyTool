@@ -25,6 +25,7 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
 //        )
         if (pageSet.isEmpty()) return
 
+        //Source ConfigDataUtils
         //Search com.ss.android.ugc.aweme / com.smile.gifmaker
         dexKitBridge.findClass {
             matcher {
