@@ -33,7 +33,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.2.1_beta"
+        versionName = "1.2.1"
         buildConfigField("String", "APP_CENTER_SECRET", getAppCenterSecret())
         buildConfigField("String", "APP_CENTER_SECRET_BETA", getAppCenterSecret(true))
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))

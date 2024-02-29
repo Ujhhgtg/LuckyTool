@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.1_beta
+### 1.2.1
 
 - [优化] 更新内置CDN更新渠道地址
 - [修复] 状态栏双行网速移除每秒字符问题
@@ -24,6 +24,26 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 相机视频滤镜设置 C13.0+
 - [优化] 状态栏磁贴部分开关控制逻辑
 - [适配] 适配照片选择器选择图片问题
+- [Optimize] Update the built-in CDN update channel address
+- [Fix] The problem of characters per second being removed at double-line network speed in the
+  status bar
+- [Optimize] Two-line network speed calculation logic in status bar
+- [Optimize] Some list functions support sorting methods and filters
+- [Fix] Abnormal judgment of status bar notification floating window reply to blacklist
+- [Optimize] Some list functions support package name or activity selector
+- [Change] Reduce the New Year watermark system version judgment to C13.1+
+- [Optimize] Donation list sorting method and filter
+- [Add] Enable Game Assistant to hang up in the background C13.1+
+- [Fix] The problem that Memc configuration probability cannot be added
+- [Fix] Modification exception issue when Memc configures filtering
+- [Add] Status bar battery style applied to icons
+- [Add] Customize camera to open photo album by default C13.0+
+- [Add] Module self request permission dialog
+- [Add] Enable camera grand tour filter C13.0+
+- [Add] Camera portrait filter settings C13.0+
+- [Add] Camera video filter settings C13.0+
+- [Optimize] Switch control logic of status bar tile part
+- [Fix] Adapt to the photo selector problem of selecting pictures
 
 ### 1.2.0
 

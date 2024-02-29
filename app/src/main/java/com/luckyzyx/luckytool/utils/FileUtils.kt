@@ -146,10 +146,10 @@ object FileUtils {
      * @return String?
      */
     fun getMSMCacheFile(context: Context, uri: Uri): File? {
-        val downloadDir = checkDownloadDir(context, "LuckyTool")
-        val dir = File(downloadDir, "cache").apply {
-            if (!exists() || isFile) delete()
-            mkdirs()
+        val toolDir = checkDownloadDir(context, "LuckyTool")
+        val dir = File(toolDir, "cache").apply {
+            if (isFile) delete()
+            if (!exists()) mkdirs()
         }
         File(dir, ".nomedia").createNewFile()
         val fileType = context.contentResolver.getType(uri)?.split("/")?.get(1)
@@ -290,7 +290,10 @@ object FileUtils {
             if (isFile) delete()
             if (!exists()) mkdirs()
         }
-        return File(file.path, fileName)
+        return File(file.path, fileName).apply {
+            if (isFile) delete()
+            if (!exists()) mkdirs()
+        }
     }
 
     /**
@@ -301,10 +304,13 @@ object FileUtils {
         checkRWPermission(context)
         val file =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).apply {
-                if (!exists() || isFile) delete()
-                mkdirs()
+                if (isFile) delete()
+                if (!exists()) mkdirs()
             }
-        return File(file, fileName)
+        return File(file, fileName).apply {
+            if (isFile) delete()
+            if (!exists()) mkdirs()
+        }
     }
 
     /**
