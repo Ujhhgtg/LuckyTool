@@ -24,7 +24,7 @@ import org.json.JSONObject
 import java.io.File
 
 @Obfuscate
-class UpdateUtils(val context: Context) {
+class UpdateUtils(val context: Context, val isDev: Boolean = false) {
 
     @Suppress("unused")
     val coolmarketUrl =
@@ -54,9 +54,7 @@ class UpdateUtils(val context: Context) {
                 result(name, code.toInt()) {
                     MaterialAlertDialogBuilder(context, dialogCentered).apply {
                         setTitle(context.getString(R.string.check_update_hint))
-                        if (!context.getBoolean(SettingsPrefs, "hidden_function")) setCancelable(
-                            false
-                        )
+                        setCancelable(isDev)
                         setView(NestedScrollView(context).apply {
                             addView(MaterialTextView(context).apply {
                                 setPadding(20.dp, 0, 20.dp, 0)
@@ -95,7 +93,7 @@ class UpdateUtils(val context: Context) {
         )
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.select_download_source))
-            setCancelable(false)
+            setCancelable(isDev)
             setItems(list) { _, which ->
                 downloadFile(context, fileName, cdn[which] + downloadUrl)
             }

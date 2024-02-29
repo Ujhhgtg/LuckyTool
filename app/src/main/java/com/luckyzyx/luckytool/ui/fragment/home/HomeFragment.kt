@@ -58,7 +58,8 @@ class HomeFragment : Fragment(), MenuProvider {
         }
 
 //        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true)) {
-        UpdateUtils(requireActivity()).checkUpdate(
+        val isDev = requireActivity().getBoolean(SettingsPrefs, "hidden_function")
+        UpdateUtils(requireActivity(), isDev).checkUpdate(
             getVersionName, getVersionCode
         ) { versionName, versionCode, function ->
             if (getVersionCode < versionCode) {
@@ -71,11 +72,9 @@ class HomeFragment : Fragment(), MenuProvider {
                 binding.statusCard.setOnClickListener { function() }
             }
             binding.statusCard.apply {
-                if (context.getBoolean(SettingsPrefs, "hidden_function", false)) {
-                    setOnLongClickListener {
-                        function()
-                        true
-                    }
+                if (isDev) setOnLongClickListener {
+                    function()
+                    true
                 }
             }
         }
