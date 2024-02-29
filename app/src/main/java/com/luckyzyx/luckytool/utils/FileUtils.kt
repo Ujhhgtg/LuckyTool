@@ -5,6 +5,7 @@ import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Environment
 import android.os.SystemClock
@@ -83,7 +84,7 @@ object FileUtils {
                 return if (docId.startsWith("raw:")) {
                     docId.replaceFirst("raw:", "")
                 } else if (docId.contains("msf:")) {
-                    getMSFFile(context, uri)
+                    getMSMCacheFile(context, uri)?.path ?: "null"
                 } else {
                     val contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), ContentUris.parseId(uri)
@@ -104,7 +105,7 @@ object FileUtils {
                 }
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(docArray[1])
-                return getDataColumn(context, contentUri!!, selection, selectionArgs)
+                return getDataColumn(context, contentUri, selection, selectionArgs)
             }
         }
         return "null"
@@ -119,8 +120,10 @@ object FileUtils {
      * @return String?
      */
     fun getDataColumn(
-        context: Context, uri: Uri, selection: String?, selectionArgs: Array<String>?
+        context: Context, uri: Uri?, selection: String?, selectionArgs: Array<String>?
     ): String? {
+        if (uri == null) return null
+
         var cursor: Cursor? = null
         val column = "_data"
         val projection = arrayOf(column)
@@ -142,26 +145,38 @@ object FileUtils {
      * @param uri Uri
      * @return String?
      */
-    fun getMSFFile(context: Context, uri: Uri): String? {
-        val dir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/LuckyTool/cache")
-        if (!dir.exists()) dir.mkdirs()
-        File(dir.path + "/.nomedia").createNewFile()
+    fun getMSMCacheFile(context: Context, uri: Uri): File? {
+        val downloadDir = checkDownloadDir(context, "LuckyTool")
+        val dir = File(downloadDir, "cache").apply {
+            if (!exists() || isFile) delete()
+            mkdirs()
+        }
+        File(dir, ".nomedia").createNewFile()
         val fileType = context.contentResolver.getType(uri)?.split("/")?.get(1)
         val fileName = SystemClock.uptimeMillis().toString() + "." + fileType
         val file = File(dir, fileName)
-        val inputStream = context.contentResolver.openInputStream(uri)
-        if (inputStream != null) return copyStreamToFile(inputStream, file)
-        return null
+        return copyUriToFile(context, uri, file)
     }
 
     /**
-     * 复制文件
+     * 从Uri赋值文件
+     * @param context Context
+     * @param uri Uri
+     * @param outputFile File
+     * @return String
+     */
+    fun copyUriToFile(context: Context, uri: Uri, outputFile: File): File? {
+        val inputStream = context.contentResolver.openInputStream(uri) ?: return null
+        return copyStreamToFile(inputStream, outputFile)
+    }
+
+    /**
+     * 从InputStream复制文件
      * @param inputStream InputStream
      * @param outputFile File
      * @return String
      */
-    fun copyStreamToFile(inputStream: InputStream, outputFile: File): String {
+    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File {
         inputStream.use { input ->
             val outputStream = FileOutputStream(outputFile)
             outputStream.use { output ->
@@ -174,7 +189,7 @@ object FileUtils {
                 output.flush()
             }
         }
-        return outputFile.path
+        return outputFile
     }
 
     /**
@@ -286,8 +301,8 @@ object FileUtils {
         checkRWPermission(context)
         val file =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).apply {
-                if (isFile) delete()
-                if (!exists()) mkdirs()
+                if (!exists() || isFile) delete()
+                mkdirs()
             }
         return File(file, fileName)
     }
@@ -424,5 +439,51 @@ object FileUtils {
             LogUtils.e("getFileSize", file.path, "$e")
             0L
         }
+    }
+
+    /**
+     * Uri转BitMap
+     * @param context Context
+     * @param uri Uri
+     * @return Bitmap?
+     */
+    fun uriToBitmap(context: Context, uri: Uri) = safeOfNull {
+        val contentResolver: ContentResolver = context.contentResolver
+        val source = ImageDecoder.createSource(contentResolver, uri)
+        ImageDecoder.decodeBitmap(source)
+    }
+
+    /**
+     * 获取持久性URI权限
+     * @param appInfoContext Context
+     * @param uri Uri
+     */
+    fun takeUriPermission(appInfoContext: Context, uri: Uri) {
+//        val packName = appInfoContext.packageName
+//        appInfoContext.grantUriPermission(packName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//
+        val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        appInfoContext.contentResolver.takePersistableUriPermission(uri, flag)
+    }
+
+    /**
+     * 获取Uri文件路径
+     * @param context Context
+     * @param uri Uri
+     */
+    fun getUriPath(context: Context, uri: Uri): String? {
+        var path: String? = null
+        if (ContentResolver.SCHEME_CONTENT == uri.scheme) {
+            val cursor = context.contentResolver.query(uri, null, null, null, null)
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                    path = it.getString(columnIndex)
+                }
+            }
+        } else if (ContentResolver.SCHEME_FILE == uri.scheme) {
+            path = uri.path
+        }
+        return path
     }
 }

@@ -149,7 +149,7 @@ fun Context.clearAllPrefs(vararg PrefList: String?) = runInSafe {
  */
 fun Context.backupPrefs(PrefsName: String?): MutableMap<String, *>? = safeOfNull {
     val prefs = getSharedPreferences(PrefsName, Context.MODE_WORLD_READABLE)
-    return@safeOfNull prefs.all
+    prefs.all
 }
 
 /**
@@ -158,12 +158,11 @@ fun Context.backupPrefs(PrefsName: String?): MutableMap<String, *>? = safeOfNull
  * @param PrefList Array<out String?>
  * @return ArrayMap<String, MutableMap<String, *>>?
  */
-fun Context.backupAllPrefs(vararg PrefList: String?): ArrayMap<String, MutableMap<String, *>>? =
-    safeOfNull {
-        return@safeOfNull ArrayMap<String, MutableMap<String, *>>().apply {
-            PrefList.forEach {
-                val prefs = getSharedPreferences(it, Context.MODE_WORLD_READABLE)
-                this[it] = prefs.all
-            }
+fun Context.backupAllPrefs(vararg PrefList: String?) = safeOfNull {
+    ArrayMap<String, MutableMap<String, *>>().apply {
+        PrefList.forEach {
+            val prefs = getSharedPreferences(it, Context.MODE_WORLD_READABLE)
+            this[it] = prefs.all
         }
     }
+}

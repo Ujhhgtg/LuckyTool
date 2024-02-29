@@ -14,7 +14,7 @@ object FingerPrintIconAnim : YukiBaseHooker() {
     override fun onHook() {
         val removeMode = prefs(ModulePrefs).getString("remove_fingerprint_icon_mode", "0")
         val isReplaceIcon = prefs(ModulePrefs).getBoolean("replace_fingerprint_icon_switch", false)
-        val iconPath = prefs(ModulePrefs).getString("replace_fingerprint_icon_path", "null")
+        val iconPath = prefs(ModulePrefs).getString("replace_fingerprint_icon_path", "")
 
         //Source OnScreenFingerprintUiMech
         VariousClass(
@@ -25,9 +25,7 @@ object FingerPrintIconAnim : YukiBaseHooker() {
             method { name = "loadAnimDrawables" }.hook {
                 when (removeMode) {
                     "0" -> if (isReplaceIcon) after {
-                        instance.setCustomDrawable(
-                            iconPath, true
-                        )
+                        instance.setCustomDrawable(iconPath, true)
                     }
 
                     "1" -> after { instance.setCustomDrawable(null, true) }
@@ -56,9 +54,8 @@ object FingerPrintIconAnim : YukiBaseHooker() {
             val mContext = field { name = "mContext" }.cast<Context>()
             val getCurrentUserContext =
                 method { name = "getCurrentUserContext" }.invoke<Context>(mContext) ?: return
-            val drawable = if (iconPath == null) null else BitmapDrawable(
-                getCurrentUserContext.resources, BitmapFactory.decodeFile(iconPath)
-            )
+            val drawable = if (iconPath.isNullOrBlank()) null
+            else BitmapDrawable(getCurrentUserContext.resources, BitmapFactory.decodeFile(iconPath))
             if (drawable == null) {
                 field { name = "mFadeInAnimDrawable" }.setNull()
                 field { name = "mFadeOutAnimDrawable" }.setNull()

@@ -97,14 +97,12 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             showUpdateTime = it
             initSend(thisContext)
         }
-        showVolMode =
-            prefs(ModulePrefs).getString("battery_information_voltage_display_mode", "0")
+        showVolMode = prefs(ModulePrefs).getString("battery_information_voltage_display_mode", "0")
         dataChannel.wait<String>("battery_information_voltage_display_mode") {
             showVolMode = it
             initSend(thisContext)
         }
-        isHealth =
-            prefs(ModulePrefs).getBoolean("battery_information_show_battery_health", false)
+        isHealth = prefs(ModulePrefs).getBoolean("battery_information_show_battery_health", false)
         dataChannel.wait<Boolean>("battery_information_show_battery_health") {
             isHealth = it
             initSend(thisContext)
@@ -115,8 +113,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             isPositive = it
             initSend(thisContext)
         }
-        isSimple =
-            prefs(ModulePrefs).getBoolean("battery_information_show_simple_mode", false)
+        isSimple = prefs(ModulePrefs).getBoolean("battery_information_show_simple_mode", false)
         dataChannel.wait<Boolean>("battery_information_show_simple_mode") {
             isSimple = it
             initSend(thisContext)
@@ -219,8 +216,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         if (context == null) return
         when (displayMode) {
             "1" -> sendNotification(
-                context, showChargerInfo && isCharging,
-                showUpdateTime, isSimple, showVolMode
+                context, showChargerInfo && isCharging, showUpdateTime, isSimple, showVolMode
             )
 
             "2" -> if (isCharging) sendNotification(
@@ -373,14 +369,19 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         NotifyUtils.clearNotification(context, channelNotifyId)
     }
 
-    private fun getChargeInfo(): Properties = safeOf(Properties()) {
-        val queryChargeInfo = IChargerUtils(appClassLoader).let {
-            if (oplusCharger == null) oplusCharger = it.getInstance()
-            it.queryChargeInfo(oplusCharger)
-        }
+    private fun getChargeInfo(): Properties {
+        return try {
+            val queryChargeInfo = IChargerUtils(appClassLoader).let {
+                if (oplusCharger == null) oplusCharger = it.getInstance()
+                it.queryChargeInfo(oplusCharger)
+            }
 //        LogUtils.d("getChargeInfo", "queryChargeInfo", queryChargeInfo.toString(), true)
-        return Properties().apply {
-            if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))
+            Properties().apply {
+                if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))
+            }
+        } catch (e: Exception) {
+            YLog.error("StatusBarBatteryInfoNotify -> getChargeInfo", e)
+            Properties()
         }
     }
 

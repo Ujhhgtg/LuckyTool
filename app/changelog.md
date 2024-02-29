@@ -23,6 +23,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 相机人像滤镜设置 C13.0+
 - [添加] 相机视频滤镜设置 C13.0+
 - [优化] 状态栏磁贴部分开关控制逻辑
+- [适配] 适配照片选择器选择图片问题
 
 ### 1.2.0
 

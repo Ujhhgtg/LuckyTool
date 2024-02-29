@@ -1,11 +1,14 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.util.ArraySet
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.util.forEach
 import androidx.preference.DropDownPreference
 import androidx.preference.EditTextPreference
@@ -2707,14 +2710,14 @@ class DialogRelated : BaseScopePreferenceFeagment() {
 @Obfuscate
 class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
-    private val loadFPIcon = registerForActivityResult(ActivityResultContracts.GetContent()) {
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         if (it != null) {
-            val path = FileUtils.getDocumentPath(requireActivity(), it)
+            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
             requireActivity().putString(
-                ModulePrefs, "replace_fingerprint_icon_path", path
+                ModulePrefs, "replace_fingerprint_icon_path", cacheFile?.path ?: ""
             )
-            findPreference<Preference>("replace_fingerprint_icon_path")?.summary = path
         }
+        (activity as MainActivity).restart()
     }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -2743,13 +2746,21 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     title = getString(R.string.replace_fingerprint_icon_path)
                     key = "replace_fingerprint_icon_path"
-                    summary = context.getString(
-                        ModulePrefs, "replace_fingerprint_icon_path", "null"
-                    )
-                    isIconSpaceReserved = false
-                    isCopyingEnabled = true
+                    val path = context.getString(ModulePrefs, key, "")
+                    if (path.isNullOrBlank()) {
+                        summary = "Null"
+                        isIconSpaceReserved = false
+                    } else {
+                        icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                        summary = path
+                        isCopyingEnabled = true
+                    }
                     setOnPreferenceClickListener {
-                        loadFPIcon.launch("image/*")
+                        pickMedia.launch(
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")
+                            )
+                        )
                         true
                     }
                 })
@@ -4162,24 +4173,26 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
 @Obfuscate
 class OplusGesture : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.oplus.gesture")
-    private val loadLeftImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        if (it != null) {
-            val path = FileUtils.getDocumentPath(requireActivity(), it)
-            requireActivity().putString(
-                ModulePrefs, "replace_side_slider_icon_on_left", path
-            )
-            findPreference<Preference>("replace_side_slider_icon_on_left")?.summary = path
+    private val pickLeftMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+            if (it != null) {
+                val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+                requireActivity().putString(
+                    ModulePrefs, "replace_side_slider_icon_on_left", cacheFile?.path ?: ""
+                )
+            }
+            (activity as MainActivity).restart()
         }
-    }
-    private val loadRightImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        if (it != null) {
-            val path = FileUtils.getDocumentPath(requireActivity(), it)
-            requireActivity().putString(
-                ModulePrefs, "replace_side_slider_icon_on_right", path
-            )
-            findPreference<Preference>("replace_side_slider_icon_on_right")?.summary = path
+    private val pickRightMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+            if (it != null) {
+                val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+                requireActivity().putString(
+                    ModulePrefs, "replace_side_slider_icon_on_right", cacheFile?.path ?: ""
+                )
+            }
+            (activity as MainActivity).restart()
         }
-    }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -4311,26 +4324,42 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     title = getString(R.string.replace_side_slider_icon_on_left)
                     key = "replace_side_slider_icon_on_left"
-                    summary = context.getString(
-                        ModulePrefs, "replace_side_slider_icon_on_left", "null"
-                    )
-                    isIconSpaceReserved = false
-                    isCopyingEnabled = true
+                    val path = context.getString(ModulePrefs, key, "")
+                    if (path.isNullOrBlank()) {
+                        summary = "Null"
+                        isIconSpaceReserved = false
+                    } else {
+                        icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                        summary = path
+                        isCopyingEnabled = true
+                    }
                     setOnPreferenceClickListener {
-                        loadLeftImage.launch("image/*")
+                        pickLeftMedia.launch(
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")
+                            )
+                        )
                         true
                     }
                 })
                 addPreference(Preference(context).apply {
                     title = getString(R.string.replace_side_slider_icon_on_right)
                     key = "replace_side_slider_icon_on_right"
-                    summary = context.getString(
-                        ModulePrefs, "replace_side_slider_icon_on_right", "null"
-                    )
-                    isIconSpaceReserved = false
-                    isCopyingEnabled = true
+                    val path = context.getString(ModulePrefs, key, "")
+                    if (path.isNullOrBlank()) {
+                        summary = "Null"
+                        isIconSpaceReserved = false
+                    } else {
+                        icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                        summary = path
+                        isCopyingEnabled = true
+                    }
                     setOnPreferenceClickListener {
-                        loadRightImage.launch("image/*")
+                        pickRightMedia.launch(
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")
+                            )
+                        )
                         true
                     }
                 })
