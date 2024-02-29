@@ -104,7 +104,10 @@ class UpdateUtils(val context: Context) {
 
     @SuppressLint("ClickableViewAccessibility")
     fun downloadFile(context: Context, apkName: String, url: String) {
-        val apkFile = FileUtils.checkDownloadDir(context, apkName)
+        val toolDir = FileUtils.checkDownloadDir(context, "LuckyTool")
+        val apkFile = File(toolDir, apkName).apply {
+            if (isDirectory) delete()
+        }
         var downloadScope: NetCoroutineScope = scopeNet { }
         val binding = DialogDownloadLayoutBinding.inflate(LayoutInflater.from(context))
         val downloadDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {

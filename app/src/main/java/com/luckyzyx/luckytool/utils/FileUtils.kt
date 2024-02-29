@@ -297,7 +297,7 @@ object FileUtils {
     }
 
     /**
-     * 检查获取Download目录
+     * 检查获取Download子目录
      * @receiver Context
      */
     fun checkDownloadDir(context: Context, fileName: String): File {
