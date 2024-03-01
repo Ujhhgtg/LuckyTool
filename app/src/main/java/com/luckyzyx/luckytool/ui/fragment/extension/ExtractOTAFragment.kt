@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.os.SystemProperties
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.formatFileSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
+import com.luckyzyx.luckytool.utils.getFingerPrintModel
 import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.getPcbInfo
 import com.luckyzyx.luckytool.utils.getRecruit
@@ -90,14 +90,15 @@ class ExtractOTAFragment : Fragment() {
                     }
 
                     if (otaList.isNotEmpty()) {
-                        list.add("Model: ${getModelMarketName()} ${Build.MODEL}")
+                        list.add("Model: ${getModelMarketName()} ${getFingerPrintModel()}")
                         list.add("")
                         list.addAll(otaList)
                     } else return@withDefault list
 
                     val nvId = SystemProperties.get("ro.build.oplus_nv_id")
                     val random = Random().nextInt().toString()
-                    val data = random + "|${Build.MODEL}|$nvId|$getPcbInfo|$getSnInfo|$getRecruit"
+                    val data =
+                        random + "|${getFingerPrintModel()}|$nvId|$getPcbInfo|$getSnInfo|$getRecruit"
                     val encrypt = safeOfNull {
                         AESCrypt.encrypt(data, "otatoolsotatools")
                     } ?: ""

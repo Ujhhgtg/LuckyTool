@@ -76,7 +76,7 @@ object HookCameraConfig : YukiBaseHooker() {
                             //街拍模式
                             "com.oplus.feature.street.mode.support" -> {}
 
-                            //Filter
+                            //Filter FilterGroupManager
 
                             //大师滤镜
                             "com.oplus.photo.master.filter.type.list", "com.oplus.portrait.master.filter.type.list" -> if (isHasselblad && masterFilter) {
@@ -89,6 +89,9 @@ object HookCameraConfig : YukiBaseHooker() {
                             "com.oplus.director.filter.upgrade.support" -> if (jiangwenFilter) result(
                                 true
                             )
+
+                            //陆川滤镜 / 光影有声
+//                            "com.oplus.tol.style.filter.support" -> result(true)
 
                             //盛大旅行
                             "com.oplus.support.grand.tour.filter" -> if (grandTourFilter) result(

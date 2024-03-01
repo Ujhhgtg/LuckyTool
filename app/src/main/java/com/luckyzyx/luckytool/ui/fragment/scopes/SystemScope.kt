@@ -3422,7 +3422,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                         EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
                     }
                     isIconSpaceReserved = false
-                    isVisible = Build.MODEL.contains("RM", true).not()
+                    isVisible = Build.FINGERPRINT.contains("RMX", true).not()
                 })
             }
             //滤镜

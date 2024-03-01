@@ -154,7 +154,7 @@ fun Context.getDeviceInfo(
     val androidVer = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
     val osVer = "OS $getOSVersionName($getOSVersionCode)"
     return """
-        ${getString(R.string.model)}: ${Build.BRAND} ${Build.MODEL}
+        ${getString(R.string.model)}: ${Build.BRAND} ${getFingerPrintModel()}
         ${getString(R.string.market_name)}: ${getModelMarketName()}
         ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
         ${getString(R.string.system)}: $androidVer $osVer
@@ -1468,4 +1468,12 @@ fun startBackgroundRunService(context: Context) {
             e.toString(), true
         )
     }
+}
+
+/**
+ * 获取指纹机型
+ * @return String
+ */
+fun getFingerPrintModel(): String {
+    return safeOf(Build.MODEL) { Build.FINGERPRINT.split("/")[1] }
 }

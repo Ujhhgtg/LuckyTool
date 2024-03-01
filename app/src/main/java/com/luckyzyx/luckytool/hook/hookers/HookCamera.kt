@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
-import android.os.Build
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomCameraOpenGalleryByDefault
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomModelWaterMark
 import com.luckyzyx.luckytool.hook.scopes.camera.HookCameraConfig
@@ -20,12 +20,16 @@ object HookCamera : YukiBaseHooker() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
         if (appVer?.versionCommit.isNullOrBlank()) return
 
+        //Source BuildConfig
+        val brand = "com.oplus.camera.filter.BuildConfig".toClassOrNull()
+            ?.field { name = "FLAVOR_b" }?.get()?.string() ?: ""
+
         //HookCameraConfig
         if (SDK >= A13) loadHooker(HookCameraConfig)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //自定义机型水印
-            val isRealme = Build.MODEL.startsWith("RM", true)
+            val isRealme = brand.contains("realme", true)
             if (SDK >= A13 && isRealme.not()) loadHooker(CustomModelWaterMark(dexKitBridge))
 
             //移除自定义水印字数限制

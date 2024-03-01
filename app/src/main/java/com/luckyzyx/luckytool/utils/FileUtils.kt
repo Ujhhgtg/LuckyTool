@@ -153,8 +153,10 @@ object FileUtils {
         }
         File(dir, ".nomedia").createNewFile()
         val fileType = context.contentResolver.getType(uri)?.split("/")?.get(1)
+//        LogUtils.d("getMSMCacheFile", "fileType", fileType.toString(), true)
         val fileName = SystemClock.uptimeMillis().toString() + "." + fileType
         val file = File(dir, fileName)
+//        LogUtils.d("getMSMCacheFile", "file", file.path, true)
         return copyUriToFile(context, uri, file)
     }
 
@@ -176,7 +178,7 @@ object FileUtils {
      * @param outputFile File
      * @return String
      */
-    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File {
+    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File? {
         inputStream.use { input ->
             val outputStream = FileOutputStream(outputFile)
             outputStream.use { output ->
@@ -189,7 +191,7 @@ object FileUtils {
                 output.flush()
             }
         }
-        return outputFile
+        return if (outputFile.exists()) outputFile else null
     }
 
     /**
