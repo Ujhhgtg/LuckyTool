@@ -87,7 +87,6 @@ android {
 dependencies {
     //implementation(fileTree("libs").include("*.jar"))
 
-    //hidden-api-stub
     compileOnly(project(":hidden-api-stub"))
     //Xposed基础
     compileOnly("de.robv.android.xposed:api:82")
@@ -128,6 +127,8 @@ dependencies {
     implementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9")
     //滚动条
     implementation("me.zhanghai.android.fastscroll:library:1.3.0")
+    //Color Picker
+    implementation("io.github.vadiole:colorpicker:1.0.4")
     //kotlin协程
     val kotlinxCoroutinesVersion = "1.8.0"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinxCoroutinesVersion}")

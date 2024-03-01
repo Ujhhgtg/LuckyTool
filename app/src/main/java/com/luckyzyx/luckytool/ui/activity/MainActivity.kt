@@ -45,7 +45,7 @@ import kotlin.system.exitProcess
 @Suppress("PrivatePropertyName")
 open class MainActivity : AppCompatActivity() {
     //检测Prefs状态
-    private var isStart = YukiHookAPI.Status.isXposedModuleActive
+    private var isModuleActive = YukiHookAPI.Status.isXposedModuleActive
     private val KEY_PREFIX = MainActivity::class.java.name + '.'
     private val EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE"
 
@@ -77,7 +77,7 @@ open class MainActivity : AppCompatActivity() {
         val noModulePrefs = prefs(ModulePrefs).isPreferencesAvailable.not()
         val noSettingPrefs = prefs(SettingsPrefs).isPreferencesAvailable.not()
         val noOtherPrefs = prefs(OtherPrefs).isPreferencesAvailable.not()
-        if (!isStart || noModulePrefs || noSettingPrefs || noOtherPrefs) {
+        if (!isModuleActive || noModulePrefs || noSettingPrefs || noOtherPrefs) {
             MaterialAlertDialogBuilder(this).apply {
                 setCancelable(false)
                 setMessage(getString(R.string.unsupported_xposed, "v1.9.2"))
