@@ -337,6 +337,7 @@
     <string name="LockScreenStatusBar">Stavová lišta zamykací obrazovky</string>
     <string name="hide_lock_screen_status_bar_display">Skrýt zobrazení stavové lišty na zamykací obrazovce</string>
     <string name="remove_statusbar_carriers">Odstranit název operátora ze stavové lišty</string>
+    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
     <string name="statusbar_carriers_use_user_typeface">Použít vlastní font textu operátora ve stavové liště</string>
     <string name="LockScreenButton">Tlačítka na zamykací obrazovce</string>
     <string name="remove_top_lock_screen_icon">Odstranit horní ikony na zamykací obrazovce</string>

@@ -98,7 +98,7 @@
     <!--Android-->
     <string name="set_ltpo_refresh_rate_mode">Đặt chế độ tốc độ làm mới LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Kích hoạt độ sáng đầy đủ tốc độ làm mới tối thiểu 1</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Some models may conflict with Game Assistant, causing the screen to flicker.</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Một số kiểu máy có thể xung đột với Trợ lý trò chơi và gây ra hiện tượng màn hình nhấp nháy.</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
@@ -337,6 +337,7 @@
     <string name="LockScreenStatusBar">Thanh trạng thái màn hình khóa</string>
     <string name="hide_lock_screen_status_bar_display">Ẩn hiển thị thanh trạng thái màn hình khóa</string>
     <string name="remove_statusbar_carriers">Xóa thanh trạng thái mạng</string>
+    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
     <string name="statusbar_carriers_use_user_typeface">StatusBar Carrier sử dụng phông chữ người dùng</string>
     <string name="LockScreenButton">Nút khóa màn hình</string>
     <string name="remove_top_lock_screen_icon">Xóa biểu tượng màn hình khóa trên cùng</string>

@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.2_beta
+
+- [添加] 自定义锁屏运营商显示文本
+
 ### 1.2.1
 
 - [优化] 更新内置CDN更新渠道地址

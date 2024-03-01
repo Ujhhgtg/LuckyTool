@@ -337,6 +337,7 @@
     <string name="LockScreenStatusBar">ロック画面のステータスバー</string>
     <string name="hide_lock_screen_status_bar_display">ロック画面のステータスバー表示を隠す</string>
     <string name="remove_statusbar_carriers">ステータスバーのキャリア表示を削除</string>
+    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
     <string name="statusbar_carriers_use_user_typeface">ステータスバーのキャリア表示にユーザーフォントを使用します</string>
     <string name="LockScreenButton">ロック画面ボタン</string>
     <string name="remove_top_lock_screen_icon">ロック画面上のアイコンを削除</string>

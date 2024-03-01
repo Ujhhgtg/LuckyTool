@@ -38,7 +38,6 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.dialogCentered
-import com.luckyzyx.luckytool.utils.filterNumber
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -398,9 +397,6 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 addPreference(EditTextPreference(context).apply {
                     title = getString(R.string.statusbar_clock_custom_format)
                     dialogTitle = getString(R.string.statusbar_clock_custom_format)
-                    summary = context.getString(
-                        ModulePrefs, "statusbar_clock_custom_format", "HH:mm:ss"
-                    )
                     dialogMessage = """
                             YYYY/MM/dd -> ${formatDate("YYYY/MM/dd")}
                             Y/M/d/E/a -> ${formatDate("Y/M/d/E/a")}
@@ -423,6 +419,9 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                         """.trimIndent()
                     key = "statusbar_clock_custom_format"
                     setDefaultValue("HH:mm:ss")
+                    setSummaryProvider {
+                        EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
+                    }
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
                         context.sendPrefsValue("com.android.systemui", key, newValue)
@@ -2043,6 +2042,16 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(EditTextPreference(context).apply {
+                title = getString(R.string.statusbar_custom_carrier_display_text)
+                dialogTitle = title
+                key = "statusbar_custom_carrier_display_text"
+                setDefaultValue("")
+                setSummaryProvider {
+                    EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
+                }
+                isIconSpaceReserved = false
+            })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.statusbar_carriers_use_user_typeface)
                 key = "statusbar_carriers_use_user_typeface"
@@ -2066,9 +2075,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "remove_lock_screen_clock_component", false)
-                    .not()
-            ) {
+            if (context.getBoolean(ModulePrefs, "remove_lock_screen_clock_component").not()) {
                 addPreference(DropDownPreference(context).apply {
                     title = getString(R.string.lock_screen_clock_redone_mode)
                     summary = getString(R.string.common_words_current_mode) + ": %s"
@@ -3280,19 +3287,12 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                     addPreference(EditTextPreference(context).apply {
                         title = getString(R.string.customize_battery_health_data_percentage)
                         dialogTitle = title
-                        summary = context.getString(
-                            ModulePrefs, "customize_battery_health_data_percentage", "None"
-                        )
-                        if (summary.isNullOrBlank()) summary = "None"
                         key = "customize_battery_health_data_percentage"
-                        setDefaultValue("None")
-                        isIconSpaceReserved = false
-                        setOnPreferenceChangeListener { _, newValue ->
-                            newValue as String
-                            summary = if (newValue.isBlank()) "None"
-                            else "${newValue.filterNumber}%"
-                            true
+                        setDefaultValue("")
+                        setSummaryProvider {
+                            EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
                         }
+                        isIconSpaceReserved = false
                     })
                     addPreference(SwitchPreference(context).apply {
                         title = getString(R.string.display_module_calculates_battery_health_data)
@@ -3416,18 +3416,13 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 addPreference(EditTextPreference(context).apply {
                     title = getString(R.string.custom_model_watermark)
                     dialogTitle = title
-                    summary = context.getString(
-                        ModulePrefs, "custom_model_watermark", "None"
-                    )
-                    if (summary.isNullOrBlank()) summary = "None"
                     key = "custom_model_watermark"
                     setDefaultValue("None")
+                    setSummaryProvider {
+                        EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
+                    }
                     isIconSpaceReserved = false
                     isVisible = Build.MODEL.contains("RM", true).not()
-                    setOnPreferenceChangeListener { _, newValue ->
-                        summary = (newValue as String).ifBlank { "None" }
-                        true
-                    }
                 })
             }
             //滤镜
