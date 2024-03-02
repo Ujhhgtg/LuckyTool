@@ -48,7 +48,6 @@ import com.luckyzyx.luckytool.hook.hookers.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hookers.HookScreenshot
 import com.luckyzyx.luckytool.hook.hookers.HookSecurePay
 import com.luckyzyx.luckytool.hook.hookers.HookSettings
-import com.luckyzyx.luckytool.hook.hookers.HookSettingsProviders
 import com.luckyzyx.luckytool.hook.hookers.HookSmartSidebar
 import com.luckyzyx.luckytool.hook.hookers.HookSoundRecorder
 import com.luckyzyx.luckytool.hook.hookers.HookSystemUI
@@ -173,8 +172,6 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.oplus.atlas", HookAtlasService)
         //audioEffectCenter
         loadApp("com.oplus.audio.effectcenter", HookAudioEffectCenter)
-        //设置存储
-        loadApp("com.android.providers.settings", HookSettingsProviders)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
