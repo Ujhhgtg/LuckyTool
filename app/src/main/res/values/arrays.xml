@@ -43,6 +43,7 @@
         <item>com.oplus.audiomonitor</item>
         <item>com.oplus.atlas</item>
         <item>com.oplus.audio.effectcenter</item>
+        <item>com.android.providers.settings</item>
         
         <item>ru.kslabs.ksweb</item>
         <item>com.dv.adm</item>

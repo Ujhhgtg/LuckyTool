@@ -115,6 +115,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.smart_sidebar", true)
             }
 
+            //Source SettingsProviders SettingsUtils isShowNeverTimeout 永不息屏 / 一律不 (24H)
+            if (prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)) {
+                put("oplus.software.screen_off_never_support", true)
+            }
+
             //Source NotificationManager FeatureOption isSupportsStealthMode VIP模式
             //Source SafeCenter SettingsInsertProvider VIP模式
 //            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_vip_mode", false)) {

@@ -50,7 +50,7 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
                 put("com.android.settings.cn_version", false)
             }
-            //Source Settings DisplayTimeOutController -> 永不息屏(24H)
+            //Source Settings DisplayTimeOutController -> 永不息屏 / 一律不 (24H)
             if (prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)) {
                 put("com.android.settings.show_never_timeout", true)
             }
