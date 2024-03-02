@@ -114,6 +114,8 @@
     <string name="enhancedMode">Chế độ nâng cao</string>
     <string name="enhancedMode_summary">Bạn có thể giải quyết một số kiểm tra tính toàn vẹn nội bộ trong ứng dụng mà không cần phải bật</string>
     <string name="usepresig_warn">!!! Tất cả các gói có thể ghi đè ứng dụng đã cài đặt!!\nđể cài đặt các gói không xác định</string>
+    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Thanh trạng thái</string>
     <string name="StatusbarEvents">Nội dung thanh trạng thái</string>

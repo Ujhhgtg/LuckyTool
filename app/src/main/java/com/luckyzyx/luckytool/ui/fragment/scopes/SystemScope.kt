@@ -2427,6 +2427,13 @@ class CorePatch : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.shared_user_title)
+                setSummary(R.string.shared_user_summary)
+                key = "sharedUser"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }

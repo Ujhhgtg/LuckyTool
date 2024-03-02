@@ -114,6 +114,8 @@
     <string name="enhancedMode">Tryb wymuszony</string>
     <string name="enhancedMode_summary">Może rozwiązać niektóre wewnętrzne sprawdzanie integralności w aplikacji.</string>
     <string name="usepresig_warn">Uwaga!\nWszystkie pakiety mogą zastąpić zainstalowaną aplikację, co może prowadzić do niebezpiecznych sytuacji.</string>
+    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Pasek stanu</string>
     <string name="StatusbarEvents">StatusBar Events</string>

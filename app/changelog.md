@@ -6,6 +6,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 ### 1.2.2_beta
 
 - [添加] 自定义锁屏运营商显示文本
+- [更改] 同步上游核心破解v4.5
 
 ### 1.2.1
 

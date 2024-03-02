@@ -114,6 +114,8 @@
     <string name="enhancedMode">Расширенный режим</string>
     <string name="enhancedMode_summary">Это может помочь пройти некоторую внутреннюю проверку целостности приложения, обычно не нужно включать</string>
     <string name="usepresig_warn">!!!Все установщики могут перезаписывать установленные приложения!!! Будьте осторожны при установке приложений из неизвестных источников</string>
+    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Статусбар и шторка</string>
     <string name="StatusbarEvents">События статусбара и шторки</string>
@@ -337,7 +339,7 @@
     <string name="LockScreenStatusBar">Статусбар на экране блокировки</string>
     <string name="hide_lock_screen_status_bar_display">Скрыть отображение статусбара на экране блокировки</string>
     <string name="remove_statusbar_carriers">Удалить оператора связи в статусбаре</string>
-    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
+    <string name="statusbar_custom_carrier_display_text">Текст отображения оператора в статусбаре</string>
     <string name="statusbar_carriers_use_user_typeface">Операторы связи в статусбаре используют пользовательские шрифты</string>
     <string name="LockScreenButton">Кнопки экрана блокировки</string>
     <string name="remove_top_lock_screen_icon">Удалить иконку замка на экране блокировки</string>

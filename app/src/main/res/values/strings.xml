@@ -128,6 +128,8 @@
     <string name="enhancedMode">Enhancement mode</string>
     <string name="enhancedMode_summary">You can solve some internal integrity check within the app, which does not need to be enabled</string>
     <string name="usepresig_warn">!!! All packages can override installed App!!\nto install unknown packages</string>
+    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     
     <!--Status Bar-->
     <string name="StatusBar">StatusBar Related</string>

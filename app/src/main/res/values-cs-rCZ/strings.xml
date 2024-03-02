@@ -114,6 +114,8 @@
     <string name="enhancedMode">Režim vylepšení</string>
     <string name="enhancedMode_summary">Můžete vyřešit interní kontrolu integrity v aplikaci, která nemusí být povolena</string>
     <string name="usepresig_warn">!!! Všechny balíčky mohou přepsat nainstalovanou aplikaci!!\npro instalaci neznámých balíčků</string>
+    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Stavová lišta</string>
     <string name="StatusbarEvents">Události stavové lišty</string>

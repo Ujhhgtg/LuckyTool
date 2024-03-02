@@ -114,6 +114,8 @@
     <string name="enhancedMode">拡張モード</string>
     <string name="enhancedMode_summary">一部のアプリの整合性チェックを解決できますが、これを有効化する必要はありません</string>
     <string name="usepresig_warn">!!! すべてのインストールされたアプリをすべてのパッケージで上書きする事ができます!!\n不明なパッケージをインストールします</string>
+    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">ステータスバー関連</string>
     <string name="StatusbarEvents">ステータスバーのイベント</string>
