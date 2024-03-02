@@ -245,7 +245,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
         // if app is system app, allow to use hidden api, even if app not using a system signature
         findAndHookMethod("android.content.pm.ApplicationInfo", loadPackageParam.classLoader, "isPackageWhitelistedForHiddenApis", new XC_MethodHook() {
             @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) {
                 if (prefs.getBoolean("digestCreak", true)) {
                     ApplicationInfo info = (ApplicationInfo) param.thisObject;
                     if ((info.flags & ApplicationInfo.FLAG_SYSTEM) != 0
@@ -285,7 +285,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
         // https://cs.android.com/android/platform/superproject/+/android-11.0.0_r21:frameworks/base/services/core/java/com/android/server/pm/PackageManagerServiceUtils.java;l=728;drc=02a58171a9d41ad0048d6a1a48d79dee585c22a5
         hookAllMethods(signingDetails, "hasCommonAncestor", new XC_MethodHook() {
             @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) {
                 if (prefs.getBoolean("digestCreak", true)
                         && prefs.getBoolean("sharedUser", false)
                         // because of LSPosed's bug, we can't hook verifySignatures while deoptimize it
@@ -311,7 +311,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                 "removePackage",
                 new XC_MethodHook() {
                     @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    protected void beforeHookedMethod(MethodHookParam param) {
                         if (!prefs.getBoolean("digestCreak", true) || !prefs.getBoolean("sharedUser", false))
                             return;
                         var flags = (int) XposedHelpers.getObjectField(param.thisObject, "uidFlags");
@@ -354,7 +354,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                 "addPackage",
                 new XC_MethodHook() {
                     @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    protected void beforeHookedMethod(MethodHookParam param) {
                         if (!prefs.getBoolean("digestCreak", true) || !prefs.getBoolean("sharedUser", false))
                             return;
                         var flags = (int) XposedHelpers.getObjectField(param.thisObject, "uidFlags");
@@ -420,7 +420,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
         hookAllMethods("android.content.pm.PackageParser", null, "getApkSigningVersion", XC_MethodReplacement.returnConstant(1));
         hookAllConstructors("android.util.jar.StrictJarVerifier", new XC_MethodHook() {
             @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) {
                 if (prefs.getBoolean("enhancedMode", false)) {
                     param.args[3] = Boolean.FALSE;
                 }
@@ -436,7 +436,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                 "onCommand",
                 new XC_MethodHook() {
                     @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    protected void beforeHookedMethod(MethodHookParam param) {
                         try {
                             var pms = mPMS;
                             if (pms == null) return;
@@ -479,7 +479,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
         
         XposedBridge.hookAllConstructors(pmsClass, new XC_MethodHook() {
                     @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    protected void afterHookedMethod(MethodHookParam param) {
                         mPMS = param.thisObject;
                     }
                 }
