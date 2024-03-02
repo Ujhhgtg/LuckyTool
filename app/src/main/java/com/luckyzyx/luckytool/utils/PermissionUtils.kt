@@ -10,10 +10,10 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogPermissionLayoutBinding
 
 @Obfuscate
-class PermissionUtils(val context: Activity) {
+class PermissionUtils(val activity: Activity) {
 
-    val binding = DialogPermissionLayoutBinding.inflate(context.layoutInflater)
-    private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
+    val binding = DialogPermissionLayoutBinding.inflate(activity.layoutInflater)
+    private val dialogBuilder = MaterialAlertDialogBuilder(activity, dialogCentered).apply {
         setCancelable(false)
         setView(binding.root)
     }
@@ -25,13 +25,13 @@ class PermissionUtils(val context: Activity) {
     private var installAppStatus = false
 
     fun init(): Boolean {
-        notifyStatus = XXPermissions.isGranted(context, Permission.NOTIFICATION_SERVICE)
+        notifyStatus = XXPermissions.isGranted(activity, Permission.NOTIFICATION_SERVICE)
         refreshNotifyChip(notifyStatus)
-        storageStatus = XXPermissions.isGranted(context, Permission.MANAGE_EXTERNAL_STORAGE)
+        storageStatus = XXPermissions.isGranted(activity, Permission.MANAGE_EXTERNAL_STORAGE)
         refreshStorageChip(storageStatus)
-        appListStatus = XXPermissions.isGranted(context, Permission.GET_INSTALLED_APPS)
+        appListStatus = XXPermissions.isGranted(activity, Permission.GET_INSTALLED_APPS)
         refreshAppListChip(appListStatus)
-        installAppStatus = XXPermissions.isGranted(context, Permission.REQUEST_INSTALL_PACKAGES)
+        installAppStatus = XXPermissions.isGranted(activity, Permission.REQUEST_INSTALL_PACKAGES)
         refreshInstallAppChip(installAppStatus)
 
         val status = notifyStatus && storageStatus && appListStatus && installAppStatus
@@ -45,8 +45,8 @@ class PermissionUtils(val context: Activity) {
 
     fun start() {
         if (init()) return
-        dialogBuilder.setOnDismissListener { context.exitModule() }
-        dialog?.setOnDismissListener { context.exitModule() }
+        dialogBuilder.setOnDismissListener { activity.exitModule() }
+        dialog?.setOnDismissListener { activity.exitModule() }
         dialog = dialogBuilder.show()
     }
 
@@ -103,10 +103,10 @@ class PermissionUtils(val context: Activity) {
     }
 
     private fun toastDenied(permission: String) {
-        context.showToast(context.getString(R.string.permission_denied_toast, permission))
+        activity.showToast(activity.getString(R.string.permission_denied_toast, permission))
     }
 
     private fun toastError(permission: String) {
-        context.showToast(context.getString(R.string.permission_error_toast, permission))
+        activity.showToast(activity.getString(R.string.permission_error_toast, permission))
     }
 }

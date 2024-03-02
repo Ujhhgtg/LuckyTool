@@ -58,3 +58,19 @@ val getOSVersionName: String
  * 30 -> (c14.0)
  */
 val getOSVersionCode get() = safeOf(0) { OplusBuild.getOplusOSVERSION() }
+
+/**
+ * 获取指纹厂商
+ * @return String
+ */
+fun getFingerPrintBrand(): String {
+    return safeOf(Build.MODEL) { Build.FINGERPRINT.split("/")[0] }
+}
+
+/**
+ * 获取指纹机型
+ * @return String
+ */
+fun getFingerPrintModel(): String {
+    return safeOf(Build.BRAND) { Build.FINGERPRINT.split("/")[1] }
+}

@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--写入外部存储-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,6 +23,7 @@
     <uses-permission android:name="com.android.permission.GET_INSTALLED_APPS" />
     <uses-permission android:name="com.oplus.ocs.permission.third" />
     <!--发送通知-->
+    <uses-permission android:name="android.permission.NOTIFICATION_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!--前台服务-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -37,6 +39,7 @@
             android:theme="@style/Theme.Luckyzyx"
             android:preserveLegacyExternalStorage="true"
             android:requestLegacyExternalStorage="true"
+            android:hasFragileUserData="true"
             android:fullBackupContent="@xml/appcenter_backup_rule_11"
             android:dataExtractionRules="@xml/data_extraction_rules"
             tools:targetApi="s">
