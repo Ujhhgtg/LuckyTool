@@ -21,7 +21,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.formatDate
-import com.luckyzyx.luckytool.utils.formatDouble
+import com.luckyzyx.luckytool.utils.formatDecimals
 import com.luckyzyx.luckytool.utils.getBooleanProperty
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getStringProperty
@@ -264,13 +264,13 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val techStr = safeOf("Tech") { context.getString(R.string.battery_technology) }
         val updateTimeStr = safeOf("UpdateTime") { context.getString(R.string.battery_update_time) }
 
-        val power = formatDouble("%.2f", abs(powerCalc) * 1.0).toString() + "W"
+        val power = abs(powerCalc).formatDecimals(2) + "W"
         val wattage = if (chargeWattage != 0) "${chargeWattage}W" else ""
 
         val tem = if (isSimple) "${temperature}℃"
         else "${tempStr}: ${temperature}℃"
-        val formatVol = formatDouble("%.2f", voltage)
-        val formatVol2 = formatDouble("%.2f", voltage2)
+        val formatVol = voltage.formatDecimals(2)
+        val formatVol2 = voltage2.formatDecimals(2)
         val vol = when (showVolMode) {
             "1" -> if (isSimple) "${formatVol}V"
             else "${volStr}: ${formatVol}V"
@@ -286,9 +286,9 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             else -> ""
         }
         val formatCur = if (abs(electricCurrent) >= 1000) {
-            formatDouble("%.1f", electricCurrent / 1000.0).apply {
-                if (isPositive) abs(this)
-            }.toString() + "A"
+            (electricCurrent / 1000.0).formatDecimals(1).let {
+                if (isPositive) it.replace("-", "") else it
+            } + "A"
         } else if (isPositive) abs(electricCurrent).toString() + "mA"
         else "${electricCurrent}mA"
         val cur = if (isSimple) formatCur
@@ -312,18 +312,18 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val tech = if (isSimple) "$technology $wattage"
         else "${techStr}: $technology $wattage"
 
-        val formatWireVol = formatDouble("%.2f", wirelessVol)
+        val formatWireVol = wirelessVol.formatDecimals(2)
         val wireVol = if (isSimple) "${formatWireVol}V"
         else "${volStr}: ${formatWireVol}V"
         val formatwireCur = if (abs(wirelessCur) >= 1000) {
-            formatDouble("%.1f", wirelessCur / 1000.0).apply {
-                if (isPositive) abs(this)
-            }.toString() + "A"
+            (wirelessCur / 1000.0).formatDecimals(1).let {
+                if (isPositive) it.replace("-", "") else it
+            } + "A"
         } else if (isPositive) abs(wirelessCur).toString() + "mA"
         else "${wirelessCur}mA"
         val wireCur = if (isSimple) formatwireCur
         else "${curStr}: $formatwireCur"
-        val wirePwrCalc = formatDouble("%.2f", wirelessVol * wirelessCur / 1000.0)
+        val wirePwrCalc = (wirelessVol * wirelessCur / 1000.0).formatDecimals(2)
         val wirePwr = if (isSimple) "${wirePwrCalc}W"
         else "${pwrStr}: ${wirePwrCalc}W"
 

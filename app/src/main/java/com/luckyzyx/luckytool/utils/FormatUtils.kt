@@ -8,7 +8,6 @@ import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Date
-import java.util.Formatter
 import java.util.Locale
 import java.util.regex.Pattern
 
@@ -35,13 +34,13 @@ fun formatDateTimeMillis(format: String, timeMillis: Long): String? {
 }
 
 /**
- * 格式化Double
- * @param format String 格式
- * @param param Any 要格式化的对象
- * @return Double
+ * 格式化小数点
+ * @receiver Number
+ * @param decimals Int
+ * @return String
  */
-fun formatDouble(format: String, param: Any): Double {
-    return Formatter().format(format, param).toString().toDoubleOrNull() ?: 0.0
+fun Number.formatDecimals(decimals: Int): String {
+    return "%.${decimals}f".format(this)
 }
 
 /**
