@@ -17,7 +17,7 @@ class AdbDebugControllerService : RootService() {
     override fun onBind(intent: Intent) = object : IAdbDebugController.Stub() {
         override fun getAdbPort(): Int {
             val port = SystemProperties.get("service.adb.tcp.port")
-            return if (port.isNullOrBlank()) 0 else port.toInt()
+            return if (port.isNullOrBlank()) 0 else port.toIntOrNull() ?: 0
         }
 
         override fun setAdbPort(port: Int) {

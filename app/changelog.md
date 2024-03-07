@@ -9,6 +9,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 同步上游核心破解v4.5
 - [修复] 修复自动息屏时间重启恢复问题
 - [修复] 状态栏电池通知部分数值为0问题
+- [添加] 远程ADB调试磁贴
 
 ### 1.2.1
 
