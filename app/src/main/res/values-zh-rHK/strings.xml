@@ -876,6 +876,7 @@
     <string name="common_words_ads">广告</string>
     <string name="common_words_reset">重設</string>
     <string name="common_words_import">导入</string>
+    <string name="common_words_not_set">未設定</string>
     <!--Permission-->
     <string name="send_notification_permission">发送通知权限</string>
     <string name="all_files_access_permission">所有文件访问权限</string>

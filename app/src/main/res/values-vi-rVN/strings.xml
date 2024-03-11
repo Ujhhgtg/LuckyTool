@@ -114,8 +114,8 @@
     <string name="enhancedMode">Chế độ nâng cao</string>
     <string name="enhancedMode_summary">Bạn có thể giải quyết một số kiểm tra tính toàn vẹn nội bộ trong ứng dụng mà không cần phải bật</string>
     <string name="usepresig_warn">!!! Tất cả các gói có thể ghi đè ứng dụng đã cài đặt!!\nđể cài đặt các gói không xác định</string>
-    <string name="shared_user_title">Bypass shared user verify</string>
-    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
+    <string name="shared_user_title">Bỏ qua xác minh chữ ký người dùng được chia sẻ</string>
+    <string name="shared_user_summary">Cho phép cài đặt các ứng dụng có chữ ký khác nhau từ những người dùng chia sẻ chúng (<b>Cũng cần bật \"Tắt xác minh chữ ký Apk\"</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Thanh trạng thái</string>
     <string name="StatusbarEvents">Nội dung thanh trạng thái</string>
@@ -339,7 +339,7 @@
     <string name="LockScreenStatusBar">Thanh trạng thái màn hình khóa</string>
     <string name="hide_lock_screen_status_bar_display">Ẩn hiển thị thanh trạng thái màn hình khóa</string>
     <string name="remove_statusbar_carriers">Xóa thanh trạng thái mạng</string>
-    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
+    <string name="statusbar_custom_carrier_display_text">Tùy chỉnh văn bản hiển thị của nhà mạng</string>
     <string name="statusbar_carriers_use_user_typeface">StatusBar Carrier sử dụng phông chữ người dùng</string>
     <string name="LockScreenButton">Nút khóa màn hình</string>
     <string name="remove_top_lock_screen_icon">Xóa biểu tượng màn hình khóa trên cùng</string>
@@ -876,6 +876,7 @@
     <string name="common_words_ads">Quảng cáo</string>
     <string name="common_words_reset">Đặt lại</string>
     <string name="common_words_import">Nhập</string>
+    <string name="common_words_not_set">Not Set</string>
     <!--Permission-->
     <string name="send_notification_permission">Gửi quyền thông báo</string>
     <string name="all_files_access_permission">Tất cả quyền truy cập tập tin</string>

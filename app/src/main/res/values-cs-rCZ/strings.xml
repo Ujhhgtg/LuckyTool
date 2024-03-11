@@ -876,6 +876,7 @@
     <string name="common_words_ads">Reklamy</string>
     <string name="common_words_reset">Obnovit</string>
     <string name="common_words_import">Importovat</string>
+    <string name="common_words_not_set">Not Set</string>
     <!--Permission-->
     <string name="send_notification_permission">Send notification permission</string>
     <string name="all_files_access_permission">All file access permission</string>

@@ -114,8 +114,8 @@
     <string name="enhancedMode">Расширенный режим</string>
     <string name="enhancedMode_summary">Это может помочь пройти некоторую внутреннюю проверку целостности приложения, обычно не нужно включать</string>
     <string name="usepresig_warn">!!!Все установщики могут перезаписывать установленные приложения!!! Будьте осторожны при установке приложений из неизвестных источников</string>
-    <string name="shared_user_title">Bypass shared user verify</string>
-    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
+    <string name="shared_user_title">Обход проверки общего пользователя</string>
+    <string name="shared_user_summary">Разрешить установку приложения, подпись которого отличается от общего пользователя (<b>также необходимо включить \"Отключить сравнение подписей\"</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Статусбар и шторка</string>
     <string name="StatusbarEvents">События статусбара и шторки</string>
@@ -877,6 +877,7 @@
     <string name="common_words_ads">Реклама</string>
     <string name="common_words_reset">Сброс</string>
     <string name="common_words_import">Импортировать</string>
+    <string name="common_words_not_set">Not Set</string>
     <!--Permission-->
     <string name="send_notification_permission">Разрешение на отправку уведомлений</string>
     <string name="all_files_access_permission">Все разрешения на доступ к файлам</string>

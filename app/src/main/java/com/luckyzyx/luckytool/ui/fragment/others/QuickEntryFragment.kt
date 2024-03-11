@@ -8,11 +8,7 @@ import androidx.preference.PreferenceCategory
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
-import com.luckyzyx.luckytool.utils.getAppLabel
-import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.jumpBatteryInfo
 import com.luckyzyx.luckytool.utils.jumpEngineermode
 import com.luckyzyx.luckytool.utils.jumpRunningApp
@@ -150,62 +146,6 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 setOnPreferenceClickListener {
                     ShellUtils.fastCmd(
                         "am start -n com.oplus.camera/.ui.menu.algoswitch.AlgoSwitchActivity"
-                    )
-                    true
-                }
-            })
-            //游戏助手相关
-            addPreference(PreferenceCategory(context).apply {
-                title = getString(R.string.GameAssistantRelated)
-                isVisible = context.checkPackName("com.oplus.games")
-                isIconSpaceReserved = false
-            })
-            addPreference(Preference(context).apply {
-                title = getString(R.string.game_assistant_page)
-                summary = "(${context.getAppLabel("com.oplus.games")})"
-                isVisible = context.checkPackName("com.oplus.games") &&
-                        context.checkResolveActivity(
-                            Intent().setClassName(
-                                "com.oplus.games",
-                                "business.compact.activity.GameBoxCoverActivity"
-                            )
-                        )
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    ShellUtils.fastCmd(
-                        "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity"
-                    )
-                    true
-                }
-            })
-            addPreference(Preference(context).apply {
-                title = getString(R.string.game_space_page)
-                summary = "(${context.getAppLabel("com.nearme.gamecenter")})"
-                isVisible =
-                    context.checkPackName("com.nearme.gamecenter") && context.checkResolveActivity(
-                        Intent().setClassName(
-                            "com.nearme.gamecenter",
-                            "com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity"
-                        )
-                    )
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    ShellUtils.fastCmd(
-                        "am start -n com.nearme.gamecenter/com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity"
-                    )
-                    true
-                }
-            })
-            addPreference(Preference(context).apply {
-                title = getString(R.string.game_assistant_develop_page)
-                summary = "(${context.getAppLabel("com.oplus.games")})"
-                isVisible = context.checkPackName("com.oplus.games") && context.getBoolean(
-                    ModulePrefs, "enable_developer_page", false
-                )
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    ShellUtils.fastCmd(
-                        "am start -n com.oplus.games/business.compact.activity.GameDevelopOptionsActivity"
                     )
                     true
                 }

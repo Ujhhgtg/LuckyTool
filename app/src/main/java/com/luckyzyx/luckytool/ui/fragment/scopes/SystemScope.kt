@@ -39,6 +39,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.getAppLabel
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -439,7 +440,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     setDefaultValue("center")
                     val row = context.getString(
                         ModulePrefs, "statusbar_clock_custom_format", "HH:mm:ss"
-                    )?.takeIf { e -> e.isNotBlank() }?.split("\n")?.size ?: 2
+                    ).split("\n").size
                     isVisible = row >= 2
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
@@ -757,7 +758,7 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     key = "set_small_window_reply_blacklist_list"
                     title = getString(R.string.set_small_window_reply_blacklist)
-                    val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet())
                     summary = arraySummaryLine(
                         getString(R.string.set_small_window_reply_blacklist_message),
                         value.toString()
@@ -2761,7 +2762,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                     title = getString(R.string.replace_fingerprint_icon_path)
                     key = "replace_fingerprint_icon_path"
                     val path = context.getString(ModulePrefs, key, "")
-                    if (path.isNullOrBlank()) {
+                    if (path.isBlank()) {
                         summary = "Null"
                         isIconSpaceReserved = false
                     } else {
@@ -3297,7 +3298,8 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                         key = "customize_battery_health_data_percentage"
                         setDefaultValue("")
                         setSummaryProvider {
-                            EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
+                            EditTextPreference.SimpleSummaryProvider.getInstance()
+                                .provideSummary(this)
                         }
                         isIconSpaceReserved = false
                     })
@@ -3361,8 +3363,11 @@ class OplusCamera : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 key = "custom_camera_open_gallery_by_default"
                 title = getString(R.string.custom_camera_open_gallery_by_default)
-                summary =
-                    arraySummaryLine(context.getString(ModulePrefs, key, "")?.ifBlank { "None" })
+                summary = arraySummaryLine(
+                    context.getString(ModulePrefs, key, "").ifBlank {
+                        getString(R.string.common_words_not_set)
+                    }
+                )
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
@@ -3475,7 +3480,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                     title = getString(R.string.camera_portrait_filter_settings)
                     key = "camera_portrait_filter_settings"
-                    (context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()).forEach {
+                    context.getStringSet(ModulePrefs, key, ArraySet()).forEach {
                         defaultFilters.find { its -> its.key == it }?.isEnable = true
                     }
                     val keys = ArrayList<String>()
@@ -3530,7 +3535,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                     title = getString(R.string.camera_video_filter_settings)
                     key = "camera_video_filter_settings"
-                    (context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()).forEach {
+                    context.getStringSet(ModulePrefs, key, ArraySet()).forEach {
                         defaultFilters.find { its -> its.key == it }?.isEnable = true
                     }
                     val keys = ArrayList<String>()
@@ -3704,6 +3709,42 @@ class OplusGames : BaseScopePreferenceFeagment() {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
             val appVerInfo = context.getAppVerInfo(scopes.first())
+            addPreference(Preference(context).apply {
+                title = getString(R.string.game_assistant_page)
+                summary = "(${context.getAppLabel("com.oplus.games")})"
+                isVisible = context.checkPackName("com.oplus.games") &&
+                        context.checkResolveActivity(
+                            Intent().setClassName(
+                                "com.oplus.games",
+                                "business.compact.activity.GameBoxCoverActivity"
+                            )
+                        )
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    ShellUtils.fastCmd(
+                        "am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity"
+                    )
+                    true
+                }
+            })
+            addPreference(Preference(context).apply {
+                title = getString(R.string.game_space_page)
+                summary = "(${context.getAppLabel("com.nearme.gamecenter")})"
+                isVisible =
+                    context.checkPackName("com.nearme.gamecenter") && context.checkResolveActivity(
+                        Intent().setClassName(
+                            "com.nearme.gamecenter",
+                            "com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity"
+                        )
+                    )
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    ShellUtils.fastCmd(
+                        "am start -n com.nearme.gamecenter/com.nearme.gamespace.desktopspace.ui.DesktopSpaceMainActivity"
+                    )
+                    true
+                }
+            })
             //布局
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.OplusGamesLayout)
@@ -3756,10 +3797,26 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            if (context.getBoolean(ModulePrefs, "enable_developer_page")) {
+                addPreference(Preference(context).apply {
+                    title = getString(R.string.game_assistant_develop_page)
+                    summary = "(${context.getAppLabel("com.oplus.games")})"
+                    isVisible = context.checkPackName("com.oplus.games") && context.getBoolean(
+                        ModulePrefs, "enable_developer_page", false
+                    )
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        ShellUtils.fastCmd(
+                            "am start -n com.oplus.games/business.compact.activity.GameDevelopOptionsActivity"
+                        )
+                        true
+                    }
+                })
+            }
             addPreference(Preference(context).apply {
                 key = "custom_media_player_support_list"
                 title = getString(R.string.custom_media_player_support)
-                val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
+                val value = context.getStringSet(ModulePrefs, key, ArraySet())
                 summary = value.toString()
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
@@ -3784,7 +3841,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 key = "custom_barrage_notification_whitelist_list"
                 title = getString(R.string.custom_barrage_notification_whitelist)
-                val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
+                val value = context.getStringSet(ModulePrefs, key, ArraySet())
                 summary = arraySummaryLine(
                     getString(R.string.custom_barrage_notification_whitelist_message),
                     value.toString()
@@ -4227,7 +4284,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     key = "custom_aon_gesture_scroll_page_whitelist_list"
                     title = getString(R.string.custom_aon_gesture_scroll_page_whitelist)
-                    val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet())
                     summary = arraySummaryLine(
                         getString(R.string.custom_aon_gesture_whitelist_tips), value.toString()
                     )
@@ -4255,7 +4312,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 addPreference(Preference(context).apply {
                     key = "custom_aon_gesture_video_whitelist_list"
                     title = getString(R.string.custom_aon_gesture_video_whitelist)
-                    val value = context.getStringSet(ModulePrefs, key, ArraySet()) ?: ArraySet()
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet())
                     summary = arraySummaryLine(
                         getString(R.string.custom_aon_gesture_whitelist_tips), value.toString()
                     )
@@ -4327,7 +4384,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     title = getString(R.string.replace_side_slider_icon_on_left)
                     key = "replace_side_slider_icon_on_left"
                     val path = context.getString(ModulePrefs, key, "")
-                    if (path.isNullOrBlank()) {
+                    if (path.isBlank()) {
                         summary = "Null"
                         isIconSpaceReserved = false
                     } else {
@@ -4348,7 +4405,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                     title = getString(R.string.replace_side_slider_icon_on_right)
                     key = "replace_side_slider_icon_on_right"
                     val path = context.getString(ModulePrefs, key, "")
-                    if (path.isNullOrBlank()) {
+                    if (path.isBlank()) {
                         summary = "Null"
                         isIconSpaceReserved = false
                     } else {

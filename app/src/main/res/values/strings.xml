@@ -1011,6 +1011,7 @@
     <string name="common_words_ads">Ads</string>
     <string name="common_words_reset">Reset</string>
     <string name="common_words_import">Import</string>
+    <string name="common_words_not_set">Not Set</string>
     
     <!--Permission-->
     <string name="send_notification_permission">Send notification permission</string>
