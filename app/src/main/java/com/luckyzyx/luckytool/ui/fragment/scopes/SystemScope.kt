@@ -3796,14 +3796,16 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 key = "enable_developer_page"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
             if (context.getBoolean(ModulePrefs, "enable_developer_page")) {
                 addPreference(Preference(context).apply {
                     title = getString(R.string.game_assistant_develop_page)
                     summary = "(${context.getAppLabel("com.oplus.games")})"
-                    isVisible = context.checkPackName("com.oplus.games") && context.getBoolean(
-                        ModulePrefs, "enable_developer_page", false
-                    )
+                    isVisible = context.checkPackName("com.oplus.games")
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
                         ShellUtils.fastCmd(
