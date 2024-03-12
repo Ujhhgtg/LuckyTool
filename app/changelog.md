@@ -12,6 +12,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 远程ADB调试磁贴
 - [优化] 三方应用通话录音获取权限提示
 - [更改] 游戏助手快捷入口移动至游戏助手分区
+- [优化] 部分流体云通知背景透明度状态
 
 ### 1.2.1
 

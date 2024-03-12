@@ -8,7 +8,7 @@ import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
-import com.luckyzyx.luckytool.utils.setColorAlpha
+import com.luckyzyx.luckytool.utils.formatColorAlpha
 
 object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
     override fun onHook() {
@@ -24,7 +24,7 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
                     val view = args().first().cast<View>() ?: return@before
                     if (view.context.isNightMode) return@before
                     val color = args(1).int()
-                    val newColor = setColorAlpha(color, value)
+                    val newColor = formatColorAlpha(color, value)
                     args(1).set(newColor)
                 }
             }
@@ -45,7 +45,7 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
                     val shapeDrawable = result<ShapeDrawable>() ?: return@after
                     if (type == 1) {
                         val color = shapeDrawable.paint.color
-                        val newColor = setColorAlpha(color, value)
+                        val newColor = formatColorAlpha(color, value)
                         shapeDrawable.paint.color = newColor
                     }
                 }
@@ -67,7 +67,7 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
                     val shapeDrawable = result<ShapeDrawable>() ?: return@after
                     if (type == 1) {
                         val color = shapeDrawable.paint.color
-                        val newColor = setColorAlpha(color, value)
+                        val newColor = formatColorAlpha(color, value)
                         shapeDrawable.paint.color = newColor
                     }
                 }

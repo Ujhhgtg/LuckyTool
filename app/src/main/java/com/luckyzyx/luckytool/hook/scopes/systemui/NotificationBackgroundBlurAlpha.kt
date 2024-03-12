@@ -2,11 +2,15 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
+import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.DrawableClass
+import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
@@ -94,5 +98,31 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
                     }
                 }
             }
+
+        //Source SeedlingItemRow
+        "com.oplus.systemui.plugins.seedling.notification.widget.SeedlingItemRow".toClass().apply {
+            method { name = "initBackground" }.hook {
+                after {
+                    val view = instance<View>()
+                    val drawableId = view.resources.getIdentifier(
+                        "notification_seed_action_rounded_bg", "drawable",
+                        this@NotificationBackgroundBlurAlpha.packageName
+                    )
+                    val drawable = AppCompatResources.getDrawable(view.context, drawableId)
+                        ?: return@after
+                    val newDrawable = drawable.mutate().apply {
+                        alpha = 255 / 10 * customAlpha
+                    }
+                    val backgroundNormal = field { name = "mBackgroundNormal" }.get(instance).any()
+                        ?: return@after
+                    backgroundNormal.current().method {
+                        name = "setCustomBackground";param(DrawableClass)
+                    }.call(newDrawable)
+                    backgroundNormal.current().method {
+                        name = "setTint";param(IntType)
+                    }.call(0)
+                }
+            }
+        }
     }
 }

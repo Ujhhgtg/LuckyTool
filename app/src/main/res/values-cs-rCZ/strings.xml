@@ -98,7 +98,7 @@
     <!--Android-->
     <string name="set_ltpo_refresh_rate_mode">Nastavit režim obnovovací frekvence LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Povolit minimální obnovovací frekvenci plného jasu na 1</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Some models may conflict with Game Assistant, causing the screen to flicker.</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Některé modely mohou být v rozporu s herním asistentem, což může způsobit blikání obrazovky.</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Oficiální instalátor pro Color OS musí umožnit ostatním funkcím používat\nSeznam funkcí-Vztahující se k aplikacím-Vztahující se k instalaci aplikací</string>
     <string name="corepatch">Hlavní patch</string>
@@ -114,8 +114,8 @@
     <string name="enhancedMode">Režim vylepšení</string>
     <string name="enhancedMode_summary">Můžete vyřešit interní kontrolu integrity v aplikaci, která nemusí být povolena</string>
     <string name="usepresig_warn">!!! Všechny balíčky mohou přepsat nainstalovanou aplikaci!!\npro instalaci neznámých balíčků</string>
-    <string name="shared_user_title">Bypass shared user verify</string>
-    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
+    <string name="shared_user_title">Ignorovat sdílené ověření uživatele</string>
+    <string name="shared_user_summary">Povolit instalaci aplikace s odlišným podpisem od sdíleného uživatele (<b>\'Zakázat porovnání podpisu\' musí být také povoleno</b>)</string>
     <!--Status Bar-->
     <string name="StatusBar">Stavová lišta</string>
     <string name="StatusbarEvents">Události stavové lišty</string>
@@ -241,7 +241,7 @@
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Musíte povolit přepínač funkce dlaždic níže</string>
     <string name="control_center_custom_gaps_for_special_tile">Přizpůsobit vodorovnou mezeru obrazovky speciálních dlaždic</string>
-    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">Zapnutí automatického rozbalení dlaždic na některých modelech způsobí zobrazení lišty jasu mimo obrazovku. V tomto případě musí být tato funkce povolena</string>
     <string name="control_center_special_tile_top_gap">Nastavit horní mezeru pro speciální dlaždice</string>
     <string name="control_center_special_tile_bottom_gap">Nastavit spodní mezeru pro speciální dlaždice</string>
     <string name="TileLongClickEvent">Událost daždice při dlouhém stisku</string>
@@ -339,7 +339,7 @@
     <string name="LockScreenStatusBar">Stavová lišta zamykací obrazovky</string>
     <string name="hide_lock_screen_status_bar_display">Skrýt zobrazení stavové lišty na zamykací obrazovce</string>
     <string name="remove_statusbar_carriers">Odstranit název operátora ze stavové lišty</string>
-    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
+    <string name="statusbar_custom_carrier_display_text">Vlastní text operátora ve stavové liště</string>
     <string name="statusbar_carriers_use_user_typeface">Použít vlastní font textu operátora ve stavové liště</string>
     <string name="LockScreenButton">Tlačítka na zamykací obrazovce</string>
     <string name="remove_top_lock_screen_icon">Odstranit horní ikony na zamykací obrazovce</string>
@@ -411,7 +411,7 @@
     <string name="APPRelatedList">Nastavení související se seznamem aplikací</string>
     <string name="set_multi_app_support_mode">Nastavit režim podpory více aplikací</string>
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
-    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app list, and you need to install the app cloneer for Realme models</string>
+    <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat celý seznam aplikací a je tak třeba nainstalovat klonovač pro modely Realme</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
@@ -579,12 +579,12 @@
     <string name="CameraFilter">Filtr</string>
     <string name="enable_master_filter">Povolit hlavní filtr</string>
     <string name="enable_jiangwen_filter">Povolit filtr Jiang Wen</string>
-    <string name="enable_grand_tour_filter">Enable GrandTour filter</string>
-    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
-    <string name="camera_video_filter_settings">Video filter settings</string>
-    <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
-    <string name="camera_filter_retention">AI Color Portrait</string>
-    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
+    <string name="enable_grand_tour_filter">Povolit filtr GrandTour</string>
+    <string name="camera_portrait_filter_settings">Nastavení filtru portrétu</string>
+    <string name="camera_video_filter_settings">Nastavení filtru videa</string>
+    <string name="camera_filter_color_extraction">Crimson/Lesní zelená/nebeská modrá</string>
+    <string name="camera_filter_retention">AI barvy portrétu</string>
+    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare u portrétu</string>
     <string name="enable_10_bit_image_support">Povolit podporu pro 10bitové obrázky</string>
     <string name="enable_10_bit_image_support_summary">Povolení této funkce na některých modelech může způsobit, že se fotka zbarví dozelena</string>
     <!--Gallery-->
@@ -876,12 +876,12 @@
     <string name="common_words_ads">Reklamy</string>
     <string name="common_words_reset">Obnovit</string>
     <string name="common_words_import">Importovat</string>
-    <string name="common_words_not_set">Not Set</string>
+    <string name="common_words_not_set">Nenastaveno</string>
     <!--Permission-->
-    <string name="send_notification_permission">Send notification permission</string>
-    <string name="all_files_access_permission">All file access permission</string>
-    <string name="installed_apps_permission">Read your app list permission</string>
-    <string name="install_app_permission">Install app permissions</string>
+    <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
+    <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>
+    <string name="installed_apps_permission">Číst oprávnění seznamu aplikací</string>
+    <string name="install_app_permission">Instalovat oprávnění aplikace</string>
     <string name="permission_denied_toast">Oprávnění odepřeno, udělte oprávnění ručně: %1$s</string>
     <string name="permission_error_toast">Nepodařilo se získat oprávnění: %1$s</string>
     <!--Net 网络请求异常-->

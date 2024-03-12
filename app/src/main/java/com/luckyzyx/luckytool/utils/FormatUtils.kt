@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import java.util.regex.Pattern
+import kotlin.math.roundToInt
 
 /**
  * 格式化Date
@@ -122,4 +123,14 @@ fun formatStringAuto(
         if (index != formats.lastIndex) finalText += text
     }
     return finalText
+}
+
+/**
+ * 格式化颜色透明度
+ * @param baseColor 基本颜色
+ * @param alpha 透明度 0f～1f
+ * @return
+ */
+fun formatColorAlpha(baseColor: Int, alpha: Float): Int {
+    return baseColor and 0x00ffffff or ((alpha * 255.0f).roundToInt() shl 24)
 }

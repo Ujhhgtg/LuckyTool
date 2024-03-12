@@ -557,7 +557,7 @@
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
-    <string name="enable_touch_membrane_protector_mode">Включить режим защиты сенсорной мембраны</string>
+    <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
@@ -877,7 +877,7 @@
     <string name="common_words_ads">Реклама</string>
     <string name="common_words_reset">Сброс</string>
     <string name="common_words_import">Импортировать</string>
-    <string name="common_words_not_set">Not Set</string>
+    <string name="common_words_not_set">Не установлено</string>
     <!--Permission-->
     <string name="send_notification_permission">Разрешение на отправку уведомлений</string>
     <string name="all_files_access_permission">Все разрешения на доступ к файлам</string>

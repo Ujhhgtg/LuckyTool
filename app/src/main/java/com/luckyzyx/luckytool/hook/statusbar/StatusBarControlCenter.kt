@@ -8,13 +8,13 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.EnableNotificationAlignBothSi
 import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundBlurAlpha
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterUserSwitcher
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
-import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object StatusBarControlCenter : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //控制中心时钟样式
         loadHooker(ControlCenterClockStyle)
 
@@ -27,14 +27,14 @@ object StatusBarControlCenter : YukiBaseHooker() {
         }
         //移除控制中心多用户
         if (prefs(ModulePrefs).getBoolean("remove_control_center_user_switcher", false)) {
-            if (SDK < A13) loadHooker(RemoveControlCenterUserSwitcher)
+            if (osCode < 26) loadHooker(RemoveControlCenterUserSwitcher)
         }
         //控制中心底部网络警告
         loadHooker(RemoveStatusBarBottomNetworkWarn)
 
         //通知背景透明度
 //        loadHooker(CustomNotificationBackgroundTransparency)
-        if (SDK >= A14) loadHooker(NotificationBackgroundBlurAlpha)
+        if (osCode >= 30) loadHooker(NotificationBackgroundBlurAlpha)
 
         //控制中心背景透明度
         loadHooker(ControlCenterBackgroundTransParency)
