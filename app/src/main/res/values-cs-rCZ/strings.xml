@@ -527,6 +527,7 @@
     <string name="enable_show_never_timeout">Povolení nevypršení časového limitu obrazovky</string>
     <string name="enable_show_never_timeout_summary">Po zapnutí můžete vidět další možnosti v nastavení</string>
     <string name="settings_display">Displej</string>
+    <string name="enable_extra_brightness">Enable extra brightness</string>
     <string name="force_display_dc_backlight_mode">Vynucené zobrazení nízkého jasu a bez ochrany očí</string>
     <string name="force_display_dc_backlight_mode_summary">Neexistuje žádná záruka, že to bude fungovat, je to použito pouze pro zobrazení možností</string>
     <string name="enable_video_memc_frame_insertion">Povolit vkládání dynamického videosnímku</string>
@@ -557,6 +558,7 @@
     <string name="enable_vip_mode">Aktivovat VIP režim</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
     <string name="enable_touch_membrane_protector_mode">Povolit režim ochrany dotykové membrány</string>
+    <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>

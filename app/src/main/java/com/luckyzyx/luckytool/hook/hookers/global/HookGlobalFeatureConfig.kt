@@ -120,6 +120,16 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.screen_off_never_support", true)
             }
 
+            //Source Settings IncreaseBrightnessRangePreferenceController 增大亮度范围
+            if (prefs(ModulePrefs).getBoolean("enable_extra_brightness", false)) {
+                if (osCode >= 30) put("oplus.software.display.sec_max_brightness_rm", true)
+            }
+
+            //Source Settings GameSpeedupController 启用游戏加速
+            if (prefs(ModulePrefs).getBoolean("enable_game_acceleration", false)) {
+                if (osCode >= 30) put("oplus.software.game.cold.start.speedup.enable", true)
+            }
+
             //Source NotificationManager FeatureOption isSupportsStealthMode VIP模式
             //Source SafeCenter SettingsInsertProvider VIP模式
 //            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_vip_mode", false)) {

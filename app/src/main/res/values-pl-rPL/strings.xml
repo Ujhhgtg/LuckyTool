@@ -527,6 +527,7 @@
     <string name="enable_show_never_timeout">Enable screen display never timeout</string>
     <string name="enable_show_never_timeout_summary">After enabling, you can see more options in the settings</string>
     <string name="settings_display">Display</string>
+    <string name="enable_extra_brightness">Enable extra brightness</string>
     <string name="force_display_dc_backlight_mode">Forced to display low brightness and no flicker eye protection</string>
     <string name="force_display_dc_backlight_mode_summary">There is no guarantee that it will work, it is only used to display function options</string>
     <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
@@ -557,6 +558,7 @@
     <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Additional Settings</string>
     <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
+    <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
     <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>

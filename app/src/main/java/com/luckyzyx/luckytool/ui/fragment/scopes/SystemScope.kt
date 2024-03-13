@@ -3025,6 +3025,16 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 key = "settings_display"
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_extra_brightness)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system)
+                )
+                key = "enable_extra_brightness"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+            })
             if (osCode >= 26) {
                 addPreference(SwitchPreference(context).apply {
                     title = getString(R.string.enable_video_memc_frame_insertion)
@@ -3182,6 +3192,16 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 key = "enable_touch_membrane_protector_mode"
                 setDefaultValue(false)
                 isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_game_acceleration)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system)
+                )
+                key = "enable_game_acceleration"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

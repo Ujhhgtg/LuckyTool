@@ -527,6 +527,7 @@
     <string name="enable_show_never_timeout">画面表示のタイムアウト無効化オプションを表示</string>
     <string name="enable_show_never_timeout_summary">有効にすると、設定で他のオプションが表示されます</string>
     <string name="settings_display">ディスプレイ</string>
+    <string name="enable_extra_brightness">Enable extra brightness</string>
     <string name="force_display_dc_backlight_mode">低輝度とちらつき防止を強制する</string>
     <string name="force_display_dc_backlight_mode_summary">動作する保証はありません。機能オプションを表示させるためにのみ使用されます</string>
     <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
@@ -557,6 +558,7 @@
     <string name="enable_vip_mode">VIP モードを有効化</string>
     <string name="settings_other_advanced_settings">詳細設定</string>
     <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
+    <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">デバイス情報</string>
     <string name="set_processor_click_page">プロセッサーをタップしてページにジャンプするように設定します</string>
     <string name="screen_physics_size_shown_cm">画面の物理的な寸法をセンチメートルで表示</string>

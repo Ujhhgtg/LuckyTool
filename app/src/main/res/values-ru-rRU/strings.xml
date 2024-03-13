@@ -528,6 +528,7 @@
     <string name="enable_show_never_timeout">Включить отображение экрана без тайм-аута</string>
     <string name="enable_show_never_timeout_summary">После включения вы можете увидеть больше опций в настройках</string>
     <string name="settings_display">Экран</string>
+    <string name="enable_extra_brightness">Enable extra brightness</string>
     <string name="force_display_dc_backlight_mode">Принудительно отображать низкую яркость и защиту глаз от мерцания</string>
     <string name="force_display_dc_backlight_mode_summary">Нет гарантии, что он будет работать, он используется только для отображения опций функций</string>
     <string name="enable_video_memc_frame_insertion">Включить динамическую вставку кадров видео (MEMC)</string>
@@ -558,6 +559,7 @@
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
     <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
+    <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>

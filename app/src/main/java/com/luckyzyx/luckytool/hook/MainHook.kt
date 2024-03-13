@@ -26,6 +26,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookCalendar
 import com.luckyzyx.luckytool.hook.hookers.HookCallUI
 import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
+import com.luckyzyx.luckytool.hook.hookers.HookCosa
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
@@ -127,9 +128,9 @@ object MainHook : IYukiHookXposedInit {
         //云服务
         loadApp("com.heytap.cloud", HookCloudService)
         //游戏助手
-        loadApp("com.oplus.games", "com.oplus.cosa") {
-            loadHooker(HookOplusGames)
-        }
+        loadApp("com.oplus.games", HookOplusGames)
+        //应用增强服务
+        loadApp("com.oplus.cosa", HookCosa)
         //软件更新
         loadApp("com.oplus.ota", HookOplusOta)
         //乐划锁屏

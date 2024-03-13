@@ -24,76 +24,75 @@ object HookOplusGames : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
-        if (packageName == "com.oplus.games") {
-            val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
-            //非ColorOS官方安装器直接返回
-            if (appVer?.versionCommit == "0") return
+        val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
+        //非ColorOS官方安装器直接返回
+        if (appVer?.versionCommit == "0") return
 
-            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-                //HookCloudConditionFeature
-                loadHooker(CloudConditionFeature(appVer, dexKitBridge))
-                //游戏滤镜-->Root检测
-                if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
-                    loadHooker(RemoveRootCheck(dexKitBridge))
-                }
-                //启用赛事支持模式
-                if (prefs(ModulePrefs).getBoolean("enable_support_competition_mode", false)) {
-                    loadHooker(EnableSupportCompetitionMode(dexKitBridge))
-                }
-                //移除赛事模式音效
-                if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
-                    loadHooker(CompetitionModeSound(dexKitBridge))
-                }
-                //移除游戏助手福利页面
-                if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
-                    loadHooker(RemoveWelfarePage(dexKitBridge))
-                }
-                //启用游戏助手后台挂机
-                if (prefs(ModulePrefs).getBoolean("enable_game_run_in_background", false)) {
-                    if (osCode >= 27) loadHooker(EnableGameRunInBackground(dexKitBridge))
-                }
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //HookCloudConditionFeature
+            loadHooker(CloudConditionFeature(appVer, dexKitBridge))
+            //游戏滤镜-->Root检测
+            if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
+                loadHooker(RemoveRootCheck(dexKitBridge))
             }
+            //启用赛事支持模式
+            if (prefs(ModulePrefs).getBoolean("enable_support_competition_mode", false)) {
+                loadHooker(EnableSupportCompetitionMode(dexKitBridge))
+            }
+            //移除赛事模式音效
+            if (prefs(ModulePrefs).getBoolean("remove_competition_mode_sound", false)) {
+                loadHooker(CompetitionModeSound(dexKitBridge))
+            }
+            //移除游戏助手福利页面
+            if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
+                loadHooker(RemoveWelfarePage(dexKitBridge))
+            }
+            //启用游戏助手后台挂机
+            if (prefs(ModulePrefs).getBoolean("enable_game_run_in_background", false)) {
+                if (osCode >= 27) loadHooker(EnableGameRunInBackground(dexKitBridge))
+            }
+        }
 
-            //自定义媒体播放器支持
-            loadHooker(CustomMediaPlayerSupport)
+        //自定义媒体播放器支持
+        loadHooker(CustomMediaPlayerSupport)
 
-            //移除启动动画
-            if (prefs(ModulePrefs).getBoolean("remove_startup_animation", false)) {
-                loadHooker(RemoveStartupAnimation)
-            }
-            //启用开发者选项
-            if (prefs(ModulePrefs).getBoolean("enable_developer_page", false)) {
-                loadHooker(EnableDeveloperPage)
-            }
-            //启用X模式
-            if (prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
-                loadHooker(EnableXModeFeature)
-            }
-            //移除部分VIP限制
-            if (prefs(ModulePrefs).getBoolean("remove_some_vip_limit", false)) {
-                loadHooker(RemoveSomeVipLimit)
-            }
-            //移除游戏助手温度检测
-            if (prefs(ModulePrefs).getBoolean("remove_game_assistant_temperature_detection")) {
-                loadHooker(RemoveGameAssistantTemperatureDetection)
-            }
-            //自定义弹幕通知白名单
-            loadHooker(CustomBarrageNotificationWhitelist)
+        //移除启动动画
+        if (prefs(ModulePrefs).getBoolean("remove_startup_animation", false)) {
+            loadHooker(RemoveStartupAnimation)
+        }
+        //启用开发者选项
+        if (prefs(ModulePrefs).getBoolean("enable_developer_page", false)) {
+            loadHooker(EnableDeveloperPage)
+        }
+        //启用X模式
+        if (prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
+            loadHooker(EnableXModeFeature)
+        }
+        //移除部分VIP限制
+        if (prefs(ModulePrefs).getBoolean("remove_some_vip_limit", false)) {
+            loadHooker(RemoveSomeVipLimit)
+        }
+        //移除游戏助手温度检测
+        if (prefs(ModulePrefs).getBoolean("remove_game_assistant_temperature_detection")) {
+            loadHooker(RemoveGameAssistantTemperatureDetection)
+        }
+        //自定义弹幕通知白名单
+        loadHooker(CustomBarrageNotificationWhitelist)
 
-            val exist = appVer?.versionCode?.let { it < 90000000 } ?: false
-            //移除游戏助手工具推荐卡片
-            if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
-                if (exist) loadHooker(RemoveToolRecommendationCard)
-            }
+        val exist = appVer?.versionCode?.let { it < 90000000 } ?: false
+        //移除游戏助手工具推荐卡片
+        if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
+            if (exist) loadHooker(RemoveToolRecommendationCard)
+        }
 
-            //res/layout/layout_perf_cpu_setting_panel_land.xml
-            //res/layout/layout_perf_cpu_setting_panel_child.xml
-            //<string name="cpu_control_panel">CPU 性能面板</string>
-            //<string name="cpu_control_panel_extension">极客性能面板</string>
-            //<string name="cpu_switch_tlitle_extension">CPU调频</string> cpu_switch_title cpu_switch
+        //res/layout/layout_perf_cpu_setting_panel_land.xml
+        //res/layout/layout_perf_cpu_setting_panel_child.xml
+        //<string name="cpu_control_panel">CPU 性能面板</string>
+        //<string name="cpu_control_panel_extension">极客性能面板</string>
+        //<string name="cpu_switch_tlitle_extension">CPU调频</string> cpu_switch_title cpu_switch
 
-            //oplus.software.performance_setting_extension
-            //Source GameCpuSettingViewModel -> isSupportCpuFreqCtrlPanel
+        //oplus.software.performance_setting_extension
+        //Source GameCpuSettingViewModel -> isSupportCpuFreqCtrlPanel
 //            "business.module.cpusetting.GameCpuSettingViewModel".toClass().apply {
 //                method { param(StringClass);returnType = BooleanType }.hook {
 //                    after {
@@ -121,24 +120,21 @@ object HookOplusGames : YukiBaseHooker() {
 //                }
 //            }
 
-            //game_color_plus_config_map
+        //game_color_plus_config_map
 
-            //Search GamePerfModeModel -> perf_touch_response_extreme_rb
-            //<string name="perf_touch_response_extreme_response">极致触控</string>
-            //mPerfTouchResponseExtreme click -> setTouchResponse
+        //Search GamePerfModeModel -> perf_touch_response_extreme_rb
+        //<string name="perf_touch_response_extreme_response">极致触控</string>
+        //mPerfTouchResponseExtreme click -> setTouchResponse
 
-            //闪电启动
-            //business.secondarypanel.view.GameFastStartFloatView
+        //闪电启动
+        //business.secondarypanel.view.GameFastStartFloatView
 //            <string name="fast_start_title_tips">OSWAP 闪电启动中</string>
 //            <string name="fast_start_title_tips_no_oswap">闪电启动中</string>
 //            <string name="fast_start_title_success">闪电启动成功，游戏快人一步</string>
 //            <string name="fast_start_success_save_time_tip">闪电启动成功，本次节省 %d s</string>
 
-            //GPA极限稳帧
-            //com.oplus.cosa.gpalibrary.core.GpaCore
+        //GPA极限稳帧
+        //com.oplus.cosa.gpalibrary.core.GpaCore
 
-        }
-
-//        if (packageName == "com.oplus.cosa") { }
     }
 }

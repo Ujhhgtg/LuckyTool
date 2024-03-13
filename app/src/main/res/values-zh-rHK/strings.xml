@@ -527,6 +527,7 @@
     <string name="enable_show_never_timeout">启用息屏永不超时</string>
     <string name="enable_show_never_timeout_summary">启用后即可在设置中看到更多可选项</string>
     <string name="settings_display">显示</string>
+    <string name="enable_extra_brightness">启用增大亮度范围</string>
     <string name="force_display_dc_backlight_mode">强制显示低亮无频闪护眼</string>
     <string name="force_display_dc_backlight_mode_summary">无法保证一定有效，仅用于显示功能选项</string>
     <string name="enable_video_memc_frame_insertion">启用视频动态插帧</string>
@@ -557,6 +558,7 @@
     <string name="enable_vip_mode">启用VIP模式</string>
     <string name="settings_other_advanced_settings">其他设置</string>
     <string name="enable_touch_membrane_protector_mode">启用隔膜触控模式</string>
+    <string name="enable_game_acceleration">启用游戏加速</string>
     <string name="settings_about_device">关于本机</string>
     <string name="set_processor_click_page">设置处理器点击页面</string>
     <string name="screen_physics_size_shown_cm">屏幕物理尺寸显示为厘米</string>
