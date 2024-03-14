@@ -15,6 +15,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 部分流体云通知背景透明度状态
 - [添加] 其他设置-游戏加速 C14.0+
 - [添加] 显示设置-增大亮度范围 C14.0+
+- [添加] 启用Google自动填充 C14.0+
 
 ### 1.2.1
 

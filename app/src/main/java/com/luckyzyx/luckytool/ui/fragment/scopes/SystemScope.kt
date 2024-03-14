@@ -3161,6 +3161,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_google_auto_fill)
+                key = "enable_google_auto_fill"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.disable_device_admin_verification_dialog)
                 key = "disable_device_admin_verification_dialog"
                 setDefaultValue(false)

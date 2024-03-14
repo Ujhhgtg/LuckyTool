@@ -553,6 +553,7 @@
     <string name="enable_clear_voice_tips">Předpoklad: Správce telefonu musí být zaškrtnut</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
     <string name="settings_password_and_security">Heslo a zabezpečení</string>
+    <string name="enable_google_auto_fill">Enable Google auto fill</string>
     <string name="disable_device_admin_verification_dialog">Zakázat dialog ověření správce zařízení</string>
     <string name="settings_authority_and_privacy">Oprávnění a soukromí</string>
     <string name="enable_vip_mode">Aktivovat VIP režim</string>

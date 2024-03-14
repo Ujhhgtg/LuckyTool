@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.AutoUnlockRestrictedSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPageParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.DarkModeList
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
+import com.luckyzyx.luckytool.hook.scopes.settings.EnableGoogleAutoFill
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
 import com.luckyzyx.luckytool.hook.scopes.settings.FixAppSpecificMediaVolumePage
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayBottomGoogleSettings
@@ -111,6 +112,10 @@ object HookSettings : YukiBaseHooker() {
         //启用自定义应用语言
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
             if (SDK >= A14) loadHooker(EnableCustomAppLanguage)
+        }
+        //启用Google自动填充
+        if (prefs(ModulePrefs).getBoolean("enable_google_auto_fill", false)) {
+            if (osCode >= 30) loadHooker(EnableGoogleAutoFill)
         }
 
         //<string name="single_pulse_EM_mode_title">单脉冲调光模式</string>
