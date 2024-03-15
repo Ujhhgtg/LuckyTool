@@ -554,6 +554,7 @@
     <string name="enable_holographic_audio">启用全息音频</string>
     <string name="settings_password_and_security">密码与安全</string>
     <string name="enable_google_auto_fill">启用Google自动填充</string>
+    <string name="restore_password_management_settings">强制显示密码管理设置项</string>
     <string name="disable_device_admin_verification_dialog">禁用设备管理器验证对话框</string>
     <string name="settings_authority_and_privacy">权限和隐私</string>
     <string name="enable_vip_mode">启用VIP模式</string>

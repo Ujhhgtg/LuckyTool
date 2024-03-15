@@ -527,7 +527,7 @@
     <string name="enable_show_never_timeout">Abilita visualizzazione schermo senza timeout</string>
     <string name="enable_show_never_timeout_summary">Dopo l\'abilitazione, puoi vedere più opzioni nelle impostazioni</string>
     <string name="settings_display">Schermo</string>
-    <string name="enable_extra_brightness">Enable extra brightness</string>
+    <string name="enable_extra_brightness">Abilita luminosità extra</string>
     <string name="force_display_dc_backlight_mode">Forza la modalità bassa luminosità e nessuna protezione per gli occhi contro lo sfarfallio</string>
     <string name="force_display_dc_backlight_mode_summary">Non c\'è garanzia che funzionerà, è usato solo per visualizzare le opzioni della funzione</string>
     <string name="enable_video_memc_frame_insertion">Abilita l\'inserimento dinamico di frame video</string>
@@ -553,13 +553,14 @@
     <string name="enable_clear_voice_tips">Prerequisito: il gestore telefonico deve essere controllato</string>
     <string name="enable_holographic_audio">Abilita audio olografico</string>
     <string name="settings_password_and_security">Password e sicurezza</string>
-    <string name="enable_google_auto_fill">Enable Google auto fill</string>
+    <string name="enable_google_auto_fill">Attiva il riempimento automatico di Google</string>
+    <string name="restore_password_management_settings">Force display of password management settings</string>
     <string name="disable_device_admin_verification_dialog">Disabilita la finestra di verifica dell\'amministratore del dispositivo</string>
     <string name="settings_authority_and_privacy">Autorizzazioni e privacy</string>
     <string name="enable_vip_mode">Abilita modalità VIP</string>
     <string name="settings_other_advanced_settings">Impostazioni Aggiuntive</string>
     <string name="enable_touch_membrane_protector_mode">Abilita la modalità di protezione della membrana touch</string>
-    <string name="enable_game_acceleration">Enable game acceleration</string>
+    <string name="enable_game_acceleration">Abilita accelerazione gioco</string>
     <string name="settings_about_device">Informazioni sul dispositivo</string>
     <string name="set_processor_click_page">Imposta il processore per saltare la pagina con un click</string>
     <string name="screen_physics_size_shown_cm">Le dimensioni fisiche dello schermo sono mostrate in centimetri</string>

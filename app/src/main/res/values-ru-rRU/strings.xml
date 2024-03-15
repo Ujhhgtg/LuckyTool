@@ -555,6 +555,7 @@
     <string name="enable_holographic_audio">Включить голографическое аудио</string>
     <string name="settings_password_and_security">Пароль и безопасность</string>
     <string name="enable_google_auto_fill">Enable Google auto fill</string>
+    <string name="restore_password_management_settings">Force display of password management settings</string>
     <string name="disable_device_admin_verification_dialog">Отключить диалоговое окно проверки администратора устройства</string>
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>

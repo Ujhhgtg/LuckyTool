@@ -15,6 +15,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.FixAppSpecificMediaVolumePage
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayBottomGoogleSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayContentRecommend
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayDisabledAppsManager
+import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayPasswordManagementSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayProcessManagement
 import com.luckyzyx.luckytool.hook.scopes.settings.HookAppDetails
 import com.luckyzyx.luckytool.hook.scopes.settings.HookIris5Controller
@@ -53,6 +54,10 @@ object HookSettings : YukiBaseHooker() {
             //启用应用专属媒体音量
             if (prefs(ModulePrefs).getBoolean("enable_app_specific_media_volume", false)) {
                 if (osCode >= 27) loadHooker(FixAppSpecificMediaVolumePage(dexKitBridge))
+            }
+            //启用Google自动填充
+            if (prefs(ModulePrefs).getBoolean("enable_google_auto_fill", false)) {
+                loadHooker(EnableGoogleAutoFill(dexKitBridge))
             }
         }
 
@@ -113,19 +118,15 @@ object HookSettings : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("enable_custom_app_language", false)) {
             if (SDK >= A14) loadHooker(EnableCustomAppLanguage)
         }
-        //启用Google自动填充
-        if (prefs(ModulePrefs).getBoolean("enable_google_auto_fill", false)) {
-            if (osCode >= 30) loadHooker(EnableGoogleAutoFill)
+        //强制显示密码管理设置项
+        if (prefs(ModulePrefs).getBoolean("force_display_password_management_settings", false)) {
+            loadHooker(ForceDisplayPasswordManagementSettings)
         }
 
         //<string name="single_pulse_EM_mode_title">单脉冲调光模式</string>
         //prefs key single_pulse_EM_mode_switch
         //com.oplus.settings.feature.othersettings.development.OplusSinglePulseEMDevelopController
         //Settings Secure display_single_pulse_settings_switch Int
-
-        //LTPO
-        //persist.oplus.display.vrr
-        //persist.oplus.display.vrr.adfr
 
         //指纹快速解锁 盲解
 //        findClass("com.oplus.settings.feature.fingerprint.controller.FingerprintFastUnlockPreferenceController").hook {

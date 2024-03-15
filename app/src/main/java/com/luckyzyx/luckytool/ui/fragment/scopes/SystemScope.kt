@@ -3164,7 +3164,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_google_auto_fill)
                 key = "enable_google_auto_fill"
                 setDefaultValue(false)
-                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.restore_password_management_settings)
+                key = "force_display_password_management_settings"
+                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -3198,7 +3203,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_touch_membrane_protector_mode)
                 key = "enable_touch_membrane_protector_mode"
                 setDefaultValue(false)
-                isVisible = osCode >= 27
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

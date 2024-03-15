@@ -554,6 +554,7 @@
     <string name="enable_holographic_audio">Enable holographic audio</string>
     <string name="settings_password_and_security">Password and security</string>
     <string name="enable_google_auto_fill">Enable Google auto fill</string>
+    <string name="restore_password_management_settings">Force display of password management settings</string>
     <string name="disable_device_admin_verification_dialog">Disable Device Admin verification dialog</string>
     <string name="settings_authority_and_privacy">Permissions and privacy</string>
     <string name="enable_vip_mode">Enable VIP mode</string>
