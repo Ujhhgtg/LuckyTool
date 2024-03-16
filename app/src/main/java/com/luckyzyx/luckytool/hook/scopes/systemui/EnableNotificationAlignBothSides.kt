@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.*
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
@@ -81,6 +80,18 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
             "com.oplus.systemui.plugins.seedling.notification.NotificationSeedingController".toClassOrNull()
                 ?.apply {
                     method { name = "onCreateView" }.hook {
+                        after {
+                            field { name = "parent" }.get(instance).cast<ViewGroup>()
+                                ?.setViewWidth()
+                        }
+                    }
+                    method { name = "onUpdate" }.hook {
+                        after {
+                            field { name = "parent" }.get(instance).cast<ViewGroup>()
+                                ?.setViewWidth()
+                        }
+                    }
+                    method { name = "refreshNotificationPosition" }.hook {
                         after {
                             field { name = "parent" }.get(instance).cast<ViewGroup>()
                                 ?.setViewWidth()

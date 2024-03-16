@@ -2548,6 +2548,18 @@ class Application : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_customized_app_installer)
+                summary = "com.oplus.appdetail"
+                key = "disable_customized_app_installer"
+                isChecked = ShellUtils.fastCmd("pm list packages -d | grep $summary")
+                    .contains(summary.toString())
+                isPersistent = false
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    ShellUtils.fastCmdResult("pm ${if (newValue as Boolean) "disable" else "enable"} $summary")
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.skip_apk_scan)
                 summary = getString(R.string.skip_apk_scan_summary)
                 key = "skip_apk_scan"

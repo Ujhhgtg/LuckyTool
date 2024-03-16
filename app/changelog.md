@@ -17,6 +17,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 显示设置-增大亮度范围 C14.0+
 - [添加] 启用Google自动填充
 - [添加] 强制显示密码管理设置项
+- [添加] 禁用定制版应用安装器
 
 ### 1.2.1
 
