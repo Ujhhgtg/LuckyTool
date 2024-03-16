@@ -18,6 +18,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用Google自动填充
 - [添加] 强制显示密码管理设置项
 - [添加] 禁用定制版应用安装器
+- [添加] 自定义流体云图标背景透明度 C14.0+
 
 ### 1.2.1
 

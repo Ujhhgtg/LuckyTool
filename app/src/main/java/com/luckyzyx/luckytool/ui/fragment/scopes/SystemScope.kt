@@ -902,6 +902,21 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SeekBarPreference(context).apply {
+                title = getString(R.string.custom_fluid_cloud_icon_background_transparency)
+                key = "custom_fluid_cloud_icon_background_transparency"
+                setDefaultValue(-1)
+                max = 10
+                min = -1
+                isVisible = osCode >= 30
+                showSeekBarValue = true
+                updatesContinuously = false
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
             //图标状态
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.StatusBarSmallIconStatus)

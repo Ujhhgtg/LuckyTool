@@ -24,15 +24,6 @@ object RemoveSomeVipLimit : YukiBaseHooker() {
                 replaceToTrue()
             }
         }
-        //Source TrialVipV2InfoBean
-        "com.oplus.games.account.bean.TrialVipV2InfoBean".toClass().apply {
-            method { name = "isDeviceHasTrialQualification" }.hook {
-                replaceToTrue()
-            }
-            method { name = "isHit" }.hook {
-                replaceToTrue()
-            }
-        }
         //Source VipAccelearateResponse
         "com.oplus.games.account.bean.VipAccelearateResponse".toClass().apply {
             method { name = "getSuperBooster" }.hook {

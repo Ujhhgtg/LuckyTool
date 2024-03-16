@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.BluetoothIconRelated
+import com.luckyzyx.luckytool.hook.scopes.systemui.CustomFluidCloudIconBackgroundTransparency
 import com.luckyzyx.luckytool.hook.scopes.systemui.HideInActiveSignalLabelsGen2x2
 import com.luckyzyx.luckytool.hook.scopes.systemui.MobileDataIconRelated
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveGreenDotPrivacyPrompt
@@ -13,9 +14,12 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.StatusBarIconVerticalCenter
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object StatusBarIcon : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //移除状态栏支付保护图标
         if (prefs(ModulePrefs).getBoolean("remove_statusbar_securepayment_icon", false)) {
             loadHooker(RemoveStatusBarSecurePayment)
@@ -48,6 +52,9 @@ object StatusBarIcon : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("hide_inactive_signal_labels_gen2x2", false)) {
             loadHooker(HideInActiveSignalLabelsGen2x2)
         }
+        //自定义流体云图标背景透明度
+        if (osCode >= 30) loadHooker(CustomFluidCloudIconBackgroundTransparency)
+
         //seeding_card_container
         //com.oplus.systemui.statusbar.seeding.OplusSeedlingCardContainer
     }
