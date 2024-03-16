@@ -200,6 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">緑のドットのプライバシープロンプトを削除</string>
     <string name="remove_system_prompt_icon">システムプロンプトアイコンを削除</string>
     <string name="remove_system_prompt_icon_summary">通話モード、キャスト、録画、ホットスポットでプロンプトアイコンを削除します</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
     <string name="StatusBarSmallIconStatus">ステータスバー上の小さいステータスアイコン</string>
     <string name="status_bar_icon_vertical_center">ステータスバーアイコンを縦中央揃えにする</string>
     <!--StatusBarControlCenter-->
@@ -420,6 +421,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">アプリインストール関連</string>
     <string name="PackageInstaller_summary">コアパッチとの併用が必要です</string>
+    <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">APKのスキャンをスキップ</string>
     <string name="skip_apk_scan_summary">APKウィルススキャン関連</string>
     <string name="allow_downgrade_install">ダウングレードのインストールを許可</string>

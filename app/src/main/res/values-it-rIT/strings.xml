@@ -200,6 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">Rimuovi il punto verde dalla richiesta di privacy</string>
     <string name="remove_system_prompt_icon">Rimuovi icona del prompt di sistema</string>
     <string name="remove_system_prompt_icon_summary">Rimuovi le icone prompt in modalità chiamata, TV cast, registrazione e hotspot</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
     <string name="StatusBarSmallIconStatus">Stato Icona Piccola Barra di Stato</string>
     <string name="status_bar_icon_vertical_center">Centro verticale icona Barra di Stato</string>
     <!--StatusBarControlCenter-->
@@ -420,6 +421,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Installazione App</string>
     <string name="PackageInstaller_summary">Deve essere utilizzato con la patch principale</string>
+    <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">Salta Apkscan</string>
     <string name="skip_apk_scan_summary">Scansione virus Apk</string>
     <string name="allow_downgrade_install">Consenti l\'installazione del downgrade</string>

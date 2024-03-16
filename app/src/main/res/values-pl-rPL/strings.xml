@@ -200,6 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">Usuń zieloną kropkę prywatności</string>
     <string name="remove_system_prompt_icon">Remove system prompt icon</string>
     <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
     <string name="StatusBarSmallIconStatus">Dostosuj pozycję elementów</string>
     <string name="status_bar_icon_vertical_center">Wyśrodkuj elementy paska stanu</string>
     <!--StatusBarControlCenter-->
@@ -420,6 +421,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Instalowanie aplikacji</string>
     <string name="PackageInstaller_summary">Wymagane stosowanie z główną łatką</string>
+    <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">Pomiń skanowanie aplikacji</string>
     <string name="skip_apk_scan_summary">Pomija skanowanie antywirusowe instalowanej aplikacji</string>
     <string name="allow_downgrade_install">Umożliwiaj obniżenie wersji</string>

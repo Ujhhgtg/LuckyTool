@@ -200,6 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">Видалити запит на конфіденційність</string>
     <string name="remove_system_prompt_icon">Remove system prompt icon</string>
     <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
     <string name="StatusBarSmallIconStatus">Статус маленької іконки у рядку стану</string>
     <string name="status_bar_icon_vertical_center">Іконки рядку стану по вертикалі в центрі</string>
     <!--StatusBarControlCenter-->
@@ -420,6 +421,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Встановлення додатку</string>
     <string name="PackageInstaller_summary">Необхідно використовувати з патчем ядра</string>
+    <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">Пропустити сканування APK</string>
     <string name="skip_apk_scan_summary">Сканування APK на наявність вірусів</string>
     <string name="allow_downgrade_install">Дозволити встановлення більш ранньої версії</string>

@@ -200,6 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">Удалить запрос на конфиденциальность</string>
     <string name="remove_system_prompt_icon">Удалить иконку системных подсказок</string>
     <string name="remove_system_prompt_icon_summary">Удалить иконки подсказок в режиме вызова, телетрансляции, записи и точки доступа</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
     <string name="StatusBarSmallIconStatus">Статус маленькой иконки в статусбаре</string>
     <string name="status_bar_icon_vertical_center">Иконка в статусбаре по вертикали по центру</string>
     <!--StatusBarControlCenter-->
@@ -421,6 +422,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Установка приложения</string>
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
+    <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">Пропустить сканирование APK</string>
     <string name="skip_apk_scan_summary">Сканирование APK на наличие вирусов</string>
     <string name="allow_downgrade_install">Разрешить установку более ранней версии</string>
@@ -528,7 +530,7 @@
     <string name="enable_show_never_timeout">Включить отображение экрана без тайм-аута</string>
     <string name="enable_show_never_timeout_summary">После включения вы можете увидеть больше опций в настройках</string>
     <string name="settings_display">Экран</string>
-    <string name="enable_extra_brightness">Enable extra brightness</string>
+    <string name="enable_extra_brightness">Включить повышенную яркость</string>
     <string name="force_display_dc_backlight_mode">Принудительно отображать низкую яркость и защиту глаз от мерцания</string>
     <string name="force_display_dc_backlight_mode_summary">Нет гарантии, что он будет работать, он используется только для отображения опций функций</string>
     <string name="enable_video_memc_frame_insertion">Включить динамическую вставку кадров видео (MEMC)</string>
@@ -554,14 +556,14 @@
     <string name="enable_clear_voice_tips">Требование: необходимо проверить менеджер телефона</string>
     <string name="enable_holographic_audio">Включить голографическое аудио</string>
     <string name="settings_password_and_security">Пароль и безопасность</string>
-    <string name="enable_google_auto_fill">Enable Google auto fill</string>
-    <string name="restore_password_management_settings">Force display of password management settings</string>
+    <string name="enable_google_auto_fill">Включить автозаполнение Google</string>
+    <string name="restore_password_management_settings">Принудительное отображение настроек управления паролем</string>
     <string name="disable_device_admin_verification_dialog">Отключить диалоговое окно проверки администратора устройства</string>
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
     <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
-    <string name="enable_game_acceleration">Enable game acceleration</string>
+    <string name="enable_game_acceleration">Включить ускорение игры</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>

@@ -200,6 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">移除隐私绿点提示</string>
     <string name="remove_system_prompt_icon">移除系统提示图标</string>
     <string name="remove_system_prompt_icon_summary">移除电话、投屏、录制、热点的提示图标</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">自定义流体云图标背景透明度</string>
     <string name="StatusBarSmallIconStatus">状态栏小图标状态</string>
     <string name="status_bar_icon_vertical_center">状态栏图标垂直居中</string>
     <!--StatusBarControlCenter-->
@@ -420,6 +421,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">应用安装相关</string>
     <string name="PackageInstaller_summary">需搭配核心破解使用</string>
+    <string name="disable_customized_app_installer">禁用定制版应用安装器</string>
     <string name="skip_apk_scan">跳过 APK 扫描</string>
     <string name="skip_apk_scan_summary">APK 病毒扫描相关</string>
     <string name="allow_downgrade_install">允许降级安装</string>
