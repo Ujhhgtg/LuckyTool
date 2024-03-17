@@ -24,6 +24,7 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -151,9 +152,13 @@ object FileUtils {
             if (isFile) delete()
             if (!exists()) mkdirs()
         }
-        File(dir, ".nomedia").createNewFile()
+        File(dir, ".nomedia").apply {
+            if (!exists()) createNewFile()
+        }
+//        LogUtils.d("getMSMCacheFile", "uri", uri.toString(), true)
         val fileType = context.contentResolver.getType(uri)?.split("/")?.get(1)
-//        LogUtils.d("getMSMCacheFile", "fileType", fileType.toString(), true)
+            ?: "png"
+//        LogUtils.d("getMSMCacheFile", "fileType", fileType, true)
         val fileName = SystemClock.uptimeMillis().toString() + "." + fileType
         val file = File(dir, fileName)
 //        LogUtils.d("getMSMCacheFile", "file", file.path, true)
@@ -168,8 +173,23 @@ object FileUtils {
      * @return String
      */
     fun copyUriToFile(context: Context, uri: Uri, outputFile: File): File? {
-        val inputStream = context.contentResolver.openInputStream(uri) ?: return null
-        return copyStreamToFile(inputStream, outputFile)
+        try {
+            getUriPath(context, uri)?.let {
+//                LogUtils.d("getMSMCacheFile", "getUriPath", it, true)
+                val target = File(it).copyTo(outputFile, true)
+                if (target.exists()) return target
+            }
+        } catch (e: Exception) {
+//            LogUtils.d("getMSMCacheFile", "uri to file copyTo", e.toString(), true)
+        }
+        try {
+            context.contentResolver.openInputStream(uri)?.let {
+                return copyStreamToFile(it, outputFile)
+            }
+        } catch (e: FileNotFoundException) {
+//            LogUtils.d("getMSMCacheFile", "copyUriToFile", e.toString(), true)
+        }
+        return null
     }
 
     /**
