@@ -4548,14 +4548,8 @@ class OplusMarket : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_market_update_page_app_recommend)
-                key = "remove_market_update_page_app_recommend"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_market_download_page_app_recommend)
-                key = "remove_market_download_page_app_recommend"
+                title = getString(R.string.remove_market_update_download_page_app_recommend)
+                key = "remove_market_update_download_page_app_recommend"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

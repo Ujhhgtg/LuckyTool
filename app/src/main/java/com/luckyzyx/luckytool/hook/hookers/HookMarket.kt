@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketDownloadPageAppRecommend
 import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketMinePageAppRecommend
 import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketSplashPageAppRecommend
-import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketUpdatePageAppRecommend
+import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketUpdateDownloadPageAppRecommend
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
@@ -15,13 +14,9 @@ object HookMarket : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_market_splash_page_app_recommend", false)) {
                 loadHooker(RemoveMarketSplashPageAppRecommend(dexKitBridge))
             }
-            //移除商店更新页应用推荐
-            if (prefs(ModulePrefs).getBoolean("remove_market_update_page_app_recommend", false)) {
-                loadHooker(RemoveMarketUpdatePageAppRecommend(dexKitBridge))
-            }
-            //移除商店下载页应用推荐
-            if (prefs(ModulePrefs).getBoolean("remove_market_download_page_app_recommend", false)) {
-                loadHooker(RemoveMarketDownloadPageAppRecommend(dexKitBridge))
+            //移除商店更新下载页面应用推荐
+            if (prefs(ModulePrefs).getBoolean("remove_market_update_download_page_app_recommend", false)) {
+                loadHooker(RemoveMarketUpdateDownloadPageAppRecommend(dexKitBridge))
             }
             //移除软件商店我的页面应用推荐
             if (prefs(ModulePrefs).getBoolean("remove_market_mine_page_app_recommend", false)) {

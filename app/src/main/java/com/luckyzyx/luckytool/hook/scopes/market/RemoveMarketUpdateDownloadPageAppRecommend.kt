@@ -19,34 +19,28 @@ import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.luckypray.dexkit.DexKitBridge
 
-class RemoveMarketUpdatePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge) :
+    YukiBaseHooker() {
     override fun onHook() {
         val cardDto = "com.heytap.cdo.card.domain.dto.CardDto"
         val imageLoader = "com.nearme.imageloader.ImageLoader"
 
-        //Source AppUpdateFragment
-        dexKitBridge.findMethod {
-            searchPackages("com.heytap.cdo.client.ui.upgrademgr")
+        //Source CardDataProcessor
+        dexKitBridge.findClass {
             matcher {
-                addParamType(ListClass)
-                returnType(UnitType)
-                usingNumbers(114.0F)
-                addInvoke {
-                    addParamType(ListClass)
-                    returnType(UnitType)
-                    usingNumbers(0)
-                    addInvoke {
-                        name("notifyDataSetChanged")
-                    }
+                addFieldForName("mDataUtil")
+                addMethod {
+                    name("processData")
+                    paramTypes(ListClass, IntType, null)
+                    returnType(ListClass)
                 }
             }
         }.apply {
-            checkDataList("RemoveMarketUpdatePageAppRecommend AppUpdateFragment")
-            val member = single()
-            member.className.toClass().apply {
-                method { name = member.methodName;param(ListClass) }.hook {
-                    before {
-                        args().first().cast<ArrayList<Any>>()?.clear()
+            checkDataList("RemoveMarketUpdateDownloadPageAppRecommend")
+            single().name.toClass().apply {
+                method { name = "processData" }.hook {
+                    after {
+                        result<ArrayList<Any>>()?.clear()
                     }
                 }
             }

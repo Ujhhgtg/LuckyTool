@@ -708,8 +708,7 @@
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
-    <string name="remove_market_update_page_app_recommend">Odstranění doporučení aplikací ze stránky aktualizace obchodu se softwarem</string>
-    <string name="remove_market_download_page_app_recommend">Odstraňte doporučení aplikací ze stránky pro stahování softwaru</string>
+    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
     <string name="remove_market_mine_page_app_recommend">Odstranění doporučení aplikací z hlavní stránky obchodu se softwarem</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>

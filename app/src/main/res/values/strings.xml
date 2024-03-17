@@ -821,8 +821,7 @@
     
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Remove app recommendations from market splash page</string>
-    <string name="remove_market_update_page_app_recommend">Remove app recommendations from market update page</string>
-    <string name="remove_market_download_page_app_recommend">Remove app recommendations from market download page</string>
+    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
     <string name="remove_market_mine_page_app_recommend">Remove app recommendations from market mine page</string>
     
     <!--OplusWeather-->

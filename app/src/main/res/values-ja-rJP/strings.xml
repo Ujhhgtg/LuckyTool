@@ -708,8 +708,7 @@
     <string name="remove_app_recommend_card">アプリのおすすめカードを削除</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">App Market のスプラッシュページからおすすめアプリを削除</string>
-    <string name="remove_market_update_page_app_recommend">App Market の更新ページからおすすめアプリを削除</string>
-    <string name="remove_market_download_page_app_recommend">App Market のダウンロードページからおすすめアプリを削除</string>
+    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
     <string name="remove_market_mine_page_app_recommend">App Market のマイアプリページからおすすめアプリを削除</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">天気のブラウザーリダイレクトを無効化</string>

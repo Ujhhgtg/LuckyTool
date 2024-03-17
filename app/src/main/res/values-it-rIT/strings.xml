@@ -708,8 +708,7 @@
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
-    <string name="remove_market_update_page_app_recommend">Rimuovi i consigli sulle app dalla pagina di aggiornamento del market</string>
-    <string name="remove_market_download_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
+    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
     <string name="remove_market_mine_page_app_recommend">Rimuovi i consigli sulle app dalla pagina di aggiornamento del market</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Disabilita il browser di reindirizzamento meteo</string>
