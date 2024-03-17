@@ -90,7 +90,7 @@ class ExtractOTAFragment : Fragment() {
                     }
 
                     if (otaList.isNotEmpty()) {
-                        list.add("Model: ${getModelMarketName()} ${getFingerPrintModel()}")
+                        list.add("Model: ${getModelMarketName()} $getFingerPrintModel")
                         list.add("")
                         list.addAll(otaList)
                     } else return@withDefault list
@@ -98,7 +98,7 @@ class ExtractOTAFragment : Fragment() {
                     val nvId = SystemProperties.get("ro.build.oplus_nv_id")
                     val random = Random().nextInt().toString()
                     val data =
-                        random + "|${getFingerPrintModel()}|$nvId|$getPcbInfo|$getSnInfo|$getRecruit"
+                        random + "|${getFingerPrintModel}|$nvId|$getPcbInfo|$getSnInfo|$getRecruit"
                     val encrypt = safeOfNull {
                         AESCrypt.encrypt(data, "otatoolsotatools")
                     } ?: ""

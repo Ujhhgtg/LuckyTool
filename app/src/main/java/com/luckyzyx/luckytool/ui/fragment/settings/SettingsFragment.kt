@@ -26,7 +26,10 @@ import com.luckyzyx.luckytool.utils.backupAllPrefs
 import com.luckyzyx.luckytool.utils.base64Decode
 import com.luckyzyx.luckytool.utils.base64Encode
 import com.luckyzyx.luckytool.utils.clearAllPrefs
+import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.logcatToFile
 import com.luckyzyx.luckytool.utils.navigatePage
@@ -55,12 +58,15 @@ class SettingsFragment : ModulePreferenceFragment() {
     }
     private val restoreData = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
-            writeRestoreData(requireActivity(), FileUtils.readFromUri(requireActivity(), it))
+            val entryData = FileUtils.readFromUri(requireActivity(), it)
+            checkRestoreData(requireActivity(), entryData)
         }
     }
 
     private fun writeBackupData(context: Context, uri: Uri) {
-        val json = JSONObject()
+        val json = JSONObject().apply {
+            put("osCode", getOSVersionCode)
+        }
         val dataMapList = context.backupAllPrefs(ModulePrefs, SettingsPrefs, OtherPrefs)
         dataMapList?.keys?.forEach { prefs ->
             val jsons = JSONObject()
@@ -98,9 +104,31 @@ class SettingsFragment : ModulePreferenceFragment() {
         }
     }
 
-    private fun writeRestoreData(context: Context, data: String) {
+    private fun checkRestoreData(context: Context, data: String) {
         val json = JSONObject(base64Decode(data))
+        val osCode = json.optInt("osCode")
+        if (osCode > 0 && osCode != getOSVersionCode) {
+            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                setMessage(
+                    """
+                    ${getString(R.string.data_backup_data_version)}: ${getOSVersionName(osCode)}
+                    ${getString(R.string.data_current_system_version)}: $getOSVersionName
+                    
+                    ${getString(R.string.data_restore_version_tips)}
+                """.trimIndent()
+                )
+                setPositiveButton(android.R.string.ok, null)
+                setNeutralButton(R.string.common_words_ignore) { _, _ ->
+                    writeRestoreData(context, json)
+                }
+                show()
+            }
+        } else writeRestoreData(context, json)
+    }
+
+    private fun writeRestoreData(context: Context, json: JSONObject) {
         if (json.length() <= 0) return
+        json.remove("osCode")
         json.keys().forEach { prefs ->
             val prefsDatas = json.getJSONObject(prefs)
             if (prefsDatas.length() > 0) {

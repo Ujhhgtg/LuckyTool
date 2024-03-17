@@ -154,7 +154,7 @@ fun Context.getDeviceInfo(
     val androidVer = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
     val osVer = "OS $getOSVersionName($getOSVersionCode)"
     return """
-        ${getString(R.string.model)}: ${getFingerPrintBrand()} ${getFingerPrintModel()}
+        ${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel
         ${getString(R.string.market_name)}: ${getModelMarketName()}
         ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
         ${getString(R.string.system)}: $androidVer $osVer

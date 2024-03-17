@@ -47,6 +47,9 @@
     <string name="data_backup_complete">Crearea copiei de rezervă este gata!</string>
     <string name="data_backup_error">Eroare backup date!</string>
     <string name="data_restore_complete">Restaurare date completă!</string>
+    <string name="data_backup_data_version">Backup data version</string>
+    <string name="data_current_system_version">Current system version</string>
+    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
     <!-- About -->
     <string name="about_title">Despre</string>
     <string name="about_author">Autor</string>

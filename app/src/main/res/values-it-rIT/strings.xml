@@ -47,6 +47,9 @@
     <string name="data_backup_complete">Backup dati completato!</string>
     <string name="data_backup_error">Errore di backup dati!</string>
     <string name="data_restore_complete">Ripristino dei dati completato!</string>
+    <string name="data_backup_data_version">Backup data version</string>
+    <string name="data_current_system_version">Current system version</string>
+    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
     <!-- About -->
     <string name="about_title">Informazioni</string>
     <string name="about_author">Autore</string>
