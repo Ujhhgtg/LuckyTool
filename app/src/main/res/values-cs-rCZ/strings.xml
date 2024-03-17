@@ -200,7 +200,7 @@
     <string name="remove_green_dot_privacy_prompt">Odstranit zelenou tečku využívání mikrofonu nebo kamery</string>
     <string name="remove_system_prompt_icon">Odstranit ikonu výzvy systému</string>
     <string name="remove_system_prompt_icon_summary">Odstranit ikony výzvy v režimu hovoru, v režimu odesílání do TV a chromecast, nahrávání a hotspotu</string>
-    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Průhlednost ikony na pozadí fluid cloud</string>
     <string name="StatusBarSmallIconStatus">Stav malé ikony ve stavové liště</string>
     <string name="status_bar_icon_vertical_center">Vycentrujte položky ve stavové liště</string>
     <!--StatusBarControlCenter-->
@@ -421,7 +421,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Nastavení týkající se instalace aplikací</string>
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
-    <string name="disable_customized_app_installer">Disable customized app installers</string>
+    <string name="disable_customized_app_installer">Zakázat vlastní instalátory aplikací</string>
     <string name="skip_apk_scan">Přeskočit skenování souborů APK</string>
     <string name="skip_apk_scan_summary">Nastavení související se skenováním virusů</string>
     <string name="allow_downgrade_install">Povolit instalaci starších verzí aplikací</string>
@@ -529,7 +529,8 @@
     <string name="enable_show_never_timeout">Povolení nevypršení časového limitu obrazovky</string>
     <string name="enable_show_never_timeout_summary">Po zapnutí můžete vidět další možnosti v nastavení</string>
     <string name="settings_display">Displej</string>
-    <string name="enable_extra_brightness">Enable extra brightness</string>
+    <string name="enable_extra_brightness">Povolit extra jas</string>
+    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
     <string name="force_display_dc_backlight_mode">Vynucené zobrazení nízkého jasu a bez ochrany očí</string>
     <string name="force_display_dc_backlight_mode_summary">Neexistuje žádná záruka, že to bude fungovat, je to použito pouze pro zobrazení možností</string>
     <string name="enable_video_memc_frame_insertion">Povolit vkládání dynamického videosnímku</string>
@@ -555,14 +556,14 @@
     <string name="enable_clear_voice_tips">Předpoklad: Správce telefonu musí být zaškrtnut</string>
     <string name="enable_holographic_audio">Povolit holografický zvuk</string>
     <string name="settings_password_and_security">Heslo a zabezpečení</string>
-    <string name="enable_google_auto_fill">Enable Google auto fill</string>
-    <string name="restore_password_management_settings">Force display of password management settings</string>
+    <string name="enable_google_auto_fill">Povolit automatické vyplňování Googlu</string>
+    <string name="restore_password_management_settings">Vynutit zobrazení nastavení správy hesel</string>
     <string name="disable_device_admin_verification_dialog">Zakázat dialog ověření správce zařízení</string>
     <string name="settings_authority_and_privacy">Oprávnění a soukromí</string>
     <string name="enable_vip_mode">Aktivovat VIP režim</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
     <string name="enable_touch_membrane_protector_mode">Povolit režim ochrany dotykové membrány</string>
-    <string name="enable_game_acceleration">Enable game acceleration</string>
+    <string name="enable_game_acceleration">Povolit herní zrychlení</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>

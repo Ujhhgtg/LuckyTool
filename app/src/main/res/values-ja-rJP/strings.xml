@@ -530,6 +530,7 @@
     <string name="enable_show_never_timeout_summary">有効にすると、設定で他のオプションが表示されます</string>
     <string name="settings_display">ディスプレイ</string>
     <string name="enable_extra_brightness">Enable extra brightness</string>
+    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
     <string name="force_display_dc_backlight_mode">低輝度とちらつき防止を強制する</string>
     <string name="force_display_dc_backlight_mode_summary">動作する保証はありません。機能オプションを表示させるためにのみ使用されます</string>
     <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>

@@ -43,6 +43,11 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 put("ro.oplus.audio.support.meta_audio", 1)
             }
 
+            //Source Settings ScreenMinBrightnessController isMinBrightnessSp 启用最低自动亮度
+            if (prefs(ModulePrefs).getBoolean("enable_lowest_allowed_brightness", false)) {
+                put("ro.oplus.display.brightness.min_settings.rm", "1,2,15,4.0,0")
+            }
+
             //Source Android OplusFeatureMEMC 启用视频动态插帧
             if (prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
             ) {

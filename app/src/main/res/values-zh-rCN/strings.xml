@@ -530,6 +530,7 @@
     <string name="enable_show_never_timeout_summary">启用后即可在设置中看到更多可选项</string>
     <string name="settings_display">显示</string>
     <string name="enable_extra_brightness">启用增大亮度范围</string>
+    <string name="enable_lowest_allowed_brightness">启用最低自动亮度调节</string>
     <string name="force_display_dc_backlight_mode">强制显示低亮无频闪护眼</string>
     <string name="force_display_dc_backlight_mode_summary">无法保证一定有效，仅用于显示功能选项</string>
     <string name="enable_video_memc_frame_insertion">启用视频动态插帧</string>

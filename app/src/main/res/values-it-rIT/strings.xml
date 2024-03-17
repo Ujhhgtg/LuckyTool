@@ -530,6 +530,7 @@
     <string name="enable_show_never_timeout_summary">Dopo l\'abilitazione, puoi vedere più opzioni nelle impostazioni</string>
     <string name="settings_display">Schermo</string>
     <string name="enable_extra_brightness">Abilita luminosità extra</string>
+    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
     <string name="force_display_dc_backlight_mode">Forza la modalità bassa luminosità e nessuna protezione per gli occhi contro lo sfarfallio</string>
     <string name="force_display_dc_backlight_mode_summary">Non c\'è garanzia che funzionerà, è usato solo per visualizzare le opzioni della funzione</string>
     <string name="enable_video_memc_frame_insertion">Abilita l\'inserimento dinamico di frame video</string>

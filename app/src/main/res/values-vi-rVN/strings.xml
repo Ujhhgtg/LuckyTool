@@ -530,6 +530,7 @@
     <string name="enable_show_never_timeout_summary">Sau khi bật, bạn có thể thấy nhiều tùy chọn hơn trong cài đặt</string>
     <string name="settings_display">Hiển thị</string>
     <string name="enable_extra_brightness">Cho phép tăng thêm độ sáng</string>
+    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
     <string name="force_display_dc_backlight_mode">Buộc phải hiển thị độ sáng thấp và không nhấp nháy để bảo vệ mắt</string>
     <string name="force_display_dc_backlight_mode_summary">Không đảm bảo rằng nó sẽ hoạt động, nó chỉ được sử dụng để hiển thị các tùy chọn chức năng</string>
     <string name="enable_video_memc_frame_insertion">Bật tính năng chèn khung video động</string>

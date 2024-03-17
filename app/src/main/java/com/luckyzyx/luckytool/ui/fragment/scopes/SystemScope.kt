@@ -3052,16 +3052,23 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 key = "settings_display"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_extra_brightness)
-                summary = arraySummaryLine(
-                    getString(R.string.need_restart_system)
-                )
-                key = "enable_extra_brightness"
-                setDefaultValue(false)
-                isVisible = osCode >= 30
-                isIconSpaceReserved = false
-            })
+            if (osCode >= 30) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_extra_brightness)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "enable_extra_brightness"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_lowest_allowed_brightness)
+                    key = "enable_lowest_allowed_brightness"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             if (osCode >= 26) {
                 addPreference(SwitchPreference(context).apply {
                     title = getString(R.string.enable_video_memc_frame_insertion)

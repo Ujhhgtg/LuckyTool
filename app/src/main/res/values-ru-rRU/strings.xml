@@ -531,6 +531,7 @@
     <string name="enable_show_never_timeout_summary">После включения вы можете увидеть больше опций в настройках</string>
     <string name="settings_display">Экран</string>
     <string name="enable_extra_brightness">Включить повышенную яркость</string>
+    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
     <string name="force_display_dc_backlight_mode">Принудительно отображать низкую яркость и защиту глаз от мерцания</string>
     <string name="force_display_dc_backlight_mode_summary">Нет гарантии, что он будет работать, он используется только для отображения опций функций</string>
     <string name="enable_video_memc_frame_insertion">Включить динамическую вставку кадров видео (MEMC)</string>
