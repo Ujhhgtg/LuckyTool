@@ -29,7 +29,7 @@ class CustomCameraOpenGalleryByDefault(val dexKitBridge: DexKitBridge) : YukiBas
                 usingStrings("com.oplus.gallery.base")
             }
         }.apply {
-            checkDataList("CustomCameraOpenGalleryByDefault", isDebug = true)
+            checkDataList("CustomCameraOpenGalleryByDefault")
             single().className.toClass().apply {
                 method {
                     name = single().methodName;emptyParam()

@@ -1,4 +1,3 @@
-
 <resources>
     <style name="Theme.Luckyzyx" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
