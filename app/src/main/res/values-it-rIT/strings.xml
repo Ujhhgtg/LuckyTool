@@ -47,9 +47,9 @@
     <string name="data_backup_complete">Backup dati completato!</string>
     <string name="data_backup_error">Errore di backup dati!</string>
     <string name="data_restore_complete">Ripristino dei dati completato!</string>
-    <string name="data_backup_data_version">Backup data version</string>
-    <string name="data_current_system_version">Current system version</string>
-    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
+    <string name="data_backup_data_version">Versione dati di backup</string>
+    <string name="data_current_system_version">Versione di sistema attuale</string>
+    <string name="data_restore_version_tips">Il ripristino dei dati nelle versioni potrebbe causare un funzionamento anomalo di alcune funzioni. Si consiglia di riconfigurare i dati delle funzioni del modulo.</string>
     <!-- About -->
     <string name="about_title">Informazioni</string>
     <string name="about_author">Autore</string>
@@ -203,7 +203,7 @@
     <string name="remove_green_dot_privacy_prompt">Rimuovi il punto verde dalla richiesta di privacy</string>
     <string name="remove_system_prompt_icon">Rimuovi icona del prompt di sistema</string>
     <string name="remove_system_prompt_icon_summary">Rimuovi le icone prompt in modalità chiamata, TV cast, registrazione e hotspot</string>
-    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Trasparenza dello sfondo personalizzata dell\'icona del cloud</string>
     <string name="StatusBarSmallIconStatus">Stato Icona Piccola Barra di Stato</string>
     <string name="status_bar_icon_vertical_center">Centro verticale icona Barra di Stato</string>
     <!--StatusBarControlCenter-->
@@ -424,7 +424,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Installazione App</string>
     <string name="PackageInstaller_summary">Deve essere utilizzato con la patch principale</string>
-    <string name="disable_customized_app_installer">Disable customized app installers</string>
+    <string name="disable_customized_app_installer">Disabilita installatori di applicazioni personalizzati</string>
     <string name="skip_apk_scan">Salta Apkscan</string>
     <string name="skip_apk_scan_summary">Scansione virus Apk</string>
     <string name="allow_downgrade_install">Consenti l\'installazione del downgrade</string>
@@ -533,7 +533,7 @@
     <string name="enable_show_never_timeout_summary">Dopo l\'abilitazione, puoi vedere più opzioni nelle impostazioni</string>
     <string name="settings_display">Schermo</string>
     <string name="enable_extra_brightness">Abilita luminosità extra</string>
-    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
+    <string name="enable_lowest_allowed_brightness">Abilita regolazione della luminosità più bassa consentita</string>
     <string name="force_display_dc_backlight_mode">Forza la modalità bassa luminosità e nessuna protezione per gli occhi contro lo sfarfallio</string>
     <string name="force_display_dc_backlight_mode_summary">Non c\'è garanzia che funzionerà, è usato solo per visualizzare le opzioni della funzione</string>
     <string name="enable_video_memc_frame_insertion">Abilita l\'inserimento dinamico di frame video</string>
@@ -560,7 +560,7 @@
     <string name="enable_holographic_audio">Abilita audio olografico</string>
     <string name="settings_password_and_security">Password e sicurezza</string>
     <string name="enable_google_auto_fill">Attiva il riempimento automatico di Google</string>
-    <string name="restore_password_management_settings">Force display of password management settings</string>
+    <string name="restore_password_management_settings">Forza visualizzazione delle impostazioni di gestione password</string>
     <string name="disable_device_admin_verification_dialog">Disabilita la finestra di verifica dell\'amministratore del dispositivo</string>
     <string name="settings_authority_and_privacy">Autorizzazioni e privacy</string>
     <string name="enable_vip_mode">Abilita modalità VIP</string>
@@ -708,7 +708,7 @@
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
-    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
+    <string name="remove_market_update_download_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
     <string name="remove_market_mine_page_app_recommend">Rimuovi i consigli sulle app dalla pagina di aggiornamento del market</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Disabilita il browser di reindirizzamento meteo</string>

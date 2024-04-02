@@ -47,9 +47,9 @@
     <string name="data_backup_complete">Sao lưu dữ liệu hoàn tất!</string>
     <string name="data_backup_error">Lỗi sao lưu dữ liệu!</string>
     <string name="data_restore_complete">Khôi phục dữ liệu hoàn tất!</string>
-    <string name="data_backup_data_version">Backup data version</string>
-    <string name="data_current_system_version">Current system version</string>
-    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
+    <string name="data_backup_data_version">Phiên bản dữ liệu sao lưu</string>
+    <string name="data_current_system_version">Phiên bản hệ thống hiện tại</string>
+    <string name="data_restore_version_tips">Việc khôi phục dữ liệu giữa các phiên bản có thể khiến một số chức năng chạy bất thường. Nên cấu hình lại dữ liệu chức năng mô-đun.</string>
     <!-- About -->
     <string name="about_title">Thông tin</string>
     <string name="about_author">Tác giả</string>
@@ -203,7 +203,7 @@
     <string name="remove_green_dot_privacy_prompt">Xóa chấm xanh lời nhắc bảo mật</string>
     <string name="remove_system_prompt_icon">Xóa biểu tượng lời nhắc hệ thống</string>
     <string name="remove_system_prompt_icon_summary">Xóa các biểu tượng nhắc nhở về cuộc gọi điện thoại, quay màn hình, ghi màn hình và điểm phát sóng</string>
-    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Tùy chỉnh độ trong suốt của nền biểu tượng đám mây chất lỏng</string>
     <string name="StatusBarSmallIconStatus">Biểu tượng thanh trạng thái nhỏ</string>
     <string name="status_bar_icon_vertical_center">Biểu tượng thanh trạng thái trung tâm dọc</string>
     <!--StatusBarControlCenter-->
@@ -424,7 +424,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Cài đặt ứng dụng</string>
     <string name="PackageInstaller_summary">Cần được sử dụng với bản vá lõi</string>
-    <string name="disable_customized_app_installer">Disable customized app installers</string>
+    <string name="disable_customized_app_installer">Tắt trình cài đặt ứng dụng tùy chỉnh</string>
     <string name="skip_apk_scan">Bỏ qua Apkscan</string>
     <string name="skip_apk_scan_summary">Quét vi-rút Apk</string>
     <string name="allow_downgrade_install">Cho phép hạ cấp cài đặt</string>
@@ -533,7 +533,7 @@
     <string name="enable_show_never_timeout_summary">Sau khi bật, bạn có thể thấy nhiều tùy chọn hơn trong cài đặt</string>
     <string name="settings_display">Hiển thị</string>
     <string name="enable_extra_brightness">Cho phép tăng thêm độ sáng</string>
-    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
+    <string name="enable_lowest_allowed_brightness">Bật điều chỉnh độ sáng tự động tối thiểu</string>
     <string name="force_display_dc_backlight_mode">Buộc phải hiển thị độ sáng thấp và không nhấp nháy để bảo vệ mắt</string>
     <string name="force_display_dc_backlight_mode_summary">Không đảm bảo rằng nó sẽ hoạt động, nó chỉ được sử dụng để hiển thị các tùy chọn chức năng</string>
     <string name="enable_video_memc_frame_insertion">Bật tính năng chèn khung video động</string>
@@ -708,7 +708,7 @@
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang khởi chạy cửa hàng</string>
-    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
+    <string name="remove_market_update_download_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang tải xuống bản cập nhật cửa hàng</string>
     <string name="remove_market_mine_page_app_recommend">Xóa đề xuất ứng dụng Lưu trữ trang của tôi</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Tắt trình duyệt chuyển hướng sang ứng dụng thời tiết</string>

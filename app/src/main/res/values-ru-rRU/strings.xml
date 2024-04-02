@@ -47,9 +47,9 @@
     <string name="data_backup_complete">Резервная копия создана!</string>
     <string name="data_backup_error">Резервная копия не создана!</string>
     <string name="data_restore_complete">Импорт данных завершен!</string>
-    <string name="data_backup_data_version">Backup data version</string>
-    <string name="data_current_system_version">Current system version</string>
-    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
+    <string name="data_backup_data_version">Версия резервного копирования</string>
+    <string name="data_current_system_version">Текущая версия системы</string>
+    <string name="data_restore_version_tips">Восстановление данных между версиями может привести к ненормальной работе некоторых функций. Рекомендуется перенастроить функциональные данные модуля.</string>
     <!-- About -->
     <string name="about_title">Информация</string>
     <string name="about_author">Авторы</string>
@@ -203,7 +203,7 @@
     <string name="remove_green_dot_privacy_prompt">Удалить запрос на конфиденциальность</string>
     <string name="remove_system_prompt_icon">Удалить иконку системных подсказок</string>
     <string name="remove_system_prompt_icon_summary">Удалить иконки подсказок в режиме вызова, телетрансляции, записи и точки доступа</string>
-    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">Пользовательская прозрачность фона иконки fluid облака</string>
     <string name="StatusBarSmallIconStatus">Статус маленькой иконки в статусбаре</string>
     <string name="status_bar_icon_vertical_center">Иконка в статусбаре по вертикали по центру</string>
     <!--StatusBarControlCenter-->
@@ -425,7 +425,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Установка приложения</string>
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
-    <string name="disable_customized_app_installer">Disable customized app installers</string>
+    <string name="disable_customized_app_installer">Отключить настраиваемые установщики приложений</string>
     <string name="skip_apk_scan">Пропустить сканирование APK</string>
     <string name="skip_apk_scan_summary">Сканирование APK на наличие вирусов</string>
     <string name="allow_downgrade_install">Разрешить установку более ранней версии</string>
@@ -534,7 +534,7 @@
     <string name="enable_show_never_timeout_summary">После включения вы можете увидеть больше опций в настройках</string>
     <string name="settings_display">Экран</string>
     <string name="enable_extra_brightness">Включить повышенную яркость</string>
-    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
+    <string name="enable_lowest_allowed_brightness">Включить минимально допустимую регулировку яркости</string>
     <string name="force_display_dc_backlight_mode">Принудительно отображать низкую яркость и защиту глаз от мерцания</string>
     <string name="force_display_dc_backlight_mode_summary">Нет гарантии, что он будет работать, он используется только для отображения опций функций</string>
     <string name="enable_video_memc_frame_insertion">Включить динамическую вставку кадров видео (MEMC)</string>
@@ -709,7 +709,7 @@
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений с заставки в магазине</string>
-    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
+    <string name="remove_market_update_download_page_app_recommend">Удалить рекомендации приложений со страницы загрузки обновлений магазина</string>
     <string name="remove_market_mine_page_app_recommend">Удалить рекомендации приложений со страницы обновления магазина</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>

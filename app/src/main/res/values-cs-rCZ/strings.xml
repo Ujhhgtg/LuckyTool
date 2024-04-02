@@ -47,9 +47,9 @@
     <string name="data_backup_complete">Zálohování dat bylo dokončeno!</string>
     <string name="data_backup_error">Chyba při zálohování dat!</string>
     <string name="data_restore_complete">Obnovení dat bylo dokončeno!</string>
-    <string name="data_backup_data_version">Backup data version</string>
-    <string name="data_current_system_version">Current system version</string>
-    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
+    <string name="data_backup_data_version">Verze zálohy dat</string>
+    <string name="data_current_system_version">Aktuální verze systému</string>
+    <string name="data_restore_version_tips">Obnovení dat napříč verzemi může způsobit abnormální běh některých funkcí. Doporučujeme změnit nastavení funkčních dat modulu.</string>
     <!-- About -->
     <string name="about_title">O aplikaci</string>
     <string name="about_author">Autor</string>
@@ -533,7 +533,7 @@
     <string name="enable_show_never_timeout_summary">Po zapnutí můžete vidět další možnosti v nastavení</string>
     <string name="settings_display">Displej</string>
     <string name="enable_extra_brightness">Povolit extra jas</string>
-    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
+    <string name="enable_lowest_allowed_brightness">Povolit nejnižší povolenou úpravu jasu</string>
     <string name="force_display_dc_backlight_mode">Vynucené zobrazení nízkého jasu a bez ochrany očí</string>
     <string name="force_display_dc_backlight_mode_summary">Neexistuje žádná záruka, že to bude fungovat, je to použito pouze pro zobrazení možností</string>
     <string name="enable_video_memc_frame_insertion">Povolit vkládání dynamického videosnímku</string>
@@ -708,7 +708,7 @@
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
-    <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>
+    <string name="remove_market_update_download_page_app_recommend">Odstraňte doporučení aplikací ze stránky stahování aktualizací v obchodě s aplikacemi</string>
     <string name="remove_market_mine_page_app_recommend">Odstranění doporučení aplikací z hlavní stránky obchodu se softwarem</string>
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>

@@ -16,8 +16,8 @@
     <string name="use_dynamic_color_summary">Wygląd Material You</string>
     <string name="dark_theme">Ciemny motyw</string>
     <string name="follow_system">Zgodny z systemem</string>
-    <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
+    <string name="dark_theme_off">Zawsze wyłączony</string>
+    <string name="dark_theme_on">Zawsze włączony</string>
     <string name="language">Język</string>
     <string name="privacy_agreement">Polityka prywatności</string>
     <string name="auto_check_update">Sprawdzaj uaktualnienia aplikacji</string>
@@ -514,7 +514,7 @@
     <string name="customize_battery_health_data_percentage">Customize battery health data percentage</string>
     <string name="display_module_calculates_battery_health_data">Display module calculates battery health data</string>
     <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
-    <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
+    <string name="display_module_calculates_battery_health_data_tips">\nObliczone zdrowie baterii</string>
     <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
     <string name="remove_battery_temperature_control">Remove battery temperature control</string>
     <string name="remove_battery_temperature_control_summary">Remove the limitation that various functions cannot be used,For example: camera, flashlight, hotspot, screen display engine, etc.</string>
