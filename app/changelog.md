@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.2_beta
+### 1.2.2
 
 - [添加] 自定义锁屏运营商显示文本
 - [更改] 同步上游核心破解v4.5
@@ -31,6 +31,33 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 音量条背景透明度Hook异常
 - [移除] 移除无意义的堆叠任务布局
 - [修复] 回滚照片选择器代码逻辑
+- [Add] Customize lock screen operator display text
+- [Change] Sync upstream core crack v4.5
+- [Fix] Fix the problem of automatic screen pause time restart and recovery
+- [Fix] The problem that the battery notification part of the status bar has a value of 0
+- [Add] Remote ADB debugging tile
+- [Optimize] Third-party application call recording permission prompts
+- [Change] The Game Assistant shortcut entrance is moved to the Game Assistant section
+- [Optimize] Partial fluid cloud notification background transparency status
+- [Add] Other settings-Game acceleration C14.0+
+- [Add] Display settings - Increase brightness range C14.0+
+- [Add] Enable Google Autocomplete
+- [Add] Forced display of password management settings
+- [Add] Disable custom app installer
+- [Add] Customize fluid cloud icon background transparency C14.0+
+- [Add] Enable minimum automatic brightness adjustment C14.0+
+- [Add] Module data recovery security judgment mechanism
+- [Fix] Try to fix the image selector crash problem on some models
+- [Fix] Application recommendation v11.10.0beta2 at the bottom of the software store update
+  download page
+- [Change] Extended status bar clock maximum font size
+- [Fix] Remove screenshot privacy restrictions v14.6.2(115456)
+- [Add] App details show first installation time
+- [Add] App details display Target SDK
+- [Fix] Remove AIGC elimination restrictions v14.37.6(d77e6a7)
+- [Fix] Volume bar background transparency Hook abnormality
+- [Removed] Removed meaningless stacked task layout
+- [Fix] Rollback photo picker code logic
 
 ### 1.2.1
 
