@@ -75,17 +75,17 @@ class ExtractOTAFragment : Fragment() {
 
                     val otaList = ArrayList<String>()
                     while (cursor.moveToNext()) {
-                        val packName = cursor.getStringOrNull(packNameIndex) ?: "Null"
-                        val size = cursor.getStringOrNull(sizeIndex) ?: "Null"
-                        val md5 = cursor.getStringOrNull(md5Index) ?: "Null"
-                        val activeUrl = cursor.getStringOrNull(activeUrlIndex) ?: "Null"
-                        val url = cursor.getStringOrNull(urlIndex) ?: "Null"
+                        val packName = cursor.getStringOrNull(packNameIndex) ?: continue
+                        val size = cursor.getStringOrNull(sizeIndex) ?: ""
+                        val md5 = cursor.getStringOrNull(md5Index) ?: ""
+                        val activeUrl = cursor.getStringOrNull(activeUrlIndex) ?: ""
+                        val url = cursor.getStringOrNull(urlIndex) ?: ""
 
-                        otaList.add("PackName: $packName")
-                        otaList.add("ActiveUrl: $activeUrl")
-                        otaList.add("Url: $url")
-                        otaList.add("MD5: $md5")
-                        otaList.add("Size: ${formatFileSize(size.toFloatOrNull())} ($size)")
+                        otaList.add(packName)
+                        if (activeUrl.isNotBlank()) otaList.add("ActiveUrl: $activeUrl")
+                        if (url.isNotBlank()) otaList.add("Url: $url")
+                        if (md5.isNotBlank()) otaList.add("MD5: $md5")
+                        if (size.isNotBlank()) otaList.add("Size: ${formatFileSize(size.toFloatOrNull())} ($size)")
                         otaList.add("")
                     }
 

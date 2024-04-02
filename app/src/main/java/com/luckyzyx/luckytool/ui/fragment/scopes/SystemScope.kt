@@ -2655,6 +2655,18 @@ class Application : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_target_sdk_in_app_details)
+                key = "show_target_sdk_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_first_install_time_in_app_details)
+                key = "show_first_install_time_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.show_last_update_time_in_app_details)
                 key = "show_last_update_time_in_app_details"
                 setDefaultValue(false)

@@ -25,6 +25,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 软件商店更新下载页面底部应用推荐 v11.10.0beta2
 - [更改] 扩展状态栏时钟最大字体大小
 - [适配] 移除截屏隐私限制 v14.6.2(115456)
+- [添加] 应用详情显示首次安装时间
+- [添加] 应用详情显示Target SDK
 
 ### 1.2.1
 

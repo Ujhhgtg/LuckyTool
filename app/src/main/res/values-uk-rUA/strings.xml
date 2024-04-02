@@ -448,6 +448,8 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">Відомості про додаток</string>
     <string name="show_package_name_in_app_details">Показувати ім\'я пакета в деталях додатку</string>
+    <string name="show_target_sdk_in_app_details">Show target sdk in app details</string>
+    <string name="show_first_install_time_in_app_details">Show first install time in app details</string>
     <string name="show_last_update_time_in_app_details">Показати час останнього оновлення в деталях програми</string>
     <string name="enable_long_press_to_copy_in_app_details">Увімкнути довге натискання, щоб скопіювати деталі програми</string>
     <string name="click_icon_open_market_page">Натисніть на іконку, щоб відкрити сторінку магазину</string>
@@ -758,7 +760,8 @@
     <string name="download_count">Кількість завантажень</string>
     <string name="file_size">Розмір файлу</string>
     <string name="update_time">Час оновлення</string>
-    <string name="last_update_time">Час останнього оновлення</string>
+    <string name="first_install_time">First install time</string>
+    <string name="last_update_time">Last update time</string>
     <string name="select_download_source">Вибрати джерело завантаження</string>
     <string name="update_logs">Журнал оновлень</string>
     <string name="check_update_hint">Виявлена нова версія!</string>

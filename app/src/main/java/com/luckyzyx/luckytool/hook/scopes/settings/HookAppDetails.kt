@@ -14,6 +14,7 @@ import com.highcapable.yukihookapi.hook.type.android.PackageInfoClass
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.openMarketIntent
 import com.luckyzyx.luckytool.utils.safeOf
@@ -22,6 +23,9 @@ object HookAppDetails : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi", "SetTextI18n")
     override fun onHook() {
         val isPackName = prefs(ModulePrefs).getBoolean("show_package_name_in_app_details", false)
+        val isTarget = prefs(ModulePrefs).getBoolean("show_target_sdk_in_app_details", false)
+        val isFirstInstallTime =
+            prefs(ModulePrefs).getBoolean("show_first_install_time_in_app_details", false)
         val isLastUpdateTime =
             prefs(ModulePrefs).getBoolean("show_last_update_time_in_app_details", false)
         val isEnableCopy =
@@ -41,7 +45,11 @@ object HookAppDetails : YukiBaseHooker() {
                     val packageInfo = instrumentedPreferenceFragment.current().field {
                         type = PackageInfoClass
                     }.cast<PackageInfo>() ?: return@after
+                    val appInfo = packageInfo.applicationInfo
+
                     val context = mRootView.context
+                    context.injectModuleAppResources()
+
                     val appIcon = mRootView.findViewById<ImageView>(
                         context.resources.getIdentifier(
                             "app_icon", "id", this@HookAppDetails.packageName
@@ -62,19 +70,43 @@ object HookAppDetails : YukiBaseHooker() {
                             "version_text", "string", this@HookAppDetails.packageName
                         ), version
                     )
-                    context.injectModuleAppResources()
-                    val updateStr = formatDate("YYYY/MM/dd HH:mm:ss", packageInfo.lastUpdateTime)
-                    val lastUpdateTimeString = safeOf("Last update Time") {
-                        context.getString(R.string.last_update_time)
-                    }
-                    val updateTime = if (isLastUpdateTime) "\n${lastUpdateTimeString} $updateStr"
-                    else ""
+
                     if (isIconMarket) appIcon?.setOnClickListener {
                         it.context.openMarketIntent(packName)
                     }
+
+
+                    val list = ArrayList<String>()
+
+                    if (isPackName) list.add(packName)
+
+                    if (isTarget) {
+                        val sdk = appInfo.targetSdkVersion
+                        list.add("Target SDK $sdk")
+                    }
+
+                    list.add(versionText)
+
+                    if (isFirstInstallTime) {
+                        val firstInstallTimeStr = safeOf("First Install Time") {
+                            context.getString(R.string.first_install_time)
+                        }
+                        val firstInstallTime =
+                            formatDate("YYYY/MM/dd HH:mm:ss", packageInfo.firstInstallTime)
+                        list.add("$firstInstallTimeStr $firstInstallTime")
+                    }
+                    if (isLastUpdateTime) {
+                        val lastUpdateTimeStr = safeOf("Last Update Time") {
+                            context.getString(R.string.last_update_time)
+                        }
+                        val lastUpdateTime =
+                            formatDate("YYYY/MM/dd HH:mm:ss", packageInfo.lastUpdateTime)
+                        list.add("$lastUpdateTimeStr $lastUpdateTime")
+                    }
+
                     appSize?.apply {
                         if (isEnableCopy) setTextIsSelectable(true)
-                        if (isPackName) text = "$packName\n$versionText$updateTime"
+                        text = formatStringAuto(list, "\n")
                     }
                 }
             }

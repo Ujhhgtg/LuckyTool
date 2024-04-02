@@ -89,6 +89,9 @@ open class MainActivity : AppCompatActivity() {
         }
         val isSu = Shell.getShell().isRoot
         putBoolean(SettingsPrefs, "is_su", isSu)
+        putBoolean(SettingsPrefs, "settings_prefs", isSu)
+        putBoolean(ModulePrefs, "module_prefs", isSu)
+        putBoolean(OtherPrefs, "other_prefs", isSu)
         if (!isSu) {
             MaterialAlertDialogBuilder(this, dialogCentered).apply {
                 setCancelable(false)

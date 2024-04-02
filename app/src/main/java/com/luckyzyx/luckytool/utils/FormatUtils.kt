@@ -117,9 +117,9 @@ fun formatStringAuto(
     var finalText = ""
     if (formats.isEmpty()) return finalText
     formats.forEachIndexed { index, str ->
-        if (allowNull.not() && str.isNullOrBlank()) return@forEachIndexed
+        if (str.isNullOrBlank() && allowNull.not()) return@forEachIndexed
         finalText += str
-        if (allowRepeat.not() && str == text) return@forEachIndexed
+        if (str == text && allowRepeat.not()) return@forEachIndexed
         if (index != formats.lastIndex) finalText += text
     }
     return finalText
