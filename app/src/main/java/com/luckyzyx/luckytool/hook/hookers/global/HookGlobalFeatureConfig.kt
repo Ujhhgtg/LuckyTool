@@ -70,6 +70,12 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.display.game.memc_enable", true)
             }
 
+            //Source Lanucher 无限屏
+//            put("oplus.software.pocketstudio.support", true)
+//            put("oplus.software.display.google_extension_embedding", true)
+//            put("oplus.software.display.google_extension_layout", true)
+//            put("oplus.software.display.oplus_activity_embedding", true)
+
             //Source Mms 移除验证码悬浮窗 FeatureOption.java / com.oplus.common -> C12
             if (prefs(ModulePrefs).getBoolean("remove_verification_code_floating_window", false)) {
                 put("oplus.software.inputmethod.verify_code_enable", false)

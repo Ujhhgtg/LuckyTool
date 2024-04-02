@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.util.ArraySet
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
@@ -2767,7 +2766,7 @@ class DialogRelated : BaseScopePreferenceFeagment() {
 @Obfuscate
 class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
             val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
             requireActivity().putString(
@@ -2813,11 +2812,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                         isCopyingEnabled = true
                     }
                     setOnPreferenceClickListener {
-                        pickMedia.launch(
-                            PickVisualMediaRequest(
-                                ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")
-                            )
-                        )
+                        pickMedia.launch("image/*")
                         true
                     }
                 })
@@ -4316,7 +4311,7 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
 class OplusGesture : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.oplus.gesture")
     private val pickLeftMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+        registerForActivityResult(ActivityResultContracts.GetContent()) {
             if (it != null) {
                 val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
                 requireActivity().putString(
@@ -4326,7 +4321,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
             (activity as MainActivity).restart()
         }
     private val pickRightMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+        registerForActivityResult(ActivityResultContracts.GetContent()) {
             if (it != null) {
                 val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
                 requireActivity().putString(
@@ -4479,11 +4474,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                         isCopyingEnabled = true
                     }
                     setOnPreferenceClickListener {
-                        pickLeftMedia.launch(
-                            PickVisualMediaRequest(
-                                ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")
-                            )
-                        )
+                        pickLeftMedia.launch("image/*")
                         true
                     }
                 })
@@ -4500,11 +4491,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                         isCopyingEnabled = true
                     }
                     setOnPreferenceClickListener {
-                        pickRightMedia.launch(
-                            PickVisualMediaRequest(
-                                ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")
-                            )
-                        )
+                        pickRightMedia.launch("image/*")
                         true
                     }
                 })
