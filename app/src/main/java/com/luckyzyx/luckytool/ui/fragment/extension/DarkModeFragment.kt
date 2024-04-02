@@ -7,8 +7,16 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.ArrayMap
 import android.util.ArraySet
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -29,7 +37,16 @@ import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
 import com.luckyzyx.luckytool.selector.SortFilterSelector
-import com.luckyzyx.luckytool.utils.*
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.PackageUtils
+import com.luckyzyx.luckytool.utils.ThemeUtils
+import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.getStringSet
+import com.luckyzyx.luckytool.utils.jumpDarkMode
+import com.luckyzyx.luckytool.utils.putBoolean
+import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.restartScopes
+import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @Obfuscate
@@ -122,7 +139,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
             allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
-                ?.toMutableList() ?: mutableListOf()
+                .toMutableList()
 
             val enabledDarkMode = ArrayList<DarkModeInfo>()
             withDefault {

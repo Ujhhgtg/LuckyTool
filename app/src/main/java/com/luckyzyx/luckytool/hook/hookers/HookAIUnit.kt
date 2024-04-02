@@ -11,7 +11,7 @@ object HookAIUnit : YukiBaseHooker() {
             method { name = "getDefaultConfiguration" }.hook {
                 after {
                     val list = result<List<Any>>()?.takeIf { it.isNotEmpty() } ?: return@after
-                    list.forEachIndexed { index, it ->
+                    list.forEachIndexed { _, it ->
 //                            YLog.info("$index -> ${it.toString()}")
                         val unitName = it.current().method { name = "getUnitName" }.string()
                         when (unitName) {

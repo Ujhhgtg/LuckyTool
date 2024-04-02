@@ -23,7 +23,7 @@ class TouchSamplingRateTile : TileService() {
         val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
         when (qsTile.state) {
             Tile.STATE_INACTIVE -> {
-                controller?.touchMode = level?.toInt() ?: 1
+                controller?.touchMode = level.toInt()
                 putBoolean(SettingsPrefs, keyTouchSamplingRate, true)
             }
 

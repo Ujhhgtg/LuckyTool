@@ -81,7 +81,7 @@ class AutoStartControllerService : Service() {
                 //触控采样率相关
                 if (getBoolean(SettingsPrefs, keyTouchSamplingRate, false)) {
                     val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
-                    val int16 = level?.toInt()?.toHexString() ?: 1
+                    val int16 = level.toInt().toHexString()
                     command.add("echo > /proc/touchpanel/game_switch_enable $int16")
 //                    command.add("start touchDaemon && ps -A | grep touchDaemon")
                     command.add("touchHidlTest -c wo 0 26 $int16")

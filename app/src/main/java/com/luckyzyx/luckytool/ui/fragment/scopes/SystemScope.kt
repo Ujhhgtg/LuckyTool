@@ -368,7 +368,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     summary = getString(R.string.statusbar_clock_fontsize_summary)
                     key = "statusbar_clock_singlerow_fontsize"
                     setDefaultValue(0)
-                    max = 18
+                    max = 28
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false
@@ -383,7 +383,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     summary = getString(R.string.statusbar_clock_fontsize_summary)
                     key = "statusbar_clock_doublerow_fontsize"
                     setDefaultValue(0)
-                    max = 10
+                    max = 20
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false
@@ -453,7 +453,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     summary = getString(R.string.statusbar_clock_fontsize_summary)
                     key = "statusbar_clock_custom_fontsize"
                     setDefaultValue(0)
-                    max = 20
+                    max = 30
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false

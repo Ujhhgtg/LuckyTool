@@ -92,7 +92,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             val configActivitys =
                 requireActivity().getStringSet(ModulePrefs, configActivityList, ArraySet())
 
-            if (configPackages.isNullOrEmpty() || configActivitys.isNullOrEmpty()) {
+            if (configPackages.isEmpty() || configActivitys.isEmpty()) {
                 resetAllConfig()
             }
 
@@ -264,7 +264,7 @@ class MemcPackageFragment : Fragment() {
             if (value == null) {
                 val configPackages =
                     requireActivity().getStringSet(ModulePrefs, configPackageList, ArraySet())
-                configPackages?.forEach {
+                configPackages.forEach {
                     val configPackageInfo = MemcConfigPackage().toMemcConfigPackage(it)
                     if (configPackageInfo != null) allConfigPackages.add(configPackageInfo)
                 }
@@ -508,7 +508,7 @@ class MemcActivityFragment : Fragment() {
             if (value == null) {
                 val configActivitys =
                     requireActivity().getStringSet(ModulePrefs, configActivityList, ArraySet())
-                configActivitys?.forEach {
+                configActivitys.forEach {
                     val configActivityInfo = MemcConfigActivity().toMemcConfigActivity(it)
                     if (configActivityInfo != null) allConfigActivitys.add(configActivityInfo)
                 }

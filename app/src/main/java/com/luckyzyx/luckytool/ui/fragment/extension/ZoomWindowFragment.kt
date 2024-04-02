@@ -114,7 +114,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
             allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
-                ?.toMutableList() ?: mutableListOf()
+                .toMutableList()
 
             val enableInfos = ArrayList<AppInfo>()
             withDefault {

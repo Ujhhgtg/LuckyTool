@@ -6,7 +6,12 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.ArraySet
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
@@ -115,7 +120,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
             allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
-                ?.toMutableList() ?: mutableListOf()
+                .toMutableList()
 
             val enableInfos = ArrayList<AppInfo>()
             withDefault {
