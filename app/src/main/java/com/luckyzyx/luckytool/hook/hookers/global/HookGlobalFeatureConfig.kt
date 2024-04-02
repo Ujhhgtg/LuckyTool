@@ -80,7 +80,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.aon_enable", true)
                 put("oplus.software.aon_gestureui_enable", true)
             }
-            //Source Gestures 启用音量键控制手电筒手势
+            //Source Gestures 启用音量键控制手电筒
             if (prefs(ModulePrefs).getBoolean("enable_volume_key_control_flashlight", false)) {
                 put("oplus.software.powerkey_disbale_turnoff_torch", false)
                 put("oplus.software.key_quickoperate_torch", true)

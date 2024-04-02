@@ -1811,6 +1811,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_stacked_task_layout)
                 key = "enable_stacked_task_layout"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
                     (activity as MainActivity).restart()
@@ -1826,12 +1827,14 @@ class Launcher : BaseScopePreferenceFeagment() {
                     min = 5
                     showSeekBarValue = true
                     updatesContinuously = false
+                    isVisible = false
                     isIconSpaceReserved = false
                 })
                 addPreference(SwitchPreference(context).apply {
                     title = getString(R.string.fix_current_task_to_the_top)
                     key = "fix_current_task_to_the_top"
                     setDefaultValue(false)
+                    isVisible = false
                     isIconSpaceReserved = false
                 })
             }
@@ -4339,7 +4342,10 @@ class OplusGesture : BaseScopePreferenceFeagment() {
             //音量键手电筒
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_volume_key_control_flashlight)
-                summary = getString(R.string.need_restart_system)
+                summary = arraySummaryLine(
+                    getString(R.string.enable_volume_key_control_flashlight_summary),
+                    getString(R.string.need_restart_system)
+                )
                 key = "enable_volume_key_control_flashlight"
                 setDefaultValue(false)
                 isVisible = getOSVersionCode >= 27

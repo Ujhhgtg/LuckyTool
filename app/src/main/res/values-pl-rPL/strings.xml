@@ -683,6 +683,7 @@
     <string name="custom_aon_gesture_video_whitelist">Custom video gesture whitelist</string>
     <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">Enable the volume keys to control the flashlight</string>
+    <string name="enable_volume_key_control_flashlight_summary">Support power button to turn off flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Gesty pełnoekranowe</string>
     <string name="remove_side_slider">Usuń boczny suwak</string>

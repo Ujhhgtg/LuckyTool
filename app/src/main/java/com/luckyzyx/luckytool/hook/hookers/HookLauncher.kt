@@ -12,7 +12,6 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
 import com.luckyzyx.luckytool.hook.scopes.launcher.RecentTaskListClearButton
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
-import com.luckyzyx.luckytool.hook.scopes.launcher.StackedTaskLayout
 import com.luckyzyx.luckytool.hook.scopes.launcher.UnlockTaskLocks
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -32,7 +31,7 @@ object HookLauncher : YukiBaseHooker() {
         loadHooker(PageIndicator)
 
         //堆叠布局
-        loadHooker(StackedTaskLayout)
+//        loadHooker(StackedTaskLayout)
 
         //应用徽章
         if (SDK >= A13) loadHooker(HookAppBadge)

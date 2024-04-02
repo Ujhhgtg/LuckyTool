@@ -28,6 +28,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 应用详情显示首次安装时间
 - [添加] 应用详情显示Target SDK
 - [适配] 移除AIGC消除限制 v14.37.6(d77e6a7)
+- [修复] 音量条背景透明度Hook异常
+- [移除] 移除无意义的堆叠任务布局
 
 ### 1.2.1
 

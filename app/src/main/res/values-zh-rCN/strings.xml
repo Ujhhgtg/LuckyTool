@@ -683,6 +683,7 @@
     <string name="custom_aon_gesture_video_whitelist">自定义视频手势白名单</string>
     <string name="custom_aon_gesture_whitelist_tips">填写需要添加到白名单的包名</string>
     <string name="enable_volume_key_control_flashlight">启用音量键控制手电筒</string>
+    <string name="enable_volume_key_control_flashlight_summary">支持电源键关闭手电筒</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">全面屏手势相关</string>
     <string name="remove_side_slider">移除侧滑条</string>

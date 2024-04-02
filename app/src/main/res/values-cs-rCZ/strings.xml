@@ -683,6 +683,7 @@
     <string name="custom_aon_gesture_video_whitelist">Vlastní seznam gest videí</string>
     <string name="custom_aon_gesture_whitelist_tips">Vyplňte název balíčku, který má být přidán na bílou listinu</string>
     <string name="enable_volume_key_control_flashlight">Povolit ovládání svítilny pomocí tlačítek hlasitosti</string>
+    <string name="enable_volume_key_control_flashlight_summary">Support power button to turn off flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Gesta přes celou obrazovku</string>
     <string name="remove_side_slider">Odstranit boční posuvník</string>

@@ -684,6 +684,7 @@
     <string name="custom_aon_gesture_video_whitelist">Белый список настраиваемых видеожестов</string>
     <string name="custom_aon_gesture_whitelist_tips">Введите имя пакета, который необходимо добавить в белый список</string>
     <string name="enable_volume_key_control_flashlight">Включить управление фонариком кнопками громкости</string>
+    <string name="enable_volume_key_control_flashlight_summary">Support power button to turn off flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Полноэкранные жесты</string>
     <string name="remove_side_slider">Удалить боковую панель</string>

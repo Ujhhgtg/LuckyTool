@@ -683,6 +683,7 @@
     <string name="custom_aon_gesture_video_whitelist">カスタムビデオジェスチャーのホワイトリスト設定</string>
     <string name="custom_aon_gesture_whitelist_tips">Fill in the package name that needs to be added to the whitelist</string>
     <string name="enable_volume_key_control_flashlight">音量ボタンでのライト制御を有効化</string>
+    <string name="enable_volume_key_control_flashlight_summary">Support power button to turn off flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">フルスクリーンジェスチャー関連</string>
     <string name="remove_side_slider">サイドスライダーを削除</string>

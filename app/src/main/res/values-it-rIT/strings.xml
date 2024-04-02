@@ -683,6 +683,7 @@
     <string name="custom_aon_gesture_video_whitelist">Lista Bianca gesti video personalizzati</string>
     <string name="custom_aon_gesture_whitelist_tips">Inserisci il nome del pacchetto che deve essere aggiunto alla Lista bianca</string>
     <string name="enable_volume_key_control_flashlight">Abilita i tasti del volume per controllare la torcia</string>
+    <string name="enable_volume_key_control_flashlight_summary">Support power button to turn off flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Gesto a schermo intero</string>
     <string name="remove_side_slider">Rimuovi cursore laterale</string>

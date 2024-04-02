@@ -683,6 +683,7 @@
     <string name="custom_aon_gesture_video_whitelist">Danh sách trắng cử chỉ video tùy chỉnh</string>
     <string name="custom_aon_gesture_whitelist_tips">Điền tên gói cần thêm vào danh sách trắng</string>
     <string name="enable_volume_key_control_flashlight">Bật phím âm lượng để điều khiển đèn pin</string>
+    <string name="enable_volume_key_control_flashlight_summary">Support power button to turn off flashlight</string>
     <!--FullScreenGestureRelated-->
     <string name="FullScreenGestureRelated">Cử chỉ toàn màn hình</string>
     <string name="remove_side_slider">Xóa thanh trượt bên</string>
