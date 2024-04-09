@@ -2349,6 +2349,7 @@ class Screenshot : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.remove_system_screenshot_delay_summary)
                 key = "remove_system_screenshot_delay"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

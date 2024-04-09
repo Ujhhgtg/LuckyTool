@@ -20,7 +20,6 @@ import com.luckyzyx.luckytool.hook.scopes.android.RemoveAccessDeviceLogDialog
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveAppUninstallButtonBlackList
 import com.luckyzyx.luckytool.hook.scopes.android.RemovePasswordTimeoutVerification
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveStatusBarTopNotification
-import com.luckyzyx.luckytool.hook.scopes.android.RemoveSystemScreenshotDelay
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveVPNActiveNotification
 import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
@@ -60,7 +59,7 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(RemovePasswordTimeoutVerification)
 
         //移除系统截屏延迟
-        loadHooker(RemoveSystemScreenshotDelay)
+//        loadHooker(RemoveSystemScreenshotDelay)
 
         //移除遮罩Splash Screen
         if (osCode >= 26) loadHooker(AppSplashScreen)
