@@ -86,3 +86,10 @@ MaterialTextView(context).apply {
     movementMethod = LinkMovementMethod.getInstance()
 }
 ```
+
+Gradle Tasks Build 报错乱码
+
+```
+自定义VM虚拟机选项
+-Dfile.encoding=UTF-8
+```

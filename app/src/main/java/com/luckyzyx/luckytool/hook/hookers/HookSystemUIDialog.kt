@@ -5,7 +5,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.DisableDuplicateFloatingWindo
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHeadphoneHighVolumeWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveUSBConnectDialog
-import com.luckyzyx.luckytool.hook.scopes.systemui.VolumeDialogWhiteBackground
+import com.luckyzyx.luckytool.hook.scopes.systemui.VolumeDialogBackground
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -29,6 +29,6 @@ object HookSystemUIDialog : YukiBaseHooker() {
             loadHooker(RemoveUSBConnectDialog)
         }
         //音量对话框背景透明度
-        loadHooker(VolumeDialogWhiteBackground)
+        loadHooker(VolumeDialogBackground)
     }
 }

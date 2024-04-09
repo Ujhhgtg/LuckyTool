@@ -22,6 +22,11 @@ object HookCameraConfig : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_frame_watermark_style", false)) {
                 put("com.oplus.camera.support.frame.watermark", true)
             }
+
+            //画框颜色 色卡贴纸
+//            put("com.oplus.camera.support.custom.color.watermark", true)
+//            put("com.oplus.camera.support.color.extraction", true)
+
             //哈苏水印
             if (prefs(ModulePrefs).getBoolean("enable_hasselblad_watermark_style", false)) {
                 //Source SloganUtil -> Shot on OnePlus / Hasselblad

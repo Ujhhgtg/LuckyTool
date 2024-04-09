@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.3_beta
+
+- [适配] 新版音量条背景透明度效果
+
 ### 1.2.2
 
 - [添加] 自定义锁屏运营商显示文本

@@ -1,17 +1,22 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
 import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
+import com.luckyzyx.luckytool.utils.formatColorAlpha
 
-object VolumeDialogWhiteBackground : YukiBaseHooker() {
+object VolumeDialogBackground : YukiBaseHooker() {
     override fun onHook() {
         var customAlpha =
             prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
@@ -89,6 +94,43 @@ object VolumeDialogWhiteBackground : YukiBaseHooker() {
                             }
                             getDrawable(1)?.alpha = value
                         }
+                }
+            }
+            method { name = "addVerticalContainerBg" }.hook {
+                before {
+                    if (customAlpha < 0) return@before
+                    val value = customAlpha * 25
+                    val mVerticalRowsLayerDrawableMap =
+                        field { name = "mVerticalRowsLayerDrawableMap" }.get(instance)
+                            .cast<HashMap<Int, LayerDrawable>>() ?: return@before
+                    mVerticalRowsLayerDrawableMap.forEach { (_, layer) ->
+                        layer.apply {
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
+                            }
+                            getDrawable(1)?.alpha = value
+                        }
+                    }
+                }
+            }
+        }
+
+        //Source OplusVolumeSeekBar
+        "com.oplus.systemui.volume.OplusVolumeSeekBar".toClassOrNull()?.apply {
+            method { name = "init" }.hook {
+                after {
+                    if (customAlpha < 0) return@after
+                    val seekBar = instance<Any>()
+                    seekBar.current().method {
+                        name = "setProgressColor"
+                        param(ColorStateListClass)
+                        superClass()
+                    }.call(
+                        ColorStateList.valueOf(
+                            formatColorAlpha(Color.WHITE, 0.5F)
+                        )
+                    )
                 }
             }
         }
