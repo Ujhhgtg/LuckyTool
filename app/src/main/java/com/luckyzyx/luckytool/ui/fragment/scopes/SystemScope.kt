@@ -3324,6 +3324,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 })
                 addPreference(SwitchPreference(context).apply {
                     title = getString(R.string.customize_device_ota_card_background)
+                    summary = getString(R.string.customize_device_ota_card_background_summary)
                     key = "customize_device_ota_card_background"
                     setDefaultValue(false)
                     isIconSpaceReserved = false

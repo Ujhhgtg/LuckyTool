@@ -578,6 +578,7 @@
     <string name="screen_physics_size_shown_cm">屏幕物理尺寸显示为厘米</string>
     <string name="customize_device_sharing_page_parameters">自定义设备分享页面参数</string>
     <string name="customize_device_ota_card_background">自定义设备 OTA 卡片背景</string>
+    <string name="customize_device_ota_card_background_summary">建议尺寸：328x124的倍数</string>
     <string name="customize_device_ota_card_background_path">背景图片路径</string>
     <string name="settings_developer_preference">开发者选项</string>
     <string name="remove_dpi_restart_recovery">移除 DPI 重启恢复</string>
