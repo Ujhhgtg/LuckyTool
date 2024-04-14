@@ -16,6 +16,18 @@ import java.io.File
 @Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 class PackageUtils(private val packageManager: PackageManager) {
+
+    fun getPackageArchiveInfo(archiveFilePath: String, flag: Int): PackageInfo? {
+        return try {
+            if (SDK < A13) packageManager.getPackageArchiveInfo(archiveFilePath, flag)
+            else packageManager.getPackageArchiveInfo(
+                archiveFilePath, PackageManager.PackageInfoFlags.of(flag.toLong())
+            )
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
     fun getPackageInfo(packName: String, flag: Int): PackageInfo? {
         return try {
             if (SDK < A13) packageManager.getPackageInfo(packName, flag)

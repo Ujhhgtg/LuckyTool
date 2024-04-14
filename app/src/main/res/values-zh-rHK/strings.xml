@@ -437,8 +437,10 @@
     <string name="auto_click_uninstall_button">自动点击卸载按钮</string>
     <string name="replase_aosp_installer">替换AOSP安装器</string>
     <string name="replase_aosp_installer_summary">替换为AOSP原生安装器</string>
-    <string name="show_packagename_and_versioncode">显示包名和版本号</string>
-    <string name="show_packagename_and_versioncode_summary">在安装页面顶部显示包名和版本号</string>
+    <string name="show_more_apk_package_information">显示更多安装包信息</string>
+    <string name="show_more_apk_package_information_summary">在安装页面顶部显示包名和版本号等</string>
+    <string name="show_more_apk_package_information_current_version">当前版本</string>
+    <string name="show_more_apk_package_information_iterative_version">迭代版本</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">其他限制</string>
     <string name="remove_adb_install_confirm">移除ADB安装确认</string>
@@ -448,7 +450,7 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">应用详情相关</string>
     <string name="show_package_name_in_app_details">应用详情显示包名</string>
-    <string name="show_target_sdk_in_app_details">应用详情显示Target SDK</string>
+    <string name="show_sdk_in_app_details">应用详情显示SDK版本</string>
     <string name="show_first_install_time_in_app_details">应用详情显示首次安装时间</string>
     <string name="show_last_update_time_in_app_details">应用详情显示最后更新时间</string>
     <string name="enable_long_press_to_copy_in_app_details">应用详情启用长按复制</string>

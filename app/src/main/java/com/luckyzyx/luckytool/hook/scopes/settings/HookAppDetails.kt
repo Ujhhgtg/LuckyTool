@@ -23,7 +23,7 @@ object HookAppDetails : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi", "SetTextI18n")
     override fun onHook() {
         val isPackName = prefs(ModulePrefs).getBoolean("show_package_name_in_app_details", false)
-        val isTarget = prefs(ModulePrefs).getBoolean("show_target_sdk_in_app_details", false)
+        val isSdk = prefs(ModulePrefs).getBoolean("show_sdk_in_app_details", false)
         val isFirstInstallTime =
             prefs(ModulePrefs).getBoolean("show_first_install_time_in_app_details", false)
         val isLastUpdateTime =
@@ -80,12 +80,13 @@ object HookAppDetails : YukiBaseHooker() {
 
                     if (isPackName) list.add(packName)
 
-                    if (isTarget) {
-                        val sdk = appInfo.targetSdkVersion
-                        list.add("Target SDK $sdk")
-                    }
-
                     list.add(versionText)
+
+                    if (isSdk) {
+                        val min = appInfo.minSdkVersion
+                        val target = appInfo.targetSdkVersion
+                        list.add("Min $min Target $target")
+                    }
 
                     if (isFirstInstallTime) {
                         val firstInstallTimeStr = safeOf("First Install Time") {

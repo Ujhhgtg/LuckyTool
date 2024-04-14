@@ -6,7 +6,7 @@ import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AutoClickInstallButto
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AutoClickUnInstallButton
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.HookPackageInstallerFeature
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.RemoveInstallAds
-import com.luckyzyx.luckytool.hook.scopes.packageinstaller.ShowPackageNameAndVersionCode
+import com.luckyzyx.luckytool.hook.scopes.packageinstaller.ShowMoreApkPackageInformation
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.SkipApkScan
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
@@ -40,9 +40,9 @@ object HookPackageInstaller : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("auto_click_uninstall_button", false)) {
             loadHooker(AutoClickUnInstallButton)
         }
-        //显示包名与迭代版本号
-        if (prefs(ModulePrefs).getBoolean("show_packagename_and_versioncode", false)) {
-            loadHooker(ShowPackageNameAndVersionCode)
+        //显示更多Apk包信息
+        if (prefs(ModulePrefs).getBoolean("show_more_apk_package_information", false)) {
+            loadHooker(ShowMoreApkPackageInformation)
         }
     }
 }

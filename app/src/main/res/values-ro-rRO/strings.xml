@@ -437,8 +437,10 @@
     <string name="auto_click_uninstall_button">Automatically click the uninstall button</string>
     <string name="replase_aosp_installer">Replace AOSP Installer</string>
     <string name="replase_aosp_installer_summary">Replace with Google Native Installer</string>
-    <string name="show_packagename_and_versioncode">Show package name and version code</string>
-    <string name="show_packagename_and_versioncode_summary">Display the package name and version code at the top of the installation page</string>
+    <string name="show_more_apk_package_information">Show more apk package information</string>
+    <string name="show_more_apk_package_information_summary">Display the package name and version code at the top of the installation page etc.</string>
+    <string name="show_more_apk_package_information_current_version">Current Version</string>
+    <string name="show_more_apk_package_information_iterative_version">Iterative Version</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">Other Limits</string>
     <string name="remove_adb_install_confirm">Remove ADB installation confirmation</string>
@@ -448,7 +450,7 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">App Details Related</string>
     <string name="show_package_name_in_app_details">Show package name in app details</string>
-    <string name="show_target_sdk_in_app_details">Show target sdk in app details</string>
+    <string name="show_sdk_in_app_details">Show sdk in app details</string>
     <string name="show_first_install_time_in_app_details">Show first install time in app details</string>
     <string name="show_last_update_time_in_app_details">Show last update time in app details</string>
     <string name="enable_long_press_to_copy_in_app_details">Enable long press to copy in app details</string>

@@ -437,8 +437,10 @@
     <string name="auto_click_uninstall_button">Автоматично натиснути на кнопку видалення</string>
     <string name="replase_aosp_installer">Замінити інсталятор AOSP</string>
     <string name="replase_aosp_installer_summary">Замінити на рідний інсталятор Google</string>
-    <string name="show_packagename_and_versioncode">Показати ім\'я пакета та код версії</string>
-    <string name="show_packagename_and_versioncode_summary">Відображати назву пакета та код версії у верхній частині сторінки установки</string>
+    <string name="show_more_apk_package_information">Show more apk package information</string>
+    <string name="show_more_apk_package_information_summary">Display the package name and version code at the top of the installation page etc.</string>
+    <string name="show_more_apk_package_information_current_version">Current Version</string>
+    <string name="show_more_apk_package_information_iterative_version">Iterative Version</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">Інші обмеження</string>
     <string name="remove_adb_install_confirm">Видалити підтвердження встановлення ADB</string>
@@ -448,7 +450,7 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">Відомості про додаток</string>
     <string name="show_package_name_in_app_details">Показувати ім\'я пакета в деталях додатку</string>
-    <string name="show_target_sdk_in_app_details">Show target sdk in app details</string>
+    <string name="show_sdk_in_app_details">Show sdk in app details</string>
     <string name="show_first_install_time_in_app_details">Show first install time in app details</string>
     <string name="show_last_update_time_in_app_details">Показати час останнього оновлення в деталях програми</string>
     <string name="enable_long_press_to_copy_in_app_details">Увімкнути довге натискання, щоб скопіювати деталі програми</string>

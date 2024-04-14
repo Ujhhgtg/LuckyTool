@@ -438,8 +438,10 @@
     <string name="auto_click_uninstall_button">Автоматически нажимать на кнопку удаления</string>
     <string name="replase_aosp_installer">Заменить установщик AOSP</string>
     <string name="replase_aosp_installer_summary">Заменить собственным установщиком</string>
-    <string name="show_packagename_and_versioncode">Показывать имя пакета и код версии</string>
-    <string name="show_packagename_and_versioncode_summary">Отображать название пакета и код версии в верхней части страницы установки</string>
+    <string name="show_more_apk_package_information">Show more apk package information</string>
+    <string name="show_more_apk_package_information_summary">Display the package name and version code at the top of the installation page etc.</string>
+    <string name="show_more_apk_package_information_current_version">Current Version</string>
+    <string name="show_more_apk_package_information_iterative_version">Iterative Version</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">Прочие ограничения</string>
     <string name="remove_adb_install_confirm">Удалить подтверждение установки ADB</string>
@@ -449,7 +451,7 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">Сведения о приложении</string>
     <string name="show_package_name_in_app_details">Показывать имя пакета в подробностях приложения</string>
-    <string name="show_target_sdk_in_app_details">Показывать целевой SDK в сведениях о приложении</string>
+    <string name="show_sdk_in_app_details">Show sdk in app details</string>
     <string name="show_first_install_time_in_app_details">Показывать время первой установки в сведениях о приложении</string>
     <string name="show_last_update_time_in_app_details">Показывать время последнего обновления в подробностях приложения</string>
     <string name="enable_long_press_to_copy_in_app_details">Включить долгое нажатие для копирования сведений о приложении</string>

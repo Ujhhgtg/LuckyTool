@@ -2611,9 +2611,9 @@ class Application : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.show_packagename_and_versioncode)
-                summary = getString(R.string.show_packagename_and_versioncode_summary)
-                key = "show_packagename_and_versioncode"
+                title = getString(R.string.show_more_apk_package_information)
+                summary = getString(R.string.show_more_apk_package_information_summary)
+                key = "show_more_apk_package_information"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
@@ -2658,8 +2658,8 @@ class Application : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.show_target_sdk_in_app_details)
-                key = "show_target_sdk_in_app_details"
+                title = getString(R.string.show_sdk_in_app_details)
+                key = "show_sdk_in_app_details"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
