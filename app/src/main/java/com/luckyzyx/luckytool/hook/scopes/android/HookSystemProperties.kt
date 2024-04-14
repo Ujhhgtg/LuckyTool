@@ -20,6 +20,7 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                         null -> return@after
                         is Boolean -> result = value.toString()
                         is String -> result = value
+                        is Int -> result = value.toInt()
                     }
                 }
             }

@@ -119,6 +119,10 @@
     <string name="usepresig_warn">!!! Tutti i pacchetti possono sovrascrivere l\'app installata!!\nper installare pacchetti sconosciuti</string>
     <string name="shared_user_title">Ignora la verifica dell\'utente condiviso</string>
     <string name="shared_user_summary">Consenti l\'installazione di app con firma diversa dall\'utente condiviso (è necessario abilitare anche <b>Disabilita confronto firme</b>)</string>
+    <!-- Android -->
+    <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
+    <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
+    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
     <!--Status Bar-->
     <string name="StatusBar">Barra di Stato</string>
     <string name="StatusbarEvents">Eventi Barra di Stato</string>
@@ -507,8 +511,6 @@
     <string name="open_screen_power_save_summary">Impostazioni - Batteria - Altre impostazioni - Risparmio energetico schermo</string>
     <string name="open_battery_health">Apri Pagina Salute</string>
     <string name="open_battery_health_summary">Impostazioni - Batteria - Salute Batteria</string>
-    <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
-    <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
     <string name="set_volume_bar_display_position">Imposta la posizione della barra del volume</string>
     <string name="force_enable_systemui_blur_feature">Forza l\'abilitazione della funzione di sfocatura dell\'interfaccia di sistema</string>
     <string name="force_enable_systemui_blur_feature_tips">Condizioni preliminari: È necessario attivare l\'opzione per “forzare attivare la funzione di sfocatura del systemui”\nPosizione funzionale: Varie</string>
@@ -894,6 +896,10 @@
     <string name="common_words_reset">Reimposta</string>
     <string name="common_words_import">Importa</string>
     <string name="common_words_not_set">Non impostato</string>
+    <string name="common_words_high">High</string>
+    <string name="common_words_middle">Middle</string>
+    <string name="common_words_low">Low</string>
+    <string name="common_words_dynamic">Dynamic</string>
     <!--Permission-->
     <string name="send_notification_permission">Autorizzazione invio notifica</string>
     <string name="all_files_access_permission">Autorizzazione di accesso ai file</string>

@@ -22,6 +22,13 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                     put("persist.oplus.display.vrr.adfr", "0")
                 }
             }
+            //Source Android OplusPlatformLevelUtils GaussianLevel
+            when (prefs(ModulePrefs).getString("customized_gaussian_blur_effect_level", "0")) {
+                "0" -> put("ro.oplus.gaussianlevel", 0)
+                "1" -> put("ro.oplus.gaussianlevel", 1)
+                "2" -> put("ro.oplus.gaussianlevel", 2)
+                "3" -> put("ro.oplus.gaussianlevel", 3)
+            }
 
             //Source SystemUI OplusVolumeDialogImpl 音量条位置
             when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {

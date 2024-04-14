@@ -70,6 +70,23 @@ class Android : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A12
                 isIconSpaceReserved = false
             })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.customized_gaussian_blur_effect_level)
+                summary = arraySummaryLine(
+                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.need_restart_system)
+                )
+                key = "customized_gaussian_blur_effect_level"
+                entries =
+                    resources.getStringArray(R.array.customized_gaussian_blur_effect_level_entries)
+                entryValues = arrayOf("-1", "0", "1", "2", "3")
+                setDefaultValue("-1")
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
             //LTPO
             addPreference(PreferenceCategory(context).apply {
                 title = "LTPO"
@@ -1218,10 +1235,10 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                         setOnPreferenceChangeListener { _, newValue ->
                             context.sendPrefsValue("com.android.systemui", key, newValue)
                             if (newValue as Boolean) {
-                                findPreference<SwitchPreference>("control_center_custom_gaps_for_special_tile")
-                                    ?.isChecked = true
-                                findPreference<SwitchPreference>("control_center_tile_enable")
-                                    ?.isChecked = true
+                                findPreference<SwitchPreference>("control_center_custom_gaps_for_special_tile")?.isChecked =
+                                    true
+                                findPreference<SwitchPreference>("control_center_tile_enable")?.isChecked =
+                                    true
                             }
                             (activity as MainActivity).restart()
                             true
@@ -1248,8 +1265,8 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
                             context.sendPrefsValue("com.android.systemui", key, newValue)
-                            if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")
-                                ?.isChecked = false
+                            if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")?.isChecked =
+                                false
                             (activity as MainActivity).restart()
                             true
                         }
@@ -1349,8 +1366,8 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")
-                        ?.isChecked = false
+                    if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")?.isChecked =
+                        false
                     (activity as MainActivity).restart()
                     true
                 }
@@ -3315,7 +3332,10 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getBoolean(ModulePrefs, "customize_device_ota_card_background", false)) {
+                if (context.getBoolean(
+                        ModulePrefs, "customize_device_ota_card_background", false
+                    )
+                ) {
                     addPreference(Preference(context).apply {
                         title = getString(R.string.customize_device_ota_card_background_path)
                         key = "customize_device_ota_card_background_path"
@@ -3478,11 +3498,9 @@ class OplusCamera : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 key = "custom_camera_open_gallery_by_default"
                 title = getString(R.string.custom_camera_open_gallery_by_default)
-                summary = arraySummaryLine(
-                    context.getString(ModulePrefs, key, "").ifBlank {
-                        getString(R.string.common_words_not_set)
-                    }
-                )
+                summary = arraySummaryLine(context.getString(ModulePrefs, key, "").ifBlank {
+                    getString(R.string.common_words_not_set)
+                })
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
@@ -3827,13 +3845,12 @@ class OplusGames : BaseScopePreferenceFeagment() {
             addPreference(Preference(context).apply {
                 title = getString(R.string.game_assistant_page)
                 summary = "(${context.getAppLabel("com.oplus.games")})"
-                isVisible = context.checkPackName("com.oplus.games") &&
-                        context.checkResolveActivity(
-                            Intent().setClassName(
-                                "com.oplus.games",
-                                "business.compact.activity.GameBoxCoverActivity"
-                            )
+                isVisible =
+                    context.checkPackName("com.oplus.games") && context.checkResolveActivity(
+                        Intent().setClassName(
+                            "com.oplus.games", "business.compact.activity.GameBoxCoverActivity"
                         )
+                    )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     ShellUtils.fastCmd(
@@ -4349,26 +4366,24 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
 @Obfuscate
 class OplusGesture : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.oplus.gesture")
-    private val pickLeftMedia =
-        registerForActivityResult(ActivityResultContracts.GetContent()) {
-            if (it != null) {
-                val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
-                requireActivity().putString(
-                    ModulePrefs, "replace_side_slider_icon_on_left", cacheFile?.path ?: ""
-                )
-            }
-            (activity as MainActivity).restart()
+    private val pickLeftMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+            requireActivity().putString(
+                ModulePrefs, "replace_side_slider_icon_on_left", cacheFile?.path ?: ""
+            )
         }
-    private val pickRightMedia =
-        registerForActivityResult(ActivityResultContracts.GetContent()) {
-            if (it != null) {
-                val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
-                requireActivity().putString(
-                    ModulePrefs, "replace_side_slider_icon_on_right", cacheFile?.path ?: ""
-                )
-            }
-            (activity as MainActivity).restart()
+        (activity as MainActivity).restart()
+    }
+    private val pickRightMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+            requireActivity().putString(
+                ModulePrefs, "replace_side_slider_icon_on_right", cacheFile?.path ?: ""
+            )
         }
+        (activity as MainActivity).restart()
+    }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs

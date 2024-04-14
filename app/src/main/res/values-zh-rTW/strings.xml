@@ -119,6 +119,10 @@
     <string name="usepresig_warn">!! 所有安装包可以覆盖已安装的App! \n安装未知的安装包时请务必小心</string>
     <string name="shared_user_title">绕过共享用户签名验证</string>
     <string name="shared_user_summary">允许安装与其共享用户签名不同的 App(<b>需要同时打开“禁用APK签名验证”</b>)</string>
+    <!-- Android -->
+    <string name="allow_untrusted_touch">允許不受信任的觸控</string>
+    <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
+    <string name="customized_gaussian_blur_effect_level">自定义高斯模糊效果级别</string>
     <!--Status Bar-->
     <string name="StatusBar">状态栏相关</string>
     <string name="StatusbarEvents">状态栏事件</string>
@@ -507,8 +511,6 @@
     <string name="open_screen_power_save_summary">设置-电池-更多设置-屏幕省电</string>
     <string name="open_battery_health">打开电池健康入口</string>
     <string name="open_battery_health_summary">设置-电池-电池健康</string>
-    <string name="allow_untrusted_touch">允許不受信任的觸控</string>
-    <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
     <string name="set_volume_bar_display_position">设置音量条显示位置</string>
     <string name="force_enable_systemui_blur_feature">强制启用系统界面模糊特性</string>
     <string name="force_enable_systemui_blur_feature_tips">前提条件：需要开启选项“强制启用系统模糊特性”\n功能位置：杂项</string>
@@ -894,6 +896,10 @@
     <string name="common_words_reset">重置</string>
     <string name="common_words_import">导入</string>
     <string name="common_words_not_set">未設定</string>
+    <string name="common_words_high">高</string>
+    <string name="common_words_middle">中</string>
+    <string name="common_words_low">低</string>
+    <string name="common_words_dynamic">动态</string>
     <!--Permission-->
     <string name="send_notification_permission">发送通知权限</string>
     <string name="all_files_access_permission">所有文件访问权限</string>

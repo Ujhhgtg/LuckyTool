@@ -119,6 +119,10 @@
     <string name="usepresig_warn">!!! Tất cả các gói có thể ghi đè ứng dụng đã cài đặt!!\nđể cài đặt các gói không xác định</string>
     <string name="shared_user_title">Bỏ qua xác minh chữ ký người dùng được chia sẻ</string>
     <string name="shared_user_summary">Cho phép cài đặt các ứng dụng có chữ ký khác nhau từ những người dùng chia sẻ chúng (<b>Cũng cần bật \"Tắt xác minh chữ ký Apk\"</b>)</string>
+    <!-- Android -->
+    <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
+    <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
+    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
     <!--Status Bar-->
     <string name="StatusBar">Thanh trạng thái</string>
     <string name="StatusbarEvents">Nội dung thanh trạng thái</string>
@@ -507,8 +511,6 @@
     <string name="open_screen_power_save_summary">Cài đặt - Pin - Cài đặt khác - Tiết kiệm năng lượng màn hình</string>
     <string name="open_battery_health">Mở lối vào tình trạng pin</string>
     <string name="open_battery_health_summary">Cài đặt - Pin - Tình trạng pin</string>
-    <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
-    <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
     <string name="set_volume_bar_display_position">Đặt vị trí hiển thị thanh âm lượng</string>
     <string name="force_enable_systemui_blur_feature">Buộc kích hoạt tính năng làm mờ giao diện hệ thống</string>
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>
@@ -894,6 +896,10 @@
     <string name="common_words_reset">Đặt lại</string>
     <string name="common_words_import">Nhập</string>
     <string name="common_words_not_set">Chưa được thiết lập</string>
+    <string name="common_words_high">High</string>
+    <string name="common_words_middle">Middle</string>
+    <string name="common_words_low">Low</string>
+    <string name="common_words_dynamic">Dynamic</string>
     <!--Permission-->
     <string name="send_notification_permission">Gửi quyền thông báo</string>
     <string name="all_files_access_permission">Tất cả quyền truy cập tập tin</string>

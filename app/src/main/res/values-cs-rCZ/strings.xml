@@ -119,6 +119,10 @@
     <string name="usepresig_warn">!!! Všechny balíčky mohou přepsat nainstalovanou aplikaci!!\npro instalaci neznámých balíčků</string>
     <string name="shared_user_title">Ignorovat sdílené ověření uživatele</string>
     <string name="shared_user_summary">Povolit instalaci aplikace s odlišným podpisem od sdíleného uživatele (<b>\'Zakázat porovnání podpisu\' musí být také povoleno</b>)</string>
+    <!-- Android -->
+    <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
+    <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
+    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
     <!--Status Bar-->
     <string name="StatusBar">Stavová lišta</string>
     <string name="StatusbarEvents">Události stavové lišty</string>
@@ -507,8 +511,6 @@
     <string name="open_screen_power_save_summary">Nastavení - Baterie - Další nastavení - Úspora napájení obrazovky</string>
     <string name="open_battery_health">Přidat tlačítko pro zjištění zdraví baterie</string>
     <string name="open_battery_health_summary">Nastavení - Baterie - Zdraví baterie</string>
-    <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
-    <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
     <string name="set_volume_bar_display_position">Nastavit pozici zobrazení panelu hlasitosti</string>
     <string name="force_enable_systemui_blur_feature">Vynutit povolení systémového rozostření</string>
     <string name="force_enable_systemui_blur_feature_tips">Podmínky: Musíte zapnout možnost „Vynutit povolení systémové rozostření“\n Umístění funkce: Různé</string>
@@ -894,6 +896,10 @@
     <string name="common_words_reset">Obnovit</string>
     <string name="common_words_import">Importovat</string>
     <string name="common_words_not_set">Nenastaveno</string>
+    <string name="common_words_high">High</string>
+    <string name="common_words_middle">Middle</string>
+    <string name="common_words_low">Low</string>
+    <string name="common_words_dynamic">Dynamic</string>
     <!--Permission-->
     <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
     <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>
