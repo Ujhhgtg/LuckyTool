@@ -3013,6 +3013,15 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         "com.oplus.safecenter",
         "com.oplus.notificationmanager"
     )
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+            requireActivity().putString(
+                ModulePrefs, "customize_device_ota_card_background_path", cacheFile?.path ?: ""
+            )
+        }
+        (activity as MainActivity).restart()
+    }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
@@ -3296,6 +3305,35 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.customize_device_ota_card_background)
+                    key = "customize_device_ota_card_background"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getBoolean(ModulePrefs, "customize_device_ota_card_background", false)) {
+                    addPreference(Preference(context).apply {
+                        title = getString(R.string.customize_device_ota_card_background_path)
+                        key = "customize_device_ota_card_background_path"
+                        val path = context.getString(ModulePrefs, key, "")
+                        if (path.isBlank()) {
+                            summary = "Null"
+                            isIconSpaceReserved = false
+                        } else {
+                            icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                            summary = path
+                            isCopyingEnabled = true
+                        }
+                        setOnPreferenceClickListener {
+                            pickMedia.launch("image/*")
+                            true
+                        }
+                    })
+                }
             }
             //其他首选项
             addPreference(PreferenceCategory(context).apply {

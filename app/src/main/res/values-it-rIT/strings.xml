@@ -575,6 +575,8 @@
     <string name="set_processor_click_page">Imposta il processore per saltare la pagina con un click</string>
     <string name="screen_physics_size_shown_cm">Le dimensioni fisiche dello schermo sono mostrate in centimetri</string>
     <string name="customize_device_sharing_page_parameters">Personalizza parametri pagina condivisione dispositivo</string>
+    <string name="customize_device_ota_card_background">Customize device OTA card background</string>
+    <string name="customize_device_ota_card_background_path">Background image path</string>
     <string name="settings_developer_preference">Opzioni sviluppatore</string>
     <string name="remove_dpi_restart_recovery">Rimuovi recupero riavvio DPI</string>
     <string name="remove_dpi_restart_recovery_summary">Dopo aver abilitato la funzione e riavviato l\'ambito, Aprire la pagina opzioni sviluppatore e impostare la larghezza minima</string>

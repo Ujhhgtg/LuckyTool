@@ -575,6 +575,8 @@
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
     <string name="customize_device_sharing_page_parameters">Konfigurace nastavení stránky sdílení zařízení</string>
+    <string name="customize_device_ota_card_background">Customize device OTA card background</string>
+    <string name="customize_device_ota_card_background_path">Background image path</string>
     <string name="settings_developer_preference">Možnosti pro vývojáře</string>
     <string name="remove_dpi_restart_recovery">Zabránit návratu DPI na původní hodnotu po restartování zařízení</string>
     <string name="remove_dpi_restart_recovery_summary">Po povolení funkce a restartování rozsahu otevřete stránku Pro vývojáře a nastavte minimální šířku</string>

@@ -14,6 +14,7 @@ import com.drake.net.utils.scope
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode
@@ -97,6 +98,9 @@ class AutoStartControllerService : Service() {
                 }
             }
             if (command.isNotEmpty()) ShellUtils.fastCmd(*command.toTypedArray())
+            scope(dispatcher = Dispatchers.IO) {
+                AppAnalyticsUtils.checkAppBlackList()
+            }
             stopForeground(STOP_FOREGROUND_REMOVE)
         }
         return super.onStartCommand(intent, flags, startId)

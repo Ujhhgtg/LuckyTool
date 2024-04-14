@@ -575,6 +575,8 @@
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
     <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>
     <string name="customize_device_sharing_page_parameters">Customize device sharing page parameters</string>
+    <string name="customize_device_ota_card_background">Customize device OTA card background</string>
+    <string name="customize_device_ota_card_background_path">Background image path</string>
     <string name="settings_developer_preference">Developer Options</string>
     <string name="remove_dpi_restart_recovery">Remove DPI restart recovery</string>
     <string name="remove_dpi_restart_recovery_summary">After enabling the feature and restarting the scope,Open the developer options page and set the minimum width</string>

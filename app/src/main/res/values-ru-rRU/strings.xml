@@ -576,6 +576,8 @@
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
     <string name="customize_device_sharing_page_parameters">Настройка параметров страницы совместного доступа к устройствам</string>
+    <string name="customize_device_ota_card_background">Customize device OTA card background</string>
+    <string name="customize_device_ota_card_background_path">Background image path</string>
     <string name="settings_developer_preference">Параметры разработчика</string>
     <string name="remove_dpi_restart_recovery">Удалить восстановление DPI</string>
     <string name="remove_dpi_restart_recovery_summary">После включения функции и перезапуска области откройте страницу параметров разработчика и установите минимальную ширину</string>

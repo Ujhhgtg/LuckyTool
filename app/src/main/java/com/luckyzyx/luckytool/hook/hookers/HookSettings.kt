@@ -6,6 +6,7 @@ import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.settings.AllowDisablingSystemApps
 import com.luckyzyx.luckytool.hook.scopes.settings.AutoUnlockRestrictedSettings
+import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceOTACardBackground
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPageParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.DarkModeList
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
@@ -122,21 +123,10 @@ object HookSettings : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("force_display_password_management_settings", false)) {
             loadHooker(ForceDisplayPasswordManagementSettings)
         }
-
-        //<string name="single_pulse_EM_mode_title">单脉冲调光模式</string>
-        //prefs key single_pulse_EM_mode_switch
-        //com.oplus.settings.feature.othersettings.development.OplusSinglePulseEMDevelopController
-        //Settings Secure display_single_pulse_settings_switch Int
-
-        //指纹快速解锁 盲解
-//        findClass("com.oplus.settings.feature.fingerprint.controller.FingerprintFastUnlockPreferenceController").hook {
-//            injectMember {
-//                method {
-//                    name = "getAvailabilityStatus"
-//                }
-//                if (false) replaceTo(0)
-//            }
-//        }
+        //自定义设备OTA卡片背景
+        if (prefs(ModulePrefs).getBoolean("customize_device_ota_card_background", false)) {
+            loadHooker(CustomizeDeviceOTACardBackground)
+        }
 
         //keep_screen_on -> 充电时屏幕不休眠
         //settings put global stay_on_while_plugged_in 7

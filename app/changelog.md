@@ -5,9 +5,10 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.3_beta
 
-- [适配] 新版音量条背景透明度效果
+- [适配] 新版音量条背景透明度效果 C14+
 - [添加] 应用详情页面添加SDK显示
 - [添加] 应用安装页面添加SDK显示
+- [添加] 自定义设备OTA卡片背景 C13+
 
 ### 1.2.2
 
