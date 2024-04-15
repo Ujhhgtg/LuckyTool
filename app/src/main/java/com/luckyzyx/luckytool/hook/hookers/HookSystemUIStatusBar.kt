@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.hook.statusbar.StatusBarLayout
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarNetWorkSpeed
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarNotifiyLimit
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarNotify
+import com.luckyzyx.luckytool.hook.statusbar.StatusBarSilder
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarTile
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarUI
 
@@ -37,6 +38,9 @@ object HookSystemUIStatusBar : YukiBaseHooker() {
 
         //状态栏磁贴
         loadHooker(StatusBarTile)
+
+        //状态栏滑动条
+        loadHooker(StatusBarSilder)
 
         //状态栏布局
         loadHooker(StatusBarLayout)

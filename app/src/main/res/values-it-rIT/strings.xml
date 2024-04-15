@@ -122,7 +122,7 @@
     <!-- Android -->
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
-    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
+    <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura gaussiana personalizzato</string>
     <!--Status Bar-->
     <string name="StatusBar">Barra di Stato</string>
     <string name="StatusbarEvents">Eventi Barra di Stato</string>
@@ -227,6 +227,8 @@
     <string name="enable_notification_importance_classification">Abilita classificazione importanza notifiche</string>
     <string name="custom_notification_background_transparency">Trasparenza sfondo notifica personalizzata</string>
     <string name="enable_notification_background_blur_effect">Abilita effetto sfocatura sfondo notifiche</string>
+    <string name="ControlCenter_Silder_Related">Control Center Silder Related</string>
+    <string name="custom_control_center_silder_transparency">Customize control center slider transparency</string>
     <string name="ControlCenter_UI_Related">Interfaccia Utente del Centro di Controllo</string>
     <string name="set_media_player_display_mode">Imposta modalità di visualizzazione lettore multimediale</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Nascondi quando nessun media è in riproduzione</string>
@@ -262,7 +264,7 @@
     <string name="long_press_screenshot_tile_open_the_page">Premi a lungo il ile dello screenshot per aprire la pagina</string>
     <string name="long_press_dnd_tile_open_the_page">Premi a lungo il tile DND per aprire la pagina</string>
     <string name="TileStyleRelated">Stile tile</string>
-    <string name="custom_background_transparency_for_inactive_tiles">Personalizza trasparenza sfondo tile inattivi</string>
+    <string name="custom_tile_background_transparency">Personalizza trasparenza sfondo tile</string>
     <string name="TileLayoutRelated">Stile Tile Correlato</string>
     <string name="fix_tile_align_both_sides">Correggi l\'allineamento dei tile su entrambi i lati</string>
     <string name="fix_tile_align_both_sides_summary">Fissare l\'overflow del layout su entrambi i lati quando il tile non è espanso</string>
@@ -441,10 +443,10 @@
     <string name="auto_click_uninstall_button">Clicca automaticamente sul pulsante di disinstallazione</string>
     <string name="replase_aosp_installer">Sostituisci Installatore AOSP</string>
     <string name="replase_aosp_installer_summary">Sostituisci con Google Native Installer</string>
-    <string name="show_more_apk_package_information">Show more apk package information</string>
-    <string name="show_more_apk_package_information_summary">Display the package name and version code at the top of the installation page etc.</string>
-    <string name="show_more_apk_package_information_current_version">Current Version</string>
-    <string name="show_more_apk_package_information_iterative_version">Iterative Version</string>
+    <string name="show_more_apk_package_information">Mostra più informazioni sul pacchetto apk</string>
+    <string name="show_more_apk_package_information_summary">Mostra il nome del pacchetto e il codice di versione nella parte superiore della pagina di installazione.</string>
+    <string name="show_more_apk_package_information_current_version">Versione Corrente</string>
+    <string name="show_more_apk_package_information_iterative_version">Versione Iterativa</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">Altri Limiti</string>
     <string name="remove_adb_install_confirm">Rimuovi conferma di installazione ADB</string>
@@ -454,7 +456,7 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">Dettagli App</string>
     <string name="show_package_name_in_app_details">Mostra il nome del pacchetto nei dettagli dell\'applicazione</string>
-    <string name="show_sdk_in_app_details">Show sdk in app details</string>
+    <string name="show_sdk_in_app_details">Mostra sdk nei dettagli dell\'app</string>
     <string name="show_first_install_time_in_app_details">Mostra l\'ora della prima installazione nei dettagli dell\'app</string>
     <string name="show_last_update_time_in_app_details">Mostra i dettagli dell\'ultimo aggiornamento nell\'app</string>
     <string name="enable_long_press_to_copy_in_app_details">Abilita pressione prolungata per copiare nei dettagli dell\'app</string>
@@ -577,9 +579,9 @@
     <string name="set_processor_click_page">Imposta il processore per saltare la pagina con un click</string>
     <string name="screen_physics_size_shown_cm">Le dimensioni fisiche dello schermo sono mostrate in centimetri</string>
     <string name="customize_device_sharing_page_parameters">Personalizza parametri pagina condivisione dispositivo</string>
-    <string name="customize_device_ota_card_background">Customize device OTA card background</string>
-    <string name="customize_device_ota_card_background_summary">Recommended size: Multiples of 328x124</string>
-    <string name="customize_device_ota_card_background_path">Background image path</string>
+    <string name="customize_device_ota_card_background">Personalizza lo sfondo della scheda OTA del dispositivo</string>
+    <string name="customize_device_ota_card_background_summary">Dimensioni consigliate: Multipli di 328x124</string>
+    <string name="customize_device_ota_card_background_path">Percorso immagine sfondo</string>
     <string name="settings_developer_preference">Opzioni sviluppatore</string>
     <string name="remove_dpi_restart_recovery">Rimuovi recupero riavvio DPI</string>
     <string name="remove_dpi_restart_recovery_summary">Dopo aver abilitato la funzione e riavviato l\'ambito, Aprire la pagina opzioni sviluppatore e impostare la larghezza minima</string>
@@ -897,10 +899,10 @@
     <string name="common_words_reset">Reimposta</string>
     <string name="common_words_import">Importa</string>
     <string name="common_words_not_set">Non impostato</string>
-    <string name="common_words_high">High</string>
-    <string name="common_words_middle">Middle</string>
-    <string name="common_words_low">Low</string>
-    <string name="common_words_dynamic">Dynamic</string>
+    <string name="common_words_high">Alto</string>
+    <string name="common_words_middle">Medio</string>
+    <string name="common_words_low">Basso</string>
+    <string name="common_words_dynamic">Dinamico</string>
     <!--Permission-->
     <string name="send_notification_permission">Autorizzazione invio notifica</string>
     <string name="all_files_access_permission">Autorizzazione di accesso ai file</string>

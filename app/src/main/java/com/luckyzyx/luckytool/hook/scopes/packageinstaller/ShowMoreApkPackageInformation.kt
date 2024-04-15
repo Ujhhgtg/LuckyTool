@@ -81,21 +81,26 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                     val list = ArrayList<String>().apply {
                         if (isInstall) {
                             if (isInstalled) {
-                                add(currentVersionStr)
                                 add(packName)
-                                add("$versionStr$curVersionName($curVersionCode)")
+                                add("")
+                                add(currentVersionStr)
                                 add("Min $curMin Target $curTarget")
+                                add("$versionStr$curVersionName($curVersionCode)")
                                 add("")
                                 add(iterativeVersionStr)
-                                add("$versionStr$versionName($versionCode)")
                                 add("Min $min Target $target")
+                                add("$versionStr$versionName($versionCode)")
+                                add("")
                             } else {
                                 add(packName)
-                                add("$versionStr$versionName($versionCode)")
                                 add("Min $min Target $target")
+                                add("$versionStr$versionName($versionCode)")
+                                add("")
                             }
                         } else if (isUninstall) {
                             add(packName)
+                            add("")
+                            add(currentVersionStr)
                             add("$versionStr$versionName($versionCode)")
                         }
                     }

@@ -80,13 +80,13 @@ object HookAppDetails : YukiBaseHooker() {
 
                     if (isPackName) list.add(packName)
 
-                    list.add(versionText)
-
                     if (isSdk) {
                         val min = appInfo.minSdkVersion
                         val target = appInfo.targetSdkVersion
                         list.add("Min $min Target $target")
                     }
+
+                    list.add(versionText)
 
                     if (isFirstInstallTime) {
                         val firstInstallTimeStr = safeOf("First Install Time") {

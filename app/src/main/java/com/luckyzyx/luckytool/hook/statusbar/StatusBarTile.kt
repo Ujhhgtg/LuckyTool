@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterTiles
-import com.luckyzyx.luckytool.hook.scopes.systemui.CustomBackGroundTransparencyForInActiveTiles
+import com.luckyzyx.luckytool.hook.scopes.systemui.CustomTileBackgroundTransparency
 import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
 import com.luckyzyx.luckytool.hook.scopes.systemui.ForceDisplayOfRingingStatusToggleTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.LongPressTileOpenThePage
@@ -48,8 +48,8 @@ object StatusBarTile : YukiBaseHooker() {
             if (SDK >= A13) loadHooker(RestorePageLayoutRowCountForEditTiles)
         }
 
-        //自定义未启用磁贴背景透明度
-        if (osCode >= 27) loadHooker(CustomBackGroundTransparencyForInActiveTiles)
+        //自定义磁贴背景透明度
+        if (osCode >= 27) loadHooker(CustomTileBackgroundTransparency)
 
     }
 }

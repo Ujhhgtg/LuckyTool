@@ -5,6 +5,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.hook.utils.sysui.QSFeatureOptionUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getScreenOrientation
@@ -15,6 +16,8 @@ object SpecialTileTopGap : YukiBaseHooker() {
         dataChannel.wait<Int>("control_center_special_tile_top_gap") { top = it }
         var bottom = prefs(ModulePrefs).getInt("control_center_special_tile_bottom_gap", 0)
         dataChannel.wait<Int>("control_center_special_tile_bottom_gap") { bottom = it }
+
+        if (QSFeatureOptionUtils(appClassLoader).isSupportVolumeSeekBar()) return
 
         //Source OplusQSTileMediaContainerController
         VariousClass(

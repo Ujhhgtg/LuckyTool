@@ -10,10 +10,9 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
 import com.luckyzyx.luckytool.utils.formatColorAlpha
 
-object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
+object CustomTileBackgroundTransparency : YukiBaseHooker() {
     override fun onHook() {
-        val customAlpha =
-            prefs(ModulePrefs).getInt("custom_background_transparency_for_inactive_tiles", -1)
+        val customAlpha = prefs(ModulePrefs).getInt("custom_tile_background_transparency", -1)
 
         //Source OplusQsMediaPanelBgDrawable status_bar_qs_tile_bg_color_inactive
         "com.oplus.systemui.qs.media.OplusQsMediaPanelBgDrawable".toClass().apply {
@@ -73,5 +72,6 @@ object CustomBackGroundTransparencyForInActiveTiles : YukiBaseHooker() {
                 }
             }
         }
+
     }
 }

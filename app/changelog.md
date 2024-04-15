@@ -10,6 +10,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 应用安装页面添加SDK显示
 - [添加] 自定义设备OTA卡片背景 C13+
 - [添加] 自定义高斯模糊效果等级
+- [添加] 自定义状态栏滑动条透明度 C13+
 
 ### 1.2.2
 

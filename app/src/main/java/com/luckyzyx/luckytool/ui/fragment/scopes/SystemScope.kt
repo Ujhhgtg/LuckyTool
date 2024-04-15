@@ -1104,6 +1104,24 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            //滑动条相关
+            if (osCode >= 26) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.ControlCenter_Silder_Related)
+                    key = "ControlCenter_Silder_Related"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SeekBarPreference(context).apply {
+                    title = getString(R.string.custom_control_center_silder_transparency)
+                    key = "custom_control_center_silder_transparency"
+                    setDefaultValue(-1)
+                    max = 10
+                    min = -1
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                })
+            }
             //UI相关
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.ControlCenter_UI_Related)
@@ -1329,8 +1347,8 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
                 addPreference(SeekBarPreference(context).apply {
-                    title = getString(R.string.custom_background_transparency_for_inactive_tiles)
-                    key = "custom_background_transparency_for_inactive_tiles"
+                    title = getString(R.string.custom_tile_background_transparency)
+                    key = "custom_tile_background_transparency"
                     setDefaultValue(-1)
                     max = 10
                     min = -1
