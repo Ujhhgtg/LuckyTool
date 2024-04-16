@@ -20,13 +20,13 @@ import com.luckyzyx.luckytool.utils.safeOfNull
 
 object MediaPlayerPanel : YukiBaseHooker() {
     override fun onHook() {
-        //媒体播放器显示模式
-        val isAuto = VariousClass(
+        //自动显示媒体播放器
+        val isAutoDisplay = VariousClass(
             "com.oplusos.systemui.qs.OplusQSTileMediaContainer", //C13.1
             "com.oplus.systemui.qs.OplusQSTileMediaContainer" //C14
         ).toClassOrNull()?.hasMethod { name = "setMediaMode" } ?: true
 
-        if (isAuto) loadHooker(MediaPlayerDisplayMode)
+        if (isAutoDisplay) loadHooker(MediaPlayerDisplayMode)
         else loadHooker(MediaPlayerDisplayModePermanent)
 
         //强制开启媒体切换按钮

@@ -752,6 +752,7 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 title = getString(R.string.allow_long_press_notification_modifiable)
                 key = "allow_long_press_notification_modifiable"
                 setDefaultValue(false)
+                isVisible = osCode <= 30
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
@@ -1271,7 +1272,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                     })
                 }
-                if (osCode >= 27) {
+                if (osCode in 27..30) {
                     addPreference(SwitchPreference(context).apply {
                         title = getString(R.string.control_center_custom_gaps_for_special_tile)
                         if (context.getBoolean(ModulePrefs, "auto_expand_tile_rows_horizontal")) {

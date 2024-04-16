@@ -17,7 +17,7 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
     override fun onHook() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_control_center_silder_transparency", -1)
 
-        //Source OplusToggleSliderView
+        //Source OplusToggleSliderView C14.0
         VariousClass(
             "com.oplusos.systemui.qs.widget.OplusToggleSliderView", //C13
             "com.oplus.systemui.qs.widget.OplusToggleSliderView", //C14.0
@@ -57,7 +57,7 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
             }
         }
 
-        //Source OplusQsToggleSliderLayout
+        //Source OplusQsToggleSliderLayout C14.0.1
         "com.oplus.systemui.qs.widget.OplusQsToggleSliderLayout".toClassOrNull()?.apply {
             method { name = "generateSliderView" }.hook {
                 after {

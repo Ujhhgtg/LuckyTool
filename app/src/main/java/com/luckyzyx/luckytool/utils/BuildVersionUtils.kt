@@ -39,6 +39,10 @@ val getVersionCode get() = BuildConfig.VERSION_CODE
  * V13.1.1
  * V13.2
  * V14.0
+ * V14.0.1
+ * V14.0.2
+ * V14.1.0
+ * V15.0.0
  */
 val getOSVersionName: String
     get() = safeOf("null") {
@@ -66,6 +70,10 @@ fun getOSVersionName(osCode: Int): String = safeOf("null") {
  * 28 -> (c13.1.1)
  * 29 -> (c13.2)
  * 30 -> (c14.0)
+ * 31 -> (c14.0.1)
+ * 32 -> (c14.0.2)
+ * 33 -> (c14.1.0)
+ * 34 -> (c15.0.0)
  */
 val getOSVersionCode get() = safeOf(0) { OplusBuild.getOplusOSVERSION() }
 
