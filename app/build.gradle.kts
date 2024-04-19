@@ -154,6 +154,9 @@ dependencies {
     implementation("io.noties.markwon:html:$markwonVersion")
     implementation("io.noties.markwon:image:$markwonVersion")
     implementation("io.noties.markwon:ext-tables:$markwonVersion")
+
+    //Lyric-Getter-Api
+    implementation("com.github.xiaowine:Lyric-Getter-Api:6.0.0")
 }
 
 fun getVersionCode(): Int {

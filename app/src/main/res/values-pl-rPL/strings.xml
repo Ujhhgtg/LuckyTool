@@ -327,6 +327,10 @@
     <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
     <string name="force_enable_screen_off_music_support">Force enable screen-off music support</string>
     <string name="force_enable_screen_off_music_support_summary">Applicable only to models that do not support screen-off music</string>
+    <string name="enable_random_words_on_aod">Enable random words on the aod</string>
+    <string name="enable_random_words_on_aod_tips1">Need to enable aod personalized text</string>
+    <string name="enable_random_words_on_aod_tips2">It may cause aod freezes and other issues</string>
+    <string name="custom_random_words_api">Custom random words API</string>
     <!--LockScreen-->
     <string name="LockScreen">Lockscreen Related</string>
     <string name="LockScreenClockComponent">Lock Screen Clock Component</string>

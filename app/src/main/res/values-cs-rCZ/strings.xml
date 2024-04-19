@@ -227,8 +227,8 @@
     <string name="enable_notification_importance_classification">Povolit klasifikaci důležitosti pro notifikace</string>
     <string name="custom_notification_background_transparency">Vlastní průhlednost pozadí panelu notifikací</string>
     <string name="enable_notification_background_blur_effect">Povolit efekt rozostření pozadí oznámení</string>
-    <string name="ControlCenter_Silder_Related">Control Center Silder Related</string>
-    <string name="custom_control_center_silder_transparency">Customize control center slider transparency</string>
+    <string name="ControlCenter_Silder_Related">Posuvníky v ovládacím centru</string>
+    <string name="custom_control_center_silder_transparency">Přizpůsobit průhlednost posuvníku ovládacího centra</string>
     <string name="ControlCenter_UI_Related">Nastavení související s UI</string>
     <string name="set_media_player_display_mode">Nastavit režim zobrazení přehrávače médií</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Skrýt pokud se nepřehrávají žádná média</string>
@@ -327,6 +327,10 @@
     <string name="set_aod_notification_icon_style">Nastavit styl ikony oznámení AOD</string>
     <string name="force_enable_screen_off_music_support">Vynutit přehrávání hudby při vypnutém displeji</string>
     <string name="force_enable_screen_off_music_support_summary">Aplikovatelné pouze na modelech, které nepodporují přehrávání hudby při vypnutém displeji</string>
+    <string name="enable_random_words_on_aod">Enable random words on the aod</string>
+    <string name="enable_random_words_on_aod_tips1">Need to enable aod personalized text</string>
+    <string name="enable_random_words_on_aod_tips2">It may cause aod freezes and other issues</string>
+    <string name="custom_random_words_api">Custom random words API</string>
     <!--LockScreen-->
     <string name="LockScreen">Zamykací obrazovka</string>
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>

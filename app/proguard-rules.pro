@@ -103,3 +103,7 @@
 
 # XXPermissions
 -keep class com.hjq.permissions.** {*;}
+
+# Lyric-Getter-Api
+-keep class cn.lyric.getter.api.data.*{*;}
+-keep class cn.lyric.getter.api.API{*;}

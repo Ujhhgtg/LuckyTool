@@ -1,14 +1,18 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.uiengine.EnableRandomWordsOnAod
 import com.luckyzyx.luckytool.hook.scopes.uiengine.RemoveAodNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.uiengine.SetAodNotificationIconStyle
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookUIEngine : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //移除通知图标白名单
         if (prefs(ModulePrefs).getBoolean("remove_aod_notification_icon_whitelist", false)) {
             if (SDK == A13) loadHooker(RemoveAodNotificationWhitelist)
@@ -16,5 +20,11 @@ object HookUIEngine : YukiBaseHooker() {
 
         //设置息屏样式模式
         if (SDK >= A13) loadHooker(SetAodNotificationIconStyle)
+
+        //启用息屏随机一言
+        if (prefs(ModulePrefs).getBoolean("enable_random_words_on_aod", false)) {
+            if (osCode >= 26) loadHooker(EnableRandomWordsOnAod)
+        }
+
     }
 }

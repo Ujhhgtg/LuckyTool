@@ -2065,6 +2065,36 @@ class Aod : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            //随机一言
+            if (osCode >= 26) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_random_words_on_aod)
+                    summary = arraySummaryLine(
+                        getString(R.string.enable_random_words_on_aod_tips1),
+                        getString(R.string.enable_random_words_on_aod_tips2)
+                    )
+                    key = "enable_random_words_on_aod"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getBoolean(ModulePrefs, "enable_random_words_on_aod", false)) {
+                    addPreference(EditTextPreference(context).apply {
+                        title = getString(R.string.custom_random_words_api)
+                        dialogTitle = title
+                        key = "custom_random_words_api"
+                        setDefaultValue("")
+                        setSummaryProvider {
+                            EditTextPreference.SimpleSummaryProvider.getInstance()
+                                .provideSummary(this)
+                        }
+                        isIconSpaceReserved = false
+                    })
+                }
+            }
         }
     }
 
