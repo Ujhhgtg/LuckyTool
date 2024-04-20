@@ -425,7 +425,7 @@
     <string name="APPRelatedList">Danh sách ứng dụng liên quan</string>
     <string name="set_multi_app_support_mode">Đặt chế độ hỗ trợ nhân bản ứng dụng</string>
     <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
-    <string name="set_multi_app_support_mode_tips">Một số kiểu máy không thể sử dụng danh sách ứng dụng đầy đủ và cần cài đặt bản sao ứng dụng mẫu Realme</string>
+    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app clone list, and you need to install the app clone APP for specific models.</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>

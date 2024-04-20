@@ -425,7 +425,7 @@
     <string name="APPRelatedList">アプリ関連のリスト</string>
     <string name="set_multi_app_support_mode">マルチアプリの対応モードを設定</string>
     <string name="set_multi_app_support_mode_all_apps">完全なアプリリスト</string>
-    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app list, and you need to install the app cloneer for Realme models</string>
+    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app clone list, and you need to install the app clone APP for specific models.</string>
     <string name="multi_app_enable">リストの置き換えを有効化</string>
     <string name="multi_app_custom_list">アプリクローン対応リストを置き換え</string>
     <string name="multi_app_custom_list_summary">機能を有効化後、アプリクローンの元のリストは新しいリストに置き換えられます。リストの項目が多すぎるとラグが発生します</string>

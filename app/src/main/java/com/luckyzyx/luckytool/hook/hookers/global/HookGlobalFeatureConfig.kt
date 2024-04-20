@@ -71,10 +71,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             }
 
             //Source Lanucher 无限屏
-//            put("oplus.software.pocketstudio.support", true)
-//            put("oplus.software.display.google_extension_embedding", true)
-//            put("oplus.software.display.google_extension_layout", true)
-//            put("oplus.software.display.oplus_activity_embedding", true)
+            put("oplus.software.pocketstudio.support", true)
+            put("oplus.software.display.google_extension_embedding", true)
+            put("oplus.software.display.google_extension_layout", true)
+            put("oplus.software.display.oplus_activity_embedding", true)
 
             //Source Mms 移除验证码悬浮窗 FeatureOption.java / com.oplus.common -> C12
             if (prefs(ModulePrefs).getBoolean("remove_verification_code_floating_window", false)) {
@@ -97,7 +97,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.defaultapp.remove_force_launcher", true)
             }
 
-            //Source MultiApp AppFeatureUtil isRlmPhone
+            //Source MultiApp AppFeatureUtil isRlmPhone 全应用分身
             when (prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")) {
                 "1" -> put("oplus.software.multiapp_support_rlm", false)
                 "2" -> put("oplus.software.multiapp_support_rlm", true)

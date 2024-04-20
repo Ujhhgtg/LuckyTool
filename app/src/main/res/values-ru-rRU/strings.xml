@@ -227,8 +227,8 @@
     <string name="enable_notification_importance_classification">Включить классификацию важности уведомлений</string>
     <string name="custom_notification_background_transparency">Прозрачность фона уведомлений</string>
     <string name="enable_notification_background_blur_effect">Включить эффект размытия фона уведомления</string>
-    <string name="ControlCenter_Silder_Related">Control Center Silder Related</string>
-    <string name="custom_control_center_silder_transparency">Customize control center slider transparency</string>
+    <string name="ControlCenter_Silder_Related">Ползунок центра управления</string>
+    <string name="custom_control_center_silder_transparency">Настройка прозрачности ползунка центра управления</string>
     <string name="ControlCenter_UI_Related">Пользовательский интерфейс шторки</string>
     <string name="set_media_player_display_mode">Установить режим отображения медиаплеера</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Скрывать, когда нет воспроизведения</string>
@@ -327,10 +327,10 @@
     <string name="set_aod_notification_icon_style">Установить стиль иконки уведомления AOD</string>
     <string name="force_enable_screen_off_music_support">Включить поддержку музыки при отключенном экране</string>
     <string name="force_enable_screen_off_music_support_summary">Применимо только к моделям, которые не поддерживают музыку при отключенном экране</string>
-    <string name="enable_random_words_on_aod">Enable random words on the aod</string>
-    <string name="enable_random_words_on_aod_tips1">Need to enable aod personalized text</string>
-    <string name="enable_random_words_on_aod_tips2">It may cause aod freezes and other issues</string>
-    <string name="custom_random_words_api">Custom random words API</string>
+    <string name="enable_random_words_on_aod">Включить случайные слова на AOD</string>
+    <string name="enable_random_words_on_aod_tips1">Необходимо включить персонализированный текст AOD</string>
+    <string name="enable_random_words_on_aod_tips2">Это может привести к зависанию AOD и другим проблемам</string>
+    <string name="custom_random_words_api">Пользовательский API случайных слов</string>
     <!--LockScreen-->
     <string name="LockScreen">Экран блокировки</string>
     <string name="LockScreenClockComponent">Часы на экране блокировки</string>
@@ -426,7 +426,7 @@
     <string name="APPRelatedList">Список приложений</string>
     <string name="set_multi_app_support_mode">Режим клонирования приложений</string>
     <string name="set_multi_app_support_mode_all_apps">Полный список приложений</string>
-    <string name="set_multi_app_support_mode_tips">Некоторые модели не могут использовать полный список приложений, и вам необходимо установить \"Клонирование приложений\" для моделей Realme</string>
+    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app clone list, and you need to install the app clone APP for specific models.</string>
     <string name="multi_app_enable">Включить список замены</string>
     <string name="multi_app_custom_list">Настроить список клонирования приложений</string>
     <string name="multi_app_custom_list_summary">После включения функции исходный список клонов приложений будет заменен этим списком, слишком большое количество приведет к задержкам</string>
