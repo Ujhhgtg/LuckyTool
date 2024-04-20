@@ -7,7 +7,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 
-@Suppress("unused")
+@Suppress("unused", "ConstPropertyName")
 object ForceDisplayClockStyleOptionsV14 : YukiBaseHooker() {
     private const val searchItemBuilder =
         "com.oplus.keyguard.settingsearch.KeyguardSettingsSearchProvider\$SearchItem\$Builder"

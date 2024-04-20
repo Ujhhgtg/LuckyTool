@@ -25,7 +25,11 @@ object EnableRandomWordsOnAod : YukiBaseHooker() {
                                 it.current().method { name = "getMethodName" }.string() == "setText"
                     }
                     if (textMethod != null) {
-                        val api = customApi.ifBlank { "https://api.7585.net.cn/yan/api.php" }
+                        val api = if (customApi.isNotBlank()) {
+                            if (customApi.contains("http://") || customApi.contains("https://")) {
+                                customApi
+                            } else return@before
+                        } else return@before
                         val yiyan = ShellUtils.fastCmd("curl $api")
                         if (yiyan.isNotBlank()) {
                             textMethod.current().method { name = "setXmlValue" }.call(yiyan)
