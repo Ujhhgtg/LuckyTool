@@ -227,12 +227,13 @@
     <string name="enable_notification_importance_classification">Abilita classificazione importanza notifiche</string>
     <string name="custom_notification_background_transparency">Trasparenza sfondo notifica personalizzata</string>
     <string name="enable_notification_background_blur_effect">Abilita effetto sfocatura sfondo notifiche</string>
-    <string name="ControlCenter_Silder_Related">Control Center Silder Related</string>
-    <string name="custom_control_center_silder_transparency">Customize control center slider transparency</string>
+    <string name="ControlCenter_Silder_Related">Slider relativo Centro Di Controllo</string>
+    <string name="custom_control_center_silder_transparency">Personalizza la trasparenza del cursore del centro di controllo</string>
     <string name="ControlCenter_UI_Related">Interfaccia Utente del Centro di Controllo</string>
     <string name="set_media_player_display_mode">Imposta modalità di visualizzazione lettore multimediale</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Nascondi quando nessun media è in riproduzione</string>
     <string name="force_enable_media_toggle_button">Forza il pulsante di attivazione multimediale</string>
+    <string name="set_control_center_volume_seekbar_mode">Set control center volume bar mode</string>
     <string name="set_auto_brightness_button_mode">Imposta modalità pulsante luminosità automatica</string>
     <string name="remove_control_center_user_switcher">Rimuovi switch utente centro di controllo</string>
     <string name="remove_control_center_mydevice">Rimuovi il centro di controllo del mio dispositivo</string>
@@ -327,10 +328,10 @@
     <string name="set_aod_notification_icon_style">Imposta uno stile per l\'icona di notifica</string>
     <string name="force_enable_screen_off_music_support">Forza l\'abilitazione del supporto per la musica a schermo spento</string>
     <string name="force_enable_screen_off_music_support_summary">Applicabile solo ai modelli che non supportano la musica a schermo spento</string>
-    <string name="enable_random_words_on_aod">Enable random words on the aod</string>
-    <string name="enable_random_words_on_aod_tips1">Need to enable aod personalized text</string>
-    <string name="enable_random_words_on_aod_tips2">It may cause aod freezes and other issues</string>
-    <string name="custom_random_words_api">Custom random words API</string>
+    <string name="enable_random_words_on_aod">Attiva parole casuali sull\'aod</string>
+    <string name="enable_random_words_on_aod_tips1">Necessità di abilitare testo personalizzato aod</string>
+    <string name="enable_random_words_on_aod_tips2">Può causare il congelamento dell’aod e altri problemi</string>
+    <string name="custom_random_words_api">API personalizzate parole casuali</string>
     <!--LockScreen-->
     <string name="LockScreen">Schermata di blocco</string>
     <string name="LockScreenClockComponent">Componente orologio</string>

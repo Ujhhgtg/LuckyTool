@@ -8,22 +8,25 @@ import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookSystemUIFeature : YukiBaseHooker() {
     var callback: ((key: String, value: Any) -> Unit)? = null
 
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         loadHooker(HookGlobalFeatureConfig)
         loadHooker(HookGlobalSystemProperties)
 
         loadHooker(HookFeatureOption)
         loadHooker(HookStatusBarFeature)
         loadHooker(HookFlavorOneFeature)
-        if (SDK >= A14) loadHooker(HookVolumeFeatureOption)
+        if (osCode >= 30) loadHooker(HookVolumeFeatureOption)
+        if (osCode >= 31) loadHooker(HookQSFeatureOption)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             loadHooker(HookGlobalFeatureProvider(dexKitBridge))
@@ -177,6 +180,26 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 if (hasMethod { name = "isVolumeBlurDisabled" }) {
                     method { name = "isVolumeBlurDisabled" }.hook {
                         if (volumeBlur > -1) replaceToFalse()
+                    }
+                }
+            }
+        }
+    }
+
+    private object HookQSFeatureOption : YukiBaseHooker() {
+        override fun onHook() {
+            //自定义控制中心音量条模式
+            val volumnSeekbarMode =
+                prefs(ModulePrefs).getString("set_control_center_volume_seekbar_mode", "0")
+
+            //Source QSFeatureOption
+            "com.oplusos.systemui.common.feature.QSFeatureOption".toClass().apply {
+                if (hasMethod { name = "isSupportVolumeSeekBar" }) {
+                    method { name = "isSupportVolumeSeekBar" }.hook {
+                        when (volumnSeekbarMode) {
+                            "1" -> replaceToTrue()
+                            "2" -> replaceToFalse()
+                        }
                     }
                 }
             }

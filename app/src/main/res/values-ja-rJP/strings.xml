@@ -233,6 +233,7 @@
     <string name="set_media_player_display_mode">メディアプレイヤーの表示モードを設定</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">メディアを再生していないときは非表示</string>
     <string name="force_enable_media_toggle_button">メディア切り替えボタンを強制的に有効化</string>
+    <string name="set_control_center_volume_seekbar_mode">Set control center volume bar mode</string>
     <string name="set_auto_brightness_button_mode">明るさ自動調整ボタンのモードを設定</string>
     <string name="remove_control_center_user_switcher">ユーザーの切り替えをコントロールセンターから削除</string>
     <string name="remove_control_center_mydevice">コントロールセンターからマイデバイスを削除</string>

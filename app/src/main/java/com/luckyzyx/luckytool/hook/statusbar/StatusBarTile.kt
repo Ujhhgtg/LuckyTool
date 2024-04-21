@@ -30,7 +30,7 @@ object StatusBarTile : YukiBaseHooker() {
 
         //特殊磁贴间隙
         if (prefs(ModulePrefs).getBoolean("control_center_custom_gaps_for_special_tile", false)) {
-            if (osCode in 27..30) loadHooker(SpecialTileTopGap)
+            if (osCode >= 27) loadHooker(SpecialTileTopGap)
         }
 
         //媒体播放器
@@ -43,6 +43,7 @@ object StatusBarTile : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("fix_tile_align_both_sides", false)) {
             if (SDK >= A13) loadHooker(FixTileAlignBothSides)
         }
+
         //恢复磁贴编辑页面布局行数
         if (prefs(ModulePrefs).getBoolean("restore_page_layout_row_count_for_edit_tiles", false)) {
             if (SDK >= A13) loadHooker(RestorePageLayoutRowCountForEditTiles)

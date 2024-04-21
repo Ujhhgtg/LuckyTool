@@ -1130,6 +1130,17 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_control_center_volume_seekbar_mode)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "set_control_center_volume_seekbar_mode"
+                entries =
+                    resources.getStringArray(R.array.set_control_center_volume_seekbar_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isVisible = osCode >= 31
+                isIconSpaceReserved = false
+            })
+            addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.set_auto_brightness_button_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "set_auto_brightness_button_mode"
@@ -1272,7 +1283,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                     })
                 }
-                if (osCode in 27..30) {
+                if (osCode >= 27) {
                     addPreference(SwitchPreference(context).apply {
                         title = getString(R.string.control_center_custom_gaps_for_special_tile)
                         if (context.getBoolean(ModulePrefs, "auto_expand_tile_rows_horizontal")) {

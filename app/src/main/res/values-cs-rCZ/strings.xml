@@ -233,6 +233,7 @@
     <string name="set_media_player_display_mode">Nastavit režim zobrazení přehrávače médií</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Skrýt pokud se nepřehrávají žádná média</string>
     <string name="force_enable_media_toggle_button">Vynutit povolení přepínače médií</string>
+    <string name="set_control_center_volume_seekbar_mode">Set control center volume bar mode</string>
     <string name="set_auto_brightness_button_mode">Nastavit režim tlačítka automatického jasu</string>
     <string name="remove_control_center_user_switcher">Odstranit přepínač uživatelů v ovládacím centru</string>
     <string name="remove_control_center_mydevice">Odebrat moje zařízení z ovládacího centra</string>
@@ -327,10 +328,10 @@
     <string name="set_aod_notification_icon_style">Nastavit styl ikony oznámení AOD</string>
     <string name="force_enable_screen_off_music_support">Vynutit přehrávání hudby při vypnutém displeji</string>
     <string name="force_enable_screen_off_music_support_summary">Aplikovatelné pouze na modelech, které nepodporují přehrávání hudby při vypnutém displeji</string>
-    <string name="enable_random_words_on_aod">Enable random words on the aod</string>
-    <string name="enable_random_words_on_aod_tips1">Need to enable aod personalized text</string>
-    <string name="enable_random_words_on_aod_tips2">It may cause aod freezes and other issues</string>
-    <string name="custom_random_words_api">Custom random words API</string>
+    <string name="enable_random_words_on_aod">Povolit náhodná slova na AOD</string>
+    <string name="enable_random_words_on_aod_tips1">Je třeba povolit personalizovaný AOD text</string>
+    <string name="enable_random_words_on_aod_tips2">Může způsobit zmrazení AOD a další problémy</string>
+    <string name="custom_random_words_api">Vlastní náhodná slova API</string>
     <!--LockScreen-->
     <string name="LockScreen">Zamykací obrazovka</string>
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
@@ -425,7 +426,7 @@
     <string name="APPRelatedList">Nastavení související se seznamem aplikací</string>
     <string name="set_multi_app_support_mode">Nastavit režim podpory více aplikací</string>
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
-    <string name="set_multi_app_support_mode_tips">Some models cannot use the full app clone list, and you need to install the app clone APP for specific models.</string>
+    <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat kompletní seznam klonovatelných aplikací a je tak třeba nainstalovat aplikace pro konkrétní modely.</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>

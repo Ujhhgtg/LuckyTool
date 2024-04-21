@@ -6,10 +6,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
+import com.luckyzyx.luckytool.hook.utils.sysui.QSFeatureOptionUtils
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 
 object ControlCenterTiles : YukiBaseHooker() {
@@ -24,6 +25,8 @@ object ControlCenterTiles : YukiBaseHooker() {
 
     object ControlCenterTilesLayout : YukiBaseHooker() {
         override fun onHook() {
+            val osCode = getOSVersionCode
+
             val columnUnexpandedVerticalC13 =
                 prefs(ModulePrefs).getInt("tile_unexpanded_columns_vertical_c13", 5)
             val rowExpandedVerticalC13 =
@@ -34,7 +37,7 @@ object ControlCenterTiles : YukiBaseHooker() {
             //媒体播放器模式
             var mediaMode = prefs(ModulePrefs).getString("set_media_player_display_mode", "0")
             //自动扩展
-            var autoExpandTile = SDK >= A14 && prefs(ModulePrefs).getBoolean(
+            var autoExpandTile = osCode >= 30 && prefs(ModulePrefs).getBoolean(
                 "auto_expand_tile_rows_horizontal", false
             )
             dataChannel.wait<Boolean>("auto_expand_tile_rows_horizontal") { autoExpandTile = it }
@@ -59,17 +62,18 @@ object ControlCenterTiles : YukiBaseHooker() {
                         getScreenOrientation(instance<ViewGroup>()) {
                             val mRows = field { name = "mRows" }.get(instance).int()
                             val newRows = if (it) rowExpandedVerticalC13
-                            else if (autoExpandTile) {
-                                when (mediaMode) {
-                                    "2" -> 2
-                                    "3" -> {
-                                        if (MediaPlayerDataUtils(appClassLoader).checkMediaDataStatus() == null) 2
-                                        else return@getScreenOrientation
-                                    }
-
-                                    else -> return@getScreenOrientation
+                            else if (autoExpandTile &&
+                                QSFeatureOptionUtils(appClassLoader).isSupportVolumeSeekBar().not()
+                            ) when (mediaMode) {
+                                "2" -> 2
+                                "3" -> {
+                                    if (MediaPlayerDataUtils(appClassLoader).checkMediaDataStatus() == null) 2
+                                    else return@getScreenOrientation
                                 }
-                            } else return@getScreenOrientation
+
+                                else -> return@getScreenOrientation
+                            }
+                            else return@getScreenOrientation
                             field { name = "mRows" }.get(instance).set(newRows)
                             result = mRows != newRows
                         }
