@@ -15,15 +15,14 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         val waterMark = prefs(ModulePrefs).getString("custom_model_watermark", "None")
         if (waterMark.isBlank() || waterMark == "None") return
 
-        //Source BaseWatermarkPresenter
+        //Source BaseWatermarkPresenter / BaseWatermarkCreator
         dexKitBridge.findMethod {
             matcher {
-                paramTypes(ContextClass, FloatType, null, StringClass)
+                paramTypes(ContextClass, FloatType, null, null)
                 usingStrings(
-                    "BaseSloganUtil",
-                    "com.oplus.device_series",
                     "key_watermark_part_a_line",
-                    "key_watermark_part_b_line"
+                    "key_watermark_part_b_line",
+                    "Premium Edition"
                 )
             }
         }.apply {
@@ -31,7 +30,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             single().className.toClass().apply {
                 method {
                     name(single().methodName)
-                    param(ContextClass, FloatType, VagueType, StringClass)
+                    param(ContextClass, FloatType, VagueType, VagueType)
                     returnType(single().returnTypeName)
                 }.hook {
                     before {
@@ -42,7 +41,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }
 
-        //Source MarketUtil
+        //Source MarketUtil / MarketNameInfo
         dexKitBridge.findMethod {
             matcher {
                 paramCount(0)
@@ -52,7 +51,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 )
             }
         }.apply {
-            checkDataList("CustomModelWaterMark MarketUtil", false)
+            checkDataList("CustomModelWaterMark MarketName", false)
             var clazz = ""
             forEach {
                 if (clazz.isBlank() || clazz != it.className) clazz = it.className
@@ -68,19 +67,19 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }
 
-        //Source WatermarkHelper
+        //Source WatermarkHelper / WatermarkSingleton
         dexKitBridge.findMethod {
             matcher {
-                paramTypes(StringClass)
+                paramCount(1..2)
                 returnType(StringClass)
-                usingStrings("WatermarkHelper", "[\u4e00-\u9fa5]", "")
+                usingStrings("[\u4e00-\u9fa5]", "")
             }
         }.apply {
-            checkDataList("CustomModelWaterMark WatermarkHelper")
+            checkDataList("CustomModelWaterMark ChineseOfString")
             single().className.toClass().apply {
                 method {
                     name = single().methodName
-                    param(StringClass)
+                    paramCount(1..2)
                     returnType = StringClass
                 }.hookAll {
                     replaceTo(waterMark)
