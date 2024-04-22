@@ -2106,6 +2106,30 @@ class Aod : BaseScopePreferenceFeagment() {
                     })
                 }
             }
+            //字体样式
+            if (osCode >= 26) {
+                addPreference(DropDownPreference(context).apply {
+                    title = getString(R.string.set_aod_typeface_mode)
+                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    key = "set_aod_typeface_mode"
+                    setEntries(R.array.set_aod_typeface_mode_entries)
+                    entryValues = arrayOf("0", "1", "2")
+                    setDefaultValue("0")
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getString(ModulePrefs, "set_aod_typeface_mode") != "0") {
+                    addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.apply_aod_clock_typeface)
+                        key = "apply_aod_clock_typeface"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                }
+            }
         }
     }
 

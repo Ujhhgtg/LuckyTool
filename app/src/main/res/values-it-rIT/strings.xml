@@ -332,6 +332,8 @@
     <string name="enable_random_words_on_aod_tips1">Necessità di abilitare testo personalizzato aod</string>
     <string name="enable_random_words_on_aod_tips2">Può causare il congelamento dell’aod e altri problemi</string>
     <string name="custom_random_words_api">API personalizzate parole casuali</string>
+    <string name="set_aod_typeface_mode">Set aod typeface mode</string>
+    <string name="apply_aod_clock_typeface">Apply typeface to aod clock</string>
     <!--LockScreen-->
     <string name="LockScreen">Schermata di blocco</string>
     <string name="LockScreenClockComponent">Componente orologio</string>
@@ -908,6 +910,7 @@
     <string name="common_words_middle">Medio</string>
     <string name="common_words_low">Basso</string>
     <string name="common_words_dynamic">Dinamico</string>
+    <string name="common_words_bold">Bold</string>
     <!--Permission-->
     <string name="send_notification_permission">Autorizzazione invio notifica</string>
     <string name="all_files_access_permission">Autorizzazione di accesso ai file</string>

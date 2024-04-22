@@ -169,6 +169,12 @@
         <item>@string/common_words_disable</item>
     </string-array>
     
+    <string-array name="set_aod_typeface_mode_entries">
+        <item>@string/common_words_default</item>
+        <item>@string/common_words_normal</item>
+        <item>@string/common_words_bold</item>
+    </string-array>
+    
     <string-array name="set_processor_click_page_entries">
         <item>@string/common_words_default</item>
         <item>8+ Gen 1</item>
