@@ -10,6 +10,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
+import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookNotificationManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
@@ -33,6 +34,9 @@ object HookAndroid : YukiBaseHooker() {
 
         loadHooker(HookGlobalFeatureConfig)
         loadHooker(HookGlobalSystemProperties)
+
+        //禁止App启动
+        loadHooker(HookAppStartForbidden)
 
         //移除状态栏上层警告
         loadHooker(RemoveStatusBarTopNotification)

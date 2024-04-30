@@ -22,7 +22,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppBlackList
+import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppForbiddenList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -119,7 +119,7 @@ open class MainActivity : AppCompatActivity() {
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
         PermissionUtils(this).start()
         scopeLife(dispatcher = Dispatchers.IO) {
-            checkAppBlackList()
+            checkAppForbiddenList()
             checkGitlabBlackList()
         }
     }

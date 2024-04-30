@@ -340,7 +340,7 @@ object FileUtils {
      * @param path String
      */
     fun forceDeleteFile(path: String) {
-        ShellUtils.fastCmd("rm -rf $path")
+        ShellUtils.fastCmd("chmod 644 $path", "rm -rf $path")
     }
 
     /**

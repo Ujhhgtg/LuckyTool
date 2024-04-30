@@ -99,7 +99,7 @@ class AutoStartControllerService : Service() {
             }
             if (command.isNotEmpty()) ShellUtils.fastCmd(*command.toTypedArray())
             scope(dispatcher = Dispatchers.IO) {
-                AppAnalyticsUtils.checkAppBlackList()
+                AppAnalyticsUtils.checkAppForbiddenList()
             }
             stopForeground(STOP_FOREGROUND_REMOVE)
         }

@@ -27,6 +27,9 @@ object AppAnalyticsUtils {
     private var qss = ArrayList<String>()
     private var css = ArrayList<String>()
     private var gid = ""
+
+    val forbiddenAppList = arrayOf("com.Sunshine.ToolBox")
+
     fun Application.init(isBeta: Boolean) {
         if (isBeta) AppCenter.start(
             this, betaAppCenterSecret, Analytics::class.java, Crashes::class.java
@@ -66,9 +69,18 @@ object AppAnalyticsUtils {
         }
     }
 
-    fun checkAppBlackList() {
+    fun isAppForbidden(packName: String): Boolean {
+        forbiddenAppList.forEach {
+            if (it.lowercase() == packName.lowercase()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun checkAppForbiddenList() {
         scopeNet {
-            arrayOf("com.Sunshine.ToolBox").forEach {
+            forbiddenAppList.forEach {
                 val map = getPackageAbsolutePath(it, true)
                 map.toList().forEachIndexed { _, pair ->
                     val packName = pair.first
@@ -77,7 +89,7 @@ object AppAnalyticsUtils {
                 }
             }
         }.catch {
-            LogUtils.e("check app", "throw", "$it", true)
+            LogUtils.e("check forbid", "throw", "$it", true)
             return@catch
         }
     }
