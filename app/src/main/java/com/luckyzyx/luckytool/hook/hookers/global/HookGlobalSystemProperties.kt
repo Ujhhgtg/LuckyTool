@@ -48,6 +48,10 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
             //Source Settings SysFeatureUtils isHoloAudioSupported 启用全息音频
             if (prefs(ModulePrefs).getBoolean("enable_holographic_audio", false)) {
                 put("ro.oplus.audio.support.meta_audio", 1)
+                if (osCode >= 31) {
+                    put("ro.oplus.audio.support.meta_audio_speaker", 1)
+                    put("ro.oplus.audio.support.meta_suspend_effect", 1)
+                }
             }
 
             //Source Settings ScreenMinBrightnessController isMinBrightnessSp 启用最低自动亮度

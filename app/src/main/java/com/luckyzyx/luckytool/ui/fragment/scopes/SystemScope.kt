@@ -4727,6 +4727,12 @@ class OplusWeather : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_15_day_weather_expand_list)
+                key = "enable_15_day_weather_expand_list"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 

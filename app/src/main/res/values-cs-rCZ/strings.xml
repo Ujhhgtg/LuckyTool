@@ -233,7 +233,7 @@
     <string name="set_media_player_display_mode">Nastavit režim zobrazení přehrávače médií</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Skrýt pokud se nepřehrávají žádná média</string>
     <string name="force_enable_media_toggle_button">Vynutit povolení přepínače médií</string>
-    <string name="set_control_center_volume_seekbar_mode">Set control center volume bar mode</string>
+    <string name="set_control_center_volume_seekbar_mode">Nastavit režim posuvníku zvuku v ovládacím panelu</string>
     <string name="set_auto_brightness_button_mode">Nastavit režim tlačítka automatického jasu</string>
     <string name="remove_control_center_user_switcher">Odstranit přepínač uživatelů v ovládacím centru</string>
     <string name="remove_control_center_mydevice">Odebrat moje zařízení z ovládacího centra</string>
@@ -332,8 +332,8 @@
     <string name="enable_random_words_on_aod_tips1">Je třeba povolit personalizovaný AOD text</string>
     <string name="enable_random_words_on_aod_tips2">Může způsobit zmrazení AOD a další problémy</string>
     <string name="custom_random_words_api">Vlastní náhodná slova API</string>
-    <string name="set_aod_typeface_mode">Set aod typeface mode</string>
-    <string name="apply_aod_clock_typeface">Apply typeface to aod clock</string>
+    <string name="set_aod_typeface_mode">Nastavit typ písma AOD</string>
+    <string name="apply_aod_clock_typeface">Použít typ písma na hodiny v AOD</string>
     <!--LockScreen-->
     <string name="LockScreen">Zamykací obrazovka</string>
     <string name="LockScreenClockComponent">Komponenta hodin zamykací obrazovky</string>
@@ -732,6 +732,7 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>
     <string name="remove_weather_some_page_bottom_ads">Odstranit reklamy v dolní části stránky počasí</string>
+    <string name="enable_15_day_weather_expand_list">Enable 15 day weather expanded list</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Smazat vlákno s informacemi o dovolené z OnePlus kalendáře</string>
     <string name="remove_almanac_page_information_flow">Smazat vlákno s informacemi o stránce almanachu</string>
@@ -910,7 +911,7 @@
     <string name="common_words_middle">Střední</string>
     <string name="common_words_low">Nízká</string>
     <string name="common_words_dynamic">Dynamická</string>
-    <string name="common_words_bold">Bold</string>
+    <string name="common_words_bold">Tučné</string>
     <!--Permission-->
     <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
     <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>

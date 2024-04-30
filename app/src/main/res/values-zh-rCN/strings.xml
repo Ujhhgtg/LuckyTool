@@ -732,6 +732,7 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">禁用天气跳转浏览器</string>
     <string name="remove_weather_some_page_bottom_ads">移除天气部分页面底部广告</string>
+    <string name="enable_15_day_weather_expand_list">启用15日天气扩展列表</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">移除节假日页面信息流</string>
     <string name="remove_almanac_page_information_flow">移除黄历页面信息流</string>

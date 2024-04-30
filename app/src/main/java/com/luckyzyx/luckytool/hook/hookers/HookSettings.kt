@@ -78,7 +78,6 @@ object HookSettings : YukiBaseHooker() {
                 loadHooker(HookIris5Controller)
             }
         }
-
         //移除DPI重启恢复
         if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
             loadHooker(RemoveDpiRestartRecovery)
@@ -127,6 +126,23 @@ object HookSettings : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("customize_device_ota_card_background", false)) {
             loadHooker(CustomizeDeviceOTACardBackground)
         }
+
+
+        //电源键
+//        //Source PowerButtonPreferenceController
+//        "com.oplus.settings.feature.convenient.controller.PowerButtonPreferenceController\$Companion".toClass()
+//            .apply {
+//                method { name = "isPowerButtonSupport" }.hook {
+//                    replaceToTrue()
+//                }
+//            }
+//
+//        "com.oplus.settings.feature.convenient.controller.DoubleTapPowerButtonPreferenceController".toClass()
+//            .apply {
+//                method { name = "getAvailabilityStatus" }.hook {
+//                    replaceTo(0)
+//                }
+//            }
 
         //keep_screen_on -> 充电时屏幕不休眠
         //settings put global stay_on_while_plugged_in 7
