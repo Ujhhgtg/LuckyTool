@@ -99,9 +99,9 @@ dependencies {
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
 
     //Dexkit
-    implementation("org.luckypray:dexkit:2.0.0")
+    implementation("org.luckypray:dexkit:2.0.1")
     //MMKV
-    implementation("com.tencent:mmkv:1.3.4")
+    implementation("com.tencent:mmkv:1.3.5")
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
