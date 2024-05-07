@@ -102,6 +102,7 @@ class AutoStartControllerService : Service() {
                 AppAnalyticsUtils.checkAppForbiddenList()
             }
             stopForeground(STOP_FOREGROUND_REMOVE)
+            stopSelf()
         }
         return super.onStartCommand(intent, flags, startId)
     }

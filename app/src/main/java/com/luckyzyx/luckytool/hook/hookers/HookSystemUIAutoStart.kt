@@ -1,13 +1,20 @@
 package com.luckyzyx.luckytool.hook.hookers
 
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import com.drake.net.utils.scope
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.BuildConfig
 import kotlinx.coroutines.delay
 
 object HookSystemUIAutoStart : YukiBaseHooker() {
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onHook() {
         onAppLifecycle {
             //监听锁屏解锁
@@ -20,6 +27,32 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
                     })
                 }.catch {
                     YLog.debug("AutoStartService throw", it)
+                }
+            }
+
+            onCreate {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    registerReceiver(object : BroadcastReceiver() {
+                        @SuppressLint("WrongConstant")
+                        override fun onReceive(context: Context?, intent: Intent?) {
+                            val service = context?.getSystemService(Context.STATUS_BAR_SERVICE)
+                                ?: return
+                            service.javaClass.method { name = "collapsePanels" }.get(service).call()
+                        }
+                    }, IntentFilter().apply {
+                        addAction("LuckyTool_CloseCollapse")
+                    }, Context.RECEIVER_EXPORTED)
+                } else {
+                    registerReceiver(object : BroadcastReceiver() {
+                        @SuppressLint("WrongConstant", "InlinedApi")
+                        override fun onReceive(context: Context?, intent: Intent?) {
+                            val service = context?.getSystemService(Context.STATUS_BAR_SERVICE)
+                                ?: return
+                            service.javaClass.method { name = "collapsePanels" }.get(service).call()
+                        }
+                    }, IntentFilter().apply {
+                        addAction("LuckyTool_CloseCollapse")
+                    })
                 }
             }
         }

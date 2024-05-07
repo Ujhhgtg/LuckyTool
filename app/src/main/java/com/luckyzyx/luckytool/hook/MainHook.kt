@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForT
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForU
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
+import com.luckyzyx.luckytool.hook.hookers.HookAod
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
 import com.luckyzyx.luckytool.hook.hookers.HookAudioEffectCenter
 import com.luckyzyx.luckytool.hook.hookers.HookAudioMonitor
@@ -95,7 +96,7 @@ object MainHook : IYukiHookXposedInit {
         }
 
         //息屏
-//        loadApp("com.oplus.aod", HookAod)
+        loadApp("com.oplus.aod", HookAod)
         //百变引擎
         loadApp("com.oplus.uiengine", HookUIEngine)
         //截屏
