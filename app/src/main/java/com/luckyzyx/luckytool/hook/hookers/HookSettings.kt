@@ -127,7 +127,6 @@ object HookSettings : YukiBaseHooker() {
             loadHooker(CustomizeDeviceOTACardBackground)
         }
 
-
         //电源键
 //        //Source PowerButtonPreferenceController
 //        "com.oplus.settings.feature.convenient.controller.PowerButtonPreferenceController\$Companion".toClass()

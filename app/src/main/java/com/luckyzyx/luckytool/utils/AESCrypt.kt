@@ -34,4 +34,14 @@ object AESCrypt {
         //AES解密不需要用Base64解码
         return String(encrypt)
     }
+
+    fun baseEntrypt(data: String): String {
+        val result = Base64.getMimeEncoder().encode(data.toByteArray())
+        return String(result)
+    }
+
+    fun baseDetrypt(data: String): String {
+        val encrypt = Base64.getMimeDecoder().decode(data.toByteArray())
+        return String(encrypt)
+    }
 }

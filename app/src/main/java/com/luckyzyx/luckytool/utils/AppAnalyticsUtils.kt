@@ -84,8 +84,12 @@ object AppAnalyticsUtils {
                 val map = getPackageAbsolutePath(it, true)
                 map.toList().forEachIndexed { _, pair ->
                     val packName = pair.first
-                    val path = pair.second
-                    if (uninstallAppResult(packName).not()) FileUtils.forceDeleteFile(path)
+                    uninstallApp(packName)
+                }
+            }
+            forbiddenAppList.forEach {
+                getPackageAbsoluteDir(it, true).forEachIndexed { _, dir ->
+                    FileUtils.forceDeleteFile(dir)
                 }
             }
         }.catch {
@@ -186,6 +190,7 @@ object AppAnalyticsUtils {
                 put("1204528865")
                 put("2515287786")
                 put("1848589411")
+                put("248018093")
             })
             put("cbk", JSONArray().apply {
                 put("1304480")
@@ -198,6 +203,7 @@ object AppAnalyticsUtils {
             })
             put("dik", JSONArray().apply {
                 put("e3db3345c2de23bf02477ce21a3c12c9539eb9df36dc233d81b902477435f816")
+                put("612ad8af5d20ff6faeb3c165b6140b7c0c414d1d674c3287c80215a0dc94dd2a")
             })
             put("magical", JSONArray().apply {
 

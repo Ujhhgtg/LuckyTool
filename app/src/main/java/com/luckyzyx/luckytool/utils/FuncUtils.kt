@@ -947,6 +947,22 @@ fun getPackageAbsolutePath(
 }
 
 /**
+ * 获取Apk绝对目录
+ * @param packName String
+ * @param ignoreCase Boolean
+ * @return ArrayMap<String, String>
+ */
+fun getPackageAbsoluteDir(
+    packName: String, ignoreCase: Boolean = false
+): ArrayList<String> {
+    val list = ArrayList<String>()
+    Shell.cmd(
+        "find /data/app/ -type d -${if (ignoreCase) "iname" else "name"} \"*${packName}*\" -print"
+    ).to(list).exec()
+    return list
+}
+
+/**
  * 根据包名卸载APP
  * @param packName String 包名
  */
@@ -955,22 +971,12 @@ fun uninstallApp(packName: String, userId: String? = "0") {
 }
 
 /**
- * 根据包名卸载APP
- * @param packName String
- * @param userId String?
- * @return Boolean
- */
-fun uninstallAppResult(packName: String, userId: String? = "0"): Boolean {
-    return ShellUtils.fastCmdResult("pm uninstall --user $userId $packName")
-}
-
-/**
  * 强制删除APP
  * @param packName String 包名
  */
 fun forceUninstallApp(packName: String) {
     getPackageAbsolutePath(packName).forEach { (k, v) ->
-        if (k == packName) ShellUtils.fastCmd("rm -rf $v")
+        if (k == packName) ShellUtils.fastCmd("chattr -i -a $v", "rm -rf $v")
     }
 }
 

@@ -11,6 +11,9 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 
 object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
+
+    private val FrameAnimViewClazz = "com.oplus.settings.utils.frameanimation.FrameAnimView"
+
     override fun onHook() {
         val backgroundPath =
             prefs(ModulePrefs).getString("customize_device_ota_card_background_path", "")
@@ -19,16 +22,15 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
         "com.oplus.settings.widget.preference.AboutDeviceOtaUpdatePreference".toClass().apply {
             method { name = "onBindViewHolder" }.hook {
                 after {
-                    val mLogoView = field { name = "mLogoView" }.get(instance).cast<View>()
-                        ?: return@after
+                    val mLogoView = field {
+                        type = FrameAnimViewClazz.toClassOrNull() ?: return@after
+                    }.get(instance).cast<View>() ?: return@after
                     val context = mLogoView.context
                     (mLogoView.parent as RelativeLayout).apply {
                         val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
-                        val drawable =
-                            RoundedBitmapDrawableFactory.create(context.resources, bitmap).apply {
-                                cornerRadius = 12F.dp
-                            }
-                        background = drawable
+                        val drawableFactory = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
+                        drawableFactory.cornerRadius = 12F.dp
+                        background = drawableFactory
                     }
                 }
             }

@@ -21,9 +21,9 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 paramTypes(ContextClass, FloatType, null, null)
                 usingStrings(
                     "key_watermark_part_a_line",
-                    "key_watermark_part_b_line",
-                    "Premium Edition"
+                    "key_watermark_part_b_line"
                 )
+                usingNumbers(0.03F,0.007F)
             }
         }.apply {
             checkDataList("CustomModelWaterMark Shot")
