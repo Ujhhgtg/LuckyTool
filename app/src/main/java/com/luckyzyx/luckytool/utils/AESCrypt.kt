@@ -36,12 +36,12 @@ object AESCrypt {
     }
 
     fun baseEntrypt(data: String): String {
-        val result = Base64.getMimeEncoder().encode(data.toByteArray())
-        return String(result)
+        val encrypt = Base64.getMimeEncoder().encode(data.toByteArray())
+        return String(encrypt)
     }
 
     fun baseDetrypt(data: String): String {
-        val encrypt = Base64.getMimeDecoder().decode(data.toByteArray())
-        return String(encrypt)
+        val decrypt = Base64.getMimeDecoder().decode(data.toByteArray())
+        return String(decrypt)
     }
 }

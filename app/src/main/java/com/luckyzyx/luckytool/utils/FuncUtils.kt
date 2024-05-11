@@ -964,10 +964,11 @@ fun getPackageAbsoluteDir(
 
 /**
  * 根据包名卸载APP
- * @param packName String 包名
+ * @param packName String
+ * @param userId String? 0/999
  */
-fun uninstallApp(packName: String, userId: String? = "0") {
-    ShellUtils.fastCmd("pm uninstall --user $userId $packName")
+fun uninstallApp(packName: String, userId: String? = "") {
+    ShellUtils.fastCmd("pm uninstall $packName ${if (userId.isNullOrEmpty()) "" else "--user $userId"}")
 }
 
 /**

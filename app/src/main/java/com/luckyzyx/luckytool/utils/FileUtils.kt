@@ -340,7 +340,11 @@ object FileUtils {
      * @param path String
      */
     fun forceDeleteFile(path: String) {
-        ShellUtils.fastCmd("chattr -R -i -a $path", "chmod -R 644 $path", "rm -rf $path")
+        ShellUtils.fastCmd(
+            "chattr -R -i -a $path >/dev/null 2>&1",
+            "chmod -R 644 $path",
+            "rm -rf $path"
+        )
     }
 
     /**
