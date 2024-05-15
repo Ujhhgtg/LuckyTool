@@ -23,10 +23,11 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             checkDataList("EliminateDetectInfo")
 
             single().name.toClass().apply {
-                constructor { paramCount(2..3) }.hook {
+                constructor { param { it.contains(BooleanType) } }.hook {
                     before {
                         args.forEachIndexed { index, it ->
                             if (it is Boolean) args(index).setFalse()
+                            if (it?.javaClass?.isEnum == true) args(index).setNull()
                         }
                     }
                 }
@@ -48,12 +49,13 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             checkDataList("EliminateSaveEntry")
 
             single().name.toClass().apply {
-                constructor { paramCount(6..7) }.hook {
+                constructor { param { it.contains(BooleanType) } }.hook {
                     before {
                         args.forEachIndexed { index, it ->
                             if (it is Boolean) args(index).setFalse()
+                            if (it?.javaClass?.isEnum == true) args(index).setNull()
                         }
-                        args().last().setTrue()
+                        if (args.last() is Boolean) args().last().setTrue()
                     }
                 }
             }

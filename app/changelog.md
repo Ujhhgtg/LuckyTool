@@ -18,6 +18,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 设置息屏字体模式 C13+
 - [添加] 启用15日天气展开列表
 - [优化] 磁贴跳转时关闭控制中心逻辑
+- [适配] 相册AIGC消除限制 v14.41.31(8ab3102)
 
 ### 1.2.2
 
