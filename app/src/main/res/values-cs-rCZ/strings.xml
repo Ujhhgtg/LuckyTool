@@ -429,6 +429,7 @@
     <string name="set_multi_app_support_mode">Nastavit režim podpory více aplikací</string>
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
     <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat kompletní seznam klonovatelných aplikací a je tak třeba nainstalovat aplikace pro konkrétní modely.</string>
+    <string name="remove_multi_app_blacklist">Remove blacklist for multi app</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
@@ -732,7 +733,7 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>
     <string name="remove_weather_some_page_bottom_ads">Odstranit reklamy v dolní části stránky počasí</string>
-    <string name="enable_15_day_weather_expand_list">Enable 15 day weather expanded list</string>
+    <string name="enable_15_day_weather_expand_list">Povolit rozšířený seznam předpovědi počasí na 15 dní</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Smazat vlákno s informacemi o dovolené z OnePlus kalendáře</string>
     <string name="remove_almanac_page_information_flow">Smazat vlákno s informacemi o stránce almanachu</string>

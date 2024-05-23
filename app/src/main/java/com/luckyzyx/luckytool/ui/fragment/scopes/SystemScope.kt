@@ -2649,6 +2649,14 @@ class Application : BaseScopePreferenceFeagment() {
                     }
                 })
             }
+            if (osCode >= 31) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.remove_multi_app_blacklist)
+                    key = "remove_multi_app_blacklist"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //应用安装
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.AppInstallationRelated)

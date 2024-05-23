@@ -429,6 +429,7 @@
     <string name="set_multi_app_support_mode">Imposta la modalità di supporto multi-app</string>
     <string name="set_multi_app_support_mode_all_apps">Elenco completo delle app</string>
     <string name="set_multi_app_support_mode_tips">Alcuni modelli non possono utilizzare l\'elenco completo di cloni di app ed è necessario installare l\'APP clone di app per modelli specifici.</string>
+    <string name="remove_multi_app_blacklist">Remove blacklist for multi app</string>
     <string name="multi_app_enable">Abilita lista di sostituzione</string>
     <string name="multi_app_custom_list">Sostituisci Lista Supporto Cloni App</string>
     <string name="multi_app_custom_list_summary">Dopo che la funzione è attivata, l\'elenco originale dei cloni delle app sarà sostituito da questo elenco, troppi causeranno ritardo</string>
@@ -479,7 +480,7 @@
     <string name="disable_headphone_high_volume_warning">Disabilita avviso volume elevato auricolari</string>
     <string name="disable_headphone_high_volume_warning_summary">Disabilita la finestra di avviso che appare quando si alza il volume dopo aver collegato l\'auricolare</string>
     <string name="remove_low_battery_dialog_warning">Rimuovi avviso di dialogo batteria scarica</string>
-    <string name="remove_low_battery_dialog_warning_summary">Rimuovi le finestre di avviso per la modalità di risparmio energetico e risparmio energetico</string>
+    <string name="remove_low_battery_dialog_warning_summary">Rimuovi le finestre di dialogo di avviso per la modalità di risparmio energetico ed il risparmio energetico super</string>
     <string name="remove_warning_dialog_that_app_runs_on_desktop">Rimuovi la finestra di dialogo di avviso che visualizza l\'app sul desktop</string>
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">La finestra di dialogo di avviso ha trovato che un\'applicazione visualizzata sul desktop di sistema</string>
     <string name="remove_usb_connect_dialog">Rimuovi finestra di dialogo di connessione USB</string>
@@ -732,7 +733,7 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">Disabilita il browser di reindirizzamento meteo</string>
     <string name="remove_weather_some_page_bottom_ads">Rimuovi gli annunci in fondo alla pagina della sezione meteo</string>
-    <string name="enable_15_day_weather_expand_list">Enable 15 day weather expanded list</string>
+    <string name="enable_15_day_weather_expand_list">Abilita l\'elenco esteso del meteo per 15 giorni</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Rimuovi il flusso di informazioni sulla pagina delle festività</string>
     <string name="remove_almanac_page_information_flow">Rimuovi il flusso di informazioni della pagina almanacco</string>
