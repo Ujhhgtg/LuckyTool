@@ -723,6 +723,7 @@
     <string name="remove_ads_from_weather_page_summary">m.weathercn.com のページに JS を注入して広告をブロックします。天気予報アプリから開ける過去15日間の天気など、ブラウザが必要な機能にも適用されます</string>
     <string name="remove_ads_from_download_dialog">ダウンロードダイアログから広告を削除</string>
     <string name="remove_ads_at_download_page_bottom">ダウンロードページ下部の広告を削除</string>
+    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Breeno Touch</string>
     <string name="remove_app_recommend_card">アプリのおすすめカードを削除</string>

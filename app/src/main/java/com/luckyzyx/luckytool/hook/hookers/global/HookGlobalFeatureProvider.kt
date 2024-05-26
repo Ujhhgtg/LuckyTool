@@ -46,6 +46,11 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 put("com.android.systemui.pan_view_gauss_blur_disabled", false)
             }
 
+            //Source SystemUI 启用手电筒亮度调节
+//            if (prefs(ModulePrefs).getBoolean("disable_flashlight_strength", false)) {
+//                put("oplus.camera.disable_flashlight_strength", false)
+//            }
+
             //Source Settings OplusDefaultAutofillPicker -> autofill_password 自动填充密码
             if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
                 put("com.android.settings.cn_version", false)

@@ -723,6 +723,7 @@
     <string name="remove_ads_from_weather_page_summary">Vložením JS do stránky m.weathercn.com, aby se dosáhlo efektu blokování reklamy, se hodí funkce, které vyžadují prohlížeč, jako je počasí za posledních 15 dní, na které se přejde přes aplikaci počasí</string>
     <string name="remove_ads_from_download_dialog">Odstranit reklamy z dialogového okna stahování</string>
     <string name="remove_ads_at_download_page_bottom">Odstranit reklamy v dolní části stránky stahování</string>
+    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Dotyk Breeno</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>

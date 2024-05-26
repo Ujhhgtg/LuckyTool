@@ -723,6 +723,7 @@
     <string name="remove_ads_from_weather_page_summary">Bằng cách đưa JS vào trang m.weathercn.com để đạt được hiệu quả chặn quảng cáo, nó phù hợp với các chức năng yêu cầu trình duyệt như thời tiết trong 15 ngày qua phải được chuyển hướng qua APP thời tiết.</string>
     <string name="remove_ads_from_download_dialog">Xóa quảng cáo trong hộp thoại tải xuống</string>
     <string name="remove_ads_at_download_page_bottom">Xóa quảng cáo ở cuối trang tải xuống</string>
+    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Chạm Breeno</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>

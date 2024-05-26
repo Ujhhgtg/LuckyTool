@@ -724,6 +724,7 @@
     <string name="remove_ads_from_weather_page_summary">Внедряет JS на страницу m.weathercn.com для достижения эффекта блокировки рекламы, он подходит для функций, требующих браузера, таких как погода за последние 15 дней, к которой вы переходите через приложение погоды</string>
     <string name="remove_ads_from_download_dialog">Удалить рекламу из диалога загрузки</string>
     <string name="remove_ads_at_download_page_bottom">Удалить рекламу в нижней части страницы загрузки</string>
+    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Касание</string>
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>
