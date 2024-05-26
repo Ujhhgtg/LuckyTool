@@ -4454,17 +4454,16 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_browser_window_limit_number)
+                key = "remove_browser_window_limit_number"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //old weeather ads
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_ads_from_weather_page)
                 summary = getString(R.string.remove_ads_from_weather_page_summary)
                 key = "remove_ads_from_weather_page"
-                setDefaultValue(false)
-                isVisible = false
-                isIconSpaceReserved = false
-            })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_browser_window_limit_number)
-                summary = getString(R.string.remove_ads_from_weather_page_summary)
-                key = "remove_browser_window_limit_number"
                 setDefaultValue(false)
                 isVisible = false
                 isIconSpaceReserved = false
