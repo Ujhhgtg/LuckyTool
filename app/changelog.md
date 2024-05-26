@@ -21,6 +21,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 相册AIGC消除限制 v14.41.31(8ab3102)
 - [添加] 移除应用分身黑名单 C14.0.1
 - [添加] 移除浏览器窗口数量限制
+- [优化] 禁用OTG自动关闭 C14+
 
 ### 1.2.2
 

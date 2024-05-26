@@ -4,10 +4,12 @@ import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppFeatureProvider
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.luckypray.dexkit.DexKitBridge
 
 class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
         val list = ArrayMap<String, Any>().apply {
             //Source SystemUI SystemPromptController updateDeveloperMode 移除状态栏开发者选项警告
             if (prefs(ModulePrefs).getBoolean("remove_statusbar_devmode", false)) {
@@ -80,6 +82,10 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             //Source Settings SmartTouchController isSupportSmartTouch 隔膜触控
             if (prefs(ModulePrefs).getBoolean("enable_touch_membrane_protector_mode", false)) {
                 put("feature.super_settings_smart_touch.support", true)
+            }
+            //Source Settings OtgConnectionOpenedPreferenceController 禁用OTG自动关闭
+            if (prefs(ModulePrefs).getBoolean("disable_otg_auto_off", false)) {
+                if (osCode >= 30) put("com.android.systemui.otg_auto_close_alarm_disable", true)
             }
 
             //Source Battery 屏幕省电

@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.AutoUnlockRestrictedSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceOTACardBackground
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPageParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.DarkModeList
+import com.luckyzyx.luckytool.hook.scopes.settings.DisableSettingOtgAutoOff
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableGoogleAutoFill
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
@@ -125,6 +126,10 @@ object HookSettings : YukiBaseHooker() {
         //自定义设备OTA卡片背景
         if (prefs(ModulePrefs).getBoolean("customize_device_ota_card_background", false)) {
             loadHooker(CustomizeDeviceOTACardBackground)
+        }
+        //禁用OTG自动关闭
+        if (prefs(ModulePrefs).getBoolean("disable_otg_auto_off", false)) {
+            if (osCode >= 30) loadHooker(DisableSettingOtgAutoOff)
         }
 
         //电源键

@@ -3081,13 +3081,15 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A12
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.disable_otg_auto_off)
-                summary = getString(R.string.disable_otg_auto_off_summary)
-                key = "disable_otg_auto_off"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (osCode < 30) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.disable_otg_auto_off)
+                    summary = getString(R.string.disable_otg_auto_off_summary)
+                    key = "disable_otg_auto_off"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_storage_limit)
                 summary = getString(R.string.remove_storage_limit_summary)
@@ -3369,6 +3371,15 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
+            if (osCode >= 30) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.disable_otg_auto_off)
+                    summary = getString(R.string.disable_otg_auto_off_summary)
+                    key = "disable_otg_auto_off"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_game_acceleration)
                 summary = arraySummaryLine(
@@ -4446,6 +4457,14 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_ads_from_weather_page)
                 summary = getString(R.string.remove_ads_from_weather_page_summary)
                 key = "remove_ads_from_weather_page"
+                setDefaultValue(false)
+                isVisible = false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_browser_window_limit_number)
+                summary = getString(R.string.remove_ads_from_weather_page_summary)
+                key = "remove_browser_window_limit_number"
                 setDefaultValue(false)
                 isVisible = false
                 isIconSpaceReserved = false

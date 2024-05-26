@@ -4,7 +4,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 
-object DisableOTGAutoOff : YukiBaseHooker() {
+object DisableSysUIOTGAutoOff : YukiBaseHooker() {
     override fun onHook() {
         // Search OtgHelper 600000
         VariousClass(
@@ -12,9 +12,7 @@ object DisableOTGAutoOff : YukiBaseHooker() {
             "com.oplus.systemui.qs.helper.OtgHelper" //C14
         ).toClass().apply {
             method { name = "setAutoCloseAlarm" }.hook {
-                after {
-                    method { name = "cancelAutoCloseAlarm" }.get(instance).call()
-                }
+                intercept()
             }
         }
     }
