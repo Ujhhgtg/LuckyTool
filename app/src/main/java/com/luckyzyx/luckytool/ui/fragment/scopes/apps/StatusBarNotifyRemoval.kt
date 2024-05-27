@@ -1,0 +1,99 @@
+package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+
+import android.os.Bundle
+import androidx.preference.SwitchPreference
+import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.ModulePrefs
+
+@Obfuscate
+class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
+    override val scopes =
+        arrayOf("com.android.systemui", "com.oplus.battery", "com.coloros.phonemanager")
+
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_statusbar_top_notification)
+                summary = getString(R.string.remove_statusbar_top_notification_summary)
+                key = "remove_statusbar_top_notification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_vpn_active_notification)
+                summary = getString(R.string.remove_vpn_active_notification_summary)
+                key = "remove_vpn_active_notification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_statusbar_devmode)
+                key = "remove_statusbar_devmode"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_charging_completed)
+                key = "remove_charging_completed"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_flashlight_open_notification)
+                key = "remove_flashlight_open_notification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_app_high_battery_consumption_warning)
+                summary = getString(R.string.remove_app_high_battery_consumption_warning_summary)
+                key = "remove_app_high_battery_consumption_warning"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_high_performance_mode_notifications)
+                key = "remove_high_performance_mode_notifications"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_do_not_disturb_mode_notification)
+                key = "remove_do_not_disturb_mode_notification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_hotspot_power_consumption_notification)
+                summary = getString(R.string.remove_hotspot_power_consumption_notification_summary)
+                key = "remove_hotspot_power_consumption_notification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_smart_rapid_charging_notification)
+                key = "remove_smart_rapid_charging_notification"
+                setDefaultValue(false)
+                isVisible = false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_notifications_for_mute_notifications)
+                key = "remove_notifications_for_mute_notifications"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_gt_mode_notification)
+                key = "remove_gt_mode_notification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}

@@ -1,0 +1,225 @@
+package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import android.util.ArraySet
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.graphics.drawable.toDrawable
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.SwitchPreference
+import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
+import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.getStringSet
+import com.luckyzyx.luckytool.utils.jumpGesture
+import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.putStringSet
+
+@Obfuscate
+class OplusGesture : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.android.systemui", "com.oplus.gesture")
+    private val pickLeftMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+            requireActivity().putString(
+                ModulePrefs, "replace_side_slider_icon_on_left", cacheFile?.path ?: ""
+            )
+        }
+        (activity as MainActivity).restart()
+    }
+    private val pickRightMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+            requireActivity().putString(
+                ModulePrefs, "replace_side_slider_icon_on_right", cacheFile?.path ?: ""
+            )
+        }
+        (activity as MainActivity).restart()
+    }
+
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //音量键手电筒
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_volume_key_control_flashlight)
+                summary = arraySummaryLine(
+                    getString(R.string.enable_volume_key_control_flashlight_summary),
+                    getString(R.string.need_restart_system)
+                )
+                key = "enable_volume_key_control_flashlight"
+                setDefaultValue(false)
+                isVisible = getOSVersionCode >= 27
+                isIconSpaceReserved = false
+            })
+            //隔空手势
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.AonGesture)
+                    key = "AonGesture"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.force_enable_aon_gestures)
+                    summary = getString(R.string.force_enable_aon_gestures_summary)
+                    key = "force_enable_aon_gestures"
+                    setDefaultValue(false)
+                    isEnabled =
+                        context.checkPackName("com.oplus.gesture") && context.checkPackName("com.aiunit.aon")
+                    isIconSpaceReserved = false
+                })
+                addPreference(Preference(context).apply {
+                    key = "custom_aon_gesture_scroll_page_whitelist_list"
+                    title = getString(R.string.custom_aon_gesture_scroll_page_whitelist)
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet())
+                    summary = arraySummaryLine(
+                        getString(R.string.custom_aon_gesture_whitelist_tips), value.toString()
+                    )
+                    isEnabled = context.checkPackName("com.aiunit.aon")
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        AppInfoSelector(context, true).apply {
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packageName)
+                                        }
+                                    }
+                                    context.putStringSet(ModulePrefs, key, set.toSet())
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
+                        true
+                    }
+                })
+                addPreference(Preference(context).apply {
+                    key = "custom_aon_gesture_video_whitelist_list"
+                    title = getString(R.string.custom_aon_gesture_video_whitelist)
+                    val value = context.getStringSet(ModulePrefs, key, ArraySet())
+                    summary = arraySummaryLine(
+                        getString(R.string.custom_aon_gesture_whitelist_tips), value.toString()
+                    )
+                    isEnabled = context.checkPackName("com.aiunit.aon")
+                    isVisible = false //SDK >= A13
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        AppInfoSelector(context, true).apply {
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packageName)
+                                        }
+                                    }
+                                    context.putStringSet(ModulePrefs, key, set.toSet())
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
+                        true
+                    }
+                })
+            }
+            //全面屏手势
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.FullScreenGestureRelated)
+                key = "FullScreenGestureRelated"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_side_slider)
+                key = "remove_side_slider"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_side_slider_black_background)
+                key = "remove_side_slider_black_background"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_rotate_screen_button)
+                key = "remove_rotate_screen_button"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //自定义侧滑条图标
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.CustomSideSliderIcon)
+                key = "CustomSideSliderIcon"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.replace_side_slider_icon_switch)
+                summary = getString(R.string.replace_side_slider_icon_switch_summary)
+                key = "replace_side_slider_icon_switch"
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            if (context.getBoolean(ModulePrefs, "replace_side_slider_icon_switch", false)) {
+                addPreference(Preference(context).apply {
+                    title = getString(R.string.replace_side_slider_icon_on_left)
+                    key = "replace_side_slider_icon_on_left"
+                    val path = context.getString(ModulePrefs, key, "")
+                    if (path.isBlank()) {
+                        summary = "Null"
+                        isIconSpaceReserved = false
+                    } else {
+                        icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                        summary = path
+                        isCopyingEnabled = true
+                    }
+                    setOnPreferenceClickListener {
+                        pickLeftMedia.launch("image/*")
+                        true
+                    }
+                })
+                addPreference(Preference(context).apply {
+                    title = getString(R.string.replace_side_slider_icon_on_right)
+                    key = "replace_side_slider_icon_on_right"
+                    val path = context.getString(ModulePrefs, key, "")
+                    if (path.isBlank()) {
+                        summary = "Null"
+                        isIconSpaceReserved = false
+                    } else {
+                        icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                        summary = path
+                        isCopyingEnabled = true
+                    }
+                    setOnPreferenceClickListener {
+                        pickRightMedia.launch("image/*")
+                        true
+                    }
+                })
+            }
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+    override fun isEnableOpenMenu(): Boolean = true
+    override fun callOpenMenu() = jumpGesture(requireActivity())
+}

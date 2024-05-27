@@ -1,0 +1,286 @@
+package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+
+import android.os.Bundle
+import androidx.preference.DropDownPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.SwitchPreference
+import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.topjohnwu.superuser.ShellUtils
+
+@Obfuscate
+class Application : BaseScopePreferenceFeagment() {
+
+    override val scopes = arrayOf(
+        "com.oplus.battery",
+        "com.oplus.safecenter",
+        "com.coloros.safecenter",
+        "com.android.settings",
+        "com.android.packageinstaller",
+        "com.oplus.multiapp"
+    )
+
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            //应用启动
+            if (SDK >= A13) {
+                addPreference(PreferenceCategory(context).apply {
+                    title = getString(R.string.AppStartupRelated)
+                    key = "AppStartupRelated"
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.disable_splash_screen)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system),
+                        getString(R.string.disable_splash_screen_summary)
+                    )
+                    key = "disable_splash_screen"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.disable_preload_splash)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "disable_preload_splash"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
+            //应用列表
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.APPRelatedList)
+                key = "APPRelatedList"
+                isIconSpaceReserved = false
+            })
+            addPreference(Preference(context).apply {
+                title = getString(R.string.dark_mode_support_list)
+                summary = getString(R.string.zoom_window_support_list_summary)
+                key = "dark_mode_support_list"
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_application_to_darkModeFragment, title)
+                    true
+                }
+            })
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_multi_app_support_mode)
+                key = "set_multi_app_support_mode"
+                summary = arraySummaryLine(
+                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.need_restart_system),
+                    getString(R.string.set_multi_app_support_mode_tips)
+                )
+                entries = if (getOSVersionCode < 27) {
+                    resources.getStringArray(R.array.set_multi_app_support_mode_low_entries)
+                } else resources.getStringArray(R.array.set_multi_app_support_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("android", key, newValue)
+                    context.sendPrefsValue("com.oplus.multiapp", key, newValue)
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            if (context.getString(ModulePrefs, "set_multi_app_support_mode", "0") == "1") {
+                addPreference(Preference(context).apply {
+                    title = getString(R.string.multi_app_custom_list)
+                    summary = getString(R.string.multi_app_custom_list_summary)
+                    key = "multi_app_custom_list"
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        navigatePage(R.id.action_application_to_multiFragment, title)
+                        true
+                    }
+                })
+            }
+            if (osCode >= 31) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.remove_multi_app_blacklist)
+                    key = "remove_multi_app_blacklist"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
+            //应用安装
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.AppInstallationRelated)
+                summary = getString(R.string.PackageInstaller_summary)
+                key = "PackageInstaller"
+                isIconSpaceReserved = false
+            })
+            addPreference(Preference(context).apply {
+                setTitle(R.string.corepatch)
+                setSummary(R.string.corepatch_summary)
+                key = "CorePatch"
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_application_to_corePatch, title)
+                    true
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_customized_app_installer)
+                summary = "com.oplus.appdetail"
+                key = "disable_customized_app_installer"
+                isChecked = ShellUtils.fastCmd("pm list packages -d | grep $summary")
+                    .contains(summary.toString())
+                isPersistent = false
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    ShellUtils.fastCmdResult("pm ${if (newValue as Boolean) "disable" else "enable"} $summary")
+                }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.skip_apk_scan)
+                summary = getString(R.string.skip_apk_scan_summary)
+                key = "skip_apk_scan"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.allow_downgrade_install)
+                summary = getString(R.string.allow_downgrade_install_summary)
+                key = "allow_downgrade_install"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_install_ads)
+                summary = getString(R.string.remove_install_ads_summary)
+                key = "remove_install_ads"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.auto_click_install_button)
+                key = "auto_click_install_button"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.auto_click_uninstall_button)
+                key = "auto_click_uninstall_button"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_more_apk_package_information)
+                summary = getString(R.string.show_more_apk_package_information_summary)
+                key = "show_more_apk_package_information"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.replase_aosp_installer)
+                summary = getString(R.string.replase_aosp_installer_summary)
+                key = "replase_aosp_installer"
+                setDefaultValue(false)
+                isVisible = false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_adb_install_confirm)
+                summary = getString(R.string.remove_adb_install_confirm_summary)
+                key = "remove_adb_install_confirm"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //其他限制
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.ApplyOtherRestrictions)
+                key = "ApplyOtherRestrictions"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.unlock_startup_limit)
+                summary = getString(R.string.unlock_startup_limit_summary)
+                key = "unlock_startup_limit"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            //应用详情相关
+            addPreference(PreferenceCategory(context).apply {
+                title = getString(R.string.AppDetailsRelated)
+                key = "AppDetailsRelated"
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_package_name_in_app_details)
+                key = "show_package_name_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_sdk_in_app_details)
+                key = "show_sdk_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_first_install_time_in_app_details)
+                key = "show_first_install_time_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.show_last_update_time_in_app_details)
+                key = "show_last_update_time_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_long_press_to_copy_in_app_details)
+                key = "enable_long_press_to_copy_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.click_icon_open_market_page)
+                key = "click_icon_open_market_page"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.allow_disabling_system_apps)
+                summary = getString(R.string.allow_disabling_system_apps_summary)
+                key = "allow_disabling_system_apps"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_app_uninstall_button_blacklist)
+                key = "remove_app_uninstall_button_blacklist"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_custom_app_language)
+                key = "enable_custom_app_language"
+                setDefaultValue(false)
+                isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}

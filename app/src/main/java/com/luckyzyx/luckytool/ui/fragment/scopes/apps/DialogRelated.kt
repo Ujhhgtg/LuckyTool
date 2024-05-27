@@ -1,0 +1,61 @@
+package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+
+import android.os.Bundle
+import androidx.preference.SwitchPreference
+import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+
+@Obfuscate
+class DialogRelated : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.android.systemui", "com.oplus.exsystemservice")
+
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ModulePrefs
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_duplicate_floating_window)
+                summary = getString(R.string.disable_duplicate_floating_window_summary)
+                key = "disable_duplicate_floating_window"
+                setDefaultValue(false)
+                isVisible = getOSVersionCode >= 26
+                isIconSpaceReserved = false
+
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_low_battery_dialog_warning)
+                summary = getString(R.string.remove_low_battery_dialog_warning_summary)
+                key = "remove_low_battery_dialog_warning"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_usb_connect_dialog)
+                summary = getString(R.string.remove_usb_connect_dialog_summary)
+                key = "remove_usb_connect_dialog"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_access_device_log_dialog)
+                key = "remove_access_device_log_dialog"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.reduce_power_menu_display_delay)
+                key = "reduce_power_menu_display_delay"
+                setDefaultValue(false)
+                isVisible = false
+                isIconSpaceReserved = false
+            })
+        }
+    }
+
+    override fun isEnableRestartMenu(): Boolean = true
+}
