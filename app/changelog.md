@@ -22,6 +22,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除应用分身黑名单 C14.0.1
 - [添加] 移除浏览器窗口数量限制
 - [优化] 禁用OTG自动关闭 C14+
+- [添加] 启用相机DebugUI选项 C14+
 
 ### 1.2.2
 

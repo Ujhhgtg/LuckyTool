@@ -17,7 +17,7 @@ class RemoveBrowserWindowLimitNumber(val dexKitBridge: DexKitBridge) : YukiBaseH
                 usingStrings("TabManager", "multiWindowPerf")
             }
         }.apply {
-            checkDataList("Remove browser window limit", isDebug = true)
+            checkDataList("RemoveBrowserWindowLimitNumber")
             single().className.toClass().apply {
                 method {
                     name = single().methodName

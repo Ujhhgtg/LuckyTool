@@ -598,6 +598,7 @@
     <string name="remove_settings_bottom_laboratory">移除设置底部实验室</string>
     <string name="force_display_bottom_google_settings">强制显示设置底部 Google</string>
     <!--Camera-->
+    <string name="enable_camera_debug_ui_option">启用DebugUI选项</string>
     <string name="custom_camera_open_gallery_by_default">自定义默认打开相册</string>
     <string name="custom_camera_open_gallery_by_default_tips">只允许选择一个相册App！</string>
     <string name="CameraWaterMark">水印</string>

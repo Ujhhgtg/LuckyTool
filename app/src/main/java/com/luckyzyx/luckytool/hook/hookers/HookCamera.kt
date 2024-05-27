@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomCameraOpenGalleryByDefault
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomModelWaterMark
+import com.luckyzyx.luckytool.hook.scopes.camera.EnableCameraDebugUIOption
 import com.luckyzyx.luckytool.hook.scopes.camera.HookCameraConfig
 import com.luckyzyx.luckytool.hook.scopes.camera.RemoveWatermarkWordLimit
 import com.luckyzyx.luckytool.utils.A13
@@ -38,6 +39,10 @@ object HookCamera : YukiBaseHooker() {
             }
             //自定义默认打开相册
             if (osCode >= 26) loadHooker(CustomCameraOpenGalleryByDefault(dexKitBridge))
+            //启用DebugUI选项
+            if (prefs(ModulePrefs).getBoolean("enable_camera_debug_ui_option", false)) {
+                if (osCode >= 30) loadHooker(EnableCameraDebugUIOption(dexKitBridge))
+            }
         }
     }
 }

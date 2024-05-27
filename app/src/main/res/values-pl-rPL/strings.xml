@@ -598,6 +598,7 @@
     <string name="remove_settings_bottom_laboratory">Remove settings bottom laboratory</string>
     <string name="force_display_bottom_google_settings">Force to show Google at the bottom of the settings</string>
     <!--Camera-->
+    <string name="enable_camera_debug_ui_option">Enable DebugUI option</string>
     <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
     <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
     <string name="CameraWaterMark">WaterMark</string>

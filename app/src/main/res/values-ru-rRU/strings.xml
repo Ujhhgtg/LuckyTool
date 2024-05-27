@@ -430,7 +430,7 @@
     <string name="set_multi_app_support_mode">Режим клонирования приложений</string>
     <string name="set_multi_app_support_mode_all_apps">Полный список приложений</string>
     <string name="set_multi_app_support_mode_tips">Некоторые модели не могут использовать полный список клонов приложений, и вам необходимо установить приложение \"Клонирование приложений\" для определенных моделей.</string>
-    <string name="remove_multi_app_blacklist">Remove blacklist for multi app</string>
+    <string name="remove_multi_app_blacklist">Удалить черный список для нескольких приложений</string>
     <string name="multi_app_enable">Включить список замены</string>
     <string name="multi_app_custom_list">Настроить список клонирования приложений</string>
     <string name="multi_app_custom_list_summary">После включения функции исходный список клонов приложений будет заменен этим списком, слишком большое количество приведет к задержкам</string>
@@ -599,6 +599,7 @@
     <string name="remove_settings_bottom_laboratory">Удалить настройки лаборатории</string>
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
     <!--Camera-->
+    <string name="enable_camera_debug_ui_option">Enable DebugUI option</string>
     <string name="custom_camera_open_gallery_by_default">Галерея, которая открывается по умолчанию</string>
     <string name="custom_camera_open_gallery_by_default_tips">Разрешить выбор только одного приложения галереи!</string>
     <string name="CameraWaterMark">Водяной знак</string>
@@ -724,7 +725,7 @@
     <string name="remove_ads_from_weather_page_summary">Внедряет JS на страницу m.weathercn.com для достижения эффекта блокировки рекламы, он подходит для функций, требующих браузера, таких как погода за последние 15 дней, к которой вы переходите через приложение погоды</string>
     <string name="remove_ads_from_download_dialog">Удалить рекламу из диалога загрузки</string>
     <string name="remove_ads_at_download_page_bottom">Удалить рекламу в нижней части страницы загрузки</string>
-    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
+    <string name="remove_browser_window_limit_number">Удалить ограничение на количество окон браузера</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Касание</string>
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>

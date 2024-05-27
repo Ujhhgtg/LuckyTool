@@ -41,6 +41,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_camera_debug_ui_option)
                 key = "enable_camera_debug_ui_option"
                 setDefaultValue(false)
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
             addPreference(Preference(context).apply {
