@@ -2,6 +2,7 @@
 
 package com.luckyzyx.luckytool.utils
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -391,11 +392,19 @@ fun getProp(key: String): String = ShellUtils.fastCmd("getprop $key").let {
  * 发送广播以关闭折叠面板
  * @receiver TileService
  */
+@SuppressLint("StartActivityAndCollapseDeprecated")
 fun TileService.closeCollapse() {
     try {
         sendBroadcast(Intent("LuckyTool_CloseCollapse"))
     } catch (_: Exception) {
-        return
+        try {
+            @Suppress("DEPRECATION")
+            startActivityAndCollapse(Intent(Intent.ACTION_VIEW).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
+        } catch (_: Exception) {
+
+        }
     }
 }
 

@@ -17,6 +17,7 @@ dependencyResolutionManagement {
         mavenLocal {
             content { includeGroup("com.highcapable.flexiui") }
             content { includeGroup("com.highcapable.yukihookapi") }
+            content { includeGroup("io.github.libxposed") }
         }
         google()
         mavenCentral()
@@ -29,4 +30,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "LuckyTool"
 include(":app")
-include (":hidden-api-stub")
+include(":hidden-api-stub")

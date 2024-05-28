@@ -88,8 +88,10 @@ dependencies {
     //implementation(fileTree("libs").include("*.jar"))
 
     compileOnly(project(":hidden-api-stub"))
-    //Xposed基础
+    //Xposed
     compileOnly("de.robv.android.xposed:api:82")
+//    compileOnly("io.github.libxposed:api:100")
+
     //YukiHookAPI
 //    implementation("com.highcapable.yukireflection:api:1.0.2")
     //noinspection GradleDependency
@@ -111,7 +113,7 @@ dependencies {
 
     //Material主题
     implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
     //约束布局
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     //快速创建Settings
