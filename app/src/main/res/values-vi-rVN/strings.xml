@@ -429,7 +429,7 @@
     <string name="set_multi_app_support_mode">Đặt chế độ hỗ trợ nhân bản ứng dụng</string>
     <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
     <string name="set_multi_app_support_mode_tips">Một số kiểu máy không thể sử dụng danh sách ứng dụng đầy đủ và cần cài đặt APP nhân bản ứng dụng dành riêng cho kiểu máy.</string>
-    <string name="remove_multi_app_blacklist">Remove blacklist for multi app</string>
+    <string name="remove_multi_app_blacklist">Xóa bản sao ứng dụng khỏi danh sách đen</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>
@@ -598,7 +598,7 @@
     <string name="remove_settings_bottom_laboratory">Xóa phòng thí nghiệm phía dưới cài đặt</string>
     <string name="force_display_bottom_google_settings">Buộc hiển thị Google ở cuối cài đặt</string>
     <!--Camera-->
-    <string name="enable_camera_debug_ui_option">Enable DebugUI option</string>
+    <string name="enable_camera_debug_ui_option">Bật tùy chọn DebugUI</string>
     <string name="custom_camera_open_gallery_by_default">Tùy chỉnh thư viện mở theo mặc định</string>
     <string name="custom_camera_open_gallery_by_default_tips">Chỉ được phép chọn một ứng dụng thư viện ảnh!</string>
     <string name="CameraWaterMark">Dấu chìm</string>
@@ -724,7 +724,7 @@
     <string name="remove_ads_from_weather_page_summary">Bằng cách đưa JS vào trang m.weathercn.com để đạt được hiệu quả chặn quảng cáo, nó phù hợp với các chức năng yêu cầu trình duyệt như thời tiết trong 15 ngày qua phải được chuyển hướng qua APP thời tiết.</string>
     <string name="remove_ads_from_download_dialog">Xóa quảng cáo trong hộp thoại tải xuống</string>
     <string name="remove_ads_at_download_page_bottom">Xóa quảng cáo ở cuối trang tải xuống</string>
-    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
+    <string name="remove_browser_window_limit_number">Xóa giới hạn cửa sổ trình duyệt</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Chạm Breeno</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
