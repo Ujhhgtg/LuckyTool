@@ -24,6 +24,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 禁用OTG自动关闭 C14+
 - [添加] 启用相机DebugUI选项 C14+
 - [更改] 同步上游DisableFlagSecure
+- [适配] 天气跳转页面底部信息流 v14.16.2(18506cc)
 
 ### 1.2.2
 

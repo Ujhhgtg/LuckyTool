@@ -1,12 +1,20 @@
 package com.luckyzyx.luckytool.hook.scopes.weather
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.view.View
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
@@ -42,6 +50,11 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                 method { name = "startBrowserForUrl" }.hookAll {
                     hookBefore(removeAds, disableJump)
                 }
+                if (hasMethod { name = "isBrowserSupportJump" }) {
+                    method { name = "isBrowserSupportJump" }.hook {
+                        replaceToFalse()
+                    }
+                }
             }
 
             //Source NoticeItem C14
@@ -63,6 +76,63 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                 }
             }
 
+            //Source BannerItem / IndexOperationsManager C14.0.1
+            if (false) "com.oplus.weather.indexoperations.BannerItem".toClassOrNull()?.apply {
+                method { name = "onClick" }.hook {
+                    before {
+                        val view = args().first().cast<View>() ?: return@before
+                        val activity = view.context as Activity
+                        if (activity.javaClass.simpleName != "WeatherMainActivity") return@before
+                        YLog.debug("activity -> ${activity.javaClass}")
+
+                        val fragment = activity.current().method {
+                            name = "obtainCurrentCityFragment"
+                        }.call() ?: return@before
+                        if (fragment.javaClass.simpleName != "WeatherFragment") return@before
+                        YLog.debug("fragment -> ${fragment.javaClass}")
+
+                        val currentWeather = fragment.current().method {
+                            name = "getCurrentWeather"
+                        }.call() ?: return@before
+                        YLog.debug("currentWeather -> ${currentWeather.javaClass}")
+
+                        val warnWeatherViewModel =
+                            "com.oplus.weather.main.viewmodel.WarnWeatherViewModel".toClass()
+                                .buildOf { emptyParam() } ?: return@before
+
+                        val warnList =
+                            currentWeather.current().method { name = "getWarnList" }.list<Any>()
+                        var dataList = java.util.ArrayList<Any>()
+                        warnList.forEach {
+                            val item =
+                                "com.oplus.weather.main.view.itemview.WarnWeatherItem".toClass()
+                                    .buildOf(it) { paramCount = 1 } ?: return@forEach
+
+                            dataList = warnWeatherViewModel.current().field { name = "dataList" }
+                                .cast<ArrayList<Any>>() ?: return@forEach
+                            dataList.add(item)
+                        }
+                        warnWeatherViewModel.current().method { name = "setDataList" }
+                            .call(dataList)
+
+                        val panel = "com.oplus.weather.main.panels.WarnWeatherPanel".toClass()
+                            .buildOf(activity, warnWeatherViewModel) {
+                                paramCount = 2
+                            } ?: return@before
+                        panel.current().method { name = "show";superClass() }.call()
+
+                        val data = field { name = "operationCardData" }.get(instance).any()
+                            ?: return@before
+                        val cardType = data.current().method { name = "getCardType" }.invoke<Int>()
+                            ?: return@before
+                        YLog.debug("cardType -> $cardType")
+
+                        resultNull()
+
+                    }
+                }
+            }
+
             //Source SecondaryPageUtil
             "com.oplus.weather.utils.SecondaryPageUtil".toClassOrNull()?.apply {
                 method { name = "newLink" }.hook {
@@ -70,6 +140,16 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                         if (removeAds) result = formatWeatherUrl(
                             result<String>() ?: return@after
                         )
+                    }
+                }
+                method {
+                    name = "jumpToBrowser"
+                    param(StringClass, BooleanType, BooleanType)
+                    returnType = IntentClass
+                }.hook {
+                    after {
+                        val intent = result<Intent>() ?: return@after
+                        intent.data = Uri.parse(formatWeatherUrl(intent.data.toString()))
                     }
                 }
             }
@@ -115,7 +195,12 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                 if (removeAds) args(2).set(formatWeatherUrl(url))
                 if (disableJump) {
                     val newUrl = args(2).string()
-                    startWebActivity(BrowserCommonUtils.toClass(), context, newUrl, statisticsTag)
+                    startWebActivity(
+                        BrowserCommonUtils.toClass(),
+                        context,
+                        newUrl,
+                        statisticsTag
+                    )
                     resultNull()
                 }
             }
@@ -127,7 +212,8 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
         override fun onHook() {
             val removeAds =
                 prefs(ModulePrefs).getBoolean("remove_weather_some_page_bottom_ads", false)
-            val disableJump = prefs(ModulePrefs).getBoolean("disable_weather_jump_browser", false)
+            val disableJump =
+                prefs(ModulePrefs).getBoolean("disable_weather_jump_browser", false)
             if (!removeAds && !disableJump) return
 
             //Source OppoUtils
@@ -159,7 +245,9 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                             )
                             returnType(UnitType)
                             usingStrings(
-                                "com.heytap.browser", "com.android.browser", "com.coloros.browser"
+                                "com.heytap.browser",
+                                "com.android.browser",
+                                "com.coloros.browser"
                             )
                         }
 
@@ -231,7 +319,12 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
     }
 
     companion object {
-        fun startWebActivity(clazz: Class<*>, context: Any, url: String, statisticsTag: String) {
+        fun startWebActivity(
+            clazz: Class<*>,
+            context: Any,
+            url: String,
+            statisticsTag: String
+        ) {
             //Source BrowserCommonUtils -> startWeatherWebActivity
             clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
         }
