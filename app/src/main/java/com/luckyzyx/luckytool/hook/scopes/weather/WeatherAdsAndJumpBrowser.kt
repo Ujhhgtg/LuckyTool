@@ -143,10 +143,10 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                     }
                 }
                 method {
-                    name = "jumpToBrowser"
-                    param(StringClass, BooleanType, BooleanType)
+                    name { it.startsWith("jump") && it.contains("Browser") }
+                    param { it.contains(StringClass) && it.contains(BooleanType) }
                     returnType = IntentClass
-                }.hook {
+                }.hookAll {
                     after {
                         val intent = result<Intent>() ?: return@after
                         intent.data = Uri.parse(formatWeatherUrl(intent.data.toString()))
