@@ -12,7 +12,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
-import com.luckyzyx.luckytool.hook.scopes.android.HookNotificationManager
+import com.luckyzyx.luckytool.hook.scopes.android.HookOplusWifiService
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
 import com.luckyzyx.luckytool.hook.scopes.android.LTPODynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.MediaVolumeLevel
@@ -44,8 +44,8 @@ object HookAndroid : YukiBaseHooker() {
         //移除VPN已激活通知
         loadHooker(RemoveVPNActiveNotification)
 
-        //Hook NotificationManager
-        loadHooker(HookNotificationManager)
+        //Oplus Wifi Service
+        loadHooker(HookOplusWifiService)
 
         //Hook HookWindowManagerService
         loadHooker(HookWindowManagerService)

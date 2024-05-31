@@ -6,6 +6,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryLine
 
 @Obfuscate
 class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
@@ -68,7 +69,10 @@ class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_hotspot_power_consumption_notification)
-                summary = getString(R.string.remove_hotspot_power_consumption_notification_summary)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_hotspot_power_consumption_notification_summary),
+                    getString(R.string.need_restart_system)
+                )
                 key = "remove_hotspot_power_consumption_notification"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
