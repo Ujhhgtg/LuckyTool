@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
 class Launcher : BaseScopePreferenceFeagment() {
@@ -218,6 +219,9 @@ class Launcher : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     context.sendPrefsValue("android", key, newValue)
+                    if ((newValue.toString().toIntOrNull() ?: 0) >= 2) {
+                        ShellUtils.fastCmd("settings put global enable_non_resizable_multi_window 1")
+                    }
                     (activity as MainActivity).restart()
                     true
                 }
