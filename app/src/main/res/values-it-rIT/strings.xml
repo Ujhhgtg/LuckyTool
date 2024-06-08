@@ -328,10 +328,15 @@
     <string name="set_aod_notification_icon_style">Imposta uno stile per l\'icona di notifica</string>
     <string name="force_enable_screen_off_music_support">Forza l\'abilitazione del supporto per la musica a schermo spento</string>
     <string name="force_enable_screen_off_music_support_summary">Applicabile solo ai modelli che non supportano la musica a schermo spento</string>
-    <string name="enable_random_words_on_aod">Attiva parole casuali sull\'aod</string>
-    <string name="enable_random_words_on_aod_tips1">Necessità di abilitare testo personalizzato aod</string>
-    <string name="enable_random_words_on_aod_tips2">Può causare il congelamento dell’aod e altri problemi</string>
-    <string name="custom_random_words_api">API personalizzate parole casuali</string>
+    <string name="AodRandomText">Aod Random Text</string>
+    <string name="set_random_text_display_mode">Set random text display mode</string>
+    <string name="set_random_text_display_mode_tips1">Need to enable aod personalized text</string>
+    <string name="set_random_text_display_mode_tips2">It may cause aod freezes and other issues</string>
+    <string name="set_random_text_display_mode_local_file">Local File</string>
+    <string name="set_random_text_display_mode_remote_api">Remote Api</string>
+    <string name="custom_random_text_file">Custom random text file</string>
+    <string name="custom_random_text_api">Custom random text api</string>
+    <string name="AodTypface">Aod Typface</string>
     <string name="set_aod_typeface_mode">Imposta la modalità aod</string>
     <string name="apply_aod_clock_typeface">Applica il carattere tipografico all\'orologio Aod</string>
     <!--LockScreen-->
@@ -429,7 +434,7 @@
     <string name="set_multi_app_support_mode">Imposta la modalità di supporto multi-app</string>
     <string name="set_multi_app_support_mode_all_apps">Elenco completo delle app</string>
     <string name="set_multi_app_support_mode_tips">Alcuni modelli non possono utilizzare l\'elenco completo di cloni di app ed è necessario installare l\'APP clone di app per modelli specifici.</string>
-    <string name="remove_multi_app_blacklist">Remove blacklist for multi app</string>
+    <string name="remove_multi_app_blacklist">Rimuovi blacklist per app multiple</string>
     <string name="multi_app_enable">Abilita lista di sostituzione</string>
     <string name="multi_app_custom_list">Sostituisci Lista Supporto Cloni App</string>
     <string name="multi_app_custom_list_summary">Dopo che la funzione è attivata, l\'elenco originale dei cloni delle app sarà sostituito da questo elenco, troppi causeranno ritardo</string>
@@ -598,7 +603,7 @@
     <string name="remove_settings_bottom_laboratory">Rimuovi le impostazioni laboratorio in basso</string>
     <string name="force_display_bottom_google_settings">Forza la visualizzazione di Google nella parte inferiore delle impostazioni</string>
     <!--Camera-->
-    <string name="enable_camera_debug_ui_option">Enable DebugUI option</string>
+    <string name="enable_camera_debug_ui_option">Abilita opzione DebugUI</string>
     <string name="custom_camera_open_gallery_by_default">Personalizza la galleria che si apre per impostazione predefinita</string>
     <string name="custom_camera_open_gallery_by_default_tips">Consenti solo la selezione di un\'app galleria!</string>
     <string name="CameraWaterMark">Filigrana</string>
@@ -724,7 +729,7 @@
     <string name="remove_ads_from_weather_page_summary">Inserendo JS nella pagina m.weathercn.com per ottenere l\'effetto di bloccare la pubblicità, è adatto per funzioni che richiedono un browser, come il meteo degli ultimi 15 giorni a cui si accede tramite l\'app meteo</string>
     <string name="remove_ads_from_download_dialog">Rimuovi gli annunci dalla finestra di download</string>
     <string name="remove_ads_at_download_page_bottom">Rimuovi gli annunci in fondo alla pagina di download</string>
-    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
+    <string name="remove_browser_window_limit_number">Rimuovi limite al numero di finestre del browser</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Breeno Touch</string>
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>

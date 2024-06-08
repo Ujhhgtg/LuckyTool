@@ -169,6 +169,12 @@
         <item>@string/common_words_disable</item>
     </string-array>
     
+    <string-array name="set_random_text_display_mode_entries">
+        <item>@string/common_words_close</item>
+        <item>@string/set_random_text_display_mode_local_file</item>
+        <item>@string/set_random_text_display_mode_remote_api</item>
+    </string-array>
+    
     <string-array name="set_aod_typeface_mode_entries">
         <item>@string/common_words_default</item>
         <item>@string/common_words_normal</item>

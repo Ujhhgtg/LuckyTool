@@ -328,10 +328,15 @@
     <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
     <string name="force_enable_screen_off_music_support">Force enable screen-off music support</string>
     <string name="force_enable_screen_off_music_support_summary">Applicable only to models that do not support screen-off music</string>
-    <string name="enable_random_words_on_aod">Enable random words on the aod</string>
-    <string name="enable_random_words_on_aod_tips1">Need to enable aod personalized text</string>
-    <string name="enable_random_words_on_aod_tips2">It may cause aod freezes and other issues</string>
-    <string name="custom_random_words_api">Custom random words API</string>
+    <string name="AodRandomText">Aod Random Text</string>
+    <string name="set_random_text_display_mode">Set random text display mode</string>
+    <string name="set_random_text_display_mode_tips1">Need to enable aod personalized text</string>
+    <string name="set_random_text_display_mode_tips2">It may cause aod freezes and other issues</string>
+    <string name="set_random_text_display_mode_local_file">Local File</string>
+    <string name="set_random_text_display_mode_remote_api">Remote Api</string>
+    <string name="custom_random_text_file">Custom random text file</string>
+    <string name="custom_random_text_api">Custom random text api</string>
+    <string name="AodTypface">Aod Typface</string>
     <string name="set_aod_typeface_mode">Set aod typeface mode</string>
     <string name="apply_aod_clock_typeface">Apply typeface to aod clock</string>
     <!--LockScreen-->

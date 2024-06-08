@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.uiengine.EnableRandomWordsOnAod
+import com.luckyzyx.luckytool.hook.scopes.uiengine.EnableRandomTextOnAod
 import com.luckyzyx.luckytool.hook.scopes.uiengine.RemoveAodNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.uiengine.SetAodNotificationIconStyle
 import com.luckyzyx.luckytool.hook.scopes.uiengine.SetAodTypefaceMode
@@ -23,9 +23,7 @@ object HookUIEngine : YukiBaseHooker() {
         if (SDK >= A13) loadHooker(SetAodNotificationIconStyle)
 
         //启用息屏随机一言
-        if (prefs(ModulePrefs).getBoolean("enable_random_words_on_aod", false)) {
-            if (osCode >= 26) loadHooker(EnableRandomWordsOnAod)
-        }
+        if (osCode >= 26) loadHooker(EnableRandomTextOnAod)
 
         //设置息屏字体模式
         if (osCode >= 26) loadHooker(SetAodTypefaceMode)
