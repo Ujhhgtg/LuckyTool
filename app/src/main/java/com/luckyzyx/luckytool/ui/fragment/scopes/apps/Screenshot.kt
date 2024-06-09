@@ -9,7 +9,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 
 @Obfuscate
 class Screenshot : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.oplus.screenshot")
+    override val scopes = arrayOf("com.oplus.screenshot", "com.oplus.appplatform")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs

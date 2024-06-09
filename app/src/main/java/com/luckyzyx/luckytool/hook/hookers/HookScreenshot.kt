@@ -12,12 +12,11 @@ object HookScreenshot : YukiBaseHooker() {
     override fun onHook() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
 
-        //移除截屏隐私限制
-        if (prefs(ModulePrefs).getBoolean("remove_screenshot_privacy_limit", false)) {
-            loadHooker(RemoveScreenshotPrivacyLimit)
-        }
-
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //移除截屏隐私限制
+            if (prefs(ModulePrefs).getBoolean("remove_screenshot_privacy_limit", false)) {
+                loadHooker(RemoveScreenshotPrivacyLimit(dexKitBridge))
+            }
             //移除长截图页数限制
             if (prefs(ModulePrefs).getBoolean("remove_page_limit_for_long_screenshots", false)) {
                 val exist = appVer?.versionCode?.let { it > 130005000 } ?: false

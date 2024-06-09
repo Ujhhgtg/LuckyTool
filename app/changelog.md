@@ -23,11 +23,11 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除浏览器窗口数量限制
 - [优化] 禁用OTG自动关闭 C14+
 - [添加] 启用相机DebugUI选项 C14+
-- [更改] 同步上游DisableFlagSecure
 - [适配] 天气跳转页面底部信息流 v14.16.2(18506cc)
 - [优化] 移除个人热点耗电通知Hook方案
-- [添加] 息屏随机文本本地模式
+- [添加] 息屏随机文本本地模式 C13+
 - [添加] 同步上游核心破解-禁用安装包验证代理
+- [更改] 同步上游DisableFlagSecure-完善更多截屏场景
 
 ### 1.2.2
 

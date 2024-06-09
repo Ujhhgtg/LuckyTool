@@ -192,8 +192,8 @@ object MainHook : IYukiHookXposedInit {
                         R -> CorePatchForR().handleLoadPackage(lpparam)
                         else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
                     }
-                    DisableFlagSecure().handleLoadPackage(lpparam)
                 }
+                DisableFlagSecure().handleLoadPackage(lpparam)
             }
         }
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->
