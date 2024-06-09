@@ -119,6 +119,8 @@
     <string name="usepresig_warn">!!! All packages can override installed App!!\nto install unknown packages</string>
     <string name="shared_user_title">Bypass shared user verify</string>
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
+    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
+    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Allow untrusted touch</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>

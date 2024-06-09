@@ -119,6 +119,8 @@
     <string name="usepresig_warn">所有安装包可以覆盖已安装的App!\n安装未知的安装包时请务必小心</string>
     <string name="shared_user_title">绕过共享用户签名验证</string>
     <string name="shared_user_summary">允许安装与其共享用户签名不同的 App(<b>需要同时打开“禁用APK签名验证”</b>)</string>
+    <string name="disable_verification_agent_title">禁用安装包验证代理</string>
+    <string name="disable_verification_agent_summary">例如 Google Play 商店的保护机制</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">允许不受信任的触摸</string>
     <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>

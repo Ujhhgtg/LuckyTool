@@ -119,6 +119,8 @@
     <string name="usepresig_warn">!!! Tutti i pacchetti possono sovrascrivere l\'app installata!!\nper installare pacchetti sconosciuti</string>
     <string name="shared_user_title">Ignora la verifica dell\'utente condiviso</string>
     <string name="shared_user_summary">Consenti l\'installazione di app con firma diversa dall\'utente condiviso (è necessario abilitare anche <b>Disabilita confronto firme</b>)</string>
+    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
+    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>

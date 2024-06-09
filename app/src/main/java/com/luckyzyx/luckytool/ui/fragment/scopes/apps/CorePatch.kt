@@ -79,6 +79,13 @@ class CorePatch : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                setTitle(R.string.disable_verification_agent_title)
+                setSummary(R.string.disable_verification_agent_summary)
+                key = "disableVerificationAgent"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
+            })
         }
     }
 }

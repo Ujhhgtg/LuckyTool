@@ -70,6 +70,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
             XposedBridge.log("D/" + TAG + " enhancedMode=" + prefs.getBoolean("enhancedMode", false));
             XposedBridge.log("D/" + TAG + " bypassBlock=" + prefs.getBoolean("bypassBlock", true));
             XposedBridge.log("D/" + TAG + " sharedUser=" + prefs.getBoolean("sharedUser", false));
+            XposedBridge.log("D/" + TAG + " disableVerificationAgent=" + prefs.getBoolean("disableVerificationAgent", true));
         }
         
         var pmService = XposedHelpers.findClassIfExists("com.android.server.pm.PackageManagerService",
@@ -391,6 +392,7 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                     }
                 }
         );
+        hookAllMethods(getIsVerificationEnabledClass(loadPackageParam.classLoader), "isVerificationEnabled", new ReturnConstant(prefs, "disableVerificationAgent", false));
         
         if (BuildConfig.DEBUG) initializeDebugHook(loadPackageParam);
     }
@@ -408,6 +410,10 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e.getCause());
         }
+    }
+    
+    Class<?> getIsVerificationEnabledClass(ClassLoader classLoader) {
+        return XposedHelpers.findClass("com.android.server.pm.PackageManagerService", classLoader);
     }
     
     Class<?> getSigningDetails(ClassLoader classLoader) {

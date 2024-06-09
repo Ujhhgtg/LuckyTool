@@ -119,6 +119,8 @@
     <string name="usepresig_warn">!!! Všechny balíčky mohou přepsat nainstalovanou aplikaci!!\npro instalaci neznámých balíčků</string>
     <string name="shared_user_title">Ignorovat sdílené ověření uživatele</string>
     <string name="shared_user_summary">Povolit instalaci aplikace s odlišným podpisem od sdíleného uživatele (<b>\'Zakázat porovnání podpisu\' musí být také povoleno</b>)</string>
+    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
+    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>

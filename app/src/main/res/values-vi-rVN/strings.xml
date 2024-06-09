@@ -119,6 +119,8 @@
     <string name="usepresig_warn">!!! Tất cả các gói có thể ghi đè ứng dụng đã cài đặt!!\nđể cài đặt các gói không xác định</string>
     <string name="shared_user_title">Bỏ qua xác minh chữ ký người dùng được chia sẻ</string>
     <string name="shared_user_summary">Cho phép cài đặt các ứng dụng có chữ ký khác nhau từ những người dùng chia sẻ chúng (<b>Cũng cần bật \"Tắt xác minh chữ ký Apk\"</b>)</string>
+    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
+    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
     <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
