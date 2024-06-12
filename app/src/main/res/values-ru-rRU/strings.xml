@@ -758,6 +758,7 @@
     <string name="enable_record_calls_on_third_party_apps">Включить запись звонков в сторонних приложениях</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Предварительное условие: Необходимо установить \"Запись вызовов в сторонних приложениях (com.oplus.audiomonitor)\", а также дать разрешения на микрофон и работу в фоне</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Необходимо предоставить root-права для \"Записи вызовов сторонних приложений\"</string>
+    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

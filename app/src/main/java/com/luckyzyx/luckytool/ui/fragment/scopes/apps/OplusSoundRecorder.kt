@@ -36,6 +36,15 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 30 && isZh(context)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.expand_voip_recorder_whitelist)
+                summary = "Tim,抖音"
+                key = "expand_voip_recorder_whitelist"
+                setDefaultValue(false)
+                isEnabled = context.checkPackName("com.oplus.audiomonitor")
+                isVisible = osCode >= 31 && isZh(context)
+                isIconSpaceReserved = false
+            })
         }
     }
 

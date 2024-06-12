@@ -757,6 +757,7 @@
     <string name="enable_record_calls_on_third_party_apps">サードパーティアプリでの通話録音を有効化</string>
     <string name="enable_record_calls_on_third_party_apps_tips">「サードパーティアプリ通話録音 (com.oplus.audiomonitor)」をインストールし、マイクの権限とバックグラウンド動作を許可する必要があります</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
+    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
     <!--Everyimage-->
     <string name="skip_startup_page">スタートアップページをスキップ</string>
     <string name="vip_download">オリジナルをダウンロードする</string>

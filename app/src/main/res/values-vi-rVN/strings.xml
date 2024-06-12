@@ -757,6 +757,7 @@
     <string name="enable_record_calls_on_third_party_apps">Bật ghi âm cuộc gọi cho các ứng dụng của bên thứ ba</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Điều kiện tiên quyết: Cần phải cài đặt \"Ghi âm cuộc gọi của ứng dụng ba bên (com.oplus.audiomonitor)\" và phải được cấp quyền micrô cũng như toàn bộ quyền hoạt động ở chế độ nền</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Cần phải cấp quyền root cho \"Ghi âm cuộc gọi ứng dụng của bên thứ ba\"</string>
+    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>

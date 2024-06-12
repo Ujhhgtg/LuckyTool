@@ -2,6 +2,11 @@ package com.luckyzyx.luckytool.utils
 
 object GlobalKeyValue {
 
+    const val qqPackName = "com.tencent.mobileqq"
+    const val wxPackName = "com.tencent.mm"
+    const val timPackName = "com.tencent.tim"
+    const val dyPackName = "com.ss.android.ugc.aweme"
+
     const val keyFpsAutoStart = "fps_autostart"
     const val keyFpsCur = "fps_current"
 
