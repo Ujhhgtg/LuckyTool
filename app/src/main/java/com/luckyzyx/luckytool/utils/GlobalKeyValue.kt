@@ -5,7 +5,10 @@ object GlobalKeyValue {
     const val qqPackName = "com.tencent.mobileqq"
     const val wxPackName = "com.tencent.mm"
     const val timPackName = "com.tencent.tim"
+    const val qywxPackName = "com.tencent.wework"
+    const val fsPackName = "com.ss.android.lark"
     const val dyPackName = "com.ss.android.ugc.aweme"
+    const val tgPackName = "org.telegram.messenger"
 
     const val keyFpsAutoStart = "fps_autostart"
     const val keyFpsCur = "fps_current"

@@ -15,9 +15,12 @@ import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.luckytool.data.VoipRecorder
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.dyPackName
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.fsPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.qqPackName
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.qywxPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.timPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.wxPackName
 import org.luckypray.dexkit.DexKitBridge
@@ -30,31 +33,45 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     private var switchAppClazz = ""
     private val filePrefix = "未知应用录音"
 
-    val apps = arrayMapOf(
-        qqPackName to "QQ",
-        wxPackName to "微信",
-        timPackName to "Tim",
-        dyPackName to "抖音",
-//        "org.telegram.messenger" to "Telegram"
+    private val apps = arrayOf(
+        VoipRecorder(qqPackName, "QQ"),
+        VoipRecorder(wxPackName, "微信"),
+        VoipRecorder(qywxPackName, "企业微信"),
+        VoipRecorder(timPackName, "Tim"),
+        VoipRecorder(fsPackName, "飞书"),
+        VoipRecorder(dyPackName, "抖音", "com.bytedance.android.xr.fusion.XrAvCallActivity"),
+//        tgPackName to "Telegram"
     )
 
     override fun onHook() {
+        val appList = arrayListOf<String>()
+        val appMap = arrayMapOf<String, String>()
+        apps.onEachIndexed { _, it ->
+            appList.add(it.packName)
+            if (it.activity.isNotBlank()) appMap[it.packName] = it.activity
+        }
+
         //Source OplusVoipRecorderService
         oplusVoipRecorderService.toClass(initialize = true).apply {
             method { name = "onCreate" }.hook {
                 before {
-                    field { type = ArrayListClass }.giveAll().forEachIndexed { _, field ->
-                        if ((field.get(null) as List<*>).contains(qqPackName).not())
-                            return@forEachIndexed
-                        field { name = field.name;type = ArrayListClass }.get()
-                            .set(apps.keys.toList())
+                    field { type = ArrayListClass }.all().forEachIndexed { _, field ->
+                        val list = field.cast<java.util.ArrayList<String>>()
+                            ?: return@forEachIndexed
+                        if (list.contains(qqPackName) && list.contains(wxPackName)) {
+                            list.clear()
+                            list.addAll(appList)
+                        }
+                        if (list.contains("com.tencent.av.ui.AVActivity")) {
+                            list.addAll(appMap.values)
+                        }
                     }
                 }
             }
             method { emptyParam();returnType = BooleanType }.hook {
                 after {
                     val packName = field { type = StringClass }.get().string()
-                    if (apps.keys.contains(packName)) resultTrue()
+                    if (appList.contains(packName)) resultTrue()
                 }
             }
         }
@@ -83,7 +100,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         val packName = oplusVoipRecorderService.toClass().field {
                             type = StringClass
                         }.get().string()
-                        val appName = apps[packName] ?: return@after
+                        val appName = apps.find { it.packName == packName }?.appName ?: return@after
                         result = fileName.replace(filePrefix, appName)
                     }
                 }
@@ -140,18 +157,19 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         val enabledApp = prefs.getString("enable_record_app", "")?.split("#")
                             ?: arrayListOf()
 
-                        apps.onEachIndexed { index, entry ->
-                            val app = switchAppClazz.toClass().buildOf(
-                                entry.key, enabledApp.contains(entry.key)
-                            ) { param(StringClass, BooleanType) }?.apply {
+                        apps.forEachIndexed { index, it ->
+                            val existApp = enabledApp.contains(it.packName)
+                            val app = switchAppClazz.toClass().buildOf(it.packName, existApp) {
+                                param(StringClass, BooleanType)
+                            }?.apply {
                                 current().field { type = StringClass;order().index().last() }
-                                    .set(entry.value)
-                            } ?: return@onEachIndexed
+                                    .set(it.appName)
+                            } ?: return@forEachIndexed
                             list.add(app)
 
-                            if (enabledApp.contains(entry.key)) {
+                            if (existApp) {
                                 if (index > 0) prefsValue += "#"
-                                prefsValue += entry.key
+                                prefsValue += it.packName
                             }
                         }
 
