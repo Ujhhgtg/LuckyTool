@@ -21,10 +21,6 @@ class UnlockStartupLimitOld(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //Source StartupManager.java
         //Search -> auto_start_max_allow_count -> update max allow count
         dexKitBridge.findClass {
-            searchPackages(
-                "com.coloros.safecenter.startupapp",
-                "com.oplus.safecenter.startupapp"
-            )
             matcher {
                 fields {
                     addForType(IntType)

@@ -30,8 +30,11 @@ class RemoveWelfarePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     }
                 }
             }
-            dexKitBridge.findField {
-                searchPackages("business.mainpanel.view.NavigationRadioButton")
+            dexKitBridge.findClass {
+                matcher {
+                    className("business.mainpanel.view.NavigationRadioButton")
+                }
+            }.findField {
                 matcher {
                     type(StringClass)
                     addReadMethod {

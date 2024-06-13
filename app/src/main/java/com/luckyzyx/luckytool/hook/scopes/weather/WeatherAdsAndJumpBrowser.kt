@@ -218,7 +218,6 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
 
             //Source OppoUtils
             dexKitBridge.findClass {
-                searchPackages("com.coloros.weather.utils")
                 matcher {
                     fields {
                         addForType(BooleanType)

@@ -19,7 +19,6 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
         //Source RiskDialogWrapper
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             dexKitBridge.findClass {
-                searchPackages("com.coloros.securepay")
                 matcher {
                     fields {
                         addForType(BooleanType)

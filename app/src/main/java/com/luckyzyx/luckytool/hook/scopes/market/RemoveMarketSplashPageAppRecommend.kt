@@ -19,7 +19,6 @@ class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
 
         //Source SplashTransaction
         dexKitBridge.findClass {
-            searchPackages("com.nearme.splash.net")
             matcher {
                 fields {
                     addForType(IntType)

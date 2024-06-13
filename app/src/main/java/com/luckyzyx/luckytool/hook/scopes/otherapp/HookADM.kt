@@ -27,7 +27,6 @@ object HookADM : YukiBaseHooker() {
         //Search menu_buy -> firebase.test.lab
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             dexKitBridge.findClass {
-                searchPackages("com.dv.get")
                 matcher {
                     fields {
                         addForType(SharedPreferencesClass)

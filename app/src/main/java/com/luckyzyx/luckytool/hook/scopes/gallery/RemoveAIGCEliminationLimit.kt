@@ -10,14 +10,14 @@ import org.luckypray.dexkit.DexKitBridge
 
 class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
-        //Source EliminateDetectInfo
+        //Source EliminateDetectInfo / PanoramicSegmentationInfo
         dexKitBridge.findClass {
             matcher {
                 addFieldForType(BooleanType)
                 addMethod { name("equals") }
                 addMethod { name("hashCode") }
                 addMethod { name("toString") }
-                usingStrings("EliminateDetectInfo", "isContentSensitive")
+                usingStrings("Info", "isContentSensitive")
             }
         }.apply {
             checkDataList("EliminateDetectInfo")
@@ -34,7 +34,7 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             }
         }
 
-        //Source EliminateStack
+        //Source EliminateStack / PanoramicSegmentationStack
         dexKitBridge.findClass {
             matcher {
                 addFieldForType(IntType)

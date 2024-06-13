@@ -21,6 +21,7 @@ import com.luckyzyx.luckytool.utils.GlobalKeyValue.dyPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.fsPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.qqPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.qywxPackName
+import com.luckyzyx.luckytool.utils.GlobalKeyValue.tgPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.timPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.wxPackName
 import org.luckypray.dexkit.DexKitBridge
@@ -40,7 +41,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         VoipRecorder(timPackName, "Tim"),
         VoipRecorder(fsPackName, "飞书"),
         VoipRecorder(dyPackName, "抖音", "com.bytedance.android.xr.fusion.XrAvCallActivity"),
-//        tgPackName to "Telegram"
+        VoipRecorder(tgPackName, "Telegram", "org.telegram.ui.CallsActivity"),
     )
 
     override fun onHook() {

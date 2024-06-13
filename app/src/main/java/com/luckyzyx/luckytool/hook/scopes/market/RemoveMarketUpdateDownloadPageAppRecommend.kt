@@ -48,7 +48,6 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
 
         //Source APPUpdateItemHolder list_item_product_upgrade
         dexKitBridge.findClass {
-            searchPackages("com.heytap.cdo.client.ui.upgrademgr")
             matcher {
                 fields {
                     addForType(ViewGroupClass)

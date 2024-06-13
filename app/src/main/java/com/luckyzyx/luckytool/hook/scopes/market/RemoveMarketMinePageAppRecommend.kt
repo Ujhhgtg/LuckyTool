@@ -19,7 +19,6 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
 
         //Source MineFragment
         dexKitBridge.findClass {
-            searchPackages("com.heytap.market.mine")
             matcher {
                 fields {
                     addForType(MapClass)

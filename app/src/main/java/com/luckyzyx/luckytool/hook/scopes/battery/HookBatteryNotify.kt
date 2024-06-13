@@ -32,35 +32,34 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     addForType(HandlerClass)
                     addForType(NotificationManager::class.java)
                 }
-                methods {
-                    add {
-                        paramTypes(StringClass, BooleanType)
-                        returnType(UnitType)
-                    }
+                addMethod {
+                    paramTypes(StringClass, BooleanType)
+                    returnType(UnitType)
                 }
                 usingStrings("NotifyUtil")
             }
         }.apply {
             checkDataList("HookBatteryNotify NotifyUtil")
-            val clsName = single().name
 
-            if (highPerformance) dexKitBridge.findMethod {
-                searchPackages(clsName)
-                matcher {
-                    addUsingString("high_performance_channel_id")
-                    addUsingString("ACTION_HIGH_PERFORMANCE")
-                    addUsingNumber(5)
-                }
-            }.apply {
-                checkDataList("HookBatteryNotify highPerformance")
-                single().className.toClass().apply {
-                    method { name = single().methodName;emptyParam() }.hook {
-                        intercept()
+            if (highPerformance) {
+                findMethod {
+                    matcher {
+                        paramCount(0)
+                        returnType(UnitType)
+                        usingStrings("high_performance_channel_id", "ACTION_HIGH_PERFORMANCE")
+                        usingNumbers(5)
+                    }
+                }.apply {
+                    checkDataList("HookBatteryNotify HighPerformance")
+                    single().className.toClass().apply {
+                        method { name = single().methodName;emptyParam() }.hook {
+                            intercept()
+                        }
                     }
                 }
             }
 
-            if (highBatteryConsumption) clsName.toClass().apply {
+            if (highBatteryConsumption) single().name.toClass().apply {
                 method { param(StringClass, BooleanType);returnType = UnitType }.hookAll {
                     intercept()
                 }

@@ -18,14 +18,13 @@ class ForceDisplaySomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
 
         //Source OplusSimInfoActivity changeVolteSwitchConfig
         dexKitBridge.findMethod {
-            searchPackages("com.android.simsettings.activity.OplusSimInfoActivity")
             matcher {
                 paramTypes(IntType, BooleanType, StringClass)
                 returnType(UnitType)
                 usingNumbers(1, 2, 3, 4, 7)
-                usingStrings("changeVolteSwitchConfig")
-                declaredClass {
-                    usingStrings("SIMS_OplusSimInfoActivity")
+                usingStrings("changeVolteSwitchConfig", "SIMS_OplusSimInfoActivity")
+                addUsingField {
+                    type("com.coui.appcompat.preference.COUISwitchPreference")
                 }
             }
         }.apply {
@@ -45,14 +44,13 @@ class ForceDisplaySomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
         }
         //Source OplusSimInfoActivity changeNetworkModeConfig
         dexKitBridge.findMethod {
-            searchPackages("com.android.simsettings.activity.OplusSimInfoActivity")
             matcher {
                 paramTypes(IntType, BooleanType, StringClass)
                 returnType(UnitType)
                 usingNumbers(1, 2, 5)
-                usingStrings("changeNetworkModeConfig")
-                declaredClass {
-                    usingStrings("SIMS_OplusSimInfoActivity")
+                usingStrings("changeNetworkModeConfig", "SIMS_OplusSimInfoActivity")
+                addUsingField {
+                    type("com.coui.appcompat.preference.COUIJumpPreference")
                 }
             }
         }.apply {
