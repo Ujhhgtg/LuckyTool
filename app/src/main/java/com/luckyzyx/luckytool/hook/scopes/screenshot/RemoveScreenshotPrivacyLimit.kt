@@ -31,7 +31,7 @@ class RemoveScreenshotPrivacyLimit(val dexKitBridge: DexKitBridge) : YukiBaseHoo
                 declaredClass {
                     usingStrings("ScreenshotRejectsManager")
                 }
-                addCall {
+                addCaller {
                     paramTypes(BundleClass)
                     usingStrings("loadScreenshotReject")
                 }

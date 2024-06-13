@@ -21,7 +21,7 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
             matcher {
                 paramCount(0)
                 returnType(BooleanType)
-                addCall {
+                addCaller {
                     name("performClick")
                     returnType(UnitType)
                 }
