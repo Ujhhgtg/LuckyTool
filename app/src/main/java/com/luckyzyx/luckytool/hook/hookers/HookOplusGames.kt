@@ -79,11 +79,20 @@ object HookOplusGames : YukiBaseHooker() {
         //自定义弹幕通知白名单
         loadHooker(CustomBarrageNotificationWhitelist)
 
-        val exist = appVer?.versionCode?.let { it < 90000000 } ?: false
         //移除游戏助手工具推荐卡片
         if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
-            if (exist) loadHooker(RemoveToolRecommendationCard)
+            if ((appVer?.versionCode ?: 0) >= 90000000) loadHooker(RemoveToolRecommendationCard)
         }
+
+        //Source GameEyeProtectionFeature cosa_version_not_support
+//        "business.module.gameeyeprotection.GameEyeProtectionFeature".toClass().apply {
+//            method { name = "I";param(StringClass);returnType = BooleanType }.hook {
+//                after {
+//                    YLog.debug("isSupportGameEyeProtect -> $result")
+//                    resultTrue()
+//                }
+//            }
+//        }
 
         //res/layout/layout_perf_cpu_setting_panel_land.xml
         //res/layout/layout_perf_cpu_setting_panel_child.xml

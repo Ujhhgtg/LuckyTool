@@ -38,7 +38,7 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.expand_voip_recorder_whitelist)
-                summary = "企业微信,Tim,飞书,抖音"
+                summary = "企业微信,TIM,飞书,抖音"
                 key = "expand_voip_recorder_whitelist"
                 setDefaultValue(false)
                 isEnabled = context.checkPackName("com.oplus.audiomonitor")

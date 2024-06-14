@@ -119,8 +119,8 @@
     <string name="usepresig_warn">!!!Все установщики могут перезаписывать установленные приложения!!! Будьте осторожны при установке приложений из неизвестных источников</string>
     <string name="shared_user_title">Обход проверки общего пользователя</string>
     <string name="shared_user_summary">Разрешить установку приложения, подпись которого отличается от общего пользователя (<b>также необходимо включить \"Отключить сравнение подписей\"</b>)</string>
-    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
-    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
+    <string name="disable_verification_agent_title">Отключить сервис проверки пакетов</string>
+    <string name="disable_verification_agent_summary">напр. Google Play Protection</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
     <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>

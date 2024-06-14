@@ -28,7 +28,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 息屏随机文本本地模式 C13+
 - [添加] 同步上游核心破解-禁用安装包验证代理
 - [更改] 同步上游DisableFlagSecure-完善更多截屏场景
-- [添加] 扩展通话录音白名单(企业微信,Tim,飞书,抖音) C14.0.1+
+- [添加] 扩展通话录音白名单(企业微信,TIM,飞书,抖音) C14.0.1+
 
 ### 1.2.2
 
