@@ -95,8 +95,8 @@ dependencies {
     //YukiHookAPI
 //    implementation("com.highcapable.yukireflection:api:1.0.2")
     //noinspection GradleDependency
-    implementation("com.highcapable.yukihookapi:api:1.2.0-fix")
-    ksp("com.highcapable.yukihookapi:ksp-xposed:1.2.0")
+    implementation("com.highcapable.yukihookapi:api:1.2.1-fix")
+    ksp("com.highcapable.yukihookapi:ksp-xposed:1.2.1")
 //    implementation(files("libs/yukihookapi-release.jar"))
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
 
@@ -113,7 +113,7 @@ dependencies {
 
     //Material主题
     implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
     //约束布局
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     //快速创建Settings
