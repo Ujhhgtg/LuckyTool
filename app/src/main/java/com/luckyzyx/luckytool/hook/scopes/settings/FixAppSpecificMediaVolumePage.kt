@@ -12,13 +12,17 @@ import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.luckypray.dexkit.DexKitBridge
+import org.luckypray.dexkit.query.enums.StringMatchType
 
 class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source EffectiveCompositionFactory
-        dexKitBridge.findMethod {
-            searchPackages("com.oplus.anim")
+        dexKitBridge.findClass {
+            matcher {
+                className("com.oplus.anim", StringMatchType.StartsWith)
+            }
+        }.findMethod {
             matcher {
                 paramTypes(ContextClass, StringClass, StringClass)
                 usingStrings(".zip", ".lottie")

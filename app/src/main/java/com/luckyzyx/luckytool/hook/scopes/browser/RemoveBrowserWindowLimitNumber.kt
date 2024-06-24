@@ -9,8 +9,11 @@ import org.luckypray.dexkit.DexKitBridge
 class RemoveBrowserWindowLimitNumber(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source TabManager
-        dexKitBridge.findMethod {
-            searchPackages("com.android.browser.TabManager")
+        dexKitBridge.findClass {
+            matcher {
+                className("com.android.browser.TabManager")
+            }
+        }.findMethod {
             matcher {
                 paramCount(0)
                 returnType(IntType)

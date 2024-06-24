@@ -24,6 +24,7 @@ import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge
+import org.luckypray.dexkit.query.enums.StringMatchType
 
 class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge) :
     YukiBaseHooker() {
@@ -274,8 +275,11 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                     }.hookAll { hookBefore(removeAds, disableJump) }
                 }
             }
-            dexKitBridge.findMethod {
-                searchPackages("com.coloros.weather.plugin.webview")
+            dexKitBridge.findClass {
+                matcher {
+                    className("com.coloros.weather.plugin.webview", StringMatchType.StartsWith)
+                }
+            }.findMethod {
                 matcher {
                     paramCount(5)
                     returnType(UnitType)
