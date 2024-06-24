@@ -33,7 +33,9 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
                     val key = args().first().string()
                     if (key == "ringermode") {
                         val provider = field {
-                            name = "mFlavorOneRingerModeTileProvider"
+//                            name = "mFlavorOneRingerModeTileProvider"
+//                            name = "mThreeStageRingerModeTileProvider"
+                            name { it.contains("RingerModeTileProvider") }
                         }.get(instance).any() ?: return@before
                         result = provider.current().method { name = "get" }.call()
                     }
@@ -44,7 +46,8 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         //Source RingerModeTile
         VariousClass(
             "com.oplusos.systemui.qs.tiles.FlavorOneRingerModeTile",  //C13
-            "com.oplus.systemui.qs.tiles.FlavorOneRingerModeTile"  //C14
+            "com.oplus.systemui.qs.tiles.FlavorOneRingerModeTile",  //C14.0 C14.0.1
+            "com.oplus.systemui.qs.tiles.ThreeStageRingerModeTile" //C14.1
         ).toClass().apply {
             method { name = "isAvailable";superClass(true) }.hook {
                 replaceToTrue()
