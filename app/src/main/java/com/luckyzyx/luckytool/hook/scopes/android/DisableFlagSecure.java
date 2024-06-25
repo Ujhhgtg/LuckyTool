@@ -29,10 +29,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 @SuppressLint("PrivateApi")
 public class DisableFlagSecure implements IXposedHookLoadPackage {
     private static final String SYSTEMUI = "com.android.systemui";
-    private static final String OPLUS_SCREENSHOT = "com.oplus.screenshot";
     private static final String OPLUS_APPPLATFORM = "com.oplus.appplatform";
-    private static final String FLYME_SYSTEMUIEX = "com.flyme.systemuiex";
-    private static final String MIUI_SCREENSHOT = "com.miui.screenshot";
     final XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, ModulePrefs);
     private final static Method deoptimizeMethod;
     

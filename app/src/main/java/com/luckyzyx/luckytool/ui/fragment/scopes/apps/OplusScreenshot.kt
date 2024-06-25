@@ -6,9 +6,10 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryLine
 
 @Obfuscate
-class Screenshot : BaseScopePreferenceFeagment() {
+class OplusScreenshot : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.screenshot", "com.oplus.appplatform")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -24,7 +25,10 @@ class Screenshot : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_screenshot_privacy_limit)
-                summary = getString(R.string.remove_screenshot_privacy_limit_summary)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_screenshot_privacy_limit_summary),
+                    getString(R.string.need_restart_system)
+                )
                 key = "remove_screenshot_privacy_limit"
                 setDefaultValue(false)
                 isIconSpaceReserved = false

@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
 import com.luckyzyx.luckytool.hook.scopes.android.LTPODynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.MediaVolumeLevel
 import com.luckyzyx.luckytool.hook.scopes.android.MultiAppConfig
+import com.luckyzyx.luckytool.hook.scopes.android.OplusWindowSecureFlag
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveAccessDeviceLogDialog
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveAppUninstallButtonBlackList
 import com.luckyzyx.luckytool.hook.scopes.android.RemovePasswordTimeoutVerification
@@ -103,6 +104,9 @@ object HookAndroid : YukiBaseHooker() {
 
         //视频动态插帧
         loadHooker(EnableVideoMemcFrameInsertion)
+
+        //安全窗口标志
+        loadHooker(OplusWindowSecureFlag)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)

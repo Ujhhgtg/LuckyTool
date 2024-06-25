@@ -323,7 +323,7 @@
             android:label="{title_label}" />
     <fragment
             android:id="@+id/screenshot"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.Screenshot"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusScreenshot"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/application"
