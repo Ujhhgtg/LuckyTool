@@ -100,6 +100,49 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     }
                 })
             }
+            if (osCode >= 33) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.custom_music_fluid_cloud_whitelist)
+                    key = "custom_music_fluid_cloud_whitelist"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getBoolean(ModulePrefs, "custom_music_fluid_cloud_whitelist")) {
+                    addPreference(Preference(context).apply {
+                        key = "set_custom_music_fluid_cloud_whitelist"
+                        title = getString(R.string.set_custom_music_fluid_cloud_whitelist)
+                        val value = context.getStringSet(ModulePrefs, key, ArraySet())
+                        summary = value.toString()
+                        isIconSpaceReserved = false
+                        setOnPreferenceClickListener {
+                            AppInfoSelector(context, true).apply {
+                                setDefaultShowSystem(true)
+                                setEnabledList(ArrayList(value))
+                                setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                    override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                        val set = ArraySet<String>().apply {
+                                            list.forEachIndexed { _, appInfo ->
+                                                add(appInfo.packageName)
+                                            }
+                                        }
+                                        context.putStringSet(ModulePrefs, key, set.toSet())
+                                        context.sendPrefsValue(
+                                            "com.android.systemui", key, set.toSet()
+                                        )
+                                        (activity as MainActivity).restart()
+                                    }
+                                })
+                                show()
+                            }
+                            true
+                        }
+                    })
+                }
+            }
         }
     }
 

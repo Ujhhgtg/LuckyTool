@@ -32,6 +32,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 三阶段响铃模式磁贴 C14.1
 - [修复] 进程管理,内容推荐页面显示 C14.1
 - [优化] 截屏隐私限制Hook方案 C14.1
+- [添加] 自定义音乐流体云白名单 C14.1
 
 ### 1.2.2
 
