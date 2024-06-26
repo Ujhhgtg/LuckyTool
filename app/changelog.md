@@ -33,6 +33,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 进程管理,内容推荐页面显示 C14.1
 - [优化] 截屏隐私限制Hook方案 C14.1
 - [添加] 自定义音乐流体云白名单 C14.1
+- [适配] 状态栏电量百分比与字体样式 C14.1
 
 ### 1.2.2
 

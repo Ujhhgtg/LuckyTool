@@ -9,9 +9,10 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
 
-object StatusBarPower : YukiBaseHooker() {
+object StatusBarBatteryView : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A14) loadHooker(StatusBarPowerStyle)
         else loadHooker(StatusBarPowerStyleC13)
@@ -19,6 +20,8 @@ object StatusBarPower : YukiBaseHooker() {
 
     object StatusBarPowerStyle : YukiBaseHooker() {
         override fun onHook() {
+            val osCode = getOSVersionCode
+
             val removePercent =
                 prefs(ModulePrefs).getBoolean("remove_statusbar_battery_percent", false)
             val userTypeface = prefs(ModulePrefs).getBoolean("statusbar_power_user_typeface", false)
@@ -39,6 +42,43 @@ object StatusBarPower : YukiBaseHooker() {
                                 }
                                 when (entryName) {
                                     "battery_text" -> if (applyToIcon) view.handBatteryTextView(
+                                        removePercent, userTypeface, useBoldFont, customFontSize
+                                    )
+
+                                    "battery_percentage_view" -> view.handBatteryTextView(
+                                        removePercent, userTypeface, useBoldFont, customFontSize
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    if (osCode >= 33) {
+                        method { name = "bind\$updateOldHorizontal" }.hook {
+                            after {
+                                args.filterIsInstance<TextView>().forEachIndexed { _, view ->
+                                    val entryName = safeOfNull {
+                                        view.resources.getResourceEntryName(view.id)
+                                    }
+                                    when (entryName) {
+                                        "battery_text" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+
+                                        "battery_percentage_view" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        method { name = "updateText" }.hook {
+                            after {
+                                val view = args().first().cast<TextView>() ?: return@after
+                                val entryName = safeOfNull {
+                                    view.resources.getResourceEntryName(view.id)
+                                }
+                                when (entryName) {
+                                    "battery_text" -> view.handBatteryTextView(
                                         removePercent, userTypeface, useBoldFont, customFontSize
                                     )
 

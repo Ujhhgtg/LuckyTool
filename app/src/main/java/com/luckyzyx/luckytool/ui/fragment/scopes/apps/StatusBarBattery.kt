@@ -63,6 +63,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.statusbar_power_apply_to_battery_icon)
                 key = "statusbar_power_apply_to_battery_icon"
                 setDefaultValue(false)
+                isVisible = osCode < 33
                 isIconSpaceReserved = false
             })
             //状态栏电池通知
