@@ -8,9 +8,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object CustomMusicFluidCloudWhitelist : YukiBaseHooker() {
     override fun onHook() {
-        var set =
+        val set =
             prefs(ModulePrefs).getStringSet("set_custom_music_fluid_cloud_whitelist", ArraySet())
-        dataChannel.wait<Set<String>>("set_custom_music_fluid_cloud_whitelist") { set = it }
 
         //Source OplusMediaRusUpdateManager
         "com.oplus.systemui.media.seedling.rus.OplusMediaRusUpdateManager".toClass().apply {

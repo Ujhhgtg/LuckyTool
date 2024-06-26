@@ -125,7 +125,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
             val enableInfos = ArrayList<AppInfo>()
             withDefault {
                 val packageManager = requireActivity().packageManager
-                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
                 enableData.forEach { its ->
                     val find = allAppInfos.find { it.packageName == its }
                     if (find != null) enableInfos.add(find)

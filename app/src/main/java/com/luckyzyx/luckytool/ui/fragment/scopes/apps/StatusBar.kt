@@ -1,19 +1,27 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
 import android.os.Bundle
+import android.util.ArraySet
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
+import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.putStringSet
 
 @Obfuscate
 class StatusBar : BaseScopePreferenceFeagment() {
@@ -168,6 +176,46 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
+            //音乐流体云
+            if (osCode >= 33) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.custom_music_fluid_cloud_whitelist)
+                    key = "custom_music_fluid_cloud_whitelist"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (context.getBoolean(ModulePrefs, "custom_music_fluid_cloud_whitelist")) {
+                    addPreference(Preference(context).apply {
+                        key = "set_custom_music_fluid_cloud_whitelist"
+                        title = getString(R.string.set_custom_music_fluid_cloud_whitelist)
+                        val value = context.getStringSet(ModulePrefs, key, ArraySet())
+                        summary = value.toString()
+                        isIconSpaceReserved = false
+                        setOnPreferenceClickListener {
+                            AppInfoSelector(context, true).apply {
+                                setEnabledList(ArrayList(value))
+                                setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                    override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                        val set = ArraySet<String>().apply {
+                                            list.forEachIndexed { _, appInfo ->
+                                                add(appInfo.packageName)
+                                            }
+                                        }
+                                        context.putStringSet(ModulePrefs, key, set.toSet())
+                                        (activity as MainActivity).restart()
+                                    }
+                                })
+                                show()
+                            }
+                            true
+                        }
+                    })
+                }
+            }
         }
     }
 

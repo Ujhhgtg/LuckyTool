@@ -144,7 +144,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
             val enabledDarkMode = ArrayList<DarkModeInfo>()
             withDefault {
                 val packageManager = requireActivity().packageManager
-                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
                 enableData.forEach { its ->
                     val darkModeInfo = DarkModeInfo().toDarkModeInfo(its) ?: return@forEach
                     val find = allAppInfos.find { it.packageName == darkModeInfo.packName }

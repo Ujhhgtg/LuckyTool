@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.systemui.CustomMusicFluidCloudWhitelist
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarBattery
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarControlCenter
@@ -12,9 +13,13 @@ import com.luckyzyx.luckytool.hook.statusbar.StatusBarNotify
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarSilder
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarTile
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarUI
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookSystemUIStatusBar : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //状态栏
         loadHooker(StatusBarUI)
 
@@ -47,6 +52,11 @@ object HookSystemUIStatusBar : YukiBaseHooker() {
 
         //状态栏电池
         loadHooker(StatusBarBattery)
+
+        //自定义音乐流体云白名单
+        if (prefs(ModulePrefs).getBoolean("custom_music_fluid_cloud_whitelist", false)) {
+            if (osCode >= 33) loadHooker(CustomMusicFluidCloudWhitelist)
+        }
 
         //Source OplusToggleSliderView
 //        "com.oplus.systemui.qs.widget.OplusToggleSliderView".toClass().apply {

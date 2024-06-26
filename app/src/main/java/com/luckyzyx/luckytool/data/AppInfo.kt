@@ -17,6 +17,7 @@ class AppInfo : Serializable {
     val installTime: Long
     val lastInstallTime: Long
     val target: Int
+    var isSystem: Boolean
     var isEnable: Boolean
 
     constructor() {
@@ -29,6 +30,7 @@ class AppInfo : Serializable {
         this.installTime = 0L
         this.lastInstallTime = 0L
         this.target = 0
+        this.isSystem = false
         this.isEnable = false
     }
 
@@ -42,7 +44,8 @@ class AppInfo : Serializable {
         installTime: Long,
         lastInstallTime: Long,
         target: Int,
-        isEnable: Boolean,
+        isSystem: Boolean = false,
+        isEnable: Boolean = true,
     ) {
         this.name = name
         this.packageName = packageName
@@ -54,6 +57,7 @@ class AppInfo : Serializable {
         this.isEnable = isEnable
         this.versionName = versionName
         this.versionCode = versionCode
+        this.isSystem = isSystem
         this.isEnable = isEnable
     }
 }

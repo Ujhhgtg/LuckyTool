@@ -92,12 +92,11 @@ class PackageUtils(private val packageManager: PackageManager) {
         return packageManager.getApplicationEnabledSetting(packName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
     }
 
-    fun getInstalledAppInfos(flag: Int, allowSystem: Boolean = false): ArrayList<AppInfo> {
+    fun getInstalledAppInfos(flag: Int): ArrayList<AppInfo> {
         val appInfoList = ArrayList<AppInfo>()
         getInstalledPackages(flag).forEachIndexed { _, info ->
             try {
                 val applicationInfo = info.applicationInfo ?: return@forEachIndexed
-                if (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM == 1 && !allowSystem) return@forEachIndexed
                 val name = applicationInfo.loadLabel(packageManager)
                 val icon = applicationInfo.loadIcon(packageManager)
                 val size = FileUtils.getFileSize(File(applicationInfo.sourceDir))
@@ -106,11 +105,12 @@ class PackageUtils(private val packageManager: PackageManager) {
                 val installTime = info.firstInstallTime
                 val lastInstallTime = info.lastUpdateTime
                 val target = applicationInfo.targetSdkVersion
+                val isSystem = applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM == 1
                 val isEnable = getApplicationEnabledSetting(info.packageName)
                 appInfoList.add(
                     AppInfo(
                         name.toString(), info.packageName, icon, size, versionName, versionCode,
-                        installTime, lastInstallTime, target, isEnable
+                        installTime, lastInstallTime, target, isSystem, isEnable
                     )
                 )
             } catch (e: Exception) {

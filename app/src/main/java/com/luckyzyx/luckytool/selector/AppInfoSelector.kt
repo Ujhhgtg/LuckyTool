@@ -152,12 +152,13 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
             val allEnableInfos = ArrayList<AppInfo>()
             withDefault {
                 val packageManager = context.packageManager
-                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0, showSystemApp)
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
                 enabledList.forEach { its ->
                     val find = allAppInfos.find { it.packageName == its }
                     if (find != null) allEnableInfos.add(find)
                 }
                 allAppInfos.apply {
+                    if (!showSystemApp) removeIf { it.isSystem }
                     when (sortMode) {
                         0 -> sortBy { it.name }
                         1 -> sortBy { it.packageName }

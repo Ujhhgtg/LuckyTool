@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.systemui.CustomMusicFluidCloudWhitelist
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveChargingCompleted
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDanmakuNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDoNotDisturbModeNotification
@@ -12,12 +11,9 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSmallWindowReplyWhiteli
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object StatusBarNotify : YukiBaseHooker() {
     override fun onHook() {
-        val osCode = getOSVersionCode
-
         //移除充电完成通知
         if (prefs(ModulePrefs).getBoolean("remove_charging_completed", false)) {
             loadHooker(RemoveChargingCompleted)
@@ -45,10 +41,6 @@ object StatusBarNotify : YukiBaseHooker() {
         //弹幕通知白名单
         if (prefs(ModulePrefs).getBoolean("remove_danmaku_notification_whitelist", false)) {
             if (SDK < A14) loadHooker(RemoveDanmakuNotificationWhitelist)
-        }
-        //自定义音乐流体云白名单
-        if (prefs(ModulePrefs).getBoolean("custom_music_fluid_cloud_whitelist", false)) {
-            if (osCode >= 33) loadHooker(CustomMusicFluidCloudWhitelist)
         }
     }
 }
