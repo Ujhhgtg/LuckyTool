@@ -761,6 +761,8 @@
     <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Root oprávnění musí být uděleno, aby mohly aplikace třetích stran nahrávat hovory</string>
     <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
+    <!--OplusEyeProtect-->
+    <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

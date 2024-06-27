@@ -141,6 +141,14 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 //            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_vip_mode", false)) {
 //                put("oplus.software.stealth_security_mode", true)
 //            }
+
+            //
+            //Source EyeProtect PaperTexturePreference 纸质纹理调节
+            if (prefs(ModulePrefs).getBoolean("enable_eyeprotect_paper_texture_support", false)) {
+                if (osCode >= 33) {
+                    put("oplus.software.display.eyeprotect_paper_texture_support", true)
+                }
+            }
         }
         loadHooker(HookFeatureConfigManager(list))
     }

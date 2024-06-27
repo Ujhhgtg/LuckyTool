@@ -761,6 +761,8 @@
     <string name="enable_record_calls_on_third_party_apps_tips">Prerequisito: è necessario che sia installata l\'applicazione di registrazione delle chiamate a tre (com.oplus.audiomonitor), le autorizzazioni del microfono e le autorizzazioni del comportamento in background</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Il permesso di root deve essere concesso a \"Registrazione di chiamata di applicazione di tre parti\"</string>
     <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
+    <!--OplusEyeProtect-->
+    <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Salta la pagina iniziale</string>
     <string name="vip_download">Scarica originale</string>

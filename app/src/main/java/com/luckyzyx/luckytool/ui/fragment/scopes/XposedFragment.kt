@@ -608,6 +608,23 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     true
                 }
             },
+            //EyeProtect
+            Preference(context).apply {
+                key = "com.oplus.eyeprotect"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = context.getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.enable_eyeprotect_paper_texture_support)
+                )
+                isVisible = getOSVersionCode >= 33 && context.checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.action_nav_function_to_oplusEyeProtect, title)
+                    true
+                }
+            },
             //Other App
             Preference(context).apply {
                 key = "com.ruet_cse_1503050.ragib.appbackup.pro"

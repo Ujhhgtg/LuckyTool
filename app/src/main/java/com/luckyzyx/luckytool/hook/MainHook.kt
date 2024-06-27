@@ -30,6 +30,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookCloudService
 import com.luckyzyx.luckytool.hook.hookers.HookCosa
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
+import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
 import com.luckyzyx.luckytool.hook.hookers.HookGesture
 import com.luckyzyx.luckytool.hook.hookers.HookLauncher
@@ -174,6 +175,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.oplus.atlas", HookAtlasService)
         //audioEffectCenter
         loadApp("com.oplus.audio.effectcenter", HookAudioEffectCenter)
+        //护眼模式
+        loadApp("com.oplus.eyeprotect", HookEyeProtect)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
