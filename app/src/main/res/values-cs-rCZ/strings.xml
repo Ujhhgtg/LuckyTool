@@ -595,6 +595,8 @@
     <string name="enable_game_acceleration">Povolit herní zrychlení</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
+    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
+    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
     <string name="customize_device_sharing_page_parameters">Konfigurace nastavení stránky sdílení zařízení</string>
     <string name="customize_device_ota_card_background">Přizpůsobit OTA pozadí karty zařízení</string>

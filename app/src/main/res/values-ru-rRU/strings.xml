@@ -596,6 +596,8 @@
     <string name="enable_game_acceleration">Включить ускорение игры</string>
     <string name="settings_about_device">Об устройстве</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
+    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
+    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
     <string name="customize_device_sharing_page_parameters">Настройка параметров страницы совместного доступа к устройствам</string>
     <string name="customize_device_ota_card_background">Настройка фона карты OTA устройства</string>

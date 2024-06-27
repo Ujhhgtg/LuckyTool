@@ -29,6 +29,12 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 "2" -> put("ro.oplus.gaussianlevel", 2)
                 "3" -> put("ro.oplus.gaussianlevel", 3)
             }
+            //Source Android OplusFeatureMEMC 启用视频动态插帧
+            if (prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
+            ) {
+                put("ro.oplus.display.memc_video_refreshrate", true)
+                put("vendor.display.show_memc_tomast", true)
+            }
 
             //Source SystemUI OplusVolumeDialogImpl 音量条位置
             when (prefs(ModulePrefs).getString("set_volume_bar_display_position", "0")) {
@@ -53,17 +59,20 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                     put("ro.oplus.audio.support.meta_suspend_effect", 1)
                 }
             }
-
             //Source Settings ScreenMinBrightnessController isMinBrightnessSp 启用最低自动亮度
             if (prefs(ModulePrefs).getBoolean("enable_lowest_allowed_brightness", false)) {
                 put("ro.oplus.display.brightness.min_settings.rm", "1,2,15,4.0,0")
             }
-
-            //Source Android OplusFeatureMEMC 启用视频动态插帧
-            if (prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)
+            //Source Settings DeviceInfoUtils 马里亚纳NPU
+            if (prefs(ModulePrefs).getBoolean("enable_mariana_npu_introduction_page", false)) {
+                put("ro.vendor.oplus.camera.isSupportExplorer", true)
+            }
+            //Source Settings DeviceInfoUtils 哈苏影像
+            if (prefs(ModulePrefs).getBoolean(
+                    "enable_hasselblad_camera_introduction_page", false
+                )
             ) {
-                put("ro.oplus.display.memc_video_refreshrate", true)
-                put("vendor.display.show_memc_tomast", true)
+                put("ro.vendor.oplus.camera.isHasselbladCamera", true)
             }
 
             //Source Phone 启用5G
@@ -73,7 +82,7 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
 
             //Source SoundRecorder / AtlasService 三方应用通话录音
             if (prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)) {
-                if (osCode >= 30) put("ro.oplus.audio.voip_record_white_app_support", true)
+                if (osCode == 30) put("ro.oplus.audio.voip_record_white_app_support", true)
             }
         }
         loadHooker(HookSystemProperties(list))

@@ -323,9 +323,24 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
                 addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_mariana_npu_introduction_page)
+                    key = "enable_mariana_npu_introduction_page"
+                    setDefaultValue(false)
+                    isVisible = osCode >= 27
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_hasselblad_camera_introduction_page)
+                    key = "enable_hasselblad_camera_introduction_page"
+                    setDefaultValue(false)
+                    isVisible = osCode >= 27
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
                     title = getString(R.string.screen_physics_size_shown_cm)
                     key = "screen_physics_size_shown_cm"
                     setDefaultValue(false)
+                    isVisible = osCode >= 27
                     isIconSpaceReserved = false
                 })
                 addPreference(SwitchPreference(context).apply {

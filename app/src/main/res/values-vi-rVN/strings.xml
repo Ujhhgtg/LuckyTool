@@ -595,6 +595,8 @@
     <string name="enable_game_acceleration">Bật tính năng tăng tốc trò chơi</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
+    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
+    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>
     <string name="customize_device_sharing_page_parameters">Tùy chỉnh thông số trang chia sẻ thiết bị</string>
     <string name="customize_device_ota_card_background">Tùy chỉnh nền thẻ OTA của thiết bị</string>

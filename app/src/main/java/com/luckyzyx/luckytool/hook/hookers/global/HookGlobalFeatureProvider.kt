@@ -61,11 +61,18 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)) {
                 put("com.android.settings.show_never_timeout", true)
             }
-            val processorDetail = prefs(ModulePrefs).getString("set_processor_click_page", "0")
-            //Source Settings com.android.settings.processor_detail
-            if (processorDetail != "0") put("com.android.settings.processor_detail", true)
-            //Source Settings com.android.settings.processor_detail_gen2
-            if (processorDetail == "2") put("com.android.settings.processor_detail_gen2", true)
+            //Source Settings com.android.settings.processor_detail / com.android.settings.processor_detail_gen2
+            when (prefs(ModulePrefs).getString("set_processor_click_page", "0")) {
+                "1" -> {
+                    put("com.android.settings.processor_detail", true)
+                    put("com.android.settings.processor_detail_gen2", false)
+                }
+
+                "2" -> {
+                    put("com.android.settings.processor_detail", true)
+                    put("com.android.settings.processor_detail_gen2", true)
+                }
+            }
 
             //Source Settings 最近任务极致清理
             if (prefs(ModulePrefs).getBoolean("force_display_process_management", false)) {

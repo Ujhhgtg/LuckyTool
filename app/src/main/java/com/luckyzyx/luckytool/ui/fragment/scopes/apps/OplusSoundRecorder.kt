@@ -33,7 +33,7 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isEnabled =
                     context.checkPackName("com.oplus.audiomonitor") && context.checkPackName("com.oplus.atlas")
-                isVisible = osCode >= 30 && isZh(context)
+                isVisible = osCode == 30 && isZh(context)
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

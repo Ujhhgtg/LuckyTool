@@ -595,6 +595,8 @@
     <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">About Device</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
+    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
+    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
     <string name="screen_physics_size_shown_cm">Screen physical dimensions are shown in centimeters</string>
     <string name="customize_device_sharing_page_parameters">Customize device sharing page parameters</string>
     <string name="customize_device_ota_card_background">Customize device OTA card background</string>

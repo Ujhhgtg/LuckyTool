@@ -595,6 +595,8 @@
     <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">デバイス情報</string>
     <string name="set_processor_click_page">プロセッサーをタップしてページにジャンプするように設定します</string>
+    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
+    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
     <string name="screen_physics_size_shown_cm">画面の物理的な寸法をセンチメートルで表示</string>
     <string name="customize_device_sharing_page_parameters">デバイス共有ページのパラメータをカスタマイズ</string>
     <string name="customize_device_ota_card_background">Customize device OTA card background</string>
