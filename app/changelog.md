@@ -35,6 +35,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 自定义音乐流体云白名单 C14.1
 - [适配] 状态栏电量百分比与字体样式 C14.1
 - [适配] 移除App更新圆点 C14.1
+- [修复] 自定义状态栏时钟与流体云间距异常 C14.1
 
 ### 1.2.2
 

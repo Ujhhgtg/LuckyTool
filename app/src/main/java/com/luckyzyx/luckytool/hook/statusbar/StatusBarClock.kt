@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.is24
 import com.luckyzyx.luckytool.utils.isZh
 import java.lang.reflect.Method
@@ -85,7 +86,7 @@ object StatusBarClock : YukiBaseHooker() {
                             Handler(clockView.context.mainLooper).post(r)
                         }
                     }
-                    Timer().scheduleAtFixedRate(T(), 1000 - System.currentTimeMillis() % 1000, 1000)
+                    Timer().schedule(T(), 1000 - System.currentTimeMillis() % 1000, 1000)
                 }
             }
             method { name = "getSmallTime";returnType = CharSequenceClass }.hook {
@@ -116,6 +117,18 @@ object StatusBarClock : YukiBaseHooker() {
                 if (SDK > A11) name = "onConfigurationChanged"
             }.hook {
                 intercept()
+            }
+            if (getOSVersionCode >= 33) {
+                method { name = "onMeasure" }.hook {
+                    before {
+                        field { name = "mShowSeconds";superClass() }.get(instance).setTrue()
+                    }
+                }
+                method { name = "updateMinWidth" }.hook {
+                    before {
+                        field { name = "mShowSeconds";superClass() }.get(instance).setTrue()
+                    }
+                }
             }
         }
     }
