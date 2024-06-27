@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">アプリのショートカットバッジを削除</string>
     <string name="remove_app_work_badge">アプリの仕事用バッジを削除</string>
     <string name="remove_app_clone_badge">アプリのクローンバッジを削除</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">フォルダレイアウト関連</string>
     <string name="remove_folder_preview_background">フォルダプレビューの背景を削除</string>
     <string name="enable_folder_layout_adjustment">フォルダレイアウトの調整を有効化</string>

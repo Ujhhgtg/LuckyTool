@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.heytapcloud
+package com.luckyzyx.luckytool.hook.scopes.cloudservice
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method

@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">Видалити іконку додатку</string>
     <string name="remove_app_work_badge">Remove app work badge</string>
     <string name="remove_app_clone_badge">Видалити іконку клонованої програми</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Розмітка папки</string>
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Увімкнути зміну розташування папок</string>

@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">Rimuovi badge collegamento app</string>
     <string name="remove_app_work_badge">Rimuovi badge di lavoro app</string>
     <string name="remove_app_clone_badge">Rimuovi badge clona app</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Stile Tile</string>
     <string name="remove_folder_preview_background">Rimuovi lo sfondo dell\'anteprima della cartella</string>
     <string name="enable_folder_layout_adjustment">Abilita le regolazioni del layout delle cartelle</string>

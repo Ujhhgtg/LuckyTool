@@ -9,14 +9,14 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object HookLauncherFeature : YukiBaseHooker() {
     override fun onHook() {
-        val removeAppDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)
+        val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)
 
         //Source FeatureOption
         "com.android.common.config.FeatureOption".toClass().apply {
             if (hasField { name = "isSupportAppUpdateDotSwitch" }.not()) return@apply
             method { name = "initFeature" }.hook {
                 after {
-                    if (removeAppDot) field { name = "isSupportAppUpdateDotSwitch" }.get().setTrue()
+                    if (appUpdateDot) field { name = "isSupportAppUpdateDotSwitch" }.get().setTrue()
                 }
             }
         }
@@ -25,7 +25,7 @@ object HookLauncherFeature : YukiBaseHooker() {
         "com.android.launcher.settings.LauncherSettingsUtils".toClass().apply {
             if (hasMethod { name = "isSupportAppUpdateDot" }.not()) return@apply
             method { name = "isSupportAppUpdateDot" }.hook {
-                if (removeAppDot) replaceToTrue()
+                if (appUpdateDot) replaceToTrue()
             }
         }
     }

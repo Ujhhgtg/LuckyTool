@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_work_badge">Xóa huy hiệu không gian làm việc của ứng dụng</string>
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Bố cục gạch liên quan</string>
     <string name="remove_folder_preview_background">Xóa nền xem trước thư mục</string>
     <string name="enable_folder_layout_adjustment">Bật điều chỉnh bố cục thư mục</string>

@@ -10,19 +10,23 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.LauncherLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.LongPressAppIconOpenAppDetails
 import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
 import com.luckyzyx.luckytool.hook.scopes.launcher.RecentTaskListClearButton
+import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveAppUpdateGreenDot
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
 import com.luckyzyx.luckytool.hook.scopes.launcher.UnlockTaskLocks
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookLauncher : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         loadHooker(HookGlobalFeatureConfig)
 
         //HookLauncherFeature
-        loadHooker(HookLauncherFeature)
+        if (osCode < 33) loadHooker(HookLauncherFeature)
 
         //HookDeviceProfileOption
         loadHooker(HookDeviceProfileOption)
@@ -63,6 +67,10 @@ object HookLauncher : YukiBaseHooker() {
         //允许锁定或解锁已排除活动
         if (prefs(ModulePrefs).getBoolean("allow_locking_unlocking_of_excluded_activity", false)) {
             loadHooker(AllowLockingUnLockingOfExcludedActivity)
+        }
+        //移除App更新圆点
+        if (prefs(ModulePrefs).getBoolean("remove_app_update_green_dot", false)) {
+            if (osCode >= 33) loadHooker(RemoveAppUpdateGreenDot)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl

@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">Odstranit odznak na ikoně aplikace</string>
     <string name="remove_app_work_badge">Odstranit značku pracovní aplikace</string>
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Rozvržení složky</string>
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>

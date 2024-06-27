@@ -54,6 +54,14 @@ class Launcher : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.enable_display_app_update_dot_summary)
                 key = "enable_display_app_update_dot"
                 setDefaultValue(false)
+                isVisible = osCode < 33
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_app_update_green_dot)
+                key = "remove_app_update_green_dot"
+                setDefaultValue(false)
+                isVisible = osCode >= 33
                 isIconSpaceReserved = false
             })
             if (SDK >= A13) {

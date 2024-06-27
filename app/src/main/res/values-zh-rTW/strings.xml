@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">移除应用快捷方式徽章</string>
     <string name="remove_app_work_badge">移除应用工作空间徽章</string>
     <string name="remove_app_clone_badge">移除应用分身徽章</string>
+    <string name="remove_app_update_green_dot">移除 App 更新圆点</string>
     <string name="FolderLayoutRelated">文件夹布局相关</string>
     <string name="remove_folder_preview_background">移除文件夹预览背景</string>
     <string name="enable_folder_layout_adjustment">启用文件夹布局调整</string>

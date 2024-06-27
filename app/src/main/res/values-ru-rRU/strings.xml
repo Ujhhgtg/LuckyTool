@@ -189,8 +189,8 @@
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
-    <string name="custom_music_fluid_cloud_whitelist">Custom music fluid cloud whitelist</string>
-    <string name="set_custom_music_fluid_cloud_whitelist">Set up music fluid cloud whitelist</string>
+    <string name="custom_music_fluid_cloud_whitelist">Пользовательский белый список fluid cloud</string>
+    <string name="set_custom_music_fluid_cloud_whitelist">Настроить белый список fluid cloud</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в статусбаре</string>
     <string name="StatusBarIcon_summary">Иконки в стоке состояния</string>
@@ -332,15 +332,15 @@
     <string name="set_aod_notification_icon_style">Установить стиль иконки уведомления AOD</string>
     <string name="force_enable_screen_off_music_support">Включить поддержку музыки при отключенном экране</string>
     <string name="force_enable_screen_off_music_support_summary">Применимо только к моделям, которые не поддерживают музыку при отключенном экране</string>
-    <string name="AodRandomText">Aod Random Text</string>
-    <string name="set_random_text_display_mode">Set random text display mode</string>
-    <string name="set_random_text_display_mode_tips1">Need to enable aod personalized text</string>
-    <string name="set_random_text_display_mode_tips2">It may cause aod freezes and other issues</string>
-    <string name="set_random_text_display_mode_local_file">Local File</string>
-    <string name="set_random_text_display_mode_remote_api">Remote Api</string>
-    <string name="custom_random_text_file">Custom random text file</string>
-    <string name="custom_random_text_api">Custom random text api</string>
-    <string name="AodTypface">Aod Typface</string>
+    <string name="AodRandomText">Случайный текст на AOD</string>
+    <string name="set_random_text_display_mode">Установить режим случайного отображения текста</string>
+    <string name="set_random_text_display_mode_tips1">Необходимо включить персонализированный текст AOD</string>
+    <string name="set_random_text_display_mode_tips2">Это может привести к зависанию AOD и другим проблемам</string>
+    <string name="set_random_text_display_mode_local_file">Локальный файл</string>
+    <string name="set_random_text_display_mode_remote_api">Удаленный Api</string>
+    <string name="custom_random_text_file">Пользовательский случайный текстовый файл</string>
+    <string name="custom_random_text_api">Пользовательский случайный текстовый API</string>
+    <string name="AodTypface">Шрифт AOD</string>
     <string name="set_aod_typeface_mode">Установить режим шрифта AOD</string>
     <string name="apply_aod_clock_typeface">Применить шрифт к часам AOD</string>
     <!--LockScreen-->
@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">Удалить иконку приложения</string>
     <string name="remove_app_work_badge">Удалить рабочую иконку приложения</string>
     <string name="remove_app_clone_badge">Удалить иконку клонированного приложения</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
@@ -608,7 +609,7 @@
     <string name="remove_settings_bottom_laboratory">Удалить настройки лаборатории</string>
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
     <!--Camera-->
-    <string name="enable_camera_debug_ui_option">Enable DebugUI option</string>
+    <string name="enable_camera_debug_ui_option">Включить функцию отладки</string>
     <string name="custom_camera_open_gallery_by_default">Галерея, которая открывается по умолчанию</string>
     <string name="custom_camera_open_gallery_by_default_tips">Разрешить выбор только одного приложения галереи!</string>
     <string name="CameraWaterMark">Водяной знак</string>
@@ -760,7 +761,7 @@
     <string name="enable_record_calls_on_third_party_apps">Включить запись звонков в сторонних приложениях</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Предварительное условие: Необходимо установить \"Запись вызовов в сторонних приложениях (com.oplus.audiomonitor)\", а также дать разрешения на микрофон и работу в фоне</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Необходимо предоставить root-права для \"Записи вызовов сторонних приложений\"</string>
-    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
+    <string name="expand_voip_recorder_whitelist">Белый список расширенных вызовов</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

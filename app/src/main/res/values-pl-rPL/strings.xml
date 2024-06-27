@@ -392,6 +392,7 @@
     <string name="remove_app_shortcut_badge">Remove app shortcut badge</string>
     <string name="remove_app_work_badge">Remove app work badge</string>
     <string name="remove_app_clone_badge">Remove app clone badge</string>
+    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Układ folderu</string>
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Włącz dostosowywanie układu folderu</string>
