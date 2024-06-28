@@ -35,15 +35,6 @@ import java.io.InputStreamReader
 object FileUtils {
 
     /**
-     * 返回cache目录
-     * @receiver Context
-     * @return File
-     */
-    fun Context.cacheFile(): File {
-        return File(cacheDir.path)
-    }
-
-    /**
      * 返回cache目录child
      * @receiver Context
      * @param child String
@@ -369,14 +360,14 @@ object FileUtils {
                         if (xmlParser.name == "string") {
                             key = xmlParser.getAttributeValue(null, "name")
                         }
-                        if (xmlParser.name == "int" || xmlParser.name == "boolean") {
+                        if (xmlParser.name == "int" || xmlParser.name == "long" || xmlParser.name == "boolean") {
                             key = xmlParser.getAttributeValue(null, "name")
                         }
                         xmlParser.next()
                         if (xmlParser.name == "string") {
                             value = xmlParser.text
                         }
-                        if (xmlParser.name == "int" || xmlParser.name == "boolean") {
+                        if (xmlParser.name == "int" || xmlParser.name == "long" || xmlParser.name == "boolean") {
                             value = xmlParser.getAttributeValue(null, "value")
                         }
                         if (key != null && value != null) {

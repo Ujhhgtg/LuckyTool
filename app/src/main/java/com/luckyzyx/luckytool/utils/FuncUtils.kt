@@ -1226,18 +1226,19 @@ suspend fun Context.getQSlist(): ArrayList<String> {
 
 suspend fun Context.getCSid(): ArrayList<String> {
     return withDefault {
-        val cachelist = ArrayList<String>()
-        getUsers().forEach { u ->
-            val dir = getString(R.string.cool_black, u)
-            val command = "cat $dir | grep 'name=\"uid\"'"
-            val str = ShellUtils.fastCmd(command).let { its ->
-                if (its.isNotBlank()) {
-                    its.replaceSpace.filterNumber
-                } else ""
+        val xmlDir = getString(R.string.cool_black, "0")
+        ArrayList<String>().apply {
+            Shell.cmd("cat $xmlDir | grep 'name=\"USER_SPAM'").to(this).exec()
+            forEachIndexed { index, s ->
+                val id = s.replaceSpace.replaceBefore("\"", "")
+                    .replaceAfterLast("\"", "")
+                    .replace("\"", "")
+                    .replaceBeforeLast("_", "")
+                    .replace("_", "")
+                this[index] = id
             }
-            if (str.isNotBlank()) cachelist.add(str)
+            removeIf { it.isBlank() }
         }
-        cachelist.apply { removeIf { it.isBlank() } }
     }
 }
 

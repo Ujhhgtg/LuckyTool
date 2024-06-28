@@ -203,7 +203,6 @@ object AppAnalyticsUtils {
             })
             put("dik", JSONArray().apply {
                 put("e3db3345c2de23bf02477ce21a3c12c9539eb9df36dc233d81b902477435f816")
-                put("612ad8af5d20ff6faeb3c165b6140b7c0c414d1d674c3287c80215a0dc94dd2a")
             })
             put("magical", JSONArray().apply {
 
