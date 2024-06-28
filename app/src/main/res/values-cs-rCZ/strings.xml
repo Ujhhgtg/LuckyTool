@@ -758,6 +758,7 @@
     <string name="unlock_recent_files">Odemknout nedávné soubory</string>
     <string name="unlock_fluid_cloud">Odemknout Fluid Cloud</string>
     <string name="enable_run_in_background">Povolit spouštění na pozadí</string>
+    <string name="enable_game_ai_play">Enable AI Game Assist</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Povolit nahrávání hovorů v aplikacích třetích stran</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>

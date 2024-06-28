@@ -758,6 +758,7 @@
     <string name="unlock_recent_files">最近使ったファイルをアンロック</string>
     <string name="unlock_fluid_cloud">Fluid Cloud をアンロック</string>
     <string name="enable_run_in_background">Enable run in background</string>
+    <string name="enable_game_ai_play">Enable AI Game Assist</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">サードパーティアプリでの通話録音を有効化</string>
     <string name="enable_record_calls_on_third_party_apps_tips">「サードパーティアプリ通話録音 (com.oplus.audiomonitor)」をインストールし、マイクの権限とバックグラウンド動作を許可する必要があります</string>

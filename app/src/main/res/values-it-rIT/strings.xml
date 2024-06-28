@@ -758,6 +758,7 @@
     <string name="unlock_recent_files">Sblocca file recenti</string>
     <string name="unlock_fluid_cloud">Sblocca Fluid Cloud</string>
     <string name="enable_run_in_background">Abilita Esegui in background</string>
+    <string name="enable_game_ai_play">Enable AI Game Assist</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Abilita registrazione chiamate su applicazioni di terze parti</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Prerequisito: è necessario che sia installata l\'applicazione di registrazione delle chiamate a tre (com.oplus.audiomonitor), le autorizzazioni del microfono e le autorizzazioni del comportamento in background</string>

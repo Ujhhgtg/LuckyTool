@@ -200,6 +200,13 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_game_ai_play)
+                key = "enable_game_ai_play"
+                setDefaultValue(false)
+                isVisible = appVerInfo?.versionCode?.let { it >= 90130000 } ?: false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_danmaku_notification_whitelist)
                 key = "remove_danmaku_notification_whitelist"
                 setDefaultValue(false)

@@ -137,6 +137,8 @@ class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: D
             //Search magic_voice_config
             val magicVoice =
                 prefs(ModulePrefs).getBoolean("remove_game_voice_changer_whitelist", false)
+            //Source AIPlayFeature
+            val aiPlay = prefs(ModulePrefs).getBoolean("enable_game_ai_play", false)
 
             //Source CloudConditionUtil
             "com.coloros.gamespaceui.config.cloud.CloudConditionUtil".toClass().apply {
@@ -160,6 +162,8 @@ class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: D
                             "one_plus_characteristic" -> if (oneplusCharacteristic) resultTrue()
                             //游戏滤镜
 //                            "game_filter_config" -> resultTrue()
+                            //AI辅助
+                            "game_ai_play_key" -> if (aiPlay) resultTrue()
                         }
                     }
                 }

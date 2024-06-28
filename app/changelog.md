@@ -40,6 +40,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用马里亚纳NPU介绍页面 C13.1+
 - [添加] 启用哈苏影像介绍页面 C13.1+
 - [适配] 软件商店更新下载页面底部信息流 v11.16.0beta2(96d034a)
+- [添加] 启用游戏助手AI游戏辅助 v9.13.X
 
 ### 1.2.2
 

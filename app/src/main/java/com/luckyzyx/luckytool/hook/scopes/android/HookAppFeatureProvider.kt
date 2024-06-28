@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.database.Cursor
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
@@ -18,10 +19,15 @@ class HookAppFeatureProvider(
         //Source AppFeatureProviderUtils
         dexKitBridge.findClass {
             matcher {
-                addMethod { paramTypes(ContentResolverClass, null, StringClass) }
+//                addFieldForType(Uri::class.java)
+//                addMethod { paramTypes(ContentResolverClass, null, StringClass) }
                 addMethod { paramTypes(ContentResolverClass, null) }
+                addMethod {
+                    usingStrings("featurename")
+                    returnType(Cursor::class.java)
+                }
                 usingStrings(
-                    "AppFeatureProviderUtils",
+//                    "AppFeatureProviderUtils",
                     "content://com.oplus.customize.coreapp.configmanager.configprovider.AppFeatureProvider"
                 )
             }
@@ -41,30 +47,37 @@ class HookAppFeatureProvider(
                     }
                 }
                 //getBoolean
-                method {
-                    param(ContentResolverClass, StringClass, BooleanType)
-                    returnType = BooleanType
-                }.hook {
-                    before {
-                        val key = args(1).cast<String>()
-                        if (key.isNullOrBlank()) return@before
-                        val value = features[key]
-                        if (value != null && value is Boolean) result = value
+                if (hasMethod {
+                        param(ContentResolverClass, StringClass, BooleanType)
+                        returnType = BooleanType
+                    }) {
+                    method {
+                        param(ContentResolverClass, StringClass, BooleanType)
+                        returnType = BooleanType
+                    }.hook {
+                        before {
+                            val key = args(1).cast<String>()
+                            if (key.isNullOrBlank()) return@before
+                            val value = features[key]
+                            if (value != null && value is Boolean) result = value
+                        }
                     }
                 }
                 //getString
                 if (hasMethod {
                         param(ContentResolverClass, StringClass, StringClass)
                         returnType = StringClass
-                    }) method {
-                    param(ContentResolverClass, StringClass, StringClass)
-                    returnType = StringClass
-                }.hook {
-                    before {
-                        val key = args(1).cast<String>()
-                        if (key.isNullOrBlank()) return@before
-                        val value = features[key]
-                        if (value != null && value is String) result = value
+                    }) {
+                    method {
+                        param(ContentResolverClass, StringClass, StringClass)
+                        returnType = StringClass
+                    }.hook {
+                        before {
+                            val key = args(1).cast<String>()
+                            if (key.isNullOrBlank()) return@before
+                            val value = features[key]
+                            if (value != null && value is String) result = value
+                        }
                     }
                 }
             }
