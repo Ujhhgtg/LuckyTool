@@ -31,7 +31,7 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                 addFieldForName("mDataUtil")
                 addMethod {
                     name("processData")
-                    paramTypes(ListClass, IntType, null)
+//                    paramTypes(ListClass, IntType, null)
                     returnType(ListClass)
                 }
             }
