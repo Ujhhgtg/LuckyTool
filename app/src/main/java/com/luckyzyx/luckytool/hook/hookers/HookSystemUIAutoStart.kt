@@ -31,6 +31,7 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
             }
 
             onCreate {
+                val intentFilter = IntentFilter("LuckyTool_CloseCollapse")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     registerReceiver(object : BroadcastReceiver() {
                         @SuppressLint("WrongConstant")
@@ -39,9 +40,7 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
                                 ?: return
                             service.javaClass.method { name = "collapsePanels" }.get(service).call()
                         }
-                    }, IntentFilter().apply {
-                        addAction("LuckyTool_CloseCollapse")
-                    }, Context.RECEIVER_EXPORTED)
+                    }, intentFilter, Context.RECEIVER_EXPORTED)
                 } else {
                     registerReceiver(object : BroadcastReceiver() {
                         @SuppressLint("WrongConstant", "InlinedApi")
@@ -50,9 +49,7 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
                                 ?: return
                             service.javaClass.method { name = "collapsePanels" }.get(service).call()
                         }
-                    }, IntentFilter().apply {
-                        addAction("LuckyTool_CloseCollapse")
-                    })
+                    }, intentFilter)
                 }
             }
         }

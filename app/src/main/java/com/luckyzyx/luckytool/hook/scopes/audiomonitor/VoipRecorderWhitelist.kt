@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.audiomonitor
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.collection.arrayMapOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -11,6 +12,7 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
@@ -23,6 +25,7 @@ import com.luckyzyx.luckytool.utils.GlobalKeyValue.qqPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.qywxPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.timPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.wxPackName
+import com.luckyzyx.luckytool.utils.safeOfNull
 import org.luckypray.dexkit.DexKitBridge
 
 class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -30,7 +33,11 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     private val audioApplication = "com.oplus.audiomonitor.AudioApplication"
     private val oplusVoipRecorderService =
         "com.oplus.audiomonitor.voiprecord.OplusVoipRecorderService"
+
     private var switchAppClazz = ""
+    private var appNameField = ""
+    private var appStatusField = ""
+
     private val filePrefix = "未知应用录音"
 
     private val apps = arrayOf(
@@ -121,9 +128,33 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 usingStrings("appName", "packageName", "check")
             }
         }.apply {
-            checkDataList("HookVoipRecorder SwitchApp Instance", isDebug = true)
+            checkDataList("HookVoipRecorder SwitchApp Instance")
             switchAppClazz = single().name
             if (switchAppClazz.isBlank()) return
+
+            appNameField = findField {
+                matcher {
+                    type(StringClass)
+                    addReadMethod { name("toString") }
+                    addWriteMethod { paramTypes(ListClass);returnType(ListClass) }
+                }
+            }.let {
+                checkDataList("HookVoipRecorder Util AppName", isDebug = true)
+                it.single().fieldName
+            }
+            if (appNameField.isBlank()) return
+
+            appStatusField = findField {
+                matcher {
+                    type(BooleanType)
+                    addReadMethod { name("onPostExecute") }
+                    addWriteMethod { paramTypes(ListClass);returnType(ListClass) }
+                }
+            }.let {
+                checkDataList("HookVoipRecorder Util AppStatus", isDebug = true)
+                it.single().fieldName
+            }
+            if (appStatusField.isBlank()) return
         }
 
         //Source Util
@@ -139,9 +170,11 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     paramTypes(StringClass)
                     returnType(BooleanClass)
                 }
+                usingStrings(qqPackName, wxPackName)
             }
         }.apply {
-            checkDataList("HookVoipRecorder Util", isDebug = true)
+            checkDataList("HookVoipRecorder Util")
+
             single().name.toClass().apply {
                 method { param(ListClass);returnType = ListClass }.hook {
                     before {
@@ -159,13 +192,27 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
                         apps.forEachIndexed { index, it ->
                             val existApp = enabledApp.contains(it.packName)
-                            val app = switchAppClazz.toClass().buildOf(it.packName, existApp) {
-                                param(StringClass, BooleanType)
-                            }?.apply {
-                                current().field { type = StringClass;order().index().last() }
-                                    .set(it.appName)
-                            } ?: return@forEachIndexed
-                            list.add(app)
+                            val switchApp =
+                                switchAppClazz.toClass().buildOf(it.packName, existApp) {
+                                    param(StringClass, BooleanType)
+                                }?.apply {
+                                    current().field { name = appNameField;type = StringClass }
+                                        .set(it.appName)
+                                    @SuppressLint("DiscouragedApi")
+                                    val wxIcon = safeOfNull {
+                                        context.resources.getIdentifier(
+                                            "icon_wechat",
+                                            "mipmap",
+                                            this@VoipRecorderWhitelist.packageName
+                                        )
+                                    } ?: return@forEachIndexed
+                                    current().field { type = IntType }.set(wxIcon)
+//                                    val isInstalled = PackageUtils(context.packageManager)
+//                                        .getPackageInfo(it.packName, 0) != null
+                                    current().field { name = appStatusField;type = BooleanType }
+                                        .setTrue()
+                                } ?: return@forEachIndexed
+                            list.add(switchApp)
 
                             if (existApp) {
                                 if (index > 0) prefsValue += "#"

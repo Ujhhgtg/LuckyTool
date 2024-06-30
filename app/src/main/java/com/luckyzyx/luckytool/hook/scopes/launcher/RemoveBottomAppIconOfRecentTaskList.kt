@@ -1,17 +1,23 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
-import android.view.ViewGroup
+import android.view.View
 import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object RemoveBottomAppIconOfRecentTaskList : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //Source DockView
         "com.oplus.quickstep.dock.DockView".toClass().apply {
-            method { name = "setVisibilityAlpha" }.hook {
+            method {
+                name = if (osCode >= 33) "updateCurveProperties"
+                else "setVisibilityAlpha"
+            }.hookAll {
                 after {
-                    instance<ViewGroup>().isVisible = false
+                    instance<View>().isVisible = false
                 }
             }
         }

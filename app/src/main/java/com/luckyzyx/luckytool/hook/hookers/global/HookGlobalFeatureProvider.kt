@@ -107,10 +107,13 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("enable_stop_charging_at_80", false)) {
                 put("com.oplus.battery.one_key_power_save", true)
             }
-            //Source OplusGame AI辅助
+            //Source OplusGame  AI辅助
             if (prefs(ModulePrefs).getBoolean("enable_game_ai_play", false)) {
                 put("feature.support.game.AI_PLAY", true)
             }
+
+            //Reno12 涟漪
+//            put("os.personalization.wallpaper.live.ripple.enable",true)
 
 //            put("com.android.settings.device_rm", true)
 //            put("com.oplus.battery.customize_charge_mode", true)

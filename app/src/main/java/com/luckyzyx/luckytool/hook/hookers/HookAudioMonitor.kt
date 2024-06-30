@@ -19,7 +19,7 @@ object HookAudioMonitor : YukiBaseHooker() {
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //扩展第三方通话录音白名单
             if (prefs(ModulePrefs).getBoolean("expand_voip_recorder_whitelist", false)) {
-                if (osCode == 31) loadHooker(VoipRecorderWhitelist(dexKitBridge))
+                if (osCode >= 31) loadHooker(VoipRecorderWhitelist(dexKitBridge))
             }
         }
     }

@@ -169,7 +169,7 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.oplus.multiapp", HookMultiApp)
         //录音
         loadApp("com.coloros.soundrecorder", HookSoundRecorder)
-        //三方应用通话录音
+        //三方应用通话录音 / 智慧语音
         loadApp("com.oplus.audiomonitor", HookAudioMonitor)
         //atlasService
         loadApp("com.oplus.atlas", HookAtlasService)
