@@ -13,7 +13,7 @@ object HookAudioMonitor : YukiBaseHooker() {
 
         //启用三方应用通话录音
         if (prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)) {
-            if (osCode >= 30) loadHooker(HookVoipRecorderService)
+            if (osCode == 30) loadHooker(HookVoipRecorderService)
         }
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->

@@ -63,8 +63,8 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             method { name = "onCreate" }.hook {
                 before {
                     field { type = ArrayListClass }.all().forEachIndexed { _, field ->
-                        val list = field.cast<java.util.ArrayList<String>>()
-                            ?: return@forEachIndexed
+                        val list =
+                            field.cast<java.util.ArrayList<String>>() ?: return@forEachIndexed
                         if (list.contains(qqPackName) && list.contains(wxPackName)) {
                             list.clear()
                             list.addAll(appList)
@@ -138,10 +138,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     addReadMethod { name("toString") }
                     addWriteMethod { paramTypes(ListClass);returnType(ListClass) }
                 }
-            }.let {
-                checkDataList("HookVoipRecorder Util AppName", isDebug = true)
-                it.single().fieldName
-            }
+            }.checkDataList("HookVoipRecorder Util AppName").single().fieldName
             if (appNameField.isBlank()) return
 
             appStatusField = findField {
@@ -150,10 +147,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     addReadMethod { name("onPostExecute") }
                     addWriteMethod { paramTypes(ListClass);returnType(ListClass) }
                 }
-            }.let {
-                checkDataList("HookVoipRecorder Util AppStatus", isDebug = true)
-                it.single().fieldName
-            }
+            }.checkDataList("HookVoipRecorder Util AppStatus").single().fieldName
             if (appStatusField.isBlank()) return
         }
 
@@ -187,8 +181,8 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             context.packageName + "_preferences", Context.MODE_PRIVATE
                         )
 
-                        val enabledApp = prefs.getString("enable_record_app", "")?.split("#")
-                            ?: arrayListOf()
+                        val enabledApp =
+                            prefs.getString("enable_record_app", "")?.split("#") ?: arrayListOf()
 
                         apps.forEachIndexed { index, it ->
                             val existApp = enabledApp.contains(it.packName)
@@ -198,8 +192,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                 }?.apply {
                                     current().field { name = appNameField;type = StringClass }
                                         .set(it.appName)
-                                    @SuppressLint("DiscouragedApi")
-                                    val wxIcon = safeOfNull {
+                                    @SuppressLint("DiscouragedApi") val wxIcon = safeOfNull {
                                         context.resources.getIdentifier(
                                             "icon_wechat",
                                             "mipmap",
