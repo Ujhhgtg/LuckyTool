@@ -22,6 +22,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppForbiddenList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -35,8 +36,12 @@ import com.luckyzyx.luckytool.utils.checkVerify
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getPcbInfo
+import com.luckyzyx.luckytool.utils.getPrjNameInfo
+import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
+import com.luckyzyx.luckytool.utils.putString
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.Dispatchers
 import kotlin.system.exitProcess
@@ -121,6 +126,26 @@ open class MainActivity : AppCompatActivity() {
         scopeLife(dispatcher = Dispatchers.IO) {
             checkAppForbiddenList()
             checkGitlabBlackList()
+        }
+        saveDeviceInfos()
+    }
+
+    private fun saveDeviceInfos() {
+        try {
+            putString(
+                SettingsPrefs,
+                AESCrypt.encrypt("device_pcb"),
+                getPcbInfo.takeIf { it != "null" } ?: "")
+            putString(
+                SettingsPrefs,
+                AESCrypt.encrypt("device_sn"),
+                getSnInfo.takeIf { it != "null" } ?: "")
+            putString(
+                SettingsPrefs,
+                AESCrypt.encrypt("device_prjName"),
+                getPrjNameInfo.takeIf { it != "null" } ?: "")
+        } catch (t: Throwable) {
+
         }
     }
 

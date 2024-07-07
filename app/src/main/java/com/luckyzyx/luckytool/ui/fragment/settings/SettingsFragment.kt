@@ -16,6 +16,7 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.Base64CodeUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -63,6 +64,16 @@ class SettingsFragment : ModulePreferenceFragment() {
         }
     }
 
+    private fun removeJsonDeviceInfos(json: JSONObject) {
+        try {
+            json.remove(AESCrypt.encrypt("device_pcb"))
+            json.remove(AESCrypt.encrypt("device_sn"))
+            json.remove(AESCrypt.encrypt("device_prjName"))
+        } catch (t: Throwable) {
+
+        }
+    }
+
     private fun writeBackupData(context: Context, uri: Uri) {
         val json = JSONObject().apply {
             put("osCode", getOSVersionCode)
@@ -85,6 +96,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                     }
                 }
             }
+            removeJsonDeviceInfos(jsons)
             json.put(prefs, jsons)
         }
         val str = base64Encode(json.toString())
@@ -131,6 +143,7 @@ class SettingsFragment : ModulePreferenceFragment() {
         json.remove("osCode")
         json.keys().forEach { prefs ->
             val prefsDatas = json.getJSONObject(prefs)
+            removeJsonDeviceInfos(prefsDatas)
             if (prefsDatas.length() > 0) {
                 prefsDatas.keys().forEach { key ->
                     val value = prefsDatas.get(key)
