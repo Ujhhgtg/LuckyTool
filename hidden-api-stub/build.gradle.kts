@@ -1,18 +1,19 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.agp.lib)
+    alias(libs.plugins.kotlin)
 }
 
 android {
     compileSdk = 34
     namespace = "com.android.internal"
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    java {
+        toolchain { languageVersion = JavaLanguageVersion.of(JavaVersion.VERSION_17.majorVersion) }
     }
-    kotlin { jvmToolchain(17) }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
+    }
 }
 
 dependencies {
-    implementation("androidx.annotation:annotation:1.8.0")
+    implementation(libs.androidx.annotation)
 }

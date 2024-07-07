@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
@@ -11,6 +11,7 @@ pluginManagement {
         maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -28,6 +29,11 @@ dependencyResolutionManagement {
         maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
     }
 }
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention").version("0.8.0")
+}
+
 rootProject.name = "LuckyTool"
 include(":app")
 include(":hidden-api-stub")

@@ -43,11 +43,6 @@
 # 这个过滤器是谷歌推荐的算法，一般不改变
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
-#混淆时应用侵入式重载
--overloadaggressively
-#优化时允许访问并修改有修饰符的类和类的成员
--allowaccessmodification
-
 -adaptclassstrings
 -adaptresourcefilenames
 -adaptresourcefilecontents
@@ -62,9 +57,11 @@
 # 比如，当内联一个公共的getter方法时，这也可能需要外地公共访问。
 # 虽然java二进制规范不需要这个，要不然有的虚拟机处理这些代码会有问题。当有优化和使用-repackageclasses时才适用。
 # 指示语：不能用这个指令处理库中的代码，因为有的类和类成员没有设计成public ,而在api中可能变成public
-#-allowaccessmodification
+-allowaccessmodification
 #当有优化和使用-repackageclasses时才适用。
-#-repackageclasses ''
+-repackageclasses
+#混淆时应用侵入式重载
+-overloadaggressively
 
 # JSON解析异常处理
 # 保护代码中的Annotation不被混淆
@@ -84,26 +81,6 @@
 # 崩溃日志手机端显示
 -keep class com.simple.spiderman.** { *; }
 -keepnames class com.simple.spiderman.** { *; }
-#-keep public class * extends android.app.Activity
--keep class * implements android.os.Parcelable {
-    public static final android.os.Parcelable$Creator *;
-}
-# support
-#-keep public class * extends android.support.annotation.** { *; }
-#-keep public class * extends android.support.v4.content.FileProvider
-# androidx
--keep public class * extends androidx.annotation.** { *; }
--keep public class * extends androidx.core.content.FileProvider
-
-#-keep class * extends android.app.Activity
-#-keep class * implements androidx.viewbinding.ViewBinding {
-#    <init>();
-#    *** inflate(android.view.LayoutInflater);
-#}
 
 # XXPermissions
 -keep class com.hjq.permissions.** {*;}
-
-# Lyric-Getter-Api
--keep class cn.lyric.getter.api.data.*{*;}
--keep class cn.lyric.getter.api.API{*;}

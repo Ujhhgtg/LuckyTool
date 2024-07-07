@@ -6,9 +6,9 @@ val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.agp.app)
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.ksp)
     id("com.joom.paranoid")
 }
 
@@ -56,11 +56,12 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    java {
+        toolchain { languageVersion = JavaLanguageVersion.of(JavaVersion.VERSION_17.majorVersion) }
     }
-    kotlin { jvmToolchain(17) }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
+    }
     buildFeatures {
         aidl = true
         viewBinding = true
@@ -85,80 +86,44 @@ android {
 }
 
 dependencies {
-    //implementation(fileTree("libs").include("*.jar"))
-
     compileOnly(project(":hidden-api-stub"))
-    //Xposed
-    compileOnly("de.robv.android.xposed:api:82")
-//    compileOnly("io.github.libxposed:api:100")
 
-    //YukiHookAPI
-//    implementation("com.highcapable.yukireflection:api:1.0.2")
-    //noinspection GradleDependency
-    implementation("com.highcapable.yukihookapi:api:1.2.1")
-    ksp("com.highcapable.yukihookapi:ksp-xposed:1.2.1")
-//    implementation(files("libs/yukihookapi-release.jar"))
-//    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
+    compileOnly(libs.xposed.api)
+    implementation(libs.yukihookapi)
+    ksp(libs.ksp.yukihookapi)
+    implementation(libs.dexkit)
 
-    //Dexkit
-    implementation("org.luckypray:dexkit:2.0.2")
-    //MMKV
-    implementation("com.tencent:mmkv:1.3.6")
+    implementation(libs.mmkv)
 
-    //BetterAndroid
-//    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
-    implementation("com.highcapable.betterandroid:ui-component:1.0.5")
-//    implementation("com.highcapable.betterandroid:ui-extension:1.0.0")
-//    implementation("com.highcapable.betterandroid:system-extension:1.0.0")
+    implementation(libs.betterandroid.ui.component)
+    implementation(libs.material)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.constraintlayout)
+    implementation(libs.preference.ktx)
+    implementation(libs.swiperefreshlayout)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 
-    //Material主题
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
-    //约束布局
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    //快速创建Settings
-    implementation("androidx.preference:preference-ktx:1.2.1")
-    //下拉刷新控件
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    // 权限请求框架
-    implementation("com.github.getActivity:XXPermissions:18.6")
-    //崩溃日志显示
-    implementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9")
-    //滚动条
-    implementation("me.zhanghai.android.fastscroll:library:1.3.0")
-    //Color Picker
-    implementation("io.github.vadiole:colorpicker:1.0.4")
-    //kotlin协程
-    val kotlinxCoroutinesVersion = "1.8.1"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinxCoroutinesVersion}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinxCoroutinesVersion}")
-    //Net OkHttp相关
-    //noinspection GradleDependency
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.github.liangjingkanji:Net:3.6.4")
-    //libsu
-    val libsuVersion = "5.2.2"
-    implementation("com.github.topjohnwu.libsu:core:${libsuVersion}")
-    implementation("com.github.topjohnwu.libsu:service:${libsuVersion}")
-//    implementation("com.github.topjohnwu.libsu:nio:${libsuVersion}")
+    implementation(libs.xxpermissions)
+    implementation(libs.spiderman)
+    implementation(libs.fastscroll)
 
-    //Microsoft AppCenter
-    val appCenterSdkVersion = "5.0.4"
-    implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
-    implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
-    //MarkDown
-    val markwonVersion = "4.6.2"
-    implementation("io.noties.markwon:core:$markwonVersion")
-    implementation("io.noties.markwon:html:$markwonVersion")
-    implementation("io.noties.markwon:image:$markwonVersion")
-    implementation("io.noties.markwon:ext-tables:$markwonVersion")
+    implementation(libs.okhttp)
+    implementation(libs.net)
 
-    //Lyric-Getter-Api
-    implementation("com.github.xiaowine:Lyric-Getter-Api:6.0.0")
+    implementation(libs.libsu.core)
+    implementation(libs.libsu.service)
+
+    implementation(libs.appcenter.analytics)
+    implementation(libs.appcenter.crashes)
+
+    implementation(libs.markwon.core)
+    implementation(libs.markwon.html)
+    implementation(libs.markwon.image)
+    implementation(libs.markwon.ext.tables)
 }
 
 fun getVersionCode(): Int {
