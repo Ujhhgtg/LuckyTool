@@ -51,7 +51,7 @@
 -renamesourcefileattribute SourceFile
 
 #抛出异常时保留代码行号，在异常分析中可以方便定位
--keepattributes SourceFile,LineNumberTable
+#-keepattributes SourceFile,LineNumberTable
 
 #优化时允许访问并修改有修饰符的类和类的成员，这可以提高优化步骤的结果。
 # 比如，当内联一个公共的getter方法时，这也可能需要外地公共访问。

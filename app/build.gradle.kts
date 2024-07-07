@@ -9,22 +9,19 @@ plugins {
     alias(libs.plugins.agp.app)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.lsplugin.apksign)
+    alias(libs.plugins.lsplugin.resopt)
     id("com.joom.paranoid")
 }
 
+apksign {
+    storeFileProperty = keystoreProperties["storeFile"] as String
+    storePasswordProperty = keystoreProperties["storePassword"] as String
+    keyAliasProperty = keystoreProperties["keyAlias"] as String
+    keyPasswordProperty = keystoreProperties["keyPassword"] as String
+}
+
 android {
-    signingConfigs {
-        create("release") {
-            enableV1Signing = true
-            enableV2Signing = true
-            enableV3Signing = true
-            enableV4Signing = null
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storePassword = keystoreProperties["storePassword"] as String
-        }
-    }
     compileSdk = 34
     namespace = "com.luckyzyx.luckytool"
     defaultConfig {
@@ -47,13 +44,11 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isDebuggable = false
             isMinifyEnabled = false
             isShrinkResources = false
-            signingConfig = signingConfigs.getByName("release")
         }
     }
     java {

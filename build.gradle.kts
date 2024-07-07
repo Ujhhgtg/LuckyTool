@@ -1,3 +1,6 @@
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.gradle.api.AndroidBasePlugin
+
 buildscript {
     dependencies {
         classpath(libs.paranoid.gradle.plugin)
@@ -15,5 +18,16 @@ plugins {
 tasks {
     register("clean", Delete::class) {
         delete(layout.buildDirectory)
+    }
+}
+
+subprojects {
+    plugins.withType(AndroidBasePlugin::class.java) {
+        extensions.configure(CommonExtension::class.java) {
+            lint {
+                abortOnError = true
+                checkReleaseBuilds = false
+            }
+        }
     }
 }
