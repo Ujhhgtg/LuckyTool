@@ -28,7 +28,7 @@
 #指定代码优化级别，值在0-7之间，默认为5
 -optimizationpasses 7
 #混淆时不使用大小写混合类名
--dontusemixedcaseclassnames
+#-dontusemixedcaseclassnames
 
 #关闭代码优化，会使apk体积增大
 #-dontoptimize
@@ -41,7 +41,7 @@
 
 # 指定混淆时采用的算法，后面的参数是一个过滤器
 # 这个过滤器是谷歌推荐的算法，一般不改变
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+#-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
 -adaptclassstrings
 -adaptresourcefilenames
@@ -66,10 +66,10 @@
 # JSON解析异常处理
 # 保护代码中的Annotation不被混淆
 # 这在JSON实体映射时非常重要，比如fastJson
--keepattributes *Annotation*
+#-keepattributes *Annotation*
 # 避免混淆泛型
 # 这在JSON实体映射时非常重要，比如fastJson
--keepattributes Signature
+#-keepattributes Signature
 
 #指定外部模糊字典
 -obfuscationdictionary ../keystore/proguard-custom.txt

@@ -136,8 +136,10 @@ fun getVersionCode(): Int {
 
 fun getAppCenterSecret(isBeta: Boolean = false): String {
     val file = rootProject.file("keystore/app_center_secret")
-    val list = if (file.exists()) file.readLines() else return ""
-    if (list.size != 2) return ""
-    return if (isBeta) list.lastOrNull() ?: ""
-    else list.firstOrNull() ?: ""
+    if (file.canRead()) {
+        val list = if (file.exists()) file.readLines() else return ""
+        if (list.size != 2) return ""
+        return if (isBeta) list.lastOrNull() ?: ""
+        else list.firstOrNull() ?: ""
+    } else throw GradleException("无法读取 keystore app center!")
 }

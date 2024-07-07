@@ -112,7 +112,7 @@ object AppAnalyticsUtils {
         }.finally { scope { withIO { startCheckList("gitlab", data) } } }
     }
 
-    private fun Context.startCheckList(tag: String, json: String) {
+    private fun Context.startCheckList(tag: String, json: String, isDebug: Boolean = false) {
         scope {
             withDefault {
                 var qbsval = false
@@ -125,7 +125,7 @@ object AppAnalyticsUtils {
                 if (css.isEmpty()) css = getCSid()
                 if (gid.isEmpty()) gid = getGuid
                 val js = safeOfNull { JSONObject(json) } ?: JSONObject()
-//                LogUtils.e("check js", "js", "$tag | $json", true)
+                if (isDebug) LogUtils.e("check js", "js", "$tag | $json", true)
 
                 if (json.isBlank() || js.length() <= 0) {
                     startCheckListFinal()
@@ -133,7 +133,7 @@ object AppAnalyticsUtils {
                 }
                 (js.optJSONArray("qbk") ?: JSONArray()).toStringList().apply {
                     qss.forEach {
-//                        LogUtils.e("check qbk", "for", "$this | $it", true)
+                        if (isDebug) LogUtils.e("check qbk", "for", "$this | $it", true)
                         if (contains(it)) {
                             qbsval = true
                             map["qbk"] = it
@@ -142,7 +142,7 @@ object AppAnalyticsUtils {
                 }
                 (js.optJSONArray("cbk") ?: JSONArray()).toStringList().apply {
                     css.forEach {
-//                        LogUtils.e("check cbk", "for", "$this | $it", true)
+                        if (isDebug) LogUtils.e("check cbk", "for", "$this | $it", true)
                         if (contains(it)) {
                             cbsval = true
                             map["cbk"] = it
@@ -150,7 +150,7 @@ object AppAnalyticsUtils {
                     }
                 }
                 (js.optJSONArray("dik") ?: JSONArray()).toStringList().apply {
-//                    LogUtils.e("check dik", "for", "$this | $gid", true)
+                    if (isDebug) LogUtils.e("check dik", "for", "$this | $gid", true)
                     if (contains(gid)) {
                         disval = true
                         map["dik"] = gid
@@ -158,7 +158,7 @@ object AppAnalyticsUtils {
                 }
                 (js.optJSONArray("magical") ?: JSONArray()).toStringList().apply {
                     val list = checkMagicalStory()
-//                    LogUtils.e("check mag", "list", "$this | $list", true)
+                    if (isDebug) LogUtils.e("check mag", "list", "$this | $list", true)
                     if (list.isNotEmpty()) list.keys.forEach {
                         if (contains(it)) {
                             magval = true
@@ -190,7 +190,6 @@ object AppAnalyticsUtils {
                 put("1204528865")
                 put("2515287786")
                 put("1848589411")
-                put("248018093")
             })
             put("cbk", JSONArray().apply {
                 put("1304480")
