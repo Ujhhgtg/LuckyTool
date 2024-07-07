@@ -54,5 +54,13 @@ class GlobalFuncControllerService : RootService() {
         override fun getSnInfo(): String {
             return SystemProperties.get("ro.serialno", "null")
         }
+
+        override fun getPrjNameInfo(): String {
+            return SystemProperties.get("ro.boot.prjname", "null")
+        }
+
+        override fun getSlotInfo(): String {
+            return SystemProperties.get("ro.boot.slot_suffix", "null")
+        }
     }
 }

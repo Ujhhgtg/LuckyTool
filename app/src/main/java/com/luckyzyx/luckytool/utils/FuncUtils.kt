@@ -156,7 +156,7 @@ fun Context.getDeviceInfo(
     return """
         ${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel
         ${getString(R.string.market_name)}: ${getModelMarketName()}
-        ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE}
+        ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.prjNameInfo} ${controller?.slotInfo}
         ${getString(R.string.system)}: $androidVer $osVer
         ${getString(R.string.build_version)}: ${Build.DISPLAY}
         ${getString(R.string.version)}: ${controller?.otaVersion}
@@ -653,6 +653,18 @@ val getPcbInfo: String
  */
 val getSnInfo: String
     get() : String = ShellUtils.fastCmd("getprop ro.serialno").ifBlank { "null" }
+
+/**
+ * 获取PrjName信息
+ */
+val getPrjNameInfo: String
+    get() : String = ShellUtils.fastCmd("getprop ro.boot.prjname").ifBlank { "null" }
+
+/**
+ * 获取Slot信息
+ */
+val getSlotInfo: String
+    get() : String = ShellUtils.fastCmd("getprop ro.boot.slot_suffix").ifBlank { "null" }
 
 /**
  * 正常编码中一般只会用到 [dp]/[sp] ;

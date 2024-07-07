@@ -78,6 +78,19 @@ android {
     androidResources.additionalParameters.addAll(
         arrayOf("--allow-reserved-package-id", "--package-id", "0x64")
     )
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+        resources {
+            excludes += "META-INF/**"
+            excludes += "okhttp3/**"
+            excludes += "kotlin/**"
+            excludes += "**.properties"
+            excludes += "**.bin"
+            excludes += "kotlin-tooling-metadata.json"
+        }
+    }
 }
 
 dependencies {

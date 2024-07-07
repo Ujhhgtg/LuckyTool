@@ -8,4 +8,6 @@ interface IGlobalFuncController {
     String getFlashInfo();
     String getPcbInfo();
     String getSnInfo();
+    String getPrjNameInfo();
+    String getSlotInfo();
 }
