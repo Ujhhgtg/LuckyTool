@@ -84,3 +84,9 @@
 
 # XXPermissions
 -keep class com.hjq.permissions.** {*;}
+
+# Kotlin
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    public static void check*(...);
+    public static void throw*(...);
+}

@@ -44,10 +44,12 @@ import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.io.SuFile
 import kotlinx.coroutines.Dispatchers
+import me.garfieldhan.cherish.domesystem.CherishNativeBridge
 import java.io.InputStream
 import kotlin.system.exitProcess
 
@@ -83,6 +85,8 @@ open class MainActivity : AppCompatActivity() {
         checkSuAndOS()
 
         installDomeStubData()
+
+        showToast(CherishNativeBridge.a(1))
     }
 
     private fun installDomeStubData() {
