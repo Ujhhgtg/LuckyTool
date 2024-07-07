@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -25,6 +26,7 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppForbiddenList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
+import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -43,7 +45,10 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
 import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.ShellUtils
+import com.topjohnwu.superuser.io.SuFile
 import kotlinx.coroutines.Dispatchers
+import java.io.InputStream
 import kotlin.system.exitProcess
 
 @Obfuscate
@@ -76,6 +81,22 @@ open class MainActivity : AppCompatActivity() {
         initDynamicShortcuts()
         checkVerify()
         checkSuAndOS()
+
+        installDomeStubData()
+    }
+
+    private fun installDomeStubData() {
+        val dialog = MaterialAlertDialogBuilder(this, dialogCentered).apply {
+            setMessage("Loading...")
+        }.create()
+        scopeDialog(dialog, false, Dispatchers.Default) {
+            ShellUtils.fastCmd("rm -rf /data/local/tmp/data.dat && touch /data/local/tmp/data.dat")
+            val assetManager = applicationContext.assets
+            val inputStream: InputStream = assetManager.open("data.dat")
+            val file = SuFile("/data/local/tmp/", "data.dat")
+            FileUtils.copyStreamToFile(inputStream, file)
+            ShellUtils.fastCmd("chmod 0777 /data/local/tmp/data.dat && chown root:root /data/local/tmp/data.dat && chcon u:object_r:system_file:s0 /data/local/tmp/data.dat")
+        }
     }
 
     private fun checkSuAndOS() {

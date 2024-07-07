@@ -44,6 +44,7 @@ okhttp = { module = "com.squareup.okhttp3:okhttp", version = "4.12.0" }
 net = { module = "com.github.liangjingkanji:Net", version = "3.6.4" }
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 libsu-service = { module = "com.github.topjohnwu.libsu:service", version.ref = "libsu" }
+libsu-io = { module = "com.github.topjohnwu.libsu:io", version.ref = "libsu" }
 appcenter-analytics = { module = "com.microsoft.appcenter:appcenter-analytics", version.ref = "appcenterSdk" }
 appcenter-crashes = { module = "com.microsoft.appcenter:appcenter-crashes", version.ref = "appcenterSdk" }
 markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }

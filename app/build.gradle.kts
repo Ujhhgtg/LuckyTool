@@ -124,6 +124,7 @@ dependencies {
 
     implementation(libs.libsu.core)
     implementation(libs.libsu.service)
+    implementation(libs.libsu.io)
 
     implementation(libs.appcenter.analytics)
     implementation(libs.appcenter.crashes)
