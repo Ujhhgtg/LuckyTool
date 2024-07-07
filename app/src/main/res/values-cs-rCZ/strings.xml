@@ -119,8 +119,8 @@
     <string name="usepresig_warn">!!! Všechny balíčky mohou přepsat nainstalovanou aplikaci!!\npro instalaci neznámých balíčků</string>
     <string name="shared_user_title">Ignorovat sdílené ověření uživatele</string>
     <string name="shared_user_summary">Povolit instalaci aplikace s odlišným podpisem od sdíleného uživatele (<b>\'Zakázat porovnání podpisu\' musí být také povoleno</b>)</string>
-    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
-    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
+    <string name="disable_verification_agent_title">Zakázat agenta pro ověření balíčku</string>
+    <string name="disable_verification_agent_summary">například Ochrana Google Play</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
@@ -189,8 +189,8 @@
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
-    <string name="custom_music_fluid_cloud_whitelist">Custom music fluid cloud whitelist</string>
-    <string name="set_custom_music_fluid_cloud_whitelist">Set up music fluid cloud whitelist</string>
+    <string name="custom_music_fluid_cloud_whitelist">Vlastním seznam povolených pro \"Music Fluid Cloud\"</string>
+    <string name="set_custom_music_fluid_cloud_whitelist">Nastavit seznam povolených pro \"Music Fluid Cloud\"</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Ikony ve stavové liště</string>
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>
@@ -332,15 +332,15 @@
     <string name="set_aod_notification_icon_style">Nastavit styl ikony oznámení AOD</string>
     <string name="force_enable_screen_off_music_support">Vynutit přehrávání hudby při vypnutém displeji</string>
     <string name="force_enable_screen_off_music_support_summary">Aplikovatelné pouze na modelech, které nepodporují přehrávání hudby při vypnutém displeji</string>
-    <string name="AodRandomText">Aod Random Text</string>
-    <string name="set_random_text_display_mode">Set random text display mode</string>
-    <string name="set_random_text_display_mode_tips1">Need to enable aod personalized text</string>
-    <string name="set_random_text_display_mode_tips2">It may cause aod freezes and other issues</string>
-    <string name="set_random_text_display_mode_local_file">Local File</string>
-    <string name="set_random_text_display_mode_remote_api">Remote Api</string>
-    <string name="custom_random_text_file">Custom random text file</string>
-    <string name="custom_random_text_api">Custom random text api</string>
-    <string name="AodTypface">Aod Typface</string>
+    <string name="AodRandomText">Náhodný text AOD</string>
+    <string name="set_random_text_display_mode">Nastavit režim náhodného zobrazení textu</string>
+    <string name="set_random_text_display_mode_tips1">Je třeba povolit personalizovaný AOD text</string>
+    <string name="set_random_text_display_mode_tips2">Může způsobit zamrzání AOD a další problémy</string>
+    <string name="set_random_text_display_mode_local_file">Místní soubor</string>
+    <string name="set_random_text_display_mode_remote_api">Vzdálené API</string>
+    <string name="custom_random_text_file">Vlastní náhodný textový soubor</string>
+    <string name="custom_random_text_api">Vlastní náhodné API textového souboru</string>
+    <string name="AodTypface">Písmo AOD</string>
     <string name="set_aod_typeface_mode">Nastavit typ písma AOD</string>
     <string name="apply_aod_clock_typeface">Použít typ písma na hodiny v AOD</string>
     <!--LockScreen-->
@@ -392,7 +392,7 @@
     <string name="remove_app_shortcut_badge">Odstranit odznak na ikoně aplikace</string>
     <string name="remove_app_work_badge">Odstranit značku pracovní aplikace</string>
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
-    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
+    <string name="remove_app_update_green_dot">Odstranit zelenou tečku po aktualizaci aplikace</string>
     <string name="FolderLayoutRelated">Rozvržení složky</string>
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>
@@ -595,8 +595,8 @@
     <string name="enable_game_acceleration">Povolit herní zrychlení</string>
     <string name="settings_about_device">O zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
-    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
-    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
+    <string name="enable_mariana_npu_introduction_page">Povolit úvodní stránku Mariana NPU</string>
+    <string name="enable_hasselblad_camera_introduction_page">Povolit úvodní stránku kamery Hasselblad</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
     <string name="customize_device_sharing_page_parameters">Konfigurace nastavení stránky sdílení zařízení</string>
     <string name="customize_device_ota_card_background">Přizpůsobit OTA pozadí karty zařízení</string>
@@ -613,6 +613,7 @@
     <string name="enable_camera_debug_ui_option">Povolit možnost DebugUI</string>
     <string name="custom_camera_open_gallery_by_default">Přizpůsobit galerii, která se otevírá ve výchozím nastavení</string>
     <string name="custom_camera_open_gallery_by_default_tips">Povolit výběr pouze jedné galerie!</string>
+    <string name="enable_camera_night_zoom_30x">Enable 30x zoom for night scenes</string>
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit znaků pro vlastní vodoznaky</string>
     <string name="enable_frame_watermark_style">Povolit styl rámečku vodoznaku</string>
@@ -758,12 +759,12 @@
     <string name="unlock_recent_files">Odemknout nedávné soubory</string>
     <string name="unlock_fluid_cloud">Odemknout Fluid Cloud</string>
     <string name="enable_run_in_background">Povolit spouštění na pozadí</string>
-    <string name="enable_game_ai_play">Enable AI Game Assist</string>
+    <string name="enable_game_ai_play">Povolit AI herního asistenta</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Povolit nahrávání hovorů v aplikacích třetích stran</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Předpoklad: Je třeba nastavit \"Nahrávání hovorů v aplikacích třetích stran (com.oplus.audiomonitor)\" a udělit oprávnění pro mikrofon a provoz na pozadí</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Root oprávnění musí být uděleno, aby mohly aplikace třetích stran nahrávat hovory</string>
-    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
+    <string name="expand_voip_recorder_whitelist">Rozšířený seznam povolených hovorů</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--Everyimage-->

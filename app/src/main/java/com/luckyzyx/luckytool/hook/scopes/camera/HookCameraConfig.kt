@@ -99,6 +99,12 @@ object HookCameraConfig : YukiBaseHooker() {
                 put("com.oplus.video.neon.support", true)
                 put("com.oplus.video.only.blur.support", true)
             }
+
+            //夜景30倍变焦
+            if (prefs(ModulePrefs).getBoolean("enable_camera_night_zoom_30x", false)) {
+                put("com.oplus.night.mode.max.zoom.support", true)
+                put("com.oplus.night.zoom.max.value.default", 30)
+            }
         }
         loadHooker(HookCameraVendorTag(list))
     }

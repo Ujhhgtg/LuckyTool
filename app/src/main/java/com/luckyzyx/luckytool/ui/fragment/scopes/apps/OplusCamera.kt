@@ -70,6 +70,13 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_camera_night_zoom_30x)
+                key = "enable_camera_night_zoom_30x"
+                setDefaultValue(false)
+                isVisible = osCode >= 28
+                isIconSpaceReserved = false
+            })
             //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraWaterMark)
