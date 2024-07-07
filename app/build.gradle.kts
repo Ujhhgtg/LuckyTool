@@ -95,7 +95,7 @@ dependencies {
     //YukiHookAPI
 //    implementation("com.highcapable.yukireflection:api:1.0.2")
     //noinspection GradleDependency
-    implementation("com.highcapable.yukihookapi:api:1.2.1-fix")
+    implementation("com.highcapable.yukihookapi:api:1.2.1")
     ksp("com.highcapable.yukihookapi:ksp-xposed:1.2.1")
 //    implementation(files("libs/yukihookapi-release.jar"))
 //    ksp files("libs/yukihookapi-ksp-xposed-1.1.5-beta2.jar")
@@ -103,7 +103,7 @@ dependencies {
     //Dexkit
     implementation("org.luckypray:dexkit:2.0.2")
     //MMKV
-    implementation("com.tencent:mmkv:1.3.5")
+    implementation("com.tencent:mmkv:1.3.6")
 
     //BetterAndroid
 //    implementation("com.highcapable.flexiui:flexiui-core:0.0.1")
