@@ -29,6 +29,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.io.OutputStream
 
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -189,7 +190,7 @@ object FileUtils {
      * @param outputFile File
      * @return String
      */
-    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File? {
+    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File {
         inputStream.use { input ->
             val outputStream = FileOutputStream(outputFile)
             outputStream.use { output ->
@@ -202,7 +203,26 @@ object FileUtils {
                 output.flush()
             }
         }
-        return if (outputFile.exists()) outputFile else null
+        return outputFile
+    }
+
+    /**
+     * 从InputStream复制Stream
+     * @param inputStream InputStream
+     * @param outputStream OutputStream
+     */
+    fun copyStream(inputStream: InputStream, outputStream: OutputStream) {
+        inputStream.use { input ->
+            outputStream.use { output ->
+                val buffer = ByteArray(4 * 1024) // buffer size
+                while (true) {
+                    val byteCount = input.read(buffer)
+                    if (byteCount < 0) break
+                    output.write(buffer, 0, byteCount)
+                }
+                output.flush()
+            }
+        }
     }
 
     /**

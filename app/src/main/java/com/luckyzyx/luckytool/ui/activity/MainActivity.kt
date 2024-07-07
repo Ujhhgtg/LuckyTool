@@ -27,6 +27,7 @@ import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppForbiddenList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
 import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -44,12 +45,10 @@ import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
-import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
-import com.topjohnwu.superuser.io.SuFile
 import kotlinx.coroutines.Dispatchers
-import me.garfieldhan.cherish.domesystem.CherishNativeBridge
+import java.io.File
 import java.io.InputStream
 import kotlin.system.exitProcess
 
@@ -84,9 +83,8 @@ open class MainActivity : AppCompatActivity() {
         checkVerify()
         checkSuAndOS()
 
-        installDomeStubData()
-
-        showToast(CherishNativeBridge.a(1))
+//        installDomeStubData()
+//        showToast(CherishNativeBridge.a(1))
     }
 
     private fun installDomeStubData() {
@@ -94,12 +92,17 @@ open class MainActivity : AppCompatActivity() {
             setMessage("Loading...")
         }.create()
         scopeDialog(dialog, false, Dispatchers.Default) {
-            ShellUtils.fastCmd("rm -rf /data/local/tmp/data.dat && touch /data/local/tmp/data.dat")
-            val assetManager = applicationContext.assets
-            val inputStream: InputStream = assetManager.open("data.dat")
-            val file = SuFile("/data/local/tmp/", "data.dat")
-            FileUtils.copyStreamToFile(inputStream, file)
-            ShellUtils.fastCmd("chmod 0777 /data/local/tmp/data.dat && chown root:root /data/local/tmp/data.dat && chcon u:object_r:system_file:s0 /data/local/tmp/data.dat")
+            val tmpFile = "/data/local/tmp/data.dat"
+            val dataCacheFile = File(codeCacheDir, "data.dat").apply {
+                if (!exists()) createNewFile()
+            }
+            ShellUtils.fastCmd("rm -rf $tmpFile")
+            val inputStream: InputStream = assets.open("data.dat")
+            FileUtils.copyStreamToFile(inputStream, dataCacheFile)
+            ShellUtils.fastCmd("cp -fpr ${dataCacheFile.path} $tmpFile")
+            ShellUtils.fastCmd("chmod 0777 $tmpFile && chown root:root $tmpFile && chcon u:object_r:system_file:s0 $tmpFile")
+        }.catch {
+            LogUtils.e("installDomeStubData", "data", it.toString(), true)
         }
     }
 

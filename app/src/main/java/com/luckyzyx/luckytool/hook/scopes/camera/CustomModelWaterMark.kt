@@ -1,9 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
+import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
 import com.highcapable.yukihookapi.hook.type.java.FloatType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -20,10 +22,9 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             matcher {
                 paramTypes(ContextClass, FloatType, null, null)
                 usingStrings(
-                    "key_watermark_part_a_line",
-                    "key_watermark_part_b_line"
+                    "key_watermark_part_a_line", "key_watermark_part_b_line"
                 )
-                usingNumbers(0.03F,0.007F)
+                usingNumbers(0.03F, 0.007F)
             }
         }.apply {
             checkDataList("CustomModelWaterMark Shot")
@@ -33,9 +34,26 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     param(ContextClass, FloatType, VagueType, VagueType)
                     returnType(single().returnTypeName)
                 }.hook {
-                    before {
-                        val model = args().last().string()
-                        if (model == "Shot on OnePlus") args().last().set(waterMark)
+//                    before {
+//                        if (args.lastOrNull() is String) {
+//                            val model = args().last().string()
+//                            if (model == "Shot on OnePlus") args().last().set(waterMark)
+//                        }
+//                    }
+                    after {
+                        val hashMap = result<HashMap<String, Any>>() ?: return@after
+                        hashMap["key_watermark_part_a_line"]?.apply {
+                            javaClass.field { type = ArrayListClass }.get(this)
+                                .cast<ArrayList<String>>()?.apply {
+                                    replaceAll { if (it.contains("Shot on OnePlus")) waterMark else it }
+                                }
+                        }
+                        hashMap["key_watermark_part_b_line"]?.apply {
+                            javaClass.field { type = ArrayListClass }.get(this)
+                                .cast<ArrayList<String>>()?.apply {
+                                    replaceAll { if (it.contains("Shot on OnePlus")) waterMark else it }
+                                }
+                        }
                     }
                 }
             }
