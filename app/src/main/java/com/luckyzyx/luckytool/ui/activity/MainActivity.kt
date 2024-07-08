@@ -86,7 +86,7 @@ open class MainActivity : AppCompatActivity() {
         checkSuAndOS()
 
         installDomeStubData()
-        showToast(CherishNativeBridge.a(1))
+        showToast(CherishNativeBridge.s(1))
     }
 
     private fun installDomeStubData() {

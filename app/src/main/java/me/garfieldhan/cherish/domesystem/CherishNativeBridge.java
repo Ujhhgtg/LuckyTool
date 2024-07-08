@@ -2,6 +2,8 @@ package me.garfieldhan.cherish.domesystem;
 
 import android.util.Log;
 
+import java.util.List;
+
 public class CherishNativeBridge {
     private static boolean mInitializeCompleted = false;
     
@@ -21,7 +23,15 @@ public class CherishNativeBridge {
         }
     }
     
-    public static native String a(int i); // getString
+    public static native String s(int i); // getString
+    
+    public static native float f(int i); // getFloat
+    
+    public static native int i(int i); // getInt
+    
+    public static native long l(int i); // getLong
+    
+    public static native List<?> t(int i); // getList
     
     public static native String d(String s); // CherishCipher -> decrypt
     
