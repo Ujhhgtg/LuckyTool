@@ -45,9 +45,11 @@ import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
+import me.garfieldhan.cherish.domesystem.CherishNativeBridge
 import java.io.File
 import java.io.InputStream
 import kotlin.system.exitProcess
@@ -83,8 +85,8 @@ open class MainActivity : AppCompatActivity() {
         checkVerify()
         checkSuAndOS()
 
-//        installDomeStubData()
-//        showToast(CherishNativeBridge.a(1))
+        installDomeStubData()
+        showToast(CherishNativeBridge.a(1))
     }
 
     private fun installDomeStubData() {
@@ -92,11 +94,14 @@ open class MainActivity : AppCompatActivity() {
             setMessage("Loading...")
         }.create()
         scopeDialog(dialog, false, Dispatchers.Default) {
-            val tmpFile = "/data/local/tmp/data.dat"
+            val tmpDir = "/data/luckytool/"
+            val tmpFile = "/data/luckytool/data.dat"
             val dataCacheFile = File(codeCacheDir, "data.dat").apply {
-                if (!exists()) createNewFile()
+                if (exists()) delete()
+                createNewFile()
             }
-            ShellUtils.fastCmd("rm -rf $tmpFile")
+            ShellUtils.fastCmd("mkdir -p $tmpDir && chmod 0777 $tmpDir && chown root:root $tmpDir && chcon u:object_r:system_file:s0 $tmpDir")
+            ShellUtils.fastCmd("rm -rf $tmpFile && touch $tmpFile")
             val inputStream: InputStream = assets.open("data.dat")
             FileUtils.copyStreamToFile(inputStream, dataCacheFile)
             ShellUtils.fastCmd("cp -fpr ${dataCacheFile.path} $tmpFile")
