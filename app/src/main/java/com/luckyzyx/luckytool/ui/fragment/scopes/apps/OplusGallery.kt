@@ -58,7 +58,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_jiangwen_filter)
+                title = getString(R.string.camera_filter_jiangwen)
                 key = "enable_gallery_jiangwen_filter"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
