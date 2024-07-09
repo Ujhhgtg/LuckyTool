@@ -42,8 +42,11 @@ object HookCameraConfig : YukiBaseHooker() {
 //                put("com.oplus.professional.use.hasselblad.style.support", true)
             }
 
-            //Filter FilterGroupManager 大师滤镜
-            if (prefs(ModulePrefs).getBoolean("enable_master_filter", false)) {
+            //Filter FilterGroupManager 通用滤镜
+            val universalFilters =
+                prefs(ModulePrefs).getStringSet("camera_universal_filter_settings", ArraySet())
+            //大师滤镜
+            if (universalFilters.contains("master_filter")) {
                 put(
                     "com.oplus.photo.master.filter.type.list",
                     "Radiance.cube.rgb.bin,Serenity.cube.rgb.bin,Emerald.cube.rgb.bin"
@@ -54,15 +57,15 @@ object HookCameraConfig : YukiBaseHooker() {
                 )
             }
             //姜文滤镜
-            if (prefs(ModulePrefs).getBoolean("enable_jiangwen_filter", false)) {
+            if (universalFilters.contains("jiangwen_filter")) {
                 put("com.oplus.director.filter.support", true)
                 put("com.oplus.director.filter.rus", true)
                 put("com.oplus.director.filter.upgrade.support", true)
             }
             //盛大旅行滤镜
-            if (prefs(ModulePrefs).getBoolean("enable_grand_tour_filter", false)) {
+            if (universalFilters.contains("grand_tour_filter")) {
                 put("com.oplus.support.grand.tour.filter", true)
-//                "com.oplus.street.grand.tour.filter.type.support" -> result(true)
+                put("com.oplus.street.grand.tour.filter.type.support", true)
             }
 
             //Filter Portrait
@@ -104,6 +107,10 @@ object HookCameraConfig : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_camera_night_zoom_30x", false)) {
                 put("com.oplus.night.mode.max.zoom.support", true)
                 put("com.oplus.night.zoom.max.value.default", 30)
+            }
+            //视频录制轮盘变焦
+            if (prefs(ModulePrefs).getBoolean("enable_video_capture_roulette_zoom", false)) {
+                put("com.oplus.video.inertial.zoom.support", false)
             }
         }
         loadHooker(HookCameraVendorTag(list))

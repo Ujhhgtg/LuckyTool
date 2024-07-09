@@ -70,13 +70,20 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.enable_camera_night_zoom_30x)
-                key = "enable_camera_night_zoom_30x"
-                setDefaultValue(false)
-                isVisible = osCode >= 28
-                isIconSpaceReserved = false
-            })
+            if (osCode >= 28) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_camera_night_zoom_30x)
+                    key = "enable_camera_night_zoom_30x"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.enable_video_capture_roulette_zoom)
+                    key = "enable_video_capture_roulette_zoom"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //水印
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraWaterMark)
@@ -133,29 +140,61 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     key = "CameraFilter"
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.enable_master_filter)
-                    key = "enable_master_filter"
-                    setDefaultValue(false)
+                addPreference(Preference(context).apply {
+                    val defaultFilters = ArrayList<CameraFilter>().apply {
+                        add(CameraFilter("master_filter", getString(R.string.camera_filter_master)))
+                        add(
+                            CameraFilter(
+                                "jiangwen_filter", getString(R.string.camera_filter_jiangwen)
+                            )
+                        )
+                        add(
+                            CameraFilter(
+                                "grand_tour_filter", getString(R.string.camera_filter_grand_tour)
+                            )
+                        )
+                    }
+                    title = getString(R.string.camera_universal_filter_settings)
+                    key = "camera_universal_filter_settings"
+                    context.getStringSet(ModulePrefs, key, ArraySet()).forEach {
+                        defaultFilters.find { its -> its.key == it }?.isEnable = true
+                    }
+                    val keys = ArrayList<String>()
+                    val titles = ArrayList<String>()
+                    val values = ArrayList<Boolean>()
+                    val enabledTitle = ArrayList<String>()
+                    defaultFilters.forEachIndexed { _, filter ->
+                        keys.add(filter.key)
+                        titles.add(filter.title)
+                        values.add(filter.isEnable)
+                        if (filter.isEnable) enabledTitle.add(filter.title)
+                    }
+                    summary = enabledTitle.toString()
                     isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        if (newValue as Boolean) findPreference<SwitchPreference>(
-                            "enable_hasselblad_watermark_style"
-                        )?.isChecked = true
+                    setOnPreferenceClickListener {
+                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                            setTitle(title)
+                            setMultiChoiceItems(
+                                titles.toTypedArray(), values.toBooleanArray(), null
+                            )
+                            setPositiveButton(android.R.string.ok) { dialog, _ ->
+                                val positions =
+                                    (dialog as AlertDialog).listView.checkedItemPositions
+                                val set = ArraySet<String>()
+                                positions.forEach { position, isChecked ->
+                                    val key = keys[position]
+                                    if (isChecked) set.add(key)
+                                }
+                                context.putStringSet(ModulePrefs, key, set.toSet())
+                                if (set.contains("master_filter")) findPreference<SwitchPreference>(
+                                    "enable_hasselblad_watermark_style"
+                                )?.isChecked = true
+                                (activity as MainActivity).restart()
+                            }
+                            setNeutralButton(android.R.string.cancel, null)
+                        }.show()
                         true
                     }
-                })
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.enable_jiangwen_filter)
-                    key = "enable_jiangwen_filter"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
-                addPreference(SwitchPreference(context).apply {
-                    title = getString(R.string.enable_grand_tour_filter)
-                    key = "enable_grand_tour_filter"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
                 })
                 addPreference(Preference(context).apply {
                     val defaultFilters = ArrayList<CameraFilter>().apply {
