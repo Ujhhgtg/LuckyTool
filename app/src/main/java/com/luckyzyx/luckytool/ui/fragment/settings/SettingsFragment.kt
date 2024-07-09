@@ -41,6 +41,7 @@ import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setComponentDisabled
 import com.luckyzyx.luckytool.utils.showToast
+import me.garfieldhan.cherish.domesystem.CherishNativeBridge
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.FileNotFoundException
@@ -66,9 +67,9 @@ class SettingsFragment : ModulePreferenceFragment() {
 
     private fun removeJsonDeviceInfos(json: JSONObject) {
         try {
-            json.remove(AESCrypt.encrypt("device_pcb"))
-            json.remove(AESCrypt.encrypt("device_sn"))
-            json.remove(AESCrypt.encrypt("device_prjName"))
+            json.remove(AESCrypt.encrypt(CherishNativeBridge.s(2)))
+            json.remove(AESCrypt.encrypt(CherishNativeBridge.s(3)))
+            json.remove(AESCrypt.encrypt(CherishNativeBridge.s(4)))
         } catch (t: Throwable) {
 
         }

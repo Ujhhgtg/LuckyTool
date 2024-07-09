@@ -45,7 +45,6 @@ import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
-import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
@@ -86,7 +85,6 @@ open class MainActivity : AppCompatActivity() {
         checkSuAndOS()
 
         installDomeStubData()
-        showToast(CherishNativeBridge.s(1))
     }
 
     private fun installDomeStubData() {
@@ -167,15 +165,15 @@ open class MainActivity : AppCompatActivity() {
         try {
             putString(
                 SettingsPrefs,
-                AESCrypt.encrypt("device_pcb"),
+                AESCrypt.encrypt(CherishNativeBridge.s(2)),
                 getPcbInfo.takeIf { it != "null" } ?: "")
             putString(
                 SettingsPrefs,
-                AESCrypt.encrypt("device_sn"),
+                AESCrypt.encrypt(CherishNativeBridge.s(3)),
                 getSnInfo.takeIf { it != "null" } ?: "")
             putString(
                 SettingsPrefs,
-                AESCrypt.encrypt("device_prjName"),
+                AESCrypt.encrypt(CherishNativeBridge.s(4)),
                 getPrjNameInfo.takeIf { it != "null" } ?: "")
         } catch (t: Throwable) {
 

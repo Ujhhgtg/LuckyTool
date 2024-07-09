@@ -10,9 +10,6 @@ keystore/app_center_secret
 .gradle
 /build
 
-/app/debug/
-/app/release/
-
 # Local configuration file (sdk path, etc)
 local.properties
 

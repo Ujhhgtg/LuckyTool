@@ -50,8 +50,16 @@ object DomeEntry {
     @Keep
     fun getList(index: Int): List<Any> {
         return when (index) {
-            1 -> arrayListOf()
-            else -> arrayListOf()
+            1 -> ArrayList<Any>(1).apply {
+                add(1)
+            }
+
+            2 -> ArrayList<Any>(2).apply {
+                add(1)
+                add(2)
+            }
+
+            else -> ArrayList(0)
         }
     }
 }
