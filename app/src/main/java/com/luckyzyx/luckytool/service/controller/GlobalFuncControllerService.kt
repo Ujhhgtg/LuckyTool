@@ -27,18 +27,6 @@ class GlobalFuncControllerService : RootService() {
 
         }
 
-        override fun getLcdInfo(): String {
-            val text = getFileText("/proc/devinfo/lcd")
-            return if (text.isBlank()) "null" else {
-                val list = text.lines().toMutableList()
-                list.forEachIndexed { index, s ->
-                    val value = s.substringAfterLast(":").replace("\t", "").uppercase()
-                    list[index] = value
-                }
-                "${list[0]} ${list[1]}"
-            }
-        }
-
         override fun getFlashInfo(): String {
             val text = getFileText("/sys/class/block/sda/device/inquiry")
             return if (text.isBlank()) "null" else formatSpace(text)

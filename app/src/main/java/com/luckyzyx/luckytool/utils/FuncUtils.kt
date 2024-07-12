@@ -161,7 +161,6 @@ fun Context.getDeviceInfo(
         ${getString(R.string.build_version)}: ${Build.DISPLAY}
         ${getString(R.string.version)}: ${controller?.otaVersion}
         ${getString(R.string.flash)}: ${controller?.flashInfo}
-        LCD: ${controller?.lcdInfo}
         PAS: ${controller?.pcbInfo} ${controller?.snInfo}
         RTD: $getRecruit
     """.trimIndent().let {
