@@ -13,6 +13,7 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.navigatePage
@@ -57,12 +58,28 @@ class Launcher : BaseScopePreferenceFeagment() {
                 isVisible = osCode < 33
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.remove_app_update_green_dot)
-                key = "remove_app_update_green_dot"
-                setDefaultValue(false)
-                isVisible = osCode >= 33
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.set_app_update_dot_display_mode)
+                key = "set_app_update_dot_display_mode"
+                val summaryLines = arrayListOf(
+                    getString(R.string.common_words_current_mode) + ": %s"
+                )
+                val value = context.getString(ModulePrefs, key, "0")
+                when (value) {
+                    "1" -> summaryLines.add(getString(R.string.need_restart_system))
+                    "2" -> summaryLines.add(getString(R.string.need_restart_scope))
+                }
+                summary = arraySummaryLine(*summaryLines.toTypedArray())
+
+                entries = resources.getStringArray(R.array.set_app_update_dot_display_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
                 isIconSpaceReserved = false
+                isVisible = osCode >= 33
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
             if (SDK >= A13) {
                 addPreference(SwitchPreference(context).apply {

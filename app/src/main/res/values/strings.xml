@@ -444,6 +444,7 @@
     <string name="AppBadgeRelated">App badge related</string>
     <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
     <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
+    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
     <string name="remove_app_shortcut_badge">Remove app shortcut badge</string>
     <string name="remove_app_work_badge">Remove app work badge</string>
     <string name="remove_app_clone_badge">Remove app clone badge</string>

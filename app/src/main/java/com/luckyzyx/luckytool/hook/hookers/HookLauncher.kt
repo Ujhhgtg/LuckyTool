@@ -69,9 +69,7 @@ object HookLauncher : YukiBaseHooker() {
             loadHooker(AllowLockingUnLockingOfExcludedActivity)
         }
         //移除App更新圆点
-        if (prefs(ModulePrefs).getBoolean("remove_app_update_green_dot", false)) {
-            if (osCode >= 33) loadHooker(RemoveAppUpdateGreenDot)
-        }
+        if (osCode >= 33) loadHooker(RemoveAppUpdateGreenDot)
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl
         //res/layout/oplus_task_menu_option.xml

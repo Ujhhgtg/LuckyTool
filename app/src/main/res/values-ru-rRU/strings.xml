@@ -389,6 +389,7 @@
     <string name="AppBadgeRelated">Иконка приложения</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
     <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
+    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
     <string name="remove_app_shortcut_badge">Удалить иконку приложения</string>
     <string name="remove_app_work_badge">Удалить рабочую иконку приложения</string>
     <string name="remove_app_clone_badge">Удалить иконку клонированного приложения</string>

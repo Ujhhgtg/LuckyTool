@@ -389,6 +389,7 @@
     <string name="AppBadgeRelated">应用徽章相关</string>
     <string name="enable_display_app_update_dot">启用App更新圆点开关</string>
     <string name="enable_display_app_update_dot_summary">功能位置：设置-桌面与锁屏</string>
+    <string name="set_app_update_dot_display_mode">设置App图标更新圆点显示模式</string>
     <string name="remove_app_shortcut_badge">移除应用快捷方式徽章</string>
     <string name="remove_app_work_badge">移除应用工作空间徽章</string>
     <string name="remove_app_clone_badge">移除应用分身徽章</string>

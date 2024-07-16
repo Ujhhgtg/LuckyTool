@@ -389,6 +389,7 @@
     <string name="AppBadgeRelated">Badge delle App</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
     <string name="enable_display_app_update_dot_summary">Posizione della funzione: Impostazioni - Desktop e schermata di blocco</string>
+    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
     <string name="remove_app_shortcut_badge">Rimuovi badge collegamento app</string>
     <string name="remove_app_work_badge">Rimuovi badge di lavoro app</string>
     <string name="remove_app_clone_badge">Rimuovi badge clona app</string>

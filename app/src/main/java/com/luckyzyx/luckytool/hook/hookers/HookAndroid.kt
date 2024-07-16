@@ -24,6 +24,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.RemovePasswordTimeoutVerificat
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveStatusBarTopNotification
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveVPNActiveNotification
 import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
+import com.luckyzyx.luckytool.hook.scopes.android.SetAppUpdateDotDisplayMode
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindowConfig
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -107,6 +108,9 @@ object HookAndroid : YukiBaseHooker() {
 
         //安全窗口标志
         loadHooker(OplusWindowSecureFlag)
+
+        //App图标更新圆点
+        if (osCode >= 33) loadHooker(SetAppUpdateDotDisplayMode)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)

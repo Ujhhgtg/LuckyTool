@@ -389,6 +389,7 @@
     <string name="AppBadgeRelated">アプリバッジ関連</string>
     <string name="enable_display_app_update_dot">アプリの更新ドット表示スイッチを有効化</string>
     <string name="enable_display_app_update_dot_summary">機能の場所: 設定 - ホーム画面とロック画面</string>
+    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
     <string name="remove_app_shortcut_badge">アプリのショートカットバッジを削除</string>
     <string name="remove_app_work_badge">アプリの仕事用バッジを削除</string>
     <string name="remove_app_clone_badge">アプリのクローンバッジを削除</string>

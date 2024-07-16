@@ -389,6 +389,7 @@
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
     <string name="enable_display_app_update_dot_summary">Vị trí chức năng: Cài đặt - Màn hình và màn hình khóa</string>
+    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
     <string name="remove_app_shortcut_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_work_badge">Xóa huy hiệu không gian làm việc của ứng dụng</string>
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>

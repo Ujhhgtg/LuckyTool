@@ -16,7 +16,6 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.Base64CodeUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -41,7 +40,6 @@ import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setComponentDisabled
 import com.luckyzyx.luckytool.utils.showToast
-import me.garfieldhan.cherish.domesystem.CherishNativeBridge
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.FileNotFoundException
@@ -62,16 +60,6 @@ class SettingsFragment : ModulePreferenceFragment() {
         if (it != null) {
             val entryData = FileUtils.readFromUri(requireActivity(), it)
             checkRestoreData(requireActivity(), entryData)
-        }
-    }
-
-    private fun removeJsonDeviceInfos(json: JSONObject) {
-        try {
-            json.remove(AESCrypt.encrypt(CherishNativeBridge.s(2)))
-            json.remove(AESCrypt.encrypt(CherishNativeBridge.s(3)))
-            json.remove(AESCrypt.encrypt(CherishNativeBridge.s(4)))
-        } catch (t: Throwable) {
-
         }
     }
 
@@ -97,7 +85,6 @@ class SettingsFragment : ModulePreferenceFragment() {
                     }
                 }
             }
-            removeJsonDeviceInfos(jsons)
             json.put(prefs, jsons)
         }
         val str = base64Encode(json.toString())
@@ -144,7 +131,6 @@ class SettingsFragment : ModulePreferenceFragment() {
         json.remove("osCode")
         json.keys().forEach { prefs ->
             val prefsDatas = json.getJSONObject(prefs)
-            removeJsonDeviceInfos(prefsDatas)
             if (prefsDatas.length() > 0) {
                 prefsDatas.keys().forEach { key ->
                     val value = prefsDatas.get(key)
