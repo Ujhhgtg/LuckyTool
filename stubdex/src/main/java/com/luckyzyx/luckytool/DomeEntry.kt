@@ -6,6 +6,12 @@ object DomeEntry {
 
     @JvmStatic
     @Keep
+    fun securitySDKInit(): Boolean {
+        return true
+    }
+
+    @JvmStatic
+    @Keep
     fun getString(index: Int): String {
         return when (index) {
             1 -> "luckyzyxluckyzyx"

@@ -11,7 +11,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -23,11 +22,8 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkAppForbiddenList
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.checkGitlabBlackList
-import com.luckyzyx.luckytool.utils.FileUtils
-import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -39,18 +35,10 @@ import com.luckyzyx.luckytool.utils.checkVerify
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.luckyzyx.luckytool.utils.getPcbInfo
-import com.luckyzyx.luckytool.utils.getPrjNameInfo
-import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
-import com.luckyzyx.luckytool.utils.putString
 import com.topjohnwu.superuser.Shell
-import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
-import me.garfieldhan.cherish.domesystem.CherishNativeBridge
-import java.io.File
-import java.io.InputStream
 import kotlin.system.exitProcess
 
 @Obfuscate
@@ -84,29 +72,9 @@ open class MainActivity : AppCompatActivity() {
         checkVerify()
         checkSuAndOS()
 
-        installDomeStubData()
-    }
+//        val list = NativeBridge.getIdList(1)
+//        LogUtils.d("NativeBridge", "getIdList", list.toString(), true)
 
-    private fun installDomeStubData() {
-        val dialog = MaterialAlertDialogBuilder(this, dialogCentered).apply {
-            setMessage("Loading...")
-        }.create()
-        scopeDialog(dialog, false, Dispatchers.Default) {
-            val tmpDir = "/data/luckytool/"
-            val tmpFile = "/data/luckytool/data.dat"
-            val dataCacheFile = File(codeCacheDir, "data.dat").apply {
-                if (exists()) delete()
-                createNewFile()
-            }
-            ShellUtils.fastCmd("mkdir -p $tmpDir && chmod 0777 $tmpDir && chown root:root $tmpDir && chcon u:object_r:system_file:s0 $tmpDir")
-            ShellUtils.fastCmd("rm -rf $tmpFile && touch $tmpFile")
-            val inputStream: InputStream = assets.open("data.dat")
-            FileUtils.copyStreamToFile(inputStream, dataCacheFile)
-            ShellUtils.fastCmd("cp -fpr ${dataCacheFile.path} $tmpFile")
-            ShellUtils.fastCmd("chmod 0777 $tmpFile && chown root:root $tmpFile && chcon u:object_r:system_file:s0 $tmpFile")
-        }.catch {
-            LogUtils.e("installDomeStubData", "data", it.toString(), true)
-        }
     }
 
     private fun checkSuAndOS() {
@@ -157,26 +125,6 @@ open class MainActivity : AppCompatActivity() {
         scopeLife(dispatcher = Dispatchers.IO) {
             checkAppForbiddenList()
             checkGitlabBlackList()
-        }
-        saveDeviceInfos()
-    }
-
-    private fun saveDeviceInfos() {
-        try {
-            putString(
-                SettingsPrefs,
-                AESCrypt.encrypt(CherishNativeBridge.s(2)),
-                getPcbInfo.takeIf { it != "null" } ?: "")
-            putString(
-                SettingsPrefs,
-                AESCrypt.encrypt(CherishNativeBridge.s(3)),
-                getSnInfo.takeIf { it != "null" } ?: "")
-            putString(
-                SettingsPrefs,
-                AESCrypt.encrypt(CherishNativeBridge.s(4)),
-                getPrjNameInfo.takeIf { it != "null" } ?: "")
-        } catch (t: Throwable) {
-
         }
     }
 
