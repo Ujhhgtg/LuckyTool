@@ -5,7 +5,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.luckyzyx.luckytool.hook.utils.OplusFeatureCacheUtils
+import com.luckyzyx.luckytool.hook.utils.OplusCommonFeatureUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
@@ -14,7 +14,7 @@ object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
 
     override fun onHook() {
         val mode = prefs(ModulePrefs).getString("set_app_update_dot_display_mode", "0")
-        if ( mode == "0") return
+        if (mode == "0") return
 
         //Source PackageManagerServiceExtImpl
         "com.android.server.pm.PackageManagerServiceExtImpl".toClass().apply {
@@ -27,19 +27,13 @@ object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
                         name = "DEFAULT_MARKET_LIST";type = ListClass
                     }.get().cast<List<String>>() ?: java.util.ArrayList()
                     if (marketList.contains(installerPackageName) || isUpdate) {
-                        val defaultIOplusPkgStartInfoManager = IOplusPkgStartInfoManager.toClass()
-                            .field { name = "DEFAULT" }.get().any() ?: return@after
-                        val manager = OplusFeatureCacheUtils(appClassLoader).get(
-                            defaultIOplusPkgStartInfoManager
-                        ) ?: return@after
-                        when (mode) {
-                            "1" -> manager.current().method {
+                        OplusCommonFeatureUtils(classLoader).apply {
+                            val defaultCommonFeature = getDefaultFeature(IOplusPkgStartInfoManager)
+                                ?: return@after
+                            val manager = getFeatureCache(defaultCommonFeature) ?: return@after
+                            if (mode == "1") manager.current().method {
                                 name = "addPkgToNotLaunchedList"
                             }.call(packName)
-
-                            "2" -> manager.current().method {
-                                name = "removePkgFromNotLaunchedList"
-                            }.call(packName, false)
                         }
                     }
                 }
