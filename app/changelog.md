@@ -3,7 +3,9 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.3_beta
+### 1.2.4_beta
+
+### 1.2.3
 
 - [适配] 新版音量条背景透明度效果 C14+
 - [添加] 应用详情页面添加SDK显示
