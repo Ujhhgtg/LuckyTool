@@ -188,6 +188,7 @@ object MainHook : IYukiHookXposedInit {
             run {
                 if (lpparam.packageName == "android") {
                     if (lpparam.processName == "android") when (SDK) {
+                        35 -> CorePatchForU().handleLoadPackage(lpparam)
                         UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
                         TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
                         S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
@@ -201,6 +202,7 @@ object MainHook : IYukiHookXposedInit {
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->
             run {
                 when (SDK) {
+                    35 -> CorePatchForU().initZygote(startupParam)
                     UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
                     TIRAMISU -> CorePatchForT().initZygote(startupParam)
                     S, S_V2 -> CorePatchForS().initZygote(startupParam)

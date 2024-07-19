@@ -5,6 +5,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.4_beta
 
+- [更改] 核心破解使用Android14配置
+
 ### 1.2.3
 
 - [适配] 新版音量条背景透明度效果 C14+
@@ -55,7 +57,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [Add] Customizable Gaussian Blur effect level
 - [Add] Customize status bar slider transparency C13+
 - [Add] Enable random text on screen C13+
-- [Fix] Application recommendation v40.8.29.1(782d303) at the bottom of the browser download dialog box
+- [Fix] Application recommendation v40.8.29.1(782d303) at the bottom of the browser download dialog
+  box
 - [Add] Set control center volume bar mode C14.0.1
 - [Fix] Customized camera model watermark v4.020.13(24-04-19 22:23)
 - [Add] Set screen font mode C13+
@@ -82,7 +85,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [Add] Enable eye protection mode paper texture support C14.1
 - [Add] Enable Mariana NPU introduction page C13.1+
 - [Add] Enable Hasselblad image introduction page C13.1+
-- [Fix] Information flow at the bottom of the software store update download page v11.16.0beta2(96d034a)
+- [Fix] Information flow at the bottom of the software store update download page v11.16.0beta2(
+  96d034a)
 - [Add] Enable game assistant AI game assistance v9.13.X
 - [Fix] Customized camera model watermark v4.022.224(24-06-19 22:32)
 - [Fix] Camera Hasselblad watermark style v4.022.224(24-06-19 22:32)
