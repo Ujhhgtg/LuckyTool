@@ -73,7 +73,6 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils.startCheckListFinal
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
@@ -363,10 +362,8 @@ fun getDeviceID(): String {
  * /data/system/openid_config.xml
  */
 val getGuid: String
-    get() = ShellUtils.fastCmd("cat /data/system/openid_config.xml | sed  -n '3p'").let {
-        if ((it.isNotBlank())) it.split("\"").getOrNull(3) ?: "null"
-        else "null"
-    }
+    get() = ShellUtils.fastCmd("cat /data/system/openid_config.xml | egrep guid | egrep -o 'value=\"[^\"]+\"' | sed 's/\\\"//g,s/value=//g'")
+        .ifBlank { "null" }
 
 /**
  * 获取招募ID
@@ -374,8 +371,8 @@ val getGuid: String
  */
 val getRecruit: String
     get() = ShellUtils.fastCmd(
-        "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | grep ota_register_trigger_id | cut -f2 -d '>' | cut -f1 -d '<'"
-    ).let { it.ifBlank { "null" } }
+        "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | egrep ota_register_trigger_id | egrep -o '>[^<]+<' | tr -d '><'"
+    ).ifBlank { "null" }
 
 /**
  * 获取prop数据
@@ -919,7 +916,6 @@ fun Context.restartMain() {
         }
         show()
     }
-    scope { withDefault { startCheckListFinal() } }
 }
 
 /**
@@ -941,7 +937,6 @@ fun Context.restartScopes(scopes: Array<String>) {
         }
         show()
     }
-    scope { withDefault { startCheckListFinal() } }
 }
 
 /**
@@ -1201,54 +1196,24 @@ suspend fun getUsers(): Array<String> {
     }
 }
 
-suspend fun Context.getQSlist(): ArrayList<String> {
+suspend fun getQSlist(): ArrayList<String> {
     return withDefault {
-        val cachelist = ArrayList<String>()
-        getUsers().forEach { u ->
-            val dir1 = getString(R.string.tencent_files, u)
-            val list1 = ArrayList<String>()
-            Shell.cmd("if [[ -d $dir1 ]]; then\n  ls $dir1 -mF\nfi").to(list1).exec()
-            val newList1 = list1.toString().replaceSpace.split(",").toMutableList().apply {
-                removeIf { it.contains("/").not() }
-                removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
-            }
-//            LogUtils.e("getQSlist", "newList1", "${newList1.toList()}", true)
-
-            val dir2 = getString(R.string.tencent_qstore, u)
-            val list2 = ArrayList<String>()
-            Shell.cmd("if [[ -d $dir2 ]]; then\n  ls $dir2 -mF\nfi").to(list2).exec()
-            val newList2 = list1.toString().replaceSpace.split(",").toMutableList().apply {
-                removeIf { it.contains("/").not() }
-                removeIf { Pattern.matches(".*[a-zA-Z]+.*", it) }
-            }
-//            LogUtils.e("getQSlist", "newList2", "${newList2.toList()}", true)
-
-            cachelist.apply {
-                addAll(newList1.union(newList2))
-                forEachIndexed { index, s ->
-                    this[index] = s.replace("/", "")
-                }
-            }
-        }
-//        LogUtils.e("getQSlist", "cachelist", "${cachelist.toList()}", true)
-        cachelist
+        val configList = ArrayList<String>()
+        val indexList = ArrayList<String>()
+        Shell.cmd("ls -f /data/data/com.tencent.mobileqq/databases/ | egrep 'config_db([0-9]+)\$' | | sed 's/config_db//g'")
+            .to(configList).exec()
+        Shell.cmd("ls -f /data/data/com.tencent.mobileqq/databases/ | egrep '([0-9]+)-IndexQQMsg.db' | sed 's/-IndexQQMsg.db//g'")
+            .to(indexList).exec()
+//        LogUtils.e("getQSlist", "cachelist", "${list.toList()}", true)
+        ArrayList(configList.union(indexList))
     }
 }
 
-suspend fun Context.getCSid(): ArrayList<String> {
+suspend fun getCSid(): ArrayList<String> {
     return withDefault {
-        val xmlDir = getString(R.string.cool_black, "0")
         ArrayList<String>().apply {
-            Shell.cmd("cat $xmlDir | grep 'name=\"USER_SPAM'").to(this).exec()
-            forEachIndexed { index, s ->
-                val id = s.replaceSpace.replaceBefore("\"", "")
-                    .replaceAfterLast("\"", "")
-                    .replace("\"", "")
-                    .replaceBeforeLast("_", "")
-                    .replace("_", "")
-                this[index] = id
-            }
-            removeIf { it.isBlank() }
+            Shell.cmd("cat /data/data/com.coolapk.market/shared_prefs/coolapk_preferences_v7.xml | egrep -o 'USER_SPAM_([0-9]+)' | sed 's/USER_SPAM_//g'")
+                .to(this).exec()
         }
     }
 }
