@@ -66,10 +66,10 @@
 # JSON解析异常处理
 # 保护代码中的Annotation不被混淆
 # 这在JSON实体映射时非常重要，比如fastJson
-#-keepattributes *Annotation*
+-keepattributes *Annotation*
 # 避免混淆泛型
 # 这在JSON实体映射时非常重要，比如fastJson
-#-keepattributes Signature
+-keepattributes Signature
 
 #指定外部模糊字典
 -obfuscationdictionary ../keystore/proguard-custom.txt

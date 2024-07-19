@@ -87,9 +87,9 @@ class UpdateUtils(val context: Context, val isDev: Boolean = false) {
     }
 
     private fun readyDownload(context: Context, fileName: String, downloadUrl: String) {
-        val list = arrayOf("Github", "GitMirror", "ghproxy", "Lufs")
+        val list = arrayOf("Github", "ghproxy mirror", "ghproxy", "Lufs")
         val cdn = arrayOf(
-            "", "https://hub.gitmirror.com/", "https://ghproxy.net/", "https://cors.isteed.cc/"
+            "", "https://mirror.ghproxy.com/", "https://ghproxy.net/", "https://cors.isteed.cc/"
         )
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.select_download_source))
