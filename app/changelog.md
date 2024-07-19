@@ -46,6 +46,47 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用相机夜景30倍变焦 C13.1+
 - [添加] 启用视频拍摄轮盘变焦 C13.1+
 - [添加] 设置App图标更新圆点显示模式 C14.1+
+- [Fix] New version of volume bar background transparency effect C14+
+- [Add] Add SDK display to the application details page
+- [Add] Add SDK display to the application installation page
+- [Add] Customize device OTA card background C13+
+- [Add] Customizable Gaussian Blur effect level
+- [Add] Customize status bar slider transparency C13+
+- [Add] Enable random text on screen C13+
+- [Fix] Application recommendation v40.8.29.1(782d303) at the bottom of the browser download dialog box
+- [Add] Set control center volume bar mode C14.0.1
+- [Fix] Customized camera model watermark v4.020.13(24-04-19 22:23)
+- [Add] Set screen font mode C13+
+- [Add] Enable 15th weather expanded list
+- [Optimize] Close the control center logic when tile jumps
+- [Fix] Album AIGC elimination restriction v14.41.31(8ab3102)
+- [Add] Remove app clone blacklist C14.0.1
+- [Add] Remove browser window limit
+- [Optimize] Disable OTG automatic shutdown C14+
+- [Add] Enable camera DebugUI option C14+
+- [Fix] Information flow at the bottom of the weather jump page v14.16.2 (18506cc)
+- [Optimize] Remove personal hotspot power consumption notification Hook scheme
+- [Add] On-screen random text local mode C13+
+- [Add] Sync upstream core crack - disable installation package verification agent
+- [Change] Synchronize upstream DisableFlagSecure - improve more screenshot scenarios
+- [Add] Extended call recording whitelist (Business WeChat, TIM, Feishu, Douyin) C14.0.1+
+- [Fix] Three-stage ring mode tile C14.1
+- [Fix] Process management, content recommendation page display C14.1
+- [Optimize] Screenshot privacy restriction Hook solution C14.1
+- [Add] Custom Music Fluid Cloud Whitelist C14.1
+- [Fix] Status bar power percentage and font style C14.1
+- [Fix] Remove App update dot C14.1
+- [Fix] Abnormal distance between custom status bar clock and fluid cloud C14.1
+- [Add] Enable eye protection mode paper texture support C14.1
+- [Add] Enable Mariana NPU introduction page C13.1+
+- [Add] Enable Hasselblad image introduction page C13.1+
+- [Fix] Information flow at the bottom of the software store update download page v11.16.0beta2(96d034a)
+- [Add] Enable game assistant AI game assistance v9.13.X
+- [Fix] Customized camera model watermark v4.022.224(24-06-19 22:32)
+- [Fix] Camera Hasselblad watermark style v4.022.224(24-06-19 22:32)
+- [Add] Enable camera night scene 30x zoom C13.1+
+- [Add] Enable Video Capture Roulette Zoom C13.1+
+- [Add] Set App icon update dot display mode C14.1+
 
 ### 1.2.2
 
