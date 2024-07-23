@@ -19,8 +19,11 @@ val A12 get() = Build.VERSION_CODES.S
 /**Android13 33 TIRAMISU*/
 val A13 get() = Build.VERSION_CODES.TIRAMISU
 
-/**Android14 34 XX*/
+/**Android14 34 UPSIDE_DOWN_CAKE*/
 val A14 get() = Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+
+/**Android15 35 XX*/
+val A15 get() = 35
 
 /**
  * 获取构建版本名/版本号

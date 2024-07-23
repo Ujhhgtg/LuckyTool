@@ -10,7 +10,9 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatColorAlpha
 
 object ControllerCenterSliderTransparency : YukiBaseHooker() {
@@ -57,9 +59,12 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
             }
         }
 
-        //Source OplusQsToggleSliderLayout C14.0.1
+        //Source OplusQsToggleSliderLayout C14.0.1 C15.0
         "com.oplus.systemui.qs.widget.OplusQsToggleSliderLayout".toClassOrNull()?.apply {
-            method { name = "generateSliderView" }.hook {
+            method {
+                name = "generateSliderView"
+                if (SDK >= A15) superClass()
+            }.hook {
                 after {
                     if (customAlpha < 0) return@after
                     val value = customAlpha / 10.0F
