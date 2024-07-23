@@ -65,7 +65,7 @@ object HookCameraConfig : YukiBaseHooker() {
             //盛大旅行滤镜
             if (universalFilters.contains("grand_tour_filter")) {
                 put("com.oplus.support.grand.tour.filter", true)
-                put("com.oplus.street.grand.tour.filter.type.support", true)
+//                put("com.oplus.street.grand.tour.filter.type.support", true)
             }
 
             //Filter Portrait
