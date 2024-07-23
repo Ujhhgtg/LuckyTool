@@ -23,6 +23,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 相机旅行滤镜异常崩溃问题
 - [适配] SIM卡首选网络类型 C15.0
 - [适配] SIM卡VoLTE高清通话 C15.0
+- [修复] 强制刷新率数据保存异常
 
 ### 1.2.3
 

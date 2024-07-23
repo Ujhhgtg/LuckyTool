@@ -83,9 +83,9 @@ class ForceFpsFragment : Fragment() {
                 if (curFpsId != -1) setItemChecked(curFpsId, fpsCur != -1)
                 onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                     fpsSelfStart.isEnabled = true
-                    val id = fpsIds[position]
-                    context.putInt(SettingsPrefs, keyFpsCur, id)
-                    this@ForceFpsFragment.controller?.setRefreshRateMode(id)
+                    val curId = fpsIds[position]
+                    context.putInt(SettingsPrefs, keyFpsCur, curId)
+                    this@ForceFpsFragment.controller?.setRefreshRateMode(curId)
                 }
             }
             binding.fpsShow.apply {
@@ -121,7 +121,7 @@ class ForceFpsFragment : Fragment() {
     }
 
     private fun Context.resetRefreshRate() {
-        putInt(SettingsPrefs, keyFpsCur, id)
+        putInt(SettingsPrefs, keyFpsCur, -1)
         controller?.resetRefreshRateMode()
         init(this, controller)
     }
