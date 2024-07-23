@@ -51,6 +51,103 @@
         <item>com.ruet_cse_1503050.ragib.appbackup.pro</item>
     </string-array>
     
+    <array name="kgd_chinese_leap_month">
+        <item>闰</item>
+        <item>月</item>
+    </array>
+    
+    <array name="kgd_chinese_animal_year">
+        <item>鼠年</item>
+        <item>牛年</item>
+        <item>虎年</item>
+        <item>兔年</item>
+        <item>龙年</item>
+        <item>蛇年</item>
+        <item>马年</item>
+        <item>羊年</item>
+        <item>猴年</item>
+        <item>鸡年</item>
+        <item>狗年</item>
+        <item>猪年</item>
+    </array>
+    
+    <array name="kgd_chinese_tiangan">
+        <item>甲</item>
+        <item>乙</item>
+        <item>丙</item>
+        <item>丁</item>
+        <item>戊</item>
+        <item>己</item>
+        <item>庚</item>
+        <item>辛</item>
+        <item>壬</item>
+        <item>癸</item>
+    </array>
+    
+    <array name="kgd_chinese_dizhi">
+        <item>子</item>
+        <item>丑</item>
+        <item>寅</item>
+        <item>卯</item>
+        <item>辰</item>
+        <item>巳</item>
+        <item>午</item>
+        <item>未</item>
+        <item>申</item>
+        <item>酉</item>
+        <item>戌</item>
+        <item>亥</item>
+    </array>
+    
+    <array name="kgd_chinese_month_number">
+        <item>月</item>
+        <item>正</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+        <item>七</item>
+        <item>八</item>
+        <item>九</item>
+        <item>十</item>
+        <item>十一</item>
+        <item>腊</item>
+    </array>
+    
+    <array name="kgd_chinese_day_number">
+        <item>初一</item>
+        <item>初二</item>
+        <item>初三</item>
+        <item>初四</item>
+        <item>初五</item>
+        <item>初六</item>
+        <item>初七</item>
+        <item>初八</item>
+        <item>初九</item>
+        <item>初十</item>
+        <item>十一</item>
+        <item>十二</item>
+        <item>十三</item>
+        <item>十四</item>
+        <item>十五</item>
+        <item>十六</item>
+        <item>十七</item>
+        <item>十八</item>
+        <item>十九</item>
+        <item>二十</item>
+        <item>廿一</item>
+        <item>廿二</item>
+        <item>廿三</item>
+        <item>廿四</item>
+        <item>廿五</item>
+        <item>廿六</item>
+        <item>廿七</item>
+        <item>廿八</item>
+        <item>廿九</item>
+        <item>三十</item>
+    </array>
+    
     <string-array name="sort_selector_chips">
         <item>@string/appinfo_app_name</item>
         <item>@string/appinfo_package_name</item>

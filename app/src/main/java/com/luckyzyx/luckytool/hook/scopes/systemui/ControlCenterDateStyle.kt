@@ -52,12 +52,13 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                 after {
                     if (!removeComma && !showLunar) return@after
                     val dateView = instance<TextView>()
+                    val context = dateView.context
                     var res = dateView.text as String
                     if (removeComma) res = res.replace("，", " ")
                     if (showLunar) {
-                        LunarHelperUtils(appClassLoader).apply {
-                            if (lunarInstance == null) lunarInstance = getInstance(dateView.context)
-                            val lunarInfo = generateLunarDate(lunarInstance, 2)
+                        LunarHelperUtils(context, appClassLoader).apply {
+                            if (lunarInstance == null) lunarInstance = getInstance(context)
+                            val lunarInfo = generateLunarDate(2)
                             if (lunarInfo.isNotBlank()) res += " $lunarInfo" else return@after
                         }
                     }

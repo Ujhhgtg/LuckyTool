@@ -134,9 +134,9 @@ object StatusBarClock : YukiBaseHooker() {
     }
 
     private fun getLunar(context: Context, level: Int = 4): String {
-        LunarHelperUtils(appClassLoader).apply {
+        LunarHelperUtils(context, appClassLoader).apply {
             if (lunarInstance == null) lunarInstance = getInstance(context)
-            return generateLunarDate(lunarInstance, level)
+            return generateLunarDate(level)
         }
     }
 
@@ -211,9 +211,9 @@ object StatusBarClock : YukiBaseHooker() {
     }
 
     private fun getDiZhiHour(context: Context, nowTime: Date): String {
-        val diZhiArr = LunarHelperUtils(appClassLoader).let {
+        val diZhiArr = LunarHelperUtils(context, appClassLoader).let {
             if (lunarInstance == null) lunarInstance = it.getInstance(context)
-            it.getDiZhi(lunarInstance)
+            it.mDiZhi
         }
         if (diZhiArr.isEmpty()) return ""
         if (diZhiArr.size != 12) return ""
