@@ -20,7 +20,8 @@ object FingerPrintIconAnim : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.keyguard.onscreenfingerprint.OnScreenFingerprintOpticalAnimCtrl", //C12
             "com.oplus.systemui.keyguard.finger.onscreenfingerprint.OnScreenFingerprintUiMech", //C13
-            "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintUiMach" //C14
+            "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintUiMach", //C14
+            "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintUiMech"  //C15
         ).toClass().apply {
             method { name = "loadAnimDrawables" }.hook {
                 when (removeMode) {
