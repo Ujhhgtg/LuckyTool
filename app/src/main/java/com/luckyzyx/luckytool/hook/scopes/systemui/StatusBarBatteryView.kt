@@ -52,7 +52,7 @@ object StatusBarBatteryView : YukiBaseHooker() {
                             }
                         }
                     }
-                    if (osCode >= 33) {
+                    if (osCode == 33) {
                         method { name = "bind\$updateOldHorizontal" }.hook {
                             after {
                                 args.filterIsInstance<TextView>().forEachIndexed { _, view ->
