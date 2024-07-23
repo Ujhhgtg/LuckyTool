@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
-import com.luckyzyx.luckytool.hook.scopes.phone.ForceDisplaySomeSwitch
+import com.luckyzyx.luckytool.hook.scopes.phone.ForceDisplaySIMSomeSwitch
 import com.luckyzyx.luckytool.utils.DexkitUtils
 
 object HookPhone : YukiBaseHooker() {
@@ -13,7 +13,7 @@ object HookPhone : YukiBaseHooker() {
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             //强制显示部分开关
-            loadHooker(ForceDisplaySomeSwitch(dexKitBridge))
+            loadHooker(ForceDisplaySIMSomeSwitch(dexKitBridge))
         }
     }
 }

@@ -10,7 +10,7 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge
 
-class ForceDisplaySomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val volteCall = prefs(ModulePrefs).getBoolean("force_display_volte_calls", false)
         val preferredNetwork =
