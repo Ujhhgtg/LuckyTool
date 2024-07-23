@@ -26,7 +26,8 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         //Source OplusQSFactoryImpl
         VariousClass(
             "com.oplusos.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C13
-            "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl"  //C14
+            "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C14
+            "com.oplus.systemui.qs.tileimpl.OplusQSFactoryImpl"  //C15
         ).toClass().apply {
             method { name = "createTileInternal" }.hook {
                 before {
