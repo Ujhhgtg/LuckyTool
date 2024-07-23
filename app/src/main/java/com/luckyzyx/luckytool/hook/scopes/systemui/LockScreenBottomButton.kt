@@ -48,11 +48,11 @@ object LockScreenBottomButton : YukiBaseHooker() {
                         val viewModel = args(1).any() ?: return@before
                         when (viewModel.current().field { name = "slotId" }.string()) {
                             "bottom_start" -> if (rmLeft) {
-                                viewModel.current().method { name = "setVisible" }.call(false)
+                                viewModel.current().field { name = "isVisible" }.setFalse()
                             }
 
                             "bottom_end" -> if (rmRight) {
-                                viewModel.current().method { name = "setVisible" }.call(false)
+                                viewModel.current().field { name = "isVisible" }.setFalse()
                             }
                         }
                     }
