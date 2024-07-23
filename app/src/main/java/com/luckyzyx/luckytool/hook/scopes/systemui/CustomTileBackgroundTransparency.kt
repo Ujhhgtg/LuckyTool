@@ -32,7 +32,8 @@ object CustomTileBackgroundTransparency : YukiBaseHooker() {
         //Source OplusQSTileBaseView status_bar_qs_tile_bg_color_inactive
         VariousClass(
             "com.oplusos.systemui.qs.qstileimpl.OplusQSTileBaseView",  //C13
-            "com.oplus.systemui.qs.qstileimpl.OplusQSTileBaseView"  //C14
+            "com.oplus.systemui.qs.qstileimpl.OplusQSTileBaseView",  //C14
+            "com.oplus.systemui.qs.base.tile.OplusQSTileBaseView"  //C15
         ).toClass().apply {
             method { name = "generateDrawable" }.hook {
                 after {
@@ -54,7 +55,8 @@ object CustomTileBackgroundTransparency : YukiBaseHooker() {
         //Source OplusQSHighlightTileView status_bar_qs_tile_bg_color_inactive
         VariousClass(
             "com.oplusos.systemui.qs.qstileimpl.OplusQSHighlightTileView",  //C13
-            "com.oplus.systemui.qs.qstileimpl.OplusQSHighlightTileView"  //C14
+            "com.oplus.systemui.qs.qstileimpl.OplusQSHighlightTileView",  //C14
+            "com.oplus.systemui.qs.base.tile.OplusQSHighlightTileView"  //C15
         ).toClass().apply {
             method { name = "generateDrawable" }.hook {
                 after {
