@@ -31,8 +31,8 @@ class DisplayManagerUtils(val classLoader: ClassLoader?) {
 
     fun getDynamicDisplayInfo(displayInfo: DisplayInfo): Any? {
         return if (displayInfo.address is DisplayAddress.Physical) {
-            val physicalDisplayId =
-                (displayInfo.address as DisplayAddress.Physical).physicalDisplayId
+            val physicalDisplayId = (displayInfo.address as DisplayAddress.Physical)
+                .physicalDisplayId
             SurfaceControlUtils(classLoader).let {
                 if (it.isDisplayToken()) {
                     val token = it.getPhysicalDisplayToken(physicalDisplayId)

@@ -11,7 +11,4 @@ data class DisplayMode(
     val xDpi: Float? = null,
     val yDpi: Float? = null,
     val refreshRate: Float? = null,
-    val appVsyncOffsetNanos: Long? = null,
-    val presentationDeadlineNanos: Long? = null,
-    val group: Int? = null,
 ) : Serializable
