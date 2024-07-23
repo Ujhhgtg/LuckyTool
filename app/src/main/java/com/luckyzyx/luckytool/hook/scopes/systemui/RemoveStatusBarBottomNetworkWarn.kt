@@ -4,22 +4,48 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object RemoveStatusBarBottomNetworkWarn : YukiBaseHooker() {
     override fun onHook() {
-        var removeMode = prefs(ModulePrefs).getString("remove_control_center_networkwarn", "0")
-        dataChannel.wait<String>("remove_control_center_networkwarn") { removeMode = it }
+        val osCode = getOSVersionCode
+        if (osCode >= 34) loadHooker(StatusBarBottomNetworkWarn)
+        else loadHooker(StatusBarBottomNetworkWarnOld)
+    }
 
-        //Source OplusQSSecurityText
-        VariousClass(
-            "com.oplusos.systemui.qs.widget.OplusQSSecurityText", //C13
-            "com.oplus.systemui.qs.widget.OplusQSSecurityText" //C14
-        ).toClass().apply {
-            method { name = "handleClick" }.hook {
-                if (removeMode == "1" || removeMode == "2") intercept()
+    object StatusBarBottomNetworkWarn : YukiBaseHooker() {
+        override fun onHook() {
+            var removeMode = prefs(ModulePrefs).getString("remove_control_center_networkwarn", "0")
+            dataChannel.wait<String>("remove_control_center_networkwarn") { removeMode = it }
+
+            //Source OplusQSSecurityController
+            "com.oplus.systemui.qs.policy.OplusQSSecurityController".toClass().apply {
+                method { name = "showDeviceMonitoringDialog" }.hook {
+                    if (removeMode == "1" || removeMode == "2") intercept()
+                }
+                method { name = "handleRefreshState" }.hook {
+                    if (removeMode == "2") intercept()
+                }
             }
-            method { name = "handleRefreshState" }.hook {
-                if (removeMode == "2") intercept()
+        }
+    }
+
+    object StatusBarBottomNetworkWarnOld : YukiBaseHooker() {
+        override fun onHook() {
+            var removeMode = prefs(ModulePrefs).getString("remove_control_center_networkwarn", "0")
+            dataChannel.wait<String>("remove_control_center_networkwarn") { removeMode = it }
+
+            //Source OplusQSSecurityText
+            VariousClass(
+                "com.oplusos.systemui.qs.widget.OplusQSSecurityText", //C13
+                "com.oplus.systemui.qs.widget.OplusQSSecurityText" //C14
+            ).toClass().apply {
+                method { name = "handleClick" }.hook {
+                    if (removeMode == "1" || removeMode == "2") intercept()
+                }
+                method { name = "handleRefreshState" }.hook {
+                    if (removeMode == "2") intercept()
+                }
             }
         }
     }
