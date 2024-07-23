@@ -35,7 +35,10 @@ class OplusScreenshot : BaseScopePreferenceFeagment() {
             })
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.disable_flag_secure)
-                summary = getString(R.string.disable_flag_secure_summary)
+                summary = arraySummaryLine(
+                    getString(R.string.disable_flag_secure_summary),
+                    getString(R.string.need_restart_system)
+                )
                 key = "disable_flag_secure"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
