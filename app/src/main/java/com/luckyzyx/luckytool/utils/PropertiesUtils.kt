@@ -23,14 +23,14 @@ fun Properties.getStringProperty(key: String, def: String? = ""): String? {
  * @param key String
  * @return Int 不存在或异常时返回0
  */
-fun Properties.getIntProperty(key: String): Int {
+fun Properties.getIntProperty(key: String, def: Int? = null): Int {
     val stringProperty = getStringProperty(key)
     return if (TextUtils.isEmpty(stringProperty)) {
-        0
+        def ?: 0
     } else try {
         stringProperty!!.trim { it <= ' ' }.toInt()
     } catch (e: Exception) {
-        0
+        def ?: 0
     }
 }
 

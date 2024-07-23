@@ -24,6 +24,7 @@ import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatDecimals
 import com.luckyzyx.luckytool.utils.getBooleanProperty
 import com.luckyzyx.luckytool.utils.getIntProperty
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getStringProperty
 import com.luckyzyx.luckytool.utils.safeOf
 import java.io.StringReader
@@ -53,6 +54,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private var chargerTechnology: Int = 0
     private var chargeWattage: Int = 0
     private var ppsMode: Int = 0
+    private var chargerWattageOrigin: Int = -1
+    private var usbFastChgType: Int = 0
 
     private var isSeriesDual = false
     private var isParallelDual = false
@@ -140,6 +143,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
                 chargerTechnology = (intent.getIntExtra("chargertechnology", 0))
                 chargeWattage = (intent.getIntExtra("chargewattage", 0))
                 ppsMode = (intent.getIntExtra("pps_chg_mode", 0))
+                chargerWattageOrigin = intent.getIntExtra("cpa_charge_wattage", 0)
 
                 initInfo(context)
                 initSend(context)
@@ -175,6 +179,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             isSeriesDual = DevicesConfigUtils.isSeriesDualBattery == true
             isParallelDual = DevicesConfigUtils.isParallelDualBattery == true
             chargerType = chargeInfo.getStringProperty("charger_type", "Null").toString()
+            usbFastChgType = chargeInfo.getIntProperty("usb_fast_chg_type", 0)
             voltage = chargeInfo.getIntProperty("battery_voltage_now") / 1000.0
             voltage2 = if (isSeriesDual) chargeInfo.getIntProperty("battery_voltage_min") / 1000.0
             else if (isParallelDual) chargeInfo.getIntProperty("sub_voltage") / 1000.0
@@ -233,10 +238,15 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         isSimple: Boolean, showVolMode: String
     ) {
         createChannel(context)
-        //com.oplusos.systemui.keyguard.charginganim.ChargingTypeConstants
-        val technology = BatteryControllerUtils(appClassLoader).getTechnologyName(
-            chargerTechnology, ppsMode, isWireless
-        )
+        //com.oplusos.systemui.keyguard.charginganim.ChargingTypeConstants C14.1-
+        val technology = BatteryControllerUtils(appClassLoader).let {
+            if (getOSVersionCode >= 34) it.getTechnologyName(
+                chargerTechnology, usbFastChgType, ppsMode, isWireless
+            )
+            else it.getTechnologyNameOld(chargerTechnology, ppsMode, isWireless)
+        }
+//        YLog.debug("tech: $chargerTechnology | usbFastChgType: $usbFastChgType | pps: $ppsMode -> $technology")
+
         val powerCalc = if (isSeriesDual || isParallelDual) {
             (voltage + voltage2) * electricCurrent / 1000.0
         } else voltage * electricCurrent / 1000.0
@@ -265,7 +275,9 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val updateTimeStr = safeOf("UpdateTime") { context.getString(R.string.battery_update_time) }
 
         val power = abs(powerCalc).formatDecimals(2) + "W"
-        val wattage = if (chargeWattage != 0) "${chargeWattage}W" else ""
+        val wattage = if (getOSVersionCode >= 34) {
+            if (chargerWattageOrigin != 0) "${chargerWattageOrigin}W" else ""
+        } else if (chargeWattage != 0) "${chargeWattage}W" else ""
 
         val tem = if (isSimple) "${temperature}℃"
         else "${tempStr}: ${temperature}℃"
