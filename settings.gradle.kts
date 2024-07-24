@@ -37,4 +37,3 @@ plugins {
 rootProject.name = "LuckyTool"
 include(":app")
 include(":hidden-api-stub")
-include(":stubdex")
