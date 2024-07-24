@@ -2,24 +2,47 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AESCrypt.baseDetrypt
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
+import com.luckyzyx.luckytool.utils.SettingsPrefs
+import com.luckyzyx.luckytool.utils.safeOfNull
+import com.luckyzyx.luckytool.utils.toStringList
+import org.json.JSONArray
 
 object HookAppStartForbidden : YukiBaseHooker() {
+    private val forbiddenApps = ArrayList<String>()
+
+    private fun initList(jsonString: String) {
+        val original = safeOfNull { AESCrypt.decrypt(jsonString) } ?: ""
+        val jsonArray = safeOfNull { JSONArray(original) } ?: JSONArray()
+        val list = jsonArray.toStringList().apply {
+            if (isEmpty()) add("com.Sunshine.ToolBox")
+        }
+        forbiddenApps.clear()
+        forbiddenApps.addAll(list)
+//        YLog.debug("forbiddenApps -> ${forbiddenApps.toList()}")
+    }
+
     override fun onHook() {
+        var apps = prefs(SettingsPrefs).getString("rk7cBXvdN33TqHzVdwBQvQ==", "")
+        dataChannel.wait<String>("rk7cBXvdN33TqHzVdwBQvQ==") {
+            apps = it
+            initList(apps)
+        }
+        initList(apps)
 
         //Source OplusAppStartupConfig
         "com.android.server.am.OplusAppStartupConfig".toClassOrNull()?.apply {
             method { name = "isAppStartForbidden" }.hook {
                 after {
                     val packName = args().first().string()
-                    if (AppAnalyticsUtils.isAppForbidden(packName)) resultTrue()
+                    if (isAppForbidden(packName)) resultTrue()
                 }
             }
             method { name = "handleAppStartForbidden" }.hook {
                 after {
                     val packName = args().first().string()
-                    if (AppAnalyticsUtils.isAppForbidden(packName)) {
+                    if (isAppForbidden(packName)) {
                         val curLanguage = method { name = "getCurrentLanguage" }.get(instance)
                             .invoke<String>() ?: ""
                         val dialogText = when (curLanguage) {
@@ -54,9 +77,16 @@ object HookAppStartForbidden : YukiBaseHooker() {
             method { name = "isAppStartForbidden" }.hook {
                 after {
                     val packName = args().first().string()
-                    if (AppAnalyticsUtils.isAppForbidden(packName)) resultTrue()
+                    if (isAppForbidden(packName)) resultTrue()
                 }
             }
         }
+    }
+
+    private fun isAppForbidden(packName: String): Boolean {
+        forbiddenApps.forEach {
+            if (it.lowercase() == packName.lowercase()) return true
+        }
+        return false
     }
 }

