@@ -67,6 +67,12 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_browser_search_bar_app_promotion)
+                key = "remove_browser_search_bar_app_promotion"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             //old weeather ads
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_ads_from_weather_page)

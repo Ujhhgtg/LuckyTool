@@ -856,6 +856,7 @@
     <string name="remove_ads_from_download_dialog">Remove ads from download dialog</string>
     <string name="remove_ads_at_download_page_bottom">Remove ads at the bottom of download page</string>
     <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
+    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
     
     <!--OplusBreeno-->
     <string name="BreenoTouch">Breeno Touch</string>
@@ -1101,5 +1102,5 @@
     <string name="net_error">Unknown network error</string>
     <string name="net_other_error">Unknown error</string>
     <string name="no_error_message">No error message</string>
-    
+
 </resources>

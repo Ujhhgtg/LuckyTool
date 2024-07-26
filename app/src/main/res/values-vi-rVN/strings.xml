@@ -119,8 +119,8 @@
     <string name="usepresig_warn">!!! Tất cả các gói có thể ghi đè ứng dụng đã cài đặt!!\nđể cài đặt các gói không xác định</string>
     <string name="shared_user_title">Bỏ qua xác minh chữ ký người dùng được chia sẻ</string>
     <string name="shared_user_summary">Cho phép cài đặt các ứng dụng có chữ ký khác nhau từ những người dùng chia sẻ chúng (<b>Cũng cần bật \"Tắt xác minh chữ ký Apk\"</b>)</string>
-    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
-    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
+    <string name="disable_verification_agent_title">Vô hiệu hóa xác minh gói cài đặt</string>
+    <string name="disable_verification_agent_summary">Ví dụ: Google Play Protect</string>
     <!-- Android -->
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
     <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
@@ -189,8 +189,8 @@
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
-    <string name="custom_music_fluid_cloud_whitelist">Custom music fluid cloud whitelist</string>
-    <string name="set_custom_music_fluid_cloud_whitelist">Set up music fluid cloud whitelist</string>
+    <string name="custom_music_fluid_cloud_whitelist">Tùy chỉnh danh sách cho phép Music Fluid Cloud</string>
+    <string name="set_custom_music_fluid_cloud_whitelist">Thiết lập danh sách cho phép Music Fluid Cloud</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
@@ -332,15 +332,15 @@
     <string name="set_aod_notification_icon_style">Đặt kiểu biểu tượng thông báo AOD</string>
     <string name="force_enable_screen_off_music_support">Buộc bật hỗ trợ nhạc màn hình</string>
     <string name="force_enable_screen_off_music_support_summary">Chỉ áp dụng cho các dòng máy không hỗ trợ phát nhạc trên màn hình</string>
-    <string name="AodRandomText">Aod Random Text</string>
-    <string name="set_random_text_display_mode">Set random text display mode</string>
-    <string name="set_random_text_display_mode_tips1">Need to enable aod personalized text</string>
-    <string name="set_random_text_display_mode_tips2">It may cause aod freezes and other issues</string>
-    <string name="set_random_text_display_mode_local_file">Local File</string>
-    <string name="set_random_text_display_mode_remote_api">Remote Api</string>
-    <string name="custom_random_text_file">Custom random text file</string>
-    <string name="custom_random_text_api">Custom random text api</string>
-    <string name="AodTypface">Aod Typface</string>
+    <string name="AodRandomText">Văn bản ngẫu nhiên trên AOD</string>
+    <string name="set_random_text_display_mode">Đặt chế độ hiển thị văn bản ngẫu nhiên</string>
+    <string name="set_random_text_display_mode_tips1">Cần bật văn bản cá nhân hóa AOD</string>
+    <string name="set_random_text_display_mode_tips2">Nó có thể gây treo màn hình và các vấn đề khác</string>
+    <string name="set_random_text_display_mode_local_file">Tập tin cục bộ</string>
+    <string name="set_random_text_display_mode_remote_api">API điều khiển</string>
+    <string name="custom_random_text_file">Tùy chỉnh tệp văn bản ngẫu nhiên</string>
+    <string name="custom_random_text_api">Tùy chỉnh tệp văn bản ngẫu nhiên</string>
+    <string name="AodTypface">Phông chữ AOD</string>
     <string name="set_aod_typeface_mode">Đặt chế độ phông chữ màn hình AOD</string>
     <string name="apply_aod_clock_typeface">Áp dụng phông chữ cho đồng hồ màn hình AOD</string>
     <!--LockScreen-->
@@ -389,11 +389,11 @@
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
     <string name="enable_display_app_update_dot_summary">Vị trí chức năng: Cài đặt - Màn hình và màn hình khóa</string>
-    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
+    <string name="set_app_update_dot_display_mode">Đặt chế độ hiển thị dấu chấm cập nhật biểu tượng ứng dụng</string>
     <string name="remove_app_shortcut_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_work_badge">Xóa huy hiệu không gian làm việc của ứng dụng</string>
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>
-    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
+    <string name="remove_app_update_green_dot">Xóa dấu chấm cập nhật ứng dụng</string>
     <string name="FolderLayoutRelated">Bố cục gạch liên quan</string>
     <string name="remove_folder_preview_background">Xóa nền xem trước thư mục</string>
     <string name="enable_folder_layout_adjustment">Bật điều chỉnh bố cục thư mục</string>
@@ -596,8 +596,8 @@
     <string name="enable_game_acceleration">Bật tính năng tăng tốc trò chơi</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
-    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
-    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
+    <string name="enable_mariana_npu_introduction_page">Kích hoạt trang giới thiệu NPU Mariana</string>
+    <string name="enable_hasselblad_camera_introduction_page">Kích hoạt trang giới thiệu hình ảnh Hasselblad</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>
     <string name="customize_device_sharing_page_parameters">Tùy chỉnh thông số trang chia sẻ thiết bị</string>
     <string name="customize_device_ota_card_background">Tùy chỉnh nền thẻ OTA của thiết bị</string>
@@ -614,18 +614,18 @@
     <string name="enable_camera_debug_ui_option">Bật tùy chọn DebugUI</string>
     <string name="custom_camera_open_gallery_by_default">Tùy chỉnh thư viện mở theo mặc định</string>
     <string name="custom_camera_open_gallery_by_default_tips">Chỉ được phép chọn một ứng dụng thư viện ảnh!</string>
-    <string name="enable_camera_night_zoom_30x">Enable 30x zoom for night scenes</string>
-    <string name="enable_video_capture_roulette_zoom">Enable video capture roulette zoom</string>
+    <string name="enable_camera_night_zoom_30x">Bật zoom 30x cho chế độ ban đêm</string>
+    <string name="enable_video_capture_roulette_zoom">Cho phép quay video và thu phóng roulette</string>
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn ký tự ở hình mờ tùy chỉnh</string>
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>
     <string name="enable_hasselblad_watermark_style">Kích hoạt kiểu hình mờ Hasselblad</string>
     <string name="custom_model_watermark">Hình mờ máy tùy chỉnh</string>
     <string name="CameraFilter">Bộ lọc</string>
-    <string name="camera_universal_filter_settings">Universal filter settings</string>
-    <string name="camera_filter_master">Master filter</string>
-    <string name="camera_filter_jiangwen">Jiang Wen filter</string>
-    <string name="camera_filter_grand_tour">GrandTour filter</string>
+    <string name="camera_universal_filter_settings">Cài đặt bộ lọc phổ quát</string>
+    <string name="camera_filter_master">Bộ lọc chính</string>
+    <string name="camera_filter_jiangwen">Bộ lọc Jiang Wen</string>
+    <string name="camera_filter_grand_tour">Bộ lọc du lịch</string>
     <string name="camera_portrait_filter_settings">Cài đặt bộ lọc chân dung</string>
     <string name="camera_video_filter_settings">Cài đặt bộ lọc video</string>
     <string name="camera_filter_color_extraction">Đỏ/Xanh lá/Xanh da trời</string>
@@ -741,6 +741,7 @@
     <string name="remove_ads_from_download_dialog">Xóa quảng cáo trong hộp thoại tải xuống</string>
     <string name="remove_ads_at_download_page_bottom">Xóa quảng cáo ở cuối trang tải xuống</string>
     <string name="remove_browser_window_limit_number">Xóa giới hạn cửa sổ trình duyệt</string>
+    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Chạm Breeno</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
@@ -762,14 +763,14 @@
     <string name="unlock_recent_files">Mở khóa các tập tin gần đây</string>
     <string name="unlock_fluid_cloud">Bỏ chặn đám mây</string>
     <string name="enable_run_in_background">Bật chạy ở chế độ nền</string>
-    <string name="enable_game_ai_play">Enable AI Game Assist</string>
+    <string name="enable_game_ai_play">Bật hỗ trợ trò chơi AI</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">Bật ghi âm cuộc gọi cho các ứng dụng của bên thứ ba</string>
     <string name="enable_record_calls_on_third_party_apps_tips">Điều kiện tiên quyết: Cần phải cài đặt \"Ghi âm cuộc gọi của ứng dụng ba bên (com.oplus.audiomonitor)\" và phải được cấp quyền micrô cũng như toàn bộ quyền hoạt động ở chế độ nền</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Cần phải cấp quyền root cho \"Ghi âm cuộc gọi ứng dụng của bên thứ ba\"</string>
-    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
+    <string name="expand_voip_recorder_whitelist">Danh sách cho phép ghi âm cuộc gọi mở rộng</string>
     <!--OplusEyeProtect-->
-    <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
+    <string name="enable_eyeprotect_paper_texture_support">Bật hỗ trợ kết cấu giấy</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>
@@ -958,5 +959,4 @@
     <string name="net_error">Mạng không xác định</string>
     <string name="net_other_error">Lỗi không xác định</string>
     <string name="no_error_message">Thông báo lỗi</string>
-    <!--Black-->
 </resources>

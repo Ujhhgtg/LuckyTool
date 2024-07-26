@@ -389,7 +389,7 @@
     <string name="AppBadgeRelated">Odznaky aplikací</string>
     <string name="enable_display_app_update_dot">Povolit přepínač aktualizací aplikace</string>
     <string name="enable_display_app_update_dot_summary">Umístění funkce: Nastavení - Desktop a zamykací obrazovka</string>
-    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
+    <string name="set_app_update_dot_display_mode">Nastavení režimu zobrazení bodu na ikoně po aktualizaci aplikace</string>
     <string name="remove_app_shortcut_badge">Odstranit odznak na ikoně aplikace</string>
     <string name="remove_app_work_badge">Odstranit značku pracovní aplikace</string>
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
@@ -614,18 +614,18 @@
     <string name="enable_camera_debug_ui_option">Povolit možnost DebugUI</string>
     <string name="custom_camera_open_gallery_by_default">Přizpůsobit galerii, která se otevírá ve výchozím nastavení</string>
     <string name="custom_camera_open_gallery_by_default_tips">Povolit výběr pouze jedné galerie!</string>
-    <string name="enable_camera_night_zoom_30x">Enable 30x zoom for night scenes</string>
-    <string name="enable_video_capture_roulette_zoom">Enable video capture roulette zoom</string>
+    <string name="enable_camera_night_zoom_30x">Povolit 30x přiblížení pro noční scény</string>
+    <string name="enable_video_capture_roulette_zoom">Povolit přiblížení ruletou při natáčení videa</string>
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit znaků pro vlastní vodoznaky</string>
     <string name="enable_frame_watermark_style">Povolit styl rámečku vodoznaku</string>
     <string name="enable_hasselblad_watermark_style">Povolit Hasselblad styl vodoznaku</string>
     <string name="custom_model_watermark">Vlastní model vodoznak</string>
     <string name="CameraFilter">Filtr</string>
-    <string name="camera_universal_filter_settings">Universal filter settings</string>
-    <string name="camera_filter_master">Master filter</string>
-    <string name="camera_filter_jiangwen">Jiang Wen filter</string>
-    <string name="camera_filter_grand_tour">GrandTour filter</string>
+    <string name="camera_universal_filter_settings">Univerzální nastavení filtru</string>
+    <string name="camera_filter_master">Hlavní filtr</string>
+    <string name="camera_filter_jiangwen">Jiang Wen filtr</string>
+    <string name="camera_filter_grand_tour">Filtr GrandTour</string>
     <string name="camera_portrait_filter_settings">Nastavení filtru portrétu</string>
     <string name="camera_video_filter_settings">Nastavení filtru videa</string>
     <string name="camera_filter_color_extraction">Crimson/Lesní zelená/nebeská modrá</string>
@@ -741,6 +741,7 @@
     <string name="remove_ads_from_download_dialog">Odstranit reklamy z dialogového okna stahování</string>
     <string name="remove_ads_at_download_page_bottom">Odstranit reklamy v dolní části stránky stahování</string>
     <string name="remove_browser_window_limit_number">Odstranit limit v počtu oken prohlížeče</string>
+    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Dotyk Breeno</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
@@ -769,7 +770,7 @@
     <string name="enable_record_calls_on_third_party_apps_tips_2">Root oprávnění musí být uděleno, aby mohly aplikace třetích stran nahrávat hovory</string>
     <string name="expand_voip_recorder_whitelist">Rozšířený seznam povolených hovorů</string>
     <!--OplusEyeProtect-->
-    <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
+    <string name="enable_eyeprotect_paper_texture_support">Povolit podporu textury papíru pro ochranu očí</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>
@@ -958,5 +959,4 @@
     <string name="net_error">Neznámá chyba sítě</string>
     <string name="net_other_error">Neznámá chyba</string>
     <string name="no_error_message">Žádná chybová zpráva</string>
-    <!--Black-->
 </resources>
