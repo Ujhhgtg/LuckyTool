@@ -189,11 +189,24 @@ class StatusBar : BaseScopePreferenceFeagment() {
                     }
                 })
                 if (context.getBoolean(ModulePrefs, "custom_music_fluid_cloud_whitelist")) {
+                    addPreference(SwitchPreference(context).apply {
+                        title = getString(R.string.disable_music_fluid_cloud_display)
+                        key = "disable_music_fluid_cloud_display"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, _ ->
+                            (activity as MainActivity).restart()
+                            true
+                        }
+                    })
                     addPreference(Preference(context).apply {
                         key = "set_custom_music_fluid_cloud_whitelist"
                         title = getString(R.string.set_custom_music_fluid_cloud_whitelist)
                         val value = context.getStringSet(ModulePrefs, key, ArraySet())
                         summary = value.toString()
+                        isEnabled = context.getBoolean(
+                            ModulePrefs, "disable_music_fluid_cloud_display"
+                        ).not()
                         isIconSpaceReserved = false
                         setOnPreferenceClickListener {
                             AppInfoSelector(context, true).apply {

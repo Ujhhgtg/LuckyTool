@@ -1448,3 +1448,16 @@ fun startBackgroundRunService(context: Context) {
     }
 }
 
+/**
+ * 数组字符串转数组
+ * @receiver String
+ * @return ArrayList<String>
+ */
+fun String.convertList(): ArrayList<String> {
+    val list = ArrayList<String>()
+    if (startsWith("[") && endsWith("]")) {
+        val tmp = replaceSpace.removePrefix("[").removeSuffix("]").split(",")
+        list.addAll(tmp)
+    }
+    return list
+}
