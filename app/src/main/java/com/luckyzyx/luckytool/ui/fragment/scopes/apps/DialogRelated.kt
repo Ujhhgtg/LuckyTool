@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.sendPrefsValue
 
 @Obfuscate
 class DialogRelated : BaseScopePreferenceFeagment() {
@@ -53,6 +54,10 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    context.sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
             })
 //            addPreference(SwitchPreference(context).apply {
 //                title = getString(R.string.reduce_power_menu_display_delay)

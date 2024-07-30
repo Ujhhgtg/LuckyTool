@@ -14,31 +14,37 @@ import org.luckypray.dexkit.DexKitBridge
 class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source HangUpUtil
-        dexKitBridge.findMethod {
+        dexKitBridge.findClass {
             matcher {
-                declaredClass {
-                    addFieldForType(ListClass)
-                    addMethod { paramCount(0);returnType(BooleanType) }
-                    addMethod { paramCount(0);returnType(UnitType) }
-                    addMethod { paramTypes(ContextClass);returnType(UnitType) }
-                }
-                paramCount(0)
-                returnType(BooleanType)
+                addFieldForType(ListClass)
+                addMethod { paramCount(0);returnType(BooleanType) }
+                addMethod { paramCount(0);returnType(UnitType) }
+                addMethod { paramTypes(ContextClass);returnType(UnitType) }
                 usingStrings("HangUpUtil", "isSupportBackgroundHangUp")
             }
         }.apply {
-            checkDataList("EnableGameRunInBackground")
-            single().className.toClass().apply {
-                method {
-                    name = single().methodName
-                    emptyParam();returnType = BooleanType
-                }.hook {
-                    replaceToTrue()
+            checkDataList("EnableGameRunInBackground Cls")
+            findMethod {
+                matcher {
+                    paramCount(0)
+                    returnType(BooleanType)
+                    usingStrings("isSupportBackgroundHangUp")
                 }
-                method { param(ContextClass);returnType = UnitType }.hook {
-                    replaceUnit {
-                        val context = args().first().cast<Context>() ?: return@replaceUnit
-                        startBackgroundRunService(context)
+            }.apply {
+                checkDataList("EnableGameRunInBackground Support")
+                single().className.toClass().apply {
+                    method {
+                        name = single().methodName
+                        emptyParam()
+                        returnType = BooleanType
+                    }.hook {
+                        replaceToTrue()
+                    }
+                    method { param(ContextClass);returnType = UnitType }.hook {
+                        replaceUnit {
+                            val context = args().first().cast<Context>() ?: return@replaceUnit
+                            startBackgroundRunService(context)
+                        }
                     }
                 }
             }
