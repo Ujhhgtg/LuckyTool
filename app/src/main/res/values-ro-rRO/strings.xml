@@ -499,6 +499,7 @@
     <string name="remove_usb_connect_dialog_summary">The file transfer mode is selected by default after connecting the USB</string>
     <string name="remove_secure_pay_found_virus_dialog">Removed secure pay found virus dialog</string>
     <string name="remove_access_device_log_dialog">Remove access device log dialog</string>
+    <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
     <string name="custom_volume_dialog_background_transparency">Custom volume dialog background transparency</string>
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
     <!--FingerPrintRelated-->

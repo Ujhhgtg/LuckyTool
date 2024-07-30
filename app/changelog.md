@@ -26,6 +26,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 强制刷新率数据保存异常
 - [添加] 移除浏览器搜索框App推广 C14+
 - [添加] 禁用状态栏音乐流体云 C14.1+
+- [添加] 浮窗贴边任务前台运行 C13+
 
 ### 1.2.3
 

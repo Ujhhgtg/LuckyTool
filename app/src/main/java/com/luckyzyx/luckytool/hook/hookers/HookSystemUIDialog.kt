@@ -5,13 +5,17 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.DisableDuplicateFloatingWindo
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHeadphoneHighVolumeWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveUSBConnectDialog
+import com.luckyzyx.luckytool.hook.scopes.systemui.RunFloatingWindowTasksInForeground
 import com.luckyzyx.luckytool.hook.scopes.systemui.VolumeDialogBackground
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookSystemUIDialog : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //禁用复制悬浮窗
         if (prefs(ModulePrefs).getBoolean("disable_duplicate_floating_window", false)) {
             if (SDK >= A13) loadHooker(DisableDuplicateFloatingWindow)
@@ -30,5 +34,9 @@ object HookSystemUIDialog : YukiBaseHooker() {
         }
         //音量对话框背景透明度
         loadHooker(VolumeDialogBackground)
+        //浮窗贴边前台运行
+        if (prefs(ModulePrefs).getBoolean("run_floating_window_tasks_in_foreground", false)) {
+            if (osCode >= 26) loadHooker(RunFloatingWindowTasksInForeground)
+        }
     }
 }

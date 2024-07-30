@@ -1,6 +1,17 @@
 package com.luckyzyx.luckytool.hook.hookers
 
+import android.app.ActivityOptions
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.os.Binder
+import android.util.Pair
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasField
+import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
+import com.highcapable.yukihookapi.hook.type.android.UserHandleClass
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.android.ADBInstallConfirm
@@ -28,6 +39,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.SetAppUpdateDotDisplayMode
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindowConfig
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+
 
 object HookAndroid : YukiBaseHooker() {
 
@@ -115,19 +127,208 @@ object HookAndroid : YukiBaseHooker() {
         //三段式按键
 //        loadHooker(HookAlertSlider)
 
-//        //Source OplusAppStartConfirmManager
-//        "com.android.server.wm.OplusAppStartConfirmManager".toClass().apply {
-//            method { name = "getCheckConformIntent";returnType = IntentClass }.hook {
-//                after {
-//                    val callerPkg = args().first().string()
-//                    val activityInfo = args(1).cast<ActivityInfo>() ?: return@after
-//                    val targetPkg = activityInfo.packageName
-//                    YLog.debug("$callerPkg -> $targetPkg")
-//
-//                    if (callerPkg == "com.microsoft.launcher") resultNull()
-//                }
-//            }
-//        }
+        //Source OplusAppStartConfirmManager
+     if (false)   "com.android.server.wm.OplusAppStartConfirmManager".toClass().apply {
+         if (false) method { name = "checkStartActivityForConfirm";paramCount = 9 }.hook {
+                after {
+                    YLog.info("checkStartActivityForConfirm after start")
+
+                    val sourceRecord = args(0).any()
+                    val activityInfo = args(1).cast<ActivityInfo>() ?: return@after
+                    val sourceIntent = args(2).cast<Intent>() ?: return@after
+                    val requestCode = args(3).int()
+                    val realCallingUid = args(4).int()
+                    val callerPkg = args(5).string()
+                    val activityOptions = args(6).cast<ActivityOptions>()
+                    val profilerInfo = args(7).any()
+                    val abort = args(8).boolean()
+
+                    YLog.info("checkStartActivityForConfirm params ok")
+
+                    val isPreLoad = activityOptions != null && activityOptions.current().method {
+                        name = "getLaunchWindowingMode"
+                    }.int() == 7
+
+                    if (activityInfo.applicationInfo == null || activityInfo.applicationInfo.packageName == null) {
+                        YLog.error("checkStartActivityForConfirm application is null return")
+                        return@after
+                    }
+
+                    if (abort || isPreLoad) {
+                        YLog.error("checkStartActivityForConfirm abort: $abort or isPreLoad: $isPreLoad return")
+                        return@after
+                    }
+
+                    val activityTaskManagerService = field {
+                        type = "com.android.server.wm.ActivityTaskManagerService"
+                    }.get(instance).any() ?: return@after
+
+                    val mWindowManager = activityTaskManagerService.current().field {
+                        type = "com.android.server.wm.WindowManagerService"
+                        if (activityTaskManagerService.javaClass.hasField {
+                                type = "com.android.server.wm.WindowManagerService"
+                            }.not()) superClass()
+                    }.any() ?: return@after
+
+                    val mDisplayEnabled = mWindowManager.current().field {
+                        name = "mDisplayEnabled"
+                        if (mWindowManager.javaClass.hasField {
+                                name = "mDisplayEnabled"
+                            }.not()) superClass()
+                    }.boolean()
+
+                    if (!mDisplayEnabled) {
+                        YLog.error("checkStartActivityForConfirm mDisplayEnabled return")
+                        return@after
+                    }
+
+                    val mHasConformActivity = field { name = "mHasConformActivity" }.get(instance)
+                        .boolean()
+
+                    if (!mHasConformActivity) {
+                        YLog.error("checkStartActivityForConfirm mHasConformActivity return")
+                        return@after
+                    }
+
+                    val isInterceptActivityStart =
+                        method { name = "isInterceptActivityStart" }.get(instance).boolean()
+                    if (!isInterceptActivityStart) {
+                        YLog.error("checkStartActivityForConfirm isInterceptActivityStart return")
+                        return@after
+                    }
+
+                    val mIntentExt = sourceIntent.current().field {
+                        type = "android.content.IIntentExt"
+                    }.any() ?: return@after
+
+                    val getOplusFlags = mIntentExt.current().method { name = "getOplusFlags" }.int()
+
+                    if ((getOplusFlags and 131072) != 0) {
+                        YLog.error("checkStartActivityForConfirm getOplusFlags return")
+                        return@after
+                    }
+
+                    val isStartOnMirageDisplay = method { name = "isStartOnMirageDisplay" }
+                        .get(instance).boolean(sourceRecord, activityOptions)
+                    if (isStartOnMirageDisplay) {
+                        YLog.error("checkStartActivityForConfirm isStartOnMirageDisplay return")
+                        return@after
+                    }
+
+                    val checkAndUpdateStartHistory = method { name = "checkAndUpdateStartHistory" }
+                        .get(instance).boolean(activityInfo, sourceIntent, callerPkg)
+                    if (checkAndUpdateStartHistory) {
+                        YLog.error("checkStartActivityForConfirm checkAndUpdateStartHistory return")
+                        return@after
+                    }
+
+                    val isSendOrPickAction = method { name = "isSendOrPickAction" }
+                        .get(instance).boolean(sourceIntent)
+                    if (isSendOrPickAction) {
+                        YLog.error("checkStartActivityForConfirm isSendOrPickAction return")
+                        return@after
+                    }
+
+                    val isCalledFromHome = method { name = "isCalledFromHome" }
+                        .get(instance).boolean(sourceRecord)
+                    if (isCalledFromHome) {
+                        YLog.error("checkStartActivityForConfirm isCalledFromHome return")
+                        return@after
+                    }
+
+                    val isSystemAppOrSameApp = method { name = "isSystemAppOrSameApp" }
+                        .get(instance).boolean(realCallingUid, callerPkg, activityInfo)
+                    if (isSystemAppOrSameApp) {
+                        YLog.error("checkStartActivityForConfirm isSystemAppOrSameApp return")
+                        return@after
+                    }
+
+                    val isMultiWindowMode = method { name = "isMultiWindowMode" }
+                        .get(instance).boolean(sourceRecord, activityOptions)
+                    if (isMultiWindowMode) {
+                        YLog.error("checkStartActivityForConfirm isMultiWindowMode return")
+                        return@after
+                    }
+
+                    val isAppOrActivityHasExist = method { name = "isAppOrActivityHasExist" }
+                        .get(instance).boolean(sourceRecord, activityInfo)
+                    if (isAppOrActivityHasExist) {
+                        YLog.error("checkStartActivityForConfirm isAppOrActivityHasExist return")
+                        return@after
+                    }
+
+                    val skipLabActivityStartConfirm = method {
+                        name = "skipLabActivityStartConfirm"
+                    }.get(instance).boolean(sourceRecord, callerPkg, activityInfo, sourceIntent)
+                    if (skipLabActivityStartConfirm) {
+                        YLog.error("checkStartActivityForConfirm skipLabActivityStartConfirm return")
+                        return@after
+                    }
+
+                    val isSecurePayApp = method { name = "isSecurePayApp" }
+                        .get(instance).boolean(activityInfo.applicationInfo.packageName)
+                    if (isSecurePayApp) {
+                        YLog.error("checkStartActivityForConfirm isSecurePayApp return")
+//                        return@after
+                    }
+
+                    val getUserId = UserHandleClass.method { name = "getUserId" }.get().int(
+                        activityInfo.applicationInfo.uid
+                    )
+                    val intent = method { name = "getCheckConformIntent" }.get(instance)
+                        .invoke<Intent>(
+                            callerPkg, activityInfo, sourceIntent,
+                            realCallingUid, requestCode,
+                            sourceRecord, getUserId, activityOptions
+                        )
+                    if (intent != null) {
+                        YLog.info("checkStartActivityForConfirm getCheckConformIntent ok")
+
+                        val mTaskSupervisor = activityTaskManagerService.current().field {
+                            type = "com.android.server.wm.ActivityTaskSupervisor"
+                            if (activityTaskManagerService.javaClass.hasField {
+                                    type = "com.android.server.wm.ActivityTaskSupervisor"
+                                }.not()) superClass()
+                        }.any() ?: return@after
+
+                        val mAmInternal = activityTaskManagerService.current().field {
+                            type = "android.app.ActivityManagerInternal"
+                            if (activityTaskManagerService.javaClass.hasField {
+                                    type = "android.app.ActivityManagerInternal"
+                                }.not()) superClass()
+                        }.any() ?: return@after
+
+                        val getCurrentUserId =
+                            mAmInternal.current().method { name = "getCurrentUserId" }.int()
+
+                        YLog.info("checkStartActivityForConfirm resolveActivity params ok")
+
+                        val info = mTaskSupervisor.current().method {
+                            name = "resolveActivity";paramCount = 7
+                        }.invoke<ActivityInfo>(
+                            intent, null, 0, profilerInfo,
+                            getCurrentUserId, realCallingUid, Binder.getCallingUid()
+                        )
+
+                        if (info != null) {
+                            YLog.info("checkStartActivityForConfirm resolveActivity ok")
+
+                            result = Pair(intent, info)
+                            YLog.info("checkStartActivityForConfirm result pair ok")
+
+                        }
+
+                        field { name = "mHasConformActivity" }.get(instance).setFalse()
+                    }
+
+                    YLog.info("checkStartActivityForConfirm after stop")
+
+                }
+            }
+            method { name = "isSecurePayApp" }.hook {
+//                replaceToFalse()
+            }
+        }
 
         //Source ScanPackageUtils
 //        findClass("com.android.server.pm.ScanPackageUtils").hook {

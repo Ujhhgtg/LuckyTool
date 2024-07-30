@@ -48,12 +48,19 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.reduce_power_menu_display_delay)
-                key = "reduce_power_menu_display_delay"
+                title = getString(R.string.run_floating_window_tasks_in_foreground)
+                key = "run_floating_window_tasks_in_foreground"
                 setDefaultValue(false)
-                isVisible = false
+                isVisible = osCode >= 26
                 isIconSpaceReserved = false
             })
+//            addPreference(SwitchPreference(context).apply {
+//                title = getString(R.string.reduce_power_menu_display_delay)
+//                key = "reduce_power_menu_display_delay"
+//                setDefaultValue(false)
+//                isVisible = false
+//                isIconSpaceReserved = false
+//            })
         }
     }
 
