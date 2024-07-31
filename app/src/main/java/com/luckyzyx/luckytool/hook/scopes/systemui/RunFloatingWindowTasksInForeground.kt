@@ -14,20 +14,28 @@ import com.oplus.miragewindow.OplusMirageOptions
 import com.oplus.miragewindow.OplusMirageWindowManager
 
 object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
+
     override fun onHook() {
         var isEnable =
             prefs(ModulePrefs).getBoolean("run_floating_window_tasks_in_foreground", false)
         dataChannel.wait<Boolean>("run_floating_window_tasks_in_foreground") { isEnable = it }
+
+        var flag = -1
+        var status: Boolean
 
         //Source ZoomStateManager
         "com.oplus.zoom.zoomstate.ZoomStateManager".toClass().apply {
             method { name = "requestChangeZoomTask";param(IntType, BooleanType) }.hook {
                 before {
                     if (!isEnable) return@before
-                    val int = args().first().int()
-                    val bool = args().last().boolean()
+                    flag = args().first().int()
+                    status = args().last().boolean()
 
-                    if (int == 5 && bool) {
+                    //浮窗全屏 flag 4
+                    //浮窗贴边 flag 5
+                    //浮窗退出 flag 6
+
+                    if (flag == 5 && status) {
                         val mTaskInfo = field { name = "mTaskInfo" }.get(instance)
                             .cast<ActivityManager.RunningTaskInfo>() ?: return@before
 
@@ -49,7 +57,7 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
         "com.oplus.zoom.ui.floathandle.FloatHandleController".toClass().apply {
             method { name = "onTaskMovedToFront" }.hook {
                 before {
-                    if (isEnable) resultNull()
+                    if (isEnable && flag == 5) resultNull()
                 }
             }
         }
