@@ -27,17 +27,17 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
                     val int = args().first().int()
                     val bool = args().last().boolean()
 
-                    val mTaskInfo = field { name = "mTaskInfo" }.get(instance)
-                        .cast<ActivityManager.RunningTaskInfo>() ?: return@before
-                    val intent = mTaskInfo.current().field {
-                        type = IntentClass;superClass()
-                    }.cast<Intent>() ?: return@before
-
                     if (int == 5 && bool) {
-                        val makeBasic = OplusMirageOptions.makeBasic()
-                        makeBasic.setCastMode(4)
+                        val mTaskInfo = field { name = "mTaskInfo" }.get(instance)
+                            .cast<ActivityManager.RunningTaskInfo>() ?: return@before
+
+                        val baseIntent = mTaskInfo.current().field {
+                            type = IntentClass;superClass()
+                        }.cast<Intent>() ?: return@before
+
+                        val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
                         OplusMirageWindowManager.getInstance().startMirageWindowMode(
-                            intent, makeBasic.toBundle()
+                            baseIntent, makeBasic.toBundle()
                         )
                         resultNull()
                     }

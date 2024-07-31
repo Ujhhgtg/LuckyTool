@@ -8,6 +8,14 @@ public class OplusMirageOptions {
         throw new RuntimeException("STUB");
     }
     
+    public static OplusMirageOptions makeBackgroundStreamModeOptions() {
+        throw new RuntimeException("STUB");
+    }
+    
+    public static OplusMirageOptions makeAppKeepModeOptions() {
+        throw new RuntimeException("STUB");
+    }
+    
     public OplusMirageOptions setDisplayId(int displayId) {
         throw new RuntimeException("STUB");
     }
