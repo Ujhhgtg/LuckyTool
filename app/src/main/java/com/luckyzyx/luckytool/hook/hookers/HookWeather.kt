@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.weather.Enable15DayWeatherExpandList
+import com.luckyzyx.luckytool.hook.scopes.weather.RestoreRainfallCloudMapPage
 import com.luckyzyx.luckytool.hook.scopes.weather.WeatherAdsAndJumpBrowser
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -20,6 +21,9 @@ object HookWeather : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("enable_15_day_weather_expand_list", false)) {
             loadHooker(Enable15DayWeatherExpandList)
         }
-
+        //恢复降雨云图页面
+        if (prefs(ModulePrefs).getBoolean("restore_rainfall_cloud_map_page", false)) {
+            loadHooker(RestoreRainfallCloudMapPage)
+        }
     }
 }

@@ -31,6 +31,13 @@ class OplusWeather : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.restore_rainfall_cloud_map_page)
+                key = "restore_rainfall_cloud_map_page"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+            })
         }
     }
 

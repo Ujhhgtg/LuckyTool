@@ -756,6 +756,7 @@
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
     <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>
     <string name="enable_15_day_weather_expand_list">Включить расширенный список погоды на 15 дней</string>
+    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Удалить поток информации о праздниках</string>
     <string name="remove_almanac_page_information_flow">Удалить поток информации об альманахе</string>

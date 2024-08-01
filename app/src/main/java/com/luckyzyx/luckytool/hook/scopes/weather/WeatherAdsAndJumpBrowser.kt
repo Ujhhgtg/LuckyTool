@@ -1,18 +1,14 @@
 package com.luckyzyx.luckytool.hook.scopes.weather
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.view.View
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
@@ -26,8 +22,9 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 
-class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge) :
-    YukiBaseHooker() {
+class WeatherAdsAndJumpBrowser(
+    private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge
+) : YukiBaseHooker() {
     override fun onHook() {
         val isNew = appVer?.versionCode?.let { it >= 13000000 } ?: return
         if (isNew) loadHooker(HookWeatherAdsAndJump)
@@ -73,63 +70,6 @@ class WeatherAdsAndJumpBrowser(private val appVer: AppVerInfo?, val dexKitBridge
                         if (!disableJump) return@before
                         val warnInfo = args().last().any() ?: return@before
                         warnInfo.current().field { name = "addLink" }.set("")
-                    }
-                }
-            }
-
-            //Source BannerItem / IndexOperationsManager C14.0.1
-            if (false) "com.oplus.weather.indexoperations.BannerItem".toClassOrNull()?.apply {
-                method { name = "onClick" }.hook {
-                    before {
-                        val view = args().first().cast<View>() ?: return@before
-                        val activity = view.context as Activity
-                        if (activity.javaClass.simpleName != "WeatherMainActivity") return@before
-                        YLog.debug("activity -> ${activity.javaClass}")
-
-                        val fragment = activity.current().method {
-                            name = "obtainCurrentCityFragment"
-                        }.call() ?: return@before
-                        if (fragment.javaClass.simpleName != "WeatherFragment") return@before
-                        YLog.debug("fragment -> ${fragment.javaClass}")
-
-                        val currentWeather = fragment.current().method {
-                            name = "getCurrentWeather"
-                        }.call() ?: return@before
-                        YLog.debug("currentWeather -> ${currentWeather.javaClass}")
-
-                        val warnWeatherViewModel =
-                            "com.oplus.weather.main.viewmodel.WarnWeatherViewModel".toClass()
-                                .buildOf { emptyParam() } ?: return@before
-
-                        val warnList =
-                            currentWeather.current().method { name = "getWarnList" }.list<Any>()
-                        var dataList = java.util.ArrayList<Any>()
-                        warnList.forEach {
-                            val item =
-                                "com.oplus.weather.main.view.itemview.WarnWeatherItem".toClass()
-                                    .buildOf(it) { paramCount = 1 } ?: return@forEach
-
-                            dataList = warnWeatherViewModel.current().field { name = "dataList" }
-                                .cast<ArrayList<Any>>() ?: return@forEach
-                            dataList.add(item)
-                        }
-                        warnWeatherViewModel.current().method { name = "setDataList" }
-                            .call(dataList)
-
-                        val panel = "com.oplus.weather.main.panels.WarnWeatherPanel".toClass()
-                            .buildOf(activity, warnWeatherViewModel) {
-                                paramCount = 2
-                            } ?: return@before
-                        panel.current().method { name = "show";superClass() }.call()
-
-                        val data = field { name = "operationCardData" }.get(instance).any()
-                            ?: return@before
-                        val cardType = data.current().method { name = "getCardType" }.invoke<Int>()
-                            ?: return@before
-                        YLog.debug("cardType -> $cardType")
-
-                        resultNull()
-
                     }
                 }
             }

@@ -873,6 +873,7 @@
     <string name="disable_weather_jump_browser">Disable weather redirect browser</string>
     <string name="remove_weather_some_page_bottom_ads">Remove the ads at the bottom of the weather section page</string>
     <string name="enable_15_day_weather_expand_list">Enable 15 day weather expanded list</string>
+    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
     
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Remove holiday page information flow</string>
