@@ -6,7 +6,13 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
@@ -23,7 +29,27 @@ import com.luckyzyx.luckytool.databinding.DialogOplusotaLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.*
+import com.luckyzyx.luckytool.utils.Base64CodeUtils
+import com.luckyzyx.luckytool.utils.DeviceUtils
+import com.luckyzyx.luckytool.utils.DonateUtils
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SettingsPrefs
+import com.luckyzyx.luckytool.utils.ThemeUtils
+import com.luckyzyx.luckytool.utils.UpdateUtils
+import com.luckyzyx.luckytool.utils.bindRootService
+import com.luckyzyx.luckytool.utils.copyStr
+import com.luckyzyx.luckytool.utils.dialogCentered
+import com.luckyzyx.luckytool.utils.dp
+import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.getDeviceInfo
+import com.luckyzyx.luckytool.utils.getProp
+import com.luckyzyx.luckytool.utils.getVersionCode
+import com.luckyzyx.luckytool.utils.getVersionName
+import com.luckyzyx.luckytool.utils.isZh
+import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.putBoolean
+import com.luckyzyx.luckytool.utils.restartMain
+import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 @Obfuscate
 class HomeFragment : Fragment(), MenuProvider {
@@ -119,14 +145,14 @@ class HomeFragment : Fragment(), MenuProvider {
                     }
                 }
                 val guid = binding.oplusotaGuid.apply {
-                    setText(getGuid)
+                    setText(DeviceUtils().getGuid())
                     setOnLongClickListener {
                         context.copyStr(text as CharSequence)
                         true
                     }
                 }
                 val recruit = binding.oplusotaRecruit.apply {
-                    setText(getRecruit)
+                    setText(DeviceUtils().getRecruit())
                     setOnLongClickListener {
                         context.copyStr(text as CharSequence)
                         true

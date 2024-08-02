@@ -15,6 +15,7 @@ import com.drake.net.utils.withDefault
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
 import com.luckyzyx.luckytool.utils.AESCrypt
+import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
 import com.luckyzyx.luckytool.utils.SQLiteUtils
 import com.luckyzyx.luckytool.utils.SQLiteUtils.getTableData
@@ -25,7 +26,6 @@ import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getFingerPrintModel
 import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.getPcbInfo
-import com.luckyzyx.luckytool.utils.getRecruit
 import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
@@ -96,9 +96,10 @@ class ExtractOTAFragment : Fragment() {
                     } else return@withDefault list
 
                     val nvId = SystemProperties.get("ro.build.oplus_nv_id")
+                    val recruit = DeviceUtils().getRecruit()
                     val random = Random().nextInt().toString()
                     val data =
-                        random + "|${getFingerPrintModel}|$nvId|$getPcbInfo|$getSnInfo|$getRecruit"
+                        random + "|${getFingerPrintModel}|$nvId|$getPcbInfo|$getSnInfo|$recruit"
                     val encrypt = safeOfNull {
                         AESCrypt.encrypt(data, "otatoolsotatools")
                     } ?: ""

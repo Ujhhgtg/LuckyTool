@@ -387,7 +387,7 @@ class AppAnalyticsUtils(val context: Context) {
             LogUtils.d("initAllBlackIds", "getQSlist", "${qss.toList()}", isDebug)
             if (css.isEmpty()) css = getCSid()
             LogUtils.d("initAllBlackIds", "getCSid", "${css.toList()}", isDebug)
-            if (gid.isEmpty()) gid = getGuid
+            if (gid.isEmpty()) gid = DeviceUtils().getGuid()
             LogUtils.d("initAllBlackIds", "getGuid", gid, isDebug)
         }
     }

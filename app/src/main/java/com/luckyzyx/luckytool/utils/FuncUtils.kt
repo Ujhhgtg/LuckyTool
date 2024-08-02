@@ -112,7 +112,7 @@ fun Context.getDeviceInfo(
         ${getString(R.string.version)}: ${controller?.otaVersion}
         ${getString(R.string.flash)}: ${controller?.flashInfo}
         PAS: ${controller?.pcbInfo} ${controller?.snInfo}
-        RTD: $getRecruit
+        RTD: ${DeviceUtils().getRecruit()}
     """.trimIndent().let {
         if (isLog) "$it\n${getString(R.string.module_version)} $getVersionName($getVersionCode)\n\n" else it
     }
@@ -270,36 +270,6 @@ fun getModelMarketName(): String? {
 }
 
 /**
- * 获取主板ID
- * @return String
- */
-fun getDeviceID(): String {
-    val serialNumber = ShellUtils.fastCmd("cat /sys/devices/soc0/serial_number")
-    if (serialNumber.isNotBlank()) return serialNumber
-    val serialNo = ShellUtils.fastCmd("cat /sys/firmware/devicetree/base/firmware/android/serialno")
-    if (serialNo.isNotBlank()) return serialNo
-    return "null"
-}
-
-
-/**
- * 获取GUID
- * /data/system/openid_config.xml
- */
-val getGuid: String
-    get() = ShellUtils.fastCmd("cat /data/system/openid_config.xml | egrep guid | egrep -o 'value=\"[^\"]+\"' | sed 's/\\\"//g,s/value=//g'")
-        .ifBlank { "null" }
-
-/**
- * 获取招募ID
- * /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml
- */
-val getRecruit: String
-    get() = ShellUtils.fastCmd(
-        "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | egrep ota_register_trigger_id | egrep -o '>[^<]+<' | tr -d '><'"
-    ).ifBlank { "null" }
-
-/**
  * 获取prop数据
  * @param key String
  * @return String
@@ -373,7 +343,8 @@ fun jumpSettingsDev(context: Context) {
             addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
         })
     } catch (e: ActivityNotFoundException) {
-        ShellUtils.fastCmd("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS")
+        val command = "am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -390,7 +361,8 @@ fun jumpSystemUIDemoMode(context: Context) {
             addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
         })
     } catch (e: ActivityNotFoundException) {
-        ShellUtils.fastCmd("am start -n com.android.systemui/.DemoMode")
+        val command = "am start -n com.android.systemui/.DemoMode"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -400,7 +372,8 @@ fun jumpSystemUIDemoMode(context: Context) {
  */
 fun jumpMultiApp(context: Context) {
     if (context.checkPackName("com.oplus.multiapp")) {
-        ShellUtils.fastCmd("am start com.oplus.multiapp/.ui.entry.ActivityMainActivity")
+        val command = "am start com.oplus.multiapp/.ui.entry.ActivityMainActivity"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -422,7 +395,8 @@ fun jumpDarkMode(context: Context) {
  */
 fun jumpOTA(context: Context) {
     if (context.checkPackName("com.oplus.ota")) {
-        ShellUtils.fastCmd("am start com.oplus.ota/com.oplus.otaui.activity.EntryActivity")
+        val command = "am start com.oplus.ota/com.oplus.otaui.activity.EntryActivity"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -448,7 +422,8 @@ fun jumpPictorial(context: Context) {
  */
 fun jumpGesture(context: Context) {
     if (context.checkPackName("com.oplus.gesture")) {
-        ShellUtils.fastCmd("am start com.oplus.gesture/.guide.GestureMainActivity")
+        val command = "am start com.oplus.gesture/.guide.GestureMainActivity"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -458,7 +433,8 @@ fun jumpGesture(context: Context) {
  */
 fun jumpHighPerformance(context: Context) {
     if (context.checkPackName("com.oplus.battery")) {
-        ShellUtils.fastCmd("am start com.oplus.battery/com.oplus.powermanager.fuelgaue.IntellPowerSaveScence")
+        val command = "am start com.oplus.battery/com.oplus.powermanager.fuelgaue.IntellPowerSaveScence"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -468,7 +444,8 @@ fun jumpHighPerformance(context: Context) {
  */
 fun jumpBattery(context: Context) {
     if (context.checkPackName("com.oplus.battery")) {
-        ShellUtils.fastCmd("am start com.oplus.battery/com.oplus.powermanager.fuelgaue.PowerConsumptionActivity")
+        val command = "am start com.oplus.battery/com.oplus.powermanager.fuelgaue.PowerConsumptionActivity"
+        ShellUtils.fastCmd(command)
     }
 }
 
@@ -515,46 +492,6 @@ fun jumpMobileNetwork(context: Context) {
         context.startActivity(this)
     }
 }
-
-/**
- * 获取闪存信息
- * @return String
- */
-val getFlashInfo
-    get(): String = ShellUtils.fastCmd("cat /sys/class/block/sda/device/inquiry")
-        .let { if ((it.isNotBlank())) formatSpace(it.replaceSpace.uppercase()) else "null" }
-
-/**
- * 获取LCD信息
- */
-val getLcdInfo: String
-    get() : String = ShellUtils.fastCmd("cat /proc/devinfo/lcd | sed 's/^.*\t//g; s/$/\n/g; s/\n/ /g;'")
-        .let { if ((it.isNotBlank())) it.replaceSpace.uppercase() else "null" }
-
-/**
- * 获取PCB信息
- */
-val getPcbInfo: String
-    get() : String = ShellUtils.fastCmd("echo \$(getprop gsm.serial)\$(getprop vendor.gsm.serial)")
-        .ifBlank { "null" }
-
-/**
- * 获取SN信息
- */
-val getSnInfo: String
-    get() : String = ShellUtils.fastCmd("getprop ro.serialno").ifBlank { "null" }
-
-/**
- * 获取PrjName信息
- */
-val getPrjNameInfo: String
-    get() : String = ShellUtils.fastCmd("getprop ro.boot.prjname").ifBlank { "null" }
-
-/**
- * 获取Slot信息
- */
-val getSlotInfo: String
-    get() : String = ShellUtils.fastCmd("getprop ro.boot.slot_suffix").ifBlank { "null" }
 
 /**
  * 正常编码中一般只会用到 [dp]/[sp] ;
