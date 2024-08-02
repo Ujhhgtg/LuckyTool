@@ -7,14 +7,14 @@ import java.io.Serializable
 
 @Obfuscate
 data class AppVerInfo(
-    var appName: CharSequence?,
+    var appName: CharSequence,
     var packName: String,
-    var versionName: String?,
-    var versionCode: Long?,
-    var versionCommit: String?
+    var versionName: String,
+    var versionCode: Long,
+    var versionCommit: String
 ) : Serializable {
 
-    constructor() : this(null, "", null, null, null)
+    constructor() : this("", "", "", 0L, "")
 
     fun toAppVerInfo(jsonString: String?): AppVerInfo? {
         val jsonObject = safeOfNull { jsonString?.let { JSONObject(it) } }
@@ -24,11 +24,11 @@ data class AppVerInfo(
     @Suppress("MemberVisibilityCanBePrivate", "MemberVisibilityCanBePrivate")
     fun toAppVerInfo(jsonObject: JSONObject?): AppVerInfo? {
         if (jsonObject == null) return null
-        val appName: CharSequence? = jsonObject.optString("appName")
-        val packName: String = jsonObject.optString("packName")
-        val versionName: String? = jsonObject.optString("versionName")
-        val versionCode: Long = jsonObject.optLong("versionCode")
-        val versionCommit: String? = jsonObject.optString("versionCommit")
+        val appName = jsonObject.optString("appName")
+        val packName = jsonObject.optString("packName")
+        val versionName = jsonObject.optString("versionName")
+        val versionCode = jsonObject.optLong("versionCode")
+        val versionCommit = jsonObject.optString("versionCommit")
         return AppVerInfo(appName, packName, versionName, versionCode, versionCommit)
     }
 

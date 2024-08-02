@@ -405,8 +405,6 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
             // should not happen
             XposedBridge.log(e);
             throw new IllegalAccessError(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw e;
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e.getCause());
         }

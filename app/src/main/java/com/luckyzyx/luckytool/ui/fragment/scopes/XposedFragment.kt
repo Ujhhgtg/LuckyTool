@@ -28,6 +28,7 @@ import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.arraySummaryDot
@@ -37,8 +38,6 @@ import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
-import com.luckyzyx.luckytool.utils.getAppLabel
-import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.restartMain
@@ -109,7 +108,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.allow_untrusted_touch),
                     getString(R.string.set_ltpo_refresh_rate_mode)
@@ -246,7 +245,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.open_battery_health),
                     getString(R.string.remove_battery_temperature_control)
@@ -264,7 +263,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_top_account_display),
                     getString(R.string.remove_dpi_restart_recovery)
@@ -281,7 +280,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.force_display_five_g_switch),
                     getString(R.string.force_display_preferred_network_type)
@@ -299,7 +298,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary =
                     arraySummaryDot(getString(R.string.remove_verification_code_floating_window))
                 isVisible = SDK >= A13 && context.checkPackName(key)
@@ -315,7 +314,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_ads_from_download_dialog),
                     getString(R.string.remove_ads_at_download_page_bottom),
@@ -334,7 +333,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_watermark_word_limit),
                     getString(R.string.enable_10_bit_image_support)
@@ -352,7 +351,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.enable_watermark_editing),
                     getString(R.string.enable_lns_cut_photo)
@@ -370,7 +369,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_root_check), getString(R.string.enable_developer_page)
                 )
@@ -388,7 +387,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(getString(R.string.unlock_themestore_vip))
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -403,7 +402,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.remove_market_splash_page_app_recommend),
                     getString(R.string.remove_market_update_download_page_app_recommend)
@@ -421,7 +420,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(getString(R.string.remove_network_limit))
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -436,7 +435,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.unlock_local_upgrade),
                     getString(R.string.restore_ota_update_verity)
@@ -454,7 +453,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_image_save_watermark),
                     getString(R.string.remove_video_save_watermark)
@@ -472,7 +471,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = fixIconSize(resource)
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.enable_volume_key_control_flashlight),
                     getString(R.string.force_enable_aon_gestures)
@@ -490,7 +489,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_app_recommend_card),
                 )
@@ -509,7 +508,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(
                     getString(R.string.remove_app_recommend_card),
                 )
@@ -526,7 +525,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = fixIconSize(resource)
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.disable_weather_jump_browser),
                     getString(R.string.remove_weather_some_page_bottom_ads)
@@ -544,7 +543,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.remove_holiday_page_information_flow),
                     getString(R.string.remove_almanac_page_information_flow)
@@ -562,7 +561,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.unlock_transfer_dock),
                     getString(R.string.unlock_recent_files)
@@ -580,7 +579,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.remove_secure_pay_found_virus_dialog),
                     getString(R.string.remove_virus_risk_notification_in_phone_manager)
@@ -598,7 +597,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.enable_record_calls_on_third_party_apps)
                 )
@@ -615,7 +614,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryLine(
                     getString(R.string.enable_eyeprotect_paper_texture_support)
                 )
@@ -632,7 +631,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(getString(R.string.remove_pro_license))
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -645,7 +644,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(getString(R.string.remove_pro_license))
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -658,7 +657,7 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
                     icon = resource
                     isIconSpaceReserved = show
                 }
-                title = context.getAppLabel(key)
+                title = AppUtils(context).getAppLabel(key)
                 summary = arraySummaryDot(getString(R.string.adm_unlock_pro))
                 isVisible = context.checkPackName(key)
                 setOnPreferenceClickListener {
@@ -705,7 +704,8 @@ class XposedFragment : ModulePreferenceFragment(), MenuProvider {
             val xposedScope = resources.getStringArray(R.array.xposed_scope)
             Arrays.sort(xposedScope)
             xposedScope.forEach {
-                val appVerInfo = getAppVerInfo(it) ?: return@forEach
+                val appVerInfo = AppUtils(this@showBottomDialog).getAppVerInfo(it)
+                    ?: return@forEach
                 list.add("| ${appVerInfo.appName} | $it |  ${appVerInfo.versionName}(${appVerInfo.versionCode})[${appVerInfo.versionCommit}] |")
             }
             markwon.setMarkdown(dialogBinding.tv, formatStringAuto(list, "\n"))

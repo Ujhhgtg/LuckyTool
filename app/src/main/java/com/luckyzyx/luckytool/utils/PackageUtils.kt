@@ -2,6 +2,7 @@
 
 package com.luckyzyx.luckytool.utils
 
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.InstallSourceInfo
@@ -9,6 +10,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
+import android.graphics.drawable.Drawable
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppInfo
 import java.io.File
@@ -73,6 +75,33 @@ class PackageUtils(private val packageManager: PackageManager) {
         }
     }
 
+    fun getApplicationLabel(applicationInfo: ApplicationInfo): CharSequence {
+        return try {
+            if (SDK < A13) packageManager.getApplicationLabel(applicationInfo)
+            else packageManager.getApplicationLabel(applicationInfo)
+        } catch (e: PackageManager.NameNotFoundException) {
+            ""
+        }
+    }
+
+    fun getApplicationIcon(applicationInfo: ApplicationInfo): Drawable? {
+        return try {
+            if (SDK < A13) packageManager.getApplicationIcon(applicationInfo)
+            else packageManager.getApplicationIcon(applicationInfo)
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
+    fun getApplicationIcon(packName: String): Drawable? {
+        return try {
+            if (SDK < A13) packageManager.getApplicationIcon(packName)
+            else packageManager.getApplicationIcon(packName)
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
     fun getInstalledPackages(flag: Int): MutableList<PackageInfo> {
         if (SDK < A13) return packageManager.getInstalledPackages(flag)
         return packageManager.getInstalledPackages(PackageManager.PackageInfoFlags.of(flag.toLong()))
@@ -90,6 +119,18 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getApplicationEnabledSetting(packName: String): Boolean {
         return packageManager.getApplicationEnabledSetting(packName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+    }
+
+    fun getComponentEnabledSetting(componentName: ComponentName): Int {
+        return packageManager.getComponentEnabledSetting(componentName)
+    }
+
+    fun setComponentEnabledSetting(componentName: ComponentName, newState: Int, flags: Int) {
+        packageManager.setComponentEnabledSetting(componentName, newState, flags)
+    }
+
+    fun getLaunchIntentForPackage(packName: String): Intent? {
+        return packageManager.getLaunchIntentForPackage(packName)
     }
 
     fun getInstalledAppInfos(flag: Int): ArrayList<AppInfo> {

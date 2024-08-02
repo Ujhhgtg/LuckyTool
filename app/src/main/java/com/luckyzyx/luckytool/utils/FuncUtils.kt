@@ -1,4 +1,4 @@
-@file:Suppress("unused", "IMPLICIT_NOTHING_TYPE_ARGUMENT_IN_RETURN_POSITION")
+@file:Suppress("unused")
 
 package com.luckyzyx.luckytool.utils
 
@@ -13,12 +13,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
-import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED
-import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER
-import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-import android.content.pm.PackageManager.DONT_KILL_APP
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -87,49 +81,6 @@ import kotlin.math.roundToLong
 import kotlin.random.Random
 import kotlin.system.exitProcess
 
-
-/***
- * 获取APP Commit
- * @receiver Context
- * @param packName String
- * @return String
- */
-@Suppress("DEPRECATION")
-fun Context.getAppCommit(packName: String): String? {
-    val appInfo = PackageUtils(packageManager).getApplicationInfo(
-        packName, PackageManager.GET_META_DATA
-    )
-    return safeOfNull { appInfo?.metaData?.get("versionCommit").toString() }
-}
-
-/**
- * 获取APP版本/版本号/Commit
- * 写入SP xml文件内
- * @return [ArraySet]
- */
-@Suppress("DEPRECATION")
-fun Context.getAppVerInfo(packName: String, save: Boolean = true): AppVerInfo? {
-    return safeOfNull {
-        val packageInfo = PackageUtils(packageManager).getPackageInfo(
-            packName, PackageManager.GET_META_DATA
-        ) ?: return null
-        val appInfo = packageInfo.applicationInfo
-        val appName = appInfo?.loadLabel(packageManager)
-        val versionName = packageInfo.versionName
-        val versionCode = packageInfo.longVersionCode
-        //修复versionCommit获取null
-        val versionCommit = appInfo?.metaData?.get("versionCommit")?.toString()
-        val versionDate = appInfo?.metaData?.get("versionDate")?.toString()
-        //Fix the camera's commit is empty
-        val commit = versionCommit.takeIf { it.isNullOrBlank().not() } ?: versionDate
-        val appVerInfo = AppVerInfo(appName, packName, versionName, versionCode, commit)
-        if (save) putStringSet(ModulePrefs, packName, ArraySet<String>().apply {
-            add(appVerInfo.toJSONObject().toString())
-        })
-        return appVerInfo
-    }
-}
-
 /**
  * 获取APP版本数组
  * @receiver YukiHookPrefsBridge
@@ -178,56 +129,6 @@ fun Context.checkPackName(packName: String): Boolean {
 }
 
 /**
- * 获取APP图标
- * @receiver Context
- * @param packName String
- * @return Drawable?
- */
-fun Context.getAppIcon(packName: String): Drawable? = safeOfNull {
-    return PackageUtils(packageManager).getApplicationInfo(packName, 0)?.loadIcon(packageManager)
-}
-
-/**
- * 获取APP版本名
- * @receiver Context
- * @param packName String
- * @return String?
- */
-fun Context.getAppVersionName(packName: String): String? {
-    return PackageUtils(packageManager).getPackageInfo(packName, 0)?.versionName
-}
-
-/**
- * 获取APP版本号
- * @receiver Context
- * @param packName String
- * @return Long?
- */
-fun Context.getAppVersionCode(packName: String): Long? {
-    return PackageUtils(packageManager).getPackageInfo(packName, 0)?.longVersionCode
-}
-
-/**
- * 获取APP名称
- * @receiver Context
- * @param packName String 包名
- * @return CharSequence?  若为Null 返回包名
- */
-fun Context.getAppLabel(packName: String): CharSequence {
-    return getAppLabelOrNull(packName) ?: packName
-}
-
-/**
- * 获取APP名称
- * @receiver Context
- * @param packName String
- * @return CharSequence?
- */
-fun Context.getAppLabelOrNull(packName: String): CharSequence? = safeOfNull {
-    return PackageUtils(packageManager).getApplicationInfo(packName, 0)?.loadLabel(packageManager)
-}
-
-/**
  * 判断Activity是否存在
  * @receiver Context
  * @param intent Intent
@@ -246,6 +147,30 @@ fun Context.checkResolveActivity(intent: Intent): Boolean = safeOfFalse {
  */
 fun Context.checkResolveActivity(packName: String, className: String): Boolean = safeOfFalse {
     return checkResolveActivity(Intent().setClassName(packName, className))
+}
+
+/**
+ * 跳转到APP
+ * @receiver Context
+ * @param packNames Array<String>
+ */
+fun Context.openApp(packNames: Array<String>) {
+    openApp(packNames.firstOrNull())
+}
+
+/**
+ * 跳转到APP
+ * @receiver Context
+ * @param packName String
+ */
+fun Context.openApp(packName: String?) {
+    if (packName.isNullOrBlank()) return
+    PackageUtils(packageManager).getLaunchIntentForPackage(packName)?.apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+        startActivity(this)
+    }
 }
 
 /**
@@ -382,7 +307,6 @@ val getRecruit: String
 fun getProp(key: String): String = ShellUtils.fastCmd("getprop $key").let {
     if (it.isBlank()) "null" else formatSpace(it)
 }
-
 
 /**
  * 发送广播以关闭折叠面板
@@ -593,36 +517,6 @@ fun jumpMobileNetwork(context: Context) {
 }
 
 /**
- * 禁用组件
- * @receiver Context
- * @param value Boolean
- */
-fun Context.setComponentDisabled(component: ComponentName, value: Boolean) {
-    packageManager.setComponentEnabledSetting(
-        component,
-        if (value) COMPONENT_ENABLED_STATE_DISABLED else COMPONENT_ENABLED_STATE_ENABLED,
-        DONT_KILL_APP
-    )
-}
-
-/**
- * 获取组件状态
- * @receiver Context
- * @param component ComponentName
- * @return Int?
- */
-fun Context.getComponentEnabled(component: ComponentName): Int? {
-    return when (packageManager.getComponentEnabledSetting(component)) {
-        COMPONENT_ENABLED_STATE_DEFAULT -> COMPONENT_ENABLED_STATE_DEFAULT
-        COMPONENT_ENABLED_STATE_ENABLED -> COMPONENT_ENABLED_STATE_ENABLED
-        COMPONENT_ENABLED_STATE_DISABLED -> COMPONENT_ENABLED_STATE_DISABLED
-        COMPONENT_ENABLED_STATE_DISABLED_USER -> COMPONENT_ENABLED_STATE_DISABLED_USER
-        COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED -> COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED
-        else -> null
-    }
-}
-
-/**
  * 获取闪存信息
  * @return String
  */
@@ -730,7 +624,7 @@ fun Preference.setPrefsIconRes(resource: Any?, result: (Drawable?, Boolean) -> U
     val image: Drawable? = when (resource) {
         is Int -> ResourcesCompat.getDrawable(context.resources, resource, null)
         is Drawable -> resource
-        is String -> context.getAppIcon(resource)
+        is String -> AppUtils(context).getAppIcon(resource)
         else -> null
     }
     if (image == null || image.intrinsicWidth <= 0 || image.intrinsicHeight <= 0) {
@@ -842,57 +736,6 @@ fun isZh(context: Context): Boolean {
     val locale = context.resources.configuration.locales
     val language = locale[0].language
     return language.endsWith("zh")
-}
-
-/**
- * 跳转到APP
- * @receiver Context
- * @param packNames Array<String>
- */
-fun Context.openApp(packNames: Array<String>) {
-    openApp(packNames.firstOrNull())
-}
-
-/**
- * 跳转到APP
- * @receiver Context
- * @param packName String
- */
-fun Context.openApp(packName: String?) {
-    if (packName.isNullOrBlank()) return
-    packageManager.getLaunchIntentForPackage(packName)?.apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-        startActivity(this)
-    }
-}
-
-/**
- * 跳转到应用详情界面
- * @param packName String
- * @param userId Int?
- */
-fun Context.openAppDetailIntent(packName: String, userId: Int?) {
-    val intent = Intent(
-        Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packName, null)
-    )
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-    userId?.let { intent.putExtra("userId", it) }
-    startActivity(intent)
-}
-
-/**
- * 跳转商店页面
- * @receiver Context
- * @param packName String
- */
-fun Context.openMarketIntent(packName: String) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packName"))
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-    startActivity(intent)
 }
 
 /**
@@ -1031,7 +874,7 @@ fun Context.restartAllScope() {
         commands.add("pkill -9 $scope")
         commands.add("killall $scope")
         commands.add("am force-stop $scope")
-        getAppVerInfo(scope)
+        AppUtils(this).getAppVerInfo(scope)
     }
     MaterialAlertDialogBuilder(this).apply {
         setMessage(getString(R.string.restart_scope_message))
@@ -1059,7 +902,7 @@ fun Context.restartAllScope(scopes: Array<String>) {
         commands.add("pkill -9 $scope")
         commands.add("killall $scope")
         commands.add("am force-stop $scope")
-        getAppVerInfo(scope)
+        AppUtils(this).getAppVerInfo(scope)
     }
     scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
 }
@@ -1308,15 +1151,6 @@ fun Fragment.setupMenuProvider(menuProvider: MenuProvider) =
     (requireActivity() as MenuHost).addMenuProvider(
         menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED
     )
-
-/**
- * 检查宿主模块版本是否匹配
- * @receiver Context
- * @param isValied Function1<Boolean, Unit>
- */
-fun Context.checkModuleValied(isValied: (Boolean) -> Unit) {
-    dataChannel("com.android.systemui").checkingVersionEquals(result = isValied)
-}
 
 val redOneTextColor = Color.parseColor("#c41442")
 

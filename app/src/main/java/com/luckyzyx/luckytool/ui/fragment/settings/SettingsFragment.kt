@@ -16,6 +16,7 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.Base64CodeUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -38,7 +39,6 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putInt
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
-import com.luckyzyx.luckytool.utils.setComponentDisabled
 import com.luckyzyx.luckytool.utils.showToast
 import org.json.JSONArray
 import org.json.JSONObject
@@ -225,7 +225,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 summary = getString(R.string.hide_desktop_module_icon_summary)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.setComponentDisabled(
+                    AppUtils(context).setComponentDisabled(
                         ComponentName(
                             context.packageName, "${context.packageName}.Hide"
                         ), newValue as Boolean

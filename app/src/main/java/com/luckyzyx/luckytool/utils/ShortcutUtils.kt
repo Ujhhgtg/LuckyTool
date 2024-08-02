@@ -40,7 +40,7 @@ class ShortcutUtils(val context: Context) {
         if (existOplusGame) safeOfNull {
             ShortcutBean(
                 "module_shortcut_status_oplusgames",
-                context.getAppLabel("com.oplus.games").toString(),
+                AppUtils(context).getAppLabel("com.oplus.games").toString(),
                 Icon.createWithResource(
                     context.packageName, R.mipmap.oplusgames_icon
                 )
@@ -120,7 +120,7 @@ class ShortcutUtils(val context: Context) {
      * @return Boolean
      */
     fun getIconStatus(): Boolean {
-        return when (context.getComponentEnabled(
+        return when (AppUtils(context).getComponentEnabled(
             ComponentName(context.packageName, "${context.packageName}.Hide")
         )) {
             0 -> true

@@ -6,7 +6,12 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
@@ -34,6 +39,7 @@ import com.luckyzyx.luckytool.databinding.DialogLogFilterLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentLogsBinding
 import com.luckyzyx.luckytool.databinding.LayoutLoginfoItemBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
 import com.luckyzyx.luckytool.utils.ThemeUtils
@@ -42,8 +48,6 @@ import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.formatDate
-import com.luckyzyx.luckytool.utils.getAppIcon
-import com.luckyzyx.luckytool.utils.getAppLabel
 import com.luckyzyx.luckytool.utils.getDeviceInfo
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
@@ -51,7 +55,6 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.*
 
 @Obfuscate
 class LoggerFragment : Fragment(), MenuProvider {
@@ -281,13 +284,13 @@ class LogInfoViewAdapter(val context: Context, data: ArrayList<YLogData>) :
         val userId = filterData[position].userId
         val msg = filterData[position].msg
         val throwable = filterData[position].throwable.toString()
-        holder.logIcon.setImageDrawable(context.getAppIcon(packageName))
+        holder.logIcon.setImageDrawable(AppUtils(context).getAppIcon(packageName))
         holder.logTime.text = time
         holder.logMsg.text = msg
         holder.logRoot.setOnClickListener(null)
         holder.logRoot.setOnClickListener {
             MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                setTitle(context.getAppLabel(packageName))
+                setTitle(AppUtils(context).getAppLabel(packageName))
                 setView(NestedScrollView(context).apply {
                     addView(MaterialTextView(context).apply {
                         setPadding(20.dp, 0, 20.dp, 20.dp)
