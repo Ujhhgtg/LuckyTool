@@ -31,8 +31,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.OutputStream
 
-
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate")
 object FileUtils {
 
     /**
@@ -148,8 +147,7 @@ object FileUtils {
             if (!exists()) createNewFile()
         }
 //        LogUtils.d("getMSMCacheFile", "uri", uri.toString(), true)
-        val fileType = context.contentResolver.getType(uri)?.split("/")?.get(1)
-            ?: "png"
+        val fileType = context.contentResolver.getType(uri)?.split("/")?.get(1) ?: "png"
 //        LogUtils.d("getMSMCacheFile", "fileType", fileType, true)
         val fileName = SystemClock.uptimeMillis().toString() + "." + fileType
         val file = File(dir, fileName)
@@ -352,9 +350,7 @@ object FileUtils {
      */
     fun forceDeleteFile(path: String) {
         ShellUtils.fastCmd(
-            "chattr -R -i -a $path >/dev/null 2>&1",
-            "chmod -R 644 $path",
-            "rm -rf $path"
+            "chattr -R -i -a $path >/dev/null 2>&1", "chmod -R 644 $path", "rm -rf $path"
         )
     }
 
@@ -529,4 +525,5 @@ object FileUtils {
         }
         return path
     }
+
 }

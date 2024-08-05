@@ -36,7 +36,7 @@
             android:description="@string/xposeddescription"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/Theme.Luckyzyx"
+            android:theme="@style/Theme.Luckyzyx.NoActionBar"
             android:preserveLegacyExternalStorage="true"
             android:requestLegacyExternalStorage="true"
             android:hasFragileUserData="true"
@@ -72,6 +72,10 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
         </activity>
+        
+        <activity
+                android:name="com.canhub.cropper.CropImageActivity"
+                android:theme="@style/Theme.Luckyzyx.ActionBar" />
         
         <meta-data
                 android:name="xposedmodule"

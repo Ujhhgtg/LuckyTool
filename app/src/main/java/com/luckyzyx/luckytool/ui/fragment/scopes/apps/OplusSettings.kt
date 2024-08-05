@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toDrawable
@@ -8,6 +10,10 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
@@ -15,6 +21,7 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
@@ -24,6 +31,8 @@ import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.showToast
+import java.io.File
 
 @Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {
@@ -33,14 +42,50 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         "com.oplus.safecenter",
         "com.oplus.notificationmanager"
     )
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+
+    private var cacheCropFile: File? = null
+    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
-            val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
-            requireActivity().putString(
-                ModulePrefs, "customize_device_ota_card_background_path", cacheFile?.path ?: ""
-            )
+            cacheCropFile = FileUtils.getMSMCacheFile(requireActivity(), it)
+            if (cacheCropFile != null && cacheCropFile!!.exists()) {
+                val uri = Uri.fromFile(cacheCropFile)
+                cropImage.launch(
+                    CropImageContractOptions(
+                        it, CropImageOptions().apply {
+                            cropShape = CropImageView.CropShape.RECTANGLE
+                            guidelines = CropImageView.Guidelines.ON_TOUCH
+                            aspectRatioX = 328
+                            aspectRatioY = 124
+                            fixAspectRatio = true
+                            customOutputUri = uri
+                            outputCompressFormat = Bitmap.CompressFormat.PNG
+                            outputCompressQuality = 100
+                        }
+                    )
+                )
+            } else {
+                requireActivity().showToast("Create cache crop file error!")
+            }
         }
-        (activity as MainActivity).restart()
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) {
+        if (it.isSuccessful) {
+            if (cacheCropFile != null && cacheCropFile!!.exists()) {
+                requireActivity().putString(
+                    ModulePrefs, "customize_device_ota_card_background_path", cacheCropFile!!.path
+                )
+                cacheCropFile = null
+                (activity as MainActivity).restart()
+                requireActivity().showToast("Crop image is successful!")
+            } else {
+                requireActivity().showToast("Crop file is not exist!")
+            }
+        } else {
+            cacheCropFile?.delete()
+            requireActivity().showToast("Crop image file error!")
+            LogUtils.e("CropImage", "error", it.error.toString(), true)
+        }
     }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -377,7 +422,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                             isCopyingEnabled = true
                         }
                         setOnPreferenceClickListener {
-                            pickMedia.launch("image/*")
+                            pickImage.launch("image/*")
                             true
                         }
                     })

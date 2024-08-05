@@ -133,6 +133,8 @@ dependencies {
     implementation(libs.markwon.html)
     implementation(libs.markwon.image)
     implementation(libs.markwon.ext.tables)
+
+    implementation(libs.android.image.cropper)
 }
 
 fun getVersionCode(): Int {

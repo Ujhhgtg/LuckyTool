@@ -20,7 +20,7 @@ import com.luckyzyx.luckytool.utils.putString
 @Obfuscate
 class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) {
+    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
             val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
             requireActivity().putString(
@@ -66,7 +66,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                         isCopyingEnabled = true
                     }
                     setOnPreferenceClickListener {
-                        pickMedia.launch("image/*")
+                        pickImage.launch("image/*")
                         true
                     }
                 })
