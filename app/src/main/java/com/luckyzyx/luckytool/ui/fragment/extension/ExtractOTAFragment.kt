@@ -25,8 +25,6 @@ import com.luckyzyx.luckytool.utils.formatFileSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getFingerPrintModel
 import com.luckyzyx.luckytool.utils.getModelMarketName
-import com.luckyzyx.luckytool.utils.getPcbInfo
-import com.luckyzyx.luckytool.utils.getSnInfo
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
@@ -96,10 +94,12 @@ class ExtractOTAFragment : Fragment() {
                     } else return@withDefault list
 
                     val nvId = SystemProperties.get("ro.build.oplus_nv_id")
+                    val pcbInfo = DeviceUtils().getPcbInfo()
+                    val snInfo = DeviceUtils().getSnInfo()
                     val recruit = DeviceUtils().getRecruit()
                     val random = Random().nextInt().toString()
                     val data =
-                        random + "|${getFingerPrintModel}|$nvId|$getPcbInfo|$getSnInfo|$recruit"
+                        random + "|${getFingerPrintModel}|$nvId|$pcbInfo|$snInfo|$recruit"
                     val encrypt = safeOfNull {
                         AESCrypt.encrypt(data, "otatoolsotatools")
                     } ?: ""

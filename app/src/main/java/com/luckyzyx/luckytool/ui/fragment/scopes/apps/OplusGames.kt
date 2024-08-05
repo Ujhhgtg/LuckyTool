@@ -14,13 +14,12 @@ import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
-import com.luckyzyx.luckytool.utils.getAppLabel
-import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
@@ -33,10 +32,11 @@ class OplusGames : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            val appVerInfo = context.getAppVerInfo(scopes.first())
+            val appUtils = AppUtils(context)
+            val appVerInfo = appUtils.getAppVerInfo(scopes.first())
             addPreference(Preference(context).apply {
                 title = getString(R.string.game_assistant_page)
-                summary = "(${context.getAppLabel("com.oplus.games")})"
+                summary = "(${appUtils.getAppLabel("com.oplus.games")})"
                 isVisible =
                     context.checkPackName("com.oplus.games") && context.checkResolveActivity(
                         Intent().setClassName(
@@ -53,7 +53,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
             })
             addPreference(Preference(context).apply {
                 title = getString(R.string.game_space_page)
-                summary = "(${context.getAppLabel("com.nearme.gamecenter")})"
+                summary = "(${appUtils.getAppLabel("com.nearme.gamecenter")})"
                 isVisible =
                     context.checkPackName("com.nearme.gamecenter") && context.checkResolveActivity(
                         Intent().setClassName(
@@ -128,7 +128,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
             if (context.getBoolean(ModulePrefs, "enable_developer_page")) {
                 addPreference(Preference(context).apply {
                     title = getString(R.string.game_assistant_develop_page)
-                    summary = "(${context.getAppLabel("com.oplus.games")})"
+                    summary = "(${appUtils.getAppLabel("com.oplus.games")})"
                     isVisible = context.checkPackName("com.oplus.games")
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {

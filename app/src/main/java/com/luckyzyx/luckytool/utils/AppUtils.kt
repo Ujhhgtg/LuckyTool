@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.utils
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
@@ -30,8 +31,20 @@ class AppUtils(val context: Context) {
      */
     fun getAppCommit(packName: String): String {
         val appInfo = packageUtils.getApplicationInfo(packName, PackageManager.GET_META_DATA)
+            ?: return ""
         @Suppress("DEPRECATION")
-        return appInfo?.metaData?.get("versionCommit").toString()
+        return appInfo.metaData.get("versionCommit")?.toString() ?: ""
+    }
+
+    /**
+     * 获取APP Meta键值
+     * @param appInfo ApplicationInfo
+     * @param key String
+     * @return String
+     */
+    fun getAppMeta(appInfo: ApplicationInfo, key: String): String {
+        @Suppress("DEPRECATION")
+        return appInfo.metaData.get(key)?.toString() ?: ""
     }
 
     /**
@@ -39,7 +52,6 @@ class AppUtils(val context: Context) {
      * 写入SP xml文件内
      * @return [ArraySet]
      */
-    @Suppress("DEPRECATION")
     fun getAppVerInfo(packName: String, save: Boolean = true): AppVerInfo? {
         return safeOfNull {
             val packageInfo = packageUtils.getPackageInfo(packName, PackageManager.GET_META_DATA)
@@ -49,8 +61,8 @@ class AppUtils(val context: Context) {
             val versionName = packageInfo.versionName
             val versionCode = packageInfo.longVersionCode
             //修复versionCommit获取null
-            val versionCommit = appInfo.metaData.get("versionCommit").toString()
-            val versionDate = appInfo.metaData.get("versionDate").toString()
+            val versionCommit = getAppMeta(appInfo, "versionCommit")
+            val versionDate = getAppMeta(appInfo, "versionDate")
             //Fix the camera's commit is empty
             val commit = versionCommit.ifBlank { versionDate }
             val appVerInfo = AppVerInfo(appName, packName, versionName, versionCode, commit)

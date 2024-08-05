@@ -12,11 +12,10 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.PackageInfoClass
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatStringAuto
-import com.luckyzyx.luckytool.utils.getAppVerInfo
-import com.luckyzyx.luckytool.utils.openMarketIntent
 import com.luckyzyx.luckytool.utils.safeOf
 
 object HookAppDetails : YukiBaseHooker() {
@@ -61,10 +60,10 @@ object HookAppDetails : YukiBaseHooker() {
                         )
                     )
                     val packName = packageInfo.packageName
-                    val appVerInfo = context.getAppVerInfo(packName, false) ?: return@after
-                    val version = "${appVerInfo.versionName}(${appVerInfo.versionCode})" +
-                            if (appVerInfo.versionCommit.isNullOrBlank()) ""
-                            else "_${appVerInfo.versionCommit}"
+                    val appVerInfo = AppUtils(context).getAppVerInfo(packName, false)
+                        ?: return@after
+                    var version = "${appVerInfo.versionName}(${appVerInfo.versionCode})"
+                    if (appVerInfo.versionCommit.isNotBlank()) version += "_${appVerInfo.versionCommit}"
                     val versionText = context.getString(
                         context.resources.getIdentifier(
                             "version_text", "string", this@HookAppDetails.packageName
@@ -72,9 +71,8 @@ object HookAppDetails : YukiBaseHooker() {
                     )
 
                     if (isIconMarket) appIcon?.setOnClickListener {
-                        it.context.openMarketIntent(packName)
+                        AppUtils(it.context).openMarketIntent(packName)
                     }
-
 
                     val list = ArrayList<String>()
 

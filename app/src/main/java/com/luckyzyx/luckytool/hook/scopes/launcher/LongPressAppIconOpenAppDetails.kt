@@ -6,8 +6,8 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.openAppDetailIntent
 
 object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
     override fun onHook() {
@@ -51,7 +51,7 @@ object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
 
     private fun View.setLongClick(packName: String?, userId: Int? = 0) {
         setOnLongClickListener {
-            packName?.let { its -> it.context.openAppDetailIntent(its, userId) }
+            packName?.let { its -> AppUtils(it.context).openAppDetailIntent(its, userId) }
             true
         }
     }
