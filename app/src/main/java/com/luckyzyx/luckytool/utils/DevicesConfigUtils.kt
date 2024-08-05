@@ -1,12 +1,14 @@
 package com.luckyzyx.luckytool.utils
 
+import com.joom.paranoid.Obfuscate
 import org.json.JSONObject
 import java.io.File
 
 @Suppress("unused")
+@Obfuscate
 object DevicesConfigUtils {
-
-    private var configFile = File("/odm/etc/devices_config/devices_config.json")
+    private val configName = "/odm/etc/devices_config/devices_config.json"
+    private var configFile = File(configName)
     private var deviceConfig: JSONObject? = null
 
     private var chargeConfig: JSONObject? = null

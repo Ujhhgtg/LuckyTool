@@ -9,10 +9,10 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getBoolean
-import com.luckyzyx.luckytool.utils.jumpBattery
 
 @Obfuscate
 class OplusBattery : BaseScopePreferenceFeagment() {
@@ -92,5 +92,5 @@ class OplusBattery : BaseScopePreferenceFeagment() {
 
     override fun isEnableRestartMenu(): Boolean = true
     override fun isEnableOpenMenu(): Boolean = true
-    override fun callOpenMenu() = jumpBattery(requireActivity())
+    override fun callOpenMenu() = IntentUtils(requireActivity()).jumpBattery()
 }

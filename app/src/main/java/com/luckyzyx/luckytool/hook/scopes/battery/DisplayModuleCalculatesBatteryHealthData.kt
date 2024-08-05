@@ -12,8 +12,8 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.utils.DeviceUtils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.filterNumber
 import com.luckyzyx.luckytool.utils.safeOf
 

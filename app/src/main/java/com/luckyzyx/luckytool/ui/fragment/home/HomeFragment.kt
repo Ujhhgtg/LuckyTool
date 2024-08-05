@@ -145,14 +145,14 @@ class HomeFragment : Fragment(), MenuProvider {
                     }
                 }
                 val guid = binding.oplusotaGuid.apply {
-                    setText(DeviceUtils().getGuid())
+                    setText(DeviceUtils.getGuid())
                     setOnLongClickListener {
                         context.copyStr(text as CharSequence)
                         true
                     }
                 }
                 val recruit = binding.oplusotaRecruit.apply {
-                    setText(DeviceUtils().getRecruit())
+                    setText(DeviceUtils.getRecruit())
                     setOnLongClickListener {
                         context.copyStr(text as CharSequence)
                         true

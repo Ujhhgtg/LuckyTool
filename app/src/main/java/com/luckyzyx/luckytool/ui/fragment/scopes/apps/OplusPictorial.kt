@@ -5,8 +5,8 @@ import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.jumpPictorial
 
 @Obfuscate
 class OplusPictorial : BaseScopePreferenceFeagment() {
@@ -32,5 +32,5 @@ class OplusPictorial : BaseScopePreferenceFeagment() {
 
     override fun isEnableRestartMenu(): Boolean = true
     override fun isEnableOpenMenu(): Boolean = true
-    override fun callOpenMenu() = jumpPictorial(requireActivity())
+    override fun callOpenMenu() = IntentUtils(requireActivity()).jumpPictorial()
 }

@@ -1,9 +1,11 @@
 package com.luckyzyx.luckytool.utils
 
 import android.util.Log
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 
 @Suppress("MemberVisibilityCanBePrivate")
+@Obfuscate
 object LogUtils {
     const val globalTag = "LuckyTool"
     var enable = BuildConfig.DEBUG

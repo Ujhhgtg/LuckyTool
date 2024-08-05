@@ -19,9 +19,11 @@ import com.canhub.cropper.CropImageView
 import com.canhub.cropper.R
 import com.canhub.cropper.parcelable
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 
+@Obfuscate
 class CropImageActivity : CropImageActivity(), MenuProvider {
 
     private var cropImageUri: Uri? = null

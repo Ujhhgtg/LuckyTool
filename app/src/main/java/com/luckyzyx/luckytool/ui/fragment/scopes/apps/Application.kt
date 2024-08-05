@@ -11,6 +11,7 @@ import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
@@ -140,12 +141,13 @@ class Application : BaseScopePreferenceFeagment() {
                 title = getString(R.string.disable_customized_app_installer)
                 summary = "com.oplus.appdetail"
                 key = "disable_customized_app_installer"
-                isChecked = ShellUtils.fastCmd("pm list packages -d | grep $summary")
-                    .contains(summary.toString())
+                isChecked =
+                    ShellUtils.fastCmd("${CommandUtils.pmlist} -d | ${CommandUtils.grep} $summary")
+                        .contains(summary.toString())
                 isPersistent = false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    ShellUtils.fastCmdResult("pm ${if (newValue as Boolean) "disable" else "enable"} $summary")
+                    ShellUtils.fastCmdResult("${CommandUtils.pm} ${if (newValue as Boolean) "disable" else "enable"} $summary")
                 }
             })
             addPreference(SwitchPreference(context).apply {

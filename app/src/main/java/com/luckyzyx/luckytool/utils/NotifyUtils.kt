@@ -15,8 +15,10 @@ import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 
+@Obfuscate
 object NotifyUtils {
     /**通知权限*/
     private const val POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"

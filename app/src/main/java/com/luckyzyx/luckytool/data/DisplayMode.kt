@@ -5,10 +5,14 @@ import java.io.Serializable
 
 @Obfuscate
 data class DisplayMode(
-    val id: Int,
-    val width: Int? = null,
-    val height: Int? = null,
-    val xDpi: Float? = null,
-    val yDpi: Float? = null,
-    val refreshRate: Float? = null,
-) : Serializable
+    var id: Int,
+    var width: Int? = null,
+    var height: Int? = null,
+    var xDpi: Float? = null,
+    var yDpi: Float? = null,
+    var refreshRate: Float? = null,
+) : Serializable {
+
+    constructor() : this(-1)
+
+}

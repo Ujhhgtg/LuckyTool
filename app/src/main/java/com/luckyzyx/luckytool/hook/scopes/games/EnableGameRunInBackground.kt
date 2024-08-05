@@ -8,7 +8,7 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import com.luckyzyx.luckytool.utils.startBackgroundRunService
+import com.luckyzyx.luckytool.utils.IntentUtils
 import org.luckypray.dexkit.DexKitBridge
 
 class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -43,7 +43,7 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     method { param(ContextClass);returnType = UnitType }.hook {
                         replaceUnit {
                             val context = args().first().cast<Context>() ?: return@replaceUnit
-                            startBackgroundRunService(context)
+                            IntentUtils(context).startBackgroundRunService()
                         }
                     }
                 }

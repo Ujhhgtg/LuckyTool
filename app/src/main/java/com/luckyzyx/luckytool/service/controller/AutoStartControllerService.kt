@@ -15,6 +15,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode
@@ -75,7 +76,7 @@ class AutoStartControllerService : Service() {
             //FPS自启
             if (getBoolean(SettingsPrefs, keyFpsAutoStart, false)) {
                 val fpsCur = getInt(SettingsPrefs, keyFpsCur, -1)
-                if (fpsCur != -1) command.add("service call SurfaceFlinger 1035 i32 $fpsCur")
+                if (fpsCur != -1) command.add(CommandUtils.setRefreshRate + fpsCur)
             }
             //磁贴自启
             if (getBoolean(SettingsPrefs, keyTileAutoStart, false)) {
@@ -83,18 +84,18 @@ class AutoStartControllerService : Service() {
                 if (getBoolean(SettingsPrefs, keyTouchSamplingRate, false)) {
                     val level = getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
                     val int16 = level.toInt().toHexString()
-                    command.add("echo > /proc/touchpanel/game_switch_enable $int16")
+                    command.add(CommandUtils.touchPanel + int16)
 //                    command.add("start touchDaemon && ps -A | grep touchDaemon")
-                    command.add("touchHidlTest -c wo 0 26 $int16")
+                    command.add(CommandUtils.touchHidl + int16)
                 }
                 //高亮度模式
                 if (getBoolean(SettingsPrefs, keyHighBrightness, false)) {
-                    command.add("echo > /sys/kernel/oplus_display/hbm 1")
+                    command.add(CommandUtils.highBrightness)
                 }
                 //全局DC模式
                 if (getBoolean(SettingsPrefs, keyGlobalDCMode, false)) {
-                    command.add("echo > /sys/kernel/oppo_display/dimlayer_hbm 1")
-                    command.add("echo > /sys/kernel/oplus_display/dimlayer_hbm 1")
+                    command.add(CommandUtils.globalDCModeOppo)
+                    command.add(CommandUtils.globalDCModeOplus)
                 }
             }
             if (command.isNotEmpty()) ShellUtils.fastCmd(*command.toTypedArray())

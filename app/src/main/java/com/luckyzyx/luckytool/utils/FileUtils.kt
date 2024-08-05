@@ -15,6 +15,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.ArrayMap
 import androidx.core.content.FileProvider
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
@@ -32,6 +33,7 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 
 @Suppress("MemberVisibilityCanBePrivate")
+@Obfuscate
 object FileUtils {
 
     /**

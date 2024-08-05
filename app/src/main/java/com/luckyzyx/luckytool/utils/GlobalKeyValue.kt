@@ -1,5 +1,8 @@
 package com.luckyzyx.luckytool.utils
 
+import com.joom.paranoid.Obfuscate
+
+@Obfuscate
 object GlobalKeyValue {
 
     const val qqPackName = "com.tencent.mobileqq"

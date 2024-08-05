@@ -8,8 +8,8 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.jumpOTA
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.topjohnwu.superuser.ShellUtils
 
@@ -73,5 +73,5 @@ class OplusOta : BaseScopePreferenceFeagment() {
 
     override fun isEnableRestartMenu(): Boolean = true
     override fun isEnableOpenMenu(): Boolean = true
-    override fun callOpenMenu() = jumpOTA(requireActivity())
+    override fun callOpenMenu() = IntentUtils(requireActivity()).jumpOTA()
 }

@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
@@ -25,7 +26,6 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getStringSet
-import com.luckyzyx.luckytool.utils.jumpGesture
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 
@@ -221,5 +221,5 @@ class OplusGesture : BaseScopePreferenceFeagment() {
 
     override fun isEnableRestartMenu(): Boolean = true
     override fun isEnableOpenMenu(): Boolean = true
-    override fun callOpenMenu() = jumpGesture(requireActivity())
+    override fun callOpenMenu() = IntentUtils(requireActivity()).jumpGesture()
 }

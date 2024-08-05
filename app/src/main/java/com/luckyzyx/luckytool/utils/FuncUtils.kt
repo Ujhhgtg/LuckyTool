@@ -3,7 +3,6 @@
 package com.luckyzyx.luckytool.utils
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.ComponentName
@@ -12,7 +11,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -29,7 +27,6 @@ import android.os.SystemClock
 import android.os.SystemProperties
 import android.provider.Settings
 import android.service.quicksettings.TileService
-import android.telephony.SubscriptionManager
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.ArrayMap
@@ -51,14 +48,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
-import com.android.internal.os.PowerProfile
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
@@ -72,11 +67,8 @@ import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
 import java.util.regex.Pattern
-import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 import kotlin.random.Random
 import kotlin.system.exitProcess
@@ -112,7 +104,7 @@ fun Context.getDeviceInfo(
         ${getString(R.string.version)}: ${controller?.otaVersion}
         ${getString(R.string.flash)}: ${controller?.flashInfo}
         PAS: ${controller?.pcbInfo} ${controller?.snInfo}
-        RTD: ${DeviceUtils().getRecruit()}
+        RTD: ${DeviceUtils.getRecruit()}
     """.trimIndent().let {
         if (isLog) "$it\n${getString(R.string.module_version)} $getVersionName($getVersionCode)\n\n" else it
     }
@@ -195,11 +187,11 @@ fun Context.showToast(msg: String, long: Boolean? = false) = if (long == true) {
  */
 fun getFpsMode1(): ArrayList<Any?> {
     return ArrayList<Any?>().apply {
-        add(0, DisplayMode(0, null, null, null, null, 30.0F))
-        add(1, DisplayMode(1, null, null, null, null, 60.0F))
-        add(2, DisplayMode(2, null, null, null, null, 90.0F))
-        add(3, DisplayMode(3, null, null, null, null, 120.0F))
-        add(4, DisplayMode(4, null, null, null, null, 144.0F))
+        add(0, DisplayMode(0, refreshRate = 30.0F))
+        add(1, DisplayMode(1, refreshRate = 60.0F))
+        add(2, DisplayMode(2, refreshRate = 90.0F))
+        add(3, DisplayMode(3, refreshRate = 120.0F))
+        add(4, DisplayMode(4, refreshRate = 144.0F))
     }
 }
 
@@ -208,28 +200,32 @@ fun getFpsMode1(): ArrayList<Any?> {
  * @receiver Context
  * @return Array<String>
  */
-fun getFpsMode2(): ArrayList<ArrayList<*>> = safeOf(ArrayList()) {
-    val command =
-        "dumpsys display | grep -A 24 'mSfDisplayModes=' | grep ' DisplayMode{id=' | cut -f2 -d '{' | while read row; do\n" + "  if [[ -n \$row ]]; then\n" + "    echo \$row | tr ',' '\\n' | while read col; do\n" + "      case \$col in\n" + "        'id='*)\n" + "          echo -n \$(echo \${col:3}'|')\n" + "        ;;\n" + "      'width='*)\n" + "        echo -n \$(echo \${col:6})\n" + "        ;;\n" + "      'height='*)\n" + "        echo -n x\$(echo \${col:7})\n" + "        ;;\n" + "      'refreshRate='*)\n" + "        echo ' '\$(echo \${col:12} | cut -f1 -d '.')Hz\n" + "        ;;\n" + "      esac\n" + "    done\n" + "    echo -e '\\\\n'\n" + "  fi\n" + "done"
-    var dataArr: ArrayList<String>
-    val idArr = ArrayList<Int>()
-    val fpsArr = ArrayList<String>()
-    ShellUtils.fastCmd(command).apply {
-        dataArr = if (isBlank()) ArrayList()
-        else split("\\n").toMutableList().apply {
-            removeIf { e -> e.isBlank() }
-        } as ArrayList<String>
+fun getFpsMode2(): ArrayList<DisplayMode> {
+    val list = ArrayList<DisplayMode>()
+    val shellResults = ArrayList<String>()
+    val command = CommandUtils.getFpsMode2
+    Shell.cmd(command).to(shellResults).exec()
+    shellResults.forEachIndexed { index, mode ->
+        shellResults[index] = mode.replaceSpace.removePrefix("DisplayMode{").removeSuffix("}")
     }
-    dataArr.forEach {
-        val id = it.split("|").takeIf { e -> e.size >= 2 }?.get(0) ?: return@forEach
-        val fps = it.split("|").takeIf { e -> e.size >= 2 }?.get(1) ?: return@forEach
-        idArr.add(id.toInt())
-        fpsArr.add(fps)
+    shellResults.forEach {
+        val displayMode = DisplayMode()
+        it.split(",").forEachIndexed { _, mode ->
+            if (!mode.contains("=")) return@forEachIndexed
+            val key = mode.substringBefore("=")
+            val value = mode.substringAfter("=")
+            when (key) {
+                "id" -> displayMode.id = value.toInt()
+                "width" -> displayMode.width = value.toInt()
+                "height" -> displayMode.height = value.toInt()
+                "xDpi" -> displayMode.xDpi = value.toFloat()
+                "yDpi" -> displayMode.yDpi = value.toFloat()
+                "refreshRate" -> displayMode.refreshRate = value.toFloat()
+            }
+        }
+        list.add(displayMode)
     }
-    return ArrayList<ArrayList<*>>().apply {
-        idArr.takeIf { e -> e.isNotEmpty() }?.let { add(it) }
-        fpsArr.takeIf { e -> e.isNotEmpty() }?.let { add(it) }
-    }
+    return list
 }
 
 /**
@@ -274,7 +270,7 @@ fun getModelMarketName(): String? {
  * @param key String
  * @return String
  */
-fun getProp(key: String): String = ShellUtils.fastCmd("getprop $key").let {
+fun getProp(key: String): String = ShellUtils.fastCmd("${CommandUtils.getprop} $key").let {
     if (it.isBlank()) "null" else formatSpace(it)
 }
 
@@ -295,201 +291,6 @@ fun TileService.closeCollapse() {
         } catch (_: Exception) {
 
         }
-    }
-}
-
-/**
- * 跳转工程模式
- * @param context Context
- */
-fun jumpEngineermode(context: Context) {
-    val packInfo = PackageUtils(context.packageManager).getInstalledPackages(0)
-        .find { it.packageName.contains("engineermode") } ?: return
-    val packName = packInfo.packageName
-    val isMain = context.checkResolveActivity(
-        Intent().setClassName(packName, "${packName}.EngineerModeMain")
-    )
-    val activity = if (isMain) "EngineerModeMain" else "aftersale.AfterSalePage"
-    ShellUtils.fastCmd("am start -n ${packName}/.$activity")
-}
-
-/**
- * 跳转充电测试
- * @param context Context
- */
-fun jumpBatteryInfo(context: Context) {
-    val packInfo = PackageUtils(context.packageManager).getInstalledPackages(
-        PackageManager.GET_ACTIVITIES
-    ).find { it.packageName.contains("engineermode") } ?: return
-    val packName = packInfo.packageName
-    val activity = packInfo.activities.find {
-        it.name.contains("EngineerFragmentContainer")
-    }?.name
-    val chargeTestClazz = "$packName.aftersale.manualtest.ASChargeTestFragmentCompat"
-    if (activity == null) LogUtils.e(
-        "jumpBatteryInfo", "activity", "EngineerFragmentContainer is null", true
-    ) else ShellUtils.fastCmd("am start -n $packName/$activity -e fragment $chargeTestClazz")
-}
-
-/**
- * 跳转到设置开发者选项页面
- * @param context Context
- */
-fun jumpSettingsDev(context: Context) {
-    try {
-        context.startActivity(Intent("com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS").apply {
-            setPackage("com.android.settings")
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        })
-    } catch (e: ActivityNotFoundException) {
-        val command = "am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转到系统界面调节工具
- * @param context Context
- */
-fun jumpSystemUIDemoMode(context: Context) {
-    try {
-        context.startActivity(Intent().apply {
-            setPackage("com.android.systemui")
-            setClassName("com.android.systemui", "com.android.systemui.DemoMode")
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        })
-    } catch (e: ActivityNotFoundException) {
-        val command = "am start -n com.android.systemui/.DemoMode"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转应用分身
- * @param context Context
- */
-fun jumpMultiApp(context: Context) {
-    if (context.checkPackName("com.oplus.multiapp")) {
-        val command = "am start com.oplus.multiapp/.ui.entry.ActivityMainActivity"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转暗色模式
- * @param context Context
- */
-fun jumpDarkMode(context: Context) {
-    Intent("com.android.settings.DISPLAY_SETTINGS").apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        context.startActivity(this)
-    }
-}
-
-/**
- * 跳转到软件更新
- * @param context Context
- */
-fun jumpOTA(context: Context) {
-    if (context.checkPackName("com.oplus.ota")) {
-        val command = "am start com.oplus.ota/com.oplus.otaui.activity.EntryActivity"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转到乐划锁屏设置页面
- * @param context Context
- */
-fun jumpPictorial(context: Context) {
-    if (context.checkPackName("com.heytap.pictorial")) {
-        Intent(Intent.ACTION_MAIN).apply {
-            setPackage("com.heytap.pictorial")
-            setClassName("com.heytap.pictorial", "com.heytap.pictorial.ui.SettingActivity")
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-            context.startActivity(this)
-        }
-    }
-}
-
-/**
- * 跳转到手势体感页面
- * @param context Context
- */
-fun jumpGesture(context: Context) {
-    if (context.checkPackName("com.oplus.gesture")) {
-        val command = "am start com.oplus.gesture/.guide.GestureMainActivity"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转电池性能模式
- * @param context Context
- */
-fun jumpHighPerformance(context: Context) {
-    if (context.checkPackName("com.oplus.battery")) {
-        val command = "am start com.oplus.battery/com.oplus.powermanager.fuelgaue.IntellPowerSaveScence"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转到电池
- * @param context Context
- */
-fun jumpBattery(context: Context) {
-    if (context.checkPackName("com.oplus.battery")) {
-        val command = "am start com.oplus.battery/com.oplus.powermanager.fuelgaue.PowerConsumptionActivity"
-        ShellUtils.fastCmd(command)
-    }
-}
-
-/**
- * 跳转进程管理
- * @param context Context
- */
-fun jumpRunningApp(context: Context) {
-    val packInfo = PackageUtils(context.packageManager).getPackageInfo(
-        "com.android.settings", PackageManager.GET_ACTIVITIES
-    ) ?: return
-    val activity = packInfo.activities.find {
-        it.name.contains("RunningApplicationActivity")
-    }?.name
-    if (activity == null) LogUtils.e(
-        "jumpRunningApp", "activity", "RunningApplicationActivity is null", true
-    )
-    else ShellUtils.fastCmd("am start -n com.android.settings/$activity")
-}
-
-/**
- * 跳转极暗模式
- * @param context Context
- */
-fun jumpVeryDarkMode(context: Context) {
-    Intent("android.settings.REDUCE_BRIGHT_COLORS_SETTINGS").apply {
-        setPackage("com.android.settings")
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        context.startActivity(this)
-    }
-}
-
-/**
- * 跳转移动网络
- * @param context Context
- */
-fun jumpMobileNetwork(context: Context) {
-    Intent("android.settings.NETWORK_OPERATOR_SETTINGS").apply {
-        val id = SubscriptionManager.getDefaultDataSubscriptionId()
-        if (id != -1) putExtra("android.provider.extra.SUB_ID", id)
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-        context.startActivity(this)
     }
 }
 
@@ -690,8 +491,8 @@ fun Context.restartMain() {
         setItems(list) { _: DialogInterface?, i: Int ->
             when (i) {
                 0 -> restartAllScope()
-                1 -> ShellUtils.fastCmd("reboot")
-                2 -> ShellUtils.fastCmd("killall zygote")
+                1 -> ShellUtils.fastCmd(CommandUtils.reboot)
+                2 -> ShellUtils.fastCmd(CommandUtils.killzygote)
             }
         }
         show()
@@ -730,7 +531,7 @@ fun getPackageAbsolutePath(
     val map = ArrayMap<String, String>()
     val list = ArrayList<String>()
     Shell.cmd(
-        "pm list packages -f | grep $packName" + if (ignoreCase) " -i" else ""
+        "${CommandUtils.pmlist} -f | ${CommandUtils.grep} $packName" + if (ignoreCase) " -i" else ""
     ).to(list).exec()
     list.forEachIndexed { _, str ->
         val pack = str.replace("package:", "")
@@ -752,7 +553,7 @@ fun getPackageAbsoluteDir(
 ): ArrayList<String> {
     val list = ArrayList<String>()
     Shell.cmd(
-        "find /data/app/ -type d -${if (ignoreCase) "iname" else "name"} \"*${packName}*\" -print"
+        "${CommandUtils.findapp} -type d -${if (ignoreCase) "iname" else "name"} \"*${packName}*\" -print"
     ).to(list).exec()
     return list
 }
@@ -763,7 +564,7 @@ fun getPackageAbsoluteDir(
  * @param userId String? 0/999
  */
 fun uninstallApp(packName: String, userId: String? = "") {
-    ShellUtils.fastCmd("pm uninstall $packName ${if (userId.isNullOrEmpty()) "" else "--user $userId"}")
+    ShellUtils.fastCmd("${CommandUtils.pmuninstall} $packName ${if (userId.isNullOrEmpty()) "" else "--user $userId"}")
 }
 
 /**
@@ -772,7 +573,10 @@ fun uninstallApp(packName: String, userId: String? = "") {
  */
 fun forceUninstallApp(packName: String) {
     getPackageAbsolutePath(packName).forEach { (k, v) ->
-        if (k == packName) ShellUtils.fastCmd("chattr -i -a $v", "rm -rf $v")
+        if (k == packName) ShellUtils.fastCmd(
+            "${CommandUtils.chattr} -i -a $v",
+            "${CommandUtils.rmrf} $v"
+        )
     }
 }
 
@@ -795,24 +599,29 @@ fun Context.exitModule() {
     exitProcess(0)
 }
 
+fun Context.getRestartScopeCommands(scopes: Array<String>): ArrayList<String> {
+    return ArrayList<String>().apply {
+        for (scope in scopes) {
+            if (scope == "android") continue
+            if (scope.contains("systemui")) {
+                add(CommandUtils.killSysui)
+                continue
+            }
+            add("${CommandUtils.pkill9} $scope")
+            add("${CommandUtils.killall} $scope")
+            add("${CommandUtils.afs} $scope")
+            AppUtils(this@getRestartScopeCommands).getAppVerInfo(scope)
+        }
+    }
+}
+
 /**
  * 重启全部作用域
  * @receiver Context
  */
 fun Context.restartAllScope() {
     val xposedScope = resources.getStringArray(R.array.xposed_scope)
-    val commands = ArrayList<String>()
-    for (scope in xposedScope) {
-        if (scope == "android") continue
-        if (scope.contains("systemui")) {
-            commands.add("kill -9 `pgrep systemui`")
-            continue
-        }
-        commands.add("pkill -9 $scope")
-        commands.add("killall $scope")
-        commands.add("am force-stop $scope")
-        AppUtils(this).getAppVerInfo(scope)
-    }
+    val commands = getRestartScopeCommands(xposedScope)
     MaterialAlertDialogBuilder(this).apply {
         setMessage(getString(R.string.restart_scope_message))
         setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
@@ -829,18 +638,7 @@ fun Context.restartAllScope() {
  * @param scopes Array<String>
  */
 fun Context.restartAllScope(scopes: Array<String>) {
-    val commands = ArrayList<String>()
-    for (scope in scopes) {
-        if (scope == "android") continue
-        if (scope.contains("systemui")) {
-            commands.add("kill -9 `pgrep systemui`")
-            continue
-        }
-        commands.add("pkill -9 $scope")
-        commands.add("killall $scope")
-        commands.add("am force-stop $scope")
-        AppUtils(this).getAppVerInfo(scope)
-    }
+    val commands = getRestartScopeCommands(scopes)
     scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
 }
 
@@ -876,7 +674,8 @@ fun Context.bindRootService(
 fun getRefreshRateStatus(): Boolean = safeOfFalse {
 //    Result: Parcel(NULL)
 //    Result: Parcel(00000000    '....')
-    val result = ShellUtils.fastCmd("service call SurfaceFlinger 1034 i32 2")
+    val command = CommandUtils.getRefreshRateStatus
+    val result = ShellUtils.fastCmd(command)
     if (result.isBlank()) return@safeOfFalse false
     return if (result.contains("Operation not permitted", true)) false
     else when (result.filterNumber.toIntOrNull()) {
@@ -891,7 +690,9 @@ fun getRefreshRateStatus(): Boolean = safeOfFalse {
  * @param status Boolean
  */
 fun showRefreshRate(status: Boolean) {
-    ShellUtils.fastCmd("service call SurfaceFlinger 1034 i32 ${if (status) 1 else 0}")
+    var command = CommandUtils.showRefreshRate
+    command += if (status) "1" else "0"
+    ShellUtils.fastCmd(command)
 }
 
 /**
@@ -967,33 +768,12 @@ fun getScreenOrientation(resource: Resources, result: (Boolean) -> Unit) {
  * @return Array<String>
  */
 suspend fun getUsers(): Array<String> {
+    val command = CommandUtils.getUsers
     return withDefault {
-        ShellUtils.fastCmd("ls /data/user/ -m").let {
+        ShellUtils.fastCmd(command).let {
             if (it.isNotBlank()) {
                 it.replaceSpace.split(",").toTypedArray()
             } else arrayOf()
-        }
-    }
-}
-
-suspend fun getQSlist(): ArrayList<String> {
-    return withDefault {
-        val configList = ArrayList<String>()
-        val indexList = ArrayList<String>()
-        Shell.cmd("ls -f /data/data/com.tencent.mobileqq/databases/ | egrep 'config_db([0-9]+)\$' | | sed 's/config_db//g'")
-            .to(configList).exec()
-        Shell.cmd("ls -f /data/data/com.tencent.mobileqq/databases/ | egrep '([0-9]+)-IndexQQMsg.db' | sed 's/-IndexQQMsg.db//g'")
-            .to(indexList).exec()
-//        LogUtils.e("getQSlist", "cachelist", "${list.toList()}", true)
-        ArrayList(configList.union(indexList))
-    }
-}
-
-suspend fun getCSid(): ArrayList<String> {
-    return withDefault {
-        ArrayList<String>().apply {
-            Shell.cmd("cat /data/data/com.coolapk.market/shared_prefs/coolapk_preferences_v7.xml | egrep -o 'USER_SPAM_([0-9]+)' | sed 's/USER_SPAM_//g'")
-                .to(this).exec()
         }
     }
 }
@@ -1091,47 +871,11 @@ fun Fragment.setupMenuProvider(menuProvider: MenuProvider) =
 
 val redOneTextColor = Color.parseColor("#c41442")
 
-/**
- * 计算本地电池健康度
- * @receiver Context
- * @param isDebug Boolean
- * @return Int
- */
-fun Context.calcLocalHealth(isDebug: Boolean = false): Int {
-    try {
-        val sohFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_soh")
-        else File("/sys/class/power_supply/battery/batt_soh")
-        LogUtils.d("calcLocalHealth", "sohFile", sohFile.path, isDebug)
-        val sohValue = safeOfNull {
-            BufferedReader(FileReader(sohFile)).readLine().replaceSpace.toIntOrNull()
-        } ?: -1
-        LogUtils.d("calcLocalHealth", "sohValue", "$sohValue", isDebug)
-        if (sohValue in 1..100) return sohValue
-
-        val fccFile = if (SDK >= A13) File("/sys/class/oplus_chg/battery/battery_fcc")
-        else File("/sys/class/power_supply/battery/batt_fcc")
-        LogUtils.d("calcLocalHealth", "curFile", fccFile.path, isDebug)
-        val fccValue = safeOfNull {
-            BufferedReader(FileReader(fccFile)).readLine().replaceSpace.toIntOrNull()
-        } ?: -1
-        LogUtils.d("calcLocalHealth", "curValue", "$fccValue", isDebug)
-        if (fccValue <= 0) return -1
-
-        val designValue = PowerProfile(this).batteryCapacity
-        LogUtils.d("calcLocalHealth", "designValue", "$designValue", isDebug)
-        val calc = safeOfNull { (fccValue / designValue * 100.0).roundToInt() } ?: -1
-        LogUtils.d("calcLocalHealth", "calc", "$calc", isDebug)
-        return if (calc > 100) calc / 1000 else calc
-    } catch (e: Exception) {
-        YLog.error("Calc Local Health Error", e)
-        return -1
-    }
-}
 
 fun logcatToFile(file: File): Boolean {
     return try {
         if (!file.exists()) file.createNewFile()
-        ShellUtils.fastCmdResult("logcat -d -f ${file.absolutePath}")
+        ShellUtils.fastCmdResult("${CommandUtils.logcat} -d -f ${file.absolutePath}")
     } catch (e: Exception) {
         LogUtils.e("logcatToFile", "logcat", "$e", true)
         false
@@ -1194,29 +938,6 @@ fun JSONArray.toStringList(): ArrayList<String> {
         if (str.isNotBlank()) list.add(str)
     }
     return list
-}
-
-/**
- * 启动后台挂机服务(听剧模式)
- * @param context Context
- */
-fun startBackgroundRunService(context: Context) {
-    try {
-        Intent("oplus.intent.action.BACKGROUND_STREAM_SERVICE").apply {
-            setPackage("com.oplus.exsystemservice")
-            component = ComponentName(
-                "com.oplus.exsystemservice",
-                "com.oplus.backgroundstream.RouteForegroundService"
-            )
-            context.startForegroundService(this)
-        }
-    } catch (e: Exception) {
-        LogUtils.e(
-            "startBackgroundRunService",
-            "startForegroundService Exception -> ${context.packageName}!",
-            e.toString(), true
-        )
-    }
 }
 
 /**

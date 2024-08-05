@@ -10,6 +10,8 @@ import com.drake.net.utils.withDefault
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
+import com.luckyzyx.luckytool.utils.DeviceUtils.getCSid
+import com.luckyzyx.luckytool.utils.DeviceUtils.getQSlist
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -387,7 +389,7 @@ class AppAnalyticsUtils(val context: Context) {
             LogUtils.d("initAllBlackIds", "getQSlist", "${qss.toList()}", isDebug)
             if (css.isEmpty()) css = getCSid()
             LogUtils.d("initAllBlackIds", "getCSid", "${css.toList()}", isDebug)
-            if (gid.isEmpty()) gid = DeviceUtils().getGuid()
+            if (gid.isEmpty()) gid = DeviceUtils.getGuid()
             LogUtils.d("initAllBlackIds", "getGuid", gid, isDebug)
         }
     }

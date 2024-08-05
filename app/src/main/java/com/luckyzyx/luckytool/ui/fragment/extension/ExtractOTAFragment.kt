@@ -94,9 +94,9 @@ class ExtractOTAFragment : Fragment() {
                     } else return@withDefault list
 
                     val nvId = SystemProperties.get("ro.build.oplus_nv_id")
-                    val pcbInfo = DeviceUtils().getPcbInfo()
-                    val snInfo = DeviceUtils().getSnInfo()
-                    val recruit = DeviceUtils().getRecruit()
+                    val pcbInfo = DeviceUtils.getPcbInfo()
+                    val snInfo = DeviceUtils.getSnInfo()
+                    val recruit = DeviceUtils.getRecruit()
                     val random = Random().nextInt().toString()
                     val data =
                         random + "|${getFingerPrintModel}|$nvId|$pcbInfo|$snInfo|$recruit"

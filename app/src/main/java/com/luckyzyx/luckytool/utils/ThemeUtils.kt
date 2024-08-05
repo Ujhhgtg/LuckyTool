@@ -7,7 +7,9 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object ThemeUtils {
 
     private val supportDynamicColor = DynamicColors.isDynamicColorAvailable()

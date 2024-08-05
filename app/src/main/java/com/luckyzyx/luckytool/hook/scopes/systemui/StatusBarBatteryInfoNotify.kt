@@ -16,10 +16,10 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
+import com.luckyzyx.luckytool.utils.DeviceUtils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.DevicesConfigUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.NotifyUtils
-import com.luckyzyx.luckytool.utils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatDecimals
 import com.luckyzyx.luckytool.utils.getBooleanProperty

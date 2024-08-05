@@ -6,7 +6,7 @@ import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.luckyzyx.luckytool.utils.startBackgroundRunService
+import com.luckyzyx.luckytool.utils.IntentUtils
 
 object EnableRunInBackground : YukiBaseHooker() {
     private const val BackgroundRunToolCls =
@@ -19,7 +19,7 @@ object EnableRunInBackground : YukiBaseHooker() {
                 replaceUnit {
                     val context = field { type = ContextClass;superClass() }.get(instance)
                         .cast<Context>() ?: return@replaceUnit
-                    startBackgroundRunService(context)
+                        IntentUtils(context).startBackgroundRunService()
                 }
             }
             method { name = "isToolAvailable" }.hook {

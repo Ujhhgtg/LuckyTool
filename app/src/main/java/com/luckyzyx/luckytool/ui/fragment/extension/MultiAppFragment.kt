@@ -32,12 +32,12 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
-import com.luckyzyx.luckytool.utils.jumpMultiApp
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -177,7 +177,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == 1) jumpMultiApp(requireActivity())
+        if (menuItem.itemId == 1) IntentUtils(requireActivity()).jumpMultiApp()
         return true
     }
 }

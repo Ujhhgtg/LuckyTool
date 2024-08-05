@@ -1,0 +1,37 @@
+package com.luckyzyx.luckytool.utils
+
+import com.joom.paranoid.Obfuscate
+
+@Suppress("MayBeConstant")
+@Obfuscate
+object CommandUtils {
+
+    val getRefreshRateStatus = "service call SurfaceFlinger 1034 i32 2"
+    val showRefreshRate = "service call SurfaceFlinger 1034 i32 "
+    val setRefreshRate = "service call SurfaceFlinger 1035 i32 "
+
+    val touchPanel = "echo > /proc/touchpanel/game_switch_enable "
+    val touchHidl = "touchHidlTest -c wo 0 26 "
+    val highBrightness = "echo > /sys/kernel/oplus_display/hbm 1"
+    val globalDCModeOppo = "echo > /sys/kernel/oppo_display/dimlayer_hbm 1"
+    val globalDCModeOplus = "echo > /sys/kernel/oplus_display/dimlayer_hbm 1"
+
+    val getUsers = "ls /data/user/ -m"
+    val getFpsMode2 = "dumpsys display | grep -A 24 'mSfDisplayModes=' | grep 'DisplayMode{id='"
+
+    val killSysui = "kill -9 `pgrep systemui`"
+    val pkill9 = "pkill -9"
+    val killzygote = "killall zygote"
+    val reboot = "reboot"
+    val logcat = "logcat"
+    val afs = "am force-stop"
+    val killall = "killall"
+    val grep = "grep"
+    val getprop = "getprop"
+    val chattr = "chattr"
+    val rmrf = "rm -rf"
+    val pm = "pm"
+    val pmuninstall = "pm uninstall"
+    val pmlist = "pm list packages"
+    val findapp = "find /data/app/"
+}

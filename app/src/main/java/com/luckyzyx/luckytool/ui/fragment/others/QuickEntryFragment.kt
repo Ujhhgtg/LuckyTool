@@ -8,13 +8,8 @@ import androidx.preference.PreferenceCategory
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.checkResolveActivity
-import com.luckyzyx.luckytool.utils.jumpBatteryInfo
-import com.luckyzyx.luckytool.utils.jumpEngineermode
-import com.luckyzyx.luckytool.utils.jumpRunningApp
-import com.luckyzyx.luckytool.utils.jumpSettingsDev
-import com.luckyzyx.luckytool.utils.jumpSystemUIDemoMode
-import com.luckyzyx.luckytool.utils.jumpVeryDarkMode
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
@@ -31,7 +26,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 title = getString(R.string.engineering_mode)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    jumpEngineermode(context)
+                    IntentUtils(context).jumpEngineermode()
                     true
                 }
             })
@@ -39,7 +34,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 title = getString(R.string.charging_test)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    jumpBatteryInfo(context)
+                    IntentUtils(context).jumpBatteryInfo()
                     true
                 }
             })
@@ -47,7 +42,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 title = getString(R.string.developer_option)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    jumpSettingsDev(context)
+                    IntentUtils(context).jumpSettingsDev()
                     true
                 }
             })
@@ -60,7 +55,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    jumpSystemUIDemoMode(context)
+                    IntentUtils(context).jumpSystemUIDemoMode()
                     true
                 }
             })
@@ -90,7 +85,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 title = getString(R.string.process_manager)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    jumpRunningApp(context)
+                    IntentUtils(context).jumpRunningApp()
                     true
                 }
             })
@@ -104,7 +99,7 @@ class QuickEntryFragment : ModulePreferenceFragment() {
                 )
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    jumpVeryDarkMode(context)
+                    IntentUtils(context).jumpVeryDarkMode()
                     true
                 }
             })
