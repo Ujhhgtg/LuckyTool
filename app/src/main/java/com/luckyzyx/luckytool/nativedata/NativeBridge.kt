@@ -1,9 +1,12 @@
 package com.luckyzyx.luckytool.nativedata
 
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.LogUtils
 
+@Obfuscate
 object NativeBridge {
 
+    private val libName = "nativedata"
     private var mInitializeLoadLibrary = false
 
     init {
@@ -11,7 +14,7 @@ object NativeBridge {
             if (!mInitializeLoadLibrary) {
                 synchronized(NativeBridge::class.java) {
                     val time = System.currentTimeMillis()
-                    System.loadLibrary("nativedata")
+                    System.loadLibrary(libName)
                     val lastTime = System.currentTimeMillis()
                     val costTime = lastTime - time
                     LogUtils.d(
@@ -24,7 +27,7 @@ object NativeBridge {
                 }
             }
         } catch (t: Throwable) {
-            LogUtils.d("NativeBridge", "loadLibrary", t.toString(), true)
+            LogUtils.d("NativeBridge", "loadLibrary error", t.toString(), true)
             mInitializeLoadLibrary = false
         }
     }
