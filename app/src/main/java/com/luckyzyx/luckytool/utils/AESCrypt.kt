@@ -8,12 +8,14 @@ import javax.crypto.spec.SecretKeySpec
 
 @Obfuscate
 object AESCrypt {
+    private val cryptName = "AES"
+
     @SuppressLint("GetInstance")
-    fun encrypt(data: String, key: String = "luckyzyxluckyzyx"): String {
+    fun encrypt(data: String, key: String = CommandUtils.aesCryptKey): String {
         //初始化cipher对象
-        val cipher = Cipher.getInstance("AES")
+        val cipher = Cipher.getInstance(cryptName)
         // 生成密钥
-        val keySpec = SecretKeySpec(key.toByteArray(), "AES")
+        val keySpec = SecretKeySpec(key.toByteArray(), cryptName)
         cipher.init(Cipher.ENCRYPT_MODE, keySpec)
         //加密解密
         val encrypt = cipher.doFinal(data.toByteArray())
@@ -23,11 +25,11 @@ object AESCrypt {
     }
 
     @SuppressLint("GetInstance")
-    fun decrypt(data: String, key: String = "luckyzyxluckyzyx"): String {
+    fun decrypt(data: String, key: String = CommandUtils.aesCryptKey): String {
         //初始化cipher对象
-        val cipher = Cipher.getInstance("AES")
+        val cipher = Cipher.getInstance(cryptName)
         // 生成密钥
-        val keySpec = SecretKeySpec(key.toByteArray(), "AES")
+        val keySpec = SecretKeySpec(key.toByteArray(), cryptName)
         cipher.init(Cipher.DECRYPT_MODE, keySpec)
         //加密解密
         val encrypt = cipher.doFinal(Base64.getMimeDecoder().decode(data.toByteArray()))
