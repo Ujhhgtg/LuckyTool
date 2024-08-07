@@ -953,3 +953,5 @@ fun String.convertList(): ArrayList<String> {
     }
     return list
 }
+
+val File.getUri: Uri get() = Uri.fromFile(this)

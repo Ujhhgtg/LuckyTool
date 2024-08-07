@@ -158,6 +158,25 @@ object FileUtils {
     }
 
     /**
+     * 创建指定后缀的缓存文件
+     * @param context Context
+     * @param suffix String
+     * @return File
+     */
+    fun createCacheFile(context: Context, suffix: String): File {
+        val toolDir = checkDownloadDir(context, "LuckyTool")
+        val dir = File(toolDir, "cache").apply {
+            if (isFile) delete()
+            if (!exists()) mkdirs()
+        }
+        File(dir, ".nomedia").apply {
+            if (!exists()) createNewFile()
+        }
+        val fileName = SystemClock.uptimeMillis().toString() + "." + suffix
+        return File(dir, fileName)
+    }
+
+    /**
      * 从Uri赋值文件
      * @param context Context
      * @param uri Uri

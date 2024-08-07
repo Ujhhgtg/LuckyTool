@@ -4,18 +4,17 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toDrawable
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.contract.CropImageContract
+import com.luckyzyx.luckytool.data.CropImageContractOptions
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
@@ -27,12 +26,12 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.getUri
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.showToast
-import java.io.File
 
 @Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {
@@ -43,47 +42,19 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         "com.oplus.notificationmanager"
     )
 
-    private var cacheCropFile: File? = null
-    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        if (it != null) {
-            cacheCropFile = FileUtils.getMSMCacheFile(requireActivity(), it)
-            if (cacheCropFile != null && cacheCropFile!!.exists()) {
-                val uri = Uri.fromFile(cacheCropFile)
-                cropImage.launch(
-                    CropImageContractOptions(
-                        it, CropImageOptions().apply {
-                            cropShape = CropImageView.CropShape.RECTANGLE
-                            guidelines = CropImageView.Guidelines.ON_TOUCH
-                            aspectRatioX = 328
-                            aspectRatioY = 124
-                            fixAspectRatio = true
-                            customOutputUri = uri
-                            outputCompressFormat = Bitmap.CompressFormat.PNG
-                            outputCompressQuality = 100
-                        }
-                    )
-                )
-            } else {
-                requireActivity().showToast("Create cache crop file error!")
-            }
-        }
-    }
-
     private val cropImage = registerForActivityResult(CropImageContract()) {
         if (it.isSuccessful) {
-            if (cacheCropFile != null && cacheCropFile!!.exists()) {
+            val uri = it.uriContent
+            if (uri == null || uri == Uri.EMPTY) return@registerForActivityResult
+            val path = uri.path ?: ""
+            if (path.isNotBlank()) {
+                requireActivity().showToast(path)
                 requireActivity().putString(
-                    ModulePrefs, "customize_device_ota_card_background_path", cacheCropFile!!.path
+                    ModulePrefs, "customize_device_ota_card_background_path", path
                 )
-                cacheCropFile = null
                 (activity as MainActivity).restart()
-                requireActivity().showToast("Crop image is successful!")
-            } else {
-                requireActivity().showToast("Crop file is not exist!")
             }
         } else {
-            cacheCropFile?.delete()
-            requireActivity().showToast("Crop image file error!")
             LogUtils.e("CropImage", "error", it.error.toString(), true)
         }
     }
@@ -422,7 +393,22 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                             isCopyingEnabled = true
                         }
                         setOnPreferenceClickListener {
-                            pickImage.launch("image/*")
+                            val cacheImageFile = FileUtils.createCacheFile(requireActivity(), "png")
+                            cropImage.launch(
+                                CropImageContractOptions(
+                                    null, CropImageOptions().apply {
+                                        activityTitle = title?.toString() ?: ""
+                                        cropShape = CropImageView.CropShape.RECTANGLE
+                                        guidelines = CropImageView.Guidelines.ON_TOUCH
+                                        aspectRatioX = 328
+                                        aspectRatioY = 124
+                                        fixAspectRatio = true
+                                        customOutputUri = cacheImageFile.getUri
+                                        outputCompressFormat = Bitmap.CompressFormat.PNG
+                                        outputCompressQuality = 100
+                                    }
+                                )
+                            )
                             true
                         }
                     })
