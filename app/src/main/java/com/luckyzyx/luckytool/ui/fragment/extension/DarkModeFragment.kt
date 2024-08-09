@@ -95,9 +95,9 @@ class DarkModeFragment : Fragment(), MenuProvider {
                 isCheckable = true
                 isClickable = true
                 isChecked = showSystemApp
-                setOnCheckedChangeListener { buttonView, isChecked ->
-                    if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                setOnCheckedChangeListener { _, isChecked ->
                     showSystemApp = isChecked
+                    context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
                     loadData()
                 }
             }))
@@ -151,6 +151,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
                     if (find != null) enabledDarkMode.add(darkModeInfo)
                 }
                 allAppInfos.apply {
+                    if (!showSystemApp) removeIf { it.isSystem }
                     when (sortMode) {
                         0 -> sortBy { it.name }
                         1 -> sortBy { it.packageName }

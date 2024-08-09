@@ -30,7 +30,12 @@ import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
-@Suppress("unused")
+/**
+ * AppInfo选择器
+ * @property context Context
+ * @property multiChoice Boolean 多选模式
+ * @constructor
+ */
 @Obfuscate
 class AppInfoSelector(private val context: Context, private val multiChoice: Boolean) {
 
@@ -118,8 +123,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                 isCheckable = true
                 isClickable = true
                 isChecked = showSystemApp
-                setOnCheckedChangeListener { buttonView, isChecked ->
-                    if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                setOnCheckedChangeListener { _, isChecked ->
                     showSystemApp = isChecked
                     loadData()
                 }
@@ -200,8 +204,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
 
     @Obfuscate
     class AppInfoSingleSelectorAdapter(
-        private val dialog: AlertDialog?,
-        allAppInfos: ArrayList<AppInfo>,
+        val dialog: AlertDialog?, allAppInfos: ArrayList<AppInfo>,
         private val onSelectAppInfoListener: OnSelectAppInfoListener?
     ) : RecyclerView.Adapter<SingleViewHolder>() {
         val context = dialog?.context

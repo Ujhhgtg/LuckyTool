@@ -38,6 +38,7 @@ import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
+import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -85,9 +86,9 @@ class MultiAppFragment : Fragment(), MenuProvider {
                 isCheckable = true
                 isClickable = true
                 isChecked = showSystemApp
-                setOnCheckedChangeListener { buttonView, isChecked ->
-                    if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                setOnCheckedChangeListener { _, isChecked ->
                     showSystemApp = isChecked
+                    context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
                     loadData()
                 }
             }))
@@ -131,6 +132,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
                     if (find != null) enableInfos.add(find)
                 }
                 allAppInfos.apply {
+                    if (!showSystemApp) removeIf { it.isSystem }
                     when (sortMode) {
                         0 -> sortBy { it.name }
                         1 -> sortBy { it.packageName }
