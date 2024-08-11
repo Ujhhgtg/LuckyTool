@@ -27,6 +27,14 @@ class Android : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A12
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_temperature_control_listener)
+                summary = getString(R.string.need_restart_system)
+                key = "disable_temperature_control_listener"
+                setDefaultValue(false)
+                isVisible = osCode >= 26
+                isIconSpaceReserved = false
+            })
             addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.customized_gaussian_blur_effect_level)
                 summary = arraySummaryLine(

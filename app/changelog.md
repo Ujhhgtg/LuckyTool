@@ -29,6 +29,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 浮窗贴边任务前台运行 C13+
 - [添加] 恢复天气降雨云图页面 C14+
 - [优化] 自定义OTA背景图片支持裁剪
+- [添加] 禁用温度控制监听器
 
 ### 1.2.3
 
