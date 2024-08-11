@@ -99,6 +99,10 @@
     <string name="package_name">Ім\'я пакету</string>
     <string name="version">Версія</string>
     <!--Android-->
+    <string name="allow_untrusted_touch">Дозволити небажані торкання</string>
+    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
+    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
+    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
     <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Some models may conflict with Game Assistant, causing the screen to flicker.</string>
@@ -121,10 +125,6 @@
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
     <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
     <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
-    <!-- Android -->
-    <string name="allow_untrusted_touch">Дозволити небажані торкання</string>
-    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
-    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
     <!--Status Bar-->
     <string name="StatusBar">Статус бар</string>
     <string name="StatusbarEvents">Події в статус барі</string>
@@ -192,6 +192,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Custom music fluid cloud whitelist</string>
     <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Set up music fluid cloud whitelist</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Іконки в рядку стану</string>
     <string name="StatusBarIcon_summary">Іконка рядку стану</string>

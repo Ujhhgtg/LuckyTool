@@ -99,6 +99,10 @@
     <string name="package_name">Имя пакета</string>
     <string name="version">Версия</string>
     <!--Android-->
+    <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
+    <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>
+    <string name="customized_gaussian_blur_effect_level">Настраиваемый уровень эффекта размытия гауса</string>
+    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
     <string name="set_ltpo_refresh_rate_mode">Установить режим частоты обновления LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Включить минимальную частоту кадров 1 при максимальной яркости дисплея</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Некоторые модели могут конфликтовать с \"Игровой помощник\", вызывая мерцание экрана</string>
@@ -121,10 +125,6 @@
     <string name="shared_user_summary">Разрешить установку приложения, подпись которого отличается от общего пользователя (<b>также необходимо включить \"Отключить сравнение подписей\"</b>)</string>
     <string name="disable_verification_agent_title">Отключить сервис проверки пакетов</string>
     <string name="disable_verification_agent_summary">Например Google Play Protection</string>
-    <!-- Android -->
-    <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
-    <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>
-    <string name="customized_gaussian_blur_effect_level">Настраиваемый уровень эффекта размытия гауса</string>
     <!--Status Bar-->
     <string name="StatusBar">Статусбар и шторка</string>
     <string name="StatusbarEvents">События статусбара и шторки</string>
@@ -192,6 +192,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Пользовательский белый список fluid cloud</string>
     <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Настроить белый список fluid cloud</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в статусбаре</string>
     <string name="StatusBarIcon_summary">Иконки в стоке состояния</string>
@@ -391,9 +392,9 @@
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
     <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
     <string name="set_app_update_dot_display_mode">Установить режим отображения точки на иконке после обновления приложения</string>
-    <string name="remove_app_shortcut_badge">Удалить иконку приложения</string>
-    <string name="remove_app_work_badge">Удалить рабочую иконку приложения</string>
-    <string name="remove_app_clone_badge">Удалить иконку клонированного приложения</string>
+    <string name="remove_app_shortcut_badge">Удалить значки приложений у ярлыков</string>
+    <string name="remove_app_work_badge">Удалить значок приложения рабочего профиля</string>
+    <string name="remove_app_clone_badge">Удалить значок клонированного приложения</string>
     <string name="remove_app_update_green_dot">Удалить зеленую точку после обновления приложения</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
@@ -413,8 +414,7 @@
     <string name="remove_recent_task_list_clear_button">Удалить кнопку очистки списка последних задач</string>
     <string name="unlock_task_locks">Разблокировать количество заблокированных фоновых задач</string>
     <string name="allow_locking_unlocking_of_excluded_activity">Разрешить блокировку или разблокировку исключенных действий</string>
-    <string name="custom_app_floating_window_display_mode">Режим отображения приложения 
-в плавающем окне</string>
+    <string name="custom_app_floating_window_display_mode">Изменить список программ открываемых в плавающем окне</string>
     <string name="custom_app_floating_window_display_mode_disable_float_window">Отключить плавающее окно</string>
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Удалить белый список</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Пользовательский белый список</string>
@@ -422,8 +422,8 @@
     <string name="zoom_window_support_list_summary">Включать при необходимости, в противном случае возникнут непоправимые проблемы</string>
     <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
     <string name="launcher_drawer_layout_related">Разметка папки</string>
-    <string name="enable_drawer_layout_adjustment">Включить корректировку разметки папки</string>
-    <string name="set_icon_columns_in_drawer">Задать количество столбцов иконок в папке</string>
+    <string name="enable_drawer_layout_adjustment">Включить корректировку разметки меню приложений</string>
+    <string name="set_icon_columns_in_drawer">Задать кол-во столбцов в меню</string>
     <string name="launcher_layout_related">Сетка рабочего стола</string>
     <string name="launcher_layout_row_colume">Установите количество строк сетки рабочего стола</string>
     <string name="launcher_layout_enable">Включить/отключить сетку иконок на рабочем столе</string>
@@ -763,7 +763,7 @@
     <string name="remove_horoscope_page_information_flow">Удаление потока информации о гороскопе</string>
     <!--OplusSmartSidebar-->
     <string name="force_enable_buoy_automatically_hides">Принудительно включить автоматическое скрытие плавающих элементов</string>
-    <string name="unlock_transfer_dock">Разблокировать панель передачи</string>
+    <string name="unlock_transfer_dock">Разблокировать панель передачи файлов</string>
     <string name="unlock_recent_files">Разблокировать последние файлы</string>
     <string name="unlock_fluid_cloud">Разблокировать облако</string>
     <string name="enable_run_in_background">Включить запуск в фоновом режиме</string>

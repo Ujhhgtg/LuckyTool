@@ -99,6 +99,10 @@
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
     <!--Android-->
+    <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
+    <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
+    <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura gaussiana personalizzato</string>
+    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
     <string name="set_ltpo_refresh_rate_mode">Imposta la modalità di aggiornamento LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Abilita la frequenza di aggiornamento completa della luminosità minimo 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Alcuni modelli possono entrare in conflitto con Assistente Gioco, causando sfarfallio dello schermo.</string>
@@ -121,10 +125,6 @@
     <string name="shared_user_summary">Consenti l\'installazione di app con firma diversa dall\'utente condiviso (è necessario abilitare anche <b>Disabilita confronto firme</b>)</string>
     <string name="disable_verification_agent_title">Disabilita l\'agente di verifica del pacchetto</string>
     <string name="disable_verification_agent_summary">es. Protezione Google Play</string>
-    <!-- Android -->
-    <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
-    <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
-    <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura gaussiana personalizzato</string>
     <!--Status Bar-->
     <string name="StatusBar">Barra di Stato</string>
     <string name="StatusbarEvents">Eventi Barra di Stato</string>
@@ -192,6 +192,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Personalizza Music Fluid lista bianca cloud</string>
     <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Configura la whitelist cloud music fluid</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Icona Barra di Stato</string>
     <string name="StatusBarIcon_summary">Impostazioni Icone nella Barra di Stato</string>

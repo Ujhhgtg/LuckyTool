@@ -99,6 +99,10 @@
     <string name="package_name">Tên gói</string>
     <string name="version">Phiên bản</string>
     <!--Android-->
+    <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
+    <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
+    <string name="customized_gaussian_blur_effect_level">Tùy chỉnh mức độ hiệu ứng nhòe Gaussian</string>
+    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
     <string name="set_ltpo_refresh_rate_mode">Đặt chế độ tốc độ làm mới LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Kích hoạt độ sáng đầy đủ tốc độ làm mới tối thiểu 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Một số kiểu máy có thể xung đột với Trợ lý trò chơi và gây ra hiện tượng màn hình nhấp nháy.</string>
@@ -121,10 +125,6 @@
     <string name="shared_user_summary">Cho phép cài đặt các ứng dụng có chữ ký khác nhau từ những người dùng chia sẻ chúng (<b>Cũng cần bật \"Tắt xác minh chữ ký Apk\"</b>)</string>
     <string name="disable_verification_agent_title">Vô hiệu hóa xác minh gói cài đặt</string>
     <string name="disable_verification_agent_summary">Ví dụ: Google Play Protect</string>
-    <!-- Android -->
-    <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
-    <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
-    <string name="customized_gaussian_blur_effect_level">Tùy chỉnh mức độ hiệu ứng nhòe Gaussian</string>
     <!--Status Bar-->
     <string name="StatusBar">Thanh trạng thái</string>
     <string name="StatusbarEvents">Nội dung thanh trạng thái</string>
@@ -190,8 +190,9 @@
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
     <string name="custom_music_fluid_cloud_whitelist">Tùy chỉnh danh sách cho phép Music Fluid Cloud</string>
-    <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
+    <string name="disable_music_fluid_cloud_display">Tắt hiển thị dòng chảy âm nhạc đám mây</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Thiết lập danh sách cho phép Music Fluid Cloud</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
@@ -499,7 +500,7 @@
     <string name="remove_usb_connect_dialog_summary">Khi bạn kết nối USB, chế độ truyền tệp được chọn mặc định</string>
     <string name="remove_secure_pay_found_virus_dialog">Đã xóa hộp thoại vi-rút tìm thấy thanh toán an toàn</string>
     <string name="remove_access_device_log_dialog">Xóa hộp thoại nhật ký thiết bị truy cập</string>
-    <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
+    <string name="run_floating_window_tasks_in_foreground">Chạy các tác vụ cửa sổ nổi ở phía trước</string>
     <string name="custom_volume_dialog_background_transparency">Tùy chỉnh độ trong suốt của nền hộp thoại âm lượng</string>
     <string name="reduce_power_menu_display_delay">Giảm độ trễ hiển thị menu nguồn</string>
     <!--FingerPrintRelated-->
@@ -743,7 +744,7 @@
     <string name="remove_ads_from_download_dialog">Xóa quảng cáo trong hộp thoại tải xuống</string>
     <string name="remove_ads_at_download_page_bottom">Xóa quảng cáo ở cuối trang tải xuống</string>
     <string name="remove_browser_window_limit_number">Xóa giới hạn cửa sổ trình duyệt</string>
-    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
+    <string name="remove_browser_search_bar_app_promotion">Xóa thanh tìm kiếm của trình duyệt Quảng cáo ứng dụng</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Chạm Breeno</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
@@ -755,7 +756,7 @@
     <string name="disable_weather_jump_browser">Tắt trình duyệt chuyển hướng sang ứng dụng thời tiết</string>
     <string name="remove_weather_some_page_bottom_ads">Xóa quảng cáo ở cuối trang phần thời tiết</string>
     <string name="enable_15_day_weather_expand_list">Bật danh sách mở rộng thời tiết 15 ngày</string>
-    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
+    <string name="restore_rainfall_cloud_map_page">Khôi phục trang bản đồ lượng mưa đám mây</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Xóa nguồn cấp dữ liệu trang ngày lễ</string>
     <string name="remove_almanac_page_information_flow">Loại bỏ luồng thông tin trang niên giám</string>

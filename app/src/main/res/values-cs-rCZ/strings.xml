@@ -99,6 +99,10 @@
     <string name="package_name">Název balíčku</string>
     <string name="version">Verze</string>
     <!--Android-->
+    <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
+    <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
+    <string name="customized_gaussian_blur_effect_level">Přizpůsobená úroveň gaussovského rozostření</string>
+    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
     <string name="set_ltpo_refresh_rate_mode">Nastavit režim obnovovací frekvence LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Povolit minimální obnovovací frekvenci plného jasu na 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Některé modely mohou být v rozporu s herním asistentem, což může způsobit blikání obrazovky.</string>
@@ -121,10 +125,6 @@
     <string name="shared_user_summary">Povolit instalaci aplikace s odlišným podpisem od sdíleného uživatele (<b>\'Zakázat porovnání podpisu\' musí být také povoleno</b>)</string>
     <string name="disable_verification_agent_title">Zakázat agenta pro ověření balíčku</string>
     <string name="disable_verification_agent_summary">například Ochrana Google Play</string>
-    <!-- Android -->
-    <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
-    <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
-    <string name="customized_gaussian_blur_effect_level">Přizpůsobená úroveň gaussovského rozostření</string>
     <!--Status Bar-->
     <string name="StatusBar">Stavová lišta</string>
     <string name="StatusbarEvents">Události stavové lišty</string>
@@ -192,6 +192,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Vlastním seznam povolených pro \"Music Fluid Cloud\"</string>
     <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Nastavit seznam povolených pro \"Music Fluid Cloud\"</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Ikony ve stavové liště</string>
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>

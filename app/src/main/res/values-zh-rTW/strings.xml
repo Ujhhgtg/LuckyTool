@@ -99,6 +99,10 @@
     <string name="package_name">包名</string>
     <string name="version">版本</string>
     <!--Android-->
+    <string name="allow_untrusted_touch">允許不受信任的觸控</string>
+    <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
+    <string name="customized_gaussian_blur_effect_level">自定义高斯模糊效果级别</string>
+    <string name="disable_temperature_control_listener">禁用温度控制监听器</string>
     <string name="set_ltpo_refresh_rate_mode">设置 LTPO 刷新率模式</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">启用全亮度刷新率最低为1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">部分机型可能会与游戏助手冲突而导致闪屏</string>
@@ -121,10 +125,6 @@
     <string name="shared_user_summary">允许安装与其共享用户签名不同的 App(<b>需要同时打开“禁用APK签名验证”</b>)</string>
     <string name="disable_verification_agent_title">禁用安装包验证代理</string>
     <string name="disable_verification_agent_summary">例如 Google Play 商店的保护机制</string>
-    <!-- Android -->
-    <string name="allow_untrusted_touch">允許不受信任的觸控</string>
-    <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
-    <string name="customized_gaussian_blur_effect_level">自定义高斯模糊效果级别</string>
     <!--Status Bar-->
     <string name="StatusBar">状态栏相关</string>
     <string name="StatusbarEvents">状态栏事件</string>
@@ -192,6 +192,7 @@
     <string name="custom_music_fluid_cloud_whitelist">自定义音乐流体云白名单</string>
     <string name="disable_music_fluid_cloud_display">禁用音乐流体云显示</string>
     <string name="set_custom_music_fluid_cloud_whitelist">设置音乐流体云白名单</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">强制启用媒体音乐流体云波纹</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">状态栏图标</string>
     <string name="StatusBarIcon_summary">状态栏图标相关</string>
