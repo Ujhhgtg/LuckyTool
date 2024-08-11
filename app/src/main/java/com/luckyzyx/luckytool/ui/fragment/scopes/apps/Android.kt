@@ -32,7 +32,7 @@ class Android : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.need_restart_system)
                 key = "disable_temperature_control_listener"
                 setDefaultValue(false)
-                isVisible = osCode >= 26
+                isVisible = false
                 isIconSpaceReserved = false
             })
             addPreference(DropDownPreference(context).apply {

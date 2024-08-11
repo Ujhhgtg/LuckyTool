@@ -24,7 +24,6 @@ import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookOplusWifiService
-import com.luckyzyx.luckytool.hook.scopes.android.HookPowerManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
 import com.luckyzyx.luckytool.hook.scopes.android.LTPODynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.MediaVolumeLevel
@@ -61,9 +60,6 @@ object HookAndroid : YukiBaseHooker() {
 
         //Oplus Wifi Service
         loadHooker(HookOplusWifiService)
-
-        //PowerManager
-        if (osCode >= 26) loadHooker(HookPowerManager)
 
         //Hook HookWindowManagerService
         loadHooker(HookWindowManagerService)
