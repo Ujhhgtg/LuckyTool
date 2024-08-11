@@ -29,7 +29,8 @@ class StatusBar : BaseScopePreferenceFeagment() {
         "com.android.systemui",
         "com.oplus.battery",
         "com.coloros.phonemanager",
-        "com.oplus.notificationmanager"
+        "com.oplus.notificationmanager",
+        "com.oplus.mediacontroller"
     )
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -194,10 +195,6 @@ class StatusBar : BaseScopePreferenceFeagment() {
                         key = "disable_music_fluid_cloud_display"
                         setDefaultValue(false)
                         isIconSpaceReserved = false
-                        setOnPreferenceChangeListener { _, _ ->
-                            (activity as MainActivity).restart()
-                            true
-                        }
                     })
                     addPreference(Preference(context).apply {
                         key = "set_custom_music_fluid_cloud_whitelist"
@@ -228,6 +225,12 @@ class StatusBar : BaseScopePreferenceFeagment() {
                         }
                     })
                 }
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.force_enable_media_music_fluid_cloud_ripple)
+                    key = "force_enable_media_music_fluid_cloud_ripple"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
             }
         }
     }

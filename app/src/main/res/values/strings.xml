@@ -211,6 +211,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Custom music fluid cloud whitelist</string>
     <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Set up music fluid cloud whitelist</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">StatusBar Icon</string>
