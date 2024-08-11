@@ -22,6 +22,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.sendPrefsValue
 
 @Obfuscate
 class StatusBar : BaseScopePreferenceFeagment() {
@@ -230,6 +231,10 @@ class StatusBar : BaseScopePreferenceFeagment() {
                     key = "force_enable_media_music_fluid_cloud_ripple"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        context.sendPrefsValue("com.oplus.mediacontroller", key, newValue)
+                        true
+                    }
                 })
             }
         }
