@@ -70,7 +70,17 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                     XposedBridge.log("DisableFlagSecure: deoptimize system server failed ->" + t);
                 }
                 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    // Screen record detection (V)
+                    try {
+                        hookWindowManagerService(classloader);
+                    } catch (Throwable t) {
+                        XposedBridge.log("hook WindowManagerService failed ->" + t);
+                    }
+                }
+                
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    // Screenshot detection (U~V)
                     try {
                         hookActivityTaskManagerService(classloader);
                     } catch (Throwable t) {
@@ -79,7 +89,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                 }
                 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    // ScreenCapture in WindowManagerService (S~U)
+                    // ScreenCapture in WindowManagerService (S~V)
                     try {
                         hookScreenCapture(classloader);
                     } catch (Throwable t) {
@@ -95,14 +105,14 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                         }
                     }
                     
-                    // WifiDisplay (S~U) / OverlayDisplay (S~U) / VirtualDisplay (U)
+                    // WifiDisplay (S~V) / OverlayDisplay (S~V) / VirtualDisplay (U~V)
                     try {
                         hookDisplayControl(classloader);
                     } catch (Throwable t) {
                         XposedBridge.log("DisableFlagSecure: hook DisplayControl failed ->" + t);
                     }
                     
-                    // VirtualDisplay with MediaProjection (S~U)
+                    // VirtualDisplay with MediaProjection (S~V)
                     try {
                         hookVirtualDisplayAdapter(classloader);
                     } catch (Throwable t) {
@@ -242,7 +252,10 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
     private void hookDisplayControl(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var displayControlClazz = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE ?
                 classLoader.loadClass("com.android.server.display.DisplayControl") : SurfaceControl.class;
-        var method = displayControlClazz.getDeclaredMethod("createDisplay", String.class, boolean.class);
+        var method = displayControlClazz.getDeclaredMethod(
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM ?
+                        "createVirtualDisplay" :
+                        "createDisplay", String.class, boolean.class);
         XposedBridge.hookMethod(method, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -307,6 +320,14 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         var iScreenCaptureObserverClazz = classLoader.loadClass("android.app.IScreenCaptureObserver");
         var method = activityTaskManagerServiceClazz.getDeclaredMethod("registerScreenCaptureObserver", iBinderClazz, iScreenCaptureObserverClazz);
         XposedBridge.hookMethod(method, XC_MethodReplacement.DO_NOTHING);
+    }
+    
+    @TargetApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    private void hookWindowManagerService(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
+        var windowManagerServiceClazz = classLoader.loadClass("com.android.server.wm.WindowManagerService");
+        var iScreenRecordingCallbackClazz = classLoader.loadClass("android.window.IScreenRecordingCallback");
+        var method = windowManagerServiceClazz.getDeclaredMethod("registerScreenRecordingCallback", iScreenRecordingCallbackClazz);
+        XposedBridge.hookMethod(method, XC_MethodReplacement.returnConstant(false));
     }
     
     @TargetApi(Build.VERSION_CODES.S)

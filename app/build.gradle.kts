@@ -22,7 +22,7 @@ apksign {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     namespace = "com.luckyzyx.luckytool"
     defaultConfig {
         applicationId = "com.luckyzyx.luckytool"
