@@ -78,7 +78,7 @@ object HookAppDetails : YukiBaseHooker() {
 
                     if (isPackName) list.add(packName)
 
-                    if (isSdk) {
+                    if (isSdk && appInfo != null) {
                         val min = appInfo.minSdkVersion
                         val target = appInfo.targetSdkVersion
                         list.add("Min $min Target $target")

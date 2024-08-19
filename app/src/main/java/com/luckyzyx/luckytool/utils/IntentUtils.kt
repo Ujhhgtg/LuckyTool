@@ -34,7 +34,7 @@ class IntentUtils(val context: Context) {
             PackageManager.GET_ACTIVITIES
         ).find { it.packageName.contains("engineermode") } ?: return
         val packName = packInfo.packageName
-        val activity = packInfo.activities.find {
+        val activity = packInfo.activities?.find {
             it.name.contains("EngineerFragmentContainer")
         }?.name
         val chargeTestClazz = "$packName.aftersale.manualtest.ASChargeTestFragmentCompat"
@@ -161,7 +161,7 @@ class IntentUtils(val context: Context) {
         val packInfo = PackageUtils(context.packageManager).getPackageInfo(
             "com.android.settings", PackageManager.GET_ACTIVITIES
         ) ?: return
-        val activity = packInfo.activities.find {
+        val activity = packInfo.activities?.find {
             it.name.contains("RunningApplicationActivity")
         }?.name
         if (activity == null) LogUtils.e(

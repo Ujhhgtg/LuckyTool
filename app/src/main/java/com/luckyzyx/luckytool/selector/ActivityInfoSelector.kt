@@ -30,7 +30,7 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 @Suppress("unused")
 @Obfuscate
 class ActivityInfoSelector(
-    context: Context, private val multiMode: Boolean, private val activitys: Array<ActivityInfo>
+    context: Context, private val multiMode: Boolean, private val activitys: Array<ActivityInfo>?
 ) {
 
     private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
@@ -94,7 +94,7 @@ class ActivityInfoSelector(
 
             val allEnableInfos = ArrayList<ActivityInfo>()
             withDefault {
-                allActivityInfos = ArrayList(activitys.toList())
+                allActivityInfos = ArrayList(activitys?.toList() ?: arrayListOf())
 
                 enabledList.forEach { its ->
                     val find = allActivityInfos.find { it.packageName == its }

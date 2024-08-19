@@ -141,7 +141,7 @@ class PackageUtils(private val packageManager: PackageManager) {
                 val name = applicationInfo.loadLabel(packageManager)
                 val icon = applicationInfo.loadIcon(packageManager)
                 val size = FileUtils.getFileSize(File(applicationInfo.sourceDir))
-                val versionName = info.versionName
+                val versionName = info.versionName ?: ""
                 val versionCode = info.longVersionCode
                 val installTime = info.firstInstallTime
                 val lastInstallTime = info.lastUpdateTime

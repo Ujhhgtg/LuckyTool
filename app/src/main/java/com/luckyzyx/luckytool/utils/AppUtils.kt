@@ -58,7 +58,7 @@ class AppUtils(val context: Context) {
                 ?: return null
             val appInfo = packageInfo.applicationInfo ?: return null
             val appName = packageUtils.getApplicationLabel(appInfo)
-            val versionName = packageInfo.versionName
+            val versionName = packageInfo.versionName ?: ""
             val versionCode = packageInfo.longVersionCode
             //修复versionCommit获取null
             val versionCommit = getAppMeta(appInfo, "versionCommit")
