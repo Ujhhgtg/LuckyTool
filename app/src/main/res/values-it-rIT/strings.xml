@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Rimuovi Limite Rete Dati</string>
     <string name="remove_network_limit_summary">Rimuovi le limitazioni di backup/ripristino che non possono utilizzare i dati mobili</string>
+    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Sblocca alcune funzionalità VIP</string>
     <string name="unlock_themestore_vip_summary">Sblocca parte della funzione e provala da solo</string>

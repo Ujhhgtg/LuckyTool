@@ -30,6 +30,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 恢复天气降雨云图页面 C14+
 - [优化] 自定义OTA背景图片支持裁剪
 - [添加] 强制启用媒体音乐流体云波纹 C14.1+
+- [添加] 禁用云服务强制备份应用列表
 
 ### 1.2.3
 

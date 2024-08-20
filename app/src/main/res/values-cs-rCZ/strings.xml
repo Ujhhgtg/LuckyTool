@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Odstranit limit datové sítě</string>
     <string name="remove_network_limit_summary">Odstraňte omezení, že zálohování/obnova nemůže používat mobilní data</string>
+    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Odemknout některé VIP funkce</string>
     <string name="unlock_themestore_vip_summary">Odemkněte část funkce a vyzkoušejte ji sám</string>

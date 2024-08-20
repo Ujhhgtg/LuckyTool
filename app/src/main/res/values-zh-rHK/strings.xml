@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">移除数据网络限制</string>
     <string name="remove_network_limit_summary">移除备份/恢复无法使用移动数据的限制</string>
+    <string name="disable_forced_backup_app_list">禁用强制备份应用列表</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">解锁部分功能VIP</string>
     <string name="unlock_themestore_vip_summary">解锁部分功能, 可自行尝试</string>

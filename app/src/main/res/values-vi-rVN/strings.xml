@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Xóa giới hạn mạng dữ liệu</string>
     <string name="remove_network_limit_summary">Xóa giới hạn sao lưu/khôi phục không thể sử dụng dữ liệu di động</string>
+    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Mở khóa một số tính năng VIP</string>
     <string name="unlock_themestore_vip_summary">Mở khóa một phần của tính năng và tự mình dùng thử</string>

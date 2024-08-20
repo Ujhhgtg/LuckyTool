@@ -9,7 +9,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.openApp
 
 @Obfuscate
-class CloudService : BaseScopePreferenceFeagment() {
+class OplusCloudService : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.heytap.cloud")
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
@@ -19,6 +19,12 @@ class CloudService : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_network_limit)
                 summary = getString(R.string.remove_network_limit_summary)
                 key = "remove_network_limit"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_forced_backup_app_list)
+                key = "disable_forced_backup_app_list"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

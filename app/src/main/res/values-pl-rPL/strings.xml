@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Usuń limit danych sieciowych</string>
     <string name="remove_network_limit_summary">Usuwa ograniczenie, według którego kopia zapasowa/przywracanie nie może korzystać z danych mobilnych</string>
+    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Odblokuj niektóre funkcje VIP</string>
     <string name="unlock_themestore_vip_summary">Odblokuj część funkcji i wypróbuj je na własnej skórze</string>

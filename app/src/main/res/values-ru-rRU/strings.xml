@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Удалить ограничения сети передачи данных</string>
     <string name="remove_network_limit_summary">Удалить ограничение, согласно которому резервное копирование/восстановление не может использовать мобильные данные</string>
+    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Разблокировать некоторые функции VIP</string>
     <string name="unlock_themestore_vip_summary">Разблокируйте некоторые функции, нажмите на странице сведений о приложении</string>

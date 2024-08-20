@@ -683,6 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">データ通信の制限を削除</string>
     <string name="remove_network_limit_summary">バックアップと復元でモバイルデータが使用できない制限を削除します</string>
+    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">VIP機能を解放する</string>
     <string name="unlock_themestore_vip_summary">一部をアンロックして機能を試す事ができます</string>

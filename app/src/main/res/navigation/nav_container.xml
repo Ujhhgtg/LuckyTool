@@ -368,7 +368,7 @@
             android:label="{title_label}" />
     <fragment
             android:id="@+id/cloudService"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.CloudService"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCloudService"
             android:label="{title_label}" />
     <fragment
             android:id="@+id/themeStore"
