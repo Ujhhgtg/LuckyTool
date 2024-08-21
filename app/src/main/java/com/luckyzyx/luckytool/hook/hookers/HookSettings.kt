@@ -14,6 +14,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableGoogleAutoFill
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
 import com.luckyzyx.luckytool.hook.scopes.settings.FixAppSpecificMediaVolumePage
+import com.luckyzyx.luckytool.hook.scopes.settings.FixDefaultAppJumpProblem
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayBottomGoogleSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayContentRecommend
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayDisabledAppsManager
@@ -130,6 +131,12 @@ object HookSettings : YukiBaseHooker() {
         //禁用OTG自动关闭
         if (prefs(ModulePrefs).getBoolean("disable_otg_auto_off", false)) {
             if (osCode >= 30) loadHooker(DisableSettingOtgAutoOff)
+        }
+        //修复设置CN特供版默认应用跳转
+        if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
+            if (prefs(ModulePrefs).getBoolean("fix_default_app_jump_problem", false)) {
+                loadHooker(FixDefaultAppJumpProblem)
+            }
         }
 
         //电源键

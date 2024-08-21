@@ -432,7 +432,21 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = isZh(context)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
+            if (context.getBoolean(ModulePrefs, "disable_cn_special_edition_setting", false)) {
+                addPreference(SwitchPreference(context).apply {
+                    title = getString(R.string.fix_default_app_jump_problem)
+                    summary = getString(R.string.fix_default_app_jump_problem_summary)
+                    key = "fix_default_app_jump_problem"
+                    setDefaultValue(false)
+                    isVisible = isZh(context)
+                    isIconSpaceReserved = false
+                })
+            }
             addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.remove_settings_bottom_laboratory)
                 key = "remove_settings_bottom_laboratory"

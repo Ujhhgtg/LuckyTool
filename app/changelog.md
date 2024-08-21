@@ -31,6 +31,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 自定义OTA背景图片支持裁剪
 - [添加] 强制启用媒体音乐流体云波纹 C14.1+
 - [添加] 禁用云服务强制备份应用列表
+- [添加] 修复设置CN特供版默认应用跳转
 
 ### 1.2.3
 
