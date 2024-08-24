@@ -1,31 +1,39 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import android.view.View
-import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object RemoveSystemPromptIcon : YukiBaseHooker() {
     override fun onHook() {
-        //Source SystemPromptView
-        VariousClass(
-            "com.oplusos.systemui.statusbar.widget.SystemPromptView", //C13
-            "com.oplus.systemui.statusbar.widget.SystemPromptView" //C14
-        ).toClass().apply {
-            method { name = "updateViewVisible" }.hook {
-                before {
-                    instance<View>().isVisible = false
-                    resultNull()
+        val osCode = getOSVersionCode
+        if (osCode >= 30) loadHooker(SeedlingCardIcon)
+        else loadHooker(SystemPromptIconV13)
+    }
+
+    object SystemPromptIconV13 : YukiBaseHooker() {
+        override fun onHook() {
+            //Source SystemPromptController
+            VariousClass(
+                "com.oplusos.systemui.statusbar.policy.SystemPromptController", //C13
+                "com.oplus.systemui.statusbar.controller.SystemPromptController" //C14
+            ).toClass().apply {
+                method { name = "updatePromptIcon" }.hook {
+                    intercept()
                 }
             }
-            if (hasMethod { name = "setViewVisibleByDisable" }) method {
-                name = "setViewVisibleByDisable"
-            }.hook {
-                before {
-                    instance<View>().isVisible = false
-                    resultNull()
+        }
+    }
+
+    object SeedlingCardIcon : YukiBaseHooker() {
+        override fun onHook() {
+            //Source OplusSeedlingCardController
+            "com.oplus.systemui.statusbar.seeding.OplusSeedlingCardController".toClass().apply {
+                method { name = "updateCapsuleContainer" }.hook {
+                    before {
+                        args().first().setFalse()
+                    }
                 }
             }
         }
