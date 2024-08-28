@@ -36,6 +36,15 @@ android {
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))
     }
 
+    signingConfigs {
+        all {
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = null
+        }
+    }
+
     buildTypes {
         release {
             isDebuggable = false
