@@ -5,7 +5,6 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.4_beta
 
-- [更改] 核心破解使用Android14配置 C15.0
 - [适配] 三阶段响铃模式磁贴 C15.0
 - [适配] 自定义磁贴背景透明度 C15.0
 - [适配] 控制中心滑动条透明度 C15.0

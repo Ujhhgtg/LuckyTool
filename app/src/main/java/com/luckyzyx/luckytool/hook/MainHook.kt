@@ -5,6 +5,7 @@ import android.os.Build.VERSION_CODES.S
 import android.os.Build.VERSION_CODES.S_V2
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+import android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM
 import com.highcapable.yukihookapi.annotation.xposed.InjectYukiHookWithXposed
 import com.highcapable.yukihookapi.hook.factory.configs
 import com.highcapable.yukihookapi.hook.factory.encase
@@ -15,6 +16,7 @@ import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForR
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForS
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForT
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForU
+import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForV
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
@@ -191,7 +193,7 @@ object MainHook : IYukiHookXposedInit {
             run {
                 if (lpparam.packageName == "android") {
                     if (lpparam.processName == "android") when (SDK) {
-                        35 -> CorePatchForU().handleLoadPackage(lpparam)
+                        VANILLA_ICE_CREAM -> CorePatchForV().handleLoadPackage(lpparam)
                         UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
                         TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
                         S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
@@ -205,7 +207,7 @@ object MainHook : IYukiHookXposedInit {
         YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->
             run {
                 when (SDK) {
-                    35 -> CorePatchForU().initZygote(startupParam)
+//                    VANILLA_ICE_CREAM -> CorePatchForV().initZygote(startupParam)
                     UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
                     TIRAMISU -> CorePatchForT().initZygote(startupParam)
                     S, S_V2 -> CorePatchForS().initZygote(startupParam)
