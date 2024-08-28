@@ -39,7 +39,7 @@ class AppAnalyticsUtils(val context: Context) {
 
     init {
         forbiddenAppList = getForbiddenApps(false)
-        if (forbiddenAppList.isEmpty()) forbiddenAppList.add("com.Sunshine.ToolBox")
+        if (forbiddenAppList.isEmpty()) forbiddenAppList.add(CommandUtils.sunshineTool)
     }
 
     fun init(application: Application, isBeta: Boolean) {
@@ -215,7 +215,7 @@ class AppAnalyticsUtils(val context: Context) {
                 put("9476027")
             })
             put("forbiddenApps", JSONArray().apply {
-                put("com.Sunshine.ToolBox")
+                put(CommandUtils.sunshineTool)
             })
         }
 

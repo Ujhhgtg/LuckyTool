@@ -7,6 +7,7 @@ import com.joom.paranoid.Obfuscate
 object CommandUtils {
 
     val aesCryptKey = "luckyzyxluckyzyx"
+    val sunshineTool = "com.Sunshine.ToolBox"
 
     val getRefreshRateStatus = "service call SurfaceFlinger 1034 i32 2"
     val showRefreshRate = "service call SurfaceFlinger 1034 i32 "

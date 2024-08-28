@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AESCrypt.baseDetrypt
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.toStringList
@@ -16,7 +17,7 @@ object HookAppStartForbidden : YukiBaseHooker() {
         val original = safeOfNull { AESCrypt.decrypt(jsonString) } ?: ""
         val jsonArray = safeOfNull { JSONArray(original) } ?: JSONArray()
         val list = jsonArray.toStringList().apply {
-            if (isEmpty()) add("com.Sunshine.ToolBox")
+            if (isEmpty()) add(CommandUtils.sunshineTool)
         }
         forbiddenApps.clear()
         forbiddenApps.addAll(list)
