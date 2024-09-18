@@ -11,7 +11,7 @@ object DisableSettingOtgAutoOff : YukiBaseHooker() {
         //Source OtgConnectionOpenedPreferenceController
         VariousClass(
             "com.oplus.settings.feature.othersettings.controller.OtgConnectionOpenedPreferenceController",  //C14
-            "com.oplus.settings.feature.spfunction.OtgConnectionOpenedPreferenceController"  //C15
+            "com.oplus.settings.feature.spfunction.OtgConnectionOpenedPreferenceController"  //C14.1 C15
         ).toClass().apply {
             method { name = "isPreferenceSupport" }.hook {
                 before {

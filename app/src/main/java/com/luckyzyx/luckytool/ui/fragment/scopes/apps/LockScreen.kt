@@ -292,6 +292,7 @@ class LockScreen : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_lock_screen_close_notification_button)
                 key = "remove_lock_screen_close_notification_button"
                 setDefaultValue(false)
+                isVisible = osCode < 33
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {

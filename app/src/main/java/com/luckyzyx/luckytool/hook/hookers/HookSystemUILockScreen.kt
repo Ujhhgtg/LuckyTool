@@ -15,9 +15,12 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveTopLockScreenIcon
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookSystemUILockScreen : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //锁屏时钟
         loadHooker(LockScreenClock)
 
@@ -47,7 +50,7 @@ object HookSystemUILockScreen : YukiBaseHooker() {
         }
         //移除锁屏关闭通知按钮
         if (prefs(ModulePrefs).getBoolean("remove_lock_screen_close_notification_button", false)) {
-            loadHooker(RemoveLockScreenCloseNotificationButton)
+            if (osCode < 33) loadHooker(RemoveLockScreenCloseNotificationButton)
         }
         //移除息屏音乐白名单
         if (prefs(ModulePrefs).getBoolean("remove_aod_music_whitelist", false)) {
