@@ -102,7 +102,7 @@
     <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
     <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>
     <string name="customized_gaussian_blur_effect_level">Настраиваемый уровень эффекта размытия гауса</string>
-    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
+    <string name="disable_temperature_control_listener">Отключить обработчик контроля температуры</string>
     <string name="set_ltpo_refresh_rate_mode">Установить режим частоты обновления LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Включить минимальную частоту кадров 1 при максимальной яркости дисплея</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Некоторые модели могут конфликтовать с \"Игровой помощник\", вызывая мерцание экрана</string>
@@ -190,9 +190,9 @@
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
     <string name="custom_music_fluid_cloud_whitelist">Пользовательский белый список fluid cloud</string>
-    <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
+    <string name="disable_music_fluid_cloud_display">Отключить отображение fluid cloud музыки</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Настроить белый список fluid cloud</string>
-    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Принудительно включить отображение fluid cloud музыки</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в статусбаре</string>
     <string name="StatusBarIcon_summary">Иконки в стоке состояния</string>
@@ -500,7 +500,7 @@
     <string name="remove_usb_connect_dialog_summary">Режим передачи файлов по умолчанию при подключении USB</string>
     <string name="remove_secure_pay_found_virus_dialog">Удалить диалоговое окно с обнаруженным вирусом безопасной оплаты</string>
     <string name="remove_access_device_log_dialog">Удалить диалог журнала доступа устройства</string>
-    <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
+    <string name="run_floating_window_tasks_in_foreground">Запускать всплывающие окна на переднем плане</string>
     <string name="custom_volume_dialog_background_transparency">Прозрачность фона панели громкости</string>
     <string name="reduce_power_menu_display_delay">Уменьшить задержку отображения меню питания</string>
     <!--FingerPrintRelated-->
@@ -683,7 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Удалить ограничения сети передачи данных</string>
     <string name="remove_network_limit_summary">Удалить ограничение, согласно которому резервное копирование/восстановление не может использовать мобильные данные</string>
-    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
+    <string name="disable_forced_backup_app_list">Отключить принудительное резервное копирование списка приложений</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Разблокировать некоторые функции VIP</string>
     <string name="unlock_themestore_vip_summary">Разблокируйте некоторые функции, нажмите на странице сведений о приложении</string>
@@ -745,7 +745,7 @@
     <string name="remove_ads_from_download_dialog">Удалить рекламу из диалога загрузки</string>
     <string name="remove_ads_at_download_page_bottom">Удалить рекламу в нижней части страницы загрузки</string>
     <string name="remove_browser_window_limit_number">Удалить ограничение на количество окон браузера</string>
-    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
+    <string name="remove_browser_search_bar_app_promotion">Удалить рекламу в строке поиска в браузере</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Касание</string>
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>
@@ -757,7 +757,7 @@
     <string name="disable_weather_jump_browser">Отключить переадресацию в браузер из погоды</string>
     <string name="remove_weather_some_page_bottom_ads">Удалить рекламу в нижней части страницы погоды</string>
     <string name="enable_15_day_weather_expand_list">Включить расширенный список погоды на 15 дней</string>
-    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
+    <string name="restore_rainfall_cloud_map_page">Восстановить страницу облака осадков</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Удалить поток информации о праздниках</string>
     <string name="remove_almanac_page_information_flow">Удалить поток информации об альманахе</string>

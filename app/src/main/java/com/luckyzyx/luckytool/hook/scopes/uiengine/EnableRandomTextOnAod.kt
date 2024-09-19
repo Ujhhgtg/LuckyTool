@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.uiengine
 
 import com.drake.net.Get
+import com.drake.net.okhttp.trustSSLCertificate
 import com.drake.net.utils.scopeNet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
@@ -37,7 +38,11 @@ object EnableRandomTextOnAod : YukiBaseHooker() {
                             if (customApi.isBlank()) return@before
                             if ((customApi.startsWith("http://") || customApi.startsWith("https://")).not()) return@before
                             scopeNet {
-                                val text = Get<String>(customApi).await()
+                                val text = Get<String>(customApi) {
+                                    setClient {
+                                        trustSSLCertificate()
+                                    }
+                                }.await()
                                 if (text.isNotBlank()) yiyanTextCache = text
                             }.catch {
                                 return@catch

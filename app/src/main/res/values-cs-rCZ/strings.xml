@@ -102,7 +102,7 @@
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
     <string name="customized_gaussian_blur_effect_level">Přizpůsobená úroveň gaussovského rozostření</string>
-    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
+    <string name="disable_temperature_control_listener">Zakázat naslouchání řízení teploty</string>
     <string name="set_ltpo_refresh_rate_mode">Nastavit režim obnovovací frekvence LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Povolit minimální obnovovací frekvenci plného jasu na 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Některé modely mohou být v rozporu s herním asistentem, což může způsobit blikání obrazovky.</string>
@@ -190,9 +190,9 @@
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
     <string name="custom_music_fluid_cloud_whitelist">Vlastním seznam povolených pro \"Music Fluid Cloud\"</string>
-    <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
+    <string name="disable_music_fluid_cloud_display">Zakázat zobrazení hudby ve Fluid Cloud</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Nastavit seznam povolených pro \"Music Fluid Cloud\"</string>
-    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Vynutit povolení mediálního přehrávače ve Fluid cloudu</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Ikony ve stavové liště</string>
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>
@@ -500,7 +500,7 @@
     <string name="remove_usb_connect_dialog_summary">Režim přenosu souborů je vybrán ve výchozím nastavení po připojení USB</string>
     <string name="remove_secure_pay_found_virus_dialog">Odstranit dialog o kontrole virů u zabezpečených plateb</string>
     <string name="remove_access_device_log_dialog">Odebrat dialogové okno protokolu zařízení</string>
-    <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
+    <string name="run_floating_window_tasks_in_foreground">Spustit úkoly plovoucího okna v popředí</string>
     <string name="custom_volume_dialog_background_transparency">Vlastní průhlednost pozadí panelu hlasitosti</string>
     <string name="reduce_power_menu_display_delay">Snížit zpoždění nabídky tlačítka napájení</string>
     <!--FingerPrintRelated-->
@@ -683,7 +683,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Odstranit limit datové sítě</string>
     <string name="remove_network_limit_summary">Odstraňte omezení, že zálohování/obnova nemůže používat mobilní data</string>
-    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
+    <string name="disable_forced_backup_app_list">Zakázat vynucené zálohování seznamu aplikací</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Odemknout některé VIP funkce</string>
     <string name="unlock_themestore_vip_summary">Odemkněte část funkce a vyzkoušejte ji sám</string>
@@ -745,7 +745,7 @@
     <string name="remove_ads_from_download_dialog">Odstranit reklamy z dialogového okna stahování</string>
     <string name="remove_ads_at_download_page_bottom">Odstranit reklamy v dolní části stránky stahování</string>
     <string name="remove_browser_window_limit_number">Odstranit limit v počtu oken prohlížeče</string>
-    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
+    <string name="remove_browser_search_bar_app_promotion">Odstranit prohlížeč vyhledávací lištu promovaných aplikací</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Dotyk Breeno</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
@@ -757,7 +757,7 @@
     <string name="disable_weather_jump_browser">Zakázat přesměrování prohlížeče z počasí</string>
     <string name="remove_weather_some_page_bottom_ads">Odstranit reklamy v dolní části stránky počasí</string>
     <string name="enable_15_day_weather_expand_list">Povolit rozšířený seznam předpovědi počasí na 15 dní</string>
-    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
+    <string name="restore_rainfall_cloud_map_page">Obnovit stránku s mapou informací o přeháňkách</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Smazat vlákno s informacemi o dovolené z OnePlus kalendáře</string>
     <string name="remove_almanac_page_information_flow">Smazat vlákno s informacemi o stránce almanachu</string>

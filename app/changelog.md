@@ -32,6 +32,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 禁用云服务强制备份应用列表
 - [添加] 修复设置CN特供版默认应用跳转
 - [适配] 移除新版流体云系统提示图标 C14+
+- [修复] 息屏一言Https证书访问问题
 
 ### 1.2.3
 
