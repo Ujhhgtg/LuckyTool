@@ -1,56 +1,54 @@
 package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
 import android.annotation.SuppressLint
-import android.view.View
+import android.content.Context
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.PackageUtils
-import com.luckyzyx.luckytool.utils.formatStringAuto
+import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.safeOf
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 object ShowMoreApkPackageInformation : YukiBaseHooker() {
 
     private lateinit var apkInfo: Any
     private lateinit var sourceInfo: Any
 
-    @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source ApkInfoView
         "com.android.packageinstaller.oplus.view.ApkInfoView".toClass().apply {
             method { name = "loadApkInfo" }.hook {
                 after {
-                    val apkInfoView = instance<View>()
+                    val apkInfoView = instance<LinearLayout>()
                     val context = apkInfoView.context
                     val pm = context.packageManager
 
-                    val mAppVersion = field { name = "mAppVersion" }.get(instance).cast<TextView>()
-                        ?: return@after
-                    mAppVersion.apply {
-                        (parent as LinearLayout).orientation = LinearLayout.VERTICAL
-                        (layoutParams as LinearLayout.LayoutParams).width =
-                            LinearLayout.LayoutParams.MATCH_PARENT
-                        isSingleLine = false
-                        setTextIsSelectable(true)
-                    }
+//                    apkInfoView.allViews.forEachIndexed { index, view ->
+//                        val ids = safeOfNull { context.resources.getResourceEntryName(view.id) }
+//                        YLog.debug("$index -> ${view.javaClass} | $ids")
+//                    }
 
                     apkInfo = args().first().any() ?: return@after
                     sourceInfo = args().last().any() ?: return@after
-                    val actionType = getActionType()
+                    val actionType = sourceInfo.current().field { name = "actionType" }.int()
+                    val installSource = sourceInfo.current().field { name = "sourceName" }.string()
 
-                    val packName = getPackName()
-                    val versionName = getVersionName()
-                    val versionCode = getVersionCode()
-                    val apkFilePath = getApkFilePath()
+                    val packName = apkInfo.current().field { name = "packageName" }.string()
+                    val versionName = apkInfo.current().field { name = "versionName" }.string()
+                    val versionCode = apkInfo.current().field { name = "versionCode" }.int()
+                    val apkFilePath = apkInfo.current().field { name = "apkPath" }.string()
 
                     val packInfo = PackageUtils(pm).getPackageArchiveInfo(apkFilePath, 1)
-                    val min = packInfo?.applicationInfo?.minSdkVersion
-                    val target = packInfo?.applicationInfo?.targetSdkVersion
+                    val newMin = packInfo?.applicationInfo?.minSdkVersion
+                    val newTarget = packInfo?.applicationInfo?.targetSdkVersion
 
                     val curPackInfo = PackageUtils(pm).getPackageInfo(packName, 0)
                     val curVersionName = curPackInfo?.versionName
@@ -59,75 +57,138 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                     val curTarget = curPackInfo?.applicationInfo?.targetSdkVersion
 
                     val isInstalled = curPackInfo != null
-
                     val isInstall = actionType == 0
+
+                    @Suppress("UNUSED_VARIABLE")
                     val isUninstall = actionType == 1
 
-                    context.injectModuleAppResources()
-                    val currentVersionStr = safeOf("Current Version") {
-                        context.getString(R.string.show_more_apk_package_information_current_version)
-                    }
-                    val iterativeVersionStr = safeOf("Iterative Version") {
-                        context.getString(R.string.show_more_apk_package_information_iterative_version)
-                    }
-                    val versionStr = safeOf("Version: ") {
-                        context.resources.getString(
-                            context.resources.getIdentifier(
-                                "app_info_version", "string", context.packageName
-                            )
-                        )
-                    }
-
-                    val list = ArrayList<String>().apply {
-                        if (isInstall) {
-                            if (isInstalled) {
-                                add(packName)
-                                add("")
-                                add(currentVersionStr)
-                                add("Min $curMin Target $curTarget")
-                                add("$versionStr$curVersionName($curVersionCode)")
-                                add("")
-                                add(iterativeVersionStr)
-                                add("Min $min Target $target")
-                                add("$versionStr$versionName($versionCode)")
-                                add("")
-                            } else {
-                                add(packName)
-                                add("Min $min Target $target")
-                                add("$versionStr$versionName($versionCode)")
-                                add("")
-                            }
-                        } else if (isUninstall) {
-                            add(packName)
-                            add("")
-                            add(currentVersionStr)
-                            add("$versionStr$versionName($versionCode)")
+                    val newApkHeaderView = LinearLayout(context).apply {
+                        val newLayoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            setMargins(16.dp, 8.dp, 16.dp, 8.dp)
                         }
+                        layoutParams = newLayoutParams
+                        orientation = LinearLayout.HORIZONTAL
                     }
 
-                    if (list.isNotEmpty()) mAppVersion.text = formatStringAuto(list, "\n")
+                    val mApkIcon =
+                        field { name = "mAppIcon" }.get(instance).cast<ImageView>()?.apply {
+                            safeOfNull { parent as ViewGroup }?.removeView(this)
+                        } ?: return@after
+                    newApkHeaderView.addView(mApkIcon)
+
+                    val newApkNameView = LinearLayout(context).apply {
+                        orientation = LinearLayout.VERTICAL
+                    }
+                    val mApkName =
+                        field { name = "mAppName" }.get(instance).cast<TextView>()?.apply {
+                            safeOfNull { parent as ViewGroup }?.removeView(this)
+                        } ?: return@after
+                    newApkNameView.addView(mApkName)
+
+                    val mApkPackName = TextView(context).apply {
+                        val newLayoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            setMargins(mApkName.marginLeft, 8.dp, 16.dp, marginBottom)
+                        }
+                        layoutParams = newLayoutParams
+                        text = packName
+                        setTextIsSelectable(true)
+                    }
+                    newApkNameView.addView(mApkPackName)
+
+                    newApkHeaderView.addView(newApkNameView)
+
+                    val mApkVersion = TextView(context).apply {
+                        val newLayoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            setMargins(20.dp, 8.dp, 20.dp, 8.dp)
+                        }
+                        layoutParams = newLayoutParams
+                        text = if (isInstalled)
+                            """
+                                ${getApkVersionText(context)}
+                                $curVersionName($curVersionCode) → $versionName($versionCode)
+                            """.trimIndent()
+                        else
+                            """
+                                ${getApkVersionText(context)}
+                                $versionName($versionCode)
+                            """.trimIndent()
+                        setTextIsSelectable(true)
+                    }
+
+                    val mApkSdk = TextView(context).apply {
+                        val newLayoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            setMargins(20.dp, 8.dp, 20.dp, 8.dp)
+                        }
+                        layoutParams = newLayoutParams
+                        text = if (isInstalled)
+                            """
+                                SDK: 
+                                Min SDK: $curMin → $newMin  |   Target SDK: $curTarget → $newTarget
+                            """.trimIndent()
+                        else
+                            """
+                                SDK: 
+                                Min SDK: $newMin  |   Target SDK: $newTarget
+                            """.trimIndent()
+                        setTextIsSelectable(true)
+                    }
+
+                    val mApkInstallSource = TextView(context).apply {
+                        val newLayoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            setMargins(20.dp, 8.dp, 20.dp, 8.dp)
+                        }
+                        layoutParams = newLayoutParams
+                        text = getInstallSourceText(context, installSource)
+                        setTextIsSelectable(true)
+                    }
+
+                    apkInfoView.removeAllViews()
+
+                    apkInfoView.addView(newApkHeaderView)
+                    apkInfoView.addView(mApkVersion)
+                    if (isInstall) apkInfoView.addView(mApkSdk)
+                    if (isInstall) apkInfoView.addView(mApkInstallSource)
+
                 }
             }
         }
     }
 
-    private fun getActionType(): Int {
-        return sourceInfo.current().field { name = "actionType" }.int()
+    @SuppressLint("DiscouragedApi")
+    private fun getApkVersionText(context: Context): String {
+        return safeOf("Version: ") {
+            context.resources.getString(
+                context.resources.getIdentifier(
+                    "app_info_version", "string", context.packageName
+                )
+            )
+        }
     }
 
-    private fun getPackName(): String {
-        return apkInfo.current().field { name = "packageName" }.string()
+    @SuppressLint("DiscouragedApi")
+    private fun getInstallSourceText(context: Context, source: String): String {
+        return safeOf("From: $source") {
+            context.resources.getString(
+                context.resources.getIdentifier(
+                    "from_source", "string", context.packageName
+                ), source
+            )
+        }
     }
 
-    private fun getVersionName(): String {
-        return apkInfo.current().field { name = "versionName" }.string()
-    }
-
-    private fun getVersionCode(): Int {
-        return apkInfo.current().field { name = "versionCode" }.int()
-    }
-
-    private fun getApkFilePath(): String {
-        return apkInfo.current().field { name = "apkPath" }.string()
-    }
 }
