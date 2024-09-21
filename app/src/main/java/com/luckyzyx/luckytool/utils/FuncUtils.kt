@@ -477,6 +477,19 @@ fun isZh(context: Context): Boolean {
 }
 
 /**
+ * 重启选项
+ * @param reason String
+ */
+fun reboot(reason: String = "") {
+    if (reason == "recovery") {
+        // KEYCODE_POWER = 26, hide incorrect "Factory data reset" message
+        Shell.getShell().newJob().add("/system/bin/input keyevent 26").exec()
+    }
+    Shell.getShell().newJob()
+        .add("/system/bin/svc power reboot $reason || /system/bin/reboot $reason").exec()
+}
+
+/**
  * 重启作用域对话框
  * @receiver Context
  */
@@ -486,12 +499,13 @@ fun Context.restartMain() {
         getString(R.string.reboot),
         getString(R.string.fast_reboot)
     )
+
     MaterialAlertDialogBuilder(this, dialogCentered).apply {
         setCancelable(true)
         setItems(list) { _: DialogInterface?, i: Int ->
             when (i) {
                 0 -> restartAllScope()
-                1 -> ShellUtils.fastCmd(CommandUtils.reboot)
+                1 -> reboot()
                 2 -> ShellUtils.fastCmd(CommandUtils.killzygote)
             }
         }
