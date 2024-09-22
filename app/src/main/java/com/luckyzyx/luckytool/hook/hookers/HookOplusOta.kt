@@ -13,5 +13,10 @@ object HookOplusOta : YukiBaseHooker() {
         //local_update_verify_failed 验证失败
         //unzip_file_failed 解压失败
 
+        //移除OTA本地更新校验
+
+        //Source VerifyOTAPackageUtil
+
+
     }
 }

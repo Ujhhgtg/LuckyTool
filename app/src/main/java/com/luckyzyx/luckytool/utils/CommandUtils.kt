@@ -22,6 +22,9 @@ object CommandUtils {
     val getUsers = "ls /data/user/ -m"
     val getFpsMode2 = "dumpsys display | grep -A 24 'mSfDisplayModes=' | grep 'DisplayMode{id='"
 
+    val otaVerityMode = "ro.boot.veritymode"
+    val otaVbmetaState = "ro.boot.vbmeta.device_state"
+
     val killSysui = "kill -9 `pgrep systemui`"
     val pkill9 = "pkill -9"
     val killzygote = "killall zygote"
@@ -31,6 +34,7 @@ object CommandUtils {
     val killall = "killall"
     val grep = "grep"
     val getprop = "getprop"
+    val resetprop = "resetprop"
     val chattr = "chattr"
     val rmrf = "rm -rf"
     val pm = "pm"

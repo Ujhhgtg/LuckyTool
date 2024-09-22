@@ -34,6 +34,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除新版流体云系统提示图标 C14+
 - [修复] 息屏一言Https证书访问问题
 - [添加] 禁用长按HOME键启动语音助手
+- [添加] 移除OTA本地更新校验
 
 ### 1.2.3
 

@@ -41,19 +41,28 @@ class OplusOta : BaseScopePreferenceFeagment() {
                 }
             })
             addPreference(SwitchPreference(context).apply {
-                val getStatus = ShellUtils.fastCmd("getprop ro.boot.veritymode")
-                val status = if (getStatus != "enforcing") "error" else getStatus
+                val verityMode =
+                    ShellUtils.fastCmd("${CommandUtils.getprop} ${CommandUtils.otaVerityMode}")
+                val vbMetaState =
+                    ShellUtils.fastCmd("${CommandUtils.getprop} ${CommandUtils.otaVbmetaState}")
+                val status =
+                    verityMode == "enforcing" || verityMode == "eio" && vbMetaState == "locked"
+
                 title = getString(R.string.restore_ota_update_verity)
-                summary = getString(R.string.restore_ota_update_verity_summary, status)
+                summary = getString(R.string.restore_ota_update_verity_summary, status.toString())
                 key = "restore_ota_update_verity"
-                isEnabled = status != "enforcing"
-                isChecked = status == "enforcing"
+                isEnabled = !status
+                isChecked = status
                 isPersistent = false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    val value = if (newValue as Boolean) "enforcing" else "\"\""
-                    ShellUtils.fastCmd("resetprop ro.boot.veritymode $value")
-                    (activity as MainActivity).restart()
+                    if (newValue as Boolean) {
+                        ShellUtils.fastCmd(
+                            "${CommandUtils.resetprop} ${CommandUtils.otaVerityMode} enforcing",
+                            "${CommandUtils.resetprop} ${CommandUtils.otaVbmetaState} locked"
+                        )
+                        (activity as MainActivity).restart()
+                    }
                     true
                 }
             })
