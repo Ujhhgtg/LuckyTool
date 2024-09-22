@@ -35,6 +35,13 @@ class Android : BaseScopePreferenceFeagment() {
                 isVisible = false
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.disable_long_press_home_key_start_speech_asssist)
+                summary = getString(R.string.need_restart_system)
+                key = "disable_long_press_home_key_start_speech_asssist"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             addPreference(DropDownPreference(context).apply {
                 title = getString(R.string.customized_gaussian_blur_effect_level)
                 summary = arraySummaryLine(

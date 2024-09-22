@@ -106,6 +106,7 @@
     <string name="set_ltpo_refresh_rate_mode">Đặt chế độ tốc độ làm mới LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Kích hoạt độ sáng đầy đủ tốc độ làm mới tối thiểu 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Một số kiểu máy có thể xung đột với Trợ lý trò chơi và gây ra hiện tượng màn hình nhấp nháy.</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">Disable long press HOME key to start speech assistant</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>

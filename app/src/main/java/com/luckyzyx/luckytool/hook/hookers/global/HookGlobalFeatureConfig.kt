@@ -17,6 +17,14 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Android
 //            put("oplus.software.audio.alert_slider", false)
 
+            //Source Android PhoneWindowManagerExtImpl HomeKeyLongPressRunnable
+            val disableSpeechAssist = prefs(ModulePrefs).getBoolean(
+                "disable_long_press_home_key_start_speech_asssist", false
+            )
+            if (disableSpeechAssist) {
+                put("oplus.software.speech_assist_for_breeno", false)
+            }
+
             //Source SystemUI 强制启用高斯模糊
             if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
                 put("oplus.software.display.osie_aisdr2hdr_support", false) //C12
