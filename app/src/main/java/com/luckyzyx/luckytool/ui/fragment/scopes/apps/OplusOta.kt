@@ -8,6 +8,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.navigatePage
@@ -39,6 +40,12 @@ class OplusOta : BaseScopePreferenceFeagment() {
                     }
                     true
                 }
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.remove_ota_local_update_verity)
+                key = "remove_ota_local_update_verity"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
                 val verityMode =

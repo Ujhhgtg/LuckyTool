@@ -1,6 +1,9 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.ota.RemoveOTALocalUpdateVerity
+import com.luckyzyx.luckytool.utils.DexkitUtils
+import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object HookOplusOta : YukiBaseHooker() {
     override fun onHook() {
@@ -13,10 +16,12 @@ object HookOplusOta : YukiBaseHooker() {
         //local_update_verify_failed 验证失败
         //unzip_file_failed 解压失败
 
-        //移除OTA本地更新校验
-
-        //Source VerifyOTAPackageUtil
-
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //移除OTA本地更新校验
+            if (prefs(ModulePrefs).getBoolean("remove_ota_local_update_verity", false)) {
+                loadHooker(RemoveOTALocalUpdateVerity(dexKitBridge))
+            }
+        }
 
     }
 }

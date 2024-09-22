@@ -702,6 +702,7 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Povolit lokální upgrade</string>
     <string name="unlock_local_upgrade_summary">Po kliknutí budou příslušné operace prováděny automaticky, prosím trpělivě počkejte několik sekund</string>
+    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
     <string name="restore_ota_update_verity">Pokračovat v ověřování OTA aktualizace</string>
     <string name="restore_ota_update_verity_summary">Aktuální stav: [%1$s]\nZkuste použít tuto funkci, pokud OTA požádá o potvrzení, nebo se zeptá na dm-verity\nNeptat se, proč je funkce zašedlá, protože systém má povoleno ověření aktualizace ve výchozím nastavení\nPokud je ověření vypnuto, OTA aktualizace selže, takže když je funkce zapnutá, uzamkne tuto funkci</string>
     <!--Extract OTA-->

@@ -810,6 +810,7 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Unlock local upgrade</string>
     <string name="unlock_local_upgrade_summary">After clicking, relevant operations will be performed automatically, please wait patiently for a few seconds</string>
+    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
     <string name="restore_ota_update_verity">Resume OTA update verification</string>
     <string name="restore_ota_update_verity_summary">Current Status: [%1$s]\nTry to use this feature if the OTA update prompts for validation failure or prompts for dm-verity\nDo not ask why the feature is grayed out because the system has update validation enabled by default\nWhen validation is turned off the OTA update fails, so when the feature is turned on it locks out this feature</string>
     

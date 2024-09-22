@@ -702,6 +702,7 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">ローカルアップグレードを解放</string>
     <string name="unlock_local_upgrade_summary">タップした後に関連する操作が自動的に実行されます。しばらくお待ちください</string>
+    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
     <string name="restore_ota_update_verity">OTA アップデートの検証を再開</string>
     <string name="restore_ota_update_verity_summary">現在の状態：[%1$s]\nOTA アップデートで検証失敗のプロンプトが表示されるか、dm-verity のプロンプトが表示される場合にこの機能を使用してください。\nシステムがデフォルトでアップデート検証を有効にしているため、この機能がグレーアウトしている理由を聞かないでください。\n検証がオフにされた場合 OTA アップデートは失敗するため、この機能はロックされます</string>
     <!--Extract OTA-->

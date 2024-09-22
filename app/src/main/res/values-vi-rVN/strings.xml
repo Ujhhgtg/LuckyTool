@@ -702,6 +702,7 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Mở khóa nâng cấp cục bộ</string>
     <string name="unlock_local_upgrade_summary">Sau khi nhấp vào, các thao tác liên quan sẽ được thực hiện tự động, hãy kiên nhẫn chờ trong vài giây</string>
+    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
     <string name="restore_ota_update_verity">Khôi phục xác minh cập nhật OTA</string>
     <string name="restore_ota_update_verity_summary">Trạng thái hiện tại: %1$s\nNếu bản cập nhật OTA nhắc rằng xác minh không thành công hoặc nhắc dm-verity, bạn có thể thử sử dụng chức năng này\nĐừng hỏi tại sao chức năng này chuyển sang màu xám, vì hệ thống cho phép xác minh cập nhật bằng cách mặc định\nKhi tắt xác minh, Sẽ khiến cập nhật OTA không thành công nên chức năng này sẽ bị khóa khi bật chức năng này</string>
     <!--Extract OTA-->
