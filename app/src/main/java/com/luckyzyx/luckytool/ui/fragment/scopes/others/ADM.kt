@@ -14,14 +14,19 @@ class ADM : BaseScopePreferenceFeagment() {
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.sharedPreferencesName = ModulePrefs
         preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(
-                SwitchPreference(context).apply {
-                    title = getString(R.string.adm_unlock_pro)
-                    key = "adm_unlock_pro"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                }
-            )
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.adm_unlock_pro)
+                key = "adm_unlock_pro"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.adm_unlock_threads)
+                summary = "64"
+                key = "adm_unlock_threads"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 
