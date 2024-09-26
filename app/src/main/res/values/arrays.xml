@@ -373,5 +373,12 @@
         <item>@string/common_words_middle</item>
         <item>@string/common_words_high</item>
     </string-array>
+    
+    <string-array name="adm_unlock_more_threads_entries">
+        <item>@string/common_words_default</item>
+        <item>32</item>
+        <item>64</item>
+        <item>128</item>
+    </string-array>
 
 </resources>

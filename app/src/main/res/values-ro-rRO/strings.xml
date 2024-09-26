@@ -785,7 +785,7 @@
     <string name="remove_pro_license">Remove license detection</string>
     <!--ADM-->
     <string name="adm_unlock_pro">Unlock Pro</string>
-    <string name="adm_unlock_threads">Unlock Download Threads</string>
+    <string name="adm_unlock_more_threads">Unlock more download threads</string>
     <!--Home-->
     <string name="fps_title">Force refresh rate</string>
     <string name="fps_summary">Conflict with other dynamic refresh rate processes, such as “dpfs”</string>

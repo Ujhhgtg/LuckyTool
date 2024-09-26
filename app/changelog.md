@@ -36,7 +36,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 禁用长按HOME键启动语音助手
 - [添加] 移除OTA本地更新校验
 - [更改] 更改ADM解锁Pro方案
-- [添加] 解锁ADM下载线程 v14.0.37
+- [添加] ADM解锁更多下载线程
 
 ### 1.2.3
 

@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.others
 
 import android.os.Bundle
+import androidx.preference.DropDownPreference
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
@@ -20,11 +21,13 @@ class ADM : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
-                title = getString(R.string.adm_unlock_threads)
-                summary = "64"
-                key = "adm_unlock_threads"
-                setDefaultValue(false)
+            addPreference(DropDownPreference(context).apply {
+                title = getString(R.string.adm_unlock_more_threads)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "adm_unlock_more_threads"
+                setEntries(R.array.adm_unlock_more_threads_entries)
+                entryValues = arrayOf("0", "32", "64","128")
+                setDefaultValue("0")
                 isIconSpaceReserved = false
             })
         }
