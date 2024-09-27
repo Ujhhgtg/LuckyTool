@@ -722,6 +722,8 @@
     <string name="custom_model_watermark">Custom model watermark</string>
     <string name="enable_spring_festival_watermark" translatable="false">启用新春水印</string>
     <string name="enable_spring_festival_watermark_summary" translatable="false">前提条件: 相册必须支持新春水印</string>
+    <string name="enable_national_day_watermark" translatable="false">启用国庆水印</string>
+    <string name="enable_national_day_watermark_summary" translatable="false">前提条件: 相册必须支持国庆水印</string>
     
     <string name="CameraFilter">Filter</string>
     <string name="camera_universal_filter_settings">Universal filter settings</string>

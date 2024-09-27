@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.gallery
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
@@ -18,6 +19,7 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.isZh
+import com.luckyzyx.luckytool.utils.safeOf
 import org.luckypray.dexkit.DexKitBridge
 
 class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -41,6 +43,9 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //新春水印
         val springFestival =
             prefs(ModulePrefs).getBoolean("enable_spring_festival_watermark", false)
+        //国庆水印
+        val nationalDay =
+            prefs(ModulePrefs).getBoolean("enable_national_day_watermark", false)
 
         //Source OtherSystemStorage
         dexKitBridge.findClass {
@@ -87,9 +92,15 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             //debug.gallery.lns / os.graphic.gallery.photoview.lns
                             configNode.contains("feature_is_support_lns") -> if (lnsImage) resultTrue()
 
-                            //debug.gallery.photo.editor.watermark.switcher / is_region_cn
+                            //isOsSupport 29 -> 27 (Downgrade)
+                            //debug.gallery.photo.editor.watermark.switcher / is_region_cn (property_domestic)
                             configNode.contains("feature_is_support_spring_festival_watermark") -> {
-                                if (springFestival && osCode >= 27 && isZh(context)) resultTrue()
+                                if (springFestival && osCode >= 27 && isRegionCN(context)) resultTrue()
+                            }
+
+                            //debug.gallery.photo.editor.watermark.switcher / is_region_cn (property_domestic)
+                            configNode.contains("feature_is_support_national_day_watermark") -> {
+                                if (nationalDay && osCode >= 27 && isRegionCN(context)) resultTrue()
                             }
 
                             //aigc_sdinpainting
@@ -183,17 +194,29 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         }
                     }
                 }
-                method { param(StringClass, IntType);returnType = IntClass }.hook {
-                    after {
+//                method { param(StringClass, IntType);returnType = IntClass }.hook {
+//                    after {
 //                        when (args().first().string()) {
 //                            "ai_eliminate_detect_state" -> {
 //                                YLog.debug("ai_eliminate_detect_state -> $result")
 //                                result = 3
 //                            }
 //                        }
-                    }
-                }
+//                    }
+//                }
             }
+        }
+    }
+
+    @SuppressLint("DiscouragedApi")
+    fun isRegionCN(context: Context): Boolean {
+        return safeOf(isZh(context)) {
+            context.resources.getBoolean(
+                context.resources.getIdentifier(
+                    "property_domestic", "bool",
+                    this@HookSystemStorage.packageName
+                )
+            )
         }
     }
 }

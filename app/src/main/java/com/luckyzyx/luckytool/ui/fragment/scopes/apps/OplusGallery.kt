@@ -51,6 +51,14 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 27 && isZh(context)
                 isIconSpaceReserved = false
             })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_national_day_watermark)
+                summary = getString(R.string.enable_national_day_watermark_summary)
+                key = "enable_national_day_watermark"
+                setDefaultValue(false)
+                isVisible = osCode >= 27 && isZh(context)
+                isIconSpaceReserved = false
+            })
             //滤镜
             addPreference(PreferenceCategory(context).apply {
                 title = getString(R.string.CameraFilter)
