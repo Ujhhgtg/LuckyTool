@@ -625,6 +625,8 @@
     <string name="enable_frame_watermark_style">Abilita Stile Frame Filigrana</string>
     <string name="enable_hasselblad_watermark_style">Abilita Stile Filigrana Hasselblad</string>
     <string name="custom_model_watermark">Filigrana modello personalizzato</string>
+    <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
+    <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
     <string name="CameraFilter">Filtro</string>
     <string name="camera_universal_filter_settings">Impostazioni del filtro universale</string>
     <string name="camera_filter_master">Filtro principale</string>

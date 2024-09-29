@@ -44,6 +44,25 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                title = "设置画框水印状态"
+                key = "enable_frame_watermark"
+                setDefaultValue(false)
+                isVisible = false
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_hassel_watermark)
+                key = "enable_hassel_watermark"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
+                title = getString(R.string.enable_privacy_watermark)
+                key = "enable_privacy_watermark"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 title = getString(R.string.enable_spring_festival_watermark)
                 summary = getString(R.string.enable_spring_festival_watermark_summary)
                 key = "enable_spring_festival_watermark"

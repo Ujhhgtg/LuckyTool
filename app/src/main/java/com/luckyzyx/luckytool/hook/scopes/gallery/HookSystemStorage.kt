@@ -40,6 +40,12 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         val gifSynthesis = prefs(ModulePrefs).getBoolean("enable_photo_editor_gif_synthesis", false)
         //闪速抠图
         val lnsImage = prefs(ModulePrefs).getBoolean("enable_lns_cut_photo", false)
+        //画框水印
+        val frameWaterMark = prefs(ModulePrefs).getBoolean("enable_frame_watermark", false)
+        //哈苏水印
+        val hasselWaterMark = prefs(ModulePrefs).getBoolean("enable_hassel_watermark", false)
+        //隐私水印
+        val privicyWaterMark = prefs(ModulePrefs).getBoolean("enable_privacy_watermark", false)
         //新春水印
         val springFestival =
             prefs(ModulePrefs).getBoolean("enable_spring_festival_watermark", false)
@@ -75,11 +81,28 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         when {
                             //com.oplus.camera.support.custom.hasselblad.watermark
                             configNode.contains("feature_is_support_watermark") -> if (waterMark) resultTrue()
-                            configNode.contains("feature_is_support_hassel_watermark") -> if (waterMark) resultTrue()
+                            //com.oplus.camera.support.custom.hasselblad.watermark
+                            configNode.contains("feature_is_support_hassel_watermark") -> if (hasselWaterMark) resultTrue()
+                            //com.oplus.feature.custom.makeup.watermark.support
+//                            configNode.contains("feature_is_support_street_watermark") -> if (waterMark) resultTrue()
+                            //debug.enable.ipu
+//                            configNode.contains("feature_is_support_ipu_watermark") -> if (waterMark) resultTrue()
+                            //com.oplus.camera.support.custom.color.watermark
+//                            configNode.contains("feature_is_support_color_watermark") -> if (waterMark) resultTrue()
+                            //com.oplus.camera.support.custom.lonely.planet.watermark
+//                            configNode.contains("feature_is_support_lonely_planet_watermark") -> if (waterMark) resultTrue()
+
+                            //isRegionIndia / isInTime / is_realme_brand
+//                            configNode.contains("feature_is_support_diwali_festival_watermark") -> if (waterMark) resultTrue()
+
                             //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
                             configNode.contains("feature_is_support_photo_editor_watermark") -> if (waterMark) resultTrue()
+                            //first_api_level
+//                            configNode.contains("feature_is_support_photo_editor_frame_watermark") -> result =
+//                                frameWaterMark
+
                             //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
-                            configNode.contains("feature_is_support_privacy_watermark") -> if (waterMark) resultTrue()
+                            configNode.contains("feature_is_support_privacy_watermark") -> if (privicyWaterMark) resultTrue()
                             //os.graphic.gallery.photolistview.senior_picked
                             configNode.contains("feature_is_support_senior_picked") -> if (seniorPicked) resultTrue()
                             //debug.gallery.photo.photothumbline / os.graphic.gallery.photoview.thumb_line
@@ -97,32 +120,27 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             configNode.contains("feature_is_support_spring_festival_watermark") -> {
                                 if (springFestival && osCode >= 27 && isRegionCN(context)) resultTrue()
                             }
-
                             //debug.gallery.photo.editor.watermark.switcher / is_region_cn (property_domestic)
                             configNode.contains("feature_is_support_national_day_watermark") -> {
                                 if (nationalDay && osCode >= 27 && isRegionCN(context)) resultTrue()
                             }
-
-                            //aigc_sdinpainting
-                            //aigc_segmentation
-//                            configNode.contains("feature_is_support_ai_eliminate") -> {
-//                                YLog.debug("configNode feature_is_support_ai_eliminate -> $result")
-//                                resultTrue()
-//                            }
-//
-//                            configNode.contains("feature_is_device_support_ai_eliminate") -> {
-//                                YLog.debug("configNode feature_is_device_support_ai_eliminate -> $result")
-//                                resultTrue()
-//                            }
-
-//                            photopage_detail_ic_dolby_vision
-//                            configNode.contains("brighten_version_dolby") -> if (gifSynthesis) resultTrue()
-//                            configNode.contains("feature_is_support_dolby_brighten") -> if (gifSynthesis) resultTrue()
-//                            configNode.contains("is_support_dolby_decode") -> if (gifSynthesis) resultTrue()
-//                            configNode.contains("is_support_dolby_encode") -> if (gifSynthesis) resultTrue()
-//                            configNode.contains("is_support_dolby_encode_accelerate") -> if (gifSynthesis) resultTrue()
                         }
                     }
+                }
+            }
+        }
+
+        //Source BaseProcessUnitSDK
+        "com.oplus.ocs.camera.ipusdk.processunit.BaseProcessUnitSDK".toClassOrNull()?.apply {
+            method { name = "getVendorTagConfig";paramCount = 1 }.hook {
+                after {
+                    val key = args().first().string()
+                    if (key.isBlank()) return@after
+                    val res = when (key) {
+                        "com.oplus.camera.support.custom.hasselblad.watermark" -> hasselWaterMark
+                        else -> return@after
+                    }
+                    result = if (res) "1" else "0"
                 }
             }
         }
@@ -162,28 +180,18 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         when (args().first().string()) {
                             "is_oneplus_brand" -> if (notOplus) resultFalse()
-                            "feature_is_support_watermark" -> if (waterMark) resultTrue()
-                            "feature_is_support_hassel_watermark" -> if (waterMark) resultTrue()
-                            "feature_is_support_photo_editor_watermark" -> if (waterMark) resultTrue()
-                            "feature_is_support_privacy_watermark" -> if (waterMark) resultTrue()
-                            "feature_is_support_senior_picked" -> if (seniorPicked) resultTrue()
-                            "feature_is_support_photo_thumb_line" -> when (thumbLine) {
-                                "1" -> resultTrue()
-                                "2" -> resultFalse()
-                            }
-
-                            "feature_is_support_gif_synthesis" -> if (gifSynthesis) resultTrue()
-                            "feature_is_support_lns" -> if (lnsImage) resultTrue()
-
-//                            "feature_is_device_support_ai_eliminate" -> {
-//                                YLog.debug("feature_is_device_support_ai_eliminate -> $result")
-//                                resultTrue()
+//                            "feature_is_support_watermark" -> if (waterMark) resultTrue()
+//                            "feature_is_support_hassel_watermark" -> if (hasselWaterMark) resultTrue()
+//                            "feature_is_support_photo_editor_watermark" -> if (waterMark) resultTrue()
+//                            "feature_is_support_privacy_watermark" -> if (privicyWaterMark) resultTrue()
+//                            "feature_is_support_senior_picked" -> if (seniorPicked) resultTrue()
+//                            "feature_is_support_photo_thumb_line" -> when (thumbLine) {
+//                                "1" -> resultTrue()
+//                                "2" -> resultFalse()
 //                            }
 //
-//                            "is_ai_eliminate_queued" -> {
-//                                YLog.debug("is_ai_eliminate_queued -> $result")
-//                                resultTrue()
-//                            }
+//                            "feature_is_support_gif_synthesis" -> if (gifSynthesis) resultTrue()
+//                            "feature_is_support_lns" -> if (lnsImage) resultTrue()
 
 //                            photopage_detail_ic_dolby_vision
 //                            "brighten_version_dolby" -> if (gifSynthesis) resultTrue()
@@ -194,16 +202,6 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         }
                     }
                 }
-//                method { param(StringClass, IntType);returnType = IntClass }.hook {
-//                    after {
-//                        when (args().first().string()) {
-//                            "ai_eliminate_detect_state" -> {
-//                                YLog.debug("ai_eliminate_detect_state -> $result")
-//                                result = 3
-//                            }
-//                        }
-//                    }
-//                }
             }
         }
     }
@@ -213,8 +211,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         return safeOf(isZh(context)) {
             context.resources.getBoolean(
                 context.resources.getIdentifier(
-                    "property_domestic", "bool",
-                    this@HookSystemStorage.packageName
+                    "property_domestic", "bool", this@HookSystemStorage.packageName
                 )
             )
         }
