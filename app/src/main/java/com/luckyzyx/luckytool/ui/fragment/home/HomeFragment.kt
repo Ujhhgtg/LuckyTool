@@ -23,6 +23,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogOplusotaLayoutBinding
@@ -327,7 +328,8 @@ class HomeFragment : Fragment(), MenuProvider {
         }
 
         binding.statusSummary.apply {
-            text = "${getString(R.string.module_version)}$getVersionName($getVersionCode)"
+            text = "${getString(R.string.module_version)}$getVersionName($getVersionCode)" +
+                    if (BuildConfig.DEBUG) " DEBUG" else " RELEASE"
         }
     }
 }

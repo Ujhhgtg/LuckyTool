@@ -37,7 +37,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除OTA本地更新校验
 - [更改] 更改ADM解锁Pro方案
 - [添加] ADM解锁更多下载线程
-- [添加] 启用相册国庆水印
+- [添加] 启用相册国庆水印 C13+
 
 ### 1.2.3
 
