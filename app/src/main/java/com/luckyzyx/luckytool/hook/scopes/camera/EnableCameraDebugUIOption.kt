@@ -1,5 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
+import android.app.Activity
+import androidx.preference.PreferenceManager
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
@@ -69,6 +71,17 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     returnType = BooleanType
                 }.hook {
                     replaceToFalse()
+                }
+            }
+        }
+
+        //Source CameraDebugActivity
+        "com.oplus.camera.setting.CameraDebugActivity".toClass().apply {
+            method { name = "onCreate" }.hook {
+                before {
+                    val activity = instance<Activity>()
+                    val sp = PreferenceManager.getDefaultSharedPreferences(activity)
+                    sp.edit().putBoolean("key_has_checked_auth_connection", true).commit()
                 }
             }
         }
