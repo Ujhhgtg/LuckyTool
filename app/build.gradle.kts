@@ -30,7 +30,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 28
         versionCode = getVersionCode()
-        versionName = "1.2.4_beta"
+        versionName = "1.2.4"
         buildConfigField("String", "APP_CENTER_SECRET", getAppCenterSecret())
         buildConfigField("String", "APP_CENTER_SECRET_BETA", getAppCenterSecret(true))
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))
@@ -156,7 +156,7 @@ fun getVersionCode(): Int {
         properties.store(propsFile.writer(), null)
         println("versionCode -> $vCode")
         return vCode
-    } else throw GradleException("无法读取 version.properties!")
+    } else throw GradleException("Can't read version.properties!")
 }
 
 fun getAppCenterSecret(isBeta: Boolean = false): String {
@@ -166,5 +166,5 @@ fun getAppCenterSecret(isBeta: Boolean = false): String {
         if (list.size != 2) return ""
         return if (isBeta) list.lastOrNull() ?: ""
         else list.firstOrNull() ?: ""
-    } else throw GradleException("无法读取 keystore app center!")
+    } else throw GradleException("Can't read app center keystore!")
 }

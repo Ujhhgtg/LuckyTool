@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.4_beta
+### 1.2.4
 
 - [适配] 三阶段响铃模式磁贴 C15.0
 - [适配] 自定义磁贴背景透明度 C15.0
@@ -38,6 +38,39 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 更改ADM解锁Pro方案
 - [添加] ADM解锁更多下载线程
 - [添加] 启用相册国庆水印 C13+
+- [Fix] Three-stage ring mode tile C15.0
+- [Fix] Customize tile background transparency C15.0
+- [Fix] Control Center Slider Transparency C15.0
+- [Fix] Status bar battery hook exception C15.0
+- [Fix] Custom fingerprint icon C15.0
+- [Fix] Disable OTG automatic shutdown C15.0
+- [Fix] Remove the icon at the bottom of the lock screen C15.0
+- [Fix] Status bar clock lunar calendar calculation logic C15.0
+- [Fix] Status bar battery notification charging technology field display C15.0
+- [Fix] Lock screen charging animation style and fields C15.0
+- [Fix] Network security warning message at the bottom of the control center C15.0
+- [Fix] Forced refresh rate data acquisition logic C15.0
+- [Fix] New version of notification floating window reply whitelist C15.0
+- [Fix] Custom notification background transparency C15.0
+- [Fix] Camera travel filter crash issue
+- [Fix] SIM card preferred network type C15.0
+- [Fix] SIM Card VoLTE HD Call C15.0
+- [Fix] Forced refresh rate data saving exception
+- [Add] Remove browser search box App promotion C14+
+- [Add] Disable status bar music fluid cloud C14.1+
+- [Add] Floating window border task running in the foreground C13+
+- [Add] Restore weather and rainfall cloud map page C14+
+- [Optimize] Customized OTA background images support cropping
+- [Add] Force enable media music fluid cloud ripple C14.1+
+- [Add] Disable cloud service forced backup application list
+- [Add] Fix setting the default application jump of CN special version
+- [Fix] Remove the new version of Fluid Cloud system prompt icon C14+
+- [Fix] Xipingyiyan HTTPS certificate access issue
+- [Add] Disable long pressing HOME button to start voice assistant
+- [Add] Remove OTA local update verification
+- [Change] Change ADM Unlock Pro plan
+- [Add] ADM unlocks more download threads
+- [Add] Enable National Day watermark in photo album C13+
 
 ### 1.2.3
 
