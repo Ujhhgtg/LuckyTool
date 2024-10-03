@@ -329,7 +329,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
         binding.statusSummary.apply {
             text = "${getString(R.string.module_version)}$getVersionName($getVersionCode)" +
-                    if (BuildConfig.DEBUG) " DEBUG" else " RELEASE"
+                    " ${BuildConfig.BUILD_TYPE.uppercase()}"
         }
     }
 }
