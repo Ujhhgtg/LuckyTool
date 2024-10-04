@@ -8,8 +8,7 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 object RemoveSystemPromptIcon : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
-        if (osCode >= 30) loadHooker(SeedlingCardIcon)
-        else loadHooker(SystemPromptIconV13)
+        loadHooker(SystemPromptIconV13)
     }
 
     object SystemPromptIconV13 : YukiBaseHooker() {
@@ -21,19 +20,6 @@ object RemoveSystemPromptIcon : YukiBaseHooker() {
             ).toClass().apply {
                 method { name = "updatePromptIcon" }.hook {
                     intercept()
-                }
-            }
-        }
-    }
-
-    object SeedlingCardIcon : YukiBaseHooker() {
-        override fun onHook() {
-            //Source OplusSeedlingCardController
-            "com.oplus.systemui.statusbar.seeding.OplusSeedlingCardController".toClass().apply {
-                method { name = "updateCapsuleContainer" }.hook {
-                    before {
-                        args().first().setFalse()
-                    }
                 }
             }
         }
