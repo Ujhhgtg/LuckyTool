@@ -51,7 +51,7 @@ class OtherFragment : Fragment() {
 
     fun init(context: Context) {
         binding.quickEntry.setOnClickListener {
-            navigatePage(R.id.action_nav_other_to_systemQuickEntry, getString(R.string.quick_entry))
+            navigatePage(R.id.systemQuickEntry, getString(R.string.quick_entry))
         }
 
         binding.shortcut.apply {

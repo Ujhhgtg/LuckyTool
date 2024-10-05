@@ -1,7 +1,7 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
+import android.content.Context
 import android.graphics.BitmapFactory
-import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toDrawable
 import androidx.preference.DropDownPreference
@@ -20,6 +20,13 @@ import com.luckyzyx.luckytool.utils.putString
 @Obfuscate
 class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
+
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.fingerPrintRelated
+
     private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
             val cacheFile = FileUtils.getMSMCacheFile(requireActivity(), it)
@@ -30,10 +37,9 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
         (activity as MainActivity).restart()
     }
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(DropDownPreference(context).apply {
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_fingerprint_icon_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "remove_fingerprint_icon_mode"
@@ -42,7 +48,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.replace_fingerprint_icon_switch)
                 summary = getString(R.string.replace_fingerprint_icon_switch_summary)
                 key = "replace_fingerprint_icon_switch"
@@ -52,16 +58,16 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "replace_fingerprint_icon_switch", false)) {
-                addPreference(Preference(context).apply {
+            if (getBoolean(ModulePrefs, "replace_fingerprint_icon_switch", false)) {
+                add(Preference(this@loadPreferences).apply {
                     title = getString(R.string.replace_fingerprint_icon_path)
                     key = "replace_fingerprint_icon_path"
-                    val path = context.getString(ModulePrefs, key, "")
+                    val path = getString(ModulePrefs, key, "")
                     if (path.isBlank()) {
                         summary = "Null"
                         isIconSpaceReserved = false
                     } else {
-                        icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                        icon = BitmapFactory.decodeFile(path)?.toDrawable(resources)
                         summary = path
                         isCopyingEnabled = true
                     }
@@ -73,6 +79,4 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
             }
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

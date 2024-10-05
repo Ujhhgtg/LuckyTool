@@ -1,6 +1,6 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
-import android.os.Bundle
+import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
@@ -22,10 +22,15 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
         "com.coloros.securepay"
     )
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(Preference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.miscellaneous
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.FloatingWindowDialogRelated)
                 summary = arraySummaryDot(
                     getString(R.string.remove_low_battery_dialog_warning_summary),
@@ -34,11 +39,11 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 key = "FloatingWindowDialogRelated"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_miscellaneous_to_dialogRelated, title)
+                    navigatePage(R.id.dialogRelated, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.FingerPrintRelated)
                 summary = arraySummaryDot(
                     getString(R.string.remove_fingerprint_icon),
@@ -47,11 +52,11 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 key = "FingerPrintRelated"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_miscellaneous_to_fingerPrintRelated, title)
+                    navigatePage(R.id.fingerPrintRelated, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.SoundRelated)
                 summary = arraySummaryDot(
                     getString(R.string.media_volume_level),
@@ -60,11 +65,11 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 key = "SoundRelated"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_miscellaneous_to_soundRelated, title)
+                    navigatePage(R.id.soundRelated, title)
                     true
                 }
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.show_charging_ripple)
                 summary = getString(R.string.show_charging_ripple_summary)
                 key = "show_charging_ripple"
@@ -73,7 +78,7 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             if (osCode < 30) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.disable_otg_auto_off)
                     summary = getString(R.string.disable_otg_auto_off_summary)
                     key = "disable_otg_auto_off"
@@ -81,20 +86,20 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_storage_limit)
                 summary = getString(R.string.remove_storage_limit_summary)
                 key = "remove_storage_limit"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_enable_systemui_blur_feature)
                 key = "force_enable_systemui_blur_feature"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.show_manual_lock_button_power_menu)
                 key = "show_manual_lock_button_power_menu"
                 setDefaultValue(false)
@@ -103,6 +108,4 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
             })
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

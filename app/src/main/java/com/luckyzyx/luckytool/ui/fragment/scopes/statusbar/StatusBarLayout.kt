@@ -1,47 +1,57 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.statusbar
 
-import android.os.Bundle
+import android.content.Context
 import androidx.preference.DropDownPreference
+import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getBoolean
 
 @Obfuscate
 class StatusBarLayout : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(DropDownPreference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.statusBarLayout
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_layout_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary =
+                    getString(R.string.common_words_current_mode) + ": %s"
                 key = "statusbar_layout_mode"
                 setEntries(R.array.statusbar_layout_mode_entries)
                 entryValues = arrayOf("0", "1")
                 setDefaultValue("0")
+                isVisible = SDK == A13
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_layout_compatible_mode)
                 key = "statusbar_layout_compatible_mode"
                 setDefaultValue(false)
+                isVisible = SDK == A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
                     (activity as MainActivity).restart()
                     true
                 }
             })
-            if (context.getBoolean(
-                    ModulePrefs, "statusbar_layout_compatible_mode", false
-                )
+            if (SDK == A13 &&
+                getBoolean(ModulePrefs, "statusbar_layout_compatible_mode", false)
             ) {
-                addPreference(SeekBarPreference(context).apply {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_layout_left_margin)
                     summary = getString(R.string.statusbar_layout_margin_tip)
                     key = "statusbar_layout_left_margin"
@@ -52,7 +62,7 @@ class StatusBarLayout : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                 })
-                addPreference(SeekBarPreference(context).apply {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_layout_right_margin)
                     summary = getString(R.string.statusbar_layout_margin_tip)
                     key = "statusbar_layout_right_margin"
@@ -66,6 +76,4 @@ class StatusBarLayout : BaseScopePreferenceFeagment() {
             }
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

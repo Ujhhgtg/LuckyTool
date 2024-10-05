@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
+import android.content.Context
 import android.os.Build
-import android.os.Bundle
 import android.util.ArraySet
 import androidx.appcompat.app.AlertDialog
 import androidx.core.util.forEach
@@ -28,40 +28,48 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.luckyzyx.luckytool.utils.showToast
 
 @Obfuscate
 class OplusCamera : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.camera", "com.oneplus.camera")
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val isEnableOpenMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusCamera
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_camera_debug_ui_option)
                 key = "enable_camera_debug_ui_option"
                 setDefaultValue(false)
                 isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.custom_camera_open_gallery_by_default)
                 key = "custom_camera_open_gallery_by_default"
-                summary = arraySummaryLine(context.getString(ModulePrefs, key, "").ifBlank {
+                summary = arraySummaryLine(getString(ModulePrefs, key, "").ifBlank {
                     getString(R.string.common_words_not_set)
                 })
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    AppInfoSelector(context, true).apply {
+                    AppInfoSelector(this@loadPreferences, true).apply {
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 if (list.size > 1) {
-                                    context.showToast(getString(R.string.custom_camera_open_gallery_by_default_tips))
+                                    showToast(getString(R.string.custom_camera_open_gallery_by_default_tips))
                                     return
                                 }
                                 val packName = list.firstOrNull()?.packageName ?: ""
-                                context.putString(ModulePrefs, key, packName)
+                                putString(ModulePrefs, key, packName)
                                 (activity as MainActivity).restart()
                             }
                         })
@@ -71,13 +79,13 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 }
             })
             if (osCode >= 28) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_camera_night_zoom_30x)
                     key = "enable_camera_night_zoom_30x"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_video_capture_roulette_zoom)
                     key = "enable_video_capture_roulette_zoom"
                     setDefaultValue(false)
@@ -85,50 +93,48 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 })
             }
             //水印
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.CameraWaterMark)
                 key = "CameraWaterMark"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_watermark_word_limit)
                 key = "remove_watermark_word_limit"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             if (SDK >= A13) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_frame_watermark_style)
                     key = "enable_frame_watermark_style"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_hasselblad_watermark_style)
                     key = "enable_hasselblad_watermark_style"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(EditTextPreference(context).apply {
+                add(EditTextPreference(this@loadPreferences).apply {
                     title = getString(R.string.custom_model_watermark)
                     dialogTitle = title
                     key = "custom_model_watermark"
                     setDefaultValue("None")
-                    setSummaryProvider {
-                        EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(this)
-                    }
+                    setSummaryProvider(this)
                     isIconSpaceReserved = false
                     isVisible = Build.FINGERPRINT.contains("RMX", true).not()
                 })
             }
             //滤镜
             if (SDK >= A13) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.CameraFilter)
                     key = "CameraFilter"
                     isIconSpaceReserved = false
                 })
-                addPreference(Preference(context).apply {
+                add(Preference(this@loadPreferences).apply {
                     val defaultFilters = ArrayList<CameraFilter>().apply {
                         add(CameraFilter("master_filter", getString(R.string.camera_filter_master)))
                         add(
@@ -144,7 +150,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                     title = getString(R.string.camera_universal_filter_settings)
                     key = "camera_universal_filter_settings"
-                    context.getStringSet(ModulePrefs, key, ArraySet()).forEach {
+                    getStringSet(ModulePrefs, key, ArraySet()).forEach {
                         defaultFilters.find { its -> its.key == it }?.isEnable = true
                     }
                     val keys = ArrayList<String>()
@@ -160,7 +166,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     summary = enabledTitle.toString()
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                        MaterialAlertDialogBuilder(this@loadPreferences, dialogCentered).apply {
                             setTitle(title)
                             setMultiChoiceItems(
                                 titles.toTypedArray(), values.toBooleanArray(), null
@@ -173,7 +179,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                                     val key = keys[position]
                                     if (isChecked) set.add(key)
                                 }
-                                context.putStringSet(ModulePrefs, key, set.toSet())
+                                putStringSet(ModulePrefs, key, set.toSet())
                                 if (set.contains("master_filter")) findPreference<SwitchPreference>(
                                     "enable_hasselblad_watermark_style"
                                 )?.isChecked = true
@@ -184,7 +190,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                addPreference(Preference(context).apply {
+                add(Preference(this@loadPreferences).apply {
                     val defaultFilters = ArrayList<CameraFilter>().apply {
                         add(CameraFilter("retention", getString(R.string.camera_filter_retention)))
                         add(
@@ -196,7 +202,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                     title = getString(R.string.camera_portrait_filter_settings)
                     key = "camera_portrait_filter_settings"
-                    context.getStringSet(ModulePrefs, key, ArraySet()).forEach {
+                    getStringSet(ModulePrefs, key, ArraySet()).forEach {
                         defaultFilters.find { its -> its.key == it }?.isEnable = true
                     }
                     val keys = ArrayList<String>()
@@ -212,7 +218,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     summary = enabledTitle.toString()
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                        MaterialAlertDialogBuilder(this@loadPreferences, dialogCentered).apply {
                             setTitle(title)
                             setMultiChoiceItems(
                                 titles.toTypedArray(), values.toBooleanArray(), null
@@ -225,7 +231,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                                     val key = keys[position]
                                     if (isChecked) set.add(key)
                                 }
-                                context.putStringSet(ModulePrefs, key, set.toSet())
+                                putStringSet(ModulePrefs, key, set.toSet())
                                 (activity as MainActivity).restart()
                             }
                             setNeutralButton(android.R.string.cancel, null)
@@ -233,7 +239,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                addPreference(Preference(context).apply {
+                add(Preference(this@loadPreferences).apply {
                     val defaultFilters = ArrayList<CameraFilter>().apply {
                         add(
                             CameraFilter(
@@ -251,7 +257,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                     title = getString(R.string.camera_video_filter_settings)
                     key = "camera_video_filter_settings"
-                    context.getStringSet(ModulePrefs, key, ArraySet()).forEach {
+                    getStringSet(ModulePrefs, key, ArraySet()).forEach {
                         defaultFilters.find { its -> its.key == it }?.isEnable = true
                     }
                     val keys = ArrayList<String>()
@@ -267,7 +273,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     summary = enabledTitle.toString()
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                        MaterialAlertDialogBuilder(this@loadPreferences, dialogCentered).apply {
                             setTitle(title)
                             setMultiChoiceItems(
                                 titles.toTypedArray(), values.toBooleanArray(), null
@@ -280,7 +286,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                                     val key = keys[position]
                                     if (isChecked) set.add(key)
                                 }
-                                context.putStringSet(ModulePrefs, key, set.toSet())
+                                putStringSet(ModulePrefs, key, set.toSet())
                                 (activity as MainActivity).restart()
                             }
                             setNeutralButton(android.R.string.cancel, null)
@@ -291,11 +297,11 @@ class OplusCamera : BaseScopePreferenceFeagment() {
             }
             //其他
             if (SDK >= A13) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.settings_other_preference)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_10_bit_image_support)
                     summary = getString(R.string.enable_10_bit_image_support_summary)
                     key = "enable_10_bit_image_support"
@@ -306,7 +312,5 @@ class OplusCamera : BaseScopePreferenceFeagment() {
         }
     }
 
-    override fun isEnableRestartMenu(): Boolean = true
-    override fun isEnableOpenMenu(): Boolean = true
     override fun callOpenMenu() = requireActivity().openApp(scopes)
 }

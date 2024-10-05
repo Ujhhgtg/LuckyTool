@@ -1,6 +1,6 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
-import android.os.Bundle
+import android.content.Context
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.DropDownPreference
 import androidx.preference.EditTextPreference
@@ -18,10 +18,18 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.setSummaryProvider
 
 @Obfuscate
-class Aod : BaseScopePreferenceFeagment() {
+class AodRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.oplus.aod", "com.oplus.uiengine")
+
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.aod
+
     private val pickFile = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
             val path = FileUtils.getDocumentPath(requireActivity(), it)
@@ -31,29 +39,28 @@ class Aod : BaseScopePreferenceFeagment() {
         (activity as MainActivity).restart()
     }
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
             //息屏相关
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AodRelated)
                 key = "AodRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_aod_music_whitelist)
                 key = "remove_aod_music_whitelist"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_aod_notification_icon_whitelist)
                 key = "remove_aod_notification_icon_whitelist"
                 setDefaultValue(false)
                 isVisible = SDK == A13
                 isIconSpaceReserved = false
             })
-            addPreference(DropDownPreference(context).apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_aod_notification_icon_style)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "set_aod_notification_icon_style"
@@ -63,7 +70,7 @@ class Aod : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_enable_screen_off_music_support)
                 summary = getString(R.string.force_enable_screen_off_music_support_summary)
                 key = "force_enable_screen_off_music_support"
@@ -72,12 +79,12 @@ class Aod : BaseScopePreferenceFeagment() {
             })
             //随机一言
             if (osCode >= 26) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.AodRandomText)
                     key = "AodRandomText"
                     isIconSpaceReserved = false
                 })
-                addPreference(DropDownPreference(context).apply {
+                add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_random_text_display_mode)
                     summary = arraySummaryLine(
                         getString(R.string.common_words_current_mode) + ": %s",
@@ -94,11 +101,11 @@ class Aod : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                when (context.getString(ModulePrefs, "set_random_text_display_mode", "0")) {
-                    "1" -> addPreference(Preference(context).apply {
+                when (getString(ModulePrefs, "set_random_text_display_mode", "0")) {
+                    "1" -> add(Preference(this@loadPreferences).apply {
                         title = getString(R.string.custom_random_text_file)
                         key = "custom_random_text_file"
-                        val path = context.getString(ModulePrefs, key, "")
+                        val path = getString(ModulePrefs, key, "")
                         summary = path.ifBlank { "Null" }
                         isCopyingEnabled = path.isNotBlank()
                         isIconSpaceReserved = false
@@ -108,27 +115,24 @@ class Aod : BaseScopePreferenceFeagment() {
                         }
                     })
 
-                    "2" -> addPreference(EditTextPreference(context).apply {
+                    "2" -> add(EditTextPreference(this@loadPreferences).apply {
                         title = getString(R.string.custom_random_text_api)
                         dialogTitle = title
                         key = "custom_random_text_api"
                         setDefaultValue("")
-                        setSummaryProvider {
-                            EditTextPreference.SimpleSummaryProvider.getInstance()
-                                .provideSummary(this)
-                        }
+                        setSummaryProvider(this)
                         isIconSpaceReserved = false
                     })
                 }
             }
             //字体样式
             if (osCode >= 26) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.AodTypface)
                     key = "AodTypface"
                     isIconSpaceReserved = false
                 })
-                addPreference(DropDownPreference(context).apply {
+                add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_aod_typeface_mode)
                     summary = getString(R.string.common_words_current_mode) + ": %s"
                     key = "set_aod_typeface_mode"
@@ -141,8 +145,8 @@ class Aod : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getString(ModulePrefs, "set_aod_typeface_mode") != "0") {
-                    addPreference(SwitchPreference(context).apply {
+                if (getString(ModulePrefs, "set_aod_typeface_mode") != "0") {
+                    add(SwitchPreference(this@loadPreferences).apply {
                         title = getString(R.string.apply_aod_clock_typeface)
                         key = "apply_aod_clock_typeface"
                         setDefaultValue(false)
@@ -152,6 +156,4 @@ class Aod : BaseScopePreferenceFeagment() {
             }
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

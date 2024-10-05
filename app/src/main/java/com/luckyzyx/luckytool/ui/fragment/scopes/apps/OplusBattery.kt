@@ -1,7 +1,8 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
-import android.os.Bundle
+import android.content.Context
 import androidx.preference.EditTextPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
@@ -13,16 +14,24 @@ import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.setSummaryProvider
 
 @Obfuscate
 class OplusBattery : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.battery")
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val isEnableOpenMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusBattery
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
             if (SDK >= A13) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.open_battery_health)
                     summary = getString(R.string.open_battery_health_summary)
                     key = "open_battery_health"
@@ -33,19 +42,16 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getBoolean(ModulePrefs, "open_battery_health", false)) {
-                    addPreference(EditTextPreference(context).apply {
+                if (getBoolean(ModulePrefs, "open_battery_health", false)) {
+                    add(EditTextPreference(this@loadPreferences).apply {
                         title = getString(R.string.customize_battery_health_data_percentage)
                         dialogTitle = title
                         key = "customize_battery_health_data_percentage"
                         setDefaultValue("")
-                        setSummaryProvider {
-                            EditTextPreference.SimpleSummaryProvider.getInstance()
-                                .provideSummary(this)
-                        }
+                        setSummaryProvider(this)
                         isIconSpaceReserved = false
                     })
-                    addPreference(SwitchPreference(context).apply {
+                    add(SwitchPreference(this@loadPreferences).apply {
                         title = getString(R.string.display_module_calculates_battery_health_data)
                         summary =
                             getString(R.string.display_module_calculates_battery_health_data_summary)
@@ -54,13 +60,13 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                     })
                 }
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_stop_charging_at_80)
                     key = "enable_stop_charging_at_80"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.open_screen_power_save)
                     summary = getString(R.string.open_screen_power_save_summary)
                     key = "open_screen_power_save"
@@ -68,7 +74,7 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_battery_temperature_control)
                 summary = getString(R.string.remove_battery_temperature_control_summary)
                 key = "remove_battery_temperature_control"
@@ -76,12 +82,12 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //电池优化
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.BatteryOptimization)
                 key = "BatteryOptimization"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.restore_default_battery_optimization_whitelist)
                 key = "restore_default_battery_optimization_whitelist"
                 setDefaultValue(false)
@@ -90,7 +96,5 @@ class OplusBattery : BaseScopePreferenceFeagment() {
         }
     }
 
-    override fun isEnableRestartMenu(): Boolean = true
-    override fun isEnableOpenMenu(): Boolean = true
     override fun callOpenMenu() = IntentUtils(requireActivity()).jumpBattery()
 }

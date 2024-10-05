@@ -321,7 +321,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                                 2 -> DonateUtils.showQRCode(context, Base64CodeUtils.alipayCode)
                                 3 -> if (isZh(context)) {
                                     navigatePage(
-                                        R.id.action_nav_setting_to_donateFragment,
+                                        R.id.donateFragment,
                                         getString(R.string.donation_list)
                                     )
                                 } else startActivity(
@@ -338,7 +338,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                                 )
 
                                 5 -> navigatePage(
-                                    R.id.action_nav_setting_to_donateFragment,
+                                    R.id.donateFragment,
                                     getString(R.string.donation_list)
                                 )
                             }

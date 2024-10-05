@@ -110,7 +110,7 @@ class HomeFragment : Fragment(), MenuProvider {
         binding.fpsTitle.text = getString(R.string.fps_title)
         binding.fpsSummary.text = getString(R.string.fps_summary)
         binding.fps.setOnClickListener {
-            navigatePage(R.id.action_nav_home_to_forceFpsFragment, getString(R.string.fps_title))
+            navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
         }
 //        binding.fps.setOnLongClickListener {
 //            navigatePage(R.id.action_nav_home_to_mainPrefsFragment)

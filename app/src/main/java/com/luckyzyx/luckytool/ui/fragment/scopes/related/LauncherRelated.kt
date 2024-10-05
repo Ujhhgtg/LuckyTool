@@ -1,6 +1,6 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
-import android.os.Bundle
+import android.content.Context
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -21,36 +21,40 @@ import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
-class Launcher : BaseScopePreferenceFeagment() {
+class LauncherRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.coloros.alarmclock", "com.android.launcher", "com.oppo.launcher"
     )
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.launcher
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
             //时钟组件
-            addPreference(DropDownPreference(context).apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.alarmclock_widget_redone_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "alarmclock_widget_redone_mode"
-                entries =
-                    resources.getStringArray(R.array.statusbar_control_center_clock_red_one_mode_entries)
+                setEntries(R.array.statusbar_control_center_clock_red_one_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.sendPrefsValue("com.coloros.alarmclock", key, newValue)
+                    sendPrefsValue("com.coloros.alarmclock", key, newValue)
                     true
                 }
             })
             //应用徽章
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppBadgeRelated)
                 key = "AppBadgeRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_display_app_update_dot)
                 summary = getString(R.string.enable_display_app_update_dot_summary)
                 key = "enable_display_app_update_dot"
@@ -58,20 +62,20 @@ class Launcher : BaseScopePreferenceFeagment() {
                 isVisible = osCode < 33
                 isIconSpaceReserved = false
             })
-            addPreference(DropDownPreference(context).apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_app_update_dot_display_mode)
                 key = "set_app_update_dot_display_mode"
                 val summaryLines = arrayListOf(
                     getString(R.string.common_words_current_mode) + ": %s"
                 )
-                val value = context.getString(ModulePrefs, key, "0")
+                val value = getString(ModulePrefs, key, "0")
                 when (value) {
                     "1" -> summaryLines.add(getString(R.string.need_restart_system))
                     "2" -> summaryLines.add(getString(R.string.need_restart_scope))
                 }
                 summary = arraySummaryLine(*summaryLines.toTypedArray())
 
-                entries = resources.getStringArray(R.array.set_app_update_dot_display_mode_entries)
+                setEntries(R.array.set_app_update_dot_display_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
@@ -82,19 +86,19 @@ class Launcher : BaseScopePreferenceFeagment() {
                 }
             })
             if (SDK >= A13) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.remove_app_shortcut_badge)
                     key = "remove_app_shortcut_badge"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.remove_app_work_badge)
                     key = "remove_app_work_badge"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.remove_app_clone_badge)
                     key = "remove_app_clone_badge"
                     setDefaultValue(false)
@@ -102,18 +106,18 @@ class Launcher : BaseScopePreferenceFeagment() {
                 })
             }
             //文件夹布局
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.FolderLayoutRelated)
                 key = "FolderLayoutRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_folder_preview_background)
                 key = "remove_folder_preview_background"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_folder_layout_adjustment)
                 key = "enable_folder_layout_adjustment"
                 setDefaultValue(false)
@@ -123,8 +127,8 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "enable_folder_layout_adjustment", false)) {
-                addPreference(SeekBarPreference(context).apply {
+            if (getBoolean(ModulePrefs, "enable_folder_layout_adjustment", false)) {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_icon_columns_in_folder)
                     key = "set_icon_columns_in_folder"
                     setDefaultValue(3)
@@ -134,7 +138,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.sync_folder_icon_column_number_preview)
                     key = "sync_folder_icon_column_number_preview"
                     setDefaultValue(false)
@@ -142,24 +146,24 @@ class Launcher : BaseScopePreferenceFeagment() {
                 })
             }
             //分页组件
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.PaginationComponentRelated)
                 key = "PaginationComponentRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_pagination_component)
                 key = "remove_pagination_component"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_folder_pagination_component)
                 key = "remove_folder_pagination_component"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.disable_pagination_component_sliding)
                 key = "disable_pagination_component_sliding"
                 setDefaultValue(false)
@@ -167,12 +171,12 @@ class Launcher : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //最近任务列表
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.RecentTaskListRelated)
                 key = "RecentTaskListRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_stacked_task_layout)
                 key = "enable_stacked_task_layout"
                 setDefaultValue(false)
@@ -183,8 +187,8 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "enable_stacked_task_layout", false)) {
-                addPreference(SeekBarPreference(context).apply {
+            if (getBoolean(ModulePrefs, "enable_stacked_task_layout", false)) {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_task_stacking_level)
                     key = "set_task_stacking_level"
                     setDefaultValue(7)
@@ -195,7 +199,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     isVisible = false
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.fix_current_task_to_the_top)
                     key = "fix_current_task_to_the_top"
                     setDefaultValue(false)
@@ -203,47 +207,46 @@ class Launcher : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.long_press_app_icon_open_app_details)
                 key = "long_press_app_icon_open_app_details"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_bottom_app_icon_of_recent_task_list)
                 key = "remove_bottom_app_icon_of_recent_task_list"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_recent_task_list_clear_button)
                 key = "remove_recent_task_list_clear_button"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_task_locks)
                 key = "unlock_task_locks"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.allow_locking_unlocking_of_excluded_activity)
                 key = "allow_locking_unlocking_of_excluded_activity"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(DropDownPreference(context).apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.custom_app_floating_window_display_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"
                 key = "custom_app_floating_window_display_mode"
-                entries =
-                    resources.getStringArray(R.array.custom_app_floating_window_display_mode_entries)
+                setEntries(R.array.custom_app_floating_window_display_mode_entries)
                 entryValues = arrayOf("0", "1", "2", "3")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.sendPrefsValue("android", key, newValue)
+                    sendPrefsValue("android", key, newValue)
                     if ((newValue.toString().toIntOrNull() ?: 0) >= 2) {
                         ShellUtils.fastCmd("settings put global enable_non_resizable_multi_window 1")
                     }
@@ -251,37 +254,37 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.zoom_window_support_list)
                 summary = getString(R.string.zoom_window_support_list_summary)
                 key = "zoom_window_support_list"
-                isVisible = context.getString(
+                isVisible = getString(
                     ModulePrefs, "custom_app_floating_window_display_mode", "0"
                 ) == "3"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_launcher_to_zoomWindowFragment, title)
+                    navigatePage(R.id.zoomWindowFragment, title)
                     true
                 }
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_all_apps_support_split_screen)
                 key = "force_all_apps_support_split_screen"
                 setDefaultValue(false)
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    context.sendPrefsValue("android", key, newValue as Boolean)
+                    sendPrefsValue("android", key, newValue as Boolean)
                     true
                 }
             })
             //抽屉布局
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.launcher_drawer_layout_related)
                 key = "DrawerLayoutRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_drawer_layout_adjustment)
                 key = "enable_drawer_layout_adjustment"
                 setDefaultValue(false)
@@ -291,8 +294,8 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "enable_drawer_layout_adjustment", false)) {
-                addPreference(SeekBarPreference(context).apply {
+            if (getBoolean(ModulePrefs, "enable_drawer_layout_adjustment", false)) {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_icon_columns_in_drawer)
                     key = "set_icon_columns_in_drawer"
                     setDefaultValue(4)
@@ -304,12 +307,12 @@ class Launcher : BaseScopePreferenceFeagment() {
                 })
             }
             //桌面布局
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.launcher_layout_related)
                 key = "DesktopLayoutRelated"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.launcher_layout_enable)
                 summary = getString(R.string.launcher_layout_row_colume)
                 key = "launcher_layout_enable"
@@ -320,8 +323,8 @@ class Launcher : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "launcher_layout_enable", false)) {
-                addPreference(SeekBarPreference(context).apply {
+            if (getBoolean(ModulePrefs, "launcher_layout_enable", false)) {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.launcher_layout_max_rows)
                     key = "launcher_layout_max_rows"
                     setDefaultValue(6)
@@ -331,7 +334,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                     updatesContinuously = false
                     isIconSpaceReserved = false
                 })
-                addPreference(SeekBarPreference(context).apply {
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.launcher_layout_max_columns)
                     key = "launcher_layout_max_columns"
                     setDefaultValue(4)
@@ -343,7 +346,7 @@ class Launcher : BaseScopePreferenceFeagment() {
                 })
             }
             //桌面事件
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.launcher_events)
                 key = "LauncherEvents"
                 isVisible = false
@@ -351,6 +354,4 @@ class Launcher : BaseScopePreferenceFeagment() {
             })
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

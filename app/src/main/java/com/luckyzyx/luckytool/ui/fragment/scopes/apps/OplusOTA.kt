@@ -1,6 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
-import android.os.Bundle
+import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.drake.net.utils.scopeLife
@@ -15,13 +15,20 @@ import com.luckyzyx.luckytool.utils.navigatePage
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
-class OplusOta : BaseScopePreferenceFeagment() {
+class OplusOTA : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.ota")
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(Preference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val isEnableOpenMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusOta
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_local_upgrade)
                 summary = getString(R.string.unlock_local_upgrade_summary)
                 key = "unlock_local_upgrade"
@@ -41,13 +48,13 @@ class OplusOta : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_ota_local_update_verity)
                 key = "remove_ota_local_update_verity"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 val verityMode =
                     ShellUtils.fastCmd("${CommandUtils.getprop} ${CommandUtils.otaVerityMode}")
                 val vbMetaState =
@@ -73,21 +80,19 @@ class OplusOta : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.extract_ota_information)
                 summary = getString(R.string.extract_ota_information_summary)
                 key = "extract_ota_information"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_oplusOta_to_extractOTAFragment, title)
+                    navigatePage(R.id.extractOTAFragment, title)
                     true
                 }
             })
         }
     }
 
-    override fun isEnableRestartMenu(): Boolean = true
-    override fun isEnableOpenMenu(): Boolean = true
     override fun callOpenMenu() = IntentUtils(requireActivity()).jumpOTA()
 }

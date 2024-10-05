@@ -46,7 +46,10 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
@@ -712,13 +715,20 @@ fun showRefreshRate(status: Boolean) {
 /**
  * 跳转fragment设置标题
  * @receiver Fragment
- * @param action Int Action ID
+ * @param fragemntId Int Action ID
  * @param title String 页面标题
  */
-fun Fragment.navigatePage(action: Int, title: CharSequence? = "Title") = try {
-    findNavController().navigate(action, Bundle().apply {
-        putCharSequence("title_label", title)
-    })
+fun Fragment.navigatePage(fragemntId: Int, title: CharSequence?) = try {
+    val bundle = Bundle().apply {
+        if (!title.isNullOrBlank()) putCharSequence("title_text", title)
+    }
+    val navOptions = NavOptions.Builder().apply {
+        setEnterAnim(R.anim.fragment_enter)
+        setExitAnim(R.anim.fragment_exit)
+        setPopEnterAnim(R.anim.fragment_enter_pop)
+        setPopExitAnim(R.anim.fragment_exit_pop)
+    }.build()
+    findNavController().navigate(fragemntId, bundle, navOptions)
 } catch (_: IllegalArgumentException) {
 
 }
@@ -731,7 +741,13 @@ fun Fragment.navigatePage(action: Int, title: CharSequence? = "Title") = try {
  * @param bundle Bundle?
  */
 fun Fragment.navigatePage(action: Int, bundle: Bundle?) = try {
-    findNavController().navigate(action, bundle)
+    val navOptions = NavOptions.Builder().apply {
+        setEnterAnim(R.anim.fragment_enter)
+        setExitAnim(R.anim.fragment_exit)
+        setPopEnterAnim(R.anim.fragment_enter_pop)
+        setPopExitAnim(R.anim.fragment_exit_pop)
+    }.build()
+    findNavController().navigate(action, bundle, navOptions)
 } catch (_: IllegalArgumentException) {
 
 }
@@ -969,3 +985,15 @@ fun String.convertList(): ArrayList<String> {
 }
 
 val File.getUri: Uri get() = Uri.fromFile(this)
+
+fun setSummaryProvider(preference: Preference) {
+    when (preference) {
+        is EditTextPreference -> preference.setSummaryProvider {
+            EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(preference)
+        }
+
+        is ListPreference -> preference.setSummaryProvider {
+            ListPreference.SimpleSummaryProvider.getInstance().provideSummary(preference)
+        }
+    }
+}

@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
-import android.os.Bundle
+import android.content.Context
+import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
@@ -13,10 +14,15 @@ import com.luckyzyx.luckytool.utils.SDK
 class OplusMMS : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.mms")
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusMMS
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_verification_code_floating_window)
                 key = "remove_verification_code_floating_window"
                 setDefaultValue(false)
@@ -25,6 +31,4 @@ class OplusMMS : BaseScopePreferenceFeagment() {
             })
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

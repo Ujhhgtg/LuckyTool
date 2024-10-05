@@ -1,6 +1,6 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
-import android.os.Bundle
+import android.content.Context
 import android.util.ArraySet
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
@@ -25,7 +25,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 
 @Obfuscate
-class StatusBar : BaseScopePreferenceFeagment() {
+class StatusBarRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.android.systemui",
         "com.oplus.battery",
@@ -34,10 +34,15 @@ class StatusBar : BaseScopePreferenceFeagment() {
         "com.oplus.mediacontroller"
     )
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(Preference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.statusBar
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarClock)
                 summary = arraySummaryDot(
                     getString(R.string.statusbar_clock_show_second),
@@ -49,11 +54,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarClock"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarClock, title)
+                    navigatePage(R.id.statusBarClock, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarNetWorkSpeed)
                 summary = arraySummaryDot(
                     getString(R.string.enable_double_row_network_speed),
@@ -62,11 +67,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarNetWorkSpeed"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarNetWorkSpeed, title)
+                    navigatePage(R.id.statusBarNetWorkSpeed, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarNotice)
                 summary = arraySummaryDot(
                     getString(R.string.RemoveStatusBarNotifications),
@@ -75,11 +80,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarNotice"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarNotice, title)
+                    navigatePage(R.id.statusBarNotify, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarIcon)
                 summary = arraySummaryDot(
                     getString(R.string.remove_mobile_data_inout),
@@ -88,11 +93,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarIcon"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarIcon, title)
+                    navigatePage(R.id.statusBarIcon, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarControlCenter)
                 summary = arraySummaryDot(
                     getString(R.string.control_center_clock_show_second),
@@ -101,11 +106,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarControlCenter"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarControlCenter, title)
+                    navigatePage(R.id.statusBarControlCenter, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarTiles)
                 summary = arraySummaryDot(
                     getString(R.string.long_press_wifi_tile_open_the_page),
@@ -114,11 +119,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarTiles"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarTiles, title)
+                    navigatePage(R.id.statusBarTiles, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarLayout)
                 summary = arraySummaryDot(
                     getString(R.string.statusbar_layout_mode),
@@ -128,11 +133,11 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
                 isVisible = SDK == A13
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarLayout, title)
+                    navigatePage(R.id.statusBarLayout, title)
                     true
                 }
             })
-            addPreference(Preference(context).apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.StatusBarBattery)
                 summary = arraySummaryDot(
                     getString(R.string.remove_statusbar_battery_percent),
@@ -141,38 +146,37 @@ class StatusBar : BaseScopePreferenceFeagment() {
                 key = "StatusBarBattery"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBar_to_statusBarBattery, title)
+                    navigatePage(R.id.statusBarBattery, title)
                     true
                 }
             })
             //状态栏事件
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.StatusbarEvents)
                 key = "StatusbarEvents"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_double_click_lock_screen)
                 key = "statusbar_double_click_lock_screen"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.vibrate_when_opening_the_statusbar)
                 key = "vibrate_when_opening_the_statusbar"
                 setDefaultValue(false)
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false
             })
-            addPreference(DropDownPreference(context).apply {
+            add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_click_statusbar_scroll_to_top_mode)
                 summary = arraySummaryLine(
                     getString(R.string.common_words_current_mode) + ": %s",
                     getString(R.string.need_restart_system)
                 )
                 key = "set_click_statusbar_scroll_to_top_mode"
-                entries =
-                    resources.getStringArray(R.array.set_click_statusbar_scroll_to_top_mode_entries)
+                setEntries(R.array.set_click_statusbar_scroll_to_top_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isVisible = SDK >= A13
@@ -180,7 +184,7 @@ class StatusBar : BaseScopePreferenceFeagment() {
             })
             //音乐流体云
             if (osCode >= 33) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.custom_music_fluid_cloud_whitelist)
                     key = "custom_music_fluid_cloud_whitelist"
                     setDefaultValue(false)
@@ -190,24 +194,24 @@ class StatusBar : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getBoolean(ModulePrefs, "custom_music_fluid_cloud_whitelist")) {
-                    addPreference(SwitchPreference(context).apply {
+                if (getBoolean(ModulePrefs, "custom_music_fluid_cloud_whitelist")) {
+                    add(SwitchPreference(this@loadPreferences).apply {
                         title = getString(R.string.disable_music_fluid_cloud_display)
                         key = "disable_music_fluid_cloud_display"
                         setDefaultValue(false)
                         isIconSpaceReserved = false
                     })
-                    addPreference(Preference(context).apply {
+                    add(Preference(this@loadPreferences).apply {
                         key = "set_custom_music_fluid_cloud_whitelist"
                         title = getString(R.string.set_custom_music_fluid_cloud_whitelist)
-                        val value = context.getStringSet(ModulePrefs, key, ArraySet())
+                        val value = getStringSet(ModulePrefs, key, ArraySet())
                         summary = value.toString()
-                        isEnabled = context.getBoolean(
+                        isEnabled = getBoolean(
                             ModulePrefs, "disable_music_fluid_cloud_display"
                         ).not()
                         isIconSpaceReserved = false
                         setOnPreferenceClickListener {
-                            AppInfoSelector(context, true).apply {
+                            AppInfoSelector(this@loadPreferences, true).apply {
                                 setEnabledList(ArrayList(value))
                                 setOnSelectAppListener(object : OnSelectAppInfoListener {
                                     override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
@@ -216,7 +220,7 @@ class StatusBar : BaseScopePreferenceFeagment() {
                                                 add(appInfo.packageName)
                                             }
                                         }
-                                        context.putStringSet(ModulePrefs, key, set.toSet())
+                                        putStringSet(ModulePrefs, key, set.toSet())
                                         (activity as MainActivity).restart()
                                     }
                                 })
@@ -226,19 +230,17 @@ class StatusBar : BaseScopePreferenceFeagment() {
                         }
                     })
                 }
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.force_enable_media_music_fluid_cloud_ripple)
                     key = "force_enable_media_music_fluid_cloud_ripple"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
-                        context.sendPrefsValue("com.oplus.mediacontroller", key, newValue)
+                        sendPrefsValue("com.oplus.mediacontroller", key, newValue)
                         true
                     }
                 })
             }
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
-import android.os.Bundle
+import android.content.Context
+import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
@@ -19,10 +20,15 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
         "com.oplus.audio.effectcenter"
     )
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusSoundRecorder
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_record_calls_on_third_party_apps)
                 summary = arraySummaryLine(
                     getString(R.string.need_restart_system),
@@ -32,21 +38,19 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 key = "enable_record_calls_on_third_party_apps"
                 setDefaultValue(false)
                 isEnabled =
-                    context.checkPackName("com.oplus.audiomonitor") && context.checkPackName("com.oplus.atlas")
+                    checkPackName("com.oplus.audiomonitor") && checkPackName("com.oplus.atlas")
                 isVisible = osCode == 30 && isZh(context)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.expand_voip_recorder_whitelist)
                 summary = "企业微信,TIM,飞书,抖音"
                 key = "expand_voip_recorder_whitelist"
                 setDefaultValue(false)
-                isEnabled = context.checkPackName("com.oplus.audiomonitor")
+                isEnabled = checkPackName("com.oplus.audiomonitor")
                 isVisible = osCode >= 31 && isZh(context)
                 isIconSpaceReserved = false
             })
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

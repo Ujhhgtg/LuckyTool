@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
-import android.os.Bundle
+import android.content.Context
+import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
@@ -13,31 +14,37 @@ import com.luckyzyx.luckytool.utils.SDK
 @Obfuscate
 class OplusSmartSidebar : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.coloros.smartsidebar")
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(SwitchPreference(context).apply {
+
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusSmartSidebar
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_enable_buoy_automatically_hides)
                 key = "force_enable_buoy_automatically_hides"
                 setDefaultValue(false)
                 isVisible = SDK == A12
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_transfer_dock)
                 key = "unlock_transfer_dock"
                 setDefaultValue(false)
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_recent_files)
                 key = "unlock_recent_files"
                 setDefaultValue(false)
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_run_in_background)
                 key = "enable_run_in_background"
                 setDefaultValue(false)
@@ -46,6 +53,4 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
             })
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }

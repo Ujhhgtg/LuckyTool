@@ -1,9 +1,9 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Bundle
 import androidx.core.graphics.drawable.toDrawable
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
@@ -59,17 +59,24 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         }
     }
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val isEnableOpenMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.oplusSettings
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
             //连接与共享
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_connection_sharing)
                 key = "settings_connection_sharing"
                 isVisible = false
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_display_multi_screen_connect)
                 key = "force_display_multi_screen_connect"
                 setDefaultValue(false)
@@ -77,12 +84,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //状态栏
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_status_bar)
                 key = "settings_status_bar"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_statusbar_clock_format)
                 summary = getString(R.string.enable_statusbar_clock_format_summary)
                 key = "enable_statusbar_clock_format"
@@ -90,12 +97,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //锁屏
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_lock_screen)
                 key = "settings_lock_screen"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_show_never_timeout)
                 summary = getString(R.string.enable_show_never_timeout_summary)
                 key = "enable_show_never_timeout"
@@ -103,13 +110,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //显示
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_display)
                 key = "settings_display"
                 isIconSpaceReserved = false
             })
             if (osCode >= 30) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_extra_brightness)
                     summary = arraySummaryLine(
                         getString(R.string.need_restart_system)
@@ -118,7 +125,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_lowest_allowed_brightness)
                     key = "enable_lowest_allowed_brightness"
                     setDefaultValue(false)
@@ -126,7 +133,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 })
             }
             if (osCode >= 26) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_video_memc_frame_insertion)
                     summary = arraySummaryLine(
                         getString(R.string.enable_video_memc_frame_insertion_summary),
@@ -140,8 +147,8 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getBoolean(ModulePrefs, "enable_video_memc_frame_insertion", false)) {
-                    addPreference(Preference(context).apply {
+                if (getBoolean(ModulePrefs, "enable_video_memc_frame_insertion", false)) {
+                    add(Preference(this@loadPreferences).apply {
                         title =
                             getString(R.string.custom_video_dynamic_frame_insertion_configuration)
                         summary = arraySummaryLine(
@@ -150,11 +157,11 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         key = "custom_video_dynamic_frame_insertion_configuration"
                         isIconSpaceReserved = false
                         setOnPreferenceClickListener {
-                            navigatePage(R.id.action_settings_to_memcConfigFragment, title)
+                            navigatePage(R.id.memcConfigFragment, title)
                             true
                         }
                     })
-                    addPreference(SwitchPreference(context).apply {
+                    add(SwitchPreference(this@loadPreferences).apply {
                         title = getString(R.string.video_frame_insertion_support_2K120)
                         summary = getString(R.string.video_frame_insertion_support_2K120_summary)
                         key = "video_frame_insertion_support_2K120"
@@ -163,7 +170,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     })
                 }
             }
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_screen_color_temperature_rgb_palette)
                 summary = arraySummaryLine(
                     getString(R.string.need_restart_system),
@@ -174,7 +181,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_smart_switching_screen_resolutions)
                 key = "enable_smart_switching_screen_resolutions"
                 setDefaultValue(false)
@@ -182,12 +189,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
             })
             //声音
             if (osCode >= 27) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.settings_sound)
                     key = "settings_sound"
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_clear_voice)
                     summary = arraySummaryLine(
                         getString(R.string.enable_clear_voice_tips),
@@ -198,7 +205,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isVisible = SDK >= A14
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_holographic_audio)
                     key = "enable_holographic_audio"
                     setDefaultValue(false)
@@ -206,30 +213,30 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 })
             }
             //应用
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_application)
                 key = "settings_application"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_default_desktop_limit)
                 key = "unlock_default_desktop_limit"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_display_process_management)
                 key = "force_display_process_management"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_display_disabled_apps_manager)
                 key = "force_display_disabled_apps_manager"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.auto_unlock_restricted_settings)
                 summary = getString(R.string.auto_unlock_restricted_settings_summary)
                 key = "auto_unlock_restricted_settings"
@@ -237,7 +244,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_dedicated_ram_for_games)
                 key = "enable_dedicated_ram_for_games"
                 setDefaultValue(false)
@@ -245,24 +252,24 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //密码与安全
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_password_and_security)
                 key = "settings_password_and_security"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_google_auto_fill)
                 key = "enable_google_auto_fill"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.restore_password_management_settings)
                 key = "force_display_password_management_settings"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.disable_device_admin_verification_dialog)
                 key = "disable_device_admin_verification_dialog"
                 setDefaultValue(false)
@@ -270,12 +277,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
             })
             //权限与隐私
             if (SDK >= 666) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.settings_authority_and_privacy)
                     key = "settings_authority_and_privacy"
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_vip_mode)
                     key = "enable_vip_mode"
                     setDefaultValue(false)
@@ -284,12 +291,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 })
             }
             //其他设置
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_other_advanced_settings)
                 key = "settings_other_advanced_settings"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_touch_membrane_protector_mode)
                 key = "enable_touch_membrane_protector_mode"
                 setDefaultValue(false)
@@ -297,7 +304,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             if (osCode >= 30) {
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.disable_otg_auto_off)
                     summary = getString(R.string.disable_otg_auto_off_summary)
                     key = "disable_otg_auto_off"
@@ -305,7 +312,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_game_acceleration)
                 summary = arraySummaryLine(
                     getString(R.string.need_restart_system)
@@ -315,21 +322,21 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_display_content_recommend)
                 key = "force_display_content_recommend"
                 setDefaultValue(false)
-                isVisible = isZh(context)
+                isVisible = isZh(this@loadPreferences)
                 isIconSpaceReserved = false
             })
             //关于本机
             if (SDK >= A13) {
-                addPreference(PreferenceCategory(context).apply {
+                add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.settings_about_device)
                     key = "settings_about_device"
                     isIconSpaceReserved = false
                 })
-                addPreference(DropDownPreference(context).apply {
+                add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_processor_click_page)
                     summary = "%s"
                     key = "set_processor_click_page"
@@ -338,34 +345,34 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     setDefaultValue("0")
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_mariana_npu_introduction_page)
                     key = "enable_mariana_npu_introduction_page"
                     setDefaultValue(false)
                     isVisible = osCode >= 27
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_hasselblad_camera_introduction_page)
                     key = "enable_hasselblad_camera_introduction_page"
                     setDefaultValue(false)
                     isVisible = osCode >= 27
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.screen_physics_size_shown_cm)
                     key = "screen_physics_size_shown_cm"
                     setDefaultValue(false)
                     isVisible = osCode >= 27
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.customize_device_sharing_page_parameters)
                     key = "customize_device_sharing_page_parameters"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
-                addPreference(SwitchPreference(context).apply {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.customize_device_ota_card_background)
                     summary = getString(R.string.customize_device_ota_card_background_summary)
                     key = "customize_device_ota_card_background"
@@ -376,19 +383,19 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                if (context.getBoolean(
+                if (getBoolean(
                         ModulePrefs, "customize_device_ota_card_background", false
                     )
                 ) {
-                    addPreference(Preference(context).apply {
+                    add(Preference(this@loadPreferences).apply {
                         title = getString(R.string.customize_device_ota_card_background_path)
                         key = "customize_device_ota_card_background_path"
-                        val path = context.getString(ModulePrefs, key, "")
+                        val path = getString(ModulePrefs, key, "")
                         if (path.isBlank()) {
                             summary = "Null"
                             isIconSpaceReserved = false
                         } else {
-                            icon = BitmapFactory.decodeFile(path)?.toDrawable(context.resources)
+                            icon = BitmapFactory.decodeFile(path)?.toDrawable(resources)
                             summary = path
                             isCopyingEnabled = true
                         }
@@ -415,57 +422,57 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 }
             }
             //其他首选项
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_other_preference)
                 key = "settings_other_preference"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_top_account_display)
                 key = "remove_top_account_display"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.disable_cn_special_edition_setting)
                 key = "disable_cn_special_edition_setting"
                 setDefaultValue(false)
-                isVisible = isZh(context)
+                isVisible = isZh(this@loadPreferences)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
                     (activity as MainActivity).restart()
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "disable_cn_special_edition_setting", false)) {
-                addPreference(SwitchPreference(context).apply {
+            if (getBoolean(ModulePrefs, "disable_cn_special_edition_setting", false)) {
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.fix_default_app_jump_problem)
                     summary = getString(R.string.fix_default_app_jump_problem_summary)
                     key = "fix_default_app_jump_problem"
                     setDefaultValue(false)
-                    isVisible = isZh(context)
+                    isVisible = isZh(this@loadPreferences)
                     isIconSpaceReserved = false
                 })
             }
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_settings_bottom_laboratory)
                 key = "remove_settings_bottom_laboratory"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_display_bottom_google_settings)
                 key = "force_display_bottom_google_settings"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             //开发者选项
-            addPreference(PreferenceCategory(context).apply {
+            add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_developer_preference)
                 key = "settings_developer_preference"
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_dpi_restart_recovery)
                 summary = getString(R.string.remove_dpi_restart_recovery_summary)
                 key = "remove_dpi_restart_recovery"
@@ -475,7 +482,5 @@ class OplusSettings : BaseScopePreferenceFeagment() {
         }
     }
 
-    override fun isEnableRestartMenu(): Boolean = true
-    override fun isEnableOpenMenu(): Boolean = true
     override fun callOpenMenu() = requireActivity().openApp(scopes)
 }

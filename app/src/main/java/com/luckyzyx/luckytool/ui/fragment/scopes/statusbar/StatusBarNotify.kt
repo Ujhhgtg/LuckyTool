@@ -1,6 +1,6 @@
-package com.luckyzyx.luckytool.ui.fragment.scopes.apps
+package com.luckyzyx.luckytool.ui.fragment.scopes.statusbar
 
-import android.os.Bundle
+import android.content.Context
 import android.util.ArraySet
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
@@ -29,10 +29,15 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
         "com.oplus.notificationmanager"
     )
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        preferenceManager.sharedPreferencesName = ModulePrefs
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            addPreference(Preference(context).apply {
+    override val isEnableRestartMenu: Boolean = true
+
+    override val currentPrefsName: String = ModulePrefs
+
+    override val navigateFragmentId: Int = R.id.statusBarNotify
+
+    override fun Context.loadPreferences(): ArrayList<Preference> {
+        return ArrayList<Preference>().apply {
+            add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.RemoveStatusBarNotifications)
                 summary = arraySummaryDot(
                     getString(R.string.remove_statusbar_top_notification),
@@ -41,24 +46,24 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 key = "RemoveStatusBarNotifications"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.action_statusBarNotice_to_statusBarNotifyRemoval, title)
+                    navigatePage(R.id.statusBarNotifyRemoval, title)
                     true
                 }
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.allow_long_press_notification_modifiable)
                 key = "allow_long_press_notification_modifiable"
                 setDefaultValue(false)
                 isVisible = osCode <= 30
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_notification_manager_limit)
                 key = "remove_notification_manager_limit"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            addPreference(SwitchPreference(context).apply {
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_small_window_reply_whitelist)
                 key = "remove_small_window_reply_whitelist"
                 setDefaultValue(false)
@@ -68,18 +73,18 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (context.getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
-                addPreference(Preference(context).apply {
+            if (getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
+                add(Preference(this@loadPreferences).apply {
                     key = "set_small_window_reply_blacklist_list"
                     title = getString(R.string.set_small_window_reply_blacklist)
-                    val value = context.getStringSet(ModulePrefs, key, ArraySet())
+                    val value = getStringSet(ModulePrefs, key, ArraySet())
                     summary = arraySummaryLine(
                         getString(R.string.set_small_window_reply_blacklist_message),
                         value.toString()
                     )
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        AppInfoSelector(context, true).apply {
+                        AppInfoSelector(this@loadPreferences, true).apply {
                             setDefaultShowSystem(true)
                             setEnabledList(ArrayList(value))
                             setOnSelectAppListener(object : OnSelectAppInfoListener {
@@ -89,8 +94,8 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                                             add(appInfo.packageName)
                                         }
                                     }
-                                    context.putStringSet(ModulePrefs, key, set.toSet())
-                                    context.sendPrefsValue("com.android.systemui", key, set.toSet())
+                                    putStringSet(ModulePrefs, key, set.toSet())
+                                    sendPrefsValue("com.android.systemui", key, set.toSet())
                                     (activity as MainActivity).restart()
                                 }
                             })
@@ -102,6 +107,4 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
             }
         }
     }
-
-    override fun isEnableRestartMenu(): Boolean = true
 }
