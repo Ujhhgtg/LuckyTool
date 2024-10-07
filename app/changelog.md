@@ -5,7 +5,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.5_beta
 
-- [适配] 扩展三方通话录音白名单
+[//]: # (- [适配] 扩展三方通话录音白名单)
+- [添加] 作用域功能搜索
 
 ### 1.2.4
 

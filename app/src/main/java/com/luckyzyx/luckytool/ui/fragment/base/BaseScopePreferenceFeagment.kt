@@ -3,7 +3,10 @@ package com.luckyzyx.luckytool.ui.fragment.base
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +16,8 @@ import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceGroup.PreferencePositionCallback
+import androidx.recyclerview.widget.RecyclerView
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
@@ -116,13 +121,50 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
             getCharSequence("title_text")?.let {
                 safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
             }
-            val scrollKey = getString("scrollKey")
-            val scrollPosition = getInt("scrollPosition")
-            if (scrollKey.isNullOrBlank()) {
-                val preference = preferenceScreen.getPreference(scrollPosition)
-                scrollToPreference(preference)
-            } else scrollToPreference(scrollKey)
+            val scrollKey = getString("scrollKey", "")
+            val scrollPosition = getInt("scrollPosition", -1)
+            Handler(Looper.getMainLooper()).postDelayed({
+                highLight(scrollKey, scrollPosition)
+            }, 200)
         }
+    }
+
+    private fun highLight(scrollKey: String, scrollPosition: Int) {
+        val recyclerView = listView
+        val adapter = recyclerView.adapter ?: return
+
+        val preference = if (scrollKey.isBlank()) {
+            if (scrollPosition == -1) return
+            val preference = preferenceScreen.getPreference(scrollPosition)
+            scrollToPreference(preference)
+            preference
+        } else {
+            val preference = findPreference<Preference>(scrollKey) ?: return
+            scrollToPreference(scrollKey)
+            preference
+        }
+
+        if (adapter is PreferencePositionCallback) {
+            val position = adapter.getPreferenceAdapterPosition(preference)
+            if (position != RecyclerView.NO_POSITION) {
+                recyclerView.postDelayed({
+                    val holder = recyclerView.findViewHolderForAdapterPosition(position)
+                    if (holder != null) {
+                        val background = holder.itemView.background
+                        if (background is RippleDrawable) {
+                            forceRippleAnimation(background)
+                        }
+                    }
+                }, 300)
+            }
+        }
+    }
+
+    private fun forceRippleAnimation(background: RippleDrawable) {
+        background.setState(
+            intArrayOf(android.R.attr.state_pressed, android.R.attr.state_enabled)
+        )
+        Handler(Looper.getMainLooper()).postDelayed({ background.setState(intArrayOf()) }, 300)
     }
 
     /**
@@ -155,4 +197,6 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         }
         return true
     }
+
+
 }

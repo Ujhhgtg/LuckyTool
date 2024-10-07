@@ -23,7 +23,6 @@ import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -895,22 +894,13 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
                     override fun resultItem(fragmentItem: FragmentItem, prefsItem: PrefsItem) {
                         dialog.dismiss()
                         if (prefsItem.fragmentId == -1) return
-                        prefsItem.fragmentId?.let { id ->
+                        prefsItem.fragmentId?.let { _ ->
                             val bundle = Bundle().apply {
                                 putCharSequence("title_text", "Search Result")
-                                putInt("scrollPosition", prefsItem.position)
                                 putString("scrollKey", prefsItem.key)
+                                putInt("scrollPosition", prefsItem.position)
                             }
-                            val navOptions = NavOptions.Builder().apply {
-                                setEnterAnim(R.anim.fragment_enter)
-                                setExitAnim(R.anim.fragment_exit)
-                                setPopEnterAnim(R.anim.fragment_enter_pop)
-                                setPopExitAnim(R.anim.fragment_exit_pop)
-                            }.build()
-                            navController.navigate(id, bundle, navOptions)
-
-
-//                            prefsItem.key?.let { highLight(fragmentItem.fragment, it) }
+                            navigatePage(prefsItem.fragmentId, bundle)
                         }
                     }
                 })
