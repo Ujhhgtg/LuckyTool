@@ -20,7 +20,7 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.databinding.DialogAppInfoSelectorLayoutBinding
+import com.luckyzyx.luckytool.databinding.DialogActivityInfoSelectorLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutActivityinfoCheckboxItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutActivityinfoItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
@@ -33,7 +33,8 @@ class ActivityInfoSelector(
     context: Context, private val multiMode: Boolean, private val activitys: Array<ActivityInfo>?
 ) {
 
-    private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
+    private val binding =
+        DialogActivityInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
     private var singleSelectorAdapter: ActivityInfoSingleSelectorAdapter? = null
     private var multiSelectorAdapter: ActivityInfoMultiSelectorAdapter? = null
     private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
