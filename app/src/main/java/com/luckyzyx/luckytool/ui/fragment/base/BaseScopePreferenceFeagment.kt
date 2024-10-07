@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.preference.Preference
-import com.drake.net.utils.scopeLife
+import androidx.preference.PreferenceCategory
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
@@ -64,11 +64,14 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
     open fun readPrefsItem(context: Context): ArrayList<PrefsItem> {
         return ArrayList<PrefsItem>().apply {
             context.loadPreferences().forEachIndexed { _, preference ->
+                if (preference is PreferenceCategory) return@forEachIndexed
                 val item = PrefsItem(
                     preference.key,
+                    preference.icon,
                     preference.title,
                     preference.summary,
-                    preference.isVisible
+                    preference.isVisible,
+                    navigateFragmentId
                 )
                 add(item)
             }
@@ -86,21 +89,19 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         if (currentPrefsName.isNotBlank()) preferenceManager.sharedPreferencesName =
             currentPrefsName
         val prefsScreen = preferenceManager.createPreferenceScreen(requireActivity())
-        scopeLife {
-            requireActivity().loadPreferences().forEachIndexed { index, preference ->
-                try {
-                    prefsScreen.addPreference(preference)
-                } catch (t: Throwable) {
-                    LogUtils.e(
-                        "${this@BaseScopePreferenceFeagment.javaClass} loadPreferences",
-                        "$index | ${preference.key} | ${preference.title}",
-                        "$t",
-                        true
-                    )
-                }
+        requireActivity().loadPreferences().forEachIndexed { index, preference ->
+            try {
+                prefsScreen.addPreference(preference)
+            } catch (t: Throwable) {
+                LogUtils.e(
+                    "${this@BaseScopePreferenceFeagment.javaClass} loadPreferences",
+                    "$index | ${preference.key} | ${preference.title}",
+                    "$t",
+                    true
+                )
             }
-            preferenceScreen = prefsScreen
         }
+        preferenceScreen = prefsScreen
         arguments?.getCharSequence("title_text")?.let {
             safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
         }

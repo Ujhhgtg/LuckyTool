@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.5_beta
+
+- [适配] 扩展三方通话录音白名单
+
 ### 1.2.4
 
 - [适配] 三阶段响铃模式磁贴 C15.0

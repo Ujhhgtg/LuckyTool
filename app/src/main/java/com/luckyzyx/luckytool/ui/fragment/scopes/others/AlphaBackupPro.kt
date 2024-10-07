@@ -7,6 +7,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.openApp
 
 @Obfuscate
@@ -27,6 +28,7 @@ class AlphaBackupPro : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_pro_license)
                 key = "remove_check_license"
                 setDefaultValue(false)
+                isVisible = checkPackName(scopes.first())
                 isIconSpaceReserved = false
             })
         }
