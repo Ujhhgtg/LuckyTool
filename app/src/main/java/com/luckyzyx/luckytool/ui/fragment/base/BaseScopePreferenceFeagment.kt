@@ -30,7 +30,7 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 @Suppress("unused")
 abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuProvider {
 
-    //ColorOS系统参数
+    //OS版本
     val osName = getOSVersionName
     val osCode = getOSVersionCode
 
@@ -38,6 +38,11 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
      * 相关作用域
      */
     open val scopes = arrayOf<String>()
+
+    /**
+     * 设置标题
+     */
+    open val title: CharSequence? = ""
 
     /**
      * 是否启用重启菜单
@@ -63,9 +68,11 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
 
     open fun readPrefsItem(context: Context): ArrayList<PrefsItem> {
         return ArrayList<PrefsItem>().apply {
-            context.loadPreferences().forEachIndexed { _, preference ->
+            context.loadPreferences().forEachIndexed { index, preference ->
                 if (preference is PreferenceCategory) return@forEachIndexed
                 val item = PrefsItem(
+                    preference,
+                    index,
                     preference.key,
                     preference.icon,
                     preference.title,
@@ -102,8 +109,19 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
             }
         }
         preferenceScreen = prefsScreen
-        arguments?.getCharSequence("title_text")?.let {
-            safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
+        if (title.isNullOrBlank()) safeOfNull {
+            (activity as MainActivity).supportActionBar?.title = title
+        }
+        arguments?.apply {
+            getCharSequence("title_text")?.let {
+                safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
+            }
+            val scrollKey = getString("scrollKey")
+            val scrollPosition = getInt("scrollPosition")
+            if (scrollKey.isNullOrBlank()) {
+                val preference = preferenceScreen.getPreference(scrollPosition)
+                scrollToPreference(preference)
+            } else scrollToPreference(scrollKey)
         }
     }
 

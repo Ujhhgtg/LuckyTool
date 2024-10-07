@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.ArrayMap
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,13 +17,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.collection.ArrayMap
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,10 +35,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.FragmentItem
 import com.luckyzyx.luckytool.data.PrefsItem
 import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.databinding.DialogSearchResultLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutSearchResultItemBinding
+import com.luckyzyx.luckytool.listener.OnSelectSearchResultListener
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBattery
@@ -120,7 +123,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     private lateinit var navController: NavController
 
-    private val allPrefsItem = ArrayMap<Int, ArrayList<PrefsItem>>()
+    private val allFragmentItem = ArrayList<FragmentItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -727,67 +730,72 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     }
 
     private fun initAllScopePreferences() {
-        allPrefsItem.clear()
+        allFragmentItem.clear()
 
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarBattery())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarClock())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarControlCenter())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarIcon())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarLayout())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarNetWorkSpeed())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarNotify())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarNotifyRemoval())
-        addPrefsItem(requireActivity(), allPrefsItem, StatusBarTiles())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarBattery())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarClock())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarControlCenter())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarIcon())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarLayout())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarNetWorkSpeed())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarNotify())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarNotifyRemoval())
+        addFragmentItem(requireActivity(), allFragmentItem, StatusBarTiles())
 
-        addPrefsItem(requireActivity(), allPrefsItem, AndroidRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, CorePatch())
-        addPrefsItem(requireActivity(), allPrefsItem, AodRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, ApplicationRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, DialogRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, FingerPrintRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, LauncherRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, LockScreenRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, Miscellaneous())
+        addFragmentItem(requireActivity(), allFragmentItem, AndroidRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, CorePatch())
+        addFragmentItem(requireActivity(), allFragmentItem, AodRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, ApplicationRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, DialogRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, FingerPrintRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, LauncherRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, LockScreenRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, Miscellaneous())
 
-        addPrefsItem(requireActivity(), allPrefsItem, OplusBattery())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusBreenoTouch())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusBrowser())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusCalendar())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusCamera())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusCloudService())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusEyeProtect())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusGallery())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusGames())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusGesture())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusMarket())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusMMS())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusOTA())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusPhoneManager())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusPictorial())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusScreenshot())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusSearchBox())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusSettings())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusSmartSidebar())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusSoundRecorder())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusTeleService())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusWeather())
-        addPrefsItem(requireActivity(), allPrefsItem, SoundRelated())
-        addPrefsItem(requireActivity(), allPrefsItem, OplusThemeStore())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusBattery())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusBreenoTouch())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusBrowser())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusCalendar())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusCamera())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusCloudService())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusEyeProtect())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusGallery())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusGames())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusGesture())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusMarket())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusMMS())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusOTA())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusPhoneManager())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusPictorial())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusScreenshot())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusSearchBox())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusSettings())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusSmartSidebar())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusSoundRecorder())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusTeleService())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusWeather())
+        addFragmentItem(requireActivity(), allFragmentItem, SoundRelated())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusThemeStore())
 
-        addPrefsItem(requireActivity(), allPrefsItem, ADM())
-        addPrefsItem(requireActivity(), allPrefsItem, AlphaBackupPro())
-        addPrefsItem(requireActivity(), allPrefsItem, KsWeb())
+        addFragmentItem(requireActivity(), allFragmentItem, ADM())
+        addFragmentItem(requireActivity(), allFragmentItem, AlphaBackupPro())
+        addFragmentItem(requireActivity(), allFragmentItem, KsWeb())
 
     }
 
-    private fun addPrefsItem(
+    private fun addFragmentItem(
         context: Context,
-        map: ArrayMap<Int, ArrayList<PrefsItem>>,
+        list: ArrayList<FragmentItem>,
         fragment: BaseScopePreferenceFeagment
     ) {
         if (fragment.navigateFragmentId == -1) return
-        map[fragment.navigateFragmentId] = fragment.readPrefsItem(context)
+        list.add(
+            FragmentItem(
+                fragment, fragment.navigateFragmentId, fragment.title,
+                fragment.readPrefsItem(context)
+            )
+        )
     }
 
     @SuppressLint("RestrictedApi")
@@ -874,25 +882,51 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     private fun Context.showSearchDialog() {
         scopeLife {
-            val binding = DialogSearchResultLayoutBinding.inflate(layoutInflater)
-            var searchAdapter: SearchResultAdapter? = null
             initAllScopePreferences()
+
+            val binding = DialogSearchResultLayoutBinding.inflate(layoutInflater)
 
             val dialog = MaterialAlertDialogBuilder(this@showSearchDialog).apply {
                 setView(binding.root)
-            }.show()
+            }.show() ?: return@scopeLife
+
+            val searchResultAdapter = SearchResultAdapter(
+                allFragmentItem, object : OnSelectSearchResultListener {
+                    override fun resultItem(fragmentItem: FragmentItem, prefsItem: PrefsItem) {
+                        dialog.dismiss()
+                        if (prefsItem.fragmentId == -1) return
+                        prefsItem.fragmentId?.let { id ->
+                            val bundle = Bundle().apply {
+                                putCharSequence("title_text", "Search Result")
+                                putInt("scrollPosition", prefsItem.position)
+                                putString("scrollKey", prefsItem.key)
+                            }
+                            val navOptions = NavOptions.Builder().apply {
+                                setEnterAnim(R.anim.fragment_enter)
+                                setExitAnim(R.anim.fragment_exit)
+                                setPopEnterAnim(R.anim.fragment_enter_pop)
+                                setPopExitAnim(R.anim.fragment_exit_pop)
+                            }.build()
+                            navController.navigate(id, bundle, navOptions)
+
+
+//                            prefsItem.key?.let { highLight(fragmentItem.fragment, it) }
+                        }
+                    }
+                })
 
             binding.searchViewLayout.apply {
                 hint = "Title / Summary"
             }
+
             binding.searchView.apply {
                 addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                    searchAdapter?.getFilter?.filter(text)
+                    searchResultAdapter.getFilter.filter(text)
                 })
             }
+
             binding.recyclerView.apply {
-                searchAdapter = SearchResultAdapter(dialog, navController, allPrefsItem)
-                adapter = searchAdapter
+                adapter = searchResultAdapter
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
             }
@@ -901,62 +935,61 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     @Obfuscate
     class SearchResultAdapter(
-        val dialog: AlertDialog?,
-        private val navController: NavController,
-        allPrefsItem: ArrayMap<Int, ArrayList<PrefsItem>>
-    ) : RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
+        allFragmentItem: ArrayList<FragmentItem>,
+        private val onSelectSearchResultListener: OnSelectSearchResultListener
+    ) : RecyclerView.Adapter<SearchResultAdapter.SearchResultItemHolder>() {
 
-        val context = dialog?.context
+        private var allFragmentItemDatas = ArrayMap<Int, FragmentItem>()
+        private var allPrefsItemDatas = ArrayMap<Int, ArrayList<PrefsItem>>()
 
         private var allDatas = ArrayList<PrefsItem>()
         private var filterDatas = ArrayList<PrefsItem>()
 
         init {
+            allFragmentItemDatas.clear()
+            allPrefsItemDatas.clear()
             allDatas.clear()
             filterDatas.clear()
 
-            allPrefsItem.values.forEachIndexed { _, prefsItems ->
-                allDatas.addAll(prefsItems)
+            allFragmentItem.forEachIndexed { _, fragmentItem ->
+                allFragmentItemDatas[fragmentItem.fragmentId] = fragmentItem
+                allPrefsItemDatas[fragmentItem.fragmentId] = fragmentItem.allPrefsItem
+                allDatas.addAll(fragmentItem.allPrefsItem)
             }
 //            LogUtils.d("SearchResultAdapter", "init", allDatas.size.toString(), true)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultItemHolder {
             val binding = LayoutSearchResultItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
-            return SearchResultViewHolder(binding)
+            return SearchResultItemHolder(binding)
         }
 
-        override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-            val funItem = filterDatas[position]
-            val key = funItem.key
-            val icon = funItem.icon
-            val title = funItem.title
-            val summary = funItem.summary
-            val isVisible = funItem.isVisible
-            val fragmentId = funItem.fragmentId
+        override fun onBindViewHolder(holder: SearchResultItemHolder, position: Int) {
+            val prefsItem = filterDatas[position]
+            val icon = prefsItem.icon
+            val title = prefsItem.title
+            val summary = prefsItem.summary
+            val fragmentId = prefsItem.fragmentId
+            val fragmentItem = allFragmentItemDatas[fragmentId]!!
 
-            holder.funItemView.setOnClickListener(null)
-            holder.funIcon.setImageDrawable(null)
-            holder.funTitle.text = null
-            holder.funSummary.text = null
+            holder.item.setOnClickListener(null)
+            holder.itemIcon.setImageDrawable(null)
+            holder.itemTitle.text = null
+            holder.itemSummary.text = null
 
-            holder.funItemView.setOnClickListener {
-                dialog?.dismiss()
-                if (fragmentId == -1) return@setOnClickListener
-                fragmentId?.let { id ->
-                    navController.navigatePage(id, "Search Result")
-                }
+            holder.item.setOnClickListener {
+                onSelectSearchResultListener.resultItem(fragmentItem, prefsItem)
             }
-            holder.funIcon.setImageDrawable(icon)
-            holder.funTitle.text = title
-            holder.funSummary.text = summary
+            if (icon == null) holder.itemIcon.isVisible = false
+            else holder.itemIcon.setImageDrawable(icon)
+            holder.itemTitle.text = title
+            if (summary.isNullOrBlank()) holder.itemSummary.isVisible = false
+            else holder.itemSummary.text = summary
         }
 
-        override fun getItemCount(): Int {
-            return filterDatas.size
-        }
+        override fun getItemCount(): Int = filterDatas.size
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
@@ -985,12 +1018,12 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         }
 
         @Obfuscate
-        class SearchResultViewHolder(binding: LayoutSearchResultItemBinding) :
+        class SearchResultItemHolder(binding: LayoutSearchResultItemBinding) :
             RecyclerView.ViewHolder(binding.root) {
-            val funItemView: ConstraintLayout = binding.root
-            val funIcon: ImageView = binding.funIcon
-            val funTitle: TextView = binding.funTitle
-            val funSummary: TextView = binding.funSummary
+            val item: ConstraintLayout = binding.root
+            val itemIcon: ImageView = binding.itemIcon
+            val itemTitle: TextView = binding.itemTitle
+            val itemSummary: TextView = binding.itemSummary
         }
     }
 }
