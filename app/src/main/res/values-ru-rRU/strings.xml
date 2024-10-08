@@ -504,6 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">Запускать всплывающие окна на переднем плане</string>
     <string name="custom_volume_dialog_background_transparency">Прозрачность фона панели громкости</string>
     <string name="reduce_power_menu_display_delay">Уменьшить задержку отображения меню питания</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Отпечаток пальца</string>
     <string name="remove_fingerprint_icon_mode">Удалить иконку отпечатка</string>
@@ -930,7 +931,7 @@
     <string name="common_words_single_line">Одна строка</string>
     <string name="common_words_double_line">Две строки</string>
     <string name="common_words_customize">Настроить</string>
-    <string name="common_words_current_mode">Текущий режим</string>
+    <string name="common_words_current_mode">Current Mode</string>
     <string name="common_words_refresh">Обновить</string>
     <string name="common_words_save">Сохранить</string>
     <string name="common_words_filter">Фильтр</string>

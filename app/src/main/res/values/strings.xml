@@ -573,6 +573,7 @@
     <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
     <string name="custom_volume_dialog_background_transparency">Custom volume dialog background transparency</string>
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
     
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">FingerPrint Related</string>

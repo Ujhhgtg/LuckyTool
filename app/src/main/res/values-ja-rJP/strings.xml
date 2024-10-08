@@ -504,6 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
     <string name="custom_volume_dialog_background_transparency">カスタム音量ダイアログの背景の透明度</string>
     <string name="reduce_power_menu_display_delay">電源メニューの表示遅延を減らす</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">指紋認証関連</string>
     <string name="remove_fingerprint_icon_mode">指紋アイコンを削除</string>
@@ -930,7 +931,7 @@
     <string name="common_words_single_line">直線</string>
     <string name="common_words_double_line">二重線</string>
     <string name="common_words_customize">カスタマイズ</string>
-    <string name="common_words_current_mode">現在のモード</string>
+    <string name="common_words_current_mode">Current Mode</string>
     <string name="common_words_refresh">更新</string>
     <string name="common_words_save">保存</string>
     <string name="common_words_filter">フィルター</string>

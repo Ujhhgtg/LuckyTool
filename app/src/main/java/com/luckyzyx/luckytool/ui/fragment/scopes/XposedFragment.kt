@@ -797,7 +797,6 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         )
     }
 
-    @SuppressLint("RestrictedApi")
     private fun init() {
         val dialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
             setTitle(getString(R.string.common_words_loading))

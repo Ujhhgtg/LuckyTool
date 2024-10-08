@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.scopes.systemui.AutoTapStartRecordingOrCastingDIalog
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableDuplicateFloatingWindow
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHeadphoneHighVolumeWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
@@ -31,6 +32,10 @@ object HookSystemUIDialog : YukiBaseHooker() {
         //移除USB连接对话框
         if (prefs(ModulePrefs).getBoolean("remove_usb_connect_dialog", false)) {
             loadHooker(RemoveUSBConnectDialog)
+        }
+        //自动点击开始录制或投射对话框
+        if (prefs(ModulePrefs).getBoolean("auto_tap_start_recording_or_casting_dialog", false)) {
+            loadHooker(AutoTapStartRecordingOrCastingDIalog)
         }
         //音量对话框背景透明度
         loadHooker(VolumeDialogBackground)

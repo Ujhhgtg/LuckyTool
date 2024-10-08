@@ -504,6 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
     <string name="custom_volume_dialog_background_transparency">Custom volume dialog background transparency</string>
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Відбиток пальця</string>
     <string name="remove_fingerprint_icon_mode">Видалити іконку відбитка</string>
@@ -930,7 +931,7 @@
     <string name="common_words_single_line">Один рядок</string>
     <string name="common_words_double_line">Два рядки</string>
     <string name="common_words_customize">Налаштувати</string>
-    <string name="common_words_current_mode">Поточний режим</string>
+    <string name="common_words_current_mode">Current Mode</string>
     <string name="common_words_refresh">Оновити</string>
     <string name="common_words_save">Зберегти</string>
     <string name="common_words_filter">Фільтр</string>

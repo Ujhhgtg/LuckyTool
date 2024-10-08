@@ -102,11 +102,11 @@
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
     <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura gaussiana personalizzato</string>
-    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
+    <string name="disable_temperature_control_listener">Disabilita il listener del controllo della temperatura</string>
     <string name="set_ltpo_refresh_rate_mode">Imposta la modalità di aggiornamento LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Abilita la frequenza di aggiornamento completa della luminosità minimo 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Alcuni modelli possono entrare in conflitto con Assistente Gioco, causando sfarfallio dello schermo.</string>
-    <string name="disable_long_press_home_key_start_speech_asssist">Disable long press HOME key to start speech assistant</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">Disabilita la pressione lunga sul pulsante home per evocare l\'assistente vocale</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale ColorOS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Installazione</string>
     <string name="corepatch">Core Patch</string>
@@ -191,9 +191,9 @@
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
     <string name="custom_music_fluid_cloud_whitelist">Personalizza Music Fluid lista bianca cloud</string>
-    <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
+    <string name="disable_music_fluid_cloud_display">Disattiva display cloud fluido musicale</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Configura la whitelist cloud music fluid</string>
-    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Forza l\'attivazione dell\'increspatura del display cloud fluido musicale</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Icona Barra di Stato</string>
     <string name="StatusBarIcon_summary">Impostazioni Icone nella Barra di Stato</string>
@@ -501,9 +501,10 @@
     <string name="remove_usb_connect_dialog_summary">La modalità di trasferimento file è selezionata per impostazione predefinita dopo aver collegato l\'USB</string>
     <string name="remove_secure_pay_found_virus_dialog">Rimuovi la finestra di dialogo del virus trovato per il \"Pagamento Sicuro\"</string>
     <string name="remove_access_device_log_dialog">Rimuovi la finestra di log del dispositivo di accesso</string>
-    <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
+    <string name="run_floating_window_tasks_in_foreground">Esegui le attività della finestra fluttuante in primo piano</string>
     <string name="custom_volume_dialog_background_transparency">Trasparenza sfondo notifica personalizzata</string>
     <string name="reduce_power_menu_display_delay">Riduci ritardo visualizzazione menù di spegnimento</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Impronta Digitale</string>
     <string name="remove_fingerprint_icon_mode">Rimuovi modalità icona impronta digitale</string>
@@ -625,8 +626,8 @@
     <string name="enable_frame_watermark_style">Abilita Stile Frame Filigrana</string>
     <string name="enable_hasselblad_watermark_style">Abilita Stile Filigrana Hasselblad</string>
     <string name="custom_model_watermark">Filigrana modello personalizzato</string>
-    <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
-    <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
+    <string name="enable_hassel_watermark">Attiva la filigrana Hasselblad</string>
+    <string name="enable_privacy_watermark">Abilita Filigrana Privacy</string>
     <string name="CameraFilter">Filtro</string>
     <string name="camera_universal_filter_settings">Impostazioni del filtro universale</string>
     <string name="camera_filter_master">Filtro principale</string>
@@ -930,7 +931,7 @@
     <string name="common_words_single_line">Linea singola</string>
     <string name="common_words_double_line">Linea doppia</string>
     <string name="common_words_customize">Personalizza</string>
-    <string name="common_words_current_mode">Modalità Attuale</string>
+    <string name="common_words_current_mode">Current Mode</string>
     <string name="common_words_refresh">Aggiorna</string>
     <string name="common_words_save">Salva</string>
     <string name="common_words_filter">Filtro</string>

@@ -504,6 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">浮窗贴边任务前台运行</string>
     <string name="custom_volume_dialog_background_transparency">自定义音量对话框背景透明度</string>
     <string name="reduce_power_menu_display_delay">减少电源菜单显示延迟</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">自动点击开始录制或投射对话框</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">指纹相关</string>
     <string name="remove_fingerprint_icon_mode">移除指纹图标模式</string>

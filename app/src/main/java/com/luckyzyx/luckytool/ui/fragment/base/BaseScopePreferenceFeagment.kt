@@ -114,6 +114,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
             }
         }
         preferenceScreen = prefsScreen
+
         if (title.isNullOrBlank()) safeOfNull {
             (activity as MainActivity).supportActionBar?.title = title
         }
@@ -139,9 +140,8 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
             scrollToPreference(preference)
             preference
         } else {
-            val preference = findPreference<Preference>(scrollKey) ?: return
             scrollToPreference(scrollKey)
-            preference
+            findPreference(scrollKey) ?: return
         }
 
         if (adapter is PreferencePositionCallback) {

@@ -102,11 +102,11 @@
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
     <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
     <string name="customized_gaussian_blur_effect_level">Tùy chỉnh mức độ hiệu ứng nhòe Gaussian</string>
-    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
+    <string name="disable_temperature_control_listener">Tắt trình nghe kiểm soát nhiệt độ</string>
     <string name="set_ltpo_refresh_rate_mode">Đặt chế độ tốc độ làm mới LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Kích hoạt độ sáng đầy đủ tốc độ làm mới tối thiểu 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Một số kiểu máy có thể xung đột với Trợ lý trò chơi và gây ra hiện tượng màn hình nhấp nháy.</string>
-    <string name="disable_long_press_home_key_start_speech_asssist">Disable long press HOME key to start speech assistant</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">Tắt tính năng nhấn và giữ nút HOME để khởi động trợ lý giọng nói</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
@@ -193,7 +193,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Tùy chỉnh danh sách cho phép Music Fluid Cloud</string>
     <string name="disable_music_fluid_cloud_display">Tắt hiển thị dòng chảy âm nhạc đám mây</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Thiết lập danh sách cho phép Music Fluid Cloud</string>
-    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Buộc kích hoạt phương tiện truyền thông âm nhạc đám mây gợn sóng</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
@@ -504,6 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">Chạy các tác vụ cửa sổ nổi ở phía trước</string>
     <string name="custom_volume_dialog_background_transparency">Tùy chỉnh độ trong suốt của nền hộp thoại âm lượng</string>
     <string name="reduce_power_menu_display_delay">Giảm độ trễ hiển thị menu nguồn</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Vân tay</string>
     <string name="remove_fingerprint_icon_mode">Xóa biểu tượng dấu vân tay</string>
@@ -625,8 +626,8 @@
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>
     <string name="enable_hasselblad_watermark_style">Kích hoạt kiểu hình mờ Hasselblad</string>
     <string name="custom_model_watermark">Hình mờ máy tùy chỉnh</string>
-    <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
-    <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
+    <string name="enable_hassel_watermark">Kích hoạt hình mờ Hasselblad</string>
+    <string name="enable_privacy_watermark">Bật hình mờ về quyền riêng tư</string>
     <string name="CameraFilter">Bộ lọc</string>
     <string name="camera_universal_filter_settings">Cài đặt bộ lọc phổ quát</string>
     <string name="camera_filter_master">Bộ lọc chính</string>
@@ -686,7 +687,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Xóa giới hạn mạng dữ liệu</string>
     <string name="remove_network_limit_summary">Xóa giới hạn sao lưu/khôi phục không thể sử dụng dữ liệu di động</string>
-    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
+    <string name="disable_forced_backup_app_list">Tắt tính năng sao lưu bắt buộc của danh sách ứng dụng</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Mở khóa một số tính năng VIP</string>
     <string name="unlock_themestore_vip_summary">Mở khóa một phần của tính năng và tự mình dùng thử</string>
@@ -704,7 +705,7 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Mở khóa nâng cấp cục bộ</string>
     <string name="unlock_local_upgrade_summary">Sau khi nhấp vào, các thao tác liên quan sẽ được thực hiện tự động, hãy kiên nhẫn chờ trong vài giây</string>
-    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
+    <string name="remove_ota_local_update_verity">Xóa xác minh cập nhật OTA cục bộ</string>
     <string name="restore_ota_update_verity">Khôi phục xác minh cập nhật OTA</string>
     <string name="restore_ota_update_verity_summary">Trạng thái hiện tại: %1$s\nNếu bản cập nhật OTA nhắc rằng xác minh không thành công hoặc nhắc dm-verity, bạn có thể thử sử dụng chức năng này\nĐừng hỏi tại sao chức năng này chuyển sang màu xám, vì hệ thống cho phép xác minh cập nhật bằng cách mặc định\nKhi tắt xác minh, Sẽ khiến cập nhật OTA không thành công nên chức năng này sẽ bị khóa khi bật chức năng này</string>
     <!--Extract OTA-->
@@ -787,7 +788,7 @@
     <string name="remove_pro_license">Xóa phát hiện giấy phép</string>
     <!--ADM-->
     <string name="adm_unlock_pro">Mở khóa phiên bản Pro</string>
-    <string name="adm_unlock_more_threads">Unlock more download threads</string>
+    <string name="adm_unlock_more_threads">Mở khóa thêm luồng tải xuống</string>
     <!--Home-->
     <string name="fps_title">KHÓA TỐC ĐỘ LÀM TƯƠI</string>
     <string name="fps_summary">Xung đột với các quy trình tốc độ làm mới động khác, chẳng hạn như “dpfs”</string>
@@ -930,7 +931,7 @@
     <string name="common_words_single_line">Dòng-đơn</string>
     <string name="common_words_double_line">Dòng-đôi</string>
     <string name="common_words_customize">Tùy chỉnh</string>
-    <string name="common_words_current_mode">Chế độ hiện hành</string>
+    <string name="common_words_current_mode">Current Mode</string>
     <string name="common_words_refresh">Làm mới</string>
     <string name="common_words_save">Lưu</string>
     <string name="common_words_filter">Bộ lọc</string>
