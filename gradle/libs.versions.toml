@@ -18,6 +18,7 @@ lsplugin-apksign = { id = "org.lsposed.lsplugin.apksign", version = "1.4" }
 lsplugin-resopt = { id = "org.lsposed.lsplugin.resopt", version = "1.6" }
 
 [libraries]
+colorpicker = { module = "com.jaredrummler:colorpicker", version = "1.1.0" }
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version = "4.6.0" }
 paranoid-gradle-plugin = { module = "com.joom.paranoid:paranoid-gradle-plugin", version = "0.3.14" }
 androidx-annotation = { module = "androidx.annotation:annotation", version = "1.8.2" }

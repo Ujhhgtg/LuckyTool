@@ -144,6 +144,7 @@ dependencies {
     implementation(libs.markwon.ext.tables)
 
     implementation(libs.android.image.cropper)
+    implementation(libs.colorpicker)
 }
 
 fun getVersionCode(): Int {
