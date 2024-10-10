@@ -58,7 +58,7 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.run_floating_window_tasks_in_foreground)
                 key = "run_floating_window_tasks_in_foreground"
                 setDefaultValue(false)
-                isVisible = osCode >= 26
+                isVisible = osCode > 26
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
