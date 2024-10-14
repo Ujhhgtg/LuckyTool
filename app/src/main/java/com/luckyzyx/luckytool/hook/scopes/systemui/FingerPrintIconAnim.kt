@@ -8,6 +8,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object FingerPrintIconAnim : YukiBaseHooker() {
@@ -24,18 +25,16 @@ object FingerPrintIconAnim : YukiBaseHooker() {
             "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintUiMech"  //C15
         ).toClass().apply {
             method { name = "loadAnimDrawables" }.hook {
-                when (removeMode) {
-                    "0" -> if (isReplaceIcon) after {
-                        instance.setCustomDrawable(iconPath, true)
+                if (removeMode == "3") intercept()
+                else after {
+                    when (removeMode) {
+                        "0" -> if (isReplaceIcon) instance.setCustomDrawable(iconPath, true)
+                        "1" -> instance.setCustomDrawable(null, true)
+                        "2" -> {
+                            instance.removePressAnim()
+                            if (isReplaceIcon) instance.setCustomDrawable(iconPath, true)
+                        }
                     }
-
-                    "1" -> after { instance.setCustomDrawable(null, true) }
-                    "2" -> after {
-                        instance.removePressAnim()
-                        if (isReplaceIcon) instance.setCustomDrawable(iconPath, true)
-                    }
-
-                    "3" -> intercept()
                 }
             }
             method { name = "startFadeInAnimation" }.hook {
@@ -52,9 +51,9 @@ object FingerPrintIconAnim : YukiBaseHooker() {
 
     private fun Any.setCustomDrawable(iconPath: String?, update: Boolean) {
         this.current {
-            val mContext = field { name = "mContext" }.cast<Context>()
+            val context = field { type = ContextClass }.cast<Context>()
             val getCurrentUserContext =
-                method { name = "getCurrentUserContext" }.invoke<Context>(mContext) ?: return
+                method { name = "getCurrentUserContext" }.invoke<Context>(context) ?: return
             val drawable = if (iconPath.isNullOrBlank()) null
             else BitmapDrawable(getCurrentUserContext.resources, BitmapFactory.decodeFile(iconPath))
             if (drawable == null) {

@@ -8,6 +8,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 [//]: # (- [适配] 扩展三方通话录音白名单)
 - [添加] 作用域功能搜索
 - [添加] 自动点击开始录制或投射对话框
+- [修复] 指纹图标Hook异常 C15
 
 ### 1.2.4
 
