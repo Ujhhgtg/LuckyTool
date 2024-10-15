@@ -118,6 +118,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
             if (osCode >= 31) {
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.remove_multi_app_blacklist)
+                    summary = getString(R.string.need_restart_system)
                     key = "remove_multi_app_blacklist"
                     setDefaultValue(false)
                     isIconSpaceReserved = false

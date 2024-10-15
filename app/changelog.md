@@ -9,6 +9,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 作用域功能搜索
 - [添加] 自动点击开始录制或投射对话框
 - [修复] 指纹图标Hook异常 C15
+- [适配] 应用分身黑名单 C14+
 
 ### 1.2.4
 
