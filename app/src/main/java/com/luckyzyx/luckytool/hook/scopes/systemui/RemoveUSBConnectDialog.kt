@@ -5,8 +5,6 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.utils.A14
-import com.luckyzyx.luckytool.utils.SDK
 
 object RemoveUSBConnectDialog : YukiBaseHooker() {
     override fun onHook() {
@@ -14,7 +12,7 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
         VariousClass(
             "com.coloros.systemui.notification.usb.UsbService", //A11
             "com.oplusos.systemui.notification.usb.UsbService",
-            "com.oplus.systemui.usb.UsbService" //C14
+            "com.oplus.systemui.usb.UsbService" //C14 C15
         ).toClass().apply {
             method { name = "onUsbConnected" }.hook {
                 replaceUnit {
@@ -25,10 +23,10 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
                     method { name = "changeUsbConfig" }.get(instance).call(context, 1)
                 }
             }
-            if (SDK >= A14) method { name = "helpUpdateUsbNotification" }.hook {
-                before { field { name = "mNeedShowUsbDialog" }.get(instance).setFalse() }
-            } else method { name = "updateUsbNotification" }.hook {
-                before { field { name = "sNeedShowUsbDialog" }.get().setFalse() }
+            method { name = "updateUsbNotification" }.hook {
+                before {
+                    field { name = "mNeedShowUsbDialog" }.get(instance).setFalse()
+                }
             }
         }
     }
