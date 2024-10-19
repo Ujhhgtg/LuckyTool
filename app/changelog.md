@@ -13,6 +13,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 应用分身黑名单 C14+
 - [添加] 禁用OTA dm-verity校验
 - [适配] App浮窗与分屏白名单 C15
+- [适配] 桌面与文件夹分页指示器 C15
 
 ### 1.2.4
 

@@ -8,6 +8,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.CanvasClass
 import com.highcapable.yukihookapi.hook.type.android.MotionEventClass
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
@@ -22,7 +23,10 @@ object PageIndicator : YukiBaseHooker() {
 
         //Source OplusPageIndicator
         "com.android.launcher.pageindicators.OplusPageIndicator".toClass().apply {
-            method { name = "onDraw";param(CanvasClass) }.hook {
+            method {
+                name = if (SDK >= A15) "dispatchDraw" else "onDraw"
+                param(CanvasClass)
+            }.hook {
                 before {
                     val view = instance<View>()
                     val parentView = if (view.parent != null) view.parent as View else return@before
