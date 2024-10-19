@@ -170,7 +170,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 }
             })
             //滑动条相关
-            if (osCode >= 26) {
+            if (osCode in 26..33) {
                 add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.ControlCenter_Silder_Related)
                     key = "ControlCenter_Silder_Related"

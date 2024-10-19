@@ -9,7 +9,7 @@ object StatusBarSilder : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         //控制中心滑动条透明度
-        if (osCode >= 26) loadHooker(ControllerCenterSliderTransparency)
+        if (osCode in 26..33) loadHooker(ControllerCenterSliderTransparency)
 
     }
 }
