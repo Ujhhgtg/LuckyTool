@@ -35,5 +35,26 @@ object ZoomWindowConfig : YukiBaseHooker() {
                 }
             }
         }
+
+        //Source FlexibleTaskController C15
+        "com.android.server.wm.FlexibleTaskController".toClassOrNull()?.apply {
+            method {
+                name = "isSupportFlexibleWindow"
+                param(StringClass, IntType, StringClass, BundleClass)
+            }.hook {
+                before {
+                    when (mode) {
+                        "1" -> resultFalse()
+                        "2" -> resultTrue()
+                        "3" -> {
+                            val target = args().first().string()
+                            val packName = if (target.contains("/").not()) target
+                            else target.split("/")[0]
+                            if (supportList.contains(packName)) resultTrue()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
