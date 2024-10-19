@@ -137,6 +137,7 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 30
                 showSeekBarValue = true
                 updatesContinuously = false
+                isVisible = osCode in 30..33
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
