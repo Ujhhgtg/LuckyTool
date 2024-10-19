@@ -18,7 +18,7 @@ object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
         override fun onHook() {
             //Source HeadsUpToZoomUtils
             "com.android.systemui.util.HeadsUpToZoomUtils".toClass().apply {
-                method { name = "isZoomValid" }.hook {
+                method { name { it.startsWith("isZoom") } }.hook {
                     replaceToTrue()
                 }
             }
