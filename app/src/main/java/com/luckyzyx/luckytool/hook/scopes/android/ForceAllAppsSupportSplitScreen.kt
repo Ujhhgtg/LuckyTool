@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
@@ -20,25 +19,21 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
                     if (!isEnable) return@before
                     val packageName = args().first().string()
                     val activityName = args(1).string()
-                    val candidate = args(2).boolean()
+//                    val candidate = args(2).boolean()
+
+                    if (packageName.isBlank()) return@before
 
                     val isSafeSenterUI = method {
                         name = "isSafeSenterUI";paramCount = 1
                     }.get(instance).boolean(activityName)
-                    if (isSafeSenterUI) {
-                        YLog.debug("isSafeSenterUI $packageName | $activityName | $candidate")
-                        return@before
-                    }
+                    if (isSafeSenterUI) return@before
 
                     if (method.parameterCount == 4) {
                         val userId = args().last().int()
                         val isHidenPackage = method {
                             name = "isHidenPackage";paramCount = 2
                         }.get(instance).boolean(packageName, userId)
-                        if (isHidenPackage) {
-                            YLog.debug("isHidenPackage $packageName | $activityName | $candidate")
-                            return@before
-                        }
+                        if (isHidenPackage) return@before
                     }
 
                     resultTrue()
