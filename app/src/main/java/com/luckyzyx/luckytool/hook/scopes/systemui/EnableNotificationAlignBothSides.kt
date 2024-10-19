@@ -3,11 +3,13 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 
@@ -46,10 +48,12 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
             //Source KeyguardMediaController -> MediaHost -> HostView -> parent
             VariousClass(
                 "com.android.systemui.media.KeyguardMediaController", //C13
-                "com.android.systemui.media.controls.ui.KeyguardMediaController" //C14
+                "com.android.systemui.media.controls.ui.KeyguardMediaController", //C14
+                "com.android.systemui.media.controls.ui.controller.KeyguardMediaController" //C15
             ).toClass().apply {
                 method { name = "setVisibility";paramCount = 2 }.hook {
                     before {
+                        if (SDK >= A15) return@before
                         val viewGroup = args().first().cast<ViewGroup>() ?: return@before
                         val visible = args().last().cast<Int>() ?: return@before
                         val count = viewGroup.childCount
@@ -135,6 +139,19 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         getScreenOrientation(this) {
             if (layoutParams != null) layoutParams = ViewGroup.LayoutParams(layoutParams).apply {
                 width = if (it) targetWidth else ViewGroup.LayoutParams.MATCH_PARENT
+            }
+        }
+    }
+
+    @SuppressLint("DiscouragedApi")
+    private fun View.setFrameViewWidth() {
+        qsPanelPaddingPx = resources.getDimensionPixelSize(
+            resources.getIdentifier("qs_header_panel_side_padding", "dimen", packageName)
+        )
+        val targetWidth = resources.displayMetrics.widthPixels - (qsPanelPaddingPx * 2)
+        getScreenOrientation(this) {
+            if (layoutParams != null) layoutParams = FrameLayout.LayoutParams(layoutParams).apply {
+                width = if (it) targetWidth else FrameLayout.LayoutParams.MATCH_PARENT
             }
         }
     }
