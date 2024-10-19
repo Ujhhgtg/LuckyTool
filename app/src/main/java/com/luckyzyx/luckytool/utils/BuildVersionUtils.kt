@@ -23,7 +23,7 @@ val A13 get() = Build.VERSION_CODES.TIRAMISU
 val A14 get() = Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 
 /**Android15 35 XX*/
-val A15 get() = 35
+val A15 get() = Build.VERSION_CODES.VANILLA_ICE_CREAM
 
 /**
  * 获取构建版本名/版本号
