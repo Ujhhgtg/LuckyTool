@@ -55,6 +55,12 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_dm_verity_verification)
+                key = "disable_dm_verity_verification"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 val verityMode =
                     ShellUtils.fastCmd("${CommandUtils.getprop} ${CommandUtils.otaVerityMode}")
                 val vbMetaState =
@@ -68,6 +74,7 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 isEnabled = !status
                 isChecked = status
                 isPersistent = false
+                isVisible = false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     if (newValue as Boolean) {

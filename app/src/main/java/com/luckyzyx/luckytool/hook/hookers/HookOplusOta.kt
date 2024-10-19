@@ -1,12 +1,15 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.ota.RemoveOTALocalUpdateVerity
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object HookOplusOta : YukiBaseHooker() {
     override fun onHook() {
+
+        loadHooker(HookGlobalSystemProperties)
 
         //local_update_failed_not_match 安装包不匹配
         //local_update_failed_read_exception 读取文件错误

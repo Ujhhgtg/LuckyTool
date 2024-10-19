@@ -28,11 +28,14 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                 usingStrings("META-INF/com/android/metadata")
             }
         }.apply {
-            checkDataList("RemoveOTALocalUpdateVerity", isDebug = true)
+            checkDataList("RemoveOTALocalUpdateVerity")
             single().name.toClass().apply {
                 method { emptyParam();returnType = ListClass }.hook {
                     after {
-                        result<ArrayList<String>>()?.removeIf { it.contains("forbid_ota_local_update") }
+                        result<ArrayList<String>>()?.apply {
+                            removeIf { it.contains("forbid_ota_local_update") }
+                            removeIf { it.contains("from_version") }
+                        }
                     }
                 }
             }

@@ -84,6 +84,14 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_record_calls_on_third_party_apps", false)) {
                 if (osCode == 30) put("ro.oplus.audio.voip_record_white_app_support", true)
             }
+
+            //Source OTA
+            if (prefs(ModulePrefs).getBoolean("disable_dm_verity_verification", false)) {
+//            put("persist.sys.assert.panic", "true")
+                put("ro.boot.veritymode", "enforcing")
+                put("ro.boot.vbmeta.device_state", "locked")
+//            put("persist.vendor.oplus.verify_result", "")
+            }
         }
         loadHooker(HookSystemProperties(list))
     }
