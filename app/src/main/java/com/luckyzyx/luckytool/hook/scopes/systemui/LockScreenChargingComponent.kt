@@ -10,6 +10,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
@@ -75,7 +76,12 @@ object LockScreenChargingComponent : YukiBaseHooker() {
 
             //Source OplusChargeAnimImpl -> ChargeUtil
             "com.oplus.charge.util.ChargeUtil".toClass().apply {
-                method { name = "getChargeLevelTypeFace" }.hook {
+                method {
+//                    name = "getChargeLevelTypeFace"
+//                    name = "getSansTypeFace"
+                    param(ContextClass)
+                    returnType = TypefaceClass
+                }.hook {
                     after {
                         if (!userTypeface) return@after
                         result = Typeface.DEFAULT_BOLD
