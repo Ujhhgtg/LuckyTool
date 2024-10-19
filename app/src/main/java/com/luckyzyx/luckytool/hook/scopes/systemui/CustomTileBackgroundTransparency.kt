@@ -14,8 +14,8 @@ object CustomTileBackgroundTransparency : YukiBaseHooker() {
     override fun onHook() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_tile_background_transparency", -1)
 
-        //Source OplusQsMediaPanelBgDrawable status_bar_qs_tile_bg_color_inactive Not C15
-        "com.oplus.systemui.qs.media.OplusQsMediaPanelBgDrawable".toClassOrNull()?.apply {
+        //Source OplusQsMediaPanelBgDrawable status_bar_qs_tile_bg_color_inactive
+        "com.oplus.systemui.qs.media.OplusQsMediaPanelBgDrawable".toClass().apply {
             constructor { paramCount = 5 }.hook {
                 before {
                     if (customAlpha < 0) return@before
