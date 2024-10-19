@@ -159,7 +159,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 })
             }
             //磁贴样式相关
-            if (osCode >= 27) {
+            if (osCode in 27..33) {
                 add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.TileStyleRelated)
                     key = "TileStyleRelated"

@@ -50,7 +50,7 @@ object StatusBarTile : YukiBaseHooker() {
         }
 
         //自定义磁贴背景透明度
-        if (osCode >= 27) loadHooker(CustomTileBackgroundTransparency)
+        if (osCode in 27..33) loadHooker(CustomTileBackgroundTransparency)
 
     }
 }
