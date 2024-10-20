@@ -504,7 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">Spustit úkoly plovoucího okna v popředí</string>
     <string name="custom_volume_dialog_background_transparency">Vlastní průhlednost pozadí panelu hlasitosti</string>
     <string name="reduce_power_menu_display_delay">Snížit zpoždění nabídky tlačítka napájení</string>
-    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Automaticky klikněte na dialogové okno zahájení nahrávání nebo vysílání</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Nastavení související s otiskem prstu</string>
     <string name="remove_fingerprint_icon_mode">Odstranit ikonu otisku prstu</string>
@@ -608,6 +608,7 @@
     <string name="customize_device_ota_card_background">Přizpůsobit OTA pozadí karty zařízení</string>
     <string name="customize_device_ota_card_background_summary">Doporučená velikost: Násobky 328x124</string>
     <string name="customize_device_ota_card_background_path">Cesta k obrázku pozadí</string>
+    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
     <string name="settings_developer_preference">Možnosti pro vývojáře</string>
     <string name="remove_dpi_restart_recovery">Zabránit návratu DPI na původní hodnotu po restartování zařízení</string>
     <string name="remove_dpi_restart_recovery_summary">Po povolení funkce a restartování rozsahu otevřete stránku Pro vývojáře a nastavte minimální šířku</string>
@@ -706,6 +707,7 @@
     <string name="unlock_local_upgrade">Povolit lokální upgrade</string>
     <string name="unlock_local_upgrade_summary">Po kliknutí budou příslušné operace prováděny automaticky, prosím trpělivě počkejte několik sekund</string>
     <string name="remove_ota_local_update_verity">Odstranit ověření místní instalace OTA</string>
+    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
     <string name="restore_ota_update_verity">Pokračovat v ověřování OTA aktualizace</string>
     <string name="restore_ota_update_verity_summary">Aktuální stav: [%1$s]\nZkuste použít tuto funkci, pokud OTA požádá o potvrzení, nebo se zeptá na dm-verity\nNeptat se, proč je funkce zašedlá, protože systém má povoleno ověření aktualizace ve výchozím nastavení\nPokud je ověření vypnuto, OTA aktualizace selže, takže když je funkce zapnutá, uzamkne tuto funkci</string>
     <!--Extract OTA-->

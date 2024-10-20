@@ -608,6 +608,7 @@
     <string name="customize_device_ota_card_background">Customize device OTA card background</string>
     <string name="customize_device_ota_card_background_summary">Recommended size: Multiples of 328x124</string>
     <string name="customize_device_ota_card_background_path">Background image path</string>
+    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
     <string name="settings_developer_preference">開発者向けオプション</string>
     <string name="remove_dpi_restart_recovery">再起動で DPI が元に戻らないようにする</string>
     <string name="remove_dpi_restart_recovery_summary">機能を有効にしてスコープを再起動した後、開発者向けオプションページを開いて最小幅を設定してください</string>
@@ -706,6 +707,7 @@
     <string name="unlock_local_upgrade">ローカルアップグレードを解放</string>
     <string name="unlock_local_upgrade_summary">タップした後に関連する操作が自動的に実行されます。しばらくお待ちください</string>
     <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
+    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
     <string name="restore_ota_update_verity">OTA アップデートの検証を再開</string>
     <string name="restore_ota_update_verity_summary">現在の状態：[%1$s]\nOTA アップデートで検証失敗のプロンプトが表示されるか、dm-verity のプロンプトが表示される場合にこの機能を使用してください。\nシステムがデフォルトでアップデート検証を有効にしているため、この機能がグレーアウトしている理由を聞かないでください。\n検証がオフにされた場合 OTA アップデートは失敗するため、この機能はロックされます</string>
     <!--Extract OTA-->

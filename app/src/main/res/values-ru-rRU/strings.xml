@@ -106,7 +106,7 @@
     <string name="set_ltpo_refresh_rate_mode">Установить режим частоты обновления LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Включить минимальную частоту кадров 1 при максимальной яркости дисплея</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Некоторые модели могут конфликтовать с \"Игровой помощник\", вызывая мерцание экрана</string>
-    <string name="disable_long_press_home_key_start_speech_asssist">Disable long press HOME key to start speech assistant</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">Отключить долгое нажатие клавиши \"Домой\" для запуска голосового помощника</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Официальному установщику Color OS необходимо включить другие функции для использования\nСписок функций-Приложения-Установка приложений</string>
     <string name="corepatch">Патчи ядра</string>
@@ -504,7 +504,7 @@
     <string name="run_floating_window_tasks_in_foreground">Запускать всплывающие окна на переднем плане</string>
     <string name="custom_volume_dialog_background_transparency">Прозрачность фона панели громкости</string>
     <string name="reduce_power_menu_display_delay">Уменьшить задержку отображения меню питания</string>
-    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Автоматически нажимать на диалоговое окно начала записи или трансляции</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Отпечаток пальца</string>
     <string name="remove_fingerprint_icon_mode">Удалить иконку отпечатка</string>
@@ -608,6 +608,7 @@
     <string name="customize_device_ota_card_background">Настройка фона карты OTA устройства</string>
     <string name="customize_device_ota_card_background_summary">Рекомендуемый размер: 328x124</string>
     <string name="customize_device_ota_card_background_path">Путь к фоновому изображению</string>
+    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
     <string name="settings_developer_preference">Параметры разработчика</string>
     <string name="remove_dpi_restart_recovery">Удалить восстановление DPI</string>
     <string name="remove_dpi_restart_recovery_summary">После включения функции и перезапуска области откройте страницу параметров разработчика и установите минимальную ширину</string>
@@ -626,8 +627,8 @@
     <string name="enable_frame_watermark_style">Включить стиль рамки водяного знака</string>
     <string name="enable_hasselblad_watermark_style">Включить стиль водяного знака Hasselblad</string>
     <string name="custom_model_watermark">Пользовательский водяной знак</string>
-    <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
-    <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
+    <string name="enable_hassel_watermark">Включить водяной знак Hasselblad</string>
+    <string name="enable_privacy_watermark">Включить водяной знак конфиденциальности</string>
     <string name="CameraFilter">Фильтр</string>
     <string name="camera_universal_filter_settings">Настройки универсального фильтра</string>
     <string name="camera_filter_master">Мастер фильтр</string>
@@ -705,7 +706,8 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Разблокировать локальное обновление</string>
     <string name="unlock_local_upgrade_summary">После нажатия соответствующие операции будут выполняться автоматически, терпеливо подождите несколько секунд</string>
-    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
+    <string name="remove_ota_local_update_verity">Удалить проверку локального обновления OTA</string>
+    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
     <string name="restore_ota_update_verity">Возобновить проверку обновления OTA</string>
     <string name="restore_ota_update_verity_summary">Текущее состояние: [%1$s]\nПопробуйте использовать эту функцию, если OTA-обновление выдает ошибку проверки или запрашивает dm-verity\nНе спрашивайте, почему эта функция недоступна, поскольку в системе по умолчанию включена проверка обновлений\nКогда проверка отключена, OTA-обновление не выполняется, поэтому при включении функция блокирует эту функцию</string>
     <!--Extract OTA-->
@@ -788,7 +790,7 @@
     <string name="remove_pro_license">Удалить обнаружение лицензии</string>
     <!--ADM-->
     <string name="adm_unlock_pro">Разблокировка Pro</string>
-    <string name="adm_unlock_more_threads">Unlock more download threads</string>
+    <string name="adm_unlock_more_threads">Разблокировать больше потоков загрузки</string>
     <!--Home-->
     <string name="fps_title">Принудительная частота обновления экрана</string>
     <string name="fps_summary">Может конфликтовать с другими процессами динамической частоты обновления, такими как dfps</string>
@@ -931,7 +933,7 @@
     <string name="common_words_single_line">Одна строка</string>
     <string name="common_words_double_line">Две строки</string>
     <string name="common_words_customize">Настроить</string>
-    <string name="common_words_current_mode">Current Mode</string>
+    <string name="common_words_current_mode">Текущий режим</string>
     <string name="common_words_refresh">Обновить</string>
     <string name="common_words_save">Сохранить</string>
     <string name="common_words_filter">Фильтр</string>

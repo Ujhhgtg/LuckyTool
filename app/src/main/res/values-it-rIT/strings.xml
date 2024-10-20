@@ -608,6 +608,7 @@
     <string name="customize_device_ota_card_background">Personalizza lo sfondo della scheda OTA del dispositivo</string>
     <string name="customize_device_ota_card_background_summary">Dimensioni consigliate: Multipli di 328x124</string>
     <string name="customize_device_ota_card_background_path">Percorso immagine sfondo</string>
+    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
     <string name="settings_developer_preference">Opzioni sviluppatore</string>
     <string name="remove_dpi_restart_recovery">Rimuovi recupero riavvio DPI</string>
     <string name="remove_dpi_restart_recovery_summary">Dopo aver abilitato la funzione e riavviato l\'ambito, Aprire la pagina opzioni sviluppatore e impostare la larghezza minima</string>
@@ -706,6 +707,7 @@
     <string name="unlock_local_upgrade">Sblocca aggiornamento locale</string>
     <string name="unlock_local_upgrade_summary">Dopo aver cliccato, le operazioni rilevanti verranno eseguite automaticamente, si prega di attendere pazientemente per alcuni secondi</string>
     <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
+    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
     <string name="restore_ota_update_verity">Riprendi la verifica di aggiornamento OTA</string>
     <string name="restore_ota_update_verity_summary">Stato corrente: [%1$s]\nProva a utilizzare questa funzionalità se l\'aggiornamento OTA richiede un errore di convalida o richiede dm-verity\nNon chiedere perché la funzionalità è disattivata perché il sistema ha la convalida dell\'aggiornamento abilitata per impostazione predefinita \nQuando la convalida è disattivata, l\'aggiornamento OTA non riesce, quindi quando la funzione è attivata questa funzione viene bloccata</string>
     <!--Extract OTA-->

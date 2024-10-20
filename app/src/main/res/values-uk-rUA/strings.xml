@@ -608,6 +608,7 @@
     <string name="customize_device_ota_card_background">Customize device OTA card background</string>
     <string name="customize_device_ota_card_background_summary">Recommended size: Multiples of 328x124</string>
     <string name="customize_device_ota_card_background_path">Background image path</string>
+    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
     <string name="settings_developer_preference">Developer Options</string>
     <string name="remove_dpi_restart_recovery">Видалити відновлення DPI</string>
     <string name="remove_dpi_restart_recovery_summary">Після увімкнення функції та перезапуску області, відкрийте сторінку параметрів розробника та встановіть мінімальну ширину</string>
@@ -706,6 +707,7 @@
     <string name="unlock_local_upgrade">Розблокувати локальне оновлення</string>
     <string name="unlock_local_upgrade_summary">Після натискання відповідні операції виконуватимуться автоматично, терпляче зачекайте кілька секунд</string>
     <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
+    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
     <string name="restore_ota_update_verity">Resume OTA update verification</string>
     <string name="restore_ota_update_verity_summary">Current Status: [%1$s]\nTry to use this feature if the OTA update prompts for validation failure or prompts for dm-verity\nDo not ask why the feature is grayed out because the system has update validation enabled by default\nWhen validation is turned off the OTA update fails, so when the feature is turned on it locks out this feature</string>
     <!--Extract OTA-->

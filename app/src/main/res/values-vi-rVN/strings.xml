@@ -608,6 +608,7 @@
     <string name="customize_device_ota_card_background">Tùy chỉnh nền thẻ OTA của thiết bị</string>
     <string name="customize_device_ota_card_background_summary">Kích thước đề xuất: 328x124</string>
     <string name="customize_device_ota_card_background_path">Đường dẫn ảnh nền</string>
+    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
     <string name="settings_developer_preference">Tuỳ chọn nhà phát triển</string>
     <string name="remove_dpi_restart_recovery">Xóa phục hồi khởi động lại DPI</string>
     <string name="remove_dpi_restart_recovery_summary">Sau khi bật tính năng này và khởi động lại phạm vi, hãy mở trang tùy chọn nhà phát triển và đặt chiều rộng tối thiểu</string>
@@ -706,6 +707,7 @@
     <string name="unlock_local_upgrade">Mở khóa nâng cấp cục bộ</string>
     <string name="unlock_local_upgrade_summary">Sau khi nhấp vào, các thao tác liên quan sẽ được thực hiện tự động, hãy kiên nhẫn chờ trong vài giây</string>
     <string name="remove_ota_local_update_verity">Xóa xác minh cập nhật OTA cục bộ</string>
+    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
     <string name="restore_ota_update_verity">Khôi phục xác minh cập nhật OTA</string>
     <string name="restore_ota_update_verity_summary">Trạng thái hiện tại: %1$s\nNếu bản cập nhật OTA nhắc rằng xác minh không thành công hoặc nhắc dm-verity, bạn có thể thử sử dụng chức năng này\nĐừng hỏi tại sao chức năng này chuyển sang màu xám, vì hệ thống cho phép xác minh cập nhật bằng cách mặc định\nKhi tắt xác minh, Sẽ khiến cập nhật OTA không thành công nên chức năng này sẽ bị khóa khi bật chức năng này</string>
     <!--Extract OTA-->
