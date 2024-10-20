@@ -131,7 +131,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
     }
 
     private fun highLight(scrollKey: String, scrollPosition: Int) {
-        val recyclerView = listView
+        val recyclerView = listView ?: return
         val adapter = recyclerView.adapter ?: return
 
         val preference = if (scrollKey.isBlank()) {
