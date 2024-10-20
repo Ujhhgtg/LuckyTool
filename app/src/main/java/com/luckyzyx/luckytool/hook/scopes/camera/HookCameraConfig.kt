@@ -27,7 +27,7 @@ object HookCameraConfig : YukiBaseHooker() {
             //哈苏水印
             if (prefs(ModulePrefs).getBoolean("enable_hasselblad_watermark_style", false)) {
                 //禁用画框水印
-//                put("com.oplus.camera.support.frame.watermark", false)
+                put("com.oplus.camera.support.frame.watermark", false)
 
                 //Source SloganUtil -> Shot on OnePlus / Hasselblad
                 put("com.oplus.hasselblad.watermark.support.default", true)
