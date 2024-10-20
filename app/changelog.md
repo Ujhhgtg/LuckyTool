@@ -18,6 +18,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [移除] 控制中心磁贴背景透明度 C15
 - [适配] 移除USB连接对话框 C15
 - [移除] 控制中心滑动条透明度 C15
+- [适配] 桌面App更新圆点 C15
 
 ### 1.2.4
 
