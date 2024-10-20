@@ -367,12 +367,6 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
                 add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.customize_device_sharing_page_parameters)
-                    key = "customize_device_sharing_page_parameters"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
-                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.customize_device_ota_card_background)
                     summary = getString(R.string.customize_device_ota_card_background_summary)
                     key = "customize_device_ota_card_background"
@@ -407,8 +401,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                                         activityTitle = title?.toString() ?: ""
                                         cropShape = CropImageView.CropShape.RECTANGLE
                                         guidelines = CropImageView.Guidelines.ON_TOUCH
-                                        aspectRatioX = 328
-                                        aspectRatioY = 124
+                                        if (osCode >= 34) {
+                                            aspectRatioX = 984
+                                            aspectRatioY = 702
+                                        } else {
+                                            aspectRatioX = 328
+                                            aspectRatioY = 124
+                                        }
                                         fixAspectRatio = true
                                         customOutputUri = cacheImageFile.getUri
                                         outputCompressFormat = Bitmap.CompressFormat.PNG
@@ -419,7 +418,20 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                             true
                         }
                     })
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.apply_device_parameter_sharing_page)
+                        key = "apply_device_parameter_sharing_page"
+                        setDefaultValue(false)
+                        isVisible = osCode >= 34
+                        isIconSpaceReserved = false
+                    })
                 }
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.customize_device_sharing_page_parameters)
+                    key = "customize_device_sharing_page_parameters"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
             }
             //其他首选项
             add(PreferenceCategory(this@loadPreferences).apply {

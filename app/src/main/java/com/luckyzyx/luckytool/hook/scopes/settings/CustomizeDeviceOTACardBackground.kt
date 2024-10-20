@@ -5,33 +5,54 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
 
-    private val FrameAnimViewClazz = "com.oplus.settings.utils.frameanimation.FrameAnimView"
-
     override fun onHook() {
+        val osCode = getOSVersionCode
         val backgroundPath =
             prefs(ModulePrefs).getString("customize_device_ota_card_background_path", "")
+        val applySharePage =
+            prefs(ModulePrefs).getBoolean("apply_device_parameter_sharing_page", false)
 
         //Source AboutDeviceOtaUpdatePreference
         "com.oplus.settings.widget.preference.AboutDeviceOtaUpdatePreference".toClass().apply {
             method { name = "onBindViewHolder" }.hook {
                 after {
-                    val mLogoView = field {
-                        type = FrameAnimViewClazz.toClassOrNull() ?: return@after
-                    }.get(instance).cast<View>() ?: return@after
-                    val context = mLogoView.context
-                    (mLogoView.parent as RelativeLayout).apply {
+                    val holder = args().first().any() ?: return@after
+                    val itemView = holder.current().field { name = "itemView";superClass() }
+                        .cast<View>() ?: return@after
+                    if (itemView is RelativeLayout) {
                         val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
-                        val drawableFactory = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
+                        val drawableFactory = RoundedBitmapDrawableFactory.create(
+                            itemView.resources, bitmap
+                        )
                         drawableFactory.cornerRadius = 12F.dp
-                        background = drawableFactory
+                        itemView.background = drawableFactory
                     }
+                }
+            }
+        }
+
+        if (osCode < 34 || !applySharePage) return
+
+        //Source ShareAboutPhoneActivity
+        "com.oplus.settings.feature.deviceinfo.aboutphone.ShareAboutPhoneActivity".toClass().apply {
+            method { name = "updateOsVersion" }.hook {
+                after {
+                    val relativeLayout = method { name = "getMLogoContent" }.get(instance)
+                        .invoke<RelativeLayout>() ?: return@after
+                    val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
+                    val drawableFactory = RoundedBitmapDrawableFactory.create(
+                        relativeLayout.resources, bitmap
+                    )
+                    drawableFactory.cornerRadius = 12F.dp
+                    relativeLayout.background = drawableFactory
                 }
             }
         }
