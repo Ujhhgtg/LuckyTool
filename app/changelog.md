@@ -21,6 +21,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 桌面App更新圆点 C15
 - [适配] 自定义OTA卡片背景 C15
 - [添加] OTA卡片背景应用到设备参数分享页面 C15
+- [适配] 后台挂机/听剧模式 C15
 
 ### 1.2.4
 

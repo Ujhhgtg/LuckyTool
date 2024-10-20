@@ -30,6 +30,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
 import com.luckyzyx.luckytool.hook.hookers.HookCosa
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
+import com.luckyzyx.luckytool.hook.hookers.HookExSystemService
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
@@ -181,6 +182,8 @@ object MainHook : IYukiHookXposedInit {
         loadApp("com.oplus.eyeprotect", HookEyeProtect)
         //MediaController
         loadApp("com.oplus.mediacontroller", HookMediaController)
+        //系统服务
+        loadApp("com.oplus.exsystemservice", HookExSystemService)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

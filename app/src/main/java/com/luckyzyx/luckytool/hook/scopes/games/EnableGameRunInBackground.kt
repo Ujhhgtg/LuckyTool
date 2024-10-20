@@ -9,10 +9,15 @@ import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.IntentUtils
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.oplus.miragewindow.OplusMirageOptions
+import com.oplus.miragewindow.OplusMirageWindowManager
 import org.luckypray.dexkit.DexKitBridge
 
 class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //Source HangUpUtil
         dexKitBridge.findClass {
             matcher {
@@ -42,8 +47,15 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     }
                     method { param(ContextClass);returnType = UnitType }.hook {
                         replaceUnit {
+                            if (osCode >= 35) {
+                                val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
+                                OplusMirageWindowManager.getInstance().startMirageWindowMode(
+                                    null, makeBasic.toBundle()
+                                )
+                                return@replaceUnit
+                            }
                             val context = args().first().cast<Context>() ?: return@replaceUnit
-                            IntentUtils(context).startBackgroundRunService()
+                            IntentUtils(context).startBackgroundRunServiceV14()
                         }
                     }
                 }

@@ -5,7 +5,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.telephony.SubscriptionManager
+import androidx.annotation.DeprecatedSinceApi
 import com.joom.paranoid.Obfuscate
 import com.topjohnwu.superuser.ShellUtils
 
@@ -198,7 +200,8 @@ class IntentUtils(val context: Context) {
     /**
      * 启动后台挂机服务(听剧模式)
      */
-    fun startBackgroundRunService() {
+    @DeprecatedSinceApi(Build.VERSION_CODES.VANILLA_ICE_CREAM, "仅支持在C14.1及以下使用")
+    fun startBackgroundRunServiceV14() {
         try {
             Intent("oplus.intent.action.BACKGROUND_STREAM_SERVICE").apply {
                 setPackage("com.oplus.exsystemservice")

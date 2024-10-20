@@ -111,7 +111,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
             //Source StatusBarFeatureOption
             VariousClass(
                 "com.oplusos.systemui.statusbar.feature.StatusBarFeatureOption", //C13
-                "com.oplusos.systemui.common.feature.StatusBarFeatureOption" //C14
+                "com.oplusos.systemui.common.feature.StatusBarFeatureOption" //C14 C15
             ).toClass().apply {
                 method { name = "isSystemUiExpSignalUi" }.hook {
                     if (hideSignalLabels) replaceToTrue()

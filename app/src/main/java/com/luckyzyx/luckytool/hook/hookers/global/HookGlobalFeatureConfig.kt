@@ -157,6 +157,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                     put("oplus.software.display.eyeprotect_paper_texture_support", true)
                 }
             }
+
+            //Source ExSystemService OplusBackgroundStreamController
+            if (prefs(ModulePrefs).getBoolean("enable_run_in_background", false)) {
+                if (osCode >= 27) put("oplus.software.background_stream_tileservice_enabled", true)
+            }
         }
         loadHooker(HookFeatureConfigManager(list))
     }
