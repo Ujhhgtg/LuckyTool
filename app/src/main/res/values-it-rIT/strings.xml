@@ -255,6 +255,7 @@
     <string name="StatusBarTiles">Tile Barra di Stato</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Forza la visualizzazione dei tile di attivazione/disattivazione dello stato della chiamata</string>
     <string name="SpecialTiles">Tile speciali</string>
+    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
     <string name="auto_expand_tile_rows_horizontal">Espandi automaticamente il numero di righe orizzontali dei tile</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Quando il lettore multimediale è nascosto, due righe di tile saranno visualizzate in modalità orizzontale</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">In seguito è necessario attivare il tile</string>
@@ -262,6 +263,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Attivando l\'espansione automatica dei tile su alcuni modelli la barra di luminosità verrà visualizzata al di fuori dello schermo. In questo caso, questa funzione deve essere abilitata</string>
     <string name="control_center_special_tile_top_gap">Imposta lo spazio superiore per i tile speciali</string>
     <string name="control_center_special_tile_bottom_gap">Imposta lo spazio inferiore per i tile speciali</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
     <string name="TileLongClickEvent">Evento Pressione Prolungata Tile</string>
     <string name="restore_some_tile_long_press_event">Ripristina alcuni eventi di pressione prolungata dei tile</string>
     <string name="restore_some_tile_long_press_event_summary">Ripristina WiFi, Bluetooth, Hotspot personale ed altri eventi di pressione prolungata per aprire la pagina corrispondente</string>

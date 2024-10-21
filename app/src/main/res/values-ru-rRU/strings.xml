@@ -255,6 +255,7 @@
     <string name="StatusBarTiles">Плитки быстрых настроек</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Принудительное отображение плитки переключения статуса звонка</string>
     <string name="SpecialTiles">Специальные плитки</string>
+    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
     <string name="auto_expand_tile_rows_horizontal">Автоматически развернуть количество горизонтальных плиток</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Когда медиаплеер скрыт, два ряда плиток будут отображаться в горизонтальном режиме</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Необходимо включить настройку плиток ниже</string>
@@ -262,6 +263,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Включение автоматического расширения плиток на некоторых моделях вызовет отображение панели яркости за пределами экрана. В данном случае эта функция должна быть включена</string>
     <string name="control_center_special_tile_top_gap">Установить верхний разрыв для специальных плиток</string>
     <string name="control_center_special_tile_bottom_gap">Установить верхний разрыв для специальных плиток</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
     <string name="TileLongClickEvent">Долгое нажатие на плитку</string>
     <string name="restore_some_tile_long_press_event">Восстановить некоторые события долгого нажатия на плитки</string>
     <string name="restore_some_tile_long_press_event_summary">Восстановите Wi-Fi, Bluetooth, личную точку доступа и другие события долгого нажатия на плитки, для открытия соответствующих меню</string>
@@ -608,7 +610,7 @@
     <string name="customize_device_ota_card_background">Настройка фона карты OTA устройства</string>
     <string name="customize_device_ota_card_background_summary">Рекомендуемый размер: 328x124</string>
     <string name="customize_device_ota_card_background_path">Путь к фоновому изображению</string>
-    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
+    <string name="apply_device_parameter_sharing_page">Применить к странице обмена параметрами устройства</string>
     <string name="settings_developer_preference">Параметры разработчика</string>
     <string name="remove_dpi_restart_recovery">Удалить восстановление DPI</string>
     <string name="remove_dpi_restart_recovery_summary">После включения функции и перезапуска области откройте страницу параметров разработчика и установите минимальную ширину</string>
@@ -707,7 +709,7 @@
     <string name="unlock_local_upgrade">Разблокировать локальное обновление</string>
     <string name="unlock_local_upgrade_summary">После нажатия соответствующие операции будут выполняться автоматически, терпеливо подождите несколько секунд</string>
     <string name="remove_ota_local_update_verity">Удалить проверку локального обновления OTA</string>
-    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
+    <string name="disable_dm_verity_verification">Отключение проверки dm-verity</string>
     <string name="restore_ota_update_verity">Возобновить проверку обновления OTA</string>
     <string name="restore_ota_update_verity_summary">Текущее состояние: [%1$s]\nПопробуйте использовать эту функцию, если OTA-обновление выдает ошибку проверки или запрашивает dm-verity\nНе спрашивайте, почему эта функция недоступна, поскольку в системе по умолчанию включена проверка обновлений\nКогда проверка отключена, OTA-обновление не выполняется, поэтому при включении функция блокирует эту функцию</string>
     <!--Extract OTA-->

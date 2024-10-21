@@ -255,6 +255,7 @@
     <string name="StatusBarTiles">Dlaždice stavové lišty</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Vynucení zobrazení přepínací dlaždice stavu hovoru</string>
     <string name="SpecialTiles">Speciální dlaždice</string>
+    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
     <string name="auto_expand_tile_rows_horizontal">Automaticky rozbalit počet řádků horizontálních dlaždic</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Musíte povolit přepínač funkce dlaždic níže</string>
@@ -262,6 +263,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Zapnutí automatického rozbalení dlaždic na některých modelech způsobí zobrazení lišty jasu mimo obrazovku. V tomto případě musí být tato funkce povolena</string>
     <string name="control_center_special_tile_top_gap">Nastavit horní mezeru pro speciální dlaždice</string>
     <string name="control_center_special_tile_bottom_gap">Nastavit spodní mezeru pro speciální dlaždice</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
     <string name="TileLongClickEvent">Událost daždice při dlouhém stisku</string>
     <string name="restore_some_tile_long_press_event">Obnovit některé události dlouhého stisku</string>
     <string name="restore_some_tile_long_press_event_summary">Obnovit WiFi, Bluetooth, osobní hotspot a další události dlouhého stisku pro otevření odpovídající stránky</string>

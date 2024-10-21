@@ -255,6 +255,7 @@
     <string name="StatusBarTiles">状态栏磁贴</string>
     <string name="force_display_of_ringing_status_toggle_tiles">强制显示响铃状态切换磁贴</string>
     <string name="SpecialTiles">特殊磁贴</string>
+    <string name="SpecialTiles_summary">仅限经典控制中心模式</string>
     <string name="auto_expand_tile_rows_horizontal">自动扩展横屏磁贴行数</string>
     <string name="auto_expand_tile_rows_horizontal_summary">当媒体播放器隐藏时，横屏模式将显示两行磁贴</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">需要打开下方磁贴功能总开关</string>
@@ -262,6 +263,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">部分机型启用磁贴自动扩展会导致亮度条显示在屏幕外，此时必须启用此项功能</string>
     <string name="control_center_special_tile_top_gap">设置特殊磁贴顶部间隙</string>
     <string name="control_center_special_tile_bottom_gap">设置特殊磁贴底部间隙</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">减小横屏亮度条顶部间隙</string>
     <string name="TileLongClickEvent">磁贴长按事件</string>
     <string name="restore_some_tile_long_press_event">恢复部分磁贴长按事件</string>
     <string name="restore_some_tile_long_press_event_summary">恢复 Wi-Fi、蓝牙、个人热点等磁贴的长按打开对应页面事件</string>

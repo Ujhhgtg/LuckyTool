@@ -255,6 +255,7 @@
     <string name="StatusBarTiles">Ô thanh trạng thái</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Buộc hiển thị ô chuyển đổi trạng thái đổ chuông</string>
     <string name="SpecialTiles">Ô đặc biệt</string>
+    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
     <string name="auto_expand_tile_rows_horizontal">Tự động mở rộng số lượng ô hàng ngang</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Chế độ hàng ngang sẽ hiển thị hai hàng ô khi trình phát đa phương tiện bị ẩn</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Bạn cần bật công tắc chính của chức năng xếp ô bên dưới</string>
@@ -262,6 +263,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Việc bật tính năng mở rộng ô tự động trên một số kiểu máy sẽ khiến thanh độ sáng hiển thị ngoài màn hình. Trong trường hợp này, tính năng này phải được bật</string>
     <string name="control_center_special_tile_top_gap">Đặt khoảng cách trên cùng của ô đặc biệt</string>
     <string name="control_center_special_tile_bottom_gap">Đặt khoảng cách dưới cùng của ô đặc biệt</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
     <string name="TileLongClickEvent">Sự kiện nhấp chuột dài</string>
     <string name="restore_some_tile_long_press_event">Khôi phục một số sự kiện nhấn và giữ ô xếp</string>
     <string name="restore_some_tile_long_press_event_summary">Khôi phục WiFi, Bluetooth, điểm phát sóng cá nhân và các sự kiện nhấn và giữ ô xếp khác để mở trang tương ứng</string>

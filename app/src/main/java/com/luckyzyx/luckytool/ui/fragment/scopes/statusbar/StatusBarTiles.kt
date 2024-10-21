@@ -42,6 +42,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
             if (SDK >= A13) {
                 add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.SpecialTiles)
+                    summary = getString(R.string.SpecialTiles_summary)
                     key = "SpecialTiles"
                     isIconSpaceReserved = false
                 })
@@ -102,8 +103,9 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                         setOnPreferenceChangeListener { _, newValue ->
                             sendPrefsValue("com.android.systemui", key, newValue)
-                            if ((newValue as Boolean).not()) findPreference<SwitchPreference>("auto_expand_tile_rows_horizontal")?.isChecked =
-                                false
+                            if ((newValue as Boolean).not()) findPreference<SwitchPreference>(
+                                "auto_expand_tile_rows_horizontal"
+                            )?.isChecked = false
                             (activity as MainActivity).restart()
                             true
                         }
@@ -139,6 +141,13 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                                 sendPrefsValue("com.android.systemui", key, newValue)
                                 true
                             }
+                        })
+                        add(SwitchPreference(this@loadPreferences).apply {
+                            title = getString(R.string.decrease_horizontal_brightness_bar_top_gap)
+                            key = "decrease_horizontal_brightness_bar_top_gap"
+                            setDefaultValue(false)
+                            isVisible = osCode >= 30
+                            isIconSpaceReserved = false
                         })
                     }
                 }
