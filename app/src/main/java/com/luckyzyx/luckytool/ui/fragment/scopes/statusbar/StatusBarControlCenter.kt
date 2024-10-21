@@ -264,6 +264,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 min = -1
                 showSeekBarValue = true
                 updatesContinuously = false
+                isVisible = osCode < 34
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)

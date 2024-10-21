@@ -23,6 +23,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] OTA卡片背景应用到设备参数分享页面 C15
 - [适配] 后台挂机/听剧模式 C15
 - [适配] 流体云通知两侧对齐 C15
+- [移除] 控制中心背景透明度 C15
 
 ### 1.2.4
 

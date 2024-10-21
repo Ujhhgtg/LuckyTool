@@ -37,6 +37,6 @@ object StatusBarControlCenter : YukiBaseHooker() {
         if (osCode >= 30) loadHooker(NotificationBackgroundBlurAlpha)
 
         //控制中心背景透明度
-        loadHooker(ControlCenterBackgroundTransParency)
+        if (osCode < 34) loadHooker(ControlCenterBackgroundTransParency)
     }
 }
