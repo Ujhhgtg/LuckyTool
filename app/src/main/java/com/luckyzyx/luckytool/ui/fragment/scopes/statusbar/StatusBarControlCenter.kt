@@ -147,7 +147,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 min = -1
                 showSeekBarValue = true
                 updatesContinuously = false
-                isVisible = osCode >= 30
+                isVisible = osCode in 30..33
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
@@ -162,7 +162,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 )
                 key = "enable_notification_background_blur_effect"
                 setDefaultValue(false)
-                isVisible = osCode >= 30
+                isVisible = osCode in 30..33
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
