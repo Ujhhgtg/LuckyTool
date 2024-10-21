@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
 import com.highcapable.yukihookapi.hook.bean.VariousClass
@@ -33,71 +34,60 @@ object VolumeDialogBackground : YukiBaseHooker() {
             method { name = "isSurrealQualityOn" }.hook {
                 replaceToFalse()
             }
-            val isOldVolumnDIalog = hasField { name = "mVerticalRowsLayerDrawable" }
+            val hasVerticalRowsLayer = hasField { name = "mVerticalRowsLayerDrawable" }
+            val hasVolumeMoreLayer = hasField { name = "mVolumeMoreLayerDrawable" }
             val hasCaptionLayer = hasField { name = "mVolumeCaptionLayerDrawable" }
             val hasAppAdjustLayer = hasField { name = "mVolumeAppAdjustLayerDrawable" }
-            if (isOldVolumnDIalog) {
-                method { param(DialogInterfaceClass) }.hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        val value = customAlpha * 25
-                        field { name = "mVerticalRowsLayerDrawable" }.get(instance)
-                            .cast<LayerDrawable>()?.apply {
-                                val blurDrawable = getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
-                                }
-                                getDrawable(1)?.alpha = value
+            val hasVolumeBtnDrawable = hasField { name = "mVolumeBtnDrawable" }
+            val hasVolumeBackgroundLayer = hasField { name = "mVolumeBackgroundLayerDrawable" }
+            method { param(DialogInterfaceClass) }.hook {
+                before {
+                    if (customAlpha < 0) return@before
+                    val value = customAlpha * 25
+                    if (hasVerticalRowsLayer) field { name = "mVolumeMoreLayerDrawable" }
+                        .get(instance).cast<LayerDrawable>()?.apply {
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
-                        field { name = "mVolumeMoreLayerDrawable" }.get(instance)
-                            .cast<LayerDrawable>()
-                            ?.apply {
-                                val blurDrawable = getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
-                                }
-                                getDrawable(1)?.alpha = value
+                            getDrawable(1)?.alpha = value
+                        }
+                    if (hasVolumeMoreLayer) field { name = "mVolumeMoreLayerDrawable" }
+                        .get(instance).cast<LayerDrawable>()?.apply {
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
-                        if (hasCaptionLayer) field { name = "mVolumeCaptionLayerDrawable" }
-                            .get(instance).cast<LayerDrawable>()?.apply {
-                                val blurDrawable = getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
-                                }
-                                getDrawable(1)?.alpha = value
+                            getDrawable(1)?.alpha = value
+                        }
+                    if (hasAppAdjustLayer) field { name = "mVolumeAppAdjustLayerDrawable" }
+                        .get(instance).cast<LayerDrawable>()?.apply {
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
-                    }
-                }
-            } else {
-                method { param(DialogInterfaceClass) }.hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        val value = customAlpha * 25
-                        field { name = "mVolumeMoreLayerDrawable" }.get(instance)
-                            .cast<LayerDrawable>()?.apply {
-                                val blurDrawable = getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
-                                }
-                                getDrawable(1)?.alpha = value
+                            getDrawable(1)?.alpha = value
+                        }
+                    if (hasCaptionLayer) field { name = "mVolumeCaptionLayerDrawable" }
+                        .get(instance).cast<LayerDrawable>()?.apply {
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
-                        if (hasAppAdjustLayer) field { name = "mVolumeAppAdjustLayerDrawable" }
-                            .get(instance).cast<LayerDrawable>()?.apply {
-                                val blurDrawable = getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
-                                }
-                                getDrawable(1)?.alpha = value
+                            getDrawable(1)?.alpha = value
+                        }
+                    if (hasVolumeBackgroundLayer) field { name = "mVolumeBackgroundLayerDrawable" }
+                        .get(instance).cast<LayerDrawable>()?.apply {
+                            val blurDrawable = getDrawable(0)
+                            if (blurDrawable is BackgroundBlurDrawable) {
+                                blurDrawable.setBlurRadius(value.dp)
                             }
-                        if (hasCaptionLayer) field { name = "mVolumeCaptionLayerDrawable" }
-                            .get(instance).cast<LayerDrawable>()?.apply {
-                                val blurDrawable = getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
-                                }
-                                getDrawable(1)?.alpha = value
-                            }
-                    }
+                            getDrawable(1)?.alpha = value
+                        }
+                    if (hasVolumeBtnDrawable) field { name = "mVolumeBtnDrawable" }
+                        .get(instance).cast<Drawable>()?.apply {
+                            alpha = 255 - value
+                        }
                 }
                 method { name = "addVerticalContainerBg" }.hook {
                     before {
