@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
@@ -108,6 +107,20 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                         }
                     }
                 }
+
+            //Source OplusCustomRow C15
+            "com.oplus.systemui.statusbar.notification.customcard.OplusCustomRow".toClassOrNull()
+                ?.apply {
+                    method { name = "onFinishInflate" }.hook {
+                        after { instance<ViewGroup>().setViewWidth() }
+                    }
+                    method { name = "onLayout" }.hook {
+                        after { instance<ViewGroup>().setViewWidth() }
+                    }
+                    method { name = "onConfigurationChanged" }.hook {
+                        after { instance<ViewGroup>().setViewWidth() }
+                    }
+                }
         }
     }
 
@@ -139,19 +152,6 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         getScreenOrientation(this) {
             if (layoutParams != null) layoutParams = ViewGroup.LayoutParams(layoutParams).apply {
                 width = if (it) targetWidth else ViewGroup.LayoutParams.MATCH_PARENT
-            }
-        }
-    }
-
-    @SuppressLint("DiscouragedApi")
-    private fun View.setFrameViewWidth() {
-        qsPanelPaddingPx = resources.getDimensionPixelSize(
-            resources.getIdentifier("qs_header_panel_side_padding", "dimen", packageName)
-        )
-        val targetWidth = resources.displayMetrics.widthPixels - (qsPanelPaddingPx * 2)
-        getScreenOrientation(this) {
-            if (layoutParams != null) layoutParams = FrameLayout.LayoutParams(layoutParams).apply {
-                width = if (it) targetWidth else FrameLayout.LayoutParams.MATCH_PARENT
             }
         }
     }

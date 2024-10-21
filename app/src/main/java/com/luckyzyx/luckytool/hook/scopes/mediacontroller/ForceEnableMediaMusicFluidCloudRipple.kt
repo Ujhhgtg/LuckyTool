@@ -16,10 +16,12 @@ object ForceEnableMediaMusicFluidCloudRipple : YukiBaseHooker() {
             method { name { it.startsWith("update") && it.endsWith("Data") } }.hookAll {
                 before {
                     if (!isEnable) return@before
-                    val json = args(1).cast<JSONObject>() ?: return@before
-                    val staticVoicePrintShow = json.optBoolean("staticVoicePrintShow", true)
-                    if (staticVoicePrintShow) {
-                        json.put("staticVoicePrintShow", false)
+                    val json = args(1).any() ?: return@before
+                    if (json is JSONObject) {
+                        val staticVoicePrintShow = json.optBoolean("staticVoicePrintShow", true)
+                        if (staticVoicePrintShow) {
+                            json.put("staticVoicePrintShow", false)
+                        }
                     }
                 }
             }
