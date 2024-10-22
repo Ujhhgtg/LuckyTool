@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.gallery
 import android.annotation.SuppressLint
 import android.content.Context
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
@@ -123,6 +125,34 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             //debug.gallery.photo.editor.watermark.switcher / is_region_cn (property_domestic)
                             configNode.contains("feature_is_support_national_day_watermark") -> {
                                 if (nationalDay && osCode >= 27 && isRegionCN(context)) resultTrue()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (hasselWaterMark) {
+            //Source WatermarkInfo / WatermarkDevice
+            dexKitBridge.findClass {
+                matcher {
+                    addFieldForType(IntType)
+                    addFieldForType(BooleanType)
+                    addFieldForType(StringClass)
+                    usingStrings("WatermarkDevice", "isHasselDevice")
+                }
+            }.apply {
+                checkDataList("WatermarkDevice HasselDevice")
+                single().name.toClass().apply {
+                    val hasMethod = hasMethod { emptyParam();returnType = BooleanType }
+                    if (hasMethod) {
+                        method { emptyParam();returnType = BooleanType }.hookAll {
+                            replaceToTrue()
+                        }
+                    } else {
+                        constructor { }.hookAll {
+                            after {
+                                field { type = BooleanType }.get(instance).setTrue()
                             }
                         }
                     }

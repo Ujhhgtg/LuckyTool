@@ -29,6 +29,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 减小横屏亮度条顶部间隙 C14+
 - [适配] 控制中心日期农历显示 C15
 - [适配] 磁贴编辑页面行数 C15
+- [适配] 相册哈苏水印状态判断
 
 ### 1.2.4
 

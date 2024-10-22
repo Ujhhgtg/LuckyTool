@@ -26,6 +26,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
+            if (osCode < 27) return@apply
             //水印
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.GalleryWaterMark)
