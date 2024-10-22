@@ -28,6 +28,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [移除] 通知背景透明度 C15
 - [添加] 减小横屏亮度条顶部间隙 C14+
 - [适配] 控制中心日期农历显示 C15
+- [适配] 磁贴编辑页面行数 C15
 
 ### 1.2.4
 

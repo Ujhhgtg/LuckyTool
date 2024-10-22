@@ -8,15 +8,18 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object RestorePageLayoutRowCountForEditTiles : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //Source OplusQSCustomizer
         VariousClass(
             "com.oplusos.systemui.qs.customize.OplusQSCustomizer",  //C13
             "com.oplus.systemui.qs.customize.OplusQSCustomizer"  //C14
         ).toClass().apply {
-            constructor { paramCount = 2 }.hook {
+            if (osCode < 34) constructor { paramCount = 2 }.hook {
                 after {
                     field { name = "mMoreFunctionLabel" }.get(instance).cast<View>()
                         ?.isVisible = false
