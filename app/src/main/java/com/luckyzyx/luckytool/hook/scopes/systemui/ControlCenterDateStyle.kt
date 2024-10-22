@@ -46,24 +46,35 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         //Source OplusQSDateView
         VariousClass(
             "com.oplusos.systemui.qs.widget.OplusQSDateView", //C13
-            "com.oplus.systemui.qs.widget.OplusQSDateView" //C14
+            "com.oplus.systemui.qs.widget.OplusQSDateView" //C14 C15
         ).toClass().apply {
-            method { name = "updateClock";emptyParam() }.hook {
+            val hasUpdateConsumer = hasMethod {
+                name { it.contains("updateClock") }
+                paramCount = 1
+            }
+            method {
+                if (hasUpdateConsumer) {
+                    name { it.contains("updateClock") };paramCount = 1
+                } else {
+                    name = "updateClock";emptyParam()
+                }
+            }.hook {
                 after {
                     if (!removeComma && !showLunar) return@after
-                    val dateView = instance<TextView>()
-                    val context = dateView.context
-                    var res = dateView.text as String
-                    if (removeComma) res = res.replace("，", " ")
-                    if (showLunar) {
-                        LunarHelperUtils(context, appClassLoader).apply {
-                            if (lunarInstance == null) lunarInstance = getInstance(context)
-                            val lunarInfo = generateLunarDate(2)
-                            if (lunarInfo.isNotBlank()) res += " $lunarInfo" else return@after
+                    instance<TextView>().apply {
+                        if (text.isBlank()) return@after
+                        var res = text.toString()
+                        if (removeComma) res = res.replace("，", " ")
+                        if (showLunar) {
+                            LunarHelperUtils(context, appClassLoader).apply {
+                                if (lunarInstance == null) lunarInstance = getInstance(context)
+                                val lunarInfo = generateLunarDate(2)
+                                if (lunarInfo.isNotBlank()) res += " $lunarInfo"
+                            }
                         }
+                        text = res
+                        field { name = "mLastText" }.get(instance).set(res)
                     }
-                    dateView.text = res
-                    field { name = "mLastText" }.get(instance).set(res)
                 }
             }
         }

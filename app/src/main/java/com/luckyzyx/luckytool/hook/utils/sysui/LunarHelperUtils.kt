@@ -28,7 +28,7 @@ class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
 
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.LunarHelper",  //C13
-        "com.oplus.systemui.keyguard.clock.LunarHelper"  //C14
+        "com.oplus.systemui.keyguard.clock.LunarHelper"  //C14 C15
     ).toClass(classLoader)
 
     init {
