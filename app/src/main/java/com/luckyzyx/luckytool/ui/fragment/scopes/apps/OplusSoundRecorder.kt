@@ -48,7 +48,7 @@ class OplusSoundRecorder : BaseScopePreferenceFeagment() {
                 key = "expand_voip_recorder_whitelist"
                 setDefaultValue(false)
                 isEnabled = checkPackName("com.oplus.audiomonitor")
-                isVisible = osCode >= 31 && isZh(context)
+                isVisible = osCode in 31..33 && isZh(context)
                 isIconSpaceReserved = false
             })
         }
