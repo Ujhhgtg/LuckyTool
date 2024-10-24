@@ -31,6 +31,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 磁贴编辑页面行数 C15
 - [适配] 相册哈苏水印状态判断
 - [适配] 状态栏电池图标百分号 C15
+- [适配] 隐藏非上网卡移动数据图标 C15
 
 ### 1.2.4
 

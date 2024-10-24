@@ -10,18 +10,93 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.luckytool.utils.A12
+import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 object MobileDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK >= A12) loadHooker(MobileDataIconRelated)
-        else loadHooker(MobileDataIconRelatedC120)
+        val osCode = getOSVersionCode
+        when (osCode) {
+            in 34..Int.MAX_VALUE -> loadHooker(MobileDataIcon)
+            in 23..33 -> loadHooker(MobileDataIconV14)
+            else -> loadHooker(MobileDataIconV120)
+        }
     }
 
-    object MobileDataIconRelated : YukiBaseHooker() {
+    object MobileDataIcon : YukiBaseHooker() {
+        override fun onHook() {
+            //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
+            val removeInout = prefs(ModulePrefs).getBoolean("remove_mobile_data_inout", false)
+            val removeType = prefs(ModulePrefs).getBoolean("remove_mobile_data_type", false)
+            val hideNonNetwork = prefs(ModulePrefs).getBoolean("hide_non_network_card_icon", false)
+            var hideNoSS = prefs(ModulePrefs).getBoolean("hide_nosim_noservice", false)
+            dataChannel.wait<Boolean>("hide_nosim_noservice") { hideNoSS = it }
+
+            //Source OplusStatusBarMobileViewBinder
+            "com.oplus.systemui.statusbar.pipeline.mobile.ui.view.OplusStatusBarMobileViewBinder".toClass()
+                .apply {
+                    val hasDataActivity = hasMethod { name = "bindCustEx\$updateDataActivity" }
+                    val hasNetworkType = hasMethod { name = "bindCustEx\$updateNetworkType" }
+                    if (hasDataActivity) method { name = "bindCustEx\$updateDataActivity" }.hook {
+                        after {
+                            val view = args().first().cast<View>() ?: return@after
+                            if (removeInout) view.isVisible = false
+                        }
+                    }
+                    if (hasNetworkType) method { name = "bindCustEx\$updateNetworkType" }.hook {
+                        after {
+                            val view = args().first().cast<View>() ?: return@after
+                            if (removeType) view.isVisible = false
+                        }
+                    }
+                }
+
+            //Source OplusMobileIconViewModel
+            "com.oplus.systemui.statusbar.pipeline.mobile.ui.viewmodel.OplusMobileIconViewModel".toClass()
+                .apply {
+                    method {
+                        name = "isVisible"
+                        returnType = "kotlinx.coroutines.flow.StateFlow"
+                    }.hook {
+                        after {
+                            if (!hideNonNetwork) return@after
+                            val subId = field { name = "subscriptionId" }.get(instance).int()
+                            val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
+                            val stateFlow = safeOfNull {
+                                FlowUtils(appClassLoader).let {
+                                    val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
+                                        ?: return@after
+                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@after
+                                }
+                            }
+                            result = stateFlow ?: return@after
+                        }
+                    }
+                }
+
+            //Source OplusStatusBarSignalPolicy
+            "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicy".toClass().apply {
+                method {
+                    name = "updateSlotIconVisibility"
+                    param(StringClass, IntType, StringClass)
+                }.hook {
+                    before {
+                        if (!hideNoSS) return@before
+                        val key = args().first().string()
+                        if (key == "nosim_all") args(1).set(0)
+                    }
+                }
+            }
+        }
+    }
+
+    object MobileDataIconV14 : YukiBaseHooker() {
         override fun onHook() {
             //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
             val removeInout = prefs(ModulePrefs).getBoolean("remove_mobile_data_inout", false)
@@ -42,8 +117,8 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             val state = args().first().any()
                             val subId = state?.current()?.field { name = "subId" }?.int()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance).cast<ViewGroup>()
-                                ?.isVisible = subId == subId2
+                            field { name = "mMobileGroup" }.get(instance)
+                                .cast<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
@@ -67,8 +142,8 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             val state = args().first().any()
                             val subId = state?.current()?.field { name = "subId" }?.int()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance).cast<ViewGroup>()
-                                ?.isVisible = subId == subId2
+                            field { name = "mMobileGroup" }.get(instance)
+                                .cast<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
@@ -110,7 +185,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
-    object MobileDataIconRelatedC120 : YukiBaseHooker() {
+    object MobileDataIconV120 : YukiBaseHooker() {
         override fun onHook() {
 //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
             val removeInout = prefs(ModulePrefs).getBoolean("remove_mobile_data_inout", false)
@@ -129,8 +204,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             val subId = state?.current()?.field { name = "subId" }?.int()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
                             field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible =
-                                subId == subId2
+                                .cast<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
@@ -147,8 +221,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             val subId = state?.current()?.field { name = "subId" }?.int()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
                             field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible =
-                                subId == subId2
+                                .cast<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
