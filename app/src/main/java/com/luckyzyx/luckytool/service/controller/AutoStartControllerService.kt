@@ -62,7 +62,7 @@ class AutoStartControllerService : Service() {
         scope(Dispatchers.Default) {
             try {
                 if (SDK >= A14) startForeground(
-                    channelNotifyId, notify, ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
+                    channelNotifyId, notify, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
                 ) else startForeground(channelNotifyId, notify)
             } catch (e: ForegroundServiceStartNotAllowedException) {
                 showToast(getString(R.string.service_auto_start_controller_not_allow_tips))
