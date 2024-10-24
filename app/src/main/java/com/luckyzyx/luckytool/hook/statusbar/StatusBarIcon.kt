@@ -9,8 +9,8 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveGreenDotPrivacyPrompt
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveHighPerformanceModeIcon
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarSecurePayment
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSystemPromptIcon
-import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveWiFiDataInout
 import com.luckyzyx.luckytool.hook.scopes.systemui.StatusBarIconVerticalCenter
+import com.luckyzyx.luckytool.hook.scopes.systemui.WiFiDataIconRelated
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -20,18 +20,17 @@ object StatusBarIcon : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
-        //移除状态栏支付保护图标
-        if (prefs(ModulePrefs).getBoolean("remove_statusbar_securepayment_icon", false)) {
-            loadHooker(RemoveStatusBarSecurePayment)
-        }
-        //移除WiFi数据箭头
-        if (prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)) {
-            loadHooker(RemoveWiFiDataInout)
-        }
+        //WiFi图标相关
+        loadHooker(WiFiDataIconRelated)
         //移动数据图标相关
         loadHooker(MobileDataIconRelated)
         //未连接蓝牙时隐藏图标
         loadHooker(BluetoothIconRelated)
+
+        //移除状态栏支付保护图标
+        if (prefs(ModulePrefs).getBoolean("remove_statusbar_securepayment_icon", false)) {
+            loadHooker(RemoveStatusBarSecurePayment)
+        }
         //移除高性能模式图标
         if (prefs(ModulePrefs).getBoolean("remove_high_performance_mode_icon", false)) {
             loadHooker(RemoveHighPerformanceModeIcon)

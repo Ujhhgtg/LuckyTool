@@ -5,8 +5,6 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.5_beta
 
-[//]: # (- [适配] 扩展三方通话录音白名单)
-
 - [添加] 作用域功能支持搜索跳转
 - [添加] 自动点击开始录制或投射对话框
 - [修复] 指纹图标Hook异常 C15
@@ -32,6 +30,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 相册哈苏水印状态判断
 - [适配] 状态栏电池图标百分号 C15
 - [适配] 隐藏非上网卡移动数据图标 C15
+- [适配] 移除WiFi数据箭头图标 C15
 
 ### 1.2.4
 

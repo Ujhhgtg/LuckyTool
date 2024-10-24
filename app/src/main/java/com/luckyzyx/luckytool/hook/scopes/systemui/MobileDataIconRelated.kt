@@ -44,15 +44,13 @@ object MobileDataIconRelated : YukiBaseHooker() {
                     val hasDataActivity = hasMethod { name = "bindCustEx\$updateDataActivity" }
                     val hasNetworkType = hasMethod { name = "bindCustEx\$updateNetworkType" }
                     if (hasDataActivity) method { name = "bindCustEx\$updateDataActivity" }.hook {
-                        after {
-                            val view = args().first().cast<View>() ?: return@after
-                            if (removeInout) view.isVisible = false
+                        before {
+                            if (removeInout) args().last().set(0)
                         }
                     }
                     if (hasNetworkType) method { name = "bindCustEx\$updateNetworkType" }.hook {
-                        after {
-                            val view = args().first().cast<View>() ?: return@after
-                            if (removeType) view.isVisible = false
+                        before {
+                            if (removeType) args().last().setNull()
                         }
                     }
                 }
