@@ -1,7 +1,10 @@
+@file:Suppress("ConstPropertyName")
+
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
 import android.view.LayoutInflater
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.constructor
@@ -21,7 +24,7 @@ import java.util.function.Supplier
 
 object LockScreenComponentStyle : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK >= A14) loadHooker(LockScreenComponentStyleV14)
+        if (SDK == A14) loadHooker(LockScreenComponentStyleV14)
         else loadHooker(LockScreenComponentStyleV13)
         if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {
             if (SDK == A13) loadHooker(ForceDisplayClockStyleOptionsV13)
@@ -39,7 +42,11 @@ object LockScreenComponentStyle : YukiBaseHooker() {
             "com.oplus.systemui.shared.clocks.RedHorizontalDualClockProvider" //C14
         private const val sysuiColorExtractor =
             "com.android.systemui.colorextraction.SysuiColorExtractor" //C14
-        private const val clockSettings = "com.android.systemui.plugins.ClockSettings" //C14
+        private val clockSettings = VariousClass(
+            "com.android.systemui.plugins.ClockSettings", //C14
+            "com.android.systemui.plugins.clocks.ClockSettings"  //C15
+        )
+
         override fun onHook() {
             val mode = prefs(ModulePrefs).getString("lock_screen_custom_clock_component_style", "0")
 
@@ -51,13 +58,10 @@ object LockScreenComponentStyle : YukiBaseHooker() {
                         val res = result<Any>() ?: return@after
                         val clockId = res.current().method { name = "getClockId" }.invoke<String>()
                             ?: return@after
-                        val provider = if (clockId.contains("DualClock").not()) when (mode) {
-                            "1" -> singleClockProvider
-                            "2" -> redHorizontalSingleClockProvider
-                            else -> return@after
-                        } else when (mode) {
-                            "1" -> dualClockProvider
-                            "2" -> redHorizontalDualClockProvider
+                        val isSingle = !clockId.contains("DualClock")
+                        val provider = when (mode) {
+                            "1" -> if (isSingle) singleClockProvider else dualClockProvider
+                            "2" -> if (isSingle) redHorizontalSingleClockProvider else redHorizontalDualClockProvider
                             else -> return@after
                         }
                         provider.toClassOrNull() ?: return@after

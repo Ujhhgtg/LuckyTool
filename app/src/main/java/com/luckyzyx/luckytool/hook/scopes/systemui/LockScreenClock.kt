@@ -38,7 +38,7 @@ object LockScreenClock : YukiBaseHooker() {
     override fun onHook() {
         val removeClock = prefs(ModulePrefs).getBoolean("remove_lock_screen_clock_component", false)
         if (removeClock) loadHooker(RemoveLockScreenClock)
-        else loadHooker(LockScreenClockStyle)
+        else loadHooker(LockScreenClockStyleV14)
     }
 
     object RemoveLockScreenClock : YukiBaseHooker() {
@@ -84,7 +84,7 @@ object LockScreenClock : YukiBaseHooker() {
         }
     }
 
-    object LockScreenClockStyle : YukiBaseHooker() {
+    object LockScreenClockStyleV14 : YukiBaseHooker() {
         override fun onHook() {
             var redMode = prefs(ModulePrefs).getString("lock_screen_clock_redone_mode", "0")
             dataChannel.wait<String>("lock_screen_clock_redone_mode") { redMode = it }

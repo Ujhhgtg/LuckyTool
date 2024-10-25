@@ -18,7 +18,7 @@ object HookNotificationManager : YukiBaseHooker() {
         }
         //强制显示时钟样式选项
         if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {
-            if (SDK >= A14) loadHooker(ForceDisplayClockStyleOptionsV14)
+            if (SDK == A14) loadHooker(ForceDisplayClockStyleOptionsV14)
         }
     }
 }

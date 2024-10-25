@@ -106,42 +106,44 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                         true
                     }
                 })
-                add(DropDownPreference(this@loadPreferences).apply {
-                    title = getString(R.string.lock_screen_custom_clock_component_style)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
-                    key = "lock_screen_custom_clock_component_style"
-                    setEntries(R.array.lock_screen_custom_clock_component_style_entries)
-                    entryValues = arrayOf("0", "1", "2")
-                    setDefaultValue("0")
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, _ ->
-                        (activity as MainActivity).restart()
-                        true
-                    }
-                })
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.force_display_clock_style_options)
-                    summary = getString(R.string.force_display_clock_style_options_summary)
-                    key = "force_display_clock_style_options"
-                    setDefaultValue(false)
-                    isVisible = getString(
-                        ModulePrefs, "lock_screen_custom_clock_component_style", "0"
-                    ) == "1"
-                    isIconSpaceReserved = false
-                })
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.set_lock_screen_centered)
-                    summary = getString(R.string.set_lock_screen_centered_summary)
-                    key = "set_lock_screen_centered"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.lock_screen_clock_use_user_typeface)
-                    key = "lock_screen_clock_use_user_typeface"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
+                if (osCode < 34) {
+                    add(DropDownPreference(this@loadPreferences).apply {
+                        title = getString(R.string.lock_screen_custom_clock_component_style)
+                        summary = getString(R.string.common_words_current_mode) + ": %s"
+                        key = "lock_screen_custom_clock_component_style"
+                        setEntries(R.array.lock_screen_custom_clock_component_style_entries)
+                        entryValues = arrayOf("0", "1", "2")
+                        setDefaultValue("0")
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, _ ->
+                            (activity as MainActivity).restart()
+                            true
+                        }
+                    })
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.force_display_clock_style_options)
+                        summary = getString(R.string.force_display_clock_style_options_summary)
+                        key = "force_display_clock_style_options"
+                        setDefaultValue(false)
+                        isVisible = getString(
+                            ModulePrefs, "lock_screen_custom_clock_component_style", "0"
+                        ) == "1"
+                        isIconSpaceReserved = false
+                    })
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.set_lock_screen_centered)
+                        summary = getString(R.string.set_lock_screen_centered_summary)
+                        key = "set_lock_screen_centered"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.lock_screen_clock_use_user_typeface)
+                        key = "lock_screen_clock_use_user_typeface"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                }
             }
             //充电组件
             add(PreferenceCategory(this@loadPreferences).apply {
