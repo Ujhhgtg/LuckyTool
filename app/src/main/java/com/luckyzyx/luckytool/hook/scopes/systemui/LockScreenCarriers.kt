@@ -13,26 +13,23 @@ import com.luckyzyx.luckytool.utils.SDK
 
 object LockScreenCarriers : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK >= A14) loadHooker(LockScreenCarrierV14)
+        if (SDK >= A14) loadHooker(LockScreenCarrier)
         else loadHooker(LockScreenCarrierV13)
     }
 
-    private object LockScreenCarrierV14 : YukiBaseHooker() {
+    private object LockScreenCarrier : YukiBaseHooker() {
         override fun onHook() {
-            val userFont =
-                prefs(ModulePrefs).getBoolean("statusbar_carriers_use_user_typeface", false)
             val isRemove = prefs(ModulePrefs).getBoolean("remove_statusbar_carriers", false)
             val customText =
                 prefs(ModulePrefs).getString("statusbar_custom_carrier_display_text", "")
+            val userFont =
+                prefs(ModulePrefs).getBoolean("statusbar_carriers_use_user_typeface", false)
 
             //Source OplusStatCarrierTextController
             "com.oplus.systemui.statusbar.widget.OplusStatCarrierTextController".toClass().apply {
                 method { name = "onViewAttached" }.hook {
                     after {
-                        field { name = "mView";superClass() }.get(instance).cast<TextView>()
-                            ?.apply {
-                                if (isRemove) isVisible = false
-                            }
+                        method { name = "setVisible" }.get(instance).call(false)
                     }
                 }
                 method { name = "setVisible" }.hook {
@@ -42,11 +39,13 @@ object LockScreenCarriers : YukiBaseHooker() {
                 }
                 method { name = "updateCarrierInfo" }.hook {
                     after {
-                        field { name = "mView";superClass() }.get(instance).cast<TextView>()
-                            ?.apply {
-                                if (isRemove) isVisible = false
-                                if (customText.isNotBlank()) text = customText
-                            }
+                        if (isRemove) {
+                            method { name = "setVisible" }.get(instance).call(false)
+                        } else {
+                            val view = field { name = "mView";superClass() }.get(instance)
+                                .cast<TextView>() ?: return@after
+                            if (customText.isNotBlank()) view.text = customText
+                        }
                     }
                 }
             }

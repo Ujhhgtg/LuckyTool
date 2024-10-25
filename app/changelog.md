@@ -34,6 +34,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [移除] 自定义锁屏时钟样式 C15
 - [适配] 锁屏时钟红一显示模式 C15
 - [适配] 移除锁屏时钟组件 C15
+- [适配] 移除锁屏状态栏运营商 C15
 
 ### 1.2.4
 
