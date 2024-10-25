@@ -47,15 +47,15 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     }
                     method { param(ContextClass);returnType = UnitType }.hook {
                         replaceUnit {
-                            if (osCode >= 35) {
+                            if (osCode >= 34) {
                                 val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
                                 OplusMirageWindowManager.getInstance().startMirageWindowMode(
                                     null, makeBasic.toBundle()
                                 )
-                                return@replaceUnit
+                            } else {
+                                val context = args().first().cast<Context>() ?: return@replaceUnit
+                                IntentUtils(context).startBackgroundRunServiceV14()
                             }
-                            val context = args().first().cast<Context>() ?: return@replaceUnit
-                            IntentUtils(context).startBackgroundRunServiceV14()
                         }
                     }
                 }

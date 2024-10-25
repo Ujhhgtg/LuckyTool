@@ -22,16 +22,16 @@ object EnableRunInBackground : YukiBaseHooker() {
         BackgroundRunToolCls.toClass().apply {
             method { name = "handle" }.hook {
                 replaceUnit {
-                    if (osCode >= 35) {
+                    if (osCode >= 34) {
                         val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
                         OplusMirageWindowManager.getInstance().startMirageWindowMode(
                             null, makeBasic.toBundle()
                         )
-                        return@replaceUnit
+                    } else {
+                        val context = field { type = ContextClass;superClass() }.get(instance)
+                            .cast<Context>() ?: return@replaceUnit
+                        IntentUtils(context).startBackgroundRunServiceV14()
                     }
-                    val context = field { type = ContextClass;superClass() }.get(instance)
-                        .cast<Context>() ?: return@replaceUnit
-                    IntentUtils(context).startBackgroundRunServiceV14()
                 }
             }
             method { name = "isToolAvailable" }.hook {
