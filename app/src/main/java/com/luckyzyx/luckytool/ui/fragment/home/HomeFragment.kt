@@ -26,7 +26,6 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.databinding.DialogOplusotaLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
@@ -39,11 +38,9 @@ import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.UpdateUtils
 import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
-import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getDeviceInfo
-import com.luckyzyx.luckytool.utils.getProp
 import com.luckyzyx.luckytool.utils.getVersionCode
 import com.luckyzyx.luckytool.utils.getVersionName
 import com.luckyzyx.luckytool.utils.isZh
@@ -51,6 +48,7 @@ import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.restartMain
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import com.luckyzyx.luckytool.utils.showToast
 
 @Obfuscate
 class HomeFragment : Fragment(), MenuProvider {
@@ -105,73 +103,17 @@ class HomeFragment : Fragment(), MenuProvider {
                 }
             }
         }
-//        }
 
         binding.fpsTitle.text = getString(R.string.fps_title)
         binding.fpsSummary.text = getString(R.string.fps_summary)
         binding.fps.setOnClickListener {
             navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
         }
-//        binding.fps.setOnLongClickListener {
-//            navigatePage(R.id.action_nav_home_to_mainPrefsFragment)
-//            true
-//        }
 
         binding.systemInfo.apply {
             setOnLongClickListener {
-                val binding = DialogOplusotaLayoutBinding.inflate(layoutInflater)
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setTitle("OPLUS OTA")
-                    setView(binding.root)
-                }.show()
-                val productModel = binding.oplusotaProductModel.apply {
-                    setText(getProp("ro.product.name"))
-                    setOnLongClickListener {
-                        context.copyStr(text as CharSequence)
-                        true
-                    }
-                }
-                val otaVersion = binding.oplusotaOtaVersion.apply {
-                    setText(getProp("ro.build.version.ota"))
-                    setOnLongClickListener {
-                        context.copyStr(text as CharSequence)
-                        true
-                    }
-                }
-                val nvIdentifier = binding.oplusotaNvIdentifier.apply {
-                    setText(getProp("ro.build.oplus_nv_id"))
-                    setOnLongClickListener {
-                        context.copyStr(text as CharSequence)
-                        true
-                    }
-                }
-                val guid = binding.oplusotaGuid.apply {
-                    setText(DeviceUtils.getGuid())
-                    setOnLongClickListener {
-                        context.copyStr(text as CharSequence)
-                        true
-                    }
-                }
-                val recruit = binding.oplusotaRecruit.apply {
-                    setText(DeviceUtils.getRecruit())
-                    setOnLongClickListener {
-                        context.copyStr(text as CharSequence)
-                        true
-                    }
-                }
-                binding.oplusotaCopyall.apply {
-                    setOnClickListener {
-                        context.copyStr(
-                            """
-                                ro.product.name -> ${productModel.text}
-                                ro.build.version.ota -> ${otaVersion.text}
-                                ro.build.oplus_nv_id -> ${nvIdentifier.text}
-                                guid -> ${guid.text}
-                                recruit -> ${recruit.text}
-                            """.trimIndent()
-                        )
-                    }
-                }
+                context.copyStr(DeviceUtils.getOTACOnfigs())
+                context.showToast("Copy Device OTA Data Success!")
                 true
             }
         }

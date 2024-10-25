@@ -100,15 +100,13 @@ fun Context.getDeviceInfo(
     val androidVer = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
     val osVer = "OS $getOSVersionName($getOSVersionCode)"
     return """
-        ${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel
-        ${getString(R.string.market_name)}: ${getModelMarketName()}
+        ${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel ${getModelMarketName()}
         ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.prjNameInfo} ${controller?.slotInfo}
         ${getString(R.string.system)}: $androidVer $osVer
-        ${getString(R.string.build_version)}: ${Build.DISPLAY}
+        ${getString(R.string.build_version)}: ${Build.DISPLAY} ${getManifestEndVersion(controller?.manifestVersion)}
         ${getString(R.string.version)}: ${controller?.otaVersion}
         ${getString(R.string.flash)}: ${controller?.flashInfo}
         PAS: ${controller?.pcbInfo} ${controller?.snInfo}
-        RTD: ${DeviceUtils.getRecruit()}
     """.trimIndent().let {
         if (isLog) "$it\n${getString(R.string.module_version)} $getVersionName($getVersionCode)\n\n" else it
     }
@@ -270,6 +268,17 @@ fun getModelMarketName(): String? {
 }
 
 /**
+ * 获取MyManifest版本
+ * @return String?
+ */
+fun getMyManifesstVersion(): String? {
+    val str = SystemProperties.get("ro.oplus.image.my_manifest.version", "")
+    val str2 = SystemProperties.get("ro.oplus.version.my_manifest", "")
+//            return SystemProperties.get("ro.build.version.ota", "null")
+    return str.ifBlank { str2.ifBlank { "null" } }
+}
+
+/**
  * 获取prop数据
  * @param key String
  * @return String
@@ -277,6 +286,16 @@ fun getModelMarketName(): String? {
 fun getProp(key: String): String = ShellUtils.fastCmd("${CommandUtils.getprop} $key").let {
     if (it.isBlank()) "null" else formatSpace(it)
 }
+
+/**
+ * 获取prop数据
+ * @param key String
+ * @return String
+ */
+fun getProp(key: String, def: String): String =
+    ShellUtils.fastCmd("${CommandUtils.getprop} $key").let {
+        if (it.isBlank()) def else formatSpace(it)
+    }
 
 /**
  * 发送广播以关闭折叠面板
@@ -1017,5 +1036,13 @@ fun setSummaryProvider(preference: Preference) {
         is ListPreference -> preference.setSummaryProvider {
             ListPreference.SimpleSummaryProvider.getInstance().provideSummary(preference)
         }
+    }
+}
+
+fun getManifestEndVersion(string: String?): String {
+    if (string.isNullOrBlank()) return ""
+    string.split(".").apply {
+        return if (size < 2) ""
+        else "${this[lastIndex - 1]} ${this[lastIndex]}"
     }
 }

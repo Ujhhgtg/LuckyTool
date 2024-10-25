@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.utils
 
 import android.content.Context
+import android.os.SystemProperties
 import com.android.internal.os.PowerProfile
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.joom.paranoid.Obfuscate
@@ -13,6 +14,22 @@ import kotlin.math.roundToInt
 
 @Obfuscate
 object DeviceUtils {
+
+    /**
+     * 获取OTA参数
+     * @return String
+     */
+    fun getOTACOnfigs(): String {
+        return """
+                ${SystemProperties.get("ro.product.name")} ${SystemProperties.get("ro.build.oplus_nv_id")}
+                ${getMyManifesstVersion()}
+                ${getPcbInfo()} ${getSnInfo()}
+                ${getGuid()}
+                ${getRecruitId()}
+                ${getRegisterId()}
+            """.trimIndent()
+    }
+
     /**
      * 获取GUID
      * /data/system/openid_config.xml
@@ -27,7 +44,17 @@ object DeviceUtils {
      * 获取招募ID
      * /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml
      */
-    fun getRecruit(): String {
+    fun getRecruitId(): String {
+        val command =
+            "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | egrep record_recruitId | egrep -o '>[^<]+<' | tr -d '><'"
+        return ShellUtils.fastCmd(command).ifBlank { "null" }
+    }
+
+    /**
+     * 获取注册ID
+     * /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml
+     */
+    fun getRegisterId(): String {
         val command =
             "cat /data/user/0/com.oplus.ota/shared_prefs/persistent_info.xml | egrep ota_register_trigger_id | egrep -o '>[^<]+<' | tr -d '><'"
         return ShellUtils.fastCmd(command).ifBlank { "null" }
@@ -97,7 +124,8 @@ object DeviceUtils {
      */
     fun getSlotInfo(): String {
         val command = "getprop ro.boot.slot_suffix"
-        return ShellUtils.fastCmd(command).ifBlank { "null" }
+        return ShellUtils.fastCmd(command).ifBlank { "null" }.replace("_", "")
+            .uppercase()
     }
 
     /**

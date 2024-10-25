@@ -22,6 +22,13 @@ class GlobalFuncControllerService : RootService() {
             return SystemProperties.get("ro.build.version.ota", "null")
         }
 
+        override fun getManifestVersion(): String {
+            val str = SystemProperties.get("ro.oplus.image.my_manifest.version", "")
+            val str2 = SystemProperties.get("ro.oplus.version.my_manifest", "")
+//            return SystemProperties.get("ro.build.version.ota", "null")
+            return str.ifBlank { str2 }
+        }
+
         override fun getMarketName(): String {
             return SystemProperties.get("ro.vendor.oplus.market.name", "null")
 
@@ -48,7 +55,8 @@ class GlobalFuncControllerService : RootService() {
         }
 
         override fun getSlotInfo(): String {
-            return SystemProperties.get("ro.boot.slot_suffix", "null")
+            return SystemProperties.get("ro.boot.slot_suffix", "null").replace("_", "")
+                .uppercase()
         }
     }
 }

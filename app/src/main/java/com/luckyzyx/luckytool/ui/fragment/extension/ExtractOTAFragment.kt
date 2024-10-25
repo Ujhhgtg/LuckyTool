@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.os.SystemProperties
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.drake.net.utils.withDefault
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
 import com.luckyzyx.luckytool.utils.AESCrypt
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
 import com.luckyzyx.luckytool.utils.SQLiteUtils
@@ -93,15 +93,10 @@ class ExtractOTAFragment : Fragment() {
                         list.addAll(otaList)
                     } else return@withDefault list
 
-                    val nvId = SystemProperties.get("ro.build.oplus_nv_id")
-                    val pcbInfo = DeviceUtils.getPcbInfo()
-                    val snInfo = DeviceUtils.getSnInfo()
-                    val recruit = DeviceUtils.getRecruit()
-                    val random = Random().nextInt().toString()
-                    val data =
-                        random + "|${getFingerPrintModel}|$nvId|$pcbInfo|$snInfo|$recruit"
+                    val random = Random().nextInt(4).toString()
+                    val data = random + "|" + DeviceUtils.getOTACOnfigs()
                     val encrypt = safeOfNull {
-                        AESCrypt.encrypt(data, "otatoolsotatools")
+                        AESCrypt.encrypt(data, CommandUtils.otaCryptKey)
                     } ?: ""
                     if (encrypt.isNotBlank()) list.add("Verity: $encrypt")
                     list.add("Source: @LuckyTool")
