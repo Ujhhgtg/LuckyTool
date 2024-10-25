@@ -23,7 +23,11 @@ import com.luckyzyx.luckytool.utils.setSummaryProvider
 
 @Obfuscate
 class LockScreenRelated : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.systemui", "com.oplus.notificationmanager")
+    override val scopes = arrayOf(
+        "com.android.systemui",
+        "com.oplus.notificationmanager",
+        "com.oplus.keyguard.clock.base"
+    )
 
     override val isEnableRestartMenu: Boolean = true
 
@@ -93,20 +97,21 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                     setOnPreferenceChangeListener { _, newValue ->
                         sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
-                })
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.apply_lock_screen_dual_clock_redone)
-                    key = "apply_lock_screen_dual_clock_redone"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        sendPrefsValue("com.android.systemui", key, newValue)
+                        sendPrefsValue("com.oplus.keyguard.clock.base", key, newValue)
                         true
                     }
                 })
                 if (osCode < 34) {
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.apply_lock_screen_dual_clock_redone)
+                        key = "apply_lock_screen_dual_clock_redone"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
                     add(DropDownPreference(this@loadPreferences).apply {
                         title = getString(R.string.lock_screen_custom_clock_component_style)
                         summary = getString(R.string.common_words_current_mode) + ": %s"

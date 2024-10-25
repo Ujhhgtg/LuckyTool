@@ -32,6 +32,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 隐藏非上网卡移动数据图标 C15
 - [适配] 移除WiFi数据箭头图标 C15
 - [移除] 自定义锁屏时钟样式 C15
+- [适配] 锁屏时钟红一显示模式 C15
+- [适配] 移除锁屏时钟组件 C15
 
 ### 1.2.4
 

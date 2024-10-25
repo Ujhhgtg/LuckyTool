@@ -25,7 +25,7 @@ import java.util.function.Supplier
 object LockScreenComponentStyle : YukiBaseHooker() {
     override fun onHook() {
         if (SDK == A14) loadHooker(LockScreenComponentStyleV14)
-        else loadHooker(LockScreenComponentStyleV13)
+        if (SDK < A14) loadHooker(LockScreenComponentStyleV13)
         if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {
             if (SDK == A13) loadHooker(ForceDisplayClockStyleOptionsV13)
         }

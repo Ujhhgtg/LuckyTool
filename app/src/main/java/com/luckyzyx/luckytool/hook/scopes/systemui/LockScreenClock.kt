@@ -27,6 +27,7 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
@@ -37,11 +38,25 @@ object LockScreenClock : YukiBaseHooker() {
 
     override fun onHook() {
         val removeClock = prefs(ModulePrefs).getBoolean("remove_lock_screen_clock_component", false)
-        if (removeClock) loadHooker(RemoveLockScreenClock)
-        else loadHooker(LockScreenClockStyleV14)
+        if (removeClock) {
+            if (SDK >= A15) loadHooker(RemoveLockScreenClock)
+            else loadHooker(RemoveLockScreenClockV14)
+        } else loadHooker(LockScreenClockStyleV14)
     }
 
     object RemoveLockScreenClock : YukiBaseHooker() {
+        override fun onHook() {
+            //Source KeyguardStyleClockEnabledSettingsObserver
+            "com.oplus.systemui.keyguard.data.personalise.observer.KeyguardStyleClockEnabledSettingsObserver".toClass()
+                .apply {
+                    method { name = "isEnabled" }.hook {
+                        replaceToFalse()
+                    }
+                }
+        }
+    }
+
+    object RemoveLockScreenClockV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardClockSwitch
             "com.android.keyguard.KeyguardClockSwitch".toClass().apply {
@@ -393,7 +408,7 @@ object LockScreenClock : YukiBaseHooker() {
         if (redMode == "1") {
             for (i in format.indices) {
                 if (format[i].toString() == "1") {
-                    val color = safeOf(Color.parseColor("#c41442")) {
+                    val color = safeOf(Color.parseColor("#E62F2F")) {
                         context.getColor(
                             resources.getIdentifier(
                                 "red_clock_hour_color", "color", packageName
