@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed модуль, предназначенный для расширенной настройки ColorOS\nРазработчик: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Функции</string>
     <string name="nav_home">Главная</string>
@@ -255,7 +255,7 @@
     <string name="StatusBarTiles">Плитки быстрых настроек</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Принудительное отображение плитки переключения статуса звонка</string>
     <string name="SpecialTiles">Специальные плитки</string>
-    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
+    <string name="SpecialTiles_summary">Только классический режим \"Центра управления\"</string>
     <string name="auto_expand_tile_rows_horizontal">Автоматически развернуть количество горизонтальных плиток</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Когда медиаплеер скрыт, два ряда плиток будут отображаться в горизонтальном режиме</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Необходимо включить настройку плиток ниже</string>
@@ -263,7 +263,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Включение автоматического расширения плиток на некоторых моделях вызовет отображение панели яркости за пределами экрана. В данном случае эта функция должна быть включена</string>
     <string name="control_center_special_tile_top_gap">Установить верхний разрыв для специальных плиток</string>
     <string name="control_center_special_tile_bottom_gap">Установить верхний разрыв для специальных плиток</string>
-    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Уменьшить верхний зазор горизонтальной панели яркости</string>
     <string name="TileLongClickEvent">Долгое нажатие на плитку</string>
     <string name="restore_some_tile_long_press_event">Восстановить некоторые события долгого нажатия на плитки</string>
     <string name="restore_some_tile_long_press_event_summary">Восстановите Wi-Fi, Bluetooth, личную точку доступа и другие события долгого нажатия на плитки, для открытия соответствующих меню</string>

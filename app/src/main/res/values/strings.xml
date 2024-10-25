@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name" translatable="false">LuckyTool</string>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module optimized for extensions to ColorOS\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
     <string name="sharedUserLabel" translatable="false">LuckyTool user</string>
     <!-- Nav Menu -->
     <string name="nav_function">Function</string>
