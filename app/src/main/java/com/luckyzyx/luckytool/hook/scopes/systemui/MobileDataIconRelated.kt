@@ -62,18 +62,41 @@ object MobileDataIconRelated : YukiBaseHooker() {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
-                        after {
-                            if (!hideNonNetwork) return@after
+                        before {
+                            if (!hideNonNetwork) return@before
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             val stateFlow = safeOfNull {
                                 FlowUtils(appClassLoader).let {
                                     val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                        ?: return@after
-                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@after
+                                        ?: return@before
+                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@before
                                 }
                             }
-                            result = stateFlow ?: return@after
+                            result = stateFlow ?: return@before
+                        }
+                    }
+                }
+
+            //Source MobileIconViewModel
+            "com.android.systemui.statusbar.pipeline.mobile.ui.viewmodel.MobileIconViewModel".toClass()
+                .apply {
+                    method {
+                        name = "isVisible"
+                        returnType = "kotlinx.coroutines.flow.StateFlow"
+                    }.hook {
+                        before {
+                            if (!hideNonNetwork) return@before
+                            val subId = field { name = "subscriptionId" }.get(instance).int()
+                            val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
+                            val stateFlow = safeOfNull {
+                                FlowUtils(appClassLoader).let {
+                                    val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
+                                        ?: return@before
+                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@before
+                                }
+                            }
+                            result = stateFlow ?: return@before
                         }
                     }
                 }
