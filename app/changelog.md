@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.5.1_beta
+
+- [修复] 分身App浮窗贴边显示异常 C14+
+
 ### 1.2.5
 
 - [添加] 作用域功能支持搜索跳转

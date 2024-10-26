@@ -56,6 +56,7 @@ class DialogRelated : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.run_floating_window_tasks_in_foreground)
+                summary = getString(R.string.need_restart_system)
                 key = "run_floating_window_tasks_in_foreground"
                 setDefaultValue(false)
                 isVisible = osCode > 26
