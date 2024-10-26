@@ -12,6 +12,13 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object FingerPrintIconAnim : YukiBaseHooker() {
+
+    private val fpIconType = VariousClass(
+        "com.oplusos.systemui.keyguard.onscreenfingerprint.OnScreenFingerprintIcon", //C12
+        "com.oplus.systemui.keyguard.finger.onscreenfingerprint.OnScreenFingerprintIcon",  //C13
+        "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintIcon" //C14 C15
+    )
+
     override fun onHook() {
         val removeMode = prefs(ModulePrefs).getString("remove_fingerprint_icon_mode", "0")
         val isReplaceIcon = prefs(ModulePrefs).getBoolean("replace_fingerprint_icon_switch", false)
@@ -57,17 +64,17 @@ object FingerPrintIconAnim : YukiBaseHooker() {
             val drawable = if (iconPath.isNullOrBlank()) null
             else BitmapDrawable(getCurrentUserContext.resources, BitmapFactory.decodeFile(iconPath))
             if (drawable == null) {
-                field { name = "mFadeInAnimDrawable" }.setNull()
-                field { name = "mFadeOutAnimDrawable" }.setNull()
+                field { name { it.contains("fadeInAnimDrawable", true) } }.setNull()
+                field { name { it.contains("adeOutAnimDrawable", true) } }.setNull()
             }
-            field { name = "mImMobileDrawable" }.set(drawable)
-            field { name = "mFpIcon" }.cast<ImageView>()?.setImageDrawable(drawable)
-            if (update) method { name = "updateFpIconColor" }.call()
+            field { name { it.contains("ImMobileDrawable", true) } }.setNull()
+            field { type = fpIconType.toClass() }.cast<ImageView>()?.setImageDrawable(drawable)
+            if (update) method { name = "updateFpIconColor";emptyParam() }.call()
         }
     }
 
     private fun Any.removePressAnim() {
-        this.current().field { name = "mPressedAnimDrawable" }.setNull()
-        this.current().field { name = "mPressedAnimDrawableTmp" }.setNull()
+        current().field { name { it.contains("PressedAnimDrawable", true) } }.setNull()
+        current().field { name { it.contains("PressedAnimDrawableTmp", true) } }.setNull()
     }
 }

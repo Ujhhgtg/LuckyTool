@@ -51,6 +51,7 @@ object ControlCenterClockStyle : YukiBaseHooker() {
                 paramCount = 2
             }.hook {
                 after {
+                    if (redOneMode == "0" && colonStyle == "0") return@after
                     val view = args().first().cast<TextView>() ?: return@after
                     if (view.context.resources.getResourceEntryName(view.id) != "qs_footer_clock") return@after
                     val char = args().last().cast<CharSequence>() ?: return@after
