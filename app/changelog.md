@@ -38,6 +38,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 自定义替换指纹图标 C15
 - [适配] 移除DPI重启恢复 C15
 - [移除] 自动息屏永不超时 C15
+- [移除] 相册AIGC消除限制 C15
 
 ### 1.2.4
 

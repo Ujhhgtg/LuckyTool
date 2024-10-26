@@ -8,7 +8,9 @@ import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.openApp
 
@@ -143,6 +145,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.remove_aigc_elimination_limit_summary)
                 key = "remove_aigc_elimination_limit"
                 setDefaultValue(false)
+                isVisible = SDK < A15
                 isIconSpaceReserved = false
             })
         }

@@ -5,8 +5,10 @@ import com.luckyzyx.luckytool.hook.scopes.gallery.HookFunctionManager
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookSystemStorage
 import com.luckyzyx.luckytool.hook.scopes.gallery.RemoveAIGCEliminationLimit
 import com.luckyzyx.luckytool.hook.scopes.gallery.RemoveGalleryWaterMarkWordLimit
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object HookGallery : YukiBaseHooker() {
@@ -25,7 +27,7 @@ object HookGallery : YukiBaseHooker() {
             }
             //移除AIGC消除限制
             if (prefs(ModulePrefs).getBoolean("remove_aigc_elimination_limit", false)) {
-                loadHooker(RemoveAIGCEliminationLimit(dexKitBridge))
+                if (SDK < A15) loadHooker(RemoveAIGCEliminationLimit(dexKitBridge))
             }
         }
     }
