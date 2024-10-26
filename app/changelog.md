@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.5_beta
+### 1.2.5
 
 - [添加] 作用域功能支持搜索跳转
 - [添加] 自动点击开始录制或投射对话框
@@ -39,6 +39,40 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除DPI重启恢复 C15
 - [移除] 自动息屏永不超时 C15
 - [移除] 相册AIGC消除限制 C15
+- [Add] Support search jump for scope function
+- [Add] Automatically click to start recording or casting dialog box
+- [Fix] Fingerprint icon Hook exception C15
+- [Fix] App clone blacklist C14+
+- [Add] Disable OTA dm-verity verification
+- [Fix] App floating window and split screen whitelist C15
+- [Fix] Desktop and folder paging indicator C15
+- [Remove] Fluid cloud icon background transparency C15
+- [Remove] Control center tile background transparency C15
+- [Fix] Remove USB connection dialog box C15
+- [Remove] Control center slider transparency C15
+- [Fix] Desktop App update dot C15
+- [Fix] Custom OTA card background C15
+- [Add] OTA card background applied to device parameter sharing page C15
+- [Fix] Background hang-up/listening mode C15
+- [Fix] Fluid cloud notification alignment C15
+- [Remove] Control center background transparency C15
+- [Fix] Volume bar background transparency C15
+- [Remove] Notification background transparency C15
+- [Add] Reduce the top gap of the horizontal screen brightness bar C14+
+- [Fix] Control center date and lunar calendar display C15
+- [Fix] Number of rows on the tile editing page C15
+- [Fix] Album Hasselblad watermark status judgment
+- [Fix] Status bar battery icon percentage sign C15
+- [Fix] Hide non-network card mobile data icon C15
+- [Fix] Remove WiFi data arrow icon C15
+- [Remove] Custom lock screen clock style C15
+- [Fix] Lock screen clock red display mode C15
+- [Fix] Remove lock screen clock component C15
+- [Fix] Remove lock screen status bar operator 15
+- [Fix] Custom replacement fingerprint icon C15
+- [Fix] Remove DPI restart recovery C15
+- [Remove] Automatic screen off will never time out C15
+- [Remove] Album AIGC removes restrictions C15
 
 ### 1.2.4
 
