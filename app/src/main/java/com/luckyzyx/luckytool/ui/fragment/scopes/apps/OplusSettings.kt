@@ -19,6 +19,7 @@ import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -97,18 +98,20 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             //锁屏
-            add(PreferenceCategory(this@loadPreferences).apply {
-                title = getString(R.string.settings_lock_screen)
-                key = "settings_lock_screen"
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_show_never_timeout)
-                summary = getString(R.string.enable_show_never_timeout_summary)
-                key = "enable_show_never_timeout"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (SDK < A15) {
+                add(PreferenceCategory(this@loadPreferences).apply {
+                    title = getString(R.string.settings_lock_screen)
+                    key = "settings_lock_screen"
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_show_never_timeout)
+                    summary = getString(R.string.enable_show_never_timeout_summary)
+                    key = "enable_show_never_timeout"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //显示
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_display)

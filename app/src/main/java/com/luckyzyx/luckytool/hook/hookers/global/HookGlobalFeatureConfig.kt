@@ -6,6 +6,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.HookFeatureConfigManager
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -131,7 +132,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 
             //Source SettingsProviders SettingsUtils isShowNeverTimeout 永不息屏 / 一律不 (24H)
             if (prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)) {
-                put("oplus.software.screen_off_never_support", true)
+                if (SDK < A15) put("oplus.software.screen_off_never_support", true)
             }
 
             //Source Settings IncreaseBrightnessRangePreferenceController 增大亮度范围

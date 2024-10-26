@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.hookers.global
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppFeatureProvider
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.luckypray.dexkit.DexKitBridge
 
@@ -57,9 +59,9 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
                 put("com.android.settings.cn_version", false)
             }
-            //Source Settings DisplayTimeOutController -> 永不息屏 / 一律不 (24H)
+            //Source Settings DisplayTimeOutController displayPreference -> 永不息屏 / 一律不 (24H)
             if (prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)) {
-                put("com.android.settings.show_never_timeout", true)
+                if (SDK < A15) put("com.android.settings.show_never_timeout", true)
             }
             //Source Settings com.android.settings.processor_detail / com.android.settings.processor_detail_gen2
             when (prefs(ModulePrefs).getString("set_processor_click_page", "0")) {
