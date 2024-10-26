@@ -36,6 +36,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除锁屏时钟组件 C15
 - [适配] 移除锁屏状态栏运营商 15
 - [适配] 自定义替换指纹图标 C15
+- [适配] 移除DPI重启恢复 C15
 
 ### 1.2.4
 

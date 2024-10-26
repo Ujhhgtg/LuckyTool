@@ -4,11 +4,57 @@ import android.content.Context
 import android.provider.Settings
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.luckypray.dexkit.DexKitBridge
 import kotlin.math.max
 import kotlin.math.min
 
-object RemoveDpiRestartRecovery : YukiBaseHooker() {
+class RemoveDpiRestartRecovery(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
+        //Source SettingsUtils
+        dexKitBridge.findClass {
+            matcher {
+                addMethod {
+                    paramTypes(ContextClass, BooleanType)
+                }
+                addMethod {
+                    paramTypes(StringClass, IntType, IntType, BooleanType)
+                    usingStrings("restoreCompassPhoneDisplayDensity")
+                }
+                addMethod {
+                    paramTypes(ContextClass, StringClass, IntType)
+                    usingStrings("restorePhoneDisplayDensity")
+                }
+                usingStrings("SettingsUtils")
+            }
+        }.apply {
+            checkDataList("RemoveDpiRestartRecovery Clazz")
+            findMethod {
+                matcher {
+                    paramTypes(ContextClass, BooleanType)
+                    addInvoke {
+                        paramTypes(StringClass, IntType, IntType, BooleanType)
+                        usingStrings("restoreCompassPhoneDisplayDensity")
+                    }
+                    addInvoke {
+                        paramTypes(ContextClass, StringClass, IntType)
+                        usingStrings("restorePhoneDisplayDensity")
+                    }
+                }
+            }.apply {
+                checkDataList("RemoveDpiRestartRecovery Method")
+                single().className.toClass().apply {
+                    method { name = single().methodName;param(ContextClass, BooleanType) }.hook {
+                        intercept()
+                    }
+                }
+            }
+        }
+
         //Source OplusDensityPreference
         "com.oplus.settings.widget.preference.OplusDensityPreference".toClass().apply {
             method { name = "onPreferenceChange";paramCount = 2 }.hook {

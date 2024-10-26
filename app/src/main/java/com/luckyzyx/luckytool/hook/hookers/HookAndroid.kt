@@ -38,6 +38,8 @@ import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scopes.android.SetAppUpdateDotDisplayMode
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindowConfig
+import com.luckyzyx.luckytool.utils.A15
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 
@@ -62,7 +64,7 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(HookOplusWifiService)
 
         //Hook HookWindowManagerService
-        loadHooker(HookWindowManagerService)
+        if (SDK < A15) loadHooker(HookWindowManagerService)
 
         //音量阶数
         loadHooker(MediaVolumeLevel)

@@ -62,6 +62,10 @@ object HookSettings : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_google_auto_fill", false)) {
                 loadHooker(EnableGoogleAutoFill(dexKitBridge))
             }
+            //移除DPI重启恢复
+            if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
+                loadHooker(RemoveDpiRestartRecovery(dexKitBridge))
+            }
         }
 
         //HookSettingsPreferenceFragment removePreference
@@ -79,10 +83,6 @@ object HookSettings : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("video_frame_insertion_support_2K120", false)) {
                 loadHooker(HookIris5Controller)
             }
-        }
-        //移除DPI重启恢复
-        if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
-            loadHooker(RemoveDpiRestartRecovery)
         }
         //强制显示设置底部Google
         if (prefs(ModulePrefs).getBoolean("force_display_bottom_google_settings", false)) {
