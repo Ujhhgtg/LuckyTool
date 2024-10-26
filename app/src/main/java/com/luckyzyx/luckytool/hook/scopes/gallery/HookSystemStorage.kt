@@ -142,17 +142,19 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     usingStrings("WatermarkDevice", "isHasselDevice")
                 }
             }.apply {
-                checkDataList("WatermarkDevice HasselDevice")
-                single().name.toClass().apply {
-                    val hasMethod = hasMethod { emptyParam();returnType = BooleanType }
-                    if (hasMethod) {
-                        method { emptyParam();returnType = BooleanType }.hookAll {
-                            replaceToTrue()
-                        }
-                    } else {
-                        constructor { }.hookAll {
-                            after {
-                                field { type = BooleanType }.get(instance).setTrue()
+                checkDataList("WatermarkDevice HasselDevice", onlyOne = false)
+                forEachIndexed { _, classData ->
+                    classData.name.toClass().apply {
+                        val hasMethod = hasMethod { emptyParam();returnType = BooleanType }
+                        if (hasMethod) {
+                            method { emptyParam();returnType = BooleanType }.hookAll {
+                                replaceToTrue()
+                            }
+                        } else {
+                            constructor { }.hookAll {
+                                after {
+                                    field { type = BooleanType }.get(instance).setTrue()
+                                }
                             }
                         }
                     }
