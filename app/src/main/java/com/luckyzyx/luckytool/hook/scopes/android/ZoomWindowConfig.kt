@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
@@ -42,7 +43,8 @@ object ZoomWindowConfig : YukiBaseHooker() {
 
         //Source FlexibleTaskController C15
         "com.android.server.wm.FlexibleTaskController".toClassOrNull()?.apply {
-            method {
+            val hasSupport = hasMethod { name = "isSupportFlexibleWindow" }
+            if (hasSupport) method {
                 name = "isSupportFlexibleWindow"
                 param(StringClass, IntType, StringClass, BundleClass)
             }.hook {
