@@ -11,9 +11,12 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSmallWindowReplyWhiteli
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 object StatusBarNotify : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //移除充电完成通知
         if (prefs(ModulePrefs).getBoolean("remove_charging_completed", false)) {
             loadHooker(RemoveChargingCompleted)
@@ -36,7 +39,7 @@ object StatusBarNotify : YukiBaseHooker() {
         }
         //浮窗回复白名单
         if (prefs(ModulePrefs).getBoolean("remove_small_window_reply_whitelist", false)) {
-            loadHooker(RemoveSmallWindowReplyWhitelist)
+            if (osCode < 34) loadHooker(RemoveSmallWindowReplyWhitelist)
         }
         //弹幕通知白名单
         if (prefs(ModulePrefs).getBoolean("remove_danmaku_notification_whitelist", false)) {

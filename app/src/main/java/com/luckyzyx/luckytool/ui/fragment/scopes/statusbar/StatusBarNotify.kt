@@ -63,47 +63,49 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.remove_small_window_reply_whitelist)
-                key = "remove_small_window_reply_whitelist"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, _ ->
-                    (activity as MainActivity).restart()
-                    true
-                }
-            })
-            if (getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
-                add(Preference(this@loadPreferences).apply {
-                    key = "set_small_window_reply_blacklist_list"
-                    title = getString(R.string.set_small_window_reply_blacklist)
-                    val value = getStringSet(ModulePrefs, key, ArraySet())
-                    summary = arraySummaryLine(
-                        getString(R.string.set_small_window_reply_blacklist_message),
-                        value.toString()
-                    )
+            if (osCode < 34) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.remove_small_window_reply_whitelist)
+                    key = "remove_small_window_reply_whitelist"
+                    setDefaultValue(false)
                     isIconSpaceReserved = false
-                    setOnPreferenceClickListener {
-                        AppInfoSelector(this@loadPreferences, true).apply {
-                            setDefaultShowSystem(true)
-                            setEnabledList(ArrayList(value))
-                            setOnSelectAppListener(object : OnSelectAppInfoListener {
-                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
-                                    val set = ArraySet<String>().apply {
-                                        list.forEachIndexed { _, appInfo ->
-                                            add(appInfo.packageName)
-                                        }
-                                    }
-                                    putStringSet(ModulePrefs, key, set.toSet())
-                                    sendPrefsValue("com.android.systemui", key, set.toSet())
-                                    (activity as MainActivity).restart()
-                                }
-                            })
-                            show()
-                        }
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
                         true
                     }
                 })
+                if (getBoolean(ModulePrefs, "remove_small_window_reply_whitelist")) {
+                    add(Preference(this@loadPreferences).apply {
+                        key = "set_small_window_reply_blacklist_list"
+                        title = getString(R.string.set_small_window_reply_blacklist)
+                        val value = getStringSet(ModulePrefs, key, ArraySet())
+                        summary = arraySummaryLine(
+                            getString(R.string.set_small_window_reply_blacklist_message),
+                            value.toString()
+                        )
+                        isIconSpaceReserved = false
+                        setOnPreferenceClickListener {
+                            AppInfoSelector(this@loadPreferences, true).apply {
+                                setDefaultShowSystem(true)
+                                setEnabledList(ArrayList(value))
+                                setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                    override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                        val set = ArraySet<String>().apply {
+                                            list.forEachIndexed { _, appInfo ->
+                                                add(appInfo.packageName)
+                                            }
+                                        }
+                                        putStringSet(ModulePrefs, key, set.toSet())
+                                        sendPrefsValue("com.android.systemui", key, set.toSet())
+                                        (activity as MainActivity).restart()
+                                    }
+                                })
+                                show()
+                            }
+                            true
+                        }
+                    })
+                }
             }
         }
     }
