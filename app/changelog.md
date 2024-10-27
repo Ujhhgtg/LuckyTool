@@ -9,6 +9,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 浮窗贴边后台运行 C15
 - [移除] 浮窗回复白名单 C15
 - [适配] 控制中心分离模式时钟样式 C15
+- [适配] 锁屏时钟红一显示模式 RUI6
 
 ### 1.2.5
 
