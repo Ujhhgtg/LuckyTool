@@ -108,7 +108,18 @@ fun Context.getDeviceInfo(
         ${getString(R.string.flash)}: ${controller?.flashInfo}
         PAS: ${controller?.pcbInfo} ${controller?.snInfo}
     """.trimIndent().let {
-        if (isLog) "$it\n${getString(R.string.module_version)} $getVersionName($getVersionCode)\n\n" else it
+        if (isLog) {
+            """
+                ${getString(R.string.module_version)} $getVersionName($getVersionCode)
+                $it
+                ${getMyManifesstVersion()}
+                ${DeviceUtils.getGuid()}
+                ${DeviceUtils.getRecruitId()}
+                ${DeviceUtils.getRegisterId()}
+                
+                
+            """.trimIndent()
+        } else it
     }
 }
 
