@@ -6,6 +6,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 ### 1.2.5.1_beta
 
 - [修复] 分身App浮窗贴边显示异常 C14+
+- [适配] 浮窗贴边后台运行 C15
 
 ### 1.2.5
 

@@ -40,6 +40,8 @@ object HookSystemUIDialog : YukiBaseHooker() {
         //音量对话框背景透明度
         loadHooker(VolumeDialogBackground)
         //浮窗贴边前台运行
-        if (osCode > 26) loadHooker(RunFloatingWindowTasksInForeground)
+        if (prefs(ModulePrefs).getBoolean("run_floating_window_tasks_in_foreground", false)) {
+            if (osCode in 26..33) loadHooker(RunFloatingWindowTasksInForeground)
+        }
     }
 }
