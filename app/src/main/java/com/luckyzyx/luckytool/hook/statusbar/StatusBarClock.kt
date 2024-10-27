@@ -20,6 +20,7 @@ import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.is24
 import com.luckyzyx.luckytool.utils.isZh
+import com.luckyzyx.luckytool.utils.safeOfNull
 import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.Date
@@ -73,7 +74,8 @@ object StatusBarClock : YukiBaseHooker() {
             constructor { paramCount = 3 }.hook {
                 after {
                     val clockView = instance<TextView>().apply {
-                        if (resources.getResourceEntryName(id) != "clock") return@after
+                        val clockName = safeOfNull { resources.getResourceEntryName(id) }
+                        if (clockName != "clock") return@after
                     }
                     val d: Method = clockView.javaClass.superclass.getDeclaredMethod("updateClock")
                     val r = Runnable {
@@ -92,7 +94,8 @@ object StatusBarClock : YukiBaseHooker() {
             method { name = "getSmallTime";returnType = CharSequenceClass }.hook {
                 after {
                     val clockView = instance<TextView>().apply {
-                        if (resources.getResourceEntryName(id) != "clock") return@after
+                        val clockName = safeOfNull { resources.getResourceEntryName(id) }
+                        if (clockName != "clock") return@after
                         initView()
                     }
                     val context = clockView.context

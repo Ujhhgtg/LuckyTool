@@ -13,57 +13,80 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getCharColor
 import com.luckyzyx.luckytool.utils.safeOf
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 object ControlCenterClockStyle : YukiBaseHooker() {
     override fun onHook() {
-        val showSecond =
-            prefs(ModulePrefs).getBoolean("control_center_clock_show_second", false)
-        var redOneMode =
-            prefs(ModulePrefs).getString("statusbar_control_center_clock_red_one_mode", "0")
-        dataChannel.wait<String>("statusbar_control_center_clock_red_one_mode") { redOneMode = it }
-        var colonStyle =
-            prefs(ModulePrefs).getString("statusbar_control_center_clock_colon_style", "0")
-        dataChannel.wait<String>("statusbar_control_center_clock_colon_style") { colonStyle = it }
+        if (SDK == A11) loadHooker(ControlCenterClockStyleA11)
+        else loadHooker(ControlCenterClock)
+    }
 
-        if (SDK == A11) {
-            loadHooker(ControlCenterClockStyleA11)
-            return
-        }
+    object ControlCenterClock : YukiBaseHooker() {
+        override fun onHook() {
+            val showSecond =
+                prefs(ModulePrefs).getBoolean("control_center_clock_show_second", false)
+            var redOneMode =
+                prefs(ModulePrefs).getString("statusbar_control_center_clock_red_one_mode", "0")
+            dataChannel.wait<String>("statusbar_control_center_clock_red_one_mode") {
+                redOneMode = it
+            }
+            var colonStyle =
+                prefs(ModulePrefs).getString("statusbar_control_center_clock_colon_style", "0")
+            dataChannel.wait<String>("statusbar_control_center_clock_colon_style") {
+                colonStyle = it
+            }
 
-        //Source Clock
-        "com.android.systemui.statusbar.policy.Clock".toClass().apply {
-            method { name = "setShowSecondsAndUpdate" }.hook {
-                before {
-                    val view = instance<TextView>()
-                    if (view.context.resources.getResourceEntryName(view.id) != "qs_footer_clock") return@before
-                    if (showSecond) args().first().setTrue()
+            //Source Clock
+            "com.android.systemui.statusbar.policy.Clock".toClass().apply {
+                method { name = "setShowSecondsAndUpdate" }.hook {
+                    before {
+                        val view = instance<TextView>()
+                        val clockName = safeOfNull {
+                            view.context.resources.getResourceEntryName(view.id)
+                        } ?: return@before
+                        when (clockName) {
+                            "qs_footer_clock" -> {}  //经典模式时钟
+                            "oplus_qs_clock" -> {}  //分离模式时钟
+                            else -> return@before
+                        }
+                        if (showSecond) args().first().setTrue()
+                    }
                 }
             }
-        }
 
-        //Source BaseClockExt
-        VariousClass(
-            "com.oplusos.systemui.ext.BaseClockExt", //C13
-            "com.oplus.systemui.common.clock.OplusClockExImpl" //C14
-        ).toClass().apply {
-            method {
-                name = "setTextWithRedOneStyle"
-                paramCount = 2
-            }.hook {
-                after {
-                    if (redOneMode == "0" && colonStyle == "0") return@after
-                    val view = args().first().cast<TextView>() ?: return@after
-                    if (view.context.resources.getResourceEntryName(view.id) != "qs_footer_clock") return@after
-                    val char = args().last().cast<CharSequence>() ?: return@after
-                    if (char.isBlank()) return@after
-                    setStyle(view, char, colonStyle, redOneMode)
+            //Source BaseClockExt
+            VariousClass(
+                "com.oplusos.systemui.ext.BaseClockExt", //C13
+                "com.oplus.systemui.common.clock.OplusClockExImpl" //C14
+            ).toClass().apply {
+                method {
+                    name = "setTextWithRedOneStyle"
+                    paramCount = 2
+                }.hook {
+                    after {
+                        if (redOneMode == "0" && colonStyle == "0") return@after
+                        val view = args().first().cast<TextView>() ?: return@after
+                        val clockName = safeOfNull {
+                            view.context.resources.getResourceEntryName(view.id)
+                        } ?: return@after
+                        when (clockName) {
+                            "qs_footer_clock" -> {}  //经典模式时钟
+                            "oplus_qs_clock" -> {}  //分离模式时钟
+                            else -> return@after
+                        }
+                        val char = args().last().cast<CharSequence>() ?: return@after
+                        if (char.isBlank()) return@after
+                        setStyle(view, char, colonStyle, redOneMode)
+                    }
                 }
             }
         }
     }
 
     @SuppressLint("DiscouragedApi")
-    private fun setStyle(view: TextView, char: CharSequence, colonStyle: String, redStyle: String) {
+    private fun setStyle(
+        view: TextView, char: CharSequence, colonStyle: String, redStyle: String
+    ) {
         val colonMode = if (colonStyle == "1") 1 else if (colonStyle == "2") 2 else 0
         val redMode = if (redStyle == "1") 1 else if (redStyle == "2") 2 else 0
         var sb = StringBuilder(view.text)
