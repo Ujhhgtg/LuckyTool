@@ -34,6 +34,8 @@ object VolumeDialogBackground : YukiBaseHooker() {
             method { name = "isSurrealQualityOn" }.hook {
                 replaceToFalse()
             }
+            val hasVerticalRowsLayerMap = hasField { name = "mVerticalRowsLayerDrawableMap" }
+
             val hasVerticalRowsLayer = hasField { name = "mVerticalRowsLayerDrawable" }
             val hasVolumeMoreLayer = hasField { name = "mVolumeMoreLayerDrawable" }
             val hasCaptionLayer = hasField { name = "mVolumeCaptionLayerDrawable" }
@@ -89,7 +91,7 @@ object VolumeDialogBackground : YukiBaseHooker() {
                             alpha = 255 - value
                         }
                 }
-                method { name = "addVerticalContainerBg" }.hook {
+                if (hasVerticalRowsLayerMap) method { name = "addVerticalContainerBg" }.hook {
                     before {
                         if (customAlpha < 0) return@before
                         val value = customAlpha * 25
