@@ -10,6 +10,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [移除] 浮窗回复白名单 C15
 - [适配] 控制中心分离模式时钟样式 C15
 - [适配] 锁屏时钟红一显示模式 RUI6
+- [适配] 桌面与文件夹分页指示器 RUI6
+- [适配] 移除桌面文件夹预览背景 C15
 
 ### 1.2.5
 
