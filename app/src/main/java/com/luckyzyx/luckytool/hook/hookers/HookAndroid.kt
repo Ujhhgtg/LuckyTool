@@ -77,7 +77,7 @@ object HookAndroid : YukiBaseHooker() {
         //允许不受信任的触摸
         if (osCode >= 23) loadHooker(AllowUntrustedTouch)
 
-        //缩放窗口
+        //浮窗
         loadHooker(ZoomWindowConfig)
 
         //暗色模式服务

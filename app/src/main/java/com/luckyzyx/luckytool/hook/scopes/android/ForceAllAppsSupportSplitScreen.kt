@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
@@ -13,8 +14,11 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
         "com.android.server.wm.OplusSplitScreenManagerService".toClass().apply {
             method {
                 name = "supportsSplitScreenByVendorPolicy"
+                param {
+                    it[0] == StringClass && it[1] == StringClass
+                }
                 paramCount(3..4)
-            }.hook {
+            }.hookAll {
                 before {
                     if (!isEnable) return@before
                     val packageName = args().first().string()
@@ -38,6 +42,12 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
 
                     resultTrue()
                 }
+            }
+            method { name = "isInForbidActivityList" }.hook {
+                if (isEnable) replaceToFalse()
+            }
+            method { name = "supportsSplitScreenWindowingMode" }.hook {
+                if (isEnable) replaceToTrue()
             }
         }
     }
