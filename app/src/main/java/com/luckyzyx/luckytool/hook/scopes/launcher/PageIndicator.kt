@@ -4,11 +4,11 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.CanvasClass
 import com.highcapable.yukihookapi.hook.type.android.MotionEventClass
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
@@ -23,8 +23,9 @@ object PageIndicator : YukiBaseHooker() {
 
         //Source OplusPageIndicator
         "com.android.launcher.pageindicators.OplusPageIndicator".toClass().apply {
+            val drawMethod = hasMethod { name = "dispatchDraw" }
             method {
-                name = if (SDK >= A15) "dispatchDraw" else "onDraw"
+                name = if (drawMethod) "dispatchDraw" else "onDraw"
                 param(CanvasClass)
             }.hook {
                 before {
