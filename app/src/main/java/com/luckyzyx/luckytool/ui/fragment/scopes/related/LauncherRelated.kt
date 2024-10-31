@@ -177,6 +177,13 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_auto_switch_last_task)
+                key = "disable_auto_switch_last_task"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_stacked_task_layout)
                 key = "enable_stacked_task_layout"
                 setDefaultValue(false)

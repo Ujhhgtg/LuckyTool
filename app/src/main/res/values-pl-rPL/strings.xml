@@ -409,6 +409,7 @@
     <string name="remove_folder_pagination_component">Usuń wskaźnik stronicowania folderu</string>
     <string name="disable_pagination_component_sliding">Wyłącz przesuwanie komponentu stronicowania</string>
     <string name="RecentTaskListRelated">Lista ostatnich aplikacji</string>
+    <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
     <string name="enable_stacked_task_layout">Włącz układ stosu kart</string>
     <string name="set_task_stacking_level">Ustaw poziom układania</string>
     <string name="fix_current_task_to_the_top">Pokaż wybraną kartę podglądu na wierzchu</string>

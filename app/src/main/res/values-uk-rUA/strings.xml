@@ -409,6 +409,7 @@
     <string name="remove_folder_pagination_component">Видалити компонент розбивки на папки</string>
     <string name="disable_pagination_component_sliding">Вимкнути свайп компонентів розбивки</string>
     <string name="RecentTaskListRelated">Список недавніх задач</string>
+    <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
     <string name="enable_stacked_task_layout">Увімкнути розкладку задач</string>
     <string name="set_task_stacking_level">Встановити рівень стека задач</string>
     <string name="fix_current_task_to_the_top">Закріпити поточну задачу нагорі</string>

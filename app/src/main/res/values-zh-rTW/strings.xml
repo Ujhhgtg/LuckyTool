@@ -409,6 +409,7 @@
     <string name="remove_folder_pagination_component">移除文件夹分页组件</string>
     <string name="disable_pagination_component_sliding">禁用分页组件滑动</string>
     <string name="RecentTaskListRelated">最近任务列表相关</string>
+    <string name="disable_auto_switch_last_task">禁用自动切换到上个任务</string>
     <string name="enable_stacked_task_layout">启用堆叠任务布局</string>
     <string name="set_task_stacking_level">设置任务堆叠等级</string>
     <string name="fix_current_task_to_the_top">修复当前任务置顶</string>

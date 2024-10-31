@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Модуль Xposed для расширенной оптимизации ColorOS, бесплатно навсегда\nРазработчик: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Функции</string>
     <string name="nav_home">Главная</string>
@@ -409,6 +409,7 @@
     <string name="remove_folder_pagination_component">Удалить компонент разбивки на папки</string>
     <string name="disable_pagination_component_sliding">Отключить свайп компонентов разбивки</string>
     <string name="RecentTaskListRelated">Список недавних задач</string>
+    <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
     <string name="enable_stacked_task_layout">Включить раскладку задач</string>
     <string name="set_task_stacking_level">Установить уровень стека задач</string>
     <string name="fix_current_task_to_the_top">Закрепить текущую задачу наверху</string>

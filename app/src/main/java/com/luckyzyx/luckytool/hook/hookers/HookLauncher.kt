@@ -26,7 +26,7 @@ object HookLauncher : YukiBaseHooker() {
         loadHooker(HookGlobalFeatureConfig)
 
         //HookLauncherFeature
-        if (osCode < 33) loadHooker(HookLauncherFeature)
+        loadHooker(HookLauncherFeature)
 
         //HookDeviceProfileOption
         loadHooker(HookDeviceProfileOption)
