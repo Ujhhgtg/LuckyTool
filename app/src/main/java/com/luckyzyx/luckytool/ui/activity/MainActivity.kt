@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -37,12 +36,13 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.topjohnwu.superuser.Shell
+import it.dhd.oneplusui.appcompat.app.OplusActivity
 import kotlinx.coroutines.Dispatchers
 import kotlin.system.exitProcess
 
 @Obfuscate
 @Suppress("PrivatePropertyName")
-open class MainActivity : AppCompatActivity() {
+open class MainActivity : OplusActivity() {
     //检测Prefs状态
     private var isModuleActive = YukiHookAPI.Status.isXposedModuleActive
     private val KEY_PREFIX = MainActivity::class.java.name + '.'

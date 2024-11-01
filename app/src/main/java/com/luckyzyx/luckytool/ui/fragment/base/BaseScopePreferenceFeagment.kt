@@ -14,11 +14,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
+import androidx.preference.OplusPreferenceFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceGroup.PreferencePositionCallback
 import androidx.recyclerview.widget.RecyclerView
-import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.PrefsItem
@@ -33,7 +33,7 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 @Obfuscate
 @Suppress("unused")
-abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuProvider {
+abstract class BaseScopePreferenceFeagment : OplusPreferenceFragment(), MenuProvider {
 
     //OS版本
     val osName = getOSVersionName
@@ -97,7 +97,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(bundle: Bundle?, str: String?) {
         if (currentPrefsName.isNotBlank()) preferenceManager.sharedPreferencesName =
             currentPrefsName
         val prefsScreen = preferenceManager.createPreferenceScreen(requireActivity())
@@ -197,6 +197,5 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         }
         return true
     }
-
 
 }

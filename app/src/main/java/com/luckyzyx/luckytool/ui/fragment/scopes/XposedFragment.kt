@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -27,9 +28,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
-import com.drake.net.utils.withMain
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.joom.paranoid.Obfuscate
@@ -111,7 +110,6 @@ import com.luckyzyx.luckytool.utils.showBottomSheet
 import com.luckyzyx.luckytool.utils.showToast
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
-import kotlinx.coroutines.Dispatchers
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import java.util.Arrays
 
@@ -124,16 +122,14 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     private val allFragmentItem = ArrayList<FragmentItem>()
 
+    private var loadDialog: AlertDialog? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         navController = findNavController()
         setupMenuProvider(this)
         return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-
     }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
@@ -720,6 +716,20 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         }
     }
 
+    override fun onCreatePreferences(bundle: Bundle?, str: String?) {
+        loadDialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+            setTitle(getString(R.string.common_words_loading))
+            setView(LinearLayout(context).apply {
+                addView(LinearProgressIndicator(context).apply {
+                    layoutParams =
+                        LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                    setPadding(20.dp)
+                    isIndeterminate = true
+                })
+            })
+        }.create()
+    }
+
     override fun onResume() {
         super.onResume()
         val count = safeOf(0) {
@@ -798,29 +808,18 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     }
 
     private fun init() {
-        val dialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
-            setTitle(getString(R.string.common_words_loading))
-            setView(LinearLayout(context).apply {
-                addView(LinearProgressIndicator(context).apply {
-                    layoutParams =
-                        LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-                    setPadding(20.dp)
-                    isIndeterminate = true
-                })
-            })
-        }.create()
-        scopeDialog(dialog, false, Dispatchers.Default) {
-            preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-                context.loadPreferences().forEachIndexed { index, preference ->
-                    try {
-                        addPreference(preference)
-                    } catch (_: Throwable) {
-                        withMain { context.showToast("Error: $index ${preference.key}") }
-                        return@forEachIndexed
-                    }
+        loadDialog?.show()
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            context.loadPreferences().forEachIndexed { index, preference ->
+                try {
+                    addPreference(preference)
+                } catch (_: Throwable) {
+                    context.showToast("Error: $index ${preference.key}")
+                    return@forEachIndexed
                 }
             }
         }
+        loadDialog?.dismiss()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
