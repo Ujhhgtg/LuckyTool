@@ -409,6 +409,7 @@
     <string name="remove_folder_pagination_component">Odstranit komponentu stránkování složky</string>
     <string name="disable_pagination_component_sliding">Zakázat posunutí komponenty stránky</string>
     <string name="RecentTaskListRelated">Nastavení související se seznamem nedávných aplikací</string>
+    <string name="force_enable_recent_task_memory_display">Force enable recent task memory display</string>
     <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
     <string name="enable_stacked_task_layout">Povolit těsnější rozvržení v seznamu úloh</string>
     <string name="set_task_stacking_level">Nastavit úroveň stohování úloh</string>

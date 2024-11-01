@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
+import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDisplay
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeature
@@ -70,6 +71,11 @@ object HookLauncher : YukiBaseHooker() {
         }
         //移除App更新圆点
         if (osCode >= 33) loadHooker(RemoveAppUpdateGreenDot)
+
+        //强制启用最近任务内存显示
+        if (prefs(ModulePrefs).getBoolean("force_enable_recent_task_memory_display", false)) {
+            loadHooker(ForceEnableRecentTaskMemoryDisplay)
+        }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl
         //res/layout/oplus_task_menu_option.xml

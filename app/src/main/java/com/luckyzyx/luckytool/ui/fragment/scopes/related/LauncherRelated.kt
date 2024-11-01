@@ -177,6 +177,12 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.force_enable_recent_task_memory_display)
+                key = "force_enable_recent_task_memory_display"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.disable_auto_switch_last_task)
                 key = "disable_auto_switch_last_task"
                 setDefaultValue(false)

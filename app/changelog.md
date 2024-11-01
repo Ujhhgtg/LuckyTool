@@ -13,6 +13,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 桌面与文件夹分页指示器 RUI6
 - [适配] 移除桌面文件夹预览背景 C15
 - [添加] 禁用最近任务列表自动切换上个任务 C15
+- [添加] 强制启用最近任务内存显示
 
 ### 1.2.5
 

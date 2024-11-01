@@ -29,15 +29,5 @@ object HookSystemUI : YukiBaseHooker() {
         //自启
         loadHooker(HookSystemUIAutoStart)
 
-//        //Source FlashlightControllerImpl
-//        "com.android.systemui.statusbar.policy.FlashlightControllerImpl".toClass().apply {
-//            method { name = "init" }.hook {
-//                after {
-//                    YLog.debug("FlashlightControllerImpl init is call!")
-//                    method { name = "tryInitCamera" }.get(instance).call()
-//                }
-//            }
-//        }
-
     }
 }

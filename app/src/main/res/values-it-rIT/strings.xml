@@ -409,6 +409,7 @@
     <string name="remove_folder_pagination_component">Rimuovi componente di impaginazione cartella</string>
     <string name="disable_pagination_component_sliding">Disabilita lo scorrimento del componente di impaginazione</string>
     <string name="RecentTaskListRelated">Elenco attività recenti</string>
+    <string name="force_enable_recent_task_memory_display">Force enable recent task memory display</string>
     <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
     <string name="enable_stacked_task_layout">Abilita disposizione in pila delle attività</string>
     <string name="set_task_stacking_level">Imposta il livello di impilamento attività</string>
