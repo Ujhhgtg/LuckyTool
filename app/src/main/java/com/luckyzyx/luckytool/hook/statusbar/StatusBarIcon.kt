@@ -54,7 +54,5 @@ object StatusBarIcon : YukiBaseHooker() {
         //自定义流体云图标背景透明度
         if (osCode in 30..33) loadHooker(CustomFluidCloudIconBackgroundTransparency)
 
-        //seeding_card_container
-        //com.oplus.systemui.statusbar.seeding.OplusSeedlingCardContainer
     }
 }
