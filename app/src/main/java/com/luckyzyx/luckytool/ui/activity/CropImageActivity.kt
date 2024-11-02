@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.lifecycle.Lifecycle
@@ -24,9 +23,10 @@ import com.canhub.cropper.parcelable
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.databinding.ActivityCropImageBinding
 import com.luckyzyx.luckytool.utils.ThemeUtils
+import it.dhd.oneplusui.appcompat.app.OplusActivity
 
 @Obfuscate
-class CropImageActivity : AppCompatActivity(), MenuProvider,
+class CropImageActivity : OplusActivity(), MenuProvider,
     OnSetImageUriCompleteListener, OnCropImageCompleteListener {
 
     private lateinit var binding: ActivityCropImageBinding

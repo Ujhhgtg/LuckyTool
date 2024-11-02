@@ -15,7 +15,6 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -950,8 +949,6 @@ fun Fragment.setupMenuProvider(menuProvider: MenuProvider) =
     (requireActivity() as MenuHost).addMenuProvider(
         menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED
     )
-
-val redOneTextColor = Color.parseColor("#c41442")
 
 
 fun logcatToFile(file: File): Boolean {

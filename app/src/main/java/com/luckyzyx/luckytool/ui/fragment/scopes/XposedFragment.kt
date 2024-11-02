@@ -717,17 +717,18 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     }
 
     override fun onCreatePreferences(bundle: Bundle?, str: String?) {
-        loadDialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
-            setTitle(getString(R.string.common_words_loading))
-            setView(LinearLayout(context).apply {
-                addView(LinearProgressIndicator(context).apply {
-                    layoutParams =
-                        LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-                    setPadding(20.dp)
-                    isIndeterminate = true
+        if (loadDialog == null) loadDialog =
+            MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+                setTitle(getString(R.string.common_words_loading))
+                setView(LinearLayout(context).apply {
+                    addView(LinearProgressIndicator(context).apply {
+                        layoutParams =
+                            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                        setPadding(20.dp)
+                        isIndeterminate = true
+                    })
                 })
-            })
-        }.create()
+            }.create()
     }
 
     override fun onResume() {
