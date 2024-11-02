@@ -99,6 +99,7 @@
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
     <!--Android-->
+    <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
     <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura gaussiana personalizzato</string>

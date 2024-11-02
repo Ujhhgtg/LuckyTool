@@ -99,6 +99,7 @@
     <string name="package_name">Název balíčku</string>
     <string name="version">Verze</string>
     <!--Android-->
+    <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
     <string name="customized_gaussian_blur_effect_level">Přizpůsobená úroveň gaussovského rozostření</string>

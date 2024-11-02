@@ -99,6 +99,7 @@
     <string name="package_name">Tên gói</string>
     <string name="version">Phiên bản</string>
     <!--Android-->
+    <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
     <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
     <string name="customized_gaussian_blur_effect_level">Tùy chỉnh mức độ hiệu ứng nhòe Gaussian</string>

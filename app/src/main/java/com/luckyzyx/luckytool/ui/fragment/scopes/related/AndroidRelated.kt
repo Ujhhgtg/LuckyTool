@@ -25,6 +25,13 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.replace_system_root_state_detection)
+                key = "replace_system_root_state_detection"
+                setDefaultValue(false)
+                isVisible = SDK >= A12
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.allow_untrusted_touch)
                 summary = getString(R.string.allow_untrusted_touch_summary)
                 key = "allow_untrusted_touch"

@@ -24,6 +24,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.RemoveAppUninstallButtonBlackL
 import com.luckyzyx.luckytool.hook.scopes.android.RemovePasswordTimeoutVerification
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveStatusBarTopNotification
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveVPNActiveNotification
+import com.luckyzyx.luckytool.hook.scopes.android.ReplaceSystemRootStateDetection
 import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scopes.android.SetAppUpdateDotDisplayMode
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
@@ -117,6 +118,8 @@ object HookAndroid : YukiBaseHooker() {
         if (osCode >= 33) loadHooker(SetAppUpdateDotDisplayMode)
 
         loadHooker(HookFloatMirageWindow)
+
+        loadHooker(ReplaceSystemRootStateDetection)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)

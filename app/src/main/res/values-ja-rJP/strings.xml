@@ -99,6 +99,7 @@
     <string name="package_name">パッケージ名</string>
     <string name="version">バージョン</string>
     <!--Android-->
+    <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">信頼できないタッチ操作を許可</string>
     <string name="allow_untrusted_touch_summary">一部のウィンドウやページがブロックされ、タッチできない問題を解決します</string>
     <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>

@@ -99,6 +99,7 @@
     <string name="package_name">Имя пакета</string>
     <string name="version">Версия</string>
     <!--Android-->
+    <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
     <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>
     <string name="customized_gaussian_blur_effect_level">Настраиваемый уровень эффекта размытия гауса</string>
@@ -409,7 +410,7 @@
     <string name="remove_folder_pagination_component">Удалить компонент разбивки на папки</string>
     <string name="disable_pagination_component_sliding">Отключить свайп компонентов разбивки</string>
     <string name="RecentTaskListRelated">Список недавних задач</string>
-    <string name="force_enable_recent_task_memory_display">Force enable recent task memory display</string>
+    <string name="force_enable_recent_task_memory_display">Принудительно включить отображение памяти в меню недавних задач</string>
     <string name="disable_auto_switch_last_task">Отключить автоматическое переключение на последнюю задачу</string>
     <string name="enable_stacked_task_layout">Включить раскладку задач</string>
     <string name="set_task_stacking_level">Установить уровень стека задач</string>

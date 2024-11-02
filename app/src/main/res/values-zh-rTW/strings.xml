@@ -99,6 +99,7 @@
     <string name="package_name">包名</string>
     <string name="version">版本</string>
     <!--Android-->
+    <string name="replace_system_root_state_detection">替换系统Root状态检测</string>
     <string name="allow_untrusted_touch">允許不受信任的觸控</string>
     <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
     <string name="customized_gaussian_blur_effect_level">自定义高斯模糊效果级别</string>
