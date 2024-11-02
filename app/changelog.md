@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.5.1_beta
+### 1.2.6_beta
 
 - [修复] 分身App浮窗贴边显示异常 C14+
 - [适配] 浮窗贴边后台运行 C15
@@ -16,6 +16,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 强制启用最近任务内存显示
 - [添加] 替换系统Root状态检测
 - [适配] 隐藏非上网卡移动数据图标 C15
+- [移除] 相册水印字数限制
 
 ### 1.2.5
 

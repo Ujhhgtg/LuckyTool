@@ -52,6 +52,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_watermark_word_limit)
                 key = "remove_gallery_watermark_word_limit"
                 setDefaultValue(false)
+                isVisible = osCode < 30
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

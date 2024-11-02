@@ -43,9 +43,14 @@ object HookSettings : YukiBaseHooker() {
         loadHooker(HookGlobalSystemProperties)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //HookAppFeatureProvider
             loadHooker(HookGlobalFeatureProvider(dexKitBridge))
             //HookSettingsFeature
             loadHooker(HookSettingsFeature(dexKitBridge))
+            //移除DPI重启恢复
+            if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
+                loadHooker(RemoveDpiRestartRecovery(dexKitBridge))
+            }
             //暗色模式列表
             if (prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)) {
                 loadHooker(DarkModeList(dexKitBridge))
@@ -61,10 +66,6 @@ object HookSettings : YukiBaseHooker() {
             //启用Google自动填充
             if (prefs(ModulePrefs).getBoolean("enable_google_auto_fill", false)) {
                 loadHooker(EnableGoogleAutoFill(dexKitBridge))
-            }
-            //移除DPI重启恢复
-            if (prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)) {
-                loadHooker(RemoveDpiRestartRecovery(dexKitBridge))
             }
         }
 
