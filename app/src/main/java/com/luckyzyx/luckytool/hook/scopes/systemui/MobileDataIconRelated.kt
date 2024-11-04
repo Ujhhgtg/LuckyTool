@@ -71,7 +71,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
                                 FlowUtils(appClassLoader).let {
                                     val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
                                         ?: return@before
-                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@before
+                                    it.asStateFlow(mutableStateFlow) ?: return@before
                                 }
                             }
                             result = stateFlow ?: return@before
@@ -94,7 +94,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
                                 FlowUtils(appClassLoader).let {
                                     val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
                                         ?: return@before
-                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@before
+                                    it.asStateFlow(mutableStateFlow) ?: return@before
                                 }
                             }
                             result = stateFlow ?: return@before
@@ -117,7 +117,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
                                 FlowUtils(appClassLoader).let {
                                     val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
                                         ?: return@before
-                                    it.ReadonlyStateFlow(mutableStateFlow) ?: return@before
+                                    it.asStateFlow(mutableStateFlow) ?: return@before
                                 }
                             }
                             result = stateFlow ?: return@before
