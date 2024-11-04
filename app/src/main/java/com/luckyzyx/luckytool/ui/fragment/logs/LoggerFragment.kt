@@ -246,6 +246,7 @@ class LoggerFragment : Fragment(), MenuProvider {
     private fun getLogsString(context: Context): String {
         var str = ""
         str += context.getDeviceInfo(logFuncController, true)
+        str += "\n\n"
         listData.forEach {
             val time = formatDate("yyyy/MM/dd-HH:mm:ss", it.timestamp)
             val messageFinal = if (it.msg != "null") "\nMessage -> ${it.msg}" else ""

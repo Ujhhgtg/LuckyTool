@@ -98,28 +98,28 @@ fun Context.getDeviceInfo(
 ): String {
     val androidVer = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
     val osVer = "OS $getOSVersionName($getOSVersionCode)"
-    return """
-        ${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel ${getModelMarketName()}
-        ${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.prjNameInfo} ${controller?.slotInfo}
-        ${getString(R.string.system)}: $androidVer $osVer
-        ${getString(R.string.build_version)}: ${Build.DISPLAY} ${getManifestEndVersion(controller?.manifestVersion)}
-        ${getString(R.string.version)}: ${controller?.otaVersion}
-        ${getString(R.string.flash)}: ${controller?.flashInfo}
-        PAS: ${controller?.pcbInfo} ${controller?.snInfo}
-    """.trimIndent().let {
+    return ArrayList<String>().apply {
+        if (isLog) add("${getString(R.string.module_version)} $getVersionName($getVersionCode)")
+        add("${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel ${getModelMarketName()}")
+        add("${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.prjNameInfo} ${controller?.slotInfo}")
+        add("${getString(R.string.system)}: $androidVer $osVer")
+        add(
+            "${getString(R.string.build_version)}: ${Build.DISPLAY} ${
+                getManifestEndVersion(
+                    controller?.manifestVersion
+                )
+            }"
+        )
+        add("${getString(R.string.version)}: ${controller?.otaVersion}")
+        add("${getString(R.string.flash)}: ${controller?.flashInfo}")
+        add("PAS: ${controller?.pcbInfo} ${controller?.snInfo}")
         if (isLog) {
-            """
-                ${getString(R.string.module_version)} $getVersionName($getVersionCode)
-                $it
-                ${getMyManifesstVersion()}
-                ${DeviceUtils.getGuid()}
-                ${DeviceUtils.getRecruitId()}
-                ${DeviceUtils.getRegisterId()}
-                
-                
-            """.trimIndent()
-        } else it
-    }
+            add(getMyManifesstVersion())
+            add(DeviceUtils.getGuid())
+            add(DeviceUtils.getRecruitId())
+            add(DeviceUtils.getRegisterId())
+        }
+    }.let { formatStringAuto(it, "\n") }
 }
 
 /**
@@ -281,7 +281,7 @@ fun getModelMarketName(): String? {
  * 获取MyManifest版本
  * @return String?
  */
-fun getMyManifesstVersion(): String? {
+fun getMyManifesstVersion(): String {
     val str = SystemProperties.get("ro.oplus.image.my_manifest.version", "")
     val str2 = SystemProperties.get("ro.oplus.version.my_manifest", "")
 //            return SystemProperties.get("ro.build.version.ota", "null")
