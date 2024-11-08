@@ -1,12 +1,16 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
 import android.content.Context
+import android.util.ArraySet
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
+import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
@@ -16,7 +20,9 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.topjohnwu.superuser.ShellUtils
 
@@ -115,13 +121,92 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                     }
                 })
             }
-            if (osCode >= 31) {
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_multi_app_blacklist)
+                summary = getString(R.string.need_restart_system)
+                key = "remove_multi_app_blacklist"
+                setDefaultValue(false)
+                isVisible = osCode >= 31
+                isIconSpaceReserved = false
+            })
+            add(DropDownPreference(this@loadPreferences).apply {
+                title = getString(R.string.set_wlan_sla_whitelist_mode)
+                key = "set_wlan_sla_whitelist_mode"
+                summary = arraySummaryLine(
+                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.need_restart_system)
+                )
+                setEntries(R.array.set_wlan_sla_whitelist_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            if (getString(ModulePrefs, "set_wlan_sla_whitelist_mode", "0") != "0") {
                 add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.remove_multi_app_blacklist)
-                    summary = getString(R.string.need_restart_system)
-                    key = "remove_multi_app_blacklist"
+                    title = getString(R.string.remove_wlan_sla_blacklist)
+                    key = "remove_wlan_sla_blacklist"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("android", key, newValue)
+                        true
+                    }
+                })
+                add(Preference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_wlan_sla_whitelist)
+                    key = "custom_wlan_sla_whitelist"
+                    val value = getStringSet(ModulePrefs, key, ArraySet())
+                    summary = value.toString()
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        AppInfoSelector(this@loadPreferences, true).apply {
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packageName)
+                                        }
+                                    }
+                                    putStringSet(ModulePrefs, key, set.toSet())
+                                    sendPrefsValue("android", key, set.toSet())
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
+                        true
+                    }
+                })
+                add(Preference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_wlan_sla_game_whitelist)
+                    key = "custom_wlan_sla_game_whitelist"
+                    val value = getStringSet(ModulePrefs, key, ArraySet())
+                    summary = value.toString()
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        AppInfoSelector(this@loadPreferences, true).apply {
+                            setEnabledList(ArrayList(value))
+                            setOnSelectAppListener(object : OnSelectAppInfoListener {
+                                override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                                    val set = ArraySet<String>().apply {
+                                        list.forEachIndexed { _, appInfo ->
+                                            add(appInfo.packageName)
+                                        }
+                                    }
+                                    putStringSet(ModulePrefs, key, set.toSet())
+                                    sendPrefsValue("android", key, set.toSet())
+                                    (activity as MainActivity).restart()
+                                }
+                            })
+                            show()
+                        }
+                        true
+                    }
                 })
             }
             //应用安装

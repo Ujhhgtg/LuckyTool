@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Xposed modul pro rozšířenou optimalizaci ColorOS, zdarma navždy\nVývojář: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funkce</string>
     <string name="nav_home">Domovská stránka</string>
@@ -99,7 +99,7 @@
     <string name="package_name">Název balíčku</string>
     <string name="version">Verze</string>
     <!--Android-->
-    <string name="replace_system_root_state_detection">Replace system root state detection</string>
+    <string name="replace_system_root_state_detection">Nahradit systémové detekci rootu</string>
     <string name="allow_untrusted_touch">Povolit nedůvěryhodné dotyky</string>
     <string name="allow_untrusted_touch_summary">Vyřešte problém, že některá okna nebo stránky jsou blokovány a nelze s nimi interagovat dotykem</string>
     <string name="customized_gaussian_blur_effect_level">Přizpůsobená úroveň gaussovského rozostření</string>
@@ -256,7 +256,7 @@
     <string name="StatusBarTiles">Dlaždice stavové lišty</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Vynucení zobrazení přepínací dlaždice stavu hovoru</string>
     <string name="SpecialTiles">Speciální dlaždice</string>
-    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
+    <string name="SpecialTiles_summary">Pouze režim klasického ovládacího centra</string>
     <string name="auto_expand_tile_rows_horizontal">Automaticky rozbalit počet řádků horizontálních dlaždic</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">Musíte povolit přepínač funkce dlaždic níže</string>
@@ -264,7 +264,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Zapnutí automatického rozbalení dlaždic na některých modelech způsobí zobrazení lišty jasu mimo obrazovku. V tomto případě musí být tato funkce povolena</string>
     <string name="control_center_special_tile_top_gap">Nastavit horní mezeru pro speciální dlaždice</string>
     <string name="control_center_special_tile_bottom_gap">Nastavit spodní mezeru pro speciální dlaždice</string>
-    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Zmenšit mezeru horní vodorovné lišty jasu</string>
     <string name="TileLongClickEvent">Událost daždice při dlouhém stisku</string>
     <string name="restore_some_tile_long_press_event">Obnovit některé události dlouhého stisku</string>
     <string name="restore_some_tile_long_press_event_summary">Obnovit WiFi, Bluetooth, osobní hotspot a další události dlouhého stisku pro otevření odpovídající stránky</string>
@@ -410,8 +410,8 @@
     <string name="remove_folder_pagination_component">Odstranit komponentu stránkování složky</string>
     <string name="disable_pagination_component_sliding">Zakázat posunutí komponenty stránky</string>
     <string name="RecentTaskListRelated">Nastavení související se seznamem nedávných aplikací</string>
-    <string name="force_enable_recent_task_memory_display">Force enable recent task memory display</string>
-    <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
+    <string name="force_enable_recent_task_memory_display">Vynutit povolení zobrazení paměti nedávných úloh</string>
+    <string name="disable_auto_switch_last_task">Zakázat automatické přepínání na poslední úlohu</string>
     <string name="enable_stacked_task_layout">Povolit těsnější rozvržení v seznamu úloh</string>
     <string name="set_task_stacking_level">Nastavit úroveň stohování úloh</string>
     <string name="fix_current_task_to_the_top">Opravit aktuální úlohu na začátek/vrchol </string>
@@ -449,6 +449,10 @@
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
     <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat kompletní seznam klonovatelných aplikací a je tak třeba nainstalovat aplikace pro konkrétní modely.</string>
     <string name="remove_multi_app_blacklist">Odstranění černé listiny pro více aplikací</string>
+    <string name="set_wlan_sla_whitelist_mode">Set WLAN dual-channel acceleration whitelist mode</string>
+    <string name="remove_wlan_sla_blacklist">Remove WLAN dual channel acceleration blacklist</string>
+    <string name="custom_wlan_sla_whitelist">Customized WLAN dual channel acceleration whitelist</string>
+    <string name="custom_wlan_sla_game_whitelist">Customized WLAN dual channel acceleration game whitelist</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
@@ -613,7 +617,7 @@
     <string name="customize_device_ota_card_background">Přizpůsobit OTA pozadí karty zařízení</string>
     <string name="customize_device_ota_card_background_summary">Doporučená velikost: Násobky 328x124</string>
     <string name="customize_device_ota_card_background_path">Cesta k obrázku pozadí</string>
-    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
+    <string name="apply_device_parameter_sharing_page">Použít na stránku sdílení parametrů zařízení</string>
     <string name="settings_developer_preference">Možnosti pro vývojáře</string>
     <string name="remove_dpi_restart_recovery">Zabránit návratu DPI na původní hodnotu po restartování zařízení</string>
     <string name="remove_dpi_restart_recovery_summary">Po povolení funkce a restartování rozsahu otevřete stránku Pro vývojáře a nastavte minimální šířku</string>
@@ -712,7 +716,7 @@
     <string name="unlock_local_upgrade">Povolit lokální upgrade</string>
     <string name="unlock_local_upgrade_summary">Po kliknutí budou příslušné operace prováděny automaticky, prosím trpělivě počkejte několik sekund</string>
     <string name="remove_ota_local_update_verity">Odstranit ověření místní instalace OTA</string>
-    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
+    <string name="disable_dm_verity_verification">Zakázat ověření dm-verity</string>
     <string name="restore_ota_update_verity">Pokračovat v ověřování OTA aktualizace</string>
     <string name="restore_ota_update_verity_summary">Aktuální stav: [%1$s]\nZkuste použít tuto funkci, pokud OTA požádá o potvrzení, nebo se zeptá na dm-verity\nNeptat se, proč je funkce zašedlá, protože systém má povoleno ověření aktualizace ve výchozím nastavení\nPokud je ověření vypnuto, OTA aktualizace selže, takže když je funkce zapnutá, uzamkne tuto funkci</string>
     <!--Extract OTA-->
@@ -954,6 +958,8 @@
     <string name="common_words_low">Nízká</string>
     <string name="common_words_dynamic">Dynamická</string>
     <string name="common_words_bold">Tučné</string>
+    <string name="common_words_expand">Expand</string>
+    <string name="common_words_replace">Replace</string>
     <!--Permission-->
     <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
     <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>

@@ -202,8 +202,8 @@ class StatusBarRelated : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                     })
                     add(Preference(this@loadPreferences).apply {
-                        key = "set_custom_music_fluid_cloud_whitelist"
                         title = getString(R.string.set_custom_music_fluid_cloud_whitelist)
+                        key = "set_custom_music_fluid_cloud_whitelist"
                         val value = getStringSet(ModulePrefs, key, ArraySet())
                         summary = value.toString()
                         isEnabled = getBoolean(

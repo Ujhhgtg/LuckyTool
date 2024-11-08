@@ -17,6 +17,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 替换系统Root状态检测
 - [适配] 隐藏非上网卡移动数据图标 C15
 - [移除] 相册水印字数限制
+- [添加] 自定义WLAN双通道加速白名单
+- [添加] 移除WLAN双通道加速黑名单
 
 ### 1.2.5
 

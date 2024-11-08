@@ -376,6 +376,12 @@
         <item>@string/common_words_high</item>
     </string-array>
     
+    <string-array name="set_wlan_sla_whitelist_mode_entries">
+        <item>@string/common_words_default</item>
+        <item>@string/common_words_expand</item>
+        <item>@string/common_words_replace</item>
+    </string-array>
+    
     <string-array name="adm_unlock_more_threads_entries">
         <item>@string/common_words_default</item>
         <item>32</item>

@@ -449,6 +449,10 @@
     <string name="set_multi_app_support_mode_all_apps">全应用列表</string>
     <string name="set_multi_app_support_mode_tips">部分机型无法使用全应用列表，需安装特定机型应用分身APP</string>
     <string name="remove_multi_app_blacklist">移除应用分身黑名单</string>
+    <string name="set_wlan_sla_whitelist_mode">设置 WLAN 双通道加速白名单模式</string>
+    <string name="remove_wlan_sla_blacklist">移除 WLAN 双通道加速黑名单</string>
+    <string name="custom_wlan_sla_whitelist">自定义 WLAN 双通道加速白名单</string>
+    <string name="custom_wlan_sla_game_whitelist">自定义 WLAN 双通道加速游戏白名单</string>
     <string name="multi_app_enable">启用替换列表</string>
     <string name="multi_app_custom_list">替换应用分身支持列表</string>
     <string name="multi_app_custom_list_summary">开启功能后，原有的应用分身列表将被此列表替换，数量过多会造成卡顿</string>
@@ -954,6 +958,8 @@
     <string name="common_words_low">低</string>
     <string name="common_words_dynamic">动态</string>
     <string name="common_words_bold">粗体</string>
+    <string name="common_words_expand">扩展</string>
+    <string name="common_words_replace">替换</string>
     <!--Permission-->
     <string name="send_notification_permission">发送通知权限</string>
     <string name="all_files_access_permission">所有文件访问权限</string>

@@ -1,39 +1,107 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.util.ArraySet
 import com.android.internal.os.SystemServerClassLoaderFactory
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import dalvik.system.PathClassLoader
 
 object HookOplusWifiService : YukiBaseHooker() {
-    override fun onHook() {
-        //Source_ext oplus-wifi-service OplusTetheringNotification showSoftapEnabledDurationNotification
-        //Channel DurationNotification -> Notification id -> 4
-        val hotspotPowerConsumption =
-            prefs(ModulePrefs).getBoolean("remove_hotspot_power_consumption_notification", false)
-        if (hotspotPowerConsumption.not()) return
 
+    private var wifiserviceClassLoader: PathClassLoader? = null
+    private var finalWifiServiceClassLoader: PathClassLoader? = null
+
+    override fun onHook() {
         try {
-            val wifiserviceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
+            wifiserviceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
                 "/apex/com.android.wifi/javalib/service-wifi.jar",
                 null,
                 false
             )
-            val finalClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
+            finalWifiServiceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
                 "/system_ext/framework/oplus-wifi-service.jar",
                 wifiserviceClassLoader,
                 false
             )
+        } catch (_: Throwable) {
+
+        }
+        if (finalWifiServiceClassLoader == null) return
+
+        //Source_ext oplus-wifi-service OplusTetheringNotification showSoftapEnabledDurationNotification
+        //Channel DurationNotification -> Notification id -> 4
+        if (prefs(ModulePrefs).getBoolean("remove_hotspot_power_consumption_notification", false)) {
+            loadHooker(HookOplusSoftAp(finalWifiServiceClassLoader))
+        }
+
+        //Source_ext oplus-wifi-service OplusWifiRomUpdateHelper getSlaWhiteListApps
+        loadHooker(HookSlaAppList(finalWifiServiceClassLoader))
+    }
+
+    class HookOplusSoftAp(val classLoader: ClassLoader?) : YukiBaseHooker() {
+        override fun onHook() {
             //Source OplusSoftapStatistics
-            "com.oplus.server.wifi.hotspot.OplusSoftapStatistics".toClass(finalClassLoader).apply {
+            "com.oplus.server.wifi.hotspot.OplusSoftapStatistics".toClass(classLoader).apply {
                 method { name = "startSoftapEnableTimer" }.hook {
                     intercept()
                 }
             }
-//            YLog.debug("wifiserviceClassLoader success!")
-        } catch (t: Throwable) {
-//            YLog.debug("Hook OplusWifiService Error!", t)
-            return
+        }
+    }
+
+    class HookSlaAppList(val classLoader: ClassLoader?) : YukiBaseHooker() {
+        override fun onHook() {
+            val mode = prefs(ModulePrefs).getString("set_wlan_sla_whitelist_mode", "0")
+            var rmBlack = prefs(ModulePrefs).getBoolean("remove_wlan_sla_blacklist", false)
+            dataChannel.wait<Boolean>("remove_wlan_sla_blacklist") { rmBlack = it }
+            var set = prefs(ModulePrefs).getStringSet("custom_wlan_sla_whitelist", ArraySet())
+            dataChannel.wait<Set<String>>("custom_wlan_sla_whitelist") { set = it }
+            var gameSet =
+                prefs(ModulePrefs).getStringSet("custom_wlan_sla_game_whitelist", ArraySet())
+            dataChannel.wait<Set<String>>("custom_wlan_sla_game_whitelist") { gameSet = it }
+
+            if (mode == "0") return
+
+            //Source OplusSlaApps
+            "com.oplus.server.wifi.sla.OplusSlaApps".toClass(classLoader).apply {
+                method { name = "getSlaWhiteListAppsFromRus";returnType = StringArrayClass }.hook {
+                    after {
+                        val res = result<Array<String>>() ?: return@after
+                        result = when (mode) {
+                            "1" -> res.toMutableList().apply {
+                                set.forEachIndexed { _, new ->
+                                    if (!contains(new)) add(new)
+                                }
+                            }.toTypedArray()
+
+                            "2" -> set.toTypedArray()
+                            else -> return@after
+                        }
+                    }
+                }
+                method { name = "getSlaGameAppsFromRus";returnType = StringArrayClass }.hook {
+                    after {
+                        val res = result<Array<String>>() ?: return@after
+                        result = when (mode) {
+                            "1" -> res.toMutableList().apply {
+                                gameSet.forEachIndexed { _, new ->
+                                    if (!contains(new)) add(new)
+                                }
+                            }.toTypedArray()
+
+                            "2" -> gameSet.toTypedArray()
+                            else -> return@after
+                        }
+                    }
+                }
+                method { name = "getSlaBlackListAppsFromRus" }.hook {
+                    before {
+                        if (rmBlack) resultNull()
+                    }
+                }
+            }
         }
     }
 }
