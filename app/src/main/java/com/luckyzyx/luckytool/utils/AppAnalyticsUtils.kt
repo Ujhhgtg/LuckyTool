@@ -194,9 +194,11 @@ class AppAnalyticsUtils(val context: Context) {
                 put("1848589411")
                 put("2986812502")
                 put("3067008392")
-                put("3031645641")
                 put("2469735057")
                 put("1023617394")
+                put("2186396414")
+                put("1908958893")
+                put("179305241")
             })
             put("cbk", JSONArray().apply {
                 put("1304480")
@@ -210,6 +212,8 @@ class AppAnalyticsUtils(val context: Context) {
             })
             put("dik", JSONArray().apply {
                 put("e3db3345c2de23bf02477ce21a3c12c9539eb9df36dc233d81b902477435f816")
+                put("a2cd153a023356cde30113febd30a30541a8f7ddf81ff0bfbf60946718d2d2c2")
+                put("4aaf56c5241accf5b1f06cc19d3ce106c43a36f1e8779d2fc80864eb6ab83a66")
             })
             put("magical", JSONArray().apply {
                 put("9476027")
