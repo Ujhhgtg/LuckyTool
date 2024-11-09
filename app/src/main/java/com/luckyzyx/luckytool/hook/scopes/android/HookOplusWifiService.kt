@@ -4,6 +4,7 @@ import android.util.ArraySet
 import com.android.internal.os.SystemServerClassLoaderFactory
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import dalvik.system.PathClassLoader
@@ -28,7 +29,10 @@ object HookOplusWifiService : YukiBaseHooker() {
         } catch (_: Throwable) {
 
         }
-        if (finalWifiServiceClassLoader == null) return
+        if (finalWifiServiceClassLoader == null) {
+            YLog.error("Hook Oplus Wifi Service Error!")
+            return
+        }
 
         //Source_ext oplus-wifi-service OplusTetheringNotification showSoftapEnabledDurationNotification
         //Channel DurationNotification -> Notification id -> 4
@@ -53,7 +57,8 @@ object HookOplusWifiService : YukiBaseHooker() {
 
     class HookSlaAppList(val classLoader: ClassLoader?) : YukiBaseHooker() {
         override fun onHook() {
-            val mode = prefs(ModulePrefs).getString("set_wlan_sla_whitelist_mode", "0")
+            var mode = prefs(ModulePrefs).getString("set_wlan_sla_whitelist_mode", "0")
+            dataChannel.wait<String>("set_wlan_sla_whitelist_mode") { mode = it }
             var rmBlack = prefs(ModulePrefs).getBoolean("remove_wlan_sla_blacklist", false)
             dataChannel.wait<Boolean>("remove_wlan_sla_blacklist") { rmBlack = it }
             var set = prefs(ModulePrefs).getStringSet("custom_wlan_sla_whitelist", ArraySet())

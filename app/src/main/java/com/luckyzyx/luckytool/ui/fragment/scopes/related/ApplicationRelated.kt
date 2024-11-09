@@ -140,7 +140,8 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, _ ->
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("android", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }

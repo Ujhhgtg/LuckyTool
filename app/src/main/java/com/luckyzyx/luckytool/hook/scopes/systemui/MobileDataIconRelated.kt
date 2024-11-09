@@ -18,7 +18,6 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.luckyzyx.luckytool.utils.safeOfNull
 
 object MobileDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
@@ -67,14 +66,11 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             if (!hideNonNetwork) return@before
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
-                            val stateFlow = safeOfNull {
-                                FlowUtils(appClassLoader).let {
-                                    val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                        ?: return@before
-                                    it.asStateFlow(mutableStateFlow) ?: return@before
-                                }
+                            result = FlowUtils(appClassLoader).let {
+                                val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
+                                    ?: return@before
+                                it.asStateFlow(mutableStateFlow) ?: return@before
                             }
-                            result = stateFlow ?: return@before
                         }
                     }
                 }
@@ -90,14 +86,11 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             if (!hideNonNetwork) return@before
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
-                            val stateFlow = safeOfNull {
-                                FlowUtils(appClassLoader).let {
-                                    val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                        ?: return@before
-                                    it.asStateFlow(mutableStateFlow) ?: return@before
-                                }
+                            result = FlowUtils(appClassLoader).let {
+                                val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
+                                    ?: return@before
+                                it.asStateFlow(mutableStateFlow) ?: return@before
                             }
-                            result = stateFlow ?: return@before
                         }
                     }
                 }
@@ -113,14 +106,11 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             if (!hideNonNetwork) return@before
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
-                            val stateFlow = safeOfNull {
-                                FlowUtils(appClassLoader).let {
-                                    val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                        ?: return@before
-                                    it.asStateFlow(mutableStateFlow) ?: return@before
-                                }
+                            result = FlowUtils(appClassLoader).let {
+                                val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
+                                    ?: return@before
+                                it.asStateFlow(mutableStateFlow) ?: return@before
                             }
-                            result = stateFlow ?: return@before
                         }
                     }
                 }
