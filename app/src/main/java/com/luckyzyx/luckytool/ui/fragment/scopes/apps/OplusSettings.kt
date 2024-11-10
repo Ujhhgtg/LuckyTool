@@ -32,6 +32,7 @@ import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.showToast
 
 @Obfuscate
@@ -493,6 +494,10 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 key = "remove_dpi_restart_recovery"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("android", key, newValue)
+                    true
+                }
             })
         }
     }

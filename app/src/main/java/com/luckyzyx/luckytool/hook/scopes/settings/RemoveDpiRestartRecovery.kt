@@ -15,46 +15,6 @@ import kotlin.math.min
 
 class RemoveDpiRestartRecovery(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
-        //Source SettingsUtils
-        dexKitBridge.findClass {
-            matcher {
-                addMethod {
-                    paramTypes(ContextClass, BooleanType)
-                }
-                addMethod {
-                    paramTypes(StringClass, IntType, IntType, BooleanType)
-                    usingStrings("restoreCompassPhoneDisplayDensity")
-                }
-                addMethod {
-                    paramTypes(ContextClass, StringClass, IntType)
-                    usingStrings("restorePhoneDisplayDensity")
-                }
-                usingStrings("SettingsUtils")
-            }
-        }.apply {
-            checkDataList("RemoveDpiRestartRecovery Clazz")
-            findMethod {
-                matcher {
-                    paramTypes(ContextClass, BooleanType)
-                    addInvoke {
-                        paramTypes(StringClass, IntType, IntType, BooleanType)
-                        usingStrings("restoreCompassPhoneDisplayDensity")
-                    }
-                    addInvoke {
-                        paramTypes(ContextClass, StringClass, IntType)
-                        usingStrings("restorePhoneDisplayDensity")
-                    }
-                }
-            }.apply {
-                checkDataList("RemoveDpiRestartRecovery Method")
-                single().className.toClass().apply {
-                    method { name = single().methodName;param(ContextClass, BooleanType) }.hook {
-                        intercept()
-                    }
-                }
-            }
-        }
-
         //Source OplusDensityPreference
         "com.oplus.settings.widget.preference.OplusDensityPreference".toClass().apply {
             method { name = "onPreferenceChange";paramCount = 2 }.hook {
@@ -70,6 +30,55 @@ class RemoveDpiRestartRecovery(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                         context.contentResolver, "display_density_forced", max.toString()
                     )
                     method { name = "notifyChanged";superClass() }.get(instance).call()
+                }
+            }
+        }
+
+        loadHooker(HookSettingsUtils(dexKitBridge))
+    }
+
+    class HookSettingsUtils(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+        override fun onHook() {
+            //Source SettingsUtils
+            dexKitBridge.findClass {
+                matcher {
+                    addMethod {
+                        paramTypes(ContextClass, BooleanType)
+                    }
+                    addMethod {
+                        paramTypes(StringClass, IntType, IntType, BooleanType)
+                        usingStrings("restoreCompassPhoneDisplayDensity")
+                    }
+                    addMethod {
+                        paramTypes(ContextClass, StringClass, IntType)
+                        usingStrings("restorePhoneDisplayDensity")
+                    }
+                    usingStrings("SettingsUtils")
+                }
+            }.apply {
+                checkDataList("RemoveDpiRestartRecovery Clazz")
+                findMethod {
+                    matcher {
+                        paramTypes(ContextClass, BooleanType)
+                        addInvoke {
+                            paramTypes(StringClass, IntType, IntType, BooleanType)
+                            usingStrings("restoreCompassPhoneDisplayDensity")
+                        }
+                        addInvoke {
+                            paramTypes(ContextClass, StringClass, IntType)
+                            usingStrings("restorePhoneDisplayDensity")
+                        }
+                    }
+                }.apply {
+                    checkDataList("RemoveDpiRestartRecovery Method")
+                    single().className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(ContextClass, BooleanType)
+                        }.hook {
+                            intercept()
+                        }
+                    }
                 }
             }
         }

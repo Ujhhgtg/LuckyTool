@@ -1,14 +1,22 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.content.Context
+import android.provider.Settings
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
 object HookWindowManagerService : YukiBaseHooker() {
     override fun onHook() {
         //移除DPI重启恢复
-        val isDpi = prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)
+        var isDpi = prefs(ModulePrefs).getBoolean("remove_dpi_restart_recovery", false)
+        dataChannel.wait<Boolean>("remove_dpi_restart_recovery") { isDpi = it }
+
+        val windowManagerService = "com.android.server.wm.WindowManagerService"
 
         //Source OplusWindowManagerService
         "com.android.server.wm.OplusWindowManagerService".toClass().apply {
@@ -18,31 +26,66 @@ object HookWindowManagerService : YukiBaseHooker() {
                 superClass()
             }.hook {
                 before {
-//                    val i = args().first().int()
-//                    val i2 = args().last().int()
-//                    YLog.debug("clearForcedDisplayDensityForUser ($i,$i2)")
+//                    val displayId = args().first().int()
+//                    val userId = args().last().int()
+//                    YLog.debug("clearForcedDisplayDensityForUser ($displayId | $userId)")
                     if (isDpi) resultNull()
                 }
             }
-//            method {
-//                name = "setForcedDisplayDensityForUser"
-//                paramCount = 3
-//                superClass()
-//            }.hook {
-//                before {
-//                    val i = args().first().int()
-//                    val i2 = args(1).int()
-//                    val i3 = args().last().int()
-//                    YLog.debug("setForcedDisplayDensityForUser ($i,$i2,$i3)")
-//                }
-//            }
+        }
+
+        //Source DisplayContentExtImpl
+        "com.android.server.wm.DisplayContentExtImpl".toClass().apply {
+            method { name = "setForcedDisplayInfoForWmSize";paramCount = 5 }.hook {
+                before {
+                    if (!isDpi) return@before
+//                    val width = args().first().int()
+//                    val height = args(1).int()
+//                    val density = args(2).int()
+//                    val userId = args(3).int()
+                    val service = args().last().any() ?: return@before
+//                    YLog.debug("${method.name} is call -> $width | $height | $density | $userId")
+
+                    val context = service.current().field { type = ContextClass }.cast<Context>()
+                        ?: return@before
+                    val resolver = context.contentResolver
+                    val forcedDensity = Settings.Secure.getString(
+                        resolver, "display_density_forced"
+                    )?.toIntOrNull() ?: return@before
+                    args(2).set(forcedDensity)
+                }
+            }
+        }
+
+        //Source DisplayWindowSettings
+        "com.android.server.wm.DisplayWindowSettings".toClass().apply {
+            method { name = "setForcedDensity";paramCount(2..3) }.hookAll {
+                before {
+                    if (!isDpi) return@before
+                    val density = args(1).int()
+//                    val userId = if (method.parameterCount == 3) args().last().int() else null
+//                    YLog.debug("${method.name} is call -> $density | $userId")
+
+                    val service = field { type = windowManagerService }.get(instance).any()
+                        ?: return@before
+                    val context = service.current().field { type = ContextClass }.cast<Context>()
+                        ?: return@before
+                    val resolver = context.contentResolver
+                    val forcedDensity = Settings.Secure.getString(
+                        resolver, "display_density_forced"
+                    )?.toIntOrNull() ?: return@before
+                    if (density == 0) args(1).set(forcedDensity)
+                }
+            }
         }
 
         //Source OplusResolutionSwitchImpl
         "com.android.server.wm.OplusResolutionSwitchImpl".toClass().apply {
             if (hasMethod { name = "resetDensityIfNeed" }) {
                 method { name = "resetDensityIfNeed" }.hook {
-                    if (isDpi) intercept()
+                    before {
+                        if (isDpi) resultNull()
+                    }
                 }
             } else {
                 method { name = "onResolutionSettingsChange";paramCount = 1 }.hook {
