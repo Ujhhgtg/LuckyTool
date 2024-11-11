@@ -112,7 +112,6 @@ dependencies {
 
     implementation(libs.mmkv)
 
-    implementation(libs.oneplus.ui)
     implementation(libs.betterandroid.ui.component)
     implementation(libs.material)
     implementation(libs.lifecycle.viewmodel.ktx)
