@@ -20,6 +20,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 自定义WLAN双通道加速白名单
 - [添加] 移除WLAN双通道加速黑名单
 - [适配] 移除DPI重启恢复 C15
+- [修复] 功能页标题显示异常
 
 ### 1.2.5
 

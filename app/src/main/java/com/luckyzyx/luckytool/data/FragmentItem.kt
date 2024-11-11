@@ -8,6 +8,5 @@ import java.io.Serializable
 data class FragmentItem(
     val fragment: PreferenceFragmentCompat,
     val fragmentId: Int? = -1,
-    val title: CharSequence? = "",
     val allPrefsItem: ArrayList<PrefsItem>
 ) : Serializable

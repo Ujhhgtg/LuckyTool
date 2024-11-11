@@ -22,13 +22,11 @@ import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.PrefsItem
-import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.restartScopes
-import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 @Obfuscate
@@ -43,11 +41,6 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
      * 相关作用域
      */
     open val scopes = arrayOf<String>()
-
-    /**
-     * 设置标题
-     */
-    open val title: CharSequence? = ""
 
     /**
      * 是否启用重启菜单
@@ -115,13 +108,10 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         }
         preferenceScreen = prefsScreen
 
-        if (title.isNullOrBlank()) safeOfNull {
-            (activity as MainActivity).supportActionBar?.title = title
-        }
         arguments?.apply {
-            getCharSequence("title_text")?.let {
-                safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
-            }
+//            getCharSequence("title_text")?.let {
+//                safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
+//            }
             val scrollKey = getString("scrollKey", "")
             val scrollPosition = getInt("scrollPosition", -1)
             Handler(Looper.getMainLooper()).postDelayed({

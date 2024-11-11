@@ -214,26 +214,30 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     }
                 })
             }
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.use_user_typeface)
-                key = "statusbar_clock_user_typeface"
-                setDefaultValue(false)
-                isVisible = getString(ModulePrefs, "statusbar_clock_mode", "0") != "0"
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.use_bold_font_style)
-                key = "statusbar_clock_use_bold_font_style"
-                setDefaultValue(false)
-                isVisible = getBoolean(
-                    ModulePrefs, "statusbar_clock_user_typeface", false
-                )
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("com.android.systemui", key, newValue)
-                    true
+            if (getString(ModulePrefs, "statusbar_clock_mode", "0") != "0") {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.use_user_typeface)
+                    key = "statusbar_clock_user_typeface"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { preference, newValue ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (getBoolean(ModulePrefs, "statusbar_clock_user_typeface", false)) {
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.use_bold_font_style)
+                        key = "statusbar_clock_use_bold_font_style"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
                 }
-            })
+            }
         }
     }
 }

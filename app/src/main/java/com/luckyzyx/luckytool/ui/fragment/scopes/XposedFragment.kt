@@ -716,7 +716,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         }
     }
 
-    override fun onCreatePreferences(bundle: Bundle?, str: String?) {
+    override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         if (loadDialog == null) loadDialog =
             MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                 setTitle(getString(R.string.common_words_loading))
@@ -802,7 +802,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         if (fragment.navigateFragmentId == -1) return
         list.add(
             FragmentItem(
-                fragment, fragment.navigateFragmentId, fragment.title,
+                fragment, fragment.navigateFragmentId,
                 fragment.readPrefsItem(context)
             )
         )
