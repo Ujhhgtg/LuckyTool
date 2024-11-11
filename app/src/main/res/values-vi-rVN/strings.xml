@@ -449,6 +449,7 @@
     <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
     <string name="set_multi_app_support_mode_tips">Một số kiểu máy không thể sử dụng danh sách ứng dụng đầy đủ và cần cài đặt APP nhân bản ứng dụng dành riêng cho kiểu máy.</string>
     <string name="remove_multi_app_blacklist">Xóa bản sao ứng dụng khỏi danh sách đen</string>
+    <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
     <string name="set_wlan_sla_whitelist_mode">Set WLAN dual-channel acceleration whitelist mode</string>
     <string name="remove_wlan_sla_blacklist">Remove WLAN dual channel acceleration blacklist</string>
     <string name="custom_wlan_sla_whitelist">Customized WLAN dual channel acceleration whitelist</string>

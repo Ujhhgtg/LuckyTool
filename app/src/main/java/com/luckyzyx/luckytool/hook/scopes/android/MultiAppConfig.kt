@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
@@ -21,6 +20,8 @@ object MultiAppConfig : YukiBaseHooker() {
             dataChannel.wait<String>("set_multi_app_support_mode") { mode = it }
             var enabledMulti = prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet())
             dataChannel.wait<Set<String>>("multi_app_custom_list") { enabledMulti = it }
+            val createdLimit =
+                prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)
 
             //Source OplusMultiAppConfig
             "com.oplus.multiapp.OplusMultiAppConfig".toClass().apply {
@@ -29,6 +30,9 @@ object MultiAppConfig : YukiBaseHooker() {
                         if (mode != "1" || enabledMulti.isEmpty()) return@before
                         result = java.util.ArrayList(enabledMulti)
                     }
+                }
+                method { name = "getMaxCreatedNum" }.hook {
+                    if (createdLimit) replaceTo(1000)
                 }
             }
         }
@@ -39,10 +43,7 @@ object MultiAppConfig : YukiBaseHooker() {
             //Source OplusMultiAppDataManager
             "com.android.server.pm.OplusMultiAppDataManager".toClass().apply {
                 method { name = "initBlackAppList" }.hook {
-                    after {
-                        field { name = "mBlackAppList" }.get(instance).cast<ArrayList<String>>()
-                            ?.clear()
-                    }
+                    intercept()
                 }
             }
         }

@@ -26,6 +26,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.speech_assist_for_breeno", false)
             }
 
+            //Source Android OplusMultiAppDataManager getMaxCreatedNum 分身创建数量限制
+            if (prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)) {
+                put("oplus.software.multiapp_max_open_number_limited", false)
+            }
+
             //Source SystemUI 强制启用高斯模糊
             if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
                 put("oplus.software.display.osie_aisdr2hdr_support", false) //C12

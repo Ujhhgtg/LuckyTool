@@ -129,6 +129,14 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 31
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_multi_app_created_num_limit)
+                summary = getString(R.string.need_restart_system)
+                key = "remove_multi_app_created_num_limit"
+                setDefaultValue(false)
+                isVisible = osCode >= 31
+                isIconSpaceReserved = false
+            })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_wlan_sla_whitelist_mode)
                 key = "set_wlan_sla_whitelist_mode"
