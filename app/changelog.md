@@ -22,6 +22,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除DPI重启恢复 C15
 - [修复] 功能页标题显示异常
 - [添加] 移除分身创建数量限制
+- [添加] 移除控制中心磁贴数量限制
 
 ### 1.2.5
 

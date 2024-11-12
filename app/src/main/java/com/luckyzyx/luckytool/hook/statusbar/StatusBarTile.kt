@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
 import com.luckyzyx.luckytool.hook.scopes.systemui.ForceDisplayOfRingingStatusToggleTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.LongPressTileOpenThePage
 import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterTileCountLimit
 import com.luckyzyx.luckytool.hook.scopes.systemui.RestorePageLayoutRowCountForEditTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.SpecialTileTopGap
 import com.luckyzyx.luckytool.utils.A13
@@ -52,5 +53,9 @@ object StatusBarTile : YukiBaseHooker() {
         //自定义磁贴背景透明度
         if (osCode in 27..33) loadHooker(CustomTileBackgroundTransparency)
 
+        //移除控制中心磁贴数量限制
+        if (prefs(ModulePrefs).getBoolean("remove_control_center_tile_count_limit", false)) {
+            loadHooker(RemoveControlCenterTileCountLimit)
+        }
     }
 }

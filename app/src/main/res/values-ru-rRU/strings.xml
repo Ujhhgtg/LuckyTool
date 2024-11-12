@@ -246,6 +246,7 @@
     <string name="remove_control_center_user_switcher">Удалить переключатель пользователей в шторке</string>
     <string name="remove_control_center_mydevice">Удалить \"Мои устройства\" из шторки</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Восстановить количество строк разметки быстрых настроек для редактирования плиток</string>
+    <string name="remove_control_center_tile_count_limit">Remove limit on number of Control Center tiles</string>
     <string name="set_control_center_search_button_mode">Установить режим кнопки поиска в шторке</string>
     <string name="remove_control_center_networkwarn">Удалить сообщение безопасности внизу шторки</string>
     <string name="remove_control_center_networkwarn_dialog">Удалить диалог</string>
@@ -449,7 +450,7 @@
     <string name="set_multi_app_support_mode_all_apps">Полный список приложений</string>
     <string name="set_multi_app_support_mode_tips">Некоторые модели не могут использовать полный список клонов приложений, и вам необходимо установить приложение \"Клонирование приложений\" для определенных моделей.</string>
     <string name="remove_multi_app_blacklist">Удалить черный список для нескольких приложений</string>
-    <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
+    <string name="remove_multi_app_created_num_limit">Удалить ограничение на количество созданных приложений</string>
     <string name="set_wlan_sla_whitelist_mode">Установить режим двухканального ускорения Wi-Fi</string>
     <string name="remove_wlan_sla_blacklist">Удалить черный список двухканального ускорения Wi-Fi</string>
     <string name="custom_wlan_sla_whitelist">Настраиваемый белый список двухканального ускорения Wi-Fi</string>
