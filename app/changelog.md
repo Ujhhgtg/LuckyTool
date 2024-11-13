@@ -23,6 +23,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 功能页标题显示异常
 - [添加] 移除分身创建数量限制
 - [添加] 移除控制中心磁贴数量限制
+- [适配] 浏览器下载对话框广告 v40.8.40.1
 
 ### 1.2.5
 

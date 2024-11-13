@@ -12,10 +12,9 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.luckypray.dexkit.DexKitBridge
 
 class RemoveBrowserSearchBarAppPromotion(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
-    private val AppHostCls = "com.heytap.browser.platform.app.AppHost"
-
     override fun onHook() {
-        if (AppHostCls.toClassOrNull() == null) return
+        val appHostCls = "com.heytap.browser.platform.app.AppHost"
+        if (appHostCls.toClassOrNull() == null) return
 
         //Source MultiSugItemData
         val app = dexKitBridge.findClass {
@@ -47,13 +46,13 @@ class RemoveBrowserSearchBarAppPromotion(val dexKitBridge: DexKitBridge) : YukiB
                     addForType(ArrayListClass)
                     addForType(MapClass)
                     addForType(IntType)
-                    addForType(AppHostCls)
+                    addForType(appHostCls)
                 }
                 methods {
                     add { paramCount(0);returnType(ListClass) }
                     add { paramTypes(IntType, IntType, IntType, IntType) }
                     add { paramTypes(ListClass);returnType(UnitType) }
-                    add { paramTypes(AppHostCls);returnType(UnitType) }
+                    add { paramTypes(appHostCls);returnType(UnitType) }
                     add { name("getItemCount") }
                     add { name("getItemViewType") }
                     add { name("onAttachedToRecyclerView") }

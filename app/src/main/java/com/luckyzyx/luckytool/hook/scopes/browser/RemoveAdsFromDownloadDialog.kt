@@ -23,7 +23,6 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
                     }
                     usingStrings("DownloadCardAdProvider")
                 }
-                paramCount(1)
                 usingStrings("DownloadCardAdProvider", "createAdRequest", "appName", "posIds")
             }
         }.apply {
@@ -31,7 +30,6 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
             single().className.toClass().apply {
                 method {
                     name = single().methodName
-                    paramCount(1)
                 }.hook {
                     intercept()
                 }
