@@ -29,11 +29,12 @@ object VolumeDialogBackground : YukiBaseHooker() {
         //Source VolumeDialogImplEx
         VariousClass(
             "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
-            "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14
+            "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14 C15
         ).toClass().apply {
             method { name = "isSurrealQualityOn" }.hook {
                 replaceToFalse()
             }
+            val hasAddVerticalContainerBg = hasField { name = "addVerticalContainerBg" }
             val hasVerticalRowsLayerMap = hasField { name = "mVerticalRowsLayerDrawableMap" }
 
             val hasVerticalRowsLayer = hasField { name = "mVerticalRowsLayerDrawable" }
@@ -91,7 +92,12 @@ object VolumeDialogBackground : YukiBaseHooker() {
                             alpha = 255 - value
                         }
                 }
-                if (hasVerticalRowsLayerMap) method { name = "addVerticalContainerBg" }.hook {
+            }
+            if (hasVerticalRowsLayerMap) {
+                method {
+                    name = if (hasAddVerticalContainerBg) "addVerticalContainerBg"
+                    else "updateVolumeRowBgForSide"
+                }.hook {
                     before {
                         if (customAlpha < 0) return@before
                         val value = customAlpha * 25
