@@ -24,6 +24,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除分身创建数量限制
 - [添加] 移除控制中心磁贴数量限制
 - [适配] 浏览器下载对话框广告 v40.8.40.1
+- [修复] 充电瓦数显示异常 C15
 
 ### 1.2.5
 

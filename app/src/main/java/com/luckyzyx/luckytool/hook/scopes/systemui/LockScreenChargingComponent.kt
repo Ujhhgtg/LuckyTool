@@ -90,21 +90,31 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                 method { name = "getShowWattage";paramCount = 3 }.hook {
                     before {
                         if (!showWattage) return@before
-                        val origin = args().first().int()
+                        val cpaWattage = args().first().int()
+                        val wattage = args(1).string().toIntOrNull() ?: return@before
 //                        val wattage = args(1).string()
 //                        val isWireless = args().last().boolean()
 //                        YLog.debug("ChargeUtil getShowWattage -> $origin | $wattage | $isWireless")
-                        result = if (origin > 0) "${origin}W" else ""
+                        result = when {
+                            wattage == 0 && cpaWattage == 0 -> ""
+                            wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                            else -> "${wattage}W"
+                        }
                     }
                 }
                 method { name = "getShowWattageForFrameCharge";paramCount = 3 }.hook {
                     before {
                         if (!showWattage) return@before
-                        val origin = args().first().int()
+                        val cpaWattage = args().first().int()
+                        val wattage = args(1).string().toIntOrNull() ?: return@before
 //                        val wattage = args(1).string()
 //                        val isWireless = args().last().boolean()
 //                        YLog.debug("ChargeUtil getShowWattageForFrameCharge -> $origin | $wattage | $isWireless")
-                        result = if (origin > 0) "${origin}W" else ""
+                        result = when {
+                            wattage == 0 && cpaWattage == 0 -> ""
+                            wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                            else -> "${wattage}W"
+                        }
                     }
                 }
                 method { name = "isWirelessVoocCharge" }.hook {

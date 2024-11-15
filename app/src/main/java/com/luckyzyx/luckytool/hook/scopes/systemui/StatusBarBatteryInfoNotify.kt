@@ -54,7 +54,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     private var chargerTechnology: Int = 0
     private var chargeWattage: Int = 0
     private var ppsMode: Int = 0
-    private var chargerWattageOrigin: Int = -1
+    private var chargerWattageCpa: Int = -1
     private var usbFastChgType: Int = 0
 
     private var isSeriesDual = false
@@ -143,7 +143,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
                 chargerTechnology = (intent.getIntExtra("chargertechnology", 0))
                 chargeWattage = (intent.getIntExtra("chargewattage", 0))
                 ppsMode = (intent.getIntExtra("pps_chg_mode", 0))
-                chargerWattageOrigin = intent.getIntExtra("cpa_charge_wattage", 0)
+                chargerWattageCpa = intent.getIntExtra("cpa_charge_wattage", 0)
 
                 initInfo(context)
                 initSend(context)
@@ -275,9 +275,11 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         val updateTimeStr = safeOf("UpdateTime") { context.getString(R.string.battery_update_time) }
 
         val power = abs(powerCalc).formatDecimals(2) + "W"
-        val wattage = if (getOSVersionCode >= 34) {
-            if (chargerWattageOrigin != 0) "${chargerWattageOrigin}W" else ""
-        } else if (chargeWattage != 0) "${chargeWattage}W" else ""
+        val wattage = when {
+            chargeWattage == 0 && chargerWattageCpa == 0 -> ""
+            chargeWattage == 0 && chargerWattageCpa != 0 -> "${chargerWattageCpa}W"
+            else -> "${chargeWattage}W"
+        }
 
         val tem = if (isSimple) "${temperature}℃"
         else "${tempStr}: ${temperature}℃"
