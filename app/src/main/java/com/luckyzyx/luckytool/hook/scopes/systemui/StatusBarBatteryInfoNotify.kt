@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.log.YLog
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
@@ -31,6 +32,7 @@ import java.io.StringReader
 import java.util.Properties
 import kotlin.math.abs
 
+@Obfuscate
 object StatusBarBatteryInfoNotify : YukiBaseHooker() {
     //battery
     private var status: String = ""

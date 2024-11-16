@@ -2,9 +2,11 @@ package com.luckyzyx.luckytool.hook.scopes.mediacontroller
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.json.JSONObject
 
+@Obfuscate
 object ForceEnableMediaMusicFluidCloudRipple : YukiBaseHooker() {
     override fun onHook() {
         var isEnable =

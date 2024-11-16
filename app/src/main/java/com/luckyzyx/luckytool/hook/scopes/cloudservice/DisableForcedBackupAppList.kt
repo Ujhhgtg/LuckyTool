@@ -5,7 +5,9 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object DisableForcedBackupAppList : YukiBaseHooker() {
     override fun onHook() {
         val backupRestoreOptUiStyle =

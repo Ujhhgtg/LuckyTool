@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object ScrollToTopWhiteList : YukiBaseHooker() {
     override fun onHook() {
         val mode = prefs(ModulePrefs).getString("set_click_statusbar_scroll_to_top_mode", "0")

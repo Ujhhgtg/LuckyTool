@@ -17,6 +17,7 @@ import com.highcapable.yukihookapi.hook.type.java.LongClass
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -24,6 +25,7 @@ import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOf
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {

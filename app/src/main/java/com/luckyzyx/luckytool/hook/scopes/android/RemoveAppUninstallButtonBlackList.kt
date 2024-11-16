@@ -5,8 +5,10 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object RemoveAppUninstallButtonBlackList : YukiBaseHooker() {
     override fun onHook() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_app_uninstall_button_blacklist", false)

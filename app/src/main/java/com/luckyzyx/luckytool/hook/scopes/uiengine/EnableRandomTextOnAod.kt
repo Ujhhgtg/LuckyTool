@@ -7,9 +7,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import java.io.File
 
+@Obfuscate
 object EnableRandomTextOnAod : YukiBaseHooker() {
     override fun onHook() {
         val mode = prefs(ModulePrefs).getString("set_random_text_display_mode", "0")

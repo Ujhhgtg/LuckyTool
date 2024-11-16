@@ -3,11 +3,13 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.luckypray.dexkit.query.enums.StringMatchType
 
+@Obfuscate
 object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -16,6 +18,7 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
         loadHooker(RemoveReceiveItemLimit)
     }
 
+    @Obfuscate
     object RemoveLimitNumberHint : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSeparateQSCustomizer
@@ -30,6 +33,7 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object RemoveReceiveItemLimit : YukiBaseHooker() {
         override fun onHook() {
             DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -57,6 +61,7 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object RemoveLimitNumberHintV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer

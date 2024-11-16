@@ -4,8 +4,10 @@ import android.graphics.drawable.Drawable
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object CustomFluidCloudIconBackgroundTransparency : YukiBaseHooker() {
     override fun onHook() {
         var customAlpha =

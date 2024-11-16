@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AllowReplaceInstall
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AutoClickInstallButton
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AutoClickUnInstallButton
@@ -11,6 +12,7 @@ import com.luckyzyx.luckytool.hook.scopes.packageinstaller.SkipApkScan
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 
+@Obfuscate
 object HookPackageInstaller : YukiBaseHooker() {
     override fun onHook() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)

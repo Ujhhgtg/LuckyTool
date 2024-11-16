@@ -10,6 +10,8 @@ object CommandUtils {
     val otaCryptKey = "otatoolsotatools"
     val sunshineTool = "com.Sunshine.ToolBox"
 
+    val otaDatabasePath = "/data/user/0/com.oplus.ota/databases/ota.db"
+
     val getRefreshRateStatus = "service call SurfaceFlinger 1034 i32 2"
     val showRefreshRate = "service call SurfaceFlinger 1034 i32 "
     val setRefreshRate = "service call SurfaceFlinger 1035 i32 "
@@ -39,6 +41,7 @@ object CommandUtils {
     val chattr = "chattr"
     val rmrf = "rm -rf"
     val pm = "pm"
+    val cp = "cp"
     val pmuninstall = "pm uninstall"
     val pmlist = "pm list packages"
     val findapp = "find /data/app/"

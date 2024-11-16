@@ -16,12 +16,14 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.LayoutInflaterClass
 import com.highcapable.yukihookapi.hook.type.java.IntClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import java.util.function.Supplier
 
+@Obfuscate
 object LockScreenComponentStyle : YukiBaseHooker() {
     override fun onHook() {
         if (SDK == A14) loadHooker(LockScreenComponentStyleV14)
@@ -31,6 +33,7 @@ object LockScreenComponentStyle : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object LockScreenComponentStyleV14 : YukiBaseHooker() {
         private const val singleClockProvider =
             "com.oplus.systemui.shared.clocks.SingleClockProvider" //C14
@@ -115,6 +118,7 @@ object LockScreenComponentStyle : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object LockScreenComponentStyleV13 : YukiBaseHooker() {
         private const val singleClockController =
             "com.oplusos.systemui.keyguard.clock.SingleClockController"

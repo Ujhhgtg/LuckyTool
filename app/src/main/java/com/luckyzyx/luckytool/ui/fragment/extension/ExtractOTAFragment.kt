@@ -28,7 +28,6 @@ import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
-import java.util.Random
 
 @Obfuscate
 class ExtractOTAFragment : Fragment() {
@@ -54,7 +53,8 @@ class ExtractOTAFragment : Fragment() {
             binding.copyOtaData.isEnabled = false
 
             val dataList = withDefault {
-                val command = "cp /data/user/0/com.oplus.ota/databases/ota.db ${context.cacheDir}"
+                val command =
+                    "${CommandUtils.cp} ${CommandUtils.otaDatabasePath} ${context.cacheDir}"
                 ShellUtils.fastCmd(command)
                 val dbFile = context.cacheChild("ota.db")
                 val cursor = if (dbFile.exists()) {
@@ -93,10 +93,9 @@ class ExtractOTAFragment : Fragment() {
                         list.addAll(otaList)
                     } else return@withDefault list
 
-                    val random = Random().nextInt(4).toString()
-                    val data = random + "|" + DeviceUtils.getOTACOnfigs()
+                    val data = DeviceUtils.getOTACOnfigs()
                     val encrypt = safeOfNull {
-                        AESCrypt.encrypt(data, CommandUtils.otaCryptKey)
+                        AESCrypt.encrypt(data, CommandUtils.otaCryptKey, true)
                     } ?: ""
                     if (encrypt.isNotBlank()) list.add("Verity: $encrypt")
                     list.add("Source: @LuckyTool")

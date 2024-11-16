@@ -1,11 +1,13 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.ota.RemoveOTALocalUpdateVerity
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookOplusOta : YukiBaseHooker() {
     override fun onHook() {
 

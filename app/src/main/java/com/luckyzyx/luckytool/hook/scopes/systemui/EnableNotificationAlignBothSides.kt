@@ -7,11 +7,13 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 
+@Obfuscate
 object EnableNotificationAlignBothSides : YukiBaseHooker() {
 
     private var qsPanelPaddingPx = 0
@@ -42,6 +44,7 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         if (SDK >= A13) loadHooker(OtherNotification) else loadHooker(OtherNotificationC12)
     }
 
+    @Obfuscate
     private object OtherNotification : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardMediaController -> MediaHost -> HostView -> parent
@@ -124,6 +127,7 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object OtherNotificationC12 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusMediaHost

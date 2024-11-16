@@ -2,7 +2,9 @@ package com.luckyzyx.luckytool.hook.scopes.games
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RemoveSomeVipLimit : YukiBaseHooker() {
     override fun onHook() {
         //network_speed_vip -> oppo_acc

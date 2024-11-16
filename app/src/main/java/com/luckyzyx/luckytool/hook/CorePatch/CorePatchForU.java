@@ -2,6 +2,8 @@ package com.luckyzyx.luckytool.hook.CorePatch;
 
 import android.util.Log;
 
+import com.joom.paranoid.Obfuscate;
+
 import java.lang.reflect.InvocationTargetException;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -9,6 +11,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
+@Obfuscate
 public class CorePatchForU extends CorePatchForT {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws IllegalAccessException, InvocationTargetException, InstantiationException {

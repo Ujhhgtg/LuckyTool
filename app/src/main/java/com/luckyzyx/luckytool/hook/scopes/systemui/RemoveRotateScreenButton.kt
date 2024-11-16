@@ -7,7 +7,9 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RemoveRotateScreenButton : YukiBaseHooker() {
     override fun onHook() {
         //Source FloatingRotationButton

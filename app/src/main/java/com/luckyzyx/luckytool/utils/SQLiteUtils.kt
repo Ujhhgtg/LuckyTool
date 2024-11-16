@@ -2,7 +2,9 @@ package com.luckyzyx.luckytool.utils
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 @Suppress("unused")
 object SQLiteUtils {
 

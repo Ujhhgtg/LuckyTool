@@ -65,6 +65,8 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.oplus.miragewindow.OplusMirageOptions
+import com.oplus.miragewindow.OplusMirageWindowManager
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
@@ -1053,4 +1055,15 @@ fun getManifestEndVersion(string: String?): String {
         return if (size < 2) ""
         else "${this[lastIndex - 1]} ${this[lastIndex]}"
     }
+}
+
+/**
+ * 启动后台运行
+ * @param intent Intent
+ */
+fun startMirageWindow(intent: Intent?) {
+    val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
+    OplusMirageWindowManager.getInstance().startMirageWindowMode(
+        intent, makeBasic.toBundle()
+    )
 }

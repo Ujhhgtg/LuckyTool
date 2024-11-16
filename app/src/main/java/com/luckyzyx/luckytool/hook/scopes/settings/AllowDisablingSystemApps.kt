@@ -2,7 +2,9 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object AllowDisablingSystemApps : YukiBaseHooker() {
     override fun onHook() {
         //Source AppButtonsPreferenceControllerAdaptor

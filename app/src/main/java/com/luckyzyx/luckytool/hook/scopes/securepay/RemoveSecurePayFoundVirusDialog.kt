@@ -11,9 +11,11 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 
+@Obfuscate
 object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
     override fun onHook() {
         //Source RiskDialogWrapper

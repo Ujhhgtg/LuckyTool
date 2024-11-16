@@ -5,8 +5,10 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
 
     override fun onHook() {
@@ -14,6 +16,7 @@ object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
         else loadHooker(PasswordManagementSettingsV13)
     }
 
+    @Obfuscate
     object PasswordManagementSettings : YukiBaseHooker() {
         override fun onHook() {
             //Source PasswordManagerPreferenceController
@@ -26,6 +29,7 @@ object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object PasswordManagementSettingsV13 : YukiBaseHooker() {
         override fun onHook() {
             //Source PasswordManagerPreferenceController

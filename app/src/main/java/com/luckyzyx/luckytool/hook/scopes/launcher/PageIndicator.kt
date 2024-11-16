@@ -8,11 +8,13 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.CanvasClass
 import com.highcapable.yukihookapi.hook.type.android.MotionEventClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
 
+@Obfuscate
 object PageIndicator : YukiBaseHooker() {
     override fun onHook() {
         val removeDesktop = prefs(ModulePrefs).getBoolean("remove_pagination_component", false)

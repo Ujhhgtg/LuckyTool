@@ -3,9 +3,11 @@ package com.luckyzyx.luckytool.hook.utils.sysui
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 @Suppress("unused")
 class FlavorOneFeatureUtils(val classLoader: ClassLoader?) {
 

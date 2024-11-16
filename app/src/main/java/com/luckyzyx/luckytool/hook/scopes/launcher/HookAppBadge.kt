@@ -3,15 +3,18 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 object HookAppBadge : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A14) loadHooker(AppBadge) else loadHooker(AppBadgeC13)
     }
 
+    @Obfuscate
     object AppBadge : YukiBaseHooker() {
         override fun onHook() {
             val isShortcut = prefs(ModulePrefs).getBoolean("remove_app_shortcut_badge", false)
@@ -48,6 +51,7 @@ object HookAppBadge : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object AppBadgeC13 : YukiBaseHooker() {
         override fun onHook() {
             val isShortcut = prefs(ModulePrefs).getBoolean("remove_app_shortcut_badge", false)

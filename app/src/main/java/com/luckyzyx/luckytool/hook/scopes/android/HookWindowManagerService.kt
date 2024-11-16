@@ -8,8 +8,10 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookWindowManagerService : YukiBaseHooker() {
     override fun onHook() {
         //移除DPI重启恢复

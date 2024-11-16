@@ -8,9 +8,11 @@ import com.highcapable.yukihookapi.hook.type.android.HandlerClass
 import com.highcapable.yukihookapi.hook.type.android.PowerManagerClass
 import com.highcapable.yukihookapi.hook.type.android.SharedPreferencesClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class LauncherHighTempreatureProtection(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     val key = "LauncherHighTempreatureProtection"
     override fun onHook() {

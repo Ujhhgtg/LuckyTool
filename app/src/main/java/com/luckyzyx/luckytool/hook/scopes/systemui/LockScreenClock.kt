@@ -24,6 +24,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
@@ -34,6 +35,7 @@ import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.safeOf
 import java.util.Calendar
 
+@Obfuscate
 object LockScreenClock : YukiBaseHooker() {
 
     override fun onHook() {
@@ -44,6 +46,7 @@ object LockScreenClock : YukiBaseHooker() {
         } else loadHooker(LockScreenClockStyleV14)
     }
 
+    @Obfuscate
     object RemoveLockScreenClock : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardStyleClockEnabledSettingsObserver
@@ -56,6 +59,7 @@ object LockScreenClock : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object RemoveLockScreenClockV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardClockSwitch
@@ -99,6 +103,7 @@ object LockScreenClock : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object LockScreenClockStyleV14 : YukiBaseHooker() {
         override fun onHook() {
             var redMode = prefs(ModulePrefs).getString("lock_screen_clock_redone_mode", "0")

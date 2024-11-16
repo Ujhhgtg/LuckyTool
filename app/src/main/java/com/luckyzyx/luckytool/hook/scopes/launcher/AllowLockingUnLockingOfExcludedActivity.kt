@@ -4,7 +4,9 @@ import android.content.Intent
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object AllowLockingUnLockingOfExcludedActivity : YukiBaseHooker() {
     override fun onHook() {
         //Search OplusTaskShortcutsFactory -> showLock / showUnlock C13

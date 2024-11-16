@@ -7,13 +7,14 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.oplus.miragewindow.OplusMirageOptions
-import com.oplus.miragewindow.OplusMirageWindowManager
+import com.luckyzyx.luckytool.utils.startMirageWindow
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -48,10 +49,7 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     method { param(ContextClass);returnType = UnitType }.hook {
                         replaceUnit {
                             if (osCode >= 34) {
-                                val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
-                                OplusMirageWindowManager.getInstance().startMirageWindowMode(
-                                    null, makeBasic.toBundle()
-                                )
+                                startMirageWindow(null)
                             } else {
                                 val context = args().first().cast<Context>() ?: return@replaceUnit
                                 IntentUtils(context).startBackgroundRunServiceV14()

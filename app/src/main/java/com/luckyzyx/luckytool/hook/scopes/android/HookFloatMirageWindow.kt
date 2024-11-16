@@ -19,13 +19,14 @@ import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.android.UserHandleClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.OplusMirageDisplayManagerUtils
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.oplus.miragewindow.OplusMirageOptions
-import com.oplus.miragewindow.OplusMirageWindowManager
+import com.luckyzyx.luckytool.utils.startMirageWindow
 
+@Obfuscate
 object HookFloatMirageWindow : YukiBaseHooker() {
 
     override fun onHook() {
@@ -35,6 +36,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object FloatWindowBackRun : YukiBaseHooker() {
         override fun onHook() {
             val Task = "com.android.server.wm.Task"
@@ -70,10 +72,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                                 .int()
                             if (uid > 0) baseIntent.putExtra("TASKINFO_UID", uid)
 
-                            val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
-                            OplusMirageWindowManager.getInstance().startMirageWindowMode(
-                                baseIntent, makeBasic.toBundle()
-                            )
+                            startMirageWindow(baseIntent)
                         }
                     }
                 }
@@ -93,6 +92,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object MultiAppFloatWindowBackRun : YukiBaseHooker() {
         override fun onHook() {
             val activityTaskManagerService = "com.android.server.wm.ActivityTaskManagerService"

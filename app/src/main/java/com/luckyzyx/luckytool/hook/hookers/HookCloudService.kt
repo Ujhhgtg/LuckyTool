@@ -1,11 +1,13 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.cloudservice.DisableForcedBackupAppList
 import com.luckyzyx.luckytool.hook.scopes.cloudservice.RemoveNetworkRestriction
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookCloudService : YukiBaseHooker() {
     override fun onHook() {
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->

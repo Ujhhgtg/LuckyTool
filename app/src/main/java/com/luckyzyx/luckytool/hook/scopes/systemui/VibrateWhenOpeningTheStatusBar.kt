@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
     override fun onHook() {
         //Source PanelViewController -> config_vibrateOnIconAnimation

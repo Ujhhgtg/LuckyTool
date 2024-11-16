@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
 
+import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.luckytool.BuildConfig;
 
 import java.io.PrintWriter;
@@ -34,6 +35,7 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
+@Obfuscate
 public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     public static final String TAG = XposedHelper.TAG;
     private final static Method deoptimizeMethod;

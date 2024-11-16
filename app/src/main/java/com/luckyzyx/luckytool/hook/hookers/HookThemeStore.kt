@@ -1,9 +1,11 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.themestore.UnlockThemeStoreVip
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookThemeStore : YukiBaseHooker() {
     override fun onHook() {
         //解锁主题商店VIP

@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.gallery.GalleryWaterMarkWordDialog
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookFunctionManager
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookSystemStorage
@@ -11,6 +12,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object HookGallery : YukiBaseHooker() {
     override fun onHook() {
         if (getOSVersionCode < 27) return

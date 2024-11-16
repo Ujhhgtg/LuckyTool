@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.utils
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 class OplusCommonFeatureUtils(val classLoader: ClassLoader?) {
 
     val clazz = "android.common.OplusFeatureCache".toClass(classLoader)

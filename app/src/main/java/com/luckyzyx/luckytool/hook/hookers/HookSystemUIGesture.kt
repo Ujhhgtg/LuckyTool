@@ -1,10 +1,12 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.FullScreenGestureSideSlideBar
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveRotateScreenButton
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookSystemUIGesture : YukiBaseHooker() {
     override fun onHook() {
         //全面屏手势侧滑条

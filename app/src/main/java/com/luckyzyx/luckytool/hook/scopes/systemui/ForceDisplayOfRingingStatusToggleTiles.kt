@@ -5,7 +5,9 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
     override fun onHook() {
         //Source QSTileHostHelper

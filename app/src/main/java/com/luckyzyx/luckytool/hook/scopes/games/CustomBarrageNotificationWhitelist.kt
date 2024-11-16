@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.games
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object CustomBarrageNotificationWhitelist : YukiBaseHooker() {
     override fun onHook() {
         val set = prefs(ModulePrefs).getStringSet(

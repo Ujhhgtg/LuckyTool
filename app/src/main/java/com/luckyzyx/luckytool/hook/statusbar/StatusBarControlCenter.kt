@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterBackgroundTransParency
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterClockStyle
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterDateStyle
@@ -11,6 +12,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkW
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object StatusBarControlCenter : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

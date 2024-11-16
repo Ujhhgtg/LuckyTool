@@ -3,11 +3,13 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
 
     private val allConfigPackages = ArrayList<MemcConfigPackage>()
@@ -18,6 +20,7 @@ object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
     private val sdr2hdrCommand = HashMap<String, String>()
     private val configActivityList = java.util.ArrayList<String>()
     private val configMemcCommand = HashMap<String, String>()
+    
     override fun onHook() {
         if (getOSVersionCode < 26) return
         val isEnable = prefs(ModulePrefs).getBoolean("enable_video_memc_frame_insertion", false)

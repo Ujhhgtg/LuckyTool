@@ -1,8 +1,10 @@
 package com.luckyzyx.luckytool.hook.utils
 
 import com.highcapable.yukihookapi.hook.factory.current
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.data.DisplayMode
 
+@Obfuscate
 class DynamicDisplayInfoUtils(private val dynamicInfo: Any) {
 
     fun getSupportedDisplayModes(): Array<Any> {

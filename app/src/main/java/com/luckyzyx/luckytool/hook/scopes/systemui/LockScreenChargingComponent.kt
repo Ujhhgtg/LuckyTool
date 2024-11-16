@@ -13,10 +13,12 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object LockScreenChargingComponent : YukiBaseHooker() {
     override fun onHook() {
         when (getOSVersionCode) {
@@ -27,6 +29,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object ChargingComponentC15 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =
@@ -139,6 +142,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object ChargingComponentC14 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =
@@ -296,6 +300,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object ChargingComponentC13 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =
@@ -423,6 +428,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object ChargingComponentC12 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =

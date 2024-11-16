@@ -2,10 +2,12 @@ package com.luckyzyx.luckytool.hook.hookers.global
 
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.android.HookSystemProperties
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object HookGlobalSystemProperties : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

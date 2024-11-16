@@ -8,17 +8,20 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 import com.luckyzyx.luckytool.utils.safeOfNull
 
+@Obfuscate
 object FixTileAlignBothSides : YukiBaseHooker() {
     override fun onHook() {
         if (getOSVersionCode <= 26) loadHooker(HookTileAlignVertical)
         loadHooker(HookTileAlignHorizontal)
     }
 
+    @Obfuscate
     private object HookTileAlignVertical : YukiBaseHooker() {
         @SuppressLint("DiscouragedApi")
         override fun onHook() {
@@ -45,6 +48,7 @@ object FixTileAlignBothSides : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object HookTileAlignHorizontal : YukiBaseHooker() {
         @SuppressLint("DiscouragedApi")
         override fun onHook() {

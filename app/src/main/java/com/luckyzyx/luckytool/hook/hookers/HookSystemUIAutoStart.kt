@@ -10,9 +10,11 @@ import com.drake.net.utils.scope
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import kotlinx.coroutines.delay
 
+@Obfuscate
 object HookSystemUIAutoStart : YukiBaseHooker() {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onHook() {

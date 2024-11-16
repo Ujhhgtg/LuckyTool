@@ -13,10 +13,12 @@ import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
 import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.formatColorAlpha
 
+@Obfuscate
 object VolumeDialogBackground : YukiBaseHooker() {
     override fun onHook() {
         var customAlpha =

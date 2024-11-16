@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object MultiAppConfig : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(MultiAppAllowList)
@@ -14,6 +16,7 @@ object MultiAppConfig : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object MultiAppAllowList : YukiBaseHooker() {
         override fun onHook() {
             var mode = prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")
@@ -38,6 +41,7 @@ object MultiAppConfig : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object MultiAppBlackList : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusMultiAppDataManager

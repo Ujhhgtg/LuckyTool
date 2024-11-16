@@ -6,11 +6,13 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.query.enums.StringMatchType
 
+@Obfuscate
 object HookADM : YukiBaseHooker() {
     override fun onHook() {
         //解锁Pro
@@ -39,6 +41,7 @@ object HookADM : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object UnlockAdmThreads : YukiBaseHooker() {
         override fun onHook() {
             val threads = prefs(ModulePrefs).getString("adm_unlock_more_threads", "0")

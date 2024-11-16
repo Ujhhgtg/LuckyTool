@@ -4,7 +4,9 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RemoveToolRecommendationCard : YukiBaseHooker() {
     override fun onHook() {
         //Source ToolsRecommendCardLayout

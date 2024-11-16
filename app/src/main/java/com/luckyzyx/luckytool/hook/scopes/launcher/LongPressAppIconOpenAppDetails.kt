@@ -5,10 +5,12 @@ import android.widget.TextView
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusTaskHeaderView

@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 @Suppress("unused", "ConstPropertyName")
 object ForceDisplayClockStyleOptionsV14 : YukiBaseHooker() {
     private const val searchItemBuilder =

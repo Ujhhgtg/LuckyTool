@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.games
 import android.app.Activity
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object EnableDeveloperPage : YukiBaseHooker() {
     override fun onHook() {
         //Source GameDevelopOptionsActivity

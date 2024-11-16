@@ -7,9 +7,11 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class HookAppFeatureProvider(
     val dexKitBridge: DexKitBridge, private val features: Map<String, Any>
 ) : YukiBaseHooker() {

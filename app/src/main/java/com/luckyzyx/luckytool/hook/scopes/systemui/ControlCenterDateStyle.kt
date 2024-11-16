@@ -11,6 +11,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -19,6 +20,7 @@ import com.luckyzyx.luckytool.utils.getScreenOrientation
 import java.util.Locale
 import kotlin.math.abs
 
+@Obfuscate
 @Suppress("LocalVariableName", "DiscouragedApi")
 object ControlCenterDateStyle : YukiBaseHooker() {
     override fun onHook() {

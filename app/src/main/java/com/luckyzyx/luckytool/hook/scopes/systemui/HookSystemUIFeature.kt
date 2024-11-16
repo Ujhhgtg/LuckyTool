@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
@@ -13,6 +14,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object HookSystemUIFeature : YukiBaseHooker() {
     var callback: ((key: String, value: Any) -> Unit)? = null
 
@@ -33,6 +35,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             //音量条位置
@@ -102,6 +105,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object HookStatusBarFeature : YukiBaseHooker() {
         override fun onHook() {
             //隐藏未使用信号标签 config_isSystemUiExpSignalUi
@@ -120,6 +124,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object HookFlavorOneFeature : YukiBaseHooker() {
         override fun onHook() {
             //全局搜索按钮
@@ -166,6 +171,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object HookVolumeFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             //音量对话框背景透明度
@@ -186,6 +192,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object HookQSFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             //自定义控制中心音量条模式

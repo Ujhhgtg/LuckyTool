@@ -7,16 +7,19 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 object LockScreenCarriers : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A14) loadHooker(LockScreenCarrier)
         else loadHooker(LockScreenCarrierV13)
     }
 
+    @Obfuscate
     private object LockScreenCarrier : YukiBaseHooker() {
         override fun onHook() {
             val isRemove = prefs(ModulePrefs).getBoolean("remove_statusbar_carriers", false)
@@ -66,6 +69,7 @@ object LockScreenCarriers : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     private object LockScreenCarrierV13 : YukiBaseHooker() {
         override fun onHook() {
             val userFont =

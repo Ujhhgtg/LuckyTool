@@ -16,12 +16,14 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 
+@Obfuscate
 class WeatherAdsAndJumpBrowser(
     private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge
 ) : YukiBaseHooker() {
@@ -31,6 +33,7 @@ class WeatherAdsAndJumpBrowser(
         else loadHooker(HookWeatherAdsAndJumpC12(dexKitBridge))
     }
 
+    @Obfuscate
     object HookWeatherAdsAndJump : YukiBaseHooker() {
         private const val weatherWrapper = "com.oplus.weather.main.model.WeatherWrapper"
         private const val BrowserCommonUtils = "com.oplus.weather.plugin.webview.BrowserCommonUtils"
@@ -148,6 +151,7 @@ class WeatherAdsAndJumpBrowser(
         }
     }
 
+    @Obfuscate
     class HookWeatherAdsAndJumpC12(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         private var startWebView = ""
         override fun onHook() {

@@ -6,6 +6,7 @@ import com.highcapable.yukihookapi.hook.type.android.ApplicationInfoClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -17,6 +18,7 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         if (SDK < A13) loadHooker(HookExpUst(dexKitBridge))
     }
 
+    @Obfuscate
     class HookExpUst(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             val neverTimeout = prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)

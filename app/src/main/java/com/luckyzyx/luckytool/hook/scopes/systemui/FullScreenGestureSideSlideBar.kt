@@ -9,9 +9,12 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.BitmapClass
 import com.highcapable.yukihookapi.hook.type.android.PaintClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object FullScreenGestureSideSlideBar : YukiBaseHooker() {
+
     override fun onHook() {
         //Source SideGestureViewManager
         //Source SideGestureNavView

@@ -7,6 +7,7 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.LongType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock.toClass
 import com.luckyzyx.luckytool.utils.LogUtils
@@ -15,6 +16,7 @@ import com.luckyzyx.luckytool.utils.safeOf
 import com.oplus.util.OplusChineseDateAndSolarDate
 import java.util.Date
 
+@Obfuscate
 @Suppress("unused")
 class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
     private val tags = "LunarHelperUtils"

@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object ForceEnableScreenOffMusicSupport : YukiBaseHooker() {
     override fun onHook() {
         val statisticUtil = VariousClass(

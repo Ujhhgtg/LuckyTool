@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -15,12 +16,14 @@ import com.luckyzyx.luckytool.utils.getCharColor
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.safeOfNull
 
+@Obfuscate
 object ControlCenterClockStyle : YukiBaseHooker() {
     override fun onHook() {
         if (SDK == A11) loadHooker(ControlCenterClockStyleA11)
         else loadHooker(ControlCenterClock)
     }
 
+    @Obfuscate
     object ControlCenterClock : YukiBaseHooker() {
         override fun onHook() {
             val showSecond =
@@ -130,6 +133,7 @@ object ControlCenterClockStyle : YukiBaseHooker() {
         } else view.text = sb
     }
 
+    @Obfuscate
     object ControlCenterClockStyleA11 : YukiBaseHooker() {
         override fun onHook() {
             val showSecond =

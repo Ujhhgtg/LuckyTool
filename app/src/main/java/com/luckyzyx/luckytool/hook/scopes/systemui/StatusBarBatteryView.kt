@@ -7,17 +7,20 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
 
+@Obfuscate
 object StatusBarBatteryView : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A14) loadHooker(StatusBarPowerStyle)
         else loadHooker(StatusBarPowerStyleC13)
     }
 
+    @Obfuscate
     object StatusBarPowerStyle : YukiBaseHooker() {
         override fun onHook() {
             val removePercent =
@@ -91,6 +94,7 @@ object StatusBarBatteryView : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object StatusBarPowerStyleC13 : YukiBaseHooker() {
         override fun onHook() {
             val removePercent =

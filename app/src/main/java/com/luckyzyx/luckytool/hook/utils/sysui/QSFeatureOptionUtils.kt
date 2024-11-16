@@ -4,7 +4,9 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClassOrNull
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 @Suppress("unused")
 class QSFeatureOptionUtils(val classLoader: ClassLoader?) {
 

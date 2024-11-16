@@ -13,7 +13,9 @@ import com.highcapable.yukihookapi.hook.type.android.DialogInterface_OnClickList
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 @Suppress("unused")
 class COUIAlertDialogBuilder {
 

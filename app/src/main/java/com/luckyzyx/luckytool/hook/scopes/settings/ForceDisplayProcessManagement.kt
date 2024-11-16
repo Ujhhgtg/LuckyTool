@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object ForceDisplayProcessManagement : YukiBaseHooker() {
     override fun onHook() {
         //com.oplus.settings.feature.process.RunningApplicationActivity

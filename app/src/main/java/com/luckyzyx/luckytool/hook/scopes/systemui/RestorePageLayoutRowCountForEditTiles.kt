@@ -8,8 +8,10 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object RestorePageLayoutRowCountForEditTiles : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

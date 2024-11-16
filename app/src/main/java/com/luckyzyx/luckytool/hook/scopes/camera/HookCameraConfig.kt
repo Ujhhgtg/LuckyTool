@@ -5,8 +5,10 @@ import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookCameraConfig : YukiBaseHooker() {
     override fun onHook() {
         val list = ArrayMap<String, Any>().apply {
@@ -117,6 +119,7 @@ object HookCameraConfig : YukiBaseHooker() {
     }
 }
 
+@Obfuscate
 private class HookCameraVendorTag(val tags: Map<String, Any>) : YukiBaseHooker() {
     override fun onHook() {
         //Source CameraAdapterUtils

@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.games
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RemoveGameAssistantTemperatureDetection : YukiBaseHooker() {
     override fun onHook() {
         //Source CoolingBubbleTipsHelper

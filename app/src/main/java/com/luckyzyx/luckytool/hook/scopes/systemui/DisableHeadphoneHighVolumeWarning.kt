@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object DisableHeadphoneHighVolumeWarning : YukiBaseHooker() {
     override fun onHook() {
         //Sourcce VolumeDialogImplEx

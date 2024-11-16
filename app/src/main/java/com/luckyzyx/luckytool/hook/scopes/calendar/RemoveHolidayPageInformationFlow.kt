@@ -2,7 +2,9 @@ package com.luckyzyx.luckytool.hook.scopes.calendar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RemoveHolidayPageInformationFlow : YukiBaseHooker() {
     override fun onHook() {
         //Source SpecialHolidayWebViewDetailViewModel > V13.9.16

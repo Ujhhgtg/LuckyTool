@@ -7,9 +7,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object WiFiDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -19,6 +21,7 @@ object WiFiDataIconRelated : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object WiFiDataIcon : YukiBaseHooker() {
         override fun onHook() {
             val removeInout = prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)
@@ -35,6 +38,7 @@ object WiFiDataIconRelated : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object WiFiDataIconV14 : YukiBaseHooker() {
         override fun onHook() {
             val removeInout = prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)

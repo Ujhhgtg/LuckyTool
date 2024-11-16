@@ -5,8 +5,10 @@ import com.highcapable.yukihookapi.hook.factory.allFields
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
+import com.joom.paranoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class RemoveMarketDetailPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //com.heytap.cdo.client.detail.app.AppDetailActivity

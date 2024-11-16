@@ -4,8 +4,10 @@ import android.content.Context
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.HookSystemUILockScreen.toClass
 
+@Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class WeatherInfoParseHelper(val classLoader: ClassLoader?) {
     val clazz = VariousClass(

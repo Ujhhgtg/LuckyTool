@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker() {
     override fun onHook() {
         if (props.isEmpty()) return

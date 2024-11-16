@@ -2,11 +2,13 @@ package com.luckyzyx.luckytool.utils
 
 import android.annotation.SuppressLint
 import com.highcapable.yukihookapi.hook.log.YLog
+import com.joom.paranoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.result.ClassDataList
 import org.luckypray.dexkit.result.FieldDataList
 import org.luckypray.dexkit.result.MethodDataList
 
+@Obfuscate
 @Suppress("MemberVisibilityCanBePrivate")
 object DexkitUtils {
     val tag = "LuckyTool"

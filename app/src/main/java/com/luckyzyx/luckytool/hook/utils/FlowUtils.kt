@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.utils
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.MobileDataIconRelated.MobileDataIcon.toClass
 
+@Obfuscate
 class FlowUtils(val classLoader: ClassLoader?) {
 
     val stateFlowKt = "kotlinx.coroutines.flow.StateFlowKt".toClass(classLoader)

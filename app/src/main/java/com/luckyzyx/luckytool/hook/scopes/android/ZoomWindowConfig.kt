@@ -6,10 +6,12 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 object ZoomWindowConfig : YukiBaseHooker() {
     override fun onHook() {
         var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")

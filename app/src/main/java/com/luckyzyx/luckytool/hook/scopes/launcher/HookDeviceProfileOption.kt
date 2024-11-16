@@ -4,8 +4,10 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookDeviceProfileOption : YukiBaseHooker() {
     override fun onHook() {
         val enableFolder = prefs(ModulePrefs).getBoolean("enable_folder_layout_adjustment", false)

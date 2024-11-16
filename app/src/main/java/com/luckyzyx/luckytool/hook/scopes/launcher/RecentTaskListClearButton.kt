@@ -5,7 +5,9 @@ import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RecentTaskListClearButton : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusClearAllPanelView

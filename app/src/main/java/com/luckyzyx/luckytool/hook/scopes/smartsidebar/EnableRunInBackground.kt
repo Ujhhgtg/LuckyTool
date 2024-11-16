@@ -6,11 +6,12 @@ import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.oplus.miragewindow.OplusMirageOptions
-import com.oplus.miragewindow.OplusMirageWindowManager
+import com.luckyzyx.luckytool.utils.startMirageWindow
 
+@Obfuscate
 object EnableRunInBackground : YukiBaseHooker() {
     private const val BackgroundRunToolCls =
         "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.BackgroundRunTool"
@@ -23,10 +24,7 @@ object EnableRunInBackground : YukiBaseHooker() {
             method { name = "handle" }.hook {
                 replaceUnit {
                     if (osCode >= 34) {
-                        val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
-                        OplusMirageWindowManager.getInstance().startMirageWindowMode(
-                            null, makeBasic.toBundle()
-                        )
+                        startMirageWindow(null)
                     } else {
                         val context = field { type = ContextClass;superClass() }.get(instance)
                             .cast<Context>() ?: return@replaceUnit

@@ -1,12 +1,14 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketMinePageAppRecommend
 import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketSplashPageAppRecommend
 import com.luckyzyx.luckytool.hook.scopes.market.RemoveMarketUpdateDownloadPageAppRecommend
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookMarket : YukiBaseHooker() {
     override fun onHook() {
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->

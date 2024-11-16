@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.QSFeatureOptionUtils
 import com.luckyzyx.luckytool.utils.A13
@@ -13,6 +14,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 
+@Obfuscate
 object ControlCenterTiles : YukiBaseHooker() {
     var callback: ((key: String, value: String) -> Unit)? = null
 
@@ -23,6 +25,7 @@ object ControlCenterTiles : YukiBaseHooker() {
         else loadHooker(ControlCenterTilesLayoutC12)
     }
 
+    @Obfuscate
     object ControlCenterTilesLayout : YukiBaseHooker() {
         override fun onHook() {
             val osCode = getOSVersionCode
@@ -96,6 +99,7 @@ object ControlCenterTiles : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object ControlCenterTilesLayoutC12 : YukiBaseHooker() {
         override fun onHook() {
             val columnUnexpandedVertical =

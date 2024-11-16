@@ -4,7 +4,9 @@ import android.widget.Button
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object AutoClickInstallButton : YukiBaseHooker() {
     override fun onHook() {
         //Source OPlusPackageInstallerActivity

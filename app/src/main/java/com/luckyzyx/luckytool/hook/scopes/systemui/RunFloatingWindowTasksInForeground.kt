@@ -9,9 +9,10 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.oplus.miragewindow.OplusMirageOptions
-import com.oplus.miragewindow.OplusMirageWindowManager
+import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.utils.startMirageWindow
 
+@Obfuscate
 object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
 
     override fun onHook() {
@@ -41,10 +42,7 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
                             .int()
                         if (uid > 0) baseIntent.putExtra("TASKINFO_UID", uid)
 
-                        val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
-                        OplusMirageWindowManager.getInstance().startMirageWindowMode(
-                            baseIntent, makeBasic.toBundle()
-                        )
+                        startMirageWindow(baseIntent)
                         resultNull()
                     }
                 }

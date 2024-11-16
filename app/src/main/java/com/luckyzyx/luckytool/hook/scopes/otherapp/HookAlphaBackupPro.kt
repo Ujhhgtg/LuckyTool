@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.otherapp
 import android.app.Activity
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object HookAlphaBackupPro : YukiBaseHooker() {
     override fun onHook() {
         val isPro = prefs(ModulePrefs).getBoolean("remove_check_license", false)

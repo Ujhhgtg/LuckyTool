@@ -13,12 +13,14 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object MobileDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -29,6 +31,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object MobileDataIcon : YukiBaseHooker() {
         override fun onHook() {
             //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
@@ -145,6 +148,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object MobileDataIconV14 : YukiBaseHooker() {
         override fun onHook() {
             //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
@@ -234,6 +238,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object MobileDataIconV120 : YukiBaseHooker() {
         override fun onHook() {
 //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)

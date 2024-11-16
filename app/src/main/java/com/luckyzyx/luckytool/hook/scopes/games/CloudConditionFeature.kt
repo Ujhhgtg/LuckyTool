@@ -8,11 +8,13 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.MapClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge) :
     YukiBaseHooker() {
     override fun onHook() {
@@ -23,6 +25,7 @@ class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: D
         if (versionCode > 80130000) loadHooker(HookCloudApiImpl(dexKitBridge))
     }
 
+    @Obfuscate
     private object HookOplusFeature : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper
@@ -117,6 +120,7 @@ class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: D
         }
     }
 
+    @Obfuscate
     private object HookCloudCondition : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper
@@ -193,6 +197,7 @@ class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: D
         }
     }
 
+    @Obfuscate
     private class HookCloudApiImpl(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper

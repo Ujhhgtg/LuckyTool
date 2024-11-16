@@ -4,9 +4,11 @@ import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -14,6 +16,7 @@ object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
         else loadHooker(SmallWindowReplyWhitelistV14)
     }
 
+    @Obfuscate
     object SmallWindowReplyWhitelist : YukiBaseHooker() {
         override fun onHook() {
             //Source HeadsUpToZoomUtils
@@ -25,6 +28,7 @@ object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object SmallWindowReplyWhitelistV14 : YukiBaseHooker() {
         override fun onHook() {
             var set =

@@ -9,8 +9,10 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object SetAodTypefaceMode : YukiBaseHooker() {
     override fun onHook() {
         val typefaceMode = prefs(ModulePrefs).getString("set_aod_typeface_mode", "0")

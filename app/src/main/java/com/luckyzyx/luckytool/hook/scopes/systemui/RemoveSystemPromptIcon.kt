@@ -3,14 +3,17 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
+@Obfuscate
 object RemoveSystemPromptIcon : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         loadHooker(SystemPromptIconV13)
     }
 
+    @Obfuscate
     object SystemPromptIconV13 : YukiBaseHooker() {
         override fun onHook() {
             //Source SystemPromptController

@@ -5,6 +5,7 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
@@ -18,6 +19,7 @@ object HookLauncherFeature : YukiBaseHooker() {
         if (osCode >= 34) loadHooker(HookAppFeature)
     }
 
+    @Obfuscate
     object HookAppFeature : YukiBaseHooker() {
         override fun onHook() {
             val disableAutoSwitch =
@@ -33,6 +35,7 @@ object HookLauncherFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)
@@ -50,6 +53,7 @@ object HookLauncherFeature : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object HookLauncherSettings : YukiBaseHooker() {
         override fun onHook() {
             val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)

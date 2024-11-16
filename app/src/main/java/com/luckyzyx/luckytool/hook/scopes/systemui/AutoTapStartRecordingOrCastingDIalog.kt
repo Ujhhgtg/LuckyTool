@@ -2,7 +2,9 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object AutoTapStartRecordingOrCastingDIalog : YukiBaseHooker() {
     override fun onHook() {
         //Source MediaProjectionPermissionActivity

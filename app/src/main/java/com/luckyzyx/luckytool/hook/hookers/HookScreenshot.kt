@@ -1,12 +1,14 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.screenshot.CustomizeLongScreenshotMaxCapturedPages
 import com.luckyzyx.luckytool.hook.scopes.screenshot.EnablePNGSaveFormat
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 
+@Obfuscate
 object HookScreenshot : YukiBaseHooker() {
     override fun onHook() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)

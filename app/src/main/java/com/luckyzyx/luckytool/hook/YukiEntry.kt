@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook
 
+import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.param.PackageParam
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
@@ -45,17 +46,23 @@ import com.luckyzyx.luckytool.hook.hookers.HookSystemUI
 import com.luckyzyx.luckytool.hook.hookers.HookThemeStore
 import com.luckyzyx.luckytool.hook.hookers.HookUIEngine
 import com.luckyzyx.luckytool.hook.hookers.HookWeather
-import com.luckyzyx.luckytool.utils.PrefsUtils.ModulePrefs
-import com.luckyzyx.luckytool.utils.PrefsUtils.SettingsPrefs
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SettingsPrefs
 
 @Obfuscate
-class YukiEntry(private val packageParam: PackageParam) {
+object YukiEntry {
 
-    fun onHook() {
-        packageParam.onHook()
+    val configs = YukiHookAPI.configs {
+        debugLog {
+            tag = "LuckyTool"
+            isEnable = true
+            isRecord = true
+            elements(TAG, PRIORITY, PACKAGE_NAME, USER_ID)
+        }
+        isDebug = false
     }
 
-    fun PackageParam.onHook() {
+    fun PackageParam.onHookEntry() {
         if (prefs(ModulePrefs).getBoolean("enable_module", false).not()) return
         if (prefs(SettingsPrefs).getBoolean("is_su", false).not()) return
 

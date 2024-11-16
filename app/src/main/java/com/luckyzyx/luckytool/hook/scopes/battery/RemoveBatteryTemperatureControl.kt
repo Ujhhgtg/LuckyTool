@@ -3,7 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.battery
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 object RemoveBatteryTemperatureControl : YukiBaseHooker() {
     override fun onHook() {
         //Source ThermalControllerCenter

@@ -6,9 +6,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import dalvik.system.PathClassLoader
 
+@Obfuscate
 object HookOplusWifiService : YukiBaseHooker() {
 
     private var wifiserviceClassLoader: PathClassLoader? = null
@@ -44,6 +46,7 @@ object HookOplusWifiService : YukiBaseHooker() {
         loadHooker(HookSlaAppList(finalWifiServiceClassLoader))
     }
 
+    @Obfuscate
     class HookOplusSoftAp(val classLoader: ClassLoader?) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSoftapStatistics
@@ -55,6 +58,7 @@ object HookOplusWifiService : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     class HookSlaAppList(val classLoader: ClassLoader?) : YukiBaseHooker() {
         override fun onHook() {
             var mode = prefs(ModulePrefs).getString("set_wlan_sla_whitelist_mode", "0")

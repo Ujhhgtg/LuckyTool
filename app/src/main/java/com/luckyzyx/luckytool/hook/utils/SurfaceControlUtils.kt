@@ -6,7 +6,9 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
 import com.highcapable.yukihookapi.hook.type.android.IBinderClass
 import com.highcapable.yukihookapi.hook.type.java.LongType
+import com.joom.paranoid.Obfuscate
 
+@Obfuscate
 @Suppress("unused")
 class SurfaceControlUtils(val classLoader: ClassLoader?) {
 

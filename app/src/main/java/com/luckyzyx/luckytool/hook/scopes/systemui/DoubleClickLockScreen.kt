@@ -4,9 +4,11 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.closeScreen
 import kotlin.math.abs
 
+@Obfuscate
 object DoubleClickLockScreen : YukiBaseHooker() {
     override fun onHook() {
         var curTouchTime = 0L

@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import android.view.KeyEvent
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object ReducePowerMenuDisplayDelay : YukiBaseHooker() {
     override fun onHook() {
         var isEnable = prefs(ModulePrefs).getBoolean("reduce_power_menu_display_delay", false)

@@ -3,9 +3,11 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 object RemoveGTModeNotification : YukiBaseHooker() {
     override fun onHook() {
         //Source GTUtils

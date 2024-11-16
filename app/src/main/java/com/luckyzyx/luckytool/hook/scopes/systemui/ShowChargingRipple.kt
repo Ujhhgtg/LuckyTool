@@ -5,9 +5,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
 
+@Obfuscate
 object ShowChargingRipple : YukiBaseHooker() {
     override fun onHook() {
         //Source WiredChargingRippleController -> flag_charging_ripple

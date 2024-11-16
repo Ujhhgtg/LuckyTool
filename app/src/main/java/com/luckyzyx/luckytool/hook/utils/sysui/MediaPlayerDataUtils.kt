@@ -4,8 +4,10 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel.toClass
 
+@Obfuscate
 @Suppress("unused")
 class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
     val clazz = VariousClass(

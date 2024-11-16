@@ -10,8 +10,10 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
+@Obfuscate
 object LockScreenClockRedMode : YukiBaseHooker() {
     override fun onHook() {
         var redMode = prefs(ModulePrefs).getString("lock_screen_clock_redone_mode", "0")

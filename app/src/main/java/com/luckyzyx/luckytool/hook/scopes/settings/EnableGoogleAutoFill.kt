@@ -22,16 +22,19 @@ import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.luckypray.dexkit.DexKitBridge
 
+@Obfuscate
 class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         if (getOSVersionCode >= 30) loadHooker(GoogleAutoFill)
         else loadHooker(GoogleAutoFillV13(dexKitBridge))
     }
 
+    @Obfuscate
     object GoogleAutoFill : YukiBaseHooker() {
         override fun onHook() {
             //Source DefaultAppInfo
@@ -104,6 +107,7 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     class GoogleAutoFillV13(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source DefaultAppInfo

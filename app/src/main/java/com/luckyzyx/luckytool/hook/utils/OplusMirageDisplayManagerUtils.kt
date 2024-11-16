@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.utils
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.android.HookFloatMirageWindow.toClass
 
+@Obfuscate
 class OplusMirageDisplayManagerUtils(val classLoader: ClassLoader?) {
 
     val service = "com.android.server.display.OplusMirageDisplayManagerService".toClass(classLoader)

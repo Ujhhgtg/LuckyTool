@@ -12,6 +12,7 @@ import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
+import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -27,6 +28,7 @@ import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
 
+@Obfuscate
 object StatusBarClock : YukiBaseHooker() {
 
     private val clockMode = prefs(ModulePrefs).getString("statusbar_clock_mode", "0")
