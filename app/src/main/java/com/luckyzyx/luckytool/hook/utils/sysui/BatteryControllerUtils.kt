@@ -53,6 +53,16 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
         ppsMode: Int = 0,
         isWireless: Boolean = false
     ): String {
+        /**
+         * usb_fast_chg_type
+         * 1 vooc
+         * 2 svooc
+         * 3 pd
+         * 4 qc
+         * 5 pps
+         * 6 ufcs
+         */
+//        YLog.debug("getTechnologyName -> $technology | $usbFastChgType | $ppsMode")
         return when (technology) {
             1 -> when (usbFastChgType) {
                 3 -> "PD"

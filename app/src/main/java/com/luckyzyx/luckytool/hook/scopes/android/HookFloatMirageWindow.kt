@@ -27,6 +27,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.startMirageWindow
 
 @Obfuscate
+@Suppress("LocalVariableName")
 object HookFloatMirageWindow : YukiBaseHooker() {
 
     override fun onHook() {
