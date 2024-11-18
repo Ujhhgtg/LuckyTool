@@ -52,5 +52,19 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
                 if (isEnable) replaceToTrue()
             }
         }
+
+        //Source TaskFragment
+        "com.android.server.wm.TaskFragment".toClass().apply {
+            method { name = "supportsMultiWindowInDisplayArea" }.hook {
+                if (isEnable) replaceToTrue()
+            }
+        }
+
+        //Source OplusRunningTaskInfo
+        "com.oplus.splitscreen.OplusRunningTaskInfo".toClass().apply {
+            method { name = "getIsSupportSplitScreenMultiWindow" }.hook {
+                if (isEnable) replaceToTrue()
+            }
+        }
     }
 }
