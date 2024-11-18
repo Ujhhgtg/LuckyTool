@@ -26,6 +26,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 浏览器下载对话框广告 v40.8.40.1
 - [修复] 充电瓦数显示异常 C15
 - [适配] 本地OTA更新校验 v15.0.12
+- [修复] 部分应用详情页面参数显示异常
 
 ### 1.2.5
 

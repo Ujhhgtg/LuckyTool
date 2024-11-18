@@ -33,7 +33,7 @@ class AppUtils(val context: Context) {
         val appInfo = packageUtils.getApplicationInfo(packName, PackageManager.GET_META_DATA)
             ?: return ""
         @Suppress("DEPRECATION")
-        return appInfo.metaData.get("versionCommit")?.toString() ?: ""
+        return appInfo.metaData?.get("versionCommit")?.toString() ?: ""
     }
 
     /**
@@ -44,7 +44,7 @@ class AppUtils(val context: Context) {
      */
     fun getAppMeta(appInfo: ApplicationInfo, key: String): String {
         @Suppress("DEPRECATION")
-        return appInfo.metaData.get(key)?.toString() ?: ""
+        return appInfo.metaData?.get(key)?.toString() ?: ""
     }
 
     /**
