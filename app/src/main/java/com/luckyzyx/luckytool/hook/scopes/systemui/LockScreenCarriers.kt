@@ -28,30 +28,38 @@ object LockScreenCarriers : YukiBaseHooker() {
             val userFont =
                 prefs(ModulePrefs).getBoolean("statusbar_carriers_use_user_typeface", false)
 
-            //Source OplusStatCarrierTextController
-            "com.oplus.systemui.statusbar.widget.OplusStatCarrierTextController".toClass().apply {
-                method { name = "onViewAttached" }.hook {
-                    after {
-                        method { name = "setVisible" }.get(instance).call(false)
-                    }
-                }
-                method { name = "setVisible" }.hook {
-                    before {
-                        if (isRemove) args().first().setFalse()
-                    }
-                }
-                method { name = "updateCarrierInfo" }.hook {
-                    after {
-                        if (isRemove) {
-                            method { name = "setVisible" }.get(instance).call(false)
-                        } else {
-                            val view = field { name = "mView";superClass() }.get(instance)
-                                .cast<TextView>() ?: return@after
-                            if (customText.isNotBlank()) view.text = customText
+
+            //Source OplusCarrierTextCallbackInfo
+            "com.oplus.systemui.qs.OplusQSCarrierTextController\$OplusCarrierTextCallbackInfo".toClass()
+                .apply {
+                    constructor().hookAll {
+                        after {
+                            if (customText.isNotBlank()) {
+                                field { name = "carrierText" }.get(instance).set(customText)
+                            }
                         }
                     }
                 }
-            }
+
+            //Source OplusStatCarrierTextController
+            "com.oplus.systemui.statusbar.widget.OplusStatCarrierTextController".toClass()
+                .apply {
+                    method { name = "onViewAttached" }.hook {
+                        after {
+                            method { name = "setVisible" }.get(instance).call(false)
+                        }
+                    }
+                    method { name = "setVisible" }.hook {
+                        before {
+                            if (isRemove) args().first().setFalse()
+                        }
+                    }
+                    method { name = "updateCarrierInfo" }.hook {
+                        after {
+                            if (isRemove) method { name = "setVisible" }.get(instance).call(false)
+                        }
+                    }
+                }
 
             //Source OplusStatCarrierText
             "com.oplus.systemui.statusbar.widget.OplusStatCarrierText".toClass().apply {
@@ -62,6 +70,7 @@ object LockScreenCarriers : YukiBaseHooker() {
                 }
                 method { name = "onConfigurationChanged" }.hook {
                     after {
+                        if (customText.isNotBlank()) instance<TextView>().text = customText
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
                     }
                 }

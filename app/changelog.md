@@ -27,6 +27,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 充电瓦数显示异常 C15
 - [适配] 本地OTA更新校验 v15.0.12
 - [修复] 部分应用详情页面参数显示异常
+- [优化] 锁屏状态栏运营商hook逻辑
 
 ### 1.2.5
 
