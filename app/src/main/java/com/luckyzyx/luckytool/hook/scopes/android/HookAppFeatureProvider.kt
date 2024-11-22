@@ -2,9 +2,10 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.database.Cursor
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
+import com.highcapable.yukihookapi.hook.type.defined.VagueType
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.joom.paranoid.Obfuscate
@@ -15,6 +16,11 @@ import org.luckypray.dexkit.DexKitBridge
 class HookAppFeatureProvider(
     val dexKitBridge: DexKitBridge, private val features: Map<String, Any>
 ) : YukiBaseHooker() {
+
+    private var isFeatureSupport = false
+    private var isGetBoolean = false
+    private var isGetString = false
+
     override fun onHook() {
         if (features.isEmpty()) return
 
@@ -34,26 +40,71 @@ class HookAppFeatureProvider(
                 )
             }
         }.apply {
-            checkDataList("AppFeatureProviderUtils ($packageName)")
-            single().name.toClass().apply {
-                //isFeatureSupport
-                method {
-                    param(ContentResolverClass, StringClass)
-                    returnType = BooleanType
-                }.hook {
-                    before {
-                        val key = args(1).cast<String>()
-                        if (key.isNullOrBlank()) return@before
-                        val value = features[key]
-                        if (value != null && value is Boolean) result = value
+            checkDataList("AppFeatureProviderUtils [$packageName]")
+            findMethod {
+                matcher {
+//                    name("isFeatureSupport")
+                    paramTypes(ContentResolverClass, StringClass)
+                    returnType(BooleanType)
+                }
+            }.apply {
+                if (singleOrNull() == null) return
+                isFeatureSupport = true
+                single().className.toClass().apply {
+                    method {
+                        name = single().methodName
+                        param(ContentResolverClass, StringClass)
+                        returnType = BooleanType
+                    }.hook {
+                        before {
+                            val key = args(1).cast<String>()
+                            if (key.isNullOrBlank()) return@before
+                            val value = features[key]
+                            if (value != null && value is Boolean) result = value
+                        }
                     }
                 }
-                //getBoolean
-                if (hasMethod {
-                        param(ContentResolverClass, StringClass, BooleanType)
-                        returnType = BooleanType
-                    }) {
+            }
+            findMethod {
+                matcher {
+//                    name("isFeatureSupport")
+                    paramTypes(ContentResolverClass, null, StringClass)
+                    returnType(BooleanType)
+                }
+            }.apply {
+                if (singleOrNull() == null) return
+                isFeatureSupport = true
+                single().className.toClass().apply {
                     method {
+                        name = single().methodName
+                        param(ContentResolverClass, VagueType, StringClass)
+                        returnType = BooleanType
+                    }.hook {
+                        before {
+                            val key = args(1).cast<String>()
+                            if (key.isNullOrBlank()) return@before
+                            val value = features[key]
+                            if (value != null && value is Boolean) result = value
+                        }
+                    }
+                }
+            }
+            if (!isFeatureSupport) {
+                YLog.debug("AppFeatureProviderUtils [$packageName] -> isFeatureSupport is null")
+            }
+
+            findMethod {
+                matcher {
+//                    name("getBoolean")
+                    paramTypes(ContentResolverClass, StringClass, BooleanType)
+                    returnType(BooleanType)
+                }
+            }.apply {
+                if (singleOrNull() == null) return
+                isGetBoolean = true
+                single().className.toClass().apply {
+                    method {
+                        name = single().methodName
                         param(ContentResolverClass, StringClass, BooleanType)
                         returnType = BooleanType
                     }.hook {
@@ -65,12 +116,20 @@ class HookAppFeatureProvider(
                         }
                     }
                 }
-                //getString
-                if (hasMethod {
-                        param(ContentResolverClass, StringClass, StringClass)
-                        returnType = StringClass
-                    }) {
+            }
+
+            findMethod {
+                matcher {
+//                    name("getString")
+                    paramTypes(ContentResolverClass, StringClass, StringClass)
+                    returnType(StringClass)
+                }
+            }.apply {
+                if (singleOrNull() == null) return
+                isGetString = true
+                single().className.toClass().apply {
                     method {
+                        name = single().methodName
                         param(ContentResolverClass, StringClass, StringClass)
                         returnType = StringClass
                     }.hook {
