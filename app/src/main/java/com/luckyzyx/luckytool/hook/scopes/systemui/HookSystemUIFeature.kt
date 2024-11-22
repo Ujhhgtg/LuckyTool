@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
@@ -117,8 +118,11 @@ object HookSystemUIFeature : YukiBaseHooker() {
                 "com.oplusos.systemui.statusbar.feature.StatusBarFeatureOption", //C13
                 "com.oplusos.systemui.common.feature.StatusBarFeatureOption" //C14 C15
             ).toClass().apply {
-                method { name = "isSystemUiExpSignalUi" }.hook {
-                    if (hideSignalLabels) replaceToTrue()
+                method { name = "loadAppFeature" }.hook {
+                    after {
+                        if (hideSignalLabels) field { name = "isSystemUiExpSignalUi" }.get()
+                            .setTrue()
+                    }
                 }
             }
         }
