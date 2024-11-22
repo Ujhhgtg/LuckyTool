@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.hook.scopes.systemui.AutoTapStartRecordingOrCastingDIalog
+import com.luckyzyx.luckytool.hook.scopes.systemui.AutoTapStartRecordingOrCastingDialog
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableDuplicateFloatingWindow
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHeadphoneHighVolumeWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
@@ -37,7 +37,7 @@ object HookSystemUIDialog : YukiBaseHooker() {
         }
         //自动点击开始录制或投射对话框
         if (prefs(ModulePrefs).getBoolean("auto_tap_start_recording_or_casting_dialog", false)) {
-            loadHooker(AutoTapStartRecordingOrCastingDIalog)
+            loadHooker(AutoTapStartRecordingOrCastingDialog)
         }
         //音量对话框背景透明度
         loadHooker(VolumeDialogBackground)

@@ -10,6 +10,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
 import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
@@ -36,7 +37,7 @@ object VolumeDialogBackground : YukiBaseHooker() {
             method { name = "isSurrealQualityOn" }.hook {
                 replaceToFalse()
             }
-            val hasAddVerticalContainerBg = hasField { name = "addVerticalContainerBg" }
+            val hasAddVerticalContainerBg = hasMethod { name = "addVerticalContainerBg" }
             val hasVerticalRowsLayerMap = hasField { name = "mVerticalRowsLayerDrawableMap" }
 
             val hasVerticalRowsLayer = hasField { name = "mVerticalRowsLayerDrawable" }
@@ -45,6 +46,7 @@ object VolumeDialogBackground : YukiBaseHooker() {
             val hasAppAdjustLayer = hasField { name = "mVolumeAppAdjustLayerDrawable" }
             val hasVolumeBtnDrawable = hasField { name = "mVolumeBtnDrawable" }
             val hasVolumeBackgroundLayer = hasField { name = "mVolumeBackgroundLayerDrawable" }
+
             method { param(DialogInterfaceClass) }.hook {
                 before {
                     if (customAlpha < 0) return@before
