@@ -10,13 +10,18 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import java.io.StringReader
+import java.util.Properties
 
 @Obfuscate
 object LockScreenChargingComponent : YukiBaseHooker() {
@@ -31,6 +36,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
 
     @Obfuscate
     private object ChargingComponentC15 : YukiBaseHooker() {
+
+        private var oplusCharger: Any? = null
+
         override fun onHook() {
             var userTypeface =
                 prefs(ModulePrefs).getBoolean("lock_screen_charging_use_user_typeface", false)
@@ -120,26 +128,44 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "isWirelessVoocCharge" }.hook {
+                method { name = "getTechnologyStrForFrameCharge" }.hook {
                     before {
                         if (!showRealTech) return@before
-                        val isWirelessCharge = args().first().boolean()
-                        val chargerTechnology = args().last().int()
-                        result =
-                            isWirelessCharge && (chargerTechnology == 2 || chargerTechnology == 3)
-                    }
-                }
-                method { name = "isWirelessNormalCharge" }.hook {
-                    before {
-                        if (!showRealTech) return@before
-                        val isWirelessCharge = args().first().boolean()
-                        val chargerTechnology = args().last().int()
-                        result =
-                            isWirelessCharge && chargerTechnology != 2 && chargerTechnology != 3
+                        val oplusChargeInfo = args().last().any() ?: return@before
+                        val isWirelessCharge = oplusChargeInfo.current().method {
+                            name = "isWirelessCharge"
+                        }.boolean()
+                        val chargerTechnology = oplusChargeInfo.current().method {
+                            name = "getChargerTechnology"
+                        }.int()
+
+                        val chargeInfo = getChargeInfo()
+                        val usbFastChgType = chargeInfo.getIntProperty("usb_fast_chg_type", 0)
+                        val ppsMode = chargeInfo.getIntProperty("battery_ppschg_ing", 0)
+                        result = BatteryControllerUtils(appClassLoader).getTechnologyName(
+                            chargerTechnology, usbFastChgType, ppsMode, isWirelessCharge
+                        )
                     }
                 }
             }
         }
+
+        private fun getChargeInfo(): Properties {
+            return try {
+                val queryChargeInfo = IChargerUtils(appClassLoader).let {
+                    if (oplusCharger == null) oplusCharger = it.getInstance()
+                    it.queryChargeInfo(oplusCharger)
+                }
+//        LogUtils.d("getChargeInfo", "queryChargeInfo", queryChargeInfo.toString(), true)
+                Properties().apply {
+                    if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))
+                }
+            } catch (e: Exception) {
+                YLog.error("StatusBarBatteryInfoNotify -> getChargeInfo", e)
+                Properties()
+            }
+        }
+
     }
 
     @Obfuscate

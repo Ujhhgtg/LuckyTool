@@ -48,10 +48,7 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
     }
 
     fun getTechnologyName(
-        technology: Int = 0,
-        usbFastChgType: Int = 0,
-        ppsMode: Int = 0,
-        isWireless: Boolean = false
+        technology: Int = 0, usbFastChgType: Int = 0, ppsMode: Int = 0, isWireless: Boolean = false
     ): String {
         /**
          * usb_fast_chg_type

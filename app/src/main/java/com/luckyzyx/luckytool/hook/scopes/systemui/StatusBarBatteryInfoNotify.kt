@@ -181,6 +181,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             isSeriesDual = DevicesConfigUtils.isSeriesDualBattery == true
             isParallelDual = DevicesConfigUtils.isParallelDualBattery == true
             chargerType = chargeInfo.getStringProperty("charger_type", "Null").toString()
+//            ppsMode = chargeInfo.getIntProperty("battery_ppschg_ing", 0)
             usbFastChgType = chargeInfo.getIntProperty("usb_fast_chg_type", 0)
             voltage = chargeInfo.getIntProperty("battery_voltage_now") / 1000.0
             voltage2 = if (isSeriesDual) chargeInfo.getIntProperty("battery_voltage_min") / 1000.0
