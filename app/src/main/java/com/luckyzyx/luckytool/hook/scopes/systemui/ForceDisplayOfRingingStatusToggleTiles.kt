@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 
@@ -31,6 +32,7 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
             "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C14
             "com.oplus.systemui.qs.tileimpl.OplusQSFactoryImpl"  //C15
         ).toClass().apply {
+            if (!hasMethod { name = "createTileInternal" }) return
             method { name = "createTileInternal" }.hook {
                 before {
                     val key = args().first().string()
