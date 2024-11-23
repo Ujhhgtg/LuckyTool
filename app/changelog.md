@@ -33,6 +33,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏网速刷新速度 C15
 - [适配] 移除免打扰模式通知 C15
 - [适配] 移除通知勿扰通知 C15
+- [适配] 隐藏蓝牙未连接时图标 C15
 
 ### 1.2.5
 
