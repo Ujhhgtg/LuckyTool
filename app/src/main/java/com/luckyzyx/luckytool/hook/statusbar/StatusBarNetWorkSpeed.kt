@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.net.TrafficStats
+import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.TextView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A12
@@ -36,146 +38,177 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
     /** 上次总的下行时间戳 */
     private var lastTotalDownTime: Long = 0L
 
-    @SuppressLint("DiscouragedApi")
     override fun onHook() {
-        var networkSpeed = prefs(ModulePrefs).getBoolean("set_network_speed", false)
-        dataChannel.wait<Boolean>("set_network_speed") { networkSpeed = it }
+        loadHooker(NetWorkSpeedDelay)
+        loadHooker(NetWorkSpeedView)
+    }
 
-        //Search postUpdateNetworkSpeedDelay
-        VariousClass(
-            "com.oplusos.systemui.statusbar.controller.NetworkSpeedController",
-            "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
-            "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14
-        ).toClass().apply {
-            method {
-                name = "postUpdateNetworkSpeedDelay"
-                paramCount = 1
-            }.hook {
-                before {
-                    if (networkSpeed && (args().first().long() == 4000L)) {
-                        args().first().set(1000L)
+    @Obfuscate
+    object NetWorkSpeedDelay : YukiBaseHooker() {
+        override fun onHook() {
+            var networkSpeed = prefs(ModulePrefs).getBoolean("set_network_speed", false)
+            dataChannel.wait<Boolean>("set_network_speed") { networkSpeed = it }
+
+            //Search postUpdateNetworkSpeedDelay
+            VariousClass(
+                "com.oplusos.systemui.statusbar.controller.NetworkSpeedController",
+                "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
+                "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
+            ).toClass().apply {
+                val hasPostUpdateNetworkSpeedDelay =
+                    hasMethod { name = "postUpdateNetworkSpeedDelay" }
+                if (hasPostUpdateNetworkSpeedDelay) {
+                    method {
+                        name = "postUpdateNetworkSpeedDelay"
+                        paramCount = 1
+                    }.hook {
+                        before {
+                            if (networkSpeed && (args().first().long() == 4000L)) {
+                                args().first().set(1000L)
+                            }
+                        }
+                    }
+                } else {
+                    method { name { it.contains("updateNetworkSpeed") } }.hook {
+                        after {
+                            val handler = field { name = "bgHandler" }.get(instance).cast<Handler>()
+                                ?: return@after
+                            val isConnected = field { name = "isConnected" }.get(instance).boolean()
+                            val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()
+                            if (isConnected && isSwitchOn) {
+                                handler.removeMessages(100001)
+                                handler.sendEmptyMessageDelayed(100001, 1000L)
+                            }
+                        }
                     }
                 }
             }
         }
+    }
 
-        val layoutMode = prefs(ModulePrefs).getString("statusbar_network_layout", "0")
-        var userTypeface = prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)
-        dataChannel.wait<Boolean>("statusbar_network_user_typeface") { userTypeface = it }
-        var useBoldFont =
-            prefs(ModulePrefs).getBoolean("statusbar_network_use_bold_font_style", false)
-        dataChannel.wait<Boolean>("statusbar_network_use_bold_font_style") { useBoldFont = it }
-        var noSpace = prefs(ModulePrefs).getBoolean("statusbar_network_no_space", false)
-        dataChannel.wait<Boolean>("statusbar_network_no_space") { noSpace = it }
-        var noSecond = prefs(ModulePrefs).getBoolean("statusbar_network_no_second", false)
-        dataChannel.wait<Boolean>("statusbar_network_no_second") { noSecond = it }
-        var getDoubleSize = prefs(ModulePrefs).getInt("set_network_speed_font_size", 7)
-        dataChannel.wait<Int>("set_network_speed_font_size") { getDoubleSize = it }
-        var getBottomPadding = prefs(ModulePrefs).getInt("set_network_speed_padding_bottom", 0)
-        dataChannel.wait<Int>("set_network_speed_padding_bottom") { getBottomPadding = it }
-        var setInterval = prefs(ModulePrefs).getInt("set_network_speed_double_row_spacing", -1)
-        dataChannel.wait<Int>("set_network_speed_double_row_spacing") { setInterval = it }
+    @Obfuscate
+    object NetWorkSpeedView : YukiBaseHooker() {
+        @SuppressLint("DiscouragedApi")
+        override fun onHook() {
+            val layoutMode = prefs(ModulePrefs).getString("statusbar_network_layout", "0")
+            var userTypeface =
+                prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)
+            dataChannel.wait<Boolean>("statusbar_network_user_typeface") { userTypeface = it }
+            var useBoldFont =
+                prefs(ModulePrefs).getBoolean("statusbar_network_use_bold_font_style", false)
+            dataChannel.wait<Boolean>("statusbar_network_use_bold_font_style") { useBoldFont = it }
+            var noSpace = prefs(ModulePrefs).getBoolean("statusbar_network_no_space", false)
+            dataChannel.wait<Boolean>("statusbar_network_no_space") { noSpace = it }
+            var noSecond = prefs(ModulePrefs).getBoolean("statusbar_network_no_second", false)
+            dataChannel.wait<Boolean>("statusbar_network_no_second") { noSecond = it }
+            var getDoubleSize = prefs(ModulePrefs).getInt("set_network_speed_font_size", 7)
+            dataChannel.wait<Int>("set_network_speed_font_size") { getDoubleSize = it }
+            var getBottomPadding = prefs(ModulePrefs).getInt("set_network_speed_padding_bottom", 0)
+            dataChannel.wait<Int>("set_network_speed_padding_bottom") { getBottomPadding = it }
+            var setInterval = prefs(ModulePrefs).getInt("set_network_speed_double_row_spacing", -1)
+            dataChannel.wait<Int>("set_network_speed_double_row_spacing") { setInterval = it }
 
-        var bMargin = 0
-        var tMargin = 0
+            var bMargin = 0
+            var tMargin = 0
 
-        //Source NetworkSpeedView
-        VariousClass(
-            "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
-            "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14
-        ).toClass().apply {
-            method { name = "onFinishInflate" }.hook {
-                after {
-                    val viewGroup = instance<ViewGroup>()
-                    when (layoutMode) {
-                        "1" -> {
-                            val speedUnit: TextView? = viewGroup.findViewById(
-                                viewGroup.resources.getIdentifier(
-                                    "unit", "id",
-                                    this@StatusBarNetWorkSpeed.packageName
+            //Source NetworkSpeedView
+            VariousClass(
+                "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
+                "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14
+            ).toClass().apply {
+                method { name = "onFinishInflate" }.hook {
+                    after {
+                        val viewGroup = instance<ViewGroup>()
+                        when (layoutMode) {
+                            "1" -> {
+                                val speedUnit: TextView? = viewGroup.findViewById(
+                                    viewGroup.resources.getIdentifier(
+                                        "unit", "id",
+                                        this@NetWorkSpeedView.packageName
+                                    )
                                 )
-                            )
-                            viewGroup.removeView(speedUnit)
+                                viewGroup.removeView(speedUnit)
+                            }
                         }
+                        //5.34dp
+                        if (bMargin <= 0) bMargin = viewGroup.resources.getDimensionPixelSize(
+                            viewGroup.resources.getIdentifier(
+                                "network_speed_number_margin_bottom",
+                                "dimen", this@NetWorkSpeedView.packageName
+                            )
+                        )
+                        //7.34dp
+                        if (tMargin <= 0) tMargin = viewGroup.resources.getDimensionPixelSize(
+                            viewGroup.resources.getIdentifier(
+                                "network_speed_unit_margin_top",
+                                "dimen", this@NetWorkSpeedView.packageName
+                            )
+                        )
                     }
-                    //5.34dp
-                    if (bMargin <= 0) bMargin = viewGroup.resources.getDimensionPixelSize(
-                        viewGroup.resources.getIdentifier(
-                            "network_speed_number_margin_bottom",
-                            "dimen", this@StatusBarNetWorkSpeed.packageName
-                        )
-                    )
-                    //7.34dp
-                    if (tMargin <= 0) tMargin = viewGroup.resources.getDimensionPixelSize(
-                        viewGroup.resources.getIdentifier(
-                            "network_speed_unit_margin_top",
-                            "dimen", this@StatusBarNetWorkSpeed.packageName
-                        )
-                    )
                 }
-            }
-            method { name = "updateNetworkSpeed" }.hook {
-                before {
-                    val mSpeedNumber = field { name = "mSpeedNumber" }.get(instance)
-                        .cast<TextView>() ?: return@before
-                    val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance)
-                        .cast<TextView>() ?: return@before
+                method { name = "updateNetworkSpeed" }.hook {
+                    before {
+                        val mSpeedNumber = field { name = "mSpeedNumber" }.get(instance)
+                            .cast<TextView>() ?: return@before
+                        val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance)
+                            .cast<TextView>() ?: return@before
 
-                    if (userTypeface) {
-                        mSpeedNumber.typeface =
-                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                        mSpeedUnit.typeface =
-                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                    }
+                        if (userTypeface) {
+                            mSpeedNumber.typeface =
+                                if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                            mSpeedUnit.typeface =
+                                if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                        }
 
-                    if (layoutMode == "0") return@before
-                    val viewGroup = instance<ViewGroup>().apply {
-                        layoutParams?.width = LayoutParams.WRAP_CONTENT
-                        setPadding(0, 0, 0, getBottomPadding.dp)
-                    }
+                        if (layoutMode == "0") return@before
+                        val viewGroup = instance<ViewGroup>().apply {
+                            layoutParams?.width = LayoutParams.WRAP_CONTENT
+                            setPadding(0, 0, 0, getBottomPadding.dp)
+                        }
 
-                    when (layoutMode) {
-                        "1" -> {
-                            var speed = args().first().string()
-                            if (noSecond) speed = speed.replace("/s", "")
-                            if (noSpace) speed = speed.replace(" ", "")
-                            mSpeedNumber.apply {
-                                text = speed
-                                setTextSize(
-                                    TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat() * 2
-                                )
-                                gravity = Gravity.CENTER_VERTICAL or Gravity.END
-                                layoutParams = LayoutParams(layoutParams).apply {
-                                    height = LayoutParams.MATCH_PARENT
+                        when (layoutMode) {
+                            "1" -> {
+                                var speed = args().first().string()
+                                if (noSecond) speed = speed.replace("/s", "")
+                                if (noSpace) speed = speed.replace(" ", "")
+                                mSpeedNumber.apply {
+                                    text = speed
+                                    setTextSize(
+                                        TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat() * 2
+                                    )
+                                    gravity = Gravity.CENTER_VERTICAL or Gravity.END
+                                    layoutParams = LayoutParams(layoutParams).apply {
+                                        height = LayoutParams.MATCH_PARENT
+                                    }
+                                }
+                            }
+
+                            "2" -> {
+                                mSpeedNumber.apply {
+                                    text = getTotalUpSpeed(noSpace, noSecond)
+                                    setTextSize(
+                                        TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
+                                    )
+                                    if (setInterval != -1) layoutParams =
+                                        LayoutParams(layoutParams).apply {
+                                            bottomMargin = bMargin + (setInterval.dp / 2)
+                                        }
+                                }
+                                mSpeedUnit.apply {
+                                    text = getTotalDownloadSpeed(noSpace, noSecond)
+                                    setTextSize(
+                                        TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
+                                    )
+                                    if (setInterval != -1) layoutParams =
+                                        LayoutParams(layoutParams).apply {
+                                            topMargin = tMargin + (setInterval.dp / 2)
+                                        }
                                 }
                             }
                         }
-
-                        "2" -> {
-                            mSpeedNumber.apply {
-                                text = getTotalUpSpeed(noSpace, noSecond)
-                                setTextSize(
-                                    TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
-                                )
-                                if (setInterval != -1) layoutParams =
-                                    LayoutParams(layoutParams).apply {
-                                        bottomMargin = bMargin + (setInterval.dp / 2)
-                                    }
-                            }
-                            mSpeedUnit.apply {
-                                text = getTotalDownloadSpeed(noSpace, noSecond)
-                                setTextSize(
-                                    TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
-                                )
-                                if (setInterval != -1) layoutParams =
-                                    LayoutParams(layoutParams).apply {
-                                        topMargin = tMargin + (setInterval.dp / 2)
-                                    }
-                            }
-                        }
+                        viewGroup.requestLayout()
+                        resultNull()
                     }
-                    viewGroup.requestLayout()
-                    resultNull()
                 }
             }
         }
