@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
@@ -60,6 +61,7 @@ object ControlCenterTiles : YukiBaseHooker() {
 
             //Source TileLayout
             "com.android.systemui.qs.TileLayout".toClass().apply {
+                val hasUpdateColumns = hasMethod { name = "updateColumns" }
                 method { name = "updateMaxRows" }.hook {
                     before {
                         getScreenOrientation(instance<ViewGroup>()) {
@@ -82,7 +84,9 @@ object ControlCenterTiles : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "updateColumns" }.hook {
+                method {
+                    name = if (hasUpdateColumns) "updateColumns" else "setMaxColumns"
+                }.hook {
                     before {
                         instance<ViewGroup>().apply {
                             getScreenOrientation(this) {

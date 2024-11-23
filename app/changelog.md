@@ -36,6 +36,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 隐藏蓝牙未连接时图标 RUI6
 - [适配] 隐藏状态栏无SIM卡图标 RUI6
 - [适配] 控制中心网络安全警告 RUI6
+- [适配] 控制中心磁贴列数 RUI6
 
 ### 1.2.5
 
