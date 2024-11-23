@@ -31,6 +31,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 充电动画真实充电技术字段显示
 - [适配] 自动点击开始录制或投射对话框
 - [适配] 状态栏网速刷新速度 C15
+- [适配] 移除免打扰模式通知 C15
 
 ### 1.2.5
 
