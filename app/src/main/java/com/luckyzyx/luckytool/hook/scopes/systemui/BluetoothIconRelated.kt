@@ -44,15 +44,15 @@ object BluetoothIconRelated : YukiBaseHooker() {
                 }
             } else {
                 method { name { it.contains("updateBluetooth") } }.hook {
-                    after {
-                        if (!isHide) return@after
+                    before {
+                        if (!isHide) return@before
                         val bluetoothController = field {
                             type = BluetoothController
                             superClass(SDK < A14)
-                        }.get(instance).any() ?: return@after
+                        }.get(instance).any() ?: return@before
                         val statusBarIconController =
                             field { type = StatusBarIconController }.get(instance).any()
-                                ?: return@after
+                                ?: return@before
                         val slotBluetooth = field { name = "slotBluetooth" }.get(instance).string()
                         val isBluetoothEnabled = bluetoothController.current().field {
                             name = "mEnabled"
@@ -63,6 +63,7 @@ object BluetoothIconRelated : YukiBaseHooker() {
                         if (isBluetoothEnabled && bluetoothConnectionState != 2) {
                             statusBarIconController.current().method { name = "setIconVisibility" }
                                 .call(slotBluetooth, false)
+                            resultNull()
                         }
                     }
                 }
