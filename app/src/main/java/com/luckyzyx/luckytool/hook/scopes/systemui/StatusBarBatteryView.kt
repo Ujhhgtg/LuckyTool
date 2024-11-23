@@ -35,46 +35,34 @@ object StatusBarBatteryView : YukiBaseHooker() {
             //Source BatteryViewBinder
             "com.oplus.systemui.statusbar.pipeline.battery.ui.binder.BatteryViewBinder".toClass()
                 .apply {
+                    val hasinitView = hasMethod { name = "bind\$initView" }
                     val hasupdateText = hasMethod { name = "updateText" }
                     val hasupdateOldHorizontal = hasMethod { name = "bind\$updateOldHorizontal" }
-                    method { name = "bind\$initView" }.hook {
-                        after {
-                            args.filterIsInstance<TextView>().forEachIndexed { _, view ->
-                                val entryName = safeOfNull {
-                                    view.resources.getResourceEntryName(view.id)
-                                }
-                                when (entryName) {
-                                    "battery_text" -> if (applyToIcon) view.handBatteryTextView(
-                                        removePercent, userTypeface, useBoldFont, customFontSize
-                                    )
+                    val hasupdatePercentOutView = hasMethod { name = "bind\$updatePercentOutView" }
+                    if (hasinitView) {
+                        method { name = "bind\$initView" }.hook {
+                            after {
+                                args.filterIsInstance<TextView>().forEachIndexed { _, view ->
+                                    val entryName = safeOfNull {
+                                        view.resources.getResourceEntryName(view.id)
+                                    }
+                                    when (entryName) {
+                                        "battery_text" -> if (applyToIcon) view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
 
-                                    "battery_percentage_view" -> view.handBatteryTextView(
-                                        removePercent, userTypeface, useBoldFont, customFontSize
-                                    )
+                                        "battery_percentage_view" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
-                    if (hasupdateText) method { name = "updateText" }.hook {
-                        after {
-                            val view = args().first().cast<TextView>() ?: return@after
-                            val entryName = safeOfNull {
-                                view.resources.getResourceEntryName(view.id)
-                            }
-                            when (entryName) {
-                                "battery_text" -> view.handBatteryTextView(
-                                    removePercent, userTypeface, useBoldFont, customFontSize
-                                )
-
-                                "battery_percentage_view" -> view.handBatteryTextView(
-                                    removePercent, userTypeface, useBoldFont, customFontSize
-                                )
-                            }
-                        }
-                    }
-                    if (hasupdateOldHorizontal) method { name = "bind\$updateOldHorizontal" }.hook {
-                        after {
-                            args.filterIsInstance<TextView>().forEachIndexed { _, view ->
+                    if (hasupdateText) {
+                        method { name = "updateText" }.hook {
+                            after {
+                                val view = args().first().cast<TextView>() ?: return@after
                                 val entryName = safeOfNull {
                                     view.resources.getResourceEntryName(view.id)
                                 }
@@ -86,6 +74,46 @@ object StatusBarBatteryView : YukiBaseHooker() {
                                     "battery_percentage_view" -> view.handBatteryTextView(
                                         removePercent, userTypeface, useBoldFont, customFontSize
                                     )
+                                }
+                            }
+                        }
+                    }
+                    if (hasupdateOldHorizontal) {
+                        method { name = "bind\$updateOldHorizontal" }.hook {
+                            after {
+                                args.filterIsInstance<TextView>().forEachIndexed { _, view ->
+                                    val entryName = safeOfNull {
+                                        view.resources.getResourceEntryName(view.id)
+                                    }
+                                    when (entryName) {
+                                        "battery_text" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+
+                                        "battery_percentage_view" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (hasupdatePercentOutView) {
+                        method { name = "bind\$updatePercentOutView" }.hook {
+                            after {
+                                args.filterIsInstance<TextView>().forEachIndexed { _, view ->
+                                    val entryName = safeOfNull {
+                                        view.resources.getResourceEntryName(view.id)
+                                    }
+                                    when (entryName) {
+                                        "battery_text" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+
+                                        "battery_percentage_view" -> view.handBatteryTextView(
+                                            removePercent, userTypeface, useBoldFont, customFontSize
+                                        )
+                                    }
                                 }
                             }
                         }
