@@ -10,7 +10,6 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.joom.paranoid.Obfuscate
@@ -114,20 +113,6 @@ object MobileDataIconRelated : YukiBaseHooker() {
                                     ?: return@before
                                 it.asStateFlow(mutableStateFlow) ?: return@before
                             }
-                        }
-                    }
-                }
-
-            //Source OplusModernStatusBarMobileView
-            "com.oplus.systemui.statusbar.phone.signal.widget.OplusModernStatusBarMobileView".toClass()
-                .apply {
-                    method { name = "shouldVisible";returnType = BooleanType }.hook {
-                        before {
-                            if (!hideNonNetwork) return@before
-                            val subId = method { name = "getSubId";superClass() }.get(instance)
-                                .int()
-                            val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
-                            result = subId == localSubId
                         }
                     }
                 }
