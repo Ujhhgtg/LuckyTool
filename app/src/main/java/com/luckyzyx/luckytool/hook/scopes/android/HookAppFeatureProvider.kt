@@ -57,7 +57,7 @@ class HookAppFeatureProvider(
                         returnType = BooleanType
                     }.hook {
                         before {
-                            val key = args(1).cast<String>()
+                            val key = args().last().cast<String>()
                             if (key.isNullOrBlank()) return@before
                             val value = features[key]
                             if (value != null && value is Boolean) result = value
@@ -81,7 +81,7 @@ class HookAppFeatureProvider(
                         returnType = BooleanType
                     }.hook {
                         before {
-                            val key = args(1).cast<String>()
+                            val key = args().last().cast<String>()
                             if (key.isNullOrBlank()) return@before
                             val value = features[key]
                             if (value != null && value is Boolean) result = value
