@@ -116,6 +116,9 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 put("feature.support.game.AI_PLAY", true)
             }
 
+            //Source Camera UnitSDK 80s美式复古 com.oplus.camera.cola_support
+//            put("com.oplus.camera.cola_support", true)
+
             //Reno12 涟漪
 //            put("os.personalization.wallpaper.live.ripple.enable",true)
 

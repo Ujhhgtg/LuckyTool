@@ -146,6 +146,12 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     key = "CameraFilter"
                     isIconSpaceReserved = false
                 })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.remove_filter_model_limit)
+                    key = "remove_filter_model_limit"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
                 add(Preference(this@loadPreferences).apply {
                     val defaultFilters = ArrayList<CameraFilter>().apply {
                         add(CameraFilter("master_filter", getString(R.string.camera_filter_master)))
@@ -157,6 +163,27 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                         add(
                             CameraFilter(
                                 "grand_tour_filter", getString(R.string.camera_filter_grand_tour)
+                            )
+                        )
+                        add(
+                            CameraFilter(
+                                "vignette_grain_filter",
+                                getString(R.string.camera_filter_vignette_grain)
+                            )
+                        )
+                        add(
+                            CameraFilter(
+                                "desert_filter", getString(R.string.camera_filter_desert)
+                            )
+                        )
+                        add(
+                            CameraFilter(
+                                "tol_filter", getString(R.string.camera_filter_tol)
+                            )
+                        )
+                        add(
+                            CameraFilter(
+                                "os15_zhi_gan_filter", getString(R.string.camera_filter_zhi_gan)
                             )
                         )
                     }

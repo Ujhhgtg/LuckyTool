@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Modulul Xposed pentru optimizarea extinsa a ColorOS, gratuit pentru totdeauna\nDezvoltator: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funcție</string>
     <string name="nav_home">Pagina principală</string>
@@ -23,7 +23,7 @@
     <string name="auto_check_update">Verifică automat actualizările</string>
     <string name="auto_check_update_summary">Verifică automat actualizările la deschiderea paginii principale a modulului</string>
     <string name="tile_auto_start">Permite pornirea automată a pieselor încorporate</string>
-    <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
+    <string name="tile_auto_start_summary">Funcțiile dale activate vor fi declanșate automat după deblocarea ecranului.\nDacă declanșatorul eșuează, vă rugăm să reporniți scopul și să verificați permisiunile Root</string>
     <string name="read_agreement">Trebuie să citiți și să acceptați următorul conținut înainte de a putea utiliza acest modul</string>
     <string name="clear_all_data">Șterge toate datele</string>
     <string name="clear_all_data_summary">Curăță toate informațiile funcției din modul</string>
@@ -41,15 +41,15 @@
     <string name="hide_desktop_module_icon_summary">LSPosed trebuie să fie oprit pentru a forța pictogramele desktop</string>
     <!--BackupRestoreClear-->
     <string name="backup_restore_clear">Backup/Restaurare/Șterge</string>
-    <string name="get_log_cat_log">Get LogCat log</string>
+    <string name="get_log_cat_log">Obțineți jurnal LogCat</string>
     <string name="backup_data">Copie de rezervă date</string>
     <string name="restore_data">Restaurare date</string>
     <string name="data_backup_complete">Crearea copiei de rezervă este gata!</string>
     <string name="data_backup_error">Eroare backup date!</string>
     <string name="data_restore_complete">Restaurare date completă!</string>
-    <string name="data_backup_data_version">Backup data version</string>
-    <string name="data_current_system_version">Current system version</string>
-    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
+    <string name="data_backup_data_version">Backup versiune date</string>
+    <string name="data_current_system_version">Versiunea actuală a sistemului</string>
+    <string name="data_restore_version_tips">Restabilirea datelor în versiuni poate cauza rularea anormală a unor funcții. Este recomandat să reconfigurați datele funcției modulului.</string>
     <!-- About -->
     <string name="about_title">Despre</string>
     <string name="about_author">Autor</string>
@@ -63,7 +63,7 @@
     <string name="feedback_download_summary">Canale TG, Grupuri, Repo-uri etc.</string>
     <string name="coolmarket">Pagină de start interesantă</string>
     <string name="module_doc">Documentație modul</string>
-    <string name="qq_chat_group">QQ Chat Group</string>
+    <string name="qq_chat_group">Grupul de Chat QQ</string>
     <string name="qq_channel">Canal QQ</string>
     <string name="telegram_channel">Canal Telegram</string>
     <string name="telegram_group">Grup Telegram</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Du-te la Crowdin pentru a contribui cu traducerea</string>
     <!-- check lsposed -->
     <string name="system_not_support">Sistemul actual nu acceptă!</string>
-    <string name="unsupported_xposed">Module not activated detected.\nPlease use LSPosed %1$s and above to check the module scope.\nIf you have completed this step, you can try to click OK to exit and reopen the module.</string>
+    <string name="unsupported_xposed">Modulul nu este activat detectat.\nVă rugăm să utilizaţi LSPosed %1$s şi mai sus pentru a verifica domeniul de aplicare al modulului.\nDacă aţi terminat acest pas, puteţi încerca să faceţi clic pe OK pentru a ieşi şi redeschide modulul.</string>
     <string name="unsupported_os">Sistem neacceptat</string>
     <string name="unsupported_os_summary">Deoarece modulul acceptă doar sistemele ColorOS 12 sau mai sus, asigurați-vă că luați măsuri de securitate!</string>
     <string name="no_root">Fără permisiune root</string>
@@ -91,52 +91,52 @@
     <string name="reboot">Repornește sistemul</string>
     <string name="fast_reboot">Repornire rapidă</string>
     <string name="menu_versioninfo">Informații versiune</string>
-    <string name="scope_version_info">Scope version information</string>
-    <string name="show_system_app">Show system APP</string>
+    <string name="scope_version_info">Informații versiune Scop</string>
+    <string name="show_system_app">Arată aplicațiile de sistem</string>
     <!--Xposed-->
     <string name="Android">Legate de sistem</string>
     <string name="app_label">Nume Aplicație</string>
     <string name="package_name">Numele pachetului</string>
     <string name="version">Versiune</string>
     <!--Android-->
-    <string name="replace_system_root_state_detection">Replace system root state detection</string>
-    <string name="allow_untrusted_touch">Allow untrusted touch</string>
-    <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
-    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
-    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
-    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Some models may conflict with Game Assistant, causing the screen to flicker.</string>
-    <string name="disable_long_press_home_key_start_speech_asssist">Disable long press HOME key to start speech assistant</string>
+    <string name="replace_system_root_state_detection">Înlocuiți detectarea stării de root a sistemului</string>
+    <string name="allow_untrusted_touch">Permite atingeri nesigure</string>
+    <string name="allow_untrusted_touch_summary">Rezolvă problema că unele ferestre sau pagini sunt blocate și nu pot fi atinse</string>
+    <string name="customized_gaussian_blur_effect_level">Efect de blur gaussian personalizat</string>
+    <string name="disable_temperature_control_listener">Dezactivează ascultătorul de control al temperaturii</string>
+    <string name="set_ltpo_refresh_rate_mode">Setați modul de reîmprospătare LTPO</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">Activează rata de reîmprospătare a luminozității complete minim 1</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Unele modele pot intra în conflict cu Game Assistant, făcând ca ecranul să pâlpâie.</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">Dezactivați apăsarea lungă a tastei acasă pentru a începe asistentul de vorbire</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">The official Color OS installer needs to enable other functions to use\nFunction List-Application Related-Application Installation Related</string>
-    <string name="corepatch">Core Patch</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–14</string>
+    <string name="corepatch">Patch Nucleu</string>
+    <string name="corepatch_summary">Eliminați limitele de instalare, suportă Android 11–14</string>
     <string name="downgr">Permite downgrade aplicații</string>
     <string name="downgr_summary">Permite aplicației să suprascrie versiunile mai vechi dacă sunt instalate versiuni noi.</string>
-    <string name="authcreak">Disable package manager signature validation</string>
-    <string name="authcreak_summary">Signature verification when installing apps can be installed.</string>
+    <string name="authcreak">Dezactivează validarea semnăturii managerului de pachete</string>
+    <string name="authcreak_summary">Verificarea semnăturii când instalezi aplicații poate fi instalată.</string>
     <string name="digestCreak">Dezactivează validarea semnăturii APK</string>
     <string name="digestCreak_summary">Permite suprascrierea aplicațiilor instalate direct cu semnături diferite ale pachetului</string>
     <string name="UsePreSig">Utilizează întotdeauna aplicația semnată instalată în timpul instalării</string>
     <string name="UsePreSig_summary">Nu este un pericol normal!! Activează doar atunci când este absolut necesar</string>
     <string name="enhancedMode">Mod de îmbunătățire</string>
-    <string name="enhancedMode_summary">You can solve some internal integrity check within the app, which does not need to be enabled</string>
-    <string name="usepresig_warn">!!! All packages can override installed App!!\nto install unknown packages</string>
+    <string name="enhancedMode_summary">Puteți rezolva o anumită verificare a integrității interne în cadrul aplicației, care nu trebuie să fie activată</string>
+    <string name="usepresig_warn">!!! Toate pachetele pot suprascrie aplicația instalată!!\npentru a instala pachete necunoscute</string>
     <string name="shared_user_title">Bypass shared user verify</string>
-    <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
-    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
-    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
+    <string name="shared_user_summary">Permite instalarea aplicației cu semnătură diferă de utilizatorul partajat (<b>\'Dezactivează compararea semnăturilor\' trebuie să fie activată de asemenea</b>)</string>
+    <string name="disable_verification_agent_title">Dezactivează Agentul de Verificare Pachet</string>
+    <string name="disable_verification_agent_summary">ex. Protecție Google Play</string>
     <!--Status Bar-->
-    <string name="StatusBar">StatusBar Related</string>
-    <string name="StatusbarEvents">StatusBar Events</string>
-    <string name="statusbar_double_click_lock_screen">Double click statusbar to lock screen</string>
-    <string name="vibrate_when_opening_the_statusbar">Vibrate when opening the status bar</string>
+    <string name="StatusBar">Asociat cu bara de stare</string>
+    <string name="StatusbarEvents">Evenimente în Bara de stare</string>
+    <string name="statusbar_double_click_lock_screen">Dublu clic pe bara de stare pentru a bloca ecranul</string>
+    <string name="vibrate_when_opening_the_statusbar">Vibrează la deschiderea barei de stare</string>
     <string name="set_click_statusbar_scroll_to_top_mode">Set the mode for clicking the status bar to return to the top</string>
     <string name="set_click_statusbar_scroll_to_top_mode_remove_white_list">Elimină limita de whitelist</string>
     <!--StatusBarClock-->
-    <string name="StatusBarClock">StatusBar Clock</string>
-    <string name="statusbar_clock_mode">Status bar clock mode</string>
+    <string name="StatusBarClock">Ceasul din bară de stare</string>
+    <string name="statusbar_clock_mode">Modul ceasului din bara de stare</string>
     <string name="statusbar_clock_show_year">Arată anul</string>
     <string name="statusbar_clock_show_month">Arată luna</string>
     <string name="statusbar_clock_show_day">Arată data</string>
@@ -145,20 +145,20 @@
     <string name="statusbar_clock_show_double_hour">Arată Ora Dublă</string>
     <string name="statusbar_clock_show_second">Arată secunde</string>
     <string name="statusbar_clock_hide_spaces">Ascunde spațiile</string>
-    <string name="statusbar_clock_text_alignment">Clock Text Alignment</string>
-    <string name="statusbar_clock_left_align">Left Align</string>
-    <string name="statusbar_clock_center_align">Center Align</string>
-    <string name="statusbar_clock_right_align">Right Align</string>
-    <string name="statusbar_clock_show_doublerow">Double row display</string>
+    <string name="statusbar_clock_text_alignment">Aliniere text ceas</string>
+    <string name="statusbar_clock_left_align">Aliniere la stânga</string>
+    <string name="statusbar_clock_center_align">Aliniere la mijloc</string>
+    <string name="statusbar_clock_right_align">Aliniere la dreapta</string>
+    <string name="statusbar_clock_show_doublerow">Afișează rând dublu</string>
     <string name="statusbar_clock_singlerow_fontsize">Single row font size</string>
     <string name="statusbar_clock_doublerow_fontsize">Double row font size</string>
     <string name="statusbar_clock_custom_format">Format ceas</string>
     <string name="statusbar_clock_custom_fontsize">Mărime font ceas</string>
     <string name="statusbar_clock_fontsize_summary">Dacă este 0, dimensiunea fontului nu va fi modificată</string>
     <!-- StatusBarNetWorkSpeed -->
-    <string name="StatusBarNetWorkSpeed">StatusBar NetWorkSpeed</string>
-    <string name="set_network_speed">Set status bar speed refresh rate 1 s</string>
-    <string name="enable_double_row_network_speed">Enable Double Row Network Speed</string>
+    <string name="StatusBarNetWorkSpeed">Viteza rețelei din Bara de stare</string>
+    <string name="set_network_speed">Setează rata de reîmprospătare a vitezei în bara de stare 1 s</string>
+    <string name="enable_double_row_network_speed">Activează viteza rețelei cu rând dublu</string>
     <string name="set_network_speed_font_size">Set Network Speed Font Size</string>
     <string name="set_network_speed_padding_bottom">Set Network Speed Padding Bottom</string>
     <string name="statusbar_network_layout">Statusbar network speed layout</string>
@@ -208,11 +208,11 @@
     <string name="hide_inactive_signal_labels_gen2x2">Hide inactive signal labels Gen2x2</string>
     <string name="hide_nosim_noservice">Hide SIM card no service icon</string>
     <string name="StatusBarBluetoothIcon">Bluetooth Icon</string>
-    <string name="hide_icon_when_bluetooth_not_connected">Hide icon when not connected to bluetooth</string>
-    <string name="StatusBarOtherIcon">Other Icon</string>
-    <string name="remove_high_performance_mode_icon">Remove high performance mode icon</string>
-    <string name="remove_statusbar_securepayment_icon">Remove status bar payment protection icons</string>
-    <string name="remove_green_dot_privacy_prompt">Remove the green dot privacy prompt</string>
+    <string name="hide_icon_when_bluetooth_not_connected">Ascunde pictograma când nu ești conectat la bluetooth</string>
+    <string name="StatusBarOtherIcon">Altă pictogramă</string>
+    <string name="remove_high_performance_mode_icon">Eliminați pictograma pentru modul de performanță înaltă</string>
+    <string name="remove_statusbar_securepayment_icon">Elimină pictogramele de protecție a plății în bara de stare</string>
+    <string name="remove_green_dot_privacy_prompt">Elimină solicitarea de confidențialitate cu puncte verzi</string>
     <string name="remove_system_prompt_icon">Remove system prompt icon</string>
     <string name="remove_system_prompt_icon_summary">Remove the prompt icons in call mode, TV cast, recording, and hotspot</string>
     <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
@@ -225,14 +225,14 @@
     <string name="statusbar_control_center_clock_colon_style">Control center clock colon style</string>
     <string name="fix_clock_colon_style">Fix clock colon style</string>
     <string name="fix_clock_colon_style_summary">Return to the normal colon when it is turned on, and use the official custom colon when it is turned off</string>
-    <string name="statusbar_control_center_clock_red_one_mode">Control center red one mode</string>
-    <string name="remove_control_center_clock_red_one">Remove control center clock red one</string>
+    <string name="statusbar_control_center_clock_red_one_mode">Modulul unului roșu din centrul de comandă</string>
+    <string name="remove_control_center_clock_red_one">Eliminați ceasul roșu al centrului de control</string>
     <string name="remove_control_center_date_comma">Remove control center date comma</string>
-    <string name="fix_control_center_date_display">Fix control center date display</string>
-    <string name="fix_control_center_date_display_suammry">Fix the problem that the date cannot be displayed completely</string>
-    <string name="ControlCenterNotificationCenter">Control Center Notification Center</string>
-    <string name="enable_notification_align_both_sides">Enable notification align both sides</string>
-    <string name="enable_notification_importance_classification">Enable notification importance classification</string>
+    <string name="fix_control_center_date_display">Repară afișarea datei în centrul de control</string>
+    <string name="fix_control_center_date_display_suammry">Remediați problema că data nu poate fi afișată complet</string>
+    <string name="ControlCenterNotificationCenter">Centrul de notificare din Centrul de control</string>
+    <string name="enable_notification_align_both_sides">Activează alinierea notificărilor în ambele părți</string>
+    <string name="enable_notification_importance_classification">Activează clasificarea importanței notificărilor</string>
     <string name="custom_notification_background_transparency">Custom notification background transparency</string>
     <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
     <string name="ControlCenter_Silder_Related">Control Center Silder Related</string>
@@ -641,10 +641,15 @@
     <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
     <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
     <string name="CameraFilter">Filter</string>
+    <string name="remove_filter_model_limit">Remove filter model limit</string>
     <string name="camera_universal_filter_settings">Universal filter settings</string>
     <string name="camera_filter_master">Master filter</string>
     <string name="camera_filter_jiangwen">Jiang Wen filter</string>
     <string name="camera_filter_grand_tour">GrandTour filter</string>
+    <string name="camera_filter_vignette_grain">Film filter</string>
+    <string name="camera_filter_desert">DesertLegend filter</string>
+    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
     <string name="camera_portrait_filter_settings">Portrait filter settings</string>
     <string name="camera_video_filter_settings">Video filter settings</string>
     <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>

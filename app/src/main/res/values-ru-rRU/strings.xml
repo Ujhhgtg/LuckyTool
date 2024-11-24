@@ -246,7 +246,7 @@
     <string name="remove_control_center_user_switcher">Удалить переключатель пользователей в шторке</string>
     <string name="remove_control_center_mydevice">Удалить \"Мои устройства\" из шторки</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Восстановить количество строк разметки быстрых настроек для редактирования плиток</string>
-    <string name="remove_control_center_tile_count_limit">Remove limit on number of Control Center tiles</string>
+    <string name="remove_control_center_tile_count_limit">Убрать ограничение на количество плиток центра управления</string>
     <string name="set_control_center_search_button_mode">Установить режим кнопки поиска в шторке</string>
     <string name="remove_control_center_networkwarn">Удалить сообщение безопасности внизу шторки</string>
     <string name="remove_control_center_networkwarn_dialog">Удалить диалог</string>
@@ -641,10 +641,15 @@
     <string name="enable_hassel_watermark">Включить водяной знак Hasselblad</string>
     <string name="enable_privacy_watermark">Включить водяной знак конфиденциальности</string>
     <string name="CameraFilter">Фильтр</string>
+    <string name="remove_filter_model_limit">Remove filter model limit</string>
     <string name="camera_universal_filter_settings">Настройки универсального фильтра</string>
     <string name="camera_filter_master">Мастер фильтр</string>
     <string name="camera_filter_jiangwen">Jiang Wen фильтр</string>
     <string name="camera_filter_grand_tour">GrandTour фильтр</string>
+    <string name="camera_filter_vignette_grain">Film filter</string>
+    <string name="camera_filter_desert">DesertLegend filter</string>
+    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
     <string name="camera_portrait_filter_settings">Настройки портретного фильтра</string>
     <string name="camera_video_filter_settings">Настройки фильтра видео</string>
     <string name="camera_filter_color_extraction">Багровый/Лесной зелёный/Небесный</string>

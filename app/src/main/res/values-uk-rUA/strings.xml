@@ -641,10 +641,15 @@
     <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
     <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
     <string name="CameraFilter">Filter</string>
+    <string name="remove_filter_model_limit">Remove filter model limit</string>
     <string name="camera_universal_filter_settings">Universal filter settings</string>
     <string name="camera_filter_master">Master filter</string>
     <string name="camera_filter_jiangwen">Jiang Wen filter</string>
     <string name="camera_filter_grand_tour">GrandTour filter</string>
+    <string name="camera_filter_vignette_grain">Film filter</string>
+    <string name="camera_filter_desert">DesertLegend filter</string>
+    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
     <string name="camera_portrait_filter_settings">Portrait filter settings</string>
     <string name="camera_video_filter_settings">Video filter settings</string>
     <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>

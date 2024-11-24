@@ -48,19 +48,20 @@ class HookAppFeatureProvider(
                     returnType(BooleanType)
                 }
             }.apply {
-                if (singleOrNull() == null) return
-                isFeatureSupport = true
-                single().className.toClass().apply {
-                    method {
-                        name = single().methodName
-                        param(ContentResolverClass, StringClass)
-                        returnType = BooleanType
-                    }.hook {
-                        before {
-                            val key = args().last().cast<String>()
-                            if (key.isNullOrBlank()) return@before
-                            val value = features[key]
-                            if (value != null && value is Boolean) result = value
+                if (!isFeatureSupport) isFeatureSupport = singleOrNull() != null
+                singleOrNull()?.let {
+                    it.className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(ContentResolverClass, StringClass)
+                            returnType = BooleanType
+                        }.hook {
+                            before {
+                                val key = args().last().cast<String>()
+                                if (key.isNullOrBlank()) return@before
+                                val value = features[key]
+                                if (value != null && value is Boolean) result = value
+                            }
                         }
                     }
                 }
@@ -72,19 +73,20 @@ class HookAppFeatureProvider(
                     returnType(BooleanType)
                 }
             }.apply {
-                if (singleOrNull() == null) return
-                isFeatureSupport = true
-                single().className.toClass().apply {
-                    method {
-                        name = single().methodName
-                        param(ContentResolverClass, VagueType, StringClass)
-                        returnType = BooleanType
-                    }.hook {
-                        before {
-                            val key = args().last().cast<String>()
-                            if (key.isNullOrBlank()) return@before
-                            val value = features[key]
-                            if (value != null && value is Boolean) result = value
+                if (!isFeatureSupport) isFeatureSupport = singleOrNull() != null
+                singleOrNull()?.let {
+                    it.className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(ContentResolverClass, VagueType, StringClass)
+                            returnType = BooleanType
+                        }.hook {
+                            before {
+                                val key = args().last().cast<String>()
+                                if (key.isNullOrBlank()) return@before
+                                val value = features[key]
+                                if (value != null && value is Boolean) result = value
+                            }
                         }
                     }
                 }
@@ -100,19 +102,20 @@ class HookAppFeatureProvider(
                     returnType(BooleanType)
                 }
             }.apply {
-                if (singleOrNull() == null) return
-                isGetBoolean = true
-                single().className.toClass().apply {
-                    method {
-                        name = single().methodName
-                        param(ContentResolverClass, StringClass, BooleanType)
-                        returnType = BooleanType
-                    }.hook {
-                        before {
-                            val key = args(1).cast<String>()
-                            if (key.isNullOrBlank()) return@before
-                            val value = features[key]
-                            if (value != null && value is Boolean) result = value
+                isGetBoolean = singleOrNull() != null
+                singleOrNull()?.let {
+                    it.className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(ContentResolverClass, StringClass, BooleanType)
+                            returnType = BooleanType
+                        }.hook {
+                            before {
+                                val key = args(1).cast<String>()
+                                if (key.isNullOrBlank()) return@before
+                                val value = features[key]
+                                if (value != null && value is Boolean) result = value
+                            }
                         }
                     }
                 }
@@ -125,19 +128,20 @@ class HookAppFeatureProvider(
                     returnType(StringClass)
                 }
             }.apply {
-                if (singleOrNull() == null) return
-                isGetString = true
-                single().className.toClass().apply {
-                    method {
-                        name = single().methodName
-                        param(ContentResolverClass, StringClass, StringClass)
-                        returnType = StringClass
-                    }.hook {
-                        before {
-                            val key = args(1).cast<String>()
-                            if (key.isNullOrBlank()) return@before
-                            val value = features[key]
-                            if (value != null && value is String) result = value
+                isGetString = singleOrNull() != null
+                singleOrNull()?.let {
+                    it.className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(ContentResolverClass, StringClass, StringClass)
+                            returnType = StringClass
+                        }.hook {
+                            before {
+                                val key = args(1).cast<String>()
+                                if (key.isNullOrBlank()) return@before
+                                val value = features[key]
+                                if (value != null && value is String) result = value
+                            }
                         }
                     }
                 }

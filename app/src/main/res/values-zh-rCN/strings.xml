@@ -641,10 +641,15 @@
     <string name="enable_hassel_watermark">启用哈苏水印</string>
     <string name="enable_privacy_watermark">启用隐私水印</string>
     <string name="CameraFilter">滤镜</string>
+    <string name="remove_filter_model_limit">移除滤镜机型限制</string>
     <string name="camera_universal_filter_settings">通用滤镜设置</string>
     <string name="camera_filter_master">大师滤镜</string>
     <string name="camera_filter_jiangwen">姜文滤镜</string>
     <string name="camera_filter_grand_tour">旅行滤镜</string>
+    <string name="camera_filter_vignette_grain">电影滤镜</string>
+    <string name="camera_filter_desert">大漠传奇</string>
+    <string name="camera_filter_tol">陆川电影滤镜</string>
+    <string name="camera_filter_zhi_gan">质感 OS15</string>
     <string name="camera_portrait_filter_settings">人像滤镜设置</string>
     <string name="camera_video_filter_settings">视频滤镜设置</string>
     <string name="camera_filter_color_extraction">赤红/森绿/天蓝</string>

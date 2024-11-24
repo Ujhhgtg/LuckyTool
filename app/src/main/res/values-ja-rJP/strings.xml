@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">ColorOS の機能拡張と最適化のための Xposed モジュール、永久に無料です。\n開発者: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">機能</string>
     <string name="nav_home">ホーム</string>
@@ -47,9 +47,9 @@
     <string name="data_backup_complete">データのバックアップが完了しました!</string>
     <string name="data_backup_error">データのバックアップに失敗しました!</string>
     <string name="data_restore_complete">データの復元が完了しました!</string>
-    <string name="data_backup_data_version">Backup data version</string>
-    <string name="data_current_system_version">Current system version</string>
-    <string name="data_restore_version_tips">Restoring data across versions may cause some functions to run abnormally. It is recommended to reconfigure module function data.</string>
+    <string name="data_backup_data_version">バックアップデータのバージョン</string>
+    <string name="data_current_system_version">現在のシステムバージョン</string>
+    <string name="data_restore_version_tips">バージョン間を跨いで復元すると一部の関数が異常に動作する可能性があります。モジュール関数のデータを再設定することを推奨します。</string>
     <!-- About -->
     <string name="about_title">アプリについて</string>
     <string name="about_author">作者</string>
@@ -99,15 +99,15 @@
     <string name="package_name">パッケージ名</string>
     <string name="version">バージョン</string>
     <!--Android-->
-    <string name="replace_system_root_state_detection">Replace system root state detection</string>
+    <string name="replace_system_root_state_detection">システムの root 検出状態を置き換える</string>
     <string name="allow_untrusted_touch">信頼できないタッチ操作を許可</string>
     <string name="allow_untrusted_touch_summary">一部のウィンドウやページがブロックされ、タッチできない問題を解決します</string>
-    <string name="customized_gaussian_blur_effect_level">Customized gaussian blur effect level</string>
-    <string name="disable_temperature_control_listener">Disable temperature control listener</string>
-    <string name="set_ltpo_refresh_rate_mode">Set LTPO refresh rate mode</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one">Enable full brightness refresh rate minimum 1</string>
-    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Some models may conflict with Game Assistant, causing the screen to flicker.</string>
-    <string name="disable_long_press_home_key_start_speech_asssist">Disable long press HOME key to start speech assistant</string>
+    <string name="customized_gaussian_blur_effect_level">カスタマイズされたガウスぼかしレベル</string>
+    <string name="disable_temperature_control_listener">温度制御リスナーを無効化</string>
+    <string name="set_ltpo_refresh_rate_mode">LTPO リフレッシュレートモードを設定</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one">最大輝度リフレッシュレート最小値を 1 に設定する</string>
+    <string name="enable_full_brightness_refresh_rate_minimum_one_summary">一部のモデルではゲームアシスタントと競合し画面がチラつく可能性があります。</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">ホームボタンの長押しでの音声アシスタントの起動を無効化</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">ColorOSの公式インストーラーを使用するには他の機能を有効にする必要があります。\n機能一覧-アプリ関連-アプリインストール関連</string>
     <string name="corepatch">コアのパッチ</string>
@@ -123,10 +123,10 @@
     <string name="enhancedMode">拡張モード</string>
     <string name="enhancedMode_summary">一部のアプリの整合性チェックを解決できますが、これを有効化する必要はありません</string>
     <string name="usepresig_warn">!!! すべてのインストールされたアプリをすべてのパッケージで上書きする事ができます!!\n不明なパッケージをインストールします</string>
-    <string name="shared_user_title">Bypass shared user verify</string>
+    <string name="shared_user_title">共有ユーザーの認証をバイパスする</string>
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
-    <string name="disable_verification_agent_title">Disable Package Verification Agent</string>
-    <string name="disable_verification_agent_summary">e.g. Google Play Protection</string>
+    <string name="disable_verification_agent_title">パッケージ検証エージェントを無効化</string>
+    <string name="disable_verification_agent_summary">例: Google Play プロテクト</string>
     <!--Status Bar-->
     <string name="StatusBar">ステータスバー関連</string>
     <string name="StatusbarEvents">ステータスバーのイベント</string>
@@ -190,10 +190,10 @@
     <string name="remove_notification_manager_limit">通知マネージャーの制限を削除する</string>
     <string name="remove_small_window_reply_whitelist">スモールウィンドウの返信ホワイトリストを無効化</string>
     <string name="set_small_window_reply_blacklist">スモールウィンドウ返信のブラックリストを設定</string>
-    <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
-    <string name="custom_music_fluid_cloud_whitelist">Custom music fluid cloud whitelist</string>
-    <string name="disable_music_fluid_cloud_display">Disable music fluid cloud display</string>
-    <string name="set_custom_music_fluid_cloud_whitelist">Set up music fluid cloud whitelist</string>
+    <string name="set_small_window_reply_blacklist_message">ブラックリストに追加するパッケージ名を入力してください</string>
+    <string name="custom_music_fluid_cloud_whitelist">music fluid cloud ホワイトリストをカスタマイズ</string>
+    <string name="disable_music_fluid_cloud_display">music fluid cloud の表示を無効化</string>
+    <string name="set_custom_music_fluid_cloud_whitelist">music fluid cloud のホワイトリストを設定</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">ステータスバーアイコン</string>
@@ -215,7 +215,7 @@
     <string name="remove_green_dot_privacy_prompt">緑のドットのプライバシープロンプトを削除</string>
     <string name="remove_system_prompt_icon">システムプロンプトアイコンを削除</string>
     <string name="remove_system_prompt_icon_summary">通話モード、キャスト、録画、ホットスポットでプロンプトアイコンを削除します</string>
-    <string name="custom_fluid_cloud_icon_background_transparency">Custom fluid cloud icon background transparency</string>
+    <string name="custom_fluid_cloud_icon_background_transparency">fluid cloud アイコンの背景の透過度をカスタマイズ</string>
     <string name="StatusBarSmallIconStatus">ステータスバー上の小さいステータスアイコン</string>
     <string name="status_bar_icon_vertical_center">ステータスバーアイコンを縦中央揃えにする</string>
     <!--StatusBarControlCenter-->
@@ -234,19 +234,19 @@
     <string name="enable_notification_align_both_sides">通知の両端揃えを有効化</string>
     <string name="enable_notification_importance_classification">通知の重要度分類を有効化</string>
     <string name="custom_notification_background_transparency">カスタム通知の背景の透明度</string>
-    <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>
-    <string name="ControlCenter_Silder_Related">Control Center Silder Related</string>
-    <string name="custom_control_center_silder_transparency">Customize control center slider transparency</string>
+    <string name="enable_notification_background_blur_effect">通知の背景ぼかし効果を有効化</string>
+    <string name="ControlCenter_Silder_Related">コントロールセンタースライダー関連</string>
+    <string name="custom_control_center_silder_transparency">コントロールセンタースライダーの透過度をカスタマイズ</string>
     <string name="ControlCenter_UI_Related">コントロールセンターのUI関連</string>
     <string name="set_media_player_display_mode">メディアプレイヤーの表示モードを設定</string>
     <string name="set_media_player_display_mode_hide_when_no_meida_player">メディアを再生していないときは非表示</string>
     <string name="force_enable_media_toggle_button">メディア切り替えボタンを強制的に有効化</string>
-    <string name="set_control_center_volume_seekbar_mode">Set control center volume bar mode</string>
+    <string name="set_control_center_volume_seekbar_mode">コントロールセンターの音量バーモードを設定</string>
     <string name="set_auto_brightness_button_mode">明るさ自動調整ボタンのモードを設定</string>
     <string name="remove_control_center_user_switcher">ユーザーの切り替えをコントロールセンターから削除</string>
     <string name="remove_control_center_mydevice">コントロールセンターからマイデバイスを削除</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">タイル編集のページレイアウト行数を復元</string>
-    <string name="remove_control_center_tile_count_limit">Remove limit on number of Control Center tiles</string>
+    <string name="remove_control_center_tile_count_limit">コントロールセンターのタイル数制限を削除</string>
     <string name="set_control_center_search_button_mode">コントロールセンターの検索ボタンモードを設定</string>
     <string name="remove_control_center_networkwarn">コントロールセンターの下部にあるセキュリティ警告メッセージを削除する</string>
     <string name="remove_control_center_networkwarn_dialog">ダイアログを削除</string>
@@ -255,17 +255,17 @@
     <string name="custom_control_center_background_transparency">カスタムコントロールセンターの背景の透明度</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">ステータスバーのタイル</string>
-    <string name="force_display_of_ringing_status_toggle_tiles">Force display of ringing status toggle tiles</string>
+    <string name="force_display_of_ringing_status_toggle_tiles">着信状態切り替えタイルを強制的に表示</string>
     <string name="SpecialTiles">特殊タイル</string>
-    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
+    <string name="SpecialTiles_summary">クラシックコントロールセンターモードのみ</string>
     <string name="auto_expand_tile_rows_horizontal">水平方向のタイル行数を自動的に増やす</string>
     <string name="auto_expand_tile_rows_horizontal_summary">メディアプレイヤーが非表示のとき、水平モードで2列のタイルを表示します</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">以下のタイル機能のスイッチをオンにする必要があります</string>
     <string name="control_center_custom_gaps_for_special_tile">特殊タイルの横画面のギャップを編集</string>
-    <string name="control_center_custom_gaps_for_special_tile_summary">Turning on automatic tile expansion on some models will cause the brightness bar to be displayed outside the screen. In this case, this feature must be enabled</string>
+    <string name="control_center_custom_gaps_for_special_tile_summary">一部のモデルでタイルの自動展開をオンにすると画面外に明るさバーが表示される場合があります。この場合はこの機能を有効化する必要があります。</string>
     <string name="control_center_special_tile_top_gap">特殊タイルの上部ギャップを設定</string>
     <string name="control_center_special_tile_bottom_gap">特殊タイルの下部ギャップを設定</string>
-    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">水平の明るさバーの上部のギャップを小さくする</string>
     <string name="TileLongClickEvent">タイルの長押しイベント</string>
     <string name="restore_some_tile_long_press_event">タイルの長押しイベントを復活させる</string>
     <string name="restore_some_tile_long_press_event_summary">Wi-Fi、Bluetooth、ホットスポットなどのタイルを長押ししたときに対応するページを開くようにします</string>
@@ -275,8 +275,8 @@
     <string name="long_press_bluetooth_tile_open_the_page">Bluetooth タイルを長押しして設定ページを開く</string>
     <string name="long_press_screenshot_tile_open_the_page">スクリーンショットタイルを長押ししてページを開く</string>
     <string name="long_press_dnd_tile_open_the_page">DND タイルを長押しして設定ページを開く</string>
-    <string name="TileStyleRelated">Tile Style Related</string>
-    <string name="custom_tile_background_transparency">Customize tile background transparency</string>
+    <string name="TileStyleRelated">タイルのスタイル関連</string>
+    <string name="custom_tile_background_transparency">タイルの背景の透過度をカスタマイズ</string>
     <string name="TileLayoutRelated">タイルのレイアウト関連</string>
     <string name="fix_tile_align_both_sides">両側のタイルの位置合わせを修正</string>
     <string name="fix_tile_align_both_sides_summary">タイルが展開されていないときに両端のレイアウトがオーバーフローする問題を修正します</string>
@@ -299,7 +299,7 @@
     <string name="StatusBarBattery">ステータスバーのバッテリー</string>
     <string name="remove_statusbar_battery_percent">バッテリーパーセンテージをステータスバーから削除</string>
     <string name="statusbar_power_font_size">ステータスバーの電源フォントサイズ</string>
-    <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
+    <string name="statusbar_power_apply_to_battery_icon">バッテリーアイコンに適用</string>
     <!--StatusBarBatteryNotify-->
     <string name="StatusBarBatteryNotify">ステータスバーのバッテリー通知</string>
     <string name="battery_information_notify_permanent_display">常駐表示</string>
@@ -336,17 +336,17 @@
     <string name="remove_aod_music_whitelist">音楽のホワイトリストを無効化</string>
     <string name="remove_aod_notification_icon_whitelist">AOD 通知アイコンのホワイトリストを無効化</string>
     <string name="restore_aod_notification_icon_color">AOD 通知アイコンの色を復元</string>
-    <string name="set_aod_notification_icon_style">Set aod notification icon style</string>
+    <string name="set_aod_notification_icon_style">通知アイコンスタイルを設定</string>
     <string name="force_enable_screen_off_music_support">強制的に画面オフ時の音楽再生を有効化</string>
     <string name="force_enable_screen_off_music_support_summary">画面オフ時の音楽再生に対応していないモデルにのみ適用できます</string>
-    <string name="AodRandomText">Aod Random Text</string>
-    <string name="set_random_text_display_mode">Set random text display mode</string>
-    <string name="set_random_text_display_mode_tips1">Need to enable aod personalized text</string>
-    <string name="set_random_text_display_mode_tips2">It may cause aod freezes and other issues</string>
-    <string name="set_random_text_display_mode_local_file">Local File</string>
-    <string name="set_random_text_display_mode_remote_api">Remote Api</string>
-    <string name="custom_random_text_file">Custom random text file</string>
-    <string name="custom_random_text_api">Custom random text api</string>
+    <string name="AodRandomText">AOD ランダムテキスト</string>
+    <string name="set_random_text_display_mode">画面モードにランダムテキストを設定</string>
+    <string name="set_random_text_display_mode_tips1">パーソナライズされたテキストを有効化する必要があります</string>
+    <string name="set_random_text_display_mode_tips2">AOD のフリーズやその他の問題を引き起こす可能性があります</string>
+    <string name="set_random_text_display_mode_local_file">ローカルファイル</string>
+    <string name="set_random_text_display_mode_remote_api">リモート API</string>
+    <string name="custom_random_text_file">カスタムランダムテキストファイル</string>
+    <string name="custom_random_text_api">ランダムテキスト API</string>
     <string name="AodTypface">Aod Typface</string>
     <string name="set_aod_typeface_mode">Set aod typeface mode</string>
     <string name="apply_aod_clock_typeface">Apply typeface to aod clock</string>
@@ -372,7 +372,7 @@
     <string name="LockScreenStatusBar">ロック画面のステータスバー</string>
     <string name="hide_lock_screen_status_bar_display">ロック画面のステータスバー表示を隠す</string>
     <string name="remove_statusbar_carriers">ステータスバーのキャリア表示を削除</string>
-    <string name="statusbar_custom_carrier_display_text">Custom statusbar carrier display text</string>
+    <string name="statusbar_custom_carrier_display_text">キャリア表示テキストをカスタマイズ</string>
     <string name="statusbar_carriers_use_user_typeface">ステータスバーのキャリア表示にユーザーフォントを使用します</string>
     <string name="LockScreenButton">ロック画面ボタン</string>
     <string name="remove_top_lock_screen_icon">ロック画面上のアイコンを削除</string>
@@ -396,16 +396,16 @@
     <string name="AppBadgeRelated">アプリバッジ関連</string>
     <string name="enable_display_app_update_dot">アプリの更新ドット表示スイッチを有効化</string>
     <string name="enable_display_app_update_dot_summary">機能の場所: 設定 - ホーム画面とロック画面</string>
-    <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
+    <string name="set_app_update_dot_display_mode">アプリアイコン更新ドット表示モードを設定</string>
     <string name="remove_app_shortcut_badge">アプリのショートカットバッジを削除</string>
     <string name="remove_app_work_badge">アプリの仕事用バッジを削除</string>
     <string name="remove_app_clone_badge">アプリのクローンバッジを削除</string>
-    <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
+    <string name="remove_app_update_green_dot">アプリ更新後の緑のドットを削除</string>
     <string name="FolderLayoutRelated">フォルダレイアウト関連</string>
     <string name="remove_folder_preview_background">フォルダプレビューの背景を削除</string>
     <string name="enable_folder_layout_adjustment">フォルダレイアウトの調整を有効化</string>
     <string name="set_icon_columns_in_folder">フォルダ内のアイコン列数を設定</string>
-    <string name="sync_folder_icon_column_number_preview">Sync folder icon column number to preview</string>
+    <string name="sync_folder_icon_column_number_preview">プレビューするフォルダアイコンの列番号を同期する</string>
     <string name="PaginationComponentRelated">ページネーション関連</string>
     <string name="remove_pagination_component">ページネーションを削除</string>
     <string name="remove_folder_pagination_component">フォルダのページネーションを削除</string>
@@ -428,8 +428,8 @@
     <string name="zoom_window_support_list">カスタムズームウィンドウのサポートリスト</string>
     <string name="zoom_window_support_list_summary">必要に応じて有効化をしてください。取り返しのつかない問題が発生するかもしれません</string>
     <string name="force_all_apps_support_split_screen">すべてのアプリで画面分割対応を強制する</string>
-    <string name="launcher_drawer_layout_related">Drawer Layout Related</string>
-    <string name="enable_drawer_layout_adjustment">Enable drawer layout adjustments</string>
+    <string name="launcher_drawer_layout_related">ドロワーレイアウト関連</string>
+    <string name="enable_drawer_layout_adjustment">ドロワーレイアウトの調整を有効化</string>
     <string name="set_icon_columns_in_drawer">Set the number of icon columns in the drawer</string>
     <string name="launcher_layout_related">ホーム画面レイアウト関連</string>
     <string name="launcher_layout_row_colume">ホーム画面レイアウトの行と列の最大数を設定します</string>
@@ -449,12 +449,12 @@
     <string name="set_multi_app_support_mode">マルチアプリの対応モードを設定</string>
     <string name="set_multi_app_support_mode_all_apps">完全なアプリリスト</string>
     <string name="set_multi_app_support_mode_tips">Some models cannot use the full app clone list, and you need to install the app clone APP for specific models.</string>
-    <string name="remove_multi_app_blacklist">Remove blacklist for multi app</string>
+    <string name="remove_multi_app_blacklist">マルチアプリのブラックリストを削除</string>
     <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
-    <string name="set_wlan_sla_whitelist_mode">Set WLAN dual-channel acceleration whitelist mode</string>
-    <string name="remove_wlan_sla_blacklist">Remove WLAN dual channel acceleration blacklist</string>
-    <string name="custom_wlan_sla_whitelist">Customized WLAN dual channel acceleration whitelist</string>
-    <string name="custom_wlan_sla_game_whitelist">Customized WLAN dual channel acceleration game whitelist</string>
+    <string name="set_wlan_sla_whitelist_mode">WLAN デュアルチャンネルアクセラレーションのホワイトリストモードを設定</string>
+    <string name="remove_wlan_sla_blacklist">WLAN デュアルチャンネルアクセラレーションブラックリストを削除</string>
+    <string name="custom_wlan_sla_whitelist">カスタマイズされた WLAN デュアルチャンネルアクセラレーションのホワイトリスト</string>
+    <string name="custom_wlan_sla_game_whitelist">カスタマイズされた WLAN デュアルチャンネルアクセラレーションのゲームホワイトリスト</string>
     <string name="multi_app_enable">リストの置き換えを有効化</string>
     <string name="multi_app_custom_list">アプリクローン対応リストを置き換え</string>
     <string name="multi_app_custom_list_summary">機能を有効化後、アプリクローンの元のリストは新しいリストに置き換えられます。リストの項目が多すぎるとラグが発生します</string>
@@ -463,7 +463,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">アプリインストール関連</string>
     <string name="PackageInstaller_summary">コアパッチとの併用が必要です</string>
-    <string name="disable_customized_app_installer">Disable customized app installers</string>
+    <string name="disable_customized_app_installer">カスタマイズされたアプリインストーラーを無効化</string>
     <string name="skip_apk_scan">APKのスキャンをスキップ</string>
     <string name="skip_apk_scan_summary">APKウィルススキャン関連</string>
     <string name="allow_downgrade_install">ダウングレードのインストールを許可</string>
@@ -476,9 +476,9 @@
     <string name="auto_click_uninstall_button">アンインストールボタンを自動的に押す</string>
     <string name="replase_aosp_installer">AOSPインストーラーに置き換え</string>
     <string name="replase_aosp_installer_summary">Googleのネイティブなインストーラーに置き換えます</string>
-    <string name="show_more_apk_package_information">Show more apk package information</string>
+    <string name="show_more_apk_package_information">APK パッケージの詳細情報を表示</string>
     <string name="show_more_apk_package_information_summary">Display the package name and version code at the top of the installation page etc.</string>
-    <string name="show_more_apk_package_information_current_version">Current Version</string>
+    <string name="show_more_apk_package_information_current_version">現在のバージョン</string>
     <string name="show_more_apk_package_information_iterative_version">Iterative Version</string>
     <!--ApplyOtherRestrictions-->
     <string name="ApplyOtherRestrictions">その他の制限</string>
@@ -489,8 +489,8 @@
     <!--AppDetailsRelated-->
     <string name="AppDetailsRelated">アプリの詳細関連</string>
     <string name="show_package_name_in_app_details">パッケージ名をアプリ詳細に表示</string>
-    <string name="show_sdk_in_app_details">Show sdk in app details</string>
-    <string name="show_first_install_time_in_app_details">Show first install time in app details</string>
+    <string name="show_sdk_in_app_details">アプリの詳細に SDK を表示</string>
+    <string name="show_first_install_time_in_app_details">アプリの詳細に初回インストール日時を表示</string>
     <string name="show_last_update_time_in_app_details">アプリ詳細に最終更新日時を表示する</string>
     <string name="enable_long_press_to_copy_in_app_details">アプリ詳細で長押ししてコピーできるようにする</string>
     <string name="click_icon_open_market_page">アイコンをタップしてストアページを開く</string>
@@ -512,10 +512,10 @@
     <string name="remove_usb_connect_dialog_summary">USB 接続後、ファイル転送モードがデフォルトで選択されます</string>
     <string name="remove_secure_pay_found_virus_dialog">安全な支払いでウイルスが見つかった時のダイアログを削除</string>
     <string name="remove_access_device_log_dialog">デバイスログへのアクセスダイアログを無効化</string>
-    <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
+    <string name="run_floating_window_tasks_in_foreground">フローティングウィンドウタスクをフォアグラウンドで実行</string>
     <string name="custom_volume_dialog_background_transparency">カスタム音量ダイアログの背景の透明度</string>
     <string name="reduce_power_menu_display_delay">電源メニューの表示遅延を減らす</string>
-    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">録音またはキャスト開始のダイアログを自動でタップする</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">指紋認証関連</string>
     <string name="remove_fingerprint_icon_mode">指紋アイコンを削除</string>
@@ -534,7 +534,7 @@
     <string name="minimum_volume_level_can_be_zero">最小音量レベルは0に設定できます</string>
     <string name="enable_app_specific_media_volume">アプリ別のメディア音量を有効化</string>
     <string name="enable_app_specific_media_volume_summary">この機能を有効にするにはシステムサポートが必要です</string>
-    <string name="enable_app_specific_media_volume_tips">Some models may cause the system ui to crash due to incomplete system code. Please take protective measures</string>
+    <string name="enable_app_specific_media_volume_tips">一部のモデルではシステムコードが不完全なためシステム UI がクラッシュする可能性があります。保護措置を講じてください。</string>
     <!--Miscellaneous-->
     <string name="Miscellaneous">その他</string>
     <string name="Miscellaneous_summary">難易度の高いカテゴリはこちらに配置されます</string>
@@ -575,8 +575,8 @@
     <string name="enable_show_never_timeout">画面表示のタイムアウト無効化オプションを表示</string>
     <string name="enable_show_never_timeout_summary">有効にすると、設定で他のオプションが表示されます</string>
     <string name="settings_display">ディスプレイ</string>
-    <string name="enable_extra_brightness">Enable extra brightness</string>
-    <string name="enable_lowest_allowed_brightness">Enable lowest allowed brightness adjustment</string>
+    <string name="enable_extra_brightness">更なる明るさを有効化</string>
+    <string name="enable_lowest_allowed_brightness">最低輝度調整を有効化</string>
     <string name="force_display_dc_backlight_mode">低輝度とちらつき防止を強制する</string>
     <string name="force_display_dc_backlight_mode_summary">動作する保証はありません。機能オプションを表示させるためにのみ使用されます</string>
     <string name="enable_video_memc_frame_insertion">Enable dynamic video frame insertion</string>
@@ -584,7 +584,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Custom video dynamic frame insertion configuration</string>
     <string name="restore_frame_insertion_configuration_data">Confirm to restore the default video dynamic frame insertion configuration data!</string>
     <string name="confirm_to_delete_this_configuration">Confirm to delete this configuration?\n%1$s</string>
-    <string name="no_memc_data">No Memc Data</string>
+    <string name="no_memc_data">MEMC データなし</string>
     <string name="video_frame_insertion_support_2K120">ビデオフレーム補間を 2K 120FPS 対応にする</string>
     <string name="video_frame_insertion_support_2K120_summary">お使いのデバイスが MEMC に対応していない場合は、この機能を使用しないでください</string>
     <string name="enable_screen_color_temperature_rgb_palette">画面の色温度 RGB パレットを有効化</string>
@@ -602,24 +602,24 @@
     <string name="enable_clear_voice_tips">電話マネージャーを確認する必要があります</string>
     <string name="enable_holographic_audio">ホログラフィックオーディオを有効化</string>
     <string name="settings_password_and_security">パスワードとセキュリティ</string>
-    <string name="enable_google_auto_fill">Enable Google auto fill</string>
+    <string name="enable_google_auto_fill">Google 自動入力を有効化</string>
     <string name="restore_password_management_settings">Force display of password management settings</string>
     <string name="disable_device_admin_verification_dialog">デバイス管理者認証ダイアログを無効化</string>
     <string name="settings_authority_and_privacy">権限とプライバシー</string>
     <string name="enable_vip_mode">VIP モードを有効化</string>
     <string name="settings_other_advanced_settings">詳細設定</string>
-    <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
-    <string name="enable_game_acceleration">Enable game acceleration</string>
+    <string name="enable_touch_membrane_protector_mode">タッチメンブレン保護モードを有効化</string>
+    <string name="enable_game_acceleration">ゲームアクセラレーションを有効化</string>
     <string name="settings_about_device">デバイス情報</string>
     <string name="set_processor_click_page">プロセッサーをタップしてページにジャンプするように設定します</string>
-    <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
-    <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
+    <string name="enable_mariana_npu_introduction_page">Mariana NPU の紹介ページを有効化</string>
+    <string name="enable_hasselblad_camera_introduction_page">Hasselblad のカメラ紹介ページを有効化</string>
     <string name="screen_physics_size_shown_cm">画面の物理的な寸法をセンチメートルで表示</string>
     <string name="customize_device_sharing_page_parameters">デバイス共有ページのパラメータをカスタマイズ</string>
-    <string name="customize_device_ota_card_background">Customize device OTA card background</string>
+    <string name="customize_device_ota_card_background">デバイス OTA カードの背景をカスタマイズ</string>
     <string name="customize_device_ota_card_background_summary">Recommended size: Multiples of 328x124</string>
-    <string name="customize_device_ota_card_background_path">Background image path</string>
-    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
+    <string name="customize_device_ota_card_background_path">背景画像のパス</string>
+    <string name="apply_device_parameter_sharing_page">デバイスのパラメータ共有ページに適用</string>
     <string name="settings_developer_preference">開発者向けオプション</string>
     <string name="remove_dpi_restart_recovery">再起動で DPI が元に戻らないようにする</string>
     <string name="remove_dpi_restart_recovery_summary">機能を有効にしてスコープを再起動した後、開発者向けオプションページを開いて最小幅を設定してください</string>
@@ -628,7 +628,7 @@
     <string name="remove_settings_bottom_laboratory">設定下部のラボを削除</string>
     <string name="force_display_bottom_google_settings">設定の下部に強制的に Google を表示</string>
     <!--Camera-->
-    <string name="enable_camera_debug_ui_option">Enable DebugUI option</string>
+    <string name="enable_camera_debug_ui_option">デバッグ UI オプションを有効化</string>
     <string name="custom_camera_open_gallery_by_default">Customize the gallery that opens by default</string>
     <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
     <string name="enable_camera_night_zoom_30x">Enable 30x zoom for night scenes</string>
@@ -638,18 +638,23 @@
     <string name="enable_frame_watermark_style">フレーム透かしスタイルを有効化</string>
     <string name="enable_hasselblad_watermark_style">Hasselblad ウォーターマークを有効化</string>
     <string name="custom_model_watermark">カスタムモデル透かし</string>
-    <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
-    <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
+    <string name="enable_hassel_watermark">Hasselblad ウォーターマークを有効化</string>
+    <string name="enable_privacy_watermark">プライバシーウォーターマークを有効化</string>
     <string name="CameraFilter">フィルター</string>
-    <string name="camera_universal_filter_settings">Universal filter settings</string>
-    <string name="camera_filter_master">Master filter</string>
+    <string name="remove_filter_model_limit">Remove filter model limit</string>
+    <string name="camera_universal_filter_settings">ユニバーサルフィルターの設定</string>
+    <string name="camera_filter_master">マスターフィルター</string>
     <string name="camera_filter_jiangwen">Jiang Wen filter</string>
     <string name="camera_filter_grand_tour">GrandTour filter</string>
-    <string name="camera_portrait_filter_settings">Portrait filter settings</string>
-    <string name="camera_video_filter_settings">Video filter settings</string>
+    <string name="camera_filter_vignette_grain">Film filter</string>
+    <string name="camera_filter_desert">DesertLegend filter</string>
+    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
+    <string name="camera_portrait_filter_settings">ポートレートフィルターの設定</string>
+    <string name="camera_video_filter_settings">動画フィルターの設定</string>
     <string name="camera_filter_color_extraction">Crimson/Forest green/Sky blue</string>
-    <string name="camera_filter_retention">AI Color Portrait</string>
-    <string name="camera_filter_bokeh_flare_portrait">Bokeh Flare Portrait</string>
+    <string name="camera_filter_retention">AI カラーポートレート</string>
+    <string name="camera_filter_bokeh_flare_portrait">ぼけフレアポートレート</string>
     <string name="enable_10_bit_image_support">10 bitの画像をサポート</string>
     <string name="enable_10_bit_image_support_summary">この機能を有効にすると、一部のモデルでは写真が緑色になる可能性があります</string>
     <!--Gallery-->
@@ -699,7 +704,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">データ通信の制限を削除</string>
     <string name="remove_network_limit_summary">バックアップと復元でモバイルデータが使用できない制限を削除します</string>
-    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
+    <string name="disable_forced_backup_app_list">アプリ一覧の強制バックアップを無効化</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">VIP機能を解放する</string>
     <string name="unlock_themestore_vip_summary">一部をアンロックして機能を試す事ができます</string>
@@ -717,8 +722,8 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">ローカルアップグレードを解放</string>
     <string name="unlock_local_upgrade_summary">タップした後に関連する操作が自動的に実行されます。しばらくお待ちください</string>
-    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
-    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
+    <string name="remove_ota_local_update_verity">OTA ローカルアップデート検証を削除</string>
+    <string name="disable_dm_verity_verification">DM-Verity 認証を無効化</string>
     <string name="restore_ota_update_verity">OTA アップデートの検証を再開</string>
     <string name="restore_ota_update_verity_summary">現在の状態：[%1$s]\nOTA アップデートで検証失敗のプロンプトが表示されるか、dm-verity のプロンプトが表示される場合にこの機能を使用してください。\nシステムがデフォルトでアップデート検証を有効にしているため、この機能がグレーアウトしている理由を聞かないでください。\n検証がオフにされた場合 OTA アップデートは失敗するため、この機能はロックされます</string>
     <!--Extract OTA-->
@@ -762,8 +767,8 @@
     <string name="remove_ads_from_weather_page_summary">m.weathercn.com のページに JS を注入して広告をブロックします。天気予報アプリから開ける過去15日間の天気など、ブラウザが必要な機能にも適用されます</string>
     <string name="remove_ads_from_download_dialog">ダウンロードダイアログから広告を削除</string>
     <string name="remove_ads_at_download_page_bottom">ダウンロードページ下部の広告を削除</string>
-    <string name="remove_browser_window_limit_number">Remove limit on number of browser windows</string>
-    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
+    <string name="remove_browser_window_limit_number">ブラウザウィンドウの制限数を削除</string>
+    <string name="remove_browser_search_bar_app_promotion">ブラウザ検索バーのアプリプロモーションを削除</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Breeno Touch</string>
     <string name="remove_app_recommend_card">アプリのおすすめカードを削除</string>
@@ -774,8 +779,8 @@
     <!--OplusWeather-->
     <string name="disable_weather_jump_browser">天気のブラウザーリダイレクトを無効化</string>
     <string name="remove_weather_some_page_bottom_ads">天気セクションページの下部にある広告を削除</string>
-    <string name="enable_15_day_weather_expand_list">Enable 15 day weather expanded list</string>
-    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
+    <string name="enable_15_day_weather_expand_list">15 日間の天気の拡張されたリストを有効化</string>
+    <string name="restore_rainfall_cloud_map_page">降雨雲マップページを復元する</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">休日のページ情報フローを削除</string>
     <string name="remove_almanac_page_information_flow">年鑑情報フローを削除</string>
@@ -785,13 +790,13 @@
     <string name="unlock_transfer_dock">転送ドックをアンロック</string>
     <string name="unlock_recent_files">最近使ったファイルをアンロック</string>
     <string name="unlock_fluid_cloud">Fluid Cloud をアンロック</string>
-    <string name="enable_run_in_background">Enable run in background</string>
-    <string name="enable_game_ai_play">Enable AI Game Assist</string>
+    <string name="enable_run_in_background">バックグラウンドで実行を有効化</string>
+    <string name="enable_game_ai_play">AI ゲームアシスタントを有効化</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">サードパーティアプリでの通話録音を有効化</string>
     <string name="enable_record_calls_on_third_party_apps_tips">「サードパーティアプリ通話録音 (com.oplus.audiomonitor)」をインストールし、マイクの権限とバックグラウンド動作を許可する必要があります</string>
     <string name="enable_record_calls_on_third_party_apps_tips_2">Root permission needs to be granted to \"Three-party application call recording\"</string>
-    <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
+    <string name="expand_voip_recorder_whitelist">拡張された通話録音のホワイトリスト</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--Everyimage-->
@@ -801,7 +806,7 @@
     <string name="remove_pro_license">ライセンスの検出を削除</string>
     <!--ADM-->
     <string name="adm_unlock_pro">Pro にアップグレード</string>
-    <string name="adm_unlock_more_threads">Unlock more download threads</string>
+    <string name="adm_unlock_more_threads">更なるダウンロードスレッドを解除</string>
     <!--Home-->
     <string name="fps_title">リフレッシュレートの強制</string>
     <string name="fps_summary">他の動的リフレッシュレート処理 (dpfsなど) と競合します</string>
@@ -809,7 +814,7 @@
     <string name="model">モデル</string>
     <string name="product">プロダクト</string>
     <string name="market_name">商品名</string>
-    <string name="flash">Flash</string>
+    <string name="flash">フラッシュ</string>
     <string name="build_version">ビルド</string>
     <string name="device">デバイス</string>
     <string name="system">システム</string>
@@ -826,8 +831,8 @@
     <string name="download_count">ダウンロード数</string>
     <string name="file_size">ファイルのサイズ</string>
     <string name="update_time">更新時間</string>
-    <string name="first_install_time">First install time</string>
-    <string name="last_update_time">Last update time</string>
+    <string name="first_install_time">最初のインストール日時</string>
+    <string name="last_update_time">最終のインストール日時</string>
     <string name="select_download_source">ダウンロード元を選択</string>
     <string name="update_logs">アップデートログ</string>
     <string name="check_update_hint">新しいバージョンがあります!</string>
@@ -854,10 +859,10 @@
     <string name="donate_tv_title">開発をサポート</string>
     <string name="donate_tv__summary">タップまたは長押しして開発者に寄付し、今後のアップデートを支援します</string>
     <string name="donate_data_decode_error">寄付データの解析に失敗しました。もう一度やり直してください！</string>
-    <string name="donate_detailed_data">Detailed data</string>
-    <string name="donate_other_currency">Other currencies</string>
-    <string name="donate_info_time">Time</string>
-    <string name="donate_info_money">Money</string>
+    <string name="donate_detailed_data">詳細データ</string>
+    <string name="donate_other_currency">その他の通貨</string>
+    <string name="donate_info_time">時刻</string>
+    <string name="donate_info_money">お金</string>
     <string name="donate_info_order">Number Of Order</string>
     <!-- Other -->
     <string name="quick_entry">システムクイックエントリー</string>
@@ -883,7 +888,7 @@
     <string name="set_module_shortcuts">モジュールショートカットの設定</string>
     <string name="set_module_shortcuts_summary">有効なショートカットを表示するには、モジュールアイコンを長押ししてください</string>
     <!--TouchPanel-->
-    <string name="set_touch_sampling_rate_tile_level">Set the touch sampling rate tile level</string>
+    <string name="set_touch_sampling_rate_tile_level">タッチサンプリングレートタイルのレベルを設定</string>
     <string name="set_touch_sampling_rate_tile_level_summary">Test by yourself whether each gear can be triggered normally\nWhen you use the game assistant to open the game, the current sampling rate will be overwritten.</string>
     <!-- ADB相关 -->
     <string name="remote_adb_debug_title">ADBデバッグを削除</string>
@@ -900,7 +905,7 @@
     <string name="log_filter_title">絞り込む項目を入力</string>
     <string name="log_filter_layout_hint">パッケージ名、コンテンツなど</string>
     <!--Tile-->
-    <string name="touch_sampling_rate">Touch sampling rate</string>
+    <string name="touch_sampling_rate">タッチサンプリングレート</string>
     <string name="high_brightness_mode">高輝度モード</string>
     <string name="high_performance_mode">高パフォーマンスモード</string>
     <string name="global_dc">グローバルDC</string>
@@ -915,17 +920,17 @@
     <string name="use_user_typeface">ユーザー書体を使用</string>
     <string name="use_bold_font_style">太字のフォントスタイルを使用</string>
     <!--AppInfo-->
-    <string name="appinfo_sort_and_filter">Sort And Filter</string>
-    <string name="appinfo_sort_by">Sort By</string>
-    <string name="appinfo_filter">Filter</string>
-    <string name="appinfo_reverse">Reverse</string>
-    <string name="appinfo_app_name">App Name</string>
-    <string name="appinfo_package_name">Package Name</string>
-    <string name="appinfo_app_size">App Size</string>
-    <string name="appinfo_install_time">Install Time</string>
-    <string name="appinfo_last_updated_time">Last Updated Time</string>
-    <string name="appinfo_target_sdk">Target SDK</string>
-    <string name="appinfo_system_app">System App</string>
+    <string name="appinfo_sort_and_filter">並べ替えとフィルター</string>
+    <string name="appinfo_sort_by">並べ替え</string>
+    <string name="appinfo_filter">フィルター</string>
+    <string name="appinfo_reverse">反転</string>
+    <string name="appinfo_app_name">アプリ名</string>
+    <string name="appinfo_package_name">パッケージ名</string>
+    <string name="appinfo_app_size">アプリのサイズ</string>
+    <string name="appinfo_install_time">インストール日時</string>
+    <string name="appinfo_last_updated_time">最終更新時間</string>
+    <string name="appinfo_target_sdk">ターゲット SDK</string>
+    <string name="appinfo_system_app">システムアプリ</string>
     <!--CommonWords-->
     <string name="common_words_enable">有効</string>
     <string name="common_words_disable">無効</string>
@@ -944,7 +949,7 @@
     <string name="common_words_single_line">直線</string>
     <string name="common_words_double_line">二重線</string>
     <string name="common_words_customize">カスタマイズ</string>
-    <string name="common_words_current_mode">Current Mode</string>
+    <string name="common_words_current_mode">現在のモード</string>
     <string name="common_words_refresh">更新</string>
     <string name="common_words_save">保存</string>
     <string name="common_words_filter">フィルター</string>
@@ -952,21 +957,21 @@
     <string name="common_words_whitelist">ホワイトリスト</string>
     <string name="common_words_blacklist">ブラックリスト</string>
     <string name="common_words_ads">広告</string>
-    <string name="common_words_reset">Reset</string>
-    <string name="common_words_import">Import</string>
-    <string name="common_words_not_set">Not Set</string>
-    <string name="common_words_high">High</string>
-    <string name="common_words_middle">Middle</string>
-    <string name="common_words_low">Low</string>
-    <string name="common_words_dynamic">Dynamic</string>
-    <string name="common_words_bold">Bold</string>
-    <string name="common_words_expand">Expand</string>
-    <string name="common_words_replace">Replace</string>
+    <string name="common_words_reset">リセット</string>
+    <string name="common_words_import">インポート</string>
+    <string name="common_words_not_set">未設定</string>
+    <string name="common_words_high">高</string>
+    <string name="common_words_middle">中</string>
+    <string name="common_words_low">低</string>
+    <string name="common_words_dynamic">ダイナミック</string>
+    <string name="common_words_bold">太字</string>
+    <string name="common_words_expand">展開</string>
+    <string name="common_words_replace">置き換え</string>
     <!--Permission-->
-    <string name="send_notification_permission">Send notification permission</string>
-    <string name="all_files_access_permission">All file access permission</string>
-    <string name="installed_apps_permission">Read your app list permission</string>
-    <string name="install_app_permission">Install app permissions</string>
+    <string name="send_notification_permission">通知権限を送信</string>
+    <string name="all_files_access_permission">すべてのファイルアクセス権限</string>
+    <string name="installed_apps_permission">アプリ一覧の読み取り権限</string>
+    <string name="install_app_permission">インストールアプリの権限</string>
     <string name="permission_denied_toast">権限がありません。手動で権限を許可してください: %1$s</string>
     <string name="permission_error_toast">権限の取得に失敗しました: %1$s</string>
     <!--Net 网络请求异常-->

@@ -67,14 +67,37 @@ object HookCameraConfig : YukiBaseHooker() {
             //盛大旅行滤镜
             if (universalFilters.contains("grand_tour_filter")) {
                 put("com.oplus.support.grand.tour.filter", true)
+                //StreetModeGrandTour
 //                put("com.oplus.street.grand.tour.filter.type.support", true)
             }
+
+            //质感 OS15
+            if (universalFilters.contains("os15_zhi_gan_filter")) {
+                put("com.oplus.feature.os15.new.filter.support", true)
+            }
+
+            //电影滤镜 倒带人生,少年奇旅,壮志凌云
+            if (universalFilters.contains("vignette_grain_filter")) {
+                put("com.oplus.vignette.grain.filter.type.support", true)
+            }
+
+            //大漠传奇
+            if (universalFilters.contains("desert_filter")) {
+                put("com.oplus.desert.filter.type.support", true)
+            }
+
+            //光影有声
+            if (universalFilters.contains("tol_filter")) {
+                put("com.oplus.tol.style.filter.support", true)
+            }
+
+            //流光人像
+//            put("com.oplus.feature.portrait.streamer.support", true)
 
             //Filter Portrait
             val portraitFilters =
                 prefs(ModulePrefs).getStringSet("camera_portrait_filter_settings", ArraySet())
-            //流光人像
-//                "com.oplus.feature.portrait.streamer.support" -> result(true)
+
             //人像留色
             if (portraitFilters.contains("retention")) {
                 put("com.oplus.feature.portrait.retention.support", true)
@@ -128,8 +151,8 @@ private class HookCameraVendorTag(val tags: Map<String, Any>) : YukiBaseHooker()
                 hookVendorTag(tags)
             }
         }
-        //Source BaseProcessUnitSDK
-        "com.oplus.ocs.camera.ipusdk.processunit.BaseProcessUnitSDK".toClassOrNull()?.apply {
+        //Source ApsUtils
+        "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils".toClass().apply {
             method { name = "getVendorTagConfig";paramCount = 1 }.hook {
                 hookVendorTag(tags)
             }

@@ -246,7 +246,7 @@
     <string name="remove_control_center_user_switcher">Odstranit přepínač uživatelů v ovládacím centru</string>
     <string name="remove_control_center_mydevice">Odebrat moje zařízení z ovládacího centra</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Obnovit počet řádků pro úpravy dlaždic</string>
-    <string name="remove_control_center_tile_count_limit">Remove limit on number of Control Center tiles</string>
+    <string name="remove_control_center_tile_count_limit">Odstranit limit u počtu dlaždic Ovládacího centra</string>
     <string name="set_control_center_search_button_mode">Nastavit režim tlačítka hledání v ovládacím centru</string>
     <string name="remove_control_center_networkwarn">Odstranění varovné zprávy o zabezpečení v dolní části ovládacího centra</string>
     <string name="remove_control_center_networkwarn_dialog">Odstranit dialogové okno</string>
@@ -450,11 +450,11 @@
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
     <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat kompletní seznam klonovatelných aplikací a je tak třeba nainstalovat aplikace pro konkrétní modely.</string>
     <string name="remove_multi_app_blacklist">Odstranění černé listiny pro více aplikací</string>
-    <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
-    <string name="set_wlan_sla_whitelist_mode">Set WLAN dual-channel acceleration whitelist mode</string>
-    <string name="remove_wlan_sla_blacklist">Remove WLAN dual channel acceleration blacklist</string>
-    <string name="custom_wlan_sla_whitelist">Customized WLAN dual channel acceleration whitelist</string>
-    <string name="custom_wlan_sla_game_whitelist">Customized WLAN dual channel acceleration game whitelist</string>
+    <string name="remove_multi_app_created_num_limit">Odstranění omezení počtu vytvořených aplikací</string>
+    <string name="set_wlan_sla_whitelist_mode">Nastavení režimu dvoukanálové akcelerace Wi-Fi</string>
+    <string name="remove_wlan_sla_blacklist">Odstranění černé listiny akcelerace duálního připojení Wi-Fi</string>
+    <string name="custom_wlan_sla_whitelist">Přizpůsobitelný seznam povolení dvoukanálové akcelerace Wi-Fi</string>
+    <string name="custom_wlan_sla_game_whitelist">Přizpůsobitelný seznam povolených her s dvoukanálovou akcelerací Wi-Fi</string>
     <string name="multi_app_enable">Povolit seznam nahrazených aplikací</string>
     <string name="multi_app_custom_list">Nahradit seznam aplikací, které lze klonovat</string>
     <string name="multi_app_custom_list_summary">Po zapnutí funkce bude původní seznam klonovatelných aplikací nahrazen tímto seznamem, velké množství zvolených apilkací může způsobit lagy</string>
@@ -641,10 +641,15 @@
     <string name="enable_hassel_watermark">Povolit Hasselblad vodoznak</string>
     <string name="enable_privacy_watermark">Povolit vodoznak soukromí</string>
     <string name="CameraFilter">Filtr</string>
+    <string name="remove_filter_model_limit">Remove filter model limit</string>
     <string name="camera_universal_filter_settings">Univerzální nastavení filtru</string>
     <string name="camera_filter_master">Hlavní filtr</string>
     <string name="camera_filter_jiangwen">Jiang Wen filtr</string>
     <string name="camera_filter_grand_tour">Filtr GrandTour</string>
+    <string name="camera_filter_vignette_grain">Film filter</string>
+    <string name="camera_filter_desert">DesertLegend filter</string>
+    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
     <string name="camera_portrait_filter_settings">Nastavení filtru portrétu</string>
     <string name="camera_video_filter_settings">Nastavení filtru videa</string>
     <string name="camera_filter_color_extraction">Crimson/Lesní zelená/nebeská modrá</string>
@@ -960,8 +965,8 @@
     <string name="common_words_low">Nízká</string>
     <string name="common_words_dynamic">Dynamická</string>
     <string name="common_words_bold">Tučné</string>
-    <string name="common_words_expand">Expand</string>
-    <string name="common_words_replace">Replace</string>
+    <string name="common_words_expand">Rozbalit</string>
+    <string name="common_words_replace">Nahradit</string>
     <!--Permission-->
     <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
     <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>
