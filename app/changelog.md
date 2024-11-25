@@ -37,6 +37,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏电池图标 RUI6
 - [添加] 移除相机滤镜机型限制
 - [添加] 支持更多相机滤镜
+- [适配] 移除最近任务列表底部图标 C14+
 
 ### 1.2.5
 
