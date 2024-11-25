@@ -17,28 +17,32 @@ class CustomCameraOpenGalleryByDefault(val dexKitBridge: DexKitBridge) : YukiBas
         if (gallery.isBlank()) return
 
         //Source GalleryUtil
-        dexKitBridge.findMethod {
+        dexKitBridge.findClass {
             matcher {
-                declaredClass {
-                    addFieldForType(Uri::class.java)
-                    addFieldForType(BooleanType)
-                    addMethod { paramCount(0);returnType(StringClass) }
-                    addMethod { paramCount(0);returnType(BooleanType) }
-                    usingStrings("content://com.color.provider.removableapp", "removableapp")
-                }
-                paramCount(0)
-                returnType(StringClass)
-                usingStrings("com.oplus.gallery.base")
+                addFieldForType(Uri::class.java)
+                addFieldForType(BooleanType)
+                addMethod { paramCount(0);returnType(StringClass) }
+                usingStrings("content://com.color.provider.removableapp", "removableapp")
             }
         }.apply {
-            checkDataList("CustomCameraOpenGalleryByDefault")
-            single().className.toClass().apply {
-                method {
-                    name = single().methodName;emptyParam()
-                    returnType = StringClass
-                }.hook {
-                    after {
-                        if (gallery.isNotBlank()) result = gallery
+            checkDataList("CustomCameraOpenGalleryByDefault Clazz")
+            findMethod {
+                matcher {
+                    paramCount(0)
+                    returnType(StringClass)
+                    usingStrings("com.oplus.gallery.base")
+                }
+            }.apply {
+                checkDataList("CustomCameraOpenGalleryByDefault Method")
+                single().className.toClass().apply {
+                    method {
+                        name = single().methodName
+                        emptyParam()
+                        returnType = StringClass
+                    }.hook {
+                        before {
+                            if (gallery.isNotBlank()) result = gallery
+                        }
                     }
                 }
             }
