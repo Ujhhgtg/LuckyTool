@@ -33,9 +33,6 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏网速刷新速度 RUI6
 - [适配] 移除免打扰模式通知 RUI6
 - [适配] 移除通知勿扰通知 RUI6
-- [适配] 隐藏蓝牙未连接时图标 RUI6
-- [适配] 隐藏状态栏无SIM卡图标 RUI6
-- [适配] 控制中心网络安全警告 RUI6
 - [适配] 控制中心磁贴列数 RUI6
 - [适配] 状态栏电池图标 RUI6
 - [添加] 移除相机滤镜机型限制

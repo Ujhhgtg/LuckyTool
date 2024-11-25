@@ -43,7 +43,7 @@ object BluetoothIconRelated : YukiBaseHooker() {
                     }
                 }
             } else {
-                method { name { it.contains("updateBluetooth") } }.hook {
+                method { name = "updateBluetooth" }.hook {
                     before {
                         if (!isHide) return@before
                         val bluetoothController = field {

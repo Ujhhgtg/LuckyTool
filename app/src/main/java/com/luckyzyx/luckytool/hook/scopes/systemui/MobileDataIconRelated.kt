@@ -119,32 +119,14 @@ object MobileDataIconRelated : YukiBaseHooker() {
 
             //Source OplusStatusBarSignalPolicy
             "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicy".toClass().apply {
-                val hasUpdateSlotIconVisibility = hasMethod { name = "updateSlotIconVisibility" }
-                if (hasUpdateSlotIconVisibility) {
-                    method {
-                        name = "updateSlotIconVisibility"
-                        param(StringClass, IntType, StringClass)
-                    }.hook {
-                        before {
-                            if (!hideNoSS) return@before
-                            val key = args().first().string()
-                            if (key == "nosim_all") args(1).set(0)
-                        }
-                    }
-                } else {
-                    method {
-                        name { it.contains("updateSlotIconVisibility") }
-                        paramCount(3..4)
-                    }.hookAll {
-                        before {
-                            if (!hideNoSS) return@before
-                            val key = if (method.parameterCount == 3) args().first().string()
-                            else args(1).string()
-                            if (key == "nosim_all") {
-                                if (method.parameterCount == 3) args(1).set(0)
-                                else args(2).set(0)
-                            }
-                        }
+                method {
+                    name = "updateSlotIconVisibility"
+                    param(StringClass, IntType, StringClass)
+                }.hook {
+                    before {
+                        if (!hideNoSS) return@before
+                        val key = args().first().string()
+                        if (key == "nosim_all") args(1).set(0)
                     }
                 }
             }
