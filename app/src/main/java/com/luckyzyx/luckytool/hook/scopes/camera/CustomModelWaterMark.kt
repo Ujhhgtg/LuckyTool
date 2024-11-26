@@ -36,12 +36,6 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     param(ContextClass, FloatType, VagueType, VagueType)
                     returnType(single().returnTypeName)
                 }.hook {
-//                    before {
-//                        if (args.lastOrNull() is String) {
-//                            val model = args().last().string()
-//                            if (model == "Shot on OnePlus") args().last().set(waterMark)
-//                        }
-//                    }
                     after {
                         val hashMap = result<HashMap<String, Any>>() ?: return@after
                         hashMap["key_watermark_part_a_line"]?.apply {
@@ -72,10 +66,8 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("CustomModelWaterMark MarketName", false)
-            var clazz = ""
             forEach {
-                if (clazz.isBlank() || clazz != it.className) clazz = it.className
-                clazz.toClass().apply {
+                it.className.toClass().apply {
                     method {
                         name = it.methodName
                         emptyParam()
@@ -90,16 +82,14 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //Source WatermarkHelper / WatermarkSingleton
         dexKitBridge.findMethod {
             matcher {
-                paramCount(1..2)
                 returnType(StringClass)
                 usingStrings("[\u4e00-\u9fa5]", "")
             }
         }.apply {
-            checkDataList("CustomModelWaterMark ChineseOfString")
+            checkDataList("CustomModelWaterMark RemoveChineseOfString")
             single().className.toClass().apply {
                 method {
                     name = single().methodName
-                    paramCount(1..2)
                     returnType = StringClass
                 }.hookAll {
                     replaceTo(waterMark)
