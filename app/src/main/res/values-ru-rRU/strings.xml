@@ -426,6 +426,7 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Удалить белый список</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Пользовательский белый список</string>
     <string name="zoom_window_support_list">Пользовательское окно масштаба</string>
+    <string name="enable_multi_window_mode">Enable multi zoom window mode</string>
     <string name="zoom_window_support_list_summary">Включать при необходимости, в противном случае возникнут непоправимые проблемы</string>
     <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
     <string name="launcher_drawer_layout_related">Разметка папки</string>
@@ -641,14 +642,14 @@
     <string name="enable_hassel_watermark">Включить водяной знак Hasselblad</string>
     <string name="enable_privacy_watermark">Включить водяной знак конфиденциальности</string>
     <string name="CameraFilter">Фильтр</string>
-    <string name="remove_filter_model_limit">Remove filter model limit</string>
+    <string name="remove_filter_model_limit">Удалить ограничение модели фильтра</string>
     <string name="camera_universal_filter_settings">Настройки универсального фильтра</string>
     <string name="camera_filter_master">Мастер фильтр</string>
     <string name="camera_filter_jiangwen">Jiang Wen фильтр</string>
     <string name="camera_filter_grand_tour">GrandTour фильтр</string>
-    <string name="camera_filter_vignette_grain">Film filter</string>
-    <string name="camera_filter_desert">DesertLegend filter</string>
-    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_vignette_grain">Фильтр кино</string>
+    <string name="camera_filter_desert">Фильтр \"Легенда пустыни\"</string>
+    <string name="camera_filter_tol">Фильтр кино LuChuan</string>
     <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
     <string name="camera_portrait_filter_settings">Настройки портретного фильтра</string>
     <string name="camera_video_filter_settings">Настройки фильтра видео</string>

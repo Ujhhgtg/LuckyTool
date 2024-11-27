@@ -426,6 +426,7 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Rimuovi whitelist</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Lista bianca personalizzata</string>
     <string name="zoom_window_support_list">Personalizza Zoom Finestra Lista di supporto</string>
+    <string name="enable_multi_window_mode">Enable multi zoom window mode</string>
     <string name="zoom_window_support_list_summary">Abilita in base alle tue esigenze, altrimenti ci saranno problemi irreparabili</string>
     <string name="force_all_apps_support_split_screen">Forza tutte le app a supportare lo schermo diviso</string>
     <string name="launcher_drawer_layout_related">Layout del Drawer</string>

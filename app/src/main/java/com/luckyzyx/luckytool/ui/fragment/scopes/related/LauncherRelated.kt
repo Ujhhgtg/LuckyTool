@@ -281,6 +281,14 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 }
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_multi_window_mode)
+                summary = getString(R.string.need_restart_system)
+                key = "enable_multi_window_mode"
+                setDefaultValue(false)
+                isVisible = osCode >= 33
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_all_apps_support_split_screen)
                 key = "force_all_apps_support_split_screen"
                 setDefaultValue(false)

@@ -426,6 +426,7 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Remove whitelist</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Custom whitelist</string>
     <string name="zoom_window_support_list">Własna lista obsługi okna powiększenia</string>
+    <string name="enable_multi_window_mode">Enable multi zoom window mode</string>
     <string name="zoom_window_support_list_summary">Włącz w zależności od Twoich potrzeb, w przeciwnym razie pojawią się nieodwracalne problemy.</string>
     <string name="force_all_apps_support_split_screen">Force all apps to support split screen</string>
     <string name="launcher_drawer_layout_related">Drawer Layout Related</string>

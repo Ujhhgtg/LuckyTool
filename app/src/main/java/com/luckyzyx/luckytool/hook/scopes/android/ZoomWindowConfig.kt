@@ -7,58 +7,107 @@ import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 
 @Obfuscate
+@Suppress("UNCHECKED_CAST")
 object ZoomWindowConfig : YukiBaseHooker() {
-    override fun onHook() {
-        var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
-        dataChannel.wait<String>("custom_app_floating_window_display_mode") { mode = it }
-        var supportList = prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
-        dataChannel.wait<Set<String>>("zoom_window_support_list") { supportList = it }
 
-        //Source OplusZoomWindowConfig
-        "com.android.server.wm.OplusZoomWindowConfig".toClass().apply {
-            method {
-                name = "isSupportZoomMode"
-                param(StringClass, IntType, StringClass, BundleClass)
-            }.hook {
-                before {
-                    when (mode) {
-                        "1" -> resultFalse()
-                        "2" -> resultTrue()
-                        "3" -> {
-                            val target = args().first().string()
-                            val packName = if (target.contains("/").not()) target
-                            else target.split("/")[0]
-                            if (supportList.contains(packName)) resultTrue()
+    override fun onHook() {
+        dataChannel.wait<String>("custom_app_floating_window_display_mode") {
+            HookZoomWindow.callback?.invoke("custom_app_floating_window_display_mode", it)
+            HookFlexibleWindow.callback?.invoke("custom_app_floating_window_display_mode", it)
+        }
+        dataChannel.wait<Set<String>>("zoom_window_support_list") {
+            HookZoomWindow.callback?.invoke("zoom_window_support_list", it)
+            HookFlexibleWindow.callback?.invoke("zoom_window_support_list", it)
+        }
+
+        loadHooker(HookZoomWindow)
+        loadHooker(HookFlexibleWindow)
+    }
+
+    @Obfuscate
+    object HookZoomWindow : YukiBaseHooker() {
+        var callback: ((key: String, value: Any) -> Unit)? = null
+
+        override fun onHook() {
+            var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
+            var supportList =
+                prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
+            callback = { key: String, value: Any ->
+                when (key) {
+                    "custom_app_floating_window_display_mode" -> mode = value as String
+                    "zoom_window_support_list" -> supportList = value as Set<String>
+                }
+            }
+
+            //Source OplusZoomWindowConfig
+            "com.android.server.wm.OplusZoomWindowConfig".toClass().apply {
+                method {
+                    name = "isSupportZoomMode"
+                    param(StringClass, IntType, StringClass, BundleClass)
+                }.hook {
+                    before {
+                        when (mode) {
+                            "1" -> resultFalse()
+                            "2" -> resultTrue()
+                            "3" -> {
+                                val target = args().first().string()
+                                val packName = if (target.contains("/").not()) target
+                                else target.split("/")[0]
+                                if (supportList.contains(packName)) resultTrue()
+                            }
                         }
                     }
                 }
             }
         }
+    }
 
-        if (SDK < A15) return
+    @Obfuscate
+    object HookFlexibleWindow : YukiBaseHooker() {
+        var callback: ((key: String, value: Any) -> Unit)? = null
 
-        //Source FlexibleWindowUtils C15
-        "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.apply {
-            method {
-                name = "isSupportFlexibleWindow"
-                param(StringClass, StringClass)
-            }.hook {
-                before {
-                    when (mode) {
-                        "1" -> resultFalse()
-                        "2" -> resultTrue()
-                        "3" -> {
-                            val target = args().first().string()
-                            val packName = if (target.contains("/").not()) target
-                            else target.split("/")[0]
-                            if (supportList.contains(packName)) resultTrue()
+        override fun onHook() {
+            var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
+            var supportList =
+                prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
+            callback = { key: String, value: Any ->
+                when (key) {
+                    "custom_app_floating_window_display_mode" -> mode = value as String
+                    "zoom_window_support_list" -> supportList = value as Set<String>
+                }
+            }
+
+            //Source FlexibleWindowUtils
+            "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.apply {
+                method {
+                    name = "isSupportFlexibleWindow"
+                    param(StringClass, StringClass)
+                }.hook {
+                    before {
+                        when (mode) {
+                            "1" -> resultFalse()
+                            "2" -> resultTrue()
+                            "3" -> {
+                                val target = args().first().string()
+                                val packName = if (target.contains("/").not()) target
+                                else target.split("/")[0]
+                                if (supportList.contains(packName)) resultTrue()
+                            }
                         }
                     }
+                }
+            }
+
+            //Source FlexibleWindowManagerService
+            "com.android.server.wm.FlexibleWindowManagerService".toClassOrNull()?.apply {
+                method {
+                    name = "getMaxWinNum"
+                    returnType = IntType
+                }.hook {
+                    replaceTo(1000)
                 }
             }
         }

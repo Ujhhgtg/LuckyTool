@@ -20,6 +20,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Android
 //            put("oplus.software.audio.alert_slider", false)
 
+            //Source Android FlexibleWindowUtils isSupportMultiMode 支持多窗口
+            if (prefs(ModulePrefs).getBoolean("enable_multi_window_mode", false)) {
+                put("oplus.software.support.zoom.multi_mode", true)
+            }
+
             //Source Android PhoneWindowManagerExtImpl HomeKeyLongPressRunnable
             val disableSpeechAssist = prefs(ModulePrefs).getBoolean(
                 "disable_long_press_home_key_start_speech_asssist", false
