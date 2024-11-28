@@ -21,7 +21,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 //            put("oplus.software.audio.alert_slider", false)
 
             //Source Android FlexibleWindowUtils isSupportMultiMode 支持多窗口
-            if (prefs(ModulePrefs).getBoolean("enable_multi_window_mode", false)) {
+            if (prefs(ModulePrefs).getBoolean("force_enable_multi_window_mode", false)) {
                 put("oplus.software.support.zoom.multi_mode", true)
             }
 

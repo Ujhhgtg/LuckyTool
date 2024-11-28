@@ -74,8 +74,12 @@ object ZoomWindowConfig : YukiBaseHooker() {
             var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
             var supportList =
                 prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
-            var multiWindow = prefs(ModulePrefs).getBoolean("enable_multi_window_mode", false)
-            dataChannel.wait<Boolean>("enable_multi_window_mode") { multiWindow = it }
+
+            var multiWindow = prefs(ModulePrefs).getBoolean("force_enable_multi_window_mode", false)
+            dataChannel.wait<Boolean>("force_enable_multi_window_mode") { multiWindow = it }
+            var multiNum = prefs(ModulePrefs).getInt("custom_multi_window_display_upper_limit", 2)
+            dataChannel.wait<Int>("custom_multi_window_display_upper_limit") { multiNum = it }
+
             callback = { key: String, value: Any ->
                 when (key) {
                     "custom_app_floating_window_display_mode" -> mode = value as String
@@ -111,7 +115,7 @@ object ZoomWindowConfig : YukiBaseHooker() {
                     returnType = IntType
                 }.hook {
                     after {
-                        if (multiWindow) result = 1000
+                        if (multiWindow && multiNum > 0) result = multiNum
                     }
                 }
             }

@@ -426,7 +426,8 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">移除白名单</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">自定义白名单</string>
     <string name="zoom_window_support_list">自定义小窗支持列表</string>
-    <string name="enable_multi_window_mode">启用多浮窗模式</string>
+    <string name="force_enable_multi_window_mode">强制启用多浮窗模式</string>
+    <string name="custom_multi_window_display_upper_limit">自定义多浮窗显示上限</string>
     <string name="zoom_window_support_list_summary">按需启用，否则将出现其他异常问题</string>
     <string name="force_all_apps_support_split_screen">强制所有应用支持分屏</string>
     <string name="launcher_drawer_layout_related">抽屉布局相关</string>

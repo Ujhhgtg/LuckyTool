@@ -426,7 +426,8 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Odstranit seznam povolených</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Vlastní seznam povolených</string>
     <string name="zoom_window_support_list">Vlastní nastavení přiblížení</string>
-    <string name="enable_multi_window_mode">Enable multi zoom window mode</string>
+    <string name="force_enable_multi_window_mode">Force enable multi zoom window mode</string>
+    <string name="custom_multi_window_display_upper_limit">Custom multi window display upper limit</string>
     <string name="zoom_window_support_list_summary">Povolte podle vašich potřeb, jinak dojde k nenapravitelným problémům</string>
     <string name="force_all_apps_support_split_screen">Donutit všechny aplikace podporovat rozdělenou obrazovku</string>
     <string name="launcher_drawer_layout_related">Rozvržení související s panelem aplikací</string>

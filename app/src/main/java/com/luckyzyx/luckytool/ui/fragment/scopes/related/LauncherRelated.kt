@@ -267,31 +267,48 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.zoom_window_support_list)
-                summary = getString(R.string.zoom_window_support_list_summary)
-                key = "zoom_window_support_list"
-                isVisible = getString(
+            if (getString(
                     ModulePrefs, "custom_app_floating_window_display_mode", "0"
                 ) == "3"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.zoomWindowFragment, title)
-                    true
-                }
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_multi_window_mode)
-                summary = getString(R.string.need_restart_system)
-                key = "enable_multi_window_mode"
-                setDefaultValue(false)
-                isVisible = osCode >= 33
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("android", key, newValue as Boolean)
-                    true
-                }
-            })
+            ) {
+                add(Preference(this@loadPreferences).apply {
+                    title = getString(R.string.zoom_window_support_list)
+                    summary = getString(R.string.zoom_window_support_list_summary)
+                    key = "zoom_window_support_list"
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        navigatePage(R.id.zoomWindowFragment, title)
+                        true
+                    }
+                })
+            }
+            if (osCode >= 33) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.force_enable_multi_window_mode)
+                    summary = getString(R.string.need_restart_system)
+                    key = "force_enable_multi_window_mode"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("android", key, newValue)
+                        true
+                    }
+                })
+                add(SeekBarPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_multi_window_display_upper_limit)
+                    key = "custom_multi_window_display_upper_limit"
+                    setDefaultValue(2)
+                    max = 200
+                    min = 0
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("android", key, newValue)
+                        true
+                    }
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_all_apps_support_split_screen)
                 key = "force_all_apps_support_split_screen"
@@ -299,7 +316,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isVisible = SDK >= A13
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("android", key, newValue as Boolean)
+                    sendPrefsValue("android", key, newValue)
                     true
                 }
             })
