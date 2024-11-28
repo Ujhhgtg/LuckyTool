@@ -5,8 +5,9 @@ import android.content.Context
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
+import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
 import com.highcapable.yukihookapi.hook.type.java.BooleanClass
@@ -147,34 +148,14 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 checkDataList("WatermarkDevice HasselDevice", onlyOne = false)
                 forEachIndexed { _, classData ->
                     classData.name.toClass().apply {
-                        val hasMethod = hasMethod { emptyParam();returnType = BooleanType }
-                        if (hasMethod) {
-                            method { emptyParam();returnType = BooleanType }.hookAll {
-                                replaceToTrue()
-                            }
-                        } else {
-                            constructor { }.hookAll {
-                                after {
-                                    field { type = BooleanType }.get(instance).setTrue()
-                                }
+                        val hasField = hasField { type = BooleanType }
+                        if (hasField) constructor { }.hookAll {
+                            after {
+                                field { type = BooleanType }.get(instance).setTrue()
                             }
                         }
+                        else YLog.debug("WatermarkDevice HasselDevice hook error! -> ${classData.name}")
                     }
-                }
-            }
-        }
-
-        //Source BaseProcessUnitSDK
-        "com.oplus.ocs.camera.ipusdk.processunit.BaseProcessUnitSDK".toClassOrNull()?.apply {
-            method { name = "getVendorTagConfig";paramCount = 1 }.hook {
-                after {
-                    val key = args().first().string()
-                    if (key.isBlank()) return@after
-                    val res = when (key) {
-                        "com.oplus.camera.support.custom.hasselblad.watermark" -> hasselWaterMark
-                        else -> return@after
-                    }
-                    result = if (res) "1" else "0"
                 }
             }
         }

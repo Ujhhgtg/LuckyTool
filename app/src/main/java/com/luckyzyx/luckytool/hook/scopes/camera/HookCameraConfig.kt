@@ -22,6 +22,9 @@ object HookCameraConfig : YukiBaseHooker() {
                 put("com.oplus.camera.support.frame.watermark", true)
             }
 
+            //AI大师水印
+//            put("com.oplus.camera.support.ai.master.watermark", true)
+
             //画框颜色 色卡贴纸
 //            put("com.oplus.camera.support.custom.color.watermark", true)
 //            put("com.oplus.camera.support.color.extraction", true)
@@ -140,62 +143,62 @@ object HookCameraConfig : YukiBaseHooker() {
         }
         loadHooker(HookCameraVendorTag(list))
     }
-}
 
-@Obfuscate
-private class HookCameraVendorTag(val tags: Map<String, Any>) : YukiBaseHooker() {
-    override fun onHook() {
-        //Source CameraAdapterUtils
-        "com.oplus.ocs.camera.appinterface.adapter.CameraAdapterUtils".toClass().apply {
-            method { name = "getVendorTagConfig";paramCount = 1 }.hook {
-                hookVendorTag(tags)
-            }
-        }
-        //Source ApsUtils
-        "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils".toClass().apply {
-            method { name = "getVendorTagConfig";paramCount = 1 }.hook {
-                hookVendorTag(tags)
-            }
-        }
-    }
-
-    companion object {
-        private fun YukiMemberHookCreator.MemberHookCreator.hookVendorTag(tags: Map<String, Any>) {
-            after {
-                val key = args().first().string()
-                if (key.isBlank()) return@after
-                val value = tags[key] ?: return@after
-//                    YLog.debug("$key -> $value")
-                result = when (value) {
-                    is Boolean -> if (value) "1" else "0"
-                    is Int -> value.toString()
-                    else -> value
+    @Obfuscate
+    private class HookCameraVendorTag(val tags: Map<String, Any>) : YukiBaseHooker() {
+        override fun onHook() {
+            //Source CameraAdapterUtils
+            "com.oplus.ocs.camera.appinterface.adapter.CameraAdapterUtils".toClassOrNull()?.apply {
+                method { name = "getVendorTagConfig";paramCount = 1 }.hook {
+                    hookVendorTag(tags)
                 }
+            }
+            //Source ApsUtils
+            "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils".toClassOrNull()?.apply {
+                method { name = "getVendorTagConfig";paramCount = 1 }.hook {
+                    hookVendorTag(tags)
+                }
+            }
+        }
 
-                when (key) {
-                    //孤独星球
-                    "com.oplus.camera.support.custom.lonely.planet.watermark" -> {}
-                    //美妆定制水印
-                    //res/layout/camera_watermark_makeup_visual_layout.xml
-                    //imageView_watermark_makeup_visual
-                    //key PRE_KEY_WATERMARK_MAKEUP / pref_watermark_makeup_function_key
-                    //is_slogan
-                    "com.oplus.feature.custom.makeup.watermark.support" -> {}
+        companion object {
+            private fun YukiMemberHookCreator.MemberHookCreator.hookVendorTag(tags: Map<String, Any>) {
+                after {
+                    val key = args().first().string()
+                    if (key.isBlank()) return@after
+                    val value = tags[key] ?: return@after
+//                    YLog.debug("$key -> $value")
+                    result = when (value) {
+                        is Boolean -> if (value) "1" else "0"
+                        is Int -> value.toString()
+                        else -> value
+                    }
 
-                    //大师模式
-                    "com.oplus.feature.master.mode.support" -> {}
-                    "com.oplus.feature.master.ui.mode.support" -> {}
-                    "com.oplus.feature.master.mode.professional.name" -> {}
+                    when (key) {
+                        //孤独星球
+                        "com.oplus.camera.support.custom.lonely.planet.watermark" -> {}
+                        //美妆定制水印
+                        //res/layout/camera_watermark_makeup_visual_layout.xml
+                        //imageView_watermark_makeup_visual
+                        //key PRE_KEY_WATERMARK_MAKEUP / pref_watermark_makeup_function_key
+                        //is_slogan
+                        "com.oplus.feature.custom.makeup.watermark.support" -> {}
 
-                    //街拍模式
-                    "com.oplus.feature.street.mode.support" -> {}
+                        //大师模式
+                        "com.oplus.feature.master.mode.support" -> {}
+                        "com.oplus.feature.master.ui.mode.support" -> {}
+                        "com.oplus.feature.master.mode.professional.name" -> {}
 
-                    //陆川滤镜 / 光影有声
+                        //街拍模式
+                        "com.oplus.feature.street.mode.support" -> {}
+
+                        //陆川滤镜 / 光影有声
 //                            "com.oplus.tol.style.filter.support" -> result(true)
 
-                    //录像轮盘变焦
+                        //录像轮盘变焦
 //                        "com.oplus.video.inertial.zoom.support" -> result = "1"
 
+                    }
                 }
             }
         }

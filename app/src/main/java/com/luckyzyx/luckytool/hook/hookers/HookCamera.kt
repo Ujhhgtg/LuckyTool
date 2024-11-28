@@ -62,5 +62,12 @@ object HookCamera : YukiBaseHooker() {
 //            }
 //        }
 
+        //Source CommonUtil
+//        "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam".toClass().apply {
+//            method { name = "getAiMasterWatermarkEnable" }.hook {
+//                replaceToTrue()
+//            }
+//        }
+
     }
 }

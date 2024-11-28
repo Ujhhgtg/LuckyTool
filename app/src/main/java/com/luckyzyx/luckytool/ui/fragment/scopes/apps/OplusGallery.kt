@@ -56,13 +56,6 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = "设置画框水印状态"
-                key = "enable_frame_watermark"
-                setDefaultValue(false)
-                isVisible = false
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_hassel_watermark)
                 key = "enable_hassel_watermark"
                 setDefaultValue(false)
@@ -79,7 +72,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.enable_spring_festival_watermark_summary)
                 key = "enable_spring_festival_watermark"
                 setDefaultValue(false)
-                isVisible = osCode >= 27 && isZh(this@loadPreferences)
+                isVisible = isZh(this@loadPreferences)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
@@ -87,21 +80,23 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.enable_national_day_watermark_summary)
                 key = "enable_national_day_watermark"
                 setDefaultValue(false)
-                isVisible = osCode >= 27 && isZh(this@loadPreferences)
+                isVisible = isZh(this@loadPreferences)
                 isIconSpaceReserved = false
             })
             //滤镜
-            add(PreferenceCategory(this@loadPreferences).apply {
-                title = getString(R.string.CameraFilter)
-                key = "GalleryFilter"
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.camera_filter_jiangwen)
-                key = "enable_gallery_jiangwen_filter"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (osCode < 34) {
+                add(PreferenceCategory(this@loadPreferences).apply {
+                    title = getString(R.string.CameraFilter)
+                    key = "GalleryFilter"
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.camera_filter_jiangwen)
+                    key = "enable_gallery_jiangwen_filter"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //视图
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.GalleryView)
