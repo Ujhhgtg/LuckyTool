@@ -287,6 +287,10 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = osCode >= 33
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("android", key, newValue as Boolean)
+                    true
+                }
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_all_apps_support_split_screen)

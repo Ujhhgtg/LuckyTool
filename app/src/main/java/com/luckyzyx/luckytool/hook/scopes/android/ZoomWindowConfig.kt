@@ -8,6 +8,7 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 @Obfuscate
 @Suppress("UNCHECKED_CAST")
@@ -22,9 +23,9 @@ object ZoomWindowConfig : YukiBaseHooker() {
             HookZoomWindow.callback?.invoke("zoom_window_support_list", it)
             HookFlexibleWindow.callback?.invoke("zoom_window_support_list", it)
         }
-
+        val osCode = getOSVersionCode
         loadHooker(HookZoomWindow)
-        loadHooker(HookFlexibleWindow)
+        if (osCode >= 33) loadHooker(HookFlexibleWindow)
     }
 
     @Obfuscate
@@ -73,6 +74,8 @@ object ZoomWindowConfig : YukiBaseHooker() {
             var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
             var supportList =
                 prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
+            var multiWindow = prefs(ModulePrefs).getBoolean("enable_multi_window_mode", false)
+            dataChannel.wait<Boolean>("enable_multi_window_mode") { multiWindow = it }
             callback = { key: String, value: Any ->
                 when (key) {
                     "custom_app_floating_window_display_mode" -> mode = value as String
@@ -107,7 +110,9 @@ object ZoomWindowConfig : YukiBaseHooker() {
                     name = "getMaxWinNum"
                     returnType = IntType
                 }.hook {
-                    replaceTo(1000)
+                    after {
+                        if (multiWindow) result = 1000
+                    }
                 }
             }
         }
