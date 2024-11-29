@@ -98,7 +98,7 @@ class ExtractOTAFragment : Fragment() {
                         AESCrypt.encrypt(data, CommandUtils.otaCryptKey, true)
                     } ?: ""
                     if (encrypt.isNotBlank()) list.add("Verity: $encrypt")
-                    list.add("Source: @LuckyTool")
+                    list.add("Source: #LuckyToolOTA")
                 }
                 list
             }
