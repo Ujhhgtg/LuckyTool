@@ -43,6 +43,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用多浮窗支持 C14.1+
 - [更改] 合并相机与相册部分配置项
 - [添加] 自定义多浮窗显示上限 C14.1+
+- [适配] 相册替换OnePlus机型水印 v15.16.4(9f018b6)
 
 ### 1.2.5
 

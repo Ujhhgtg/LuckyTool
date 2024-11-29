@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.gallery.GalleryWaterMarkWordDialog
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookFunctionManager
 import com.luckyzyx.luckytool.hook.scopes.gallery.HookSystemStorage
 import com.luckyzyx.luckytool.hook.scopes.gallery.RemoveAIGCEliminationLimit
+import com.luckyzyx.luckytool.hook.scopes.gallery.ReplaceOnePlusModelWatermark
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.DexkitUtils
@@ -30,6 +31,10 @@ object HookGallery : YukiBaseHooker() {
             //HookFunctionManager
             if (osCode < 34) loadHooker(HookFunctionManager(dexKitBridge))
 
+            //替换OnePlus机型水印
+            if (prefs(ModulePrefs).getBoolean("replace_oneplus_model_watermark", false)) {
+                loadHooker(ReplaceOnePlusModelWatermark)
+            }
             //移除自定义水印字数限制
             if (prefs(ModulePrefs).getBoolean("remove_gallery_watermark_word_limit", false)) {
                 if (osCode < 30) loadHooker(GalleryWaterMarkWordDialog(dexKitBridge))
