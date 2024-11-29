@@ -33,7 +33,7 @@ object HookGallery : YukiBaseHooker() {
 
             //替换OnePlus机型水印
             if (prefs(ModulePrefs).getBoolean("replace_oneplus_model_watermark", false)) {
-                loadHooker(ReplaceOnePlusModelWatermark)
+                if (osCode >= 34) loadHooker(ReplaceOnePlusModelWatermark)
             }
             //移除自定义水印字数限制
             if (prefs(ModulePrefs).getBoolean("remove_gallery_watermark_word_limit", false)) {
