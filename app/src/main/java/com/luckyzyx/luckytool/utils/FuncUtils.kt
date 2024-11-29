@@ -15,6 +15,9 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -27,6 +30,7 @@ import android.os.SystemProperties
 import android.provider.Settings
 import android.service.quicksettings.TileService
 import android.text.SpannableString
+import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.util.ArrayMap
 import android.util.ArraySet
@@ -1066,4 +1070,47 @@ fun startMirageWindow(intent: Intent?) {
     OplusMirageWindowManager.getInstance().startMirageWindowMode(
         intent, makeBasic.toBundle()
     )
+}
+
+fun createTextDrawable(context: Context, text: String): Drawable {
+    // 创建一个 Paint 对象来设置文本的样式
+    val paint = Paint().apply {
+        color = Color.WHITE // 文本颜色为白色
+        textSize = 14F.dp
+        isAntiAlias = true
+        textAlign = Paint.Align.LEFT
+    }
+
+    // 使用 TextPaint 测量文本的宽度和高度
+    val textPaint = TextPaint(paint)
+
+    // 测量文本的宽度
+    val textWidth = textPaint.measureText(text)
+
+    // 测量文本的高度
+    val fontMetrics = paint.fontMetrics
+    val textHeight = fontMetrics.bottom - fontMetrics.top
+
+    // 创建一个足够大的 Bitmap 来容纳文本
+    val bitmapWidth = (textWidth + 20f).toInt()  // 增加一些边距
+    val bitmapHeight = (textHeight + 20f).toInt()  // 增加一些边距
+
+    val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+
+    // 设置背景为透明
+    val backgroundPaint = Paint().apply {
+        color = Color.TRANSPARENT
+        isAntiAlias = true
+    }
+    canvas.drawRect(0f, 0f, bitmapWidth.toFloat(), bitmapHeight.toFloat(), backgroundPaint)
+
+    val x = (bitmapWidth - textWidth) / 2f  // 水平居中
+    val y = bitmapHeight / 2f - (fontMetrics.ascent + fontMetrics.descent) / 2f  // 垂直居中
+
+    // 在 Canvas 上绘制文本
+    canvas.drawText(text, x, y, paint)
+
+    // 返回 BitmapDrawable，背景是透明的
+    return BitmapDrawable(context.resources, bitmap)
 }

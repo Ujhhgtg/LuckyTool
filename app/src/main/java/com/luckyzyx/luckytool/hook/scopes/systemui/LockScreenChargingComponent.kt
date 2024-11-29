@@ -2,6 +2,8 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.Typeface
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.allViews
@@ -18,6 +20,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.createTextDrawable
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import java.io.StringReader
@@ -68,6 +71,26 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             "2" -> resultFalse()
                             else -> return@before
                         }
+                    }
+                }
+                method { name = "updateChargeTechImage" }.hook {
+                    before {
+                        if (!showRealTech) return@before
+                        val viewGroup = instance<ViewGroup>()
+                        val chargeTechLogo = field { name = "chargeTechLogo" }.get(instance)
+                            .cast<ImageView>() ?: return@before
+                        val isWirelessCharge =
+                            field { name = "isWirelessCharge" }.get(instance).boolean()
+                        val chargerTechnology =
+                            field { name = "chargerTechnology" }.get(instance).int()
+                        val chargeInfo = getChargeInfo()
+                        val usbFastChgType = chargeInfo.getIntProperty("usb_fast_chg_type", 0)
+                        val ppsMode = chargeInfo.getIntProperty("battery_ppschg_ing", 0)
+                        val text = BatteryControllerUtils(appClassLoader).getTechnologyName(
+                            chargerTechnology, usbFastChgType, ppsMode, isWirelessCharge
+                        )
+                        chargeTechLogo.setImageDrawable(createTextDrawable(viewGroup.context, text))
+                        resultNull()
                     }
                 }
             }
