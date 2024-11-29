@@ -180,7 +180,7 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             temperature_noplug = chargeInfo.getIntProperty("battery_temp_not_plug") / 10.0
             isSeriesDual = DevicesConfigUtils.isSeriesDualBattery == true
             isParallelDual = DevicesConfigUtils.isParallelDualBattery == true
-            chargerType = chargeInfo.getStringProperty("charger_type", "Null").toString()
+            chargerType = chargeInfo.getStringProperty("charger_type", "")
 //            ppsMode = chargeInfo.getIntProperty("battery_ppschg_ing", 0)
             usbFastChgType = chargeInfo.getIntProperty("usb_fast_chg_type", 0)
             voltage = chargeInfo.getIntProperty("battery_voltage_now") / 1000.0
@@ -317,12 +317,13 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
         } else ""
 
         val sp = if (isSimple) "$level%" else "$status: $level%"
+
         val ct = if (isSimple) {
             if (isWireless) plugged
-            else "$plugged $chargerType"
+            else plugged + if (chargerType.isNotBlank()) " $chargerType" else ""
         } else {
             if (isWireless) "${typeStr}: $plugged"
-            else "${typeStr}: $plugged $chargerType"
+            else "${typeStr}: $plugged" + if (chargerType.isNotBlank()) " $chargerType" else ""
         }
         val pwr = if (isSimple) power
         else "${pwrStr}: $power"

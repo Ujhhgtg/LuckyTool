@@ -9,12 +9,9 @@ fun Properties.getStringProperty(key: String): String? {
     } else getProperty(key)
 }
 
-fun Properties.getStringProperty(key: String, def: String? = ""): String? {
-    return if (TextUtils.isEmpty(key)) {
-        null
-    } else if (getStringProperty(key) == null) {
-        def
-    } else getStringProperty(key)
+fun Properties.getStringProperty(key: String, def: String = ""): String {
+    return if (TextUtils.isEmpty(key)) def
+    else getStringProperty(key) ?: def
 }
 
 /**
