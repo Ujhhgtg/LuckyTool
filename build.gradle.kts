@@ -1,12 +1,6 @@
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.api.AndroidBasePlugin
 
-buildscript {
-    dependencies {
-        classpath(libs.paranoid.gradle.plugin)
-    }
-}
-
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.agp.app) apply false

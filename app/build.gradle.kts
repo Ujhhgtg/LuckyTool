@@ -11,7 +11,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.lsplugin.resopt)
-    id("com.joom.paranoid")
 }
 
 apksign {
@@ -110,21 +109,15 @@ dependencies {
     ksp(libs.ksp.yukihookapi)
     implementation(libs.dexkit)
 
-    implementation(libs.mmkv)
-
-    implementation(libs.betterandroid.ui.component)
     implementation(libs.material)
-    implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.constraintlayout)
     implementation(libs.preference.ktx)
     implementation(libs.swiperefreshlayout)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+    implementation(libs.betterandroid.ui.component)
 
-    implementation(libs.xxpermissions)
-    implementation(libs.spiderman)
-    implementation(libs.fastscroll)
-
+    implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
@@ -143,8 +136,13 @@ dependencies {
     implementation(libs.markwon.image)
     implementation(libs.markwon.ext.tables)
 
-    implementation(libs.android.image.cropper)
+    implementation(libs.mmkv)
+    implementation(libs.paranoid)
+    implementation(libs.xxpermissions)
+    implementation(libs.spiderman)
+    implementation(libs.fastscroll)
     implementation(libs.colorpicker)
+    implementation(libs.android.image.cropper)
 }
 
 fun getVersionCode(): Int {
