@@ -12,8 +12,8 @@ object RemoveSearchBoxAppRecommendCard : YukiBaseHooker() {
         //Source AliveAppRecommendView -> view_alive_app
         "com.heytap.quicksearchbox.ui.widget.AliveAppRecommendView".toClass().apply {
             method {
-                param { it[0] == ListClass && it[1] == BooleanType && it[2] == BooleanType }
-                paramCount(3..4)
+                param { it[0] == ListClass && it[1] == BooleanType }
+                paramCount(2..4)
             }.hook {
                 before {
                     args().first().cast<java.util.ArrayList<Any>>()?.clear()
