@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDanmakuNotificationWhit
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDoNotDisturbModeNotification
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveFlashlightOpenNotification
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveGTModeNotification
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveNotificationCleanupButton
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveNotificationForMuteNotifications
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSmallWindowReplyWhitelist
 import com.luckyzyx.luckytool.utils.A14
@@ -46,6 +47,10 @@ object StatusBarNotify : YukiBaseHooker() {
         //弹幕通知白名单
         if (prefs(ModulePrefs).getBoolean("remove_danmaku_notification_whitelist", false)) {
             if (SDK < A14) loadHooker(RemoveDanmakuNotificationWhitelist)
+        }
+        //移除通知清理按钮
+        if (prefs(ModulePrefs).getBoolean("remove_notification_cleanup_button", false)) {
+            loadHooker(RemoveNotificationCleanupButton)
         }
     }
 }

@@ -138,36 +138,42 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isVisible = osCode < 30
                 isIconSpaceReserved = false
             })
-            add(SeekBarPreference(this@loadPreferences).apply {
-                title = getString(R.string.custom_notification_background_transparency)
-                summary = getString(R.string.force_enable_systemui_blur_feature_tips)
-                key = "custom_notification_background_transparency"
-                setDefaultValue(-1)
-                max = 10
-                min = -1
-                showSeekBarValue = true
-                updatesContinuously = false
-                isVisible = osCode in 30..33
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("com.android.systemui", key, newValue)
-                    true
-                }
-            })
+            if (osCode in 30..33) {
+                add(SeekBarPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_notification_background_transparency)
+                    summary = getString(R.string.force_enable_systemui_blur_feature_tips)
+                    key = "custom_notification_background_transparency"
+                    setDefaultValue(-1)
+                    max = 10
+                    min = -1
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_notification_background_blur_effect)
+                    summary = arraySummaryLine(
+                        getString(R.string.force_enable_systemui_blur_feature_tips),
+                        getString(R.string.force_enable_systemui_blur_feature_tips_2)
+                    )
+                    key = "enable_notification_background_blur_effect"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_notification_background_blur_effect)
-                summary = arraySummaryLine(
-                    getString(R.string.force_enable_systemui_blur_feature_tips),
-                    getString(R.string.force_enable_systemui_blur_feature_tips_2)
-                )
-                key = "enable_notification_background_blur_effect"
+                title = getString(R.string.remove_notification_cleanup_button)
+                key = "remove_notification_cleanup_button"
                 setDefaultValue(false)
-                isVisible = osCode in 30..33
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("com.android.systemui", key, newValue)
-                    true
-                }
             })
             //滑动条相关
             if (osCode in 26..33) {

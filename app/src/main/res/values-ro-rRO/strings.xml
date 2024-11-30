@@ -230,6 +230,7 @@
     <string name="fix_control_center_date_display_suammry">Remediați problema că data nu poate fi afișată complet</string>
     <string name="ControlCenterNotificationCenter">Centrul de notificare din Centrul de control</string>
     <string name="enable_notification_align_both_sides">Activează alinierea notificărilor în ambele părți</string>
+    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
     <string name="enable_notification_importance_classification">Activează clasificarea importanței notificărilor</string>
     <string name="custom_notification_background_transparency">Custom notification background transparency</string>
     <string name="enable_notification_background_blur_effect">Enable notification background blur effect</string>

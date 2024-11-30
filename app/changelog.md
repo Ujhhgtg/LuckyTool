@@ -45,6 +45,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 自定义多浮窗显示上限 C14.1+
 - [适配] 相册替换OnePlus机型水印 v15.16.4(9f018b6)
 - [添加] 替换充电技术绘制样式 C15+
+- [添加] 移除通知清理按钮 C12+
 
 ### 1.2.5
 

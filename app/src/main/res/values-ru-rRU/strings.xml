@@ -230,6 +230,7 @@
     <string name="fix_control_center_date_display_suammry">Устранить проблему, из-за которой дата может отображаться не полностью</string>
     <string name="ControlCenterNotificationCenter">Уведомления в шторке</string>
     <string name="enable_notification_align_both_sides">Включить выравнивание уведомлений по обе стороны</string>
+    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
     <string name="enable_notification_importance_classification">Включить классификацию важности уведомлений</string>
     <string name="custom_notification_background_transparency">Прозрачность фона уведомлений</string>
     <string name="enable_notification_background_blur_effect">Включить эффект размытия фона уведомления</string>
