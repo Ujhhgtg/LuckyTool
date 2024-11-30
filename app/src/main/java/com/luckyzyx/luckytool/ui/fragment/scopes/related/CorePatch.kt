@@ -70,13 +70,6 @@ class CorePatch : BaseScopePreferenceFeagment() {
                 }
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                setTitle(R.string.enhancedMode)
-                setSummary(R.string.enhancedMode_summary)
-                key = "enhancedMode"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
                 setTitle(R.string.shared_user_title)
                 setSummary(R.string.shared_user_summary)
                 key = "sharedUser"

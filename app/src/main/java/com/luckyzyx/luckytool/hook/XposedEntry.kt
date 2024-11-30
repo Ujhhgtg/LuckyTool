@@ -15,7 +15,6 @@ import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForU
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForV
 import com.luckyzyx.luckytool.hook.scopes.android.DisableFlagSecure
 import com.luckyzyx.luckytool.utils.SDK
-import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 @Obfuscate
@@ -33,16 +32,6 @@ object XposedEntry {
             }
         }
         DisableFlagSecure().handleLoadPackage(lpparam)
-    }
-
-    fun onInitZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
-        when (SDK) {
-//                    VANILLA_ICE_CREAM -> CorePatchForV().initZygote(startupParam)
-            UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
-            TIRAMISU -> CorePatchForT().initZygote(startupParam)
-            S, S_V2 -> CorePatchForS().initZygote(startupParam)
-            R -> CorePatchForR().initZygote(startupParam)
-        }
     }
 
 }

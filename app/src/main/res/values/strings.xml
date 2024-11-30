@@ -134,8 +134,6 @@
     <string name="digestCreak_summary">Allows overriding directly installed apps with different signatures to the package</string>
     <string name="UsePreSig">Always use the signed installed APP while installing</string>
     <string name="UsePreSig_summary">Is not a normal!danger! Only enable when absolutely needed</string>
-    <string name="enhancedMode">Enhancement mode</string>
-    <string name="enhancedMode_summary">You can solve some internal integrity check within the app, which does not need to be enabled</string>
     <string name="usepresig_warn">!!! All packages can override installed App!!\nto install unknown packages</string>
     <string name="shared_user_title">Bypass shared user verify</string>
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
