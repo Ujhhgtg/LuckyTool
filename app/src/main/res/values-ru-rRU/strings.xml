@@ -120,8 +120,6 @@
     <string name="digestCreak_summary">Разрешить прямое переопределение для установки приложений с разными подписями для одного и того же имени пакета</string>
     <string name="UsePreSig">Всегда использовать подпись установленного приложения при установке</string>
     <string name="UsePreSig_summary">Опасно! Включать только в случае крайней необходимости</string>
-    <string name="enhancedMode">Расширенный режим</string>
-    <string name="enhancedMode_summary">Это может помочь пройти некоторую внутреннюю проверку целостности приложения, обычно не нужно включать</string>
     <string name="usepresig_warn">!!!Все установщики могут перезаписывать установленные приложения!!! Будьте осторожны при установке приложений из неизвестных источников</string>
     <string name="shared_user_title">Обход проверки общего пользователя</string>
     <string name="shared_user_summary">Разрешить установку приложения, подпись которого отличается от общего пользователя (<b>также необходимо включить \"Отключить сравнение подписей\"</b>)</string>
@@ -366,6 +364,7 @@
     <string name="set_lock_screen_warp_charging_style">Установить стиль зарядки warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Установить стиль текстового логотипа зарядки</string>
     <string name="lock_screen_show_real_charging_technology">Компоненты зарядки показывают реальную технологию зарядки</string>
+    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
     <string name="force_lock_screen_charging_show_wattage">Принудительно отображать мощность зарядки</string>
     <string name="lock_screen_charging_use_user_typeface">Компоненты зарядки используют пользовательские шрифты</string>
     <string name="set_full_screen_charging_animation_mode">Анимация во весь экран при зарядке</string>
@@ -426,8 +425,8 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Удалить белый список</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Пользовательский белый список</string>
     <string name="zoom_window_support_list">Пользовательское окно масштаба</string>
-    <string name="force_enable_multi_window_mode">Force enable multi zoom window mode</string>
-    <string name="custom_multi_window_display_upper_limit">Custom multi window display upper limit</string>
+    <string name="force_enable_multi_window_mode">Принудительно включить режим многооконного масштабирования</string>
+    <string name="custom_multi_window_display_upper_limit">Верхний предел пользовательского многооконного отображения</string>
     <string name="zoom_window_support_list_summary">Включать при необходимости, в противном случае возникнут непоправимые проблемы</string>
     <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
     <string name="launcher_drawer_layout_related">Разметка папки</string>

@@ -120,8 +120,6 @@
     <string name="digestCreak_summary">直接インストールされたアプリを署名が異なるアプリでも上書きインストールを可能にします</string>
     <string name="UsePreSig">インストール時に署名をされたアプリをインストール</string>
     <string name="UsePreSig_summary">これは正常ではありません！危険です！絶対に必要な場合のみに有効化してください</string>
-    <string name="enhancedMode">拡張モード</string>
-    <string name="enhancedMode_summary">一部のアプリの整合性チェックを解決できますが、これを有効化する必要はありません</string>
     <string name="usepresig_warn">!!! すべてのインストールされたアプリをすべてのパッケージで上書きする事ができます!!\n不明なパッケージをインストールします</string>
     <string name="shared_user_title">共有ユーザーの認証をバイパスする</string>
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
@@ -366,6 +364,7 @@
     <string name="set_lock_screen_warp_charging_style">WARP 充電のスタイルを設定</string>
     <string name="set_lock_screen_charging_text_logo_style">充電テキストのロゴスタイルを設定</string>
     <string name="lock_screen_show_real_charging_technology">充電コンポーネントに実際の充電技術を表示します</string>
+    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
     <string name="force_lock_screen_charging_show_wattage">充電コンポーネントにワット数を表示</string>
     <string name="lock_screen_charging_use_user_typeface">充電コンポーネントにユーザー指定のフォントを使用</string>
     <string name="set_full_screen_charging_animation_mode">充電アニメーションの全画面表示</string>

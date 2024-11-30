@@ -61,6 +61,11 @@ object LockScreenChargingComponent : YukiBaseHooker() {
             dataChannel.wait<Boolean>("force_lock_screen_charging_show_wattage") {
                 showWattage = it
             }
+            var drawTechnology =
+                prefs(ModulePrefs).getBoolean("replace_charging_technology_drawing_style", false)
+            dataChannel.wait<Boolean>("replace_charging_technology_drawing_style") {
+                drawTechnology = it
+            }
 
             //Source ChargingLevelAndLogoView
             "com.oplus.charge.view.ChargeLevelAndLogoView".toClass().apply {
@@ -75,7 +80,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                 }
                 method { name = "updateChargeTechImage" }.hook {
                     before {
-                        if (!showRealTech) return@before
+                        if (!drawTechnology) return@before
                         val viewGroup = instance<ViewGroup>()
                         val chargeTechLogo = field { name = "chargeTechLogo" }.get(instance)
                             .cast<ImageView>() ?: return@before

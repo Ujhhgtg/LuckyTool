@@ -120,8 +120,6 @@
     <string name="digestCreak_summary">Дозволити пряме перевизначення для встановлення додатків з різними підписами для одного і того ж імені пакета</string>
     <string name="UsePreSig">Завжди використовувати підпис встановленого додатку під час встановлення</string>
     <string name="UsePreSig_summary">Небезпечно! Вмикати тільки у разі нагальної потреби</string>
-    <string name="enhancedMode">Розширений режим</string>
-    <string name="enhancedMode_summary">Це може вирішити деяку внутрішню перевірку цілісності програми, зазвичай не потрібно вмикати</string>
     <string name="usepresig_warn">!!!Всі інсталятори можуть перезаписувати встановлені програми!!! Будьте обережні під час встановлення програм з невідомих інсталяторів</string>
     <string name="shared_user_title">Bypass shared user verify</string>
     <string name="shared_user_summary">Allow install app with signature differ from its shared user (<b>\'Disable compare signatures\' must be enabled too</b>)</string>
@@ -366,6 +364,7 @@
     <string name="set_lock_screen_warp_charging_style">Set warp charging style</string>
     <string name="set_lock_screen_charging_text_logo_style">Set charging text logo style</string>
     <string name="lock_screen_show_real_charging_technology">Charging components show real charging technology</string>
+    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
     <string name="force_lock_screen_charging_show_wattage">Force charging components display wattage</string>
     <string name="lock_screen_charging_use_user_typeface">Charging components use user fonts</string>
     <string name="set_full_screen_charging_animation_mode">Full screen charging animation mode</string>

@@ -120,8 +120,6 @@
     <string name="digestCreak_summary">Umožňuje přepsat přímo nainstalované aplikace různými podpisy k balíčku</string>
     <string name="UsePreSig">Vždy používat při instalaci podepsanou instalovanou aplikaci</string>
     <string name="UsePreSig_summary">Není to normální! Hrozí nebezpečí! Povolte pouze pokud je to nezbytně nutné</string>
-    <string name="enhancedMode">Režim vylepšení</string>
-    <string name="enhancedMode_summary">Můžete vyřešit interní kontrolu integrity v aplikaci, která nemusí být povolena</string>
     <string name="usepresig_warn">!!! Všechny balíčky mohou přepsat nainstalovanou aplikaci!!\npro instalaci neznámých balíčků</string>
     <string name="shared_user_title">Ignorovat sdílené ověření uživatele</string>
     <string name="shared_user_summary">Povolit instalaci aplikace s odlišným podpisem od sdíleného uživatele (<b>\'Zakázat porovnání podpisu\' musí být také povoleno</b>)</string>
@@ -366,6 +364,7 @@
     <string name="set_lock_screen_warp_charging_style">Nastavit styl warp nabíjení</string>
     <string name="set_lock_screen_charging_text_logo_style">Nastavit styl loga nabíjení</string>
     <string name="lock_screen_show_real_charging_technology">Komponenty nabíjení zobrazují skutečnou technologii nabíjení</string>
+    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
     <string name="force_lock_screen_charging_show_wattage">Zobrazení příkonu nabíjecích komponentů</string>
     <string name="lock_screen_charging_use_user_typeface">Komponenta nabíjení použije na zamykací obrazovce použije uživatelské písmo</string>
     <string name="set_full_screen_charging_animation_mode">Režim animace nabíjení na celé obrazovce</string>

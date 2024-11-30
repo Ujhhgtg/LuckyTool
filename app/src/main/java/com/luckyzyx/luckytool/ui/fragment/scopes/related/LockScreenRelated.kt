@@ -199,6 +199,17 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                 }
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.replace_charging_technology_drawing_style)
+                key = "replace_charging_technology_drawing_style"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_lock_screen_charging_show_wattage)
                 key = "force_lock_screen_charging_show_wattage"
                 setDefaultValue(false)

@@ -120,8 +120,6 @@
     <string name="digestCreak_summary">Consente di sovrascrivere applicazioni installate direttamente con firme diverse al pacchetto</string>
     <string name="UsePreSig">Utilizzare sempre l\'APP installata firmata durante l\'installazione</string>
     <string name="UsePreSig_summary">Non è un normale! Pericolo! Abilita solo quando è assolutamente necessario</string>
-    <string name="enhancedMode">Modalità miglioramento</string>
-    <string name="enhancedMode_summary">È possibile risolvere alcuni controlli di integrità interna all\'interno dell\'app, che non è necessario abilitare</string>
     <string name="usepresig_warn">!!! Tutti i pacchetti possono sovrascrivere l\'app installata!!\nper installare pacchetti sconosciuti</string>
     <string name="shared_user_title">Ignora la verifica dell\'utente condiviso</string>
     <string name="shared_user_summary">Consenti l\'installazione di app con firma diversa dall\'utente condiviso (è necessario abilitare anche <b>Disabilita confronto firme</b>)</string>
@@ -366,6 +364,7 @@
     <string name="set_lock_screen_warp_charging_style">Imposta lo stile di ricarica warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Imposta lo stile del logo del testo di ricarica</string>
     <string name="lock_screen_show_real_charging_technology">I componenti di ricarica mostrano la tecnologia di ricarica reale</string>
+    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
     <string name="force_lock_screen_charging_show_wattage">I componenti di ricarica forzata visualizzano la potenza</string>
     <string name="lock_screen_charging_use_user_typeface">Componenti di ricarica utilizzano caratteri utente</string>
     <string name="set_full_screen_charging_animation_mode">Modalità animazione di ricarica a schermo intero</string>

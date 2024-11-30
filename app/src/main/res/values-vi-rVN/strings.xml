@@ -120,8 +120,6 @@
     <string name="digestCreak_summary">Cho phép ghi đè các ứng dụng được cài đặt trực tiếp có chữ ký khác nhau</string>
     <string name="UsePreSig">Luôn sử dụng cài đặt APP có chữ ký</string>
     <string name="UsePreSig_summary">Bất thường! Nguy hiểm! Chỉ bật khi thực sự cần thiết</string>
-    <string name="enhancedMode">Chế độ nâng cao</string>
-    <string name="enhancedMode_summary">Bạn có thể giải quyết một số kiểm tra tính toàn vẹn nội bộ trong ứng dụng mà không cần phải bật</string>
     <string name="usepresig_warn">!!! Tất cả các gói có thể ghi đè ứng dụng đã cài đặt!!\nđể cài đặt các gói không xác định</string>
     <string name="shared_user_title">Bỏ qua xác minh chữ ký người dùng được chia sẻ</string>
     <string name="shared_user_summary">Cho phép cài đặt các ứng dụng có chữ ký khác nhau từ những người dùng chia sẻ chúng (<b>Cũng cần bật \"Tắt xác minh chữ ký Apk\"</b>)</string>
@@ -366,6 +364,7 @@
     <string name="set_lock_screen_warp_charging_style">Đặt kiểu sạc Warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Đặt kiểu Logo văn bản</string>
     <string name="lock_screen_show_real_charging_technology">Các bộ phận sạc hiển thị công nghệ sạc thực tế</string>
+    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
     <string name="force_lock_screen_charging_show_wattage">Các thành phần sạc buộc phải hiển thị công suất</string>
     <string name="lock_screen_charging_use_user_typeface">Linh kiện sạc sử dụng phông chữ của người dùng</string>
     <string name="set_full_screen_charging_animation_mode">Chế độ hoạt hình sạc toàn màn hình</string>
