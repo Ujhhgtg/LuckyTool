@@ -26,6 +26,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.startMirageWindow
 
+
 @Obfuscate
 @Suppress("LocalVariableName")
 object HookFloatMirageWindow : YukiBaseHooker() {
@@ -39,54 +40,63 @@ object HookFloatMirageWindow : YukiBaseHooker() {
 
     @Obfuscate
     object FloatWindowBackRun : YukiBaseHooker() {
+
+        private val Task = "com.android.server.wm.Task"
+        private val ActivityTaskManagerService = "com.android.server.wm.ActivityTaskManagerService"
+        private val RootWindowContainer = "com.android.server.wm.RootWindowContainer"
+
         override fun onHook() {
-            val Task = "com.android.server.wm.Task"
+            var taskId: Int = -1
+            var task: Any? = null
 
-            //Source FlexibleTaskCaptionView
-            "com.android.server.wm.FlexibleTaskCaptionView".toClass().apply {
-                method { name = "onStateChanged";paramCount = 2 }.hook {
-                    after {
-                        val preState = args().first().int()
-                        val newState = args().last().int()
-
-                        //关闭 1 0
-                        //创建 0 1
-                        //全屏 1 0
-                        //贴边 1 4
-                        //贴边恢复 4 1
-
-                        if (preState == 1 && newState == 4) {
-
-                            val task = field { type = Task;superClass() }.get(instance).any()
-                                ?: return@after
-
-                            val taskInfo = task.current().method {
-                                name = "getTaskInfo"
-                                returnType = RunningTaskInfo::class.java
-                            }.invoke<RunningTaskInfo>() ?: return@after
-
-                            val baseIntent = taskInfo.current().field {
-                                type = IntentClass;superClass()
-                            }.cast<Intent>() ?: return@after
-
-                            val uid = taskInfo.current().field { name = "uid";superClass() }
-                                .int()
-                            if (uid > 0) baseIntent.putExtra("TASKINFO_UID", uid)
-
-                            startMirageWindow(baseIntent)
-                        }
+            //Source OplusFlexibleDCSManager
+            "com.android.server.wm.FlexibleTaskController".toClass().apply {
+                method { name = "notifyFlexibleTaskEvent" }.hook {
+                    before {
+                        taskId = args().first().int()
+                        val mAtms = field { type = ActivityTaskManagerService }.get(instance).any()
+                            ?: return@before
+                        val mRootWindowContainer = mAtms.current().field {
+                            type = RootWindowContainer;superClass()
+                        }.any() ?: return@before
+                        task = mRootWindowContainer.current().method {
+                            name = "anyTaskForId"
+                            paramCount = 1
+                        }.call(taskId) ?: return@before
+                    }
+                }
+                method { name = "exitFlexibleTask" }.hook {
+                    before {
+                        val curTask = args().first().any() ?: return@before
+                        val mTaskId = curTask.current().field { name = "mTaskId" }.int()
+                        if (taskId == mTaskId) resultNull()
                     }
                 }
             }
 
-            //Source FloatHandleController
-            "com.android.server.wm.FloatHandleController".toClass().apply {
-                method { name = "removeFloatHandleInner";paramCount = 3 }.hook {
-                    before {
-//                        val taskId = args().first().int()
-//                        val isNeedAnim = args(1).boolean()
-                        val removeFlag = args().last().int()
-                        if (removeFlag == 5) resultNull()
+            //Source OplusFlexibleDCSManager
+            "com.android.server.wm.OplusFlexibleDCSManager".toClass().apply {
+                method { name = "onFloatHandleEnter" }.hook {
+                    after {
+                        val info = args().first().any() ?: return@after
+                        val curTaskId = info.current().field { name = "taskId" }.int()
+                        val curUserId = info.current().field { name = "userId" }.int()
+
+                        if (taskId != curTaskId) return@after
+                        if (task == null) return@after
+
+                        val taskInfo = task!!.current().method {
+                            name = "getTaskInfo"
+                            returnType = RunningTaskInfo::class.java
+                        }.invoke<RunningTaskInfo>() ?: return@after
+
+                        val baseIntent = taskInfo.current().field {
+                            type = IntentClass;superClass()
+                        }.cast<Intent>() ?: return@after
+
+                        baseIntent.putExtra("TASKINFO_UID", curUserId)
+
+                        startMirageWindow(baseIntent)
                     }
                 }
             }

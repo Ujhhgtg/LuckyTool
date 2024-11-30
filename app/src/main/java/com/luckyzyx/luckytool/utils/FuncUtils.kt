@@ -1065,9 +1065,9 @@ fun getManifestEndVersion(string: String?): String {
  * 启动后台运行
  * @param intent Intent
  */
-fun startMirageWindow(intent: Intent?) {
+fun startMirageWindow(intent: Intent?): Int {
     val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
-    OplusMirageWindowManager.getInstance().startMirageWindowMode(
+    return OplusMirageWindowManager.getInstance().startMirageWindowMode(
         intent, makeBasic.toBundle()
     )
 }
