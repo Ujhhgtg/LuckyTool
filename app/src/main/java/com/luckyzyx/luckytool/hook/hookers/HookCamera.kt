@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.camera.CustomCameraOpenGalleryByDefaul
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomModelWaterMark
 import com.luckyzyx.luckytool.hook.scopes.camera.EnableCameraDebugUIOption
 import com.luckyzyx.luckytool.hook.scopes.camera.HookCameraConfig
+import com.luckyzyx.luckytool.hook.scopes.camera.RemoveCameraFlashLimit
 import com.luckyzyx.luckytool.hook.scopes.camera.RemoveFilterModelLimit
 import com.luckyzyx.luckytool.hook.scopes.camera.RemoveWatermarkWordLimit
 import com.luckyzyx.luckytool.utils.A13
@@ -47,6 +48,11 @@ object HookCamera : YukiBaseHooker() {
             //启用DebugUI选项
             if (prefs(ModulePrefs).getBoolean("enable_camera_debug_ui_option", false)) {
                 if (osCode >= 30) loadHooker(EnableCameraDebugUIOption(dexKitBridge))
+            }
+
+            //移除闪光灯使用限制
+            if (prefs(ModulePrefs).getBoolean("remove_camera_flash_limit", false)) {
+                if (osCode >= 26) loadHooker(RemoveCameraFlashLimit(dexKitBridge))
             }
         }
 

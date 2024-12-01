@@ -636,6 +636,7 @@
     <string name="custom_camera_open_gallery_by_default_tips">Chỉ được phép chọn một ứng dụng thư viện ảnh!</string>
     <string name="enable_camera_night_zoom_30x">Bật zoom 30x cho chế độ ban đêm</string>
     <string name="enable_video_capture_roulette_zoom">Cho phép quay video và thu phóng roulette</string>
+    <string name="remove_camera_flash_limit">Remove restrictions on the use of the flash</string>
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn ký tự ở hình mờ tùy chỉnh</string>
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>

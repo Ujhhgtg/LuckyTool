@@ -48,6 +48,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除通知清理按钮 C12+
 - [适配] 移除全局搜索应用推荐卡片 v11.34.3(dc2371d)
 - [添加] 强制启用32位App支持
+- [添加] 移除相机闪光灯使用限制 C13+
 
 ### 1.2.5
 

@@ -163,13 +163,15 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 //                put("oplus.software.stealth_security_mode", true)
 //            }
 
-            //
             //Source EyeProtect PaperTexturePreference 纸质纹理调节
             if (prefs(ModulePrefs).getBoolean("enable_eyeprotect_paper_texture_support", false)) {
                 if (osCode >= 33) {
                     put("oplus.software.display.eyeprotect_paper_texture_support", true)
                 }
             }
+
+            //Source EyeProtect 全亮度低频闪
+//            put("oplus.hardware.display.full_brightness_DC", true)
 
             //Source ExSystemService OplusBackgroundStreamController
             if (prefs(ModulePrefs).getBoolean("enable_run_in_background", false)) {

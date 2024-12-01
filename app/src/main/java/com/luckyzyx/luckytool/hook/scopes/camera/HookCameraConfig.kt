@@ -140,6 +140,10 @@ object HookCameraConfig : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("enable_video_capture_roulette_zoom", false)) {
                 put("com.oplus.video.inertial.zoom.support", false)
             }
+            //移除闪光灯使用限制
+            if (prefs(ModulePrefs).getBoolean("remove_camera_flash_limit", false)) {
+                put("com.oplus.feature.temperature.protection.support", false)
+            }
         }
         loadHooker(HookCameraVendorTag(list))
     }

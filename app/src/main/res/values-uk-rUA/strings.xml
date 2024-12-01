@@ -636,6 +636,7 @@
     <string name="custom_camera_open_gallery_by_default_tips">Only allow selection of one gallery app!</string>
     <string name="enable_camera_night_zoom_30x">Enable 30x zoom for night scenes</string>
     <string name="enable_video_capture_roulette_zoom">Enable video capture roulette zoom</string>
+    <string name="remove_camera_flash_limit">Remove restrictions on the use of the flash</string>
     <string name="CameraWaterMark">WaterMark</string>
     <string name="remove_watermark_word_limit">Remove character limit for custom watermarks</string>
     <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>

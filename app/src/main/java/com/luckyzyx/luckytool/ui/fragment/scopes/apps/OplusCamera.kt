@@ -92,6 +92,13 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_camera_flash_limit)
+                key = "remove_camera_flash_limit"
+                setDefaultValue(false)
+                isVisible = osCode >= 26
+                isIconSpaceReserved = false
+            })
             //水印
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.CameraWaterMark)
