@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.7_beta
+
+- [适配] 强制启用最近任务内存显示
+
 ### 1.2.6
 
 - [修复] 分身App浮窗贴边显示异常 C14+
