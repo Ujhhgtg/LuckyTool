@@ -65,13 +65,6 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                         }.call(taskId) ?: return@before
                     }
                 }
-                method { name = "exitFlexibleTask" }.hook {
-                    before {
-                        val curTask = args().first().any() ?: return@before
-                        val mTaskId = curTask.current().field { name = "mTaskId" }.int()
-                        if (taskId == mTaskId) resultNull()
-                    }
-                }
             }
 
             //Source OplusFlexibleDCSManager
@@ -97,6 +90,17 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                         baseIntent.putExtra("TASKINFO_UID", curUserId)
 
                         startMirageWindow(baseIntent)
+                    }
+                }
+            }
+
+            //Source OplusMirageWindowManagerService
+            "com.android.server.wm.OplusMirageWindowManagerService".toClass().apply {
+                method { name = "moveTaskToBack" }.hook {
+                    before {
+                        val curTask = args().first().any() ?: return@before
+                        val mTaskId = curTask.current().field { name = "mTaskId" }.int()
+                        if (taskId == mTaskId) resultNull()
                     }
                 }
             }
