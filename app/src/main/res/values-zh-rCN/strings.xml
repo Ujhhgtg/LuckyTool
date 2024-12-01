@@ -465,6 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">应用安装相关</string>
     <string name="PackageInstaller_summary">需搭配核心破解使用</string>
+    <string name="force_enable_32_bit_support">强制启用 32 位支持</string>
     <string name="disable_customized_app_installer">禁用定制版应用安装器</string>
     <string name="skip_apk_scan">跳过 APK 扫描</string>
     <string name="skip_apk_scan_summary">APK 病毒扫描相关</string>

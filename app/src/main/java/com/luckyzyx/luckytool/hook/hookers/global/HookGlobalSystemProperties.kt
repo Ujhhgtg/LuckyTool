@@ -12,6 +12,12 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         val list = ArrayMap<String, Any>().apply {
+            //Source Android OplusPackageManagerHelper allowInstall32BitApp
+            if (prefs(ModulePrefs).getBoolean("force_enable_32_bit_support", false)) {
+                put("persist.sys.oplus_support_app32_status", "1")
+                put("ro.vendor.oplus.app32_boost_support", "1")
+            }
+
             //Source Android LTPO VRR ADFR
             when (prefs(ModulePrefs).getString("set_ltpo_refresh_rate_mode", "0")) {
                 "1" -> {

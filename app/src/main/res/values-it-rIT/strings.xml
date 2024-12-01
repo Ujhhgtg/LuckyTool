@@ -465,6 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Installazione App</string>
     <string name="PackageInstaller_summary">Deve essere utilizzato con la patch principale</string>
+    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">Disabilita installatori di applicazioni personalizzati</string>
     <string name="skip_apk_scan">Salta Apkscan</string>
     <string name="skip_apk_scan_summary">Scansione virus Apk</string>

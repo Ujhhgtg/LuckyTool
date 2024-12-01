@@ -465,6 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Nastavení týkající se instalace aplikací</string>
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
+    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">Zakázat vlastní instalátory aplikací</string>
     <string name="skip_apk_scan">Přeskočit skenování souborů APK</string>
     <string name="skip_apk_scan_summary">Nastavení související se skenováním virusů</string>

@@ -465,6 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Cài đặt ứng dụng</string>
     <string name="PackageInstaller_summary">Cần được sử dụng với bản vá lõi</string>
+    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">Tắt trình cài đặt ứng dụng tùy chỉnh</string>
     <string name="skip_apk_scan">Bỏ qua Apkscan</string>
     <string name="skip_apk_scan_summary">Quét vi-rút Apk</string>

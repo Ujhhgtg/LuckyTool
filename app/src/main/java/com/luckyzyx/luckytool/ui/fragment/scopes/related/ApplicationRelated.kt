@@ -236,6 +236,12 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 }
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.force_enable_32_bit_support)
+                summary = getString(R.string.need_restart_system)
+                key = "force_enable_32_bit_support"
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.disable_customized_app_installer)
                 summary = "com.oplus.appdetail"
                 key = "disable_customized_app_installer"

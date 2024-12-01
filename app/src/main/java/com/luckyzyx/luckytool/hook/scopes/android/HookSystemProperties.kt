@@ -32,6 +32,8 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                     if (key.isNullOrBlank()) return@after
                     when (val value = props[key]) {
                         null -> return@after
+                        "1" -> resultTrue()
+                        "0" -> resultFalse()
                         "true" -> resultTrue()
                         "false" -> resultFalse()
                         is Boolean -> result = value

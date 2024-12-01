@@ -531,6 +531,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">App Installation Related</string>
     <string name="PackageInstaller_summary">Need to be used with the core patch</string>
+    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">Skip Apkscan</string>
     <string name="skip_apk_scan_summary">Apk virus scanning related</string>

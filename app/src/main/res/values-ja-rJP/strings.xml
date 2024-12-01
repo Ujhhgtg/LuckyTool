@@ -465,6 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">アプリインストール関連</string>
     <string name="PackageInstaller_summary">コアパッチとの併用が必要です</string>
+    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">カスタマイズされたアプリインストーラーを無効化</string>
     <string name="skip_apk_scan">APKのスキャンをスキップ</string>
     <string name="skip_apk_scan_summary">APKウィルススキャン関連</string>

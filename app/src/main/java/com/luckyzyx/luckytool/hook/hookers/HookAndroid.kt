@@ -11,6 +11,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
+import com.luckyzyx.luckytool.hook.scopes.android.ForceEnable32BitSupport
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookFloatMirageWindow
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
@@ -119,6 +120,8 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(HookFloatMirageWindow)
 
         loadHooker(ReplaceSystemRootStateDetection)
+
+        loadHooker(ForceEnable32BitSupport)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)

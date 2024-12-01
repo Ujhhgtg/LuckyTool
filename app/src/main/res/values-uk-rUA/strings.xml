@@ -465,6 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Встановлення додатку</string>
     <string name="PackageInstaller_summary">Необхідно використовувати з патчем ядра</string>
+    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="skip_apk_scan">Пропустити сканування APK</string>
     <string name="skip_apk_scan_summary">Сканування APK на наявність вірусів</string>
