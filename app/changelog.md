@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.6_beta
+### 1.2.6
 
 - [修复] 分身App浮窗贴边显示异常 C14+
 - [适配] 浮窗贴边后台运行 C15
@@ -49,6 +49,50 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除全局搜索应用推荐卡片 v11.34.3(dc2371d)
 - [添加] 强制启用32位App支持
 - [添加] 移除相机闪光灯使用限制 C13+
+- [Fix] Abnormal display of the floating window of the clone app C14+
+- [Fix] Background operation of the floating window C15
+- [Remove] Whitelist of floating window replies C15
+- [Fix] Clock style of the control center split mode C15
+- [Fix] Red-one display mode of the lock screen clock RUI6
+- [Fix] Desktop and folder paging indicator RUI6
+- [Fix] Remove desktop folder preview background C15
+- [Add] Disable automatic switching of the recent task list to the previous task C15
+- [Add] Force to enable the recent task memory display
+- [Add] Replace the system root status detection
+- [Fix] Hide the non-network card mobile data icon C15
+- [Remove] Word limit of the album watermark
+- [Add] Customize the WLAN dual-channel acceleration whitelist
+- [Add] Remove the WLAN dual-channel acceleration blacklist
+- [Fix] Remove DPI restart recovery C15
+- [Fix] Abnormal display of the function page title
+- [Add] Remove the limit on the number of clones created
+- [Add] Remove the limit on the number of control center tiles
+- [Fix] Browser download dialog box ads v40.8.40.1
+- [Fix] Abnormal display of charging wattage C15
+- [Fix] Local OTA update verification v15.0.12
+- [Fix] Abnormal display of parameters on some application details pages
+- [Optimize] Operator hook logic in the lock screen status bar
+- [Fix] Display of real charging technology fields in charging animation
+- [Fix] Automatically click to start recording or casting dialog RUI6
+- [Fix] Status bar network speed refresh speed RUI6
+- [Fix] Remove Do Not Disturb mode notification RUI6
+- [Fix] Remove Do Not Disturb notification RUI6
+- [Fix] Control center tile column number RUI6
+- [Fix] Status bar battery icon RUI6
+- [Add] Remove camera filter model restrictions
+- [Add] Add more filters to the camera
+- [Fix] Remove the bottom icon of the recent task list C14+
+- [Fix] Customize the default camera launch album v5.020.123 (24-10-30 16:58)
+- [Fix] Camera custom model watermark v5.104.53 (24-11-21 21:50)
+- [Add] Enable multi-floating window support C14.1+
+- [Change] Merge some configuration items of camera and album
+- [Add] Customize the upper limit of multi-floating window display C14.1+
+- [Fix] Album replaces OnePlus model watermark v15.16.4 (9f018b6)
+- [Add] Replace charging technology drawing style C15+
+- [Add] Remove notification cleanup button C12+
+- [Fix] Remove global search application recommendation card v11.34.3 (dc2371d)
+- [Add] Force 32-bit App support
+- [Add] Remove camera flash usage restrictions C13+
 
 ### 1.2.5
 
