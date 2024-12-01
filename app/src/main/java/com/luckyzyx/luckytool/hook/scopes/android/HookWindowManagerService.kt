@@ -9,7 +9,9 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.SDK
 
 @Obfuscate
 object HookWindowManagerService : YukiBaseHooker() {
@@ -36,29 +38,6 @@ object HookWindowManagerService : YukiBaseHooker() {
             }
         }
 
-        //Source DisplayContentExtImpl
-        "com.android.server.wm.DisplayContentExtImpl".toClass().apply {
-            method { name = "setForcedDisplayInfoForWmSize";paramCount = 5 }.hook {
-                before {
-                    if (!isDpi) return@before
-//                    val width = args().first().int()
-//                    val height = args(1).int()
-//                    val density = args(2).int()
-//                    val userId = args(3).int()
-                    val service = args().last().any() ?: return@before
-//                    YLog.debug("${method.name} is call -> $width | $height | $density | $userId")
-
-                    val context = service.current().field { type = ContextClass }.cast<Context>()
-                        ?: return@before
-                    val resolver = context.contentResolver
-                    val forcedDensity = Settings.Secure.getString(
-                        resolver, "display_density_forced"
-                    )?.toIntOrNull() ?: return@before
-                    args(2).set(forcedDensity)
-                }
-            }
-        }
-
         //Source DisplayWindowSettings
         "com.android.server.wm.DisplayWindowSettings".toClass().apply {
             method { name = "setForcedDensity";paramCount(2..3) }.hookAll {
@@ -77,6 +56,29 @@ object HookWindowManagerService : YukiBaseHooker() {
                         resolver, "display_density_forced"
                     )?.toIntOrNull() ?: return@before
                     if (density == 0) args(1).set(forcedDensity)
+                }
+            }
+        }
+
+        //Source DisplayContentExtImpl
+        if (SDK >= A14) "com.android.server.wm.DisplayContentExtImpl".toClass().apply {
+            method { name = "setForcedDisplayInfoForWmSize";paramCount = 5 }.hook {
+                before {
+                    if (!isDpi) return@before
+//                    val width = args().first().int()
+//                    val height = args(1).int()
+//                    val density = args(2).int()
+//                    val userId = args(3).int()
+                    val service = args().last().any() ?: return@before
+//                    YLog.debug("${method.name} is call -> $width | $height | $density | $userId")
+
+                    val context = service.current().field { type = ContextClass }.cast<Context>()
+                        ?: return@before
+                    val resolver = context.contentResolver
+                    val forcedDensity = Settings.Secure.getString(
+                        resolver, "display_density_forced"
+                    )?.toIntOrNull() ?: return@before
+                    args(2).set(forcedDensity)
                 }
             }
         }

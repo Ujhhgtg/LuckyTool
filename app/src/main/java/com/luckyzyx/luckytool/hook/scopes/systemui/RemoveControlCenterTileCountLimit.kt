@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
@@ -36,14 +37,16 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
     @Obfuscate
     object RemoveReceiveItemLimit : YukiBaseHooker() {
         override fun onHook() {
+            //Source OplusQSCustomizer
+            val clazz = VariousClass(
+                "com.oplusos.systemui.qs.customize.OplusQSCustomizer", //C13
+                "com.oplus.systemui.qs.customize.OplusQSCustomizer" //C14
+            ).getOrNull(appClassLoader) ?: return
+
             DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-                //Source OplusQSCustomizer
                 dexKitBridge.findClass {
                     matcher {
-                        className(
-                            "com.oplus.systemui.qs.customize.OplusQSCustomizer",
-                            StringMatchType.Contains
-                        )
+                        className(clazz.name, StringMatchType.Contains)
                         addMethod { name("canReceiveItem");returnType(BooleanType) }
                         addMethod { name("checkHighLightTileSize");returnType(BooleanType) }
                     }
@@ -65,7 +68,10 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
     object RemoveLimitNumberHintV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer
-            "com.oplus.systemui.qs.customize.OplusQSCustomizer".toClass().apply {
+            VariousClass(
+                "com.oplusos.systemui.qs.customize.OplusQSCustomizer", //C13
+                "com.oplus.systemui.qs.customize.OplusQSCustomizer" //C14
+            ).toClass().apply {
                 method { name = "handleCheckMinCount" }.hook {
                     replaceToFalse()
                 }

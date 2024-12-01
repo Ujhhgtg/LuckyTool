@@ -7,6 +7,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 - [适配] 强制启用最近任务内存显示
 - [适配] 自定义WLAN双通道加速白名单 C13.1
+- [适配] 移除控制中心磁贴数量限制 C13.1
 
 ### 1.2.6
 
