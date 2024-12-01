@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArraySet
 import com.android.internal.os.SystemServerClassLoaderFactory
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
@@ -74,7 +75,10 @@ object HookOplusWifiService : YukiBaseHooker() {
             if (mode == "0") return
 
             //Source OplusSlaApps
-            "com.oplus.server.wifi.sla.OplusSlaApps".toClass(classLoader).apply {
+            VariousClass(
+                "com.oplus.server.wifi.OplusSlaApps", //C13
+                "com.oplus.server.wifi.sla.OplusSlaApps" //C14 C15
+            ).toClass(classLoader).apply {
                 method { name = "getSlaWhiteListAppsFromRus";returnType = StringArrayClass }.hook {
                     after {
                         val res = result<Array<String>>() ?: return@after
