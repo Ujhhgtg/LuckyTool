@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.hook.statusbar
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.net.TrafficStats
-import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import android.widget.TextView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A12
@@ -55,30 +53,13 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
             ).toClass().apply {
-                val hasPostUpdateNetworkSpeedDelay =
-                    hasMethod { name = "postUpdateNetworkSpeedDelay" }
-                if (hasPostUpdateNetworkSpeedDelay) {
-                    method {
-                        name = "postUpdateNetworkSpeedDelay"
-                        paramCount = 1
-                    }.hook {
-                        before {
-                            if (networkSpeed && (args().first().long() == 4000L)) {
-                                args().first().set(1000L)
-                            }
-                        }
-                    }
-                } else {
-                    method { name { it.contains("updateNetworkSpeed") } }.hook {
-                        after {
-                            val handler = field { name = "bgHandler" }.get(instance).cast<Handler>()
-                                ?: return@after
-                            val isConnected = field { name = "isConnected" }.get(instance).boolean()
-                            val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()
-                            if (isConnected && isSwitchOn) {
-                                handler.removeMessages(100001)
-                                handler.sendEmptyMessageDelayed(100001, 1000L)
-                            }
+                method {
+                    name = "postUpdateNetworkSpeedDelay"
+                    paramCount = 1
+                }.hook {
+                    before {
+                        if (networkSpeed && (args().first().long() == 4000L)) {
+                            args().first().set(1000L)
                         }
                     }
                 }
