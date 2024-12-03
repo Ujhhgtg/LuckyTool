@@ -20,7 +20,6 @@ class KeyGuardcLockRedMode(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 addFieldForType(BooleanType)
-                methodCount(0)
                 usingStrings("ro.oplus.image.system_ext.brand", "ro.oplus.image.system_ext.area")
             }
         }.apply {
