@@ -157,6 +157,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     title = getString(R.string.remove_filter_model_limit)
                     key = "remove_filter_model_limit"
                     setDefaultValue(false)
+                    isVisible = osCode >= 34
                     isIconSpaceReserved = false
                 })
                 add(Preference(this@loadPreferences).apply {

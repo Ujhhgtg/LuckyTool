@@ -58,7 +58,7 @@ object HookCamera : YukiBaseHooker() {
 
         //移除滤镜机型限制
         if (prefs(ModulePrefs).getBoolean("remove_filter_model_limit", false)) {
-            loadHooker(RemoveFilterModelLimit)
+            if (osCode >= 34) loadHooker(RemoveFilterModelLimit)
         }
 
         //Source CommonUtil
