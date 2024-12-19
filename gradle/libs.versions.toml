@@ -3,7 +3,7 @@ agp = "8.7.3"
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.27"
 
-navigation = "2.8.4"
+navigation = "2.8.5"
 kotlinx-coroutines = "1.9.0"
 libsu = "6.0.0"
 markwon = "4.6.2"
@@ -22,7 +22,7 @@ paranoid = { module = "com.joom.paranoid:paranoid-gradle-plugin", version = "0.3
 xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
 yukihookapi = { module = "com.highcapable.yukihookapi:api", version = "1.2.1.1" }
 ksp-yukihookapi = { module = "com.highcapable.yukihookapi:ksp-xposed", version = "1.2.1" }
-dexkit = { module = "org.luckypray:dexkit", version = "2.0.2" }
+dexkit = { module = "org.luckypray:dexkit", version = "2.0.3" }
 
 betterandroid-ui-component = { module = "com.highcapable.betterandroid:ui-component", version = "1.0.5" }
 material = { module = "com.google.android.material:material", version = "1.12.0" }
