@@ -4,7 +4,7 @@ kotlin = "2.0.21"
 ksp = "2.0.21-1.0.27"
 
 navigation = "2.8.5"
-kotlinx-coroutines = "1.9.0"
+kotlinx-coroutines = "1.10.1"
 libsu = "6.0.0"
 markwon = "4.6.2"
 
