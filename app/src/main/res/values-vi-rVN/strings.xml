@@ -701,6 +701,7 @@
     <string name="custom_media_player_support">Hỗ trợ trình phát đa phương tiện tùy chỉnh</string>
     <string name="custom_media_player_support_message">Điền tên gói của media player cần thêm vào, mỗi dòng chỉ được điền một tên gói</string>
     <string name="remove_danmaku_notification_whitelist">Xóa danh sách trắng thông báo bật lên</string>
+    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
     <string name="remove_game_voice_changer_whitelist">Xóa danh sách trắng thay đổi giọng nói trò chơi</string>
     <string name="remove_game_assistant_temperature_detection">Xóa tính năng phát hiện nhiệt độ của Trợ lý trò chơi</string>
     <string name="remove_game_assistant_temperature_detection_summary">Chủ yếu giải quyết vấn đề nhiệt độ quá cao ở chế độ X</string>

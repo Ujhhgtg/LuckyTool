@@ -701,6 +701,7 @@
     <string name="custom_media_player_support">Supporto riproduttore multimediale personalizzato</string>
     <string name="custom_media_player_support_message">Compila il nome del pacchetto del lettore multimediale da aggiungere,Ogni riga può riempire solo una APP</string>
     <string name="remove_danmaku_notification_whitelist">Rimuovi la Lista bianca delle notifiche Danmaku</string>
+    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
     <string name="remove_game_voice_changer_whitelist">Rimuovi Lista bianca cambio voce gioco</string>
     <string name="remove_game_assistant_temperature_detection">Rimuovi rilevamento temperatura Assistente Gioco</string>
     <string name="remove_game_assistant_temperature_detection_summary">Risolve principalmente il problema della temperatura eccessiva in modalità X</string>

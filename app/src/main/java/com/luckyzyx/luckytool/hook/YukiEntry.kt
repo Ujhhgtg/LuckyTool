@@ -14,7 +14,6 @@ import com.luckyzyx.luckytool.hook.hookers.HookCalendar
 import com.luckyzyx.luckytool.hook.hookers.HookCallUI
 import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
-import com.luckyzyx.luckytool.hook.hookers.HookCosa
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
@@ -26,6 +25,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookMarket
 import com.luckyzyx.luckytool.hook.hookers.HookMediaController
 import com.luckyzyx.luckytool.hook.hookers.HookMultiApp
 import com.luckyzyx.luckytool.hook.hookers.HookNotificationManager
+import com.luckyzyx.luckytool.hook.hookers.HookOplusCosa
 import com.luckyzyx.luckytool.hook.hookers.HookOplusGames
 import com.luckyzyx.luckytool.hook.hookers.HookOplusMMS
 import com.luckyzyx.luckytool.hook.hookers.HookOplusOta
@@ -121,7 +121,7 @@ object YukiEntry {
         //游戏助手
         loadApp("com.oplus.games", HookOplusGames)
         //应用增强服务
-        loadApp("com.oplus.cosa", HookCosa)
+        loadApp("com.oplus.cosa", HookOplusCosa)
         //软件更新
         loadApp("com.oplus.ota", HookOplusOta)
         //乐划锁屏

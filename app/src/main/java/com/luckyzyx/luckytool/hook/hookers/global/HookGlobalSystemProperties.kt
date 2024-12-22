@@ -100,6 +100,11 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 put("ro.boot.vbmeta.device_state", "locked")
 //            put("persist.vendor.oplus.verify_result", "")
             }
+
+            //Source COSA
+//            if (packageName == "com.oplus.cosa") {
+//                put("ro.product.brand", "realme")
+//            }
         }
         loadHooker(HookSystemProperties(list))
     }

@@ -701,6 +701,7 @@
     <string name="custom_media_player_support">Podpora vlastního přehrávače médií</string>
     <string name="custom_media_player_support_message">Vyplňte název balíčku přehrávače médií, který má být přidán, na každém řádku může být jen jeden název balíčku aplikace</string>
     <string name="remove_danmaku_notification_whitelist">Odebrat seznam povolených oznámení danmaku</string>
+    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
     <string name="remove_game_voice_changer_whitelist">Odstranit omezení měniče hlasu</string>
     <string name="remove_game_assistant_temperature_detection">Odstranit detekci teploty asistenta hry</string>
     <string name="remove_game_assistant_temperature_detection_summary">Především řeší problém nadměrné teploty v X módu</string>

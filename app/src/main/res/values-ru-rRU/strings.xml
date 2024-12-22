@@ -701,6 +701,7 @@
     <string name="custom_media_player_support">Поддержка пользовательского медиаплеера</string>
     <string name="custom_media_player_support_message">Заполните имя пакета для добавления медиаплеера, каждая строка может иметь только одно приложение</string>
     <string name="remove_danmaku_notification_whitelist">Удалить белый список уведомлений danmaku</string>
+    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
     <string name="remove_game_voice_changer_whitelist">Удалить ограничения для смены голоса</string>
     <string name="remove_game_assistant_temperature_detection">Удалить определение температуры игрового помощника</string>
     <string name="remove_game_assistant_temperature_detection_summary">В основном решает проблему чрезмерной температуры в режиме X</string>

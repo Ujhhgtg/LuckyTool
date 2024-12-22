@@ -215,6 +215,13 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_game_bypass_charging_support)
+                key = "enable_game_bypass_charging_support"
+                setDefaultValue(false)
+                isVisible = osCode >= 33
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_game_ai_play)
                 key = "enable_game_ai_play"
                 setDefaultValue(false)

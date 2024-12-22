@@ -701,6 +701,7 @@
     <string name="custom_media_player_support">カスタムメディアプレイヤー対応</string>
     <string name="custom_media_player_support_message">追加するメディアプレイヤーのパッケージ名を入力してください。各行に1つのパッケージ名のみ入力してください。</string>
     <string name="remove_danmaku_notification_whitelist">弾幕通知のホワイトリストを無効化</string>
+    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
     <string name="remove_game_voice_changer_whitelist">ボイスチェンジャーのホワイトリストを削除</string>
     <string name="remove_game_assistant_temperature_detection">ゲームアシスタントの温度検出を削除</string>
     <string name="remove_game_assistant_temperature_detection_summary">主にXモードでの温度制御の問題を解決します</string>
