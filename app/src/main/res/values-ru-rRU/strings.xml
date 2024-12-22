@@ -230,7 +230,7 @@
     <string name="fix_control_center_date_display_suammry">Устранить проблему, из-за которой дата может отображаться не полностью</string>
     <string name="ControlCenterNotificationCenter">Уведомления в шторке</string>
     <string name="enable_notification_align_both_sides">Включить выравнивание уведомлений по обе стороны</string>
-    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
+    <string name="remove_notification_cleanup_button">Удалить кнопку очистки уведомлений</string>
     <string name="enable_notification_importance_classification">Включить классификацию важности уведомлений</string>
     <string name="custom_notification_background_transparency">Прозрачность фона уведомлений</string>
     <string name="enable_notification_background_blur_effect">Включить эффект размытия фона уведомления</string>
@@ -365,7 +365,7 @@
     <string name="set_lock_screen_warp_charging_style">Установить стиль зарядки warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Установить стиль текстового логотипа зарядки</string>
     <string name="lock_screen_show_real_charging_technology">Компоненты зарядки показывают реальную технологию зарядки</string>
-    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
+    <string name="replace_charging_technology_drawing_style">Замените изображение технологии зарядки</string>
     <string name="force_lock_screen_charging_show_wattage">Принудительно отображать мощность зарядки</string>
     <string name="lock_screen_charging_use_user_typeface">Компоненты зарядки используют пользовательские шрифты</string>
     <string name="set_full_screen_charging_animation_mode">Анимация во весь экран при зарядке</string>
@@ -465,7 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Установка приложения</string>
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
-    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
+    <string name="force_enable_32_bit_support">Принудительно включить поддержку 32-бит</string>
     <string name="disable_customized_app_installer">Отключить настраиваемые установщики приложений</string>
     <string name="skip_apk_scan">Пропустить сканирование APK</string>
     <string name="skip_apk_scan_summary">Сканирование APK на наличие вирусов</string>
@@ -636,7 +636,7 @@
     <string name="custom_camera_open_gallery_by_default_tips">Разрешить выбор только одного приложения галереи!</string>
     <string name="enable_camera_night_zoom_30x">Включить масштаб 30x для ночных сцен</string>
     <string name="enable_video_capture_roulette_zoom">Включить захват видео и масштабирование рулетки</string>
-    <string name="remove_camera_flash_limit">Remove restrictions on the use of the flash</string>
+    <string name="remove_camera_flash_limit">Убрать ограничения на использование вспышки</string>
     <string name="CameraWaterMark">Водяной знак</string>
     <string name="remove_watermark_word_limit">Удалить ограничение символов для пользовательских водяных знаков</string>
     <string name="enable_frame_watermark_style">Включить стиль рамки водяного знака</string>
@@ -654,6 +654,7 @@
     <string name="camera_filter_desert">Фильтр \"Легенда пустыни\"</string>
     <string name="camera_filter_tol">Фильтр кино LuChuan</string>
     <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
+    <string name="camera_filter_jzk">Jia Zhangke filter</string>
     <string name="camera_portrait_filter_settings">Настройки портретного фильтра</string>
     <string name="camera_video_filter_settings">Настройки фильтра видео</string>
     <string name="camera_filter_color_extraction">Багровый/Лесной зелёный/Небесный</string>

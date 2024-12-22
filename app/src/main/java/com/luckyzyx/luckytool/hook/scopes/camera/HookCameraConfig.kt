@@ -79,6 +79,11 @@ object HookCameraConfig : YukiBaseHooker() {
                 put("com.oplus.feature.os15.new.filter.support", true)
             }
 
+            //贾樟柯滤镜
+            if (universalFilters.contains("jzk_filter")) {
+                put("com.oplus.support.jzk.movie.filter", true)
+            }
+
             //电影滤镜 倒带人生,少年奇旅,壮志凌云
             if (universalFilters.contains("vignette_grain_filter")) {
                 put("com.oplus.vignette.grain.filter.type.support", true)

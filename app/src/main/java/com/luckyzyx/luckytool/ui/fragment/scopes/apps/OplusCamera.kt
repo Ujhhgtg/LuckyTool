@@ -13,12 +13,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
-import com.luckyzyx.luckytool.data.CameraFilter
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.CameraUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
@@ -161,40 +161,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
                 add(Preference(this@loadPreferences).apply {
-                    val defaultFilters = ArrayList<CameraFilter>().apply {
-                        add(CameraFilter("master_filter", getString(R.string.camera_filter_master)))
-                        add(
-                            CameraFilter(
-                                "jiangwen_filter", getString(R.string.camera_filter_jiangwen)
-                            )
-                        )
-                        add(
-                            CameraFilter(
-                                "grand_tour_filter", getString(R.string.camera_filter_grand_tour)
-                            )
-                        )
-                        add(
-                            CameraFilter(
-                                "vignette_grain_filter",
-                                getString(R.string.camera_filter_vignette_grain)
-                            )
-                        )
-                        add(
-                            CameraFilter(
-                                "desert_filter", getString(R.string.camera_filter_desert)
-                            )
-                        )
-                        add(
-                            CameraFilter(
-                                "tol_filter", getString(R.string.camera_filter_tol)
-                            )
-                        )
-                        add(
-                            CameraFilter(
-                                "os15_zhi_gan_filter", getString(R.string.camera_filter_zhi_gan)
-                            )
-                        )
-                    }
+                    val defaultFilters = CameraUtils.getCameraFilters(this@loadPreferences)
                     title = getString(R.string.camera_universal_filter_settings)
                     key = "camera_universal_filter_settings"
                     getStringSet(ModulePrefs, key, ArraySet()).forEach {
@@ -238,15 +205,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                 })
                 add(Preference(this@loadPreferences).apply {
-                    val defaultFilters = ArrayList<CameraFilter>().apply {
-                        add(CameraFilter("retention", getString(R.string.camera_filter_retention)))
-                        add(
-                            CameraFilter(
-                                "bokeh_flare_portrait",
-                                getString(R.string.camera_filter_bokeh_flare_portrait)
-                            )
-                        )
-                    }
+                    val defaultFilters = CameraUtils.getPortraitCameraFilters(this@loadPreferences)
                     title = getString(R.string.camera_portrait_filter_settings)
                     key = "camera_portrait_filter_settings"
                     getStringSet(ModulePrefs, key, ArraySet()).forEach {
@@ -287,21 +246,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                     }
                 })
                 add(Preference(this@loadPreferences).apply {
-                    val defaultFilters = ArrayList<CameraFilter>().apply {
-                        add(
-                            CameraFilter(
-                                "color_extraction",
-                                getString(R.string.camera_filter_color_extraction)
-                            )
-                        )
-                        add(CameraFilter("retention", getString(R.string.camera_filter_retention)))
-                        add(
-                            CameraFilter(
-                                "bokeh_flare_portrait",
-                                getString(R.string.camera_filter_bokeh_flare_portrait)
-                            )
-                        )
-                    }
+                    val defaultFilters = CameraUtils.getVideoCameraFilters(this@loadPreferences)
                     title = getString(R.string.camera_video_filter_settings)
                     key = "camera_video_filter_settings"
                     getStringSet(ModulePrefs, key, ArraySet()).forEach {

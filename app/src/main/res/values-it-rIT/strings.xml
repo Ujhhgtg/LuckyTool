@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Modulo Xposed per l\'ottimizzazione estesa di ColorOS, gratuito per sempre\nSviluppatore: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funzione</string>
     <string name="nav_home">Home</string>
@@ -99,15 +99,15 @@
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
     <!--Android-->
-    <string name="replace_system_root_state_detection">Replace system root state detection</string>
+    <string name="replace_system_root_state_detection">Sostituisci il rilevamento dello stato del root del sistema</string>
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
-    <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura gaussiana personalizzato</string>
+    <string name="customized_gaussian_blur_effect_level">Livello effetto sfocatura personalizzato</string>
     <string name="disable_temperature_control_listener">Disabilita il listener del controllo della temperatura</string>
     <string name="set_ltpo_refresh_rate_mode">Imposta la modalità di aggiornamento LTPO</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one">Abilita la frequenza di aggiornamento completa della luminosità minimo 1</string>
     <string name="enable_full_brightness_refresh_rate_minimum_one_summary">Alcuni modelli possono entrare in conflitto con Assistente Gioco, causando sfarfallio dello schermo.</string>
-    <string name="disable_long_press_home_key_start_speech_asssist">Disabilita la pressione lunga sul pulsante home per evocare l\'assistente vocale</string>
+    <string name="disable_long_press_home_key_start_speech_asssist">Disabilita la pressione prolungata del tasto HOME per avviare l\'assistente vocale</string>
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale ColorOS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Installazione</string>
     <string name="corepatch">Core Patch</string>
@@ -128,7 +128,7 @@
     <!--Status Bar-->
     <string name="StatusBar">Barra di Stato</string>
     <string name="StatusbarEvents">Eventi Barra di Stato</string>
-    <string name="statusbar_double_click_lock_screen">Doppio clic sulla Barra di Stato per bloccare la schermata</string>
+    <string name="statusbar_double_click_lock_screen">Fare doppio clic sulla barra di stato per bloccare lo schermo</string>
     <string name="vibrate_when_opening_the_statusbar">Vibra all\'apertura della Barra di Stato</string>
     <string name="set_click_statusbar_scroll_to_top_mode">Imposta la modalità del clic sulla Barra per tornare su</string>
     <string name="set_click_statusbar_scroll_to_top_mode_remove_white_list">Rimuovi il limite di whitelist</string>
@@ -189,10 +189,10 @@
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
-    <string name="custom_music_fluid_cloud_whitelist">Personalizza Music Fluid lista bianca cloud</string>
+    <string name="custom_music_fluid_cloud_whitelist">Personalizza whitelist Music Fluid nel cloud</string>
     <string name="disable_music_fluid_cloud_display">Disattiva display cloud fluido musicale</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Configura la whitelist cloud music fluid</string>
-    <string name="force_enable_media_music_fluid_cloud_ripple">Forza l\'attivazione dell\'increspatura del display cloud fluido musicale</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">Forza l\'attivazione dell\'increspatura delle nuvole Fluid Music</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Icona Barra di Stato</string>
     <string name="StatusBarIcon_summary">Impostazioni Icone nella Barra di Stato</string>
@@ -230,7 +230,7 @@
     <string name="fix_control_center_date_display_suammry">Risolvere il problema che la data non può essere visualizzata completamente</string>
     <string name="ControlCenterNotificationCenter">Centro Notifiche del Centro Controllo</string>
     <string name="enable_notification_align_both_sides">Abilita allineamento notifiche su entrambi i lati</string>
-    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
+    <string name="remove_notification_cleanup_button">Rimuovi il pulsante di pulizia notifiche</string>
     <string name="enable_notification_importance_classification">Abilita classificazione importanza notifiche</string>
     <string name="custom_notification_background_transparency">Trasparenza sfondo notifica personalizzata</string>
     <string name="enable_notification_background_blur_effect">Abilita effetto sfocatura sfondo notifiche</string>
@@ -245,7 +245,7 @@
     <string name="remove_control_center_user_switcher">Rimuovi switch utente centro di controllo</string>
     <string name="remove_control_center_mydevice">Rimuovi il centro di controllo del mio dispositivo</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Ripristina il conteggio delle righe del layout della pagina per modificare i tile</string>
-    <string name="remove_control_center_tile_count_limit">Remove limit on number of Control Center tiles</string>
+    <string name="remove_control_center_tile_count_limit">Rimuovi limite al numero di tile del Centro di Controllo</string>
     <string name="set_control_center_search_button_mode">Imposta modalità pulsante di ricerca centro di controllo</string>
     <string name="remove_control_center_networkwarn">Rimuovi il messaggio di avviso di sicurezza nella parte inferiore del centro di controllo</string>
     <string name="remove_control_center_networkwarn_dialog">Rimuovi finestra di dialogo</string>
@@ -256,7 +256,7 @@
     <string name="StatusBarTiles">Tile Barra di Stato</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Forza la visualizzazione dei tile di attivazione/disattivazione dello stato della chiamata</string>
     <string name="SpecialTiles">Tile speciali</string>
-    <string name="SpecialTiles_summary">Classic Control Center Mode Only</string>
+    <string name="SpecialTiles_summary">Solo Modalità Centro Controllo Classico</string>
     <string name="auto_expand_tile_rows_horizontal">Espandi automaticamente il numero di righe orizzontali dei tile</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Quando il lettore multimediale è nascosto, due righe di tile saranno visualizzate in modalità orizzontale</string>
     <string name="auto_expand_tile_rows_horizontal_summary_2">In seguito è necessario attivare il tile</string>
@@ -264,7 +264,7 @@
     <string name="control_center_custom_gaps_for_special_tile_summary">Attivando l\'espansione automatica dei tile su alcuni modelli la barra di luminosità verrà visualizzata al di fuori dello schermo. In questo caso, questa funzione deve essere abilitata</string>
     <string name="control_center_special_tile_top_gap">Imposta lo spazio superiore per i tile speciali</string>
     <string name="control_center_special_tile_bottom_gap">Imposta lo spazio inferiore per i tile speciali</string>
-    <string name="decrease_horizontal_brightness_bar_top_gap">Decrease the top gap of the horizontal brightness bar</string>
+    <string name="decrease_horizontal_brightness_bar_top_gap">Diminuisce lo spazio in alto della barra di luminosità orizzontale</string>
     <string name="TileLongClickEvent">Evento Pressione Prolungata Tile</string>
     <string name="restore_some_tile_long_press_event">Ripristina alcuni eventi di pressione prolungata dei tile</string>
     <string name="restore_some_tile_long_press_event_summary">Ripristina WiFi, Bluetooth, Hotspot personale ed altri eventi di pressione prolungata per aprire la pagina corrispondente</string>
@@ -365,7 +365,7 @@
     <string name="set_lock_screen_warp_charging_style">Imposta lo stile di ricarica warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Imposta lo stile del logo del testo di ricarica</string>
     <string name="lock_screen_show_real_charging_technology">I componenti di ricarica mostrano la tecnologia di ricarica reale</string>
-    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
+    <string name="replace_charging_technology_drawing_style">Sostituisci stile disegno tecnologia di ricarica</string>
     <string name="force_lock_screen_charging_show_wattage">I componenti di ricarica forzata visualizzano la potenza</string>
     <string name="lock_screen_charging_use_user_typeface">Componenti di ricarica utilizzano caratteri utente</string>
     <string name="set_full_screen_charging_animation_mode">Modalità animazione di ricarica a schermo intero</string>
@@ -411,8 +411,8 @@
     <string name="remove_folder_pagination_component">Rimuovi componente di impaginazione cartella</string>
     <string name="disable_pagination_component_sliding">Disabilita lo scorrimento del componente di impaginazione</string>
     <string name="RecentTaskListRelated">Elenco attività recenti</string>
-    <string name="force_enable_recent_task_memory_display">Force enable recent task memory display</string>
-    <string name="disable_auto_switch_last_task">Disable automatic switching to the last task</string>
+    <string name="force_enable_recent_task_memory_display">Forza la visualizzazione della memoria delle attività recenti</string>
+    <string name="disable_auto_switch_last_task">Disabilita il passaggio automatico all\'ultima attività</string>
     <string name="enable_stacked_task_layout">Abilita disposizione in pila delle attività</string>
     <string name="set_task_stacking_level">Imposta il livello di impilamento attività</string>
     <string name="fix_current_task_to_the_top">Correggi l\'attività corrente in alto</string>
@@ -426,8 +426,8 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Rimuovi whitelist</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Lista bianca personalizzata</string>
     <string name="zoom_window_support_list">Personalizza Zoom Finestra Lista di supporto</string>
-    <string name="force_enable_multi_window_mode">Force enable multi zoom window mode</string>
-    <string name="custom_multi_window_display_upper_limit">Custom multi window display upper limit</string>
+    <string name="force_enable_multi_window_mode">Forza l\'attivazione della modalità finestra multi zoom</string>
+    <string name="custom_multi_window_display_upper_limit">Limite superiore della visualizzazione multi finestra personalizzato</string>
     <string name="zoom_window_support_list_summary">Abilita in base alle tue esigenze, altrimenti ci saranno problemi irreparabili</string>
     <string name="force_all_apps_support_split_screen">Forza tutte le app a supportare lo schermo diviso</string>
     <string name="launcher_drawer_layout_related">Layout del Drawer</string>
@@ -452,11 +452,11 @@
     <string name="set_multi_app_support_mode_all_apps">Elenco completo delle app</string>
     <string name="set_multi_app_support_mode_tips">Alcuni modelli non possono utilizzare l\'elenco completo di cloni di app ed è necessario installare l\'APP clone di app per modelli specifici.</string>
     <string name="remove_multi_app_blacklist">Rimuovi blacklist per app multiple</string>
-    <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
-    <string name="set_wlan_sla_whitelist_mode">Set WLAN dual-channel acceleration whitelist mode</string>
-    <string name="remove_wlan_sla_blacklist">Remove WLAN dual channel acceleration blacklist</string>
-    <string name="custom_wlan_sla_whitelist">Customized WLAN dual channel acceleration whitelist</string>
-    <string name="custom_wlan_sla_game_whitelist">Customized WLAN dual channel acceleration game whitelist</string>
+    <string name="remove_multi_app_created_num_limit">Rimuovi il limite di numero di app create</string>
+    <string name="set_wlan_sla_whitelist_mode">Imposta la modalità whitelist dell\'accelerazione a doppio canale WLAN</string>
+    <string name="remove_wlan_sla_blacklist">Rimuovi la blacklist dell\'accelerazione a doppio canale WLAN</string>
+    <string name="custom_wlan_sla_whitelist">Whitelist personalizzata per l\'accelerazione a doppio canalel WLAN</string>
+    <string name="custom_wlan_sla_game_whitelist">Whitelist personalizzata per giochi di accelerazione a doppio canale WLAN</string>
     <string name="multi_app_enable">Abilita lista di sostituzione</string>
     <string name="multi_app_custom_list">Sostituisci Lista Supporto Cloni App</string>
     <string name="multi_app_custom_list_summary">Dopo che la funzione è attivata, l\'elenco originale dei cloni delle app sarà sostituito da questo elenco, troppi causeranno ritardo</string>
@@ -465,7 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Installazione App</string>
     <string name="PackageInstaller_summary">Deve essere utilizzato con la patch principale</string>
-    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
+    <string name="force_enable_32_bit_support">Forza attivazione supporto a 32 bit</string>
     <string name="disable_customized_app_installer">Disabilita installatori di applicazioni personalizzati</string>
     <string name="skip_apk_scan">Salta Apkscan</string>
     <string name="skip_apk_scan_summary">Scansione virus Apk</string>
@@ -518,7 +518,7 @@
     <string name="run_floating_window_tasks_in_foreground">Esegui le attività della finestra fluttuante in primo piano</string>
     <string name="custom_volume_dialog_background_transparency">Trasparenza sfondo notifica personalizzata</string>
     <string name="reduce_power_menu_display_delay">Riduci ritardo visualizzazione menù di spegnimento</string>
-    <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
+    <string name="auto_tap_start_recording_or_casting_dialog">Tocca automaticamente la finestra di dialogo per avviare la registrazione o la trasmissione</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Impronta Digitale</string>
     <string name="remove_fingerprint_icon_mode">Rimuovi modalità icona impronta digitale</string>
@@ -622,7 +622,7 @@
     <string name="customize_device_ota_card_background">Personalizza lo sfondo della scheda OTA del dispositivo</string>
     <string name="customize_device_ota_card_background_summary">Dimensioni consigliate: Multipli di 328x124</string>
     <string name="customize_device_ota_card_background_path">Percorso immagine sfondo</string>
-    <string name="apply_device_parameter_sharing_page">Apply to device parameter sharing page</string>
+    <string name="apply_device_parameter_sharing_page">Applica alla pagina di condivisione dei parametri del dispositivo</string>
     <string name="settings_developer_preference">Opzioni sviluppatore</string>
     <string name="remove_dpi_restart_recovery">Rimuovi recupero riavvio DPI</string>
     <string name="remove_dpi_restart_recovery_summary">Dopo aver abilitato la funzione e riavviato l\'ambito, Aprire la pagina opzioni sviluppatore e impostare la larghezza minima</string>
@@ -636,7 +636,7 @@
     <string name="custom_camera_open_gallery_by_default_tips">Consenti solo la selezione di un\'app galleria!</string>
     <string name="enable_camera_night_zoom_30x">Abilita lo zoom 30x per le scene notturne</string>
     <string name="enable_video_capture_roulette_zoom">Abilita lo zoom della roulette di acquisizione video</string>
-    <string name="remove_camera_flash_limit">Remove restrictions on the use of the flash</string>
+    <string name="remove_camera_flash_limit">Rimuovi le restrizioni all\'uso del flash</string>
     <string name="CameraWaterMark">Filigrana</string>
     <string name="remove_watermark_word_limit">Rimuovi il limite di caratteri per le filigrane personalizzate</string>
     <string name="enable_frame_watermark_style">Abilita Stile Frame Filigrana</string>
@@ -645,15 +645,16 @@
     <string name="enable_hassel_watermark">Attiva la filigrana Hasselblad</string>
     <string name="enable_privacy_watermark">Abilita Filigrana Privacy</string>
     <string name="CameraFilter">Filtro</string>
-    <string name="remove_filter_model_limit">Remove filter model limit</string>
+    <string name="remove_filter_model_limit">Rimuovi il limite del modello di filtro</string>
     <string name="camera_universal_filter_settings">Impostazioni del filtro universale</string>
     <string name="camera_filter_master">Filtro principale</string>
     <string name="camera_filter_jiangwen">Filtro Jiang Wen</string>
     <string name="camera_filter_grand_tour">Filtro GrandTour </string>
-    <string name="camera_filter_vignette_grain">Film filter</string>
-    <string name="camera_filter_desert">DesertLegend filter</string>
-    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_vignette_grain">Filtro pellicola</string>
+    <string name="camera_filter_desert">Filtro DesertLegend</string>
+    <string name="camera_filter_tol">Filtro pellicola LuChuan</string>
     <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
+    <string name="camera_filter_jzk">Jia Zhangke filter</string>
     <string name="camera_portrait_filter_settings">Impostazioni filtro verticale</string>
     <string name="camera_video_filter_settings">Impostazioni filtro video</string>
     <string name="camera_filter_color_extraction">Cremisi/Verde Foresta/Azzurro Cielo</string>
@@ -708,7 +709,7 @@
     <!--CloudService-->
     <string name="remove_network_limit">Rimuovi Limite Rete Dati</string>
     <string name="remove_network_limit_summary">Rimuovi le limitazioni di backup/ripristino che non possono utilizzare i dati mobili</string>
-    <string name="disable_forced_backup_app_list">Disable forced backup of app list</string>
+    <string name="disable_forced_backup_app_list">Disabilita il backup forzato dell\'elenco delle app</string>
     <!--ThemeStore-->
     <string name="unlock_themestore_vip">Sblocca alcune funzionalità VIP</string>
     <string name="unlock_themestore_vip_summary">Sblocca parte della funzione e provala da solo</string>
@@ -726,8 +727,8 @@
     <!--OplusOta-->
     <string name="unlock_local_upgrade">Sblocca aggiornamento locale</string>
     <string name="unlock_local_upgrade_summary">Dopo aver cliccato, le operazioni rilevanti verranno eseguite automaticamente, si prega di attendere pazientemente per alcuni secondi</string>
-    <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
-    <string name="disable_dm_verity_verification">Disable dm-verity verification</string>
+    <string name="remove_ota_local_update_verity">Rimuovi verifica dell\'aggiornamento locale OTA</string>
+    <string name="disable_dm_verity_verification">Disabilita verifica dm-verity</string>
     <string name="restore_ota_update_verity">Riprendi la verifica di aggiornamento OTA</string>
     <string name="restore_ota_update_verity_summary">Stato corrente: [%1$s]\nProva a utilizzare questa funzionalità se l\'aggiornamento OTA richiede un errore di convalida o richiede dm-verity\nNon chiedere perché la funzionalità è disattivata perché il sistema ha la convalida dell\'aggiornamento abilitata per impostazione predefinita \nQuando la convalida è disattivata, l\'aggiornamento OTA non riesce, quindi quando la funzione è attivata questa funzione viene bloccata</string>
     <!--Extract OTA-->
@@ -772,7 +773,7 @@
     <string name="remove_ads_from_download_dialog">Rimuovi gli annunci dalla finestra di download</string>
     <string name="remove_ads_at_download_page_bottom">Rimuovi gli annunci in fondo alla pagina di download</string>
     <string name="remove_browser_window_limit_number">Rimuovi limite al numero di finestre del browser</string>
-    <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
+    <string name="remove_browser_search_bar_app_promotion">Rimuovi barra di ricerca del browser Promozione app</string>
     <!--OplusBreeno-->
     <string name="BreenoTouch">Breeno Touch</string>
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>
@@ -784,7 +785,7 @@
     <string name="disable_weather_jump_browser">Disabilita il browser di reindirizzamento meteo</string>
     <string name="remove_weather_some_page_bottom_ads">Rimuovi gli annunci in fondo alla pagina della sezione meteo</string>
     <string name="enable_15_day_weather_expand_list">Abilita l\'elenco esteso del meteo per 15 giorni</string>
-    <string name="restore_rainfall_cloud_map_page">Restore rainfall cloud map page</string>
+    <string name="restore_rainfall_cloud_map_page">Ripristina la pagina della mappa delle nubi di pioggia</string>
     <!--OplusCalendar-->
     <string name="remove_holiday_page_information_flow">Rimuovi il flusso di informazioni sulla pagina delle festività</string>
     <string name="remove_almanac_page_information_flow">Rimuovi il flusso di informazioni della pagina almanacco</string>
@@ -810,7 +811,7 @@
     <string name="remove_pro_license">Rimuovi rilevamento licenza</string>
     <!--ADM-->
     <string name="adm_unlock_pro">Sblocca versione Pro</string>
-    <string name="adm_unlock_more_threads">Unlock more download threads</string>
+    <string name="adm_unlock_more_threads">Sblocca altre conversazioni di download</string>
     <!--Home-->
     <string name="fps_title">Forza frequenza di aggiornamento</string>
     <string name="fps_summary">Conflitto con altri processi di refresh rate dinamici, come “dpfs”</string>
@@ -953,7 +954,7 @@
     <string name="common_words_single_line">Linea singola</string>
     <string name="common_words_double_line">Linea doppia</string>
     <string name="common_words_customize">Personalizza</string>
-    <string name="common_words_current_mode">Current Mode</string>
+    <string name="common_words_current_mode">Modalità Attuale</string>
     <string name="common_words_refresh">Aggiorna</string>
     <string name="common_words_save">Salva</string>
     <string name="common_words_filter">Filtro</string>
@@ -969,8 +970,8 @@
     <string name="common_words_low">Basso</string>
     <string name="common_words_dynamic">Dinamico</string>
     <string name="common_words_bold">Grassetto</string>
-    <string name="common_words_expand">Expand</string>
-    <string name="common_words_replace">Replace</string>
+    <string name="common_words_expand">Espandi</string>
+    <string name="common_words_replace">Sostituisci</string>
     <!--Permission-->
     <string name="send_notification_permission">Autorizzazione invio notifica</string>
     <string name="all_files_access_permission">Autorizzazione di accesso ai file</string>

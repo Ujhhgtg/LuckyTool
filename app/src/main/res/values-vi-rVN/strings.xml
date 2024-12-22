@@ -230,7 +230,7 @@
     <string name="fix_control_center_date_display_suammry">Sửa lỗi không hiển thị ngày hoàn toàn</string>
     <string name="ControlCenterNotificationCenter">Trung tâm điều khiển Trung tâm thông báo</string>
     <string name="enable_notification_align_both_sides">Bật thông báo căn chỉnh cả hai bên</string>
-    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
+    <string name="remove_notification_cleanup_button">Xóa nút dọn dẹp thông báo</string>
     <string name="enable_notification_importance_classification">Bật phân loại mức độ quan trọng của thông báo</string>
     <string name="custom_notification_background_transparency">Độ trong suốt của nền thông báo tùy chỉnh</string>
     <string name="enable_notification_background_blur_effect">Bật hiệu ứng làm mờ nền thông báo</string>
@@ -245,7 +245,7 @@
     <string name="remove_control_center_user_switcher">Xóa trình chuyển đổi người dùng trung tâm điều khiển</string>
     <string name="remove_control_center_mydevice">Xóa trung tâm điều khiển thiết bị của tôi</string>
     <string name="restore_page_layout_row_count_for_edit_tiles">Khôi phục số hàng bố cục trang chỉnh sửa ô</string>
-    <string name="remove_control_center_tile_count_limit">Remove limit on number of Control Center tiles</string>
+    <string name="remove_control_center_tile_count_limit">Xóa giới hạn số lượng ô Trung tâm điều khiển</string>
     <string name="set_control_center_search_button_mode">Đặt chế độ nút tìm kiếm của Trung tâm điều khiển</string>
     <string name="remove_control_center_networkwarn">Xóa thông báo cảnh báo bảo mật ở cuối Trung tâm điều khiển</string>
     <string name="remove_control_center_networkwarn_dialog">Xóa hộp thoại</string>
@@ -365,7 +365,7 @@
     <string name="set_lock_screen_warp_charging_style">Đặt kiểu sạc Warp</string>
     <string name="set_lock_screen_charging_text_logo_style">Đặt kiểu Logo văn bản</string>
     <string name="lock_screen_show_real_charging_technology">Các bộ phận sạc hiển thị công nghệ sạc thực tế</string>
-    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
+    <string name="replace_charging_technology_drawing_style">Thay thế kiểu vẽ công nghệ sạc</string>
     <string name="force_lock_screen_charging_show_wattage">Các thành phần sạc buộc phải hiển thị công suất</string>
     <string name="lock_screen_charging_use_user_typeface">Linh kiện sạc sử dụng phông chữ của người dùng</string>
     <string name="set_full_screen_charging_animation_mode">Chế độ hoạt hình sạc toàn màn hình</string>
@@ -426,8 +426,8 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Xóa danh sách trắng</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Tùy chỉnh danh sách cho phép</string>
     <string name="zoom_window_support_list">Danh sách hỗ trợ cửa sổ thu phóng tùy chỉnh</string>
-    <string name="force_enable_multi_window_mode">Force enable multi zoom window mode</string>
-    <string name="custom_multi_window_display_upper_limit">Custom multi window display upper limit</string>
+    <string name="force_enable_multi_window_mode">Cho phép bật nhiều cửa sổ nổi</string>
+    <string name="custom_multi_window_display_upper_limit">Tùy chỉnh giới hạn hiển thị của cửa sổ nổi</string>
     <string name="zoom_window_support_list_summary">Kích hoạt theo nhu cầu của bạn, nếu không sẽ có những vấn đề không thể khắc phục được</string>
     <string name="force_all_apps_support_split_screen">Buộc tất cả các ứng dụng hỗ trợ chia đôi màn hình</string>
     <string name="launcher_drawer_layout_related">Bố cục ngăn ứng dụng</string>
@@ -452,11 +452,11 @@
     <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
     <string name="set_multi_app_support_mode_tips">Một số kiểu máy không thể sử dụng danh sách ứng dụng đầy đủ và cần cài đặt APP nhân bản ứng dụng dành riêng cho kiểu máy.</string>
     <string name="remove_multi_app_blacklist">Xóa bản sao ứng dụng khỏi danh sách đen</string>
-    <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
-    <string name="set_wlan_sla_whitelist_mode">Set WLAN dual-channel acceleration whitelist mode</string>
-    <string name="remove_wlan_sla_blacklist">Remove WLAN dual channel acceleration blacklist</string>
-    <string name="custom_wlan_sla_whitelist">Customized WLAN dual channel acceleration whitelist</string>
-    <string name="custom_wlan_sla_game_whitelist">Customized WLAN dual channel acceleration game whitelist</string>
+    <string name="remove_multi_app_created_num_limit">Xóa giới hạn về số ứng dụng nhân bản bạn có thể tạo</string>
+    <string name="set_wlan_sla_whitelist_mode">Đặt chế độ danh sách cho phép tăng tốc kênh đôi WLAN</string>
+    <string name="remove_wlan_sla_blacklist">Xóa danh sách đen tăng tốc kênh đôi WLAN</string>
+    <string name="custom_wlan_sla_whitelist">Tùy chỉnh danh sách cho phép tăng tốc kênh đôi WLAN</string>
+    <string name="custom_wlan_sla_game_whitelist">Tùy chỉnh danh sách trắng trò chơi tăng tốc kênh đôi WLAN</string>
     <string name="multi_app_enable">Bật danh sách thay thế</string>
     <string name="multi_app_custom_list">Thay thế danh sách hỗ trợ bản sao ứng dụng</string>
     <string name="multi_app_custom_list_summary">Sau khi chức năng được bật, danh sách ứng dụng clone ban đầu sẽ được thay thế bằng danh sách này, quá nhiều sẽ gây lag</string>
@@ -465,7 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Cài đặt ứng dụng</string>
     <string name="PackageInstaller_summary">Cần được sử dụng với bản vá lõi</string>
-    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
+    <string name="force_enable_32_bit_support">Buộc hỗ trợ 32-bit</string>
     <string name="disable_customized_app_installer">Tắt trình cài đặt ứng dụng tùy chỉnh</string>
     <string name="skip_apk_scan">Bỏ qua Apkscan</string>
     <string name="skip_apk_scan_summary">Quét vi-rút Apk</string>
@@ -636,7 +636,7 @@
     <string name="custom_camera_open_gallery_by_default_tips">Chỉ được phép chọn một ứng dụng thư viện ảnh!</string>
     <string name="enable_camera_night_zoom_30x">Bật zoom 30x cho chế độ ban đêm</string>
     <string name="enable_video_capture_roulette_zoom">Cho phép quay video và thu phóng roulette</string>
-    <string name="remove_camera_flash_limit">Remove restrictions on the use of the flash</string>
+    <string name="remove_camera_flash_limit">Xóa các hạn chế sử dụng đèn flash</string>
     <string name="CameraWaterMark">Dấu chìm</string>
     <string name="remove_watermark_word_limit">Xóa giới hạn ký tự ở hình mờ tùy chỉnh</string>
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>
@@ -645,15 +645,16 @@
     <string name="enable_hassel_watermark">Kích hoạt hình mờ Hasselblad</string>
     <string name="enable_privacy_watermark">Bật hình mờ về quyền riêng tư</string>
     <string name="CameraFilter">Bộ lọc</string>
-    <string name="remove_filter_model_limit">Remove filter model limit</string>
+    <string name="remove_filter_model_limit">Xóa các hạn chế của bộ lọc thiết bị</string>
     <string name="camera_universal_filter_settings">Cài đặt bộ lọc phổ quát</string>
     <string name="camera_filter_master">Bộ lọc chính</string>
     <string name="camera_filter_jiangwen">Bộ lọc Jiang Wen</string>
     <string name="camera_filter_grand_tour">Bộ lọc du lịch</string>
-    <string name="camera_filter_vignette_grain">Film filter</string>
-    <string name="camera_filter_desert">DesertLegend filter</string>
-    <string name="camera_filter_tol">LuChuan Film filter</string>
-    <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
+    <string name="camera_filter_vignette_grain">Bộ lọc Phim</string>
+    <string name="camera_filter_desert">Bộ lọc Truyền thuyết sa mạc</string>
+    <string name="camera_filter_tol">Lọc phim Lục Xuyên</string>
+    <string name="camera_filter_zhi_gan">Kết cấu OS15</string>
+    <string name="camera_filter_jzk">Jia Zhangke filter</string>
     <string name="camera_portrait_filter_settings">Cài đặt bộ lọc chân dung</string>
     <string name="camera_video_filter_settings">Cài đặt bộ lọc video</string>
     <string name="camera_filter_color_extraction">Đỏ/Xanh lá/Xanh da trời</string>
@@ -969,8 +970,8 @@
     <string name="common_words_low">Thấp</string>
     <string name="common_words_dynamic">Động</string>
     <string name="common_words_bold">Đậm</string>
-    <string name="common_words_expand">Expand</string>
-    <string name="common_words_replace">Replace</string>
+    <string name="common_words_expand">Mở rộng</string>
+    <string name="common_words_replace">Thay thế</string>
     <!--Permission-->
     <string name="send_notification_permission">Gửi quyền thông báo</string>
     <string name="all_files_access_permission">Tất cả quyền truy cập tập tin</string>
