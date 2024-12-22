@@ -642,6 +642,7 @@
     <string name="enable_frame_watermark_style">启用画框水印支持</string>
     <string name="enable_hasselblad_watermark_style">启用 Hasselblad 水印支持</string>
     <string name="custom_model_watermark">自定义机型水印</string>
+    <string name="enable_ai_master_watermark">启用 AI 大师水印</string>
     <string name="enable_hassel_watermark">启用哈苏水印</string>
     <string name="enable_privacy_watermark">启用隐私水印</string>
     <string name="CameraFilter">滤镜</string>

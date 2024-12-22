@@ -14,6 +14,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 相机贾樟柯滤镜
 - [移除] 状态栏未使用的信号标签gen2x2 C15+
 - [添加] 启用游戏助手旁路供电支持 C14.1+
+- [添加] 启用AI大师水印 C15+
 
 ### 1.2.6
 

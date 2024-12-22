@@ -34,8 +34,6 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
         //替换OnePlus机型水印
         val notOplus = prefs(ModulePrefs).getBoolean("replace_oneplus_model_watermark", false)
-        //水印编辑
-        val waterMark = prefs(ModulePrefs).getBoolean("enable_watermark_editing", false)
         //高级筛选
         val seniorPicked =
             prefs(ModulePrefs).getBoolean("enable_photo_listview_senior_picked", false)
@@ -49,6 +47,8 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         val frameWaterMark = prefs(ModulePrefs).getBoolean("enable_frame_watermark", false)
         //哈苏水印
         val hasselWaterMark = prefs(ModulePrefs).getBoolean("enable_hassel_watermark", false)
+        //AI大师水印
+        val aiWaterMark = prefs(ModulePrefs).getBoolean("enable_ai_master_watermark", false)
         //隐私水印
         val privicyWaterMark = prefs(ModulePrefs).getBoolean("enable_privacy_watermark", false)
         //新春水印
@@ -85,7 +85,10 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         val configNode = args().first().any().toString()
                         when {
                             //com.oplus.camera.support.custom.hasselblad.watermark
-                            configNode.contains("feature_is_support_watermark") -> if (waterMark) resultTrue()
+                            configNode.contains("feature_is_support_watermark") -> {
+                                if (osCode < 30 && hasselWaterMark) resultTrue()
+                                if (osCode >= 34 && aiWaterMark) resultTrue()
+                            }
                             //com.oplus.camera.support.custom.hasselblad.watermark
                             configNode.contains("feature_is_support_hassel_watermark") -> if (hasselWaterMark) resultTrue()
                             //com.oplus.feature.custom.makeup.watermark.support
@@ -101,7 +104,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 //                            configNode.contains("feature_is_support_diwali_festival_watermark") -> if (waterMark) resultTrue()
 
                             //is_realme_brand / debug.gallery.photo.editor.watermark.switcher
-                            configNode.contains("feature_is_support_photo_editor_watermark") -> if (waterMark) resultTrue()
+//                            configNode.contains("feature_is_support_photo_editor_watermark") -> if (hasselWaterMark) resultTrue()
                             //first_api_level
 //                            configNode.contains("feature_is_support_photo_editor_frame_watermark") -> result =
 //                                frameWaterMark

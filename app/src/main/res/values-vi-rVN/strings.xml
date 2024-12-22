@@ -642,6 +642,7 @@
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>
     <string name="enable_hasselblad_watermark_style">Kích hoạt kiểu hình mờ Hasselblad</string>
     <string name="custom_model_watermark">Hình mờ máy tùy chỉnh</string>
+    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
     <string name="enable_hassel_watermark">Kích hoạt hình mờ Hasselblad</string>
     <string name="enable_privacy_watermark">Bật hình mờ về quyền riêng tư</string>
     <string name="CameraFilter">Bộ lọc</string>

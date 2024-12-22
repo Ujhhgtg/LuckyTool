@@ -36,12 +36,6 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_watermark_editing)
-                key = "enable_watermark_editing"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.replace_oneplus_model_watermark)
                 summary = getString(R.string.replace_oneplus_model_watermark_summary)
                 key = "replace_oneplus_model_watermark"
@@ -53,6 +47,13 @@ class OplusGallery : BaseScopePreferenceFeagment() {
                 key = "remove_gallery_watermark_word_limit"
                 setDefaultValue(false)
                 isVisible = osCode < 30
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_ai_master_watermark)
+                key = "enable_ai_master_watermark"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

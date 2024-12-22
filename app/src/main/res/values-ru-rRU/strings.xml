@@ -642,6 +642,7 @@
     <string name="enable_frame_watermark_style">Включить стиль рамки водяного знака</string>
     <string name="enable_hasselblad_watermark_style">Включить стиль водяного знака Hasselblad</string>
     <string name="custom_model_watermark">Пользовательский водяной знак</string>
+    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
     <string name="enable_hassel_watermark">Включить водяной знак Hasselblad</string>
     <string name="enable_privacy_watermark">Включить водяной знак конфиденциальности</string>
     <string name="CameraFilter">Фильтр</string>

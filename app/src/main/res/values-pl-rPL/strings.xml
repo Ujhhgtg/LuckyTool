@@ -642,6 +642,7 @@
     <string name="enable_frame_watermark_style">Enable Frame Watermark Style</string>
     <string name="enable_hasselblad_watermark_style">Włącz styl znaku wodnego „Hasselblad”</string>
     <string name="custom_model_watermark">Custom model watermark</string>
+    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
     <string name="enable_hassel_watermark">Enable Hasselblad Watermark</string>
     <string name="enable_privacy_watermark">Enable Privacy Watermark</string>
     <string name="CameraFilter">Filter</string>

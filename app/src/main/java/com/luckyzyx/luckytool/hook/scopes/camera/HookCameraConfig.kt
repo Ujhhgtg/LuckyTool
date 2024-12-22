@@ -23,7 +23,9 @@ object HookCameraConfig : YukiBaseHooker() {
             }
 
             //AI大师水印
-//            put("com.oplus.camera.support.ai.master.watermark", true)
+            if (prefs(ModulePrefs).getBoolean("enable_ai_master_watermark", false)) {
+                put("com.oplus.camera.support.ai.master.watermark", true)
+            }
 
             //画框颜色 色卡贴纸
 //            put("com.oplus.camera.support.custom.color.watermark", true)

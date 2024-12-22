@@ -642,6 +642,7 @@
     <string name="enable_frame_watermark_style">Povolit styl rámečku vodoznaku</string>
     <string name="enable_hasselblad_watermark_style">Povolit Hasselblad styl vodoznaku</string>
     <string name="custom_model_watermark">Vlastní model vodoznak</string>
+    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
     <string name="enable_hassel_watermark">Povolit Hasselblad vodoznak</string>
     <string name="enable_privacy_watermark">Povolit vodoznak soukromí</string>
     <string name="CameraFilter">Filtr</string>

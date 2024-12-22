@@ -642,6 +642,7 @@
     <string name="enable_frame_watermark_style">フレーム透かしスタイルを有効化</string>
     <string name="enable_hasselblad_watermark_style">Hasselblad ウォーターマークを有効化</string>
     <string name="custom_model_watermark">カスタムモデル透かし</string>
+    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
     <string name="enable_hassel_watermark">Hasselblad ウォーターマークを有効化</string>
     <string name="enable_privacy_watermark">プライバシーウォーターマークを有効化</string>
     <string name="CameraFilter">フィルター</string>
