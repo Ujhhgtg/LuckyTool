@@ -65,12 +65,14 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.hide_inactive_signal_labels_gen2x2)
-                key = "hide_inactive_signal_labels_gen2x2"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (osCode < 34) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.hide_inactive_signal_labels_gen2x2)
+                    key = "hide_inactive_signal_labels_gen2x2"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.hide_nosim_noservice)
                 key = "hide_nosim_noservice"

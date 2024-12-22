@@ -26,7 +26,7 @@ object HookSystemUIFeature : YukiBaseHooker() {
         loadHooker(HookGlobalSystemProperties)
 
         loadHooker(HookFeatureOption)
-        loadHooker(HookStatusBarFeature)
+        if (osCode < 34) loadHooker(HookStatusBarFeature)
         loadHooker(HookFlavorOneFeature)
         if (osCode >= 30) loadHooker(HookVolumeFeatureOption)
         if (osCode >= 31) loadHooker(HookQSFeatureOption)
