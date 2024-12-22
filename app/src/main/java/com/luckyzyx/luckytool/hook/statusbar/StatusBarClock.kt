@@ -22,7 +22,6 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.is24
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
-import java.lang.reflect.Method
 import java.util.Calendar
 import java.util.Date
 import java.util.Timer
@@ -79,18 +78,14 @@ object StatusBarClock : YukiBaseHooker() {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
                         if (clockName != "clock") return@after
                     }
-                    val d: Method = clockView.javaClass.superclass.getDeclaredMethod("updateClock")
-                    val r = Runnable {
-                        d.isAccessible = true
-                        d.invoke(clockView)
-                    }
 
-                    class T : TimerTask() {
+                    Timer().schedule(object : TimerTask() {
                         override fun run() {
-                            Handler(clockView.context.mainLooper).post(r)
+                            Handler(clockView.context.mainLooper).post {
+                                method { name = "updateClock" }.get(clockView).call()
+                            }
                         }
-                    }
-                    Timer().schedule(T(), 1000 - System.currentTimeMillis() % 1000, 1000)
+                    }, 1000 - System.currentTimeMillis() % 1000, 1000)
                 }
             }
             method { name = "getSmallTime";returnType = CharSequenceClass }.hook {
@@ -147,37 +142,34 @@ object StatusBarClock : YukiBaseHooker() {
 
     private fun TextView.initView() {
         if (userTypeface) typeface = if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-        val defaultSize = 12F
         if (clockMode == "1") {
             isSingleLine = !isDoubleRow
             if (isDoubleRow) {
                 newline = "\n"
-                setTextSize(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    if (doubleRowFontSize != 0) doubleRowFontSize.toFloat() else defaultSize
-                )
-                setLineSpacing(0F, 0.8F)
+                if (doubleRowFontSize != 0) {
+                    setTextSize(TypedValue.COMPLEX_UNIT_DIP, doubleRowFontSize.toFloat())
+                    setLineSpacing(0F, 0.8F)
+                }
             } else {
-                setTextSize(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    if (singleRowFontSize != 0) singleRowFontSize.toFloat() else defaultSize
-                )
+                if (singleRowFontSize != 0) {
+                    setTextSize(TypedValue.COMPLEX_UNIT_DIP, singleRowFontSize.toFloat())
+                }
             }
         } else if (clockMode == "2") {
             val formatList = customFormat.split("\n")
             val rows = formatList.size
             isSingleLine = rows == 1
-            setTextSize(
-                TypedValue.COMPLEX_UNIT_DIP,
-                if (customFontsize != 0) customFontsize.toFloat() else defaultSize
-            )
+            if (customFontsize != 0) {
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, customFontsize.toFloat())
+            }
             if (rows != 1) setLineSpacing(0F, 0.8F)
         }
-        gravity = if (isSingleLine) Gravity.CENTER else when (clockAlignment) {
+        gravity = if (isSingleLine) Gravity.CENTER
+        else when (clockAlignment) {
             "left" -> Gravity.START or Gravity.CENTER
             "center" -> Gravity.CENTER
             "right" -> Gravity.END or Gravity.CENTER
-            else -> Gravity.CENTER
+            else -> Gravity.START or Gravity.CENTER
         }
     }
 
