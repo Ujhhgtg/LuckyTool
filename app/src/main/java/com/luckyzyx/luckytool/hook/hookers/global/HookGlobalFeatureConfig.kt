@@ -166,6 +166,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Source EyeProtect PaperTexturePreference 纸质纹理调节
             if (prefs(ModulePrefs).getBoolean("enable_eyeprotect_paper_texture_support", false)) {
                 if (osCode >= 33) {
+                    put("oplus.software.display.smart_color_temperature_rhythm_health_support", true)
                     put("oplus.software.display.eyeprotect_paper_texture_support", true)
                 }
             }
