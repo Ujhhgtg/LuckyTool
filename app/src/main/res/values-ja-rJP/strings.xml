@@ -587,6 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Custom video dynamic frame insertion configuration</string>
     <string name="restore_frame_insertion_configuration_data">Confirm to restore the default video dynamic frame insertion configuration data!</string>
     <string name="confirm_to_delete_this_configuration">Confirm to delete this configuration?\n%1$s</string>
+    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
     <string name="no_memc_data">MEMC データなし</string>
     <string name="video_frame_insertion_support_2K120">ビデオフレーム補間を 2K 120FPS 対応にする</string>
     <string name="video_frame_insertion_support_2K120_summary">お使いのデバイスが MEMC に対応していない場合は、この機能を使用しないでください</string>

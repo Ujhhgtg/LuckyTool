@@ -587,6 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Vlastní konfigurace dynamického vkládání videosnímků</string>
     <string name="restore_frame_insertion_configuration_data">Potvrďte obnovení výchozích konfiguračních dat pro vkládání dynamického videosnímku!</string>
     <string name="confirm_to_delete_this_configuration">Potvrdit odstranění této konfigurace?\n%1$s</string>
+    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
     <string name="no_memc_data">Žádná Memc data</string>
     <string name="video_frame_insertion_support_2K120">Interpolace snímků videa je podporována při frekvenci 2K 120FPS</string>
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>

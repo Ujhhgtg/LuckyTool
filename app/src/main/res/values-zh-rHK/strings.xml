@@ -587,6 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">自定义视频动态插帧配置</string>
     <string name="restore_frame_insertion_configuration_data">确认恢复默认视频动态插帧配置数据?</string>
     <string name="confirm_to_delete_this_configuration">确认删除此条配置？\n%1$s</string>
+    <string name="edit_memc_configuration_tips">了解更多参数，请查询\n%1$s</string>
     <string name="no_memc_data">无Memc数据</string>
     <string name="video_frame_insertion_support_2K120">视频插帧支持 2K120</string>
     <string name="video_frame_insertion_support_2K120_summary">若你的设备不支持 MEMC，请勿使用此功能</string>

@@ -44,6 +44,7 @@ import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.ActivityInfoSelector
 import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -397,6 +398,10 @@ class MemcPackageFragment : Fragment() {
                 }
             }
 
+            binding.tipsView.text = context.getString(
+                R.string.edit_memc_configuration_tips, CommandUtils.memcHdrConfigHelp
+            )
+
             MaterialAlertDialogBuilder(context, dialogCentered).apply {
                 setView(binding.root)
                 setPositiveButton(android.R.string.ok) { _, _ ->
@@ -636,6 +641,10 @@ class MemcActivityFragment : Fragment() {
                     }
                 }
             }
+
+            binding.tipsView.text = context.getString(
+                R.string.edit_memc_configuration_tips, CommandUtils.memcConfigHelp
+            )
 
             binding.activityView.apply {
                 setOnClickListener {

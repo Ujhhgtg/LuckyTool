@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.utils
 
+import android.annotation.SuppressLint
 import com.joom.paranoid.Obfuscate
 
 @Suppress("MayBeConstant")
@@ -10,11 +11,15 @@ object CommandUtils {
     val otaCryptKey = "otatoolsotatools"
     val sunshineTool = "com.Sunshine.ToolBox"
 
+    @SuppressLint("SdCardPath")
     val otaDatabasePath = "/data/user/0/com.oplus.ota/databases/ota.db"
 
     val getRefreshRateStatus = "service call SurfaceFlinger 1034 i32 2"
     val showRefreshRate = "service call SurfaceFlinger 1034 i32 "
     val setRefreshRate = "service call SurfaceFlinger 1035 i32 "
+
+    val memcConfigHelp = "/odm/bin/irisConfig -help 2 (MEMC)"
+    val memcHdrConfigHelp = "/odm/bin/irisConfig -help 3 (SDR2HDR)"
 
     val touchPanel = "echo > /proc/touchpanel/game_switch_enable "
     val touchHidl = "touchHidlTest -c wo 0 26 "

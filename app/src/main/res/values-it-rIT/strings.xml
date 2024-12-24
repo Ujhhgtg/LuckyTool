@@ -587,6 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Configurazione personalizzata di inserimento video dinamico dei frame</string>
     <string name="restore_frame_insertion_configuration_data">Conferma per ripristinare i dati di configurazione di inserimento frame video dinamico!</string>
     <string name="confirm_to_delete_this_configuration">Confermi di cancellare questa configurazione?\n%1$s</string>
+    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
     <string name="no_memc_data">Nessun Dato di Memc</string>
     <string name="video_frame_insertion_support_2K120">Supporto per inserimento cornice video 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Se il dispositivo non supporta MEMC, non utilizzare questa funzione</string>

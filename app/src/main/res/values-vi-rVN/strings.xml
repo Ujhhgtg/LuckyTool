@@ -587,6 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Cấu hình chèn khung động video tùy chỉnh</string>
     <string name="restore_frame_insertion_configuration_data">Xác nhận khôi phục dữ liệu cấu hình chèn khung động video mặc định!</string>
     <string name="confirm_to_delete_this_configuration">Bạn có chắc chắn xóa cấu hình này không？\n%1$s</string>
+    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
     <string name="no_memc_data">Không có dữ liệu Memc</string>
     <string name="video_frame_insertion_support_2K120">Chèn khung video hỗ trợ 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Nếu thiết bị của bạn không hỗ trợ MEMC, vui lòng không sử dụng chức năng này</string>
