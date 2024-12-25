@@ -17,6 +17,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用AI大师水印 C15+
 - [添加] 自定义MEMC对话框参数提示
 - [更改] 允许自定义设备分享页面空参数
+- [修复] 模块内置捐赠码显示异常
 
 ### 1.2.6
 

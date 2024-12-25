@@ -17,13 +17,26 @@ object DonateUtils {
     private val CAP = "AliPay"
     private val CPP = "PayPal"
 
-    fun showQRCode(context: Context, base64: String) {
+    fun showQRCode(context: Context, type: Int) {
         val binding = DialogDonateLayoutBinding.inflate(LayoutInflater.from(context))
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
-            setTitle(context.getString(R.string.qq))
+            setTitle(
+                when (type) {
+                    0 -> context.getString(R.string.qq)
+                    1 -> context.getString(R.string.wechat)
+                    2 -> context.getString(R.string.alipay)
+                    else -> ""
+                }
+            )
             setView(binding.root)
         }.show()
-        binding.donateImage.setImageBitmap(base64ToBitmap(base64))
+        val base64Str = when(type) {
+            0 -> Base64CodeUtils.qqCode
+            1 -> Base64CodeUtils.wechatCode
+            2 -> Base64CodeUtils.alipayCode
+            else -> null
+        } ?: return
+        binding.donateImage.setImageBitmap(base64ToBitmap(base64Str))
         binding.donateMessage.text = context.getString(R.string.donate_message)
     }
 }

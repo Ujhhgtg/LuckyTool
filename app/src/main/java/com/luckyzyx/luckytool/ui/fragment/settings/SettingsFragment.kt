@@ -17,7 +17,6 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.AppUtils
-import com.luckyzyx.luckytool.utils.Base64CodeUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -303,7 +302,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 summary = getString(R.string.donate_summary)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    val donateList = arrayListOf<CharSequence>(
+                    val donateList = arrayListOf(
                         getString(R.string.qq),
                         getString(R.string.wechat),
                         getString(R.string.alipay),
@@ -316,9 +315,9 @@ class SettingsFragment : ModulePreferenceFragment() {
                     MaterialAlertDialogBuilder(context).apply {
                         setItems(donateList.toTypedArray()) { _, which ->
                             when (which) {
-                                0 -> DonateUtils.showQRCode(context, Base64CodeUtils.qqCode)
-                                1 -> DonateUtils.showQRCode(context, Base64CodeUtils.wechatCode)
-                                2 -> DonateUtils.showQRCode(context, Base64CodeUtils.alipayCode)
+                                0 -> DonateUtils.showQRCode(context, which)
+                                1 -> DonateUtils.showQRCode(context, which)
+                                2 -> DonateUtils.showQRCode(context, which)
                                 3 -> if (isZh(context)) {
                                     navigatePage(
                                         R.id.donateFragment,

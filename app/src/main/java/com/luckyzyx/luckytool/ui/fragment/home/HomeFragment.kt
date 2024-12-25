@@ -29,7 +29,6 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.Base64CodeUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -121,16 +120,15 @@ class HomeFragment : Fragment(), MenuProvider {
         binding.donateTvTitle.text = getString(R.string.donate_tv_title) + " by: 忆清鸣、luckyzyx"
         binding.donateTvView.apply {
             setOnClickListener {
-                val url = if (isZh(requireActivity())) "https://docs.qq.com/doc/DS2ZDZlNIeUlpdlV1"
+                val url = if (isZh(context)) "https://docs.qq.com/doc/DS2ZDZlNIeUlpdlV1"
                 else "https://luckyzyx.github.io/LuckyTool_Doc/en/donate"
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             }
             setOnLongClickListener {
-                val donateList = arrayListOf<CharSequence>(
+                val donateList = arrayListOf(
                     getString(R.string.qq),
                     getString(R.string.wechat),
                     getString(R.string.alipay),
-//                    getString(R.string.donation_list)
                 )
                 if (!isZh(context)) {
                     donateList.add(3, getString(R.string.patreon))
@@ -139,29 +137,15 @@ class HomeFragment : Fragment(), MenuProvider {
                 MaterialAlertDialogBuilder(context).apply {
                     setItems(donateList.toTypedArray()) { _, which ->
                         when (which) {
-                            0 -> DonateUtils.showQRCode(context, Base64CodeUtils.qqCode)
-                            1 -> DonateUtils.showQRCode(context, Base64CodeUtils.wechatCode)
-                            2 -> DonateUtils.showQRCode(context, Base64CodeUtils.alipayCode)
+                            0 -> DonateUtils.showQRCode(context, which)
+                            1 -> DonateUtils.showQRCode(context, which)
+                            2 -> DonateUtils.showQRCode(context, which)
                             3 -> if (!isZh(context)) startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
                                     Uri.parse("https://www.patreon.com/LuckyTool")
                                 )
-                            )/* else navigatePage(
-                                R.id.action_nav_setting_to_donateFragment,
-                                getString(R.string.donation_list)
-                            )*/
-
-//                            4 -> startActivity(
-//                                Intent(
-//                                    Intent.ACTION_VIEW, Uri.parse("https://paypal.me/luckyzyx")
-//                                )
-//                            )
-
-//                            5 -> navigatePage(
-//                                R.id.action_nav_setting_to_donateFragment,
-//                                getString(R.string.donation_list)
-//                            )
+                            )
                         }
                     }
                 }.show()
