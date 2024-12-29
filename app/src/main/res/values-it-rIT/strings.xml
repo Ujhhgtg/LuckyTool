@@ -556,6 +556,7 @@
     <string name="force_enable_systemui_blur_feature_tips">Condizioni preliminari: È necessario attivare l\'opzione per “forzare attivare la funzione di sfocatura del systemui”\nPosizione funzionale: Varie</string>
     <string name="force_enable_systemui_blur_feature_tips_2">Nota: Quando fai scorrere la barra di luminosità, apparirà una zona sfocata nella posizione di notifica. Questo comportamento è atteso e non richiede un feedback.</string>
     <string name="show_manual_lock_button_power_menu">Mostra il pulsante di blocco manuale nel menu di spegnimento</string>
+    <string name="remove_power_menu_sos_button">Remove power menu SOS button</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Personalizza la percentuale dei dati di salute della batteria</string>
     <string name="display_module_calculates_battery_health_data">Visualizza modulo calcola i dati di salute della batteria</string>

@@ -7,6 +7,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -104,6 +105,13 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
                 key = "show_manual_lock_button_power_menu"
                 setDefaultValue(false)
                 isVisible = SDK >= A14
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_power_menu_sos_button)
+                key = "remove_power_menu_sos_button"
+                setDefaultValue(false)
+                isVisible = SDK >= A13
                 isIconSpaceReserved = false
             })
         }

@@ -556,6 +556,7 @@
     <string name="force_enable_systemui_blur_feature_tips">有効にする前に「システム UI のぼかし機能を強制的に有効化」オプションをオンにする必要があります。\nオプションは「その他」のページにあります。</string>
     <string name="force_enable_systemui_blur_feature_tips_2">注意：明るさバーをスライドさせると、通知の場所にぼやけた領域が表示されます。これは正しい動作なのでバグ報告しないでください</string>
     <string name="show_manual_lock_button_power_menu">電源メニューに手動ロックボタンを表示</string>
+    <string name="remove_power_menu_sos_button">Remove power menu SOS button</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">バッテリーのヘルスデータのパーセンテージを編集</string>
     <string name="display_module_calculates_battery_health_data">バッテリーの健康データを計算して表示</string>

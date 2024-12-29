@@ -556,6 +556,7 @@
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>
     <string name="force_enable_systemui_blur_feature_tips_2">Lưu ý: Khi trượt thanh độ sáng sẽ xuất hiện vùng mờ tại vị trí thông báo. Điều này là bình thường, không phải lỗi.</string>
     <string name="show_manual_lock_button_power_menu">Menu nguồn hiển thị nút khóa thủ công</string>
+    <string name="remove_power_menu_sos_button">Remove power menu SOS button</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Tùy chỉnh phần trăm dữ liệu tình trạng pin</string>
     <string name="display_module_calculates_battery_health_data">Mô-đun hiển thị tính toán dữ liệu sức khỏe</string>
