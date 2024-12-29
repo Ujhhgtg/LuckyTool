@@ -340,6 +340,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     key = "settings_about_device"
                     isIconSpaceReserved = false
                 })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.remove_device_name_change_limit)
+                    key = "remove_device_name_change_limit"
+                    setDefaultValue(false)
+                    isVisible = osCode >= 30
+                    isIconSpaceReserved = false
+                })
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_processor_click_page)
                     summary = "%s"

@@ -615,6 +615,7 @@
     <string name="enable_touch_membrane_protector_mode">Abilita la modalità di protezione della membrana touch</string>
     <string name="enable_game_acceleration">Abilita accelerazione gioco</string>
     <string name="settings_about_device">Informazioni sul dispositivo</string>
+    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">Imposta il processore per saltare la pagina con un click</string>
     <string name="enable_mariana_npu_introduction_page">Abilita la pagina di presentazione di Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Abilita la pagina di presentazione della fotocamera Hasselblad</string>

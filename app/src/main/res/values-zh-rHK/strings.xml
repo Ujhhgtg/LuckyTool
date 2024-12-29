@@ -615,6 +615,7 @@
     <string name="enable_touch_membrane_protector_mode">启用隔膜触控模式</string>
     <string name="enable_game_acceleration">启用游戏加速</string>
     <string name="settings_about_device">关于本机</string>
+    <string name="remove_device_name_change_limit">移除设备名称更改限制</string>
     <string name="set_processor_click_page">设置处理器点击页面</string>
     <string name="enable_mariana_npu_introduction_page">启用马里亚纳NPU介绍页面</string>
     <string name="enable_hasselblad_camera_introduction_page">启用哈苏影像介绍页面</string>

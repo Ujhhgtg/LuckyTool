@@ -587,7 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Cấu hình chèn khung động video tùy chỉnh</string>
     <string name="restore_frame_insertion_configuration_data">Xác nhận khôi phục dữ liệu cấu hình chèn khung động video mặc định!</string>
     <string name="confirm_to_delete_this_configuration">Bạn có chắc chắn xóa cấu hình này không？\n%1$s</string>
-    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
+    <string name="edit_memc_configuration_tips">Để biết thêm thông số, vui lòng truy vấn\n%1$s</string>
     <string name="no_memc_data">Không có dữ liệu Memc</string>
     <string name="video_frame_insertion_support_2K120">Chèn khung video hỗ trợ 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Nếu thiết bị của bạn không hỗ trợ MEMC, vui lòng không sử dụng chức năng này</string>
@@ -615,6 +615,7 @@
     <string name="enable_touch_membrane_protector_mode">Kích hoạt chế độ bảo vệ màn cảm ứng</string>
     <string name="enable_game_acceleration">Bật tính năng tăng tốc trò chơi</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
+    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
     <string name="enable_mariana_npu_introduction_page">Kích hoạt trang giới thiệu NPU Mariana</string>
     <string name="enable_hasselblad_camera_introduction_page">Kích hoạt trang giới thiệu hình ảnh Hasselblad</string>
@@ -643,7 +644,7 @@
     <string name="enable_frame_watermark_style">Bật kiểu khung hình mờ</string>
     <string name="enable_hasselblad_watermark_style">Kích hoạt kiểu hình mờ Hasselblad</string>
     <string name="custom_model_watermark">Hình mờ máy tùy chỉnh</string>
-    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
+    <string name="enable_ai_master_watermark">Kích hoạt hình mờ bậc thầy AI</string>
     <string name="enable_hassel_watermark">Kích hoạt hình mờ Hasselblad</string>
     <string name="enable_privacy_watermark">Bật hình mờ về quyền riêng tư</string>
     <string name="CameraFilter">Bộ lọc</string>
@@ -656,7 +657,7 @@
     <string name="camera_filter_desert">Bộ lọc Truyền thuyết sa mạc</string>
     <string name="camera_filter_tol">Lọc phim Lục Xuyên</string>
     <string name="camera_filter_zhi_gan">Kết cấu OS15</string>
-    <string name="camera_filter_jzk">Jia Zhangke filter</string>
+    <string name="camera_filter_jzk">Bộ lọc Giả Chương Kha</string>
     <string name="camera_portrait_filter_settings">Cài đặt bộ lọc chân dung</string>
     <string name="camera_video_filter_settings">Cài đặt bộ lọc video</string>
     <string name="camera_filter_color_extraction">Đỏ/Xanh lá/Xanh da trời</string>
@@ -703,7 +704,7 @@
     <string name="custom_media_player_support">Hỗ trợ trình phát đa phương tiện tùy chỉnh</string>
     <string name="custom_media_player_support_message">Điền tên gói của media player cần thêm vào, mỗi dòng chỉ được điền một tên gói</string>
     <string name="remove_danmaku_notification_whitelist">Xóa danh sách trắng thông báo bật lên</string>
-    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
+    <string name="enable_game_bypass_charging_support">Bật hỗ trợ hạn chế sạc</string>
     <string name="remove_game_voice_changer_whitelist">Xóa danh sách trắng thay đổi giọng nói trò chơi</string>
     <string name="remove_game_assistant_temperature_detection">Xóa tính năng phát hiện nhiệt độ của Trợ lý trò chơi</string>
     <string name="remove_game_assistant_temperature_detection_summary">Chủ yếu giải quyết vấn đề nhiệt độ quá cao ở chế độ X</string>

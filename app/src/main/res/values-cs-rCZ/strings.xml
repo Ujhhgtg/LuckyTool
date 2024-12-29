@@ -230,7 +230,7 @@
     <string name="fix_control_center_date_display_suammry">Opravit problém, kdy datum nemůže být zobrazeno celé</string>
     <string name="ControlCenterNotificationCenter">Oznamovací centrum Ovládacího centra</string>
     <string name="enable_notification_align_both_sides">Povolit zarovnání notifikací z obou stran</string>
-    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
+    <string name="remove_notification_cleanup_button">Odstranit tlačítko pro smazání všech notifikací</string>
     <string name="enable_notification_importance_classification">Povolit klasifikaci důležitosti pro notifikace</string>
     <string name="custom_notification_background_transparency">Vlastní průhlednost pozadí panelu notifikací</string>
     <string name="enable_notification_background_blur_effect">Povolit efekt rozostření pozadí oznámení</string>
@@ -365,7 +365,7 @@
     <string name="set_lock_screen_warp_charging_style">Nastavit styl warp nabíjení</string>
     <string name="set_lock_screen_charging_text_logo_style">Nastavit styl loga nabíjení</string>
     <string name="lock_screen_show_real_charging_technology">Komponenty nabíjení zobrazují skutečnou technologii nabíjení</string>
-    <string name="replace_charging_technology_drawing_style">Replace charging technology drawing style</string>
+    <string name="replace_charging_technology_drawing_style">Nahradit grafiku technologie nabíjení</string>
     <string name="force_lock_screen_charging_show_wattage">Zobrazení příkonu nabíjecích komponentů</string>
     <string name="lock_screen_charging_use_user_typeface">Komponenta nabíjení použije na zamykací obrazovce použije uživatelské písmo</string>
     <string name="set_full_screen_charging_animation_mode">Režim animace nabíjení na celé obrazovce</string>
@@ -426,8 +426,8 @@
     <string name="custom_app_floating_window_display_mode_remove_whitelist">Odstranit seznam povolených</string>
     <string name="custom_app_floating_window_display_mode_custom_whitelist">Vlastní seznam povolených</string>
     <string name="zoom_window_support_list">Vlastní nastavení přiblížení</string>
-    <string name="force_enable_multi_window_mode">Force enable multi zoom window mode</string>
-    <string name="custom_multi_window_display_upper_limit">Custom multi window display upper limit</string>
+    <string name="force_enable_multi_window_mode">Vynutit povolení vícenásobného zvětšení okna</string>
+    <string name="custom_multi_window_display_upper_limit">Vlastní horní limit zobrazení více oken</string>
     <string name="zoom_window_support_list_summary">Povolte podle vašich potřeb, jinak dojde k nenapravitelným problémům</string>
     <string name="force_all_apps_support_split_screen">Donutit všechny aplikace podporovat rozdělenou obrazovku</string>
     <string name="launcher_drawer_layout_related">Rozvržení související s panelem aplikací</string>
@@ -465,7 +465,7 @@
     <!--AppInstallationRelated-->
     <string name="AppInstallationRelated">Nastavení týkající se instalace aplikací</string>
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
-    <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
+    <string name="force_enable_32_bit_support">Vynutit povolení podpory 32-bit</string>
     <string name="disable_customized_app_installer">Zakázat vlastní instalátory aplikací</string>
     <string name="skip_apk_scan">Přeskočit skenování souborů APK</string>
     <string name="skip_apk_scan_summary">Nastavení související se skenováním virusů</string>
@@ -587,7 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Vlastní konfigurace dynamického vkládání videosnímků</string>
     <string name="restore_frame_insertion_configuration_data">Potvrďte obnovení výchozích konfiguračních dat pro vkládání dynamického videosnímku!</string>
     <string name="confirm_to_delete_this_configuration">Potvrdit odstranění této konfigurace?\n%1$s</string>
-    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
+    <string name="edit_memc_configuration_tips">Pro více parametrů se prosím dotaž\n%1$s</string>
     <string name="no_memc_data">Žádná Memc data</string>
     <string name="video_frame_insertion_support_2K120">Interpolace snímků videa je podporována při frekvenci 2K 120FPS</string>
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>
@@ -615,6 +615,7 @@
     <string name="enable_touch_membrane_protector_mode">Povolit režim ochrany dotykové membrány</string>
     <string name="enable_game_acceleration">Povolit herní zrychlení</string>
     <string name="settings_about_device">O zařízení</string>
+    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="enable_mariana_npu_introduction_page">Povolit úvodní stránku Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Povolit úvodní stránku kamery Hasselblad</string>
@@ -637,26 +638,26 @@
     <string name="custom_camera_open_gallery_by_default_tips">Povolit výběr pouze jedné galerie!</string>
     <string name="enable_camera_night_zoom_30x">Povolit 30x přiblížení pro noční scény</string>
     <string name="enable_video_capture_roulette_zoom">Povolit přiblížení ruletou při natáčení videa</string>
-    <string name="remove_camera_flash_limit">Remove restrictions on the use of the flash</string>
+    <string name="remove_camera_flash_limit">Odstranit omezení týkající se používání blesku</string>
     <string name="CameraWaterMark">Vodoznak</string>
     <string name="remove_watermark_word_limit">Odebrat limit znaků pro vlastní vodoznaky</string>
     <string name="enable_frame_watermark_style">Povolit styl rámečku vodoznaku</string>
     <string name="enable_hasselblad_watermark_style">Povolit Hasselblad styl vodoznaku</string>
     <string name="custom_model_watermark">Vlastní model vodoznak</string>
-    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
+    <string name="enable_ai_master_watermark">Povolit hlavní AI vodoznak</string>
     <string name="enable_hassel_watermark">Povolit Hasselblad vodoznak</string>
     <string name="enable_privacy_watermark">Povolit vodoznak soukromí</string>
     <string name="CameraFilter">Filtr</string>
-    <string name="remove_filter_model_limit">Remove filter model limit</string>
+    <string name="remove_filter_model_limit">Odstranit limit modelu filtru</string>
     <string name="camera_universal_filter_settings">Univerzální nastavení filtru</string>
     <string name="camera_filter_master">Hlavní filtr</string>
     <string name="camera_filter_jiangwen">Jiang Wen filtr</string>
     <string name="camera_filter_grand_tour">Filtr GrandTour</string>
-    <string name="camera_filter_vignette_grain">Film filter</string>
-    <string name="camera_filter_desert">DesertLegend filter</string>
-    <string name="camera_filter_tol">LuChuan Film filter</string>
+    <string name="camera_filter_vignette_grain">Filmový filtr</string>
+    <string name="camera_filter_desert">DesertLegend filtr</string>
+    <string name="camera_filter_tol">Filtr LuChuan Film</string>
     <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
-    <string name="camera_filter_jzk">Jia Zhangke filter</string>
+    <string name="camera_filter_jzk">Filtr Jia Zhangke</string>
     <string name="camera_portrait_filter_settings">Nastavení filtru portrétu</string>
     <string name="camera_video_filter_settings">Nastavení filtru videa</string>
     <string name="camera_filter_color_extraction">Crimson/Lesní zelená/nebeská modrá</string>
@@ -703,7 +704,7 @@
     <string name="custom_media_player_support">Podpora vlastního přehrávače médií</string>
     <string name="custom_media_player_support_message">Vyplňte název balíčku přehrávače médií, který má být přidán, na každém řádku může být jen jeden název balíčku aplikace</string>
     <string name="remove_danmaku_notification_whitelist">Odebrat seznam povolených oznámení danmaku</string>
-    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
+    <string name="enable_game_bypass_charging_support">Povolit obejití podpory nabíjení</string>
     <string name="remove_game_voice_changer_whitelist">Odstranit omezení měniče hlasu</string>
     <string name="remove_game_assistant_temperature_detection">Odstranit detekci teploty asistenta hry</string>
     <string name="remove_game_assistant_temperature_detection_summary">Především řeší problém nadměrné teploty v X módu</string>

@@ -702,6 +702,7 @@
     <string name="force_display_content_recommend" translatable="false">强制显示内容推荐</string>
     
     <string name="settings_about_device">About Device</string>
+    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
     <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
     <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>

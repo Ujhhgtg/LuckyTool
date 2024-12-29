@@ -615,6 +615,7 @@
     <string name="enable_touch_membrane_protector_mode">タッチメンブレン保護モードを有効化</string>
     <string name="enable_game_acceleration">ゲームアクセラレーションを有効化</string>
     <string name="settings_about_device">デバイス情報</string>
+    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">プロセッサーをタップしてページにジャンプするように設定します</string>
     <string name="enable_mariana_npu_introduction_page">Mariana NPU の紹介ページを有効化</string>
     <string name="enable_hasselblad_camera_introduction_page">Hasselblad のカメラ紹介ページを有効化</string>

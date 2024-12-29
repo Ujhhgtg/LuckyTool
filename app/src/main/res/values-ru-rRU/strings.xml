@@ -587,7 +587,7 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Пользовательская конфигурация динамической вставки кадров видео (MEMC)</string>
     <string name="restore_frame_insertion_configuration_data">Подтвердите восстановление стандартной конфигурации динамической вставки кадров видео (MEMC)!</string>
     <string name="confirm_to_delete_this_configuration">Вы уверены, что хотите удалить эту конфигурацию?\n%1$s</string>
-    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
+    <string name="edit_memc_configuration_tips">Для получения дополнительных параметров, пожалуйста, отправьте запрос\n%1$s</string>
     <string name="no_memc_data">Нет данных MEMC</string>
     <string name="video_frame_insertion_support_2K120">Динамическая вставка кадров видео поддерживает разрешение 2К 120 Гц (MEMC)</string>
     <string name="video_frame_insertion_support_2K120_summary">Если ваше устройство не поддерживает MEMC, пожалуйста, не используйте эту функцию</string>
@@ -615,6 +615,7 @@
     <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
     <string name="enable_game_acceleration">Включить ускорение игры</string>
     <string name="settings_about_device">Об устройстве</string>
+    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="enable_mariana_npu_introduction_page">Включить страницу введения Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Включить страницу введения камеры Hasselblad</string>
@@ -643,7 +644,7 @@
     <string name="enable_frame_watermark_style">Включить стиль рамки водяного знака</string>
     <string name="enable_hasselblad_watermark_style">Включить стиль водяного знака Hasselblad</string>
     <string name="custom_model_watermark">Пользовательский водяной знак</string>
-    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
+    <string name="enable_ai_master_watermark">Включить водяной знак \"Мастер ИИ\"</string>
     <string name="enable_hassel_watermark">Включить водяной знак Hasselblad</string>
     <string name="enable_privacy_watermark">Включить водяной знак конфиденциальности</string>
     <string name="CameraFilter">Фильтр</string>
@@ -656,7 +657,7 @@
     <string name="camera_filter_desert">Фильтр \"Легенда пустыни\"</string>
     <string name="camera_filter_tol">Фильтр кино LuChuan</string>
     <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
-    <string name="camera_filter_jzk">Jia Zhangke filter</string>
+    <string name="camera_filter_jzk">Фильтр Jia Zhangke</string>
     <string name="camera_portrait_filter_settings">Настройки портретного фильтра</string>
     <string name="camera_video_filter_settings">Настройки фильтра видео</string>
     <string name="camera_filter_color_extraction">Багровый/Лесной зелёный/Небесный</string>
@@ -703,7 +704,7 @@
     <string name="custom_media_player_support">Поддержка пользовательского медиаплеера</string>
     <string name="custom_media_player_support_message">Заполните имя пакета для добавления медиаплеера, каждая строка может иметь только одно приложение</string>
     <string name="remove_danmaku_notification_whitelist">Удалить белый список уведомлений danmaku</string>
-    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
+    <string name="enable_game_bypass_charging_support">Включить поддержку обхода зарядки</string>
     <string name="remove_game_voice_changer_whitelist">Удалить ограничения для смены голоса</string>
     <string name="remove_game_assistant_temperature_detection">Удалить определение температуры игрового помощника</string>
     <string name="remove_game_assistant_temperature_detection_summary">В основном решает проблему чрезмерной температуры в режиме X</string>

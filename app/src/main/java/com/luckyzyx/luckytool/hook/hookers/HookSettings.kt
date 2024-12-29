@@ -25,6 +25,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.HookAppDetails
 import com.luckyzyx.luckytool.hook.scopes.settings.HookIris5Controller
 import com.luckyzyx.luckytool.hook.scopes.settings.HookSettingsFeature
 import com.luckyzyx.luckytool.hook.scopes.settings.HookSettingsPreferenceFragment
+import com.luckyzyx.luckytool.hook.scopes.settings.RemoveDeviceNameChangeLimit
 import com.luckyzyx.luckytool.hook.scopes.settings.RemoveDpiRestartRecovery
 import com.luckyzyx.luckytool.hook.scopes.settings.RemoveSettingsBottomLaboratory
 import com.luckyzyx.luckytool.hook.scopes.settings.RemoveTopAccountDisplay
@@ -139,6 +140,10 @@ object HookSettings : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("fix_default_app_jump_problem", false)) {
                 loadHooker(FixDefaultAppJumpProblem)
             }
+        }
+        //移除设备名称更改限制
+        if (prefs(ModulePrefs).getBoolean("remove_device_name_change_limit", false)) {
+            if (osCode >= 30) loadHooker(RemoveDeviceNameChangeLimit)
         }
 
         //电源键
