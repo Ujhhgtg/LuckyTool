@@ -158,7 +158,8 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                             M/MM/MMM/MMMM/MMMMM -> ${formatDate("M/MM/MMM/MMMM/MMMMM")}
                             d/dd/ddd/dddd -> ${formatDate("d/dd/d号/dd号")}
                             E/EE/EEE/EEEE/EEEEE -> ${formatDate("E/EE/EEE/EEEE/EEEEE")}
-                            h/H/k/K -> ${formatDate("h/H/k/K")}
+                            H/HH (0-23) k/kk (1-24) - [24 Hour] -> ${formatDate("H/HH k/kk")}
+                            K/KK (0-11) h/hh (1-12) - [12 Hour] -> ${formatDate("K/KK h/hh")}
                             HH:mm:ss -> ${formatDate("HH:mm:ss")}
                             m/mm/mmm/mmmm -> ${formatDate("m/mm/mmm/mmmm")}
                             s/ss/sss/ssss -> ${formatDate("s/ss/sss/ssss")}
@@ -220,7 +221,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     key = "statusbar_clock_user_typeface"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { preference, newValue ->
+                    setOnPreferenceChangeListener { _, _ ->
                         (activity as MainActivity).restart()
                         true
                     }

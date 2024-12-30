@@ -20,6 +20,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 模块内置捐赠码显示异常
 - [添加] 移除设备名称更改限制 C14+
 - [添加] 移除电源菜单SOS按钮 C13+
+- [更改] 状态栏时钟格式小时示例
 
 ### 1.2.6
 
