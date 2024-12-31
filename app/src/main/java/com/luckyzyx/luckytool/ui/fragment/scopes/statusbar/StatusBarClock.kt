@@ -152,14 +152,14 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     title = getString(R.string.statusbar_clock_custom_format)
                     dialogTitle = getString(R.string.statusbar_clock_custom_format)
                     dialogMessage = """
-                            YYYY/MM/dd -> ${formatDate("YYYY/MM/dd")}
-                            Y/M/d/E/a -> ${formatDate("Y/M/d/E/a")}
-                            YY/YYYY -> ${formatDate("YY/YYYY")}
+                            yyyy/MM/dd -> ${formatDate("yyyy/MM/dd")}
+                            y/M/d/E/a -> ${formatDate("y/M/d/E/a")}
+                            yy/yyyy -> ${formatDate("yy/yyyy")}
                             M/MM/MMM/MMMM/MMMMM -> ${formatDate("M/MM/MMM/MMMM/MMMMM")}
                             d/dd/ddd/dddd -> ${formatDate("d/dd/d号/dd号")}
                             E/EE/EEE/EEEE/EEEEE -> ${formatDate("E/EE/EEE/EEEE/EEEEE")}
-                            H/HH (0-23) k/kk (1-24) - [24 Hour] -> ${formatDate("H/HH k/kk")}
-                            K/KK (0-11) h/hh (1-12) - [12 Hour] -> ${formatDate("K/KK h/hh")}
+                            H/HH (0-23) k/kk (1-24) -> ${formatDate("H/HH k/kk")}
+                            K/KK (0-11) h/hh (1-12) -> ${formatDate("K/KK h/hh")}
                             HH:mm:ss -> ${formatDate("HH:mm:ss")}
                             m/mm/mmm/mmmm -> ${formatDate("m/mm/mmm/mmmm")}
                             s/ss/sss/ssss -> ${formatDate("s/ss/sss/ssss")}
