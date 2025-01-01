@@ -61,19 +61,5 @@ object HookCamera : YukiBaseHooker() {
             if (osCode >= 34) loadHooker(RemoveFilterModelLimit)
         }
 
-        //Source CommonUtil
-//        "com.oplus.ocs.camera.ipusdk.processunit.filter.list.CommonUtil".toClass().apply {
-//            method { name = "isSupportCola" }.hook {
-//                replaceToTrue()
-//            }
-//        }
-
-        //Source CommonUtil
-//        "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam".toClass().apply {
-//            method { name = "getAiMasterWatermarkEnable" }.hook {
-//                replaceToTrue()
-//            }
-//        }
-
     }
 }

@@ -620,6 +620,7 @@
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="enable_mariana_npu_introduction_page">Включить страницу введения Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Включить страницу введения камеры Hasselblad</string>
+    <string name="enable_game_architecture_display">Enable game architecture display</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
     <string name="customize_device_sharing_page_parameters">Настройка параметров страницы совместного доступа к устройствам</string>
     <string name="customize_device_ota_card_background">Настройка фона карты OTA устройства</string>

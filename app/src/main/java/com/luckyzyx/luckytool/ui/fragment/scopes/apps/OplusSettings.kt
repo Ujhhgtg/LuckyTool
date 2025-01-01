@@ -371,6 +371,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
                 add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_game_architecture_display)
+                    key = "enable_game_architecture_display"
+                    setDefaultValue(false)
+                    isVisible = osCode >= 34
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.screen_physics_size_shown_cm)
                     key = "screen_physics_size_shown_cm"
                     setDefaultValue(false)

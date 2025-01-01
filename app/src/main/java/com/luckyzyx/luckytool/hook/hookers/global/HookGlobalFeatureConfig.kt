@@ -157,6 +157,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 if (osCode >= 30) put("oplus.software.game.cold.start.speedup.enable", true)
             }
 
+            //Source Settings GameArchitecturePreferenceController 风驰游戏内核
+            if (prefs(ModulePrefs).getBoolean("enable_game_architecture_display", false)) {
+                if (osCode >= 34) put("oplus.software.game.hummingbird", true)
+            }
+
             //Source NotificationManager FeatureOption isSupportsStealthMode VIP模式
             //Source SafeCenter SettingsInsertProvider VIP模式
 //            if (SDK >= A14 && prefs(ModulePrefs).getBoolean("enable_vip_mode", false)) {
@@ -166,7 +171,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Source EyeProtect PaperTexturePreference 纸质纹理调节
             if (prefs(ModulePrefs).getBoolean("enable_eyeprotect_paper_texture_support", false)) {
                 if (osCode >= 33) {
-                    put("oplus.software.display.smart_color_temperature_rhythm_health_support", true)
+                    put(
+                        "oplus.software.display.smart_color_temperature_rhythm_health_support",
+                        true
+                    )
                     put("oplus.software.display.eyeprotect_paper_texture_support", true)
                 }
             }

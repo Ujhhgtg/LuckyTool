@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.games.CloudConditionFeature
 import com.luckyzyx.luckytool.hook.scopes.games.CompetitionModeSound
@@ -30,6 +31,8 @@ object HookOplusGames : YukiBaseHooker() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
         //非ColorOS官方安装器直接返回
         if (appVer?.versionCommit == "0") return
+
+        loadHooker(HookGlobalFeatureConfig)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             loadHooker(HookGlobalFeatureProvider(dexKitBridge))

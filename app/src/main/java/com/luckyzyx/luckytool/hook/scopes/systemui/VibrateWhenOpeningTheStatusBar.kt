@@ -17,7 +17,9 @@ object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
             "com.android.systemui.shade.NotificationPanelViewController" //C14
         ).toClass().apply {
             constructor().hook {
-                after { field { name = "mVibrateOnOpening" }.get(instance).setTrue() }
+                after {
+                    field { name = "mVibrateOnOpening" }.get(instance).setTrue()
+                }
             }
         }
 
@@ -28,7 +30,9 @@ object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
         ).toClass().apply {
             if (hasField { name = "mVibrateOnOpening" }.not()) return@apply
             constructor().hook {
-                after { field { name = "mVibrateOnOpening" }.get(instance).setTrue() }
+                after {
+                    field { name = "mVibrateOnOpening" }.get(instance).setTrue()
+                }
             }
         }
 
@@ -36,7 +40,9 @@ object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
         "com.android.systemui.statusbar.phone.StatusBar".toClassOrNull()?.apply {
             if (hasField { name = "mVibrateOnOpening" }.not()) return@apply
             method { name = "start" }.hook {
-                after { field { name = "mVibrateOnOpening" }.get(instance).setTrue() }
+                after {
+                    field { name = "mVibrateOnOpening" }.get(instance).setTrue()
+                }
             }
         }
     }

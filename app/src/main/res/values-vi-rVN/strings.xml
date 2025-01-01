@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Mô-đun Xpose tối ưu hóa nâng cao của ColorOS miễn phí vĩnh viễn\nNhà phát triển: Yi Qingming, luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Chức năng</string>
     <string name="nav_home">Trang chủ</string>
@@ -556,7 +556,7 @@
     <string name="force_enable_systemui_blur_feature_tips">Điều kiện tiên quyết: Bạn cần bật tùy chọn \"Buộc kích hoạt các tính năng mờ của hệ thống\"\nVị trí chức năng: Khác</string>
     <string name="force_enable_systemui_blur_feature_tips_2">Lưu ý: Khi trượt thanh độ sáng sẽ xuất hiện vùng mờ tại vị trí thông báo. Điều này là bình thường, không phải lỗi.</string>
     <string name="show_manual_lock_button_power_menu">Menu nguồn hiển thị nút khóa thủ công</string>
-    <string name="remove_power_menu_sos_button">Remove power menu SOS button</string>
+    <string name="remove_power_menu_sos_button">Xoá nút SOS ở trình đơn nguồn</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Tùy chỉnh phần trăm dữ liệu tình trạng pin</string>
     <string name="display_module_calculates_battery_health_data">Mô-đun hiển thị tính toán dữ liệu sức khỏe</string>
@@ -616,10 +616,11 @@
     <string name="enable_touch_membrane_protector_mode">Kích hoạt chế độ bảo vệ màn cảm ứng</string>
     <string name="enable_game_acceleration">Bật tính năng tăng tốc trò chơi</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
-    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
+    <string name="remove_device_name_change_limit">Xóa hạn chế thay đổi tên thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
     <string name="enable_mariana_npu_introduction_page">Kích hoạt trang giới thiệu NPU Mariana</string>
     <string name="enable_hasselblad_camera_introduction_page">Kích hoạt trang giới thiệu hình ảnh Hasselblad</string>
+    <string name="enable_game_architecture_display">Enable game architecture display</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>
     <string name="customize_device_sharing_page_parameters">Tùy chỉnh thông số trang chia sẻ thiết bị</string>
     <string name="customize_device_ota_card_background">Tùy chỉnh nền thẻ OTA của thiết bị</string>
