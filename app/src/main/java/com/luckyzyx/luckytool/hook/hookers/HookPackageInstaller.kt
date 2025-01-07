@@ -5,6 +5,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AllowReplaceInstall
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AutoClickInstallButton
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.AutoClickUnInstallButton
+import com.luckyzyx.luckytool.hook.scopes.packageinstaller.FixInstallButtonDisplayException
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.HookPackageInstallerFeature
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.RemoveInstallAds
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.ShowMoreApkPackageInformation
@@ -25,6 +26,10 @@ object HookPackageInstaller : YukiBaseHooker() {
         //跳过安装扫描
         if (prefs(ModulePrefs).getBoolean("skip_apk_scan", false)) {
             loadHooker(SkipApkScan(appVer?.versionCommit))
+        }
+        //修复App安装页面底部按钮异常
+        if (prefs(ModulePrefs).getBoolean("fix_install_button_display_exception", false)) {
+            loadHooker(FixInstallButtonDisplayException)
         }
         //低/相同版本警告
         if (prefs(ModulePrefs).getBoolean("allow_downgrade_install", false)) {

@@ -255,6 +255,12 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 }
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.fix_install_button_display_exception)
+                key = "fix_install_button_display_exception"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.skip_apk_scan)
                 summary = getString(R.string.skip_apk_scan_summary)
                 key = "skip_apk_scan"
