@@ -61,24 +61,27 @@ object HookWindowManagerService : YukiBaseHooker() {
         }
 
         //Source DisplayContentExtImpl
-        if (SDK >= A14) "com.android.server.wm.DisplayContentExtImpl".toClass().apply {
-            method { name = "setForcedDisplayInfoForWmSize";paramCount = 5 }.hook {
-                before {
-                    if (!isDpi) return@before
+        if (SDK >= A14) {
+            "com.android.server.wm.DisplayContentExtImpl".toClass().apply {
+                method { name = "setForcedDisplayInfoForWmSize";paramCount = 5 }.hook {
+                    before {
+                        if (!isDpi) return@before
 //                    val width = args().first().int()
 //                    val height = args(1).int()
 //                    val density = args(2).int()
 //                    val userId = args(3).int()
-                    val service = args().last().any() ?: return@before
+                        val service = args().last().any() ?: return@before
 //                    YLog.debug("${method.name} is call -> $width | $height | $density | $userId")
 
-                    val context = service.current().field { type = ContextClass }.cast<Context>()
-                        ?: return@before
-                    val resolver = context.contentResolver
-                    val forcedDensity = Settings.Secure.getString(
-                        resolver, "display_density_forced"
-                    )?.toIntOrNull() ?: return@before
-                    args(2).set(forcedDensity)
+                        val context =
+                            service.current().field { type = ContextClass }.cast<Context>()
+                                ?: return@before
+                        val resolver = context.contentResolver
+                        val forcedDensity = Settings.Secure.getString(
+                            resolver, "display_density_forced"
+                        )?.toIntOrNull() ?: return@before
+                        args(2).set(forcedDensity)
+                    }
                 }
             }
         }
