@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.os.Build
 import android.util.ArraySet
+import com.android.internal.os.ClassLoaderFactory
 import com.android.internal.os.SystemServerClassLoaderFactory
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -17,18 +19,26 @@ object HookOplusWifiService : YukiBaseHooker() {
     private var wifiserviceClassLoader: PathClassLoader? = null
     private var finalWifiServiceClassLoader: PathClassLoader? = null
 
+    private val wifiService = "/apex/com.android.wifi/javalib/service-wifi.jar"
+    private val oplusWifiService = "/system_ext/framework/oplus-wifi-service.jar"
+
     override fun onHook() {
         try {
             wifiserviceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
-                "/apex/com.android.wifi/javalib/service-wifi.jar",
-                null,
-                false
+                wifiService, null, false
             )
             finalWifiServiceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
-                "/system_ext/framework/oplus-wifi-service.jar",
-                wifiserviceClassLoader,
-                false
+                oplusWifiService, wifiserviceClassLoader, false
             )
+        } catch (_: ClassNotFoundException) {
+            wifiserviceClassLoader = ClassLoaderFactory.createClassLoader(
+                wifiService, null, null, null,
+                Build.VERSION.SDK_INT, true, null
+            ) as PathClassLoader
+            finalWifiServiceClassLoader = ClassLoaderFactory.createClassLoader(
+                wifiService, null, null, wifiserviceClassLoader,
+                Build.VERSION.SDK_INT, true, null
+            ) as PathClassLoader
         } catch (_: Throwable) {
 
         }
