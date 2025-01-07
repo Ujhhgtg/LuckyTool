@@ -180,6 +180,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.force_enable_recent_task_memory_display)
                 key = "force_enable_recent_task_memory_display"
                 setDefaultValue(false)
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

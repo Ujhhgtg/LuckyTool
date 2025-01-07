@@ -76,7 +76,7 @@ object HookLauncher : YukiBaseHooker() {
 
         //强制启用最近任务内存显示
         if (prefs(ModulePrefs).getBoolean("force_enable_recent_task_memory_display", false)) {
-            loadHooker(ForceEnableRecentTaskMemoryDisplay)
+            if (osCode >= 30) loadHooker(ForceEnableRecentTaskMemoryDisplay)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl
