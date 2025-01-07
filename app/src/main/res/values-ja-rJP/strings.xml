@@ -467,6 +467,7 @@
     <string name="PackageInstaller_summary">コアパッチとの併用が必要です</string>
     <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
     <string name="disable_customized_app_installer">カスタマイズされたアプリインストーラーを無効化</string>
+    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="skip_apk_scan">APKのスキャンをスキップ</string>
     <string name="skip_apk_scan_summary">APKウィルススキャン関連</string>
     <string name="allow_downgrade_install">ダウングレードのインストールを許可</string>
@@ -592,7 +593,8 @@
     <string name="no_memc_data">MEMC データなし</string>
     <string name="video_frame_insertion_support_2K120">ビデオフレーム補間を 2K 120FPS 対応にする</string>
     <string name="video_frame_insertion_support_2K120_summary">お使いのデバイスが MEMC に対応していない場合は、この機能を使用しないでください</string>
-    <string name="enable_screen_color_temperature_rgb_palette">画面の色温度 RGB パレットを有効化</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
+    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">DC 調光で上書きされる可能性があります</string>
     <string name="enable_smart_switching_screen_resolutions">画面解像度のスマート切り替えを有効化</string>
     <string name="settings_application">アプリ</string>

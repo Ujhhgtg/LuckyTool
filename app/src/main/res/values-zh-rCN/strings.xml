@@ -467,6 +467,7 @@
     <string name="PackageInstaller_summary">需搭配核心破解使用</string>
     <string name="force_enable_32_bit_support">强制启用 32 位支持</string>
     <string name="disable_customized_app_installer">禁用定制版应用安装器</string>
+    <string name="fix_install_button_display_exception">修复安装按钮异常显示</string>
     <string name="skip_apk_scan">跳过 APK 扫描</string>
     <string name="skip_apk_scan_summary">APK 病毒扫描相关</string>
     <string name="allow_downgrade_install">允许降级安装</string>
@@ -592,7 +593,8 @@
     <string name="no_memc_data">无Memc数据</string>
     <string name="video_frame_insertion_support_2K120">视频插帧支持 2K/120 帧</string>
     <string name="video_frame_insertion_support_2K120_summary">若你的设备不支持 MEMC，请勿使用此功能</string>
-    <string name="enable_screen_color_temperature_rgb_palette">启用屏幕色温 RGB 调色板</string>
+    <string name="enable_screen_color_temperature_rgb_ball">启用屏幕 RGB 色温球</string>
+    <string name="enable_screen_color_temperature_rgb_space">启用屏幕色温 RGB 调色板</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">可能会被DC功能覆盖</string>
     <string name="enable_smart_switching_screen_resolutions">启用智能切换屏幕分辨率</string>
     <string name="settings_application">应用</string>

@@ -467,6 +467,7 @@
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
     <string name="force_enable_32_bit_support">Принудительно включить поддержку 32-бит</string>
     <string name="disable_customized_app_installer">Отключить настраиваемые установщики приложений</string>
+    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="skip_apk_scan">Пропустить сканирование APK</string>
     <string name="skip_apk_scan_summary">Сканирование APK на наличие вирусов</string>
     <string name="allow_downgrade_install">Разрешить установку более ранней версии</string>
@@ -592,7 +593,8 @@
     <string name="no_memc_data">Нет данных MEMC</string>
     <string name="video_frame_insertion_support_2K120">Динамическая вставка кадров видео поддерживает разрешение 2К 120 Гц (MEMC)</string>
     <string name="video_frame_insertion_support_2K120_summary">Если ваше устройство не поддерживает MEMC, пожалуйста, не используйте эту функцию</string>
-    <string name="enable_screen_color_temperature_rgb_palette">Включить цветовую температуру экрана в палитре RGB</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
+    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Может быть переопределено функцией DC</string>
     <string name="enable_smart_switching_screen_resolutions">Включить умное переключение разрешения экрана</string>
     <string name="settings_application">Приложение</string>

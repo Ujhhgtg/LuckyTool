@@ -467,6 +467,7 @@
     <string name="PackageInstaller_summary">Deve essere utilizzato con la patch principale</string>
     <string name="force_enable_32_bit_support">Forza attivazione supporto a 32 bit</string>
     <string name="disable_customized_app_installer">Disabilita installatori di applicazioni personalizzati</string>
+    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="skip_apk_scan">Salta Apkscan</string>
     <string name="skip_apk_scan_summary">Scansione virus Apk</string>
     <string name="allow_downgrade_install">Consenti l\'installazione del downgrade</string>
@@ -592,7 +593,8 @@
     <string name="no_memc_data">Nessun Dato di Memc</string>
     <string name="video_frame_insertion_support_2K120">Supporto per inserimento cornice video 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Se il dispositivo non supporta MEMC, non utilizzare questa funzione</string>
-    <string name="enable_screen_color_temperature_rgb_palette">Abilita la tavolozza RGB della temperatura colore dello schermo</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
+    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Può essere revocato dalla funzione DC</string>
     <string name="enable_smart_switching_screen_resolutions">Abilita la commutazione intelligente delle risoluzioni dello schermo</string>
     <string name="settings_application">Applicazione</string>

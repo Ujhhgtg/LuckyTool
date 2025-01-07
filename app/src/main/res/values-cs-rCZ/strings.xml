@@ -467,6 +467,7 @@
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
     <string name="force_enable_32_bit_support">Vynutit povolení podpory 32-bit</string>
     <string name="disable_customized_app_installer">Zakázat vlastní instalátory aplikací</string>
+    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="skip_apk_scan">Přeskočit skenování souborů APK</string>
     <string name="skip_apk_scan_summary">Nastavení související se skenováním virusů</string>
     <string name="allow_downgrade_install">Povolit instalaci starších verzí aplikací</string>
@@ -592,7 +593,8 @@
     <string name="no_memc_data">Žádná Memc data</string>
     <string name="video_frame_insertion_support_2K120">Interpolace snímků videa je podporována při frekvenci 2K 120FPS</string>
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>
-    <string name="enable_screen_color_temperature_rgb_palette">Povolit paletu pro teplotu barev obrazovky RGB</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
+    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
     <string name="enable_smart_switching_screen_resolutions">Povolit chytré přepínání rozlišení obrazovky</string>
     <string name="settings_application">Aplikace</string>
@@ -620,7 +622,7 @@
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
     <string name="enable_mariana_npu_introduction_page">Povolit úvodní stránku Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Povolit úvodní stránku kamery Hasselblad</string>
-    <string name="enable_game_architecture_display">Enable game architecture display</string>
+    <string name="enable_game_architecture_display">Povolit zobrazení herní architektury</string>
     <string name="screen_physics_size_shown_cm">Fyzické rozměry obrazovky jsou zobrazeny v centimetrech</string>
     <string name="customize_device_sharing_page_parameters">Konfigurace nastavení stránky sdílení zařízení</string>
     <string name="customize_device_ota_card_background">Přizpůsobit OTA pozadí karty zařízení</string>

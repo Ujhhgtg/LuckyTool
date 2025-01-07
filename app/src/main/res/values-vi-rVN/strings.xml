@@ -467,6 +467,7 @@
     <string name="PackageInstaller_summary">Cần được sử dụng với bản vá lõi</string>
     <string name="force_enable_32_bit_support">Buộc hỗ trợ 32-bit</string>
     <string name="disable_customized_app_installer">Tắt trình cài đặt ứng dụng tùy chỉnh</string>
+    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="skip_apk_scan">Bỏ qua Apkscan</string>
     <string name="skip_apk_scan_summary">Quét vi-rút Apk</string>
     <string name="allow_downgrade_install">Cho phép hạ cấp cài đặt</string>
@@ -592,7 +593,8 @@
     <string name="no_memc_data">Không có dữ liệu Memc</string>
     <string name="video_frame_insertion_support_2K120">Chèn khung video hỗ trợ 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Nếu thiết bị của bạn không hỗ trợ MEMC, vui lòng không sử dụng chức năng này</string>
-    <string name="enable_screen_color_temperature_rgb_palette">Bật bảng màu RGB nhiệt độ màu màn hình</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
+    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Có thể bị ghi đè bởi chức năng DC</string>
     <string name="enable_smart_switching_screen_resolutions">Cho phép chuyển đổi thông minh độ phân giải màn hình</string>
     <string name="settings_application">Ứng dụng</string>
