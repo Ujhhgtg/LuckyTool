@@ -673,7 +673,8 @@
     
     <string name="video_frame_insertion_support_2K120">Video frame insertion supports 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">If your device does not support MEMC, please do not use this function</string>
-    <string name="enable_screen_color_temperature_rgb_palette">Enable screen color temperature RGB palette</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
+    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">May be overridden by DC function</string>
     <string name="enable_smart_switching_screen_resolutions">Enable smart switching of screen resolutions</string>
     

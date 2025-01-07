@@ -174,17 +174,30 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     })
                 }
             }
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_screen_color_temperature_rgb_palette)
-                summary = arraySummaryLine(
-                    getString(R.string.need_restart_system),
-                    getString(R.string.enable_screen_color_temperature_rgb_palette_summary)
-                )
-                key = "enable_screen_color_temperature_rgb_palette"
-                setDefaultValue(false)
-                isVisible = osCode >= 27
-                isIconSpaceReserved = false
-            })
+            if (osCode >= 27) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_screen_color_temperature_rgb_ball)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system),
+                        getString(R.string.enable_screen_color_temperature_rgb_palette_summary)
+                    )
+                    key = "enable_screen_color_temperature_rgb_ball"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
+            if (osCode >= 30) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_screen_color_temperature_rgb_space)
+                    summary = arraySummaryLine(
+                        getString(R.string.need_restart_system),
+                        getString(R.string.enable_screen_color_temperature_rgb_palette_summary)
+                    )
+                    key = "enable_screen_color_temperature_rgb_space"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_smart_switching_screen_resolutions)
                 key = "enable_smart_switching_screen_resolutions"

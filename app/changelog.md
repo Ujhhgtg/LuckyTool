@@ -23,6 +23,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 状态栏时钟格式小时示例
 - [添加] 启用风驰内核游戏架构显示 C15+
 - [添加] 修复App安装页面底部按钮异常
+- [添加] 启用屏幕色温RGB调色板 C14+
+- [更改] 屏幕RGB色温球翻译与键值
 
 ### 1.2.6
 
