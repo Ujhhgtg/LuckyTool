@@ -186,6 +186,7 @@
     <string name="remove_gt_mode_notification">Удалить уведомление о режиме производительности</string>
     <string name="allow_long_press_notification_modifiable">Разрешить изменять уведомления по долгому нажатию</string>
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
+    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
@@ -394,6 +395,7 @@
     <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
+    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
     <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
     <string name="set_app_update_dot_display_mode">Установить режим отображения точки на иконке после обновления приложения</string>

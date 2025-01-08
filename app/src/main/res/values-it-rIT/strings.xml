@@ -186,6 +186,7 @@
     <string name="remove_gt_mode_notification">Rimuovi notifica modalità GT</string>
     <string name="allow_long_press_notification_modifiable">Consenti di modificare le notifiche con pressione prolungata</string>
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
+    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
@@ -394,6 +395,7 @@
     <!--Launcher-->
     <string name="Desktop">Launcher/Desktop</string>
     <string name="AppBadgeRelated">Badge delle App</string>
+    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
     <string name="enable_display_app_update_dot_summary">Posizione della funzione: Impostazioni - Desktop e schermata di blocco</string>
     <string name="set_app_update_dot_display_mode">Imposta la modalità di visualizzazione dei punti di aggiornamento delle icone dell\'app</string>

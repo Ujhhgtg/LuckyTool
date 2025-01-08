@@ -186,6 +186,7 @@
     <string name="remove_gt_mode_notification">Xóa thông báo chế độ GT</string>
     <string name="allow_long_press_notification_modifiable">Cho phép sửa đổi thông báo nhấn lâu</string>
     <string name="remove_notification_manager_limit">Xóa giới hạn trình quản lý thông báo</string>
+    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
@@ -394,6 +395,7 @@
     <!--Launcher-->
     <string name="Desktop">Màn hình chính</string>
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
+    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
     <string name="enable_display_app_update_dot_summary">Vị trí chức năng: Cài đặt - Màn hình và màn hình khóa</string>
     <string name="set_app_update_dot_display_mode">Đặt chế độ hiển thị dấu chấm cập nhật biểu tượng ứng dụng</string>

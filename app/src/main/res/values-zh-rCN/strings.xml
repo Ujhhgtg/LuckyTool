@@ -186,6 +186,7 @@
     <string name="remove_gt_mode_notification">移除 GT 模式通知</string>
     <string name="allow_long_press_notification_modifiable">允许长按通知可修改</string>
     <string name="remove_notification_manager_limit">移除通知管理限制</string>
+    <string name="remove_notification_pin_number_limit">移除通知置顶数量限制</string>
     <string name="remove_small_window_reply_whitelist">移除浮窗回复白名单</string>
     <string name="set_small_window_reply_blacklist">设置浮窗回复黑名单</string>
     <string name="set_small_window_reply_blacklist_message">填写需要添加到黑名单的包名</string>
@@ -394,6 +395,7 @@
     <!--Launcher-->
     <string name="Desktop">桌面相关</string>
     <string name="AppBadgeRelated">应用徽标相关</string>
+    <string name="allow_app_names_display_multiple_lines">允许桌面App名称多行显示</string>
     <string name="enable_display_app_update_dot">启用App更新圆点开关</string>
     <string name="enable_display_app_update_dot_summary">功能位置：设置-桌面与锁屏</string>
     <string name="set_app_update_dot_display_mode">设置App图标更新圆点显示模式</string>

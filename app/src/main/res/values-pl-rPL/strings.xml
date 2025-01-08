@@ -186,6 +186,7 @@
     <string name="remove_gt_mode_notification">Remove GT mode notification</string>
     <string name="allow_long_press_notification_modifiable">Allow long press notifications to be modifiable</string>
     <string name="remove_notification_manager_limit">Remove notification manager limit</string>
+    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Remove small window reply whitelist</string>
     <string name="set_small_window_reply_blacklist">Set small window reply blacklist</string>
     <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>
@@ -394,6 +395,7 @@
     <!--Launcher-->
     <string name="Desktop">Pulpit</string>
     <string name="AppBadgeRelated">App badge related</string>
+    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
     <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
     <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
     <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>

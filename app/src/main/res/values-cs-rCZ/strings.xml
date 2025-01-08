@@ -186,6 +186,7 @@
     <string name="remove_gt_mode_notification">Odstranit oznámení o GT režimu</string>
     <string name="allow_long_press_notification_modifiable">Povolit upravovat oznámení dlouhým stiskem</string>
     <string name="remove_notification_manager_limit">Odstranit limit správce oznámení</string>
+    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
@@ -394,6 +395,7 @@
     <!--Launcher-->
     <string name="Desktop">Plocha</string>
     <string name="AppBadgeRelated">Odznaky aplikací</string>
+    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
     <string name="enable_display_app_update_dot">Povolit přepínač aktualizací aplikace</string>
     <string name="enable_display_app_update_dot_summary">Umístění funkce: Nastavení - Desktop a zamykací obrazovka</string>
     <string name="set_app_update_dot_display_mode">Nastavení režimu zobrazení bodu na ikoně po aktualizaci aplikace</string>
