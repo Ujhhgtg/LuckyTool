@@ -4,9 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 
 @Obfuscate
 object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
@@ -51,20 +49,6 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
                 if (isEnable) replaceToFalse()
             }
             method { name = "supportsSplitScreenWindowingMode" }.hook {
-                if (isEnable) replaceToTrue()
-            }
-        }
-
-        //Source TaskFragment
-        "com.android.server.wm.TaskFragment".toClass().apply {
-            method { name = "supportsMultiWindowInDisplayArea" }.hook {
-                if (isEnable) replaceToTrue()
-            }
-        }
-
-        //Source OplusRunningTaskInfo
-        if (SDK >= A15) "com.oplus.splitscreen.OplusRunningTaskInfo".toClass().apply {
-            method { name = "getIsSupportSplitScreenMultiWindow" }.hook {
                 if (isEnable) replaceToTrue()
             }
         }

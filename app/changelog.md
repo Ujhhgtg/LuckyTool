@@ -27,6 +27,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 屏幕RGB色温球键值与翻译
 - [适配] 系统框架WIFI服务相关 C12
 - [添加] 移除通知置顶数量限制 C14+
+- [更改] 限制全应用分屏功能 C15+
 
 ### 1.2.6
 

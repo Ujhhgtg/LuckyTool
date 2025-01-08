@@ -100,7 +100,7 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(SystemEnableVolumeKeyControlFlashlight)
 
         //强制所有应用支持分屏
-        if (osCode >= 26) loadHooker(ForceAllAppsSupportSplitScreen)
+        if (osCode in 26..33) loadHooker(ForceAllAppsSupportSplitScreen)
 
         //移除应用禁止卸载黑名单
         if (osCode >= 26) loadHooker(RemoveAppUninstallButtonBlackList)
