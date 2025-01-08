@@ -85,6 +85,12 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.allow_app_names_display_multiple_lines)
+                key = "allow_app_names_display_multiple_lines"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             if (SDK >= A13) {
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.remove_app_shortcut_badge)
