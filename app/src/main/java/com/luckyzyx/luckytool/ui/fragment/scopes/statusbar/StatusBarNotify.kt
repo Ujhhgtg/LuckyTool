@@ -107,6 +107,12 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     })
                 }
             }
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_notification_pin_number_limit)
+                key = "remove_notification_pin_number_limit"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }
