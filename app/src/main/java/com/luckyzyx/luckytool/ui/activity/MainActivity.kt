@@ -30,13 +30,13 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import com.luckyzyx.luckytool.utils.checkVerify
+import com.luckyzyx.luckytool.utils.checkPackage
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
-import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import kotlin.system.exitProcess
 
@@ -68,15 +68,13 @@ open class MainActivity : AppCompatActivity() {
 
         initNavigationFragment()
         initDynamicShortcuts()
-        checkVerify()
-        checkSuAndOS()
 
-//        val list = NativeBridge.getIdList(1)
-//        LogUtils.d("NativeBridge", "getIdList", list.toString(), true)
-
+        checkPackage()
+        checkXposed()
+        checkOs()
     }
 
-    private fun checkSuAndOS() {
+    private fun checkXposed() {
         val noModulePrefs = prefs(ModulePrefs).isPreferencesAvailable.not()
         val noSettingPrefs = prefs(SettingsPrefs).isPreferencesAvailable.not()
         val noOtherPrefs = prefs(OtherPrefs).isPreferencesAvailable.not()
@@ -90,7 +88,13 @@ open class MainActivity : AppCompatActivity() {
             }
             return
         }
-        val isSu = Shell.getShell().isRoot
+    }
+
+    private fun checkSu() {
+        val getSuId = ShellUtils.fastCmd("su -c id")
+        val getGroups = getSuId.split(" ").find { it.contains("groups") }
+        val isSu = getGroups == "groups=0(root)"
+
         putBoolean(SettingsPrefs, "is_su", isSu)
         putBoolean(SettingsPrefs, "settings_prefs", isSu)
         putBoolean(ModulePrefs, "module_prefs", isSu)
@@ -106,6 +110,15 @@ open class MainActivity : AppCompatActivity() {
             }
             return
         }
+        putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
+        PermissionUtils(this).start()
+        scopeLife(dispatcher = Dispatchers.Default) {
+            AppAnalyticsUtils(this@MainActivity).checkGitlabBlackList()
+            AppAnalyticsUtils(this@MainActivity).checkAppForbiddenList()
+        }
+    }
+
+    private fun checkOs() {
         if (getOSVersionCode < 23) {
             val current = navController.currentDestination.toString()
             MaterialAlertDialogBuilder(this, dialogCentered).apply {
@@ -119,12 +132,11 @@ open class MainActivity : AppCompatActivity() {
                 if (current.contains(HomeFragment::class.java.simpleName)) show()
             }
         }
-        putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
-        PermissionUtils(this).start()
-        scopeLife(dispatcher = Dispatchers.Default) {
-            AppAnalyticsUtils(this@MainActivity).checkGitlabBlackList()
-            AppAnalyticsUtils(this@MainActivity).checkAppForbiddenList()
-        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkSu()
     }
 
     private fun initDynamicShortcuts() {

@@ -900,7 +900,7 @@ fun Context.zoomDrawable(drawable: Drawable, width: Int, height: Int): Drawable 
     return BitmapDrawable(resources, newBmp)
 }
 
-fun Context.checkVerify() = safeOf({ exitModule() }) {
+fun Context.checkPackage() = safeOf({ exitModule() }) {
     val packInfo =
         PackageUtils(packageManager).getPackageInfo(BuildConfig.APPLICATION_ID, 0) ?: return@safeOf
     if (packInfo.packageName != packageName || packInfo.versionName != getVersionName || packInfo.longVersionCode != getVersionCode.toLong()) {
