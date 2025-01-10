@@ -64,10 +64,12 @@ import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
+import com.luckyzyx.luckytool.IDexOptController
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.data.DisplayMode
+import com.luckyzyx.luckytool.service.controller.DexOptControllerService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.oplus.miragewindow.OplusMirageOptions
 import com.oplus.miragewindow.OplusMirageWindowManager
@@ -535,6 +537,7 @@ fun reboot(reason: String = "") {
 fun Context.restartMain() {
     val list = arrayOf(
         getString(R.string.restart_scope),
+        "重新优化Dex",
         getString(R.string.reboot),
         getString(R.string.fast_reboot)
     )
@@ -544,8 +547,9 @@ fun Context.restartMain() {
         setItems(list) { _: DialogInterface?, i: Int ->
             when (i) {
                 0 -> restartAllScope()
-                1 -> reboot()
-                2 -> ShellUtils.fastCmd(CommandUtils.killzygote)
+                1 -> performAllScopeDex()
+                2 -> reboot()
+                3 -> ShellUtils.fastCmd(CommandUtils.killzygote)
             }
         }
         show()
@@ -679,6 +683,39 @@ fun Context.restartAllScope() {
         setMessage(getString(R.string.restart_scope_message))
         setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
             scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
+        }
+        setNeutralButton(getString(android.R.string.cancel), null)
+        show()
+    }
+}
+
+/**
+ * 重新优化全部作用域Dex
+ * @receiver Context
+ */
+fun Context.performAllScopeDex() {
+    val xposedScope = resources.getStringArray(R.array.xposed_scope)
+    val finalScope = xposedScope.toMutableList().apply {
+        removeIf { it == "android" || it == "system" }
+    }
+    var controller: IDexOptController? = null
+
+    bindRootService(DexOptControllerService::class.java,
+        { componentName: ComponentName?, iBinder: IBinder? ->
+            controller = IDexOptController.Stub.asInterface(iBinder)
+        })
+
+    MaterialAlertDialogBuilder(this).apply {
+        setMessage("重新优化所有作用域Dex")
+        setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
+            finalScope.forEach {
+                controller?.clearApplicationProfileData(it)
+                if (controller?.performDexOptMode(it) == true) {
+                    LogUtils.d("performAllScopeDex", it, "success", true)
+                } else {
+                    LogUtils.d("performAllScopeDex", it, "fail", true)
+                }
+            }
         }
         setNeutralButton(getString(android.R.string.cancel), null)
         show()
