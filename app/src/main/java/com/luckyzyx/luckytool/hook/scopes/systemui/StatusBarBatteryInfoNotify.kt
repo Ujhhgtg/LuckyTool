@@ -392,10 +392,10 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             val queryChargeInfo = IChargerUtils(appClassLoader).let {
                 if (oplusCharger == null) oplusCharger = it.getInstance()
                 it.queryChargeInfo(oplusCharger)
-            }
+            } ?: ""
 //        LogUtils.d("getChargeInfo", "queryChargeInfo", queryChargeInfo.toString(), true)
             Properties().apply {
-                if (queryChargeInfo.isNullOrBlank().not()) load(StringReader(queryChargeInfo))
+                if (queryChargeInfo.isNotBlank()) load(StringReader(queryChargeInfo))
             }
         } catch (e: Exception) {
             YLog.error("StatusBarBatteryInfoNotify -> getChargeInfo", e)
