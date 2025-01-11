@@ -2,13 +2,14 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
-        google()
+        maven("https://jitpack.io")
+        maven("https://api.xposed.info")
+        maven("https://maven.aliyun.com/repository/public")
+        maven("https://maven.aliyun.com/repository/jcenter")
+        maven("https://maven.aliyun.com/repository/google")
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
         mavenCentral()
-        maven { setUrl("https://jitpack.io") }
-        maven { setUrl("https://api.xposed.info") }
-        maven { setUrl("https://maven.aliyun.com/repository/public") }
-        maven { setUrl("https://maven.aliyun.com/repository/google") }
-        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+        google()
     }
 }
 
@@ -21,18 +22,15 @@ dependencyResolutionManagement {
             content { includeGroup("io.github.libxposed") }
             content { includeGroup("id.dhd") }
         }
-        google()
+        maven("https://jitpack.io")
+        maven("https://api.xposed.info")
+        maven("https://maven.aliyun.com/repository/public")
+        maven("https://maven.aliyun.com/repository/jcenter")
+        maven("https://maven.aliyun.com/repository/google")
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
         mavenCentral()
-        maven { setUrl("https://jitpack.io") }
-        maven { setUrl("https://api.xposed.info") }
-        maven { setUrl("https://maven.aliyun.com/repository/public") }
-        maven { setUrl("https://maven.aliyun.com/repository/google") }
-        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+        google()
     }
-}
-
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention").version("0.8.0")
 }
 
 rootProject.name = "LuckyTool"

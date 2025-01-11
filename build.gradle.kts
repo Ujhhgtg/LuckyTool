@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.agp.lib) apply false
     alias(libs.plugins.kotlin) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.foojay.resolver.convention) apply false
 }
 
 tasks {
