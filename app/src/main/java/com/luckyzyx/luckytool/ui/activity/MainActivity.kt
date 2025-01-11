@@ -20,9 +20,11 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
+import com.luckyzyx.luckytool.service.PackageService
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -36,6 +38,7 @@ import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
+import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import kotlin.system.exitProcess
@@ -91,10 +94,11 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun checkSu() {
-        val getSuId = ShellUtils.fastCmd("su -c id")
-        val getGroups = getSuId.split(" ").find { it.contains("groups") }
-        val isSu = getGroups == "groups=0(root)"
-
+        var isSu = Shell.getShell().isRoot
+        ShellUtils.fastCmd(CommandUtils.suCId).split(" ").apply {
+            isSu = isSu && contains(CommandUtils.rootUid) && contains(CommandUtils.rootGid)
+                    && contains(CommandUtils.rootGroup)
+        }
         putBoolean(SettingsPrefs, "is_su", isSu)
         putBoolean(SettingsPrefs, "settings_prefs", isSu)
         putBoolean(ModulePrefs, "module_prefs", isSu)
@@ -119,24 +123,26 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun checkOs() {
-        if (getOSVersionCode < 23) {
-            val current = navController.currentDestination.toString()
-            MaterialAlertDialogBuilder(this, dialogCentered).apply {
-                setCancelable(false)
-                setTitle(getString(R.string.unsupported_os))
-                setMessage(getString(R.string.unsupported_os_summary))
-                setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
-                if (getOSVersionCode > 0) setNeutralButton(
-                    getString(R.string.common_words_ignore), null
-                )
-                if (current.contains(HomeFragment::class.java.simpleName)) show()
-            }
+        val osCode = getOSVersionCode
+        val current = navController.currentDestination.toString()
+        MaterialAlertDialogBuilder(this, dialogCentered).apply {
+            setCancelable(false)
+            setTitle(getString(R.string.unsupported_os))
+            setMessage(getString(R.string.unsupported_os_summary))
+            setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
+            if (osCode > 0) setNeutralButton(getString(R.string.common_words_ignore), null)
+            if (osCode < 23 && current.contains(HomeFragment::class.java.simpleName)) show()
         }
+    }
+
+    private fun initAllService() {
+        PackageService.init(this)
     }
 
     override fun onResume() {
         super.onResume()
         checkSu()
+        initAllService()
     }
 
     private fun initDynamicShortcuts() {

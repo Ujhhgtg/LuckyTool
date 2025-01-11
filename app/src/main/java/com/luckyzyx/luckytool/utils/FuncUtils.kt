@@ -64,12 +64,11 @@ import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
-import com.luckyzyx.luckytool.IDexOptController
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.data.DisplayMode
-import com.luckyzyx.luckytool.service.controller.DexOptControllerService
+import com.luckyzyx.luckytool.service.PackageService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.oplus.miragewindow.OplusMirageOptions
 import com.oplus.miragewindow.OplusMirageWindowManager
@@ -698,12 +697,7 @@ fun Context.performAllScopeDex() {
     val finalScope = xposedScope.toMutableList().apply {
         removeIf { it == "android" || it == "system" }
     }
-    var controller: IDexOptController? = null
-
-    bindRootService(DexOptControllerService::class.java,
-        { componentName: ComponentName?, iBinder: IBinder? ->
-            controller = IDexOptController.Stub.asInterface(iBinder)
-        })
+    val controller = PackageService.controller
 
     MaterialAlertDialogBuilder(this).apply {
         setMessage("重新优化所有作用域Dex")
@@ -713,7 +707,7 @@ fun Context.performAllScopeDex() {
                 if (controller?.performDexOptMode(it) == true) {
                     LogUtils.d("performAllScopeDex", it, "success", true)
                 } else {
-                    LogUtils.d("performAllScopeDex", it, "fail", true)
+                    LogUtils.e("performAllScopeDex", it, "fail", true)
                 }
             }
         }
@@ -735,16 +729,16 @@ fun Context.restartAllScope(scopes: Array<String>) {
 /**
  * 绑定RootService反射服务
  * @receiver Context
- * @param clazz Class<*>
+ * @param serviceClazz Class<*>
  * @param onConnected Function2<ComponentName?, IBinder?, Unit>
  * @param onDisconnected Function1<ComponentName?, Unit>
  */
 fun Context.bindRootService(
-    clazz: Class<*>,
+    serviceClazz: Class<*>,
     onConnected: (ComponentName?, IBinder?) -> Unit,
     onDisconnected: (ComponentName?) -> Unit = {}
 ) {
-    val intent = Intent(this, clazz)
+    val intent = Intent(this, serviceClazz)
     val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName?, iBinder: IBinder?) {
             onConnected(componentName, iBinder)

@@ -11,6 +11,14 @@ object CommandUtils {
     val otaCryptKey = "otatoolsotatools"
     val sunshineTool = "com.Sunshine.ToolBox"
 
+    val suCId = "su -c id"
+    val uid = "uid"
+    val gid = "gid"
+    val groups = "groups"
+    val rootUid = "uid=0(root)"
+    val rootGid = "gid=0(root)"
+    val rootGroup = "groups=0(root)"
+
     @SuppressLint("SdCardPath")
     val otaDatabasePath = "/data/user/0/com.oplus.ota/databases/ota.db"
 
