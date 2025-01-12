@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.lsplugin.resopt)
+    id("com.joom.paranoid")
 }
 
 apksign {
@@ -137,7 +138,6 @@ dependencies {
     implementation(libs.markwon.ext.tables)
 
     implementation(libs.mmkv)
-    implementation(libs.paranoid)
     implementation(libs.xxpermissions)
     implementation(libs.spiderman)
     implementation(libs.fastscroll)

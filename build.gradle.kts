@@ -10,6 +10,12 @@ plugins {
     alias(libs.plugins.foojay.resolver.convention) apply false
 }
 
+buildscript {
+    dependencies {
+        classpath(libs.paranoid)
+    }
+}
+
 tasks {
     register("clean", Delete::class) {
         delete(layout.buildDirectory)
