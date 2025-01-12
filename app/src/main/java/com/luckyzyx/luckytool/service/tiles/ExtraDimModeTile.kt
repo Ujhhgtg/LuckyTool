@@ -1,18 +1,21 @@
 package com.luckyzyx.luckytool.service.tiles
 
-import android.content.ComponentName
-import android.os.IBinder
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.IDarkModeController
-import com.luckyzyx.luckytool.service.controller.DarkModeControllerService
-import com.luckyzyx.luckytool.utils.bindRootService
+import com.luckyzyx.luckytool.ITileServiceController
+import com.luckyzyx.luckytool.service.TilesService
 
 @Obfuscate
 class ExtraDimModeTile : TileService() {
-    private var controller: IDarkModeController? = null
-    override fun onStartListening() = startController()
+    private var controller: ITileServiceController? = null
+
+    override fun onStartListening() {
+        TilesService.get(this) {
+            controller = it
+            refreshData()
+        }
+    }
 
     override fun onClick() {
         when (qsTile.state) {
@@ -21,15 +24,6 @@ class ExtraDimModeTile : TileService() {
             Tile.STATE_UNAVAILABLE -> {}
         }
         refreshData()
-    }
-
-    private fun startController() {
-        if (controller == null) bindRootService(
-            DarkModeControllerService::class.java,
-            { _: ComponentName?, iBinder: IBinder? ->
-                controller = IDarkModeController.Stub.asInterface(iBinder)
-                refreshData()
-            })
     }
 
     private fun refreshData() {
