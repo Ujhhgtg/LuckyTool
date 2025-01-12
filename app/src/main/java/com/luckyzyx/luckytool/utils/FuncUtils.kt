@@ -68,7 +68,7 @@ import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.data.DisplayMode
-import com.luckyzyx.luckytool.service.PackageService
+import com.luckyzyx.luckytool.service.PackagesService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.oplus.miragewindow.OplusMirageOptions
 import com.oplus.miragewindow.OplusMirageWindowManager
@@ -536,7 +536,7 @@ fun reboot(reason: String = "") {
 fun Context.restartMain() {
     val list = arrayOf(
         getString(R.string.restart_scope),
-        "重新优化Dex",
+        getString(R.string.re_optimize_dex),
         getString(R.string.reboot),
         getString(R.string.fast_reboot)
     )
@@ -697,22 +697,22 @@ fun Context.performAllScopeDex() {
     val finalScope = xposedScope.toMutableList().apply {
         removeIf { it == "android" || it == "system" }
     }
-    val controller = PackageService.controller
-
-    MaterialAlertDialogBuilder(this).apply {
-        setMessage("重新优化所有作用域Dex")
-        setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
-            finalScope.forEach {
-                controller?.clearApplicationProfileData(it)
-                if (controller?.performDexOptMode(it) == true) {
-                    LogUtils.d("performAllScopeDex", it, "success", true)
-                } else {
-                    LogUtils.e("performAllScopeDex", it, "fail", true)
+    PackagesService.get(this) { controller ->
+        MaterialAlertDialogBuilder(this).apply {
+            setMessage(getString(R.string.re_optimize_dex_message))
+            setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
+                finalScope.forEach {
+                    controller?.clearApplicationProfileData(it)
+                    if (controller?.performDexOptMode(it) == true) {
+                        LogUtils.d("performAllScopeDex", it, "success", true)
+                    } else {
+                        LogUtils.e("performAllScopeDex", it, "fail", true)
+                    }
                 }
             }
+            setNeutralButton(getString(android.R.string.cancel), null)
+            show()
         }
-        setNeutralButton(getString(android.R.string.cancel), null)
-        show()
     }
 }
 

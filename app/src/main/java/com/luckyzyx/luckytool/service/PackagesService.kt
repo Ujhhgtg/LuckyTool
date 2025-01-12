@@ -8,31 +8,35 @@ import android.os.RemoteException
 import android.os.ServiceManager
 import android.os.SystemProperties
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.IPackageController
+import com.luckyzyx.luckytool.IPackageServiceController
 import com.luckyzyx.luckytool.service.controller.PackageControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.bindRootService
 
 @Obfuscate
-object PackageService {
-
+object PackagesService {
+    private val TAG = "PackageService"
     private var pm: IPackageManager? = null
     private var binder: IBinder? = null
-    var controller: IPackageController? = null
+    private var controller: IPackageServiceController? = null
 
     fun init(context: Context) {
-        if (controller == null) context.bindRootService(PackageControllerService::class.java,
+        get(context) {}
+    }
+
+    fun get(context: Context, result: (IPackageServiceController?) -> Unit) {
+        if (controller != null) result(controller)
+        else context.bindRootService(PackageControllerService::class.java,
             { _: ComponentName?, iBinder: IBinder? ->
-                controller = IPackageController.Stub.asInterface(iBinder)
-                LogUtils.d("PackageService", "init", "${controller != null}", true)
-            }, {
-                controller = null
+                controller = IPackageServiceController.Stub.asInterface(iBinder)
+                LogUtils.d(TAG, "get", "${controller != null}", true)
+                result(controller)
             })
     }
 
     private val recipient = object : IBinder.DeathRecipient {
         override fun binderDied() {
-            LogUtils.e("getPackageManager", "pm", "pm is dead", true)
+            LogUtils.e(TAG, "PM DeathRecipient", "pm is dead", true)
             binder?.unlinkToDeath(this, 0)
             binder = null
             pm = null
@@ -46,7 +50,7 @@ object PackageService {
             try {
                 binder!!.linkToDeath(recipient, 0)
             } catch (e: RemoteException) {
-                LogUtils.e("getPackageManager", "throw", e.toString(), true)
+                LogUtils.e(TAG, "getPackageManager", e.toString(), true)
             }
             pm = IPackageManager.Stub.asInterface(binder)
         }

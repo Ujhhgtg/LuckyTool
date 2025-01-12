@@ -17,17 +17,14 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
-import com.drake.net.utils.scopeLife
-import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
-import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
-import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
+import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
@@ -35,7 +32,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.UpdateUtils
-import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -53,7 +49,6 @@ import com.luckyzyx.luckytool.utils.showToast
 class HomeFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentHomeBinding
-    private var homeFuncController: IGlobalFuncController? = null
 
     private var enableModule: Boolean = false
 
@@ -171,9 +166,9 @@ class HomeFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun initSystemInfoView(funcController: IGlobalFuncController?) {
-        scopeLife {
-            val deviceInfo = withDefault { requireActivity().getDeviceInfo(funcController) }
+    private fun initSystemInfoView() {
+        GlobalFuncService.get(requireActivity()) {
+            val deviceInfo = requireActivity().getDeviceInfo(it)
             if (deviceInfo.isNotBlank()) {
                 binding.systemInfoLoading.isVisible = false
                 binding.systemInfo.apply {
@@ -187,13 +182,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onResume() {
         super.onResume()
-
-        if (homeFuncController == null) requireActivity().bindRootService(
-            GlobalFuncControllerService::class.java, { _, iBinder ->
-                homeFuncController = IGlobalFuncController.Stub.asInterface(iBinder)
-                initSystemInfoView(homeFuncController)
-            })
-        else initSystemInfoView(homeFuncController)
+        initSystemInfoView()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

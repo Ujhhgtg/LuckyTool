@@ -1,10 +1,8 @@
 package com.luckyzyx.luckytool.ui.fragment.others
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,17 +15,16 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
-import com.luckyzyx.luckytool.ITouchPanelController
+import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
-import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
-import com.luckyzyx.luckytool.service.controller.TouchPanelControllerService
+import com.luckyzyx.luckytool.service.AdbService
+import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils
-import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getString
@@ -38,9 +35,6 @@ import com.luckyzyx.luckytool.utils.putString
 class OtherFragment : Fragment() {
 
     private lateinit var binding: FragmentOtherBinding
-
-    private var adbController: IAdbDebugController? = null
-    private var touchController: ITouchPanelController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -84,9 +78,14 @@ class OtherFragment : Fragment() {
     }
 
     private fun initTouchPanelView() {
+        var controller: ITileServiceController? = null
+        TilesService.get(requireActivity()) {
+            controller = it
+        }
+        if (controller?.touchMode == -11) controller = null
         val touchs = arrayOf("120", "180", "240", "360", "480", "600", "720")
         binding.touchPanel.apply {
-            isVisible = touchController != null
+            isVisible = controller != null
             setOnClickListener {
                 val curLevel = context.getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
@@ -96,7 +95,7 @@ class OtherFragment : Fragment() {
                         val position = (dialog as AlertDialog).listView.checkedItemPosition
                         val value = if (position > 0) touchs[position] else position.toString()
                         context.putString(SettingsPrefs, keyTouchSamplingRateLevel, value)
-                        touchController?.touchMode = value.toInt()
+                        controller?.touchMode = value.toInt()
                     }
                     setNeutralButton(android.R.string.cancel, null)
                 }.show()
@@ -106,11 +105,15 @@ class OtherFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initAdbDebugView() {
+        var controller: IAdbDebugController? = null
+        AdbService.get(requireActivity()) {
+            controller = it
+        }
         binding.remoteAdbDebug.apply {
-            isVisible = adbController != null
+            isVisible = controller != null
             setOnClickListener {
-                val getPort = adbController?.adbPort ?: return@setOnClickListener
-                var getIP = adbController?.wifiIP ?: "IP"
+                val getPort = controller?.adbPort ?: return@setOnClickListener
+                var getIP = controller?.wifiIP ?: "IP"
 
                 val binding = DialogAdbLayoutBinding.inflate(layoutInflater)
                 MaterialAlertDialogBuilder(context).apply {
@@ -140,7 +143,6 @@ class OtherFragment : Fragment() {
                     }
                 }
                 binding.adbSwitch.apply {
-                    isEnabled = adbController != null
                     isChecked = isEnabled && getPort != 0 && getPort != -1
                     adbPortLayout.isEnabled = isChecked.not()
                     setOnCheckedChangeListener { buttonView, checked ->
@@ -156,9 +158,9 @@ class OtherFragment : Fragment() {
                                 val port = portStr.toString().toInt()
                                 isEnabled = false
                                 withDefault {
-                                    adbController?.adbPort = port
-                                    adbController?.restartAdb()
-                                    getIP = adbController?.wifiIP ?: "IP"
+                                    controller?.adbPort = port
+                                    controller?.restartAdb()
+                                    getIP = controller?.wifiIP ?: "IP"
                                     context.putString(OtherPrefs, "adb_port", port.toString())
                                 }
                                 adbPortLayout.isEnabled = false
@@ -169,9 +171,9 @@ class OtherFragment : Fragment() {
                         } else scopeLife {
                             isEnabled = false
                             withDefault {
-                                adbController?.adbPort = -1
-                                adbController?.restartAdb()
-                                adbController?.adbPort = 0
+                                controller?.adbPort = -1
+                                controller?.restartAdb()
+                                controller?.adbPort = 0
                             }
                             adbPortLayout.isEnabled = true
                             adbTv.text = ""
@@ -191,18 +193,7 @@ class OtherFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (adbController == null) requireActivity().bindRootService(
-            AdbDebugControllerService::class.java, { _: ComponentName?, iBinder: IBinder? ->
-                adbController = IAdbDebugController.Stub.asInterface(iBinder)
-                initAdbDebugView()
-            })
-        else initAdbDebugView()
-
-        if (touchController == null) requireActivity().bindRootService(
-            TouchPanelControllerService::class.java, { _: ComponentName?, iBinder: IBinder? ->
-                touchController = ITouchPanelController.Stub.asInterface(iBinder)
-                initTouchPanelView()
-            })
-        else initTouchPanelView()
+        initAdbDebugView()
+        initTouchPanelView()
     }
 }

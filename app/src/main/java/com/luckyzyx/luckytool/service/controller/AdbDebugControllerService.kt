@@ -10,9 +10,10 @@ import com.topjohnwu.superuser.ipc.RootService
 import java.net.Inet4Address
 import java.net.NetworkInterface
 
+@Suppress("PrivatePropertyName")
 @Obfuscate
 class AdbDebugControllerService : RootService() {
-    val tag = "AdbDebugControllerService"
+    private val TAG = "AdbDebugControllerService"
 
     override fun onBind(intent: Intent) = object : IAdbDebugController.Stub() {
         override fun getAdbPort(): Int {
@@ -50,7 +51,7 @@ class AdbDebugControllerService : RootService() {
                     }
                 }
             } catch (e: Exception) {
-                LogUtils.e(tag, "getIpAddress", "$e", true)
+                LogUtils.e(TAG, "getIpAddress", "$e", true)
                 return null
             }
             return null
