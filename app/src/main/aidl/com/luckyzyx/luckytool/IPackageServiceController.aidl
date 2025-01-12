@@ -1,6 +1,6 @@
 package com.luckyzyx.luckytool;
 
-interface IPackageController {
+interface IPackageServiceController {
     void clearApplicationProfileData(String packageName);
     boolean performDexOptMode(String packageName);
 }
