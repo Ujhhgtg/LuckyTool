@@ -84,9 +84,11 @@
     <string name="menu_reboot">Nabídka restartu</string>
     <string name="menu_settings">Nastavit menu</string>
     <string name="restart_scope">Restartovat zahrnuté procesy</string>
+    <string name="re_optimize_dex">Re-optimize Dex</string>
     <string name="need_restart_scope">Je třeba restartovat scope</string>
     <string name="need_restart_system">Je třeba restartovat systém</string>
     <string name="restart_scope_message">Opravdu chcete restartovat všechny procesy kromě systémového frameworku?\nPoužijte tuto možnost, pokud modul nefunguje!\nUjistěte se, že jsou zvoleny všechny relevantní rozsahy!</string>
+    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
     <string name="restart_only_this_page_scope">Restartovat pouze tento scope</string>
     <string name="reboot">Restartovat systém</string>
     <string name="fast_reboot">Rychlý reboot</string>
@@ -186,7 +188,7 @@
     <string name="remove_gt_mode_notification">Odstranit oznámení o GT režimu</string>
     <string name="allow_long_press_notification_modifiable">Povolit upravovat oznámení dlouhým stiskem</string>
     <string name="remove_notification_manager_limit">Odstranit limit správce oznámení</string>
-    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
+    <string name="remove_notification_pin_number_limit">Odstranit limit počtu připnutých oznámení</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
@@ -395,7 +397,7 @@
     <!--Launcher-->
     <string name="Desktop">Plocha</string>
     <string name="AppBadgeRelated">Odznaky aplikací</string>
-    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
+    <string name="allow_app_names_display_multiple_lines">Povolit na domovské obrazovce zobrazení názvů aplikací ve více řádcích</string>
     <string name="enable_display_app_update_dot">Povolit přepínač aktualizací aplikace</string>
     <string name="enable_display_app_update_dot_summary">Umístění funkce: Nastavení - Desktop a zamykací obrazovka</string>
     <string name="set_app_update_dot_display_mode">Nastavení režimu zobrazení bodu na ikoně po aktualizaci aplikace</string>
@@ -469,7 +471,7 @@
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
     <string name="force_enable_32_bit_support">Vynutit povolení podpory 32-bit</string>
     <string name="disable_customized_app_installer">Zakázat vlastní instalátory aplikací</string>
-    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
+    <string name="fix_install_button_display_exception">Opravit abnormální zobrazení instalačního tlačítka</string>
     <string name="skip_apk_scan">Přeskočit skenování souborů APK</string>
     <string name="skip_apk_scan_summary">Nastavení související se skenováním virusů</string>
     <string name="allow_downgrade_install">Povolit instalaci starších verzí aplikací</string>
@@ -595,8 +597,8 @@
     <string name="no_memc_data">Žádná Memc data</string>
     <string name="video_frame_insertion_support_2K120">Interpolace snímků videa je podporována při frekvenci 2K 120FPS</string>
     <string name="video_frame_insertion_support_2K120_summary">Pokud vaše zařízení nepodporuje MEMC, nepoužívejte tuto funkci</string>
-    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
-    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Povolit barevnou škálu RGB obrazovky</string>
+    <string name="enable_screen_color_temperature_rgb_space">Povolit paletu Rgb teploty barev obrazovky</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
     <string name="enable_smart_switching_screen_resolutions">Povolit chytré přepínání rozlišení obrazovky</string>
     <string name="settings_application">Aplikace</string>

@@ -84,9 +84,11 @@
     <string name="menu_reboot">Меню перезавантаження</string>
     <string name="menu_settings">Налаштування</string>
     <string name="restart_scope">Перезавантажити заплановані процеси</string>
+    <string name="re_optimize_dex">Re-optimize Dex</string>
     <string name="need_restart_scope">Потрібно перезапустити область</string>
     <string name="need_restart_system">Потрібно перезапустити систему</string>
     <string name="restart_scope_message">Ви дійсно хочете перезавантажити всі процеси із заданою областю дії, окрім системного фреймворку?\nВикористайте, якщо модуль не працює!\nПереконайтеся, що всі відповідні області перевірено!</string>
+    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
     <string name="restart_only_this_page_scope">Перезавантажити лише цю область</string>
     <string name="reboot">Перезавантажити систему</string>
     <string name="fast_reboot">Швидке перезавантаження</string>

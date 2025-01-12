@@ -84,9 +84,11 @@
     <string name="menu_reboot">Меню перезагрузки</string>
     <string name="menu_settings">Настройки</string>
     <string name="restart_scope">Перезагрузить запланированные процессы</string>
+    <string name="re_optimize_dex">Re-optimize Dex</string>
     <string name="need_restart_scope">Требуется перезапустить область</string>
     <string name="need_restart_system">Необходимо перезагрузить систему</string>
     <string name="restart_scope_message">Вы уверены, что хотите перезагрузить все процессы с заданной областью действия, кроме системного фреймворка?\n Используйте это, если модуль не работает!\n Убедитесь, что все соответствующие области отмечены!</string>
+    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
     <string name="restart_only_this_page_scope">Перезагрузить только эту область</string>
     <string name="reboot">Перезагрузить</string>
     <string name="fast_reboot">Быстрая перезагрузка</string>
@@ -186,7 +188,7 @@
     <string name="remove_gt_mode_notification">Удалить уведомление о режиме производительности</string>
     <string name="allow_long_press_notification_modifiable">Разрешить изменять уведомления по долгому нажатию</string>
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
-    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
+    <string name="remove_notification_pin_number_limit">Удалить ограничение на количество закрепленных уведомлений</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
@@ -395,7 +397,7 @@
     <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
-    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
+    <string name="allow_app_names_display_multiple_lines">Разрешить отображать названия приложений в несколько строк</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
     <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
     <string name="set_app_update_dot_display_mode">Установить режим отображения точки на иконке после обновления приложения</string>
@@ -469,7 +471,7 @@
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
     <string name="force_enable_32_bit_support">Принудительно включить поддержку 32-бит</string>
     <string name="disable_customized_app_installer">Отключить настраиваемые установщики приложений</string>
-    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
+    <string name="fix_install_button_display_exception">Исправить ненормальное отображение кнопки установки</string>
     <string name="skip_apk_scan">Пропустить сканирование APK</string>
     <string name="skip_apk_scan_summary">Сканирование APK на наличие вирусов</string>
     <string name="allow_downgrade_install">Разрешить установку более ранней версии</string>
@@ -559,7 +561,7 @@
     <string name="force_enable_systemui_blur_feature_tips">Условие: Вам необходимо активировать опцию \"Включить функцию размытия в системе\"\nРасположение функции: Разное</string>
     <string name="force_enable_systemui_blur_feature_tips_2">Примечание. При перемещении ползунка яркости в месте уведомления появится размытая область. Это ожидаемое поведение и не требует обратной связи.</string>
     <string name="show_manual_lock_button_power_menu">Показывать кнопку блокировки экрана в меню питания</string>
-    <string name="remove_power_menu_sos_button">Remove power menu SOS button</string>
+    <string name="remove_power_menu_sos_button">Удалить кнопку SOS в меню питания</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Настройте отображение процента состояния батареи</string>
     <string name="display_module_calculates_battery_health_data">Модуль вычисляет данные о состоянии батареи</string>
@@ -595,8 +597,8 @@
     <string name="no_memc_data">Нет данных MEMC</string>
     <string name="video_frame_insertion_support_2K120">Динамическая вставка кадров видео поддерживает разрешение 2К 120 Гц (MEMC)</string>
     <string name="video_frame_insertion_support_2K120_summary">Если ваше устройство не поддерживает MEMC, пожалуйста, не используйте эту функцию</string>
-    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
-    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Включить круглую цветовую RGB регулировку температуры экрана</string>
+    <string name="enable_screen_color_temperature_rgb_space">Включить цветовую температуру RGB-пространства</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Может быть переопределено функцией DC</string>
     <string name="enable_smart_switching_screen_resolutions">Включить умное переключение разрешения экрана</string>
     <string name="settings_application">Приложение</string>
@@ -620,11 +622,11 @@
     <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
     <string name="enable_game_acceleration">Включить ускорение игры</string>
     <string name="settings_about_device">Об устройстве</string>
-    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
+    <string name="remove_device_name_change_limit">Удалить ограничения на изменение имени устройства</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
     <string name="enable_mariana_npu_introduction_page">Включить страницу введения Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Включить страницу введения камеры Hasselblad</string>
-    <string name="enable_game_architecture_display">Enable game architecture display</string>
+    <string name="enable_game_architecture_display">Включить отображение архитектуры игры</string>
     <string name="screen_physics_size_shown_cm">Физические размеры экрана отображаются в сантиметрах</string>
     <string name="customize_device_sharing_page_parameters">Настройка параметров страницы совместного доступа к устройствам</string>
     <string name="customize_device_ota_card_background">Настройка фона карты OTA устройства</string>

@@ -84,9 +84,11 @@
     <string name="menu_reboot">Menu restartowania</string>
     <string name="menu_settings">Informacje o autorze</string>
     <string name="restart_scope">Zastosuj wszystkie zmiany</string>
+    <string name="re_optimize_dex">Re-optimize Dex</string>
     <string name="need_restart_scope">Need to restart scope</string>
     <string name="need_restart_system">Need to restart system</string>
     <string name="restart_scope_message">Zmiany dla „Android System” mogą być zastosowane dopiero po restarcie urządzenia.\nUżyj tego, jeśli moduł nie działa!\nUpewnij się, czy rekomendowane aplikacje są zaznaczone w LSPosed!</string>
+    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
     <string name="restart_only_this_page_scope">Zastosuj zmiany dokonane na tej stronie</string>
     <string name="reboot">Zrestartuj urządzenie</string>
     <string name="fast_reboot">Szybki restart</string>

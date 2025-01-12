@@ -84,9 +84,11 @@
     <string name="menu_reboot">Menu khởi động lại</string>
     <string name="menu_settings">Menu cài đặt</string>
     <string name="restart_scope">Khởi động lại quy trình phạm vi</string>
+    <string name="re_optimize_dex">Re-optimize Dex</string>
     <string name="need_restart_scope">Cần khởi động lại phạm vi</string>
     <string name="need_restart_system">Cần khởi động lại hệ thống</string>
     <string name="restart_scope_message">Bạn có chắc chắn muốn khởi động lại tất cả các quy trình có phạm vi ngoại trừ khung hệ thống không?\nHãy sử dụng tùy chọn này nếu mô-đun không hoạt động!\nĐảm bảo rằng tất cả các phạm vi có liên quan đều được chọn!</string>
+    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
     <string name="restart_only_this_page_scope">Chỉ khởi động lại phạm vi trang này</string>
     <string name="reboot">Khởi động lại hệ thống</string>
     <string name="fast_reboot">Khởi động nhanh</string>
@@ -186,7 +188,7 @@
     <string name="remove_gt_mode_notification">Xóa thông báo chế độ GT</string>
     <string name="allow_long_press_notification_modifiable">Cho phép sửa đổi thông báo nhấn lâu</string>
     <string name="remove_notification_manager_limit">Xóa giới hạn trình quản lý thông báo</string>
-    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
+    <string name="remove_notification_pin_number_limit">Xóa giới hạn số lượng thông báo được ghim</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
@@ -395,7 +397,7 @@
     <!--Launcher-->
     <string name="Desktop">Màn hình chính</string>
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
-    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
+    <string name="allow_app_names_display_multiple_lines">Cho phép tên ứng dụng trên màn hình hiện nhiều dòng</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
     <string name="enable_display_app_update_dot_summary">Vị trí chức năng: Cài đặt - Màn hình và màn hình khóa</string>
     <string name="set_app_update_dot_display_mode">Đặt chế độ hiển thị dấu chấm cập nhật biểu tượng ứng dụng</string>
@@ -469,7 +471,7 @@
     <string name="PackageInstaller_summary">Cần được sử dụng với bản vá lõi</string>
     <string name="force_enable_32_bit_support">Buộc hỗ trợ 32-bit</string>
     <string name="disable_customized_app_installer">Tắt trình cài đặt ứng dụng tùy chỉnh</string>
-    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
+    <string name="fix_install_button_display_exception">Sửa lỗi hiển thị nút cài đặt bất thường</string>
     <string name="skip_apk_scan">Bỏ qua Apkscan</string>
     <string name="skip_apk_scan_summary">Quét vi-rút Apk</string>
     <string name="allow_downgrade_install">Cho phép hạ cấp cài đặt</string>
@@ -595,8 +597,8 @@
     <string name="no_memc_data">Không có dữ liệu Memc</string>
     <string name="video_frame_insertion_support_2K120">Chèn khung video hỗ trợ 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Nếu thiết bị của bạn không hỗ trợ MEMC, vui lòng không sử dụng chức năng này</string>
-    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
-    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Bật màn hình quả cầu nhiệt độ màu RGB</string>
+    <string name="enable_screen_color_temperature_rgb_space">Bật bảng màu RGB nhiệt độ màu màn hình</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Có thể bị ghi đè bởi chức năng DC</string>
     <string name="enable_smart_switching_screen_resolutions">Cho phép chuyển đổi thông minh độ phân giải màn hình</string>
     <string name="settings_application">Ứng dụng</string>
@@ -624,7 +626,7 @@
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
     <string name="enable_mariana_npu_introduction_page">Kích hoạt trang giới thiệu NPU Mariana</string>
     <string name="enable_hasselblad_camera_introduction_page">Kích hoạt trang giới thiệu hình ảnh Hasselblad</string>
-    <string name="enable_game_architecture_display">Enable game architecture display</string>
+    <string name="enable_game_architecture_display">Bật hiển thị kiến ​​trúc trò chơi</string>
     <string name="screen_physics_size_shown_cm">Kích thước vật lý của màn hình được hiển thị bằng cm</string>
     <string name="customize_device_sharing_page_parameters">Tùy chỉnh thông số trang chia sẻ thiết bị</string>
     <string name="customize_device_ota_card_background">Tùy chỉnh nền thẻ OTA của thiết bị</string>

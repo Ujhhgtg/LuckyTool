@@ -95,9 +95,11 @@
     <string name="menu_reboot">Restart menu</string>
     <string name="menu_settings">Set menu</string>
     <string name="restart_scope">Restart scoped processes</string>
+    <string name="re_optimize_dex">Re-optimize Dex</string>
     <string name="need_restart_scope">Need to restart scope</string>
     <string name="need_restart_system">Need to restart system</string>
     <string name="restart_scope_message">Are you sure you want to restart all scoped processes except the system framework?\nUse this if the module isn\'t working!\nMake sure all the relevant scopes are checked!</string>
+    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
     <string name="restart_only_this_page_scope">Restart only this page scope</string>
     <string name="reboot">Restart System</string>
     <string name="fast_reboot">Fast reboot</string>
