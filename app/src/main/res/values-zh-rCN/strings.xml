@@ -89,6 +89,10 @@
     <string name="need_restart_system">需要重启系统</string>
     <string name="restart_scope_message">确定要重启除系统框架以外的所有作用域进程？\n模块不生效时使用！\n请确保已勾选所有对应作用域！</string>
     <string name="re_optimize_dex_message">重新优化所有作用域Dex？</string>
+    <string name="re_optimize_dex_completed">优化完成</string>
+    <string name="re_optimize_dex_failed">优化失败</string>
+    <string name="re_optimize_dex_optimizing">优化中</string>
+    <string name="re_optimize_dex_faile_message">以下App优化失败\n%1$s\n是否重新优化？</string>
     <string name="restart_only_this_page_scope">仅重启此页作用域</string>
     <string name="reboot">重启系统</string>
     <string name="fast_reboot">快速重启</string>

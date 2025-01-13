@@ -39,7 +39,6 @@ import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.databinding.DialogSearchResultLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutSearchResultItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectSearchResultListener
-import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBattery
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBreenoTouch
@@ -91,6 +90,7 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.arraySummaryDot
@@ -102,7 +102,6 @@ import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.navigatePage
-import com.luckyzyx.luckytool.utils.restartMain
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
@@ -850,7 +849,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             1 -> requireActivity().showSearchDialog()
-            2 -> (activity as MainActivity).restartMain()
+            2 -> RestartMenuUtils.showMainRestartMenu(requireActivity())
             3 -> requireActivity().showBottomDialog()
         }
         return true

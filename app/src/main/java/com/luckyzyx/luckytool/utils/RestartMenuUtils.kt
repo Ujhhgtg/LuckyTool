@@ -1,0 +1,253 @@
+package com.luckyzyx.luckytool.utils
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.DialogInterface
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
+import com.drake.net.utils.scope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.IPackageServiceController
+import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.service.PackagesService
+import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.ShellUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+@Obfuscate
+object RestartMenuUtils {
+
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    /**
+     * 重启作用域对话框
+     * @receiver Context
+     */
+    fun showMainRestartMenu(context: Context) {
+        val list = arrayOf(
+            context.getString(R.string.restart_scope),
+            context.getString(R.string.re_optimize_dex),
+            context.getString(R.string.reboot),
+            context.getString(R.string.fast_reboot)
+        )
+        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+            setCancelable(true)
+            setItems(list) { _: DialogInterface?, i: Int ->
+                when (i) {
+                    0 -> showRestartAllScopeDialog(context)
+                    1 -> showPerformAllDexDialog(context)
+                    2 -> reboot()
+                    3 -> ShellUtils.fastCmd(CommandUtils.killzygote)
+                }
+            }
+            show()
+        }
+    }
+
+    /**
+     * 重启部分作用域对话框
+     * @receiver Context
+     * @param scopes Array<String>
+     */
+    fun showRestartScopeDialog(context: Context, scopes: Array<String>) {
+        if (scopes.isEmpty()) return
+        val list = arrayOf(
+            context.getString(R.string.restart_scope),
+            context.getString(R.string.restart_only_this_page_scope)
+        )
+        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+            setItems(list) { _, which ->
+                when (which) {
+                    0 -> showRestartAllScopeDialog(context)
+                    1 -> restartScope(context, scopes)
+                }
+            }
+            show()
+        }
+    }
+
+
+    private fun getRestartScopeCommands(
+        context: Context, scopes: Array<String>
+    ): ArrayList<String> {
+        return ArrayList<String>().apply {
+            for (scope in scopes) {
+                if (scope == "android") continue
+                if (scope.contains("systemui")) {
+                    add(CommandUtils.killSysui)
+                    continue
+                }
+                add("${CommandUtils.pkill9} $scope")
+                add("${CommandUtils.killall} $scope")
+                add("${CommandUtils.afs} $scope")
+                AppUtils(context).getAppVerInfo(scope)
+            }
+        }
+    }
+
+    /**
+     * 重启全部作用域
+     * @receiver Context
+     */
+    private fun showRestartAllScopeDialog(context: Context) {
+        val xposedScope = context.resources.getStringArray(R.array.xposed_scope)
+        val commands = getRestartScopeCommands(context, xposedScope)
+        MaterialAlertDialogBuilder(context).apply {
+            setMessage(context.getString(R.string.restart_scope_message))
+            setPositiveButton(context.getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
+                scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
+            }
+            setNeutralButton(context.getString(android.R.string.cancel), null)
+            show()
+        }
+    }
+
+    /**
+     * 重启部分作用域
+     * @receiver Context
+     * @param scopes Array<String>
+     */
+    private fun restartScope(context: Context, scopes: Array<String>) {
+        val commands = getRestartScopeCommands(context, scopes)
+        scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
+    }
+
+
+    /**
+     * 重启选项
+     * @param reason String
+     */
+    fun reboot(reason: String = "") {
+        if (reason == "recovery") {
+            // KEYCODE_POWER = 26, hide incorrect "Factory data reset" message
+            Shell.getShell().newJob().add("/system/bin/input keyevent 26").exec()
+        }
+        Shell.getShell().newJob()
+            .add("/system/bin/svc power reboot $reason || /system/bin/reboot $reason").exec()
+    }
+
+    /**
+     * 重新优化全部作用域Dex
+     * @receiver Context
+     */
+    private fun showPerformAllDexDialog(context: Context) {
+        val xposedScope = context.resources.getStringArray(R.array.xposed_scope)
+        val finalScope = xposedScope.toMutableList().apply {
+            removeIf { it == "android" || it == "system" }
+            removeIf { PackageUtils(context.packageManager).getPackageInfo(it, 0) == null }
+        }.toTypedArray()
+        PackagesService.get(context) { controller ->
+            MaterialAlertDialogBuilder(context).apply {
+                setMessage(context.getString(R.string.re_optimize_dex_message))
+                setPositiveButton(context.getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
+                    performScopeDex(context, controller, finalScope)
+                }
+                setNeutralButton(context.getString(android.R.string.cancel), null)
+                show()
+            }
+        }
+    }
+
+    private fun performScopeDex(
+        context: Context, controller: IPackageServiceController?, scopes: Array<String>
+    ) {
+        val layout = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(50, 50, 50, 50)
+            gravity = Gravity.CENTER
+        }
+
+        // 添加 ProgressBar
+        val progressBar = ProgressBar(context).apply {
+            isIndeterminate = true
+        }
+        layout.addView(progressBar)
+
+        // 添加 TextView 显示提示
+        val textView = TextView(context).apply {
+            textSize = 16f
+            gravity = Gravity.CENTER
+            setPadding(0, 30, 0, 0)
+        }
+        layout.addView(textView)
+
+        // 创建对话框
+        val progressDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
+            setTitle(context.getString(R.string.re_optimize_dex_optimizing))
+            setView(layout)
+            setCancelable(false)
+        }.create()
+
+        progressDialog.show()
+
+        coroutineScope.launch {
+            val failedApps = optimizeApps(scopes, controller, textView)
+            progressDialog.dismiss()
+            if (failedApps.isNotEmpty()) {
+                showRetryDialog(context, controller, failedApps)
+            } else {
+                context.showToast(context.getString(R.string.re_optimize_dex_completed))
+                coroutineScope.cancel()
+            }
+        }
+    }
+
+    /**
+     * 优化多个应用，动态更新进度信息
+     */
+    @SuppressLint("SetTextI18n")
+    private suspend fun optimizeApps(
+        scopes: Array<String>,
+        controller: IPackageServiceController?,
+        textView: TextView
+    ): Array<String> {
+        val failedApps = arrayListOf<String>()
+        withContext(Dispatchers.IO) {
+            scopes.forEachIndexed { index, app ->
+                withContext(Dispatchers.Main) {
+                    textView.text = "$app (${index + 1}/${scopes.size})"
+                }
+                controller?.clearApplicationProfileData(app)
+                if (controller?.performDexOptMode(app) == true) {
+                    LogUtils.d("performAllScopeDex", app, "success", true)
+                } else {
+                    LogUtils.e("performAllScopeDex", app, "fail", true)
+                    failedApps.add(app)
+                }
+            }
+        }
+        return failedApps.toTypedArray()
+    }
+
+    /**
+     * 显示重新优化对话框
+     */
+    private fun showRetryDialog(
+        context: Context, controller: IPackageServiceController?, failedApps: Array<String>
+    ) {
+        MaterialAlertDialogBuilder(context, dialogCentered).apply {
+            setTitle(context.getString(R.string.re_optimize_dex_failed))
+            setMessage(
+                context.getString(
+                    R.string.re_optimize_dex_faile_message,
+                    failedApps.joinToString("\n")
+                )
+            )
+            setPositiveButton(context.getString(android.R.string.ok)) { _, _ ->
+                performScopeDex(context, controller, failedApps)
+            }
+            setNeutralButton(context.getString(android.R.string.cancel), null)
+            setOnDismissListener { coroutineScope.cancel() }
+            show()
+        }
+    }
+
+}

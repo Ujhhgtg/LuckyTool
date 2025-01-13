@@ -40,12 +40,12 @@ import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
+import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
-import com.luckyzyx.luckytool.utils.restartScopes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
@@ -200,7 +200,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == 1) requireActivity().restartScopes(scopes)
+        if (menuItem.itemId == 1) RestartMenuUtils.showRestartScopeDialog(requireActivity(), scopes)
         if (menuItem.itemId == 2) IntentUtils(requireActivity()).jumpDarkMode()
         return true
     }

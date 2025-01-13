@@ -84,11 +84,15 @@
     <string name="menu_reboot">Menu khởi động lại</string>
     <string name="menu_settings">Menu cài đặt</string>
     <string name="restart_scope">Khởi động lại quy trình phạm vi</string>
-    <string name="re_optimize_dex">Re-optimize Dex</string>
+    <string name="re_optimize_dex">Tối ưu lại Dex</string>
     <string name="need_restart_scope">Cần khởi động lại phạm vi</string>
     <string name="need_restart_system">Cần khởi động lại hệ thống</string>
     <string name="restart_scope_message">Bạn có chắc chắn muốn khởi động lại tất cả các quy trình có phạm vi ngoại trừ khung hệ thống không?\nHãy sử dụng tùy chọn này nếu mô-đun không hoạt động!\nĐảm bảo rằng tất cả các phạm vi có liên quan đều được chọn!</string>
-    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
+    <string name="re_optimize_dex_message">Tối ưu hóa lại toàn bộ mục Dex?</string>
+    <string name="re_optimize_dex_completed">Optimization completed</string>
+    <string name="re_optimize_dex_failed">Optimization failed</string>
+    <string name="re_optimize_dex_optimizing">Optimizing</string>
+    <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
     <string name="restart_only_this_page_scope">Chỉ khởi động lại phạm vi trang này</string>
     <string name="reboot">Khởi động lại hệ thống</string>
     <string name="fast_reboot">Khởi động nhanh</string>

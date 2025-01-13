@@ -23,10 +23,10 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.PrefsItem
 import com.luckyzyx.luckytool.utils.LogUtils
+import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getOSVersionName
-import com.luckyzyx.luckytool.utils.restartScopes
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 
 @Obfuscate
@@ -182,7 +182,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            1 -> requireActivity().restartScopes(scopes)
+            1 -> RestartMenuUtils.showRestartScopeDialog(requireActivity(), scopes)
             2 -> callOpenMenu()
         }
         return true

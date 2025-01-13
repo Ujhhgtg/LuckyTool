@@ -8,7 +8,6 @@ import android.content.ClipboardManager
 import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.res.Configuration
@@ -55,10 +54,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.type.java.LongType
@@ -68,14 +65,12 @@ import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.data.DisplayMode
-import com.luckyzyx.luckytool.service.PackagesService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.oplus.miragewindow.OplusMirageOptions
 import com.oplus.miragewindow.OplusMirageWindowManager
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
-import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import java.io.File
 import java.util.regex.Pattern
@@ -517,66 +512,6 @@ fun isZh(context: Context): Boolean {
 }
 
 /**
- * 重启选项
- * @param reason String
- */
-fun reboot(reason: String = "") {
-    if (reason == "recovery") {
-        // KEYCODE_POWER = 26, hide incorrect "Factory data reset" message
-        Shell.getShell().newJob().add("/system/bin/input keyevent 26").exec()
-    }
-    Shell.getShell().newJob()
-        .add("/system/bin/svc power reboot $reason || /system/bin/reboot $reason").exec()
-}
-
-/**
- * 重启作用域对话框
- * @receiver Context
- */
-fun Context.restartMain() {
-    val list = arrayOf(
-        getString(R.string.restart_scope),
-        getString(R.string.re_optimize_dex),
-        getString(R.string.reboot),
-        getString(R.string.fast_reboot)
-    )
-
-    MaterialAlertDialogBuilder(this, dialogCentered).apply {
-        setCancelable(true)
-        setItems(list) { _: DialogInterface?, i: Int ->
-            when (i) {
-                0 -> restartAllScope()
-                1 -> performAllScopeDex()
-                2 -> reboot()
-                3 -> ShellUtils.fastCmd(CommandUtils.killzygote)
-            }
-        }
-        show()
-    }
-}
-
-/**
- * 重启部分作用域对话框
- * @receiver Context
- * @param scopes Array<String>
- */
-fun Context.restartScopes(scopes: Array<String>) {
-    if (scopes.isEmpty()) return
-    val list = arrayOf(
-        getString(R.string.restart_scope), getString(R.string.restart_only_this_page_scope)
-    )
-    MaterialAlertDialogBuilder(this, dialogCentered).apply {
-        setItems(list) { _, which ->
-            when (which) {
-                0 -> restartAllScope()
-                1 -> restartAllScope(scopes)
-            }
-        }
-        show()
-    }
-}
-
-/**
  * 获取Apk绝对路径
  * @param packName String 包名
  * @return ArrayMap<String, String>
@@ -653,77 +588,6 @@ suspend fun Context.removeModule() {
 fun Context.exitModule() {
     (this as MainActivity).finishAndRemoveTask()
     exitProcess(0)
-}
-
-fun Context.getRestartScopeCommands(scopes: Array<String>): ArrayList<String> {
-    return ArrayList<String>().apply {
-        for (scope in scopes) {
-            if (scope == "android") continue
-            if (scope.contains("systemui")) {
-                add(CommandUtils.killSysui)
-                continue
-            }
-            add("${CommandUtils.pkill9} $scope")
-            add("${CommandUtils.killall} $scope")
-            add("${CommandUtils.afs} $scope")
-            AppUtils(this@getRestartScopeCommands).getAppVerInfo(scope)
-        }
-    }
-}
-
-/**
- * 重启全部作用域
- * @receiver Context
- */
-fun Context.restartAllScope() {
-    val xposedScope = resources.getStringArray(R.array.xposed_scope)
-    val commands = getRestartScopeCommands(xposedScope)
-    MaterialAlertDialogBuilder(this).apply {
-        setMessage(getString(R.string.restart_scope_message))
-        setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
-            scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
-        }
-        setNeutralButton(getString(android.R.string.cancel), null)
-        show()
-    }
-}
-
-/**
- * 重新优化全部作用域Dex
- * @receiver Context
- */
-fun Context.performAllScopeDex() {
-    val xposedScope = resources.getStringArray(R.array.xposed_scope)
-    val finalScope = xposedScope.toMutableList().apply {
-        removeIf { it == "android" || it == "system" }
-    }
-    PackagesService.get(this) { controller ->
-        MaterialAlertDialogBuilder(this).apply {
-            setMessage(getString(R.string.re_optimize_dex_message))
-            setPositiveButton(getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
-                finalScope.forEach {
-                    controller?.clearApplicationProfileData(it)
-                    if (controller?.performDexOptMode(it) == true) {
-                        LogUtils.d("performAllScopeDex", it, "success", true)
-                    } else {
-                        LogUtils.e("performAllScopeDex", it, "fail", true)
-                    }
-                }
-            }
-            setNeutralButton(getString(android.R.string.cancel), null)
-            show()
-        }
-    }
-}
-
-/**
- * 重启部分作用域
- * @receiver Context
- * @param scopes Array<String>
- */
-fun Context.restartAllScope(scopes: Array<String>) {
-    val commands = getRestartScopeCommands(scopes)
-    scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
 }
 
 /**

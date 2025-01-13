@@ -29,6 +29,7 @@ import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.UpdateUtils
@@ -41,7 +42,6 @@ import com.luckyzyx.luckytool.utils.getVersionName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putBoolean
-import com.luckyzyx.luckytool.utils.restartMain
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
 
@@ -203,7 +203,7 @@ class HomeFragment : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == 1) requireActivity().restartMain()
+        if (menuItem.itemId == 1) RestartMenuUtils.showMainRestartMenu(requireActivity())
         if (menuItem.itemId == 2) {
             MaterialAlertDialogBuilder(requireActivity()).apply {
                 setTitle(getString(R.string.about_author))

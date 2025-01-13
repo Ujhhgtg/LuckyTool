@@ -89,6 +89,10 @@
     <string name="need_restart_system">Necessario riavviare il sistema</string>
     <string name="restart_scope_message">Sei sicuro di voler riavviare tutti i processi tranne il framework di sistema?\nUsalo se il modulo non funziona!\nAssicurarsi che tutti gli ambiti pertinenti siano controllati!</string>
     <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
+    <string name="re_optimize_dex_completed">Optimization completed</string>
+    <string name="re_optimize_dex_failed">Optimization failed</string>
+    <string name="re_optimize_dex_optimizing">Optimizing</string>
+    <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
     <string name="restart_only_this_page_scope">Riavvia solo questa pagina</string>
     <string name="reboot">Riavvia il sistema</string>
     <string name="fast_reboot">Riavvio veloce</string>
