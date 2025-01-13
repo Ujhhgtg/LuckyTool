@@ -63,6 +63,12 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_high_volume_warning_notifications)
+                key = "disable_high_volume_warning_notifications"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             if (osCode < 34) {
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.remove_small_window_reply_whitelist)
@@ -111,6 +117,7 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_notification_pin_number_limit)
                 key = "remove_notification_pin_number_limit"
                 setDefaultValue(false)
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
         }

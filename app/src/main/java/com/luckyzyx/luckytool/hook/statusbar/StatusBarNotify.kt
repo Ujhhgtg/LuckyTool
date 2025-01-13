@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHighVolumeWarningNotifications
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveChargingCompleted
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDanmakuNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDoNotDisturbModeNotification
@@ -51,6 +52,10 @@ object StatusBarNotify : YukiBaseHooker() {
         //移除通知清理按钮
         if (prefs(ModulePrefs).getBoolean("remove_notification_cleanup_button", false)) {
             loadHooker(RemoveNotificationCleanupButton)
+        }
+        //禁用高音量警告通知
+        if (prefs(ModulePrefs).getBoolean("disable_high_volume_warning_notifications", false)) {
+            loadHooker(DisableHighVolumeWarningNotifications)
         }
     }
 }
