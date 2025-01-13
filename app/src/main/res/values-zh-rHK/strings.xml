@@ -192,6 +192,7 @@
     <string name="remove_gt_mode_notification">移除 GT 模式通知</string>
     <string name="allow_long_press_notification_modifiable">允许长按通知可修改</string>
     <string name="remove_notification_manager_limit">移除通知管理限制</string>
+    <string name="disable_high_volume_warning_notifications">禁用高音量警告通知</string>
     <string name="remove_notification_pin_number_limit">移除通知置顶数量限制</string>
     <string name="remove_small_window_reply_whitelist">移除浮窗回复白名单</string>
     <string name="set_small_window_reply_blacklist">设置浮窗回复黑名单</string>
@@ -820,6 +821,8 @@
     <string name="expand_voip_recorder_whitelist">扩展通话录音白名单</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">启用纸质纹理支持</string>
+    <!--OplusBeaconLink-->
+    <string name="remove_beacon_link_time_limit">移除无网畅聊时间限制</string>
     <!--Everyimage-->
     <string name="skip_startup_page">跳过启动页</string>
     <string name="vip_download">下载原图</string>

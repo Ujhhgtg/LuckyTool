@@ -947,6 +947,9 @@
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     
+    <!--OplusBeaconLink-->
+    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

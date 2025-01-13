@@ -192,6 +192,7 @@
     <string name="remove_gt_mode_notification">Rimuovi notifica modalità GT</string>
     <string name="allow_long_press_notification_modifiable">Consenti di modificare le notifiche con pressione prolungata</string>
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
+    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
     <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
@@ -820,6 +821,8 @@
     <string name="expand_voip_recorder_whitelist">Whitelist estesa per la registrazione delle chiamate</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Abilita il supporto per la texture di carta per proteggere gli occhi</string>
+    <!--OplusBeaconLink-->
+    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Salta la pagina iniziale</string>
     <string name="vip_download">Scarica originale</string>

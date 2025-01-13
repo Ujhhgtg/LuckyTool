@@ -244,5 +244,9 @@
             android:id="@+id/oplusEyeProtect"
             android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusEyeProtect"
             android:label="{title_text}" />
+    <fragment
+            android:id="@+id/oplusBeaconLink"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBeaconLink"
+            android:label="{title_text}" />
 
 </navigation>

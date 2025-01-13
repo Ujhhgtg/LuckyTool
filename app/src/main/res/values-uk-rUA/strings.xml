@@ -192,6 +192,7 @@
     <string name="remove_gt_mode_notification">Видалити сповіщення про режим продуктивності</string>
     <string name="allow_long_press_notification_modifiable">Дозволити змінювати повідомлення про тривале натискання</string>
     <string name="remove_notification_manager_limit">Видалити ліміт диспетчера повідомлень</string>
+    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
     <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">Видалити білий список для відповідей маленького вікна</string>
     <string name="set_small_window_reply_blacklist">Задати чорний список для відповідей маленького вікна</string>
@@ -820,6 +821,8 @@
     <string name="expand_voip_recorder_whitelist">Extended call recording whitelist</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
+    <!--OplusBeaconLink-->
+    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустити стартову сторінку</string>
     <string name="vip_download">Завантажити вихідне зображення</string>

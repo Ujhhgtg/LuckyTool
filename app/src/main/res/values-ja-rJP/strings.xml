@@ -192,6 +192,7 @@
     <string name="remove_gt_mode_notification">GT モードの通知を削除</string>
     <string name="allow_long_press_notification_modifiable">長押し通知を変更可能にする</string>
     <string name="remove_notification_manager_limit">通知マネージャーの制限を削除する</string>
+    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
     <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
     <string name="remove_small_window_reply_whitelist">スモールウィンドウの返信ホワイトリストを無効化</string>
     <string name="set_small_window_reply_blacklist">スモールウィンドウ返信のブラックリストを設定</string>
@@ -820,6 +821,8 @@
     <string name="expand_voip_recorder_whitelist">拡張された通話録音のホワイトリスト</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
+    <!--OplusBeaconLink-->
+    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
     <!--Everyimage-->
     <string name="skip_startup_page">スタートアップページをスキップ</string>
     <string name="vip_download">オリジナルをダウンロードする</string>

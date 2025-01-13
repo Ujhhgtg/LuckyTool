@@ -192,6 +192,7 @@
     <string name="remove_gt_mode_notification">Odstranit oznámení o GT režimu</string>
     <string name="allow_long_press_notification_modifiable">Povolit upravovat oznámení dlouhým stiskem</string>
     <string name="remove_notification_manager_limit">Odstranit limit správce oznámení</string>
+    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
     <string name="remove_notification_pin_number_limit">Odstranit limit počtu připnutých oznámení</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
@@ -820,6 +821,8 @@
     <string name="expand_voip_recorder_whitelist">Rozšířený seznam povolených hovorů</string>
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Povolit podporu textury papíru pro ochranu očí</string>
+    <!--OplusBeaconLink-->
+    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

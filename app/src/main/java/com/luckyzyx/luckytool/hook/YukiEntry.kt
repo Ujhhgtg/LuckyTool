@@ -9,6 +9,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
 import com.luckyzyx.luckytool.hook.hookers.HookAudioEffectCenter
 import com.luckyzyx.luckytool.hook.hookers.HookAudioMonitor
 import com.luckyzyx.luckytool.hook.hookers.HookBattery
+import com.luckyzyx.luckytool.hook.hookers.HookBeaconLink
 import com.luckyzyx.luckytool.hook.hookers.HookBrowser
 import com.luckyzyx.luckytool.hook.hookers.HookCalendar
 import com.luckyzyx.luckytool.hook.hookers.HookCallUI
@@ -168,6 +169,8 @@ object YukiEntry {
         loadApp("com.oplus.eyeprotect", HookEyeProtect)
         //MediaController
         loadApp("com.oplus.mediacontroller", HookMediaController)
+        //无网畅聊
+        loadApp("com.oplus.beaconlink", HookBeaconLink)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {

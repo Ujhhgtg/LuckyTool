@@ -41,6 +41,7 @@ import com.luckyzyx.luckytool.databinding.LayoutSearchResultItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectSearchResultListener
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBattery
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBeaconLink
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBreenoTouch
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBrowser
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCalendar
@@ -663,6 +664,23 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
                     true
                 }
             })
+            //BeaconLink
+            add(Preference(this@loadPreferences).apply {
+                key = "com.oplus.beaconlink"
+                setPrefsIconRes(key) { resource, show ->
+                    icon = resource
+                    isIconSpaceReserved = show
+                }
+                title = AppUtils(this@loadPreferences).getAppLabel(key)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_beacon_link_time_limit)
+                )
+                isVisible = osCode >= 33 && checkPackName(key)
+                setOnPreferenceClickListener {
+                    navigatePage(R.id.oplusBeaconLink, title)
+                    true
+                }
+            })
             //Other App
             add(Preference(this@loadPreferences).apply {
                 key = "com.ruet_cse_1503050.ragib.appbackup.pro"
@@ -786,6 +804,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(requireActivity(), allFragmentItem, OplusWeather())
         addFragmentItem(requireActivity(), allFragmentItem, SoundRelated())
         addFragmentItem(requireActivity(), allFragmentItem, OplusThemeStore())
+        addFragmentItem(requireActivity(), allFragmentItem, OplusBeaconLink())
 
         addFragmentItem(requireActivity(), allFragmentItem, ADM())
         addFragmentItem(requireActivity(), allFragmentItem, AlphaBackupPro())
