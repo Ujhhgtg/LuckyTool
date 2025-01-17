@@ -19,6 +19,7 @@ import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -259,7 +260,9 @@ class SettingsFragment : ModulePreferenceFragment() {
                         if (!exists()) mkdirs()
                     }
                     val fileName = "LuckyTool_" + formatDate("yyyyMMdd_HHmmss") + "_backup.json"
-                    backupData.launch(fileName)
+                    if (IntentUtils(requireActivity()).checkCreateDocument()) {
+                        backupData.launch(fileName)
+                    } else requireActivity().showToast("Intent Create Document Error!")
                     true
                 }
             })

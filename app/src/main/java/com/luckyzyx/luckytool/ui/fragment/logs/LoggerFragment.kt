@@ -42,6 +42,7 @@ import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
+import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
@@ -202,7 +203,9 @@ class LoggerFragment : Fragment(), MenuProvider {
     private fun saveFile(fileName: String) {
         checkDirs()
         if (listData.isEmpty()) requireActivity().showToast(getString(R.string.log_data_is_empty))
-        else createDocument.launch(fileName)
+        else if (IntentUtils(requireActivity()).checkCreateDocument()) {
+            createDocument.launch(fileName)
+        } else requireActivity().showToast("Intent Create Document Error!")
     }
 
     private fun shareFile(fileName: String) {

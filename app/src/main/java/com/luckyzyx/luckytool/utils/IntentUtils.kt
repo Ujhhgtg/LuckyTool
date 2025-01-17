@@ -11,8 +11,21 @@ import androidx.annotation.DeprecatedSinceApi
 import com.joom.paranoid.Obfuscate
 import com.topjohnwu.superuser.ShellUtils
 
+
 @Obfuscate
 class IntentUtils(val context: Context) {
+
+    /**
+     * 检查是否有应用支持CREATE_DOCUMENT
+     * @return Boolean
+     */
+    fun checkCreateDocument(): Boolean {
+        val packageManager = PackageUtils(context.packageManager)
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+        intent.setType("application/json")
+        val resolveInfos = packageManager.queryIntentActivities(intent, 0)
+        return resolveInfos.isNotEmpty()
+    }
 
     /**
      * 跳转工程模式

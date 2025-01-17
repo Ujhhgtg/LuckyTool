@@ -133,6 +133,11 @@ class PackageUtils(private val packageManager: PackageManager) {
         return packageManager.getLaunchIntentForPackage(packName)
     }
 
+    fun queryIntentActivities(intent: Intent, int: Int): MutableList<ResolveInfo> {
+        return if (SDK < A13) packageManager.queryIntentActivities(intent, int)
+        else packageManager.queryIntentActivities(intent, ResolveInfoFlags.of(int.toLong()))
+    }
+
     fun getInstalledAppInfos(flag: Int): ArrayList<AppInfo> {
         val appInfoList = ArrayList<AppInfo>()
         getInstalledPackages(flag).forEachIndexed { _, info ->
