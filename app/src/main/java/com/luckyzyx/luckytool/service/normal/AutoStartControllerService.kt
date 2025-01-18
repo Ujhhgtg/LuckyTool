@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.service.controller
+package com.luckyzyx.luckytool.service.normal
 
 import android.annotation.SuppressLint
 import android.app.ForegroundServiceStartNotAllowedException

@@ -1,30 +1,75 @@
 package com.luckyzyx.luckytool.service
 
-import android.content.ComponentName
-import android.content.Context
+import android.content.Intent
 import android.os.IBinder
+import android.os.SystemProperties
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
-import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
-import com.luckyzyx.luckytool.utils.LogUtils
-import com.luckyzyx.luckytool.utils.bindRootService
+import com.luckyzyx.luckytool.service.base.BaseControllerService
+import com.luckyzyx.luckytool.utils.formatSpace
+import com.luckyzyx.luckytool.utils.replaceSpace
+import com.topjohnwu.superuser.ipc.RootService
+import java.io.File
 
 @Obfuscate
-object GlobalFuncService {
-    private val TAG = "GlobalFuncService"
-    private var controller: IGlobalFuncController? = null
+object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
+    override val TAG = "GlobalFuncService"
+    override var controllerService: Class<*> = GlobalFuncControllerService::class.java
 
-    fun init(context: Context) {
-        get(context) {}
+    override fun getController(iBinder: IBinder?): IGlobalFuncController? {
+        return IGlobalFuncController.Stub.asInterface(iBinder)
     }
 
-    fun get(context: Context, result: (IGlobalFuncController?) -> Unit) {
-        if (controller != null) result(controller)
-        else context.bindRootService(GlobalFuncControllerService::class.java,
-            { _: ComponentName?, iBinder: IBinder? ->
-                controller = IGlobalFuncController.Stub.asInterface(iBinder)
-                LogUtils.d(TAG, "get", "${controller != null}", true)
-                result(controller)
-            })
+    @Obfuscate
+    class GlobalFuncControllerService : RootService() {
+
+        override fun onBind(intent: Intent) = object : IGlobalFuncController.Stub() {
+
+            override fun getFileText(dir: String): String {
+                val file = File(dir)
+                return if (file.exists() && file.isFile) file.readText() else ""
+            }
+
+            override fun getOtaVersion(): String {
+                return SystemProperties.get("ro.build.version.ota", "null")
+            }
+
+            override fun getManifestVersion(): String {
+                val str = SystemProperties.get("ro.oplus.image.my_manifest.version", "")
+                val str2 = SystemProperties.get("ro.oplus.version.my_manifest", "")
+//            return SystemProperties.get("ro.build.version.ota", "null")
+                return str.ifBlank { str2 }
+            }
+
+            override fun getMarketName(): String {
+                return SystemProperties.get("ro.vendor.oplus.market.name", "null")
+
+            }
+
+            override fun getFlashInfo(): String {
+                val text = getFileText("/sys/class/block/sda/device/inquiry")
+                return if (text.isBlank()) "null" else formatSpace(text)
+            }
+
+            override fun getPcbInfo(): String {
+                val gms = SystemProperties.get("gsm.serial", "")
+                val vendor = SystemProperties.get("vendor.gsm.serial", "null")
+                return (gms + vendor).replaceSpace
+
+            }
+
+            override fun getSnInfo(): String {
+                return SystemProperties.get("ro.serialno", "null")
+            }
+
+            override fun getPrjNameInfo(): String {
+                return SystemProperties.get("ro.boot.prjname", "null")
+            }
+
+            override fun getSlotInfo(): String {
+                return SystemProperties.get("ro.boot.slot_suffix", "null").replace("_", "")
+                    .uppercase()
+            }
+        }
     }
 }

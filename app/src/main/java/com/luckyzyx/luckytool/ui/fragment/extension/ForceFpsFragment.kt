@@ -1,9 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.extension
 
-import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +15,10 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.databinding.FragmentFpsBinding
-import com.luckyzyx.luckytool.service.controller.RefreshRateControllerService
+import com.luckyzyx.luckytool.service.RefreshRateService
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getInt
 import com.luckyzyx.luckytool.utils.putBoolean
@@ -109,15 +106,14 @@ class ForceFpsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.swipeRefreshLayout.setOnRefreshListener { init(requireActivity(), controller) }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            init(requireActivity(), controller)
+        }
 
-        if (controller == null) requireActivity().bindRootService(
-            RefreshRateControllerService::class.java,
-            { _: ComponentName?, iBinder: IBinder? ->
-                controller = IRefreshRateController.Stub.asInterface(iBinder)
-                init(requireActivity(), controller)
-            })
-        else init(requireActivity(), controller)
+        RefreshRateService.get(requireActivity()) {
+            controller = it
+            init(requireActivity(), controller)
+        }
     }
 
     private fun Context.resetRefreshRate() {

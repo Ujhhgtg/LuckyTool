@@ -203,7 +203,7 @@
         </service>
         
         <service
-                android:name=".service.controller.AutoStartControllerService"
+                android:name=".service.normal.AutoStartControllerService"
                 android:foregroundServiceType="specialUse"
                 android:exported="true"
                 tools:ignore="ExportedService">

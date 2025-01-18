@@ -38,13 +38,12 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogLogFilterLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentLogsBinding
 import com.luckyzyx.luckytool.databinding.LayoutLoginfoItemBinding
-import com.luckyzyx.luckytool.service.controller.GlobalFuncControllerService
+import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import com.luckyzyx.luckytool.utils.bindRootService
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
@@ -114,12 +113,10 @@ class LoggerFragment : Fragment(), MenuProvider {
     override fun onResume() {
         super.onResume()
 
-        if (logFuncController == null) requireActivity().bindRootService(
-            GlobalFuncControllerService::class.java, { _, iBinder ->
-                logFuncController = IGlobalFuncController.Stub.asInterface(iBinder)
-            })
-
-        loadLogger()
+        GlobalFuncService.get(requireActivity()){
+            logFuncController = it
+            loadLogger()
+        }
     }
 
     override fun onPause() {

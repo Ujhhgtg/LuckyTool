@@ -1,30 +1,72 @@
 package com.luckyzyx.luckytool.service
 
-import android.content.ComponentName
-import android.content.Context
+import android.content.Intent
 import android.os.IBinder
+import android.os.SystemProperties
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
-import com.luckyzyx.luckytool.service.controller.AdbDebugControllerService
+import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
-import com.luckyzyx.luckytool.utils.bindRootService
+import com.topjohnwu.superuser.ShellUtils
+import com.topjohnwu.superuser.ipc.RootService
+import java.net.Inet4Address
+import java.net.NetworkInterface
 
 @Obfuscate
-object AdbService {
-    private val TAG = "AdbService"
-    private var controller: IAdbDebugController? = null
+object AdbService : BaseControllerService<IAdbDebugController>() {
+    override val TAG = "AdbService"
+    override var controllerService: Class<*> = AdbControllerService::class.java
 
-    fun init(context: Context) {
-        get(context) {}
+    override fun getController(iBinder: IBinder?): IAdbDebugController? {
+        return IAdbDebugController.Stub.asInterface(iBinder)
     }
 
-    fun get(context: Context, result: (IAdbDebugController?) -> Unit) {
-        if (controller != null) result(controller)
-        else context.bindRootService(AdbDebugControllerService::class.java,
-            { _: ComponentName?, iBinder: IBinder? ->
-                controller = IAdbDebugController.Stub.asInterface(iBinder)
-                LogUtils.d(TAG, "get", "${controller != null}", true)
-                result(controller)
-            })
+    @Obfuscate
+    @Suppress("PrivatePropertyName")
+    class AdbControllerService : RootService() {
+        private val TAG = "AdbControllerService"
+
+        override fun onBind(intent: Intent) = object : IAdbDebugController.Stub() {
+            override fun getAdbPort(): Int {
+                val port = SystemProperties.get("service.adb.tcp.port")
+                return if (port.isNullOrBlank()) 0 else port.toIntOrNull() ?: 0
+            }
+
+            override fun setAdbPort(port: Int) {
+                SystemProperties.set(
+                    "service.adb.tcp.port", (if (port == 0) "" else port).toString()
+                )
+            }
+
+            override fun getWifiIP(): String {
+                return getIpAddress("wlan0") ?: "IP"
+            }
+
+            override fun restartAdb() {
+                val commands = arrayOf("stop adbd", "killall -9 adbd 2>/dev/null", "start adbd")
+                ShellUtils.fastCmd(*commands)
+            }
+
+            fun getIpAddress(networkName: String): String? {
+                try {
+                    val networkInterfaces = NetworkInterface.getNetworkInterfaces()
+                    while (networkInterfaces.hasMoreElements()) {
+                        val element = networkInterfaces.nextElement()
+                        if (!networkName.equals(element.name, true)) continue
+                        val addresses = element.inetAddresses
+                        while (addresses.hasMoreElements()) {
+                            val address = addresses.nextElement()
+                            if (address is Inet4Address && !address.isLoopbackAddress()) {
+                                return address.getHostAddress()
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    LogUtils.e(TAG, "getIpAddress", "$e", true)
+                    return null
+                }
+                return null
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.service
 
-import android.content.ComponentName
-import android.content.Context
+import android.content.Intent
 import android.content.pm.IPackageManager
 import android.os.IBinder
 import android.os.RemoteException
@@ -9,30 +8,17 @@ import android.os.ServiceManager
 import android.os.SystemProperties
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IPackageServiceController
-import com.luckyzyx.luckytool.service.controller.PackageControllerService
+import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
-import com.luckyzyx.luckytool.utils.bindRootService
+import com.topjohnwu.superuser.ipc.RootService
 
 @Obfuscate
-object PackagesService {
-    private val TAG = "PackageService"
+object PackagesService : BaseControllerService<IPackageServiceController>() {
+    override val TAG = "PackageService"
+    override var controllerService: Class<*> = PackageControllerService::class.java
+
     private var pm: IPackageManager? = null
     private var binder: IBinder? = null
-    private var controller: IPackageServiceController? = null
-
-    fun init(context: Context) {
-        get(context) {}
-    }
-
-    fun get(context: Context, result: (IPackageServiceController?) -> Unit) {
-        if (controller != null) result(controller)
-        else context.bindRootService(PackageControllerService::class.java,
-            { _: ComponentName?, iBinder: IBinder? ->
-                controller = IPackageServiceController.Stub.asInterface(iBinder)
-                LogUtils.d(TAG, "get", "${controller != null}", true)
-                result(controller)
-            })
-    }
 
     private val recipient = object : IBinder.DeathRecipient {
         override fun binderDied() {
@@ -40,6 +26,24 @@ object PackagesService {
             binder?.unlinkToDeath(this, 0)
             binder = null
             pm = null
+        }
+    }
+
+    override fun getController(iBinder: IBinder?): IPackageServiceController? {
+        return IPackageServiceController.Stub.asInterface(iBinder)
+    }
+
+    @Obfuscate
+    class PackageControllerService : RootService() {
+
+        override fun onBind(intent: Intent) = object : IPackageServiceController.Stub() {
+            override fun clearApplicationProfileData(packageName: String) {
+                PackagesService.clearApplicationProfileData(packageName)
+            }
+
+            override fun performDexOptMode(packageName: String): Boolean {
+                return PackagesService.performDexOptMode(packageName)
+            }
         }
     }
 
@@ -69,5 +73,4 @@ object PackagesService {
             SystemProperties.get("pm.dexopt.install", "speed-profile"), true, true, null
         )
     }
-
 }
