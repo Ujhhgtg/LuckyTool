@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 
@@ -9,9 +10,9 @@ object FixInstallButtonDisplayException : YukiBaseHooker() {
     override fun onHook() {
         //Source ConfusedButton
         "com.android.packageinstaller.oplus.view.ConfusedButton".toClass().apply {
-            method { name = "setCts" }.hook {
+            method { name = "getText" }.hook {
                 before {
-                    args().first().setTrue()
+                    field { name = "mIsCtsTesting" }.get(instance).setTrue()
                 }
             }
         }
