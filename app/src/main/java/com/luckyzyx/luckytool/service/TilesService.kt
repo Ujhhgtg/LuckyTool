@@ -100,6 +100,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             private val touchHidl = File(touchHidlDir)
             private val mode = if (touchPanel.exists()) 1 else if (touchHidl.exists()) 2 else 0
 
+            private const val askTouch = "touchHidlTest -c ao 0 26"
             private const val readTouch = "touchHidlTest -c ro 0 26"
             private const val writeTouch = "touchHidlTest -c wo 0 26"
         }
@@ -274,7 +275,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun checkTouchMode(): Boolean {
                 return try {
-                    mode != 0
+                    mode != 0 && (ShellUtils.fastCmd(askTouch).toIntOrNull() ?: 0) != 0
                 } catch (e: Throwable) {
                     LogUtils.e(TAG, "checkTouchMode", "$e", true)
                     false
@@ -284,8 +285,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun getTouchMode(): Int {
                 return try {
                     when (mode) {
-                        1 -> touchPanel.readText().substringBefore(",").toIntOrNull() ?: -11
-                        2 -> ShellUtils.fastCmd(readTouch).substringBefore(",").toIntOrNull() ?: -11
+                        1 -> touchPanel.readText().substringBefore(",").toIntOrNull() ?: 0
+                        2 -> ShellUtils.fastCmd(readTouch).substringBefore(",").toIntOrNull() ?: 0
                         else -> 0
                     }
                 } catch (e: Throwable) {

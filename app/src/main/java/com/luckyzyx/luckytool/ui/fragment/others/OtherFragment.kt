@@ -15,7 +15,6 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
-import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
@@ -78,27 +77,25 @@ class OtherFragment : Fragment() {
     }
 
     private fun initTouchPanelView() {
-        var controller: ITileServiceController? = null
-        TilesService.get(requireActivity()) {
-            controller = it
-        }
-        if (controller?.touchMode == -11) controller = null
         val touchs = arrayOf("120", "180", "240", "360", "480", "600", "720")
-        binding.touchPanel.apply {
-            isVisible = controller != null
-            setOnClickListener {
-                val curLevel = context.getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
-                    setTitle(binding.touchTitle.text)
-                    setSingleChoiceItems(touchs, touchs.indexOf(curLevel), null)
-                    setPositiveButton(android.R.string.ok) { dialog, _ ->
-                        val position = (dialog as AlertDialog).listView.checkedItemPosition
-                        val value = if (position > 0) touchs[position] else position.toString()
-                        context.putString(SettingsPrefs, keyTouchSamplingRateLevel, value)
-                        controller?.touchMode = value.toInt()
-                    }
-                    setNeutralButton(android.R.string.cancel, null)
-                }.show()
+        TilesService.get(requireActivity()) { controller ->
+            binding.touchPanel.apply {
+                isVisible = controller != null && controller.checkTouchMode()
+                setOnClickListener {
+                    val curLevel =
+                        context.getString(SettingsPrefs, keyTouchSamplingRateLevel, "240")
+                    MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                        setTitle(binding.touchTitle.text)
+                        setSingleChoiceItems(touchs, touchs.indexOf(curLevel), null)
+                        setPositiveButton(android.R.string.ok) { dialog, _ ->
+                            val position = (dialog as AlertDialog).listView.checkedItemPosition
+                            val value = if (position > 0) touchs[position] else position.toString()
+                            context.putString(SettingsPrefs, keyTouchSamplingRateLevel, value)
+                            controller?.touchMode = value.toInt()
+                        }
+                        setNeutralButton(android.R.string.cancel, null)
+                    }.show()
+                }
             }
         }
     }
