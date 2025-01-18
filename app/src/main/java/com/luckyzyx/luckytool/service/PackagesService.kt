@@ -22,7 +22,7 @@ object PackagesService : BaseControllerService<IPackageServiceController>() {
 
     private val recipient = object : IBinder.DeathRecipient {
         override fun binderDied() {
-            LogUtils.e(TAG, "PM DeathRecipient", "pm is dead", true)
+            LogUtils.w(TAG, "DeathRecipient", "is dead", true)
             binder?.unlinkToDeath(this, 0)
             binder = null
             pm = null
@@ -35,7 +35,6 @@ object PackagesService : BaseControllerService<IPackageServiceController>() {
 
     @Obfuscate
     class PackageControllerService : RootService() {
-
         override fun onBind(intent: Intent) = object : IPackageServiceController.Stub() {
             override fun clearApplicationProfileData(packageName: String) {
                 PackagesService.clearApplicationProfileData(packageName)

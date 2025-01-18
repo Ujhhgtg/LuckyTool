@@ -7,10 +7,10 @@ import android.os.RemoteException;
 
 public interface IPackageManager extends IInterface {
     
-    public static abstract class Stub extends Binder implements IPackageManager {
+    abstract class Stub extends Binder implements IPackageManager {
         
         public static IPackageManager asInterface(IBinder obj) {
-            throw new UnsupportedOperationException();
+            throw new RuntimeException("STUB");
         }
         
     }

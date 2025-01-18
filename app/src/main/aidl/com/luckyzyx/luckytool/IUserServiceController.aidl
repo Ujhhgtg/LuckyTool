@@ -1,5 +1,8 @@
 package com.luckyzyx.luckytool;
 
-interface IUserServiceController {
+import android.content.pm.UserInfo;
 
+interface IUserServiceController {
+    List<UserInfo> getUsers();
+    UserInfo getUserInfo(int userId);
 }

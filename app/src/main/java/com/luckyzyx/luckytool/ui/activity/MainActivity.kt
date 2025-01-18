@@ -20,11 +20,13 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
+import com.luckyzyx.luckytool.service.ActivityManagerService
 import com.luckyzyx.luckytool.service.AdbService
 import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.service.PackagesService
 import com.luckyzyx.luckytool.service.RefreshRateService
 import com.luckyzyx.luckytool.service.TilesService
+import com.luckyzyx.luckytool.service.UserService
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
@@ -145,6 +147,8 @@ open class MainActivity : AppCompatActivity() {
         TilesService.init(this)
         RefreshRateService.init(this)
         AdbService.init(this)
+        ActivityManagerService.init(this)
+        UserService.init(this)
     }
 
     override fun onResume() {

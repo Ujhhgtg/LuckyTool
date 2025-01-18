@@ -22,7 +22,6 @@ object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
 
     @Obfuscate
     class GlobalFuncControllerService : RootService() {
-
         override fun onBind(intent: Intent) = object : IGlobalFuncController.Stub() {
 
             override fun getFileText(dir: String): String {

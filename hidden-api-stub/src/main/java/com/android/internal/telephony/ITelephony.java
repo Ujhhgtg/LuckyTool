@@ -7,14 +7,14 @@ import android.os.RemoteException;
 
 import androidx.annotation.DeprecatedSinceApi;
 
-/**
- * @noinspection ALL
- */
 public interface ITelephony {
-    public static abstract class Stub extends Binder implements ITelephony {
+    
+    abstract class Stub extends Binder implements ITelephony {
+        
         public static ITelephony asInterface(IBinder obj) {
             throw new RuntimeException("STUB");
         }
+        
     }
     
     long getAllowedNetworkTypesForReason(int i, int i2) throws RemoteException;
