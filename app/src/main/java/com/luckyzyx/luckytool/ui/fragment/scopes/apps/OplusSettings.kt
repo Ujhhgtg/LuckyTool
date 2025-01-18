@@ -450,6 +450,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         }
                     })
                     add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.hide_ota_card_top_text)
+                        key = "hide_ota_card_top_text"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                    add(SwitchPreference(this@loadPreferences).apply {
                         title = getString(R.string.apply_device_parameter_sharing_page)
                         key = "apply_device_parameter_sharing_page"
                         setDefaultValue(false)

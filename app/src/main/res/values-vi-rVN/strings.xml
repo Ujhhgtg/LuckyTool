@@ -89,10 +89,10 @@
     <string name="need_restart_system">Cần khởi động lại hệ thống</string>
     <string name="restart_scope_message">Bạn có chắc chắn muốn khởi động lại tất cả các quy trình có phạm vi ngoại trừ khung hệ thống không?\nHãy sử dụng tùy chọn này nếu mô-đun không hoạt động!\nĐảm bảo rằng tất cả các phạm vi có liên quan đều được chọn!</string>
     <string name="re_optimize_dex_message">Tối ưu hóa lại toàn bộ mục Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed</string>
-    <string name="re_optimize_dex_failed">Optimization failed</string>
-    <string name="re_optimize_dex_optimizing">Optimizing</string>
-    <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
+    <string name="re_optimize_dex_completed">Tối ưu hóa hoàn tất</string>
+    <string name="re_optimize_dex_failed">Tối ưu hóa thất bại</string>
+    <string name="re_optimize_dex_optimizing">Đang tối ưu hóa</string>
+    <string name="re_optimize_dex_faile_message">Tối ưu hóa ứng dụng sau đây không thành công\n%1$s\nCó nên tối ưu hóa lại không?</string>
     <string name="restart_only_this_page_scope">Chỉ khởi động lại phạm vi trang này</string>
     <string name="reboot">Khởi động lại hệ thống</string>
     <string name="fast_reboot">Khởi động nhanh</string>
@@ -192,7 +192,7 @@
     <string name="remove_gt_mode_notification">Xóa thông báo chế độ GT</string>
     <string name="allow_long_press_notification_modifiable">Cho phép sửa đổi thông báo nhấn lâu</string>
     <string name="remove_notification_manager_limit">Xóa giới hạn trình quản lý thông báo</string>
-    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
+    <string name="disable_high_volume_warning_notifications">Tắt thông báo cảnh báo âm lượng quá lớn</string>
     <string name="remove_notification_pin_number_limit">Xóa giới hạn số lượng thông báo được ghim</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
@@ -637,6 +637,7 @@
     <string name="customize_device_ota_card_background">Tùy chỉnh nền thẻ OTA của thiết bị</string>
     <string name="customize_device_ota_card_background_summary">Kích thước đề xuất: 328x124</string>
     <string name="customize_device_ota_card_background_path">Đường dẫn ảnh nền</string>
+    <string name="hide_ota_card_top_text">Hide card top text</string>
     <string name="apply_device_parameter_sharing_page">Áp dụng cho trang chia sẻ thông số thiết bị</string>
     <string name="settings_developer_preference">Tuỳ chọn nhà phát triển</string>
     <string name="remove_dpi_restart_recovery">Xóa phục hồi khởi động lại DPI</string>
@@ -822,7 +823,7 @@
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Bật hỗ trợ kết cấu giấy</string>
     <!--OplusBeaconLink-->
-    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <string name="remove_beacon_link_time_limit">Xóa bỏ giới hạn thời gian trò chuyện ngoại tuyến</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>

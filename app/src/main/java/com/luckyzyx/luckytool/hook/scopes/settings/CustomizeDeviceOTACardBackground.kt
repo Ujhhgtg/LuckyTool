@@ -4,6 +4,8 @@ import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
@@ -19,6 +21,7 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
         val osCode = getOSVersionCode
         val backgroundPath =
             prefs(ModulePrefs).getString("customize_device_ota_card_background_path", "")
+        val hideText = prefs(ModulePrefs).getBoolean("hide_ota_card_top_text", false)
         val applySharePage =
             prefs(ModulePrefs).getBoolean("apply_device_parameter_sharing_page", false)
 
@@ -36,6 +39,10 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                         )
                         drawableFactory.cornerRadius = 12F.dp
                         itemView.background = drawableFactory
+
+                        if (hideText) itemView.children.forEach {
+                            it.isVisible = false
+                        }
                     }
                 }
             }

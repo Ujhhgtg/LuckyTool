@@ -84,15 +84,15 @@
     <string name="menu_reboot">Nabídka restartu</string>
     <string name="menu_settings">Nastavit menu</string>
     <string name="restart_scope">Restartovat zahrnuté procesy</string>
-    <string name="re_optimize_dex">Re-optimize Dex</string>
+    <string name="re_optimize_dex">Znovu optimalizovat Dex</string>
     <string name="need_restart_scope">Je třeba restartovat scope</string>
     <string name="need_restart_system">Je třeba restartovat systém</string>
     <string name="restart_scope_message">Opravdu chcete restartovat všechny procesy kromě systémového frameworku?\nPoužijte tuto možnost, pokud modul nefunguje!\nUjistěte se, že jsou zvoleny všechny relevantní rozsahy!</string>
-    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed</string>
-    <string name="re_optimize_dex_failed">Optimization failed</string>
-    <string name="re_optimize_dex_optimizing">Optimizing</string>
-    <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
+    <string name="re_optimize_dex_message">Znovu optimalizovat celý wish rozsah Dex?</string>
+    <string name="re_optimize_dex_completed">Optimalizace dokončena</string>
+    <string name="re_optimize_dex_failed">Optimalizace selhala</string>
+    <string name="re_optimize_dex_optimizing">Optimalizuji</string>
+    <string name="re_optimize_dex_faile_message">Následující optimalizace aplikace se nezdařila\n%1$s\nOptimalizovat znovu?</string>
     <string name="restart_only_this_page_scope">Restartovat pouze tento scope</string>
     <string name="reboot">Restartovat systém</string>
     <string name="fast_reboot">Rychlý reboot</string>
@@ -192,7 +192,7 @@
     <string name="remove_gt_mode_notification">Odstranit oznámení o GT režimu</string>
     <string name="allow_long_press_notification_modifiable">Povolit upravovat oznámení dlouhým stiskem</string>
     <string name="remove_notification_manager_limit">Odstranit limit správce oznámení</string>
-    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
+    <string name="disable_high_volume_warning_notifications">Zakázat upozornění na vysokou hlasitost</string>
     <string name="remove_notification_pin_number_limit">Odstranit limit počtu připnutých oznámení</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
@@ -637,6 +637,7 @@
     <string name="customize_device_ota_card_background">Přizpůsobit OTA pozadí karty zařízení</string>
     <string name="customize_device_ota_card_background_summary">Doporučená velikost: Násobky 328x124</string>
     <string name="customize_device_ota_card_background_path">Cesta k obrázku pozadí</string>
+    <string name="hide_ota_card_top_text">Hide card top text</string>
     <string name="apply_device_parameter_sharing_page">Použít na stránku sdílení parametrů zařízení</string>
     <string name="settings_developer_preference">Možnosti pro vývojáře</string>
     <string name="remove_dpi_restart_recovery">Zabránit návratu DPI na původní hodnotu po restartování zařízení</string>
@@ -822,7 +823,7 @@
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Povolit podporu textury papíru pro ochranu očí</string>
     <!--OplusBeaconLink-->
-    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <string name="remove_beacon_link_time_limit">Odstranit časový limit BeaconLinku</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

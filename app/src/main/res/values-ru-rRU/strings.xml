@@ -84,15 +84,15 @@
     <string name="menu_reboot">Меню перезагрузки</string>
     <string name="menu_settings">Настройки</string>
     <string name="restart_scope">Перезагрузить запланированные процессы</string>
-    <string name="re_optimize_dex">Re-optimize Dex</string>
+    <string name="re_optimize_dex">Повторная оптимизация Dex</string>
     <string name="need_restart_scope">Требуется перезапустить область</string>
     <string name="need_restart_system">Необходимо перезагрузить систему</string>
     <string name="restart_scope_message">Вы уверены, что хотите перезагрузить все процессы с заданной областью действия, кроме системного фреймворка?\n Используйте это, если модуль не работает!\n Убедитесь, что все соответствующие области отмечены!</string>
-    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed</string>
-    <string name="re_optimize_dex_failed">Optimization failed</string>
-    <string name="re_optimize_dex_optimizing">Optimizing</string>
-    <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
+    <string name="re_optimize_dex_message">Повторно оптимизировать всю область действия Dex?</string>
+    <string name="re_optimize_dex_completed">Оптимизация завершена</string>
+    <string name="re_optimize_dex_failed">Оптимизация не удалась</string>
+    <string name="re_optimize_dex_optimizing">Оптимизация</string>
+    <string name="re_optimize_dex_faile_message">Следующая оптимизация приложения не удалась\n%1$s\nНужно ли провести повторную оптимизацию?</string>
     <string name="restart_only_this_page_scope">Перезагрузить только эту область</string>
     <string name="reboot">Перезагрузить</string>
     <string name="fast_reboot">Быстрая перезагрузка</string>
@@ -192,7 +192,7 @@
     <string name="remove_gt_mode_notification">Удалить уведомление о режиме производительности</string>
     <string name="allow_long_press_notification_modifiable">Разрешить изменять уведомления по долгому нажатию</string>
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
-    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
+    <string name="disable_high_volume_warning_notifications">Отключить уведомления о высокой громкости</string>
     <string name="remove_notification_pin_number_limit">Удалить ограничение на количество закрепленных уведомлений</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
@@ -637,6 +637,7 @@
     <string name="customize_device_ota_card_background">Настройка фона карты OTA устройства</string>
     <string name="customize_device_ota_card_background_summary">Рекомендуемый размер: 328x124</string>
     <string name="customize_device_ota_card_background_path">Путь к фоновому изображению</string>
+    <string name="hide_ota_card_top_text">Hide card top text</string>
     <string name="apply_device_parameter_sharing_page">Применить к странице обмена параметрами устройства</string>
     <string name="settings_developer_preference">Параметры разработчика</string>
     <string name="remove_dpi_restart_recovery">Удалить восстановление DPI</string>
@@ -822,7 +823,7 @@
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Включите поддержку текстуры бумаги для защиты глаз</string>
     <!--OplusBeaconLink-->
-    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <string name="remove_beacon_link_time_limit">Удалить ограничение по времени beaconlink</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>
