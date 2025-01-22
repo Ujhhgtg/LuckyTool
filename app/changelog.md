@@ -33,6 +33,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 禁用高音量警告通知 C12+
 - [添加] 移除无网畅聊时间限制 C14.1+
 - [添加] 隐藏OTA卡片顶层文字 C13+
+- [适配] 移除最近任务列表清楚按钮 v15.6.3(241a057)
 
 ### 1.2.6
 
