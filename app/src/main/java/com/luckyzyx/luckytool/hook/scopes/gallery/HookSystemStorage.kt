@@ -126,11 +126,11 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             //isOsSupport 29 -> 27 (Downgrade)
                             //debug.gallery.photo.editor.watermark.switcher / is_region_cn (property_domestic)
                             configNode.contains("feature_is_support_spring_festival_watermark") -> {
-                                if (springFestival && osCode >= 27 && isRegionCN(context)) resultTrue()
+                                if (springFestival && osCode in 27..33 && isRegionCN(context)) resultTrue()
                             }
                             //debug.gallery.photo.editor.watermark.switcher / is_region_cn (property_domestic)
                             configNode.contains("feature_is_support_national_day_watermark") -> {
-                                if (nationalDay && osCode >= 27 && isRegionCN(context)) resultTrue()
+                                if (nationalDay && osCode in 27..33 && isRegionCN(context)) resultTrue()
                             }
                         }
                     }
