@@ -7,6 +7,8 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.collection.ArrayMap
+import androidx.collection.arrayMapOf
 import com.drake.net.utils.scope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
@@ -139,16 +141,22 @@ object RestartMenuUtils {
      * @receiver Context
      */
     private fun showPerformAllDexDialog(context: Context) {
-        val xposedScope = context.resources.getStringArray(R.array.xposed_scope)
-        val finalScope = xposedScope.toMutableList().apply {
+        val scopeMaps = arrayMapOf<String, CharSequence>()
+        context.resources.getStringArray(R.array.xposed_scope).toMutableList().apply {
             removeIf { it == "android" || it == "system" }
             removeIf { PackageUtils(context.packageManager).getPackageInfo(it, 0) == null }
-        }.toTypedArray()
+            forEachIndexed { _, it ->
+                val name = PackageUtils(context.packageManager).getApplicationInfo(it, 0)
+                    ?.loadLabel(context.packageManager)
+                scopeMaps[it] = name
+            }
+        }
+
         PackagesService.get(context) { controller ->
             MaterialAlertDialogBuilder(context).apply {
                 setMessage(context.getString(R.string.re_optimize_dex_message))
                 setPositiveButton(context.getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
-                    performScopeDex(context, controller, finalScope)
+                    performScopeDex(context, controller, scopeMaps)
                 }
                 setNeutralButton(context.getString(android.R.string.cancel), null)
                 show()
@@ -157,7 +165,8 @@ object RestartMenuUtils {
     }
 
     private fun performScopeDex(
-        context: Context, controller: IPackageServiceController?, scopes: Array<String>
+        context: Context, controller: IPackageServiceController?,
+        scopes: ArrayMap<String, CharSequence>
     ) {
         val layout = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
@@ -189,7 +198,7 @@ object RestartMenuUtils {
         progressDialog.show()
 
         coroutineScope.launch {
-            val failedApps = optimizeApps(scopes, controller, textView)
+            val failedApps = optimizeApps(controller, scopes, textView)
             progressDialog.dismiss()
             if (failedApps.isNotEmpty()) {
                 showRetryDialog(context, controller, failedApps)
@@ -205,40 +214,41 @@ object RestartMenuUtils {
      */
     @SuppressLint("SetTextI18n")
     private suspend fun optimizeApps(
-        scopes: Array<String>,
         controller: IPackageServiceController?,
-        textView: TextView
-    ): Array<String> {
-        val failedApps = arrayListOf<String>()
+        scopes: ArrayMap<String, CharSequence>, textView: TextView
+    ): ArrayMap<String, CharSequence> {
+        val failedApps = arrayMapOf<String, CharSequence>()
         withContext(Dispatchers.IO) {
-            scopes.forEachIndexed { index, app ->
+            scopes.keys.forEachIndexed { index, pack ->
+                val name = scopes[pack] ?: pack
                 withContext(Dispatchers.Main) {
-                    textView.text = "$app (${index + 1}/${scopes.size})"
+                    textView.text = "$name (${index + 1}/${scopes.size})"
                 }
-                controller?.clearApplicationProfileData(app)
-                if (controller?.performDexOptMode(app) == true) {
-                    LogUtils.d("performAllScopeDex", app, "success", true)
+                controller?.clearApplicationProfileData(pack)
+                if (controller?.performDexOptMode(pack) == true) {
+                    LogUtils.d("performAllScopeDex", pack, "success", true)
                 } else {
-                    LogUtils.e("performAllScopeDex", app, "fail", true)
-                    failedApps.add(app)
+                    LogUtils.e("performAllScopeDex", pack, "fail", true)
+                    failedApps[pack] = scopes[pack]
                 }
             }
         }
-        return failedApps.toTypedArray()
+        return failedApps
     }
 
     /**
      * 显示重新优化对话框
      */
     private fun showRetryDialog(
-        context: Context, controller: IPackageServiceController?, failedApps: Array<String>
+        context: Context, controller: IPackageServiceController?,
+        failedApps: ArrayMap<String, CharSequence>
     ) {
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.re_optimize_dex_failed))
             setMessage(
                 context.getString(
                     R.string.re_optimize_dex_faile_message,
-                    failedApps.joinToString("\n")
+                    failedApps.values.joinToString("\n")
                 )
             )
             setPositiveButton(context.getString(android.R.string.ok)) { _, _ ->
