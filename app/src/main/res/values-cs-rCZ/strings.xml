@@ -93,6 +93,7 @@
     <string name="re_optimize_dex_failed">Optimalizace selhala</string>
     <string name="re_optimize_dex_optimizing">Optimalizuji</string>
     <string name="re_optimize_dex_faile_message">Následující optimalizace aplikace se nezdařila\n%1$s\nOptimalizovat znovu?</string>
+    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
     <string name="restart_only_this_page_scope">Restartovat pouze tento scope</string>
     <string name="reboot">Restartovat systém</string>
     <string name="fast_reboot">Rychlý reboot</string>

@@ -63,13 +63,17 @@ object RestartMenuUtils {
         if (scopes.isEmpty()) return
         val list = arrayOf(
             context.getString(R.string.restart_scope),
-            context.getString(R.string.restart_only_this_page_scope)
+            context.getString(R.string.re_optimize_dex),
+            context.getString(R.string.restart_only_this_page_scope),
+            context.getString(R.string.optimize_only_this_page_scope),
         )
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setItems(list) { _, which ->
                 when (which) {
                     0 -> showRestartAllScopeDialog(context)
-                    1 -> restartScope(context, scopes)
+                    1 -> showPerformAllDexDialog(context)
+                    2 -> restartScope(context, scopes)
+                    3 -> optimizeScope(context, scopes)
                 }
             }
             show()
@@ -161,6 +165,28 @@ object RestartMenuUtils {
                 setNeutralButton(context.getString(android.R.string.cancel), null)
                 show()
             }
+        }
+    }
+
+    /**
+     * 优化部分作用域
+     * @receiver Context
+     * @param scopes Array<String>
+     */
+    private fun optimizeScope(context: Context, scopes: Array<String>) {
+        val scopeMaps = arrayMapOf<String, CharSequence>()
+        scopes.toMutableList().apply {
+            removeIf { it == "android" || it == "system" }
+            removeIf { PackageUtils(context.packageManager).getPackageInfo(it, 0) == null }
+            forEachIndexed { _, it ->
+                val name = PackageUtils(context.packageManager).getApplicationInfo(it, 0)
+                    ?.loadLabel(context.packageManager)
+                scopeMaps[it] = name
+            }
+        }
+
+        PackagesService.get(context) { controller ->
+            performScopeDex(context, controller, scopeMaps)
         }
     }
 

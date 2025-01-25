@@ -93,6 +93,7 @@
     <string name="re_optimize_dex_failed">Tối ưu hóa thất bại</string>
     <string name="re_optimize_dex_optimizing">Đang tối ưu hóa</string>
     <string name="re_optimize_dex_faile_message">Tối ưu hóa ứng dụng sau đây không thành công\n%1$s\nCó nên tối ưu hóa lại không?</string>
+    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
     <string name="restart_only_this_page_scope">Chỉ khởi động lại phạm vi trang này</string>
     <string name="reboot">Khởi động lại hệ thống</string>
     <string name="fast_reboot">Khởi động nhanh</string>

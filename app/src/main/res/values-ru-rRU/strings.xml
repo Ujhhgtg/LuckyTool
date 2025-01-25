@@ -93,6 +93,7 @@
     <string name="re_optimize_dex_failed">Оптимизация не удалась</string>
     <string name="re_optimize_dex_optimizing">Оптимизация</string>
     <string name="re_optimize_dex_faile_message">Следующая оптимизация приложения не удалась\n%1$s\nНужно ли провести повторную оптимизацию?</string>
+    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
     <string name="restart_only_this_page_scope">Перезагрузить только эту область</string>
     <string name="reboot">Перезагрузить</string>
     <string name="fast_reboot">Быстрая перезагрузка</string>
