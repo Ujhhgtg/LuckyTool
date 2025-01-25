@@ -338,13 +338,13 @@ object FileUtils {
      * @receiver Context
      */
     fun checkLogCatDir(context: Context, fileName: String): File {
-        val file = File(context.cacheDir.path, "logcat").apply {
+        val dir = File(context.cacheDir.path, "logcat").apply {
             if (isFile) delete()
             if (!exists()) mkdirs()
         }
-        return File(file.path, fileName).apply {
-            if (isFile) delete()
-            if (!exists()) mkdirs()
+        return File(dir.path, fileName).apply {
+            if (isDirectory) delete()
+            if (!exists()) createNewFile()
         }
     }
 
