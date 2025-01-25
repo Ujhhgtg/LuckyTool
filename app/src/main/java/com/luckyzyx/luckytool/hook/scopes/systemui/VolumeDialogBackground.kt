@@ -51,7 +51,7 @@ object VolumeDialogBackground : YukiBaseHooker() {
                 before {
                     if (customAlpha < 0) return@before
                     val value = customAlpha * 25
-                    if (hasVerticalRowsLayer) field { name = "mVolumeMoreLayerDrawable" }
+                    if (hasVerticalRowsLayer) field { name = "mVerticalRowsLayerDrawable" }
                         .get(instance).cast<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
