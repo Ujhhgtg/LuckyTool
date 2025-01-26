@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.view.Gravity
-import android.widget.LinearLayout
-import android.widget.ProgressBar
+import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
@@ -14,6 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.IPackageServiceController
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.databinding.DialogReoptimizeDexLayoutBinding
 import com.luckyzyx.luckytool.service.PackagesService
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
@@ -194,32 +193,13 @@ object RestartMenuUtils {
         context: Context, controller: IPackageServiceController?,
         scopes: ArrayMap<String, CharSequence>
     ) {
-        val layout = LinearLayout(context).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(50, 50, 50, 50)
-            gravity = Gravity.CENTER
-        }
-
-        // 添加 ProgressBar
-        val progressBar = ProgressBar(context).apply {
-            isIndeterminate = true
-        }
-        layout.addView(progressBar)
-
-        // 添加 TextView 显示提示
-        val textView = TextView(context).apply {
-            textSize = 16f
-            gravity = Gravity.CENTER
-            setPadding(0, 30, 0, 0)
-        }
-        layout.addView(textView)
-
-        // 创建对话框
+        val binding = DialogReoptimizeDexLayoutBinding.inflate(LayoutInflater.from(context))
         val progressDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.re_optimize_dex_optimizing))
-            setView(layout)
+            setView(binding.root)
             setCancelable(false)
         }.create()
+        val textView = binding.tv
 
         progressDialog.show()
 

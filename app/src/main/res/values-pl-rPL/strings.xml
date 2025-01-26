@@ -89,7 +89,7 @@
     <string name="need_restart_system">Need to restart system</string>
     <string name="restart_scope_message">Zmiany dla „Android System” mogą być zastosowane dopiero po restarcie urządzenia.\nUżyj tego, jeśli moduł nie działa!\nUpewnij się, czy rekomendowane aplikacje są zaznaczone w LSPosed!</string>
     <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed</string>
+    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
     <string name="re_optimize_dex_failed">Optimization failed</string>
     <string name="re_optimize_dex_optimizing">Optimizing</string>
     <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>

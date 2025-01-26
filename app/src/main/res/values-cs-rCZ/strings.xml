@@ -89,7 +89,7 @@
     <string name="need_restart_system">Je třeba restartovat systém</string>
     <string name="restart_scope_message">Opravdu chcete restartovat všechny procesy kromě systémového frameworku?\nPoužijte tuto možnost, pokud modul nefunguje!\nUjistěte se, že jsou zvoleny všechny relevantní rozsahy!</string>
     <string name="re_optimize_dex_message">Znovu optimalizovat celý wish rozsah Dex?</string>
-    <string name="re_optimize_dex_completed">Optimalizace dokončena</string>
+    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
     <string name="re_optimize_dex_failed">Optimalizace selhala</string>
     <string name="re_optimize_dex_optimizing">Optimalizuji</string>
     <string name="re_optimize_dex_faile_message">Následující optimalizace aplikace se nezdařila\n%1$s\nOptimalizovat znovu?</string>

@@ -89,7 +89,7 @@
     <string name="need_restart_system">Потрібно перезапустити систему</string>
     <string name="restart_scope_message">Ви дійсно хочете перезавантажити всі процеси із заданою областю дії, окрім системного фреймворку?\nВикористайте, якщо модуль не працює!\nПереконайтеся, що всі відповідні області перевірено!</string>
     <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed</string>
+    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
     <string name="re_optimize_dex_failed">Optimization failed</string>
     <string name="re_optimize_dex_optimizing">Optimizing</string>
     <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>

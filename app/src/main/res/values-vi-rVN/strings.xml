@@ -89,7 +89,7 @@
     <string name="need_restart_system">Cần khởi động lại hệ thống</string>
     <string name="restart_scope_message">Bạn có chắc chắn muốn khởi động lại tất cả các quy trình có phạm vi ngoại trừ khung hệ thống không?\nHãy sử dụng tùy chọn này nếu mô-đun không hoạt động!\nĐảm bảo rằng tất cả các phạm vi có liên quan đều được chọn!</string>
     <string name="re_optimize_dex_message">Tối ưu hóa lại toàn bộ mục Dex?</string>
-    <string name="re_optimize_dex_completed">Tối ưu hóa hoàn tất</string>
+    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
     <string name="re_optimize_dex_failed">Tối ưu hóa thất bại</string>
     <string name="re_optimize_dex_optimizing">Đang tối ưu hóa</string>
     <string name="re_optimize_dex_faile_message">Tối ưu hóa ứng dụng sau đây không thành công\n%1$s\nCó nên tối ưu hóa lại không?</string>
