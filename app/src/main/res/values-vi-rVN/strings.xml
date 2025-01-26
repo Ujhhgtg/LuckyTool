@@ -93,7 +93,7 @@
     <string name="re_optimize_dex_failed">Tối ưu hóa thất bại</string>
     <string name="re_optimize_dex_optimizing">Đang tối ưu hóa</string>
     <string name="re_optimize_dex_faile_message">Tối ưu hóa ứng dụng sau đây không thành công\n%1$s\nCó nên tối ưu hóa lại không?</string>
-    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
+    <string name="optimize_only_this_page_scope">Chỉ tối ưu hóa phạm vi trang này</string>
     <string name="restart_only_this_page_scope">Chỉ khởi động lại phạm vi trang này</string>
     <string name="reboot">Khởi động lại hệ thống</string>
     <string name="fast_reboot">Khởi động nhanh</string>
@@ -118,7 +118,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
-    <string name="corepatch_summary">Xóa các hạn chế cài đặt, hỗ trợ Android 11–14</string>
+    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
     <string name="downgr">Cho phép hạ cấp ứng dụng</string>
     <string name="downgr_summary">Cho phép ứng dụng ghi đè các phiên bản cũ hơn nếu các phiên bản mới được cài đặt.</string>
     <string name="authcreak">Tắt xác thực chữ ký của trình quản lý gói</string>

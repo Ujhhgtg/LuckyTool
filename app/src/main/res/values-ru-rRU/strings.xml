@@ -93,7 +93,7 @@
     <string name="re_optimize_dex_failed">Оптимизация не удалась</string>
     <string name="re_optimize_dex_optimizing">Оптимизация</string>
     <string name="re_optimize_dex_faile_message">Следующая оптимизация приложения не удалась\n%1$s\nНужно ли провести повторную оптимизацию?</string>
-    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
+    <string name="optimize_only_this_page_scope">Оптимизировать только область этой страницы</string>
     <string name="restart_only_this_page_scope">Перезагрузить только эту область</string>
     <string name="reboot">Перезагрузить</string>
     <string name="fast_reboot">Быстрая перезагрузка</string>
@@ -118,7 +118,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Официальному установщику Color OS необходимо включить другие функции для использования\nСписок функций-Приложения-Установка приложений</string>
     <string name="corepatch">Патчи ядра</string>
-    <string name="corepatch_summary">Снять ограничения на установку, Android 11–14</string>
+    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
     <string name="downgr">Разрешить понижение версии</string>
     <string name="downgr_summary">Разрешить приложению перезаписывать установку старой версии непосредственно в случае установки новой версии</string>
     <string name="authcreak">Отключить проверку подписи диспетчера пакетов</string>
