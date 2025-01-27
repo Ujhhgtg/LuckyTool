@@ -36,6 +36,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除最近任务列表清除按钮 v15.6.3(241a057)
 - [修复] 音量对话框背景模糊失效 C13
 - [添加] 仅优化此页作用域Dex
+- [修复] 飞行模式信号图标显示异常 C15+
 
 ### 1.2.6
 

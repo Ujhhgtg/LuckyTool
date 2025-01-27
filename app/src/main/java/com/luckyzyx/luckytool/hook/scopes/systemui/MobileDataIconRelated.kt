@@ -66,6 +66,12 @@ object MobileDataIconRelated : YukiBaseHooker() {
                     }.hook {
                         before {
                             if (!hideNonNetwork) return@before
+                            val field = field { name = "isVisible" }.get(instance).any()
+                            if (field != null) {
+                                val value = field.current().method { name = "getValue";superClass() }
+                                    .boolean()
+                                if (!value) return@before
+                            }
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
@@ -86,6 +92,12 @@ object MobileDataIconRelated : YukiBaseHooker() {
                     }.hook {
                         before {
                             if (!hideNonNetwork) return@before
+                            val field = field { name = "isVisible" }.get(instance).any()
+                            if (field != null) {
+                                val value = field.current().method { name = "getValue";superClass() }
+                                    .boolean()
+                                if (!value) return@before
+                            }
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
