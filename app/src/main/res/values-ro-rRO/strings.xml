@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Modulul Xposed pentru optimizarea extinsa a ColorOS, gratuit pentru totdeauna\nDezvoltator: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funcție</string>
     <string name="nav_home">Pagina principală</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Du-te la Crowdin pentru a contribui cu traducerea</string>
     <!-- check lsposed -->
     <string name="system_not_support">Sistemul actual nu acceptă!</string>
-    <string name="unsupported_xposed">Modulul nu este activat detectat.\nVă rugăm să utilizaţi LSPosed %1$s şi mai sus pentru a verifica domeniul de aplicare al modulului.\nDacă aţi terminat acest pas, puteţi încerca să faceţi clic pe OK pentru a ieşi şi redeschide modulul.</string>
+    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
     <string name="unsupported_os">Sistem neacceptat</string>
     <string name="unsupported_os_summary">Deoarece modulul acceptă doar sistemele ColorOS 12 sau mai sus, asigurați-vă că luați măsuri de securitate!</string>
     <string name="no_root">Fără permisiune root</string>

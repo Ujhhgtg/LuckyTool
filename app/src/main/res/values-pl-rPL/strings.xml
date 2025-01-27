@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funkcje</string>
     <string name="nav_home">Przegląd</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Przejdź do Crowdin, aby przetłumaczyć moduł</string>
     <!-- check lsposed -->
     <string name="system_not_support">Obecny system nie jest wspierany!</string>
-    <string name="unsupported_xposed">Module not activated detected.\nPlease use LSPosed %1$s and above to check the module scope.\nIf you have completed this step, you can try to click OK to exit and reopen the module.</string>
+    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
     <string name="unsupported_os">Unsupported system</string>
     <string name="unsupported_os_summary">Because the module only supports ColorOS 12 and above systems, please be sure to take security measures!</string>
     <string name="no_root">No Root permission</string>

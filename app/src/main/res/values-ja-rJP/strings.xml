@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">ColorOS の機能拡張と最適化のための Xposed モジュール、永久に無料です。\n開発者: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">機能</string>
     <string name="nav_home">ホーム</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Crowdinでアプリの翻訳にご協力ください</string>
     <!-- check lsposed -->
     <string name="system_not_support">現在のシステムではサポートをしていません!</string>
-    <string name="unsupported_xposed">モジュールが有効化されていません。\nLSPosed %1$s 以降を使用してモジュールのスコープをチェックしてください。\n完了したら OK ボタンを押して終了し、モジュールを開き直してください。</string>
+    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
     <string name="unsupported_os">非対応のシステム</string>
     <string name="unsupported_os_summary">モジュールは ColorOS 12 以降しかサポートしていません。古いシステムには脆弱性があるため、しっかりセキュリティ対策してください。</string>
     <string name="no_root">root 権限がありません</string>

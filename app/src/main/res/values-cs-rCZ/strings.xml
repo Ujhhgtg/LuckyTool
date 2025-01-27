@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed modul pro rozšířenou optimalizaci ColorOS, zdarma navždy\nVývojář: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funkce</string>
     <string name="nav_home">Domovská stránka</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Přejděte na Crowdin a přispějte svým překladem</string>
     <!-- check lsposed -->
     <string name="system_not_support">Aktuální systém není podporován!</string>
-    <string name="unsupported_xposed">Modul nebyl aktivován.\nProsím použijte LSPosed %1$s nebo novější pro kontrolu rozsahu modulů.\nPokud jste tento krok dokončili, můžete zkusit ťuknout na tlačítko OK, abyste znovu načetli modul.</string>
+    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
     <string name="unsupported_os">Nepodporovaný systém</string>
     <string name="unsupported_os_summary">Protože modul podporuje pouze ColorOS 12 a novější, nezapomeňte přijmout bezpečnostní opatření!</string>
     <string name="no_root">Nemáte oprávnění root</string>

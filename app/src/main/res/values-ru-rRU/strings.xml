@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Модуль Xposed для расширенной оптимизации ColorOS, бесплатно навсегда\nРазработчик: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Функции</string>
     <string name="nav_home">Главная</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Перейдите на сайт Crowdin, чтобы добавить свой перевод</string>
     <!-- check lsposed -->
     <string name="system_not_support">Текущая система не поддерживается!</string>
-    <string name="unsupported_xposed">Модуль не активирован.\nПожалуйста, используйте LSPosed %1$s и выше, чтобы проверить область применения.\nЕсли вы завершили этот шаг, вы можете попытаться нажать \"ОК\" для выхода и открыть модуль заново.</string>
+    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
     <string name="unsupported_os">Неподдерживаемая система</string>
     <string name="unsupported_os_summary">Поскольку модуль поддерживает только системы ColorOS 12 и выше, обязательно примите меры безопасности!</string>
     <string name="no_root">Нет root-прав</string>
@@ -89,7 +89,7 @@
     <string name="need_restart_system">Необходимо перезагрузить систему</string>
     <string name="restart_scope_message">Вы уверены, что хотите перезагрузить все процессы с заданной областью действия, кроме системного фреймворка?\n Используйте это, если модуль не работает!\n Убедитесь, что все соответствующие области отмечены!</string>
     <string name="re_optimize_dex_message">Повторно оптимизировать всю область действия Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
+    <string name="re_optimize_dex_completed">Оптимизация завершена, рекомендуется перезапустить область действия или систему.</string>
     <string name="re_optimize_dex_failed">Оптимизация не удалась</string>
     <string name="re_optimize_dex_optimizing">Оптимизация</string>
     <string name="re_optimize_dex_faile_message">Следующая оптимизация приложения не удалась\n%1$s\nНужно ли провести повторную оптимизацию?</string>
@@ -118,7 +118,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Официальному установщику Color OS необходимо включить другие функции для использования\nСписок функций-Приложения-Установка приложений</string>
     <string name="corepatch">Патчи ядра</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">Удалить ограничения на установку, поддерживает Android 11–15.</string>
     <string name="downgr">Разрешить понижение версии</string>
     <string name="downgr_summary">Разрешить приложению перезаписывать установку старой версии непосредственно в случае установки новой версии</string>
     <string name="authcreak">Отключить проверку подписи диспетчера пакетов</string>

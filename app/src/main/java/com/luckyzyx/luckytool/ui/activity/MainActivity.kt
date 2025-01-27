@@ -90,7 +90,7 @@ open class MainActivity : AppCompatActivity() {
         if (!isModuleActive || noModulePrefs || noSettingPrefs || noOtherPrefs) {
             MaterialAlertDialogBuilder(this).apply {
                 setCancelable(false)
-                setMessage(getString(R.string.unsupported_xposed, "v1.9.2"))
+                setMessage(getString(R.string.unsupported_xposed))
                 setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
                 setOnDismissListener { exitModule() }
                 show()

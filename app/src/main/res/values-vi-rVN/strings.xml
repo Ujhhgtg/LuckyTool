@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Chức năng</string>
     <string name="nav_home">Trang chủ</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Truy cập Crowdin để đóng góp bản dịch của bạn</string>
     <!-- check lsposed -->
     <string name="system_not_support">Hệ thống hiện tại không hỗ trợ!</string>
-    <string name="unsupported_xposed">Phát hiện thấy mô-đun chưa được kích hoạt\nVui lòng sử dụng LPosed %1$s trở lên để kiểm tra phạm vi mô-đun\nNếu bạn đã hoàn thành bước này, bạn có thể thử nhấp vào \"OK\" để thoát và mở lại mô-đun.</string>
+    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
     <string name="unsupported_os">Hệ thống không được hỗ trợ</string>
     <string name="unsupported_os_summary">Vì mô-đun này chỉ hỗ trợ các hệ thống ColorOS 12 trở lên nên hãy đảm bảo thực hiện các biện pháp an toàn!</string>
     <string name="no_root">Không có quyền Root</string>
@@ -89,7 +89,7 @@
     <string name="need_restart_system">Cần khởi động lại hệ thống</string>
     <string name="restart_scope_message">Bạn có chắc chắn muốn khởi động lại tất cả các quy trình có phạm vi ngoại trừ khung hệ thống không?\nHãy sử dụng tùy chọn này nếu mô-đun không hoạt động!\nĐảm bảo rằng tất cả các phạm vi có liên quan đều được chọn!</string>
     <string name="re_optimize_dex_message">Tối ưu hóa lại toàn bộ mục Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
+    <string name="re_optimize_dex_completed">Tối ưu hóa hoàn tất, khuyến nghị khởi động lại phạm vi hoặc hệ thống</string>
     <string name="re_optimize_dex_failed">Tối ưu hóa thất bại</string>
     <string name="re_optimize_dex_optimizing">Đang tối ưu hóa</string>
     <string name="re_optimize_dex_faile_message">Tối ưu hóa ứng dụng sau đây không thành công\n%1$s\nCó nên tối ưu hóa lại không?</string>
@@ -118,7 +118,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">Xóa giới hạn cài đặt, hỗ trợ Android 11–15</string>
     <string name="downgr">Cho phép hạ cấp ứng dụng</string>
     <string name="downgr_summary">Cho phép ứng dụng ghi đè các phiên bản cũ hơn nếu các phiên bản mới được cài đặt.</string>
     <string name="authcreak">Tắt xác thực chữ ký của trình quản lý gói</string>
