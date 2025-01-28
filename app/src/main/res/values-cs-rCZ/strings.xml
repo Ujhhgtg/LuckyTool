@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Xposed modul pro rozšířenou optimalizaci ColorOS, zdarma navždy\nJe zakázáno sdílet, vydávat reprintovat, krást, porodávat a jiné nezákonné činnosti\nVývojář: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funkce</string>
     <string name="nav_home">Domovská stránka</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Přejděte na Crowdin a přispějte svým překladem</string>
     <!-- check lsposed -->
     <string name="system_not_support">Aktuální systém není podporován!</string>
-    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
+    <string name="unsupported_xposed">Modul nebyl aktivován.\nProsím použijte LSPosed framework pro aktivaci po aktivaci!</string>
     <string name="unsupported_os">Nepodporovaný systém</string>
     <string name="unsupported_os_summary">Protože modul podporuje pouze ColorOS 12 a novější, nezapomeňte přijmout bezpečnostní opatření!</string>
     <string name="no_root">Nemáte oprávnění root</string>
@@ -89,7 +89,7 @@
     <string name="need_restart_system">Je třeba restartovat systém</string>
     <string name="restart_scope_message">Opravdu chcete restartovat všechny procesy kromě systémového frameworku?\nPoužijte tuto možnost, pokud modul nefunguje!\nUjistěte se, že jsou zvoleny všechny relevantní rozsahy!</string>
     <string name="re_optimize_dex_message">Znovu optimalizovat celý wish rozsah Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
+    <string name="re_optimize_dex_completed">Optimalizace dokončena, doporučuje se restartovat rozsah nebo systém</string>
     <string name="re_optimize_dex_failed">Optimalizace selhala</string>
     <string name="re_optimize_dex_optimizing">Optimalizuji</string>
     <string name="re_optimize_dex_faile_message">Následující optimalizace aplikace se nezdařila\n%1$s\nOptimalizovat znovu?</string>
@@ -118,7 +118,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Oficiální instalátor pro Color OS musí umožnit ostatním funkcím používat\nSeznam funkcí-Vztahující se k aplikacím-Vztahující se k instalaci aplikací</string>
     <string name="corepatch">Hlavní patch</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">Odstranit limity instalací, podporuje Android 11–15</string>
     <string name="downgr">Povolit downgrade aplikací</string>
     <string name="downgr_summary">Umožňuje aplikaci přepsat starší verze, pokud jsou nainstalovány novější verze.</string>
     <string name="authcreak">Zákazat ověřování podpisu správce balíčků</string>

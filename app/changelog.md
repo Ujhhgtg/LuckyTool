@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.7_beta
+### 1.2.7
 
 - [适配] 强制启用最近任务内存显示 C14+
 - [适配] 自定义WLAN双通道加速白名单 C13.1
@@ -37,6 +37,38 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 音量对话框背景模糊失效 C13
 - [添加] 仅优化此页作用域Dex
 - [修复] 飞行模式信号图标显示异常 C15+
+- [Fix] Mandatory enable the recent task memory display C14+
+- [Fix] Custom WLAN dual -channel acceleration whitelist C13.1
+- [Fix] Removal of the number of magnetic stickers in the control center limit C13.1
+- [Optimize] Lock screen clock component red one hook logic C15+
+- [Change] Camera filter model limitation function C15+
+- [Fix] Some models USB connection dialog box hook abnormality C13+
+- [Add] Camera Jia Zhangke filter
+- [Remove] The signal tags unused in the status bar Gen2x2 C15+
+- [Add] Enable the game assistant bypass power to support C14.1+
+- [Add] Enable AI Master Watermark C15+
+- [Add] Custom MEMC dialog box parameter prompt
+- [Change] Allow custom device sharing page empty parameters
+- [Fix] Module built -in donation code to display abnormalities
+- [Add] Remove the device name change limit C14+
+- [Add] Remove the power menu SOS button C13+
+- [Change] State Bar clock format hours example
+- [Add] Enable Fengchi kernel game architecture display C15+
+- [Add] Fix the app installation button abnormally display
+- [Add] Enable screen color temperature RGB color panel C14+
+- [Change] Screen RGB color Wenqi key value and translation
+- [Fix] System framework wifi service related C12
+- [Add] Remove the top quantity limit C14+
+- [Change] Limit the full application division function C15+
+- [Add] Allow desktop app name Multi -line display C12+
+- [Add] Re -optimize all scope DEX
+- [Add] Disable a huge quantity warning notification C12+
+- [Add] Remove the internet non -network chat time limit C14.1+
+- [Add] Hide the top layer of the OTA card C13+
+- [Fix] Remove the recent task list Clear button v15.6.3 (241A057)
+- [Fix] Volume dialog box background Vaguely invalidation C13
+- [Add] Only optimize this page. DEX
+- [Fix] Flight mode signal icon display abnormality C15+
 
 ### 1.2.6
 
