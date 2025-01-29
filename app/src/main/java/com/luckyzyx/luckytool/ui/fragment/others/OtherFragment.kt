@@ -78,7 +78,7 @@ class OtherFragment : Fragment() {
 
     private fun initTouchPanelView() {
         val touchs = arrayOf("120", "180", "240", "360", "480", "600", "720")
-        TilesService.get(requireActivity()) { controller ->
+        if (isAdded) TilesService.get(activity) { controller ->
             binding.touchPanel.apply {
                 isVisible = controller != null && controller.checkTouchMode()
                 setOnClickListener {
@@ -103,7 +103,7 @@ class OtherFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initAdbDebugView() {
         var controller: IAdbDebugController? = null
-        AdbService.get(requireActivity()) {
+        if (isAdded) AdbService.get(activity) {
             controller = it
         }
         binding.remoteAdbDebug.apply {

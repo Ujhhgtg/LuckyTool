@@ -167,7 +167,7 @@ class HomeFragment : Fragment(), MenuProvider {
     }
 
     private fun initSystemInfoView() {
-        GlobalFuncService.get(requireActivity()) {
+        if (isAdded) GlobalFuncService.get(activity) {
             val deviceInfo = requireActivity().getDeviceInfo(it)
             if (deviceInfo.isNotBlank()) {
                 binding.systemInfoLoading.isVisible = false

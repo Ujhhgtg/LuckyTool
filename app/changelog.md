@@ -70,6 +70,13 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [Add] Only optimize this page. DEX
 - [Fix] Flight mode signal icon display abnormality C15+
 
+#### 附加更新 (Additional Update)
+
+- [修复] 修复部分页面获取服务崩溃
+- [优化] 调整触控模式判定方式
+- [Fix] Repair part of the page to get the service collapse
+- [Optimize] Adjust the touch mode judgment method
+
 ### 1.2.6
 
 - [修复] 分身App浮窗贴边显示异常 C14+

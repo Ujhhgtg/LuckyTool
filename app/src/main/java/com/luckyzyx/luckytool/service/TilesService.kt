@@ -98,7 +98,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             private const val touchHidlDir = "/odm/bin/touchHidlTest"
             private val touchPanel = File(touchPanelDir)
             private val touchHidl = File(touchHidlDir)
-            private val mode = if (touchPanel.exists()) 1 else if (touchHidl.exists()) 2 else 0
+            private val touchProc = if (touchPanel.exists()) 1 else if (touchHidl.exists()) 2 else 0
 
             private const val askTouch = "touchHidlTest -c ao 0 26"
             private const val readTouch = "touchHidlTest -c ro 0 26"
@@ -275,7 +275,11 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun checkTouchMode(): Boolean {
                 return try {
-                    mode != 0 && (ShellUtils.fastCmd(askTouch).toIntOrNull() ?: 0) != 0
+                    touchProc != 0 && when (touchProc) {
+                        1 -> touchPanel.readText().substringBefore(",").toIntOrNull() != null
+                        2 -> (ShellUtils.fastCmd(askTouch).toIntOrNull() ?: -1) >= 0
+                        else -> false
+                    }
                 } catch (e: Throwable) {
                     LogUtils.e(TAG, "checkTouchMode", "$e", true)
                     false
@@ -284,7 +288,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun getTouchMode(): Int {
                 return try {
-                    when (mode) {
+                    when (touchProc) {
                         1 -> touchPanel.readText().substringBefore(",").toIntOrNull() ?: 0
                         2 -> ShellUtils.fastCmd(readTouch).substringBefore(",").toIntOrNull() ?: 0
                         else -> 0
@@ -298,7 +302,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun setTouchMode(value: Int) {
                 try {
                     val int16 = value.toHexString()
-                    when (mode) {
+                    when (touchProc) {
                         1 -> touchPanel.writeText(int16)
                         2 -> ShellUtils.fastCmd("$writeTouch $int16")
                     }

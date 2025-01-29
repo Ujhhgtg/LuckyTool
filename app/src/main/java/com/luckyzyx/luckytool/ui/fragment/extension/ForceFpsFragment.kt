@@ -110,7 +110,7 @@ class ForceFpsFragment : Fragment() {
             init(requireActivity(), controller)
         }
 
-        RefreshRateService.get(requireActivity()) {
+        if (isAdded) RefreshRateService.get(activity) {
             controller = it
             init(requireActivity(), controller)
         }

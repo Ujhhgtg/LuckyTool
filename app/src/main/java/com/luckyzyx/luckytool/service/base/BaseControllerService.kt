@@ -21,8 +21,8 @@ abstract class BaseControllerService<T : IInterface> {
 
     abstract fun getController(iBinder: IBinder?): T?
 
-    open fun get(context: Context, result: (T?) -> Unit) {
-        if (controller != null) result(controller)
+    open fun get(context: Context?, result: (T?) -> Unit) {
+        if (context == null || controller != null) result(controller)
         else context.bindRootService(controllerService, { _: ComponentName?, iBinder: IBinder? ->
             controller = getController(iBinder)
             LogUtils.d(TAG, "get", "${controller != null}", true)
