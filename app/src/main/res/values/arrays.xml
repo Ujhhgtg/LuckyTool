@@ -166,9 +166,9 @@
     </string-array>
     
     <string-array name="dark_theme" translatable="false">
-        <item>@string/dark_theme_off</item>
-        <item>@string/dark_theme_on</item>
         <item>@string/dark_theme_follow_system</item>
+        <item>@string/dark_theme_on</item>
+        <item>@string/dark_theme_off</item>
     </string-array>
     
     <string-array name="dark_theme_value" translatable="false">

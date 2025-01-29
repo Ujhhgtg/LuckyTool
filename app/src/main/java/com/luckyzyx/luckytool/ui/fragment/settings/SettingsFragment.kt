@@ -181,8 +181,8 @@ class SettingsFragment : ModulePreferenceFragment() {
                 title = getString(R.string.dark_theme)
                 summary = "%s"
                 setEntries(R.array.dark_theme)
-                entryValues = resources.getStringArray(R.array.dark_theme_value)
-                setDefaultValue("MODE_NIGHT_FOLLOW_SYSTEM")
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
                     (activity as MainActivity).restart()

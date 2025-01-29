@@ -167,15 +167,14 @@ class HomeFragment : Fragment(), MenuProvider {
     }
 
     private fun initSystemInfoView() {
-        if (isAdded) GlobalFuncService.get(activity) {
-            val deviceInfo = requireActivity().getDeviceInfo(it)
-            if (deviceInfo.isNotBlank()) {
-                binding.systemInfoLoading.isVisible = false
-                binding.systemInfo.apply {
-                    gravity = Gravity.START
-                    text = deviceInfo
-                    isVisible = true
-                }
+        GlobalFuncService.get(activity) {
+            val deviceInfo = activity?.getDeviceInfo(it)
+            if (deviceInfo.isNullOrBlank()) return@get
+            binding.systemInfoLoading.isVisible = false
+            binding.systemInfo.apply {
+                gravity = Gravity.START
+                text = deviceInfo
+                isVisible = true
             }
         }
     }

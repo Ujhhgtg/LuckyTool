@@ -71,9 +71,11 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initTheme()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
+        initTheme()
 
         initNavigationFragment()
         initDynamicShortcuts()
@@ -189,7 +191,7 @@ open class MainActivity : AppCompatActivity() {
 
     private fun initTheme() {
         ThemeUtils.initDynamicColor(this)
-        val themeMode = getString(SettingsPrefs, "dark_theme", "MODE_NIGHT_FOLLOW_SYSTEM")
+        val themeMode = getString(SettingsPrefs, "dark_theme", "0")
         ThemeUtils.initTheme(themeMode)
     }
 

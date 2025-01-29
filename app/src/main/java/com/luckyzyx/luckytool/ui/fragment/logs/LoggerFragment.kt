@@ -113,7 +113,7 @@ class LoggerFragment : Fragment(), MenuProvider {
     override fun onResume() {
         super.onResume()
 
-        if (isAdded) GlobalFuncService.get(activity) {
+        GlobalFuncService.get(activity) {
             logFuncController = it
             loadLogger()
         }
