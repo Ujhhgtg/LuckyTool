@@ -100,9 +100,9 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             private val touchHidl = File(touchHidlDir)
             private val touchProc = if (touchPanel.exists()) 1 else if (touchHidl.exists()) 2 else 0
 
-            private const val askTouch = "touchHidlTest -c ao 0 26"
-            private const val readTouch = "touchHidlTest -c ro 0 26"
-            private const val writeTouch = "touchHidlTest -c wo 0 26"
+//            private const val askTouch = "/odm/bin/touchHidlTest -c ao 0 26"
+            private const val readTouch = "/odm/bin/touchHidlTest -c ro 0 26"
+            private const val writeTouch = "/odm/bin/touchHidlTest -c wo 0 26"
         }
 
         override fun onBind(intent: Intent) = object : ITileServiceController.Stub() {
@@ -275,9 +275,10 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun checkTouchMode(): Boolean {
                 return try {
-                    touchProc != 0 && when (touchProc) {
+                    when (touchProc) {
                         1 -> touchPanel.readText().substringBefore(",").toIntOrNull() != null
-                        2 -> (ShellUtils.fastCmd(askTouch).toIntOrNull() ?: -1) >= 0
+                        2 -> ShellUtils.fastCmd(readTouch).substringBefore(",")
+                            .toIntOrNull() is Number
                         else -> false
                     }
                 } catch (e: Throwable) {
