@@ -11,13 +11,12 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import dalvik.system.PathClassLoader
 
 @Obfuscate
 object HookOplusWifiService : YukiBaseHooker() {
 
-    private var wifiserviceClassLoader: PathClassLoader? = null
-    private var finalWifiServiceClassLoader: PathClassLoader? = null
+    private var wifiserviceClassLoader: ClassLoader? = null
+    private var finalWifiServiceClassLoader: ClassLoader? = null
 
     private val wifiService = "/apex/com.android.wifi/javalib/service-wifi.jar"
     private val oplusWifiService = "/system_ext/framework/oplus-wifi-service.jar"
@@ -30,20 +29,26 @@ object HookOplusWifiService : YukiBaseHooker() {
             finalWifiServiceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
                 oplusWifiService, wifiserviceClassLoader, false
             )
-        } catch (_: ClassNotFoundException) {
-            wifiserviceClassLoader = ClassLoaderFactory.createClassLoader(
-                wifiService, null, null, null,
-                Build.VERSION.SDK_INT, true, null
-            ) as PathClassLoader
-            finalWifiServiceClassLoader = ClassLoaderFactory.createClassLoader(
-                wifiService, null, null, wifiserviceClassLoader,
-                Build.VERSION.SDK_INT, true, null
-            ) as PathClassLoader
-        } catch (_: Throwable) {
-
+        } catch (t: ClassNotFoundException) {
+            YLog.error("Oplus Wifi Service Error!", t)
+            try {
+                wifiserviceClassLoader = ClassLoaderFactory.createClassLoader(
+                    wifiService, null, null, null,
+                    Build.VERSION.SDK_INT, true, null
+                )
+                finalWifiServiceClassLoader = ClassLoaderFactory.createClassLoader(
+                    wifiService, null, null, wifiserviceClassLoader,
+                    Build.VERSION.SDK_INT, true, null
+                )
+            } catch (_: Throwable) {
+                YLog.error("Wifi Service Error!", t)
+            }
+        } catch (t: Throwable) {
+            YLog.error("Oplus Wifi Service Error!", t)
         }
+
         if (finalWifiServiceClassLoader == null) {
-            YLog.error("Hook Oplus Wifi Service Error!")
+            YLog.error("Hook Oplus Wifi Service is null!")
             return
         }
 

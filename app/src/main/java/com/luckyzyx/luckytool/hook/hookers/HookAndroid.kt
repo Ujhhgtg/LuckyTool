@@ -106,7 +106,7 @@ object HookAndroid : YukiBaseHooker() {
         if (osCode >= 26) loadHooker(RemoveAppUninstallButtonBlackList)
 
         //三方应用通话录音保护
-        if (osCode >= 30) loadHooker(HookMediaProjectionManager)
+        if (osCode == 30) loadHooker(HookMediaProjectionManager)
 
         //视频动态插帧
         loadHooker(EnableVideoMemcFrameInsertion)

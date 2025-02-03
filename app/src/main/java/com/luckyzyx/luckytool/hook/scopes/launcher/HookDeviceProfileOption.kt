@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -38,7 +39,8 @@ object HookDeviceProfileOption : YukiBaseHooker() {
 
         //Source OplusFolderUtil C13+
         "com.android.launcher3.folder.OplusFolderUtil".toClassOrNull()?.apply {
-            method { name = "getFolderMaxCol" }.hook {
+            val hasFolderMaxCol = hasMethod { name = "getFolderMaxCol" }
+            if (hasFolderMaxCol) method { name = "getFolderMaxCol" }.hook {
                 after {
                     val isBigFolder = args().first().boolean()
                     if (isBigFolder) result = 3
