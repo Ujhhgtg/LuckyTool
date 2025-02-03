@@ -71,11 +71,11 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //底部导航栏取色
+        initTheme()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
-        initTheme()
 
         initNavigationFragment()
         initDynamicShortcuts()
