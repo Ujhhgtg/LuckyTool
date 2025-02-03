@@ -23,7 +23,7 @@ object StatusBarTile : YukiBaseHooker() {
 
         //强制显示响铃状态切换磁贴
         if (prefs(ModulePrefs).getBoolean("force_display_of_ringing_status_toggle_tiles", false)) {
-            loadHooker(ForceDisplayOfRingingStatusToggleTiles)
+            if (osCode < 34) loadHooker(ForceDisplayOfRingingStatusToggleTiles)
         }
 
         //磁贴长按跳转事件

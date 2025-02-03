@@ -36,6 +36,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 title = getString(R.string.force_display_of_ringing_status_toggle_tiles)
                 key = "force_display_of_ringing_status_toggle_tiles"
                 setDefaultValue(false)
+                isVisible = osCode < 34
                 isIconSpaceReserved = false
             })
             //特殊磁贴

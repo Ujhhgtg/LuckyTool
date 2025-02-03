@@ -3,6 +3,11 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.8_beta
+
+- [修复] 底部导航栏动态取色异常
+- [移除] 移除响铃状态切换磁贴 C15+
+
 ### 1.2.7
 
 - [适配] 强制启用最近任务内存显示 C14+
