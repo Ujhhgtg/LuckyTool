@@ -7,6 +7,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 - [修复] 底部导航栏动态取色异常
 - [移除] 移除响铃状态切换磁贴 C15+
+- [更改] 迁移强制刷新率至其他页面
+- [添加] 添加Root来源与框架信息显示
 
 ### 1.2.7
 

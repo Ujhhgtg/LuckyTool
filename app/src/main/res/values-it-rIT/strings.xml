@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Modulo Xposed per l\'ottimizzazione estesa di ColorOS, gratuito per sempre\nÈ vietato condividere, ristampare, rubare e vendere e altri scopi illegali\nSviluppatore: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Funzione</string>
     <string name="nav_home">Home</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Vai su Crowdin per contribuire alla traduzione</string>
     <!-- check lsposed -->
     <string name="system_not_support">Il sistema attuale non è supportato!</string>
-    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
+    <string name="unsupported_xposed">Rilevato modulo non attivato.\nUtilizzare il framework LSPosed per l\'attivazione dopo l\'attivazione!</string>
     <string name="unsupported_os">Sistema non supportato</string>
     <string name="unsupported_os_summary">Dato che il modulo supporta solo i sistemi ColorOS 12 e superiori, assicurati di prendere misure di sicurezza!</string>
     <string name="no_root">Nessun permesso di root</string>
@@ -84,16 +84,16 @@
     <string name="menu_reboot">Menù riavvio</string>
     <string name="menu_settings">Imposta menu</string>
     <string name="restart_scope">Riavvia i processi</string>
-    <string name="re_optimize_dex">Re-optimize Dex</string>
+    <string name="re_optimize_dex">Ri-ottimizzare Dex</string>
     <string name="need_restart_scope">È necessario riavviare</string>
     <string name="need_restart_system">Necessario riavviare il sistema</string>
     <string name="restart_scope_message">Sei sicuro di voler riavviare tutti i processi tranne il framework di sistema?\nUsalo se il modulo non funziona!\nAssicurarsi che tutti gli ambiti pertinenti siano controllati!</string>
-    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
-    <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
-    <string name="re_optimize_dex_failed">Optimization failed</string>
-    <string name="re_optimize_dex_optimizing">Optimizing</string>
-    <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
-    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
+    <string name="re_optimize_dex_message">Riottimizzare tutti gli scopi Dex?</string>
+    <string name="re_optimize_dex_completed">Ottimizzazione completata, si consiglia di riavviare il processo o il sistema</string>
+    <string name="re_optimize_dex_failed">Ottimizzazione fallita</string>
+    <string name="re_optimize_dex_optimizing">Ottimizzazione</string>
+    <string name="re_optimize_dex_faile_message">La seguente ottimizzazione dell\'applicazione non è riuscita\n%1$s\nVuoi riottimizzare?</string>
+    <string name="optimize_only_this_page_scope">Ottimizza solo lo scopo di questa pagina</string>
     <string name="restart_only_this_page_scope">Riavvia solo questa pagina</string>
     <string name="reboot">Riavvia il sistema</string>
     <string name="fast_reboot">Riavvio veloce</string>
@@ -118,7 +118,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale ColorOS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Installazione</string>
     <string name="corepatch">Core Patch</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">Rimuovi limiti di installazione, supporta Android 11–15</string>
     <string name="downgr">Consenti downgrade app</string>
     <string name="downgr_summary">Consente all\'applicazione di sovrascrivere le versioni precedenti se le nuove versioni sono installate.</string>
     <string name="authcreak">Disabilita convalida firma gestore pacchetti</string>
@@ -193,8 +193,8 @@
     <string name="remove_gt_mode_notification">Rimuovi notifica modalità GT</string>
     <string name="allow_long_press_notification_modifiable">Consenti di modificare le notifiche con pressione prolungata</string>
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
-    <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
-    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
+    <string name="disable_high_volume_warning_notifications">Disattiva le notifiche di avviso ad alto volume</string>
+    <string name="remove_notification_pin_number_limit">Rimuovi il limite al numero di notifiche appuntate</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
@@ -403,7 +403,7 @@
     <!--Launcher-->
     <string name="Desktop">Launcher/Desktop</string>
     <string name="AppBadgeRelated">Badge delle App</string>
-    <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
+    <string name="allow_app_names_display_multiple_lines">Consenti la visualizzazione dei nomi delle app desktop su più righe</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
     <string name="enable_display_app_update_dot_summary">Posizione della funzione: Impostazioni - Desktop e schermata di blocco</string>
     <string name="set_app_update_dot_display_mode">Imposta la modalità di visualizzazione dei punti di aggiornamento delle icone dell\'app</string>
@@ -477,7 +477,7 @@
     <string name="PackageInstaller_summary">Deve essere utilizzato con la patch principale</string>
     <string name="force_enable_32_bit_support">Forza attivazione supporto a 32 bit</string>
     <string name="disable_customized_app_installer">Disabilita installatori di applicazioni personalizzati</string>
-    <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
+    <string name="fix_install_button_display_exception">Correggere la visualizzazione anomala del pulsante di installazione</string>
     <string name="skip_apk_scan">Salta Apkscan</string>
     <string name="skip_apk_scan_summary">Scansione virus Apk</string>
     <string name="allow_downgrade_install">Consenti l\'installazione del downgrade</string>
@@ -567,7 +567,7 @@
     <string name="force_enable_systemui_blur_feature_tips">Condizioni preliminari: È necessario attivare l\'opzione per “forzare attivare la funzione di sfocatura del systemui”\nPosizione funzionale: Varie</string>
     <string name="force_enable_systemui_blur_feature_tips_2">Nota: Quando fai scorrere la barra di luminosità, apparirà una zona sfocata nella posizione di notifica. Questo comportamento è atteso e non richiede un feedback.</string>
     <string name="show_manual_lock_button_power_menu">Mostra il pulsante di blocco manuale nel menu di spegnimento</string>
-    <string name="remove_power_menu_sos_button">Remove power menu SOS button</string>
+    <string name="remove_power_menu_sos_button">Rimuovi il pulsante SOS del menu di accensione</string>
     <!--Battery-->
     <string name="customize_battery_health_data_percentage">Personalizza la percentuale dei dati di salute della batteria</string>
     <string name="display_module_calculates_battery_health_data">Visualizza modulo calcola i dati di salute della batteria</string>
@@ -599,12 +599,12 @@
     <string name="custom_video_dynamic_frame_insertion_configuration">Configurazione personalizzata di inserimento video dinamico dei frame</string>
     <string name="restore_frame_insertion_configuration_data">Conferma per ripristinare i dati di configurazione di inserimento frame video dinamico!</string>
     <string name="confirm_to_delete_this_configuration">Confermi di cancellare questa configurazione?\n%1$s</string>
-    <string name="edit_memc_configuration_tips">For more parameters, please query\n%1$s</string>
+    <string name="edit_memc_configuration_tips">Per ulteriori parametri, si prega di interrogare\n%1$s</string>
     <string name="no_memc_data">Nessun Dato di Memc</string>
     <string name="video_frame_insertion_support_2K120">Supporto per inserimento cornice video 2K 120</string>
     <string name="video_frame_insertion_support_2K120_summary">Se il dispositivo non supporta MEMC, non utilizzare questa funzione</string>
-    <string name="enable_screen_color_temperature_rgb_ball">Enable screen RGB color temperature ball</string>
-    <string name="enable_screen_color_temperature_rgb_space">Enable screen color temperature rgb space</string>
+    <string name="enable_screen_color_temperature_rgb_ball">Abilita la temperatura del colore RGB dello schermo</string>
+    <string name="enable_screen_color_temperature_rgb_space">Abilita la temperatura del colore dello schermo nello spazio RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Può essere revocato dalla funzione DC</string>
     <string name="enable_smart_switching_screen_resolutions">Abilita la commutazione intelligente delle risoluzioni dello schermo</string>
     <string name="settings_application">Applicazione</string>
@@ -628,17 +628,17 @@
     <string name="enable_touch_membrane_protector_mode">Abilita la modalità di protezione della membrana touch</string>
     <string name="enable_game_acceleration">Abilita accelerazione gioco</string>
     <string name="settings_about_device">Informazioni sul dispositivo</string>
-    <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
+    <string name="remove_device_name_change_limit">Rimuovi le restrizioni sulla modifica del nome del dispositivo</string>
     <string name="set_processor_click_page">Imposta il processore per saltare la pagina con un click</string>
     <string name="enable_mariana_npu_introduction_page">Abilita la pagina di presentazione di Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Abilita la pagina di presentazione della fotocamera Hasselblad</string>
-    <string name="enable_game_architecture_display">Enable game architecture display</string>
+    <string name="enable_game_architecture_display">Abilita la visualizzazione dell\'architettura del gioco</string>
     <string name="screen_physics_size_shown_cm">Le dimensioni fisiche dello schermo sono mostrate in centimetri</string>
     <string name="customize_device_sharing_page_parameters">Personalizza parametri pagina condivisione dispositivo</string>
     <string name="customize_device_ota_card_background">Personalizza lo sfondo della scheda OTA del dispositivo</string>
     <string name="customize_device_ota_card_background_summary">Dimensioni consigliate: Multipli di 328x124</string>
     <string name="customize_device_ota_card_background_path">Percorso immagine sfondo</string>
-    <string name="hide_ota_card_top_text">Hide card top text</string>
+    <string name="hide_ota_card_top_text">Nascondi il testo superiore della card</string>
     <string name="apply_device_parameter_sharing_page">Applica alla pagina di condivisione dei parametri del dispositivo</string>
     <string name="settings_developer_preference">Opzioni sviluppatore</string>
     <string name="remove_dpi_restart_recovery">Rimuovi recupero riavvio DPI</string>
@@ -659,7 +659,7 @@
     <string name="enable_frame_watermark_style">Abilita Stile Frame Filigrana</string>
     <string name="enable_hasselblad_watermark_style">Abilita Stile Filigrana Hasselblad</string>
     <string name="custom_model_watermark">Filigrana modello personalizzato</string>
-    <string name="enable_ai_master_watermark">Enable AI master watermark</string>
+    <string name="enable_ai_master_watermark">Abilita la filigrana principale IA</string>
     <string name="enable_hassel_watermark">Attiva la filigrana Hasselblad</string>
     <string name="enable_privacy_watermark">Abilita Filigrana Privacy</string>
     <string name="CameraFilter">Filtro</string>
@@ -672,7 +672,7 @@
     <string name="camera_filter_desert">Filtro DesertLegend</string>
     <string name="camera_filter_tol">Filtro pellicola LuChuan</string>
     <string name="camera_filter_zhi_gan">ZhiGan OS15</string>
-    <string name="camera_filter_jzk">Jia Zhangke filter</string>
+    <string name="camera_filter_jzk">Filtro Jia Zhangke</string>
     <string name="camera_portrait_filter_settings">Impostazioni filtro verticale</string>
     <string name="camera_video_filter_settings">Impostazioni filtro video</string>
     <string name="camera_filter_color_extraction">Cremisi/Verde Foresta/Azzurro Cielo</string>
@@ -719,7 +719,7 @@
     <string name="custom_media_player_support">Supporto riproduttore multimediale personalizzato</string>
     <string name="custom_media_player_support_message">Compila il nome del pacchetto del lettore multimediale da aggiungere,Ogni riga può riempire solo una APP</string>
     <string name="remove_danmaku_notification_whitelist">Rimuovi la Lista bianca delle notifiche Danmaku</string>
-    <string name="enable_game_bypass_charging_support">Enable bypass charging support</string>
+    <string name="enable_game_bypass_charging_support">Abilita il supporto di ricarica bypass</string>
     <string name="remove_game_voice_changer_whitelist">Rimuovi Lista bianca cambio voce gioco</string>
     <string name="remove_game_assistant_temperature_detection">Rimuovi rilevamento temperatura Assistente Gioco</string>
     <string name="remove_game_assistant_temperature_detection_summary">Risolve principalmente il problema della temperatura eccessiva in modalità X</string>
@@ -824,7 +824,7 @@
     <!--OplusEyeProtect-->
     <string name="enable_eyeprotect_paper_texture_support">Abilita il supporto per la texture di carta per proteggere gli occhi</string>
     <!--OplusBeaconLink-->
-    <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <string name="remove_beacon_link_time_limit">Rimuovi il limite di tempo del beaconlink</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Salta la pagina iniziale</string>
     <string name="vip_download">Scarica originale</string>
@@ -852,6 +852,8 @@
     <string name="module_has_updated">Il modulo è stato aggiornato</string>
     <string name="module_is_disabled">Il modulo è disabilitato</string>
     <string name="module_version">Versione modulo:</string>
+    <string name="root_source">Root source:</string>
+    <string name="framework_version">Framework version:</string>
     <string name="enable_module">Abilita modulo</string>
     <string name="version_name">Nome Versione</string>
     <string name="download_count">Conteggio download</string>

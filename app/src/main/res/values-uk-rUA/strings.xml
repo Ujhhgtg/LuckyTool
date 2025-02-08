@@ -852,6 +852,8 @@
     <string name="module_has_updated">Module has been updated</string>
     <string name="module_is_disabled">Module is disabled</string>
     <string name="module_version">Версія модуля:</string>
+    <string name="root_source">Root source:</string>
+    <string name="framework_version">Framework version:</string>
     <string name="enable_module">Увімкнути модуль</string>
     <string name="version_name">Назва версії</string>
     <string name="download_count">Кількість завантажень</string>

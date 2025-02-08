@@ -26,6 +26,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -40,10 +41,11 @@ import com.luckyzyx.luckytool.utils.getDeviceInfo
 import com.luckyzyx.luckytool.utils.getVersionCode
 import com.luckyzyx.luckytool.utils.getVersionName
 import com.luckyzyx.luckytool.utils.isZh
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
+import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
 class HomeFragment : Fragment(), MenuProvider {
@@ -83,8 +85,8 @@ class HomeFragment : Fragment(), MenuProvider {
         ) { versionName, versionCode, function ->
             if (getVersionCode < versionCode) {
                 function()
-                binding.updateView.apply {
-                    isVisible = true
+                binding.updateView.isVisible = true
+                binding.updateInfo.apply {
                     text =
                         getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
                 }
@@ -96,12 +98,6 @@ class HomeFragment : Fragment(), MenuProvider {
                     true
                 }
             }
-        }
-
-        binding.fpsTitle.text = getString(R.string.fps_title)
-        binding.fpsSummary.text = getString(R.string.fps_summary)
-        binding.fps.setOnClickListener {
-            navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
         }
 
         binding.systemInfo.apply {
@@ -235,15 +231,31 @@ class HomeFragment : Fragment(), MenuProvider {
                 binding.statusIcon.setImageResource(R.drawable.ic_round_warning_24)
             }
         }
-        binding.statusTitle.text = when {
+        binding.moduleStatus.text = when {
             YukiHookAPI.Status.isXposedModuleActive && enableModule.not() -> getString(R.string.module_is_disabled)
             YukiHookAPI.Status.isXposedModuleActive -> getString(R.string.module_isactivated)
             else -> getString(R.string.module_notactive)
         }
 
-        binding.statusSummary.apply {
-            text = "${getString(R.string.module_version)}$getVersionName($getVersionCode)" +
+        binding.moduleVersion.apply {
+            text = "${getString(R.string.module_version)} $getVersionName($getVersionCode)" +
                     " ${BuildConfig.BUILD_TYPE.uppercase()}"
+        }
+
+        binding.rootVersion.apply {
+            val rootSource = if (Shell.cmd("magisk").exec().isSuccess) {
+                ShellUtils.fastCmd("magisk -v") + " " + ShellUtils.fastCmd("magisk -V")
+            } else if (Shell.cmd("su -h").exec().isSuccess) {
+                ShellUtils.fastCmd("su -v") + " " + ShellUtils.fastCmd("su -V")
+            } else "Other"
+            text = "${getString(R.string.root_source)} $rootSource"
+        }
+
+        binding.frameworkVersion.apply {
+            val moduleProp = Shell.cmd("cat ${CommandUtils.lspProp}").exec().out
+            val name = moduleProp.find { it.startsWith("name=") }?.substringAfter("=")
+            val version = moduleProp.find { it.startsWith("version=") }?.substringAfter("=")
+            text = "${getString(R.string.framework_version)} $name $version"
         }
     }
 }

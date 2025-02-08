@@ -19,6 +19,8 @@ object CommandUtils {
     val rootGid = "gid=0(root)"
     val rootGroup = "groups=0(root)"
 
+    val lspProp = "/data/adb/modules/zygisk_lsposed/module.prop"
+
     @SuppressLint("SdCardPath")
     val otaDatabasePath = "/data/user/0/com.oplus.ota/databases/ota.db"
 

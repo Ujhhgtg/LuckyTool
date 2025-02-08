@@ -50,7 +50,6 @@
             
             </com.google.android.material.card.MaterialCardView>
             
-            
             <com.google.android.material.card.MaterialCardView
                     android:id="@+id/shortcut"
                     android:clickable="true"
@@ -75,6 +74,38 @@
                             android:id="@+id/shortcut_summary"
                             android:textSize="11sp"
                             android:text="@string/set_module_shortcuts_summary"
+                            android:paddingHorizontal="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                
+                </LinearLayout>
+            
+            </com.google.android.material.card.MaterialCardView>
+            
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/fps"
+                    android:clickable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:layout_marginVertical="8dp">
+                
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+                    
+                    <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/fps_title"
+                            android:paddingHorizontal="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    
+                    <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/fps_summary"
+                            android:textSize="11sp"
                             android:paddingHorizontal="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />

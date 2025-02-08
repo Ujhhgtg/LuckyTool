@@ -50,7 +50,7 @@
                             tools:ignore="ContentDescription" />
                     
                     <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/status_title"
+                            android:id="@+id/module_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
@@ -60,25 +60,55 @@
                             android:textSize="16sp" />
                     
                     <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/status_summary"
+                            android:id="@+id/module_version"
+                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/status_title"
-                            android:layout_alignStart="@id/status_title"
+                            android:layout_below="@id/module_status"
+                            android:layout_alignStart="@id/module_status"
                             android:textAppearance="?textAppearanceBodyMedium"
                             android:textColor="?colorOnPrimary" />
                     
                     <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/update_view"
-                            android:visibility="gone"
+                            android:id="@+id/root_version"
+                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/status_summary"
-                            android:layout_alignStart="@id/status_summary"
+                            android:layout_below="@id/module_version"
+                            android:layout_alignStart="@id/module_status"
+                            android:textAppearance="?textAppearanceBodyMedium"
+                            android:textColor="?colorOnPrimary" />
+                    
+                    <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/framework_version"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/root_version"
+                            android:layout_alignStart="@id/module_status"
                             android:textAppearance="?textAppearanceBodyMedium"
                             android:textColor="?colorOnPrimary" />
                 
                 </RelativeLayout>
+            
+            </com.google.android.material.card.MaterialCardView>
+            
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/update_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true"
+                    android:layout_marginVertical="8dp">
+                
+                <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/update_info"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?textAppearanceBodyMedium"
+                        android:textColor="?colorOnPrimary" />
             
             </com.google.android.material.card.MaterialCardView>
             
@@ -95,38 +125,6 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="10dp"
                         tools:ignore="DuplicateSpeakableTextCheck" />
-            
-            </com.google.android.material.card.MaterialCardView>
-            
-            <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/fps"
-                    android:clickable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    android:layout_marginVertical="8dp">
-                
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="10dp"
-                        android:animateLayoutChanges="true"
-                        android:orientation="vertical">
-                    
-                    <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/fps_title"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    
-                    <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/fps_summary"
-                            android:textSize="11sp"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                
-                </LinearLayout>
             
             </com.google.android.material.card.MaterialCardView>
             

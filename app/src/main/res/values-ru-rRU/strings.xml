@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application -->
-    <string name="xposeddescription">Xposed module for extended optimization of ColorOS, free forever\nIt is forbidden to share, reprint, steal and sell and other illegal purposes\nDeveloper: luckyzyx</string>
+    <string name="xposeddescription">Модуль Xposed для расширенной оптимизации ColorOS, бесплатный навсегда\nЗапрещено распространять, перепечатывать, красть и продавать, а также использовать в других незаконных целях\nРазработчик: luckyzyx</string>
     <!-- Nav Menu -->
     <string name="nav_function">Функции</string>
     <string name="nav_home">Главная</string>
@@ -75,7 +75,7 @@
     <string name="participate_translation_summary">Перейдите на сайт Crowdin, чтобы добавить свой перевод</string>
     <!-- check lsposed -->
     <string name="system_not_support">Текущая система не поддерживается!</string>
-    <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>
+    <string name="unsupported_xposed">Модуль не активирован.\nПожалуйста, используйте фреймворк LSPosed для активации!</string>
     <string name="unsupported_os">Неподдерживаемая система</string>
     <string name="unsupported_os_summary">Поскольку модуль поддерживает только системы ColorOS 12 и выше, обязательно примите меры безопасности!</string>
     <string name="no_root">Нет root-прав</string>
@@ -852,6 +852,8 @@
     <string name="module_has_updated">Модуль был обновлён</string>
     <string name="module_is_disabled"> Модуль отключен</string>
     <string name="module_version">Версия модуля:</string>
+    <string name="root_source">Root source:</string>
+    <string name="framework_version">Framework version:</string>
     <string name="enable_module">Включить модуль</string>
     <string name="version_name">Название версии</string>
     <string name="download_count">Количество загрузок</string>

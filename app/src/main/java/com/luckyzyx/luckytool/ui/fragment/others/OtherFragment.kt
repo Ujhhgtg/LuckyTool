@@ -74,6 +74,12 @@ class OtherFragment : Fragment() {
                 }.show()
             }
         }
+
+        binding.fpsTitle.text = getString(R.string.fps_title)
+        binding.fpsSummary.text = getString(R.string.fps_summary)
+        binding.fps.setOnClickListener {
+            navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
+        }
     }
 
     private fun initTouchPanelView() {
