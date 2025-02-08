@@ -76,7 +76,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Source Settings 启用RGB调色板 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_space", false)
             ) {
-                if (osCode >= 30) put("oplus.software.display.color_space_support", true)
+                if (osCode >= 34) put("oplus.software.display.color_space_support", true)
             }
 
             //Source Settings 启用游戏专属内存 GameBounceUtils

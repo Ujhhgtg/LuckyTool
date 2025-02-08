@@ -215,6 +215,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.control_center_tile_enable)
+                summary = getString(R.string.SpecialTiles_summary)
                 key = "control_center_tile_enable"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
