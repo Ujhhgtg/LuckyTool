@@ -10,6 +10,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 迁移强制刷新率至其他页面
 - [添加] 添加Root来源与框架信息显示
 - [更改] RGB调色板上调至C15+
+- [更改] 置顶通知限制调整至C14.1+
 
 ### 1.2.7
 

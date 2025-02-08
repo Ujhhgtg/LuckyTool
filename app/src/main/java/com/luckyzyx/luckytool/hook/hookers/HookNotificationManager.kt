@@ -24,7 +24,7 @@ object HookNotificationManager : YukiBaseHooker() {
         }
         //移除通知置顶数量限制
         if (prefs(ModulePrefs).getBoolean("remove_notification_pin_number_limit", false)) {
-            if (osCode >= 30) loadHooker(RemoveNotificationPinNumberLimit)
+            if (osCode >= 33) loadHooker(RemoveNotificationPinNumberLimit)
         }
         //强制显示时钟样式选项
         if (prefs(ModulePrefs).getBoolean("force_display_clock_style_options", false)) {

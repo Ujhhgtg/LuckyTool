@@ -117,7 +117,7 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_notification_pin_number_limit)
                 key = "remove_notification_pin_number_limit"
                 setDefaultValue(false)
-                isVisible = osCode >= 30
+                isVisible = osCode >= 33
                 isIconSpaceReserved = false
             })
         }
