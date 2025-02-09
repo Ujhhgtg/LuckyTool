@@ -250,6 +250,8 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">メディアを再生していないときは非表示</string>
     <string name="force_enable_media_toggle_button">メディア切り替えボタンを強制的に有効化</string>
     <string name="set_control_center_volume_seekbar_mode">コントロールセンターの音量バーモードを設定</string>
+    <string name="remove_control_center_edit_button">Remove control center edit button</string>
+    <string name="remove_control_center_more_button">Remove control center more button</string>
     <string name="set_auto_brightness_button_mode">明るさ自動調整ボタンのモードを設定</string>
     <string name="remove_control_center_user_switcher">ユーザーの切り替えをコントロールセンターから削除</string>
     <string name="remove_control_center_mydevice">コントロールセンターからマイデバイスを削除</string>
@@ -265,6 +267,8 @@
     <string name="StatusBarTiles">ステータスバーのタイル</string>
     <string name="force_display_of_ringing_status_toggle_tiles">着信状態切り替えタイルを強制的に表示</string>
     <string name="SpecialTiles">特殊タイル</string>
+    <string name="classic_control_center_mode_only">Classic Control Center Mode Only</string>
+    <string name="separate_control_center_mode_only">Separate Control Center Mode Only</string>
     <string name="SpecialTiles_summary">クラシックコントロールセンターモードのみ</string>
     <string name="auto_expand_tile_rows_horizontal">水平方向のタイル行数を自動的に増やす</string>
     <string name="auto_expand_tile_rows_horizontal_summary">メディアプレイヤーが非表示のとき、水平モードで2列のタイルを表示します</string>
@@ -412,6 +416,7 @@
     <string name="remove_app_clone_badge">アプリのクローンバッジを削除</string>
     <string name="remove_app_update_green_dot">アプリ更新後の緑のドットを削除</string>
     <string name="FolderLayoutRelated">フォルダレイアウト関連</string>
+    <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">フォルダプレビューの背景を削除</string>
     <string name="enable_folder_layout_adjustment">フォルダレイアウトの調整を有効化</string>
     <string name="set_icon_columns_in_folder">フォルダ内のアイコン列数を設定</string>
@@ -441,6 +446,7 @@
     <string name="zoom_window_support_list_summary">必要に応じて有効化をしてください。取り返しのつかない問題が発生するかもしれません</string>
     <string name="force_all_apps_support_split_screen">すべてのアプリで画面分割対応を強制する</string>
     <string name="launcher_drawer_layout_related">ドロワーレイアウト関連</string>
+    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
     <string name="enable_drawer_layout_adjustment">ドロワーレイアウトの調整を有効化</string>
     <string name="set_icon_columns_in_drawer">Set the number of icon columns in the drawer</string>
     <string name="launcher_layout_related">ホーム画面レイアウト関連</string>

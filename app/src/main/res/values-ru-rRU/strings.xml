@@ -250,6 +250,8 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Скрывать, когда нет воспроизведения</string>
     <string name="force_enable_media_toggle_button">Принудительно включить кнопку переключения медиа</string>
     <string name="set_control_center_volume_seekbar_mode">Установить режим панели громкости центра управления</string>
+    <string name="remove_control_center_edit_button">Remove control center edit button</string>
+    <string name="remove_control_center_more_button">Remove control center more button</string>
     <string name="set_auto_brightness_button_mode">Показывать кнопку автояркости</string>
     <string name="remove_control_center_user_switcher">Удалить переключатель пользователей в шторке</string>
     <string name="remove_control_center_mydevice">Удалить \"Мои устройства\" из шторки</string>
@@ -265,6 +267,8 @@
     <string name="StatusBarTiles">Плитки быстрых настроек</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Принудительное отображение плитки переключения статуса звонка</string>
     <string name="SpecialTiles">Специальные плитки</string>
+    <string name="classic_control_center_mode_only">Classic Control Center Mode Only</string>
+    <string name="separate_control_center_mode_only">Separate Control Center Mode Only</string>
     <string name="SpecialTiles_summary">Только классический режим \"Центра управления\"</string>
     <string name="auto_expand_tile_rows_horizontal">Автоматически развернуть количество горизонтальных плиток</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Когда медиаплеер скрыт, два ряда плиток будут отображаться в горизонтальном режиме</string>
@@ -412,6 +416,7 @@
     <string name="remove_app_clone_badge">Удалить значок клонированного приложения</string>
     <string name="remove_app_update_green_dot">Удалить зеленую точку после обновления приложения</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
+    <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
     <string name="set_icon_columns_in_folder">Задать количество столбцов иконок в папке</string>
@@ -441,6 +446,7 @@
     <string name="zoom_window_support_list_summary">Включать при необходимости, в противном случае возникнут непоправимые проблемы</string>
     <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
     <string name="launcher_drawer_layout_related">Разметка папки</string>
+    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
     <string name="enable_drawer_layout_adjustment">Включить корректировку разметки меню приложений</string>
     <string name="set_icon_columns_in_drawer">Задать кол-во столбцов в меню</string>
     <string name="launcher_layout_related">Сетка рабочего стола</string>
@@ -852,8 +858,8 @@
     <string name="module_has_updated">Модуль был обновлён</string>
     <string name="module_is_disabled"> Модуль отключен</string>
     <string name="module_version">Версия модуля:</string>
-    <string name="root_source">Root source:</string>
-    <string name="framework_version">Framework version:</string>
+    <string name="root_source">Корневой источник:</string>
+    <string name="framework_version">Версия framework:</string>
     <string name="enable_module">Включить модуль</string>
     <string name="version_name">Название версии</string>
     <string name="download_count">Количество загрузок</string>

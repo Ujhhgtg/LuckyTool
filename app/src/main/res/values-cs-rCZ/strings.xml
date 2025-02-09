@@ -250,6 +250,8 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Skrýt pokud se nepřehrávají žádná média</string>
     <string name="force_enable_media_toggle_button">Vynutit povolení přepínače médií</string>
     <string name="set_control_center_volume_seekbar_mode">Nastavit režim posuvníku zvuku v ovládacím panelu</string>
+    <string name="remove_control_center_edit_button">Remove control center edit button</string>
+    <string name="remove_control_center_more_button">Remove control center more button</string>
     <string name="set_auto_brightness_button_mode">Nastavit režim tlačítka automatického jasu</string>
     <string name="remove_control_center_user_switcher">Odstranit přepínač uživatelů v ovládacím centru</string>
     <string name="remove_control_center_mydevice">Odebrat moje zařízení z ovládacího centra</string>
@@ -265,6 +267,8 @@
     <string name="StatusBarTiles">Dlaždice stavové lišty</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Vynucení zobrazení přepínací dlaždice stavu hovoru</string>
     <string name="SpecialTiles">Speciální dlaždice</string>
+    <string name="classic_control_center_mode_only">Classic Control Center Mode Only</string>
+    <string name="separate_control_center_mode_only">Separate Control Center Mode Only</string>
     <string name="SpecialTiles_summary">Pouze režim klasického ovládacího centra</string>
     <string name="auto_expand_tile_rows_horizontal">Automaticky rozbalit počet řádků horizontálních dlaždic</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Když je přehrávač médií skrytý, zobrazí se dvě řady dlaždic v režimu na šířku</string>
@@ -412,6 +416,7 @@
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
     <string name="remove_app_update_green_dot">Odstranit zelenou tečku po aktualizaci aplikace</string>
     <string name="FolderLayoutRelated">Rozvržení složky</string>
+    <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>
     <string name="set_icon_columns_in_folder">Nastavte počet sloupců ikon ve složce</string>
@@ -441,6 +446,7 @@
     <string name="zoom_window_support_list_summary">Povolte podle vašich potřeb, jinak dojde k nenapravitelným problémům</string>
     <string name="force_all_apps_support_split_screen">Donutit všechny aplikace podporovat rozdělenou obrazovku</string>
     <string name="launcher_drawer_layout_related">Rozvržení související s panelem aplikací</string>
+    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
     <string name="enable_drawer_layout_adjustment">Povolit úpravy rozvržení menu aplikací</string>
     <string name="set_icon_columns_in_drawer">Nastavte počet sloupců ikon ve menu aplikací</string>
     <string name="launcher_layout_related">Nastavení související s rozložením plochy</string>
