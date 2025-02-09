@@ -238,16 +238,16 @@ class HomeFragment : Fragment(), MenuProvider {
         }
 
         binding.moduleVersion.apply {
-            text = "${getString(R.string.module_version)} $getVersionName($getVersionCode)" +
+            text = "${getString(R.string.module_version)} $getVersionName ($getVersionCode)" +
                     " ${BuildConfig.BUILD_TYPE.uppercase()}"
         }
 
         binding.rootVersion.apply {
             val rootSource = if (Shell.cmd("magisk").exec().isSuccess) {
-                ShellUtils.fastCmd("magisk -v") + " " + ShellUtils.fastCmd("magisk -V")
+                ShellUtils.fastCmd("magisk -v") + " (" + ShellUtils.fastCmd("magisk -V") + ")"
             } else if (Shell.cmd("su -h").exec().isSuccess) {
-                ShellUtils.fastCmd("su -v") + " " + ShellUtils.fastCmd("su -V")
-            } else "Other"
+                ShellUtils.fastCmd("su -v") + " (" + ShellUtils.fastCmd("su -V") + ")"
+            } else "Other or Error"
             text = "${getString(R.string.root_source)} $rootSource"
         }
 
