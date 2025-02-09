@@ -10,6 +10,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDi
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeature
+import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeatureFlags
 import com.luckyzyx.luckytool.hook.scopes.launcher.LauncherLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.LongPressAppIconOpenAppDetails
 import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
@@ -32,6 +33,9 @@ object HookLauncher : YukiBaseHooker() {
 
         //HookLauncherFeature
         loadHooker(HookLauncherFeature)
+
+        //HookLauncherFeatureFlags
+        if (osCode >= 27) loadHooker(HookLauncherFeatureFlags)
 
         //HookDeviceProfileOption
         loadHooker(HookDeviceProfileOption)

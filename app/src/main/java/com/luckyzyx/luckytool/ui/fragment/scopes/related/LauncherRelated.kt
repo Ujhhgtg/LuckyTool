@@ -341,6 +341,13 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_drawer_layout_double_line_names)
+                key = "enable_drawer_layout_double_line_names"
+                setDefaultValue(false)
+                isVisible = osCode >= 27
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_drawer_layout_adjustment)
                 key = "enable_drawer_layout_adjustment"
                 setDefaultValue(false)

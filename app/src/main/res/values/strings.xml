@@ -500,6 +500,7 @@
     <string name="force_all_apps_support_split_screen">Force all apps to support split screen</string>
     
     <string name="launcher_drawer_layout_related">Drawer Layout Related</string>
+    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
     <string name="enable_drawer_layout_adjustment">Enable drawer layout adjustments</string>
     <string name="set_icon_columns_in_drawer">Set the number of icon columns in the drawer</string>
     
