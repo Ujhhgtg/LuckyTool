@@ -118,6 +118,13 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_auto_close_folder)
+                key = "enable_auto_close_folder"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_folder_preview_background)
                 key = "remove_folder_preview_background"
                 setDefaultValue(false)

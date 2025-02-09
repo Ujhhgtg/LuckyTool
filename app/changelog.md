@@ -11,6 +11,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 添加Root来源与框架信息显示
 - [更改] RGB调色板上调至C15+
 - [更改] 置顶通知限制调整至C14.1+
+- [添加] 启用自动关闭文件夹 C15+
 
 ### 1.2.7
 

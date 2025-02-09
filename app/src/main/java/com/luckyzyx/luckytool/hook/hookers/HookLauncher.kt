@@ -5,6 +5,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowAppNamesDisplayMultipleLines
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
+import com.luckyzyx.luckytool.hook.scopes.launcher.EnableAutoCloseFolder
 import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDisplay
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
@@ -81,6 +82,10 @@ object HookLauncher : YukiBaseHooker() {
         //允许桌面App名称多行显示
         if (prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)) {
             loadHooker(AllowAppNamesDisplayMultipleLines)
+        }
+        //启用自动关闭文件夹
+        if (prefs(ModulePrefs).getBoolean("enable_auto_close_folder", false)) {
+            if (osCode >= 34) loadHooker(EnableAutoCloseFolder)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl
