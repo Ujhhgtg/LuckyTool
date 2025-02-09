@@ -90,8 +90,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             private const val key = "customize_control_cn_gms"
 
             //HighBrightness
-            private const val fileDir = "/sys/kernel/oplus_display/hbm"
-            val file = File(fileDir)
+            private const val highBrightnessPath = "/sys/kernel/oplus_display/hbm"
+            val highBrightnessFile = File(highBrightnessPath)
 
             //TouchPanel
             private const val touchPanelDir = "/proc/touchpanel/game_switch_enable"
@@ -100,14 +100,25 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             private val touchHidl = File(touchHidlDir)
             private val touchProc = if (touchPanel.exists()) 1 else if (touchHidl.exists()) 2 else 0
 
-//            private const val askTouch = "/odm/bin/touchHidlTest -c ao 0 26"
+            //            private const val askTouch = "/odm/bin/touchHidlTest -c ao 0 26"
             private const val readTouch = "/odm/bin/touchHidlTest -c ro 0 26"
             private const val writeTouch = "/odm/bin/touchHidlTest -c wo 0 26"
+
+            //BypassPower
+            private const val bypassPowerPath =
+                "/sys/devices/virtual/oplus_chg/battery/mmi_charging_enable"
+            val bypassPowerFile = File(bypassPowerPath)
+
         }
 
         override fun onBind(intent: Intent) = object : ITileServiceController.Stub() {
             override fun checkDarkMode(): Boolean {
-                return iColorDisplayManagerInternal != null
+                return try {
+                    iColorDisplayManagerInternal != null
+                } catch (e: Throwable) {
+                    LogUtils.d(TAG, "checkDarkMode", "$e", true)
+                    false
+                }
             }
 
             override fun getDarkMode(): Boolean {
@@ -116,7 +127,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         name = "isReduceBrightColorsActivated"
                         emptyParam()
                     }?.boolean() ?: false
-                } catch (_: Throwable) {
+                } catch (e: Throwable) {
+                    LogUtils.d(TAG, "getDarkMode", "$e", true)
                     false
                 }
             }
@@ -127,8 +139,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         name = "setReduceBrightColorsActivated"
                         param(BooleanType)
                     }?.call(status)
-                } catch (_: Throwable) {
-
+                } catch (e: Throwable) {
+                    LogUtils.d(TAG, "setDarkMode", "$e", true)
                 }
             }
 
@@ -190,7 +202,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun checkGlobalDCMode(): Boolean {
                 return try {
                     oppoFile.exists() || oplusFile.exists()
-                } catch (_: Throwable) {
+                } catch (e: Throwable) {
+                    LogUtils.d(TAG, "checkGlobalDCMode", "$e", true)
                     false
                 }
             }
@@ -206,7 +219,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         1 -> true
                         else -> false
                     }
-                } catch (_: Throwable) {
+                } catch (e: Throwable) {
+                    LogUtils.d(TAG, "getGlobalDCMode", "$e", true)
                     false
                 }
             }
@@ -217,8 +231,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                     else if (oplusFile.exists()) oplusFile
                     else null) ?: return
                     file.writeText(if (status) "1" else "0")
-                } catch (_: Throwable) {
-
+                } catch (e: Throwable) {
+                    LogUtils.d(TAG, "setGlobalDCMode", "$e", true)
                 }
             }
 
@@ -228,7 +242,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                     LogUtils.d(TAG, "getGoogleStatus", "result -> $result")
                     result.toIntOrNull() == 1
                 } catch (e: Exception) {
-                    LogUtils.d(TAG, "getGoogleStatus", "$e")
+                    LogUtils.d(TAG, "getGoogleStatus", "$e", true)
                     false
                 }
             }
@@ -240,36 +254,38 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                     )
                     LogUtils.d(TAG, "setGoogleStatus", "$status -> $result")
                 } catch (e: Exception) {
-                    LogUtils.d(TAG, "setGoogleStatus", "$e")
+                    LogUtils.d(TAG, "setGoogleStatus", "$e", true)
                 }
             }
 
             override fun checkHighBrightnessMode(): Boolean {
                 return try {
-                    file.exists()
-                } catch (_: Throwable) {
+                    highBrightnessFile.exists()
+                } catch (e: Throwable) {
+                    LogUtils.e(TAG, "checkHighBrightnessMode", "$e", true)
                     false
                 }
             }
 
             override fun getHighBrightnessMode(): Boolean {
                 return try {
-                    when (BufferedReader(FileReader(file)).readLine()?.replaceSpace?.substring(0, 1)
-                        ?.toIntOrNull()) {
+                    when (BufferedReader(FileReader(highBrightnessFile)).readLine()
+                        ?.replaceSpace?.substring(0, 1)?.toIntOrNull()) {
                         0 -> false
                         1 -> true
                         else -> false
                     }
-                } catch (_: Throwable) {
+                } catch (e: Throwable) {
+                    LogUtils.e(TAG, "getHighBrightnessMode", "$e", true)
                     false
                 }
             }
 
             override fun setHighBrightnessMode(status: Boolean) {
                 try {
-                    if (file.exists()) file.writeText(if (status) "1" else "0")
-                } catch (_: Throwable) {
-
+                    if (highBrightnessFile.exists()) highBrightnessFile.writeText(if (status) "1" else "0")
+                } catch (e: Throwable) {
+                    LogUtils.e(TAG, "setHighBrightnessMode", "$e", true)
                 }
             }
 
@@ -279,6 +295,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         1 -> touchPanel.readText().substringBefore(",").toIntOrNull() != null
                         2 -> ShellUtils.fastCmd(readTouch).substringBefore(",")
                             .toIntOrNull() is Number
+
                         else -> false
                     }
                 } catch (e: Throwable) {
@@ -309,6 +326,37 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                     }
                 } catch (e: Throwable) {
                     LogUtils.e(TAG, "setTouchMode", "$e", true)
+                }
+            }
+
+            override fun checkBypassMode(): Boolean {
+                return try {
+                    bypassPowerFile.exists()
+                } catch (e: Throwable) {
+                    LogUtils.e(TAG, "checkBypassMode", "$e", true)
+                    false
+                }
+            }
+
+            override fun getBypassMode(): Boolean {
+                return try {
+                    when (BufferedReader(FileReader(bypassPowerFile)).readLine()
+                        ?.replaceSpace?.substring(0, 1)?.toIntOrNull()) {
+                        1 -> false
+                        0 -> true
+                        else -> false
+                    }
+                } catch (e: Throwable) {
+                    LogUtils.e(TAG, "getBypassMode", "$e", true)
+                    false
+                }
+            }
+
+            override fun setBypassMode(status: Boolean) {
+                try {
+                    if (bypassPowerFile.exists()) bypassPowerFile.writeText(if (status) "0" else "1")
+                } catch (e: Throwable) {
+                    LogUtils.e(TAG, "setBypassMode", "$e", true)
                 }
             }
         }

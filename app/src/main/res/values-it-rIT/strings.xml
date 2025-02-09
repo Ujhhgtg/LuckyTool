@@ -946,6 +946,7 @@
     <string name="fiveg_mode">Modalità 5G</string>
     <string name="display_refresh_rate">Mostra/Nascondi Frequenza di Aggiornamento</string>
     <string name="google_service">Servizi Google</string>
+    <string name="bypass_power">Bypass Power</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Servizio funzione auto-avviamento</string>
     <string name="auto_start_service_channel_title">La funzione di avvio automatico è in esecuzione…</string>

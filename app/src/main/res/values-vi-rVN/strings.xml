@@ -946,6 +946,7 @@
     <string name="fiveg_mode">Chuyển đổi FiveG</string>
     <string name="display_refresh_rate">Hiện/Ẩn tốc độ làm mới</string>
     <string name="google_service">Dịch vụ Google</string>
+    <string name="bypass_power">Bypass Power</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Dịch vụ chức năng tự khởi động</string>
     <string name="auto_start_service_channel_title">Chức năng tự khởi động đang chạy…</string>

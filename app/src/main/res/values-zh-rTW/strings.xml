@@ -946,6 +946,7 @@
     <string name="fiveg_mode">5G开关</string>
     <string name="display_refresh_rate">显示/隐藏刷新率</string>
     <string name="google_service">Google 服務</string>
+    <string name="bypass_power">旁路供电</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">自启功能服务</string>
     <string name="auto_start_service_channel_title">自启功能运行中…</string>

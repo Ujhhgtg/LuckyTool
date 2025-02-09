@@ -946,6 +946,7 @@
     <string name="fiveg_mode">Przełącznik trybu 5G</string>
     <string name="display_refresh_rate">Wskaźnik odświeżania ekranu</string>
     <string name="google_service">Google Service</string>
+    <string name="bypass_power">Bypass Power</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Self-starting function service</string>
     <string name="auto_start_service_channel_title">The self-start function is running…</string>

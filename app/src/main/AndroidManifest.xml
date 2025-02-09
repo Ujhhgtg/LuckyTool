@@ -192,6 +192,16 @@
             </intent-filter>
         </service>
         <service
+                android:name=".service.tiles.BypassPowerModeTile"
+                android:exported="true"
+                android:icon="@drawable/baseline_power_24"
+                android:label="@string/bypass_power"
+                android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
                 android:name=".service.tiles.RemoteAdbTile"
                 android:exported="true"
                 android:icon="@drawable/baseline_adb_24"

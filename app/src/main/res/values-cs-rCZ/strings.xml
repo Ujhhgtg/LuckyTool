@@ -946,6 +946,7 @@
     <string name="fiveg_mode">Přepínač 5G</string>
     <string name="display_refresh_rate">Zobrazit/skrýt obnovovací frekvenci</string>
     <string name="google_service">Služby Google</string>
+    <string name="bypass_power">Bypass Power</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Služba automatického spouštění</string>
     <string name="auto_start_service_channel_title">Funkce automatického startu běží…</string>

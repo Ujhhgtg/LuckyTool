@@ -25,4 +25,8 @@ interface ITileServiceController {
     int getTouchMode();
     void setTouchMode(int value);
 
+    boolean checkBypassMode();
+    boolean getBypassMode();
+    void setBypassMode(boolean status);
+
 }

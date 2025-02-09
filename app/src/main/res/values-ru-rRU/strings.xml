@@ -946,6 +946,7 @@
     <string name="fiveg_mode">Переключатель 5G</string>
     <string name="display_refresh_rate">Показать/скрыть частоту обновления экрана</string>
     <string name="google_service">Сервисы Google</string>
+    <string name="bypass_power">Bypass Power</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Сервис автозапуска</string>
     <string name="auto_start_service_channel_title">Функция автозапуска запущена…</string>
