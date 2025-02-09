@@ -27,8 +27,8 @@ class BypassPowerModeTile : TileService() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action != Intent.ACTION_BATTERY_CHANGED) return
             if (controller != null && controller!!.checkBypassMode() && !batteryManager.isCharging) {
-                controller?.bypassMode = false
                 unregister()
+                controller?.bypassMode = false
                 refreshData()
             }
         }
@@ -64,15 +64,11 @@ class BypassPowerModeTile : TileService() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 registerReceiver(
-                    receiver,
-                    IntentFilter(Intent.ACTION_BATTERY_CHANGED),
+                    receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED),
                     Context.RECEIVER_EXPORTED and Context.RECEIVER_VISIBLE_TO_INSTANT_APPS
                 )
             } else {
-                registerReceiver(
-                    receiver,
-                    IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-                )
+                registerReceiver(receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
             }
         } catch (e: Throwable) {
             LogUtils.e(TAG, "registerReceiver", "$e", true)
