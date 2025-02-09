@@ -514,6 +514,7 @@
     <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
     <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
     <string name="click_icon_open_market_page">Nhấp vào biểu tượng để mở trang cửa hàng</string>
+    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
     <string name="allow_disabling_system_apps">Cho phép tắt ứng dụng hệ thống</string>
     <string name="allow_disabling_system_apps_summary">Mô-đun này không chịu trách nhiệm về việc không thể khôi phục các ứng dụng hệ thống do thao tác của người dùng.</string>
     <string name="remove_app_uninstall_button_blacklist">Xóa danh sách đen nút gỡ cài đặt ứng dụng</string>

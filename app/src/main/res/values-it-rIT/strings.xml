@@ -250,8 +250,8 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Nascondi quando nessun media è in riproduzione</string>
     <string name="force_enable_media_toggle_button">Forza il pulsante di attivazione multimediale</string>
     <string name="set_control_center_volume_seekbar_mode">Imposta la modalità della barra del volume del centro di controllo</string>
-    <string name="remove_control_center_edit_button">Remove control center edit button</string>
-    <string name="remove_control_center_more_button">Remove control center more button</string>
+    <string name="remove_control_center_edit_button">Rimuovi pulsante modifica centro di controllo</string>
+    <string name="remove_control_center_more_button">Rimuovi pulsante del centro di controllo</string>
     <string name="set_auto_brightness_button_mode">Imposta modalità pulsante luminosità automatica</string>
     <string name="remove_control_center_user_switcher">Rimuovi switch utente centro di controllo</string>
     <string name="remove_control_center_mydevice">Rimuovi il centro di controllo del mio dispositivo</string>
@@ -267,8 +267,8 @@
     <string name="StatusBarTiles">Tile Barra di Stato</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Forza la visualizzazione dei tile di attivazione/disattivazione dello stato della chiamata</string>
     <string name="SpecialTiles">Tile speciali</string>
-    <string name="classic_control_center_mode_only">Classic Control Center Mode Only</string>
-    <string name="separate_control_center_mode_only">Separate Control Center Mode Only</string>
+    <string name="classic_control_center_mode_only">Solo Modalità Centro Controllo Classico</string>
+    <string name="separate_control_center_mode_only">Solo modalità Centro di controllo separato</string>
     <string name="SpecialTiles_summary">Solo Modalità Centro Controllo Classico</string>
     <string name="auto_expand_tile_rows_horizontal">Espandi automaticamente il numero di righe orizzontali dei tile</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Quando il lettore multimediale è nascosto, due righe di tile saranno visualizzate in modalità orizzontale</string>
@@ -416,7 +416,7 @@
     <string name="remove_app_clone_badge">Rimuovi badge clona app</string>
     <string name="remove_app_update_green_dot">Rimuovi il punto verde dopo l\'aggiornamento dell\'app</string>
     <string name="FolderLayoutRelated">Stile Tile</string>
-    <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
+    <string name="enable_auto_close_folder">Abilita la chiusura automatica delle cartelle</string>
     <string name="remove_folder_preview_background">Rimuovi lo sfondo dell\'anteprima della cartella</string>
     <string name="enable_folder_layout_adjustment">Abilita le regolazioni del layout delle cartelle</string>
     <string name="set_icon_columns_in_folder">Imposta il numero di colonne di icone nella cartella</string>
@@ -446,7 +446,7 @@
     <string name="zoom_window_support_list_summary">Abilita in base alle tue esigenze, altrimenti ci saranno problemi irreparabili</string>
     <string name="force_all_apps_support_split_screen">Forza tutte le app a supportare lo schermo diviso</string>
     <string name="launcher_drawer_layout_related">Layout del Drawer</string>
-    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
+    <string name="enable_drawer_layout_double_line_names">Abilita i nomi a doppia riga del layout nel Drawer</string>
     <string name="enable_drawer_layout_adjustment">Abilita le regolazioni della disposizione del drawer</string>
     <string name="set_icon_columns_in_drawer">Imposta il numero di colonne di icone nel drawer</string>
     <string name="launcher_layout_related">Layout del Desktop</string>
@@ -514,6 +514,7 @@
     <string name="show_last_update_time_in_app_details">Mostra i dettagli dell\'ultimo aggiornamento nell\'app</string>
     <string name="enable_long_press_to_copy_in_app_details">Abilita pressione prolungata per copiare nei dettagli dell\'app</string>
     <string name="click_icon_open_market_page">Fare clic sull\'icona per aprire la pagina del market</string>
+    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
     <string name="allow_disabling_system_apps">Consenti la disabilitazione delle app di sistema</string>
     <string name="allow_disabling_system_apps_summary">Questo modulo non è responsabile se l\'applicazione di sistema non può essere ripristinata a causa delle operazioni dell\'utente.</string>
     <string name="remove_app_uninstall_button_blacklist">Rimuovi lista nera del pulsante di disinstallazione app</string>
@@ -858,8 +859,8 @@
     <string name="module_has_updated">Il modulo è stato aggiornato</string>
     <string name="module_is_disabled">Il modulo è disabilitato</string>
     <string name="module_version">Versione modulo:</string>
-    <string name="root_source">Root source:</string>
-    <string name="framework_version">Framework version:</string>
+    <string name="root_source">Origine root</string>
+    <string name="framework_version">Versione Framework:</string>
     <string name="enable_module">Abilita modulo</string>
     <string name="version_name">Nome Versione</string>
     <string name="download_count">Conteggio download</string>

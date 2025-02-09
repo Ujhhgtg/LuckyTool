@@ -514,6 +514,7 @@
     <string name="show_last_update_time_in_app_details">Pokaż czas ostatniej aktualizacji</string>
     <string name="enable_long_press_to_copy_in_app_details">Włącz zaznaczanie i kopiowanie</string>
     <string name="click_icon_open_market_page">Dotknij ikonę aplikacji, aby otworzyć sklep</string>
+    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
     <string name="allow_disabling_system_apps">Allow disabling system apps</string>
     <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>
     <string name="remove_app_uninstall_button_blacklist">Remove blacklist of app uninstall button</string>

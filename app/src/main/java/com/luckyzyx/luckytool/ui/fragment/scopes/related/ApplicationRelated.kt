@@ -371,6 +371,12 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_app_clone_quick_jump)
+                key = "enable_app_clone_quick_jump"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.allow_disabling_system_apps)
                 summary = getString(R.string.allow_disabling_system_apps_summary)
                 key = "allow_disabling_system_apps"

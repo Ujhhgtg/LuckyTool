@@ -181,4 +181,22 @@ class AppUtils(val context: Context) {
         intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
         context.startActivity(intent)
     }
+
+    /**
+     * 跳转分身页面
+     * @receiver Context
+     * @param packName String
+     */
+    fun openMultiAppIntent(label: CharSequence, packName: String) {
+        val intent = Intent().apply {
+            setClassName(
+                "com.oplus.multiapp",
+                "com.oplus.multiapp.ui.settings.ActivitySettingsActivity"
+            )
+            setPackage("com.oplus.multiapp")
+            putExtra("title", label)
+            putExtra("pkgName", packName)
+        }
+        context.startActivity(intent)
+    }
 }

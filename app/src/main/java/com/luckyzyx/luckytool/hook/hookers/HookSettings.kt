@@ -11,6 +11,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceOTACardBackgro
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPageParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.DarkModeList
 import com.luckyzyx.luckytool.hook.scopes.settings.DisableSettingOtgAutoOff
+import com.luckyzyx.luckytool.hook.scopes.settings.EnableAppCloneQuickJump
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableGoogleAutoFill
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
@@ -144,6 +145,10 @@ object HookSettings : YukiBaseHooker() {
         //移除设备名称更改限制
         if (prefs(ModulePrefs).getBoolean("remove_device_name_change_limit", false)) {
             if (osCode >= 30) loadHooker(RemoveDeviceNameChangeLimit)
+        }
+        //应用详情页面应用分身快捷跳转
+        if (prefs(ModulePrefs).getBoolean("enable_app_clone_quick_jump", false)) {
+            if (osCode >= 30) loadHooker(EnableAppCloneQuickJump)
         }
 
         //电源键

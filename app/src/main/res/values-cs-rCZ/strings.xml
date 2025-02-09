@@ -514,6 +514,7 @@
     <string name="show_last_update_time_in_app_details">Zobrazit čas poslední aktualizace v podrobnostech aplikace</string>
     <string name="enable_long_press_to_copy_in_app_details">Povolit dlouhé stisknutí pro zkopírování podrobností aplikace</string>
     <string name="click_icon_open_market_page">Klikněte na ikonu pro otevření Google play obchodu</string>
+    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
     <string name="allow_disabling_system_apps">Povolit zakázání systémových aplikací</string>
     <string name="allow_disabling_system_apps_summary">Tento modul neodpovídá za to, že systémovou aplikaci nelze obnovit v důsledku zásahů uživatele.</string>
     <string name="remove_app_uninstall_button_blacklist">Odstranit černou listinu tlačítka pro odinstalaci</string>

@@ -1,7 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
-import android.view.View
-import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
@@ -26,7 +24,6 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
                 method { name = "setImageDrawable" }.hook {
                     before {
                         args().first().setNull()
-                        instance<View>().isVisible = false
                     }
                 }
             }
