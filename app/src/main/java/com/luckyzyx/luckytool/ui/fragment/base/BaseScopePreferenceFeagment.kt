@@ -53,6 +53,11 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
     open val isEnableOpenMenu: Boolean = false
 
     /**
+     * 是否隐藏页面
+     */
+    open val isHidePage: Boolean = false
+
+    /**
      * 当前Prefs存储名称
      */
     abstract val currentPrefsName: String

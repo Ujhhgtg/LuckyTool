@@ -22,13 +22,14 @@ class AlphaBackupPro : BaseScopePreferenceFeagment() {
 
     override val navigateFragmentId: Int = R.id.alphaBackupPro
 
+    override val isHidePage: Boolean = requireActivity().checkPackName(scopes.first())
+
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_pro_license)
                 key = "remove_check_license"
                 setDefaultValue(false)
-                isVisible = checkPackName(scopes.first())
                 isIconSpaceReserved = false
             })
         }
