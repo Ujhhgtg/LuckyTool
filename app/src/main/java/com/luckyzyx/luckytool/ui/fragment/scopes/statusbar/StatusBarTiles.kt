@@ -43,7 +43,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
             if (SDK >= A13) {
                 add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.SpecialTiles)
-                    summary = getString(R.string.SpecialTiles_summary)
+                    summary = getString(R.string.classic_control_center_mode_only)
                     key = "SpecialTiles"
                     isIconSpaceReserved = false
                 })
@@ -215,7 +215,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.control_center_tile_enable)
-                summary = getString(R.string.SpecialTiles_summary)
+                summary = getString(R.string.classic_control_center_mode_only)
                 key = "control_center_tile_enable"
                 setDefaultValue(false)
                 isIconSpaceReserved = false

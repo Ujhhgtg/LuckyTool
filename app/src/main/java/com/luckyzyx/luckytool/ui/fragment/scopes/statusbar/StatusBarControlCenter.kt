@@ -209,6 +209,22 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 31
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_control_center_edit_button)
+                summary = getString(R.string.separate_control_center_mode_only)
+                key = "remove_control_center_edit_button"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_control_center_more_button)
+                summary = getString(R.string.separate_control_center_mode_only)
+                key = "remove_control_center_more_button"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
+                isIconSpaceReserved = false
+            })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_auto_brightness_button_mode)
                 summary = getString(R.string.common_words_current_mode) + ": %s"

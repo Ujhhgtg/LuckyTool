@@ -8,6 +8,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterDateStyle
 import com.luckyzyx.luckytool.hook.scopes.systemui.EnableNotificationAlignBothSides
 import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundBlurAlpha
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterUserSwitcher
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSeparateControlCenterButton
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -40,5 +41,9 @@ object StatusBarControlCenter : YukiBaseHooker() {
 
         //控制中心背景透明度
         if (osCode < 34) loadHooker(ControlCenterBackgroundTransParency)
+
+        //移除分离式控制中心按钮
+        if (osCode >= 34) loadHooker(RemoveSeparateControlCenterButton)
+
     }
 }
