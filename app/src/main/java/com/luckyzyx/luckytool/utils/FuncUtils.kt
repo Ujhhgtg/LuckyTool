@@ -10,6 +10,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -1008,4 +1010,9 @@ fun createTextDrawable(context: Context, text: String): Drawable {
 
     // 返回 BitmapDrawable，背景是透明的
     return BitmapDrawable(context.resources, bitmap)
+}
+
+fun PackageInfo.isSystem(): Boolean {
+    val appInfo = applicationInfo ?: return false
+    return appInfo.flags and ApplicationInfo.FLAG_SYSTEM == 1
 }

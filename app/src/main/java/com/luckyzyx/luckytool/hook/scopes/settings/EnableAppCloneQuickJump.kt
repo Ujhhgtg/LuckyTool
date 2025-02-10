@@ -11,6 +11,7 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.PackageInfoClass
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.AppUtils
+import com.luckyzyx.luckytool.utils.isSystem
 
 @Obfuscate
 object EnableAppCloneQuickJump : YukiBaseHooker() {
@@ -22,6 +23,9 @@ object EnableAppCloneQuickJump : YukiBaseHooker() {
                     val menu = args().first().cast<Menu>() ?: return@after
                     val context = method { name = "getContext";superClass() }.get(instance)
                         .invoke<Context>() ?: return@after
+                    val packageInfo = field { type = PackageInfoClass }.get(instance)
+                        .cast<PackageInfo>() ?: return@after
+                    if (packageInfo.isSystem()) return@after
                     val label = AppUtils(context).getAppLabel("com.oplus.multiapp")
 //                    val menuInflater = args().last().cast<MenuInflater>() ?: return@after
                     menu.add(0, 999, 0, label)

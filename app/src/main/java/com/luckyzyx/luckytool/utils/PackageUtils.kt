@@ -138,6 +138,32 @@ class PackageUtils(private val packageManager: PackageManager) {
         else packageManager.queryIntentActivities(intent, ResolveInfoFlags.of(int.toLong()))
     }
 
+    fun getInstalledAppInfo(packName: String, flag: Int): AppInfo? {
+        var info: AppInfo? = null
+        getPackageInfo(packName, flag)?.apply {
+            try {
+                val appInfo = applicationInfo ?: return@apply
+                val name = appInfo.loadLabel(packageManager)
+                val icon = appInfo.loadIcon(packageManager)
+                val size = FileUtils.getFileSize(File(appInfo.sourceDir))
+                val versionName = versionName ?: ""
+                val versionCode = longVersionCode
+                val installTime = firstInstallTime
+                val lastInstallTime = lastUpdateTime
+                val target = appInfo.targetSdkVersion
+                val isSystem = appInfo.flags and ApplicationInfo.FLAG_SYSTEM == 1
+                val isEnable = getApplicationEnabledSetting(packageName)
+                info = AppInfo(
+                    name.toString(), packageName, icon, size, versionName, versionCode,
+                    installTime, lastInstallTime, target, isSystem, isEnable
+                )
+            } catch (e: Exception) {
+                LogUtils.e("getInstalledAppInfo", packageName, toString())
+            }
+        }
+        return info
+    }
+
     fun getInstalledAppInfos(flag: Int): ArrayList<AppInfo> {
         val appInfoList = ArrayList<AppInfo>()
         getInstalledPackages(flag).forEachIndexed { _, info ->
