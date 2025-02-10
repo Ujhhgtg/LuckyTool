@@ -17,6 +17,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除分离式控制中心更多按钮 C15+
 - [添加] 启用旁路供电模式磁贴
 - [添加] 应用详情页面应用分身快捷跳转 C14+
+- [移除] 游戏助手旁路供电选项
 
 ### 1.2.7
 

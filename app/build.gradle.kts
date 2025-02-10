@@ -142,7 +142,7 @@ dependencies {
     implementation(libs.spiderman)
     implementation(libs.fastscroll)
     implementation(libs.colorpicker)
-    implementation(libs.android.image.cropper)
+    implementation(libs.image.cropper)
 }
 
 fun getVersionCode(): Int {

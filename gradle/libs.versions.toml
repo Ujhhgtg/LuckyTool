@@ -26,7 +26,7 @@ yukihookapi = { module = "com.highcapable.yukihookapi:api", version = "1.2.1.1" 
 ksp-yukihookapi = { module = "com.highcapable.yukihookapi:ksp-xposed", version = "1.2.1" }
 dexkit = { module = "org.luckypray:dexkit", version = "2.0.3" }
 
-betterandroid-ui-component = { module = "com.highcapable.betterandroid:ui-component", version = "1.0.5" }
+betterandroid-ui-component = { module = "com.highcapable.betterandroid:ui-component", version = "1.0.6" }
 material = { module = "com.google.android.material:material", version = "1.12.0" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.2.0" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
@@ -39,7 +39,7 @@ xxpermissions = { module = "com.github.getActivity:XXPermissions", version = "18
 spiderman = { module = "com.github.simplepeng.SpiderMan:spiderman", version = "v1.1.9" }
 fastscroll = { module = "me.zhanghai.android.fastscroll:library", version = "1.3.0" }
 colorpicker = { module = "com.jaredrummler:colorpicker", version = "1.1.0" }
-android-image-cropper = { module = "com.vanniktech:android-image-cropper", version = "4.6.0" }
+image-cropper = { module = "com.vanniktech:android-image-cropper", version = "4.6.0" }
 
 androidx-annotation = { module = "androidx.annotation:annotation", version = "1.9.1" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version = "2.8.7" }
