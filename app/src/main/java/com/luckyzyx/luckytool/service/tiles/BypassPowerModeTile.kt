@@ -5,36 +5,42 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
-import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.service.TilesService
-import com.luckyzyx.luckytool.utils.LogUtils
 
 @Obfuscate
-@Suppress("PrivatePropertyName")
 class BypassPowerModeTile : TileService() {
-    private val TAG = "BypassPowerModeTile"
     private var controller: ITileServiceController? = null
-
-    private val batteryManager by lazy {
-        getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-    }
 
     val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action != Intent.ACTION_BATTERY_CHANGED) return
-            if (controller != null && controller!!.checkBypassMode() && !batteryManager.isCharging) {
-                unregister()
-                controller?.bypassMode = false
-                refreshData()
+            if (intent.action == Intent.ACTION_POWER_CONNECTED
+                || intent.action == Intent.ACTION_POWER_DISCONNECTED
+            ) {
+                refreshBypass()
             }
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_POWER_DISCONNECTED)
+        }
+        registerReceiver(receiver, filter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
+
     override fun onStartListening() {
+        super.onStartListening()
         TilesService.get(this) {
             controller = it
             refreshData()
@@ -44,14 +50,10 @@ class BypassPowerModeTile : TileService() {
     override fun onClick() {
         when (qsTile.state) {
             Tile.STATE_INACTIVE -> {
-                if (batteryManager.isCharging) {
-                    register()
-                    controller?.bypassMode = true
-                }
+                if (isCharging()) controller?.bypassMode = true
             }
 
             Tile.STATE_ACTIVE -> {
-                unregister()
                 controller?.bypassMode = false
             }
 
@@ -60,27 +62,15 @@ class BypassPowerModeTile : TileService() {
         refreshData()
     }
 
-    private fun register() {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(
-                    receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED),
-                    Context.RECEIVER_EXPORTED and Context.RECEIVER_VISIBLE_TO_INSTANT_APPS
-                )
-            } else {
-                registerReceiver(receiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-            }
-        } catch (e: Throwable) {
-            LogUtils.e(TAG, "registerReceiver", "$e", true)
-        }
+    private fun isCharging(): Boolean {
+        val intent = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val status = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+        return status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
     }
 
-    private fun unregister() {
-        try {
-            unregisterReceiver(receiver)
-        } catch (e: Throwable) {
-            LogUtils.e(TAG, "unregisterReceiver", "$e", true)
-        }
+    private fun refreshBypass() {
+        if (!isCharging()) controller?.bypassMode = false
+        refreshData()
     }
 
     private fun refreshData() {
