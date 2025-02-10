@@ -3,8 +3,6 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
-import com.luckyzyx.luckytool.hook.scopes.games.EnableGameBypassChargingSupport
-import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 @Obfuscate
@@ -16,8 +14,8 @@ object HookOplusCosa : YukiBaseHooker() {
 //        loadHooker(HookGlobalSystemProperties)
 
         //启用旁路供电支持
-        if (prefs(ModulePrefs).getBoolean("enable_game_bypass_charging_support", false)) {
-            if (osCode >= 33) loadHooker(EnableGameBypassChargingSupport)
-        }
+//        if (prefs(ModulePrefs).getBoolean("enable_game_bypass_charging_support", false)) {
+//            if (osCode >= 33) loadHooker(EnableGameBypassChargingSupport)
+//        }
     }
 }
