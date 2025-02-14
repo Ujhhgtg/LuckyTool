@@ -513,7 +513,8 @@
     <string name="show_first_install_time_in_app_details">Show first install time in app details</string>
     <string name="show_last_update_time_in_app_details">Pokaż czas ostatniej aktualizacji</string>
     <string name="enable_long_press_to_copy_in_app_details">Włącz zaznaczanie i kopiowanie</string>
-    <string name="click_icon_open_market_page">Dotknij ikonę aplikacji, aby otworzyć sklep</string>
+    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
+    <string name="open_market">Open Market</string>
     <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
     <string name="allow_disabling_system_apps">Allow disabling system apps</string>
     <string name="allow_disabling_system_apps_summary">This module is not responsible if the system application cannot be restored due to user operations.</string>

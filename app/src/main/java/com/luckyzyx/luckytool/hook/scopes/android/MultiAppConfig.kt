@@ -5,14 +5,17 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 
 @Obfuscate
 object MultiAppConfig : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         loadHooker(MultiAppAllowList)
 
         if (prefs(ModulePrefs).getBoolean("remove_multi_app_blacklist", false)) {
-            loadHooker(MultiAppBlackList)
+            if (osCode >= 31) loadHooker(MultiAppBlackList)
         }
     }
 

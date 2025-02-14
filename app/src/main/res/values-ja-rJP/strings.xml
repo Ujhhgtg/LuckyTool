@@ -513,7 +513,8 @@
     <string name="show_first_install_time_in_app_details">アプリの詳細に初回インストール日時を表示</string>
     <string name="show_last_update_time_in_app_details">アプリ詳細に最終更新日時を表示する</string>
     <string name="enable_long_press_to_copy_in_app_details">アプリ詳細で長押ししてコピーできるようにする</string>
-    <string name="click_icon_open_market_page">アイコンをタップしてストアページを開く</string>
+    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
+    <string name="open_market">Open Market</string>
     <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
     <string name="allow_disabling_system_apps">システムアプリの無効化を許可</string>
     <string name="allow_disabling_system_apps_summary">ユーザーの操作によりシステムアプリを復元できない場合でも、このモジュールは責任を負いません</string>

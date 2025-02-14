@@ -513,7 +513,8 @@
     <string name="show_first_install_time_in_app_details">应用详情显示首次安装时间</string>
     <string name="show_last_update_time_in_app_details">应用详情显示最后更新时间</string>
     <string name="enable_long_press_to_copy_in_app_details">应用详情启用长按复制</string>
-    <string name="click_icon_open_market_page">点击图标打开商店页面</string>
+    <string name="enable_quick_open_market_page">启用打开商店快捷跳转</string>
+    <string name="open_market">打开商店</string>
     <string name="enable_app_clone_quick_jump">启用应用分身快捷跳转</string>
     <string name="allow_disabling_system_apps">允许停用系统应用</string>
     <string name="allow_disabling_system_apps_summary">由于用户操作导致无法恢复系统应用，本模块概不负责!</string>

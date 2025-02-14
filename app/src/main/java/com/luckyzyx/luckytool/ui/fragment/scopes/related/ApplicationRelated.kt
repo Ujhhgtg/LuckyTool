@@ -365,8 +365,8 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.click_icon_open_market_page)
-                key = "click_icon_open_market_page"
+                title = getString(R.string.enable_quick_open_market_page)
+                key = "enable_quick_open_market_page"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
@@ -374,6 +374,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.enable_app_clone_quick_jump)
                 key = "enable_app_clone_quick_jump"
                 setDefaultValue(false)
+                isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

@@ -250,8 +250,8 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Ẩn khi không có phương tiện nào đang phát</string>
     <string name="force_enable_media_toggle_button">Buộc bật nút chuyển đổi phương tiện</string>
     <string name="set_control_center_volume_seekbar_mode">Đặt chế độ thanh âm lượng trung tâm điều khiển</string>
-    <string name="remove_control_center_edit_button">Remove control center edit button</string>
-    <string name="remove_control_center_more_button">Remove control center more button</string>
+    <string name="remove_control_center_edit_button">Xóa nút chỉnh sửa trung tâm điều khiển</string>
+    <string name="remove_control_center_more_button">Xóa nút thêm trung tâm điều khiển</string>
     <string name="set_auto_brightness_button_mode">Đặt chế độ nút điều chỉnh độ sáng tự động</string>
     <string name="remove_control_center_user_switcher">Xóa trình chuyển đổi người dùng trung tâm điều khiển</string>
     <string name="remove_control_center_mydevice">Xóa trung tâm điều khiển thiết bị của tôi</string>
@@ -267,8 +267,8 @@
     <string name="StatusBarTiles">Ô thanh trạng thái</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Buộc hiển thị ô chuyển đổi trạng thái đổ chuông</string>
     <string name="SpecialTiles">Ô đặc biệt</string>
-    <string name="classic_control_center_mode_only">Classic Control Center Mode Only</string>
-    <string name="separate_control_center_mode_only">Separate Control Center Mode Only</string>
+    <string name="classic_control_center_mode_only">Chỉ chế độ trung tâm điều khiển cổ điển</string>
+    <string name="separate_control_center_mode_only">Chỉ chế độ chia trung tâm điều khiển</string>
     <string name="SpecialTiles_summary">Chỉ chế độ Trung tâm điều khiển cổ điển</string>
     <string name="auto_expand_tile_rows_horizontal">Tự động mở rộng số lượng ô hàng ngang</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Chế độ hàng ngang sẽ hiển thị hai hàng ô khi trình phát đa phương tiện bị ẩn</string>
@@ -416,7 +416,7 @@
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_update_green_dot">Xóa dấu chấm cập nhật ứng dụng</string>
     <string name="FolderLayoutRelated">Bố cục gạch liên quan</string>
-    <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
+    <string name="enable_auto_close_folder">Bật chức năng đóng thư mục tự động</string>
     <string name="remove_folder_preview_background">Xóa nền xem trước thư mục</string>
     <string name="enable_folder_layout_adjustment">Bật điều chỉnh bố cục thư mục</string>
     <string name="set_icon_columns_in_folder">Đặt số cột biểu tượng trong thư mục</string>
@@ -446,7 +446,7 @@
     <string name="zoom_window_support_list_summary">Kích hoạt theo nhu cầu của bạn, nếu không sẽ có những vấn đề không thể khắc phục được</string>
     <string name="force_all_apps_support_split_screen">Buộc tất cả các ứng dụng hỗ trợ chia đôi màn hình</string>
     <string name="launcher_drawer_layout_related">Bố cục ngăn ứng dụng</string>
-    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
+    <string name="enable_drawer_layout_double_line_names">Bật tên dòng đôi bố cục ngăn kéo</string>
     <string name="enable_drawer_layout_adjustment">Bật điều chỉnh bố cục ngăn ứng dụng</string>
     <string name="set_icon_columns_in_drawer">Đặt số cột biểu tượng ngăn ứng dụng</string>
     <string name="launcher_layout_related">Bố cục màn hình chính</string>
@@ -513,8 +513,9 @@
     <string name="show_first_install_time_in_app_details">Hiển thị thời gian cài đặt đầu tiên trong chi tiết ứng dụng</string>
     <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
     <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
-    <string name="click_icon_open_market_page">Nhấp vào biểu tượng để mở trang cửa hàng</string>
-    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
+    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
+    <string name="open_market">Open Market</string>
+    <string name="enable_app_clone_quick_jump">Bật tính năng nhảy nhanh nhân bản ứng dụng</string>
     <string name="allow_disabling_system_apps">Cho phép tắt ứng dụng hệ thống</string>
     <string name="allow_disabling_system_apps_summary">Mô-đun này không chịu trách nhiệm về việc không thể khôi phục các ứng dụng hệ thống do thao tác của người dùng.</string>
     <string name="remove_app_uninstall_button_blacklist">Xóa danh sách đen nút gỡ cài đặt ứng dụng</string>
@@ -859,8 +860,8 @@
     <string name="module_has_updated">Đã cập nhật mô-đun</string>
     <string name="module_is_disabled">Mô-đun bị vô hiệu hóa</string>
     <string name="module_version">Phiên bản mô-đun:</string>
-    <string name="root_source">Root source:</string>
-    <string name="framework_version">Framework version:</string>
+    <string name="root_source">Nguồn Root:</string>
+    <string name="framework_version">Phiên bản Framework:</string>
     <string name="enable_module">Bật mô-đun</string>
     <string name="version_name">Tên phiên bản</string>
     <string name="download_count">Lượt tải về</string>
@@ -947,7 +948,7 @@
     <string name="fiveg_mode">Chuyển đổi FiveG</string>
     <string name="display_refresh_rate">Hiện/Ẩn tốc độ làm mới</string>
     <string name="google_service">Dịch vụ Google</string>
-    <string name="bypass_power">Bypass Power</string>
+    <string name="bypass_power">Bỏ qua nguồn điện</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Dịch vụ chức năng tự khởi động</string>
     <string name="auto_start_service_channel_title">Chức năng tự khởi động đang chạy…</string>

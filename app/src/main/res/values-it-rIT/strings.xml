@@ -513,8 +513,9 @@
     <string name="show_first_install_time_in_app_details">Mostra l\'ora della prima installazione nei dettagli dell\'app</string>
     <string name="show_last_update_time_in_app_details">Mostra i dettagli dell\'ultimo aggiornamento nell\'app</string>
     <string name="enable_long_press_to_copy_in_app_details">Abilita pressione prolungata per copiare nei dettagli dell\'app</string>
-    <string name="click_icon_open_market_page">Fare clic sull\'icona per aprire la pagina del market</string>
-    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
+    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
+    <string name="open_market">Open Market</string>
+    <string name="enable_app_clone_quick_jump">Abilita salto rapido clone applicazione</string>
     <string name="allow_disabling_system_apps">Consenti la disabilitazione delle app di sistema</string>
     <string name="allow_disabling_system_apps_summary">Questo modulo non è responsabile se l\'applicazione di sistema non può essere ripristinata a causa delle operazioni dell\'utente.</string>
     <string name="remove_app_uninstall_button_blacklist">Rimuovi lista nera del pulsante di disinstallazione app</string>

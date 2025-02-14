@@ -250,8 +250,8 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Скрывать, когда нет воспроизведения</string>
     <string name="force_enable_media_toggle_button">Принудительно включить кнопку переключения медиа</string>
     <string name="set_control_center_volume_seekbar_mode">Установить режим панели громкости центра управления</string>
-    <string name="remove_control_center_edit_button">Remove control center edit button</string>
-    <string name="remove_control_center_more_button">Remove control center more button</string>
+    <string name="remove_control_center_edit_button">Удалить кнопку редактирования \"Центра управления\"</string>
+    <string name="remove_control_center_more_button">Удалить кнопку \"Еще\" в центре управления</string>
     <string name="set_auto_brightness_button_mode">Показывать кнопку автояркости</string>
     <string name="remove_control_center_user_switcher">Удалить переключатель пользователей в шторке</string>
     <string name="remove_control_center_mydevice">Удалить \"Мои устройства\" из шторки</string>
@@ -267,8 +267,8 @@
     <string name="StatusBarTiles">Плитки быстрых настроек</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Принудительное отображение плитки переключения статуса звонка</string>
     <string name="SpecialTiles">Специальные плитки</string>
-    <string name="classic_control_center_mode_only">Classic Control Center Mode Only</string>
-    <string name="separate_control_center_mode_only">Separate Control Center Mode Only</string>
+    <string name="classic_control_center_mode_only">Только классический режим \"Центра управления\"</string>
+    <string name="separate_control_center_mode_only">Только отдельный режим \"Центра управления\"</string>
     <string name="SpecialTiles_summary">Только классический режим \"Центра управления\"</string>
     <string name="auto_expand_tile_rows_horizontal">Автоматически развернуть количество горизонтальных плиток</string>
     <string name="auto_expand_tile_rows_horizontal_summary">Когда медиаплеер скрыт, два ряда плиток будут отображаться в горизонтальном режиме</string>
@@ -416,7 +416,7 @@
     <string name="remove_app_clone_badge">Удалить значок клонированного приложения</string>
     <string name="remove_app_update_green_dot">Удалить зеленую точку после обновления приложения</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
-    <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
+    <string name="enable_auto_close_folder">Включить автоматическое закрытие папок</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
     <string name="set_icon_columns_in_folder">Задать количество столбцов иконок в папке</string>
@@ -446,7 +446,7 @@
     <string name="zoom_window_support_list_summary">Включать при необходимости, в противном случае возникнут непоправимые проблемы</string>
     <string name="force_all_apps_support_split_screen">Разрешить всем приложениям использовать раздельный экран</string>
     <string name="launcher_drawer_layout_related">Разметка папки</string>
-    <string name="enable_drawer_layout_double_line_names">Enable drawer layout double line names</string>
+    <string name="enable_drawer_layout_double_line_names">Включить двухстрочные имена папок</string>
     <string name="enable_drawer_layout_adjustment">Включить корректировку разметки меню приложений</string>
     <string name="set_icon_columns_in_drawer">Задать кол-во столбцов в меню</string>
     <string name="launcher_layout_related">Сетка рабочего стола</string>
@@ -513,8 +513,9 @@
     <string name="show_first_install_time_in_app_details">Показывать время первой установки в сведениях о приложении</string>
     <string name="show_last_update_time_in_app_details">Показывать время последнего обновления в подробностях приложения</string>
     <string name="enable_long_press_to_copy_in_app_details">Включить долгое нажатие для копирования сведений о приложении</string>
-    <string name="click_icon_open_market_page">Нажмите на иконку, чтобы открыть страницу магазина</string>
-    <string name="enable_app_clone_quick_jump">Enable application clone quick jump</string>
+    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
+    <string name="open_market">Open Market</string>
+    <string name="enable_app_clone_quick_jump">Включить быстрый переход к клонированию приложения</string>
     <string name="allow_disabling_system_apps">Разрешить отключение системных приложений</string>
     <string name="allow_disabling_system_apps_summary">Этот модуль не несет ответственности, если системное приложение не может быть восстановлено из-за действий пользователя</string>
     <string name="remove_app_uninstall_button_blacklist">Удалить черный список кнопки удаления приложения</string>
@@ -947,7 +948,7 @@
     <string name="fiveg_mode">Переключатель 5G</string>
     <string name="display_refresh_rate">Показать/скрыть частоту обновления экрана</string>
     <string name="google_service">Сервисы Google</string>
-    <string name="bypass_power">Bypass Power</string>
+    <string name="bypass_power">Мощность байпаса</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Сервис автозапуска</string>
     <string name="auto_start_service_channel_title">Функция автозапуска запущена…</string>
