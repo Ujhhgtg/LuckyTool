@@ -48,7 +48,7 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
                 setNegativeButton(android.R.string.cancel, null)
                 setPositiveButton(android.R.string.ok) { _, _ ->
                     val newText = editText?.text as CharSequence
-                    if (newText.isBlank()) text = " "
+                    text = newText.ifBlank { " " }
                     dialog?.dismiss()
                 }
                 dialog = builder?.show()

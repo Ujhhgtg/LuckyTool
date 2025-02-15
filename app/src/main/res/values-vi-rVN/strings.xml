@@ -513,8 +513,8 @@
     <string name="show_first_install_time_in_app_details">Hiển thị thời gian cài đặt đầu tiên trong chi tiết ứng dụng</string>
     <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
     <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
-    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
-    <string name="open_market">Open Market</string>
+    <string name="enable_quick_open_market_page">Cho phép chuyển hướng nhanh để mở cửa hàng</string>
+    <string name="open_market">Mở cửa hàng ứng dụng</string>
     <string name="enable_app_clone_quick_jump">Bật tính năng nhảy nhanh nhân bản ứng dụng</string>
     <string name="allow_disabling_system_apps">Cho phép tắt ứng dụng hệ thống</string>
     <string name="allow_disabling_system_apps_summary">Mô-đun này không chịu trách nhiệm về việc không thể khôi phục các ứng dụng hệ thống do thao tác của người dùng.</string>
