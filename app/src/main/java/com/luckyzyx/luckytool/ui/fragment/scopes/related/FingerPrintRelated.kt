@@ -19,9 +19,11 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getUri
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.showToast
 
@@ -49,6 +51,22 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
             }
         } else {
             LogUtils.e("CropImage", "error", it.error.toString(), true)
+        }
+    }
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.FingerPrintRelated)
+            summary = arraySummaryDot(
+                getString(R.string.remove_fingerprint_icon),
+                getString(R.string.replace_fingerprint_icon_switch)
+            )
+            key = "FingerPrintRelated"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
         }
     }
 

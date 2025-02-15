@@ -35,21 +35,25 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
 
     override val navigateFragmentId: Int = R.id.statusBarNotify
 
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.StatusBarNotice)
+            summary = arraySummaryDot(
+                getString(R.string.RemoveStatusBarNotifications),
+                getString(R.string.remove_notification_manager_limit)
+            )
+            key = "StatusBarNotice"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
+
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.RemoveStatusBarNotifications)
-                summary = arraySummaryDot(
-                    getString(R.string.remove_statusbar_top_notification),
-                    getString(R.string.remove_statusbar_devmode)
-                )
-                key = "RemoveStatusBarNotifications"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarNotifyRemoval, title)
-                    true
-                }
-            })
+            add(StatusBarNotifyRemoval().getRootPreference(this@loadPreferences))
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.allow_long_press_notification_modifiable)
                 key = "allow_long_press_notification_modifiable"

@@ -13,6 +13,14 @@ import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarBattery
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarClock
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarControlCenter
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarIcon
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarLayout
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarNetWorkSpeed
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarNotify
+import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarTiles
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -23,6 +31,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class StatusBarRelated : BaseScopePreferenceFeagment() {
@@ -40,116 +49,36 @@ class StatusBarRelated : BaseScopePreferenceFeagment() {
 
     override val navigateFragmentId: Int = R.id.statusBar
 
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "StatusBar"
+            setPrefsIconRes("com.android.systemui") { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = getString(R.string.StatusBar)
+            summary = arraySummaryDot(
+                getString(R.string.StatusBarNotice),
+                getString(R.string.StatusBarIcon),
+                getString(R.string.StatusBarClock)
+            )
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
+
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarClock)
-                summary = arraySummaryDot(
-                    getString(R.string.statusbar_clock_show_second),
-                    getString(R.string.statusbar_clock_show_doublerow),
-                    getString(
-                        R.string.statusbar_clock_doublerow_fontsize
-                    )
-                )
-                key = "StatusBarClock"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarClock, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarNetWorkSpeed)
-                summary = arraySummaryDot(
-                    getString(R.string.enable_double_row_network_speed),
-                    getString(R.string.set_network_speed)
-                )
-                key = "StatusBarNetWorkSpeed"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarNetWorkSpeed, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarNotice)
-                summary = arraySummaryDot(
-                    getString(R.string.RemoveStatusBarNotifications),
-                    getString(R.string.remove_notification_manager_limit)
-                )
-                key = "StatusBarNotice"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarNotify, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarIcon)
-                summary = arraySummaryDot(
-                    getString(R.string.remove_mobile_data_inout),
-                    getString(R.string.remove_green_dot_privacy_prompt)
-                )
-                key = "StatusBarIcon"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarIcon, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarControlCenter)
-                summary = arraySummaryDot(
-                    getString(R.string.control_center_clock_show_second),
-                    getString(R.string.remove_control_center_clock_red_one)
-                )
-                key = "StatusBarControlCenter"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarControlCenter, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarTiles)
-                summary = arraySummaryDot(
-                    getString(R.string.long_press_wifi_tile_open_the_page),
-                    getString(R.string.fix_tile_align_both_sides)
-                )
-                key = "StatusBarTiles"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarTiles, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarLayout)
-                summary = arraySummaryDot(
-                    getString(R.string.statusbar_layout_mode),
-                    getString(R.string.statusbar_layout_compatible_mode)
-                )
-                key = "StatusBarLayout"
-                isIconSpaceReserved = false
-                isVisible = SDK == A13
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarLayout, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.StatusBarBattery)
-                summary = arraySummaryDot(
-                    getString(R.string.remove_statusbar_battery_percent),
-                    getString(R.string.use_user_typeface)
-                )
-                key = "StatusBarBattery"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.statusBarBattery, title)
-                    true
-                }
-            })
+            add(StatusBarClock().getRootPreference(this@loadPreferences))
+            add(StatusBarNetWorkSpeed().getRootPreference(this@loadPreferences))
+            add(StatusBarNotify().getRootPreference(this@loadPreferences))
+            add(StatusBarIcon().getRootPreference(this@loadPreferences))
+            add(StatusBarControlCenter().getRootPreference(this@loadPreferences))
+            add(StatusBarTiles().getRootPreference(this@loadPreferences))
+            add(StatusBarLayout().getRootPreference(this@loadPreferences))
+            add(StatusBarBattery().getRootPreference(this@loadPreferences))
             //状态栏事件
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.StatusbarEvents)

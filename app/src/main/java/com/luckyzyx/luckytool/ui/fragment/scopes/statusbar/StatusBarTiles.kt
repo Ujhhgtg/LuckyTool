@@ -14,9 +14,11 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 
 @Obfuscate
@@ -28,6 +30,22 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.statusBarTiles
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.StatusBarTiles)
+            summary = arraySummaryDot(
+                getString(R.string.long_press_wifi_tile_open_the_page),
+                getString(R.string.fix_tile_align_both_sides)
+            )
+            key = "StatusBarTiles"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

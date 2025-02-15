@@ -6,7 +6,12 @@ import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class OplusPhoneManager : BaseScopePreferenceFeagment() {
@@ -17,6 +22,26 @@ class OplusPhoneManager : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusPhoneManager
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.coloros.phonemanager"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryLine(
+                getString(R.string.remove_secure_pay_found_virus_dialog),
+                getString(R.string.remove_virus_risk_notification_in_phone_manager)
+            )
+            isVisible = checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

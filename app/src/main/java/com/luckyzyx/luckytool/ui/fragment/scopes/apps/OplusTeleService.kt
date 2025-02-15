@@ -8,8 +8,13 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class OplusTeleService : BaseScopePreferenceFeagment() {
@@ -20,6 +25,26 @@ class OplusTeleService : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusTeleService
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.android.phone"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryLine(
+                getString(R.string.force_display_five_g_switch),
+                getString(R.string.force_display_preferred_network_type)
+            )
+            isVisible = SDK >= A13 && checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

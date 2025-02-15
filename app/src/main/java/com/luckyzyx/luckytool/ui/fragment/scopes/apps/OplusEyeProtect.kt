@@ -6,8 +6,13 @@ import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class OplusEyeProtect : BaseScopePreferenceFeagment() {
@@ -20,6 +25,25 @@ class OplusEyeProtect : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusEyeProtect
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.oplus.eyeprotect"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryLine(
+                getString(R.string.enable_eyeprotect_paper_texture_support)
+            )
+            isVisible = osCode >= 33 && checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

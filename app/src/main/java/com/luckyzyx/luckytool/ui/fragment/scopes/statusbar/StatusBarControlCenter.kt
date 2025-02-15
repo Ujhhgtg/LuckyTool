@@ -13,9 +13,11 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.isZh
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 
 @Obfuscate
@@ -27,6 +29,22 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.statusBarControlCenter
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.StatusBarControlCenter)
+            summary = arraySummaryDot(
+                getString(R.string.control_center_clock_show_second),
+                getString(R.string.remove_control_center_clock_red_one)
+            )
+            key = "StatusBarControlCenter"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

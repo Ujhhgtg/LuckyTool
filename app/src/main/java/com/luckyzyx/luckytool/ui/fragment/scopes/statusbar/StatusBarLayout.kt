@@ -12,7 +12,9 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.navigatePage
 
 @Obfuscate
 class StatusBarLayout : BaseScopePreferenceFeagment() {
@@ -23,6 +25,23 @@ class StatusBarLayout : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.statusBarLayout
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.StatusBarLayout)
+            summary = arraySummaryDot(
+                getString(R.string.statusbar_layout_mode),
+                getString(R.string.statusbar_layout_compatible_mode)
+            )
+            key = "StatusBarLayout"
+            isIconSpaceReserved = false
+            isVisible = SDK == A13
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

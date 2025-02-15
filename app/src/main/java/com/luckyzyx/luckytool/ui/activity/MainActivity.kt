@@ -59,7 +59,7 @@ open class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
 
     private fun newIntent(context: Context): Intent {
         return Intent(context, MainActivity::class.java)

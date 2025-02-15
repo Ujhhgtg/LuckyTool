@@ -8,8 +8,13 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class OplusSmartSidebar : BaseScopePreferenceFeagment() {
@@ -20,6 +25,26 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusSmartSidebar
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.coloros.smartsidebar"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryLine(
+                getString(R.string.unlock_transfer_dock),
+                getString(R.string.unlock_recent_files)
+            )
+            isVisible = SDK >= A12 && checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

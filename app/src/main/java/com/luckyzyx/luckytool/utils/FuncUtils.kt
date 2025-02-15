@@ -667,12 +667,12 @@ fun NavController.navigatePage(fragemntId: Int, title: CharSequence?) = try {
 }
 
 /**
- * 跳转fragment设置标题
- * @receiver Fragment
- * @param fragemntId Int Action ID
- * @param title String 页面标题
+ * 判断上下文跳转fragment设置标题
+ * @receiver Context
+ * @param fragemntId Int
+ * @param title CharSequence?
  */
-fun Fragment.navigatePage(fragemntId: Int, title: CharSequence?) = try {
+fun Context.navigatePage(fragemntId: Int, title: CharSequence?) = try {
     val bundle = Bundle().apply {
         if (!title.isNullOrBlank()) putCharSequence("title_text", title)
     }
@@ -682,14 +682,30 @@ fun Fragment.navigatePage(fragemntId: Int, title: CharSequence?) = try {
         setPopEnterAnim(R.anim.fragment_enter_pop)
         setPopExitAnim(R.anim.fragment_exit_pop)
     }.build()
-    findNavController().navigate(fragemntId, bundle, navOptions)
+    @Suppress("USELESS_IS_CHECK")
+    when (this) {
+        is Fragment -> findNavController().navigate(fragemntId, bundle, navOptions)
+        is MainActivity -> navController.navigate(fragemntId, bundle, navOptions)
+        else -> {}
+    }
 } catch (_: IllegalArgumentException) {
 
 }
 
+/**
+ * 跳转fragment设置标题
+ * @receiver Fragment
+ * @param fragemntId Int Action ID
+ * @param title String 页面标题
+ */
+fun Fragment.navigatePage(fragemntId: Int, title: CharSequence?) = try {
+    requireActivity().navigatePage(fragemntId, title)
+} catch (_: IllegalArgumentException) {
+
+}
 
 /**
- * 跳转fragment传递参数
+ * 跳转fragment传递参数 用于功能搜索适配器
  * @receiver Fragment
  * @param action Int
  * @param bundle Bundle?

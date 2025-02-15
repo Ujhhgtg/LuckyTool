@@ -6,7 +6,12 @@ import androidx.preference.SwitchPreference
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class OplusCalendar : BaseScopePreferenceFeagment() {
@@ -17,6 +22,26 @@ class OplusCalendar : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusCalendar
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.coloros.calendar"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryLine(
+                getString(R.string.remove_holiday_page_information_flow),
+                getString(R.string.remove_almanac_page_information_flow)
+            )
+            isVisible = checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

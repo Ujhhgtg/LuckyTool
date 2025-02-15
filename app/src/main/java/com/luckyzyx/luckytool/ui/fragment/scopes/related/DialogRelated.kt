@@ -9,7 +9,9 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 
 @Obfuscate
@@ -21,6 +23,22 @@ class DialogRelated : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.dialogRelated
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.FloatingWindowDialogRelated)
+            summary = arraySummaryDot(
+                getString(R.string.remove_low_battery_dialog_warning_summary),
+                getString(R.string.disable_headphone_high_volume_warning)
+            )
+            key = "FloatingWindowDialogRelated"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

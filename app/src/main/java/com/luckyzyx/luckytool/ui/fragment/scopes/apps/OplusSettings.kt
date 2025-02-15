@@ -20,10 +20,12 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.A15
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
@@ -33,6 +35,7 @@ import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
 
 @Obfuscate
@@ -68,6 +71,25 @@ class OplusSettings : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusSettings
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.android.settings"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryDot(
+                getString(R.string.remove_top_account_display),
+                getString(R.string.remove_dpi_restart_recovery)
+            )
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

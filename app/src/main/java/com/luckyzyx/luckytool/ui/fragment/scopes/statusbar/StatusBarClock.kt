@@ -11,9 +11,11 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 
@@ -26,6 +28,25 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.statusBarClock
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.StatusBarClock)
+            summary = arraySummaryDot(
+                getString(R.string.statusbar_clock_show_second),
+                getString(R.string.statusbar_clock_show_doublerow),
+                getString(
+                    R.string.statusbar_clock_doublerow_fontsize
+                )
+            )
+            key = "StatusBarClock"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

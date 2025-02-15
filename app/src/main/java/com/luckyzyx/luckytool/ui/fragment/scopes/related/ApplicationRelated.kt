@@ -18,12 +18,15 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
@@ -43,6 +46,25 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.application
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.android.packageinstaller"
+            setPrefsIconRes(key) { resource, show ->
+                icon = fixIconSize(resource)
+                isIconSpaceReserved = show
+            }
+            title = getString(R.string.Application)
+            summary = arraySummaryDot(
+                getString(R.string.skip_apk_scan),
+                getString(R.string.unlock_startup_limit)
+            )
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
@@ -225,16 +247,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 key = "PackageInstaller"
                 isIconSpaceReserved = false
             })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.corepatch)
-                summary = getString(R.string.corepatch_summary)
-                key = "CorePatch"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.corePatch, title)
-                    true
-                }
-            })
+            add(CorePatch().getRootPreference(this@loadPreferences))
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_enable_32_bit_support)
                 summary = getString(R.string.need_restart_system)

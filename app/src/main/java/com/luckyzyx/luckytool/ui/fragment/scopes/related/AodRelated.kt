@@ -15,9 +15,13 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 
 @Obfuscate
@@ -37,6 +41,26 @@ class AodRelated : BaseScopePreferenceFeagment() {
             requireActivity().putString(ModulePrefs, "custom_random_text_file", path)
         }
         (activity as MainActivity).restart()
+    }
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "com.oplus.aod"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = getString(R.string.AodRelated)
+            summary = arraySummaryDot(
+                getString(R.string.remove_aod_music_whitelist),
+                getString(R.string.remove_aod_notification_icon_whitelist)
+            )
+            isVisible = SDK >= A13 && checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
     }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {

@@ -13,6 +13,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.navigatePage
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
 class Miscellaneous : BaseScopePreferenceFeagment() {
@@ -29,47 +30,28 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
 
     override val navigateFragmentId: Int = R.id.miscellaneous
 
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "Miscellaneous"
+            setPrefsIconRes("com.android.systemui") { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = getString(R.string.Miscellaneous)
+            summary =
+                arraySummaryDot(getString(R.string.Miscellaneous_summary))
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
+
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.FloatingWindowDialogRelated)
-                summary = arraySummaryDot(
-                    getString(R.string.remove_low_battery_dialog_warning_summary),
-                    getString(R.string.disable_headphone_high_volume_warning)
-                )
-                key = "FloatingWindowDialogRelated"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.dialogRelated, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.FingerPrintRelated)
-                summary = arraySummaryDot(
-                    getString(R.string.remove_fingerprint_icon),
-                    getString(R.string.replace_fingerprint_icon_switch)
-                )
-                key = "FingerPrintRelated"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.fingerPrintRelated, title)
-                    true
-                }
-            })
-            add(Preference(this@loadPreferences).apply {
-                title = getString(R.string.SoundRelated)
-                summary = arraySummaryDot(
-                    getString(R.string.media_volume_level),
-                    getString(R.string.minimum_volume_level_can_be_zero)
-                )
-                key = "SoundRelated"
-                isIconSpaceReserved = false
-                setOnPreferenceClickListener {
-                    navigatePage(R.id.soundRelated, title)
-                    true
-                }
-            })
+            add(DialogRelated().getRootPreference(this@loadPreferences))
+            add(FingerPrintRelated().getRootPreference(this@loadPreferences))
+            add(SoundRelated().getRootPreference(this@loadPreferences))
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.show_charging_ripple)
                 summary = getString(R.string.show_charging_ripple_summary)

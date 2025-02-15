@@ -25,6 +25,7 @@ import com.luckyzyx.luckytool.data.PrefsItem
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
+import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.setupMenuProvider
@@ -33,8 +34,14 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 @Suppress("unused")
 abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuProvider {
 
-    //OS版本
+    /**
+     * @see [getOSVersionName]
+     */
     val osName = getOSVersionName
+
+    /**
+     * @see [getOSVersionCode]
+     */
     val osCode = getOSVersionCode
 
     /**
@@ -53,11 +60,6 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
     open val isEnableOpenMenu: Boolean = false
 
     /**
-     * 是否隐藏页面
-     */
-    open val isHidePage: Boolean = false
-
-    /**
      * 当前Prefs存储名称
      */
     abstract val currentPrefsName: String
@@ -65,12 +67,18 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
     /**
      * 跳转Action
      */
-    open val navigateFragmentId: Int = -1
+    abstract val navigateFragmentId: Int
+
+    abstract fun Context.loadRootPreference(): Preference
 
     abstract fun Context.loadPreferences(): ArrayList<Preference>
 
+    fun getRootPreference(context: Context) = context.loadRootPreference()
+
     open fun readPrefsItem(context: Context): ArrayList<PrefsItem> {
         return ArrayList<PrefsItem>().apply {
+            if (scopes.size == 1 && !context.checkPackName(scopes.first())) return@apply
+            val rootPreference = context.loadRootPreference()
             context.loadPreferences().forEachIndexed { index, preference ->
                 if (preference is PreferenceCategory) return@forEachIndexed
                 val item = PrefsItem(
@@ -81,6 +89,8 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
                     preference.title,
                     preference.summary,
                     preference.isVisible,
+                    rootPreference.title,
+                    rootPreference.summary,
                     navigateFragmentId
                 )
                 add(item)
@@ -104,7 +114,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
                 prefsScreen.addPreference(preference)
             } catch (t: Throwable) {
                 LogUtils.e(
-                    "${this@BaseScopePreferenceFeagment.javaClass} loadPreferences",
+                    "$javaClass loadPreferences",
                     "$index | ${preference.key} | ${preference.title}",
                     "$t",
                     true

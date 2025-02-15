@@ -7,7 +7,9 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.navigatePage
 
 @Obfuscate
 class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
@@ -19,6 +21,22 @@ class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.statusBarNotifyRemoval
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            title = getString(R.string.RemoveStatusBarNotifications)
+            summary = arraySummaryDot(
+                getString(R.string.remove_statusbar_top_notification),
+                getString(R.string.remove_statusbar_devmode)
+            )
+            key = "RemoveStatusBarNotifications"
+            isIconSpaceReserved = false
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

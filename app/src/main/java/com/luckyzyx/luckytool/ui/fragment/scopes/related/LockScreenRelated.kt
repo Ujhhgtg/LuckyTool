@@ -14,11 +14,14 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 
 @Obfuscate
@@ -34,6 +37,25 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.lockScreen
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            key = "LockScreen"
+            setPrefsIconRes("com.android.systemui") { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = getString(R.string.LockScreen)
+            summary = arraySummaryDot(
+                getString(R.string.lock_screen_clock_redone_mode),
+                getString(R.string.remove_lock_screen_bottom_right_camera)
+            )
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {

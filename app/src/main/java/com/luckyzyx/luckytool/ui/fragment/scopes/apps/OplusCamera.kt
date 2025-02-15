@@ -18,16 +18,21 @@ import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.CameraUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getStringSet
+import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.luckyzyx.luckytool.utils.showToast
 
@@ -42,6 +47,27 @@ class OplusCamera : BaseScopePreferenceFeagment() {
     override val currentPrefsName: String = ModulePrefs
 
     override val navigateFragmentId: Int = R.id.oplusCamera
+
+    override fun Context.loadRootPreference(): Preference {
+        return Preference(this).apply {
+            val isOneplusCamera = checkPackName("com.oneplus.camera")
+            key = if (isOneplusCamera) "com.oneplus.camera" else "com.oplus.camera"
+            setPrefsIconRes(key) { resource, show ->
+                icon = resource
+                isIconSpaceReserved = show
+            }
+            title = AppUtils(context).getAppLabel(key)
+            summary = arraySummaryDot(
+                getString(R.string.remove_watermark_word_limit),
+                getString(R.string.enable_10_bit_image_support)
+            )
+            isVisible = checkPackName(key)
+            setOnPreferenceClickListener {
+                navigatePage(navigateFragmentId, title)
+                true
+            }
+        }
+    }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
