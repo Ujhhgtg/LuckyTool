@@ -93,6 +93,7 @@
     
     <!-- Menu -->
     <string name="menu_reboot">Restart menu</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">Set menu</string>
     <string name="restart_scope">Restart scoped processes</string>
     <string name="re_optimize_dex">Re-optimize Dex</string>

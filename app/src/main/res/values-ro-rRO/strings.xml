@@ -82,6 +82,7 @@
     <string name="no_root_summary">Permisiunea root nu este detectată, unele funcții nu vor fi disponibile!</string>
     <!-- Menu -->
     <string name="menu_reboot">Meniu repornire</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">Setare meniu</string>
     <string name="restart_scope">Repornește procesele modificate</string>
     <string name="re_optimize_dex">Re-optimize Dex</string>

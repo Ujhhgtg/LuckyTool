@@ -223,12 +223,12 @@ class HomeFragment : Fragment(), MenuProvider {
     fun refreshModuleStatus() {
         when {
             YukiHookAPI.Status.isXposedModuleActive && enableModule -> {
-                binding.statusIcon.setImageResource(R.drawable.ic_round_check_24)
+                binding.moduleStatusIcon.setImageResource(R.drawable.ic_round_check_24)
             }
 
             else -> {
                 binding.statusCard.setCardBackgroundColor(Color.GRAY)
-                binding.statusIcon.setImageResource(R.drawable.ic_round_warning_24)
+                binding.moduleStatusIcon.setImageResource(R.drawable.ic_round_warning_24)
             }
         }
         binding.moduleStatus.text = when {

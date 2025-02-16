@@ -38,12 +38,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:animateLayoutChanges="true"
-                        android:padding="?dialogPreferredPadding">
+                        android:paddingVertical="16dp">
                     
                     <ImageView
-                            android:id="@+id/status_icon"
+                            android:id="@+id/module_status_icon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:layout_marginHorizontal="16dp"
                             android:layout_centerVertical="true"
                             app:tint="?colorOnPrimary"
                             app:srcCompat="@drawable/ic_round_check_24"
@@ -53,8 +54,7 @@
                             android:id="@+id/module_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_toEndOf="@id/status_icon"
+                            android:layout_toEndOf="@id/module_status_icon"
                             android:textAppearance="?textAppearanceTitleMedium"
                             android:textColor="?colorOnPrimary"
                             android:textSize="16sp" />
@@ -62,6 +62,7 @@
                     <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/module_version"
                             android:textSize="12sp"
+                            android:lineHeight="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/module_status"
@@ -72,6 +73,7 @@
                     <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/root_version"
                             android:textSize="12sp"
+                            android:lineHeight="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/module_version"
@@ -82,6 +84,7 @@
                     <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/framework_version"
                             android:textSize="12sp"
+                            android:lineHeight="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/root_version"

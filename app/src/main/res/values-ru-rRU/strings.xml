@@ -82,6 +82,7 @@
     <string name="no_root_summary">Root-права не обнаружены, некоторые функции будут недоступны!</string>
     <!-- Menu -->
     <string name="menu_reboot">Меню перезагрузки</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">Настройки</string>
     <string name="restart_scope">Перезагрузить запланированные процессы</string>
     <string name="re_optimize_dex">Повторная оптимизация Dex</string>

@@ -82,6 +82,7 @@
     <string name="no_root_summary">root 権限を検出できませんでした。一部の機能は利用できません！</string>
     <!-- Menu -->
     <string name="menu_reboot">メニューを再起動</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">メニューを設定</string>
     <string name="restart_scope">スコープしたプロセスを再起動</string>
     <string name="re_optimize_dex">Re-optimize Dex</string>

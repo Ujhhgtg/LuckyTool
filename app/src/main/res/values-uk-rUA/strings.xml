@@ -82,6 +82,7 @@
     <string name="no_root_summary">Рут-доступ не виявлено, деякі функції будуть недоступні!</string>
     <!-- Menu -->
     <string name="menu_reboot">Меню перезавантаження</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">Налаштування</string>
     <string name="restart_scope">Перезавантажити заплановані процеси</string>
     <string name="re_optimize_dex">Re-optimize Dex</string>

@@ -23,8 +23,6 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -109,20 +107,15 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     override val currentPrefsName: String = ModulePrefs
 
-    private lateinit var navController: NavController
-
     override val navigateFragmentId: Int = -1
 
     private val allFragmentItem = ArrayList<FragmentItem>()
 
     private var loadDialog: AlertDialog? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        navController = findNavController()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupMenuProvider(this)
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun Context.loadRootPreference(): Preference {
@@ -320,7 +313,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.add(0, 1, 0, "Search").apply {
+        menu.add(0, 1, 0, getString(R.string.menu_search)).apply {
             setIcon(R.drawable.ic_baseline_search_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             if (ThemeUtils.isNightMode(resources.configuration)) {

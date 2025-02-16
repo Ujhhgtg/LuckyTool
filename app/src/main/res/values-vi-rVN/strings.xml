@@ -82,6 +82,7 @@
     <string name="no_root_summary">Quyền root không được phát hiện, một số chức năng sẽ không khả dụng!</string>
     <!-- Menu -->
     <string name="menu_reboot">Menu khởi động lại</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">Menu cài đặt</string>
     <string name="restart_scope">Khởi động lại quy trình phạm vi</string>
     <string name="re_optimize_dex">Tối ưu lại Dex</string>

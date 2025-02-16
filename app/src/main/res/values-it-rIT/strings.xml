@@ -82,6 +82,7 @@
     <string name="no_root_summary">Il permesso di root non è stato rilevato, alcune funzioni non saranno disponibili!</string>
     <!-- Menu -->
     <string name="menu_reboot">Menù riavvio</string>
+    <string name="menu_search">Search menu</string>
     <string name="menu_settings">Imposta menu</string>
     <string name="restart_scope">Riavvia i processi</string>
     <string name="re_optimize_dex">Ri-ottimizzare Dex</string>

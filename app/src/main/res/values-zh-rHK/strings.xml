@@ -82,6 +82,7 @@
     <string name="no_root_summary">未检测到Root权限，部分功能将无法使用！</string>
     <!-- Menu -->
     <string name="menu_reboot">重启菜单</string>
+    <string name="menu_search">搜索菜单</string>
     <string name="menu_settings">设置菜单</string>
     <string name="restart_scope">重启作用域</string>
     <string name="re_optimize_dex">重新优化Dex</string>
