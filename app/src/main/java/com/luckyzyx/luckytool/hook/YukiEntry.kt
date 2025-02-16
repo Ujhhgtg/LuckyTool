@@ -30,7 +30,6 @@ import com.luckyzyx.luckytool.hook.hookers.HookOplusCosa
 import com.luckyzyx.luckytool.hook.hookers.HookOplusGames
 import com.luckyzyx.luckytool.hook.hookers.HookOplusMMS
 import com.luckyzyx.luckytool.hook.hookers.HookOplusOta
-import com.luckyzyx.luckytool.hook.hookers.HookOtherApp
 import com.luckyzyx.luckytool.hook.hookers.HookPackageInstaller
 import com.luckyzyx.luckytool.hook.hookers.HookPermissionController
 import com.luckyzyx.luckytool.hook.hookers.HookPhone
@@ -47,6 +46,9 @@ import com.luckyzyx.luckytool.hook.hookers.HookSystemUI
 import com.luckyzyx.luckytool.hook.hookers.HookThemeStore
 import com.luckyzyx.luckytool.hook.hookers.HookUIEngine
 import com.luckyzyx.luckytool.hook.hookers.HookWeather
+import com.luckyzyx.luckytool.hook.scopes.otherapp.HookADM
+import com.luckyzyx.luckytool.hook.scopes.otherapp.HookAlphaBackupPro
+import com.luckyzyx.luckytool.hook.scopes.otherapp.HookKsWeb
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 
@@ -173,9 +175,9 @@ object YukiEntry {
         loadApp("com.oplus.beaconlink", HookBeaconLink)
 
         //其他APP
-        loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", "ru.kslabs.ksweb", "com.dv.adm") {
-            loadHooker(HookOtherApp)
-        }
+        loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
+        loadApp("ru.kslabs.ksweb", HookKsWeb)
+        loadApp("com.dv.adm", HookADM)
     }
 
 }

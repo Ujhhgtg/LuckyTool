@@ -182,113 +182,113 @@ class MultiAppFragment : Fragment(), MenuProvider {
         if (menuItem.itemId == 1) IntentUtils(requireActivity()).jumpMultiApp()
         return true
     }
-}
 
-@Obfuscate
-class MultiAppAdapter(
-    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
-) : RecyclerView.Adapter<MultiAppAdapter.ViewHolder>() {
-    private val supportListKey = "multi_app_custom_list"
+    @Obfuscate
+    class MultiAppAdapter(
+        val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
+    ) : RecyclerView.Adapter<MultiAppAdapter.ViewHolder>() {
+        private val supportListKey = "multi_app_custom_list"
 
-    private var allDatas = ArrayList<AppInfo>()
-    private var filterDatas = ArrayList<AppInfo>()
+        private var allDatas = ArrayList<AppInfo>()
+        private var filterDatas = ArrayList<AppInfo>()
 
-    private var enabledAppData = ArrayList<String>()
+        private var enabledAppData = ArrayList<String>()
 
-    private var hasPermissions = true
+        private var hasPermissions = true
 
-    init {
-        allDatas.clear()
-        filterDatas.clear()
-        enabledAppData.clear()
+        init {
+            allDatas.clear()
+            filterDatas.clear()
+            enabledAppData.clear()
 
-        if (allAppInfos.size <= 1) hasPermissions = false
+            if (allAppInfos.size <= 1) hasPermissions = false
 
-        allDatas = allAppInfos
-        filterDatas = allDatas
+            allDatas = allAppInfos
+            filterDatas = allDatas
 
-        allEnableInfos.forEach {
-            enabledAppData.add(it.packageName)
-            allDatas.remove(it)
-        }
-        allDatas.addAll(0, allEnableInfos)
-        saveEnableList()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = LayoutAppinfoSwitchItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val appInfo = filterDatas[position]
-        val appIcon = appInfo.icon
-        val appName = appInfo.name
-        val packName = appInfo.packageName
-
-        holder.appIcon.setImageDrawable(appIcon)
-        holder.appName.text = appName
-        holder.packName.text = packName
-        holder.appInfoView.setOnClickListener(null)
-        holder.switchview.setOnCheckedChangeListener(null)
-
-        holder.switchview.isChecked = enabledAppData.contains(packName)
-        holder.appInfoView.setOnClickListener {
-            holder.switchview.performClick()
-        }
-        holder.switchview.setOnCheckedChangeListener { _, isChecked ->
-            enabledAppData.remove(packName)
-            if (isChecked) enabledAppData.add(packName)
+            allEnableInfos.forEach {
+                enabledAppData.add(it.packageName)
+                allDatas.remove(it)
+            }
+            allDatas.addAll(0, allEnableInfos)
             saveEnableList()
         }
-    }
 
-    override fun getItemCount(): Int = filterDatas.size
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val binding = LayoutAppinfoSwitchItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            return ViewHolder(binding)
+        }
 
-    val getFilter = object : Filter() {
-        override fun performFiltering(constraint: CharSequence): FilterResults {
-            val filterStr = constraint.toString().lowercase()
-            filterDatas = if (constraint.isBlank()) allDatas
-            else {
-                val filterlist = ArrayList<AppInfo>()
-                allDatas.forEach {
-                    if (it.name.lowercase().contains(filterStr)
-                        || it.packageName.lowercase().contains(filterStr)
-                    ) filterlist.add(it)
-                }
-                filterlist
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val appInfo = filterDatas[position]
+            val appIcon = appInfo.icon
+            val appName = appInfo.name
+            val packName = appInfo.packageName
+
+            holder.appIcon.setImageDrawable(appIcon)
+            holder.appName.text = appName
+            holder.packName.text = packName
+            holder.appInfoView.setOnClickListener(null)
+            holder.switchview.setOnCheckedChangeListener(null)
+
+            holder.switchview.isChecked = enabledAppData.contains(packName)
+            holder.appInfoView.setOnClickListener {
+                holder.switchview.performClick()
             }
-            val filterResults = FilterResults()
-            filterResults.values = filterDatas
-            return filterResults
+            holder.switchview.setOnCheckedChangeListener { _, isChecked ->
+                enabledAppData.remove(packName)
+                if (isChecked) enabledAppData.add(packName)
+                saveEnableList()
+            }
         }
 
-        @Suppress("UNCHECKED_CAST")
-        override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            filterDatas = results.values as ArrayList<AppInfo>
-            refreshDatas()
+        override fun getItemCount(): Int = filterDatas.size
+
+        val getFilter = object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterStr = constraint.toString().lowercase()
+                filterDatas = if (constraint.isBlank()) allDatas
+                else {
+                    val filterlist = ArrayList<AppInfo>()
+                    allDatas.forEach {
+                        if (it.name.lowercase().contains(filterStr)
+                            || it.packageName.lowercase().contains(filterStr)
+                        ) filterlist.add(it)
+                    }
+                    filterlist
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filterDatas
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                filterDatas = results.values as ArrayList<AppInfo>
+                refreshDatas()
+            }
         }
-    }
 
-    private fun saveEnableList() {
-        if (!hasPermissions) return
-        context.putStringSet(ModulePrefs, supportListKey, enabledAppData.toSet())
-        context.dataChannel("android").put(supportListKey, enabledAppData.toSet())
-    }
+        private fun saveEnableList() {
+            if (!hasPermissions) return
+            context.putStringSet(ModulePrefs, supportListKey, enabledAppData.toSet())
+            context.dataChannel("android").put(supportListKey, enabledAppData.toSet())
+        }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun refreshDatas() {
-        notifyDataSetChanged()
-    }
+        @SuppressLint("NotifyDataSetChanged")
+        fun refreshDatas() {
+            notifyDataSetChanged()
+        }
 
-    class ViewHolder(binding: LayoutAppinfoSwitchItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val appInfoView: ConstraintLayout = binding.root
-        val appIcon: ImageView = binding.appIcon
-        val appName: TextView = binding.appName
-        val packName: TextView = binding.packName
-        val switchview: MaterialSwitch = binding.switchview
+        class ViewHolder(binding: LayoutAppinfoSwitchItemBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            val appInfoView: ConstraintLayout = binding.root
+            val appIcon: ImageView = binding.appIcon
+            val appName: TextView = binding.appName
+            val packName: TextView = binding.packName
+            val switchview: MaterialSwitch = binding.switchview
+        }
     }
 }

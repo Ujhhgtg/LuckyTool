@@ -204,138 +204,138 @@ class DarkModeFragment : Fragment(), MenuProvider {
         if (menuItem.itemId == 2) IntentUtils(requireActivity()).jumpDarkMode()
         return true
     }
-}
 
-@Obfuscate
-class DarkModeAdapter(
-    val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<DarkModeInfo>
-) : RecyclerView.Adapter<DarkModeAdapter.ViewHolder>() {
-    private val supportListKey = "dark_mode_support_list"
+    @Obfuscate
+    class DarkModeAdapter(
+        val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<DarkModeInfo>
+    ) : RecyclerView.Adapter<DarkModeAdapter.ViewHolder>() {
+        private val supportListKey = "dark_mode_support_list"
 
-    private var allDatas = ArrayList<AppInfo>()
-    private var filterDatas = ArrayList<AppInfo>()
+        private var allDatas = ArrayList<AppInfo>()
+        private var filterDatas = ArrayList<AppInfo>()
 
-    private var enabledAppData = ArrayMap<String, DarkModeInfo>()
+        private var enabledAppData = ArrayMap<String, DarkModeInfo>()
 
-    private var hasPermissions = true
+        private var hasPermissions = true
 
-    init {
-        allDatas.clear()
-        filterDatas.clear()
-        enabledAppData.clear()
+        init {
+            allDatas.clear()
+            filterDatas.clear()
+            enabledAppData.clear()
 
-        if (allAppInfos.size <= 1) hasPermissions = false
+            if (allAppInfos.size <= 1) hasPermissions = false
 
-        allDatas = allAppInfos
-        filterDatas = allDatas
+            allDatas = allAppInfos
+            filterDatas = allDatas
 
-        val sortDatas = ArrayList<AppInfo>()
-        allEnableInfos.forEach { its ->
-            val find = allDatas.find { it.packageName == its.packName } ?: return@forEach
-            enabledAppData[its.packName] = its
-            sortDatas.add(find)
-            allDatas.remove(find)
-        }
-        allDatas.addAll(0, sortDatas)
-
-        saveEnableList()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = LayoutAppinfoSwitchItemDarkmodeBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val appInfo = filterDatas[position]
-        val appIcon = appInfo.icon
-        val appName = appInfo.name
-        val packName = appInfo.packageName
-        val data = enabledAppData[packName]
-
-        holder.appIcon.setImageDrawable(appIcon)
-        holder.appName.text = appName
-        holder.packName.text = packName
-        holder.appInfoView.setOnClickListener(null)
-        holder.switchview.setOnCheckedChangeListener(null)
-        holder.sliderview.clearOnChangeListeners()
-
-        holder.switchview.isChecked = data != null
-        holder.sliderLayout.isVisible = data != null
-        holder.sliderview.value = data?.curType?.toFloat() ?: 0F
-
-        holder.appInfoView.setOnClickListener {
-            holder.switchview.performClick()
-        }
-        holder.switchview.setOnCheckedChangeListener { _, isChecked ->
-            enabledAppData.remove(packName)
-            holder.sliderLayout.isVisible = isChecked
-            if (isChecked) {
-                enabledAppData[packName] = DarkModeInfo(packName)
-                holder.sliderview.value = 0F
+            val sortDatas = ArrayList<AppInfo>()
+            allEnableInfos.forEach { its ->
+                val find = allDatas.find { it.packageName == its.packName } ?: return@forEach
+                enabledAppData[its.packName] = its
+                sortDatas.add(find)
+                allDatas.remove(find)
             }
+            allDatas.addAll(0, sortDatas)
+
             saveEnableList()
         }
-        holder.sliderview.addOnChangeListener { _, value, fromUser ->
-            if (!fromUser) return@addOnChangeListener
-            enabledAppData[packName]?.curType = value.toInt()
-            saveEnableList()
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val binding = LayoutAppinfoSwitchItemDarkmodeBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            return ViewHolder(binding)
         }
-    }
 
-    override fun getItemCount(): Int = filterDatas.size
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val appInfo = filterDatas[position]
+            val appIcon = appInfo.icon
+            val appName = appInfo.name
+            val packName = appInfo.packageName
+            val data = enabledAppData[packName]
 
-    val getFilter = object : Filter() {
-        override fun performFiltering(constraint: CharSequence): FilterResults {
-            val filterStr = constraint.toString().lowercase()
-            filterDatas = if (constraint.isBlank()) allDatas
-            else {
-                val filterlist = ArrayList<AppInfo>()
-                allDatas.forEach {
-                    if (it.name.lowercase().contains(filterStr)
-                        || it.packageName.lowercase().contains(filterStr)
-                    ) filterlist.add(it)
+            holder.appIcon.setImageDrawable(appIcon)
+            holder.appName.text = appName
+            holder.packName.text = packName
+            holder.appInfoView.setOnClickListener(null)
+            holder.switchview.setOnCheckedChangeListener(null)
+            holder.sliderview.clearOnChangeListeners()
+
+            holder.switchview.isChecked = data != null
+            holder.sliderLayout.isVisible = data != null
+            holder.sliderview.value = data?.curType?.toFloat() ?: 0F
+
+            holder.appInfoView.setOnClickListener {
+                holder.switchview.performClick()
+            }
+            holder.switchview.setOnCheckedChangeListener { _, isChecked ->
+                enabledAppData.remove(packName)
+                holder.sliderLayout.isVisible = isChecked
+                if (isChecked) {
+                    enabledAppData[packName] = DarkModeInfo(packName)
+                    holder.sliderview.value = 0F
                 }
-                filterlist
+                saveEnableList()
             }
-            val filterResults = FilterResults()
-            filterResults.values = filterDatas
-            return filterResults
+            holder.sliderview.addOnChangeListener { _, value, fromUser ->
+                if (!fromUser) return@addOnChangeListener
+                enabledAppData[packName]?.curType = value.toInt()
+                saveEnableList()
+            }
         }
 
-        @Suppress("UNCHECKED_CAST")
-        override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            filterDatas = results.values as ArrayList<AppInfo>
-            refreshDatas()
+        override fun getItemCount(): Int = filterDatas.size
+
+        val getFilter = object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val filterStr = constraint.toString().lowercase()
+                filterDatas = if (constraint.isBlank()) allDatas
+                else {
+                    val filterlist = ArrayList<AppInfo>()
+                    allDatas.forEach {
+                        if (it.name.lowercase().contains(filterStr)
+                            || it.packageName.lowercase().contains(filterStr)
+                        ) filterlist.add(it)
+                    }
+                    filterlist
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filterDatas
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                filterDatas = results.values as ArrayList<AppInfo>
+                refreshDatas()
+            }
         }
-    }
 
-    private fun saveEnableList() {
-        if (!hasPermissions) return
-        val data = ArraySet<String>()
-        enabledAppData.forEach {
-            data.add(it.value.toJSONObject().toString())
+        private fun saveEnableList() {
+            if (!hasPermissions) return
+            val data = ArraySet<String>()
+            enabledAppData.forEach {
+                data.add(it.value.toJSONObject().toString())
+            }
+            context.putStringSet(ModulePrefs, supportListKey, data.toSet())
+            context.dataChannel("android").put(supportListKey, data.toSet())
+            context.dataChannel("com.android.settings").put(supportListKey, data.toSet())
         }
-        context.putStringSet(ModulePrefs, supportListKey, data.toSet())
-        context.dataChannel("android").put(supportListKey, data.toSet())
-        context.dataChannel("com.android.settings").put(supportListKey, data.toSet())
-    }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun refreshDatas() {
-        notifyDataSetChanged()
-    }
+        @SuppressLint("NotifyDataSetChanged")
+        fun refreshDatas() {
+            notifyDataSetChanged()
+        }
 
-    class ViewHolder(binding: LayoutAppinfoSwitchItemDarkmodeBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val appInfoView: ConstraintLayout = binding.appinfoView
-        val appIcon: ImageView = binding.appIcon
-        val appName: TextView = binding.appName
-        val packName: TextView = binding.packName
-        val switchview: MaterialSwitch = binding.switchview
-        val sliderLayout: LinearLayout = binding.sliderLayout
-        val sliderview: Slider = binding.slider
+        class ViewHolder(binding: LayoutAppinfoSwitchItemDarkmodeBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            val appInfoView: ConstraintLayout = binding.appinfoView
+            val appIcon: ImageView = binding.appIcon
+            val appName: TextView = binding.appName
+            val packName: TextView = binding.packName
+            val switchview: MaterialSwitch = binding.switchview
+            val sliderLayout: LinearLayout = binding.sliderLayout
+            val sliderview: Slider = binding.slider
+        }
     }
 }
