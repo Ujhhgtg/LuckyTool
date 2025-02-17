@@ -18,6 +18,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.RecentTaskListClearButton
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveAppUpdateGreenDot
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
+import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveWidgetsAddRequestWhitelist
 import com.luckyzyx.luckytool.hook.scopes.launcher.UnlockTaskLocks
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -90,6 +91,10 @@ object HookLauncher : YukiBaseHooker() {
         //启用自动关闭文件夹
         if (prefs(ModulePrefs).getBoolean("enable_auto_close_folder", false)) {
             if (osCode >= 34) loadHooker(EnableAutoCloseFolder)
+        }
+        //移除小组件添加请求白名单
+        if (prefs(ModulePrefs).getBoolean("remove_widgets_add_request_whitelist", false)) {
+            if (osCode >= 30) loadHooker(RemoveWidgetsAddRequestWhitelist)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl

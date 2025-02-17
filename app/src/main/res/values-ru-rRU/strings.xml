@@ -407,6 +407,8 @@
     <string name="remove_alarmclock_widget_redone_pro_summary">Доступно только тогда, когда обычная версия не помогает, иначе это вызовет неизбежную ошибку</string>
     <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
+    <string name="WidgetRelated">Widget Related</string>
+    <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
     <string name="allow_app_names_display_multiple_lines">Разрешить отображать названия приложений в несколько строк</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>

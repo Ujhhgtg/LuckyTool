@@ -72,7 +72,21 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            //应用徽章
+            //小组件
+            if(osCode >= 30) {
+                add(PreferenceCategory(this@loadPreferences).apply {
+                    title = getString(R.string.WidgetRelated)
+                    key = "WidgetRelated"
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.remove_widgets_add_request_whitelist)
+                    key = "remove_widgets_add_request_whitelist"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
+            //应用徽标
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppBadgeRelated)
                 key = "AppBadgeRelated"

@@ -407,6 +407,8 @@
     <string name="remove_alarmclock_widget_redone_pro_summary">Disponibile solo quando la versione regolare non ha effetto, altrimenti causerà un errore inevitabile</string>
     <!--Launcher-->
     <string name="Desktop">Launcher/Desktop</string>
+    <string name="WidgetRelated">Widget Related</string>
+    <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
     <string name="AppBadgeRelated">Badge delle App</string>
     <string name="allow_app_names_display_multiple_lines">Consenti la visualizzazione dei nomi delle app desktop su più righe</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
