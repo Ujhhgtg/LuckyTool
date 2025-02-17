@@ -60,8 +60,6 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
 
                     val isInstalled = curPackInfo != null
                     val isInstall = actionType == 0
-
-                    @Suppress("UNUSED_VARIABLE")
                     val isUninstall = actionType == 1
 
                     val newApkHeaderView = LinearLayout(context).apply {
@@ -88,6 +86,7 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                         field { name = "mAppName" }.get(instance).cast<TextView>()?.apply {
                             safeOfNull { parent as ViewGroup }?.removeView(this)
                         } ?: return@after
+                    mApkName.textSize = 18F
                     newApkNameView.addView(mApkName)
 
                     val mApkPackName = TextView(context).apply {
@@ -103,6 +102,18 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                     }
                     newApkNameView.addView(mApkPackName)
 
+                    val mAppSize =
+                        field { name = "mAppSize" }.get(instance).cast<TextView>()?.apply {
+                            safeOfNull { parent as ViewGroup }?.removeView(this)
+                        } ?: return@after
+                    mAppSize.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        setMargins(mApkName.marginLeft, 8.dp, 16.dp, mAppSize.marginBottom)
+                    }
+                    newApkNameView.addView(mAppSize)
+
                     newApkHeaderView.addView(newApkNameView)
 
                     val mApkVersion = TextView(context).apply {
@@ -114,10 +125,17 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                         }
                         layoutParams = newLayoutParams
                         text = if (isInstalled)
-                            """
+                            if (isUninstall) {
+                                """
+                                ${getApkVersionText(context)}
+                                $versionName($versionCode)
+                            """.trimIndent()
+                            } else {
+                                """
                                 ${getApkVersionText(context)}
                                 $curVersionName($curVersionCode) → $versionName($versionCode)
                             """.trimIndent()
+                            }
                         else
                             """
                                 ${getApkVersionText(context)}
