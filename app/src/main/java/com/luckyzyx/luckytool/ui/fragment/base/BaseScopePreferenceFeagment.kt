@@ -7,12 +7,10 @@ import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -75,7 +73,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
 
     fun getRootPreference(context: Context) = context.loadRootPreference()
 
-    open fun readPrefsItem(context: Context): ArrayList<PrefsItem> {
+    fun getAllPrefsItem(context: Context): ArrayList<PrefsItem> {
         return ArrayList<PrefsItem>().apply {
             if (scopes.size == 1 && !context.checkPackName(scopes.first())) return@apply
             val rootPreference = context.loadRootPreference()
@@ -98,35 +96,30 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupMenuProvider(this)
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
         if (currentPrefsName.isNotBlank()) preferenceManager.sharedPreferencesName =
             currentPrefsName
-        val prefsScreen = preferenceManager.createPreferenceScreen(requireActivity())
-        requireActivity().loadPreferences().forEachIndexed { index, preference ->
-            try {
-                prefsScreen.addPreference(preference)
-            } catch (t: Throwable) {
-                LogUtils.e(
-                    "$javaClass loadPreferences",
-                    "$index | ${preference.key} | ${preference.title}",
-                    "$t",
-                    true
-                )
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            context.loadPreferences().forEachIndexed { index, preference ->
+                try {
+                    addPreference(preference)
+                } catch (t: Throwable) {
+                    LogUtils.e(
+                        "$javaClass loadPreferences",
+                        "$index | ${preference.key} | ${preference.title}",
+                        "$t",
+                        true
+                    )
+                }
             }
         }
-        preferenceScreen = prefsScreen
 
         arguments?.apply {
-//            getCharSequence("title_text")?.let {
-//                safeOfNull { (activity as MainActivity).supportActionBar?.title = it }
-//            }
             val scrollKey = getString("scrollKey", "")
             val scrollPosition = getInt("scrollPosition", -1)
             Handler(Looper.getMainLooper()).postDelayed({

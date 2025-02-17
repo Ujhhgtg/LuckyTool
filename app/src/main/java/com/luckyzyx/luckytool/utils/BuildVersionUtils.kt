@@ -7,22 +7,40 @@ import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.hook.utils.OplusBuildUtlils
 import com.oplus.os.OplusBuild
 
-/**SDK_INT版本*/
+/**
+ * SDK_INT
+ * @see [Build.VERSION.SDK_INT]
+ */
 val SDK get() = Build.VERSION.SDK_INT
 
-/**Android11 30 R*/
+/**
+ * Android 11 30 R
+ * @see [Build.VERSION_CODES.R]
+ * */
 val A11 get() = Build.VERSION_CODES.R
 
-/**Android12 31 S*/
+/**
+ * Android 12 31 S
+ * @see [Build.VERSION_CODES.S]
+ * */
 val A12 get() = Build.VERSION_CODES.S
 
-/**Android13 33 TIRAMISU*/
+/**
+ * Android 13 33 TIRAMISU
+ * @see [Build.VERSION_CODES.TIRAMISU]
+ * */
 val A13 get() = Build.VERSION_CODES.TIRAMISU
 
-/**Android14 34 UPSIDE_DOWN_CAKE*/
+/**
+ * Android 14 34 UPSIDE_DOWN_CAKE
+ * @see [Build.VERSION_CODES.UPSIDE_DOWN_CAKE]
+ * */
 val A14 get() = Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 
-/**Android15 35 XX*/
+/**
+ * Android 15 35 VANILLA_ICE_CREAM
+ * @see [Build.VERSION_CODES.VANILLA_ICE_CREAM]
+ * */
 val A15 get() = Build.VERSION_CODES.VANILLA_ICE_CREAM
 
 /**

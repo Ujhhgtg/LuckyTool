@@ -322,7 +322,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                                 1 -> DonateUtils.showQRCode(context, which)
                                 2 -> DonateUtils.showQRCode(context, which)
                                 3 -> if (isZh(context)) {
-                                    navigatePage(
+                                    context.navigatePage(
                                         R.id.donateFragment,
                                         getString(R.string.donation_list)
                                     )
@@ -339,7 +339,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                                     )
                                 )
 
-                                5 -> navigatePage(
+                                5 -> context.navigatePage(
                                     R.id.donateFragment,
                                     getString(R.string.donation_list)
                                 )

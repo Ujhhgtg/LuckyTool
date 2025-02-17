@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment.others
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,9 +41,11 @@ class OtherFragment : Fragment() {
         return binding.root
     }
 
-    fun init(context: Context) {
-        binding.quickEntry.setOnClickListener {
-            navigatePage(R.id.systemQuickEntry, getString(R.string.quick_entry))
+    fun init() {
+        binding.quickEntry.apply {
+            setOnClickListener {
+                context.navigatePage(R.id.systemQuickEntry, getString(R.string.quick_entry))
+            }
         }
 
         binding.shortcut.apply {
@@ -77,8 +78,10 @@ class OtherFragment : Fragment() {
 
         binding.fpsTitle.text = getString(R.string.fps_title)
         binding.fpsSummary.text = getString(R.string.fps_summary)
-        binding.fps.setOnClickListener {
-            navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
+        binding.fps.apply {
+            setOnClickListener {
+                context.navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
+            }
         }
     }
 
@@ -191,7 +194,7 @@ class OtherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init(requireActivity())
+        init()
     }
 
     override fun onResume() {

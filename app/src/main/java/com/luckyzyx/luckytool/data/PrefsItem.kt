@@ -16,5 +16,5 @@ data class PrefsItem(
     val isVisible: Boolean? = true,
     val fragmentTitle: CharSequence? = "",
     val fragmentSummary: CharSequence? = "",
-    val fragmentId: Int? = -1
+    val fragmentResId: Int? = -1
 ) : Serializable

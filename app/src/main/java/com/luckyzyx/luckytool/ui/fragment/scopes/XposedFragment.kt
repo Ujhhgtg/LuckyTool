@@ -14,25 +14,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
-import androidx.core.view.setPadding
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.Preference
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
+import com.drake.net.utils.withMain
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.FragmentItem
 import com.luckyzyx.luckytool.data.PrefsItem
+import com.luckyzyx.luckytool.databinding.DialogLoadingLayoutBinding
 import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.databinding.DialogSearchResultLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutSearchResultItemBinding
@@ -90,7 +89,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
-import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.safeOf
@@ -99,6 +97,7 @@ import com.luckyzyx.luckytool.utils.showBottomSheet
 import com.luckyzyx.luckytool.utils.showToast
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
+import kotlinx.coroutines.Dispatchers
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import java.util.Arrays
 
@@ -197,18 +196,13 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     }
 
     override fun onCreatePreferencesInModuleApp(savedInstanceState: Bundle?, rootKey: String?) {
-        if (loadDialog == null) loadDialog =
-            MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+        if (loadDialog == null) {
+            val binding = DialogLoadingLayoutBinding.inflate(layoutInflater)
+            loadDialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                 setTitle(getString(R.string.common_words_loading))
-                setView(LinearLayout(context).apply {
-                    addView(LinearProgressIndicator(context).apply {
-                        layoutParams =
-                            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-                        setPadding(20.dp)
-                        isIndeterminate = true
-                    })
-                })
+                setView(binding.root)
             }.create()
+        }
     }
 
     override fun onResume() {
@@ -222,56 +216,58 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
     private fun initAllScopePreferences() {
         allFragmentItem.clear()
 
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarBattery())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarClock())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarControlCenter())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarIcon())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarLayout())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarNetWorkSpeed())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarNotify())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarNotifyRemoval())
-        addFragmentItem(requireActivity(), allFragmentItem, StatusBarTiles())
+        val context = requireActivity()
 
-        addFragmentItem(requireActivity(), allFragmentItem, AndroidRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, CorePatch())
-        addFragmentItem(requireActivity(), allFragmentItem, AodRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, ApplicationRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, DialogRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, FingerPrintRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, LauncherRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, LockScreenRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, Miscellaneous())
+        addFragmentItem(context, allFragmentItem, StatusBarRelated())
+        addFragmentItem(context, allFragmentItem, StatusBarBattery())
+        addFragmentItem(context, allFragmentItem, StatusBarClock())
+        addFragmentItem(context, allFragmentItem, StatusBarControlCenter())
+        addFragmentItem(context, allFragmentItem, StatusBarIcon())
+        addFragmentItem(context, allFragmentItem, StatusBarLayout())
+        addFragmentItem(context, allFragmentItem, StatusBarNetWorkSpeed())
+        addFragmentItem(context, allFragmentItem, StatusBarNotify())
+        addFragmentItem(context, allFragmentItem, StatusBarNotifyRemoval())
+        addFragmentItem(context, allFragmentItem, StatusBarTiles())
 
-        addFragmentItem(requireActivity(), allFragmentItem, OplusBattery())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusBreenoTouch())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusBrowser())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusCalendar())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusCamera())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusCloudService())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusEyeProtect())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusGallery())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusGames())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusGesture())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusMarket())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusMMS())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusOTA())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusPhoneManager())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusPictorial())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusScreenshot())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusSearchBox())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusSettings())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusSmartSidebar())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusSoundRecorder())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusTeleService())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusWeather())
-        addFragmentItem(requireActivity(), allFragmentItem, SoundRelated())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusThemeStore())
-        addFragmentItem(requireActivity(), allFragmentItem, OplusBeaconLink())
+        addFragmentItem(context, allFragmentItem, AndroidRelated())
+        addFragmentItem(context, allFragmentItem, CorePatch())
+        addFragmentItem(context, allFragmentItem, AodRelated())
+        addFragmentItem(context, allFragmentItem, ApplicationRelated())
+        addFragmentItem(context, allFragmentItem, DialogRelated())
+        addFragmentItem(context, allFragmentItem, FingerPrintRelated())
+        addFragmentItem(context, allFragmentItem, LauncherRelated())
+        addFragmentItem(context, allFragmentItem, LockScreenRelated())
+        addFragmentItem(context, allFragmentItem, Miscellaneous())
 
-        addFragmentItem(requireActivity(), allFragmentItem, ADM())
-        addFragmentItem(requireActivity(), allFragmentItem, AlphaBackupPro())
-        addFragmentItem(requireActivity(), allFragmentItem, KsWeb())
+        addFragmentItem(context, allFragmentItem, OplusBattery())
+        addFragmentItem(context, allFragmentItem, OplusBreenoTouch())
+        addFragmentItem(context, allFragmentItem, OplusBrowser())
+        addFragmentItem(context, allFragmentItem, OplusCalendar())
+        addFragmentItem(context, allFragmentItem, OplusCamera())
+        addFragmentItem(context, allFragmentItem, OplusCloudService())
+        addFragmentItem(context, allFragmentItem, OplusEyeProtect())
+        addFragmentItem(context, allFragmentItem, OplusGallery())
+        addFragmentItem(context, allFragmentItem, OplusGames())
+        addFragmentItem(context, allFragmentItem, OplusGesture())
+        addFragmentItem(context, allFragmentItem, OplusMarket())
+        addFragmentItem(context, allFragmentItem, OplusMMS())
+        addFragmentItem(context, allFragmentItem, OplusOTA())
+        addFragmentItem(context, allFragmentItem, OplusPhoneManager())
+        addFragmentItem(context, allFragmentItem, OplusPictorial())
+        addFragmentItem(context, allFragmentItem, OplusScreenshot())
+        addFragmentItem(context, allFragmentItem, OplusSearchBox())
+        addFragmentItem(context, allFragmentItem, OplusSettings())
+        addFragmentItem(context, allFragmentItem, OplusSmartSidebar())
+        addFragmentItem(context, allFragmentItem, OplusSoundRecorder())
+        addFragmentItem(context, allFragmentItem, OplusTeleService())
+        addFragmentItem(context, allFragmentItem, OplusWeather())
+        addFragmentItem(context, allFragmentItem, SoundRelated())
+        addFragmentItem(context, allFragmentItem, OplusThemeStore())
+        addFragmentItem(context, allFragmentItem, OplusBeaconLink())
+
+        addFragmentItem(context, allFragmentItem, ADM())
+        addFragmentItem(context, allFragmentItem, AlphaBackupPro())
+        addFragmentItem(context, allFragmentItem, KsWeb())
 
     }
 
@@ -292,24 +288,24 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         list.add(
             FragmentItem(
                 fragment, fragment.navigateFragmentId,
-                fragment.readPrefsItem(context)
+                fragment.getAllPrefsItem(context)
             )
         )
     }
 
     private fun init() {
-        loadDialog?.show()
-        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
-            requireActivity().loadPreferences().forEachIndexed { index, preference ->
-                try {
-                    addPreference(preference)
-                } catch (_: Throwable) {
-                    context.showToast("Error: $index ${preference.key}")
-                    return@forEachIndexed
+        scopeDialog(dialog = loadDialog, cancelable = false, dispatcher = Dispatchers.IO) {
+            preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+                context.loadPreferences().forEachIndexed { index, preference ->
+                    try {
+                        addPreference(preference)
+                    } catch (_: Throwable) {
+                        withMain { context.showToast("Error: $index ${preference.key}") }
+                        return@forEachIndexed
+                    }
                 }
             }
         }
-        loadDialog?.dismiss()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -381,14 +377,14 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
                 allFragmentItem, object : OnSelectSearchResultListener {
                     override fun resultItem(fragmentItem: FragmentItem, prefsItem: PrefsItem) {
                         dialog.dismiss()
-                        if (prefsItem.fragmentId == -1) return
-                        prefsItem.fragmentId?.let { _ ->
+                        prefsItem.fragmentResId?.let {
+                            if (it == -1) return@let
                             val bundle = Bundle().apply {
                                 putCharSequence("title_text", prefsItem.fragmentTitle)
                                 putString("scrollKey", prefsItem.key)
                                 putInt("scrollPosition", prefsItem.position)
                             }
-                            navigatePage(prefsItem.fragmentId, bundle)
+                            navigatePage(prefsItem.fragmentResId, bundle)
                         }
                     }
                 })
@@ -449,7 +445,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             val icon = prefsItem.icon
             val title = prefsItem.title
             val summary = prefsItem.summary
-            val fragmentId = prefsItem.fragmentId
+            val fragmentId = prefsItem.fragmentResId
             val fragmentItem = allFragmentItemDatas[fragmentId]!!
 
             holder.item.setOnClickListener(null)
@@ -474,7 +470,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
                 filterDatas = if (constraint.isNotBlank()) {
                     ArrayList(allDatas.filter {
                         it.title?.contains(constraint, true) == true &&
-                                it.isVisible == true && it.fragmentId != -1
+                                it.isVisible == true && it.fragmentResId != -1
                     })
                 } else arrayListOf()
 //                LogUtils.d("SearchResultAdapter", "getFilter", filterDatas.size.toString(), true)
