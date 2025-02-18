@@ -515,6 +515,8 @@
     <string name="show_sdk_in_app_details">Hiển thị phiên bản SDK trong chi tiết ứng dụng</string>
     <string name="show_first_install_time_in_app_details">Hiển thị thời gian cài đặt đầu tiên trong chi tiết ứng dụng</string>
     <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
+    <string name="show_install_source_in_app_details">Show installation source in app details</string>
+    <string name="install_source">Install Source</string>
     <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
     <string name="enable_quick_open_market_page">Cho phép chuyển hướng nhanh để mở cửa hàng</string>
     <string name="open_market">Mở cửa hàng ứng dụng</string>

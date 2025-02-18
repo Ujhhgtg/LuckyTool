@@ -24,6 +24,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 自定义设备分享页面参数修改异常
 - [添加] 移除桌面组件添加请求白名单 C14+
 - [修复] 应用安装页面安装包大小显示异常
+- [添加] 应用详情显示App安装来源
 
 ### 1.2.7
 

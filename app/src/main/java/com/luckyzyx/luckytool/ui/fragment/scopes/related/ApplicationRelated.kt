@@ -372,6 +372,12 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.show_install_source_in_app_details)
+                key = "show_install_source_in_app_details"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_long_press_to_copy_in_app_details)
                 key = "enable_long_press_to_copy_in_app_details"
                 setDefaultValue(false)

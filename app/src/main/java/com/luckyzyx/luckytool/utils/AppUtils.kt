@@ -110,7 +110,7 @@ class AppUtils(val context: Context) {
      * @return CharSequence?  若为Null 返回包名
      */
     fun getAppLabel(packName: String): CharSequence {
-        return getAppLabelOrNull(packName) ?: packName
+        return getAppLabelOrNull(packName).ifBlank { packName }
     }
 
     /**
@@ -119,10 +119,10 @@ class AppUtils(val context: Context) {
      * @param packName String
      * @return CharSequence?
      */
-    fun getAppLabelOrNull(packName: String): CharSequence? {
+    fun getAppLabelOrNull(packName: String): CharSequence {
         return packageUtils.getApplicationInfo(packName, 0)?.let {
             packageUtils.getApplicationLabel(it)
-        }
+        } ?: ""
     }
 
     /**

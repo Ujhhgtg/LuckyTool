@@ -82,7 +82,7 @@
     <string name="no_root_summary">Root-права не обнаружены, некоторые функции будут недоступны!</string>
     <!-- Menu -->
     <string name="menu_reboot">Меню перезагрузки</string>
-    <string name="menu_search">Search menu</string>
+    <string name="menu_search">Меню поиска</string>
     <string name="menu_settings">Настройки</string>
     <string name="restart_scope">Перезагрузить запланированные процессы</string>
     <string name="re_optimize_dex">Повторная оптимизация Dex</string>
@@ -407,8 +407,8 @@
     <string name="remove_alarmclock_widget_redone_pro_summary">Доступно только тогда, когда обычная версия не помогает, иначе это вызовет неизбежную ошибку</string>
     <!--Launcher-->
     <string name="Desktop">Рабочий стол</string>
-    <string name="WidgetRelated">Widget Related</string>
-    <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
+    <string name="WidgetRelated">Виджеты</string>
+    <string name="remove_widgets_add_request_whitelist">Удалить виджеты, чтобы добавить запрос в белый список</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
     <string name="allow_app_names_display_multiple_lines">Разрешить отображать названия приложений в несколько строк</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
@@ -515,6 +515,8 @@
     <string name="show_sdk_in_app_details">Показывать SDK в сведениях о приложении</string>
     <string name="show_first_install_time_in_app_details">Показывать время первой установки в сведениях о приложении</string>
     <string name="show_last_update_time_in_app_details">Показывать время последнего обновления в подробностях приложения</string>
+    <string name="show_install_source_in_app_details">Show installation source in app details</string>
+    <string name="install_source">Install Source</string>
     <string name="enable_long_press_to_copy_in_app_details">Включить долгое нажатие для копирования сведений о приложении</string>
     <string name="enable_quick_open_market_page">Включить быстрый переход в магазин</string>
     <string name="open_market">Магазин</string>

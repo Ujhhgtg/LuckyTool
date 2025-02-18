@@ -515,6 +515,8 @@
     <string name="show_sdk_in_app_details">应用详情显示SDK版本</string>
     <string name="show_first_install_time_in_app_details">应用详情显示首次安装时间</string>
     <string name="show_last_update_time_in_app_details">应用详情显示最后更新时间</string>
+    <string name="show_install_source_in_app_details">应用详情显示安装来源</string>
+    <string name="install_source">安装来源</string>
     <string name="enable_long_press_to_copy_in_app_details">应用详情启用长按复制</string>
     <string name="enable_quick_open_market_page">启用打开商店快捷跳转</string>
     <string name="open_market">打开商店</string>

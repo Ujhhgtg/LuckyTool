@@ -18,6 +18,7 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -45,6 +46,8 @@ object HookAppDetails : YukiBaseHooker() {
                 prefs(ModulePrefs).getBoolean("show_first_install_time_in_app_details", false)
             val isLastUpdateTime =
                 prefs(ModulePrefs).getBoolean("show_last_update_time_in_app_details", false)
+            val isInstallSource =
+                prefs(ModulePrefs).getBoolean("show_install_source_in_app_details", false)
             val isEnableCopy =
                 prefs(ModulePrefs).getBoolean("enable_long_press_to_copy_in_app_details", false)
 
@@ -99,7 +102,7 @@ object HookAppDetails : YukiBaseHooker() {
                                 context.getString(R.string.first_install_time)
                             }
                             val firstInstallTime =
-                                formatDate("YYYY/MM/dd HH:mm:ss", packageInfo.firstInstallTime)
+                                formatDate("yyyy/MM/dd HH:mm:ss", packageInfo.firstInstallTime)
                             list.add("$firstInstallTimeStr $firstInstallTime")
                         }
                         if (isLastUpdateTime) {
@@ -107,8 +110,19 @@ object HookAppDetails : YukiBaseHooker() {
                                 context.getString(R.string.last_update_time)
                             }
                             val lastUpdateTime =
-                                formatDate("YYYY/MM/dd HH:mm:ss", packageInfo.lastUpdateTime)
+                                formatDate("yyyy/MM/dd HH:mm:ss", packageInfo.lastUpdateTime)
                             list.add("$lastUpdateTimeStr $lastUpdateTime")
+                        }
+
+                        if (isInstallSource) {
+                            val installSourceStr = safeOf("Install Source") {
+                                context.getString(R.string.install_source)
+                            }
+                            val sourceInfo =
+                                PackageUtils(context.packageManager).getInstallSourceInfo(packName)
+                            val sourcePackName = sourceInfo?.installingPackageName ?: ""
+                            val sourceAppName = AppUtils(context).getAppLabel(sourcePackName)
+                            if (sourceAppName.isNotBlank()) list.add("$installSourceStr $sourceAppName")
                         }
 
                         appSize?.apply {

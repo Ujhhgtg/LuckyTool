@@ -584,6 +584,8 @@
     <string name="show_sdk_in_app_details">Show sdk in app details</string>
     <string name="show_first_install_time_in_app_details">Show first install time in app details</string>
     <string name="show_last_update_time_in_app_details">Show last update time in app details</string>
+    <string name="show_install_source_in_app_details">Show installation source in app details</string>
+    <string name="install_source">Install Source</string>
     <string name="enable_long_press_to_copy_in_app_details">Enable long press to copy in app details</string>
     <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
     <string name="open_market">Open Market</string>
