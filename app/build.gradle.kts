@@ -31,8 +31,6 @@ android {
         targetSdk = 28
         versionCode = getVersionCode()
         versionName = "1.2.8_beta"
-        buildConfigField("String", "APP_CENTER_SECRET", getAppCenterSecret())
-        buildConfigField("String", "APP_CENTER_SECRET_BETA", getAppCenterSecret(true))
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))
     }
 
@@ -129,9 +127,6 @@ dependencies {
     implementation(libs.libsu.service)
     implementation(libs.libsu.io)
 
-    implementation(libs.appcenter.analytics)
-    implementation(libs.appcenter.crashes)
-
     implementation(libs.markwon.core)
     implementation(libs.markwon.html)
     implementation(libs.markwon.image)
@@ -156,14 +151,4 @@ fun getVersionCode(): Int {
         println("versionCode -> $vCode")
         return vCode
     } else throw GradleException("Can't read version.properties!")
-}
-
-fun getAppCenterSecret(isBeta: Boolean = false): String {
-    val file = rootProject.file("keystore/app_center_secret")
-    if (file.canRead()) {
-        val list = if (file.exists()) file.readLines() else return ""
-        if (list.size != 2) return ""
-        return if (isBeta) list.lastOrNull() ?: ""
-        else list.firstOrNull() ?: ""
-    } else throw GradleException("Can't read app center keystore!")
 }

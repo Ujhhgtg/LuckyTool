@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.utils
 
-import android.app.Application
 import android.content.Context
 import android.util.ArrayMap
 import com.drake.net.Get
@@ -9,12 +8,8 @@ import com.drake.net.utils.scopeNet
 import com.drake.net.utils.withDefault
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.joom.paranoid.Obfuscate
-import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.DeviceUtils.getCSid
 import com.luckyzyx.luckytool.utils.DeviceUtils.getQSlist
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 import com.tencent.mmkv.MMKV
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
@@ -24,9 +19,6 @@ import org.json.JSONObject
 
 @Obfuscate
 class AppAnalyticsUtils(val context: Context) {
-
-    private val normalAppCenterSecret = BuildConfig.APP_CENTER_SECRET
-    private val betaAppCenterSecret = BuildConfig.APP_CENTER_SECRET_BETA
 
     private val dataDir = "/data/local/tmp/luckys/"
     private val dataPath = "/data/local/tmp/luckys/data.dat"
@@ -40,21 +32,6 @@ class AppAnalyticsUtils(val context: Context) {
     init {
         forbiddenAppList = getForbiddenApps(false)
         if (forbiddenAppList.isEmpty()) forbiddenAppList.add(CommandUtils.sunshineTool)
-    }
-
-    fun init(application: Application, isBeta: Boolean) {
-        if (isBeta) AppCenter.start(
-            application, betaAppCenterSecret, Analytics::class.java, Crashes::class.java
-        )
-        else AppCenter.start(
-            application, normalAppCenterSecret, Analytics::class.java, Crashes::class.java
-        )
-    }
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun trackEvent(name: String, data: Map<String, String>? = null) {
-        if (data != null) Analytics.trackEvent(name, data)
-        else Analytics.trackEvent(name)
     }
 
     private fun Context.checkMagicalStory(isDebug: Boolean = false): ArrayMap<String, String> {
@@ -293,7 +270,6 @@ class AppAnalyticsUtils(val context: Context) {
                 }
             }
             if (qbsval || cbsval || disval || magval) {
-                trackEvent("bk", map)
                 context.removeModule()
                 context.exitModule()
             }

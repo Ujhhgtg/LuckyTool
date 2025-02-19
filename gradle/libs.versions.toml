@@ -7,7 +7,6 @@ navigation = "2.8.5"
 kotlinx-coroutines = "1.10.1"
 libsu = "6.0.0"
 markwon = "4.6.2"
-appcenter = "5.0.5"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -57,6 +56,3 @@ markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-html = { module = "io.noties.markwon:html", version.ref = "markwon" }
 markwon-image = { module = "io.noties.markwon:image", version.ref = "markwon" }
 markwon-ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
-
-appcenter-analytics = { module = "com.microsoft.appcenter:appcenter-analytics", version.ref = "appcenter" }
-appcenter-crashes = { module = "com.microsoft.appcenter:appcenter-crashes", version.ref = "appcenter" }
