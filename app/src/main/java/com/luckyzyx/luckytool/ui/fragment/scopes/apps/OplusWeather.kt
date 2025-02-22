@@ -11,7 +11,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.fixIconSize
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
@@ -37,10 +36,6 @@ class OplusWeather : BaseScopePreferenceFeagment() {
                 getString(R.string.remove_weather_some_page_bottom_ads)
             )
             isVisible = checkPackName(key)
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

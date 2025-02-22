@@ -15,7 +15,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getString
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
@@ -37,10 +36,6 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
                 getString(R.string.allow_untrusted_touch),
                 getString(R.string.set_ltpo_refresh_rate_mode)
             )
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

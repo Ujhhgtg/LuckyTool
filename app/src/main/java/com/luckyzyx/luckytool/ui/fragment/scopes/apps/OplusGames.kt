@@ -23,7 +23,6 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
@@ -61,10 +60,6 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 getString(R.string.enable_developer_page)
             )
             isVisible = checkPackName(key)
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

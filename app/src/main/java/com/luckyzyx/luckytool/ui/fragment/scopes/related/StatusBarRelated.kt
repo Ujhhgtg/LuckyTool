@@ -28,7 +28,6 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
@@ -62,10 +61,6 @@ class StatusBarRelated : BaseScopePreferenceFeagment() {
                 getString(R.string.StatusBarIcon),
                 getString(R.string.StatusBarClock)
             )
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

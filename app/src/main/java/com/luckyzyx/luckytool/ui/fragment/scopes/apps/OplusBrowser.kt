@@ -12,7 +12,6 @@ import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
 
@@ -39,10 +38,6 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                 getString(R.string.remove_ads_at_download_page_bottom),
             )
             isVisible = checkPackName(key)
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

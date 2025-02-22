@@ -11,7 +11,6 @@ import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
@@ -39,10 +38,6 @@ class OplusPictorial : BaseScopePreferenceFeagment() {
                 getString(R.string.remove_video_save_watermark)
             )
             isVisible = checkPackName(key)
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

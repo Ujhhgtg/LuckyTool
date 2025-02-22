@@ -12,7 +12,6 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
-import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
@@ -40,10 +39,6 @@ class Miscellaneous : BaseScopePreferenceFeagment() {
             title = getString(R.string.Miscellaneous)
             summary =
                 arraySummaryDot(getString(R.string.Miscellaneous_summary))
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

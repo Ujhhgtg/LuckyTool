@@ -20,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -384,7 +385,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
                                 putString("scrollKey", prefsItem.key)
                                 putInt("scrollPosition", prefsItem.position)
                             }
-                            navigatePage(prefsItem.fragmentResId, bundle)
+                            findNavController().navigatePage(prefsItem.fragmentResId, bundle)
                         }
                     }
                 })

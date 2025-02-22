@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
 import android.content.Context
 import android.util.ArraySet
+import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -59,10 +60,6 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 getString(R.string.skip_apk_scan),
                 getString(R.string.unlock_startup_limit)
             )
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 
@@ -105,7 +102,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 key = "dark_mode_support_list"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.darkModeFragment, title)
+                    findNavController().navigatePage(R.id.darkModeFragment, title)
                     true
                 }
             })
@@ -138,7 +135,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                     key = "multi_app_custom_list"
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        navigatePage(R.id.multiAppFragment, title)
+                        findNavController().navigatePage(R.id.multiAppFragment, title)
                         true
                     }
                 })

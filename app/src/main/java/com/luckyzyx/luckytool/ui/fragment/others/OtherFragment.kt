@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.util.forEach
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -44,7 +45,10 @@ class OtherFragment : Fragment() {
     fun init() {
         binding.quickEntry.apply {
             setOnClickListener {
-                context.navigatePage(R.id.systemQuickEntry, getString(R.string.quick_entry))
+                findNavController().navigatePage(
+                    R.id.systemQuickEntry,
+                    getString(R.string.quick_entry)
+                )
             }
         }
 
@@ -80,7 +84,10 @@ class OtherFragment : Fragment() {
         binding.fpsSummary.text = getString(R.string.fps_summary)
         binding.fps.apply {
             setOnClickListener {
-                context.navigatePage(R.id.forceFpsFragment, getString(R.string.fps_title))
+                findNavController().navigatePage(
+                    R.id.forceFpsFragment,
+                    getString(R.string.fps_title)
+                )
             }
         }
     }

@@ -10,7 +10,6 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dialogCentered
-import com.luckyzyx.luckytool.utils.navigatePage
 
 @Obfuscate
 class CorePatch : BaseScopePreferenceFeagment() {
@@ -25,10 +24,6 @@ class CorePatch : BaseScopePreferenceFeagment() {
             summary = getString(R.string.corepatch_summary)
             key = "CorePatch"
             isIconSpaceReserved = false
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

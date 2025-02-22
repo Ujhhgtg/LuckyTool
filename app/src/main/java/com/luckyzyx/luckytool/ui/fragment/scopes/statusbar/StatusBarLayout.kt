@@ -14,7 +14,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
-import com.luckyzyx.luckytool.utils.navigatePage
 
 @Obfuscate
 class StatusBarLayout : BaseScopePreferenceFeagment() {
@@ -36,10 +35,6 @@ class StatusBarLayout : BaseScopePreferenceFeagment() {
             key = "StatusBarLayout"
             isIconSpaceReserved = false
             isVisible = SDK == A13
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

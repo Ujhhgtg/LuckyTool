@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
 import android.content.Context
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.drake.net.utils.scopeLife
@@ -43,10 +44,6 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 getString(R.string.restore_ota_update_verity)
             )
             isVisible = checkPackName(key)
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 
@@ -118,7 +115,7 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    navigatePage(R.id.extractOTAFragment, title)
+                    findNavController().navigatePage(R.id.extractOTAFragment, title)
                     true
                 }
             })

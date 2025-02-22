@@ -102,9 +102,8 @@ class DonateFragment : Fragment() {
             getString(R.string.donate_info_time),
             getString(R.string.donate_info_money),
             getString(R.string.donate_info_order)
-        ).apply {
-            if (showDetail) removeLast()
-        }
+        )
+        if (showDetail) sorts.removeLastOrNull()
         sortFilterSelector = SortFilterSelector(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
@@ -250,8 +249,6 @@ class DonateFragment : Fragment() {
                 val channel = info.optString("channel")
                 val money = info.optDouble("money", 0.0)
                 val order = info.optString("order")
-
-                @Suppress("MoveVariableDeclarationIntoWhen")
                 val unit = info.optString("unit")
 
                 when (unit) {

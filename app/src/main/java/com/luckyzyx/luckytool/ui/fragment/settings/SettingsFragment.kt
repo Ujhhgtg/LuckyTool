@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.ArraySet
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -322,7 +323,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                                 1 -> DonateUtils.showQRCode(context, which)
                                 2 -> DonateUtils.showQRCode(context, which)
                                 3 -> if (isZh(context)) {
-                                    context.navigatePage(
+                                    findNavController().navigatePage(
                                         R.id.donateFragment,
                                         getString(R.string.donation_list)
                                     )
@@ -339,7 +340,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                                     )
                                 )
 
-                                5 -> context.navigatePage(
+                                5 -> findNavController().navigatePage(
                                     R.id.donateFragment,
                                     getString(R.string.donation_list)
                                 )

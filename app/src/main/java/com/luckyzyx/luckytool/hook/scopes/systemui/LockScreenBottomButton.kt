@@ -118,7 +118,9 @@ object LockScreenBottomButton : YukiBaseHooker() {
                         method { name = "updateLeftAffordanceVisibility" }.get(instance).call()
                         val mFlashlightController = field { name = "mFlashlightController" }
                             .get(instance).any()
-                        val isEnable = mFlashlightController?.getIsEnable() ?: false
+                        val isEnable = mFlashlightController?.current()?.method {
+                            name = "isEnabled"
+                        }?.invoke<Boolean>() ?: false
                         val resId = if (isEnable) R.drawable.affordance_flashlight_on
                         else R.drawable.affordance_flashlight
                         val drawable = safeOfNull {
@@ -151,8 +153,11 @@ object LockScreenBottomButton : YukiBaseHooker() {
                             .call()
                         val mFlashlightController =
                             field { name = "mFlashlightController" }.get(instance).any()
-                        val isEnable = mFlashlightController?.getIsEnable() ?: true
-                        mFlashlightController?.setFlashlight(!isEnable)
+                        val isEnable = mFlashlightController?.current()?.method {
+                            name = "isEnabled"
+                        }?.invoke<Boolean>() ?: true
+                        mFlashlightController?.current()?.method { name = "setFlashlight" }
+                            ?.call(!isEnable)
                         method { name = "updateLeftAffordanceIcon" }.get(instance).call()
                         if (autoCloseScreen) closeScreen(instance<ViewGroup>().context)
                         resultNull()
@@ -168,13 +173,5 @@ object LockScreenBottomButton : YukiBaseHooker() {
                 }
             }
         }
-    }
-
-    private fun Any.getIsEnable(): Boolean? {
-        return this.current().method { name = "isEnabled" }.invoke<Boolean>()
-    }
-
-    private fun Any.setFlashlight(status: Boolean) {
-        this.current().method { name = "setFlashlight" }.call(status)
     }
 }

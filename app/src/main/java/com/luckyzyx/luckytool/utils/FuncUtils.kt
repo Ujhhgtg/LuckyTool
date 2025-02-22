@@ -50,8 +50,8 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -646,11 +646,11 @@ fun showRefreshRate(status: Boolean) {
 
 /**
  * 判断上下文跳转fragment设置标题
- * @receiver Context
+ * @receiver NavController
  * @param fragemntId Int
  * @param title CharSequence?
  */
-fun Context.navigatePage(fragemntId: Int, title: CharSequence?) = try {
+fun NavController.navigatePage(fragemntId: Int, title: CharSequence?) = try {
     val bundle = Bundle().apply {
         if (!title.isNullOrBlank()) putCharSequence("title_text", title)
     }
@@ -660,35 +660,25 @@ fun Context.navigatePage(fragemntId: Int, title: CharSequence?) = try {
         setPopEnterAnim(R.anim.fragment_enter_pop)
         setPopExitAnim(R.anim.fragment_exit_pop)
     }.build()
-    @Suppress("USELESS_IS_CHECK")
-    when (this) {
-        is Fragment -> findNavController().navigate(fragemntId, bundle, navOptions)
-        is MainActivity -> navController.navigate(fragemntId, bundle, navOptions)
-        else -> {}
-    }
+    navigate(fragemntId, bundle, navOptions)
 } catch (_: IllegalArgumentException) {
 
 }
 
 /**
  * 跳转fragment传递参数 用于功能搜索适配器
- * @receiver Fragment
+ * @receiver NavController
  * @param action Int
  * @param bundle Bundle?
  */
-fun Context.navigatePage(action: Int, bundle: Bundle?) = try {
+fun NavController.navigatePage(action: Int, bundle: Bundle?) = try {
     val navOptions = NavOptions.Builder().apply {
         setEnterAnim(R.anim.fragment_enter)
         setExitAnim(R.anim.fragment_exit)
         setPopEnterAnim(R.anim.fragment_enter_pop)
         setPopExitAnim(R.anim.fragment_exit_pop)
     }.build()
-    @Suppress("USELESS_IS_CHECK")
-    when (this) {
-        is Fragment -> findNavController().navigate(action, bundle, navOptions)
-        is MainActivity -> navController.navigate(action, bundle, navOptions)
-        else -> {}
-    }
+    navigate(action, bundle, navOptions)
 } catch (_: IllegalArgumentException) {
 
 }

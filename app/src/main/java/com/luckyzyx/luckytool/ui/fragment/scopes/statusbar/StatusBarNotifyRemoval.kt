@@ -9,7 +9,6 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
-import com.luckyzyx.luckytool.utils.navigatePage
 
 @Obfuscate
 class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
@@ -31,10 +30,6 @@ class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
             )
             key = "RemoveStatusBarNotifications"
             isIconSpaceReserved = false
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 

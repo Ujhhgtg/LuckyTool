@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
 import android.content.Context
+import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -49,10 +50,6 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 getString(R.string.launcher_layout_related)
             )
             isVisible = checkPackName(key)
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 
@@ -329,7 +326,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     key = "zoom_window_support_list"
                     isIconSpaceReserved = false
                     setOnPreferenceClickListener {
-                        navigatePage(R.id.zoomWindowFragment, title)
+                        findNavController().navigatePage(R.id.zoomWindowFragment, title)
                         true
                     }
                 })

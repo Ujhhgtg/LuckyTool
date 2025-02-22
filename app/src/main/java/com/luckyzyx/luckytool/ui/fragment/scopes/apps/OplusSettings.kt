@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.core.graphics.drawable.toDrawable
+import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -84,10 +85,6 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 getString(R.string.remove_top_account_display),
                 getString(R.string.remove_dpi_restart_recovery)
             )
-            setOnPreferenceClickListener {
-                navigatePage(navigateFragmentId, title)
-                true
-            }
         }
     }
 
@@ -183,7 +180,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         key = "custom_video_dynamic_frame_insertion_configuration"
                         isIconSpaceReserved = false
                         setOnPreferenceClickListener {
-                            navigatePage(R.id.memcConfigFragment, title)
+                            findNavController().navigatePage(R.id.memcConfigFragment, title)
                             true
                         }
                     })
