@@ -284,9 +284,8 @@ object StatusBarBatteryInfoNotify : YukiBaseHooker() {
             else -> "${chargeWattage}W"
         }
 
-        val finalTemp = if (temperature < 0) "NaN" else temperature
-        val tem = if (isSimple) "${finalTemp}℃"
-        else "${tempStr}: ${finalTemp}℃"
+        val finalTemp = if (temperature < 0) "NaN" else "$temperature℃"
+        val tem = if (isSimple) finalTemp else "${tempStr}: $finalTemp"
         val formatVol = voltage.formatDecimals(2)
         val formatVol2 = voltage2.formatDecimals(2)
         val vol = when (showVolMode) {
