@@ -25,6 +25,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除桌面组件添加请求白名单 C14+
 - [修复] 应用安装页面安装包大小显示异常
 - [添加] 应用详情显示App安装来源
+- [更改] 移除AppCenter崩溃统计SDK
+- [适配] 桌面时钟组件红一 v15.6.8(40e2505)
 
 ### 1.2.7
 

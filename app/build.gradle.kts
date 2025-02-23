@@ -58,11 +58,8 @@ android {
             isShrinkResources = false
         }
     }
-    java {
-        toolchain { languageVersion = JavaLanguageVersion.of(JavaVersion.VERSION_17.majorVersion) }
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
+    kotlin {
+        jvmToolchain(17)
     }
     buildFeatures {
         aidl = true

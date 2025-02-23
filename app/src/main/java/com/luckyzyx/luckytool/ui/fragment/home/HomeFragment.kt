@@ -65,7 +65,6 @@ class HomeFragment : Fragment(), MenuProvider {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         enableModule = requireActivity().getBoolean(ModulePrefs, "enable_module", false)
-        refreshModuleStatus()
 
         binding.enableModule.apply {
             text = context.getString(R.string.enable_module)
@@ -178,6 +177,7 @@ class HomeFragment : Fragment(), MenuProvider {
     override fun onResume() {
         super.onResume()
         initSystemInfoView()
+        refreshModuleStatus()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

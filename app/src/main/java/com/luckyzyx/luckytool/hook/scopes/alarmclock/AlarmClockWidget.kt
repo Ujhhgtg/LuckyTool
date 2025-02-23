@@ -6,10 +6,12 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.widget.RemoteViews
+import androidx.collection.arrayMapOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.hasMethod
+import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.BitmapClass
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
@@ -27,7 +29,6 @@ import com.luckyzyx.luckytool.utils.safeOfNull
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-@Suppress("MayBeConstant", "unused")
 object AlarmClockWidget : YukiBaseHooker() {
 
     private val BaseClockWidget = "com.coloros.widget.smallweather.BaseClockWidget"
@@ -37,6 +38,7 @@ object AlarmClockWidget : YukiBaseHooker() {
     val OppoWeatherVertical = "com.coloros.widget.smallweather.OppoWeatherVertical"
     val OppoWeatherMultiVertical = "com.coloros.widget.smallweather.OppoWeatherMultiVertical"
     val RealmeWeather = "com.coloros.widget.smallweather.RealmeWeather"
+    val OxygenWeatherSingle = "com.coloros.widget.smallweather.OxygenWeatherSingle"
 
     private lateinit var redMode: String
 
@@ -56,15 +58,16 @@ object AlarmClockWidget : YukiBaseHooker() {
 
                 else -> {
                     val baseClockWidget = BaseClockWidget.toClassOrNull()
-                    if (baseClockWidget != null) loadHooker(AlarmClock141)
-                    else loadHooker(AlarmClock145(dexKitBridge))
+                    if (baseClockWidget != null) loadHooker(BaseAlarmClock14)
+                    else loadHooker(BaseAlarmClock15(dexKitBridge))
                 }
             }
         }
     }
 
-    private class AlarmClock145(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+    private class BaseAlarmClock15(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
+            //Source BaseClockWidget
             //Source OnePlusWidget / OppoWeather / OppoWeatherSingle / OppoWeatherVertical
             dexKitBridge.findClass {
                 matcher {
@@ -83,10 +86,10 @@ object AlarmClockWidget : YukiBaseHooker() {
                         }
                         add {
                             paramTypes(RemoteViewsClass, BooleanType, BooleanType)
-                            usingStrings(
-                                "com.oplus.widget.smallweather.WEATHER_CLICK",
-                                "com.oplus.widget.smallweather.RESIDENT_CITY_CLICK"
-                            )
+//                            usingStrings(
+//                                "com.oplus.widget.smallweather.WEATHER_CLICK",
+//                                "com.oplus.widget.smallweather.RESIDENT_CITY_CLICK"
+//                            )
                         }
                         add {
                             paramTypes(RemoteViewsClass, IntType, CharSequenceClass)
@@ -99,13 +102,13 @@ object AlarmClockWidget : YukiBaseHooker() {
                     }
                 }
             }.apply {
-                checkDataList("AlarmClock14")
+                checkDataList("AlarmClock145")
                 single().name.toClass().hookBaseClock()
             }
         }
     }
 
-    private object AlarmClock141 : YukiBaseHooker() {
+    private object BaseAlarmClock14 : YukiBaseHooker() {
         override fun onHook() {
             //Source BaseClockWidget
             BaseClockWidget.toClass().hookBaseClock()
@@ -194,8 +197,9 @@ object AlarmClockWidget : YukiBaseHooker() {
         method { emptyParam();returnType = RemoteViewsClass }.hookAll {
             after {
                 val context = field {
-                    type = ContextClass;if (noContext) superClass()
+                    type = ContextClass;superClass(noContext)
                 }.get(instance).cast<Context>() ?: return@after
+                context.injectModuleAppResources()
                 val res = result<RemoteViews>() ?: return@after
                 val layoutName = safeOfNull {
                     context.resources.getResourceEntryName(res.layoutId)
@@ -216,125 +220,80 @@ object AlarmClockWidget : YukiBaseHooker() {
      */
     @SuppressLint("DiscouragedApi")
     fun getReplaceLayout(context: Context, layoutName: String, redMode: String): Int? {
-        val curRedMode = layoutName.contains("red")
+        val isRedMode = layoutName.contains("red")
         val replaceLayoutName = when (redMode) {
-            "1" -> if (curRedMode) layoutName else getRedLayoutRes(layoutName)
-            "2" -> if (curRedMode) getNonRedLayoutRes(layoutName) else layoutName
-            else -> return null
-        }
+            "1" -> if (isRedMode) null else convertLayoutResMap(layoutName, redMode)
+            "2" -> if (isRedMode) convertLayoutResMap(layoutName, redMode) else null
+            else -> null
+        } ?: return null
         val resId = context.resources.getIdentifier(replaceLayoutName, "layout", packageName)
         return resId.takeIf { it != 0 }
     }
 
     /**
-     * 获取非红一布局
-     * @param layoutName String?
+     * 转换布局名
+     * @param layoutName String
+     * @param redMode String
      * @return String?
      */
-    private fun getNonRedLayoutRes(layoutName: String?): String? {
-        return when (layoutName) {
+    private fun convertLayoutResMap(layoutName: String, redMode: String): String? {
+        val layouts = arrayMapOf(
             //OnePlusWidget
-            "op_double_clock_red_widget_land_view" -> "op_double_clock_widget_land_view"
-            "op_double_clock_red_widget_view" -> "op_double_clock_widget_view"
-            "one_plus_red_widget_land_view" -> "one_plus_widget_land_view"
-            "one_plus_red_widget_view" -> "one_plus_widget_view"
-            "table_op_double_clock_red_widget_land_view" -> "table_op_double_clock_widget_land_view"
-            "table_op_double_clock_red_widget_view" -> "table_op_double_clock_widget_view"
-            "table_one_plus_red_widget_land_view" -> "table_one_plus_widget_land_view"
-            "table_one_plus_red_widget_view" -> "table_one_plus_widget_view"
+            "op_double_clock_red_widget_land_view" to "op_double_clock_widget_land_view",
+            "op_double_clock_red_widget_view" to "op_double_clock_widget_view",
+            "one_plus_red_widget_land_view" to "one_plus_widget_land_view",
+            "one_plus_red_widget_view" to "one_plus_widget_view",
+            "table_op_double_clock_red_widget_land_view" to "table_op_double_clock_widget_land_view",
+            "table_op_double_clock_red_widget_view" to "table_op_double_clock_widget_view",
+            "table_one_plus_red_widget_land_view" to "table_one_plus_widget_land_view",
+            "table_one_plus_red_widget_view" to "table_one_plus_widget_view",
             //OppoWeather
-            "hor_double_clock_red_widget_land_view_t" -> "hor_double_clock_widget_land_view_t"
-            "hor_double_clock_red_widget_view_t" -> "hor_double_clock_widget_view_t"
-            "hor_single_clock_red_widget_land_view_t" -> "hor_single_clock_widget_land_view_t"
-            "hor_single_clock_red_widget_view_t" -> "hor_single_clock_widget_view_t"
-            "table_hor_double_clock_red_widget_land_view_t" -> "table_hor_double_clock_widget_land_view_t"
-            "table_hor_double_clock_red_widget_view_t" -> "table_hor_double_clock_widget_view_t"
-            "table_hor_single_clock_red_widget_land_view_t" -> "table_hor_single_clock_widget_land_view_t"
-            "table_hor_single_clock_red_widget_view_t" -> "table_hor_single_clock_widget_view_t"
+            "hor_double_clock_red_widget_land_view_t" to "hor_double_clock_widget_land_view_t",
+            "hor_double_clock_red_widget_view_t" to "hor_double_clock_widget_view_t",
+            "hor_single_clock_red_widget_land_view_t" to "hor_single_clock_widget_land_view_t",
+            "hor_single_clock_red_widget_view_t" to "hor_single_clock_widget_view_t",
+            "table_hor_double_clock_red_widget_land_view_t" to "table_hor_double_clock_widget_land_view_t",
+            "table_hor_double_clock_red_widget_view_t" to "table_hor_double_clock_widget_view_t",
+            "table_hor_single_clock_red_widget_land_view_t" to "table_hor_single_clock_widget_land_view_t",
+            "table_hor_single_clock_red_widget_view_t" to "table_hor_single_clock_widget_view_t",
             //OppoWeatherSingle
-            "one_line_double_clock_red_widget_land_view_t" -> "one_line_double_clock_widget_land_view_t"
-            "one_line_double_clock_red_widget_view_t" -> "one_line_double_clock_widget_view_t"
-            "one_line_hor_single_clock_red_widget_land_view_t" -> "one_line_hor_single_clock_widget_land_view_t"
-            "one_line_hor_single_clock_red_widget_view_t" -> "one_line_hor_single_clock_widget_view_t"
-            "table_one_line_double_clock_red_widget_land_view_t" -> "table_one_line_double_clock_widget_land_view_t"
-            "table_one_line_double_clock_red_widget_view_t" -> "table_one_line_double_clock_widget_view_t"
-            "table_one_line_hor_single_clock_red_widget_land_view_t" -> "table_one_line_hor_single_clock_widget_land_view_t"
-            "table_one_line_hor_single_clock_red_widget_view_t" -> "table_one_line_hor_single_clock_widget_view_t"
+            "one_line_double_clock_red_widget_land_view_t" to "one_line_double_clock_widget_land_view_t",
+            "one_line_double_clock_red_widget_view_t" to "one_line_double_clock_widget_view_t",
+            "one_line_hor_single_clock_red_widget_land_view_t" to "one_line_hor_single_clock_widget_land_view_t",
+            "one_line_hor_single_clock_red_widget_view_t" to "one_line_hor_single_clock_widget_view_t",
+            "table_one_line_double_clock_red_widget_land_view_t" to "table_one_line_double_clock_widget_land_view_t",
+            "table_one_line_double_clock_red_widget_view_t" to "table_one_line_double_clock_widget_view_t",
+            "table_one_line_hor_single_clock_red_widget_land_view_t" to "table_one_line_hor_single_clock_widget_land_view_t",
+            "table_one_line_hor_single_clock_red_widget_view_t" to "table_one_line_hor_single_clock_widget_view_t",
             //OppoWeatherVertical
-            "vertical_double_clock_red_widget_land_view_t" -> "vertical_double_clock_widget_land_view_t"
-            "vertical_double_clock_red_widget_view_t" -> "vertical_double_clock_widget_view_t"
-            "vertical_single_clock_red_widget_land_view_t" -> "vertical_single_clock_widget_land_view_t"
-            "vertical_single_clock_red_widget_view_t" -> "vertical_single_clock_widget_view_t"
-            "table_vertical_double_clock_red_widget_land_view_t" -> "table_vertical_double_clock_widget_land_view_t"
-            "table_vertical_double_clock_red_widget_view_t" -> "table_vertical_double_clock_widget_view_t"
-            "table_vertical_single_clock_red_widget_land_view_t" -> "table_vertical_single_clock_widget_land_view_t"
-            //"vertical_single_clock_red_widget_view_t" -> "vertical_single_clock_widget_view_t"
+            "vertical_double_clock_red_widget_land_view_t" to "vertical_double_clock_widget_land_view_t",
+            "vertical_double_clock_red_widget_view_t" to "vertical_double_clock_widget_view_t",
+            "vertical_single_clock_red_widget_land_view_t" to "vertical_single_clock_widget_land_view_t",
+            "vertical_single_clock_red_widget_view_t" to "vertical_single_clock_widget_view_t",
+            "table_vertical_double_clock_red_widget_land_view_t" to "table_vertical_double_clock_widget_land_view_t",
+            "table_vertical_double_clock_red_widget_view_t" to "table_vertical_double_clock_widget_view_t",
+            "table_vertical_single_clock_red_widget_land_view_t" to "table_vertical_single_clock_widget_land_view_t",
             //OppoWeatherMultiVertical
-            //"hor_double_clock_red_widget_land_view_t" -> "hor_double_clock_widget_land_view_t"
-            //"hor_double_clock_red_widget_view_t" -> "hor_double_clock_widget_view_t"
-            //"hor_single_clock_red_widget_land_view_t" -> "hor_single_clock_widget_land_view_t"
-            "vertical_multi_clock_red_widget_view_t" -> "vertical_multi_clock_widget_view_t"
-            //"table_hor_double_clock_red_widget_land_view_t" -> "table_hor_double_clock_widget_land_view_t"
-            //"table_hor_double_clock_red_widget_view_t" -> "table_hor_double_clock_widget_view_t"
-            //"table_hor_single_clock_red_widget_land_view_t" -> "table_hor_single_clock_widget_land_view_t"
-            "table_vertical_multi_clock_red_widget_view_t" -> "table_vertical_multi_clock_widget_view_t"
-            else -> null
-        }
-    }
+            "hor_double_clock_red_widget_land_view_t" to "hor_double_clock_widget_land_view_t",
+            "hor_double_clock_red_widget_view_t" to "hor_double_clock_widget_view_t",
+            "hor_single_clock_red_widget_land_view_t" to "hor_single_clock_widget_land_view_t",
+            "vertical_multi_clock_red_widget_view_t" to "vertical_multi_clock_widget_view_t",
+            "table_hor_double_clock_red_widget_land_view_t" to "table_hor_double_clock_widget_land_view_t",
+            "table_hor_double_clock_red_widget_view_t" to "table_hor_double_clock_widget_view_t",
+            "table_hor_single_clock_red_widget_land_view_t" to "table_hor_single_clock_widget_land_view_t",
+            "table_vertical_multi_clock_red_widget_view_t" to "table_vertical_multi_clock_widget_view_t",
+            //OxygenWeatherSingle
 
-    /**
-     * 获取红一布局
-     * @param layoutName String?
-     * @return String?
-     */
-    private fun getRedLayoutRes(layoutName: String?): String? {
-        return when (layoutName) {
-            //OnePlusWidget
-            "op_double_clock_widget_land_view" -> "op_double_clock_red_widget_land_view"
-            "op_double_clock_widget_view" -> "op_double_clock_red_widget_view"
-            "one_plus_widget_land_view" -> "one_plus_red_widget_land_view"
-            "one_plus_widget_view" -> "one_plus_red_widget_view"
-            "table_op_double_clock_widget_land_view" -> "table_op_double_clock_red_widget_land_view"
-            "table_op_double_clock_widget_view" -> "table_op_double_clock_red_widget_view"
-            "table_one_plus_widget_land_view" -> "table_one_plus_red_widget_land_view"
-            "table_one_plus_widget_view" -> "table_one_plus_red_widget_view"
-            //OppoWeather
-            "hor_double_clock_widget_land_view_t" -> "hor_double_clock_red_widget_land_view_t"
-            "hor_double_clock_widget_view_t" -> "hor_double_clock_red_widget_view_t"
-            "hor_single_clock_widget_land_view_t" -> "hor_single_clock_red_widget_land_view_t"
-            "hor_single_clock_widget_view_t" -> "hor_single_clock_red_widget_view_t"
-            "table_hor_double_clock_widget_land_view_t" -> "table_hor_double_clock_red_widget_land_view_t"
-            "table_hor_double_clock_widget_view_t" -> "table_hor_double_clock_red_widget_view_t"
-            "table_hor_single_clock_widget_land_view_t" -> "table_hor_single_clock_red_widget_land_view_t"
-            "table_hor_single_clock_widget_view_t" -> "table_hor_single_clock_red_widget_view_t"
-            //OppoWeatherSingle
-            "one_line_double_clock_widget_land_view_t" -> "one_line_double_clock_red_widget_land_view_t"
-            "one_line_double_clock_widget_view_t" -> "one_line_double_clock_red_widget_view_t"
-            "one_line_hor_single_clock_widget_land_view_t" -> "one_line_hor_single_clock_red_widget_land_view_t"
-            "one_line_hor_single_clock_widget_view_t" -> "one_line_hor_single_clock_red_widget_view_t"
-            "table_one_line_double_clock_widget_land_view_t" -> "table_one_line_double_clock_red_widget_land_view_t"
-            "table_one_line_double_clock_widget_view_t" -> "table_one_line_double_clock_red_widget_view_t"
-            "table_one_line_hor_single_clock_widget_land_view_t" -> "table_one_line_hor_single_clock_red_widget_land_view_t"
-            "table_one_line_hor_single_clock_widget_view_t" -> "table_one_line_hor_single_clock_red_widget_view_t"
-            //OppoWeatherVertical
-            "vertical_double_clock_widget_land_view_t" -> "vertical_double_clock_red_widget_land_view_t"
-            "vertical_double_clock_widget_view_t" -> "vertical_double_clock_red_widget_view_t"
-            "vertical_single_clock_widget_land_view_t" -> "vertical_single_clock_red_widget_land_view_t"
-            "vertical_single_clock_widget_view_t" -> "vertical_single_clock_red_widget_view_t"
-            "table_vertical_double_clock_widget_land_view_t" -> "table_vertical_double_clock_red_widget_land_view_t"
-            "table_vertical_double_clock_widget_view_t" -> "table_vertical_double_clock_red_widget_view_t"
-            "table_vertical_single_clock_widget_land_view_t" -> "table_vertical_single_clock_red_widget_land_view_t"
-            //"vertical_single_clock_red_widget_view_t" -> "vertical_single_clock_widget_view_t"
-            //OppoWeatherMultiVertical
-            //"hor_double_clock_red_widget_land_view_t" -> "hor_double_clock_widget_land_view_t"
-            //"hor_double_clock_red_widget_view_t" -> "hor_double_clock_widget_view_t"
-            //"hor_single_clock_red_widget_land_view_t" -> "hor_single_clock_widget_land_view_t"
-            "vertical_multi_clock_widget_view_t" -> "vertical_multi_clock_red_widget_view_t"
-            //"table_hor_double_clock_red_widget_land_view_t" -> "table_hor_double_clock_widget_land_view_t"
-            //"table_hor_double_clock_red_widget_view_t" -> "table_hor_double_clock_widget_view_t"
-            //"table_hor_single_clock_red_widget_land_view_t" -> "table_hor_single_clock_widget_land_view_t"
-            "table_vertical_multi_clock_widget_view_t" -> "table_vertical_multi_clock_red_widget_view_t"
-            else -> null
+            //RealmeWeather
+
+        )
+        val filter = layouts.filter { it.key == layoutName || it.value == layoutName }
+        return filter.firstNotNullOfOrNull {
+            when (redMode) {
+                "1" -> it.key
+                "2" -> it.value
+                else -> null
+            }
         }
     }
 }
