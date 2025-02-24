@@ -26,7 +26,7 @@ object RemoveStatusBarBottomNetworkWarn : YukiBaseHooker() {
                 method { name = "showDeviceMonitoringDialog" }.hook {
                     if (removeMode == "1" || removeMode == "2") intercept()
                 }
-                method { name = "handleRefreshState" }.hook {
+                method { name { it.contains("handleRefreshState") } }.hook {
                     if (removeMode == "2") intercept()
                 }
             }

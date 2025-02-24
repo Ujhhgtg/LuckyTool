@@ -24,7 +24,7 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSeparateQSCustomizer
             "com.oplus.systemui.plugins.qs.customize.OplusSeparateQSCustomizer".toClass().apply {
-                method { name = "handleCheckLimitCount" }.hook {
+                method { name { it.contains("handleCheckLimitCount") } }.hook {
                     replaceToFalse()
                 }
                 method { name = "updateLimitCountTip" }.hook {
