@@ -10,8 +10,6 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.A13
@@ -68,8 +66,9 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             if (!hideNonNetwork) return@before
                             val field = field { name = "isVisible" }.get(instance).any()
                             if (field != null) {
-                                val value = field.current().method { name = "getValue";superClass() }
-                                    .boolean()
+                                val value = field.current().method {
+                                    name = "getValue";superClass()
+                                }.boolean()
                                 if (!value) return@before
                             }
                             val subId = field { name = "subscriptionId" }.get(instance).int()
@@ -94,8 +93,9 @@ object MobileDataIconRelated : YukiBaseHooker() {
                             if (!hideNonNetwork) return@before
                             val field = field { name = "isVisible" }.get(instance).any()
                             if (field != null) {
-                                val value = field.current().method { name = "getValue";superClass() }
-                                    .boolean()
+                                val value = field.current().method {
+                                    name = "getValue";superClass()
+                                }.boolean()
                                 if (!value) return@before
                             }
                             val subId = field { name = "subscriptionId" }.get(instance).int()
@@ -132,13 +132,13 @@ object MobileDataIconRelated : YukiBaseHooker() {
             //Source OplusStatusBarSignalPolicy
             "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicy".toClass().apply {
                 method {
-                    name = "updateSlotIconVisibility"
-                    param(StringClass, IntType, StringClass)
+                    name { it.contains("updateSlotIconVisibility") }
+                    paramCount(3..4)
                 }.hook {
                     before {
                         if (!hideNoSS) return@before
-                        val key = args().first().string()
-                        if (key == "nosim_all") args(1).set(0)
+                        val key = args(if (args.size == 3) 0 else 1).string()
+                        if (key == "nosim_all") args(if (args.size == 3) 1 else 2).set(0)
                     }
                 }
             }

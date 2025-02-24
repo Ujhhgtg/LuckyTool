@@ -28,6 +28,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 移除AppCenter崩溃统计SDK
 - [适配] 桌面时钟组件红一 v15.6.8(40e2505)
 - [适配] 分离模式控制中心磁贴长按跳转页面
+- [适配] 状态栏网速布局与刷新速度 RUI6
+- [适配] 状态栏隐藏SIM无服务图标 RUI6
 
 ### 1.2.7
 
