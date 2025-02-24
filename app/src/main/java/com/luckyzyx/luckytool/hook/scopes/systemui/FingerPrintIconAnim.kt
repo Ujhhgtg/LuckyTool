@@ -7,6 +7,7 @@ import android.widget.ImageView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.joom.paranoid.Obfuscate
@@ -33,6 +34,8 @@ object FingerPrintIconAnim : YukiBaseHooker() {
             "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintUiMach", //C14
             "com.oplus.systemui.biometrics.finger.udfps.OnScreenFingerprintUiMech"  //C15
         ).toClass().apply {
+            val hasFadeIn = hasMethod { name = "startFadeInAnimation" }
+            val hasFadeOut = hasMethod { name = "startFadeOutAnimation" }
             method { name = "loadAnimDrawables" }.hook {
                 if (removeMode == "3") intercept()
                 else after {
@@ -46,12 +49,12 @@ object FingerPrintIconAnim : YukiBaseHooker() {
                     }
                 }
             }
-            method { name = "startFadeInAnimation" }.hook {
+            if (hasFadeIn) method { name = "startFadeInAnimation" }.hook {
                 if (isReplaceIcon) replaceUnit {
                     instance.setCustomDrawable(iconPath, false)
                 } else if (removeMode == "1" || removeMode == "3") intercept()
             }
-            method { name = "startFadeOutAnimation" }.hook {
+            if (hasFadeOut) method { name = "startFadeOutAnimation" }.hook {
                 if (isReplaceIcon) intercept()
                 else if (removeMode == "1" || removeMode == "3") intercept()
             }

@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.DrawableClass
@@ -46,7 +47,12 @@ object LockScreenBottomButton : YukiBaseHooker() {
 
             //Source KeyguardBottomAreaViewBinder
             "com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder".toClass().apply {
-                method { name = "updateButton" }.hook {
+                val hasUpdateButton = hasMethod { name = "updateButton" }
+                method {
+                    name {
+                        if (hasUpdateButton) it == "updateButton" else it.contains("updateButton")
+                    }
+                }.hook {
                     before {
                         val viewModel = args(1).any() ?: return@before
                         when (viewModel.current().field { name = "slotId" }.string()) {

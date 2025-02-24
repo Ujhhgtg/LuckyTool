@@ -16,7 +16,7 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
             "com.oplusos.systemui.notification.usb.UsbService",
             "com.oplus.systemui.usb.UsbService" //C14 C15
         ).toClass().apply {
-            method { name = "onUsbConnected" }.hook {
+            method { name { it.contains("onUsbConnected") } }.hook {
                 replaceUnit {
                     val context = args().first().cast<Context>() ?: return@replaceUnit
                     method { name = "onUsbSelect" }.get(instance).call(1)

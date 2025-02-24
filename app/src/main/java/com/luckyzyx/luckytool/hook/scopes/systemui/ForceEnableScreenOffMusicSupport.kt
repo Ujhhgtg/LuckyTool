@@ -5,6 +5,7 @@ import android.provider.Settings
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 
@@ -21,7 +22,8 @@ object ForceEnableScreenOffMusicSupport : YukiBaseHooker() {
             "com.oplus.systemui.keyguard.OplusBlackScreenGestureControllExImpl", //C13
             "com.oplus.systemui.keyguard.gesture.OplusBlackScreenGestureControllExImpl" //C14
         ).toClass().apply {
-            method { name = "resetAodMediaSupportConfig" }.hook {
+            val hasReset = hasMethod { name = "resetAodMediaSupportConfig" }
+            method { name = if (hasReset) "resetAodMediaSupportConfig" else "init" }.hook {
                 after {
                     val context = field { name = "mContext" }.get(instance).cast<Context>()
                         ?: return@after
