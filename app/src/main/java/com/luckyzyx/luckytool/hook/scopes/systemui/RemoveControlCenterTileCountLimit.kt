@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.joom.paranoid.Obfuscate
@@ -24,7 +25,13 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSeparateQSCustomizer
             "com.oplus.systemui.plugins.qs.customize.OplusSeparateQSCustomizer".toClass().apply {
-                method { name { it.contains("handleCheckLimitCount") } }.hook {
+                val hasCheckLimit = hasMethod { name = "handleCheckLimitCount" }
+                method {
+                    name {
+                        if (hasCheckLimit) it == "handleCheckLimitCount"
+                        else it.contains("handleCheckLimitCount")
+                    }
+                }.hook {
                     replaceToFalse()
                 }
                 method { name = "updateLimitCountTip" }.hook {

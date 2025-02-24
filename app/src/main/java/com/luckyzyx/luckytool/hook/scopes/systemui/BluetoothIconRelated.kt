@@ -28,6 +28,7 @@ object BluetoothIconRelated : YukiBaseHooker() {
             "com.oplus.systemui.statusbar.phone.OplusPhoneStatusBarPolicyExImpl" //C14
         ).toClass().apply {
             val hasUpdateBluetoothIcon = hasMethod { name = "updateBluetoothIcon" }
+            val hasUpdateBluetooth = hasMethod { name = "updateBluetooth" }
             if (hasUpdateBluetoothIcon) {
                 method { name = "updateBluetoothIcon";paramCount = 4 }.hook {
                     before {
@@ -44,7 +45,12 @@ object BluetoothIconRelated : YukiBaseHooker() {
                     }
                 }
             } else {
-                method { name { it.contains("updateBluetooth") } }.hook {
+                method {
+                    name {
+                        if (hasUpdateBluetooth) it == "updateBluetooth"
+                        else it.contains("updateBluetooth")
+                    }
+                }.hook {
                     before {
                         if (!isHide) return@before
                         val bluetoothController = field {

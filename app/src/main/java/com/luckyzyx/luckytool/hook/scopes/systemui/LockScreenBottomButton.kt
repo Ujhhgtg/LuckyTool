@@ -50,7 +50,8 @@ object LockScreenBottomButton : YukiBaseHooker() {
                 val hasUpdateButton = hasMethod { name = "updateButton" }
                 method {
                     name {
-                        if (hasUpdateButton) it == "updateButton" else it.contains("updateButton")
+                        if (hasUpdateButton) it == "updateButton"
+                        else it.contains("updateButton")
                     }
                 }.hook {
                     before {

@@ -42,6 +42,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
             ).toClass().apply {
                 val hasPostDelay = hasMethod { name = "postUpdateNetworkSpeedDelay" }
+                val hasNetworkSpeed = hasMethod { name = "updateNetworkSpeed" }
                 if (hasPostDelay) {
                     method { name = "postUpdateNetworkSpeedDelay";paramCount = 1 }.hook {
                         before {
@@ -51,7 +52,12 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         }
                     }
                 } else {
-                    method { name { it.contains("updateNetworkSpeed") } }.hook {
+                    method {
+                        name {
+                            if (hasNetworkSpeed) it == "hasNetworkSpeed"
+                            else it.contains("updateNetworkSpeed")
+                        }
+                    }.hook {
                         after {
                             val isConnected = field { name = "isConnected" }.get(instance).boolean()
                             val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()

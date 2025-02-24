@@ -123,6 +123,7 @@ object LockScreenClock : YukiBaseHooker() {
                 "com.oplusos.systemui.keyguard.clock.SingleClockView", //C13
                 "com.oplus.systemui.shared.clocks.SingleClockView" //C14
             ).toClass().apply {
+                val hasUpdateLand = hasMethod { name = "updateKeyguardLandClock" }
                 method { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter && !userTypeface) return@after
@@ -140,7 +141,12 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name { it.contains("updateKeyguardLandClock") } }.hook {
+                method {
+                    name {
+                        if (hasUpdateLand) it == "updateKeyguardLandClock"
+                        else it.contains("updateKeyguardLandClock")
+                    }
+                }.hook {
                     after {
                         if (isCenter) instance<ViewGroup>().setPadding(0, 20.dp, 0, 0)
                     }
@@ -230,6 +236,7 @@ object LockScreenClock : YukiBaseHooker() {
                 "com.oplusos.systemui.keyguard.clock.RedHorizontalSingleClockView", //C13
                 "com.oplus.systemui.shared.clocks.RedHorizontalSingleClockView" //C14
             ).toClass().apply {
+                val hasTextFont = hasMethod { name = "setTextFont" }
                 method { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter && !userTypeface) return@after
@@ -247,7 +254,12 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name { it.contains("setTextFont") } }.hook {
+                method {
+                    name {
+                        if (hasTextFont) it == "setTextFont"
+                        else it.contains("setTextFont")
+                    }
+                }.hook {
                     if (userTypeface) intercept()
                 }
             }

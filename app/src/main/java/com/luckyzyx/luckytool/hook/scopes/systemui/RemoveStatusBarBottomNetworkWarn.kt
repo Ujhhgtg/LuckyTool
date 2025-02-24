@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -23,10 +24,16 @@ object RemoveStatusBarBottomNetworkWarn : YukiBaseHooker() {
 
             //Source OplusQSSecurityController
             "com.oplus.systemui.qs.policy.OplusQSSecurityController".toClass().apply {
+                val hasRefreshState = hasMethod { name = "handleRefreshState" }
                 method { name = "showDeviceMonitoringDialog" }.hook {
                     if (removeMode == "1" || removeMode == "2") intercept()
                 }
-                method { name { it.contains("handleRefreshState") } }.hook {
+                method {
+                    name {
+                        if (hasRefreshState) it == "handleRefreshState"
+                        else it.contains("handleRefreshState")
+                    }
+                }.hook {
                     if (removeMode == "2") intercept()
                 }
             }

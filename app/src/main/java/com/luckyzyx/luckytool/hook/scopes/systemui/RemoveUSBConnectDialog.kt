@@ -4,6 +4,7 @@ import android.content.Context
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 
@@ -16,7 +17,13 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
             "com.oplusos.systemui.notification.usb.UsbService",
             "com.oplus.systemui.usb.UsbService" //C14 C15
         ).toClass().apply {
-            method { name { it.contains("onUsbConnected") } }.hook {
+            val hasUsbConnected = hasMethod { name = "onUsbConnected" }
+            method {
+                name {
+                    if (hasUsbConnected) it == "onUsbConnected"
+                    else it.contains("onUsbConnected")
+                }
+            }.hook {
                 replaceUnit {
                     val context = args().first().cast<Context>() ?: return@replaceUnit
                     method { name = "onUsbSelect" }.get(instance).call(1)
