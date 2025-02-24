@@ -28,7 +28,7 @@ object StatusBarTile : YukiBaseHooker() {
 
         //磁贴长按跳转事件
         if (prefs(ModulePrefs).getBoolean("restore_some_tile_long_press_event", false)) {
-            if (SDK == A13) loadHooker(LongPressTileOpenThePage)
+            if (SDK >= A13) loadHooker(LongPressTileOpenThePage)
         }
 
         //特殊磁贴间隙

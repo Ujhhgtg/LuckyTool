@@ -166,7 +166,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                     }
                 }
             }
-            if (SDK == A13) {
+            if (SDK >= A13) {
                 //磁贴长按事件
                 add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.TileLongClickEvent)

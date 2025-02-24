@@ -27,6 +27,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 应用详情显示App安装来源
 - [更改] 移除AppCenter崩溃统计SDK
 - [适配] 桌面时钟组件红一 v15.6.8(40e2505)
+- [适配] 分离模式控制中心磁贴长按跳转页面
 
 ### 1.2.7
 

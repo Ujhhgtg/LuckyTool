@@ -61,7 +61,7 @@ object PageIndicator : YukiBaseHooker() {
         }
 
         //Source BigFolderIcon
-        "com.android.launcher3.folder.big.BigFolderIcon".toClass().apply {
+        "com.android.launcher3.folder.big.BigFolderIcon".toClassOrNull()?.apply {
             method { name = "onScrollPageStart" }.hook {
                 after {
                     if (removeFolder) field { name = "indicator" }.get(instance)
