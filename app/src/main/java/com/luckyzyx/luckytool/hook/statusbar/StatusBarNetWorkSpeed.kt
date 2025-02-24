@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.statusbar
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.net.TrafficStats
+import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.TextView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A12
@@ -18,6 +20,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
 
+@Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
@@ -38,13 +41,26 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
             ).toClass().apply {
-                method {
-                    name = "postUpdateNetworkSpeedDelay"
-                    paramCount = 1
-                }.hook {
-                    before {
-                        if (networkSpeed && (args().first().long() == 4000L)) {
-                            args().first().set(1000L)
+                val hasPostDelay = hasMethod { name = "postUpdateNetworkSpeedDelay" }
+                if (hasPostDelay) {
+                    method { name = "postUpdateNetworkSpeedDelay";paramCount = 1 }.hook {
+                        before {
+                            if (networkSpeed && (args().first().long() == 4000L)) {
+                                args().first().set(1000L)
+                            }
+                        }
+                    }
+                } else {
+                    method { name { it.contains("updateNetworkSpeed") } }.hook {
+                        after {
+                            val isConnected = field { name = "isConnected" }.get(instance).boolean()
+                            val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()
+                            val bgHandler =
+                                field { name = "bgHandler" }.get(instance).cast<Handler>()
+                            if (isConnected && isSwitchOn) {
+                                bgHandler?.removeMessages(100001)
+                                bgHandler?.sendEmptyMessageDelayed(100001, 1000L)
+                            }
                         }
                     }
                 }
@@ -69,35 +85,35 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         /** 上次总的下行时间戳 */
         private var lastTotalDownTime: Long = 0L
 
+        val layoutMode = prefs(ModulePrefs).getString("statusbar_network_layout", "0")
+        var userTypeface = prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)
+        var useBoldFont =
+            prefs(ModulePrefs).getBoolean("statusbar_network_use_bold_font_style", false)
+        var noSpace = prefs(ModulePrefs).getBoolean("statusbar_network_no_space", false)
+        var noSecond = prefs(ModulePrefs).getBoolean("statusbar_network_no_second", false)
+        var getDoubleSize = prefs(ModulePrefs).getInt("set_network_speed_font_size", 7)
+        var getBottomPadding = prefs(ModulePrefs).getInt("set_network_speed_padding_bottom", 0)
+        var setInterval = prefs(ModulePrefs).getInt("set_network_speed_double_row_spacing", -1)
+
+        var bMargin = 0
+        var tMargin = 0
+
         @SuppressLint("DiscouragedApi")
         override fun onHook() {
-
-            val layoutMode = prefs(ModulePrefs).getString("statusbar_network_layout", "0")
-            var userTypeface =
-                prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)
             dataChannel.wait<Boolean>("statusbar_network_user_typeface") { userTypeface = it }
-            var useBoldFont =
-                prefs(ModulePrefs).getBoolean("statusbar_network_use_bold_font_style", false)
             dataChannel.wait<Boolean>("statusbar_network_use_bold_font_style") { useBoldFont = it }
-            var noSpace = prefs(ModulePrefs).getBoolean("statusbar_network_no_space", false)
             dataChannel.wait<Boolean>("statusbar_network_no_space") { noSpace = it }
-            var noSecond = prefs(ModulePrefs).getBoolean("statusbar_network_no_second", false)
             dataChannel.wait<Boolean>("statusbar_network_no_second") { noSecond = it }
-            var getDoubleSize = prefs(ModulePrefs).getInt("set_network_speed_font_size", 7)
             dataChannel.wait<Int>("set_network_speed_font_size") { getDoubleSize = it }
-            var getBottomPadding = prefs(ModulePrefs).getInt("set_network_speed_padding_bottom", 0)
             dataChannel.wait<Int>("set_network_speed_padding_bottom") { getBottomPadding = it }
-            var setInterval = prefs(ModulePrefs).getInt("set_network_speed_double_row_spacing", -1)
             dataChannel.wait<Int>("set_network_speed_double_row_spacing") { setInterval = it }
-
-            var bMargin = 0
-            var tMargin = 0
 
             //Source NetworkSpeedView
             VariousClass(
                 "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
                 "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14
             ).toClass().apply {
+                val hasUpdate = hasMethod { name = "updateNetworkSpeed" }
                 method { name = "onFinishInflate" }.hook {
                     after {
                         val viewGroup = instance<ViewGroup>()
@@ -128,13 +144,14 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         )
                     }
                 }
-                method { name = "updateNetworkSpeed" }.hook {
+                method {
+                    name = if (hasUpdate) "updateNetworkSpeed" else "applyNetworkState"
+                }.hook {
                     before {
                         val mSpeedNumber = field { name = "mSpeedNumber" }.get(instance)
                             .cast<TextView>() ?: return@before
                         val mSpeedUnit = field { name = "mSpeedUnit" }.get(instance)
                             .cast<TextView>() ?: return@before
-
                         if (userTypeface) {
                             mSpeedNumber.typeface =
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
