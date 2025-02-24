@@ -20,11 +20,12 @@ import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogDownloadLayoutBinding
 import io.noties.markwon.Markwon
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
 @Obfuscate
-class UpdateUtils(val context: Context, val isDev: Boolean = false) {
+class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
 
     @Suppress("unused")
     val coolmarketUrl =
@@ -43,14 +44,15 @@ class UpdateUtils(val context: Context, val isDev: Boolean = false) {
                 val name = optString("name")
                 val code = optString("tag_name").split("-")[0]
                 val changeLog = optString("body")
-                val fileName = getJSONArray("assets").getJSONObject(0).optString("name")
-                val downloadUrl =
-                    getJSONArray("assets").getJSONObject(0).optString("browser_download_url")
+                val assets = optJSONArray("assets") ?: JSONArray()
+                val updateTime = optString("published_at").replace("T", " ").replace("Z", "")
+                val firstFile = assets.optJSONObject(0) ?: JSONObject()
+                val fileName = firstFile.optString("name")
+                val downloadUrl = firstFile.optString("browser_download_url")
                 val downloadPage = optString("html_url")
-                val downloadCount =
-                    getJSONArray("assets").getJSONObject(0).optString("download_count")
-                val fileSize = getJSONArray("assets").getJSONObject(0).optString("size").toFloat()
-//                val updateTime = optString("published_at").replace("T", " ").replace("Z", "")
+                val downloadCount = firstFile.optString("download_count")
+                val fileSize = firstFile.optString("size").toFloat()
+
                 result(name, code.toInt()) {
                     MaterialAlertDialogBuilder(context, dialogCentered).apply {
                         setTitle(context.getString(R.string.check_update_hint))
@@ -62,12 +64,11 @@ class UpdateUtils(val context: Context, val isDev: Boolean = false) {
                                     "${context.getString(R.string.version_name)}: $name($code)"
                                 val count =
                                     "${context.getString(R.string.download_count)}: $downloadCount"
-                                val size =
-                                    "${context.getString(R.string.file_size)}: " + formatFileSize(
-                                        fileSize
-                                    )
+                                val size = "${context.getString(R.string.file_size)}: " +
+                                        formatFileSize(fileSize)
+                                val time = "${context.getString(R.string.update_time)}: $updateTime"
                                 val finalText =
-                                    "# LuckyTool v$name\r\n- $version\r\n- $count\r\n- $size\r\n$changeLog"
+                                    "# LuckyTool v$name\r\n- $version\r\n- $count\r\n- $size\r\n- $time\r\n$changeLog"
                                 Markwon.create(context).setMarkdown(this, finalText)
                             })
                         })
