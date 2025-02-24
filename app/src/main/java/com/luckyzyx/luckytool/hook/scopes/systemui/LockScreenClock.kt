@@ -140,12 +140,12 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "updateKeyguardLandClock" }.hook {
+                method { name { it.contains("updateKeyguardLandClock") } }.hook {
                     after {
                         if (isCenter) instance<ViewGroup>().setPadding(0, 20.dp, 0, 0)
                     }
                 }
-                method { name = "updateStandardTime" }.hook {
+                method { name = "updateTime" }.hook {
                     after {
                         if (redMode == "0") return@after
                         val mTimeHour = field { name = "mTimeHour" }.get(instance).cast<TextView>()
@@ -247,7 +247,7 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "setTextFont" }.hook {
+                method { name { it.contains("setTextFont") } }.hook {
                     if (userTypeface) intercept()
                 }
             }

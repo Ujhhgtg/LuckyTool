@@ -32,6 +32,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏隐藏SIM无服务图标 RUI6
 - [适配] 状态栏隐藏蓝牙未连接图标 RUI6
 - [适配] 状态栏磁贴数量限制 RUI6
+- [适配] 锁屏充电技术与瓦数 RUI6
 
 ### 1.2.7
 
