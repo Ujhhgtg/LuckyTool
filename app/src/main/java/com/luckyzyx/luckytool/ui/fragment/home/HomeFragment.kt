@@ -80,13 +80,14 @@ class HomeFragment : Fragment(), MenuProvider {
         ) { versionName, versionCode, function ->
             if (getVersionCode < versionCode) {
                 function()
-                binding.updateView.isVisible = true
+                binding.updateView.apply {
+                    isVisible = true
+                    setOnClickListener { function() }
+                }
                 binding.updateInfo.apply {
                     text =
                         getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
                 }
-                binding.updateView.setOnClickListener { function() }
-                binding.statusCard.setOnClickListener { function() }
             }
             binding.statusCard.apply {
                 if (isDev) setOnLongClickListener {

@@ -88,6 +88,14 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
     }
 
     private fun readyDownload(context: Context, fileName: String, downloadUrl: String) {
+        val toolDir = FileUtils.checkDownloadDir(context, "LuckyTool")
+        val apkFile = File(toolDir, fileName).apply {
+            if (isDirectory) delete()
+        }
+        if (apkFile.exists()) {
+            installApk(context, apkFile)
+            return
+        }
         val list = arrayOf("Github", "ghproxy mirror", "ghproxy", "Lufs")
         val cdn = arrayOf(
             "", "https://mirror.ghproxy.com/", "https://ghproxy.cn/", "https://cors.isteed.cc/"
@@ -96,17 +104,13 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
             setTitle(context.getString(R.string.select_download_source))
             setCancelable(isDev)
             setItems(list) { _, which ->
-                downloadFile(context, fileName, cdn[which] + downloadUrl)
+                downloadFile(context, apkFile, cdn[which] + downloadUrl)
             }
         }.show()
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun downloadFile(context: Context, apkName: String, url: String) {
-        val toolDir = FileUtils.checkDownloadDir(context, "LuckyTool")
-        val apkFile = File(toolDir, apkName).apply {
-            if (isDirectory) delete()
-        }
+    fun downloadFile(context: Context, apkFile: File, url: String) {
         var downloadScope: NetCoroutineScope = scopeNet { }
         val binding = DialogDownloadLayoutBinding.inflate(LayoutInflater.from(context))
         val downloadDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
