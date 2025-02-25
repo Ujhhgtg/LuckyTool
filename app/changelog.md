@@ -5,7 +5,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.2.9_beta
 
-
+- [修复] 解锁页面底部SOS按钮Hook异常
 
 ### 1.2.8
 
