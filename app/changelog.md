@@ -34,6 +34,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏磁贴数量限制 RUI6
 - [适配] 充电动画显示充电技术与瓦数 RUI6
 - [适配] 音量警告对话框与通知 RUI6
+- [修复] 移除设备名称更改限制Hook异常
 
 ### 1.2.7
 
