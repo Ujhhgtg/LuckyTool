@@ -807,7 +807,7 @@
     <string name="remove_browser_window_limit_number">Rimuovi limite al numero di finestre del browser</string>
     <string name="remove_browser_search_bar_app_promotion">Rimuovi barra di ricerca del browser Promozione app</string>
     <!--OplusBreeno-->
-    <string name="BreenoTouch">Breeno Touch</string>
+    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>

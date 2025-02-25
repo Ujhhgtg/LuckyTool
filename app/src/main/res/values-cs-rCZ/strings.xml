@@ -807,7 +807,7 @@
     <string name="remove_browser_window_limit_number">Odstranit limit v počtu oken prohlížeče</string>
     <string name="remove_browser_search_bar_app_promotion">Odstranit prohlížeč vyhledávací lištu promovaných aplikací</string>
     <!--OplusBreeno-->
-    <string name="BreenoTouch">Dotyk Breeno</string>
+    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>

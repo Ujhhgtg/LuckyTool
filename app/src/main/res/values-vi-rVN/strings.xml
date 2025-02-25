@@ -807,7 +807,7 @@
     <string name="remove_browser_window_limit_number">Xóa giới hạn cửa sổ trình duyệt</string>
     <string name="remove_browser_search_bar_app_promotion">Xóa thanh tìm kiếm của trình duyệt Quảng cáo ứng dụng</string>
     <!--OplusBreeno-->
-    <string name="BreenoTouch">Chạm Breeno</string>
+    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang khởi chạy cửa hàng</string>

@@ -807,7 +807,7 @@
     <string name="remove_browser_window_limit_number">ブラウザウィンドウの制限数を削除</string>
     <string name="remove_browser_search_bar_app_promotion">ブラウザ検索バーのアプリプロモーションを削除</string>
     <!--OplusBreeno-->
-    <string name="BreenoTouch">Breeno Touch</string>
+    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">アプリのおすすめカードを削除</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">App Market のスプラッシュページからおすすめアプリを削除</string>

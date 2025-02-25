@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.8_beta
+### 1.2.8
 
 - [修复] 底部导航栏动态取色异常
 - [移除] 移除响铃状态切换磁贴 C15+
@@ -36,6 +36,37 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 音量警告对话框与通知 RUI6
 - [修复] 移除设备名称更改限制Hook异常
 - [添加] 强制启用小布通话 C14+
+- [Fix] Dynamic color picking exception at the bottom navigation bar
+- [Remove] Remove the ringing status switch tile C15+
+- [Change] Migrate mandatory refresh rate to other pages
+- [Add] Root source and frame information display
+- [Change] RGB palette up to C15+
+- [Change] Adjusted top notification limit to C14.1+
+- [Add] Enable automatic closing of folders C15+
+- [Add] Enable drawer layout dual line name C13.1+
+- [Add] Remove the detached control center edit button C15+
+- [Add] Remove the detached control center more buttons C15+
+- [Add] Enable bypass power supply mode tile
+- [Add] Application details page Quick jump to the application clone C13.1+
+- [Remove] Game Assistant Bypass Power Option
+- [Remove] Click the icon on the application details page to jump to the app store
+- [Add] Open the store and jump quickly C12+
+- [Optimize] Functional search supports displaying page title
+- [Fix] Exception of custom device sharing page parameter modification
+- [Add] Remove desktop component and add request whitelist C14+
+- [Fix] The installation package size of the application installation page is abnormal
+- [Add] Application details show the source of the app installation
+- [Change] Remove AppCenter crash statistics SDK
+- [Fix] Desktop Clock Component Red One v15.6.8 (40e2505)
+- [Fix] Separate mode control center tile long press to jump to page
+- [Fix] Status bar network speed layout and refresh speed RUI6
+- [Fix] Status bar hides SIM serviceless icon RUI6
+- [Fix] Status bar hides Bluetooth unconnected icon RUI6
+- [Fix] Status bar tile limit RUI6
+- [Fix] Charging animation display charging technology and wattage RUI6
+- [Fix] Volume Warning Dialog and Notification RUI6
+- [Fix] Remove device name change restrictions Hook exception
+- [Add] Forced to enable ai call C14+
 
 ### 1.2.7
 
