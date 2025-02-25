@@ -102,7 +102,11 @@ fun Context.getDeviceInfo(
     val androidVer = "Android ${Build.VERSION.RELEASE}(${Build.VERSION.SDK_INT})"
     val osVer = "OS $getOSVersionName($getOSVersionCode)"
     return ArrayList<String>().apply {
-        if (isLog) add("${getString(R.string.module_version)} $getVersionName($getVersionCode)")
+        if (isLog) {
+            add("${getString(R.string.module_version)} $getVersionName($getVersionCode)")
+            add("${getString(R.string.root_source)} ${DeviceUtils.getRootVersion(this@getDeviceInfo)}")
+            add("${getString(R.string.framework_version)} ${DeviceUtils.getFrameWorkVersion(this@getDeviceInfo)}")
+        }
         add("${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel ${getModelMarketName()}")
         add("${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.prjNameInfo} ${controller?.slotInfo}")
         add("${getString(R.string.system)}: $androidVer $osVer")

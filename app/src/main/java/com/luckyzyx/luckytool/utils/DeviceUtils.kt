@@ -5,6 +5,7 @@ import android.os.SystemProperties
 import com.android.internal.os.PowerProfile
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.joom.paranoid.Obfuscate
+import com.luckyzyx.luckytool.R
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import java.io.BufferedReader
@@ -126,6 +127,32 @@ object DeviceUtils {
         val command = "getprop ro.boot.slot_suffix"
         return ShellUtils.fastCmd(command).ifBlank { "null" }.replace("_", "")
             .uppercase()
+    }
+
+    /**
+     * 获取Root来源与版本
+     * @param context Context
+     * @return String
+     */
+    fun getRootVersion(context: Context): String {
+        val rootSource = if (Shell.cmd("magisk").exec().isSuccess) {
+            ShellUtils.fastCmd("magisk -v") + " (" + ShellUtils.fastCmd("magisk -V") + ")"
+        } else if (Shell.cmd("su -h").exec().isSuccess) {
+            ShellUtils.fastCmd("su -v") + " (" + ShellUtils.fastCmd("su -V") + ")"
+        } else "Other or Error"
+        return "${context.getString(R.string.root_source)} $rootSource"
+    }
+
+    /**
+     * 获取LSP版本
+     * @param context Context
+     * @return String
+     */
+    fun getFrameWorkVersion(context: Context): String {
+        val moduleProp = Shell.cmd("cat ${CommandUtils.lspProp}").exec().out
+        val name = moduleProp.find { it.startsWith("name=") }?.substringAfter("=")
+        val version = moduleProp.find { it.startsWith("version=") }?.substringAfter("=")
+        return "${context.getString(R.string.framework_version)} $name $version"
     }
 
     /**

@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.2.9_beta
+
+
+
 ### 1.2.8
 
 - [修复] 底部导航栏动态取色异常

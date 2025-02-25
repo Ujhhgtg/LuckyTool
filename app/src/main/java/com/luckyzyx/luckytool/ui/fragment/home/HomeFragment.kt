@@ -26,7 +26,6 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -44,8 +43,6 @@ import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
-import com.topjohnwu.superuser.Shell
-import com.topjohnwu.superuser.ShellUtils
 
 @Obfuscate
 class HomeFragment : Fragment(), MenuProvider {
@@ -76,7 +73,6 @@ class HomeFragment : Fragment(), MenuProvider {
                 }
             }
         }
-
 //        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true)) {
         val isDev = requireActivity().getBoolean(SettingsPrefs, "hidden_function")
         UpdateUtils(requireActivity(), isDev).checkUpdate(
@@ -89,6 +85,7 @@ class HomeFragment : Fragment(), MenuProvider {
                     text =
                         getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
                 }
+                binding.updateView.setOnClickListener { function() }
                 binding.statusCard.setOnClickListener { function() }
             }
             binding.statusCard.apply {
@@ -243,19 +240,11 @@ class HomeFragment : Fragment(), MenuProvider {
         }
 
         binding.rootVersion.apply {
-            val rootSource = if (Shell.cmd("magisk").exec().isSuccess) {
-                ShellUtils.fastCmd("magisk -v") + " (" + ShellUtils.fastCmd("magisk -V") + ")"
-            } else if (Shell.cmd("su -h").exec().isSuccess) {
-                ShellUtils.fastCmd("su -v") + " (" + ShellUtils.fastCmd("su -V") + ")"
-            } else "Other or Error"
-            text = "${getString(R.string.root_source)} $rootSource"
+            text = DeviceUtils.getRootVersion(context)
         }
 
         binding.frameworkVersion.apply {
-            val moduleProp = Shell.cmd("cat ${CommandUtils.lspProp}").exec().out
-            val name = moduleProp.find { it.startsWith("name=") }?.substringAfter("=")
-            val version = moduleProp.find { it.startsWith("version=") }?.substringAfter("=")
-            text = "${getString(R.string.framework_version)} $name $version"
+            text = DeviceUtils.getFrameWorkVersion(context)
         }
     }
 }
