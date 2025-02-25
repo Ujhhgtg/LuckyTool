@@ -40,11 +40,11 @@ import com.luckyzyx.luckytool.listener.OnSelectSearchResultListener
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBattery
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBeaconLink
-import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBreenoTouch
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBrowser
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCalendar
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCamera
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCloudService
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusDirectUI
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusEyeProtect
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusGallery
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusGames
@@ -59,6 +59,7 @@ import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSearchBox
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSettings
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSmartSidebar
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSoundRecorder
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSpeechAssist
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusTeleService
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusThemeStore
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusWeather
@@ -169,8 +170,10 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentPreference(this, allPrefs, OplusPictorial())
         //Gesture
         addFragmentPreference(this, allPrefs, OplusGesture())
+        //SpeechAssist
+        addFragmentPreference(this, allPrefs, OplusSpeechAssist())
         //Directui
-        addFragmentPreference(this, allPrefs, OplusBreenoTouch())
+        addFragmentPreference(this, allPrefs, OplusDirectUI())
         //QuickSearchBox
         addFragmentPreference(this, allPrefs, OplusSearchBox())
         //Weather
@@ -241,7 +244,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(context, allFragmentItem, Miscellaneous())
 
         addFragmentItem(context, allFragmentItem, OplusBattery())
-        addFragmentItem(context, allFragmentItem, OplusBreenoTouch())
+        addFragmentItem(context, allFragmentItem, OplusSpeechAssist())
+        addFragmentItem(context, allFragmentItem, OplusDirectUI())
         addFragmentItem(context, allFragmentItem, OplusBrowser())
         addFragmentItem(context, allFragmentItem, OplusCalendar())
         addFragmentItem(context, allFragmentItem, OplusCamera())
@@ -289,7 +293,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         list.add(
             FragmentItem(
                 fragment, fragment.navigateFragmentId,
-                fragment.getAllPrefsItem(context)
+                fragment.allPrefsItems.ifEmpty { fragment.getAllPrefsItem(context) }
             )
         )
     }

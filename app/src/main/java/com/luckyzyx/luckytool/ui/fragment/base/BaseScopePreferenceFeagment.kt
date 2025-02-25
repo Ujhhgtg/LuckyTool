@@ -75,7 +75,13 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
 
     abstract fun Context.loadPreferences(): ArrayList<Preference>
 
+    open val allPrefsItems = arrayListOf<PrefsItem>()
+
     fun getRootPreference(context: Context) = context.loadRootPreference().apply {
+        allPrefsItems.clear()
+        allPrefsItems.addAll(getAllPrefsItem(context))
+
+        isVisible = allPrefsItems.any { it.isVisible == true }
         setOnPreferenceClickListener {
             val navController = when (context) {
                 is MainActivity -> context.navController
