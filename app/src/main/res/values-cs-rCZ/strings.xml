@@ -515,8 +515,8 @@
     <string name="show_sdk_in_app_details">Zobrazit cílové sdk v podrobnostech aplikace</string>
     <string name="show_first_install_time_in_app_details">Zobrazit čas první instalace v podrobnostech aplikace</string>
     <string name="show_last_update_time_in_app_details">Zobrazit čas poslední aktualizace v podrobnostech aplikace</string>
-    <string name="show_install_source_in_app_details">Show installation source in app details</string>
-    <string name="install_source">Install Source</string>
+    <string name="show_install_source_in_app_details">Zobrazit zdroj instalace v podrobnostech aplikace</string>
+    <string name="install_source">Zdroj instalace</string>
     <string name="enable_long_press_to_copy_in_app_details">Povolit dlouhé stisknutí pro zkopírování podrobností aplikace</string>
     <string name="enable_quick_open_market_page">Povolit rychle přejít k otevření obchodu</string>
     <string name="open_market">Otevřít obchod</string>

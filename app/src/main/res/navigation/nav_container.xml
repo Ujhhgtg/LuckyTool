@@ -359,8 +359,8 @@
                 app:argType="string" />
     </fragment>
     <fragment
-            android:id="@+id/oplusBreenoTouch"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBreenoTouch"
+            android:id="@+id/oplusDirectUI"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusDirectUI"
             android:label="{title_text}">
         <argument
                 android:name="title_text"
@@ -465,6 +465,14 @@
     <fragment
             android:id="@+id/oplusBeaconLink"
             android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBeaconLink"
+            android:label="{title_text}">
+        <argument
+                android:name="title_text"
+                app:argType="string" />
+    </fragment>
+    <fragment
+            android:id="@+id/oplusSpeechAssist"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSpeechAssist"
             android:label="{title_text}">
         <argument
                 android:name="title_text"

@@ -927,7 +927,7 @@
     <string name="remove_browser_search_bar_app_promotion">Remove browser search bar App promotion</string>
     
     <!--OplusBreeno-->
-    <string name="BreenoTouch">Breeno Touch</string>
+    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">Remove app recommend card</string>
     
     <!--OplusMarket-->

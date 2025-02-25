@@ -82,7 +82,7 @@
     <string name="no_root_summary">Quyền root không được phát hiện, một số chức năng sẽ không khả dụng!</string>
     <!-- Menu -->
     <string name="menu_reboot">Menu khởi động lại</string>
-    <string name="menu_search">Search menu</string>
+    <string name="menu_search">Trình đơn tìm kiếm</string>
     <string name="menu_settings">Menu cài đặt</string>
     <string name="restart_scope">Khởi động lại quy trình phạm vi</string>
     <string name="re_optimize_dex">Tối ưu lại Dex</string>
@@ -407,8 +407,8 @@
     <string name="remove_alarmclock_widget_redone_pro_summary">Chỉ khả dụng khi phiên bản thông thường không có hiệu lực, nếu không nó sẽ gây ra lỗi không thể tránh khỏi</string>
     <!--Launcher-->
     <string name="Desktop">Màn hình chính</string>
-    <string name="WidgetRelated">Widget Related</string>
-    <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
+    <string name="WidgetRelated">Tiện ích</string>
+    <string name="remove_widgets_add_request_whitelist">Xóa tiện ích để thêm yêu cầu danh sách cho phép</string>
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
     <string name="allow_app_names_display_multiple_lines">Cho phép tên ứng dụng trên màn hình hiện nhiều dòng</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
@@ -515,8 +515,8 @@
     <string name="show_sdk_in_app_details">Hiển thị phiên bản SDK trong chi tiết ứng dụng</string>
     <string name="show_first_install_time_in_app_details">Hiển thị thời gian cài đặt đầu tiên trong chi tiết ứng dụng</string>
     <string name="show_last_update_time_in_app_details">Hiển thị tên gói trong chi tiết ứng dụng</string>
-    <string name="show_install_source_in_app_details">Show installation source in app details</string>
-    <string name="install_source">Install Source</string>
+    <string name="show_install_source_in_app_details">Hiện nguồn cài đặt trong chi tiết ứng dụng</string>
+    <string name="install_source">Nguồn cài đặt</string>
     <string name="enable_long_press_to_copy_in_app_details">Cho phép nhấn và giữ để sao chép trong chi tiết ứng dụng</string>
     <string name="enable_quick_open_market_page">Cho phép chuyển hướng nhanh để mở cửa hàng</string>
     <string name="open_market">Mở cửa hàng ứng dụng</string>

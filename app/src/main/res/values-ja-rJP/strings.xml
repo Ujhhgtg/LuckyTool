@@ -82,19 +82,19 @@
     <string name="no_root_summary">root 権限を検出できませんでした。一部の機能は利用できません！</string>
     <!-- Menu -->
     <string name="menu_reboot">メニューを再起動</string>
-    <string name="menu_search">Search menu</string>
+    <string name="menu_search">検索メニュー</string>
     <string name="menu_settings">メニューを設定</string>
     <string name="restart_scope">スコープしたプロセスを再起動</string>
-    <string name="re_optimize_dex">Re-optimize Dex</string>
+    <string name="re_optimize_dex">Dexを再最適化</string>
     <string name="need_restart_scope">スコープの再起動が必要です</string>
     <string name="need_restart_system">システムの再起動が必要です</string>
     <string name="restart_scope_message">システムフレームワークを除くすべてのスコープをされたプロセスを再起動してもよろしいですか?\nこれはモジュールが正常に動作していない場合に使用します!\n関連するすべてのスコープがチェックされている事を確認してください!</string>
-    <string name="re_optimize_dex_message">Re-optimize all scope Dex?</string>
+    <string name="re_optimize_dex_message">すべてのスコープのDexを再最適化します。続行しますか？</string>
     <string name="re_optimize_dex_completed">Optimization completed, it is recommended to restart the scope or system</string>
-    <string name="re_optimize_dex_failed">Optimization failed</string>
-    <string name="re_optimize_dex_optimizing">Optimizing</string>
+    <string name="re_optimize_dex_failed">最適化失敗</string>
+    <string name="re_optimize_dex_optimizing">最適化中</string>
     <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
-    <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
+    <string name="optimize_only_this_page_scope">このページのスコープのみを最適化</string>
     <string name="restart_only_this_page_scope">このページのスコープのみを再起動する</string>
     <string name="reboot">システムを再起動</string>
     <string name="fast_reboot">高速な再起動</string>
@@ -119,7 +119,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">ColorOSの公式インストーラーを使用するには他の機能を有効にする必要があります。\n機能一覧-アプリ関連-アプリインストール関連</string>
     <string name="corepatch">コアのパッチ</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">インストール制限を無効化 (Android 11～15対応)</string>
     <string name="downgr">アプリのダウングレードを許可</string>
     <string name="downgr_summary">新しいバージョンのアプリがインストールされている状態でも、古いバージョンのアプリをインストール可能にします</string>
     <string name="authcreak">パッケージマネージャの署名チェックを無効化</string>
@@ -195,14 +195,14 @@
     <string name="allow_long_press_notification_modifiable">長押し通知を変更可能にする</string>
     <string name="remove_notification_manager_limit">通知マネージャーの制限を削除する</string>
     <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
-    <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
+    <string name="remove_notification_pin_number_limit">ピン留めされた通知の数の上限を無効化</string>
     <string name="remove_small_window_reply_whitelist">スモールウィンドウの返信ホワイトリストを無効化</string>
     <string name="set_small_window_reply_blacklist">スモールウィンドウ返信のブラックリストを設定</string>
     <string name="set_small_window_reply_blacklist_message">ブラックリストに追加するパッケージ名を入力してください</string>
     <string name="custom_music_fluid_cloud_whitelist">music fluid cloud ホワイトリストをカスタマイズ</string>
     <string name="disable_music_fluid_cloud_display">music fluid cloud の表示を無効化</string>
     <string name="set_custom_music_fluid_cloud_whitelist">music fluid cloud のホワイトリストを設定</string>
-    <string name="force_enable_media_music_fluid_cloud_ripple">Force enable media music fluid cloud ripple</string>
+    <string name="force_enable_media_music_fluid_cloud_ripple">強制的にメディア音楽のライブアラートを有効化</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">ステータスバーアイコン</string>
     <string name="StatusBarIcon_summary">ステータスバーアイコン関連</string>
@@ -240,7 +240,7 @@
     <string name="fix_control_center_date_display_suammry">日付を完全に表示できない問題を修正します</string>
     <string name="ControlCenterNotificationCenter">コントロールセンターの通知センター</string>
     <string name="enable_notification_align_both_sides">通知の両端揃えを有効化</string>
-    <string name="remove_notification_cleanup_button">Remove notification cleanup button</string>
+    <string name="remove_notification_cleanup_button">通知のクリアボタンを削除</string>
     <string name="enable_notification_importance_classification">通知の重要度分類を有効化</string>
     <string name="custom_notification_background_transparency">カスタム通知の背景の透明度</string>
     <string name="enable_notification_background_blur_effect">通知の背景ぼかし効果を有効化</string>

@@ -42,6 +42,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookSecurePay
 import com.luckyzyx.luckytool.hook.hookers.HookSettings
 import com.luckyzyx.luckytool.hook.hookers.HookSmartSidebar
 import com.luckyzyx.luckytool.hook.hookers.HookSoundRecorder
+import com.luckyzyx.luckytool.hook.hookers.HookSpeechAssist
 import com.luckyzyx.luckytool.hook.hookers.HookSystemUI
 import com.luckyzyx.luckytool.hook.hookers.HookThemeStore
 import com.luckyzyx.luckytool.hook.hookers.HookUIEngine
@@ -141,6 +142,8 @@ object YukiEntry {
         loadApp("com.oplus.gesture", HookGesture)
         //权限控制器
         loadApp("com.android.permissioncontroller", HookPermissionController)
+        //小布助手
+        loadApp("com.heytap.speechassist", HookSpeechAssist)
         //小布识屏
         loadApp("com.coloros.directui", HookDirectUI)
         //全局搜索

@@ -13,38 +13,37 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
 @Obfuscate
-class OplusBreenoTouch : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.coloros.directui", "com.coloros.colordirectservice")
+class OplusSpeechAssist : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.heytap.speechassist")
 
     override val isEnableRestartMenu: Boolean = true
 
     override val currentPrefsName: String = ModulePrefs
 
-    override val navigateFragmentId: Int = R.id.oplusBreenoTouch
+    override val navigateFragmentId: Int = R.id.oplusSpeechAssist
 
     override fun Context.loadRootPreference(): Preference {
         return Preference(this).apply {
-            key = "com.coloros.directui"
+            key = "com.heytap.speechassist"
             setPrefsIconRes(key) { resource, show ->
                 icon = resource
                 isIconSpaceReserved = show
             }
             title = AppUtils(context).getAppLabel(key)
             summary = arraySummaryDot(
-                getString(R.string.remove_app_recommend_card),
+                getString(R.string.force_enable_ai_speechassist_call),
             )
-            isVisible = checkPackName(key) && checkPackName(
-                "com.coloros.colordirectservice"
-            )
+            isVisible = checkPackName(key)
         }
     }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.remove_app_recommend_card)
-                key = "remove_touch_app_recommend_card"
+                title = getString(R.string.force_enable_ai_speechassist_call)
+                key = "force_enable_ai_speechassist_call"
                 setDefaultValue(false)
+                isVisible = osCode >= 30
                 isIconSpaceReserved = false
             })
         }
