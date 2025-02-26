@@ -207,6 +207,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
                 setView(binding.root)
             }.create()
         }
+        preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity())
     }
 
     override fun onResume() {
@@ -298,10 +299,11 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     private fun init() {
         scopeDialog(dialog = loadDialog, cancelable = false, dispatcher = Dispatchers.IO) {
-            preferenceScreen = preferenceManager.createPreferenceScreen(requireActivity()).apply {
+            preferenceScreen?.apply {
+                removeAll()
                 context.loadPreferences().forEachIndexed { index, preference ->
                     try {
-                        addPreference(preference)
+                        preferenceScreen.addPreference(preference)
                     } catch (_: Throwable) {
                         withMain { context.showToast("Error: $index ${preference.key}") }
                         return@forEachIndexed
