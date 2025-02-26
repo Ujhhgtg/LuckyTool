@@ -18,39 +18,40 @@ object HookOplusWifiService : YukiBaseHooker() {
     private var wifiserviceClassLoader: ClassLoader? = null
     private var finalWifiServiceClassLoader: ClassLoader? = null
 
-    private val wifiService = "/apex/com.android.wifi/javalib/service-wifi.jar"
-    private val oplusWifiService = "/system_ext/framework/oplus-wifi-service.jar"
+    private val wifiServicePath = "/apex/com.android.wifi/javalib/service-wifi.jar"
+    private val oplusWifiServicePath = "/system_ext/framework/oplus-wifi-service.jar"
 
-    override fun onHook() {
+    private fun initClassLoader() {
         try {
             wifiserviceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
-                wifiService, null, false
+                wifiServicePath, null, false
             )
             finalWifiServiceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
-                oplusWifiService, wifiserviceClassLoader, false
+                oplusWifiServicePath, wifiserviceClassLoader, false
             )
-        } catch (t: ClassNotFoundException) {
-            YLog.error("Oplus Wifi Service Error!", t)
+        } catch (t: Throwable) {
             try {
                 wifiserviceClassLoader = ClassLoaderFactory.createClassLoader(
-                    wifiService, null, null, null,
+                    wifiServicePath, null, null, null,
                     Build.VERSION.SDK_INT, true, null
                 )
                 finalWifiServiceClassLoader = ClassLoaderFactory.createClassLoader(
-                    wifiService, null, null, wifiserviceClassLoader,
+                    wifiServicePath, null, null, wifiserviceClassLoader,
                     Build.VERSION.SDK_INT, true, null
                 )
-            } catch (_: Throwable) {
-                YLog.error("Wifi Service Error!", t)
+            } catch (t: Throwable) {
+                YLog.error("Hook Wifi Service Error!", t)
             }
-        } catch (t: Throwable) {
-            YLog.error("Oplus Wifi Service Error!", t)
         }
 
         if (finalWifiServiceClassLoader == null) {
             YLog.error("Hook Oplus Wifi Service is null!")
             return
         }
+    }
+
+    override fun onHook() {
+        initClassLoader()
 
         //Source_ext oplus-wifi-service OplusTetheringNotification showSoftapEnabledDurationNotification
         //Channel DurationNotification -> Notification id -> 4
