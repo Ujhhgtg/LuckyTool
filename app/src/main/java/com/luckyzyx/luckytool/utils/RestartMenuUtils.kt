@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
-import androidx.fragment.app.FragmentActivity
-import com.drake.net.scope.DialogCoroutineScope
 import com.drake.net.utils.scope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.joom.paranoid.Obfuscate
@@ -203,11 +201,7 @@ object RestartMenuUtils {
         }.create()
         val textView = binding.tv
 
-        val scope = if (context is FragmentActivity) {
-            DialogCoroutineScope(context, progressDialog, false, Dispatchers.IO)
-        } else coroutineScope
-
-        scope.launch {
+        coroutineScope.launch {
             progressDialog.show()
             val failedApps = optimizeApps(controller, scopes, textView)
             progressDialog.dismiss()
