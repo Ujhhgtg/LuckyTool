@@ -9,6 +9,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 检测更新对话框与布局显示逻辑
 - [修复] 部分因适配RUI6导致的静态实例获取问题
 - [添加] 自定义处理器介绍页面参数
+- [更改] 重新添加响铃状态切换磁贴
 
 ### 1.2.8
 
