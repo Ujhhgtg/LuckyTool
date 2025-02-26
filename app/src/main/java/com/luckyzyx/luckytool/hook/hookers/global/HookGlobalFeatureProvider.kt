@@ -72,7 +72,7 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     put("com.android.settings.processor_detail_gen2", false)
                 }
 
-                "2" -> {
+                "2", "3" -> {
                     put("com.android.settings.processor_detail", true)
                     put("com.android.settings.processor_detail_gen2", true)
                 }

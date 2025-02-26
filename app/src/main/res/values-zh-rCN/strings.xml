@@ -643,6 +643,9 @@
     <string name="settings_about_device">关于本机</string>
     <string name="remove_device_name_change_limit">移除设备名称更改限制</string>
     <string name="set_processor_click_page">设置处理器点击页面</string>
+    <string name="custom_processor_image_path_switch">自定义处理器图片路径</string>
+    <string name="custom_processor_introduction_text">自定义处理器介绍文本</string>
+    <string name="custom_processor_introduction_text_summary">长按文本删除文本缓存</string>
     <string name="enable_mariana_npu_introduction_page">启用马里亚纳NPU介绍页面</string>
     <string name="enable_hasselblad_camera_introduction_page">启用哈苏影像介绍页面</string>
     <string name="enable_game_architecture_display">启用游戏架构显示</string>
@@ -1009,6 +1012,7 @@
     <string name="common_words_bold">粗体</string>
     <string name="common_words_expand">扩展</string>
     <string name="common_words_replace">替换</string>
+    <string name="common_recommended_size">建议尺寸</string>
     <!--Permission-->
     <string name="send_notification_permission">发送通知权限</string>
     <string name="all_files_access_permission">所有文件访问权限</string>

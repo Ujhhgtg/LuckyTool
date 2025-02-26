@@ -37,19 +37,17 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override val navigateFragmentId: Int = R.id.fingerPrintRelated
 
     private val cropImage = registerForActivityResult(CropImageContract()) {
-        if (it.isSuccessful) {
-            val uri = it.uriContent
+        if (it.second.isSuccessful) {
+            val uri = it.second.uriContent
             if (uri == null || uri == Uri.EMPTY) return@registerForActivityResult
             val path = uri.path ?: ""
             if (path.isNotBlank()) {
                 requireActivity().showToast(path)
-                requireActivity().putString(
-                    ModulePrefs, "replace_fingerprint_icon_path", path
-                )
+                requireActivity().putString(ModulePrefs, it.first, path)
                 (activity as MainActivity).restart()
             }
         } else {
-            LogUtils.e("CropImage", "error", it.error.toString(), true)
+            LogUtils.e("CropImage", it.first, it.second.error.toString(), true)
         }
     }
 
@@ -101,22 +99,21 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                     }
                     setOnPreferenceClickListener {
                         val cacheImageFile = FileUtils.createCacheFile(requireActivity(), "png")
-                        cropImage.launch(
-                            CropImageContractOptions(
-                                null, CropImageOptions().apply {
-                                    activityTitle = title?.toString() ?: ""
-                                    cropShape = CropImageView.CropShape.RECTANGLE
-                                    guidelines = CropImageView.Guidelines.ON_TOUCH
-                                    aspectRatioX = 216
-                                    aspectRatioY = 216
-                                    maxCropResultWidth = 216
-                                    maxCropResultHeight = 216
-                                    fixAspectRatio = true
-                                    customOutputUri = cacheImageFile.getUri
-                                    outputCompressFormat = Bitmap.CompressFormat.PNG
-                                    outputCompressQuality = 100
-                                }
-                            )
+                        cropImage.launch(key to CropImageContractOptions(
+                            null, CropImageOptions().apply {
+                                activityTitle = title?.toString() ?: ""
+                                cropShape = CropImageView.CropShape.RECTANGLE
+                                guidelines = CropImageView.Guidelines.ON_TOUCH
+                                aspectRatioX = 216
+                                aspectRatioY = 216
+                                maxCropResultWidth = 216
+                                maxCropResultHeight = 216
+                                fixAspectRatio = true
+                                customOutputUri = cacheImageFile.getUri
+                                outputCompressFormat = Bitmap.CompressFormat.PNG
+                                outputCompressQuality = 100
+                            }
+                        )
                         )
                         true
                     }

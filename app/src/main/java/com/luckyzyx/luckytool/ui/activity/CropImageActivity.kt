@@ -35,6 +35,8 @@ class CropImageActivity : AppCompatActivity(), MenuProvider,
     private var cropImageUri: Uri? = null
     private lateinit var cropImageOptions: CropImageOptions
 
+    private lateinit var key: String
+
     private val pickImageGallery =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             onPickImageResult(uri)
@@ -52,6 +54,7 @@ class CropImageActivity : AppCompatActivity(), MenuProvider,
         cropImageView = binding.cropImageView
 
         val bundle = intent.getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE)
+        key = bundle?.getString("key") ?: ""
         cropImageUri = bundle?.parcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE)
         cropImageOptions =
             bundle?.parcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS) ?: CropImageOptions()
@@ -223,6 +226,7 @@ class CropImageActivity : AppCompatActivity(), MenuProvider,
         )
         val intent = Intent()
         intent.extras?.let(intent::putExtras)
+        intent.putExtra("key", key)
         intent.putExtra(CropImage.CROP_IMAGE_EXTRA_RESULT, result)
         return intent
     }

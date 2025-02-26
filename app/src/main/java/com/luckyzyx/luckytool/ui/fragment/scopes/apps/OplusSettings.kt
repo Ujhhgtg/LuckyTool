@@ -29,6 +29,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.getColonSummary
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getUri
 import com.luckyzyx.luckytool.utils.isZh
@@ -49,19 +50,17 @@ class OplusSettings : BaseScopePreferenceFeagment() {
     )
 
     private val cropImage = registerForActivityResult(CropImageContract()) {
-        if (it.isSuccessful) {
-            val uri = it.uriContent
+        if (it.second.isSuccessful) {
+            val uri = it.second.uriContent
             if (uri == null || uri == Uri.EMPTY) return@registerForActivityResult
             val path = uri.path ?: ""
             if (path.isNotBlank()) {
                 requireActivity().showToast(path)
-                requireActivity().putString(
-                    ModulePrefs, "customize_device_ota_card_background_path", path
-                )
+                requireActivity().putString(ModulePrefs, it.first, path)
                 (activity as MainActivity).restart()
             }
         } else {
-            LogUtils.e("CropImage", "error", it.error.toString(), true)
+            LogUtils.e("CropImage", it.first, it.second.error.toString(), true)
         }
     }
 
@@ -384,8 +383,74 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     summary = "%s"
                     key = "set_processor_click_page"
                     setEntries(R.array.set_processor_click_page_entries)
-                    entryValues = arrayOf("0", "1", "2")
+                    entryValues = arrayOf("0", "1", "2", "3")
                     setDefaultValue("0")
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (getString(ModulePrefs, "set_processor_click_page", "0") == "3") {
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.custom_processor_image_path_switch)
+                        summary = getColonSummary(
+                            getString(R.string.common_recommended_size), "624x352"
+                        )
+                        key = "custom_processor_image_path_switch"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, _ ->
+                            (activity as MainActivity).restart()
+                            true
+                        }
+                    })
+                    if (getBoolean(ModulePrefs, "custom_processor_image_path_switch", false)) {
+                        add(Preference(this@loadPreferences).apply {
+                            title = getString(R.string.customize_device_ota_card_background_path)
+                            key = "customize_processor_image_path"
+                            val path = getString(ModulePrefs, key, "")
+                            if (path.isBlank()) {
+                                summary = "Null"
+                                isIconSpaceReserved = false
+                            } else {
+                                icon = BitmapFactory.decodeFile(path)?.toDrawable(resources)
+                                summary = path
+                                isCopyingEnabled = true
+                            }
+                            setOnPreferenceClickListener {
+                                val cacheImageFile =
+                                    FileUtils.createCacheFile(requireActivity(), "png")
+                                cropImage.launch(key to CropImageContractOptions(
+                                    null, CropImageOptions().apply {
+                                        activityTitle = title?.toString() ?: ""
+                                        cropShape = CropImageView.CropShape.RECTANGLE
+                                        guidelines = CropImageView.Guidelines.ON_TOUCH
+                                        aspectRatioX = 624
+                                        aspectRatioY = 352
+                                        fixAspectRatio = true
+                                        customOutputUri = cacheImageFile.getUri
+                                        outputCompressFormat = Bitmap.CompressFormat.PNG
+                                        outputCompressQuality = 100
+                                    }
+                                )
+                                )
+                                true
+                            }
+                        })
+                    }
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.custom_processor_introduction_text)
+                        summary = getString(R.string.custom_processor_introduction_text_summary)
+                        key = "custom_processor_introduction_text"
+                        setDefaultValue(false)
+                        isIconSpaceReserved = false
+                    })
+                }
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.customize_device_sharing_page_parameters)
+                    key = "customize_device_sharing_page_parameters"
+                    setDefaultValue(false)
                     isIconSpaceReserved = false
                 })
                 add(SwitchPreference(this@loadPreferences).apply {
@@ -446,7 +511,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         setOnPreferenceClickListener {
                             val cacheImageFile = FileUtils.createCacheFile(requireActivity(), "png")
                             cropImage.launch(
-                                CropImageContractOptions(
+                                key to CropImageContractOptions(
                                     null, CropImageOptions().apply {
                                         activityTitle = title?.toString() ?: ""
                                         cropShape = CropImageView.CropShape.RECTANGLE

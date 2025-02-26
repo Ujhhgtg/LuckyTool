@@ -643,6 +643,9 @@
     <string name="settings_about_device">About Device</string>
     <string name="remove_device_name_change_limit">Remove device name change restrictions</string>
     <string name="set_processor_click_page">Set the processor to click to jump to the page</string>
+    <string name="custom_processor_image_path_switch">Custom processor image path</string>
+    <string name="custom_processor_introduction_text">Custom processor introduction text</string>
+    <string name="custom_processor_introduction_text_summary">Long press the text to delete the text cache</string>
     <string name="enable_mariana_npu_introduction_page">Enable the Mariana NPU introduction page</string>
     <string name="enable_hasselblad_camera_introduction_page">Enable the Hasselblad camera introduction page</string>
     <string name="enable_game_architecture_display">Enable game architecture display</string>
@@ -1009,6 +1012,7 @@
     <string name="common_words_bold">Bold</string>
     <string name="common_words_expand">Expand</string>
     <string name="common_words_replace">Replace</string>
+    <string name="common_recommended_size">Recommended size</string>
     <!--Permission-->
     <string name="send_notification_permission">Send notification permission</string>
     <string name="all_files_access_permission">All file access permission</string>

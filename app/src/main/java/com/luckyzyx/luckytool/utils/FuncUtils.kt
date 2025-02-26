@@ -453,6 +453,15 @@ fun arraySummaryLine(vararg string: String?): String {
 }
 
 /**
+ * 格式化Summary添加冒号
+ * @param string Array<out String?>
+ * @return String
+ */
+fun getColonSummary(vararg string: String?): String {
+    return formatStringAuto(string.toList(), ": ", false)
+}
+
+/**
  * 获取指定长度随机字符串
  * @param length Int 长度
  * @return String

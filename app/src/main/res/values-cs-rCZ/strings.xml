@@ -643,6 +643,9 @@
     <string name="settings_about_device">O zařízení</string>
     <string name="remove_device_name_change_limit">Odstranit omezení změny názvu zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
+    <string name="custom_processor_image_path_switch">Custom processor image path</string>
+    <string name="custom_processor_introduction_text">Custom processor introduction text</string>
+    <string name="custom_processor_introduction_text_summary">Long press the text to delete the text cache</string>
     <string name="enable_mariana_npu_introduction_page">Povolit úvodní stránku Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Povolit úvodní stránku kamery Hasselblad</string>
     <string name="enable_game_architecture_display">Povolit zobrazení herní architektury</string>
@@ -807,7 +810,7 @@
     <string name="remove_browser_window_limit_number">Odstranit limit v počtu oken prohlížeče</string>
     <string name="remove_browser_search_bar_app_promotion">Odstranit prohlížeč vyhledávací lištu promovaných aplikací</string>
     <!--OplusBreeno-->
-    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
+    <string name="force_enable_ai_speechassist_call">Vynutit povolení Ai řečového asistenta při volání</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
@@ -1009,6 +1012,7 @@
     <string name="common_words_bold">Tučné</string>
     <string name="common_words_expand">Rozbalit</string>
     <string name="common_words_replace">Nahradit</string>
+    <string name="common_recommended_size">Recommended size</string>
     <!--Permission-->
     <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
     <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>

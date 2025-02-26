@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.settings.AllowDisablingSystemApps
 import com.luckyzyx.luckytool.hook.scopes.settings.AutoUnlockRestrictedSettings
+import com.luckyzyx.luckytool.hook.scopes.settings.CustomProcessorPageIntroductionParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceOTACardBackground
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceSharingPageParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.DarkModeList
@@ -144,6 +145,10 @@ object HookSettings : YukiBaseHooker() {
         //移除设备名称更改限制
         if (prefs(ModulePrefs).getBoolean("remove_device_name_change_limit", false)) {
             if (osCode >= 30) loadHooker(RemoveDeviceNameChangeLimit)
+        }
+        //自定义处理器页面介绍参数
+        if (prefs(ModulePrefs).getString("set_processor_click_page", "0") == "3") {
+            loadHooker(CustomProcessorPageIntroductionParameters)
         }
 
         //电源键

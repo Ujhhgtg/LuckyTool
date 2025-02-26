@@ -53,6 +53,8 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
                 }
                 dialog = builder?.show()
                 editText = dialog?.getEditText("edit_text_1")
+                editText?.isSingleLine = false
+                editText?.maxLines = 5
                 editText?.setText(text)
             }
         }
