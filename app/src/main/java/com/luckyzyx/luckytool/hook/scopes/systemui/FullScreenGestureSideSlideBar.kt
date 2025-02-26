@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.graphics.Paint
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.BitmapClass
 import com.highcapable.yukihookapi.hook.type.android.PaintClass
@@ -29,14 +31,25 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
             "com.oplusos.systemui.navigationbar.gesture.sidegesture.SideGestureNavView",
             "com.oplus.systemui.navigationbar.gesture.sidegesture.SideGestureNavView" //C14
         ).toClass().apply {
+            val hasInitPaint = hasMethod { name = "initPaint" }
             method { name = "onDraw";paramCount = 1 }.hook {
                 if (removeView) intercept()
             }
-            method { name = "initPaint";emptyParam() }.hook {
-                after {
-                    if (!removeBackground) return@after
-                    field { name = "mBezierPaint";type = PaintClass }.get(instance)
-                        .cast<Paint>()?.color = Color.TRANSPARENT
+            if (hasInitPaint) {
+                method { name = "initPaint";emptyParam() }.hook {
+                    after {
+                        if (!removeBackground) return@after
+                        field { name = "mBezierPaint";type = PaintClass }.get(instance)
+                            .cast<Paint>()?.color = Color.TRANSPARENT
+                    }
+                }
+            } else {
+                constructor().hook {
+                    after {
+                        if (!removeBackground) return@after
+                        field { name = "mBezierPaint";type = PaintClass }.get(instance)
+                            .cast<Paint>()?.color = Color.TRANSPARENT
+                    }
                 }
             }
             method { name = "setBackIcon";param(BitmapClass) }.hook {

@@ -141,8 +141,10 @@ object MobileDataIconRelated : YukiBaseHooker() {
                 }.hook {
                     before {
                         if (!hideNoSS) return@before
-                        val key = args(if (args.size == 3) 0 else 1).string()
-                        if (key == "nosim_all") args(if (args.size == 3) 1 else 2).set(0)
+                        val keyIndex = if (hasSlotIconVisibility) 0 else 1
+                        val valueIndex = if (hasSlotIconVisibility) 1 else 2
+                        val key = args(keyIndex).string()
+                        if (key == "nosim_all") args(valueIndex).set(0)
                     }
                 }
             }

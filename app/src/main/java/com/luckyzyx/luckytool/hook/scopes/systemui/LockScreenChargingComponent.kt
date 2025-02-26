@@ -40,14 +40,15 @@ object LockScreenChargingComponent : YukiBaseHooker() {
     val ChargeLevelAndLogoView = "com.oplus.charge.view.ChargeLevelAndLogoView"
     val FrameChargeLevelAndLogoView = "com.oplus.charge.view.FrameChargeLevelAndLogoView"
     val ChargeUtil = "com.oplus.charge.util.ChargeUtil"
+
     val OplusChargeAnimImpl = "com.oplus.charge.viewmodel.OplusChargeAnimImpl"
     val OplusChargeAnimFlavorOneImpl =
         "com.oplus.systemui.keyguard.charginganim.siphonanim.viewmodel.OplusChargeAnimFlavorOneImpl"
     val ChargeLevelAndLogoFlavorOneView =
         "com.oplus.systemui.keyguard.charginganim.siphonanim.view.ChargeLevelAndLogoFlavorOneView"
 
-    @Suppress("LocalVariableName")
     @Obfuscate
+    @Suppress("LocalVariableName")
     private object ChargingComponentC15 : YukiBaseHooker() {
 
         private var oplusCharger: Any? = null
@@ -78,16 +79,18 @@ object LockScreenChargingComponent : YukiBaseHooker() {
             }
 
             val ChargeUtilCLazz = ChargeUtil.toClass()
-            val getShowWattage = ChargeUtilCLazz
-                .hasMethod { name = "getShowWattage" }
-            val getTechnologyStrForFrameCharge = ChargeUtilCLazz
-                .hasMethod { name = "getTechnologyStrForFrameCharge" }
-            val getShowWattageForFrameCharge = ChargeUtilCLazz
-                .hasMethod { name = "getShowWattageForFrameCharge" }
+            val hasShowWattage = ChargeUtilCLazz.hasMethod { name = "getShowWattage" }
+            val hasTechnologyStrForFrameCharge = ChargeUtilCLazz.hasMethod {
+                name = "getTechnologyStrForFrameCharge"
+            }
+            val hasShowWattageForFrameCharge = ChargeUtilCLazz.hasMethod {
+                name = "getShowWattageForFrameCharge"
+            }
 
             val ChargeLevelAndLogoView = ChargeLevelAndLogoView.toClass()
-            val updateChargeTechImage = ChargeLevelAndLogoView
-                .hasMethod { name = "updateChargeTechImage" }
+            val hasUpdateChargeTechImage = ChargeLevelAndLogoView.hasMethod {
+                name = "updateChargeTechImage"
+            }
 
             //Source ChargingLevelAndLogoView
             ChargeLevelAndLogoView.apply {
@@ -100,7 +103,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         }
                     }
                 }
-                if (updateChargeTechImage) {
+                if (hasUpdateChargeTechImage) {
                     method { name = "updateChargeTechImage" }.hook {
                         before {
                             if (!drawTechnology) return@before
@@ -128,7 +131,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     after {
                         val oplusChargeInfo = args().last().any() ?: return@after
 
-                        if (showWattage && !getShowWattage) {
+                        if (showWattage && !hasShowWattage) {
                             val chargeWattageView =
                                 field { name = "chargeWattage" }.get(instance).cast<TextView>()
                             val cpaWattage = oplusChargeInfo.current().method {
@@ -144,7 +147,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             }
                         }
 
-                        if (drawTechnology && !updateChargeTechImage) {
+                        if (drawTechnology && !hasUpdateChargeTechImage) {
                             val viewGroup = instance<ViewGroup>()
                             val chargeTechLogo = field { name = "chargeTechLogo" }.get(instance)
                                 .cast<ImageView>()
@@ -194,7 +197,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     after {
                         val oplusChargeInfo = args().last().any() ?: return@after
 
-                        if (showRealTech && !getTechnologyStrForFrameCharge) {
+                        if (showRealTech && !hasTechnologyStrForFrameCharge) {
                             val textLogoView = field { name = "textLogo" }.get(instance)
                                 .cast<TextView>()
                             val isWirelessCharge = oplusChargeInfo.current().method {
@@ -213,7 +216,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                 )
                         }
 
-                        if (showWattage && !getShowWattageForFrameCharge) {
+                        if (showWattage && !hasShowWattageForFrameCharge) {
                             val chargeWattageView =
                                 field { name = "chargeWattage" }.get(instance).cast<TextView>()
                             val cpaWattage = oplusChargeInfo.current().method {
@@ -245,7 +248,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         result = Typeface.DEFAULT_BOLD
                     }
                 }
-                if (getShowWattage) {
+                if (hasShowWattage) {
                     method { name = "getShowWattage";paramCount = 3 }.hook {
                         before {
                             if (!showWattage) return@before
@@ -262,22 +265,21 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "getShowWattageForFrameCharge";paramCount = 3 }.hook {
-                    before {
-                        if (!showWattage) return@before
-                        val cpaWattage = args().first().int()
-                        val wattage = args(1).string().toIntOrNull() ?: return@before
-//                        val wattage = args(1).string()
-//                        val isWireless = args().last().boolean()
-//                        YLog.debug("ChargeUtil getShowWattageForFrameCharge -> $origin | $wattage | $isWireless")
-                        result = when {
-                            wattage == 0 && cpaWattage == 0 -> ""
-                            wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
-                            else -> "${wattage}W"
+                if (hasShowWattageForFrameCharge) {
+                    method { name = "getShowWattageForFrameCharge";paramCount = 3 }.hook {
+                        before {
+                            if (!showWattage) return@before
+                            val cpaWattage = args().first().int()
+                            val wattage = args(1).string().toIntOrNull() ?: return@before
+                            result = when {
+                                wattage == 0 && cpaWattage == 0 -> ""
+                                wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                                else -> "${wattage}W"
+                            }
                         }
                     }
                 }
-                if (getTechnologyStrForFrameCharge) {
+                if (hasTechnologyStrForFrameCharge) {
                     method { name = "getTechnologyStrForFrameCharge" }.hook {
                         before {
                             if (!showRealTech) return@before

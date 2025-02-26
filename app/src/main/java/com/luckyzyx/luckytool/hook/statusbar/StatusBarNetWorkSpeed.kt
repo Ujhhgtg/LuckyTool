@@ -59,10 +59,11 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         }
                     }.hook {
                         after {
-                            val isConnected = field { name = "isConnected" }.get(instance).boolean()
-                            val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()
+                            val ins = if (args.isEmpty()) instance else args().first().any()
+                            val isConnected = field { name = "isConnected" }.get(ins).boolean()
+                            val isSwitchOn = field { name = "isSwitchOn" }.get(ins).boolean()
                             val bgHandler =
-                                field { name = "bgHandler" }.get(instance).cast<Handler>()
+                                field { name = "bgHandler" }.get(ins).cast<Handler>()
                             if (isConnected && isSwitchOn) {
                                 bgHandler?.removeMessages(100001)
                                 bgHandler?.sendEmptyMessageDelayed(100001, 1000L)

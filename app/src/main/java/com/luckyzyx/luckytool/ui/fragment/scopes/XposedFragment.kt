@@ -211,9 +211,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     override fun onResume() {
         super.onResume()
-        val count = safeOf(0) {
-            if (preferenceScreen != null) preferenceScreen.preferenceCount else 0
-        }
+        val count = safeOf(0) { preferenceScreen.preferenceCount }
         if (count <= 0) init()
     }
 
