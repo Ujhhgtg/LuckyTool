@@ -1,9 +1,9 @@
 [versions]
-agp = "8.8.1"
+agp = "8.8.2"
 kotlin = "2.1.0"
 ksp = "2.1.0-1.0.29"
 
-navigation = "2.8.7"
+navigation = "2.8.8"
 kotlinx-coroutines = "1.10.1"
 libsu = "6.0.0"
 markwon = "4.6.2"
@@ -27,7 +27,7 @@ dexkit = { module = "org.luckypray:dexkit", version = "2.0.3" }
 
 betterandroid-ui-component = { module = "com.highcapable.betterandroid:ui-component", version = "1.0.6" }
 material = { module = "com.google.android.material:material", version = "1.12.0" }
-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.2.0" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.2.1" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.1.0" }
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
