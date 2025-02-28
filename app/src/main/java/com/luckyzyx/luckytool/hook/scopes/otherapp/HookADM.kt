@@ -66,7 +66,7 @@ object HookADM : YukiBaseHooker() {
                         }
                     }
                 }.apply {
-                    checkDataList("UnlockAdmThreads", isDebug = true)
+                    checkDataList("UnlockAdmThreads")
                     single().name.toClass().apply {
                         method {
                             name { it.contains("call") }
