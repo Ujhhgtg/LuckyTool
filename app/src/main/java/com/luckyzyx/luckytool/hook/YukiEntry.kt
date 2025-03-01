@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.hook
 
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.param.PackageParam
-import com.joom.paranoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
@@ -52,6 +51,7 @@ import com.luckyzyx.luckytool.hook.scopes.otherapp.HookAlphaBackupPro
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookKsWeb
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object YukiEntry {

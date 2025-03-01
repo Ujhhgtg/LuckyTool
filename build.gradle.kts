@@ -8,12 +8,7 @@ plugins {
     alias(libs.plugins.kotlin) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.foojay.resolver.convention) apply false
-}
-
-buildscript {
-    dependencies {
-        classpath(libs.paranoid)
-    }
+    alias(libs.plugins.lsplugin.lsparanoid) apply false
 }
 
 tasks {

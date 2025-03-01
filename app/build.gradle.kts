@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.lsplugin.resopt)
-    id("com.joom.paranoid")
+    alias(libs.plugins.lsplugin.lsparanoid)
 }
 
 apksign {
@@ -19,6 +19,12 @@ apksign {
     storePasswordProperty = keystoreProperties["storePassword"] as String
     keyAliasProperty = keystoreProperties["keyAlias"] as String
     keyPasswordProperty = keystoreProperties["keyPassword"] as String
+}
+
+lsparanoid {
+    classFilter = { true }
+    includeDependencies = true
+    variantFilter = { true }
 }
 
 android {
