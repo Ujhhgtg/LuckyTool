@@ -22,9 +22,8 @@ apksign {
 }
 
 lsparanoid {
-    classFilter = { true }
-    includeDependencies = true
-    variantFilter = { true }
+    includeDependencies = false
+    variantFilter = { variant -> variant.name == "release" }
 }
 
 android {
@@ -104,7 +103,7 @@ android {
 }
 
 dependencies {
-    compileOnly(project(":hidden-api-stub"))
+    compileOnly(projects.hiddenApiStub)
 
     compileOnly(libs.xposed.api)
     implementation(libs.yukihookapi)
