@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.uiengine.EnableRandomTextOnAod
 import com.luckyzyx.luckytool.hook.scopes.uiengine.RemoveAodNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.uiengine.SetAodNotificationIconStyle

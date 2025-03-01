@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.CorePatch;
 
 import android.content.pm.Signature;
 
-import com.joom.paranoid.Obfuscate;
+import org.lsposed.lsparanoid.Obfuscate;
 
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;

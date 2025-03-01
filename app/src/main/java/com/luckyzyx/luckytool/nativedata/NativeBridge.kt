@@ -1,6 +1,6 @@
 package com.luckyzyx.luckytool.nativedata
 
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.LogUtils
 
 @Obfuscate

@@ -6,7 +6,7 @@ import android.os.Parcel
 import android.os.RemoteException
 import android.os.ServiceManager
 import android.view.DisplayInfo
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.hook.utils.DisplayManagerUtils

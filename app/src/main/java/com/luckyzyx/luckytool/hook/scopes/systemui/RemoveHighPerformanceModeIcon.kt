@@ -4,7 +4,7 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveHighPerformanceModeIcon : YukiBaseHooker() {

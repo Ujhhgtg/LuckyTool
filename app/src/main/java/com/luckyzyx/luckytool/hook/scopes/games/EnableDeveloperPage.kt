@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.games
 import android.app.Activity
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object EnableDeveloperPage : YukiBaseHooker() {

@@ -11,7 +11,7 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.AnyClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")

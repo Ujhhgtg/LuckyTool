@@ -9,7 +9,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceControl;
 
-import com.joom.paranoid.Obfuscate;
+import org.lsposed.lsparanoid.Obfuscate;
 import com.luckyzyx.luckytool.BuildConfig;
 
 import java.lang.reflect.Field;

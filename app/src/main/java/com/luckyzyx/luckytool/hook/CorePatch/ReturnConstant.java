@@ -1,6 +1,6 @@
 package com.luckyzyx.luckytool.hook.CorePatch;
 
-import com.joom.paranoid.Obfuscate;
+import org.lsposed.lsparanoid.Obfuscate;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;

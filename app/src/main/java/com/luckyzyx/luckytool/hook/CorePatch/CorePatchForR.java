@@ -9,7 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
 
-import com.joom.paranoid.Obfuscate;
+import org.lsposed.lsparanoid.Obfuscate;
 import com.luckyzyx.luckytool.BuildConfig;
 
 import java.io.PrintWriter;

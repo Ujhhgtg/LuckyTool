@@ -11,7 +11,7 @@ import com.android.internal.telephony.ITelephony
 import com.android.internal.telephony.RILConstants
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.hook.utils.IColorDisplayUtils
 import com.luckyzyx.luckytool.service.base.BaseControllerService

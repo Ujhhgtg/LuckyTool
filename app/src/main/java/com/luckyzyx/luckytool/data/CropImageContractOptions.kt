@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.data
 
 import android.net.Uri
 import com.canhub.cropper.CropImageOptions
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 data class CropImageContractOptions(

@@ -7,7 +7,7 @@ import com.drake.net.utils.scope
 import com.drake.net.utils.scopeNet
 import com.drake.net.utils.withDefault
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DeviceUtils.getCSid
 import com.luckyzyx.luckytool.utils.DeviceUtils.getQSlist
 import com.tencent.mmkv.MMKV

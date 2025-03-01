@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.utils
 
 import android.content.Context
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.CameraFilter
 

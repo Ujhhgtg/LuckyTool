@@ -15,7 +15,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.ArrayMap
 import androidx.core.content.FileProvider
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage

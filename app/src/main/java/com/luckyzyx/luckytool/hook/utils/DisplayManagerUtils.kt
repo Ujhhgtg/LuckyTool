@@ -8,7 +8,7 @@ import android.view.DisplayInfo
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")

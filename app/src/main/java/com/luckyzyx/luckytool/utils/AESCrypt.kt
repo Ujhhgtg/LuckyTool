@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.utils
 
 import android.annotation.SuppressLint
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.ByteArrayOutputStream
 import java.util.Base64
 import java.util.zip.Deflater

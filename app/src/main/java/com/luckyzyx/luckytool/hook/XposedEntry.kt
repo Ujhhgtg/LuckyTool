@@ -7,7 +7,7 @@ import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 import android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForR
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForS
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForT

@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.service.tiles
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyGlobalDCMode

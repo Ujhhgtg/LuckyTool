@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.utils
 
 import android.annotation.SuppressLint
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Suppress("MayBeConstant")
 @Obfuscate

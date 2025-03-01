@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.utils.sysui
 
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")

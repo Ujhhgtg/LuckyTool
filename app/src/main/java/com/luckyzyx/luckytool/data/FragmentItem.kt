@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.data
 
 import androidx.preference.PreferenceFragmentCompat
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.Serializable
 
 @Obfuscate

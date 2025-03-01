@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 
 @Suppress("PrivatePropertyName")

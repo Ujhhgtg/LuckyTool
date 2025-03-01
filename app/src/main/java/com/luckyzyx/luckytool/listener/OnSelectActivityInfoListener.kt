@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.listener
 
 import android.content.pm.ActivityInfo
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 interface OnSelectActivityInfoListener {

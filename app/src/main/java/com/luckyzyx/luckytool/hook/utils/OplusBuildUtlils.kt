@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.utils
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.factory.toClass
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused", "PrivatePropertyName")

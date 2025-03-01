@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.pictorial
 import android.widget.LinearLayout
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveVideoSaveWaterMark : YukiBaseHooker() {

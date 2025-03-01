@@ -8,7 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.telephony.SubscriptionManager
 import androidx.annotation.DeprecatedSinceApi
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.topjohnwu.superuser.ShellUtils
 
 

@@ -4,7 +4,7 @@ import android.app.Service
 import android.os.SystemProperties
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils

@@ -4,7 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.IBinder
 import android.os.IInterface
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.bindRootService
 

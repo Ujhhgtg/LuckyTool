@@ -7,7 +7,7 @@ import android.content.pm.UserInfo
 import android.os.IBinder
 import android.os.RemoteException
 import android.os.ServiceManager
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IActivityServiceController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils

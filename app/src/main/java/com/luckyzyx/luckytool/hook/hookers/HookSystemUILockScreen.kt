@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.ForceEnableScreenOffMusicSupport
 import com.luckyzyx.luckytool.hook.scopes.systemui.HideLockScreenStatusBarDisplay
 import com.luckyzyx.luckytool.hook.scopes.systemui.LockScreenBottomButton

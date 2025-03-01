@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.service
 import android.content.Intent
 import android.os.IBinder
 import android.os.SystemProperties
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils

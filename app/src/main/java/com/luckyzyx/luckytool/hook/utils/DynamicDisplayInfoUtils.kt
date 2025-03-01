@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.utils
 
 import com.highcapable.yukihookapi.hook.factory.current
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.DisplayMode
 
 @Obfuscate

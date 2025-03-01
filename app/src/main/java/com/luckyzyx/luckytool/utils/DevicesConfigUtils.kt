@@ -1,6 +1,6 @@
 package com.luckyzyx.luckytool.utils
 
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import org.json.JSONObject
 import java.io.File
 

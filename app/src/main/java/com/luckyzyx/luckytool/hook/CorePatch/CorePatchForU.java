@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.CorePatch;
 
 import android.util.Log;
 
-import com.joom.paranoid.Obfuscate;
+import org.lsposed.lsparanoid.Obfuscate;
 
 import java.lang.reflect.InvocationTargetException;
 

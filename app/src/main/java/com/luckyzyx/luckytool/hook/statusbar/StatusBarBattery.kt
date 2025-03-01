@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.StatusBarBatteryInfoNotify
 import com.luckyzyx.luckytool.hook.scopes.systemui.StatusBarBatteryView
 import com.luckyzyx.luckytool.utils.A12

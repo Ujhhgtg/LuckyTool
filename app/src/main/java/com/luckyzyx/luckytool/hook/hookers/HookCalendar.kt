@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.joom.paranoid.Obfuscate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.calendar.RemoveAlmanacPageInformationFlow
 import com.luckyzyx.luckytool.hook.scopes.calendar.RemoveHolidayPageInformationFlow
 import com.luckyzyx.luckytool.hook.scopes.calendar.RemoveHoroscopePageInformationFlow
