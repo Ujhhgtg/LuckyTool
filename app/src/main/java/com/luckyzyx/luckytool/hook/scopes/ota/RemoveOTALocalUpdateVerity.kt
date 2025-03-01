@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.ota
 
+import android.os.SystemProperties
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
@@ -52,6 +53,7 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                                 removeIf { it.contains("forbid_ota_local_update") }
                                 removeIf { it.contains("from_version") }
                             }
+                            SystemProperties.set("sys.ota.grant_ota_local_update", "true")
                         }
                     }
                 }
@@ -85,12 +87,13 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                 checkDataList("RemoveOTALocalUpdateVerity Properties")
                 single().name.toClass().apply {
                     method { param(StringClass, LongType, LongType, StringArrayClass) }.hook {
-                        after {
+                        before {
                             val headers = args().last().array<String>()
                             headers.toMutableList().apply {
                                 removeIf { it.contains("forbid_ota_local_update") }
 //                                removeIf { it.contains("oplus_update_engine_verify_disable") }
                             }
+                            SystemProperties.set("sys.ota.grant_ota_local_update", "true")
                         }
                     }
                 }
