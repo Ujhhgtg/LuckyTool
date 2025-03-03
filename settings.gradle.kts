@@ -9,6 +9,7 @@ pluginManagement {
         maven("https://maven.aliyun.com/repository/jcenter")
         maven("https://maven.aliyun.com/repository/google")
         maven("https://maven.aliyun.com/repository/gradle-plugin")
+        maven("https://s01.oss.sonatype.org/content/repositories/releases/")
         google()
     }
 }
@@ -29,10 +30,10 @@ dependencyResolutionManagement {
         maven("https://maven.aliyun.com/repository/jcenter")
         maven("https://maven.aliyun.com/repository/google")
         maven("https://maven.aliyun.com/repository/gradle-plugin")
+        maven("https://s01.oss.sonatype.org/content/repositories/releases/")
         google()
     }
 }
 
 rootProject.name = "LuckyTool"
-include(":app")
-include(":hidden-api-stub")
+include(":app", ":hidden-api-stub")
