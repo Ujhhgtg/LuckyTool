@@ -51,18 +51,13 @@ class OtherFragment : Fragment() {
                 )
             }
         }
-
         binding.shortcut.apply {
             setOnClickListener {
-                val keys = ArrayList<String>()
-                val titles = ArrayList<CharSequence>()
-                val values = ArrayList<Boolean>()
-                ShortcutUtils(context).getDefaultShortcutList().forEachIndexed { _, bean ->
-                    if (bean.label.isNotBlank() && bean.key.isNotBlank()) {
-                        keys.add(bean.key)
-                        titles.add(bean.label)
-                        values.add(bean.isEnable)
-                    }
+                val shortcutUtils = ShortcutUtils(context)
+                val beans = shortcutUtils.getDefaultShortcutBean()
+                val titles = Array(beans.size) { i -> beans[i].label }
+                val values = Array(beans.size) { i ->
+                    shortcutUtils.getEnabledShortcutList().find { it.id == beans[i].key } != null
                 }
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setTitle(binding.shortcutTitle.text)
@@ -70,12 +65,19 @@ class OtherFragment : Fragment() {
                     setPositiveButton(android.R.string.ok) { dialog, _ ->
                         val positions = (dialog as AlertDialog).listView.checkedItemPositions
                         positions.forEach { position, isChecked ->
-                            val key = keys[position]
-                            ShortcutUtils(context).setShortcutStatus(key, isChecked)
+                            shortcutUtils.setShortcutStatus(beans[position], isChecked)
                         }
-                        ShortcutUtils(context).updateDynamicShortcuts()
                     }
-                    setNeutralButton(android.R.string.cancel, null)
+                    if (shortcutUtils.shortcutManager.isRequestPinShortcutSupported) {
+                        setNeutralButton("Pin") { dialog, _ ->
+                            val positions = (dialog as AlertDialog).listView.checkedItemPositions
+                            val indexValue = positions.indexOfValue(true).takeIf {
+                                it != -1
+                            } ?: return@setNeutralButton
+                            val key = positions.keyAt(indexValue)
+                            shortcutUtils.requestPinShortcut(beans[key].toShortcutInfo(context))
+                        }
+                    }
                 }.show()
             }
         }

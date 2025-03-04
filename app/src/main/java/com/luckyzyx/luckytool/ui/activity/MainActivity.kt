@@ -16,7 +16,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.factory.prefs
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.ActivityMainBinding
@@ -36,7 +35,6 @@ import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.ShortcutUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.checkPackage
 import com.luckyzyx.luckytool.utils.dialogCentered
@@ -47,6 +45,7 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
+import org.lsposed.lsparanoid.Obfuscate
 import kotlin.system.exitProcess
 
 @Obfuscate
@@ -78,7 +77,6 @@ open class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initNavigationFragment()
-        initDynamicShortcuts()
 
         checkPackage()
         checkXposed()
@@ -157,12 +155,6 @@ open class MainActivity : AppCompatActivity() {
         super.onResume()
         checkSu()
         initAllService()
-    }
-
-    private fun initDynamicShortcuts() {
-        if (!ShortcutUtils(this).getIconStatus()) return
-        if (ShortcutUtils(this).getEnabledShortcutList().isEmpty()) return
-        ShortcutUtils(this).updateDynamicShortcuts()
     }
 
     private fun initNavigationFragment() {

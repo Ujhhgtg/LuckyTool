@@ -1,116 +1,128 @@
 package com.luckyzyx.luckytool.utils
 
+import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.ShortcutBean
 import com.luckyzyx.luckytool.ui.activity.ShortcutActivity
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused")
 class ShortcutUtils(val context: Context) {
+
+    var shortcutManager: ShortcutManager = context.getSystemService(ShortcutManager::class.java)
+
+    private val existOplusGame =
+        context.checkPackName("com.oplus.games") && context.checkResolveActivity(
+            Intent().setClassName(
+                "com.oplus.games",
+                "business.compact.activity.GameBoxCoverActivity"
+            )
+        )
 
     /**
      * 获取内置快捷方式支持列表
      * @receiver Context
      * @return ArrayList<ShortcutBean>
      */
-    fun getDefaultShortcutList(): ArrayList<ShortcutBean> {
-        val defaultList = ArrayList<ShortcutBean>()
-        safeOfNull {
-            ShortcutBean(
-                "module_shortcut_status_lsposed", "LSPosed", Icon.createWithResource(
-                    context.packageName,
-                    android.R.mipmap.sym_def_app_icon
-                )
-            )
-        }?.let { defaultList.add(it) }
-        val existOplusGame =
-            context.checkPackName("com.oplus.games") && context.checkResolveActivity(
-                Intent().setClassName(
-                    "com.oplus.games",
-                    "business.compact.activity.GameBoxCoverActivity"
-                )
-            )
-        if (existOplusGame) safeOfNull {
-            ShortcutBean(
-                "module_shortcut_status_oplusgames",
-                AppUtils(context).getAppLabel("com.oplus.games").toString(),
-                Icon.createWithResource(
-                    context.packageName, R.mipmap.oplusgames_icon
-                )
-            )
-        }?.let { defaultList.add(it) }
-        safeOfNull {
-            ShortcutBean(
-                "module_shortcut_status_chargingtest", context.getString(R.string.charging_test),
-                Icon.createWithResource(
-                    context.packageName, R.drawable.ic_baseline_charging_station_24
-                )
-            )
-        }?.let { defaultList.add(it) }
-        safeOfNull {
-            ShortcutBean(
-                "module_shortcut_status_processmanager",
-                context.getString(R.string.process_manager),
-                Icon.createWithResource(
-                    context.packageName, android.R.mipmap.sym_def_app_icon
-                )
-            )
-        }?.let { defaultList.add(it) }
-        safeOfNull {
-            ShortcutBean(
-                "module_shortcut_status_performance",
-                context.getString(R.string.high_performance_mode),
-                Icon.createWithResource(
-                    context.packageName, R.drawable.baseline_device_thermostat_24
-                )
-            )
-        }?.let { defaultList.add(it) }
-        defaultList.forEachIndexed { _, bean ->
-            val intent = when (bean.key) {
-                "module_shortcut_status_oplusgames" -> Intent(Intent.ACTION_VIEW).apply {
-                    putExtra("Shortcut", bean.key)
-                    setClassName(
-                        "com.oplus.games",
-                        "business.compact.activity.GameBoxCoverActivity"
+    fun getDefaultShortcutBean(): ArrayList<ShortcutBean> {
+        return ArrayList<ShortcutBean>().apply {
+            add(
+                ShortcutBean(
+                    "module_shortcut_status_lsposed", "LSPosed", Icon.createWithResource(
+                        context.packageName,
+                        android.R.mipmap.sym_def_app_icon
                     )
-                }
-
-                else -> Intent(Intent.ACTION_VIEW).apply {
-                    setClass(context, ShortcutActivity::class.java)
-                    putExtra("Shortcut", bean.key)
-                }
+                )
+            )
+            if (existOplusGame) {
+                add(
+                    ShortcutBean(
+                        "module_shortcut_status_oplusgames",
+                        AppUtils(context).getAppLabel("com.oplus.games").toString(),
+                        Icon.createWithResource(
+                            context.packageName, R.mipmap.oplusgames_icon
+                        )
+                    )
+                )
             }
-            val isEnable = context.getBoolean(SettingsPrefs, bean.key, false)
-            bean.intent = intent
-            bean.isEnable = isEnable
+            add(
+                ShortcutBean(
+                    "module_shortcut_status_chargingtest",
+                    context.getString(R.string.charging_test),
+                    Icon.createWithResource(
+                        context.packageName, R.drawable.ic_baseline_charging_station_24
+                    )
+                )
+            )
+            add(
+                ShortcutBean(
+                    "module_shortcut_status_processmanager",
+                    context.getString(R.string.process_manager),
+                    Icon.createWithResource(
+                        context.packageName, android.R.mipmap.sym_def_app_icon
+                    )
+                )
+            )
+            add(
+                ShortcutBean(
+                    "module_shortcut_status_performance",
+                    context.getString(R.string.high_performance_mode),
+                    Icon.createWithResource(
+                        context.packageName, R.drawable.baseline_device_thermostat_24
+                    )
+                )
+            )
+            forEachIndexed { _, bean ->
+                val intent = when (bean.key) {
+                    "module_shortcut_status_oplusgames" -> Intent(Intent.ACTION_VIEW).apply {
+                        putExtra("Shortcut", bean.key)
+                        setClassName(
+                            "com.oplus.games",
+                            "business.compact.activity.GameBoxCoverActivity"
+                        )
+                    }
+
+                    else -> Intent(Intent.ACTION_VIEW).apply {
+                        setClass(context, ShortcutActivity::class.java)
+                        putExtra("Shortcut", bean.key)
+                    }
+                }
+                bean.intent = intent
+            }
+            removeIf { it.key.isBlank() || it.label.isBlank() }
         }
-        return defaultList
     }
 
-    fun getEnabledShortcutList(): ArrayList<ShortcutInfo> {
-        val list = ArrayList<ShortcutInfo>()
-        getDefaultShortcutList().forEach {
-            if (it.isEnable) list.add(createShortcutInfo(it.key, it.label, it.icon, it.intent))
-        }
-        return list
+    /**
+     * 获取已开启的快捷方式
+     * @return List<ShortcutInfo>
+     */
+    fun getEnabledShortcutList(): List<ShortcutInfo> {
+        return shortcutManager.dynamicShortcuts
     }
 
     /**
      * 设置快捷方式启用状态
-     * @param key String
+     * @param bean ShortcutBean
      * @param status Boolean
      */
-    fun setShortcutStatus(key: String, status: Boolean) {
-        context.putBoolean(SettingsPrefs, key, status)
+    fun setShortcutStatus(bean: ShortcutBean, status: Boolean) {
+        val enabled = getEnabledShortcutList()
+        if (enabled.find { it.id == bean.key } == null && status) {
+            val newList = enabled.toMutableList().apply {
+                add(bean.toShortcutInfo(context))
+            }
+            updateDynamicShortcuts(ArrayList(newList))
+        }
         if (!status) {
-            removeDynamicShortcuts(arrayListOf(key))
+            removeDynamicShortcuts(arrayListOf(bean.key))
         }
     }
 
@@ -119,7 +131,7 @@ class ShortcutUtils(val context: Context) {
      * @receiver Context
      * @return Boolean
      */
-    fun getIconStatus(): Boolean {
+    fun getAppIconStatus(): Boolean {
         return when (AppUtils(context).getComponentEnabled(
             ComponentName(context.packageName, "${context.packageName}.Hide")
         )) {
@@ -147,25 +159,16 @@ class ShortcutUtils(val context: Context) {
     }
 
     /**
-     * 获取动态快捷方式
-     * @return List<ShortcutInfo>?
+     * @see [ShortcutManager.requestPinShortcut]
+     * @param shortcutInfo ShortcutInfo
      */
-    fun getDynamicShortcuts(): List<ShortcutInfo>? = safeOfNull {
-        val shortcutManager = context.getSystemService(ShortcutManager::class.java)
-                as ShortcutManager
-        shortcutManager.dynamicShortcuts
-    }
-
-    /**
-     * 设置动态快捷方式
-     * @return Any
-     */
-    fun updateDynamicShortcuts() = safeOf({
-        context.showToast("Set Dynamic Shortcuts Error!")
-    }) {
-        val shortcutManager =
-            context.getSystemService(ShortcutManager::class.java) as ShortcutManager
-        shortcutManager.dynamicShortcuts = getEnabledShortcutList()
+    fun requestPinShortcut(shortcutInfo: ShortcutInfo) {
+        val intent = shortcutManager.createShortcutResultIntent(shortcutInfo)
+        val callback = PendingIntent.getBroadcast(
+            context, 0,
+            intent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        shortcutManager.requestPinShortcut(shortcutInfo, callback.intentSender)
     }
 
     /**
@@ -173,12 +176,11 @@ class ShortcutUtils(val context: Context) {
      * @receiver Context
      * @param list Array<out ShortcutInfo>
      */
-    fun updateDynamicShortcuts(list: ArrayList<ShortcutInfo>) = safeOf({
-        context.showToast("Set Dynamic Shortcuts Error!")
-    }) {
-        val shortcutManager =
-            context.getSystemService(ShortcutManager::class.java) as ShortcutManager
+    private fun updateDynamicShortcuts(list: ArrayList<ShortcutInfo>) = try {
         shortcutManager.dynamicShortcuts = list
+    } catch (t: Throwable) {
+        context.showToast("Set Dynamic Shortcuts Error!")
+        LogUtils.e("updateDynamicShortcuts", "${list.toList()}", t.toString(), true)
     }
 
     /**
@@ -186,9 +188,7 @@ class ShortcutUtils(val context: Context) {
      * @receiver Context
      * @param list Array<out String>
      */
-    fun removeDynamicShortcuts(list: ArrayList<String>) {
-        val shortcutManager =
-            context.getSystemService(ShortcutManager::class.java) as ShortcutManager
+    private fun removeDynamicShortcuts(list: ArrayList<String>) {
         shortcutManager.removeDynamicShortcuts(list)
     }
 }

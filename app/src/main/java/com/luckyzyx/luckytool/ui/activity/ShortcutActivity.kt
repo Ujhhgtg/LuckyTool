@@ -7,16 +7,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.service.tiles.ChargingTestTile
 import com.luckyzyx.luckytool.service.tiles.ExtraDimModeTile
 import com.luckyzyx.luckytool.service.tiles.FiveGTile
 import com.luckyzyx.luckytool.service.tiles.ProcessManagerTile
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("DEPRECATION")
@@ -44,7 +45,8 @@ class ShortcutActivity : Activity() {
 
                 "module_shortcut_status_chargingtest" -> IntentUtils(this@ShortcutActivity).jumpBatteryInfo()
                 "module_shortcut_status_processmanager" -> IntentUtils(this@ShortcutActivity).jumpRunningApp()
-                "module_shortcut_status_performance" -> IntentUtils(this@ShortcutActivity).jumpHighPerformance()
+                "module_shortcut_status_performance" -> if (SDK >= A15) IntentUtils(this@ShortcutActivity).jumpHighPerformance()
+                else IntentUtils(this@ShortcutActivity).jumpBattery()
             }
         }
         checkTileLongClick()
