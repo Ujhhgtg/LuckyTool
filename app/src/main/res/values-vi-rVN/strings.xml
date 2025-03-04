@@ -643,9 +643,9 @@
     <string name="settings_about_device">Thông tin thiết bị</string>
     <string name="remove_device_name_change_limit">Xóa hạn chế thay đổi tên thiết bị</string>
     <string name="set_processor_click_page">Đặt trang nhấp chuột xử lý</string>
-    <string name="custom_processor_image_path_switch">Custom processor image path</string>
-    <string name="custom_processor_introduction_text">Custom processor introduction text</string>
-    <string name="custom_processor_introduction_text_summary">Long press the text to delete the text cache</string>
+    <string name="custom_processor_image_path_switch">Đường dẫn tệp ảnh của bộ xử lý tùy chỉnh</string>
+    <string name="custom_processor_introduction_text">Giới thiệu về trình xử lý tùy chỉnh</string>
+    <string name="custom_processor_introduction_text_summary">Nhấn và giữ văn bản để xóa bộ nhớ đệm văn bản</string>
     <string name="enable_mariana_npu_introduction_page">Kích hoạt trang giới thiệu NPU Mariana</string>
     <string name="enable_hasselblad_camera_introduction_page">Kích hoạt trang giới thiệu hình ảnh Hasselblad</string>
     <string name="enable_game_architecture_display">Bật hiển thị kiến ​​trúc trò chơi</string>
@@ -911,6 +911,8 @@
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>
+    <string name="tile_list">Module built-in tile list</string>
+    <string name="tile_list_summary">Quickly add tile to the control center</string>
     <string name="SystemDebuggingRelated">Gỡ lỗi hệ thống</string>
     <string name="engineering_mode">Chế độ kỹ thuật</string>
     <string name="charging_test">Kiểm tra sạc</string>
@@ -1012,7 +1014,10 @@
     <string name="common_words_bold">Đậm</string>
     <string name="common_words_expand">Mở rộng</string>
     <string name="common_words_replace">Thay thế</string>
-    <string name="common_recommended_size">Recommended size</string>
+    <string name="common_recommended_size">Kích thước khuyên dùng</string>
+    <string name="common_add_success">Add successfully</string>
+    <string name="common_add_fail">Add failed</string>
+    <string name="common_add_repeat">Repeated addition</string>
     <!--Permission-->
     <string name="send_notification_permission">Gửi quyền thông báo</string>
     <string name="all_files_access_permission">Tất cả quyền truy cập tập tin</string>

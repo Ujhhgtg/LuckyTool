@@ -1043,6 +1043,8 @@
     <!-- Other -->
     <string name="quick_entry">System Quick Entry</string>
     <string name="quick_entry_summary">e.g. System UI reconciliation tools, process management, engineering mode, etc.</string>
+    <string name="tile_list">Module built-in tile list</string>
+    <string name="tile_list_summary">Quickly add tile to the control center</string>
     
     <string name="SystemDebuggingRelated">System Debugging Related</string>
     <string name="engineering_mode">Engineering Mode</string>
@@ -1158,6 +1160,9 @@
     <string name="common_words_expand">Expand</string>
     <string name="common_words_replace">Replace</string>
     <string name="common_recommended_size">Recommended size</string>
+    <string name="common_add_success">Add successfully</string>
+    <string name="common_add_fail">Add failed</string>
+    <string name="common_add_repeat">Repeated addition</string>
     
     <!--Permission-->
     <string name="send_notification_permission">Send notification permission</string>

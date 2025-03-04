@@ -643,9 +643,9 @@
     <string name="settings_about_device">O zařízení</string>
     <string name="remove_device_name_change_limit">Odstranit omezení změny názvu zařízení</string>
     <string name="set_processor_click_page">Nastavit jméno procesoru na stránce Informace o zařízení</string>
-    <string name="custom_processor_image_path_switch">Custom processor image path</string>
-    <string name="custom_processor_introduction_text">Custom processor introduction text</string>
-    <string name="custom_processor_introduction_text_summary">Long press the text to delete the text cache</string>
+    <string name="custom_processor_image_path_switch">Vlastní cesta k obrázku procesoru</string>
+    <string name="custom_processor_introduction_text">Vlastní název procesoru</string>
+    <string name="custom_processor_introduction_text_summary">Dlouhým stisknutím textu odstraníte mezipaměť textu</string>
     <string name="enable_mariana_npu_introduction_page">Povolit úvodní stránku Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Povolit úvodní stránku kamery Hasselblad</string>
     <string name="enable_game_architecture_display">Povolit zobrazení herní architektury</string>
@@ -911,6 +911,8 @@
     <!-- Other -->
     <string name="quick_entry">Skryté funkce systému</string>
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>
+    <string name="tile_list">Module built-in tile list</string>
+    <string name="tile_list_summary">Quickly add tile to the control center</string>
     <string name="SystemDebuggingRelated">Nastavení související s laděním systému</string>
     <string name="engineering_mode">Engineering mode</string>
     <string name="charging_test">Zkouška nabíjení</string>
@@ -1012,7 +1014,10 @@
     <string name="common_words_bold">Tučné</string>
     <string name="common_words_expand">Rozbalit</string>
     <string name="common_words_replace">Nahradit</string>
-    <string name="common_recommended_size">Recommended size</string>
+    <string name="common_recommended_size">Doporučená velikost</string>
+    <string name="common_add_success">Add successfully</string>
+    <string name="common_add_fail">Add failed</string>
+    <string name="common_add_repeat">Repeated addition</string>
     <!--Permission-->
     <string name="send_notification_permission">Oprávnění k odesílání oznámení</string>
     <string name="all_files_access_permission">Oprávnění k přístupu k souborům</string>

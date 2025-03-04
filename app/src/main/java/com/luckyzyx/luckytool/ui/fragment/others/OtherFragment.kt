@@ -1,11 +1,18 @@
 package com.luckyzyx.luckytool.ui.fragment.others
 
 import android.annotation.SuppressLint
+import android.app.StatusBarManager
+import android.content.ComponentName
+import android.content.pm.PackageManager
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.forEach
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,15 +20,17 @@ import androidx.navigation.fragment.findNavController
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
 import com.luckyzyx.luckytool.service.AdbService
 import com.luckyzyx.luckytool.service.TilesService
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.OtherPrefs
+import com.luckyzyx.luckytool.utils.PackageUtils
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils
 import com.luckyzyx.luckytool.utils.copyStr
@@ -29,6 +38,8 @@ import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OtherFragment : Fragment() {
@@ -61,7 +72,7 @@ class OtherFragment : Fragment() {
                 }
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setTitle(binding.shortcutTitle.text)
-                    setMultiChoiceItems(titles.toTypedArray(), values.toBooleanArray(), null)
+                    setMultiChoiceItems(titles, values.toBooleanArray(), null)
                     setPositiveButton(android.R.string.ok) { dialog, _ ->
                         val positions = (dialog as AlertDialog).listView.checkedItemPositions
                         positions.forEach { position, isChecked ->
@@ -90,6 +101,54 @@ class OtherFragment : Fragment() {
                     R.id.forceFpsFragment,
                     getString(R.string.fps_title)
                 )
+            }
+        }
+
+        @SuppressLint("NewApi")
+        if (SDK >= A13) initQuickTile()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun initQuickTile() {
+        binding.tileList.apply {
+            isVisible = SDK >= A13
+            setOnClickListener {
+                val info = PackageUtils(context.packageManager).getPackageInfo(
+                    context.packageName, PackageManager.GET_SERVICES
+                ) ?: return@setOnClickListener
+                val statusBarManager: StatusBarManager =
+                    context.getSystemService(StatusBarManager::class.java)
+                val tileInfos = info.services?.filter {
+                    it.permission == "android.permission.BIND_QUICK_SETTINGS_TILE"
+                }?.toList() ?: arrayListOf()
+                val items = Array(tileInfos.size) { i ->
+                    tileInfos[i].loadLabel(context.packageManager)
+                }
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setItems(items) { _, which ->
+                        val clazz = tileInfos[which].name
+                        val label = tileInfos[which].loadLabel(context.packageManager)
+                        val icon = tileInfos[which].loadIcon(context.packageManager)
+                        statusBarManager.requestAddTileService(
+                            ComponentName(context.packageName, clazz), label,
+                            Icon.createWithBitmap(icon.toBitmap()), context.mainExecutor
+                        ) { resultCallback ->
+                            when (resultCallback) {
+                                StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_NOT_ADDED -> {
+                                    context.showToast("$label ${getString(R.string.common_add_fail)}")
+                                }
+
+                                StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_ALREADY_ADDED -> {
+                                    context.showToast("$label ${getString(R.string.common_add_repeat)}")
+                                }
+
+                                StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_ADDED -> {
+                                    context.showToast("$label ${getString(R.string.common_add_success)}")
+                                }
+                            }
+                        }
+                    }
+                }.show()
             }
         }
     }

@@ -643,9 +643,9 @@
     <string name="settings_about_device">Об устройстве</string>
     <string name="remove_device_name_change_limit">Удалить ограничения на изменение имени устройства</string>
     <string name="set_processor_click_page">Выберите CPU, чтобы открыть меню в \"Об устройстве\"</string>
-    <string name="custom_processor_image_path_switch">Custom processor image path</string>
-    <string name="custom_processor_introduction_text">Custom processor introduction text</string>
-    <string name="custom_processor_introduction_text_summary">Long press the text to delete the text cache</string>
+    <string name="custom_processor_image_path_switch">Пользовательский путь к изображению процессора</string>
+    <string name="custom_processor_introduction_text">Пользовательское название процессора</string>
+    <string name="custom_processor_introduction_text_summary">Длительное нажатие на текст, чтобы удалить текстовый кэш</string>
     <string name="enable_mariana_npu_introduction_page">Включить страницу введения Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Включить страницу введения камеры Hasselblad</string>
     <string name="enable_game_architecture_display">Включить отображение архитектуры игры</string>
@@ -810,7 +810,7 @@
     <string name="remove_browser_window_limit_number">Удалить ограничение на количество окон браузера</string>
     <string name="remove_browser_search_bar_app_promotion">Удалить рекламу в строке поиска в браузере</string>
     <!--OplusBreeno-->
-    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
+    <string name="force_enable_ai_speechassist_call">Принудительно включить  вызов \"Речевого помощника ИИ\"</string>
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений с заставки в магазине</string>
@@ -868,7 +868,7 @@
     <string name="module_has_updated">Модуль был обновлён</string>
     <string name="module_is_disabled"> Модуль отключен</string>
     <string name="module_version">Версия модуля:</string>
-    <string name="root_source">Корневой источник:</string>
+    <string name="root_source">Источник root:</string>
     <string name="framework_version">Версия framework:</string>
     <string name="enable_module">Включить модуль</string>
     <string name="version_name">Название версии</string>
@@ -911,6 +911,8 @@
     <!-- Other -->
     <string name="quick_entry">Быстрый вход в систему</string>
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>
+    <string name="tile_list">Module built-in tile list</string>
+    <string name="tile_list_summary">Quickly add tile to the control center</string>
     <string name="SystemDebuggingRelated">Отладка системы</string>
     <string name="engineering_mode">Инженерный режим</string>
     <string name="charging_test">Тест зарядки</string>
@@ -1012,7 +1014,10 @@
     <string name="common_words_bold">Жирный</string>
     <string name="common_words_expand">Расширить</string>
     <string name="common_words_replace">Заменить</string>
-    <string name="common_recommended_size">Recommended size</string>
+    <string name="common_recommended_size">Рекомендуемый размер</string>
+    <string name="common_add_success">Add successfully</string>
+    <string name="common_add_fail">Add failed</string>
+    <string name="common_add_repeat">Repeated addition</string>
     <!--Permission-->
     <string name="send_notification_permission">Разрешение на отправку уведомлений</string>
     <string name="all_files_access_permission">Все разрешения на доступ к файлам</string>
