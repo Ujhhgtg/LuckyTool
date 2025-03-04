@@ -8,20 +8,21 @@ import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.MapClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-class CloudConditionFeature(private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge) :
-    YukiBaseHooker() {
+class CloudConditionFeature(
+    private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge
+) : YukiBaseHooker() {
     override fun onHook() {
+        val versionCode = appVer?.versionCode?.takeIf { it > 80130000 } ?: 0
+
         loadHooker(HookOplusFeature)
         loadHooker(HookCloudCondition)
-
-        val versionCode = appVer?.versionCode?.takeIf { it > 80130000 } ?: 0
         if (versionCode > 80130000) loadHooker(HookCloudApiImpl(dexKitBridge))
     }
 

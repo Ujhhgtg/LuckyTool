@@ -2,12 +2,12 @@ package com.luckyzyx.luckytool.hook.hookers.global
 
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppFeatureProvider
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -112,9 +112,9 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 put("com.oplus.battery.one_key_power_save", true)
             }
             //Source OplusGame  AI辅助
-            if (prefs(ModulePrefs).getBoolean("enable_game_ai_play", false)) {
-                put("feature.support.game.AI_PLAY", true)
-            }
+//            if (prefs(ModulePrefs).getBoolean("enable_game_ai_play", false)) {
+//                put("feature.support.game.AI_PLAY", true)
+//            }
 
             //Source Camera UnitSDK 80s美式复古 com.oplus.camera.cola_support
 //            put("com.oplus.camera.cola_support", true)

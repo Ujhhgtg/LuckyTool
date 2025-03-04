@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.games.CloudConditionFeature
@@ -22,6 +21,7 @@ import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookOplusGames : YukiBaseHooker() {
@@ -31,13 +31,14 @@ object HookOplusGames : YukiBaseHooker() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
         //非ColorOS官方安装器直接返回
         if (appVer?.versionCommit == "0") return
+        val isNew = (appVer?.versionName?.substringBefore(".")?.toIntOrNull() ?: 10) >= 10
 
         loadHooker(HookGlobalFeatureConfig)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
             loadHooker(HookGlobalFeatureProvider(dexKitBridge))
             //HookCloudConditionFeature
-            loadHooker(CloudConditionFeature(appVer, dexKitBridge))
+            if (!isNew) loadHooker(CloudConditionFeature(appVer, dexKitBridge))
             //游戏滤镜-->Root检测
             if (prefs(ModulePrefs).getBoolean("remove_root_check", false)) {
                 loadHooker(RemoveRootCheck(dexKitBridge))
@@ -51,7 +52,7 @@ object HookOplusGames : YukiBaseHooker() {
                 loadHooker(CompetitionModeSound(dexKitBridge))
             }
             //移除游戏助手福利页面
-            if (prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
+            if (!isNew && prefs(ModulePrefs).getBoolean("remove_welfare_page", false)) {
                 loadHooker(RemoveWelfarePage(dexKitBridge))
             }
             //启用游戏助手后台挂机
@@ -72,7 +73,7 @@ object HookOplusGames : YukiBaseHooker() {
             loadHooker(EnableDeveloperPage)
         }
         //启用X模式
-        if (prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
+        if (!isNew && prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
             loadHooker(EnableXModeFeature)
         }
         //移除部分VIP限制
@@ -87,7 +88,7 @@ object HookOplusGames : YukiBaseHooker() {
         loadHooker(CustomBarrageNotificationWhitelist)
 
         //移除游戏助手工具推荐卡片
-        if (prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
+        if (!isNew && prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
             if ((appVer?.versionCode ?: 0) >= 90000000) loadHooker(RemoveToolRecommendationCard)
         }
 

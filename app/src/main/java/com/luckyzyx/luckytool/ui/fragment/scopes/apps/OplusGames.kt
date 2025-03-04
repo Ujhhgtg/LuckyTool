@@ -6,7 +6,6 @@ import android.util.ArraySet
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
@@ -26,6 +25,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusGames : BaseScopePreferenceFeagment() {
@@ -35,8 +35,8 @@ class OplusGames : BaseScopePreferenceFeagment() {
 
     override val isEnableOpenMenu: Boolean
         get() {
-            if (activity == null) return false
-            return requireActivity().checkPackName("com.oplus.games") && requireActivity().checkResolveActivity(
+            return if (activity == null) false
+            else requireActivity().checkPackName("com.oplus.games") && requireActivity().checkResolveActivity(
                 Intent().setClassName(
                     "com.oplus.games", "business.compact.activity.GameBoxCoverActivity"
                 )
@@ -64,9 +64,11 @@ class OplusGames : BaseScopePreferenceFeagment() {
     }
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
+        val appUtils = AppUtils(this@loadPreferences)
+        val appVerInfo = appUtils.getAppVerInfo(scopes.first())
+        val isNew = (AppUtils(this).getAppVersionName(scopes.first())
+            ?.substringBefore(".")?.toIntOrNull() ?: 10) >= 10
         return ArrayList<Preference>().apply {
-            val appUtils = AppUtils(this@loadPreferences)
-            val appVerInfo = appUtils.getAppVerInfo(scopes.first())
             add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.game_assistant_page)
                 summary = "(${appUtils.getAppLabel("com.oplus.games")})"
@@ -118,6 +120,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_welfare_page)
                 key = "remove_welfare_page"
                 setDefaultValue(false)
+                isVisible = !isNew
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
@@ -237,6 +240,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 key = "enable_game_ai_play"
                 setDefaultValue(false)
                 isVisible = appVerInfo?.versionCode?.let { it >= 90130000 } ?: false
+                isVisible = !isNew
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
@@ -250,36 +254,13 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_game_voice_changer_whitelist)
                 key = "remove_game_voice_changer_whitelist"
                 setDefaultValue(false)
+                isVisible = !isNew
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_game_assistant_temperature_detection)
                 summary = getString(R.string.remove_game_assistant_temperature_detection_summary)
                 key = "remove_game_assistant_temperature_detection"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_x_mode_feature)
-                key = "enable_x_mode_feature"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_gt_mode_feature)
-                key = "enable_gt_mode_feature"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_one_plus_characteristic)
-                key = "enable_one_plus_characteristic"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_adreno_gpu_controller)
-                key = "enable_adreno_gpu_controller"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
@@ -295,30 +276,56 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_increase_fps_limit_feature)
-                key = "enable_increase_fps_limit_feature"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_increase_fps_feature)
-                key = "enable_increase_fps_feature"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_optimise_power_feature)
-                key = "enable_optimise_power_feature"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_super_resolution_feature)
-                key = "enable_super_resolution_feature"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
+            if (!isNew) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_x_mode_feature)
+                    key = "enable_x_mode_feature"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_gt_mode_feature)
+                    key = "enable_gt_mode_feature"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_one_plus_characteristic)
+                    key = "enable_one_plus_characteristic"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_adreno_gpu_controller)
+                    key = "enable_adreno_gpu_controller"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_increase_fps_limit_feature)
+                    key = "enable_increase_fps_limit_feature"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_increase_fps_feature)
+                    key = "enable_increase_fps_feature"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_optimise_power_feature)
+                    key = "enable_optimise_power_feature"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.enable_super_resolution_feature)
+                    key = "enable_super_resolution_feature"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
         }
     }
 
