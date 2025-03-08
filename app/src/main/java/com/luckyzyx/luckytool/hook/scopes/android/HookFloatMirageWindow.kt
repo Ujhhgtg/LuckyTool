@@ -14,17 +14,18 @@ import android.os.UserHandle
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.android.UserHandleClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.OplusMirageDisplayManagerUtils
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.startMirageWindow
+import org.lsposed.lsparanoid.Obfuscate
 
 
 @Obfuscate
@@ -49,7 +50,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             var taskId: Int = -1
             var task: Any? = null
 
-            //Source OplusFlexibleDCSManager
+            //Source FlexibleTaskController
             "com.android.server.wm.FlexibleTaskController".toClass().apply {
                 method { name = "notifyFlexibleTaskEvent" }.hook {
                     before {
@@ -69,7 +70,10 @@ object HookFloatMirageWindow : YukiBaseHooker() {
 
             //Source OplusFlexibleDCSManager
             "com.android.server.wm.OplusFlexibleDCSManager".toClass().apply {
-                method { name = "onFloatHandleEnter" }.hook {
+                val hasFloatHandleEnter = hasMethod { name = "onFloatHandleEnter" }
+                method {
+                    name = if (hasFloatHandleEnter) "onFloatHandleEnter" else "startMinimize"
+                }.hook {
                     after {
                         val info = args().first().any() ?: return@after
                         val curTaskId = info.current().field { name = "taskId" }.int()
