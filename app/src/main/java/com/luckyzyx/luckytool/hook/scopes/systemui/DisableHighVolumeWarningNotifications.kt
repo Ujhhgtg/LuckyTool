@@ -23,11 +23,12 @@ object DisableHighVolumeWarningNotifications : YukiBaseHooker() {
             "com.oplusos.systemui.notification.power.OplusPowerUI", //C12 C13
             "com.oplus.systemui.statusbar.notification.power.OplusPowerUI" //C14 C15
         ).toClass().apply {
+            val hasContext = hasField { type = ContextClass }
             val hasVolumeReceiver = hasField { type = volumeReceiver }
             method { name = "start" }.hook {
                 after {
-                    val context = field { type = ContextClass }.get(instance).cast<Context>()
-                        ?: return@after
+                    val context = field { type = ContextClass;superClass(!hasContext) }
+                        .get(instance).cast<Context>() ?: return@after
                     val mVolumeReceiver = field {
                         if (hasVolumeReceiver) type = volumeReceiver
                         else name { it.contains("VolumeReceiver", true) }

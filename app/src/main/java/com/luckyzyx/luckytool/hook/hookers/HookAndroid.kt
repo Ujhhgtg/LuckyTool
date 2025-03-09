@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.android.ADBInstallConfirm
@@ -31,7 +30,10 @@ import com.luckyzyx.luckytool.hook.scopes.android.ScrollToTopWhiteList
 import com.luckyzyx.luckytool.hook.scopes.android.SetAppUpdateDotDisplayMode
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindowConfig
+import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAndroid : YukiBaseHooker() {
@@ -121,7 +123,7 @@ object HookAndroid : YukiBaseHooker() {
 
         loadHooker(ReplaceSystemRootStateDetection)
 
-        loadHooker(ForceEnable32BitSupport)
+        if (SDK >= A13) loadHooker(ForceEnable32BitSupport)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)
