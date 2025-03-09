@@ -3,12 +3,12 @@ package com.luckyzyx.luckytool.service
 import android.content.Intent
 import android.os.IBinder
 import android.os.SystemProperties
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.formatSpace
 import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
 @Obfuscate
@@ -66,8 +66,8 @@ object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
             }
 
             override fun getSlotInfo(): String {
-                return SystemProperties.get("ro.boot.slot_suffix", "null").replace("_", "")
-                    .uppercase()
+                return SystemProperties.get("ro.boot.slot_suffix", "").replace("_", "")
+                    .takeIf { e -> e.isNotBlank() }?.uppercase() ?: "NonAB"
             }
         }
     }

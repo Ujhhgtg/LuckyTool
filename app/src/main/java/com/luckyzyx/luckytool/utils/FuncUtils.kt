@@ -112,9 +112,7 @@ fun Context.getDeviceInfo(
         add("${getString(R.string.system)}: $androidVer $osVer")
         add(
             "${getString(R.string.build_version)}: ${Build.DISPLAY} ${
-                getManifestEndVersion(
-                    controller?.manifestVersion
-                )
+                getManifestEndVersion(controller?.manifestVersion)
             }"
         )
         add("${getString(R.string.version)}: ${controller?.otaVersion}")

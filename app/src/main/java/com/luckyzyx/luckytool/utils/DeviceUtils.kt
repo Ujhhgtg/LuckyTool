@@ -4,10 +4,10 @@ import android.content.Context
 import android.os.SystemProperties
 import com.android.internal.os.PowerProfile
 import com.highcapable.yukihookapi.hook.log.YLog
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -125,8 +125,8 @@ object DeviceUtils {
      */
     fun getSlotInfo(): String {
         val command = "getprop ro.boot.slot_suffix"
-        return ShellUtils.fastCmd(command).ifBlank { "null" }.replace("_", "")
-            .uppercase()
+        return ShellUtils.fastCmd(command).replace("_", "")
+            .takeIf { e -> e.isNotBlank() }?.uppercase() ?: "NonAB"
     }
 
     /**
