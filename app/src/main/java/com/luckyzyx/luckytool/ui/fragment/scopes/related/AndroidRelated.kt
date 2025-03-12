@@ -5,7 +5,6 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -16,6 +15,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class AndroidRelated : BaseScopePreferenceFeagment() {
@@ -42,7 +42,15 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_gms_usage_restrictions)
+                summary = getString(R.string.need_restart_system)
+                key = "remove_gms_usage_restrictions"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.replace_system_root_state_detection)
+                summary = getString(R.string.need_restart_system)
                 key = "replace_system_root_state_detection"
                 setDefaultValue(false)
                 isVisible = SDK >= A12

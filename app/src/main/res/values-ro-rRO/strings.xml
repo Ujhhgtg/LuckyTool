@@ -107,6 +107,7 @@
     <string name="package_name">Numele pachetului</string>
     <string name="version">Versiune</string>
     <!--Android-->
+    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
     <string name="replace_system_root_state_detection">Înlocuiți detectarea stării de root a sistemului</string>
     <string name="allow_untrusted_touch">Permite atingeri nesigure</string>
     <string name="allow_untrusted_touch_summary">Rezolvă problema că unele ferestre sau pagini sunt blocate și nu pot fi atinse</string>

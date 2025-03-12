@@ -107,6 +107,7 @@
     <string name="package_name">Tên gói</string>
     <string name="version">Phiên bản</string>
     <!--Android-->
+    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
     <string name="replace_system_root_state_detection">Thay thế phát hiện trạng thái root của hệ thống</string>
     <string name="allow_untrusted_touch">Cho phép chạm không đáng tin cậy</string>
     <string name="allow_untrusted_touch_summary">Giải quyết vấn đề một số cửa sổ hoặc trang bị chặn không thể chạm vào</string>
@@ -911,8 +912,8 @@
     <!-- Other -->
     <string name="quick_entry">Lối tắt hệ thống</string>
     <string name="quick_entry_summary">Ví dụ: Các công cụ đối chiếu giao diện người dùng hệ thống, quản lý quy trình, chế độ kỹ thuật, v.v.</string>
-    <string name="tile_list">Module built-in tile list</string>
-    <string name="tile_list_summary">Quickly add tile to the control center</string>
+    <string name="tile_list">Danh sách các ô tích hợp trong mô-đun</string>
+    <string name="tile_list_summary">Nhanh chóng thêm ô vào Trung tâm điều khiển</string>
     <string name="SystemDebuggingRelated">Gỡ lỗi hệ thống</string>
     <string name="engineering_mode">Chế độ kỹ thuật</string>
     <string name="charging_test">Kiểm tra sạc</string>
@@ -1015,9 +1016,9 @@
     <string name="common_words_expand">Mở rộng</string>
     <string name="common_words_replace">Thay thế</string>
     <string name="common_recommended_size">Kích thước khuyên dùng</string>
-    <string name="common_add_success">Add successfully</string>
-    <string name="common_add_fail">Add failed</string>
-    <string name="common_add_repeat">Repeated addition</string>
+    <string name="common_add_success">Thêm thành công</string>
+    <string name="common_add_fail">Thêm thất bại</string>
+    <string name="common_add_repeat">Thêm lặp lại</string>
     <!--Permission-->
     <string name="send_notification_permission">Gửi quyền thông báo</string>
     <string name="all_files_access_permission">Tất cả quyền truy cập tập tin</string>

@@ -13,6 +13,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.ForceEnable32BitSupport
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookFloatMirageWindow
+import com.luckyzyx.luckytool.hook.scopes.android.HookGMSRestrict
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookOplusWifiService
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
@@ -124,6 +125,8 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(ReplaceSystemRootStateDetection)
 
         if (SDK >= A13) loadHooker(ForceEnable32BitSupport)
+
+        loadHooker(HookGMSRestrict)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)

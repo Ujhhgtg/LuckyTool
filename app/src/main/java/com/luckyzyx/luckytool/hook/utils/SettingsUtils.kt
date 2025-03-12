@@ -5,7 +5,6 @@ import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused")
 object SettingsUtils {
     fun getIntForUser(type: Class<*>, cr: ContentResolver, key: String, userHandle: Int): Int? {
         return type.method {

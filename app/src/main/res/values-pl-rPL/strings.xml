@@ -107,6 +107,7 @@
     <string name="package_name">Nazwa pakietu</string>
     <string name="version">Wersja</string>
     <!--Android-->
+    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
     <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Zezwól na niezaufane działania dotykowe</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>
@@ -310,7 +311,7 @@
     <string name="statusbar_layout_margin_tip">Rozmiar 0 = domyślny</string>
     <!--StatusBarBattery-->
     <string name="StatusBarBattery">Bateria</string>
-    <string name="remove_statusbar_battery_percent">Usuń znak % baterii z paska stanu</string>
+    <string name="remove_statusbar_battery_percent">Usuń znak [%] baterii z paska stanu</string>
     <string name="statusbar_power_font_size">Rozmiar czcionki</string>
     <string name="statusbar_power_apply_to_battery_icon">Apply to battery icon</string>
     <!--StatusBarBatteryNotify-->

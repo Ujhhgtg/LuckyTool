@@ -107,6 +107,7 @@
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
     <!--Android-->
+    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
     <string name="replace_system_root_state_detection">Sostituisci il rilevamento dello stato del root del sistema</string>
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>

@@ -7,6 +7,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.luckyzyx.luckytool.hook.utils.SettingsUtils
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -27,9 +28,10 @@ object ForceEnableScreenOffMusicSupport : YukiBaseHooker() {
                 after {
                     val context = field { name = "mContext" }.get(instance).cast<Context>()
                         ?: return@after
-                    Settings.Secure::class.java.method {
-                        name = "putIntForUser";paramCount = 4
-                    }.get().call(context.contentResolver, "aod_media_support", 1, 0)
+                    SettingsUtils.putIntForUser(
+                        Settings.Secure::class.java, context.contentResolver,
+                        "aod_media_support", 1, 0
+                    )
                     statisticUtil.method { name = "setAodMediaSupport";paramCount = 1 }
                         .get().call(true)
                 }

@@ -107,6 +107,7 @@
     <string name="package_name">Ім\'я пакету</string>
     <string name="version">Версія</string>
     <!--Android-->
+    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
     <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Дозволити небажані торкання</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>

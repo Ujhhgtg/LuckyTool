@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.hook.hookers.global
 
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.android.HookFeatureConfigManager
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
@@ -11,6 +10,7 @@ import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookGlobalFeatureConfig : YukiBaseHooker() {
@@ -19,6 +19,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
         val list = ArrayMap<String, Boolean>().apply {
             //Android
 //            put("oplus.software.audio.alert_slider", false)
+
+            //Source OplusBgSceneManager setMarketRegion / isChinaMode -> registerGmsRestrictObserver
+//            if (prefs(ModulePrefs).getBoolean("remove_gms_usage_restrictions", false)) {
+//                put("oplus.software.hans_restriction", false)
+//            }
 
             //Source Android FlexibleWindowUtils isSupportMultiMode 支持多窗口
             if (prefs(ModulePrefs).getBoolean("force_enable_multi_window_mode", false)) {

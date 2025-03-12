@@ -15,6 +15,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 精简新版游戏助手无用功能 v10.0.0+
 - [添加] 快速添加内置磁贴到控制中心 C13+
 - [适配] 控制中心磁贴数量限制 C12.1
+- [添加] 移除GMS使用限制 C12+
 
 ### 1.2.8
 
