@@ -8,7 +8,7 @@ import org.lsposed.lsparanoid.Obfuscate
 object UnlockThemeStoreVip : YukiBaseHooker() {
     override fun onHook() {
         //Source VipUserDto
-        "com.oppo.cdo.card.theme.dto.vip.VipUserDto".toClass().apply {
+        "com.oppo.cdo.card.theme.dto.vip.VipUserDto".toClassOrNull()?.apply {
             method { name = "getVipStatus" }.hook {
                 replaceTo(1)
             }
@@ -16,8 +16,26 @@ object UnlockThemeStoreVip : YukiBaseHooker() {
                 replaceTo(999)
             }
         }
+
+        //Source WeatherPageResponseDto
+        "com.oppo.cdo.card.theme.dto.page.WeatherPageResponseDto".toClassOrNull()?.apply {
+            method { name = "getVipStatus" }.hook {
+                replaceTo(1)
+            }
+        }
+
+        //Source ResourceItemDto
+        "com.oppo.cdo.theme.domain.dto.response.ResourceItemDto".toClassOrNull()?.apply {
+            method { name = "getIsVip" }.hook {
+                replaceTo(1)
+            }
+            method { name = "getIsVipAvailable" }.hook {
+                replaceTo(1)
+            }
+        }
+
         //Source PublishProductItemDto
-        "com.oppo.cdo.theme.domain.dto.response.PublishProductItemDto".toClass().apply {
+        "com.oppo.cdo.theme.domain.dto.response.PublishProductItemDto".toClassOrNull()?.apply {
             method { name = "getPrice" }.hook {
                 replaceTo(0.0)
             }
@@ -25,5 +43,19 @@ object UnlockThemeStoreVip : YukiBaseHooker() {
                 replaceTo(1)
             }
         }
+
+        //Source SplashDto
+        "com.oppo.cdo.card.theme.dto.SplashDto".toClassOrNull()?.apply {
+            method { name = "getAdData" }.hook {
+                replaceTo(null)
+            }
+            method { name = "getShowTime" }.hook {
+                replaceTo(1)
+            }
+            method { name = "getIsSkip" }.hook {
+                replaceToTrue()
+            }
+        }
+
     }
 }
