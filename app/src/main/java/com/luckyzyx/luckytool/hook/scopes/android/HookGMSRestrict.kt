@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.util.SparseArray
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -20,6 +22,20 @@ object HookGMSRestrict : YukiBaseHooker() {
         "com.android.server.am.OplusAppStartupManager\$OplusStartupStrategy".toClass().apply {
             method { name = "isGoogleRestricInfoOn" }.hook {
                 replaceToFalse()
+            }
+        }
+
+        //Source OplusHansDBConfig -> sys_elsa_config_list -> Athena
+        "com.android.server.hans.OplusHansDBConfig".toClass().apply {
+            method { name = "updateManagedMap";paramCount = 3 }.hook {
+                after {
+                    field { name = "mGMSList" }.get(instance).cast<SparseArray<Any>>()?.clear()
+                }
+            }
+            method { name = "updateTargetList" }.hook {
+                after {
+                    field { name = "mGMSList" }.get(instance).cast<SparseArray<Any>>()?.clear()
+                }
             }
         }
     }
