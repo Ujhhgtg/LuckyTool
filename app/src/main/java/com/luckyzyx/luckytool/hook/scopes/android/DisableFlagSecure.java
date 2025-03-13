@@ -3,14 +3,16 @@ package com.luckyzyx.luckytool.hook.scopes.android;
 import static com.luckyzyx.luckytool.utils.SPUtilsKt.ModulePrefs;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceControl;
 
-import org.lsposed.lsparanoid.Obfuscate;
+import androidx.annotation.RequiresApi;
+
 import com.luckyzyx.luckytool.BuildConfig;
+
+import org.lsposed.lsparanoid.Obfuscate;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -32,6 +34,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 public class DisableFlagSecure implements IXposedHookLoadPackage {
     private static final String SYSTEMUI = "com.android.systemui";
     private static final String OPLUS_APPPLATFORM = "com.oplus.appplatform";
+    private static final String OPLUS_SCREENSHOT = "com.oplus.screenshot";
     final XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, ModulePrefs);
     private final static Method deoptimizeMethod;
     
@@ -73,7 +76,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                 }
                 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-                    // Screen record detection (V)
+                    // Screen record detection (V~Baklava)
                     try {
                         hookWindowManagerService(classloader);
                     } catch (Throwable t) {
@@ -82,7 +85,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                 }
                 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    // Screenshot detection (U~V)
+                    // Screenshot detection (U~Baklava)
                     try {
                         hookActivityTaskManagerService(classloader);
                     } catch (Throwable t) {
@@ -90,69 +93,73 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                     }
                 }
                 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    // ScreenCapture in WindowManagerService (S~V)
+                // ScreenCapture in WindowManagerService (S~Baklava)
+                try {
+                    hookScreenCapture(classloader);
+                } catch (Throwable t) {
+                    XposedBridge.log("DisableFlagSecure: hook ScreenCapture failed ->" + t);
+                }
+                
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    // Blackout permission check (S~T)
                     try {
-                        hookScreenCapture(classloader);
+                        hookActivityManagerService(classloader);
                     } catch (Throwable t) {
-                        XposedBridge.log("DisableFlagSecure: hook ScreenCapture failed ->" + t);
-                    }
-                    
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        // Blackout permission check (S~T)
-                        try {
-                            hookActivityManagerService(classloader);
-                        } catch (Throwable t) {
-                            XposedBridge.log("DisableFlagSecure: hook ActivityManagerService failed ->" + t);
-                        }
-                    }
-                    
-                    // WifiDisplay (S~V) / OverlayDisplay (S~V) / VirtualDisplay (U~V)
-                    try {
-                        hookDisplayControl(classloader);
-                    } catch (Throwable t) {
-                        XposedBridge.log("DisableFlagSecure: hook DisplayControl failed ->" + t);
-                    }
-                    
-                    // VirtualDisplay with MediaProjection (S~V)
-                    try {
-                        hookVirtualDisplayAdapter(classloader);
-                    } catch (Throwable t) {
-                        XposedBridge.log("DisableFlagSecure: hook VirtualDisplayAdapter failed ->" + t);
+                        XposedBridge.log("DisableFlagSecure: hook ActivityManagerService failed ->" + t);
                     }
                 }
                 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    // OneUI
-                    try {
-                        hookScreenshotHardwareBuffer(classloader);
-                    } catch (Throwable t) {
-                        if (!(t instanceof ClassNotFoundException)) {
-                            XposedBridge.log("DisableFlagSecure: hook ScreenshotHardwareBuffer failed ->" + t);
-                        }
-                    }
-                    try {
-                        hookOneUI(classloader);
-                    } catch (Throwable t) {
-                        if (!(t instanceof ClassNotFoundException)) {
-                            XposedBridge.log("DisableFlagSecure: hook OneUI failed ->" + t);
-                        }
-                    }
+                // WifiDisplay (S~Baklava) / OverlayDisplay (S~Baklava) / VirtualDisplay (U~Baklava)
+                try {
+                    hookDisplayControl(classloader);
+                } catch (Throwable t) {
+                    XposedBridge.log("DisableFlagSecure: hook DisplayControl failed ->" + t);
                 }
                 
-                // secureLocked flag (S-)
+                // VirtualDisplay with MediaProjection (S~Baklava)
+                try {
+                    hookVirtualDisplayAdapter(classloader);
+                } catch (Throwable t) {
+                    XposedBridge.log("DisableFlagSecure: hook VirtualDisplayAdapter failed ->" + t);
+                }
+                
+                // secureLocked flag
                 try {
                     // Screenshot
                     hookWindowState(classloader);
                 } catch (Throwable t) {
                     XposedBridge.log("DisableFlagSecure: hook WindowState failed ->" + t);
                 }
+                
+                // oplus dumpsys
+                // dumpsys window screenshot systemQuickTileScreenshotOut display_id=0
+                try {
+                    hookOplus(classloader);
+                } catch (Throwable t) {
+                    if (!(t instanceof ClassNotFoundException)) {
+                        XposedBridge.log("hook Oplus failed ->" + t);
+                    }
+                }
                 break;
             }
+            case OPLUS_SCREENSHOT:
+                // Oplus Screenshot 15.0.0
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    try {
+                        hookOplusScreenCapture(classloader);
+                    } catch (Throwable t) {
+                        if (!(t instanceof ClassNotFoundException)) {
+                            XposedBridge.log("hook OplusScreenCapture failed ->" + t);
+                        }
+                    }
+                }
             case OPLUS_APPPLATFORM: {
+                // Flyme SystemUI Ext 10.3.0
                 // OPlus AppPlatform 13.1.0 / 14.0.0
                 try {
-                    hookScreenshotHardwareBuffer(classloader);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        hookScreenshotHardwareBuffer(classloader);
+                    }
                 } catch (Throwable t) {
                     if (!(t instanceof ClassNotFoundException)) {
                         XposedBridge.log("hook ScreenshotHardwareBuffer failed ->" + t);
@@ -203,14 +210,25 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
     @SuppressLint("ObsoleteSdkInt")
     private void hookWindowState(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var windowStateClazz = classLoader.loadClass("com.android.server.wm.WindowState");
-        Method isSecureLockedMethod;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            isSecureLockedMethod = windowStateClazz.getDeclaredMethod("isSecureLocked");
-        } else {
-            var windowManagerServiceClazz = classLoader.loadClass("com.android.server.wm.WindowManagerService");
-            isSecureLockedMethod = windowManagerServiceClazz.getDeclaredMethod("isSecureLocked", windowStateClazz);
-        }
-        XposedBridge.hookMethod(isSecureLockedMethod, XC_MethodReplacement.returnConstant(false));
+        Method isSecureLockedMethod = windowStateClazz.getDeclaredMethod("isSecureLocked");
+        XposedBridge.hookMethod(isSecureLockedMethod, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+                String stack = Log.getStackTraceString(new Throwable());
+                // don't change surface flags, but passing other checks
+                if (stack.contains("setInitialSurfaceControlProperties")
+                        || stack.contains("createSurfaceLocked")) {
+                    return;
+                }
+                param.setResult(false);
+            }
+        });
+    }
+    
+    private void hookOplus(ClassLoader classLoader) throws ClassNotFoundException {
+        // caller: com.android.server.wm.OplusLongshotWindowDump#dumpWindows
+        var longshotMainClazz = classLoader.loadClass("com.android.server.wm.OplusLongshotMainWindow");
+        hookMethods(longshotMainClazz, XC_MethodReplacement.returnConstant(false), "hasSecure");
     }
     
     private void hookMethods(Class<?> clazz, XC_MethodHook hook, String... names) {
@@ -223,7 +241,6 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
     private static Field captureSecureLayersField;
     private static Field allowProtectedField;
     
-    @TargetApi(Build.VERSION_CODES.S)
     private void hookScreenCapture(ClassLoader classLoader) throws ClassNotFoundException, NoSuchFieldException {
         var screenCaptureClazz = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE ?
                 classLoader.loadClass("android.window.ScreenCapture") : SurfaceControl.class;
@@ -250,7 +267,6 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         hookMethods(screenCaptureClazz, beforeHooks, "nativeCaptureLayers");
     }
     
-    @TargetApi(Build.VERSION_CODES.S)
     private void hookDisplayControl(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var displayControlClazz = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE ?
                 classLoader.loadClass("com.android.server.display.DisplayControl") : SurfaceControl.class;
@@ -273,7 +289,6 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         });
     }
     
-    @TargetApi(Build.VERSION_CODES.S)
     private void hookVirtualDisplayAdapter(ClassLoader classLoader) throws ClassNotFoundException {
         var displayControlClazz = classLoader.loadClass("com.android.server.display.VirtualDisplayAdapter");
         hookMethods(displayControlClazz, new XC_MethodHook() {
@@ -281,7 +296,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
                 var caller = (int) param.args[2];
-                if (caller != 1000 && param.args[1] == null) {
+                if (caller >= 10000 && param.args[1] == null) {
                     // not os and not media projection
                     return;
                 }
@@ -294,12 +309,12 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                         return;
                     }
                 }
-                XposedBridge.log("DisableFlagSecure: flag not found in CreateVirtualDisplayLockedHooker");
+                XposedBridge.log("flag not found in CreateVirtualDisplayLockedHooker");
             }
         }, "createVirtualDisplayLocked");
     }
     
-    @TargetApi(Build.VERSION_CODES.S)
+    @RequiresApi(Build.VERSION_CODES.S)
     private void hookScreenshotHardwareBuffer(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var screenshotHardwareBufferClazz = classLoader.loadClass(
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE ?
@@ -309,13 +324,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         XposedBridge.hookMethod(method, XC_MethodReplacement.returnConstant(false));
     }
     
-    @TargetApi(Build.VERSION_CODES.S)
-    private void hookOneUI(ClassLoader classLoader) throws ClassNotFoundException {
-        var wmScreenshotControllerClazz = classLoader.loadClass("com.android.server.wm.WmScreenshotController");
-        hookMethods(wmScreenshotControllerClazz, XC_MethodReplacement.returnConstant(true), "canBeScreenshotTarget");
-    }
-    
-    @TargetApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     private void hookActivityTaskManagerService(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var activityTaskManagerServiceClazz = classLoader.loadClass("com.android.server.wm.ActivityTaskManagerService");
         var iBinderClazz = classLoader.loadClass("android.os.IBinder");
@@ -324,7 +333,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         XposedBridge.hookMethod(method, XC_MethodReplacement.DO_NOTHING);
     }
     
-    @TargetApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     private void hookWindowManagerService(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var windowManagerServiceClazz = classLoader.loadClass("com.android.server.wm.WindowManagerService");
         var iScreenRecordingCallbackClazz = classLoader.loadClass("android.window.IScreenRecordingCallback");
@@ -332,7 +341,6 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         XposedBridge.hookMethod(method, XC_MethodReplacement.returnConstant(false));
     }
     
-    @TargetApi(Build.VERSION_CODES.S)
     private void hookActivityManagerService(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var activityTaskManagerServiceClazz = classLoader.loadClass("com.android.server.am.ActivityManagerService");
         var method = activityTaskManagerServiceClazz.getDeclaredMethod("checkPermission", String.class, int.class, int.class);
@@ -344,6 +352,18 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                 if ("android.permission.CAPTURE_BLACKOUT_CONTENT".equals(permission)) {
                     param.args[0] = "android.permission.READ_FRAME_BUFFER";
                 }
+            }
+        });
+    }
+    
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    private void hookOplusScreenCapture(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
+        var oplusScreenCaptureClazz = classLoader.loadClass("com.oplus.screenshot.OplusScreenCapture$CaptureArgs$Builder");
+        var method = oplusScreenCaptureClazz.getDeclaredMethod("setUid", long.class);
+        XposedBridge.hookMethod(method, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+                param.args[0] = -1;
             }
         });
     }

@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -12,6 +11,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusScreenshot : BaseScopePreferenceFeagment() {
@@ -57,6 +57,7 @@ class OplusScreenshot : BaseScopePreferenceFeagment() {
                 )
                 key = "remove_screenshot_privacy_limit"
                 setDefaultValue(false)
+                isVisible = false
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
