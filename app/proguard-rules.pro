@@ -90,3 +90,10 @@
     public static void check*(...);
     public static void throw*(...);
 }
+
+-keep class * extends android.app.Activity
+-keep class * implements androidx.viewbinding.ViewBinding {
+    <init>();
+    *** bind(***);
+    *** inflate(...);
+}
