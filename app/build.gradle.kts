@@ -116,6 +116,9 @@ dependencies {
     implementation(libs.swiperefreshlayout)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+    implementation(libs.betterandroid.ui.component)
+    implementation(libs.betterandroid.ui.extension)
+    implementation(libs.betterandroid.system.extension)
 
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.kotlinx.coroutines.core)
