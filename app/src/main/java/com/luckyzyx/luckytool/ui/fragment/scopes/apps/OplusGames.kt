@@ -276,13 +276,13 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_x_mode_feature)
+                key = "enable_x_mode_feature"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             if (!isNew) {
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.enable_x_mode_feature)
-                    key = "enable_x_mode_feature"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_gt_mode_feature)
                     key = "enable_gt_mode_feature"

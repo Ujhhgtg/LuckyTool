@@ -73,7 +73,7 @@ object HookOplusGames : YukiBaseHooker() {
             loadHooker(EnableDeveloperPage)
         }
         //启用X模式
-        if (!isNew && prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
+        if (prefs(ModulePrefs).getBoolean("enable_x_mode_feature", false)) {
             loadHooker(EnableXModeFeature)
         }
         //移除部分VIP限制
