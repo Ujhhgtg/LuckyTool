@@ -107,7 +107,7 @@
     <string name="package_name">Имя пакета</string>
     <string name="version">Версия</string>
     <!--Android-->
-    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
+    <string name="remove_gms_usage_restrictions">Удалить ограничения на использование GMS</string>
     <string name="replace_system_root_state_detection">Заменить определение состояния root системы</string>
     <string name="allow_untrusted_touch">Разрешить нежелательные касания</string>
     <string name="allow_untrusted_touch_summary">Решите проблему, связанную с тем, что некоторые окна или страницы заблокированы и их нельзя коснуться</string>
@@ -664,6 +664,8 @@
     <string name="remove_top_account_display">Удалить отображение аккаунта в настройках</string>
     <string name="remove_settings_bottom_laboratory">Удалить настройки лаборатории</string>
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
+    <!--WirelessSettings-->
+    <string name="enable_wifi_details_display_gateway">Enable wifi details display gateway</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Включить функцию отладки</string>
     <string name="custom_camera_open_gallery_by_default">Галерея, которая открывается по умолчанию</string>

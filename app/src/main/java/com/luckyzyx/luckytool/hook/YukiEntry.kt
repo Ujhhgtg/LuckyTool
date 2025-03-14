@@ -46,6 +46,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookSystemUI
 import com.luckyzyx.luckytool.hook.hookers.HookThemeStore
 import com.luckyzyx.luckytool.hook.hookers.HookUIEngine
 import com.luckyzyx.luckytool.hook.hookers.HookWeather
+import com.luckyzyx.luckytool.hook.hookers.HookWirelessSettings
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookADM
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookAlphaBackupPro
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookKsWeb
@@ -176,11 +177,14 @@ object YukiEntry {
         loadApp("com.oplus.mediacontroller", HookMediaController)
         //无网畅聊
         loadApp("com.oplus.beaconlink", HookBeaconLink)
+        //无线设置
+        loadApp("com.oplus.wirelesssettings", HookWirelessSettings)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
         loadApp("ru.kslabs.ksweb", HookKsWeb)
         loadApp("com.dv.adm", HookADM)
+
     }
 
 }

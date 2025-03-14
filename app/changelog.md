@@ -17,6 +17,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 控制中心磁贴数量限制 C12.1
 - [添加] 移除GMS使用限制 C12+
 - [更改] 同步上游DisableSecureFlag
+- [添加] 启用WiFi详情显示网关 C12+
 
 ### 1.2.8
 

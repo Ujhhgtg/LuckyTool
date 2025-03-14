@@ -111,7 +111,7 @@ val String.replaceBlankAndLine: String
  * @return String
  */
 fun formatStringAuto(
-    formats: List<String?>, text: String,
+    formats: List<CharSequence?>, text: String,
     allowNull: Boolean = true, allowRepeat: Boolean = true
 ): String {
     var finalText = ""

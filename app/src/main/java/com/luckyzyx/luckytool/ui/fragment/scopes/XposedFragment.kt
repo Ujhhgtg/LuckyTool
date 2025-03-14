@@ -28,7 +28,6 @@ import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withMain
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.FragmentItem
 import com.luckyzyx.luckytool.data.PrefsItem
@@ -63,6 +62,7 @@ import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSpeechAssist
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusTeleService
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusThemeStore
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusWeather
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusWirelessSettings
 import com.luckyzyx.luckytool.ui.fragment.scopes.others.ADM
 import com.luckyzyx.luckytool.ui.fragment.scopes.others.AlphaBackupPro
 import com.luckyzyx.luckytool.ui.fragment.scopes.others.KsWeb
@@ -101,6 +101,7 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import kotlinx.coroutines.Dispatchers
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 import java.util.Arrays
 
 @Obfuscate
@@ -146,6 +147,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentPreference(this, allPrefs, OplusBattery())
         //Settings
         addFragmentPreference(this, allPrefs, OplusSettings())
+        //WirelessSettings
+        addFragmentPreference(this, allPrefs, OplusWirelessSettings())
         //TeleService
         addFragmentPreference(this, allPrefs, OplusTeleService())
         //Mms
@@ -268,6 +271,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(context, allFragmentItem, SoundRelated())
         addFragmentItem(context, allFragmentItem, OplusThemeStore())
         addFragmentItem(context, allFragmentItem, OplusBeaconLink())
+        addFragmentItem(context, allFragmentItem, OplusWirelessSettings())
 
         addFragmentItem(context, allFragmentItem, ADM())
         addFragmentItem(context, allFragmentItem, AlphaBackupPro())
