@@ -7,7 +7,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -23,6 +22,7 @@ import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class LauncherRelated : BaseScopePreferenceFeagment() {
@@ -70,7 +70,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 }
             })
             //小组件
-            if(osCode >= 30) {
+            if (osCode >= 30) {
                 add(PreferenceCategory(this@loadPreferences).apply {
                     title = getString(R.string.WidgetRelated)
                     key = "WidgetRelated"
@@ -434,6 +434,8 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 })
                 add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.launcher_layout_max_columns)
+                    if (osCode >= 30) summary =
+                        getString(R.string.launcher_layout_max_columns_summary)
                     key = "launcher_layout_max_columns"
                     setDefaultValue(4)
                     max = 8

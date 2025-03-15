@@ -458,6 +458,7 @@
     <string name="launcher_layout_enable">ホーム画面アイコンレイアウト全般の切り替え</string>
     <string name="launcher_layout_max_rows">ホーム画面レイアウトの最大行数</string>
     <string name="launcher_layout_max_columns">ホーム画面レイアウトの最大カラム数</string>
+    <string name="launcher_layout_max_columns_summary">Using the icon sinking function when the number of columns is greater than or equal to 6 may cause desktop crash</string>
     <string name="launcher_events">ホームアプリのイベント</string>
     <!--Application-->
     <string name="Application">アプリ関連</string>

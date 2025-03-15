@@ -458,6 +458,7 @@
     <string name="launcher_layout_enable">Główny przełącznik</string>
     <string name="launcher_layout_max_rows">Ilość wierszy</string>
     <string name="launcher_layout_max_columns">Ilość kolumn</string>
+    <string name="launcher_layout_max_columns_summary">Using the icon sinking function when the number of columns is greater than or equal to 6 may cause desktop crash</string>
     <string name="launcher_events">Launcher Events</string>
     <!--Application-->
     <string name="Application">Aplikacje</string>

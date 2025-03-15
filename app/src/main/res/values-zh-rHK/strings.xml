@@ -458,6 +458,7 @@
     <string name="launcher_layout_enable">桌面图标布局总开关</string>
     <string name="launcher_layout_max_rows">桌面布局最大行数</string>
     <string name="launcher_layout_max_columns">桌面布局最大列数</string>
+    <string name="launcher_layout_max_columns_summary">当列数大于或等于 6 时使用图标下沉功能可能导致桌面崩溃</string>
     <string name="launcher_events">启动器事件</string>
     <!--Application-->
     <string name="Application">应用相关</string>

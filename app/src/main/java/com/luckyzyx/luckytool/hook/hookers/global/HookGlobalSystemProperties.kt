@@ -2,10 +2,10 @@ package com.luckyzyx.luckytool.hook.hookers.global
 
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.android.HookSystemProperties
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookGlobalSystemProperties : YukiBaseHooker() {

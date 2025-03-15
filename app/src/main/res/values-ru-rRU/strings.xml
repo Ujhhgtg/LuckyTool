@@ -458,6 +458,7 @@
     <string name="launcher_layout_enable">Включить/отключить сетку иконок на рабочем столе</string>
     <string name="launcher_layout_max_rows">Количество строк для сетки рабочего стола</string>
     <string name="launcher_layout_max_columns">Количество столбцов для сетки рабочего стола</string>
+    <string name="launcher_layout_max_columns_summary">Using the icon sinking function when the number of columns is greater than or equal to 6 may cause desktop crash</string>
     <string name="launcher_events">События лаунчера</string>
     <!--Application-->
     <string name="Application">Приложения</string>
@@ -665,7 +666,7 @@
     <string name="remove_settings_bottom_laboratory">Удалить настройки лаборатории</string>
     <string name="force_display_bottom_google_settings">Принудительно показывать Google внизу настроек</string>
     <!--WirelessSettings-->
-    <string name="enable_wifi_details_display_gateway">Enable wifi details display gateway</string>
+    <string name="enable_wifi_details_display_gateway">Включить отображение деталей Wi-Fi шлюза</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Включить функцию отладки</string>
     <string name="custom_camera_open_gallery_by_default">Галерея, которая открывается по умолчанию</string>

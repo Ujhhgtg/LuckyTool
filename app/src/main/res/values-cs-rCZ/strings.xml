@@ -458,6 +458,7 @@
     <string name="launcher_layout_enable">Povolit/zakázat mřížku ikon na ploše</string>
     <string name="launcher_layout_max_rows">Maximální počet řádků v rozvržení plochy</string>
     <string name="launcher_layout_max_columns">Maximální počet sloupců v rozložení plochy</string>
+    <string name="launcher_layout_max_columns_summary">Using the icon sinking function when the number of columns is greater than or equal to 6 may cause desktop crash</string>
     <string name="launcher_events">Události spouštěče</string>
     <!--Application-->
     <string name="Application">Aplikace</string>
