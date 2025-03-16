@@ -10,11 +10,12 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.luckyzyx.commonutils.AppUtils
+import com.luckyzyx.commonutils.data.AppInfo
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.CameraUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
@@ -30,7 +31,6 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.luckyzyx.luckytool.utils.showToast
-import com.luckyzyx.selector.data.AppInfo
 import com.luckyzyx.selector.listener.OnSelectAppInfoListener
 import com.luckyzyx.selector.selects.AppInfoSelector
 import org.lsposed.lsparanoid.Obfuscate

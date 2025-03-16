@@ -1,6 +1,6 @@
 package com.luckyzyx.selector.listener
 
-import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.commonutils.data.AppInfo
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate

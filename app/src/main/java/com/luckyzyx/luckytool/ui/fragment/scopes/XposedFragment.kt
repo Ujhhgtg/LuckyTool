@@ -28,6 +28,9 @@ import com.drake.net.utils.scopeDialog
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withMain
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.luckyzyx.commonutils.AppUtils
+import com.luckyzyx.commonutils.formatStringAuto
+import com.luckyzyx.commonutils.safeOf
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.FragmentItem
 import com.luckyzyx.luckytool.data.PrefsItem
@@ -85,14 +88,11 @@ import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarNetWorkSpeed
 import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarNotify
 import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarNotifyRemoval
 import com.luckyzyx.luckytool.ui.fragment.scopes.statusbar.StatusBarTiles
-import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
-import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.navigatePage
-import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showBottomSheet
 import com.luckyzyx.luckytool.utils.showToast

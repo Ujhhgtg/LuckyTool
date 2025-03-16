@@ -12,9 +12,9 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.luckyzyx.commonutils.formatStringAuto
 import com.luckyzyx.luckytool.hook.utils.preferences.PreferenceReflections
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import com.luckyzyx.luckytool.utils.formatStringAuto
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.net.Inet4Address

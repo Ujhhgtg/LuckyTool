@@ -24,7 +24,7 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.safeOf
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
@@ -32,7 +32,7 @@ import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
-import com.luckyzyx.luckytool.utils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 import java.util.Calendar
 
 @Obfuscate

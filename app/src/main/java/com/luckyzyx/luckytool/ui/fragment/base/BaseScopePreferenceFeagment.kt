@@ -18,19 +18,19 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceGroup.PreferencePositionCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.LogUtils
+import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.PrefsItem
 import com.luckyzyx.luckytool.ui.activity.MainActivity
-import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.navigatePage
-import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused")

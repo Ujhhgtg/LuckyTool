@@ -11,23 +11,23 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.FileUtils.cacheChild
+import com.luckyzyx.commonutils.SQLiteUtils
+import com.luckyzyx.commonutils.SQLiteUtils.getTableData
+import com.luckyzyx.commonutils.SQLiteUtils.readOnly
+import com.luckyzyx.commonutils.formatFileSize
+import com.luckyzyx.commonutils.formatStringAuto
+import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
-import com.luckyzyx.luckytool.utils.FileUtils.cacheChild
-import com.luckyzyx.luckytool.utils.SQLiteUtils
-import com.luckyzyx.luckytool.utils.SQLiteUtils.getTableData
-import com.luckyzyx.luckytool.utils.SQLiteUtils.readOnly
 import com.luckyzyx.luckytool.utils.copyStr
-import com.luckyzyx.luckytool.utils.formatFileSize
-import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getFingerPrintModel
 import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.isZh
-import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class ExtractOTAFragment : Fragment() {

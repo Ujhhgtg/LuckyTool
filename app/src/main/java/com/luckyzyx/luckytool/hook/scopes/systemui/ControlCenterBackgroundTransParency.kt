@@ -3,9 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.view.View
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ControlCenterBackgroundTransParency : YukiBaseHooker() {

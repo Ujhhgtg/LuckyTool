@@ -6,10 +6,10 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.formatColorAlpha
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
-import com.luckyzyx.luckytool.utils.formatColorAlpha
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object CustomTileBackgroundTransparency : YukiBaseHooker() {

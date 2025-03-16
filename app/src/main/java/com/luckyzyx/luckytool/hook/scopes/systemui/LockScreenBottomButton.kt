@@ -14,13 +14,13 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.DrawableClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.closeScreen
-import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object LockScreenBottomButton : YukiBaseHooker() {

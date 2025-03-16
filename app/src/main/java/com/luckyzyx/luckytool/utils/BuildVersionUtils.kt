@@ -3,6 +3,7 @@
 package com.luckyzyx.luckytool.utils
 
 import android.os.Build
+import com.luckyzyx.commonutils.safeOf
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.hook.utils.OplusBuildUtlils
 import com.oplus.os.OplusBuild

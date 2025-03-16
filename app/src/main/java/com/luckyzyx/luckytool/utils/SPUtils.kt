@@ -8,6 +8,9 @@ package com.luckyzyx.luckytool.utils
 import android.content.Context
 import android.util.ArrayMap
 import androidx.collection.ArraySet
+import com.luckyzyx.commonutils.runInSafe
+import com.luckyzyx.commonutils.safeOf
+import com.luckyzyx.commonutils.safeOfNull
 
 const val ModulePrefs: String = "ModulePrefs"
 const val SettingsPrefs: String = "SettingsPrefs"

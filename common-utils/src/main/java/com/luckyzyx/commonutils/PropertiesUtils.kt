@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.utils
+package com.luckyzyx.commonutils
 
 import android.text.TextUtils
 import java.util.Properties

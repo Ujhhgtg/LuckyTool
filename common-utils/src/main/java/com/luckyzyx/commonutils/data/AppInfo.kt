@@ -1,4 +1,4 @@
-package com.luckyzyx.selector.data
+package com.luckyzyx.commonutils.data
 
 import android.graphics.drawable.Drawable
 import org.lsposed.lsparanoid.Obfuscate

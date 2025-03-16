@@ -12,7 +12,9 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.AppUtils
+import com.luckyzyx.commonutils.FileUtils
+import com.luckyzyx.commonutils.LogUtils
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.contract.CropImageContract
 import com.luckyzyx.luckytool.data.CropImageContractOptions
@@ -21,9 +23,6 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.A15
-import com.luckyzyx.luckytool.utils.AppUtils
-import com.luckyzyx.luckytool.utils.FileUtils
-import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
@@ -39,6 +38,7 @@ import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {

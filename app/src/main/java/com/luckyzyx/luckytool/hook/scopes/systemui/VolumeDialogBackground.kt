@@ -14,10 +14,10 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
 import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.formatColorAlpha
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
-import com.luckyzyx.luckytool.utils.formatColorAlpha
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object VolumeDialogBackground : YukiBaseHooker() {

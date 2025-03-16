@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.utils
+package com.luckyzyx.commonutils
 
 import android.content.ContentResolver
 import android.content.ContentUris
@@ -15,11 +15,11 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.ArrayMap
 import androidx.core.content.FileProvider
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.BufferedReader

@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.utils
+package com.luckyzyx.commonutils
 
 import android.content.ComponentName
 import android.content.Context
@@ -15,8 +15,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.Settings
 import android.util.ArraySet
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppVerInfo
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class AppUtils(val context: Context) {

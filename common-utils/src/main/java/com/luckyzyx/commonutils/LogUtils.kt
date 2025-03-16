@@ -1,8 +1,8 @@
-package com.luckyzyx.luckytool.utils
+package com.luckyzyx.commonutils
 
 import android.util.Log
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
+import org.lsposed.lsparanoid.Obfuscate
 
 @Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate

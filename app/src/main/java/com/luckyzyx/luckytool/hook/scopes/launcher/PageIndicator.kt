@@ -8,11 +8,11 @@ import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.CanvasClass
 import com.highcapable.yukihookapi.hook.type.android.MotionEventClass
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object PageIndicator : YukiBaseHooker() {

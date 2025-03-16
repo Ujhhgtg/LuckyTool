@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.luckyzyx.luckytool.utils
+package com.luckyzyx.commonutils
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat

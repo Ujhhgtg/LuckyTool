@@ -1,7 +1,6 @@
-@file:Suppress("unused", "NewApi")
+package com.luckyzyx.commonutils
 
-package com.luckyzyx.luckytool.utils
-
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ApplicationInfo
@@ -11,18 +10,19 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
-import com.luckyzyx.selector.data.AppInfo
+import android.os.Build
+import com.luckyzyx.commonutils.data.AppInfo
 import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
-@Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 class PackageUtils(private val packageManager: PackageManager) {
 
     fun getPackageArchiveInfo(archiveFilePath: String, flag: Int): PackageInfo? {
         return try {
-            if (SDK < A13) packageManager.getPackageArchiveInfo(archiveFilePath, flag)
-            else packageManager.getPackageArchiveInfo(
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageArchiveInfo(archiveFilePath, flag)
+            } else packageManager.getPackageArchiveInfo(
                 archiveFilePath, PackageManager.PackageInfoFlags.of(flag.toLong())
             )
         } catch (e: PackageManager.NameNotFoundException) {
@@ -32,7 +32,10 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getPackageInfo(packName: String, flag: Int): PackageInfo? {
         return try {
-            if (SDK < A13) packageManager.getPackageInfo(packName, flag)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) packageManager.getPackageInfo(
+                packName,
+                flag
+            )
             else packageManager.getPackageInfo(
                 packName, PackageManager.PackageInfoFlags.of(flag.toLong())
             )
@@ -55,7 +58,10 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getPackageUid(packName: String, flag: Int): Int? {
         return try {
-            if (SDK < A13) packageManager.getPackageUid(packName, flag)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) packageManager.getPackageUid(
+                packName,
+                flag
+            )
             else packageManager.getPackageUid(
                 packName, PackageManager.PackageInfoFlags.of(flag.toLong())
             )
@@ -66,7 +72,10 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getApplicationInfo(packName: String, flag: Int): ApplicationInfo? {
         return try {
-            if (SDK < A13) packageManager.getApplicationInfo(packName, flag)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) packageManager.getApplicationInfo(
+                packName,
+                flag
+            )
             else packageManager.getApplicationInfo(
                 packName, PackageManager.ApplicationInfoFlags.of(flag.toLong())
             )
@@ -77,7 +86,9 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getApplicationLabel(applicationInfo: ApplicationInfo): CharSequence {
         return try {
-            if (SDK < A13) packageManager.getApplicationLabel(applicationInfo)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) packageManager.getApplicationLabel(
+                applicationInfo
+            )
             else packageManager.getApplicationLabel(applicationInfo)
         } catch (e: PackageManager.NameNotFoundException) {
             ""
@@ -86,7 +97,9 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getApplicationIcon(applicationInfo: ApplicationInfo): Drawable? {
         return try {
-            if (SDK < A13) packageManager.getApplicationIcon(applicationInfo)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) packageManager.getApplicationIcon(
+                applicationInfo
+            )
             else packageManager.getApplicationIcon(applicationInfo)
         } catch (e: PackageManager.NameNotFoundException) {
             null
@@ -95,26 +108,33 @@ class PackageUtils(private val packageManager: PackageManager) {
 
     fun getApplicationIcon(packName: String): Drawable? {
         return try {
-            if (SDK < A13) packageManager.getApplicationIcon(packName)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) packageManager.getApplicationIcon(
+                packName
+            )
             else packageManager.getApplicationIcon(packName)
         } catch (e: PackageManager.NameNotFoundException) {
             null
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     fun getInstalledPackages(flag: Int): MutableList<PackageInfo> {
-        if (SDK < A13) return packageManager.getInstalledPackages(flag)
-        return packageManager.getInstalledPackages(PackageManager.PackageInfoFlags.of(flag.toLong()))
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            packageManager.getInstalledPackages(flag)
+        } else packageManager.getInstalledPackages(PackageManager.PackageInfoFlags.of(flag.toLong()))
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     fun getInstalledApplications(flag: Int): MutableList<ApplicationInfo> {
-        return if (SDK < A13) packageManager.getInstalledApplications(flag)
-        else packageManager.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(flag.toLong()))
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            packageManager.getInstalledApplications(flag)
+        } else packageManager.getInstalledApplications(PackageManager.ApplicationInfoFlags.of(flag.toLong()))
     }
 
     fun resolveActivity(intent: Intent, flag: Int): ResolveInfo? {
-        return if (SDK < A13) packageManager.resolveActivity(intent, flag)
-        else packageManager.resolveActivity(intent, ResolveInfoFlags.of(flag.toLong()))
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            packageManager.resolveActivity(intent, flag)
+        } else packageManager.resolveActivity(intent, ResolveInfoFlags.of(flag.toLong()))
     }
 
     fun getApplicationEnabledSetting(packName: String): Boolean {
@@ -133,9 +153,11 @@ class PackageUtils(private val packageManager: PackageManager) {
         return packageManager.getLaunchIntentForPackage(packName)
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     fun queryIntentActivities(intent: Intent, int: Int): MutableList<ResolveInfo> {
-        return if (SDK < A13) packageManager.queryIntentActivities(intent, int)
-        else packageManager.queryIntentActivities(intent, ResolveInfoFlags.of(int.toLong()))
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            packageManager.queryIntentActivities(intent, int)
+        } else packageManager.queryIntentActivities(intent, ResolveInfoFlags.of(int.toLong()))
     }
 
     fun getInstalledAppInfo(packName: String, flag: Int): AppInfo? {

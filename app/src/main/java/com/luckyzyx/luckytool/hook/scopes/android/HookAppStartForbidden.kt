@@ -2,14 +2,14 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AESCrypt.baseDetrypt
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.toStringList
 import org.json.JSONArray
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAppStartForbidden : YukiBaseHooker() {

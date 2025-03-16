@@ -11,12 +11,12 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.commonutils.filterNumber
+import com.luckyzyx.commonutils.safeOf
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.DeviceUtils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.filterNumber
-import com.luckyzyx.luckytool.utils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
