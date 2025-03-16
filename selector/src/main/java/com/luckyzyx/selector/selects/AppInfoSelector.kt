@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.selector
+package com.luckyzyx.selector.selects
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,21 +14,20 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scope
-import com.drake.net.utils.withDefault
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.DialogAppInfoSelectorLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoCheckboxItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoItemBinding
-import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
+import com.luckyzyx.selector.listener.OnSelectAppInfoListener
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 
 /**
  * AppInfo选择器

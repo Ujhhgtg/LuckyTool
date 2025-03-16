@@ -29,9 +29,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.drake.net.utils.scopeLife
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.luckyzyx.luckytool.databinding.DialogMemcConfigLayoutBinding
@@ -40,10 +38,6 @@ import com.luckyzyx.luckytool.databinding.FragmentMemcLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentMemcPackageLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcActivityItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcPackageItemBinding
-import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
-import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
-import com.luckyzyx.luckytool.selector.ActivityInfoSelector
-import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue
@@ -56,7 +50,13 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
+import com.luckyzyx.selector.data.AppInfo
+import com.luckyzyx.selector.listener.OnSelectActivityInfoListener
+import com.luckyzyx.selector.listener.OnSelectAppInfoListener
+import com.luckyzyx.selector.selects.ActivityInfoSelector
+import com.luckyzyx.selector.selects.AppInfoSelector
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.InputStream
 
 @Obfuscate

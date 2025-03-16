@@ -27,4 +27,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "LuckyTool"
-include(":app", ":hidden-api-stub")
+include(":app", ":hidden-api-stub", ":selector")

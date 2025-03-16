@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.listener
+package com.luckyzyx.selector.listener
 
 import android.content.pm.ActivityInfo
 import org.lsposed.lsparanoid.Obfuscate
