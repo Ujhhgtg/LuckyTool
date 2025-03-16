@@ -18,6 +18,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除GMS使用限制 C12+
 - [更改] 同步上游DisableSecureFlag
 - [添加] 启用WiFi详情显示网关 C12+
+- [优化] 桌面文件夹预览背景隐藏问题
 
 ### 1.2.8
 
