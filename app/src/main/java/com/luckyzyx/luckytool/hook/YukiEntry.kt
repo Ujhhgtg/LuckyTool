@@ -35,6 +35,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookPhone
 import com.luckyzyx.luckytool.hook.hookers.HookPhoneManager
 import com.luckyzyx.luckytool.hook.hookers.HookPictorial
 import com.luckyzyx.luckytool.hook.hookers.HookQuickSearchBox
+import com.luckyzyx.luckytool.hook.hookers.HookSAU
 import com.luckyzyx.luckytool.hook.hookers.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hookers.HookScreenshot
 import com.luckyzyx.luckytool.hook.hookers.HookSecurePay
@@ -129,6 +130,8 @@ object YukiEntry {
         loadApp("com.oplus.cosa", HookOplusCosa)
         //软件更新
         loadApp("com.oplus.ota", HookOplusOta)
+        //系统升级服务
+        loadApp("com.oplus.sau", HookSAU)
         //乐划锁屏
         loadApp("com.heytap.pictorial", HookPictorial)
         //信息
