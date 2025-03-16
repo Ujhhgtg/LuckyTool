@@ -36,8 +36,7 @@ class ShortcutUtils(val context: Context) {
             add(
                 ShortcutBean(
                     "module_shortcut_status_lsposed", "LSPosed", Icon.createWithResource(
-                        context.packageName,
-                        android.R.mipmap.sym_def_app_icon
+                        context.packageName, android.R.mipmap.sym_def_app_icon
                     )
                 )
             )
@@ -46,9 +45,7 @@ class ShortcutUtils(val context: Context) {
                     ShortcutBean(
                         "module_shortcut_status_oplusgames",
                         AppUtils(context).getAppLabel("com.oplus.games").toString(),
-                        Icon.createWithResource(
-                            context.packageName, R.mipmap.oplusgames_icon
-                        )
+                        Icon.createWithResource(context.packageName, R.mipmap.oplusgames_icon)
                     )
                 )
             }
@@ -65,9 +62,7 @@ class ShortcutUtils(val context: Context) {
                 ShortcutBean(
                     "module_shortcut_status_processmanager",
                     context.getString(R.string.process_manager),
-                    Icon.createWithResource(
-                        context.packageName, android.R.mipmap.sym_def_app_icon
-                    )
+                    Icon.createWithResource(context.packageName, android.R.mipmap.sym_def_app_icon)
                 )
             )
             add(
@@ -113,17 +108,20 @@ class ShortcutUtils(val context: Context) {
      * @param bean ShortcutBean
      * @param status Boolean
      */
-    fun setShortcutStatus(bean: ShortcutBean, status: Boolean) {
-        val enabled = getEnabledShortcutList()
-        if (enabled.find { it.id == bean.key } == null && status) {
-            val newList = enabled.toMutableList().apply {
-                add(bean.toShortcutInfo(context))
+    fun setShortcutStatus(defBeans: ArrayList<ShortcutBean>, bean: ShortcutBean, status: Boolean) {
+        val enabledList = getEnabledShortcutList()
+        val newList = ArrayList<ShortcutInfo>()
+
+        defBeans.forEachIndexed { _, shortcutBean ->
+            val findEnabled = enabledList.find { it.id == shortcutBean.key }
+            val findCurrent = enabledList.find { it.id == bean.key }
+            if (findEnabled != null || findCurrent == null) {
+                newList.add(shortcutBean.toShortcutInfo(context))
             }
-            updateDynamicShortcuts(ArrayList(newList))
         }
-        if (!status) {
-            removeDynamicShortcuts(arrayListOf(bean.key))
-        }
+
+        if (status) updateDynamicShortcuts(newList)
+        else removeDynamicShortcuts(arrayListOf(bean.key))
     }
 
     /**
@@ -165,8 +163,7 @@ class ShortcutUtils(val context: Context) {
     fun requestPinShortcut(shortcutInfo: ShortcutInfo) {
         val intent = shortcutManager.createShortcutResultIntent(shortcutInfo)
         val callback = PendingIntent.getBroadcast(
-            context, 0,
-            intent, PendingIntent.FLAG_UPDATE_CURRENT
+            context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
         shortcutManager.requestPinShortcut(shortcutInfo, callback.intentSender)
     }

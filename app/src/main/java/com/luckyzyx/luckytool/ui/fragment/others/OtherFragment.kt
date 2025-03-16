@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.forEach
+import androidx.core.util.size
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -57,8 +58,7 @@ class OtherFragment : Fragment() {
         binding.quickEntry.apply {
             setOnClickListener {
                 findNavController().navigatePage(
-                    R.id.systemQuickEntry,
-                    getString(R.string.quick_entry)
+                    R.id.systemQuickEntry, getString(R.string.quick_entry)
                 )
             }
         }
@@ -76,12 +76,16 @@ class OtherFragment : Fragment() {
                     setPositiveButton(android.R.string.ok) { dialog, _ ->
                         val positions = (dialog as AlertDialog).listView.checkedItemPositions
                         positions.forEach { position, isChecked ->
-                            shortcutUtils.setShortcutStatus(beans[position], isChecked)
+                            shortcutUtils.setShortcutStatus(beans, beans[position], isChecked)
                         }
                     }
                     if (shortcutUtils.shortcutManager.isRequestPinShortcutSupported) {
                         setNeutralButton("Pin") { dialog, _ ->
                             val positions = (dialog as AlertDialog).listView.checkedItemPositions
+                            if (positions.size > 1) {
+                                context.showToast("Only select one item")
+                                return@setNeutralButton
+                            }
                             val indexValue = positions.indexOfValue(true).takeIf {
                                 it != -1
                             } ?: return@setNeutralButton
