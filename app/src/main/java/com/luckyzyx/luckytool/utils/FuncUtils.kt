@@ -19,7 +19,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -43,9 +42,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toBitmapOrNull
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.scale
+import androidx.core.net.toUri
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -269,7 +272,7 @@ fun setParameter(context: Context, name: String, key: String?, value: String?) {
         val contentValues = ContentValues(2)
         contentValues.put("name", key)
         contentValues.put("value", value)
-        contentResolver.insert(Uri.parse("content://settings/system"), contentValues)
+        contentResolver.insert("content://settings/system".toUri(), contentValues)
 //        context.toast("apply $name Hz success!")
     }
 }
@@ -781,11 +784,11 @@ fun getCharSpans(char: CharSequence): Array<out ForegroundColorSpan>? {
  */
 fun Context.zoomDrawable(drawable: Drawable, width: Int, height: Int): Drawable {
     val oldBmp = drawable.toBitmap()
-    val newBmp = Bitmap.createScaledBitmap(oldBmp, width, height, true)
-    return BitmapDrawable(resources, newBmp)
+    val newBmp = oldBmp.scale(width, height)
+    return newBmp.toDrawable(resources)
 }
 
-fun Context.checkPackage() = safeOf({ exitModule() }) {
+fun Context.verityPackage() = safeOf({ exitModule() }) {
     val packInfo =
         PackageUtils(packageManager).getPackageInfo(BuildConfig.APPLICATION_ID, 0) ?: return@safeOf
     if (packInfo.packageName != packageName || packInfo.versionName != getVersionName || packInfo.longVersionCode != getVersionCode.toLong()) {
@@ -892,7 +895,7 @@ fun Context.showBottomSheet(rootView: View? = null): BottomSheetDialog {
  * @param url String
  */
 fun Context.openUrl(url: String) {
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
 }
 
 /**
@@ -980,7 +983,7 @@ fun createTextDrawable(context: Context, text: String): Drawable {
     val bitmapWidth = (textWidth + 20f).toInt()  // 增加一些边距
     val bitmapHeight = (textHeight + 20f).toInt()  // 增加一些边距
 
-    val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
+    val bitmap = createBitmap(bitmapWidth, bitmapHeight)
     val canvas = Canvas(bitmap)
 
     // 设置背景为透明
@@ -997,7 +1000,7 @@ fun createTextDrawable(context: Context, text: String): Drawable {
     canvas.drawText(text, x, y, paint)
 
     // 返回 BitmapDrawable，背景是透明的
-    return BitmapDrawable(context.resources, bitmap)
+    return bitmap.toDrawable(context.resources)
 }
 
 fun PackageInfo.isSystem(): Boolean {

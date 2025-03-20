@@ -105,6 +105,7 @@
     <string name="re_optimize_dex_failed">Optimization failed</string>
     <string name="re_optimize_dex_optimizing">Optimizing</string>
     <string name="re_optimize_dex_faile_message">The following application optimization failed\n%1$s\nWhether to re-optimize?</string>
+    <string name="optimize_dex_after_system_update">Dex must be optimized after system update</string>
     <string name="optimize_only_this_page_scope">Optimize only this page scope</string>
     <string name="restart_only_this_page_scope">Restart only this page scope</string>
     <string name="reboot">Restart System</string>

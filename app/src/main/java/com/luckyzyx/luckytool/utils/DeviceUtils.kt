@@ -32,6 +32,15 @@ object DeviceUtils {
     }
 
     /**
+     * 获取OS OTA版本号
+     * @return String
+     */
+    fun getOtaVersion(): String {
+        val command = "getprop ro.build.version.ota"
+        return ShellUtils.fastCmd(command).ifBlank { "null" }
+    }
+
+    /**
      * 获取GUID
      * /data/system/openid_config.xml
      */

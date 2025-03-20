@@ -9,7 +9,6 @@ import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
 import com.drake.net.utils.scope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IPackageServiceController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogReoptimizeDexLayoutBinding
@@ -22,6 +21,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RestartMenuUtils {
@@ -44,7 +44,7 @@ object RestartMenuUtils {
             setItems(list) { _: DialogInterface?, i: Int ->
                 when (i) {
                     0 -> showRestartAllScopeDialog(context)
-                    1 -> showPerformAllDexDialog(context)
+                    1 -> showOptimizeAllDexDialog(context)
                     2 -> reboot()
                     3 -> ShellUtils.fastCmd(CommandUtils.killzygote)
                 }
@@ -70,7 +70,7 @@ object RestartMenuUtils {
             setItems(list) { _, which ->
                 when (which) {
                     0 -> showRestartAllScopeDialog(context)
-                    1 -> showPerformAllDexDialog(context)
+                    1 -> showOptimizeAllDexDialog(context)
                     2 -> restartScope(context, scopes)
                     3 -> optimizeScope(context, scopes)
                 }
@@ -143,7 +143,7 @@ object RestartMenuUtils {
      * 重新优化全部作用域Dex
      * @receiver Context
      */
-    private fun showPerformAllDexDialog(context: Context) {
+    fun showOptimizeAllDexDialog(context: Context, isForce: Boolean = false) {
         val scopeMaps = arrayMapOf<String, CharSequence>()
         context.resources.getStringArray(R.array.xposed_scope).toMutableList().apply {
             removeIf { it == "android" || it == "system" }
@@ -156,13 +156,16 @@ object RestartMenuUtils {
         }
 
         PackagesService.get(context) { controller ->
-            MaterialAlertDialogBuilder(context).apply {
-                setMessage(context.getString(R.string.re_optimize_dex_message))
-                setPositiveButton(context.getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
-                    performScopeDex(context, controller, scopeMaps)
+            if (isForce) optimizeScopeDex(context, controller, scopeMaps)
+            else {
+                MaterialAlertDialogBuilder(context).apply {
+                    setMessage(context.getString(R.string.re_optimize_dex_message))
+                    setPositiveButton(context.getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
+                        optimizeScopeDex(context, controller, scopeMaps)
+                    }
+                    setNeutralButton(context.getString(android.R.string.cancel), null)
+                    show()
                 }
-                setNeutralButton(context.getString(android.R.string.cancel), null)
-                show()
             }
         }
     }
@@ -185,11 +188,11 @@ object RestartMenuUtils {
         }
 
         PackagesService.get(context) { controller ->
-            performScopeDex(context, controller, scopeMaps)
+            optimizeScopeDex(context, controller, scopeMaps)
         }
     }
 
-    private fun performScopeDex(
+    private fun optimizeScopeDex(
         context: Context, controller: IPackageServiceController?,
         scopes: ArrayMap<String, CharSequence>
     ) {
@@ -206,7 +209,7 @@ object RestartMenuUtils {
             val failedApps = optimizeApps(controller, scopes, textView)
             progressDialog.dismiss()
             if (failedApps.isNotEmpty()) {
-                showRetryDialog(context, controller, failedApps)
+                showDexRetryDialog(context, controller, failedApps)
             } else {
                 context.showToast(context.getString(R.string.re_optimize_dex_completed))
                 coroutineScope.cancel()
@@ -244,7 +247,7 @@ object RestartMenuUtils {
     /**
      * 显示重新优化对话框
      */
-    private fun showRetryDialog(
+    private fun showDexRetryDialog(
         context: Context, controller: IPackageServiceController?,
         failedApps: ArrayMap<String, CharSequence>
     ) {
@@ -257,7 +260,7 @@ object RestartMenuUtils {
                 )
             )
             setPositiveButton(context.getString(android.R.string.ok)) { _, _ ->
-                performScopeDex(context, controller, failedApps)
+                optimizeScopeDex(context, controller, failedApps)
             }
             setNeutralButton(context.getString(android.R.string.cancel), null)
             setOnDismissListener { coroutineScope.cancel() }

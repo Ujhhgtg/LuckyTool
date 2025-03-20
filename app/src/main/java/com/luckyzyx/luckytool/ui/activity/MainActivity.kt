@@ -36,12 +36,12 @@ import com.luckyzyx.luckytool.utils.PermissionUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import com.luckyzyx.luckytool.utils.checkPackage
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
+import com.luckyzyx.luckytool.utils.verityPackage
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
@@ -78,7 +78,7 @@ open class MainActivity : AppCompatActivity() {
 
         initNavigationFragment()
 
-        checkPackage()
+        verityPackage()
         checkXposed()
         checkOs()
     }

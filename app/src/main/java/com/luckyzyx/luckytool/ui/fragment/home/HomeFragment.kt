@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
@@ -20,8 +20,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.YukiHookAPI
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
+import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.GlobalFuncService
@@ -34,15 +34,20 @@ import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.UpdateUtils
 import com.luckyzyx.luckytool.utils.copyStr
+import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getDeviceInfo
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getVersionCode
 import com.luckyzyx.luckytool.utils.getVersionName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.putBoolean
+import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class HomeFragment : Fragment(), MenuProvider {
@@ -110,7 +115,7 @@ class HomeFragment : Fragment(), MenuProvider {
             setOnClickListener {
                 val url = if (isZh(context)) "https://docs.qq.com/doc/DS2ZDZlNIeUlpdlV1"
                 else "https://luckyzyx.github.io/LuckyTool_Doc/en/donate"
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             }
             setOnLongClickListener {
                 val donateList = arrayListOf(
@@ -131,7 +136,7 @@ class HomeFragment : Fragment(), MenuProvider {
                             3 -> if (!isZh(context)) startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.patreon.com/LuckyTool")
+                                    "https://www.patreon.com/LuckyTool".toUri()
                                 )
                             )
                         }
@@ -150,7 +155,7 @@ class HomeFragment : Fragment(), MenuProvider {
             }
             setOnClickListener {
                 val url = "https://luckyzyx.github.io/LuckyTool_Doc/use/download_link"
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             }
         }
 
@@ -168,6 +173,25 @@ class HomeFragment : Fragment(), MenuProvider {
                 gravity = Gravity.START
                 text = deviceInfo
                 isVisible = true
+            }
+            checkDexOptimize(it)
+        }
+    }
+
+    private fun checkDexOptimize(controller: IGlobalFuncController?) {
+        if (getOSVersionCode < 34) return
+        val getOs = requireActivity().getString(SettingsPrefs, "current_os_version", "")
+        val curOs = controller?.otaVersion ?: DeviceUtils.getOtaVersion()
+            .takeIf { e -> e != "null" } ?: ""
+        if (getOs != curOs) {
+            MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+                setMessage(R.string.optimize_dex_after_system_update)
+                setCancelable(false)
+                setPositiveButton(android.R.string.ok) { _, _ ->
+                    RestartMenuUtils.showOptimizeAllDexDialog(context, true)
+                    requireActivity().putString(SettingsPrefs, "current_os_version", curOs)
+                }
+                show()
             }
         }
     }
