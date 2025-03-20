@@ -11,13 +11,13 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.commonutils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.DependencyUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 @Obfuscate
 object MediaPlayerPanel : YukiBaseHooker() {

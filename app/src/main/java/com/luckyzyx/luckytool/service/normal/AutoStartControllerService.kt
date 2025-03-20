@@ -11,7 +11,7 @@ import android.content.pm.ServiceInfo
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.drake.net.utils.scope
-import com.luckyzyx.commonutils.NotifyUtils
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
@@ -23,6 +23,7 @@ import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyHighBrightness
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTileAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRate
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
+import com.luckyzyx.luckytool.utils.NotifyUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -32,7 +33,6 @@ import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import okhttp3.internal.toHexString
-import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class AutoStartControllerService : Service() {

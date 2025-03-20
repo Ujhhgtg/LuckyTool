@@ -9,9 +9,7 @@ import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
 import com.drake.net.utils.scope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.luckyzyx.commonutils.AppUtils
-import com.luckyzyx.commonutils.LogUtils
-import com.luckyzyx.commonutils.PackageUtils
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IPackageServiceController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogReoptimizeDexLayoutBinding
@@ -24,7 +22,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RestartMenuUtils {

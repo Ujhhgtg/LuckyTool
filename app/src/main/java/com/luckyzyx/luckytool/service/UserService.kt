@@ -10,11 +10,11 @@ import android.os.IUserManager
 import android.os.RemoteException
 import android.os.ServiceManager
 import android.os.SystemProperties
-import com.luckyzyx.commonutils.LogUtils
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IUserServiceController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
+import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.LinkedList
 
 @Obfuscate

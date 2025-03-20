@@ -14,16 +14,16 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.PackageInfoClass
-import com.luckyzyx.commonutils.AppUtils
-import com.luckyzyx.commonutils.PackageUtils
-import com.luckyzyx.commonutils.formatDate
-import com.luckyzyx.commonutils.formatStringAuto
-import com.luckyzyx.commonutils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.PackageUtils
+import com.luckyzyx.luckytool.utils.formatDate
+import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.isSystem
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.safeOf
 
 @Obfuscate
 object HookAppDetails : YukiBaseHooker() {

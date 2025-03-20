@@ -12,11 +12,11 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.commonutils.PackageUtils
-import com.luckyzyx.commonutils.safeOf
-import com.luckyzyx.commonutils.safeOfNull
-import com.luckyzyx.luckytool.utils.dp
 import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.PackageUtils
+import com.luckyzyx.luckytool.utils.dp
+import com.luckyzyx.luckytool.utils.safeOf
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 @Obfuscate
 object ShowMoreApkPackageInformation : YukiBaseHooker() {

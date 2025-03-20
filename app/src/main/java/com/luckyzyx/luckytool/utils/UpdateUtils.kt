@@ -16,14 +16,12 @@ import com.drake.net.scope.NetCoroutineScope
 import com.drake.net.utils.scopeNet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
-import com.luckyzyx.commonutils.FileUtils
-import com.luckyzyx.commonutils.formatFileSize
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogDownloadLayoutBinding
 import io.noties.markwon.Markwon
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
 @Obfuscate

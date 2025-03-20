@@ -3,10 +3,10 @@ package com.luckyzyx.luckytool.service
 import android.content.Intent
 import android.os.IBinder
 import android.os.SystemProperties
-import com.luckyzyx.commonutils.formatSpace
-import com.luckyzyx.commonutils.replaceSpace
 import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
+import com.luckyzyx.luckytool.utils.formatSpace
+import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
 import org.lsposed.lsparanoid.Obfuscate
 import java.io.File

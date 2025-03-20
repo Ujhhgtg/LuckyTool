@@ -28,4 +28,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "LuckyTool"
 include(":app", ":hidden-api-stub", ":selector")
-include(":common-utils")

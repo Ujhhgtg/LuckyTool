@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.utils
 
-import com.luckyzyx.commonutils.safeOfNull
-import org.json.JSONObject
 import org.lsposed.lsparanoid.Obfuscate
+import org.json.JSONObject
 import java.io.File
 
 @Suppress("unused")

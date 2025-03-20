@@ -104,8 +104,7 @@ android {
 
 dependencies {
     compileOnly(projects.hiddenApiStub)
-    implementation(projects.selector)
-    implementation(projects.commonUtils)
+    compileOnly(projects.selector)
 
     compileOnly(libs.xposed.api)
     implementation(libs.yukihookapi)

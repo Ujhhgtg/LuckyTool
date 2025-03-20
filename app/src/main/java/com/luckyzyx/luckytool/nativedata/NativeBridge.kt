@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.nativedata
 
-import com.luckyzyx.commonutils.LogUtils
 import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.LogUtils
 
 @Obfuscate
 object NativeBridge {

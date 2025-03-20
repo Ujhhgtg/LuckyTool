@@ -7,12 +7,7 @@ import com.drake.net.utils.scope
 import com.drake.net.utils.scopeNet
 import com.drake.net.utils.withDefault
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import com.luckyzyx.commonutils.FileUtils
-import com.luckyzyx.commonutils.LogUtils
-import com.luckyzyx.commonutils.PackageUtils
-import com.luckyzyx.commonutils.formatDate
-import com.luckyzyx.commonutils.formatStringAuto
-import com.luckyzyx.commonutils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DeviceUtils.getCSid
 import com.luckyzyx.luckytool.utils.DeviceUtils.getQSlist
 import com.tencent.mmkv.MMKV
@@ -21,7 +16,6 @@ import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class AppAnalyticsUtils(val context: Context) {

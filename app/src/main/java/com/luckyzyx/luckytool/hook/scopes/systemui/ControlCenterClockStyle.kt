@@ -8,13 +8,13 @@ import android.widget.TextView
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.commonutils.safeOf
-import com.luckyzyx.commonutils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getCharColor
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.safeOf
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 @Obfuscate
 object ControlCenterClockStyle : YukiBaseHooker() {

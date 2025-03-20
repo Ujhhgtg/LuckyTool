@@ -1,8 +1,8 @@
-package com.luckyzyx.commonutils.data
+package com.luckyzyx.luckytool.data
 
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.Serializable
 
 @Obfuscate

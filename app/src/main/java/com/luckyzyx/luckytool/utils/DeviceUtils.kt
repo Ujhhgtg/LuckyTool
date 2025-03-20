@@ -4,10 +4,6 @@ import android.content.Context
 import android.os.SystemProperties
 import com.android.internal.os.PowerProfile
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.luckyzyx.commonutils.LogUtils
-import com.luckyzyx.commonutils.formatSpace
-import com.luckyzyx.commonutils.replaceSpace
-import com.luckyzyx.commonutils.safeOfNull
 import com.luckyzyx.luckytool.R
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils

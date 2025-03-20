@@ -22,9 +22,9 @@
  */
 @file:Suppress("unused", "UnusedReceiverParameter")
 
-package com.luckyzyx.commonutils
+package com.luckyzyx.luckytool.utils
 
-import android.util.Log
+import com.highcapable.yukihookapi.hook.log.YLog
 
 /**
  * 忽略异常返回值
@@ -79,5 +79,5 @@ inline fun <T> safeOf(default: T, result: () -> T) = try {
  * @param block 正常回调
  */
 inline fun <T> T.runInSafe(msg: String = "", block: () -> Unit) {
-    runCatching(block).onFailure { if (msg.isNotBlank()) Log.e(null, msg, it) }
+    runCatching(block).onFailure { if (msg.isNotBlank()) YLog.error(msg = msg, e = it) }
 }

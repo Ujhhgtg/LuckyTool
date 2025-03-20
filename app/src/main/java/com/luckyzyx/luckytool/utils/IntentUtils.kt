@@ -8,10 +8,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.telephony.SubscriptionManager
 import androidx.annotation.DeprecatedSinceApi
-import com.luckyzyx.commonutils.LogUtils
-import com.luckyzyx.commonutils.PackageUtils
-import com.topjohnwu.superuser.ShellUtils
 import org.lsposed.lsparanoid.Obfuscate
+import com.topjohnwu.superuser.ShellUtils
 
 
 @Obfuscate

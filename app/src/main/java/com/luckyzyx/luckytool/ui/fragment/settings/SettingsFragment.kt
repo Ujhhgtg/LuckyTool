@@ -14,12 +14,12 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
-import com.luckyzyx.commonutils.AppUtils
-import com.luckyzyx.commonutils.FileUtils
-import com.luckyzyx.commonutils.formatDate
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
+import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -29,6 +29,7 @@ import com.luckyzyx.luckytool.utils.base64Decode
 import com.luckyzyx.luckytool.utils.base64Encode
 import com.luckyzyx.luckytool.utils.clearAllPrefs
 import com.luckyzyx.luckytool.utils.dialogCentered
+import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.isZh
@@ -42,7 +43,6 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.showToast
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException

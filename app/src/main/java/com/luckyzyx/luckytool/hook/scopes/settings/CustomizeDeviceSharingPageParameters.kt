@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.core.view.allViews
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import com.luckyzyx.commonutils.safeOfNull
-import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
 import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
+import com.luckyzyx.luckytool.utils.safeOfNull
 
 @Obfuscate
 object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {

@@ -21,7 +21,6 @@ import androidx.navigation.fragment.findNavController
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.luckyzyx.commonutils.PackageUtils
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
@@ -31,6 +30,7 @@ import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.OtherPrefs
+import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils

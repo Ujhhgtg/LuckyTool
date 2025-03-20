@@ -33,22 +33,8 @@ android {
     kotlin {
         jvmToolchain(17)
     }
-    buildFeatures {
-        viewBinding = true
-        buildConfig = true
-    }
 }
 
 dependencies {
-    implementation(projects.commonUtils)
-
     implementation(libs.material)
-    implementation(libs.swiperefreshlayout)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-
-    implementation(libs.okhttp)
-    implementation(libs.net)
-    implementation(libs.fastscroll)
-
 }

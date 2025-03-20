@@ -10,11 +10,11 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
-import com.luckyzyx.commonutils.formatColorAlpha
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.formatColorAlpha
 
 @Obfuscate
 object ControllerCenterSliderTransparency : YukiBaseHooker() {

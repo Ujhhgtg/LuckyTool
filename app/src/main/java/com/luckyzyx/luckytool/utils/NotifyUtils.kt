@@ -1,15 +1,22 @@
 @file:Suppress("MemberVisibilityCanBePrivate", "unused")
 
-package com.luckyzyx.commonutils
+package com.luckyzyx.luckytool.utils
 
+import android.app.Activity
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.R
 
 @Obfuscate
 object NotifyUtils {
@@ -20,6 +27,32 @@ object NotifyUtils {
     const val DEFAULT_NOTICE_ID = "default"
     const val DEFAULT_NOTICE_NAME = "默认通知"
     const val DEFAULT_NOTICE_IMPORTANCE = NotificationManager.IMPORTANCE_DEFAULT
+
+    /**
+     * 获取DEMO通知
+     * @param context Context
+     * @return Notification
+     */
+    fun getDemoNotification(context: Context): Notification {
+        return NotificationCompat.Builder(context, DEFAULT_NOTICE_ID)
+            .setSmallIcon(R.drawable.ic_baseline_info_24)
+            .setContentTitle("标题")
+            .setContentText("内容")
+//            .setStyle(NotificationCompat.BigTextStyle().bigText(""))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+    }
+
+    /**
+     * 检查是否授予权限
+     * @param context Context
+     * @return Boolean
+     */
+    fun checkPermission(context: Context): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            context, POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
     /**
      * 发送通知
@@ -64,6 +97,25 @@ object NotifyUtils {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.deleteNotificationChannel(channelId)
+    }
+
+    /**
+     * 请求权限
+     * @param activity Activity
+     */
+    fun requestPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= 33) {
+            if (checkPermission(activity)) {
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                        activity, POST_NOTIFICATIONS
+                    )
+                ) enableNotification(activity)
+                else ActivityCompat.requestPermissions(activity, arrayOf(POST_NOTIFICATIONS), 100)
+            }
+        } else {
+            val enabled = NotificationManagerCompat.from(activity).areNotificationsEnabled()
+            if (!enabled) enableNotification(activity)
+        }
     }
 
     /**

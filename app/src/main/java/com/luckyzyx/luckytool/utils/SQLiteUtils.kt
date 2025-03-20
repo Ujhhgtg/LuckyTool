@@ -1,4 +1,4 @@
-package com.luckyzyx.commonutils
+package com.luckyzyx.luckytool.utils
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase

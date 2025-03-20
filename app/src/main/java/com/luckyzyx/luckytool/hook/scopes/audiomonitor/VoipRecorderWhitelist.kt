@@ -17,7 +17,7 @@ import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import com.luckyzyx.commonutils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.VoipRecorder
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.dyPackName
@@ -26,7 +26,7 @@ import com.luckyzyx.luckytool.utils.GlobalKeyValue.qqPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.qywxPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.timPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.wxPackName
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.utils.safeOfNull
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
