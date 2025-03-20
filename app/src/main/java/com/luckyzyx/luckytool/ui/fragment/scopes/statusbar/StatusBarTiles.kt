@@ -2,11 +2,11 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.statusbar
 
 import android.content.Context
 import androidx.preference.DropDownPreference
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -19,6 +19,8 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import com.luckyzyx.luckytool.utils.setSummaryProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarTiles : BaseScopePreferenceFeagment() {
@@ -44,6 +46,37 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
+            //自定义NFC延时关闭
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_nfc_delay_shutdown)
+                key = "enable_nfc_delay_shutdown"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("com.android.systemui", key, newValue)
+                    (activity as MainActivity).restart()
+                    true
+                }
+            })
+            if (getBoolean(ModulePrefs, "enable_nfc_delay_shutdown", false)) {
+                add(EditTextPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_nfc_delay_shutdown_time)
+                    dialogTitle = title
+                    dialogMessage = """
+                     1s / 1S -> 1秒 / 1 Second
+                     1m / 1M -> 1分钟 / 1 Minute
+                     1h / 1H -> 1小时 / 1 Hour
+                """.trimIndent()
+                    key = "custom_nfc_delay_shutdown_time"
+                    setDefaultValue("10M")
+                    setSummaryProvider(this)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+            }
             //静音或振动
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_display_of_ringing_status_toggle_tiles)

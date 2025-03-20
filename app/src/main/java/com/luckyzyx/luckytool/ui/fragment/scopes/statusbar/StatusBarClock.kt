@@ -6,7 +6,6 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -17,6 +16,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setSummaryProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarClock : BaseScopePreferenceFeagment() {
@@ -166,7 +166,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
             if (getString(ModulePrefs, "statusbar_clock_mode", "0") == "2") {
                 add(EditTextPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_clock_custom_format)
-                    dialogTitle = getString(R.string.statusbar_clock_custom_format)
+                    dialogTitle = title
                     dialogMessage = """
                             yyyy/MM/dd -> ${formatDate("yyyy/MM/dd")}
                             y/M/d/E/a -> ${formatDate("y/M/d/E/a")}

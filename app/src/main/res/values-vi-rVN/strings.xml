@@ -94,6 +94,7 @@
     <string name="re_optimize_dex_failed">Tối ưu hóa thất bại</string>
     <string name="re_optimize_dex_optimizing">Đang tối ưu hóa</string>
     <string name="re_optimize_dex_faile_message">Tối ưu hóa ứng dụng sau đây không thành công\n%1$s\nCó nên tối ưu hóa lại không?</string>
+    <string name="optimize_dex_after_system_update">Dex must be optimized after system update</string>
     <string name="optimize_only_this_page_scope">Chỉ tối ưu hóa phạm vi trang này</string>
     <string name="restart_only_this_page_scope">Chỉ khởi động lại phạm vi trang này</string>
     <string name="reboot">Khởi động lại hệ thống</string>
@@ -267,6 +268,8 @@
     <string name="custom_control_center_background_transparency">Tùy chỉnh độ trong suốt của nền trung tâm điều khiển</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Ô thanh trạng thái</string>
+    <string name="enable_nfc_delay_shutdown">Enable NFC delay shutdown</string>
+    <string name="custom_nfc_delay_shutdown_time">Custom NFC shutdown delay</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Buộc hiển thị ô chuyển đổi trạng thái đổ chuông</string>
     <string name="SpecialTiles">Ô đặc biệt</string>
     <string name="classic_control_center_mode_only">Chỉ chế độ trung tâm điều khiển cổ điển</string>

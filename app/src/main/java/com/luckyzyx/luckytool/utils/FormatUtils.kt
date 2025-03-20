@@ -134,3 +134,25 @@ fun formatStringAuto(
 fun formatColorAlpha(baseColor: Int, alpha: Float): Int {
     return baseColor and 0x00ffffff or ((alpha * 255.0f).roundToInt() shl 24)
 }
+
+/**
+ * 字符串转毫秒
+ * @param input String
+ * @return Long
+ */
+fun convertToMillis(input: String): Long {
+    val regex = Regex("""(\d+)([WwDdHhMmSs])""")
+    val matchResult = regex.find(input)
+    return if (matchResult != null) {
+        val (value, unit) = matchResult.destructured
+        val num = value.toLong()
+        when (unit.uppercase()) {
+            "W" -> num * 7 * 24 * 60 * 60 * 1000
+            "D" -> num * 24 * 60 * 60 * 1000
+            "H" -> num * 60 * 60 * 1000
+            "M" -> num * 60 * 1000
+            "S" -> num * 1000
+            else -> -1
+        }
+    } else -1
+}

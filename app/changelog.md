@@ -21,6 +21,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 桌面文件夹预览背景隐藏问题
 - [适配] 桌面小组件添加请求 v15.4.13(d2cffca)
 - [添加] 检测系统更新后提示优化Dex
+- [添加] 启用NFC延时关闭
 
 ### 1.2.8
 

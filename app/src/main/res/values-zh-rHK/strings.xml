@@ -94,6 +94,7 @@
     <string name="re_optimize_dex_failed">优化失败</string>
     <string name="re_optimize_dex_optimizing">优化中</string>
     <string name="re_optimize_dex_faile_message">以下App优化失败\n%1$s\n是否重新优化？</string>
+    <string name="optimize_dex_after_system_update">系统更新后必须优化Dex</string>
     <string name="optimize_only_this_page_scope">仅优化此页作用域Dex</string>
     <string name="restart_only_this_page_scope">仅重启此页作用域</string>
     <string name="reboot">重启系统</string>
@@ -267,6 +268,8 @@
     <string name="custom_control_center_background_transparency">自定义控制中心背景透明度</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">状态栏磁贴</string>
+    <string name="enable_nfc_delay_shutdown">启用 NFC 延迟关闭</string>
+    <string name="custom_nfc_delay_shutdown_time">自定义 NFC 关闭延迟</string>
     <string name="force_display_of_ringing_status_toggle_tiles">强制显示响铃状态切换磁贴</string>
     <string name="SpecialTiles">特殊磁贴</string>
     <string name="classic_control_center_mode_only">仅限经典控制中心模式</string>

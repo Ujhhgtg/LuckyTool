@@ -1,23 +1,28 @@
 package com.luckyzyx.luckytool.hook.hookers
 
-import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
+import android.app.StatusBarManager
 import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
+import android.nfc.NfcAdapter
+import android.os.Handler
 import com.drake.net.utils.scope
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.log.YLog
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
+import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.convertToMillis
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.delay
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookSystemUIAutoStart : YukiBaseHooker() {
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onHook() {
+        var nfcEnable = prefs(ModulePrefs).getBoolean("enable_nfc_delay_shutdown", false)
+        dataChannel.wait<Boolean>("enable_nfc_delay_shutdown") { nfcEnable = it }
+        var nfcDelay = prefs(ModulePrefs).getString("custom_nfc_delay_shutdown_time", "10M")
+        dataChannel.wait<String>("custom_nfc_delay_shutdown_time") { nfcDelay = it }
+
         onAppLifecycle {
             //监听锁屏解锁
             registerReceiver(Intent.ACTION_USER_PRESENT) { context, _ ->
@@ -31,27 +36,39 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
                     YLog.debug("AutoStartService throw", it)
                 }
             }
-
-            onCreate {
-                val intentFilter = IntentFilter("LuckyTool_CloseCollapse")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    registerReceiver(object : BroadcastReceiver() {
-                        @SuppressLint("WrongConstant")
-                        override fun onReceive(context: Context?, intent: Intent?) {
-                            val service = context?.getSystemService(Context.STATUS_BAR_SERVICE)
-                                ?: return
-                            service.javaClass.method { name = "collapsePanels" }.get(service).call()
-                        }
-                    }, intentFilter, Context.RECEIVER_EXPORTED)
+            //监听模块磁贴关闭控制中心
+            registerReceiver("LuckyTool_CloseCollapse") { context, _ ->
+                val service = context.getSystemService(StatusBarManager::class.java)
+                service.current().method { name = "collapsePanels" }.call()
+            }
+            //监听NFC启用状态
+            registerReceiver(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED) { context, intent ->
+                if (!nfcEnable) return@registerReceiver
+                val delay = convertToMillis(nfcDelay)
+                if (delay < 0) {
+                    nfcEnable = false
+                    YLog.debug("NFC Delay Error -> $nfcDelay | $delay")
+                    return@registerReceiver
+                }
+                val nfcAdapter = NfcAdapter.getDefaultAdapter(context)
+                val intExtra = intent.getIntExtra("android.nfc.extra.ADAPTER_STATE", 1)
+                val handler = Handler(context.mainLooper)
+                val runnable = Runnable {
+                    nfcAdapter.current().method { name = "disable" }.call()
+                }
+                if (nfcAdapter.isEnabled) {
+                    try {
+                        if (handler.hasCallbacks(runnable)) return@registerReceiver
+                        handler.postDelayed(runnable, delay)
+                    } catch (t: Throwable) {
+                        YLog.debug("NFC [$intExtra] Handler Add Error", t)
+                    }
                 } else {
-                    registerReceiver(object : BroadcastReceiver() {
-                        @SuppressLint("WrongConstant", "InlinedApi")
-                        override fun onReceive(context: Context?, intent: Intent?) {
-                            val service = context?.getSystemService(Context.STATUS_BAR_SERVICE)
-                                ?: return
-                            service.javaClass.method { name = "collapsePanels" }.get(service).call()
-                        }
-                    }, intentFilter)
+                    try {
+                        if (handler.hasCallbacks(runnable)) handler.removeCallbacks(runnable)
+                    } catch (t: Throwable) {
+                        YLog.debug("NFC [$intExtra] Handler Remove Error", t)
+                    }
                 }
             }
         }

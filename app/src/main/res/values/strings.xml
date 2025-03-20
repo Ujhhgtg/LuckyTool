@@ -301,7 +301,8 @@
     
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">StatusBar Tiles</string>
-    
+    <string name="enable_nfc_delay_shutdown">Enable NFC delay shutdown</string>
+    <string name="custom_nfc_delay_shutdown_time">Custom NFC shutdown delay</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Force display of ringing status toggle tiles</string>
     
     <string name="SpecialTiles">Special Tiles</string>
