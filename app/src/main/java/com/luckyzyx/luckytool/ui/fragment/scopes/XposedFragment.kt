@@ -35,6 +35,7 @@ import com.luckyzyx.luckytool.databinding.DialogLoadingLayoutBinding
 import com.luckyzyx.luckytool.databinding.DialogScopeVersionInfoBinding
 import com.luckyzyx.luckytool.databinding.DialogSearchResultLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutSearchResultItemBinding
+import com.luckyzyx.luckytool.listener.OnSelectSearchResultListener
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBattery
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBeaconLink
@@ -96,7 +97,6 @@ import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showBottomSheet
 import com.luckyzyx.luckytool.utils.showToast
-import com.luckyzyx.selector.listener.OnSelectSearchResultListener
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import kotlinx.coroutines.Dispatchers

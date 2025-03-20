@@ -1,8 +1,8 @@
-package com.luckyzyx.selector.listener
+package com.luckyzyx.luckytool.listener
 
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.FragmentItem
 import com.luckyzyx.luckytool.data.PrefsItem
-import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 interface OnSelectSearchResultListener {

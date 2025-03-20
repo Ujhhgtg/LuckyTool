@@ -1,7 +1,7 @@
-package com.luckyzyx.selector.listener
+package com.luckyzyx.luckytool.listener
 
-import com.luckyzyx.luckytool.data.AppInfo
 import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.data.AppInfo
 
 @Obfuscate
 interface OnSelectAppInfoListener {

@@ -8,7 +8,11 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
+import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
+import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
@@ -28,10 +32,6 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import com.luckyzyx.selector.data.AppInfo
-import com.luckyzyx.selector.listener.OnSelectAppInfoListener
-import com.luckyzyx.selector.selects.AppInfoSelector
-import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusGesture : BaseScopePreferenceFeagment() {
