@@ -458,7 +458,7 @@
     <string name="launcher_layout_enable">Включить/отключить сетку иконок на рабочем столе</string>
     <string name="launcher_layout_max_rows">Количество строк для сетки рабочего стола</string>
     <string name="launcher_layout_max_columns">Количество столбцов для сетки рабочего стола</string>
-    <string name="launcher_layout_max_columns_summary">Using the icon sinking function when the number of columns is greater than or equal to 6 may cause desktop crash</string>
+    <string name="launcher_layout_max_columns_summary">Использование функции опускания иконки, когда количество столбцов больше или равно 6, может привести к сбою рабочего стола.</string>
     <string name="launcher_events">События лаунчера</string>
     <!--Application-->
     <string name="Application">Приложения</string>
