@@ -198,6 +198,7 @@
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
     <string name="disable_high_volume_warning_notifications">Disattiva le notifiche di avviso ad alto volume</string>
     <string name="remove_notification_pin_number_limit">Rimuovi il limite al numero di notifiche appuntate</string>
+    <string name="enable_keep_notification_when_app_stop">Enable keep notifications when the application stops</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>

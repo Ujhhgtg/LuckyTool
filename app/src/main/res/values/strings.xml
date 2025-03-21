@@ -217,6 +217,7 @@
     <string name="remove_notification_manager_limit">Remove notification manager limit</string>
     <string name="disable_high_volume_warning_notifications">Disable high volume warning notifications</string>
     <string name="remove_notification_pin_number_limit">Remove the limit on the number of pinned notifications</string>
+    <string name="enable_keep_notification_when_app_stop">Enable keep notifications when the application stops</string>
     <string name="remove_small_window_reply_whitelist">Remove small window reply whitelist</string>
     <string name="set_small_window_reply_blacklist">Set small window reply blacklist</string>
     <string name="set_small_window_reply_blacklist_message">Fill in the package name that needs to be added to the blacklist</string>

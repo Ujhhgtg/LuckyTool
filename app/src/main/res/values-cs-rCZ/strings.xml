@@ -198,6 +198,7 @@
     <string name="remove_notification_manager_limit">Odstranit limit správce oznámení</string>
     <string name="disable_high_volume_warning_notifications">Zakázat upozornění na vysokou hlasitost</string>
     <string name="remove_notification_pin_number_limit">Odstranit limit počtu připnutých oznámení</string>
+    <string name="enable_keep_notification_when_app_stop">Enable keep notifications when the application stops</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>

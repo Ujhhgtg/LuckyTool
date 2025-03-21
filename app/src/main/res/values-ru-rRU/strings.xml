@@ -94,7 +94,7 @@
     <string name="re_optimize_dex_failed">Оптимизация не удалась</string>
     <string name="re_optimize_dex_optimizing">Оптимизация</string>
     <string name="re_optimize_dex_faile_message">Следующая оптимизация приложения не удалась\n%1$s\nНужно ли провести повторную оптимизацию?</string>
-    <string name="optimize_dex_after_system_update">Dex must be optimized after system update</string>
+    <string name="optimize_dex_after_system_update">Dex необходимо оптимизировать после обновления системы</string>
     <string name="optimize_only_this_page_scope">Оптимизировать только область этой страницы</string>
     <string name="restart_only_this_page_scope">Перезагрузить только эту область</string>
     <string name="reboot">Перезагрузить</string>
@@ -198,6 +198,7 @@
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
     <string name="disable_high_volume_warning_notifications">Отключить уведомления о высокой громкости</string>
     <string name="remove_notification_pin_number_limit">Удалить ограничение на количество закрепленных уведомлений</string>
+    <string name="enable_keep_notification_when_app_stop">Enable keep notifications when the application stops</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
@@ -268,8 +269,8 @@
     <string name="custom_control_center_background_transparency">Прозрачность фона шторки</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Плитки быстрых настроек</string>
-    <string name="enable_nfc_delay_shutdown">Enable NFC delay shutdown</string>
-    <string name="custom_nfc_delay_shutdown_time">Custom NFC shutdown delay</string>
+    <string name="enable_nfc_delay_shutdown">Включить задержку выключения NFC</string>
+    <string name="custom_nfc_delay_shutdown_time">Настроить задержку выключения NFC</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Принудительное отображение плитки переключения статуса звонка</string>
     <string name="SpecialTiles">Специальные плитки</string>
     <string name="classic_control_center_mode_only">Только классический режим \"Центра управления\"</string>

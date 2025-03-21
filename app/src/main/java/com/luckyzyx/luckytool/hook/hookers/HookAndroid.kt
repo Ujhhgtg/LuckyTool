@@ -8,6 +8,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.AllowUntrustedTouch
 import com.luckyzyx.luckytool.hook.scopes.android.AppSplashScreen
 import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
+import com.luckyzyx.luckytool.hook.scopes.android.EnableKeepNotificationWhenAppStop
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.ForceEnable32BitSupport
@@ -127,6 +128,7 @@ object HookAndroid : YukiBaseHooker() {
 
         loadHooker(HookGMSRestrict)
 
+        loadHooker(EnableKeepNotificationWhenAppStop)
         //三段式按键
 //        loadHooker(HookAlertSlider)
 

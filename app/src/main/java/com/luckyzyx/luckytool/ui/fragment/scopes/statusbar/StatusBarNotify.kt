@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.ArraySet
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
@@ -18,6 +17,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarNotify : BaseScopePreferenceFeagment() {
@@ -118,6 +118,17 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isVisible = osCode >= 33
                 isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_keep_notification_when_app_stop)
+                summary = getString(R.string.need_restart_system)
+                key = "enable_keep_notification_when_app_stop"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("android", key, newValue)
+                    true
+                }
             })
         }
     }
