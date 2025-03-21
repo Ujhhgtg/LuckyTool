@@ -14,12 +14,12 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
+import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -43,6 +43,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.showToast
 import org.json.JSONArray
 import org.json.JSONObject
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
@@ -68,7 +69,9 @@ class SettingsFragment : ModulePreferenceFragment() {
         val json = JSONObject().apply {
             put("osCode", getOSVersionCode)
         }
-        val dataMapList = context.backupAllPrefs(ModulePrefs, SettingsPrefs, OtherPrefs)
+        val dataMapList = context.backupAllPrefs(
+            ModulePrefs, IntentPrefs, SettingsPrefs, OtherPrefs
+        )
         dataMapList?.keys?.forEach { prefs ->
             val jsons = JSONObject()
             val data = dataMapList[prefs]
@@ -287,7 +290,9 @@ class SettingsFragment : ModulePreferenceFragment() {
                     MaterialAlertDialogBuilder(context).apply {
                         setMessage(getString(R.string.clear_all_data_message))
                         setPositiveButton(android.R.string.ok) { _, _ ->
-                            context.clearAllPrefs(ModulePrefs, SettingsPrefs, OtherPrefs)
+                            context.clearAllPrefs(
+                                ModulePrefs, IntentPrefs, SettingsPrefs, OtherPrefs
+                            )
                             exitProcess(0)
                         }
                         setNeutralButton(android.R.string.cancel, null)

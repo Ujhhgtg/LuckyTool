@@ -10,6 +10,7 @@ import android.util.ArrayMap
 import androidx.collection.ArraySet
 
 const val ModulePrefs: String = "ModulePrefs"
+const val IntentPrefs: String = "IntentPrefs"
 const val SettingsPrefs: String = "SettingsPrefs"
 const val OtherPrefs: String = "OtherPrefs"
 

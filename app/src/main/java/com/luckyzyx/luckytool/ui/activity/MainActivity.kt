@@ -30,6 +30,7 @@ import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
 import com.luckyzyx.luckytool.utils.CommandUtils
+import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -108,6 +109,7 @@ open class MainActivity : AppCompatActivity() {
         putBoolean(SettingsPrefs, "is_su", isSu)
         putBoolean(SettingsPrefs, "settings_prefs", isSu)
         putBoolean(ModulePrefs, "module_prefs", isSu)
+        putBoolean(IntentPrefs, "intent_prefs", isSu)
         putBoolean(OtherPrefs, "other_prefs", isSu)
         if (!isSu) {
             MaterialAlertDialogBuilder(this, dialogCentered).apply {
