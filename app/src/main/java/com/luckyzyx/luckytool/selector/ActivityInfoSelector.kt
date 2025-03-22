@@ -98,7 +98,7 @@ class ActivityInfoSelector(
             binding.searchView.text = null
 
             withDefault {
-                allActivityInfos = ArrayList(activitys?.toList() ?: arrayListOf())
+                allActivityInfos.addAll(activitys?.toList() ?: arrayListOf())
                 allActivityInfos.forEach {
                     if (enabledList.contains(it.packageName)) allEnabledInfos.add(it)
                 }

@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.data
 
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.json.JSONObject
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.Serializable
 
 @Obfuscate
@@ -12,17 +12,15 @@ data class DarkModeInfo(
 ) : Serializable {
     constructor() : this("")
 
-    fun toDarkModeInfo(jsonString: String?): DarkModeInfo? {
-        val jsonObject = safeOfNull { jsonString?.let { JSONObject(it) } }
-        return jsonObject?.let { toDarkModeInfo(it) }
+    fun toDarkModeInfo(jsonString: String): DarkModeInfo? {
+        return safeOfNull { JSONObject(jsonString) }?.let { toDarkModeInfo(it) }
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun toDarkModeInfo(jsonObject: JSONObject?): DarkModeInfo? {
-        if (jsonObject == null) return null
-        val packName: String = jsonObject.optString("packName")
-        val curType: Int = jsonObject.optInt("curType")
-        return DarkModeInfo(packName, curType)
+    fun toDarkModeInfo(jsonObject: JSONObject): DarkModeInfo {
+        packName = jsonObject.optString("packName")
+        curType = jsonObject.optInt("curType")
+        return this
     }
 
     fun toJSONObject(): JSONObject {

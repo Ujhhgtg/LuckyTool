@@ -1,30 +1,28 @@
 package com.luckyzyx.luckytool.data
 
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.json.JSONObject
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.Serializable
 
 @Obfuscate
 data class MemcConfigActivity(
-    val packName: String,
-    val activity: String,
-    val type: String
+    var packName: String,
+    var activity: String,
+    var type: String
 ) : Serializable {
     constructor() : this("", "", "")
 
-    fun toMemcConfigActivity(jsonString: String?): MemcConfigActivity? {
-        val jsonObject = safeOfNull { jsonString?.let { JSONObject(it) } }
-        return jsonObject?.let { toMemcConfigActivity(it) }
+    fun toMemcConfigActivity(jsonString: String): MemcConfigActivity? {
+        return safeOfNull { JSONObject(jsonString) }?.let { toMemcConfigActivity(it) }
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun toMemcConfigActivity(jsonObject: JSONObject?): MemcConfigActivity? {
-        if (jsonObject == null) return null
-        val packName: String = jsonObject.optString("packName")
-        val activity: String = jsonObject.optString("activity")
-        val type: String = jsonObject.optString("type")
-        return MemcConfigActivity(packName, activity, type)
+    fun toMemcConfigActivity(jsonObject: JSONObject): MemcConfigActivity {
+        packName = jsonObject.optString("packName")
+        activity = jsonObject.optString("activity")
+        type = jsonObject.optString("type")
+        return this
     }
 
     fun toJSONObject(): JSONObject {

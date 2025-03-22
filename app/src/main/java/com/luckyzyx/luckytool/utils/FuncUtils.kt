@@ -90,7 +90,7 @@ import kotlin.system.exitProcess
  */
 fun YukiHookPrefsBridge.getAppVerInfo(packName: String): AppVerInfo? {
     return getStringSet(packName, ArraySet()).let {
-        if (it.isEmpty()) null else AppVerInfo().toAppVerInfo(it.firstOrNull())
+        if (it.isEmpty()) null else AppVerInfo().toAppVerInfo(it.firstOrNull() ?: return null)
     }
 }
 
