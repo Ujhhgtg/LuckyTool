@@ -12,7 +12,7 @@ data class AppIntentInfo(
     var action: String,
     var type: String,
     var resolveInfo: ResolveInfo,
-    var activity: String? = ""
+    var activity: String = ""
 ) : Serializable {
 
     constructor() : this("", "", "", "", ResolveInfo())
@@ -33,7 +33,7 @@ data class AppIntentInfo(
             put("packName", packName)
             put("action", action)
             put("type", type)
-            put("activity", resolveInfo.activityInfo.name)
+            put("activity", resolveInfo.activityInfo?.name ?: activity)
         }
     }
 }
