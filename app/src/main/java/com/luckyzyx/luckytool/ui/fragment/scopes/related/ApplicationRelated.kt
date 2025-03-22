@@ -97,8 +97,8 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(Preference(this@loadPreferences).apply {
-                title = "隐藏App意图列表"
-                key = "hide_app_intent_list"
+                title = getString(R.string.custom_config_app_intent_list)
+                key = "custom_config_app_intent_list"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     findNavController().navigatePage(R.id.hideAppIntentFragment, title)

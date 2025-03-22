@@ -986,6 +986,19 @@
     <string name="appinfo_last_updated_time">最近更新时间</string>
     <string name="appinfo_target_sdk">Target 版本</string>
     <string name="appinfo_system_app">系统应用</string>
+    <!--Intent-->
+    <string name="custom_config_app_intent_list">自定义配置App意图列表</string>
+    <string name="enable_share_intent_switch">隐藏App分享意图</string>
+    <string name="enable_text_intent_switch">隐藏长按文本意图</string>
+    <string name="enable_open_intent_switch">隐藏打开方式意图</string>
+    <string name="enable_browser_intent_switch">隐藏浏览器意图</string>
+    <!--Intent Type-->
+    <string name="intent_single_share">分享单个</string>
+    <string name="intent_multi_share">分享多个</string>
+    <string name="intent_long_press_text">长按文本</string>
+    <string name="intent_open_content">打开内容</string>
+    <string name="intent_http_link">Http 链接</string>
+    <string name="intent_https_link">Https 链接</string>
     <!--CommonWords-->
     <string name="common_words_enable">启用</string>
     <string name="common_words_disable">禁用</string>

@@ -82,7 +82,7 @@
     <string name="no_root_summary">Il permesso di root non è stato rilevato, alcune funzioni non saranno disponibili!</string>
     <!-- Menu -->
     <string name="menu_reboot">Menù riavvio</string>
-    <string name="menu_search">Search menu</string>
+    <string name="menu_search">Menu ricerca</string>
     <string name="menu_settings">Imposta menu</string>
     <string name="restart_scope">Riavvia i processi</string>
     <string name="re_optimize_dex">Ri-ottimizzare Dex</string>
@@ -94,7 +94,7 @@
     <string name="re_optimize_dex_failed">Ottimizzazione fallita</string>
     <string name="re_optimize_dex_optimizing">Ottimizzazione</string>
     <string name="re_optimize_dex_faile_message">La seguente ottimizzazione dell\'applicazione non è riuscita\n%1$s\nVuoi riottimizzare?</string>
-    <string name="optimize_dex_after_system_update">Dex must be optimized after system update</string>
+    <string name="optimize_dex_after_system_update">Dex deve essere ottimizzato dopo l\'aggiornamento del sistema</string>
     <string name="optimize_only_this_page_scope">Ottimizza solo lo scopo di questa pagina</string>
     <string name="restart_only_this_page_scope">Riavvia solo questa pagina</string>
     <string name="reboot">Riavvia il sistema</string>
@@ -108,7 +108,7 @@
     <string name="package_name">Nome Pacchetto</string>
     <string name="version">Versione</string>
     <!--Android-->
-    <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
+    <string name="remove_gms_usage_restrictions">Rimuovi le restrizioni all\'utilizzo di GMS</string>
     <string name="replace_system_root_state_detection">Sostituisci il rilevamento dello stato del root del sistema</string>
     <string name="allow_untrusted_touch">Consenti tocco non attendibile</string>
     <string name="allow_untrusted_touch_summary">Risolvi il problema che alcune finestre o pagine sono bloccate e non possono essere toccate</string>
@@ -198,7 +198,7 @@
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
     <string name="disable_high_volume_warning_notifications">Disattiva le notifiche di avviso ad alto volume</string>
     <string name="remove_notification_pin_number_limit">Rimuovi il limite al numero di notifiche appuntate</string>
-    <string name="enable_keep_notification_when_app_stop">Enable keep notifications when the application stops</string>
+    <string name="enable_keep_notification_when_app_stop">Abilita le notifiche di mantenimento quando l\'applicazione si arresta</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
@@ -269,8 +269,8 @@
     <string name="custom_control_center_background_transparency">Trasparenza sfondo centro controllo personalizzato</string>
     <!--StatusBar Tiles-->
     <string name="StatusBarTiles">Tile Barra di Stato</string>
-    <string name="enable_nfc_delay_shutdown">Enable NFC delay shutdown</string>
-    <string name="custom_nfc_delay_shutdown_time">Custom NFC shutdown delay</string>
+    <string name="enable_nfc_delay_shutdown">Abilita spegnimento ritardato NFC</string>
+    <string name="custom_nfc_delay_shutdown_time">Ritardo di spegnimento NFC personalizzato</string>
     <string name="force_display_of_ringing_status_toggle_tiles">Forza la visualizzazione dei tile di attivazione/disattivazione dello stato della chiamata</string>
     <string name="SpecialTiles">Tile speciali</string>
     <string name="classic_control_center_mode_only">Solo Modalità Centro Controllo Classico</string>
@@ -412,8 +412,8 @@
     <string name="remove_alarmclock_widget_redone_pro_summary">Disponibile solo quando la versione regolare non ha effetto, altrimenti causerà un errore inevitabile</string>
     <!--Launcher-->
     <string name="Desktop">Launcher/Desktop</string>
-    <string name="WidgetRelated">Widget Related</string>
-    <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
+    <string name="WidgetRelated">Widget correlati</string>
+    <string name="remove_widgets_add_request_whitelist">Rimuovi i widget per aggiungere la richiesta alla whitelist</string>
     <string name="AppBadgeRelated">Badge delle App</string>
     <string name="allow_app_names_display_multiple_lines">Consenti la visualizzazione dei nomi delle app desktop su più righe</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
@@ -462,7 +462,7 @@
     <string name="launcher_layout_enable">Layout generale delle icone del desktop</string>
     <string name="launcher_layout_max_rows">Numero massimo di righe nel layout del desktop</string>
     <string name="launcher_layout_max_columns">Numero massimo di colonne nel layout del desktop</string>
-    <string name="launcher_layout_max_columns_summary">Using the icon sinking function when the number of columns is greater than or equal to 6 may cause desktop crash</string>
+    <string name="launcher_layout_max_columns_summary">L\'utilizzo della funzione di affondamento delle icone quando il numero di colonne è maggiore o uguale a 6 può causare l\'arresto anomalo del desktop</string>
     <string name="launcher_events">Eventi Launcher</string>
     <!--Application-->
     <string name="Application">Applicazione</string>
@@ -521,11 +521,11 @@
     <string name="show_sdk_in_app_details">Mostra sdk nei dettagli dell\'app</string>
     <string name="show_first_install_time_in_app_details">Mostra l\'ora della prima installazione nei dettagli dell\'app</string>
     <string name="show_last_update_time_in_app_details">Mostra i dettagli dell\'ultimo aggiornamento nell\'app</string>
-    <string name="show_install_source_in_app_details">Show installation source in app details</string>
-    <string name="install_source">Install Source</string>
+    <string name="show_install_source_in_app_details">Mostra la fonte di installazione nei dettagli dell\'app</string>
+    <string name="install_source">Installa Sorgente</string>
     <string name="enable_long_press_to_copy_in_app_details">Abilita pressione prolungata per copiare nei dettagli dell\'app</string>
-    <string name="enable_quick_open_market_page">Enable quick jump on open market</string>
-    <string name="open_market">Open Market</string>
+    <string name="enable_quick_open_market_page">Abilita il salto rapido sul mercato aperto</string>
+    <string name="open_market">Mercato aperto</string>
     <string name="enable_app_clone_quick_jump">Abilita salto rapido clone applicazione</string>
     <string name="allow_disabling_system_apps">Consenti la disabilitazione delle app di sistema</string>
     <string name="allow_disabling_system_apps_summary">Questo modulo non è responsabile se l\'applicazione di sistema non può essere ripristinata a causa delle operazioni dell\'utente.</string>
@@ -649,9 +649,9 @@
     <string name="settings_about_device">Informazioni sul dispositivo</string>
     <string name="remove_device_name_change_limit">Rimuovi le restrizioni sulla modifica del nome del dispositivo</string>
     <string name="set_processor_click_page">Imposta il processore per saltare la pagina con un click</string>
-    <string name="custom_processor_image_path_switch">Custom processor image path</string>
-    <string name="custom_processor_introduction_text">Custom processor introduction text</string>
-    <string name="custom_processor_introduction_text_summary">Long press the text to delete the text cache</string>
+    <string name="custom_processor_image_path_switch">Percorso personalizzato dell\'immagine del processore</string>
+    <string name="custom_processor_introduction_text">Testo introduttivo del processore personalizzato</string>
+    <string name="custom_processor_introduction_text_summary">Premi a lungo il testo per eliminare la cache del testo</string>
     <string name="enable_mariana_npu_introduction_page">Abilita la pagina di presentazione di Mariana NPU</string>
     <string name="enable_hasselblad_camera_introduction_page">Abilita la pagina di presentazione della fotocamera Hasselblad</string>
     <string name="enable_game_architecture_display">Abilita la visualizzazione dell\'architettura del gioco</string>
@@ -670,7 +670,7 @@
     <string name="remove_settings_bottom_laboratory">Rimuovi le impostazioni laboratorio in basso</string>
     <string name="force_display_bottom_google_settings">Forza la visualizzazione di Google nella parte inferiore delle impostazioni</string>
     <!--WirelessSettings-->
-    <string name="enable_wifi_details_display_gateway">Enable wifi details display gateway</string>
+    <string name="enable_wifi_details_display_gateway">Abilita la visualizzazione dei dettagli Wi-Fi del gateway</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Abilita opzione DebugUI</string>
     <string name="custom_camera_open_gallery_by_default">Personalizza la galleria che si apre per impostazione predefinita</string>
@@ -818,7 +818,7 @@
     <string name="remove_browser_window_limit_number">Rimuovi limite al numero di finestre del browser</string>
     <string name="remove_browser_search_bar_app_promotion">Rimuovi barra di ricerca del browser Promozione app</string>
     <!--OplusBreeno-->
-    <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
+    <string name="force_enable_ai_speechassist_call">Forza l\'attivazione della chiamata AI SpeechAssis</string>
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
@@ -919,8 +919,8 @@
     <!-- Other -->
     <string name="quick_entry">Inserimento Rapido di Sistema</string>
     <string name="quick_entry_summary">es. Strumenti di riconciliazione dell\'interfaccia utente di sistema, gestione dei processi, modalità ingegneristica, ecc.</string>
-    <string name="tile_list">Module built-in tile list</string>
-    <string name="tile_list_summary">Quickly add tile to the control center</string>
+    <string name="tile_list">Elenco tile incorporato nel modulo</string>
+    <string name="tile_list_summary">Aggiungi rapidamente il riquadro al centro di controllo</string>
     <string name="SystemDebuggingRelated">Debug di Sistema</string>
     <string name="engineering_mode">Modalità Ingegnere</string>
     <string name="charging_test">Test di Ricarica</string>
@@ -986,6 +986,19 @@
     <string name="appinfo_last_updated_time">Ora ultimo aggiornamento</string>
     <string name="appinfo_target_sdk">Destinazione SDK</string>
     <string name="appinfo_system_app">App di sistema</string>
+    <!--Intent-->
+    <string name="custom_config_app_intent_list">Custom configuration app intent list</string>
+    <string name="enable_share_intent_switch">Hide app sharing intent</string>
+    <string name="enable_text_intent_switch">Hide long press text intent</string>
+    <string name="enable_open_intent_switch">Hide opening mode intent</string>
+    <string name="enable_browser_intent_switch">Hide browser intent</string>
+    <!--Intent Type-->
+    <string name="intent_single_share">Share Single</string>
+    <string name="intent_multi_share">Share Multiple</string>
+    <string name="intent_long_press_text">Long Press Text</string>
+    <string name="intent_open_content">Open Content</string>
+    <string name="intent_http_link">Http Link</string>
+    <string name="intent_https_link">Https Link</string>
     <!--CommonWords-->
     <string name="common_words_enable">Abilita</string>
     <string name="common_words_disable">Disabilita</string>
@@ -1022,10 +1035,10 @@
     <string name="common_words_bold">Grassetto</string>
     <string name="common_words_expand">Espandi</string>
     <string name="common_words_replace">Sostituisci</string>
-    <string name="common_recommended_size">Recommended size</string>
-    <string name="common_add_success">Add successfully</string>
-    <string name="common_add_fail">Add failed</string>
-    <string name="common_add_repeat">Repeated addition</string>
+    <string name="common_recommended_size">Dimensioni consigliate</string>
+    <string name="common_add_success">Aggiunto con successo</string>
+    <string name="common_add_fail">Aggiunta non riuscita</string>
+    <string name="common_add_repeat">Aggiunta ripetuta</string>
     <!--Permission-->
     <string name="send_notification_permission">Autorizzazione invio notifica</string>
     <string name="all_files_access_permission">Autorizzazione di accesso ai file</string>

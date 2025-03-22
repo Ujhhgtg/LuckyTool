@@ -23,6 +23,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 检测系统更新后提示优化Dex
 - [添加] 启用NFC延时关闭
 - [添加] 启用应用停止时保留通知 C12+
+- [添加] 自定义配置App意图列表 C14+
 
 ### 1.2.8
 

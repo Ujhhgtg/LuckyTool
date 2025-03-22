@@ -986,6 +986,19 @@
     <string name="appinfo_last_updated_time">Last Updated Time</string>
     <string name="appinfo_target_sdk">Target SDK</string>
     <string name="appinfo_system_app">System App</string>
+    <!--Intent-->
+    <string name="custom_config_app_intent_list">Custom configuration app intent list</string>
+    <string name="enable_share_intent_switch">Hide app sharing intent</string>
+    <string name="enable_text_intent_switch">Hide long press text intent</string>
+    <string name="enable_open_intent_switch">Hide opening mode intent</string>
+    <string name="enable_browser_intent_switch">Hide browser intent</string>
+    <!--Intent Type-->
+    <string name="intent_single_share">Share Single</string>
+    <string name="intent_multi_share">Share Multiple</string>
+    <string name="intent_long_press_text">Long Press Text</string>
+    <string name="intent_open_content">Open Content</string>
+    <string name="intent_http_link">Http Link</string>
+    <string name="intent_https_link">Https Link</string>
     <!--CommonWords-->
     <string name="common_words_enable">Enable</string>
     <string name="common_words_disable">Disable</string>
