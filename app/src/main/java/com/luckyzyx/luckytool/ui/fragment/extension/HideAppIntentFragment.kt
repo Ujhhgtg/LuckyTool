@@ -45,7 +45,9 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.removeKey
 import com.luckyzyx.luckytool.utils.safeOf
+import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.toStringList
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -280,7 +282,10 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 existIntentApps.forEachIndexed { _, packName ->
                     val info = PackageUtils(packageManager).getInstalledAppInfo(packName, 0)
                         ?: return@forEachIndexed
-                    if (info.isSystem) return@forEachIndexed
+                    if (info.isSystem) {
+                        allIntentInfos.removeIf { it.packName == packName }
+                        return@forEachIndexed
+                    }
 
                     if (enabledShareApps.contains(packName)
                         || enabledTextApps.contains(packName)
@@ -343,7 +348,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
     }
 
     fun showUpdateAppIntent(
-        packName: String, type: String,
+        packName: String, type: Int, listKey: String,
         allInfos: List<AppIntentInfo>, enabled: List<AppIntentInfo>, position: Int
     ) {
         IntentInfoSelector(requireActivity(), true, ArrayList(allInfos)).apply {
@@ -351,6 +356,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             setSelectAllMode(true)
             setOnSelectIntentInfoListener(object : OnSelectIntentInfoListener {
                 override fun resultSelectIntentInfos(list: ArrayList<AppIntentInfo>) {
+                    saveIntentList(packName, listKey, list)
                     saveAppIntentList(packName, type, list)
                     loadData(position)
                 }
@@ -359,15 +365,8 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun selectAllInfos(type: Int) {
-        val listKey = when (type) {
-            0 -> shareListKey
-            1 -> textListKey
-            2 -> openListKey
-            3 -> browserListKey
-            else -> return
-        }
-        val filte: (AppIntentInfo) -> Boolean = {
+    private fun getFilterType(type: Int): (AppIntentInfo) -> Boolean {
+        val filter: (AppIntentInfo) -> Boolean = {
             when (type) {
                 0 -> {
                     it.action == Intent.ACTION_SEND || it.action == Intent.ACTION_SEND_MULTIPLE
@@ -388,15 +387,35 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 else -> false
             }
         }
+        return filter
+    }
+
+    private fun selectAllInfos(type: Int) {
+        val listKey = when (type) {
+            0 -> shareListKey
+            1 -> textListKey
+            2 -> openListKey
+            3 -> browserListKey
+            else -> return
+        }
+        val filte = getFilterType(type)
         val allIntents = allIntentInfos.filter(filte)
+        val enabledIntents = allEnabledInfos.filter(filte)
+        val isAll = allIntents.size == enabledIntents.size
         allIntents.map { it.packName }.forEachIndexed { _, packName ->
-            val intents = allIntents.filter { it.packName == packName }
-            saveAppIntentList(packName, listKey, ArrayList(intents))
+            if (isAll) {
+                saveIntentList(packName, listKey, arrayListOf())
+                saveAppIntentList(packName, type, arrayListOf())
+            } else {
+                val intents = allIntents.filter { it.packName == packName }
+                saveIntentList(packName, listKey, ArrayList(intents))
+                saveAppIntentList(packName, type, ArrayList(intents))
+            }
         }
         loadData()
     }
 
-    fun saveAppIntentList(packName: String, listKey: String, list: ArrayList<AppIntentInfo>) {
+    fun saveIntentList(packName: String, listKey: String, list: ArrayList<AppIntentInfo>) {
         val context = requireContext()
         if (listKey.isNotBlank()) {
             val enabledShareApps = context.getStringSet(IntentPrefs, listKey, ArraySet())
@@ -405,11 +424,27 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
             context.putStringSet(IntentPrefs, listKey, newList.toSet())
         }
-        val jsonArray = JSONArray().apply {
-            list.forEach {
-                put(it.toJSONObject())
+    }
+
+    fun saveAppIntentList(packName: String, type: Int, list: ArrayList<AppIntentInfo>) {
+        val context = requireContext()
+        val filte = getFilterType(type)
+        val appIntents = ArrayList<AppIntentInfo>().apply {
+            context.getStringSet(IntentPrefs, packName, ArraySet()).forEachIndexed { _, js ->
+                val jsonObject = safeOfNull { JSONObject(js) } ?: return@forEachIndexed
+                val intent = AppIntentInfo().toAppIntentInfo(jsonObject)
+                add(intent)
             }
         }
+        appIntents.removeIf(filte)
+        if (list.isNotEmpty()) appIntents.addAll(list)
+        else if (appIntents.isEmpty()) {
+            context.removeKey(IntentPrefs, packName)
+            return
+        }
+
+        val arrays = appIntents.map { it.toJSONObject() }
+        val jsonArray = safeOf(JSONArray()) { JSONArray(arrays) }
         context.putStringSet(IntentPrefs, packName, jsonArray.toStringList().toSet())
     }
 
@@ -462,9 +497,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             holder.packName.text = packName
 
             holder.shareBtn.apply {
-                val curFilter: (AppIntentInfo) -> Boolean = {
-                    it.action == Intent.ACTION_SEND || it.action == Intent.ACTION_SEND_MULTIPLE
-                }
+                val curFilter = getFilterType(0)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -476,14 +509,15 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, shareListKey, allIntent, enabled, position)
+                        showUpdateAppIntent(
+                            packName, 0, shareListKey,
+                            allIntent, enabled, position
+                        )
                     }
                 }
             }
             holder.textBtn.apply {
-                val curFilter: (AppIntentInfo) -> Boolean = {
-                    it.action == Intent.ACTION_PROCESS_TEXT
-                }
+                val curFilter = getFilterType(1)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -495,14 +529,15 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, textListKey, allIntent, enabled, position)
+                        showUpdateAppIntent(
+                            packName, 1, textListKey,
+                            allIntent, enabled, position
+                        )
                     }
                 }
             }
             holder.openBtn.apply {
-                val curFilter: (AppIntentInfo) -> Boolean = {
-                    it.action == Intent.ACTION_VIEW && it.type == "content_view"
-                }
+                val curFilter = getFilterType(2)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -514,14 +549,15 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, openListKey, allIntent, enabled, position)
+                        showUpdateAppIntent(
+                            packName, 2, openListKey,
+                            allIntent, enabled, position
+                        )
                     }
                 }
             }
             holder.browserBtn.apply {
-                val curFilter: (AppIntentInfo) -> Boolean = {
-                    it.action == Intent.ACTION_VIEW && (it.type == "http_link" || it.type == "https_link")
-                }
+                val curFilter = getFilterType(3)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -533,7 +569,10 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, browserListKey, allIntent, enabled, position)
+                        showUpdateAppIntent(
+                            packName, 3, browserListKey,
+                            allIntent, enabled, position
+                        )
                     }
                 }
             }

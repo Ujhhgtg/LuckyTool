@@ -117,7 +117,18 @@ fun Context.getBoolean(prefsName: String, key: String, defaultValue: Boolean) =
     }
 
 /**
- * 删除配置键值数据
+ * 删除键值数据
+ * @receiver Context
+ * @param prefsName String
+ * @param key String
+ */
+fun Context.removeKey(prefsName: String, key: String): Boolean {
+    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+    return prefs.edit().remove(key).commit()
+}
+
+/**
+ * 删除此配置键值数据
  * @receiver Context
  * @param prefsName String?
  * @return Boolean
@@ -128,7 +139,7 @@ fun Context.clearPrefs(prefsName: String) = runInSafe {
 }
 
 /**
- * 删除配置键值数据
+ * 删除全部配置键值数据
  * @receiver Context
  * @param prefList Array<out String?>
  */
