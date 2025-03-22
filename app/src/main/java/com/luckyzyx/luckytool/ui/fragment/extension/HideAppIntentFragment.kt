@@ -65,7 +65,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
     private val scopes = arrayOf("com.android.intentresolver")
 
     private var allAppInfos = ArrayList<AppInfo>()
-    private var allResolveInfos = ArrayList<AppIntentInfo>()
+    private var allIntentInfos = ArrayList<AppIntentInfo>()
     private var allEnabledInfos = ArrayList<AppIntentInfo>()
 
     private var allSingleShareIntents = ArrayList<ResolveInfo>()
@@ -150,15 +150,15 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
         }
 
-        if (allAppInfos.isEmpty() || allResolveInfos.isEmpty()) loadData()
+        if (allAppInfos.isEmpty() || allIntentInfos.isEmpty()) loadData()
     }
 
-    private fun loadData() {
+    private fun loadData(position: Int = -1) {
         val context = requireContext()
 
         scopeLife {
             allAppInfos.clear()
-            allResolveInfos.clear()
+            allIntentInfos.clear()
             allEnabledInfos.clear()
 
             binding.swipeRefreshLayout.isRefreshing = true
@@ -176,7 +176,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                         PackageManager.MATCH_ALL
                     ).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
-                        allResolveInfos.add(
+                        allIntentInfos.add(
                             AppIntentInfo(
                                 it.loadLabel(packageManager),
                                 it.activityInfo.packageName, Intent.ACTION_SEND,
@@ -190,7 +190,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                         PackageManager.MATCH_ALL
                     ).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
-                        allResolveInfos.add(
+                        allIntentInfos.add(
                             AppIntentInfo(
                                 it.loadLabel(packageManager),
                                 it.activityInfo.packageName, Intent.ACTION_SEND_MULTIPLE,
@@ -204,7 +204,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                         PackageManager.MATCH_ALL
                     ).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
-                        allResolveInfos.add(
+                        allIntentInfos.add(
                             AppIntentInfo(
                                 it.loadLabel(packageManager),
                                 it.activityInfo.packageName, Intent.ACTION_PROCESS_TEXT,
@@ -220,7 +220,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                         PackageManager.MATCH_ALL
                     ).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
-                        allResolveInfos.add(
+                        allIntentInfos.add(
                             AppIntentInfo(
                                 it.loadLabel(packageManager),
                                 it.activityInfo.packageName, Intent.ACTION_VIEW,
@@ -234,7 +234,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                         PackageManager.MATCH_ALL
                     ).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
-                        allResolveInfos.add(
+                        allIntentInfos.add(
                             AppIntentInfo(
                                 it.loadLabel(packageManager),
                                 it.activityInfo.packageName, Intent.ACTION_VIEW,
@@ -248,7 +248,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                         PackageManager.MATCH_ALL
                     ).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
-                        allResolveInfos.add(
+                        allIntentInfos.add(
                             AppIntentInfo(
                                 it.loadLabel(packageManager),
                                 it.activityInfo.packageName, Intent.ACTION_VIEW,
@@ -282,7 +282,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                             val action = jsonObject.optString("action", "")
                             val type = jsonObject.optString("type", "")
                             val activity = jsonObject.optString("activity", "")
-                            val find = allResolveInfos.find {
+                            val find = allIntentInfos.find {
                                 it.action == action && it.type == type && it.packName == packName
                                         && it.resolveInfo.activityInfo.name == activity
                             }
@@ -324,24 +324,28 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
+
+            if (position > 0) binding.recyclerView.scrollToPosition(position)
         }
     }
 
     fun showUpdateAppIntent(
-        packName: String, type: String, allInfos: List<AppIntentInfo>, enabled: List<AppIntentInfo>
+        packName: String, type: String,
+        allInfos: List<AppIntentInfo>, enabled: List<AppIntentInfo>, position: Int
     ) {
         IntentInfoSelector(requireActivity(), true, ArrayList(allInfos)).apply {
             setEnabledList(ArrayList(enabled))
             setOnSelectIntentInfoListener(object : OnSelectIntentInfoListener {
                 override fun resultSelectIntentInfos(list: ArrayList<AppIntentInfo>) {
-                    updateAppIntentList(packName, type, list)
+                    saveAppIntentList(packName, type, list)
+                    loadData(position)
                 }
             })
             show()
         }
     }
 
-    fun updateAppIntentList(packName: String, type: String, list: ArrayList<AppIntentInfo>) {
+    fun saveAppIntentList(packName: String, type: String, list: ArrayList<AppIntentInfo>) {
         val context = requireContext()
         val listKey = when (type) {
             "shareList" -> shareListKey
@@ -363,7 +367,6 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
         }
         context.putStringSet(IntentPrefs, packName, jsonArray.toStringList().toSet())
-        loadData()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -407,7 +410,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             val appName = appInfo.name
             val packName = appInfo.packageName
 
-            val intentInfo = allResolveInfos.filter { it.packName == packName }
+            val intentInfo = allIntentInfos.filter { it.packName == packName }
             val enabledInfo = allEnabledInfos.filter { it.packName == packName }
 
             holder.appIcon.setImageDrawable(appIcon)
@@ -415,79 +418,79 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             holder.packName.text = packName
 
             holder.shareBtn.apply {
-                val allIntent = intentInfo.filter {
+                val curFilter: (AppIntentInfo) -> Boolean = {
                     it.action == Intent.ACTION_SEND || it.action == Intent.ACTION_SEND_MULTIPLE
                 }
-                val enabled = enabledInfo.filter {
-                    it.action == Intent.ACTION_SEND || it.action == Intent.ACTION_SEND_MULTIPLE
-                }
+                val allIntent = intentInfo.filter(curFilter)
+                val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
+
+                isCheckable = true
+                isChecked = enabled.isNotEmpty()
+                isCheckable = false
+
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "shareList", allIntent, enabled)
+                        showUpdateAppIntent(packName, "shareList", allIntent, enabled, position)
                     }
-                }
-                if (enabled.isNotEmpty()) {
-                    isCheckable = true
-                    isChecked = true
-                    isCheckable = false
                 }
             }
             holder.textBtn.apply {
-                val allIntent = intentInfo.filter { it.action == Intent.ACTION_PROCESS_TEXT }
-                val enabled = enabledInfo.filter { it.action == Intent.ACTION_PROCESS_TEXT }
+                val curFilter: (AppIntentInfo) -> Boolean = {
+                    it.action == Intent.ACTION_PROCESS_TEXT
+                }
+                val allIntent = intentInfo.filter(curFilter)
+                val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
+
+                isCheckable = true
+                isChecked = enabled.isNotEmpty()
+                isCheckable = false
+
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "textList", allIntent, enabled)
+                        showUpdateAppIntent(packName, "textList", allIntent, enabled, position)
                     }
-                }
-                if (enabled.isNotEmpty()) {
-                    isCheckable = true
-                    isChecked = true
-                    isCheckable = false
                 }
             }
             holder.openBtn.apply {
-                val allIntent = intentInfo.filter {
+                val curFilter: (AppIntentInfo) -> Boolean = {
                     it.action == Intent.ACTION_VIEW && it.type == "content_view"
                 }
-                val enabled = enabledInfo.filter {
-                    it.action == Intent.ACTION_VIEW && it.type == "content_view"
-                }
+                val allIntent = intentInfo.filter(curFilter)
+                val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
+
+                isCheckable = true
+                isChecked = enabled.isNotEmpty()
+                isCheckable = false
+
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "openList", allIntent, enabled)
+                        showUpdateAppIntent(packName, "openList", allIntent, enabled, position)
                     }
-                }
-                if (enabled.isNotEmpty()) {
-                    isCheckable = true
-                    isChecked = true
-                    isCheckable = false
                 }
             }
             holder.browserBtn.apply {
-                val allIntent = intentInfo.filter {
+                val curFilter: (AppIntentInfo) -> Boolean = {
                     it.action == Intent.ACTION_VIEW && (it.type == "http_link" || it.type == "https_link")
                 }
-                val enabled = enabledInfo.filter {
-                    it.action == Intent.ACTION_VIEW && (it.type == "http_link" || it.type == "https_link")
-                }
+                val allIntent = intentInfo.filter(curFilter)
+                val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
+
+                isCheckable = true
+                isChecked = enabled.isNotEmpty()
+                isCheckable = false
+
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "browserList", allIntent, enabled)
+                        showUpdateAppIntent(packName, "browserList", allIntent, enabled, position)
                     }
-                }
-                if (enabled.isNotEmpty()) {
-                    isCheckable = true
-                    isChecked = true
-                    isCheckable = false
                 }
             }
         }
