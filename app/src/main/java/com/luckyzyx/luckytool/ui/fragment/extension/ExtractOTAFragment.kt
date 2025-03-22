@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.CommandUtils
@@ -28,6 +27,7 @@ import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class ExtractOTAFragment : Fragment() {
@@ -45,8 +45,10 @@ class ExtractOTAFragment : Fragment() {
     fun init(context: Context) {
         scopeLife {
             binding.swipeRefreshLayout.apply {
-                setOnRefreshListener { init(context) }
                 isRefreshing = true
+                setOnRefreshListener {
+                    init(context)
+                }
             }
             binding.otaData.isVisible = false
             binding.noOtaData.isVisible = true

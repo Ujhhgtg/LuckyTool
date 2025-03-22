@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -30,7 +29,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.DarkModeInfo
@@ -48,6 +46,7 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class DarkModeFragment : Fragment(), MenuProvider {
@@ -56,6 +55,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
     private var darkModeAdapter: DarkModeAdapter? = null
 
     private var allAppInfos = ArrayList<AppInfo>()
+    private var allEnabledInfos = ArrayList<DarkModeInfo>()
 
     private val scopes = arrayOf("com.android.settings")
 
@@ -133,22 +133,23 @@ class DarkModeFragment : Fragment(), MenuProvider {
 
     private fun loadData() {
         scopeLife {
+            allAppInfos.clear()
+            allEnabledInfos.clear()
+
             binding.swipeRefreshLayout.isRefreshing = true
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
-            allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
                 .toMutableList()
 
-            val enabledDarkMode = ArrayList<DarkModeInfo>()
             withDefault {
                 val packageManager = requireActivity().packageManager
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
                 enableData.forEach { its ->
                     val darkModeInfo = DarkModeInfo().toDarkModeInfo(its) ?: return@forEach
                     val find = allAppInfos.find { it.packageName == darkModeInfo.packName }
-                    if (find != null) enabledDarkMode.add(darkModeInfo)
+                    if (find != null) allEnabledInfos.add(darkModeInfo)
                 }
                 allAppInfos.apply {
                     if (!showSystemApp) removeIf { it.isSystem }
@@ -162,7 +163,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
                     }
                     if (isReverse) reverse()
                 }
-                enabledDarkMode.apply {
+                allEnabledInfos.apply {
                     when (sortMode) {
                         1 -> sortBy { it.packName }
                     }
@@ -171,7 +172,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
             }
 
             binding.recyclerView.apply {
-                darkModeAdapter = DarkModeAdapter(context, allAppInfos, enabledDarkMode)
+                darkModeAdapter = DarkModeAdapter()
                 adapter = darkModeAdapter
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
@@ -206,38 +207,25 @@ class DarkModeFragment : Fragment(), MenuProvider {
     }
 
     @Obfuscate
-    class DarkModeAdapter(
-        val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<DarkModeInfo>
-    ) : RecyclerView.Adapter<DarkModeAdapter.ViewHolder>() {
-        private val supportListKey = "dark_mode_support_list"
+    inner class DarkModeAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-        private var allDatas = ArrayList<AppInfo>()
         private var filterDatas = ArrayList<AppInfo>()
-
-        private var enabledAppData = ArrayMap<String, DarkModeInfo>()
-
-        private var hasPermissions = true
+        private var enabledDatas = ArrayMap<String, DarkModeInfo>()
 
         init {
-            allDatas.clear()
             filterDatas.clear()
-            enabledAppData.clear()
+            enabledDatas.clear()
 
-            if (allAppInfos.size <= 1) hasPermissions = false
-
-            allDatas = allAppInfos
-            filterDatas = allDatas
+            filterDatas = allAppInfos
 
             val sortDatas = ArrayList<AppInfo>()
-            allEnableInfos.forEach { its ->
-                val find = allDatas.find { it.packageName == its.packName } ?: return@forEach
-                enabledAppData[its.packName] = its
+            allEnabledInfos.forEach { its ->
+                val find = allAppInfos.find { it.packageName == its.packName } ?: return@forEach
+                enabledDatas[its.packName] = its
                 sortDatas.add(find)
-                allDatas.remove(find)
+                filterDatas.remove(find)
             }
-            allDatas.addAll(0, sortDatas)
-
-            saveEnableList()
+            filterDatas.addAll(0, sortDatas)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -252,7 +240,7 @@ class DarkModeFragment : Fragment(), MenuProvider {
             val appIcon = appInfo.icon
             val appName = appInfo.name
             val packName = appInfo.packageName
-            val data = enabledAppData[packName]
+            val data = enabledDatas[packName]
 
             holder.appIcon.setImageDrawable(appIcon)
             holder.appName.text = appName
@@ -269,17 +257,17 @@ class DarkModeFragment : Fragment(), MenuProvider {
                 holder.switchview.performClick()
             }
             holder.switchview.setOnCheckedChangeListener { _, isChecked ->
-                enabledAppData.remove(packName)
+                enabledDatas.remove(packName)
                 holder.sliderLayout.isVisible = isChecked
                 if (isChecked) {
-                    enabledAppData[packName] = DarkModeInfo(packName)
+                    enabledDatas[packName] = DarkModeInfo(packName)
                     holder.sliderview.value = 0F
                 }
                 saveEnableList()
             }
             holder.sliderview.addOnChangeListener { _, value, fromUser ->
                 if (!fromUser) return@addOnChangeListener
-                enabledAppData[packName]?.curType = value.toInt()
+                enabledDatas[packName]?.curType = value.toInt()
                 saveEnableList()
             }
         }
@@ -289,10 +277,10 @@ class DarkModeFragment : Fragment(), MenuProvider {
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allDatas
+                filterDatas = if (constraint.isBlank()) allAppInfos
                 else {
                     val filterlist = ArrayList<AppInfo>()
-                    allDatas.forEach {
+                    allAppInfos.forEach {
                         if (it.name.lowercase().contains(filterStr)
                             || it.packageName.lowercase().contains(filterStr)
                         ) filterlist.add(it)
@@ -312,30 +300,30 @@ class DarkModeFragment : Fragment(), MenuProvider {
         }
 
         private fun saveEnableList() {
-            if (!hasPermissions) return
             val data = ArraySet<String>()
-            enabledAppData.forEach {
+            enabledDatas.forEach {
                 data.add(it.value.toJSONObject().toString())
             }
-            context.putStringSet(ModulePrefs, supportListKey, data.toSet())
-            context.dataChannel("android").put(supportListKey, data.toSet())
-            context.dataChannel("com.android.settings").put(supportListKey, data.toSet())
+            requireActivity().putStringSet(ModulePrefs, supportListKey, data.toSet())
+            requireActivity().dataChannel("android").put(supportListKey, data.toSet())
+            requireActivity().dataChannel("com.android.settings").put(supportListKey, data.toSet())
         }
 
         @SuppressLint("NotifyDataSetChanged")
         fun refreshDatas() {
             notifyDataSetChanged()
         }
+    }
 
-        class ViewHolder(binding: LayoutAppinfoSwitchItemDarkmodeBinding) :
-            RecyclerView.ViewHolder(binding.root) {
-            val appInfoView: ConstraintLayout = binding.appinfoView
-            val appIcon: ImageView = binding.appIcon
-            val appName: TextView = binding.appName
-            val packName: TextView = binding.packName
-            val switchview: MaterialSwitch = binding.switchview
-            val sliderLayout: LinearLayout = binding.sliderLayout
-            val sliderview: Slider = binding.slider
-        }
+    @Obfuscate
+    class ViewHolder(binding: LayoutAppinfoSwitchItemDarkmodeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val appInfoView: ConstraintLayout = binding.appinfoView
+        val appIcon: ImageView = binding.appIcon
+        val appName: TextView = binding.appName
+        val packName: TextView = binding.packName
+        val switchview: MaterialSwitch = binding.switchview
+        val sliderLayout: LinearLayout = binding.sliderLayout
+        val sliderview: Slider = binding.slider
     }
 }

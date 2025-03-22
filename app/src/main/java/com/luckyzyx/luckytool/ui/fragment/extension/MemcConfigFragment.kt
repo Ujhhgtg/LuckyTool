@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -29,7 +28,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.drake.net.utils.scopeLife
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.MemcConfigActivity
@@ -57,6 +55,7 @@ import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.InputStream
 
 @Obfuscate
@@ -256,11 +255,11 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
         private fun loadData(value: Any? = null) {
             scopeLife {
+                allConfigPackages.clear()
+
                 binding.swipeRefreshLayout.isRefreshing = true
                 binding.searchViewLayout.isEnabled = false
                 binding.searchView.text = null
-
-                allConfigPackages.clear()
 
                 if (value == null) {
                     val configPackages =
@@ -279,7 +278,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 }
 
                 binding.recyclerView.apply {
-                    memcPackageAdapter = MemcPackageAdapter(context, allConfigPackages)
+                    memcPackageAdapter = MemcPackageAdapter()
                     adapter = memcPackageAdapter
                     layoutManager = LinearLayoutManager(context)
                     FastScrollerBuilder(this).useMd2Style().build()
@@ -290,20 +289,16 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             }
         }
 
-        class MemcPackageAdapter(
-            val context: Context,
-            allConfigPackages: ArrayList<MemcConfigPackage>
-        ) : RecyclerView.Adapter<MemcPackageAdapter.ViewHolder>() {
-            private val configPackageList = GlobalKeyValue.memcConfigPackageList
+        @Obfuscate
+        inner class MemcPackageAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-            var allDatas = java.util.ArrayList<MemcConfigPackage>()
             var filterDatas = java.util.ArrayList<MemcConfigPackage>()
 
             init {
-                allDatas = allConfigPackages.apply {
+                filterDatas.clear()
+                filterDatas = allConfigPackages.apply {
                     sortBy { it.packName }
                 }
-                filterDatas = allDatas
             }
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -345,11 +340,10 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             val getFilter = object : Filter() {
                 override fun performFiltering(constraint: CharSequence): FilterResults {
                     val filterStr = constraint.toString().lowercase()
-                    filterDatas = if (constraint.isBlank()) {
-                        allDatas
-                    } else {
+                    filterDatas = if (constraint.isBlank()) allConfigPackages
+                    else {
                         val filterlist = ArrayList<MemcConfigPackage>()
-                        allDatas.forEach {
+                        allConfigPackages.forEach {
                             if (it.packName.lowercase().contains(filterStr)) filterlist.add(it)
                         }
                         filterlist
@@ -398,11 +392,13 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                     }
                 }
 
-                binding.tipsView.text = context.getString(
-                    R.string.edit_memc_configuration_tips, CommandUtils.memcHdrConfigHelp
-                )
+                binding.tipsView.apply {
+                    text = context.getString(
+                        R.string.edit_memc_configuration_tips, CommandUtils.memcHdrConfigHelp
+                    )
+                }
 
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                     setView(binding.root)
                     setPositiveButton(android.R.string.ok) { _, _ ->
                         val packageName = binding.packageView.text?.toString()
@@ -411,10 +407,10 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                         if (!(packageName.isNullOrBlank() || rate.isNullOrBlank() || type.isNullOrBlank())) {
                             val newConfig = MemcConfigPackage(packageName, rate, type)
                             if (config != null) {
-                                val index = allDatas.indexOf(config)
-                                if (index != -1) allDatas[index] = newConfig
-                                else allDatas.add(newConfig)
-                            } else allDatas.add(newConfig)
+                                val index = allConfigPackages.indexOf(config)
+                                if (index != -1) allConfigPackages[index] = newConfig
+                                else allConfigPackages.add(newConfig)
+                            } else allConfigPackages.add(newConfig)
                             saveAllData()
                         } else context.showToast("Data is incomplete!")
                     }
@@ -426,7 +422,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                                 )
                                 setMessage(msg)
                                 setPositiveButton(android.R.string.ok) { _, _ ->
-                                    allDatas.remove(config)
+                                    allConfigPackages.remove(config)
                                     saveAllData()
                                 }
                                 setNeutralButton(android.R.string.cancel, null)
@@ -439,23 +435,24 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
             private fun saveAllData() {
                 val set = ArraySet<String>()
-                allDatas.forEach {
+                allConfigPackages.forEach {
                     set.add(it.toJSONObject().toString())
                 }
-                filterDatas = allDatas
+                filterDatas = allConfigPackages
                 if (set.isNotEmpty()) {
-                    context.putStringSet(ModulePrefs, configPackageList, set.toSet())
+                    requireActivity().putStringSet(ModulePrefs, configPackageList, set.toSet())
                 }
                 refreshDatas()
             }
+        }
 
-            class ViewHolder(binding: LayoutMemcPackageItemBinding) :
-                RecyclerView.ViewHolder(binding.root) {
-                val card = binding.root
-                val packageName = binding.packageName
-                val screenRate = binding.screenRate
-                val commandType = binding.commandType
-            }
+        @Obfuscate
+        class ViewHolder(binding: LayoutMemcPackageItemBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            val card = binding.root
+            val packageName = binding.packageName
+            val screenRate = binding.screenRate
+            val commandType = binding.commandType
         }
     }
 
@@ -504,11 +501,11 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
         private fun loadData(value: Any? = null) {
             scopeLife {
+                allConfigActivitys.clear()
+
                 binding.swipeRefreshLayout.isRefreshing = true
                 binding.searchViewLayout.isEnabled = false
                 binding.searchView.text = null
-
-                allConfigActivitys.clear()
 
                 if (value == null) {
                     val configActivitys =
@@ -527,7 +524,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                 }
 
                 binding.recyclerView.apply {
-                    memcActivityAdapter = MemcActivityAdapter(context, allConfigActivitys)
+                    memcActivityAdapter = MemcActivityAdapter()
                     adapter = memcActivityAdapter
                     layoutManager = LinearLayoutManager(context)
                     FastScrollerBuilder(this).useMd2Style().build()
@@ -538,20 +535,16 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             }
         }
 
-        class MemcActivityAdapter(
-            val context: Context,
-            allConfigActivitys: ArrayList<MemcConfigActivity>
-        ) : RecyclerView.Adapter<MemcActivityAdapter.ViewHolder>() {
-            private val configActivityList = GlobalKeyValue.memcConfigActivityList
+        @Obfuscate
+        inner class MemcActivityAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-            var allDatas = java.util.ArrayList<MemcConfigActivity>()
-            var filterDatas = java.util.ArrayList<MemcConfigActivity>()
+            var filterDatas = ArrayList<MemcConfigActivity>()
 
             init {
-                allDatas = allConfigActivitys.apply {
+                filterDatas.clear()
+                filterDatas = allConfigActivitys.apply {
                     sortBy { it.packName }
                 }
-                filterDatas = allDatas
             }
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -592,11 +585,10 @@ class MemcConfigFragment : Fragment(), MenuProvider {
             val getFilter = object : Filter() {
                 override fun performFiltering(constraint: CharSequence): FilterResults {
                     val filterStr = constraint.toString().lowercase()
-                    filterDatas = if (constraint.isBlank()) {
-                        allDatas
-                    } else {
+                    filterDatas = if (constraint.isBlank()) allConfigActivitys
+                    else {
                         val filterlist = ArrayList<MemcConfigActivity>()
-                        allDatas.forEach {
+                        allConfigActivitys.forEach {
                             if (it.packName.lowercase().contains(filterStr)
                                 || it.activity.lowercase().contains(filterStr)
                             ) filterlist.add(it)
@@ -642,9 +634,11 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                     }
                 }
 
-                binding.tipsView.text = context.getString(
-                    R.string.edit_memc_configuration_tips, CommandUtils.memcConfigHelp
-                )
+                binding.tipsView.apply {
+                    text = context.getString(
+                        R.string.edit_memc_configuration_tips, CommandUtils.memcConfigHelp
+                    )
+                }
 
                 binding.activityView.apply {
                     setOnClickListener {
@@ -674,7 +668,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                     }
                 }
 
-                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
                     setView(binding.root)
                     setPositiveButton(android.R.string.ok) { _, _ ->
                         val packageName = binding.packageView.text?.toString()
@@ -683,9 +677,9 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                         if (!(packageName.isNullOrBlank() || activity.isNullOrBlank() || type.isNullOrBlank())) {
                             val newConfig = MemcConfigActivity(packageName, activity, type)
                             if (config != null) {
-                                val index = allDatas.indexOf(config)
-                                if (index != -1) allDatas[index] = newConfig
-                            } else allDatas.add(newConfig)
+                                val index = allConfigActivitys.indexOf(config)
+                                if (index != -1) allConfigActivitys[index] = newConfig
+                            } else allConfigActivitys.add(newConfig)
                             saveAllData()
                         } else context.showToast("Data is incomplete!")
                     }
@@ -698,7 +692,7 @@ class MemcConfigFragment : Fragment(), MenuProvider {
                                 )
                                 setMessage(msg)
                                 setPositiveButton(android.R.string.ok) { _, _ ->
-                                    allDatas.remove(config)
+                                    allConfigActivitys.remove(config)
                                     saveAllData()
                                 }
                                 setNeutralButton(android.R.string.cancel, null)
@@ -716,23 +710,24 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
             private fun saveAllData() {
                 val set = ArraySet<String>()
-                allDatas.forEach {
+                allConfigActivitys.forEach {
                     set.add(it.toJSONObject().toString())
                 }
-                filterDatas = allDatas
+                filterDatas = allConfigActivitys
                 if (set.isNotEmpty()) {
-                    context.putStringSet(ModulePrefs, configActivityList, set.toSet())
+                    requireActivity().putStringSet(ModulePrefs, configActivityList, set.toSet())
                 }
                 refreshDatas()
             }
+        }
 
-            class ViewHolder(binding: LayoutMemcActivityItemBinding) :
-                RecyclerView.ViewHolder(binding.root) {
-                val card = binding.root
-                val activityName = binding.activityName
-                val packageName = binding.packageName
-                val commandType = binding.commandType
-            }
+        @Obfuscate
+        class ViewHolder(binding: LayoutMemcActivityItemBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            val card = binding.root
+            val activityName = binding.activityName
+            val packageName = binding.packageName
+            val commandType = binding.commandType
         }
     }
 

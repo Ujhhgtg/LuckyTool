@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -26,7 +25,6 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
@@ -42,6 +40,7 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class MultiAppFragment : Fragment(), MenuProvider {
@@ -50,6 +49,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
     private var multiAppAdapter: MultiAppAdapter? = null
 
     private var allAppInfos = ArrayList<AppInfo>()
+    private var allEnabledInfos = ArrayList<AppInfo>()
 
     private val showSystemAppKey = "show_system_app_multi_app"
     private val supportListKey = "multi_app_custom_list"
@@ -115,21 +115,22 @@ class MultiAppFragment : Fragment(), MenuProvider {
 
     private fun loadData() {
         scopeLife {
+            allAppInfos.clear()
+            allEnabledInfos.clear()
+
             binding.swipeRefreshLayout.isRefreshing = true
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
-            allAppInfos.clear()
 
             val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
                 .toMutableList()
 
-            val enableInfos = ArrayList<AppInfo>()
             withDefault {
                 val packageManager = requireActivity().packageManager
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
                 enableData.forEach { its ->
                     val find = allAppInfos.find { it.packageName == its }
-                    if (find != null) enableInfos.add(find)
+                    if (find != null) allEnabledInfos.add(find)
                 }
                 allAppInfos.apply {
                     if (!showSystemApp) removeIf { it.isSystem }
@@ -143,7 +144,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
                     }
                     if (isReverse) reverse()
                 }
-                enableInfos.apply {
+                allEnabledInfos.apply {
                     when (sortMode) {
                         0 -> sortBy { it.name }
                         1 -> sortBy { it.packageName }
@@ -157,7 +158,7 @@ class MultiAppFragment : Fragment(), MenuProvider {
             }
 
             binding.recyclerView.apply {
-                multiAppAdapter = MultiAppAdapter(context, allAppInfos, enableInfos)
+                multiAppAdapter = MultiAppAdapter()
                 adapter = multiAppAdapter
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
@@ -184,34 +185,22 @@ class MultiAppFragment : Fragment(), MenuProvider {
     }
 
     @Obfuscate
-    class MultiAppAdapter(
-        val context: Context, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
-    ) : RecyclerView.Adapter<MultiAppAdapter.ViewHolder>() {
-        private val supportListKey = "multi_app_custom_list"
+    inner class MultiAppAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-        private var allDatas = ArrayList<AppInfo>()
         private var filterDatas = ArrayList<AppInfo>()
-
-        private var enabledAppData = ArrayList<String>()
-
-        private var hasPermissions = true
+        private var enabledDatas = ArrayList<AppInfo>()
 
         init {
-            allDatas.clear()
             filterDatas.clear()
-            enabledAppData.clear()
+            enabledDatas.clear()
 
-            if (allAppInfos.size <= 1) hasPermissions = false
+            filterDatas = allAppInfos
 
-            allDatas = allAppInfos
-            filterDatas = allDatas
-
-            allEnableInfos.forEach {
-                enabledAppData.add(it.packageName)
-                allDatas.remove(it)
+            allEnabledInfos.forEach {
+                enabledDatas.add(it)
+                filterDatas.remove(it)
             }
-            allDatas.addAll(0, allEnableInfos)
-            saveEnableList()
+            filterDatas.addAll(0, enabledDatas)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -233,13 +222,13 @@ class MultiAppFragment : Fragment(), MenuProvider {
             holder.appInfoView.setOnClickListener(null)
             holder.switchview.setOnCheckedChangeListener(null)
 
-            holder.switchview.isChecked = enabledAppData.contains(packName)
+            holder.switchview.isChecked = enabledDatas.contains(appInfo)
             holder.appInfoView.setOnClickListener {
                 holder.switchview.performClick()
             }
             holder.switchview.setOnCheckedChangeListener { _, isChecked ->
-                enabledAppData.remove(packName)
-                if (isChecked) enabledAppData.add(packName)
+                enabledDatas.remove(appInfo)
+                if (isChecked) enabledDatas.add(appInfo)
                 saveEnableList()
             }
         }
@@ -249,10 +238,10 @@ class MultiAppFragment : Fragment(), MenuProvider {
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allDatas
+                filterDatas = if (constraint.isBlank()) allAppInfos
                 else {
                     val filterlist = ArrayList<AppInfo>()
-                    allDatas.forEach {
+                    allAppInfos.forEach {
                         if (it.name.lowercase().contains(filterStr)
                             || it.packageName.lowercase().contains(filterStr)
                         ) filterlist.add(it)
@@ -272,23 +261,27 @@ class MultiAppFragment : Fragment(), MenuProvider {
         }
 
         private fun saveEnableList() {
-            if (!hasPermissions) return
-            context.putStringSet(ModulePrefs, supportListKey, enabledAppData.toSet())
-            context.dataChannel("android").put(supportListKey, enabledAppData.toSet())
+            val data = ArrayList<String>()
+            enabledDatas.forEach {
+                data.add(it.packageName)
+            }
+            requireActivity().putStringSet(ModulePrefs, supportListKey, data.toSet())
+            requireActivity().dataChannel("android").put(supportListKey, data.toSet())
         }
 
         @SuppressLint("NotifyDataSetChanged")
         fun refreshDatas() {
             notifyDataSetChanged()
         }
+    }
 
-        class ViewHolder(binding: LayoutAppinfoSwitchItemBinding) :
-            RecyclerView.ViewHolder(binding.root) {
-            val appInfoView: ConstraintLayout = binding.root
-            val appIcon: ImageView = binding.appIcon
-            val appName: TextView = binding.appName
-            val packName: TextView = binding.packName
-            val switchview: MaterialSwitch = binding.switchview
-        }
+    @Obfuscate
+    class ViewHolder(binding: LayoutAppinfoSwitchItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val appInfoView: ConstraintLayout = binding.root
+        val appIcon: ImageView = binding.appIcon
+        val appName: TextView = binding.appName
+        val packName: TextView = binding.packName
+        val switchview: MaterialSwitch = binding.switchview
     }
 }
