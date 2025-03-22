@@ -50,6 +50,7 @@ class IntentInfoSelector(
 
     private var onSelectIntentInfoListener: OnSelectIntentInfoListener? = null
     private var selectAllMode = false
+    private var showAppIcon = true
 
     init {
         binding.searchViewLayout.apply {
@@ -87,6 +88,10 @@ class IntentInfoSelector(
 
     fun setEnabledList(list: ArrayList<AppIntentInfo>) {
         enabledList = list
+    }
+
+    fun setShowIcon(mode: Boolean) {
+        showAppIcon = mode
     }
 
     fun setSelectAllMode(mode: Boolean) {
@@ -160,6 +165,7 @@ class IntentInfoSelector(
             val binding = LayoutActivityinfoItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
+            binding.activityIcon.isVisible = showAppIcon
             return SingleViewHolder(binding)
         }
 
@@ -249,6 +255,7 @@ class IntentInfoSelector(
             val binding = LayoutActivityinfoCheckboxItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
+            binding.activityIcon.isVisible = showAppIcon
             return MultiViewHolder(binding)
         }
 
