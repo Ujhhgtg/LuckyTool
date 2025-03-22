@@ -118,6 +118,18 @@ class IntentInfoSelector(
         }
     }
 
+    private fun formatType(type: String): String {
+        return when (type) {
+            "single_share" -> context.getString(R.string.intent_single_share)
+            "multi_share" -> context.getString(R.string.intent_multi_share)
+            "process_text" -> context.getString(R.string.intent_long_press_text)
+            "content_view" -> context.getString(R.string.intent_open_content)
+            "http_link" -> context.getString(R.string.intent_http_link)
+            "https_link" -> context.getString(R.string.intent_https_link)
+            else -> type
+        }
+    }
+
     @Obfuscate
     inner class ActivityInfoSingleSelectorAdapter : RecyclerView.Adapter<SingleViewHolder>() {
 
@@ -222,18 +234,6 @@ class IntentInfoSelector(
 
         override fun getItemCount(): Int {
             return filterDatas.size
-        }
-
-        private fun formatType(type: String): String {
-            return when (type) {
-                "single_share" -> context.getString(R.string.intent_single_share)
-                "multi_share" -> context.getString(R.string.intent_multi_share)
-                "process_text" -> context.getString(R.string.intent_long_press_text)
-                "content_view" -> context.getString(R.string.intent_open_content)
-                "http_link" -> context.getString(R.string.intent_http_link)
-                "https_link" -> context.getString(R.string.intent_https_link)
-                else -> type
-            }
         }
 
         @SuppressLint("SetTextI18n")
