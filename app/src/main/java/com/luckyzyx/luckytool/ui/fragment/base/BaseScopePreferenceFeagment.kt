@@ -18,7 +18,6 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceGroup.PreferencePositionCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.PrefsItem
 import com.luckyzyx.luckytool.ui.activity.MainActivity
@@ -31,6 +30,7 @@ import com.luckyzyx.luckytool.utils.getOSVersionName
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.setupMenuProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused")
@@ -143,6 +143,8 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
             val scrollPosition = getInt("scrollPosition", -1)
             Handler(Looper.getMainLooper()).postDelayed({
                 highLight(scrollKey, scrollPosition)
+                remove("scrollKey")
+                remove("scrollPosition")
             }, 200)
         }
     }
