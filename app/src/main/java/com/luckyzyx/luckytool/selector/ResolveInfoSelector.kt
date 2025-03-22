@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.selector
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.ActivityInfo
+import android.content.pm.ResolveInfo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -22,16 +22,15 @@ import com.google.android.material.textfield.TextInputLayout
 import com.luckyzyx.luckytool.databinding.DialogActivityInfoSelectorLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutActivityinfoCheckboxItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutActivityinfoItemBinding
-import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
+import com.luckyzyx.luckytool.listener.OnSelectResolveInfoListener
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import org.lsposed.lsparanoid.Obfuscate
 
 @Suppress("unused")
 @Obfuscate
-class ActivityInfoSelector(
-    val context: Context, private val multiMode: Boolean,
-    private val activitys: Array<ActivityInfo>?
+class ResolveInfoSelector(
+    val context: Context, private val multiMode: Boolean, private val resolves: Array<ResolveInfo>?
 ) {
 
     private val binding =
@@ -44,11 +43,11 @@ class ActivityInfoSelector(
     }
     private lateinit var dialog: AlertDialog
 
-    private var allActivityInfos = ArrayList<ActivityInfo>()
-    private var allEnabledInfos = ArrayList<ActivityInfo>()
+    private var allResolveInfos = ArrayList<ResolveInfo>()
+    private var allEnabledInfos = ArrayList<ResolveInfo>()
     private var enabledList = ArrayList<String>()
 
-    private var onSelectActivityInfoListener: OnSelectActivityInfoListener? = null
+    private var onSelectResolveInfoListener: OnSelectResolveInfoListener? = null
 
     init {
         binding.searchViewLayout.apply {
@@ -69,19 +68,19 @@ class ActivityInfoSelector(
             setOnClickListener {
                 dialog.dismiss()
                 val infos = multiSelectorAdapter?.getEnabledInfos() ?: arrayListOf()
-                onSelectActivityInfoListener?.resultSelectActivityInfos(infos)
+                onSelectResolveInfoListener?.resultSelectResolveInfos(infos)
             }
         }
     }
 
     fun show() {
-        if (allActivityInfos.isEmpty()) loadData()
+        if (allResolveInfos.isEmpty()) loadData()
 
         dialog = dialogBuilder.show()
     }
 
-    fun setOnSelectActivityListener(onSelectActivityInfoListener: OnSelectActivityInfoListener) {
-        this.onSelectActivityInfoListener = onSelectActivityInfoListener
+    fun setOnSelectResolveInfoListener(onSelectResolveInfoListener: OnSelectResolveInfoListener) {
+        this.onSelectResolveInfoListener = onSelectResolveInfoListener
     }
 
     fun setEnabledList(list: ArrayList<String>) {
@@ -90,7 +89,7 @@ class ActivityInfoSelector(
 
     private fun loadData() {
         scope {
-            allActivityInfos.clear()
+            allResolveInfos.clear()
             allEnabledInfos.clear()
 
             binding.swipeRefreshLayout.isRefreshing = true
@@ -98,9 +97,11 @@ class ActivityInfoSelector(
             binding.searchView.text = null
 
             withDefault {
-                allActivityInfos = ArrayList(activitys?.toList() ?: arrayListOf())
-                allActivityInfos.forEach {
-                    if (enabledList.contains(it.packageName)) allEnabledInfos.add(it)
+                allResolveInfos = ArrayList(resolves?.toList() ?: arrayListOf())
+                allResolveInfos.forEach {
+                    if (enabledList.contains(it.activityInfo.name)) {
+                        allEnabledInfos.add(it)
+                    }
                 }
             }
 
@@ -121,11 +122,11 @@ class ActivityInfoSelector(
     @Obfuscate
     inner class ActivityInfoSingleSelectorAdapter : RecyclerView.Adapter<SingleViewHolder>() {
 
-        private var filterDatas = ArrayList<ActivityInfo>()
+        private var filterDatas = ArrayList<ResolveInfo>()
 
         init {
             filterDatas.clear()
-            filterDatas = allActivityInfos
+            filterDatas = allResolveInfos
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
@@ -140,10 +141,10 @@ class ActivityInfoSelector(
         }
 
         override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
-            val activityInfo = filterDatas[position]
-            val appIcon = activityInfo.loadIcon(context.packageManager)
-            val label = activityInfo.loadLabel(context.packageManager)
-            val name = activityInfo.name
+            val resolveInfo = filterDatas[position]
+            val appIcon = resolveInfo.loadIcon(context.packageManager)
+            val label = resolveInfo.loadLabel(context.packageManager)
+            val name = resolveInfo.activityInfo.name
 
             holder.activityIcon.setImageDrawable(appIcon)
             holder.activityLabel.text = label
@@ -152,19 +153,19 @@ class ActivityInfoSelector(
 
             holder.activityInfoView.setOnClickListener {
                 dialog.dismiss()
-                onSelectActivityInfoListener?.resultSelectActivityInfos(arrayListOf(activityInfo))
+                onSelectResolveInfoListener?.resultSelectResolveInfos(arrayListOf(resolveInfo))
             }
         }
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allActivityInfos
+                filterDatas = if (constraint.isBlank()) allResolveInfos
                 else {
-                    val filterlist = ArrayList<ActivityInfo>()
-                    allActivityInfos.forEach {
+                    val filterlist = ArrayList<ResolveInfo>()
+                    allResolveInfos.forEach {
                         val label = it.loadLabel(context.packageManager)
-                        if (it.name.lowercase().contains(filterStr)
+                        if (it.activityInfo.name.lowercase().contains(filterStr)
                             || label.toString().lowercase().contains(filterStr)
                         ) filterlist.add(it)
                     }
@@ -177,7 +178,7 @@ class ActivityInfoSelector(
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                filterDatas = results.values as ArrayList<ActivityInfo>
+                filterDatas = results.values as ArrayList<ResolveInfo>
                 refreshDatas()
             }
         }
@@ -191,14 +192,14 @@ class ActivityInfoSelector(
     @Obfuscate
     inner class ActivityInfoMultiSelectorAdapter : RecyclerView.Adapter<MultiViewHolder>() {
 
-        private var filterDatas = ArrayList<ActivityInfo>()
-        private var enabledDatas = ArrayList<ActivityInfo>()
+        private var filterDatas = ArrayList<ResolveInfo>()
+        private var enabledDatas = ArrayList<ResolveInfo>()
 
         init {
             filterDatas.clear()
-            enabledDatas.clear()
+            filterDatas = allResolveInfos
 
-            filterDatas = allActivityInfos
+            filterDatas = allResolveInfos
 
             allEnabledInfos.forEach {
                 enabledDatas.add(it)
@@ -208,7 +209,7 @@ class ActivityInfoSelector(
             filterDatas.addAll(0, enabledDatas)
         }
 
-        fun getEnabledInfos(): ArrayList<ActivityInfo> {
+        fun getEnabledInfos(): ArrayList<ResolveInfo> {
             return enabledDatas
         }
 
@@ -224,10 +225,10 @@ class ActivityInfoSelector(
         }
 
         override fun onBindViewHolder(holder: MultiViewHolder, position: Int) {
-            val activityInfo = filterDatas[position]
-            val appIcon = activityInfo.loadIcon(context.packageManager)
-            val label = activityInfo.loadLabel(context.packageManager)
-            val name = activityInfo.name
+            val resolveInfo = filterDatas[position]
+            val appIcon = resolveInfo.loadIcon(context.packageManager)
+            val label = resolveInfo.loadLabel(context.packageManager)
+            val name = resolveInfo.activityInfo.name
 
             holder.activityIcon.setImageDrawable(appIcon)
             holder.activityLabel.text = label
@@ -235,25 +236,25 @@ class ActivityInfoSelector(
             holder.activityInfoView.setOnClickListener(null)
             holder.checkbox.setOnCheckedChangeListener(null)
 
-            holder.checkbox.isChecked = enabledDatas.contains(activityInfo)
+            holder.checkbox.isChecked = enabledDatas.contains(resolveInfo)
             holder.activityInfoView.setOnClickListener {
                 holder.checkbox.performClick()
             }
             holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
-                enabledDatas.remove(activityInfo)
-                if (isChecked) enabledDatas.add(activityInfo)
+                enabledDatas.remove(resolveInfo)
+                if (isChecked) enabledDatas.add(resolveInfo)
             }
         }
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allActivityInfos
+                filterDatas = if (constraint.isBlank()) allResolveInfos
                 else {
-                    val filterlist = ArrayList<ActivityInfo>()
-                    allActivityInfos.forEach {
+                    val filterlist = ArrayList<ResolveInfo>()
+                    allResolveInfos.forEach {
                         val label = it.loadLabel(context.packageManager)
-                        if (it.name.lowercase().contains(filterStr)
+                        if (it.activityInfo.name.lowercase().contains(filterStr)
                             || label.toString().lowercase().contains(filterStr)
                         ) filterlist.add(it)
                     }
@@ -266,7 +267,7 @@ class ActivityInfoSelector(
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                filterDatas = results.values as ArrayList<ActivityInfo>
+                filterDatas = results.values as ArrayList<ResolveInfo>
                 refreshDatas()
             }
         }

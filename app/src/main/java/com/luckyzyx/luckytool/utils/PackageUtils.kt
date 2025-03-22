@@ -11,8 +11,8 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppInfo
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
 @Suppress("MemberVisibilityCanBePrivate")

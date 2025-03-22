@@ -19,7 +19,6 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.DialogAppInfoSelectorLayoutBinding
@@ -29,6 +28,7 @@ import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.lsposed.lsparanoid.Obfuscate
 
 /**
  * AppInfo选择器
@@ -49,6 +49,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
     private lateinit var dialog: AlertDialog
 
     private var allAppInfos = ArrayList<AppInfo>()
+    private var allEnabledInfos = ArrayList<AppInfo>()
     private var enabledList = ArrayList<String>()
 
     private var enableSortFilter = true
@@ -148,18 +149,19 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
 
     private fun loadData() {
         scope {
+            allAppInfos.clear()
+            allEnabledInfos.clear()
+
             binding.swipeRefreshLayout.isRefreshing = true
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
-            allAppInfos.clear()
 
-            val allEnableInfos = ArrayList<AppInfo>()
             withDefault {
                 val packageManager = context.packageManager
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
                 enabledList.forEach { its ->
                     val find = allAppInfos.find { it.packageName == its }
-                    if (find != null) allEnableInfos.add(find)
+                    if (find != null) allEnabledInfos.add(find)
                 }
                 allAppInfos.apply {
                     if (!showSystemApp) removeIf { it.isSystem }
@@ -173,7 +175,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                     }
                     if (isReverse) reverse()
                 }
-                allEnableInfos.apply {
+                allEnabledInfos.apply {
                     when (sortMode) {
                         0 -> sortBy { it.name }
                         1 -> sortBy { it.packageName }
@@ -187,10 +189,8 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
             }
 
             binding.recyclerView.apply {
-                singleSelectorAdapter =
-                    AppInfoSingleSelectorAdapter(dialog, allAppInfos, onSelectAppInfoListener)
-                multiSelectorAdapter =
-                    AppInfoMultiSelectorAdapter(dialog, allAppInfos, allEnableInfos)
+                singleSelectorAdapter = AppInfoSingleSelectorAdapter()
+                multiSelectorAdapter = AppInfoMultiSelectorAdapter()
                 adapter = if (multiChoice.not()) singleSelectorAdapter
                 else multiSelectorAdapter
                 layoutManager = LinearLayoutManager(context)
@@ -203,21 +203,13 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
     }
 
     @Obfuscate
-    class AppInfoSingleSelectorAdapter(
-        val dialog: AlertDialog?, allAppInfos: ArrayList<AppInfo>,
-        private val onSelectAppInfoListener: OnSelectAppInfoListener?
-    ) : RecyclerView.Adapter<SingleViewHolder>() {
-        val context = dialog?.context
+    inner class AppInfoSingleSelectorAdapter : RecyclerView.Adapter<SingleViewHolder>() {
 
-        private var allDatas = ArrayList<AppInfo>()
         private var filterDatas = ArrayList<AppInfo>()
 
         init {
-            allDatas.clear()
             filterDatas.clear()
-
-            allDatas = allAppInfos
-            filterDatas = allDatas
+            filterDatas = allAppInfos
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
@@ -243,7 +235,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
             holder.appInfoView.setOnClickListener(null)
 
             holder.appInfoView.setOnClickListener {
-                dialog?.dismiss()
+                dialog.dismiss()
                 onSelectAppInfoListener?.resultSelectAppInfos(arrayListOf(appInfo))
             }
         }
@@ -251,10 +243,10 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allDatas
+                filterDatas = if (constraint.isBlank()) allAppInfos
                 else {
                     val filterlist = ArrayList<AppInfo>()
-                    allDatas.forEach {
+                    allAppInfos.forEach {
                         if (it.name.lowercase().contains(filterStr)
                             || it.packageName.lowercase().contains(filterStr)
                         ) filterlist.add(it)
@@ -280,33 +272,26 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
     }
 
     @Obfuscate
-    class AppInfoMultiSelectorAdapter(
-        dialog: AlertDialog?, allAppInfos: ArrayList<AppInfo>, allEnableInfos: ArrayList<AppInfo>
-    ) : RecyclerView.Adapter<MultiViewHolder>() {
-        val context = dialog?.context
+    inner class AppInfoMultiSelectorAdapter : RecyclerView.Adapter<MultiViewHolder>() {
 
-        private var allDatas = ArrayList<AppInfo>()
         private var filterDatas = ArrayList<AppInfo>()
-
-        private var enabledAppData = ArrayList<AppInfo>()
+        private var enabledDatas = ArrayList<AppInfo>()
 
         init {
-            allDatas.clear()
             filterDatas.clear()
-            enabledAppData.clear()
+            enabledDatas.clear()
 
-            allDatas = allAppInfos
-            filterDatas = allDatas
+            filterDatas = allAppInfos
 
-            allEnableInfos.forEach {
-                enabledAppData.add(it)
-                allDatas.remove(it)
+            allEnabledInfos.forEach {
+                enabledDatas.add(it)
+                filterDatas.remove(it)
             }
-            allDatas.addAll(0, allEnableInfos)
+            filterDatas.addAll(0, enabledDatas)
         }
 
         fun getEnabledInfos(): ArrayList<AppInfo> {
-            return enabledAppData
+            return enabledDatas
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiViewHolder {
@@ -332,23 +317,23 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
             holder.appInfoView.setOnClickListener(null)
             holder.checkbox.setOnCheckedChangeListener(null)
 
-            holder.checkbox.isChecked = enabledAppData.contains(appInfo)
+            holder.checkbox.isChecked = enabledDatas.contains(appInfo)
             holder.appInfoView.setOnClickListener {
                 holder.checkbox.performClick()
             }
             holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
-                enabledAppData.remove(appInfo)
-                if (isChecked) enabledAppData.add(appInfo)
+                enabledDatas.remove(appInfo)
+                if (isChecked) enabledDatas.add(appInfo)
             }
         }
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allDatas
+                filterDatas = if (constraint.isBlank()) allAppInfos
                 else {
                     val filterlist = ArrayList<AppInfo>()
-                    allDatas.forEach {
+                    allAppInfos.forEach {
                         if (it.name.lowercase().contains(filterStr)
                             || it.packageName.lowercase().contains(filterStr)
                         ) filterlist.add(it)

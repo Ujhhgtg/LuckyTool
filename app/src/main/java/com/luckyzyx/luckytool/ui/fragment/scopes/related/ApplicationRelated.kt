@@ -7,7 +7,6 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
@@ -29,6 +28,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class ApplicationRelated : BaseScopePreferenceFeagment() {
@@ -95,6 +95,15 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.APPRelatedList)
                 key = "APPRelatedList"
                 isIconSpaceReserved = false
+            })
+            add(Preference(this@loadPreferences).apply {
+                title = "隐藏App意图列表"
+                key = "hide_app_intent_list"
+                isIconSpaceReserved = false
+                setOnPreferenceClickListener {
+                    findNavController().navigatePage(R.id.hideAppIntentFragment, title)
+                    true
+                }
             })
             add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.dark_mode_support_list)
