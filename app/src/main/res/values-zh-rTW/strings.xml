@@ -992,6 +992,10 @@
     <string name="enable_text_intent_switch">隐藏长按文本意图</string>
     <string name="enable_open_intent_switch">隐藏打开方式意图</string>
     <string name="enable_browser_intent_switch">隐藏浏览器意图</string>
+    <string name="select_all_share_intent">全选分享意图</string>
+    <string name="select_all_text_intent">全选长按文本意图</string>
+    <string name="select_all_open_intent">全选打开方式意图</string>
+    <string name="select_all_browser_intent">全选浏览器意图</string>
     <!--Intent Type-->
     <string name="intent_single_share">分享单个</string>
     <string name="intent_multi_share">分享多个</string>

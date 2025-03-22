@@ -135,8 +135,10 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
             setOnLongClickListener {
                 val configs = arrayOf(
-                    "全选/取消全选分享意图", "全选/取消全选长按文本意图",
-                    "全选/取消全选打开方式意图", "全选/取消全选浏览器意图"
+                    getString(R.string.select_all_share_intent),
+                    getString(R.string.select_all_text_intent),
+                    getString(R.string.select_all_open_intent),
+                    getString(R.string.select_all_browser_intent)
                 )
                 MaterialAlertDialogBuilder(context, dialogCentered).apply {
                     setItems(configs) { _, which ->
