@@ -33,11 +33,11 @@ import org.lsposed.lsparanoid.Obfuscate
 /**
  * AppInfo选择器
  * @property context Context
- * @property multiChoice Boolean 多选模式
+ * @property multiMode Boolean 多选模式
  * @constructor
  */
 @Obfuscate
-class AppInfoSelector(private val context: Context, private val multiChoice: Boolean) {
+class AppInfoSelector(private val context: Context, private val multiMode: Boolean) {
 
     private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
     private var singleSelectorAdapter: AppInfoSingleSelectorAdapter? = null
@@ -55,6 +55,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
     private var enableSortFilter = true
     private var isReverse = false
     private var sortMode = 0
+    private var selectAllMode = false
     private var showSystemApp = false
 
     private lateinit var sortFilterSelector: SortFilterSelector
@@ -74,7 +75,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
             loadData()
         }
         binding.btnOk.apply {
-            isVisible = multiChoice
+            isVisible = multiMode
             setOnClickListener {
                 dialog.dismiss()
                 val infos = multiSelectorAdapter?.getEnabledInfos() ?: arrayListOf()
@@ -105,6 +106,21 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
 
     fun setEnabledList(list: ArrayList<String>) {
         enabledList = list
+    }
+
+    fun setSelectAllMode(mode: Boolean) {
+        selectAllMode = mode
+
+        binding.btnSelectAll.apply {
+            isVisible = multiMode && selectAllMode
+            setOnClickListener {
+                val isAll = allAppInfos.size == multiSelectorAdapter?.getEnabledInfos()?.size
+                multiSelectorAdapter?.setEnabledInfos(
+                    if (isAll) arrayListOf() else allAppInfos
+                )
+                multiSelectorAdapter?.refreshDatas()
+            }
+        }
     }
 
     private fun initSortFilterSelector() {
@@ -191,7 +207,7 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
             binding.recyclerView.apply {
                 singleSelectorAdapter = AppInfoSingleSelectorAdapter()
                 multiSelectorAdapter = AppInfoMultiSelectorAdapter()
-                adapter = if (multiChoice.not()) singleSelectorAdapter
+                adapter = if (multiMode.not()) singleSelectorAdapter
                 else multiSelectorAdapter
                 layoutManager = LinearLayoutManager(context)
                 FastScrollerBuilder(this).useMd2Style().build()
@@ -288,6 +304,10 @@ class AppInfoSelector(private val context: Context, private val multiChoice: Boo
                 filterDatas.remove(it)
             }
             filterDatas.addAll(0, enabledDatas)
+        }
+
+        fun setEnabledInfos(list: ArrayList<AppInfo>) {
+            enabledDatas = list
         }
 
         fun getEnabledInfos(): ArrayList<AppInfo> {

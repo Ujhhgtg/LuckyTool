@@ -131,6 +131,19 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                     show()
                 }
             }
+            setOnLongClickListener {
+                val configs = arrayOf(
+                    "全选/取消全选分享意图", "全选/取消全选长按文本意图",
+                    "全选/取消全选打开方式意图", "全选/取消全选浏览器意图"
+                )
+                MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                    setItems(configs) { _, which ->
+                        selectAllInfos(which)
+                    }
+                    show()
+                }
+                true
+            }
         }
 
         binding.searchViewLayout.apply {
@@ -335,6 +348,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
     ) {
         IntentInfoSelector(requireActivity(), true, ArrayList(allInfos)).apply {
             setEnabledList(ArrayList(enabled))
+            setSelectAllMode(true)
             setOnSelectIntentInfoListener(object : OnSelectIntentInfoListener {
                 override fun resultSelectIntentInfos(list: ArrayList<AppIntentInfo>) {
                     saveAppIntentList(packName, type, list)
@@ -345,15 +359,45 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         }
     }
 
-    fun saveAppIntentList(packName: String, type: String, list: ArrayList<AppIntentInfo>) {
-        val context = requireContext()
+    private fun selectAllInfos(type: Int) {
         val listKey = when (type) {
-            "shareList" -> shareListKey
-            "textList" -> textListKey
-            "openList" -> openListKey
-            "browserList" -> browserListKey
-            else -> ""
+            0 -> shareListKey
+            1 -> textListKey
+            2 -> openListKey
+            3 -> browserListKey
+            else -> return
         }
+        val filte: (AppIntentInfo) -> Boolean = {
+            when (type) {
+                0 -> {
+                    it.action == Intent.ACTION_SEND || it.action == Intent.ACTION_SEND_MULTIPLE
+                }
+
+                1 -> {
+                    it.action == Intent.ACTION_PROCESS_TEXT
+                }
+
+                2 -> {
+                    it.action == Intent.ACTION_VIEW && it.type == "content_view"
+                }
+
+                3 -> {
+                    it.action == Intent.ACTION_VIEW && (it.type == "http_link" || it.type == "https_link")
+                }
+
+                else -> false
+            }
+        }
+        val allIntents = allIntentInfos.filter(filte)
+        allIntents.map { it.packName }.forEachIndexed { _, packName ->
+            val intents = allIntents.filter { it.packName == packName }
+            saveAppIntentList(packName, listKey, ArrayList(intents))
+        }
+        loadData()
+    }
+
+    fun saveAppIntentList(packName: String, listKey: String, list: ArrayList<AppIntentInfo>) {
+        val context = requireContext()
         if (listKey.isNotBlank()) {
             val enabledShareApps = context.getStringSet(IntentPrefs, listKey, ArraySet())
             val newList = enabledShareApps.toMutableList().apply {
@@ -432,7 +476,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "shareList", allIntent, enabled, position)
+                        showUpdateAppIntent(packName, shareListKey, allIntent, enabled, position)
                     }
                 }
             }
@@ -451,7 +495,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "textList", allIntent, enabled, position)
+                        showUpdateAppIntent(packName, textListKey, allIntent, enabled, position)
                     }
                 }
             }
@@ -470,7 +514,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "openList", allIntent, enabled, position)
+                        showUpdateAppIntent(packName, openListKey, allIntent, enabled, position)
                     }
                 }
             }
@@ -489,7 +533,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 setOnClickListener(null)
                 if (allIntent.isNotEmpty()) {
                     setOnClickListener {
-                        showUpdateAppIntent(packName, "browserList", allIntent, enabled, position)
+                        showUpdateAppIntent(packName, browserListKey, allIntent, enabled, position)
                     }
                 }
             }

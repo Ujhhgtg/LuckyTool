@@ -74,6 +74,14 @@
                 android:layout_height="wrap_content" />
         
         <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_select_all"
+                android:layout_weight="1"
+                android:text="@android:string/selectAll"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_ok"
                 android:layout_weight="1"
                 android:text="@android:string/ok"

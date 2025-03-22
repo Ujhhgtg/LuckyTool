@@ -49,6 +49,7 @@ class IntentInfoSelector(
     private var enabledList = ArrayList<AppIntentInfo>()
 
     private var onSelectIntentInfoListener: OnSelectIntentInfoListener? = null
+    private var selectAllMode = false
 
     init {
         binding.searchViewLayout.apply {
@@ -86,6 +87,21 @@ class IntentInfoSelector(
 
     fun setEnabledList(list: ArrayList<AppIntentInfo>) {
         enabledList = list
+    }
+
+    fun setSelectAllMode(mode: Boolean) {
+        selectAllMode = mode
+
+        binding.btnSelectAll.apply {
+            isVisible = multiMode && selectAllMode
+            setOnClickListener {
+                val isAll = allIntentInfos.size == multiSelectorAdapter?.getEnabledInfos()?.size
+                multiSelectorAdapter?.setEnabledInfos(
+                    if (isAll) arrayListOf() else allIntentInfos
+                )
+                multiSelectorAdapter?.refreshDatas()
+            }
+        }
     }
 
     private fun loadData() {
@@ -219,6 +235,10 @@ class IntentInfoSelector(
             }
 
             filterDatas.addAll(0, enabledDatas)
+        }
+
+        fun setEnabledInfos(infos: ArrayList<AppIntentInfo>) {
+            enabledDatas = infos
         }
 
         fun getEnabledInfos(): ArrayList<AppIntentInfo> {

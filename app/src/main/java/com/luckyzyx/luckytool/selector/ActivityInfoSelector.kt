@@ -49,6 +49,7 @@ class ActivityInfoSelector(
     private var enabledList = ArrayList<String>()
 
     private var onSelectActivityInfoListener: OnSelectActivityInfoListener? = null
+    private var selectAllMode = false
 
     init {
         binding.searchViewLayout.apply {
@@ -82,6 +83,21 @@ class ActivityInfoSelector(
 
     fun setOnSelectActivityListener(onSelectActivityInfoListener: OnSelectActivityInfoListener) {
         this.onSelectActivityInfoListener = onSelectActivityInfoListener
+    }
+
+    fun setSelectAllMode(mode: Boolean) {
+        selectAllMode = mode
+
+        binding.btnSelectAll.apply {
+            isVisible = multiMode && selectAllMode
+            setOnClickListener {
+                val isAll = allActivityInfos.size == multiSelectorAdapter?.getEnabledInfos()?.size
+                multiSelectorAdapter?.setEnabledInfos(
+                    if (isAll) arrayListOf() else allActivityInfos
+                )
+                multiSelectorAdapter?.refreshDatas()
+            }
+        }
     }
 
     fun setEnabledList(list: ArrayList<String>) {
@@ -206,6 +222,10 @@ class ActivityInfoSelector(
             }
 
             filterDatas.addAll(0, enabledDatas)
+        }
+
+        fun setEnabledInfos(list: ArrayList<ActivityInfo>) {
+            enabledDatas = list
         }
 
         fun getEnabledInfos(): ArrayList<ActivityInfo> {
