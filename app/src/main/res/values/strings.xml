@@ -1133,11 +1133,6 @@
     
     <!--Intent-->
     <string name="custom_config_app_intent_list">Custom configuration app intent list</string>
-    <string name="enable_share_intent_switch">Hide app sharing intent</string>
-    <string name="enable_text_intent_switch">Hide long press text intent</string>
-    <string name="enable_open_intent_switch">Hide opening mode intent</string>
-    <string name="enable_browser_intent_switch">Hide browser intent</string>
-    
     <string name="select_all_share_intent">Select all share intent</string>
     <string name="select_all_text_intent">Select all long press text intent</string>
     <string name="select_all_open_intent">Select all open mode intent</string>
@@ -1148,6 +1143,7 @@
     <string name="intent_multi_share">Share Multiple</string>
     <string name="intent_long_press_text">Long Press Text</string>
     <string name="intent_open_content">Open Content</string>
+    <string name="intent_open_file">Open File</string>
     <string name="intent_http_link">Http Link</string>
     <string name="intent_https_link">Https Link</string>
     

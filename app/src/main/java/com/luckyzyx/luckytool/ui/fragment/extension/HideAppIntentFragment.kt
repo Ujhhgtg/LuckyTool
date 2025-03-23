@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.os.Bundle
 import android.util.ArraySet
 import android.view.LayoutInflater
@@ -15,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.collection.ArrayMap
+import androidx.collection.arrayMapOf
 import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
@@ -67,12 +68,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
     private var allIntentInfos = ArrayList<AppIntentInfo>()
     private var allEnabledInfos = ArrayList<AppIntentInfo>()
 
-    private var allSingleShareIntents = ArrayList<ResolveInfo>()
-    private var allMultiShareIntents = ArrayList<ResolveInfo>()
-    private var allTextIntents = ArrayList<ResolveInfo>()
-    private var allOpenIntents = ArrayList<ResolveInfo>()
-    private var allHttpLinkIntents = ArrayList<ResolveInfo>()
-    private var allHttpsLinkIntents = ArrayList<ResolveInfo>()
+    private var allIntentFilter = ArrayMap<IntentType, Intent>()
 
     private val isEnableKey = "custom_config_app_intent_list"
     private val enabledListKey = "enable_app_hide_list"
@@ -155,96 +151,31 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
                 val packageManager = requireActivity().packageManager
 
-                allSingleShareIntents = ArrayList(
-                    packageManager.queryIntentActivities(
-                        Intent(Intent.ACTION_SEND).setType("*/*")
-                            .putExtra("result_origin_data", true),
-                        PackageManager.MATCH_ALL
-                    ).onEach {
+                allIntentFilter = arrayMapOf(
+                    IntentType.SINGLE_SHARE to Intent(Intent.ACTION_SEND),
+                    IntentType.MULTI_SHARE to Intent(Intent.ACTION_SEND_MULTIPLE),
+                    IntentType.PROCESS_TEXT to Intent(Intent.ACTION_PROCESS_TEXT),
+                    IntentType.CONTENT to Intent().setDataAndType("content://".toUri(), "*/*"),
+                    IntentType.FILE to Intent().setDataAndType("file://".toUri(), "*/*"),
+                    IntentType.HTTP_LINK to Intent().setDataAndType("http://".toUri(), "*/*"),
+                    IntentType.HTTPS_LINK to Intent().setDataAndType("https://".toUri(), "*/*"),
+                )
+
+                allIntentFilter.forEach { (type, intent) ->
+                    if (intent.action == null) intent.setAction(Intent.ACTION_VIEW)
+                    if (intent.data == null) intent.setType("*/*")
+                    intent.putExtra("result_origin_data", true)
+
+                    packageManager.queryIntentActivities(intent, PackageManager.MATCH_ALL).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
                         allIntentInfos.add(
                             AppIntentInfo(
-                                it.loadLabel(packageManager),
-                                it.activityInfo.packageName, Intent.ACTION_SEND,
-                                IntentType.SINGLE_SHARE, it
+                                it.loadLabel(packageManager), it.activityInfo.packageName,
+                                intent.action!!, type, it
                             )
                         )
-                    })
-                allMultiShareIntents = ArrayList(
-                    packageManager.queryIntentActivities(
-                        Intent(Intent.ACTION_SEND_MULTIPLE).setType("*/*")
-                            .putExtra("result_origin_data", true),
-                        PackageManager.MATCH_ALL
-                    ).onEach {
-                        existIntentApps.add(it.activityInfo.packageName)
-                        allIntentInfos.add(
-                            AppIntentInfo(
-                                it.loadLabel(packageManager),
-                                it.activityInfo.packageName, Intent.ACTION_SEND_MULTIPLE,
-                                IntentType.MULTI_SHARE, it
-                            )
-                        )
-                    })
-                allTextIntents = ArrayList(
-                    packageManager.queryIntentActivities(
-                        Intent(Intent.ACTION_PROCESS_TEXT).setType("*/*")
-                            .putExtra("result_origin_data", true),
-                        PackageManager.MATCH_ALL
-                    ).onEach {
-                        existIntentApps.add(it.activityInfo.packageName)
-                        allIntentInfos.add(
-                            AppIntentInfo(
-                                it.loadLabel(packageManager),
-                                it.activityInfo.packageName, Intent.ACTION_PROCESS_TEXT,
-                                IntentType.PROCESS_TEXT, it
-                            )
-                        )
-                    })
-                allOpenIntents = ArrayList(
-                    packageManager.queryIntentActivities(
-                        Intent(Intent.ACTION_VIEW).setDataAndType("content://".toUri(), "*/*")
-                            .putExtra("result_origin_data", true),
-                        PackageManager.MATCH_ALL
-                    ).onEach {
-                        existIntentApps.add(it.activityInfo.packageName)
-                        allIntentInfos.add(
-                            AppIntentInfo(
-                                it.loadLabel(packageManager),
-                                it.activityInfo.packageName, Intent.ACTION_VIEW,
-                                IntentType.CONTENT, it
-                            )
-                        )
-                    })
-                allHttpLinkIntents = ArrayList(
-                    packageManager.queryIntentActivities(
-                        Intent(Intent.ACTION_VIEW).setDataAndType("http://".toUri(), "*/*")
-                            .putExtra("result_origin_data", true),
-                        PackageManager.MATCH_ALL
-                    ).onEach {
-                        existIntentApps.add(it.activityInfo.packageName)
-                        allIntentInfos.add(
-                            AppIntentInfo(
-                                it.loadLabel(packageManager),
-                                it.activityInfo.packageName, Intent.ACTION_VIEW,
-                                IntentType.HTTP_LINK, it
-                            )
-                        )
-                    })
-                allHttpsLinkIntents = ArrayList(
-                    packageManager.queryIntentActivities(
-                        Intent(Intent.ACTION_VIEW).setDataAndType("https://".toUri(), "*/*")
-                            .putExtra("result_origin_data", true),
-                        PackageManager.MATCH_ALL
-                    ).onEach {
-                        existIntentApps.add(it.activityInfo.packageName)
-                        allIntentInfos.add(
-                            AppIntentInfo(
-                                it.loadLabel(packageManager),
-                                it.activityInfo.packageName, Intent.ACTION_VIEW,
-                                IntentType.HTTPS_LINK, it
-                            )
-                        )
-                    })
+                    }
+                }
 
                 val enabledApps = context.getStringSet(IntentPrefs, enabledListKey, ArraySet())
 
@@ -263,9 +194,9 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                     context.getStringSet(IntentPrefs, packName, ArraySet()).apply {
                         forEachIndexed { _, js ->
                             val jsonObject = safeOf(JSONObject()) { JSONObject(js) }
-                            val action = jsonObject.optString("action", "")
-                            val type = IntentType.fromString(jsonObject.optString("type", ""))
-                            val activity = jsonObject.optString("activity", "")
+                            val action = jsonObject.optString("action")
+                            val type = IntentType.fromString(jsonObject.optString("type"))
+                            val activity = jsonObject.optString("activity")
                             val find = allIntentInfos.find {
                                 it.action == action && it.type == type && it.packName == packName
                                         && it.resolveInfo.activityInfo.name == activity
