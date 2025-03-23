@@ -988,10 +988,6 @@
     <string name="appinfo_system_app">系统应用</string>
     <!--Intent-->
     <string name="custom_config_app_intent_list">自定义配置App意图列表</string>
-    <string name="enable_share_intent_switch">隐藏App分享意图</string>
-    <string name="enable_text_intent_switch">隐藏长按文本意图</string>
-    <string name="enable_open_intent_switch">隐藏打开方式意图</string>
-    <string name="enable_browser_intent_switch">隐藏浏览器意图</string>
     <string name="select_all_share_intent">全选分享意图</string>
     <string name="select_all_text_intent">全选长按文本意图</string>
     <string name="select_all_open_intent">全选打开方式意图</string>

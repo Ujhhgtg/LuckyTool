@@ -27,7 +27,8 @@ class HookIPackageManager : YukiBaseHooker() {
 
     val types = arrayOf(
         IntentType.SINGLE_SHARE, IntentType.MULTI_SHARE, IntentType.PROCESS_TEXT,
-        IntentType.CONTENT, IntentType.HTTP_LINK, IntentType.HTTPS_LINK
+        IntentType.CONTENT, IntentType.FILE,
+        IntentType.HTTP_LINK, IntentType.HTTPS_LINK
     )
 
     override fun onHook() {

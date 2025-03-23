@@ -6,7 +6,7 @@ import org.lsposed.lsparanoid.Obfuscate
 enum class IntentType {
     SINGLE_SHARE, MULTI_SHARE,
     PROCESS_TEXT,
-    CONTENT,
+    CONTENT, FILE,
     HTTP_LINK, HTTPS_LINK,
     UNKNOWN;
 

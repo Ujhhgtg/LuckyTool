@@ -11,6 +11,7 @@ import androidx.annotation.DeprecatedSinceApi
 import com.luckyzyx.luckytool.data.AppIntentInfo
 import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.enums.IntentType.CONTENT
+import com.luckyzyx.luckytool.enums.IntentType.FILE
 import com.luckyzyx.luckytool.enums.IntentType.HTTPS_LINK
 import com.luckyzyx.luckytool.enums.IntentType.HTTP_LINK
 import com.luckyzyx.luckytool.enums.IntentType.MULTI_SHARE
@@ -42,6 +43,7 @@ class IntentUtils(val context: Context) {
                             MULTI_SHARE -> it.action == Intent.ACTION_SEND_MULTIPLE
                             PROCESS_TEXT -> it.action == Intent.ACTION_PROCESS_TEXT
                             CONTENT -> it.action == Intent.ACTION_VIEW && it.type == CONTENT
+                            FILE -> it.action == Intent.ACTION_VIEW && it.type == FILE
                             HTTP_LINK -> it.action == Intent.ACTION_VIEW && it.type == HTTP_LINK
                             HTTPS_LINK -> it.action == Intent.ACTION_VIEW && it.type == HTTPS_LINK
                             UNKNOWN -> false

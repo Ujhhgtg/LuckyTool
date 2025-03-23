@@ -422,7 +422,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 }
             }
             holder.openBtn.apply {
-                val types = arrayOf(IntentType.CONTENT)
+                val types = arrayOf(IntentType.CONTENT, IntentType.FILE)
                 val curFilter = getFilterType(*types)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)

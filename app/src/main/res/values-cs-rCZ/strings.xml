@@ -988,10 +988,6 @@
     <string name="appinfo_system_app">Systémová aplikace</string>
     <!--Intent-->
     <string name="custom_config_app_intent_list">Vlastní seznam záměrů konfigurační aplikace</string>
-    <string name="enable_share_intent_switch">Skrýt záměr sdílení aplikací</string>
-    <string name="enable_text_intent_switch">Skrýt záměr dlouhého stisku textu</string>
-    <string name="enable_open_intent_switch">Skrýt záměr režimu otevření</string>
-    <string name="enable_browser_intent_switch">Skrýt záměr prohlížeče</string>
     <string name="select_all_share_intent">Select all share intent</string>
     <string name="select_all_text_intent">Select all long press text intent</string>
     <string name="select_all_open_intent">Select all open mode intent</string>

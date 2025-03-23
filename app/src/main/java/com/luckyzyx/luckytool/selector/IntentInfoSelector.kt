@@ -146,6 +146,7 @@ class IntentInfoSelector(
             IntentType.MULTI_SHARE -> context.getString(R.string.intent_multi_share)
             IntentType.PROCESS_TEXT -> context.getString(R.string.intent_long_press_text)
             IntentType.CONTENT -> context.getString(R.string.intent_open_content)
+            IntentType.FILE -> context.getString(R.string.intent_open_file)
             IntentType.HTTP_LINK -> context.getString(R.string.intent_http_link)
             IntentType.HTTPS_LINK -> context.getString(R.string.intent_https_link)
             else -> IntentType.UNKNOWN.toString()

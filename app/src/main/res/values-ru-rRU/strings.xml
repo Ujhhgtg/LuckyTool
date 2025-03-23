@@ -987,22 +987,18 @@
     <string name="appinfo_target_sdk">Целевая версия SDK</string>
     <string name="appinfo_system_app">Системное приложение</string>
     <!--Intent-->
-    <string name="custom_config_app_intent_list">Custom configuration app intent list</string>
-    <string name="enable_share_intent_switch">Hide app sharing intent</string>
-    <string name="enable_text_intent_switch">Hide long press text intent</string>
-    <string name="enable_open_intent_switch">Hide opening mode intent</string>
-    <string name="enable_browser_intent_switch">Hide browser intent</string>
-    <string name="select_all_share_intent">Select all share intent</string>
-    <string name="select_all_text_intent">Select all long press text intent</string>
-    <string name="select_all_open_intent">Select all open mode intent</string>
-    <string name="select_all_browser_intent">Select all browser intent</string>
+    <string name="custom_config_app_intent_list">Список намерений приложения пользовательской конфигурации</string>
+    <string name="select_all_share_intent">Выбрать все намерения поделиться</string>
+    <string name="select_all_text_intent">Выбрать все намерения долгого нажатия на текст</string>
+    <string name="select_all_open_intent">Выбрать все намерения открытого режима</string>
+    <string name="select_all_browser_intent">Выбрать все намерения браузера</string>
     <!--Intent Type-->
-    <string name="intent_single_share">Share Single</string>
-    <string name="intent_multi_share">Share Multiple</string>
-    <string name="intent_long_press_text">Long Press Text</string>
-    <string name="intent_open_content">Open Content</string>
-    <string name="intent_http_link">Http Link</string>
-    <string name="intent_https_link">Https Link</string>
+    <string name="intent_single_share">Поделиться одним</string>
+    <string name="intent_multi_share">Поделиться несколькими</string>
+    <string name="intent_long_press_text">Долгое нажатие на текст</string>
+    <string name="intent_open_content">Открыть содержимое</string>
+    <string name="intent_http_link">Ссылка HTTP</string>
+    <string name="intent_https_link">Ссылка HTTPS</string>
     <!--CommonWords-->
     <string name="common_words_enable">Включить</string>
     <string name="common_words_disable">Отключить</string>
