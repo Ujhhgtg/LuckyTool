@@ -8,12 +8,49 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.telephony.SubscriptionManager
 import androidx.annotation.DeprecatedSinceApi
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.data.AppIntentInfo
+import com.luckyzyx.luckytool.enums.IntentType
+import com.luckyzyx.luckytool.enums.IntentType.CONTENT
+import com.luckyzyx.luckytool.enums.IntentType.HTTPS_LINK
+import com.luckyzyx.luckytool.enums.IntentType.HTTP_LINK
+import com.luckyzyx.luckytool.enums.IntentType.MULTI_SHARE
+import com.luckyzyx.luckytool.enums.IntentType.PROCESS_TEXT
+import com.luckyzyx.luckytool.enums.IntentType.SINGLE_SHARE
+import com.luckyzyx.luckytool.enums.IntentType.UNKNOWN
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 
 @Obfuscate
 class IntentUtils(val context: Context) {
+
+    companion object {
+
+        /**
+         * 获取Intent过滤器
+         * @param types IntentType
+         * @return (AppIntentInfo) -> Boolean
+         */
+        fun getFilterType(vararg types: IntentType): (AppIntentInfo) -> Boolean {
+            return if (types.isEmpty()) {
+                { false }
+            } else {
+                {
+                    types.any { type ->
+                        when (type) {
+                            SINGLE_SHARE -> it.action == Intent.ACTION_SEND
+                            MULTI_SHARE -> it.action == Intent.ACTION_SEND_MULTIPLE
+                            PROCESS_TEXT -> it.action == Intent.ACTION_PROCESS_TEXT
+                            CONTENT -> it.action == Intent.ACTION_VIEW && it.type == CONTENT
+                            HTTP_LINK -> it.action == Intent.ACTION_VIEW && it.type == HTTP_LINK
+                            HTTPS_LINK -> it.action == Intent.ACTION_VIEW && it.type == HTTPS_LINK
+                            UNKNOWN -> false
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * 检查是否有应用支持CREATE_DOCUMENT

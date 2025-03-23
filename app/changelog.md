@@ -24,6 +24,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用NFC延时关闭
 - [添加] 启用应用停止时保留通知 C12+
 - [添加] 自定义配置App意图列表 C14+
+- [添加] 模块底部导航栏沉浸效果
 
 ### 1.2.8
 

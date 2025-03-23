@@ -20,11 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/config_intent_list"
-                    android:textAlignment="center"
                     android:text="@string/custom_config_app_intent_list"
-                    style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                    android:paddingHorizontal="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
         

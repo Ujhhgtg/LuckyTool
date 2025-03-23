@@ -15,6 +15,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.ForceEnable32BitSupport
 import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookFloatMirageWindow
 import com.luckyzyx.luckytool.hook.scopes.android.HookGMSRestrict
+import com.luckyzyx.luckytool.hook.scopes.android.HookIPackageManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookMediaProjectionManager
 import com.luckyzyx.luckytool.hook.scopes.android.HookOplusWifiService
 import com.luckyzyx.luckytool.hook.scopes.android.HookWindowManagerService
@@ -129,6 +130,9 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(HookGMSRestrict)
 
         loadHooker(EnableKeepNotificationWhenAppStop)
+
+        loadHooker(HookIPackageManager())
+
         //三段式按键
 //        loadHooker(HookAlertSlider)
 

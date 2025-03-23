@@ -98,6 +98,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
             })
             add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.custom_config_app_intent_list)
+                summary = getString(R.string.need_restart_system)
                 key = "custom_config_app_intent_list"
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {

@@ -22,6 +22,7 @@ import com.luckyzyx.luckytool.data.AppIntentInfo
 import com.luckyzyx.luckytool.databinding.DialogActivityInfoSelectorLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutActivityinfoCheckboxItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutActivityinfoItemBinding
+import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.listener.OnSelectIntentInfoListener
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -139,15 +140,15 @@ class IntentInfoSelector(
         }
     }
 
-    private fun formatType(type: String): String {
+    private fun formatType(type: IntentType): String {
         return when (type) {
-            "single_share" -> context.getString(R.string.intent_single_share)
-            "multi_share" -> context.getString(R.string.intent_multi_share)
-            "process_text" -> context.getString(R.string.intent_long_press_text)
-            "content_view" -> context.getString(R.string.intent_open_content)
-            "http_link" -> context.getString(R.string.intent_http_link)
-            "https_link" -> context.getString(R.string.intent_https_link)
-            else -> type
+            IntentType.SINGLE_SHARE -> context.getString(R.string.intent_single_share)
+            IntentType.MULTI_SHARE -> context.getString(R.string.intent_multi_share)
+            IntentType.PROCESS_TEXT -> context.getString(R.string.intent_long_press_text)
+            IntentType.CONTENT -> context.getString(R.string.intent_open_content)
+            IntentType.HTTP_LINK -> context.getString(R.string.intent_http_link)
+            IntentType.HTTPS_LINK -> context.getString(R.string.intent_https_link)
+            else -> IntentType.UNKNOWN.toString()
         }
     }
 
