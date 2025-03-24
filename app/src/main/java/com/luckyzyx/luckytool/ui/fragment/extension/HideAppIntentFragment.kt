@@ -340,7 +340,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         when (menuItem.itemId) {
             1 -> selectAllInfos(IntentType.SINGLE_SHARE, IntentType.MULTI_SHARE)
             2 -> selectAllInfos(IntentType.PROCESS_TEXT)
-            3 -> selectAllInfos(IntentType.CONTENT)
+            3 -> selectAllInfos(IntentType.CONTENT, IntentType.FILE)
             4 -> selectAllInfos(IntentType.HTTP_LINK, IntentType.HTTPS_LINK)
             10 -> MaterialAlertDialogBuilder(requireContext()).apply {
                 setNeutralButton(android.R.string.cancel, null)
