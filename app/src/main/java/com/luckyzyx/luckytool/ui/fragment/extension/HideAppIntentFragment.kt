@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
+import androidx.collection.arraySetOf
 import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
@@ -63,6 +64,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
     private var isReverse = false
     private var sortMode = 0
     private var showSystemApps = true
+    private var intentFilter = ArraySet<IntentType>()
 
     private var allAppInfos = ArrayList<AppInfo>()
     private var allIntentInfos = ArrayList<AppIntentInfo>()
@@ -94,16 +96,68 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 sortMode = checkedIds.firstOrNull() ?: 0
                 loadData()
             }
-            setFilterChips(true, arrayOf(Chip(context).apply {
-                text = context.getString(R.string.appinfo_system_app)
-                isCheckable = true
-                isClickable = true
-                isChecked = showSystemApps
-                setOnCheckedChangeListener { _, isChecked ->
-                    showSystemApps = isChecked
-                    loadData()
-                }
-            }))
+            setFilterChips(
+                true, arrayOf(
+                    Chip(context).apply {
+                        text = context.getString(R.string.appinfo_system_app)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = showSystemApps
+                        setOnCheckedChangeListener { _, isChecked ->
+                            showSystemApps = isChecked
+                            loadData()
+                        }
+                    },
+                    Chip(context).apply {
+                        val types = arraySetOf(IntentType.SINGLE_SHARE, IntentType.MULTI_SHARE)
+                        text = getString(R.string.intent_share)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = true
+                        setOnCheckedChangeListener { _, isChecked ->
+                            if (isChecked) intentFilter.addAll(types)
+                            else intentFilter.removeAll(types)
+                            loadData()
+                        }
+                    },
+                    Chip(context).apply {
+                        val types = arraySetOf(IntentType.PROCESS_TEXT)
+                        text = getString(R.string.intent_text)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = true
+                        setOnCheckedChangeListener { _, isChecked ->
+                            if (isChecked) intentFilter.addAll(types)
+                            else intentFilter.removeAll(types)
+                            loadData()
+                        }
+                    },
+                    Chip(context).apply {
+                        val types = arraySetOf(IntentType.CONTENT, IntentType.FILE)
+                        text = getString(R.string.intent_open)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = true
+                        setOnCheckedChangeListener { _, isChecked ->
+                            if (isChecked) intentFilter.addAll(types)
+                            else intentFilter.removeAll(types)
+                            loadData()
+                        }
+                    },
+                    Chip(context).apply {
+                        val types = arraySetOf(IntentType.HTTP_LINK, IntentType.HTTPS_LINK)
+                        text = getString(R.string.intent_browser)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = true
+                        setOnCheckedChangeListener { _, isChecked ->
+                            if (isChecked) intentFilter.addAll(types)
+                            else intentFilter.removeAll(types)
+                            loadData()
+                        }
+                    }
+                )
+            )
         }
 
         binding.configIntentList.apply {
@@ -122,7 +176,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         }
         binding.searchView.apply {
             addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                appIntentAdapter?.getFilter?.filter(text)
+                appIntentAdapter?.appFilter?.filter(text)
             })
         }
         binding.swipeRefreshLayout.apply {
@@ -166,6 +220,8 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                     IntentType.HTTPS_LINK to Intent().setDataAndType("https://".toUri(), "*/*"),
                 )
 
+                if (intentFilter.isEmpty()) intentFilter.addAll(allIntentFilter.map { it.key })
+
                 allIntentFilter.forEach { (type, intent) ->
                     if (intent.action == null) intent.setAction(Intent.ACTION_VIEW)
                     if (intent.data == null) intent.setType("*/*")
@@ -188,6 +244,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 existIntentApps.forEachIndexed { _, packName ->
                     val info = PackageUtils(packageManager).getInstalledAppInfo(packName, 0)
                         ?: return@forEachIndexed
+
                     if (!showSystemApps && info.isSystem) {
                         allIntentInfos.removeIf { it.packName == packName }
                         return@forEachIndexed
@@ -233,6 +290,9 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                     if (isReverse) reverse()
                     addAll(0, sortList)
                 }
+
+                if (intentFilter.isNotEmpty()) setIntentTypeFilter()
+
             }
 
             appIntentAdapter = AppIntentAdapter()
@@ -240,6 +300,14 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
+        }
+    }
+
+    private fun setIntentTypeFilter() {
+        allIntentInfos.removeIf { !intentFilter.contains(it.type) }
+        allEnabledInfos.removeIf { !intentFilter.contains(it.type) }
+        allAppInfos.removeIf { info ->
+            !allIntentInfos.map { it.packName }.contains(info.packageName)
         }
     }
 
@@ -296,6 +364,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
         allEnabledInfos.removeIf { it.packName == packName }
         allEnabledInfos.addAll(appIntents)
+        if (appIntents.isNotEmpty()) setIntentTypeFilter()
 
         if (appIntents.isEmpty()) {
             context.removeKey(IntentPrefs, packName)
@@ -461,7 +530,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             notifyItemChanged(position)
         }
 
-        val getFilter = object : Filter() {
+        val appFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterStr = constraint.toString().lowercase()
                 filterDatas = if (constraint.isBlank()) allAppInfos

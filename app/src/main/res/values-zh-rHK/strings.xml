@@ -993,10 +993,15 @@
     <string name="select_all_open_intent">全选打开方式意图</string>
     <string name="select_all_browser_intent">全选浏览器意图</string>
     <!--Intent Type-->
+    <string name="intent_share">分享意图</string>
+    <string name="intent_text">文本意图</string>
+    <string name="intent_open">打开方式意图</string>
+    <string name="intent_browser">浏览器意图</string>
     <string name="intent_single_share">分享单个</string>
     <string name="intent_multi_share">分享多个</string>
     <string name="intent_long_press_text">长按文本</string>
     <string name="intent_open_content">打开内容</string>
+    <string name="intent_open_file">打开文件</string>
     <string name="intent_http_link">Http 链接</string>
     <string name="intent_https_link">Https 链接</string>
     <!--CommonWords-->

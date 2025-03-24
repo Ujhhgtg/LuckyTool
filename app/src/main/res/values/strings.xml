@@ -1139,6 +1139,11 @@
     <string name="select_all_browser_intent">Select all browser intent</string>
     
     <!--Intent Type-->
+    <string name="intent_share">Share Intent</string>
+    <string name="intent_text">Text Intent</string>
+    <string name="intent_open">Open Mode Intent</string>
+    <string name="intent_browser">Browser Intent</string>
+    
     <string name="intent_single_share">Share Single</string>
     <string name="intent_multi_share">Share Multiple</string>
     <string name="intent_long_press_text">Long Press Text</string>
