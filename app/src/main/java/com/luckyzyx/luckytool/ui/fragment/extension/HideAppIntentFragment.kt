@@ -131,10 +131,15 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
         }
 
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            FastScrollerBuilder(this).useMd2Style().build()
+        }
+
         if (allAppInfos.isEmpty() || allIntentInfos.isEmpty()) loadData()
     }
 
-    private fun loadData(position: Int = -1) {
+    private fun loadData() {
         val context = requireContext()
 
         scopeLife {
@@ -230,20 +235,11 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 }
             }
 
-            binding.recyclerView.apply {
-                appIntentAdapter = AppIntentAdapter()
-                adapter = appIntentAdapter
-                layoutManager = LinearLayoutManager(context)
-                FastScrollerBuilder(this).useMd2Style().build()
-            }
+            appIntentAdapter = AppIntentAdapter()
+            binding.recyclerView.adapter = appIntentAdapter
 
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
-
-            val newPosition = position - 2
-            binding.recyclerView.scrollToPosition(
-                if (newPosition >= 0) newPosition else position
-            )
         }
     }
 
@@ -258,7 +254,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 override fun resultSelectIntentInfos(list: ArrayList<AppIntentInfo>) {
                     saveAppIntentList(packName, list, *types)
                     saveEnabledAppList(packName, list)
-                    loadData(position)
+                    if (position >= 0) appIntentAdapter?.refreshPosition(position)
                 }
             })
             show()
@@ -279,19 +275,8 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                 saveAppIntentList(packName, ArrayList(intents), *type)
                 saveEnabledAppList(packName, ArrayList(intents))
             }
+            appIntentAdapter?.refreshDatas()
         }
-        loadData()
-    }
-
-    fun saveEnabledAppList(packName: String, list: ArrayList<AppIntentInfo>) {
-        val context = requireContext()
-        val enabledApps = context.getStringSet(IntentPrefs, enabledListKey, ArraySet())
-        val intents = context.getStringSet(IntentPrefs, packName, ArraySet())
-        val newList = ArraySet(enabledApps).apply {
-            remove(packName)
-            if (list.isNotEmpty() || intents.isNotEmpty()) add(packName)
-        }
-        context.putStringSet(IntentPrefs, enabledListKey, newList.toSet())
     }
 
     fun saveAppIntentList(
@@ -308,7 +293,11 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         }
         appIntents.removeIf(filte)
         if (list.isNotEmpty()) appIntents.addAll(list)
-        else if (appIntents.isEmpty()) {
+
+        allEnabledInfos.removeIf { it.packName == packName }
+        allEnabledInfos.addAll(appIntents)
+
+        if (appIntents.isEmpty()) {
             context.removeKey(IntentPrefs, packName)
             return
         }
@@ -316,6 +305,17 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         val arrays = appIntents.map { it.toJSONObject() }
         val jsonArray = safeOf(JSONArray()) { JSONArray(arrays) }
         context.putStringSet(IntentPrefs, packName, jsonArray.toStringList().toSet())
+    }
+
+    fun saveEnabledAppList(packName: String, list: ArrayList<AppIntentInfo>) {
+        val context = requireContext()
+        val enabledApps = context.getStringSet(IntentPrefs, enabledListKey, ArraySet())
+        val intents = context.getStringSet(IntentPrefs, packName, ArraySet())
+        val newList = ArraySet(enabledApps).apply {
+            remove(packName)
+            if (list.isNotEmpty() || intents.isNotEmpty()) add(packName)
+        }
+        context.putStringSet(IntentPrefs, enabledListKey, newList.toSet())
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -362,13 +362,6 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         init {
             filterDatas.clear()
             filterDatas = allAppInfos
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding = LayoutIntentAppinfoSwitchItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            return ViewHolder(binding)
         }
 
         @SuppressLint("SetTextI18n")
@@ -459,7 +452,14 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
         }
 
-        override fun getItemCount(): Int = filterDatas.size
+        @SuppressLint("NotifyDataSetChanged")
+        fun refreshDatas() {
+            notifyDataSetChanged()
+        }
+
+        fun refreshPosition(position: Int) {
+            notifyItemChanged(position)
+        }
 
         val getFilter = object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
@@ -486,9 +486,13 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
         }
 
-        @SuppressLint("NotifyDataSetChanged")
-        fun refreshDatas() {
-            notifyDataSetChanged()
+        override fun getItemCount(): Int = filterDatas.size
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val binding = LayoutIntentAppinfoSwitchItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            return ViewHolder(binding)
         }
     }
 
