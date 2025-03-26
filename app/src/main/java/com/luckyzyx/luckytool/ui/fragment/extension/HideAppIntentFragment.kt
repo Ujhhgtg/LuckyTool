@@ -37,7 +37,7 @@ import com.luckyzyx.luckytool.listener.OnSelectIntentInfoListener
 import com.luckyzyx.luckytool.selector.IntentInfoSelector
 import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.utils.IntentPrefs
-import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getFilterType
+import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.clearPrefs
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -218,15 +218,15 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
                     IntentType.FILE to Intent().setDataAndType("file://".toUri(), "*/*"),
                     IntentType.HTTP_LINK to Intent().setDataAndType("http://".toUri(), "*/*"),
                     IntentType.HTTPS_LINK to Intent().setDataAndType("https://".toUri(), "*/*"),
-                )
+                ).onEach {
+                    if (it.value.action == null) it.value.setAction(Intent.ACTION_VIEW)
+                    if (it.value.data == null) it.value.setType("*/*")
+                    it.value.putExtra("result_origin_data", true)
+                }
 
                 if (intentFilter.isEmpty()) intentFilter.addAll(allIntentFilter.map { it.key })
 
                 allIntentFilter.forEach { (type, intent) ->
-                    if (intent.action == null) intent.setAction(Intent.ACTION_VIEW)
-                    if (intent.data == null) intent.setType("*/*")
-                    intent.putExtra("result_origin_data", true)
-
                     packageManager.queryIntentActivities(intent, PackageManager.MATCH_ALL).onEach {
                         existIntentApps.add(it.activityInfo.packageName)
                         allIntentInfos.add(
@@ -330,7 +330,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
     }
 
     private fun selectAllInfos(vararg type: IntentType) {
-        val filte = getFilterType(*type)
+        val filte = getIntentFilter(*type)
         val allIntents = allIntentInfos.filter(filte)
         val enabledIntents = allEnabledInfos.filter(filte)
         val isAll = allIntents.size == enabledIntents.size
@@ -351,7 +351,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
         packName: String, list: ArrayList<AppIntentInfo>, vararg types: IntentType
     ) {
         val context = requireContext()
-        val filte = getFilterType(*types)
+        val filte = getIntentFilter(*types)
         val appIntents = ArrayList<AppIntentInfo>().apply {
             context.getStringSet(IntentPrefs, packName, ArraySet()).forEachIndexed { _, js ->
                 val jsonObject = safeOfNull { JSONObject(js) } ?: return@forEachIndexed
@@ -449,7 +449,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
             holder.shareBtn.apply {
                 val types = arrayOf(IntentType.SINGLE_SHARE, IntentType.MULTI_SHARE)
-                val curFilter = getFilterType(*types)
+                val curFilter = getIntentFilter(*types)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -467,7 +467,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
             holder.textBtn.apply {
                 val types = arrayOf(IntentType.PROCESS_TEXT)
-                val curFilter = getFilterType(*types)
+                val curFilter = getIntentFilter(*types)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -485,7 +485,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
             holder.openBtn.apply {
                 val types = arrayOf(IntentType.CONTENT, IntentType.FILE)
-                val curFilter = getFilterType(*types)
+                val curFilter = getIntentFilter(*types)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"
@@ -503,7 +503,7 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
             }
             holder.browserBtn.apply {
                 val types = arrayOf(IntentType.HTTP_LINK, IntentType.HTTPS_LINK)
-                val curFilter = getFilterType(*types)
+                val curFilter = getIntentFilter(*types)
                 val allIntent = intentInfo.filter(curFilter)
                 val enabled = enabledInfo.filter(curFilter)
                 text = "${enabled.size}/${allIntent.size}"

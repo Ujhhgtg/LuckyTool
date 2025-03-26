@@ -66,7 +66,7 @@
         <com.google.android.material.chip.Chip
                 android:id="@+id/share_intent_chip"
                 app:chipIcon="@drawable/baseline_share_24"
-                android:layout_marginHorizontal="4dp"
+                android:layout_marginHorizontal="2dp"
                 android:textAlignment="textEnd"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -77,7 +77,7 @@
                 app:chipIcon="@drawable/baseline_text_fields_24"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_marginHorizontal="4dp"
+                android:layout_marginHorizontal="2dp"
                 android:textAlignment="textEnd"
                 android:layout_height="wrap_content" />
         
@@ -85,7 +85,7 @@
                 android:id="@+id/open_intent_chip"
                 app:chipIcon="@drawable/baseline_open_in_new_24"
                 android:layout_weight="1"
-                android:layout_marginHorizontal="4dp"
+                android:layout_marginHorizontal="2dp"
                 android:textAlignment="textEnd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
@@ -94,7 +94,7 @@
                 android:id="@+id/browser_intent_chip"
                 app:chipIcon="@drawable/baseline_language_24"
                 android:layout_weight="1"
-                android:layout_marginHorizontal="4dp"
+                android:layout_marginHorizontal="2dp"
                 android:textAlignment="textEnd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />

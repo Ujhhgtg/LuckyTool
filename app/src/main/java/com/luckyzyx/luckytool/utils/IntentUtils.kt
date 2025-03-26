@@ -32,7 +32,7 @@ class IntentUtils(val context: Context) {
          * @param types IntentType
          * @return (AppIntentInfo) -> Boolean
          */
-        fun getFilterType(vararg types: IntentType): (AppIntentInfo) -> Boolean {
+        fun getIntentFilter(vararg types: IntentType): (AppIntentInfo) -> Boolean {
             return if (types.isEmpty()) {
                 { false }
             } else {

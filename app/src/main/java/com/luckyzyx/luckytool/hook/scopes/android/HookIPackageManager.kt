@@ -13,7 +13,7 @@ import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.data.AppIntentInfo
 import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.utils.IntentPrefs
-import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getFilterType
+import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
 import com.luckyzyx.luckytool.utils.safeOf
 import org.json.JSONObject
 import org.lsposed.lsparanoid.Obfuscate
@@ -61,6 +61,7 @@ class HookIPackageManager : YukiBaseHooker() {
                         if (!isEnable) return@after
                         val intent = args().first().cast<Intent>() ?: return@after
                         val action = intent.action ?: return@after
+//                        val data = if (action == Intent.ACTION_VIEW)
 
                         val isOrigin = intent.getBooleanExtra("result_origin_data", false)
                         if (isOrigin) return@after
@@ -68,7 +69,7 @@ class HookIPackageManager : YukiBaseHooker() {
                         val res = result<ParceledListSlice<ResolveInfo>>() ?: return@after
                         val list = res.list ?: return@after
                         types.forEachIndexed { _, intentType ->
-                            val filte = getFilterType(intentType)
+                            val filte = getIntentFilter(intentType)
                             val intents = allIntent.filter(filte)
                             list.removeIf {
                                 val packName = it.activityInfo.packageName
