@@ -993,15 +993,15 @@
     <string name="select_all_open_intent">Выбрать все намерения открытого режима</string>
     <string name="select_all_browser_intent">Выбрать все намерения браузера</string>
     <!--Intent Type-->
-    <string name="intent_share">Share Intent</string>
-    <string name="intent_text">Text Intent</string>
-    <string name="intent_open">Open Mode Intent</string>
-    <string name="intent_browser">Browser Intent</string>
+    <string name="intent_share">Поделиться намерением</string>
+    <string name="intent_text">Текст намерения</string>
+    <string name="intent_open">Намерение открытого режима</string>
+    <string name="intent_browser">Намерение браузера</string>
     <string name="intent_single_share">Поделиться одним</string>
     <string name="intent_multi_share">Поделиться несколькими</string>
     <string name="intent_long_press_text">Долгое нажатие на текст</string>
     <string name="intent_open_content">Открыть содержимое</string>
-    <string name="intent_open_file">Open File</string>
+    <string name="intent_open_file">Открыть файл</string>
     <string name="intent_http_link">Ссылка HTTP</string>
     <string name="intent_https_link">Ссылка HTTPS</string>
     <!--CommonWords-->

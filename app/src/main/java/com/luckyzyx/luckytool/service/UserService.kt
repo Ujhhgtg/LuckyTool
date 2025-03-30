@@ -10,11 +10,11 @@ import android.os.IUserManager
 import android.os.RemoteException
 import android.os.ServiceManager
 import android.os.SystemProperties
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IUserServiceController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
+import org.lsposed.lsparanoid.Obfuscate
 import java.util.LinkedList
 
 @Obfuscate
@@ -47,6 +47,10 @@ object UserService : BaseControllerService<IUserServiceController>() {
 
             override fun getUserInfo(userId: Int): UserInfo? {
                 return UserService.getUserInfo(userId)
+            }
+
+            override fun isUserUnlocked(userId: Int): Boolean {
+                return UserService.isUserUnlocked(userId)
             }
 
         }
@@ -101,6 +105,11 @@ object UserService : BaseControllerService<IUserServiceController>() {
     fun getUserInfo(userId: Int): UserInfo? {
         val um = getUserManager() ?: return null
         return um.getUserInfo(userId)
+    }
+
+    fun isUserUnlocked(userId: Int): Boolean {
+        val um = getUserManager() ?: return false
+        return um.isUserUnlocked(userId)
     }
 
 }

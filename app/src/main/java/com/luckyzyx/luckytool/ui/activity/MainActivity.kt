@@ -26,6 +26,7 @@ import com.luckyzyx.luckytool.service.ActivityManagerService
 import com.luckyzyx.luckytool.service.AdbService
 import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.service.PackagesService
+import com.luckyzyx.luckytool.service.PowerService
 import com.luckyzyx.luckytool.service.RefreshRateService
 import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.service.UserService
@@ -154,6 +155,7 @@ open class MainActivity : AppCompatActivity() {
         AdbService.init(this)
         ActivityManagerService.init(this)
         UserService.init(this)
+        PowerService.init(this)
     }
 
     override fun onResume() {

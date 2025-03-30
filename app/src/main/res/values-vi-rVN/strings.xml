@@ -987,23 +987,23 @@
     <string name="appinfo_target_sdk">Mục tiêu SDK</string>
     <string name="appinfo_system_app">Ứng dụng hệ thống</string>
     <!--Intent-->
-    <string name="custom_config_app_intent_list">Custom configuration app intent list</string>
-    <string name="select_all_share_intent">Select all share intent</string>
-    <string name="select_all_text_intent">Select all long press text intent</string>
-    <string name="select_all_open_intent">Select all open mode intent</string>
-    <string name="select_all_browser_intent">Select all browser intent</string>
+    <string name="custom_config_app_intent_list">Tùy chỉnh danh sách ý định của ứng dụng</string>
+    <string name="select_all_share_intent">Chọn tất cả các mục đích chia sẻ</string>
+    <string name="select_all_text_intent">Chọn tất cả ý định nhấn và giữ văn bản</string>
+    <string name="select_all_open_intent">Chọn tất cả mở với ý định</string>
+    <string name="select_all_browser_intent">Chọn tất cả các mục đích của trình duyệt</string>
     <!--Intent Type-->
-    <string name="intent_share">Share Intent</string>
-    <string name="intent_text">Text Intent</string>
-    <string name="intent_open">Open Mode Intent</string>
-    <string name="intent_browser">Browser Intent</string>
-    <string name="intent_single_share">Share Single</string>
-    <string name="intent_multi_share">Share Multiple</string>
-    <string name="intent_long_press_text">Long Press Text</string>
-    <string name="intent_open_content">Open Content</string>
-    <string name="intent_open_file">Open File</string>
-    <string name="intent_http_link">Http Link</string>
-    <string name="intent_https_link">Https Link</string>
+    <string name="intent_share">Chia sẻ ý định</string>
+    <string name="intent_text">Ý định văn bản</string>
+    <string name="intent_open">Chế độ mở ý định</string>
+    <string name="intent_browser">Mục đích trình duyệt</string>
+    <string name="intent_single_share">Chia sẻ đơn</string>
+    <string name="intent_multi_share">Chia sẻ nhiều</string>
+    <string name="intent_long_press_text">Nhấn giữ văn bản</string>
+    <string name="intent_open_content">Mở nội dung</string>
+    <string name="intent_open_file">Mở tệp</string>
+    <string name="intent_http_link">Liên kết HTTP</string>
+    <string name="intent_https_link">Liên kết HTTPS</string>
     <!--CommonWords-->
     <string name="common_words_enable">Bật</string>
     <string name="common_words_disable">Tắt</string>

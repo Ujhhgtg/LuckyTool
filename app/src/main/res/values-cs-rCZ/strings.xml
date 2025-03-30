@@ -988,20 +988,20 @@
     <string name="appinfo_system_app">Systémová aplikace</string>
     <!--Intent-->
     <string name="custom_config_app_intent_list">Vlastní seznam záměrů konfigurační aplikace</string>
-    <string name="select_all_share_intent">Select all share intent</string>
-    <string name="select_all_text_intent">Select all long press text intent</string>
-    <string name="select_all_open_intent">Select all open mode intent</string>
-    <string name="select_all_browser_intent">Select all browser intent</string>
+    <string name="select_all_share_intent">Vyberte všechny záměry sdílení</string>
+    <string name="select_all_text_intent">Vyberte všechny záměry textu dlouhého stisknutí</string>
+    <string name="select_all_open_intent">Vyberte všechny záměry otevřeného režimu</string>
+    <string name="select_all_browser_intent">Vyberte všechny se záměrem prohlížeče</string>
     <!--Intent Type-->
-    <string name="intent_share">Share Intent</string>
-    <string name="intent_text">Text Intent</string>
-    <string name="intent_open">Open Mode Intent</string>
-    <string name="intent_browser">Browser Intent</string>
+    <string name="intent_share">Záměr sdílet</string>
+    <string name="intent_text">Záměr textu</string>
+    <string name="intent_open">Záměr otevřeného režimu</string>
+    <string name="intent_browser">Záměr prohlížeče</string>
     <string name="intent_single_share">Sdílet jeden</string>
     <string name="intent_multi_share">Sdílet více</string>
     <string name="intent_long_press_text">Dlouhé stisknutí textu</string>
     <string name="intent_open_content">Otevřít obsah</string>
-    <string name="intent_open_file">Open File</string>
+    <string name="intent_open_file">Otevřít soubor</string>
     <string name="intent_http_link">Http odkaz</string>
     <string name="intent_https_link">Https odkaz</string>
     <!--CommonWords-->

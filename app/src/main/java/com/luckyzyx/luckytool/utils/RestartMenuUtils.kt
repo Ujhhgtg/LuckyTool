@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Process
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.collection.ArrayMap
@@ -12,7 +13,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.luckyzyx.luckytool.IPackageServiceController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogReoptimizeDexLayoutBinding
+import com.luckyzyx.luckytool.service.ActivityManagerService
 import com.luckyzyx.luckytool.service.PackagesService
+import com.luckyzyx.luckytool.service.PowerService
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +48,12 @@ object RestartMenuUtils {
                 when (i) {
                     0 -> showRestartAllScopeDialog(context)
                     1 -> showOptimizeAllDexDialog(context)
-                    2 -> reboot()
+                    2 -> {
+                        PowerService.get(context) { controller ->
+                            controller?.reboot(false, null, false)
+                        }
+                    }
+
                     3 -> ShellUtils.fastCmd(CommandUtils.killzygote)
                 }
             }
@@ -79,36 +87,18 @@ object RestartMenuUtils {
         }
     }
 
-
-    private fun getRestartScopeCommands(
-        context: Context, scopes: Array<String>
-    ): ArrayList<String> {
-        return ArrayList<String>().apply {
-            for (scope in scopes) {
-                if (scope == "android") continue
-                if (scope.contains("systemui")) {
-                    add(CommandUtils.killSysui)
-                    continue
-                }
-                add("${CommandUtils.pkill9} $scope")
-                add("${CommandUtils.killall} $scope")
-                add("${CommandUtils.afs} $scope")
-                AppUtils(context).getAppVerInfo(scope)
-            }
-        }
-    }
-
     /**
      * 重启全部作用域
      * @receiver Context
      */
     private fun showRestartAllScopeDialog(context: Context) {
         val xposedScope = context.resources.getStringArray(R.array.xposed_scope)
-        val commands = getRestartScopeCommands(context, xposedScope)
         MaterialAlertDialogBuilder(context).apply {
             setMessage(context.getString(R.string.restart_scope_message))
             setPositiveButton(context.getString(android.R.string.ok)) { _: DialogInterface?, _: Int ->
-                scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
+                scope(Dispatchers.Default) {
+                    restartScope(context, xposedScope)
+                }
             }
             setNeutralButton(context.getString(android.R.string.cancel), null)
             show()
@@ -121,8 +111,14 @@ object RestartMenuUtils {
      * @param scopes Array<String>
      */
     private fun restartScope(context: Context, scopes: Array<String>) {
-        val commands = getRestartScopeCommands(context, scopes)
-        scope(Dispatchers.Default) { ShellUtils.fastCmd(*commands.toTypedArray()) }
+        AppUtils(context).getAllAppVerInfo(scopes)
+        ActivityManagerService.get(context) { controller ->
+            scopes.forEachIndexed { _, packName ->
+                val uid = Process.myUid() / 100000
+                controller?.forceStopPackage(packName, uid)
+            }
+        }
+        if (scopes.contains("systemui")) ShellUtils.fastCmd(CommandUtils.killSysui)
     }
 
 
@@ -130,7 +126,7 @@ object RestartMenuUtils {
      * 重启选项
      * @param reason String
      */
-    fun reboot(reason: String = "") {
+    fun shellReboot(reason: String = "") {
         if (reason == "recovery") {
             // KEYCODE_POWER = 26, hide incorrect "Factory data reset" message
             Shell.getShell().newJob().add("/system/bin/input keyevent 26").exec()

@@ -15,7 +15,7 @@ import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusScreenshot : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.oplus.screenshot", "com.oplus.appplatform")
+    override val scopes = arrayOf("com.oplus.screenshot")
 
     override val isEnableRestartMenu: Boolean = true
 

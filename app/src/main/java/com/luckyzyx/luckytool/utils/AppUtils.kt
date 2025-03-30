@@ -15,9 +15,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.Settings
 import android.util.ArraySet
-import org.lsposed.lsparanoid.Obfuscate
+import androidx.core.net.toUri
 import com.luckyzyx.luckytool.data.AppVerInfo
+import org.lsposed.lsparanoid.Obfuscate
 
+@Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 class AppUtils(val context: Context) {
 
@@ -70,6 +72,37 @@ class AppUtils(val context: Context) {
                 add(appVerInfo.toJSONObject().toString())
             })
             appVerInfo
+        }
+    }
+
+    /**
+     * 获取所有APP版本/版本号/Commit
+     * 写入SP xml文件内
+     * @return [ArrayList]
+     */
+    fun getAllAppVerInfo(packs: Array<String>, save: Boolean = true): ArrayList<AppVerInfo> {
+        return ArrayList<AppVerInfo>().apply {
+            packs.forEachIndexed { _, packName ->
+                safeOfNull {
+                    val packageInfo =
+                        packageUtils.getPackageInfo(packName, PackageManager.GET_META_DATA)
+                            ?: return@forEachIndexed
+                    val appInfo = packageInfo.applicationInfo ?: return@forEachIndexed
+                    val appName = packageUtils.getApplicationLabel(appInfo)
+                    val versionName = packageInfo.versionName ?: ""
+                    val versionCode = packageInfo.longVersionCode
+                    //修复versionCommit获取null
+                    val versionCommit = getAppMeta(appInfo, "versionCommit")
+                    val versionDate = getAppMeta(appInfo, "versionDate")
+                    //Fix the camera's commit is empty
+                    val commit = versionCommit.ifBlank { versionDate }
+                    val appVerInfo = AppVerInfo(appName, packName, versionName, versionCode, commit)
+                    if (save) context.putStringSet(ModulePrefs, packName, ArraySet<String>().apply {
+                        add(appVerInfo.toJSONObject().toString())
+                    })
+                    appVerInfo
+                }?.let { add(it) }
+            }
         }
     }
 
@@ -176,7 +209,7 @@ class AppUtils(val context: Context) {
      * @param packName String
      */
     fun openMarketIntent(packName: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packName"))
+        val intent = Intent(Intent.ACTION_VIEW, "market://details?id=$packName".toUri())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
         context.startActivity(intent)
