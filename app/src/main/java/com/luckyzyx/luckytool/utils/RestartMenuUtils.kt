@@ -118,7 +118,7 @@ object RestartMenuUtils {
                 controller?.forceStopPackage(packName, uid)
             }
         }
-        if (scopes.contains("systemui")) ShellUtils.fastCmd(CommandUtils.killSysui)
+        if (scopes.contains("com.android.systemui")) ShellUtils.fastCmd(CommandUtils.killSysui)
     }
 
 
