@@ -4,9 +4,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.IBinder
 import android.os.IInterface
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.bindRootService
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("PropertyName")
