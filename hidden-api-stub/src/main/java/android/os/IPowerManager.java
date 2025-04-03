@@ -5,7 +5,7 @@ public interface IPowerManager extends IInterface {
     abstract class Stub extends Binder implements IPowerManager {
         
         public static IPowerManager asInterface(IBinder iBinder) {
-            throw new UnsupportedOperationException();
+            throw new RuntimeException("STUB");
         }
     }
     

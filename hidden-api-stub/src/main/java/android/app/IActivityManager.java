@@ -10,7 +10,7 @@ public interface IActivityManager extends IInterface {
     
     abstract class Stub extends Binder implements IActivityManager {
         
-        public static IActivityManager asInterface(IBinder obj) {
+        public static IActivityManager asInterface(IBinder iBinder) {
             throw new RuntimeException("STUB");
         }
         

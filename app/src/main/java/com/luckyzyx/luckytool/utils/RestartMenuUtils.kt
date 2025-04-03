@@ -111,14 +111,16 @@ object RestartMenuUtils {
      * @param scopes Array<String>
      */
     private fun restartScope(context: Context, scopes: Array<String>) {
+        val killSystemUI = scopes.contains("com.android.systemui")
         AppUtils(context).getAllAppVerInfo(scopes)
         ActivityManagerService.get(context) { controller ->
             scopes.forEachIndexed { _, packName ->
+                if (packName == "com.android.systemui") return@forEachIndexed
                 val uid = Process.myUid() / 100000
                 controller?.forceStopPackage(packName, uid)
             }
         }
-        if (scopes.contains("com.android.systemui")) ShellUtils.fastCmd(CommandUtils.killSysui)
+        if (killSystemUI) ShellUtils.fastCmd(CommandUtils.killSysui)
     }
 
 
