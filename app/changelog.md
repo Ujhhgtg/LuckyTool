@@ -27,6 +27,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 模块底部导航栏沉浸效果
 - [修复] 替官方修复安装器频繁崩溃问题
 - [更改] 更改重启作用域调用逻辑
+- [优化] 模块本体页面动态取色
 
 ### 1.2.8
 

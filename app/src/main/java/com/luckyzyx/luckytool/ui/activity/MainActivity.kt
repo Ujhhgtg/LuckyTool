@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
@@ -30,6 +29,7 @@ import com.luckyzyx.luckytool.service.PowerService
 import com.luckyzyx.luckytool.service.RefreshRateService
 import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.service.UserService
+import com.luckyzyx.luckytool.ui.activity.base.BaseActivity
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
@@ -40,11 +40,9 @@ import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.verityPackage
 import com.topjohnwu.superuser.Shell
@@ -55,7 +53,7 @@ import kotlin.system.exitProcess
 
 @Obfuscate
 @Suppress("PrivatePropertyName")
-open class MainActivity : AppCompatActivity() {
+open class MainActivity : BaseActivity() {
     //检测Prefs状态
     private var isModuleActive = YukiHookAPI.Status.isXposedModuleActive
     private val KEY_PREFIX = MainActivity::class.java.name + '.'
@@ -75,9 +73,6 @@ open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //底部导航栏取色
-        initTheme()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -193,12 +188,6 @@ open class MainActivity : AppCompatActivity() {
                 true
             }
         }
-    }
-
-    private fun initTheme() {
-        ThemeUtils.initDynamicColor(this)
-        val themeMode = getString(SettingsPrefs, "dark_theme", "0")
-        ThemeUtils.initTheme(themeMode)
     }
 
     @Suppress("DEPRECATION")

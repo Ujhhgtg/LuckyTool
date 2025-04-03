@@ -1,6 +1,6 @@
 <resources>
     
-    <style name="Theme.Luckyzyx.ActionBar" parent="Theme.Material3.Dark">
+    <style name="Theme.Luckyzyx.ActionBar.DefaultColors" parent="Theme.Material3.DayNight">
         <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
         <item name="colorOnError">@color/md_theme_dark_onError</item>
         <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
@@ -30,9 +30,16 @@
         
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
     </style>
     
-    <style name="Theme.Luckyzyx.NoActionBar" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.Luckyzyx.ActionBar.DynamicColors" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+    </style>
+    
+    <style name="Theme.Luckyzyx.NoActionBar.DefaultColors" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
         <item name="colorOnError">@color/md_theme_dark_onError</item>
         <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
@@ -62,6 +69,13 @@
         
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+    </style>
+    
+    <style name="Theme.Luckyzyx.NoActionBar.DynamicColors" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
     </style>
 
 </resources>

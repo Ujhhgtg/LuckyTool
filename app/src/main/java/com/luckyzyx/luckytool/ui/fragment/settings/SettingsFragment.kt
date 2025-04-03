@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.ArraySet
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
@@ -16,6 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.ui.application.MyApplication
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -171,12 +173,12 @@ class SettingsFragment : ModulePreferenceFragment() {
             })
             addPreference(SwitchPreference(context).apply {
                 key = "use_dynamic_color"
-                setDefaultValue(false)
                 setTitle(R.string.use_dynamic_color)
                 setSummary(R.string.use_dynamic_color_summary)
+                setDefaultValue(true)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
-                    (activity as MainActivity).restart()
+                    (requireActivity().application as MyApplication).reloadAllActivities()
                     true
                 }
             })
@@ -189,7 +191,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 setDefaultValue("0")
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
-                    (activity as MainActivity).restart()
+                    (requireActivity().application as MyApplication).reloadAllActivities()
                     true
                 }
             })
@@ -335,13 +337,13 @@ class SettingsFragment : ModulePreferenceFragment() {
                                 } else startActivity(
                                     Intent(
                                         Intent.ACTION_VIEW,
-                                        Uri.parse("https://www.patreon.com/LuckyTool")
+                                        "https://www.patreon.com/LuckyTool".toUri()
                                     )
                                 )
 
                                 4 -> startActivity(
                                     Intent(
-                                        Intent.ACTION_VIEW, Uri.parse("https://paypal.me/luckyzyx")
+                                        Intent.ACTION_VIEW, "https://paypal.me/luckyzyx".toUri()
                                     )
                                 )
 
@@ -390,7 +392,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 setOnPreferenceClickListener {
                     startActivity(
                         Intent(
-                            Intent.ACTION_VIEW, Uri.parse("https://crwd.in/luckytool")
+                            Intent.ACTION_VIEW, "https://crwd.in/luckytool".toUri()
                         )
                     )
                     true

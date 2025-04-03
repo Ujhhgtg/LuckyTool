@@ -37,7 +37,7 @@
             android:description="@string/xposeddescription"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/Theme.Luckyzyx.NoActionBar"
+            android:theme="@style/Theme.Luckyzyx.NoActionBar.DynamicColors"
             android:preserveLegacyExternalStorage="true"
             android:requestLegacyExternalStorage="true"
             android:hasFragileUserData="true"
@@ -76,7 +76,7 @@
         
         <activity
                 android:name=".ui.activity.CropImageActivity"
-                android:theme="@style/Theme.Luckyzyx.NoActionBar" />
+                android:theme="@style/Theme.Luckyzyx.NoActionBar.DynamicColors" />
         
         <meta-data
                 android:name="xposedmodule"

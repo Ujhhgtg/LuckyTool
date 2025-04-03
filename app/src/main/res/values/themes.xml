@@ -1,6 +1,6 @@
 <resources>
     
-    <style name="Theme.Luckyzyx.ActionBar" parent="Theme.Material3.Light">
+    <style name="Theme.Luckyzyx.ActionBar.DefaultColors" parent="Theme.Material3.Light">
         <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
         <item name="colorOnError">@color/md_theme_light_onError</item>
         <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
@@ -31,9 +31,16 @@
         <!--<item name="alertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog</item>-->
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
     </style>
     
-    <style name="Theme.Luckyzyx.NoActionBar" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.Luckyzyx.ActionBar.DynamicColors" parent="Theme.Material3.DynamicColors.Light">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+    </style>
+    
+    <style name="Theme.Luckyzyx.NoActionBar.DefaultColors" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
         <item name="colorOnError">@color/md_theme_light_onError</item>
         <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
@@ -64,6 +71,18 @@
         <!--<item name="alertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog</item>-->
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
     </style>
-
+    
+    <style name="Theme.Luckyzyx.NoActionBar.DynamicColors" parent="Theme.Material3.DynamicColors.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+    </style>
+    
+    <style name="WindowAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+    
 </resources>

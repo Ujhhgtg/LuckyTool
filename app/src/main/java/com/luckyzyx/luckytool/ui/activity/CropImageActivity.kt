@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.lifecycle.Lifecycle
@@ -21,12 +20,13 @@ import com.canhub.cropper.CropImageView.OnCropImageCompleteListener
 import com.canhub.cropper.CropImageView.OnSetImageUriCompleteListener
 import com.canhub.cropper.R
 import com.canhub.cropper.parcelable
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.databinding.ActivityCropImageBinding
+import com.luckyzyx.luckytool.ui.activity.base.BaseActivity
 import com.luckyzyx.luckytool.utils.ThemeUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class CropImageActivity : AppCompatActivity(), MenuProvider,
+class CropImageActivity : BaseActivity(), MenuProvider,
     OnSetImageUriCompleteListener, OnCropImageCompleteListener {
 
     private lateinit var binding: ActivityCropImageBinding

@@ -2,7 +2,6 @@
 
 package com.luckyzyx.luckytool.utils
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,16 +11,13 @@ import org.lsposed.lsparanoid.Obfuscate
 @Obfuscate
 object ThemeUtils {
 
-    private val supportDynamicColor = DynamicColors.isDynamicColorAvailable()
-
-    private fun isDynamicColor(context: Context): Boolean {
-        val useDynamicColor = context.getBoolean(SettingsPrefs, "use_dynamic_color", false)
-        return supportDynamicColor && useDynamicColor
+    fun isDynamicColorsEnabled(context: Context): Boolean {
+        val enable = context.getBoolean(SettingsPrefs, "use_dynamic_color", true)
+        return enable && DynamicColors.isDynamicColorAvailable()
     }
 
-    fun isFollowSystem(context: Context): Boolean {
-        val followSystem = context.getBoolean(SettingsPrefs, "theme_follow_system", true)
-        return supportDynamicColor && followSystem
+    fun setDynamicColorsEnabled(context: Context, enabled: Boolean) {
+        context.putBoolean(SettingsPrefs, "use_dynamic_color", enabled)
     }
 
     /**
@@ -38,18 +34,13 @@ object ThemeUtils {
         return (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
     }
 
-    fun initDynamicColor(activity: Activity) {
-        if (isDynamicColor(activity)) {
-            DynamicColors.applyToActivityIfAvailable(activity)
-        }
-    }
-
     /**
      * 初始化设置主题模式
-     * @param string String? prefs参数
+     * @param context Context
      */
-    fun initTheme(string: String?) {
-        when (string) {
+    fun initTheme(context: Context) {
+        val mode = context.getString(SettingsPrefs, "dark_theme", "0")
+        when (mode) {
             "0" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             "1" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             "2" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
