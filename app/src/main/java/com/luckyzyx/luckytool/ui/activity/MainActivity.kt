@@ -84,10 +84,9 @@ open class MainActivity : BaseActivity() {
     }
 
     private fun checkXposed() {
-        val noModulePrefs = prefs(ModulePrefs).isPreferencesAvailable.not()
-        val noSettingPrefs = prefs(SettingsPrefs).isPreferencesAvailable.not()
-        val noOtherPrefs = prefs(OtherPrefs).isPreferencesAvailable.not()
-        if (!isModuleActive || noModulePrefs || noSettingPrefs || noOtherPrefs) {
+        val prefsArray = arrayOf(ModulePrefs, SettingsPrefs, IntentPrefs, OtherPrefs)
+        val prefsStatus = prefsArray.map { prefs(it).isPreferencesAvailable }
+        if (!isModuleActive || prefsStatus.contains(false)) {
             MaterialAlertDialogBuilder(this).apply {
                 setCancelable(false)
                 setMessage(getString(R.string.unsupported_xposed))

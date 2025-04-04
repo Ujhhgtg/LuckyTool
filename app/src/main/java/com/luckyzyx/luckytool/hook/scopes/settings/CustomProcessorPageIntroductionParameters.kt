@@ -6,15 +6,16 @@ import android.graphics.BitmapFactory
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.edit
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @SuppressLint("DiscouragedApi")
@@ -122,7 +123,7 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
             }
         }
         setOnLongClickListener {
-            sp.edit().remove(key).commit()
+            sp.edit(commit = true) { remove(key) }
             true
         }
     }
