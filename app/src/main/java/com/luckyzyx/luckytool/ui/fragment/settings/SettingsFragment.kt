@@ -74,7 +74,7 @@ class SettingsFragment : ModulePreferenceFragment() {
         val dataMapList = context.backupAllPrefs(
             ModulePrefs, IntentPrefs, SettingsPrefs, OtherPrefs
         )
-        dataMapList?.keys?.forEach { prefs ->
+        dataMapList.keys.forEach { prefs ->
             val jsons = JSONObject()
             val data = dataMapList[prefs]
             data?.keys?.forEach { key ->

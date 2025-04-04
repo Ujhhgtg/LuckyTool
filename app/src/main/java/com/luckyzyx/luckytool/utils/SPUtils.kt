@@ -1,120 +1,139 @@
-@file:Suppress(
-    "unused", "DEPRECATION", "WorldReadableFiles", "ApplySharedPref",
-    "", "UseKtx"
-)
+@file:Suppress("DEPRECATION", "WorldReadableFiles", "ApplySharedPref", "UseKtx", "unused")
 
 package com.luckyzyx.luckytool.utils
 
 import android.content.Context
 import android.util.ArrayMap
-import androidx.collection.ArraySet
+import android.util.ArraySet
+import androidx.collection.arrayMapOf
+import androidx.collection.arraySetOf
 
 const val ModulePrefs: String = "ModulePrefs"
 const val IntentPrefs: String = "IntentPrefs"
 const val SettingsPrefs: String = "SettingsPrefs"
 const val OtherPrefs: String = "OtherPrefs"
 
-fun Context.putString(prefsName: String, key: String, value: String?): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    val editor = prefs.edit()
-    editor.putString(key, value)
-    return editor.commit()
-}
-
-fun Context.putStringSet(prefsName: String, key: String, value: Set<String?>?): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    val editor = prefs.edit()
-    editor.putStringSet(key, value)
-    return editor.commit()
-}
-
-fun Context.getString(prefsName: String, key: String): String {
-    return getString(prefsName, key, "")
-}
-
-fun Context.getStringSet(prefsName: String, key: String): Set<String> {
-    return getStringSet(prefsName, key, ArraySet())
-}
-
-fun Context.getString(prefsName: String, key: String, defaultValue: String) =
-    safeOf(defaultValue) {
+fun Context.getString(prefsName: String, key: String, defaultValue: String = ""): String {
+    return try {
         val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-        return prefs.getString(key, defaultValue)!!
+        prefs.getString(key, defaultValue) ?: defaultValue
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "getString $key -> $defaultValue", "$t", true)
+        defaultValue
     }
+}
 
-fun Context.getStringSet(prefsName: String, key: String, defaultValue: Set<String>) =
-    safeOf(defaultValue) {
+fun Context.putString(prefsName: String, key: String, value: String): Boolean {
+    return try {
         val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-        return prefs.getStringSet(key, defaultValue)!!
+        prefs.edit().putString(key, value).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "putString $key -> $value", "$t", true)
+        false
     }
+}
+
+fun Context.getStringSet(
+    prefsName: String, key: String, defaultValue: Set<String> = arraySetOf()
+): Set<String> {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        ArraySet(prefs.getStringSet(key, defaultValue))
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "getStringSet $key -> $defaultValue", "$t", true)
+        defaultValue
+    }
+}
+
+fun Context.putStringSet(prefsName: String, key: String, value: Set<String>): Boolean {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.edit().putStringSet(key, value).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "putStringSet $key -> $value", "$t", true)
+        false
+    }
+}
+
+fun Context.getInt(prefsName: String, key: String, defaultValue: Int = -1): Int {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.getInt(key, defaultValue)
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "getInt $key -> $defaultValue", "$t", true)
+        defaultValue
+    }
+}
 
 fun Context.putInt(prefsName: String, key: String, value: Int): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    val editor = prefs.edit()
-    editor.putInt(key, value)
-    return editor.commit()
-}
-
-fun Context.getInt(prefsName: String, key: String): Int {
-    return getInt(prefsName, key, -1)
-}
-
-fun Context.getInt(prefsName: String, key: String, defaultValue: Int) =
-    safeOf(defaultValue) {
+    return try {
         val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-        return prefs.getInt(key, defaultValue)
+        prefs.edit().putInt(key, value).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "putInt $key -> $value", "$t", true)
+        false
     }
+}
+
+fun Context.getLong(prefsName: String, key: String, defaultValue: Long = -1L): Long {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.getLong(key, defaultValue)
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "getLong $key -> $defaultValue", "$t", true)
+        defaultValue
+    }
+}
 
 fun Context.putLong(prefsName: String, key: String, value: Long): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    val editor = prefs.edit()
-    editor.putLong(key, value)
-    return editor.commit()
-}
-
-fun Context.getLong(prefsName: String, key: String): Long {
-    return getLong(prefsName, key, -1)
-}
-
-fun Context.getLong(prefsName: String, key: String, defaultValue: Long) =
-    safeOf(defaultValue) {
+    return try {
         val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-        return prefs.getLong(key, defaultValue)
+        prefs.edit().putLong(key, value).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "putLong $key -> $value", "$t", true)
+        false
     }
+}
+
+fun Context.getFloat(prefsName: String, key: String, defaultValue: Float = -1F): Float {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.getFloat(key, defaultValue)
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "getFloat $key -> $defaultValue", "$t", true)
+        defaultValue
+    }
+}
 
 fun Context.putFloat(prefsName: String, key: String, value: Float): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    val editor = prefs.edit()
-    editor.putFloat(key, value)
-    return editor.commit()
-}
-
-fun Context.getFloat(prefsName: String, key: String): Float {
-    return getFloat(prefsName, key, -1F)
-}
-
-fun Context.getFloat(prefsName: String, key: String, defaultValue: Float) =
-    safeOf(defaultValue) {
+    return try {
         val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-        return prefs.getFloat(key, defaultValue)
+        prefs.edit().putFloat(key, value).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "putFloat $key -> $value", "$t", true)
+        false
     }
+}
+
+fun Context.getBoolean(prefsName: String, key: String, defaultValue: Boolean = false): Boolean {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.getBoolean(key, defaultValue)
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "getBoolean $key -> $defaultValue", "$t", true)
+        defaultValue
+    }
+}
 
 fun Context.putBoolean(prefsName: String, key: String, value: Boolean): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    val editor = prefs.edit()
-    editor.putBoolean(key, value)
-    return editor.commit()
-}
-
-fun Context.getBoolean(prefsName: String, key: String): Boolean {
-    return getBoolean(prefsName, key, false)
-}
-
-fun Context.getBoolean(prefsName: String, key: String, defaultValue: Boolean) =
-    safeOf(defaultValue) {
+    return try {
         val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-        return prefs.getBoolean(key, defaultValue)
+        prefs.edit().putBoolean(key, value).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "putBoolean $key -> $value", "$t", true)
+        false
     }
+}
 
 /**
  * 删除键值数据
@@ -123,8 +142,13 @@ fun Context.getBoolean(prefsName: String, key: String, defaultValue: Boolean) =
  * @param key String
  */
 fun Context.removeKey(prefsName: String, key: String): Boolean {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    return prefs.edit().remove(key).commit()
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.edit().remove(key).commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "removeKey $key", "$t", true)
+        false
+    }
 }
 
 /**
@@ -133,9 +157,14 @@ fun Context.removeKey(prefsName: String, key: String): Boolean {
  * @param prefsName String?
  * @return Boolean
  */
-fun Context.clearPrefs(prefsName: String) = runInSafe {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    prefs.edit().clear().commit()
+fun Context.clearPrefs(prefsName: String): Boolean {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.edit().clear().commit()
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "clearPrefs $prefsName", "$t", true)
+        false
+    }
 }
 
 /**
@@ -143,11 +172,18 @@ fun Context.clearPrefs(prefsName: String) = runInSafe {
  * @receiver Context
  * @param prefList Array<out String?>
  */
-fun Context.clearAllPrefs(vararg prefList: String) = runInSafe {
-    prefList.forEach {
-        val prefs = getSharedPreferences(it, Context.MODE_WORLD_READABLE)
-        prefs.edit().clear().commit()
+fun Context.clearAllPrefs(vararg prefList: String): Boolean {
+    val curStatus = BooleanArray(prefList.size)
+    prefList.forEachIndexed { index, name ->
+        try {
+            val prefs = getSharedPreferences(name, Context.MODE_WORLD_READABLE)
+            curStatus[index] = prefs.edit().clear().commit()
+        } catch (t: Throwable) {
+            LogUtils.e("SPUtils", "clearAllPrefs $name", "$t", true)
+            curStatus[index] = false
+        }
     }
+    return curStatus.contains(false)
 }
 
 /**
@@ -156,9 +192,14 @@ fun Context.clearAllPrefs(vararg prefList: String) = runInSafe {
  * @param prefsName String?
  * @return MutableMap<String, *>?
  */
-fun Context.backupPrefs(prefsName: String): MutableMap<String, *>? = safeOfNull {
-    val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
-    prefs.all
+fun Context.backupPrefs(prefsName: String): MutableMap<String, *> {
+    return try {
+        val prefs = getSharedPreferences(prefsName, Context.MODE_WORLD_READABLE)
+        prefs.all
+    } catch (t: Throwable) {
+        LogUtils.e("SPUtils", "backupPrefs $prefsName", "$t", true)
+        arrayMapOf<String, Any>()
+    }
 }
 
 /**
@@ -167,11 +208,16 @@ fun Context.backupPrefs(prefsName: String): MutableMap<String, *>? = safeOfNull 
  * @param prefList Array<out String?>
  * @return ArrayMap<String, MutableMap<String, *>>?
  */
-fun Context.backupAllPrefs(vararg prefList: String) = safeOfNull {
-    ArrayMap<String, MutableMap<String, *>?>().apply {
-        prefList.forEach {
-            val prefs = getSharedPreferences(it, Context.MODE_WORLD_READABLE)
-            this[it] = prefs.all
+fun Context.backupAllPrefs(vararg prefList: String): ArrayMap<String, MutableMap<String, *>?> {
+    val map = ArrayMap<String, MutableMap<String, *>?>()
+    prefList.forEachIndexed { _, name ->
+        try {
+            val prefs = getSharedPreferences(name, Context.MODE_WORLD_READABLE)
+            map[name] = prefs.all
+        } catch (t: Throwable) {
+            LogUtils.e("SPUtils", "backupAllPrefs $name", "$t", true)
+            map[name] = arrayMapOf<String, Any>()
         }
     }
+    return map
 }
