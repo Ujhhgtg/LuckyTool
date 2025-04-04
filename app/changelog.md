@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.2.9_beta
+### 1.2.9
 
 - [修复] 解锁页面底部SOS按钮Hook异常
 - [修复] 检测更新对话框与布局显示逻辑
@@ -28,6 +28,29 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 替官方修复安装器频繁崩溃问题
 - [更改] 更改重启作用域调用逻辑
 - [优化] 模块本体页面动态取色
+- [Fix] Unlock the SOS button at the bottom of the page to abnormally
+- [Fix] Detect update dialog and layout display logic
+- [Fix] Some instance acquisition issues caused by RUI6 adaptation
+- [Add] Custom Processor Introduction Page Parameters
+- [Change] Re-add ring status toggle tile
+- [Fix] Global Search Application Recommended Card v11.38.3.20 (3e27c21)
+- [Fix] An exception to change the name of a personal hotspot device
+- [Change] Lite new version of the game assistant useless function v10.0.0+
+- [Add] Quickly add built-in tile to the control center C13+
+- [Fix] Control Center Tile Number Limit C12.1
+- [Add] Remove GMS usage restrictions C12+
+- [Change] Synchronize upstream DisableSecureFlag
+- [Add] Enable WiFi Details Display Gateway C12+
+- [Optimize] Desktop folder preview background hidden problem
+- [Fix] Desktop widget add request v15.4.13 (d2cffca)
+- [Add] Prompt for optimization of Dex after detection system update
+- [Add] Enable NFC delay shutdown
+- [Add] Enable Retain Notifications when App Stopped C12+
+- [Add] Custom configuration app intent list C14+
+- [Add] Immersion effect of the navigation bar at the bottom of the module
+- [Fix] Repair the installation frequently crash problem for the official
+- [Change] Change the restart scope call logic
+- [Optimize] Dynamic color selection of module body page
 
 ### 1.2.8
 

@@ -420,8 +420,8 @@
     <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
     <string name="set_app_update_dot_display_mode">Установить режим отображения точки на иконке после обновления приложения</string>
     <string name="remove_app_shortcut_badge">Удалить значки приложений у ярлыков</string>
-    <string name="remove_app_work_badge">Удалить значок приложения рабочего профиля</string>
-    <string name="remove_app_clone_badge">Удалить значок клонированного приложения</string>
+    <string name="remove_app_work_badge">Удалить метку рабочего профиля у приложений</string>
+    <string name="remove_app_clone_badge">Удалить метку клонированного приложения</string>
     <string name="remove_app_update_green_dot">Удалить зеленую точку после обновления приложения</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
     <string name="enable_auto_close_folder">Включить автоматическое закрытие папок</string>
