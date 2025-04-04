@@ -368,23 +368,31 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
         if (appIntents.isEmpty()) {
             context.removeKey(IntentPrefs, packName)
-            return
+        } else {
+            val arrays = appIntents.map { it.toJSONObject() }
+            val jsonArray = safeOf(JSONArray()) { JSONArray(arrays) }
+            context.putStringSet(IntentPrefs, packName, jsonArray.toStringList().toSet())
         }
 
-        val arrays = appIntents.map { it.toJSONObject() }
-        val jsonArray = safeOf(JSONArray()) { JSONArray(arrays) }
-        context.putStringSet(IntentPrefs, packName, jsonArray.toStringList().toSet())
+        context.sendPrefsValue(
+            "android", "custom_config_app_intent_list_update_app_config", packName
+        )
     }
 
     fun saveEnabledAppList(packName: String, list: ArrayList<AppIntentInfo>) {
         val context = requireContext()
         val enabledApps = context.getStringSet(IntentPrefs, enabledListKey, ArraySet())
         val intents = context.getStringSet(IntentPrefs, packName, ArraySet())
+        val isAdd = list.isNotEmpty() || intents.isNotEmpty()
         val newList = ArraySet(enabledApps).apply {
             remove(packName)
-            if (list.isNotEmpty() || intents.isNotEmpty()) add(packName)
+            if (isAdd) add(packName)
         }
         context.putStringSet(IntentPrefs, enabledListKey, newList.toSet())
+        context.sendPrefsValue(
+            "android", "custom_config_app_intent_list_update_apps",
+            Pair(packName, isAdd)
+        )
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

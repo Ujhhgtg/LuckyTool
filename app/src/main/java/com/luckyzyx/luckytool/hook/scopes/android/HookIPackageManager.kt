@@ -6,6 +6,7 @@ import android.content.pm.ResolveInfo
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongType
@@ -21,9 +22,10 @@ import org.lsposed.lsparanoid.Obfuscate
 @Obfuscate
 class HookIPackageManager : YukiBaseHooker() {
 
-    val allIntent = ArrayList<AppIntentInfo>()
+    val allIntent = ArraySet<AppIntentInfo>()
+    private val allEnabledApps = ArraySet<String>()
+
     var isEnable = prefs(IntentPrefs).getBoolean("custom_config_app_intent_list", false)
-    val enabledApps = prefs(IntentPrefs).getStringSet("enable_app_hide_list", ArraySet())
 
     val types = arrayOf(
         IntentType.SINGLE_SHARE, IntentType.MULTI_SHARE, IntentType.PROCESS_TEXT,
@@ -32,19 +34,45 @@ class HookIPackageManager : YukiBaseHooker() {
     )
 
     override fun onHook() {
-        dataChannel.wait<Boolean>("custom_config_app_intent_list") { isEnable = it }
-
         initData()
+        initDataChannel()
+
         loadHooker(HookQueryIntentActivitie())
     }
 
     private fun initData() {
         allIntent.clear()
-        enabledApps.forEachIndexed { _, packName ->
+        allEnabledApps.clear()
+
+        allEnabledApps.addAll(prefs(IntentPrefs).getStringSet("enable_app_hide_list", ArraySet()))
+        allEnabledApps.forEachIndexed { _, packName ->
             prefs(IntentPrefs).getStringSet(packName, ArraySet()).forEachIndexed { _, js ->
                 val jsonObject = safeOf(JSONObject()) { JSONObject(js) }
                 allIntent.add(AppIntentInfo().toAppIntentInfo(jsonObject))
             }
+        }
+        YLog.debug("init app intent configs success")
+    }
+
+    private fun initDataChannel() {
+        dataChannel.wait<Boolean>("custom_config_app_intent_list") {
+            isEnable = it
+            YLog.debug("update custom app intent configs status -> $it")
+        }
+        dataChannel.wait<String>("custom_config_app_intent_list_update_app_config") { its ->
+            val old = allIntent.filter { it.packName == its }
+            val new = prefs(IntentPrefs).getStringSet(its, ArraySet())
+
+            allIntent.removeIf { it.packName == its }
+            new.forEachIndexed { _, js ->
+                val jsonObject = safeOf(JSONObject()) { JSONObject(js) }
+                allIntent.add(AppIntentInfo().toAppIntentInfo(jsonObject))
+            }
+            YLog.debug("update $its configs -> ${old.size} | ${new.size}")
+        }
+        dataChannel.wait<Pair<String, Boolean>>("custom_config_app_intent_list_update_apps") {
+            if (it.second) allEnabledApps.add(it.first) else allEnabledApps.remove(it.first)
+            YLog.debug("update app intent enabled list -> ${it.first} | ${it.second}")
         }
     }
 
