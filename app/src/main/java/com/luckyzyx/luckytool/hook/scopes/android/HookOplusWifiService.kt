@@ -77,16 +77,46 @@ object HookOplusWifiService : YukiBaseHooker() {
 
     @Obfuscate
     class HookSlaAppList(val classLoader: ClassLoader?) : YukiBaseHooker() {
-        override fun onHook() {
-            var mode = prefs(ModulePrefs).getString("set_wlan_sla_whitelist_mode", "0")
-            dataChannel.wait<String>("set_wlan_sla_whitelist_mode") { mode = it }
-            var rmBlack = prefs(ModulePrefs).getBoolean("remove_wlan_sla_blacklist", false)
+
+        private val whitelistKey = "custom_wlan_sla_whitelist"
+        private val gameWhitelistKey = "custom_wlan_sla_game_whitelist"
+
+        var mode = "0"
+        var rmBlack = false
+        val whitelist = ArraySet<String>()
+        val gameWhitelist = ArraySet<String>()
+
+        private fun initData() {
+            mode = prefs(ModulePrefs).getString("set_wlan_sla_whitelist_mode", "0")
+            dataChannel.wait<String>("set_wlan_sla_whitelist_mode") {
+                mode = it
+                YLog.debug("update oplus wifi configs status -> $it")
+            }
+            rmBlack = prefs(ModulePrefs).getBoolean("remove_wlan_sla_blacklist", false)
             dataChannel.wait<Boolean>("remove_wlan_sla_blacklist") { rmBlack = it }
-            var set = prefs(ModulePrefs).getStringSet("custom_wlan_sla_whitelist", ArraySet())
-            dataChannel.wait<Set<String>>("custom_wlan_sla_whitelist") { set = it }
-            var gameSet =
-                prefs(ModulePrefs).getStringSet("custom_wlan_sla_game_whitelist", ArraySet())
-            dataChannel.wait<Set<String>>("custom_wlan_sla_game_whitelist") { gameSet = it }
+
+            whitelist.clear()
+            whitelist.addAll(prefs(ModulePrefs).getStringSet(whitelistKey, ArraySet()))
+            dataChannel.wait<Set<String>>(whitelistKey) {
+                whitelist.clear()
+                val new = prefs(ModulePrefs).getStringSet(whitelistKey, ArraySet())
+                whitelist.addAll(new)
+                YLog.debug("update oplus wifi whitelist configs -> ${whitelist.size} | ${new.size}")
+            }
+
+            gameWhitelist.clear()
+            gameWhitelist.addAll(prefs(ModulePrefs).getStringSet(gameWhitelistKey, ArraySet()))
+            dataChannel.wait<Set<String>>(gameWhitelistKey) {
+                gameWhitelist.clear()
+                val new = prefs(ModulePrefs).getStringSet(gameWhitelistKey, ArraySet())
+                gameWhitelist.addAll(new)
+                YLog.debug("update oplus wifi game whitelist configs -> ${gameWhitelist.size} | ${new.size}")
+            }
+            YLog.debug("init oplus wifi configs success")
+        }
+
+        override fun onHook() {
+            initData()
 
             if (mode == "0") return
 
@@ -97,36 +127,39 @@ object HookOplusWifiService : YukiBaseHooker() {
             ).toClass(classLoader).apply {
                 method { name = "getSlaWhiteListAppsFromRus";returnType = StringArrayClass }.hook {
                     after {
+                        if (mode == "0") return@after
                         val res = result<Array<String>>() ?: return@after
                         result = when (mode) {
                             "1" -> res.toMutableList().apply {
-                                set.forEachIndexed { _, new ->
+                                whitelist.forEachIndexed { _, new ->
                                     if (!contains(new)) add(new)
                                 }
                             }.toTypedArray()
 
-                            "2" -> set.toTypedArray()
+                            "2" -> whitelist.toTypedArray()
                             else -> return@after
                         }
                     }
                 }
                 method { name = "getSlaGameAppsFromRus";returnType = StringArrayClass }.hook {
                     after {
+                        if (mode == "0") return@after
                         val res = result<Array<String>>() ?: return@after
                         result = when (mode) {
                             "1" -> res.toMutableList().apply {
-                                gameSet.forEachIndexed { _, new ->
+                                gameWhitelist.forEachIndexed { _, new ->
                                     if (!contains(new)) add(new)
                                 }
                             }.toTypedArray()
 
-                            "2" -> gameSet.toTypedArray()
+                            "2" -> gameWhitelist.toTypedArray()
                             else -> return@after
                         }
                     }
                 }
                 method { name = "getSlaBlackListAppsFromRus" }.hook {
                     before {
+                        if (mode == "0") return@before
                         if (rmBlack) resultNull()
                     }
                 }

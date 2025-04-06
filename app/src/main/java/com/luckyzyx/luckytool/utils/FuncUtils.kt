@@ -867,6 +867,16 @@ fun Context.sendPrefsValue(packName: String, key: String, newValue: Any) {
 }
 
 /**
+ * 发送Prefs键值到dataChannel
+ * @receiver Context
+ * @param packName String
+ * @param key String
+ */
+fun Context.sendPrefsKey(packName: String, key: String) {
+    dataChannel(packName).put(key)
+}
+
+/**
  * 逆转字符串数组
  * @param str
  * @return

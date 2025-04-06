@@ -3,9 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object MultiAppConfig : YukiBaseHooker() {
@@ -21,24 +22,43 @@ object MultiAppConfig : YukiBaseHooker() {
 
     @Obfuscate
     object MultiAppAllowList : YukiBaseHooker() {
+
+        var mode = "0"
+        val list = ArrayList<String>()
+        var limit = false
+
+        private fun loadData() {
+            mode = prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")
+            dataChannel.wait<String>("set_multi_app_support_mode") {
+                mode = it
+                YLog.debug("update multi app configs status -> $it")
+            }
+
+            list.clear()
+            list.addAll(prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet()))
+            dataChannel.wait<Set<String>>("multi_app_custom_list") {
+                list.clear()
+                val new = prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet())
+                list.addAll(new)
+                YLog.debug("update multi app whitelist configs -> ${list.size} | ${new.size}")
+            }
+            limit = prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)
+            YLog.debug("init multi app configs success")
+        }
+
         override fun onHook() {
-            var mode = prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")
-            dataChannel.wait<String>("set_multi_app_support_mode") { mode = it }
-            var enabledMulti = prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet())
-            dataChannel.wait<Set<String>>("multi_app_custom_list") { enabledMulti = it }
-            val createdLimit =
-                prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)
+            loadData()
 
             //Source OplusMultiAppConfig
             "com.oplus.multiapp.OplusMultiAppConfig".toClass().apply {
                 method { name = "getAllowedPkgList" }.hook {
                     before {
-                        if (mode != "1" || enabledMulti.isEmpty()) return@before
-                        result = java.util.ArrayList(enabledMulti)
+                        if (mode != "1" || list.isEmpty()) return@before
+                        result = java.util.ArrayList(list)
                     }
                 }
                 method { name = "getMaxCreatedNum" }.hook {
-                    if (createdLimit) replaceTo(1000)
+                    if (limit) replaceTo(1000)
                 }
             }
         }

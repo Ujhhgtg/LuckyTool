@@ -25,6 +25,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
@@ -211,7 +212,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                                         }
                                     }
                                     putStringSet(ModulePrefs, key, set.toSet())
-                                    sendPrefsValue("android", key, set.toSet())
+                                    sendPrefsKey("android", key)
                                     (activity as MainActivity).restart()
                                 }
                             })
@@ -237,7 +238,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                                         }
                                     }
                                     putStringSet(ModulePrefs, key, set.toSet())
-                                    sendPrefsValue("android", key, set.toSet())
+                                    sendPrefsKey("android", key)
                                     (activity as MainActivity).restart()
                                 }
                             })
