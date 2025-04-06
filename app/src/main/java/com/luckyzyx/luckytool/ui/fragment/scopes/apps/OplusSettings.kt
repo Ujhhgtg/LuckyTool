@@ -12,7 +12,6 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.contract.CropImageContract
 import com.luckyzyx.luckytool.data.CropImageContractOptions
@@ -39,6 +38,7 @@ import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {
@@ -447,12 +447,6 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         isIconSpaceReserved = false
                     })
                 }
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.customize_device_sharing_page_parameters)
-                    key = "customize_device_sharing_page_parameters"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_mariana_npu_introduction_page)
                     key = "enable_mariana_npu_introduction_page"

@@ -5,6 +5,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.3.0_beta
 
+- [修复] 移除模块设置分区重复的功能项
+
 ### 1.2.9
 
 - [修复] 解锁页面底部SOS按钮Hook异常
