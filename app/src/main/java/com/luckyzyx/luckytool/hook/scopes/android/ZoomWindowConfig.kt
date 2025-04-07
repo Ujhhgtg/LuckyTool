@@ -3,46 +3,60 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("UNCHECKED_CAST")
-object ZoomWindowConfig : YukiBaseHooker() {
+class ZoomWindowConfig : YukiBaseHooker() {
+
+    var callback: ((key: String, value: Any) -> Unit)? = null
+
+    var mode = "0"
+    val list = ArraySet<String>()
+
+    var multiWindow = false
+    var multiNum = 2
+
+    fun loadData() {
+        mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
+        list.addAll(prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet()))
+
+        dataChannel.wait<String>("custom_app_floating_window_display_mode") {
+            mode = it
+            YLog.debug("update zoom window configs status -> $it")
+        }
+
+        dataChannel.wait<Set<String>>("zoom_window_support_list") {
+            list.clear()
+            val new = prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
+            list.addAll(new)
+            YLog.debug("update zoom window whitelist configs -> ${list.size} | ${new.size}")
+        }
+
+        multiWindow = prefs(ModulePrefs).getBoolean("force_enable_multi_window_mode", false)
+        dataChannel.wait<Boolean>("force_enable_multi_window_mode") { multiWindow = it }
+        multiNum = prefs(ModulePrefs).getInt("custom_multi_window_display_upper_limit", 2)
+        dataChannel.wait<Int>("custom_multi_window_display_upper_limit") { multiNum = it }
+
+        YLog.debug("init zoom window configs success")
+    }
 
     override fun onHook() {
-        dataChannel.wait<String>("custom_app_floating_window_display_mode") {
-            HookZoomWindow.callback?.invoke("custom_app_floating_window_display_mode", it)
-            HookFlexibleWindow.callback?.invoke("custom_app_floating_window_display_mode", it)
-        }
-        dataChannel.wait<Set<String>>("zoom_window_support_list") {
-            HookZoomWindow.callback?.invoke("zoom_window_support_list", it)
-            HookFlexibleWindow.callback?.invoke("zoom_window_support_list", it)
-        }
+        loadData()
+
         val osCode = getOSVersionCode
-        loadHooker(HookZoomWindow)
-        if (osCode >= 33) loadHooker(HookFlexibleWindow)
+        loadHooker(HookZoomWindow())
+        if (osCode >= 33) loadHooker(HookFlexibleWindow())
     }
 
     @Obfuscate
-    object HookZoomWindow : YukiBaseHooker() {
-        var callback: ((key: String, value: Any) -> Unit)? = null
-
+    inner class HookZoomWindow : YukiBaseHooker() {
         override fun onHook() {
-            var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
-            var supportList =
-                prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
-            callback = { key: String, value: Any ->
-                when (key) {
-                    "custom_app_floating_window_display_mode" -> mode = value as String
-                    "zoom_window_support_list" -> supportList = value as Set<String>
-                }
-            }
-
             //Source OplusZoomWindowConfig
             "com.android.server.wm.OplusZoomWindowConfig".toClass().apply {
                 method {
@@ -57,7 +71,7 @@ object ZoomWindowConfig : YukiBaseHooker() {
                                 val target = args().first().string()
                                 val packName = if (target.contains("/").not()) target
                                 else target.split("/")[0]
-                                if (supportList.contains(packName)) resultTrue()
+                                if (list.contains(packName)) resultTrue()
                             }
                         }
                     }
@@ -67,26 +81,8 @@ object ZoomWindowConfig : YukiBaseHooker() {
     }
 
     @Obfuscate
-    object HookFlexibleWindow : YukiBaseHooker() {
-        var callback: ((key: String, value: Any) -> Unit)? = null
-
+    inner class HookFlexibleWindow : YukiBaseHooker() {
         override fun onHook() {
-            var mode = prefs(ModulePrefs).getString("custom_app_floating_window_display_mode", "0")
-            var supportList =
-                prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
-
-            var multiWindow = prefs(ModulePrefs).getBoolean("force_enable_multi_window_mode", false)
-            dataChannel.wait<Boolean>("force_enable_multi_window_mode") { multiWindow = it }
-            var multiNum = prefs(ModulePrefs).getInt("custom_multi_window_display_upper_limit", 2)
-            dataChannel.wait<Int>("custom_multi_window_display_upper_limit") { multiNum = it }
-
-            callback = { key: String, value: Any ->
-                when (key) {
-                    "custom_app_floating_window_display_mode" -> mode = value as String
-                    "zoom_window_support_list" -> supportList = value as Set<String>
-                }
-            }
-
             //Source FlexibleWindowUtils
             "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.apply {
                 method {
@@ -101,7 +97,7 @@ object ZoomWindowConfig : YukiBaseHooker() {
                                 val target = args().first().string()
                                 val packName = if (target.contains("/").not()) target
                                 else target.split("/")[0]
-                                if (supportList.contains(packName)) resultTrue()
+                                if (list.contains(packName)) resultTrue()
                             }
                         }
                     }

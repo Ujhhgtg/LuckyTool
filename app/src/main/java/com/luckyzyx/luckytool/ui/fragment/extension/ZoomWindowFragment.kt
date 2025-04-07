@@ -22,7 +22,6 @@ import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.google.android.material.chip.Chip
 import com.google.android.material.materialswitch.MaterialSwitch
-import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentZoomWindowApplistLayoutBinding
@@ -34,6 +33,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import org.lsposed.lsparanoid.Obfuscate
@@ -251,7 +251,7 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
                 data.add(it.packageName)
             }
             requireActivity().putStringSet(ModulePrefs, supportListKey, data.toSet())
-            requireActivity().dataChannel("android").put(supportListKey, data.toSet())
+            requireActivity().sendPrefsKey("android", supportListKey)
         }
 
         @SuppressLint("NotifyDataSetChanged")
