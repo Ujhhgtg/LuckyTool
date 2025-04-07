@@ -44,6 +44,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
+import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import org.lsposed.lsparanoid.Obfuscate
@@ -305,8 +306,8 @@ class DarkModeFragment : Fragment(), MenuProvider {
                 data.add(it.value.toJSONObject().toString())
             }
             requireActivity().putStringSet(ModulePrefs, supportListKey, data.toSet())
-            requireActivity().dataChannel("android").put(supportListKey, data.toSet())
-            requireActivity().dataChannel("com.android.settings").put(supportListKey, data.toSet())
+            requireActivity().sendPrefsKey("android", supportListKey)
+            requireActivity().sendPrefsKey("com.android.settings", supportListKey)
         }
 
         @SuppressLint("NotifyDataSetChanged")

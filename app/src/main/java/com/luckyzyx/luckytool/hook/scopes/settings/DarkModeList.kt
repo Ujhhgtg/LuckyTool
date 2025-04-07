@@ -6,25 +6,45 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.AnyClass
 import com.highcapable.yukihookapi.hook.type.java.AtomicBooleanClass
 import com.highcapable.yukihookapi.hook.type.java.InputStreamClass
 import com.highcapable.yukihookapi.hook.type.java.MapClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.io.Reader
 
 @Obfuscate
 class DarkModeList(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+
+    var isEnable = false
+    val list = ArraySet<String>()
+
+    fun loadData() {
+        isEnable = prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)
+        dataChannel.wait<Boolean>("dark_mode_list_enable") {
+            isEnable = it
+            YLog.debug("update dark mode configs status -> $it")
+        }
+
+        list.clear()
+        list.addAll(prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet()))
+        dataChannel.wait<Set<String>>("dark_mode_support_list") {
+            list.clear()
+            val new = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
+            list.addAll(new)
+            YLog.debug("update dark mode whitelist configs -> ${list.size} | ${new.size}")
+        }
+        YLog.debug("init dark mode configs success")
+    }
+
     override fun onHook() {
-        var isEnable = prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)
-        dataChannel.wait<Boolean>("dark_mode_list_enable") { isEnable = it }
-        var supportlistSet = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
-        dataChannel.wait<Set<String>>("dark_mode_support_list") { supportlistSet = it }
+        loadData()
 
         //Source DarkModeFileUtils
         dexKitBridge.findClass {
@@ -48,7 +68,7 @@ class DarkModeList(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         if (!isEnable) return@after
                         val enabledDarkMode = ArrayList<DarkModeInfo>()
-                        supportlistSet.forEach {
+                        list.forEach {
                             val darkModeInfo = DarkModeInfo().toDarkModeInfo(it)
                             if (darkModeInfo != null) enabledDarkMode.add(darkModeInfo)
                         }

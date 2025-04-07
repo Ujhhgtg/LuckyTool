@@ -5,18 +5,38 @@ import android.util.ArraySet
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.oplus.darkmode.OplusDarkModeData
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DarkModeService : YukiBaseHooker() {
+
+    var isEnable = false
+    val list = ArraySet<String>()
+
+    fun loadData() {
+        isEnable = prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)
+        dataChannel.wait<Boolean>("dark_mode_list_enable") {
+            isEnable = it
+            YLog.debug("update dark mode service configs status -> $it")
+        }
+
+        list.clear()
+        list.addAll(prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet()))
+        dataChannel.wait<Set<String>>("dark_mode_support_list") {
+            list.clear()
+            val new = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
+            list.addAll(new)
+            YLog.debug("update dark mode service whitelist configs -> ${list.size} | ${new.size}")
+        }
+        YLog.debug("init dark mode service configs success")
+    }
+
     override fun onHook() {
-        var isEnable = prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)
-        dataChannel.wait<Boolean>("dark_mode_list_enable") { isEnable = it }
-        var supportlistSet = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
-        dataChannel.wait<Set<String>>("dark_mode_support_list") { supportlistSet = it }
+        loadData()
 
         //Source OplusDarkModeServiceManager
         "com.android.server.OplusDarkModeServiceManager".toClass().apply {
@@ -27,7 +47,7 @@ object DarkModeService : YukiBaseHooker() {
                 after {
                     if (!isEnable) return@after
                     val enabledDarkMode = ArrayList<DarkModeInfo>()
-                    supportlistSet.forEach {
+                    list.forEach {
                         val darkModeInfo = DarkModeInfo().toDarkModeInfo(it)
                         if (darkModeInfo != null) enabledDarkMode.add(darkModeInfo)
                     }
