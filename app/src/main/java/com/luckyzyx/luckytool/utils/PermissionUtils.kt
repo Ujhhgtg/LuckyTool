@@ -1,19 +1,20 @@
 package com.luckyzyx.luckytool.utils
 
-import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.highcapable.betterandroid.ui.extension.view.layoutInflater
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogPermissionLayoutBinding
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class PermissionUtils(val activity: Activity) {
+class PermissionUtils(val context: Context) {
 
-    val binding = DialogPermissionLayoutBinding.inflate(activity.layoutInflater)
-    private val dialogBuilder = MaterialAlertDialogBuilder(activity, dialogCentered).apply {
+    val binding = DialogPermissionLayoutBinding.inflate(context.layoutInflater)
+    private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
         setCancelable(false)
         setView(binding.root)
     }
@@ -25,14 +26,10 @@ class PermissionUtils(val activity: Activity) {
     private var installAppStatus = false
 
     fun init(): Boolean {
-        notifyStatus = XXPermissions.isGranted(activity, Permission.NOTIFICATION_SERVICE)
-        refreshNotifyChip(notifyStatus)
-        storageStatus = XXPermissions.isGranted(activity, Permission.MANAGE_EXTERNAL_STORAGE)
-        refreshStorageChip(storageStatus)
-        appListStatus = XXPermissions.isGranted(activity, Permission.GET_INSTALLED_APPS)
-        refreshAppListChip(appListStatus)
-        installAppStatus = XXPermissions.isGranted(activity, Permission.REQUEST_INSTALL_PACKAGES)
-        refreshInstallAppChip(installAppStatus)
+        notifyStatus = refreshNotifyChip()
+        storageStatus = refreshStorageChip()
+        appListStatus = refreshAppListChip()
+        installAppStatus = refreshInstallAppChip()
 
         val status = notifyStatus && storageStatus && appListStatus && installAppStatus
         if (status) {
@@ -45,68 +42,76 @@ class PermissionUtils(val activity: Activity) {
 
     fun start() {
         if (init()) return
-        dialogBuilder.setOnDismissListener { activity.exitModule() }
-        dialog?.setOnDismissListener { activity.exitModule() }
+        dialogBuilder.setOnDismissListener { context.exitModule() }
+        dialog?.setOnDismissListener { context.exitModule() }
         dialog = dialogBuilder.show()
     }
 
-    private fun refreshNotifyChip(status: Boolean) {
+    private fun refreshNotifyChip(): Boolean {
+        val isGranted = XXPermissions.isGranted(context, Permission.NOTIFICATION_SERVICE)
         binding.notifyChip.apply {
-            isEnabled = !status
-            if (status) return@apply
+            isEnabled = !isGranted
             setOnClickListener {
+                if (isGranted) return@setOnClickListener
                 XXPermissions.with(context).apply {
                     permission(Permission.NOTIFICATION_SERVICE)
                     request { _, _ -> init() }
                 }
             }
         }
+        return isGranted
     }
 
-    private fun refreshStorageChip(status: Boolean) {
+    private fun refreshStorageChip(): Boolean {
+        val isGranted = XXPermissions.isGranted(context, Permission.MANAGE_EXTERNAL_STORAGE)
         binding.storageChip.apply {
-            isEnabled = !status
-            if (status) return@apply
+            isEnabled = !isGranted
             setOnClickListener {
+                if (isGranted) return@setOnClickListener
                 XXPermissions.with(context).apply {
                     permission(Permission.MANAGE_EXTERNAL_STORAGE)
                     request { _, _ -> init() }
                 }
             }
         }
+        return isGranted
     }
 
-    private fun refreshAppListChip(status: Boolean) {
+    private fun refreshAppListChip(): Boolean {
+        val isGranted = XXPermissions.isGranted(context, Permission.GET_INSTALLED_APPS)
         binding.appListChip.apply {
-            isEnabled = !status
-            if (status) return@apply
+            isEnabled = !isGranted
             setOnClickListener {
+                if (isGranted) return@setOnClickListener
                 XXPermissions.with(context).apply {
                     permission(Permission.GET_INSTALLED_APPS)
                     request { _, _ -> init() }
                 }
             }
         }
+        return isGranted
     }
 
-    private fun refreshInstallAppChip(status: Boolean) {
+    private fun refreshInstallAppChip(): Boolean {
+        val isGranted = XXPermissions.isGranted(context, Permission.REQUEST_INSTALL_PACKAGES)
         binding.installAppChip.apply {
-            isEnabled = !status
-            if (status) return@apply
+            isEnabled = !isGranted
             setOnClickListener {
+                if (isGranted) return@setOnClickListener
                 XXPermissions.with(context).apply {
                     permission(Permission.REQUEST_INSTALL_PACKAGES)
                     request { _, _ -> init() }
                 }
             }
         }
+        return isGranted
     }
 
     private fun toastDenied(permission: String) {
-        activity.showToast(activity.getString(R.string.permission_denied_toast, permission))
+        context.showToast(context.getString(R.string.permission_denied_toast, permission))
     }
 
     private fun toastError(permission: String) {
-        activity.showToast(activity.getString(R.string.permission_error_toast, permission))
+        context.showToast(context.getString(R.string.permission_error_toast, permission))
     }
 }
