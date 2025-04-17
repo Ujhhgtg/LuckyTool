@@ -3,12 +3,12 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.statusbar
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
@@ -37,20 +37,29 @@ class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_statusbar_top_notification)
-                summary = getString(R.string.remove_statusbar_top_notification_summary)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_statusbar_top_notification_summary),
+                    getString(R.string.need_restart_system)
+                )
                 key = "remove_statusbar_top_notification"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_vpn_active_notification)
-                summary = getString(R.string.remove_vpn_active_notification_summary)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_vpn_active_notification_summary),
+                    getString(R.string.need_restart_system)
+                )
                 key = "remove_vpn_active_notification"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_statusbar_devmode)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system)
+                )
                 key = "remove_statusbar_devmode"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
