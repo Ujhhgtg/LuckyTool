@@ -27,7 +27,7 @@ lsparanoid {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
     namespace = "com.luckyzyx.luckytool"
     defaultConfig {
         applicationId = "com.luckyzyx.luckytool"
@@ -62,6 +62,10 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
         }
+    }
+    compileOptions {
+        sourceCompatibility(JavaVersion.VERSION_17)
+        targetCompatibility(JavaVersion.VERSION_17)
     }
     kotlin {
         jvmToolchain(17)
@@ -110,6 +114,7 @@ dependencies {
     ksp(libs.ksp.yukihookapi)
     implementation(libs.dexkit)
 
+//    implementation(libs.androidx.core)
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.preference.ktx)
@@ -119,6 +124,10 @@ dependencies {
     implementation(libs.betterandroid.ui.component)
     implementation(libs.betterandroid.ui.extension)
     implementation(libs.betterandroid.system.extension)
+    implementation(libs.hikage.core)
+    implementation(libs.hikage.extension)
+    implementation(libs.hikage.extension.betterandroid)
+    implementation(libs.hikage.widget.material)
 
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.kotlinx.coroutines.core)
