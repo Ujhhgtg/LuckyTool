@@ -977,6 +977,9 @@
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
     
+    <!--OplusHealth-->
+    <string name="remove_health_root_check_dialog">移除Root检测对话框</string>
+    
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

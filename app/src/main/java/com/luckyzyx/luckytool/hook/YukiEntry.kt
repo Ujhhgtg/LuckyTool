@@ -19,6 +19,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
 import com.luckyzyx.luckytool.hook.hookers.HookGesture
+import com.luckyzyx.luckytool.hook.hookers.HookHealth
 import com.luckyzyx.luckytool.hook.hookers.HookKeyguardClock
 import com.luckyzyx.luckytool.hook.hookers.HookLauncher
 import com.luckyzyx.luckytool.hook.hookers.HookMarket
@@ -182,6 +183,8 @@ object YukiEntry {
         loadApp("com.oplus.beaconlink", HookBeaconLink)
         //无线设置
         loadApp("com.oplus.wirelesssettings", HookWirelessSettings)
+        //健康
+        loadApp("com.heytap.health", HookHealth)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)

@@ -48,6 +48,7 @@ import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusEyeProtect
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusGallery
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusGames
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusGesture
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusHealth
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusMMS
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusMarket
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusOTA
@@ -187,6 +188,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentPreference(this, allPrefs, OplusSmartSidebar())
         //PhoneManager
         addFragmentPreference(this, allPrefs, OplusPhoneManager())
+        //Health
+        addFragmentPreference(this, allPrefs, OplusHealth())
         //SoundRecorder
         addFragmentPreference(this, allPrefs, OplusSoundRecorder())
         //EyeProtect
@@ -272,6 +275,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(context, allFragmentItem, OplusThemeStore())
         addFragmentItem(context, allFragmentItem, OplusBeaconLink())
         addFragmentItem(context, allFragmentItem, OplusWirelessSettings())
+        addFragmentItem(context, allFragmentItem, OplusHealth())
 
         addFragmentItem(context, allFragmentItem, ADM())
         addFragmentItem(context, allFragmentItem, AlphaBackupPro())
