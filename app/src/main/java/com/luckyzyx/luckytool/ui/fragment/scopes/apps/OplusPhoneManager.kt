@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -11,6 +10,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusPhoneManager : BaseScopePreferenceFeagment() {
@@ -49,6 +49,12 @@ class OplusPhoneManager : BaseScopePreferenceFeagment() {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_secure_pay_found_virus_dialog)
                 key = "remove_secure_pay_found_virus_dialog"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_countdown_add_virus_app_whitelist)
+                key = "remove_countdown_add_virus_app_whitelist"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

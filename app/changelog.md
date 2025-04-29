@@ -9,6 +9,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 为部分通知移除功能添加重启提示
 - [修复] 修复WIFI显示网关功能开关失效问题
 - [添加] 移除健康Root检测对话框
+- [添加] 移除手机管家病毒App添加白名单倒计时
 
 ### 1.2.9
 

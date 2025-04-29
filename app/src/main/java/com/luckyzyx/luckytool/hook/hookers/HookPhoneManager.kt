@@ -1,11 +1,12 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.scopes.phonemanager.RemoveCountdownAddVirusAppWhitelist
 import com.luckyzyx.luckytool.hook.scopes.phonemanager.RemoveVirusRiskNotificationInPhoneManager
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookPhoneManager : YukiBaseHooker() {
@@ -18,6 +19,12 @@ object HookPhoneManager : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean(removeVirusKey, false)) {
                 loadHooker(RemoveVirusRiskNotificationInPhoneManager(dexKitBridge))
             }
+            //移除手机管家病毒App添加白名单倒计时
+            val removeCountdownKey = "remove_countdown_add_virus_app_whitelist"
+            if (prefs(ModulePrefs).getBoolean(removeCountdownKey, false)) {
+                loadHooker(RemoveCountdownAddVirusAppWhitelist(dexKitBridge))
+            }
+
         }
     }
 }
