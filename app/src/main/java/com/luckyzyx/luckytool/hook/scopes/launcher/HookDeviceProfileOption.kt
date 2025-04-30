@@ -5,8 +5,8 @@ import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookDeviceProfileOption : YukiBaseHooker() {
@@ -22,6 +22,24 @@ object HookDeviceProfileOption : YukiBaseHooker() {
         //Source InvariantDeviceProfile
         "com.android.launcher3.InvariantDeviceProfile\$GridOption".toClass().apply {
             constructor { paramCount(2..3) }.hook {
+                after {
+                    if (enableFolder) {
+//                        field { name = "numFolderRows" }.get(instance).set(3)
+                        field { name = "numFolderColumns" }.get(instance).set(folderColumn)
+                        if (syncPreview && folderColumn > 3) field {
+                            name = "numFolderPreview"
+                        }.get(instance).set(folderColumn)
+                    }
+                    if (enableDrawer) {
+                        field { name = "numAllAppsColumns" }.get(instance).set(drawerColumn)
+                    }
+                }
+            }
+        }
+
+        //Source OplusInvariantDeviceProfile
+        "com.android.launcher3.OplusInvariantDeviceProfile".toClass().apply {
+            method { name = "injectInitGridForCustomAttr" }.hook {
                 after {
                     if (enableFolder) {
 //                        field { name = "numFolderRows" }.get(instance).set(3)
