@@ -5,11 +5,11 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dialogCentered
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class CorePatch : BaseScopePreferenceFeagment() {
@@ -21,7 +21,7 @@ class CorePatch : BaseScopePreferenceFeagment() {
     override fun Context.loadRootPreference(): Preference {
         return Preference(this).apply {
             title = getString(R.string.corepatch)
-            summary = getString(R.string.corepatch_summary)
+            summary = getString(R.string.corepatch_summary,"11-16")
             key = "CorePatch"
             isIconSpaceReserved = false
         }

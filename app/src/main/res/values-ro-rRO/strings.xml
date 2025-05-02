@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">The official Color OS installer needs to enable other functions to use\nFunction List-Application Related-Application Installation Related</string>
     <string name="corepatch">Patch Nucleu</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
     <string name="downgr">Permite downgrade aplicații</string>
     <string name="downgr_summary">Permite aplicației să suprascrie versiunile mai vechi dacă sunt instalate versiuni noi.</string>
     <string name="authcreak">Dezactivează validarea semnăturii managerului de pachete</string>
@@ -192,7 +192,6 @@
     <string name="remove_hotspot_power_consumption_notification_summary">Notify: Turning on the personal hotspot for a long time will increase power consumption and heat</string>
     <string name="remove_smart_rapid_charging_notification">Eliminați notificarea „Încărcare rapidă inteligentă”</string>
     <string name="remove_notifications_for_mute_notifications">Elimină notificările pentru notificările dezactivate</string>
-    <string name="remove_virus_risk_notification_in_phone_manager">Remove the virus risk notification in Phone Manager</string>
     <string name="remove_gt_mode_notification">Remove GT mode notification</string>
     <string name="allow_long_press_notification_modifiable">Allow long press notifications to be modifiable</string>
     <string name="remove_notification_manager_limit">Eliminați limita managerului de notificări</string>
@@ -543,12 +542,15 @@
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">Warning dialog box found that an application displaying over the system desktop</string>
     <string name="remove_usb_connect_dialog">Remove USB connection dialog</string>
     <string name="remove_usb_connect_dialog_summary">The file transfer mode is selected by default after connecting the USB</string>
-    <string name="remove_secure_pay_found_virus_dialog">Removed secure pay found virus dialog</string>
     <string name="remove_access_device_log_dialog">Remove access device log dialog</string>
     <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
     <string name="custom_volume_dialog_background_transparency">Custom volume dialog background transparency</string>
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
     <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
+    <!--PhoneManager-->
+    <string name="remove_virus_risk_notification_in_phone_manager">Remove the virus risk notification in Phone Manager</string>
+    <string name="remove_secure_pay_found_virus_dialog">Removed secure pay found virus dialog</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">FingerPrint Related</string>
     <string name="remove_fingerprint_icon_mode">Remove fingerprint icon mode</string>
@@ -849,6 +851,8 @@
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <!--OplusHealth-->
+    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

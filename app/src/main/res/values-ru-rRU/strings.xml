@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Официальному установщику Color OS необходимо включить другие функции для использования\nСписок функций-Приложения-Установка приложений</string>
     <string name="corepatch">Патчи ядра</string>
-    <string name="corepatch_summary">Удалить ограничения на установку, поддерживает Android 11–15.</string>
+    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
     <string name="downgr">Разрешить понижение версии</string>
     <string name="downgr_summary">Разрешить приложению перезаписывать установку старой версии непосредственно в случае установки новой версии</string>
     <string name="authcreak">Отключить проверку подписи диспетчера пакетов</string>
@@ -192,7 +192,6 @@
     <string name="remove_hotspot_power_consumption_notification_summary">Примечание: Работа персональной точки доступа в течение длительного времени увеличивает энергопотребление и тепловыделение</string>
     <string name="remove_smart_rapid_charging_notification">Удалить уведомление \"Умная быстрая зарядка\"</string>
     <string name="remove_notifications_for_mute_notifications">Удалить уведомления для отключенных уведомлений</string>
-    <string name="remove_virus_risk_notification_in_phone_manager">Удалить уведомление об угрозе вирусов в диспетчере телефона</string>
     <string name="remove_gt_mode_notification">Удалить уведомление о режиме производительности</string>
     <string name="allow_long_press_notification_modifiable">Разрешить изменять уведомления по долгому нажатию</string>
     <string name="remove_notification_manager_limit">Удалить лимит диспетчера уведомлений</string>
@@ -543,12 +542,15 @@
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">Диалоговое окно с предупреждением обнаружило, что приложение отображается на рабочем столе системы</string>
     <string name="remove_usb_connect_dialog">Удалить диалоговое окно USB-подключения</string>
     <string name="remove_usb_connect_dialog_summary">Режим передачи файлов по умолчанию при подключении USB</string>
-    <string name="remove_secure_pay_found_virus_dialog">Удалить диалоговое окно с обнаруженным вирусом безопасной оплаты</string>
     <string name="remove_access_device_log_dialog">Удалить диалог журнала доступа устройства</string>
     <string name="run_floating_window_tasks_in_foreground">Запускать всплывающие окна на переднем плане</string>
     <string name="custom_volume_dialog_background_transparency">Прозрачность фона панели громкости</string>
     <string name="reduce_power_menu_display_delay">Уменьшить задержку отображения меню питания</string>
     <string name="auto_tap_start_recording_or_casting_dialog">Автоматически нажимать на диалоговое окно начала записи или трансляции</string>
+    <!--PhoneManager-->
+    <string name="remove_virus_risk_notification_in_phone_manager">Удалить уведомление об угрозе вирусов в диспетчере телефона</string>
+    <string name="remove_secure_pay_found_virus_dialog">Удалить диалоговое окно с обнаруженным вирусом безопасной оплаты</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Отпечаток пальца</string>
     <string name="remove_fingerprint_icon_mode">Удалить иконку отпечатка</string>
@@ -849,6 +851,8 @@
     <string name="enable_eyeprotect_paper_texture_support">Включите поддержку текстуры бумаги для защиты глаз</string>
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Удалить ограничение по времени beaconlink</string>
+    <!--OplusHealth-->
+    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>
@@ -966,7 +970,7 @@
     <string name="fiveg_mode">Переключатель 5G</string>
     <string name="display_refresh_rate">Показать/скрыть частоту обновления экрана</string>
     <string name="google_service">Сервисы Google</string>
-    <string name="bypass_power">Мощность байпаса</string>
+    <string name="bypass_power">Обходная зарядка</string>
     <!--Service-->
     <string name="auto_start_service_channel_name">Сервис автозапуска</string>
     <string name="auto_start_service_channel_title">Функция автозапуска запущена…</string>

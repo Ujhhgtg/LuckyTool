@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Dla oficjalnego instalatora ColorOS należy włączyć dodatkowe funkcje, aby móc z tych korzystać:\nFunkcje &gt; Aplikacje &gt; Instalowanie aplikacji</string>
     <string name="corepatch">Główna łatka</string>
-    <string name="corepatch_summary">Remove install limits, supports Android 11–15</string>
+    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
     <string name="downgr">Obniżanie wersji aplikacji</string>
     <string name="downgr_summary">Umożliwia instalowanie starszych wersji aplikacji na nowszą.</string>
     <string name="authcreak">Wyłącz weryfikację sygnatur\nmenedżera pakietów</string>
@@ -192,7 +192,6 @@
     <string name="remove_hotspot_power_consumption_notification_summary">Pozostawienie włączonego osobistego hotspotu zwiększy użycie baterii i nagrzeje urządzenie</string>
     <string name="remove_smart_rapid_charging_notification">Usuń „Inteligentne szybkie ładowanie”</string>
     <string name="remove_notifications_for_mute_notifications">Usuń powiadomienia dla wyciszonych powiadomień</string>
-    <string name="remove_virus_risk_notification_in_phone_manager">Usuń alerty o zagrożeniu wirusami w menedżerze telefonu</string>
     <string name="remove_gt_mode_notification">Remove GT mode notification</string>
     <string name="allow_long_press_notification_modifiable">Allow long press notifications to be modifiable</string>
     <string name="remove_notification_manager_limit">Remove notification manager limit</string>
@@ -543,12 +542,15 @@
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">Usuwa okno dialogowe z ostrzeżeniem, że aplikacja wyświetla się nad innymi aplikacjami</string>
     <string name="remove_usb_connect_dialog">Usuń okno połączenia USB</string>
     <string name="remove_usb_connect_dialog_summary">Tryb przesyłania plików będzie wybierany domyślnie po podłączeniu USB</string>
-    <string name="remove_secure_pay_found_virus_dialog">Usuń okno sprawdzania wirusów dla bezpiecznych płatności</string>
     <string name="remove_access_device_log_dialog">Remove access device log dialog</string>
     <string name="run_floating_window_tasks_in_foreground">Run floating window tasks in the foreground</string>
     <string name="custom_volume_dialog_background_transparency">Custom volume dialog background transparency</string>
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
     <string name="auto_tap_start_recording_or_casting_dialog">Automatically tap the start recording or casting dialog</string>
+    <!--PhoneManager-->
+    <string name="remove_virus_risk_notification_in_phone_manager">Usuń alerty o zagrożeniu wirusami w menedżerze telefonu</string>
+    <string name="remove_secure_pay_found_virus_dialog">Usuń okno sprawdzania wirusów dla bezpiecznych płatności</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Ustawienia odcisku palca</string>
     <string name="remove_fingerprint_icon_mode">Tryb usuwania ikony</string>
@@ -849,6 +851,8 @@
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <!--OplusHealth-->
+    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Pomiń stronę początkową</string>
     <string name="vip_download">Pobierz oryginał</string>

@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale ColorOS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Installazione</string>
     <string name="corepatch">Core Patch</string>
-    <string name="corepatch_summary">Rimuovi limiti di installazione, supporta Android 11–15</string>
+    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
     <string name="downgr">Consenti downgrade app</string>
     <string name="downgr_summary">Consente all\'applicazione di sovrascrivere le versioni precedenti se le nuove versioni sono installate.</string>
     <string name="authcreak">Disabilita convalida firma gestore pacchetti</string>
@@ -192,7 +192,6 @@
     <string name="remove_hotspot_power_consumption_notification_summary">Notifica: Accendere l\'hotspot personale per molto tempo aumenterà il consumo di energia e il calore</string>
     <string name="remove_smart_rapid_charging_notification">Rimuovi la notifica \"Ricarica Rapida Intelligente\"</string>
     <string name="remove_notifications_for_mute_notifications">Rimuovi le notifiche per le notifiche silenziate</string>
-    <string name="remove_virus_risk_notification_in_phone_manager">Rimuovi la notifica di rischio virus in Gestione Telefono</string>
     <string name="remove_gt_mode_notification">Rimuovi notifica modalità GT</string>
     <string name="allow_long_press_notification_modifiable">Consenti di modificare le notifiche con pressione prolungata</string>
     <string name="remove_notification_manager_limit">Rimuovi limite gestore notifiche</string>
@@ -543,12 +542,15 @@
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">La finestra di dialogo di avviso ha trovato che un\'applicazione visualizzata sul desktop di sistema</string>
     <string name="remove_usb_connect_dialog">Rimuovi finestra di dialogo di connessione USB</string>
     <string name="remove_usb_connect_dialog_summary">La modalità di trasferimento file è selezionata per impostazione predefinita dopo aver collegato l\'USB</string>
-    <string name="remove_secure_pay_found_virus_dialog">Rimuovi la finestra di dialogo del virus trovato per il \"Pagamento Sicuro\"</string>
     <string name="remove_access_device_log_dialog">Rimuovi la finestra di log del dispositivo di accesso</string>
     <string name="run_floating_window_tasks_in_foreground">Esegui le attività della finestra fluttuante in primo piano</string>
     <string name="custom_volume_dialog_background_transparency">Trasparenza sfondo notifica personalizzata</string>
     <string name="reduce_power_menu_display_delay">Riduci ritardo visualizzazione menù di spegnimento</string>
     <string name="auto_tap_start_recording_or_casting_dialog">Tocca automaticamente la finestra di dialogo per avviare la registrazione o la trasmissione</string>
+    <!--PhoneManager-->
+    <string name="remove_virus_risk_notification_in_phone_manager">Rimuovi la notifica di rischio virus in Gestione Telefono</string>
+    <string name="remove_secure_pay_found_virus_dialog">Rimuovi la finestra di dialogo del virus trovato per il \"Pagamento Sicuro\"</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Impronta Digitale</string>
     <string name="remove_fingerprint_icon_mode">Rimuovi modalità icona impronta digitale</string>
@@ -849,6 +851,8 @@
     <string name="enable_eyeprotect_paper_texture_support">Abilita il supporto per la texture di carta per proteggere gli occhi</string>
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Rimuovi il limite di tempo del beaconlink</string>
+    <!--OplusHealth-->
+    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Salta la pagina iniziale</string>
     <string name="vip_download">Scarica originale</string>
@@ -987,23 +991,23 @@
     <string name="appinfo_target_sdk">Destinazione SDK</string>
     <string name="appinfo_system_app">App di sistema</string>
     <!--Intent-->
-    <string name="custom_config_app_intent_list">Custom configuration app intent list</string>
-    <string name="select_all_share_intent">Select all share intent</string>
-    <string name="select_all_text_intent">Select all long press text intent</string>
-    <string name="select_all_open_intent">Select all open mode intent</string>
-    <string name="select_all_browser_intent">Select all browser intent</string>
+    <string name="custom_config_app_intent_list">Elenco di intenzioni dell\'app di configurazione personalizzata</string>
+    <string name="select_all_share_intent">Seleziona tutti gli intenzioni di condivisione</string>
+    <string name="select_all_text_intent">Seleziona tutto tenendo premuto a lungo il testo dell\'intento</string>
+    <string name="select_all_open_intent">Seleziona tutto aperto modalità Intenzioni</string>
+    <string name="select_all_browser_intent">Seleziona tutti le intenzioni del browser</string>
     <!--Intent Type-->
-    <string name="intent_share">Share Intent</string>
-    <string name="intent_text">Text Intent</string>
-    <string name="intent_open">Open Mode Intent</string>
-    <string name="intent_browser">Browser Intent</string>
-    <string name="intent_single_share">Share Single</string>
-    <string name="intent_multi_share">Share Multiple</string>
-    <string name="intent_long_press_text">Long Press Text</string>
-    <string name="intent_open_content">Open Content</string>
-    <string name="intent_open_file">Open File</string>
-    <string name="intent_http_link">Http Link</string>
-    <string name="intent_https_link">Https Link</string>
+    <string name="intent_share">Condividi Intenzione</string>
+    <string name="intent_text">Testo Intenzione</string>
+    <string name="intent_open">Apri Modalità Intenzioni</string>
+    <string name="intent_browser">Intenzioni del browser</string>
+    <string name="intent_single_share">Condividi Singolo</string>
+    <string name="intent_multi_share">Condividi multipli</string>
+    <string name="intent_long_press_text">Pressione prolungata testo</string>
+    <string name="intent_open_content">Apri Contenuto</string>
+    <string name="intent_open_file">Apri File</string>
+    <string name="intent_http_link">Link Http</string>
+    <string name="intent_https_link">Link Https</string>
     <!--CommonWords-->
     <string name="common_words_enable">Abilita</string>
     <string name="common_words_disable">Disabilita</string>

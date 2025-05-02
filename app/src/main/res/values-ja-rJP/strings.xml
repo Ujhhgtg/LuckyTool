@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">ColorOSの公式インストーラーを使用するには他の機能を有効にする必要があります。\n機能一覧-アプリ関連-アプリインストール関連</string>
     <string name="corepatch">コアのパッチ</string>
-    <string name="corepatch_summary">インストール制限を無効化 (Android 11～15対応)</string>
+    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
     <string name="downgr">アプリのダウングレードを許可</string>
     <string name="downgr_summary">新しいバージョンのアプリがインストールされている状態でも、古いバージョンのアプリをインストール可能にします</string>
     <string name="authcreak">パッケージマネージャの署名チェックを無効化</string>
@@ -192,7 +192,6 @@
     <string name="remove_hotspot_power_consumption_notification_summary">注意: パーソナルホットスポットを長時間使用すると大幅な電力の消費と発熱を起こす可能性が増加します</string>
     <string name="remove_smart_rapid_charging_notification">「急速充電中」の通知を削除する</string>
     <string name="remove_notifications_for_mute_notifications">ミュートされた通知を通知しない</string>
-    <string name="remove_virus_risk_notification_in_phone_manager">フォンマネージャーのウイルスリスク通知を削除</string>
     <string name="remove_gt_mode_notification">GT モードの通知を削除</string>
     <string name="allow_long_press_notification_modifiable">長押し通知を変更可能にする</string>
     <string name="remove_notification_manager_limit">通知マネージャーの制限を削除する</string>
@@ -543,12 +542,15 @@
     <string name="remove_warning_dialog_that_app_runs_on_desktop_summary">ホーム画面の上にアプリがオーバーレイ表示されていることを警告するダイアログを表示しないようにします</string>
     <string name="remove_usb_connect_dialog">USB接続時のダイアログを削除</string>
     <string name="remove_usb_connect_dialog_summary">USB 接続後、ファイル転送モードがデフォルトで選択されます</string>
-    <string name="remove_secure_pay_found_virus_dialog">安全な支払いでウイルスが見つかった時のダイアログを削除</string>
     <string name="remove_access_device_log_dialog">デバイスログへのアクセスダイアログを無効化</string>
     <string name="run_floating_window_tasks_in_foreground">フローティングウィンドウタスクをフォアグラウンドで実行</string>
     <string name="custom_volume_dialog_background_transparency">カスタム音量ダイアログの背景の透明度</string>
     <string name="reduce_power_menu_display_delay">電源メニューの表示遅延を減らす</string>
     <string name="auto_tap_start_recording_or_casting_dialog">録音またはキャスト開始のダイアログを自動でタップする</string>
+    <!--PhoneManager-->
+    <string name="remove_virus_risk_notification_in_phone_manager">フォンマネージャーのウイルスリスク通知を削除</string>
+    <string name="remove_secure_pay_found_virus_dialog">安全な支払いでウイルスが見つかった時のダイアログを削除</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">指紋認証関連</string>
     <string name="remove_fingerprint_icon_mode">指紋アイコンを削除</string>
@@ -849,6 +851,8 @@
     <string name="enable_eyeprotect_paper_texture_support">Enable eye protect paper texture support</string>
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
+    <!--OplusHealth-->
+    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
     <!--Everyimage-->
     <string name="skip_startup_page">スタートアップページをスキップ</string>
     <string name="vip_download">オリジナルをダウンロードする</string>
