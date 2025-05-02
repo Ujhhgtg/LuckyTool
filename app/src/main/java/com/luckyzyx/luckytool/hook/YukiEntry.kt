@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook
 
+import android.annotation.SuppressLint
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.param.PackageParam
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
@@ -55,6 +56,7 @@ import com.luckyzyx.luckytool.hook.scopes.otherapp.HookKsWeb
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import org.lsposed.lsparanoid.Obfuscate
+import java.io.File
 
 @Obfuscate
 object YukiEntry {
@@ -72,6 +74,14 @@ object YukiEntry {
     fun PackageParam.onHookEntry() {
         if (prefs(ModulePrefs).getBoolean("enable_module", false).not()) return
         if (prefs(SettingsPrefs).getBoolean("is_su", false).not()) return
+
+        try {
+            @SuppressLint("SdCardPath")
+            val file = File("/sdcard/disable_lt")
+            if (file.exists()) return
+        } catch (_: Throwable) {
+
+        }
 
         //系统框架
         loadSystem(HookAndroid)
