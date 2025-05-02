@@ -214,11 +214,23 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
         XposedBridge.hookMethod(isSecureLockedMethod, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) {
-                String stack = Log.getStackTraceString(new Throwable());
-                // don't change surface flags, but passing other checks
-                if (stack.contains("setInitialSurfaceControlProperties")
-                        || stack.contains("createSurfaceLocked")) {
-                    return;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    var walker = StackWalker.getInstance();
+                    var match = walker.walk(frames -> frames
+                            .map(StackWalker.StackFrame::getMethodName)
+                            .limit(6)
+                            .skip(2)
+                            .anyMatch(s -> s.equals("setInitialSurfaceControlProperties") || s.equals("createSurfaceLocked")));
+                    if (match) return;
+                } else {
+                    var stackTrace = new Throwable().getStackTrace();
+                    for (int i = 4; i < stackTrace.length && i < 8; i++) {
+                        var name = stackTrace[i].getMethodName();
+                        if (name.equals("setInitialSurfaceControlProperties") ||
+                                name.equals("createSurfaceLocked")) {
+                            return;
+                        }
+                    }
                 }
                 param.setResult(false);
             }
@@ -279,9 +291,12 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    String stack = Log.getStackTraceString(new Throwable());
-                    if (stack.contains("createVirtualDisplayLocked")) {
-                        return;
+                    var stackTrace = new Throwable().getStackTrace();
+                    for (int i = 4; i < stackTrace.length && i < 8; i++) {
+                        var name = stackTrace[i].getMethodName();
+                        if (name.equals("createVirtualDisplayLocked")) {
+                            return;
+                        }
                     }
                 }
                 param.args[1] = true;
