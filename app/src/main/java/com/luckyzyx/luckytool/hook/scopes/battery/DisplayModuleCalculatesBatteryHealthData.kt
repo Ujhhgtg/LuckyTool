@@ -11,12 +11,12 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.DeviceUtils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.filterNumber
 import com.luckyzyx.luckytool.utils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
@@ -53,12 +53,16 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
                         contentView.apply {
                             layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
                             gravity = Gravity.START
-                            text = "$text\n\nLuckyTool$tips"
+                            if(text.lines().size == 1) {
+                                text = "$text\n\nLuckyTool$tips"
+                            }
                         }
                         dataView.apply {
                             layoutParams?.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
                             gravity = Gravity.END
-                            text = "$text\n\n${health}%"
+                            if(text.lines().size == 1) {
+                                text = "$text\n\n${health}%"
+                            }
                         }
                     }
                 }

@@ -11,6 +11,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除健康Root检测对话框
 - [添加] 移除手机管家病毒App添加白名单倒计时
 - [修复] 文件夹预览布局列数显示
+- [修复] 电池健康计算文本重复显示问题
 
 ### 1.2.9
 
