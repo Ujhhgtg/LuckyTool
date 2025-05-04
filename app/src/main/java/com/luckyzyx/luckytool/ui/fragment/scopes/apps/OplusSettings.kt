@@ -580,6 +580,13 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isVisible = isZh(this@loadPreferences)
                     isIconSpaceReserved = false
                 })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.force_display_auto_launch_jump_option)
+                    key = "force_display_auto_launch_jump_option"
+                    setDefaultValue(false)
+                    isVisible = isZh(this@loadPreferences)
+                    isIconSpaceReserved = false
+                })
             }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_settings_bottom_laboratory)

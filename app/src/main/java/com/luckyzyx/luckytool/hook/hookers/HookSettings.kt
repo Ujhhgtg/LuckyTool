@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
@@ -17,6 +16,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.EnableGoogleAutoFill
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
 import com.luckyzyx.luckytool.hook.scopes.settings.FixAppSpecificMediaVolumePage
 import com.luckyzyx.luckytool.hook.scopes.settings.FixDefaultAppJumpProblem
+import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayAutoLaunchJumpOption
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayBottomGoogleSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayContentRecommend
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayDisabledAppsManager
@@ -36,6 +36,7 @@ import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookSettings : YukiBaseHooker() {
@@ -140,6 +141,9 @@ object HookSettings : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("disable_cn_special_edition_setting", false)) {
             if (prefs(ModulePrefs).getBoolean("fix_default_app_jump_problem", false)) {
                 loadHooker(FixDefaultAppJumpProblem)
+            }
+            if (prefs(ModulePrefs).getBoolean("force_display_auto_launch_jump_option", false)) {
+                loadHooker(ForceDisplayAutoLaunchJumpOption)
             }
         }
         //移除设备名称更改限制

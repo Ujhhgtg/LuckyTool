@@ -764,6 +764,7 @@
     <string name="disable_cn_special_edition_setting" translatable="false">禁用CN特供版设置</string>
     <string name="fix_default_app_jump_problem" translatable="false">修复默认应用跳转问题</string>
     <string name="fix_default_app_jump_problem_summary" translatable="false">修复后即可跳转正确的权限控制器默认应用页面</string>
+    <string name="force_display_auto_launch_jump_option" translatable="false">强制显示自启动跳转选项</string>
     
     <string name="remove_settings_bottom_laboratory">Remove settings bottom laboratory</string>
     <string name="force_display_bottom_google_settings">Force to show Google at the bottom of the settings</string>
