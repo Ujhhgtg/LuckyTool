@@ -11,10 +11,8 @@ import android.content.pm.ServiceInfo
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.drake.net.utils.scope
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
@@ -33,6 +31,7 @@ import com.luckyzyx.luckytool.utils.showToast
 import com.topjohnwu.superuser.ShellUtils
 import kotlinx.coroutines.Dispatchers
 import okhttp3.internal.toHexString
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class AutoStartControllerService : Service() {
@@ -99,9 +98,6 @@ class AutoStartControllerService : Service() {
                 }
             }
             if (command.isNotEmpty()) ShellUtils.fastCmd(*command.toTypedArray())
-            scope(dispatcher = Dispatchers.Default) {
-                AppAnalyticsUtils(this@AutoStartControllerService).checkAppForbiddenList()
-            }
             stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
         }

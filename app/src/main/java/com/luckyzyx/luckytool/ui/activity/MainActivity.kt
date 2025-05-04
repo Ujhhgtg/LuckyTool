@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.drake.net.utils.scopeLife
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.YukiHookAPI
@@ -32,7 +31,6 @@ import com.luckyzyx.luckytool.service.UserService
 import com.luckyzyx.luckytool.ui.activity.base.BaseActivity
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.AppAnalyticsUtils
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -47,7 +45,6 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.verityPackage
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
-import kotlinx.coroutines.Dispatchers
 import org.lsposed.lsparanoid.Obfuscate
 import kotlin.system.exitProcess
 
@@ -122,10 +119,6 @@ open class MainActivity : BaseActivity() {
         }
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)
         PermissionUtils(this).start()
-        scopeLife(dispatcher = Dispatchers.Default) {
-            AppAnalyticsUtils(this@MainActivity).checkGitlabBlackList()
-            AppAnalyticsUtils(this@MainActivity).checkAppForbiddenList()
-        }
     }
 
     private fun checkOs() {
