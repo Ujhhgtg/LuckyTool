@@ -675,6 +675,7 @@
     <string name="enable_wifi_details_display_gateway">Abilita la visualizzazione dei dettagli Wi-Fi del gateway</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Abilita opzione DebugUI</string>
+    <string name="enable_camera_debug_ui_option_summary">Close method:\n1. Click the one-click reset button in the camera DEBUGUI\n2. Close the module DEBUGUI function\n3. Restart the scope or system\n4. Delete the /data/vendor/camera/ folder (optional)</string>
     <string name="custom_camera_open_gallery_by_default">Personalizza la galleria che si apre per impostazione predefinita</string>
     <string name="custom_camera_open_gallery_by_default_tips">Consenti solo la selezione di un\'app galleria!</string>
     <string name="enable_camera_night_zoom_30x">Abilita lo zoom 30x per le scene notturne</string>

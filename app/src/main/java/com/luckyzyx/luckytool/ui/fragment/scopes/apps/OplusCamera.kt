@@ -10,7 +10,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
@@ -34,6 +33,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusCamera : BaseScopePreferenceFeagment() {
@@ -68,6 +68,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_camera_debug_ui_option)
+                summary = getString(R.string.enable_camera_debug_ui_option_summary).trimIndent()
                 key = "enable_camera_debug_ui_option"
                 setDefaultValue(false)
                 isVisible = osCode >= 30

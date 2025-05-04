@@ -675,6 +675,7 @@
     <string name="enable_wifi_details_display_gateway">启用 WiFi 详情显示网关</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">启用DebugUI选项</string>
+    <string name="enable_camera_debug_ui_option_summary">关闭方法:\n1.点击相机DEBUGUI内一键重置按钮\n2.关闭模块DEBUGUI功能\n3.重启作用域或系统\n4.删除/data/vendor/camera/文件夹 (可选)</string>
     <string name="custom_camera_open_gallery_by_default">自定义默认打开相册</string>
     <string name="custom_camera_open_gallery_by_default_tips">只允许选择一个相册App！</string>
     <string name="enable_camera_night_zoom_30x">启用夜景30倍变焦</string>

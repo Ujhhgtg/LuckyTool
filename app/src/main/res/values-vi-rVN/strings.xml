@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Bộ cài đặt ColorOS chính thức cần kích hoạt các chức năng khác để sử dụng\nDanh sách chức năng-Ứng dụng-Cài đặt ứng dụng</string>
     <string name="corepatch">Vá lõi hệ thống</string>
-    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
+    <string name="corepatch_summary">Xóa giới hạn cài đặt, hỗ trợ Android %1$s</string>
     <string name="downgr">Cho phép hạ cấp ứng dụng</string>
     <string name="downgr_summary">Cho phép ứng dụng ghi đè các phiên bản cũ hơn nếu các phiên bản mới được cài đặt.</string>
     <string name="authcreak">Tắt xác thực chữ ký của trình quản lý gói</string>
@@ -675,6 +675,7 @@
     <string name="enable_wifi_details_display_gateway">Bật hiện chi tiết cổng WiFi</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Bật tùy chọn DebugUI</string>
+    <string name="enable_camera_debug_ui_option_summary">Close method:\n1. Click the one-click reset button in the camera DEBUGUI\n2. Close the module DEBUGUI function\n3. Restart the scope or system\n4. Delete the /data/vendor/camera/ folder (optional)</string>
     <string name="custom_camera_open_gallery_by_default">Tùy chỉnh thư viện mở theo mặc định</string>
     <string name="custom_camera_open_gallery_by_default_tips">Chỉ được phép chọn một ứng dụng thư viện ảnh!</string>
     <string name="enable_camera_night_zoom_30x">Bật zoom 30x cho chế độ ban đêm</string>
@@ -852,7 +853,7 @@
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Xóa bỏ giới hạn thời gian trò chuyện ngoại tuyến</string>
     <!--OplusHealth-->
-    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
+    <string name="remove_health_root_check_dialog">Xóa hộp thoại phát hiện root</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>
