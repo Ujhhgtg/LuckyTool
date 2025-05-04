@@ -8,12 +8,13 @@ import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.DependencyUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.FlavorOneFeatureUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
@@ -21,7 +22,10 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
     override fun onHook() {
         //Source ShutdownViewControl
         "com.oplus.systemui.shutdown.ShutdownViewControl".toClass().apply {
-            method { name = "initManuallyLock" }.hook {
+            val hasInit = hasMethod { name = "initManuallyLock" }
+            val member = if (hasInit) method { name = "initManuallyLock" }
+            else constructor { param(ContextClass) }
+            member.hook {
                 after {
                     if (FlavorOneFeatureUtils(appClassLoader).isFlavorOneDevice() == true) return@after
                     val context = args().first().cast<Context>() ?: return@after

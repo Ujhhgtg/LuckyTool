@@ -13,7 +13,8 @@ class DependencyUtils(val classLoader: ClassLoader?, isEx: Boolean = false) {
 
     fun get(cls: Class<*>): Any? {
         return clazz.method {
-            name = "get"
+//            name = "get"
+            name { it.startsWith("get") }
             param(Class::class.java)
         }.get().invoke<Any>(cls)
     }
