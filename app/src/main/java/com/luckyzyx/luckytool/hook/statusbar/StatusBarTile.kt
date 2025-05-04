@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.CustomTileBackgroundTransparency
 import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
@@ -15,6 +14,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object StatusBarTile : YukiBaseHooker() {
@@ -44,7 +44,7 @@ object StatusBarTile : YukiBaseHooker() {
 
         //磁贴两侧对齐
         if (prefs(ModulePrefs).getBoolean("fix_tile_align_both_sides", false)) {
-            if (SDK >= A13) loadHooker(FixTileAlignBothSides)
+            if (osCode in 26..33) loadHooker(FixTileAlignBothSides)
         }
 
         //恢复磁贴编辑页面布局行数

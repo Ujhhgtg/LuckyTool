@@ -16,6 +16,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 相机DEBUGUI关闭提示
 - [更改] 移除日志页面加载逻辑,等待页面重新规划
 - [修复] 修复关机菜单手动锁定按钮Hook异常
+- [更改] 更改磁贴两侧对齐功能仅在C13-C14生效
 
 ### 1.2.9
 
