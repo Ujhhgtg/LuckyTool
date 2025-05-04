@@ -14,6 +14,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 电池健康计算文本重复显示问题
 - [移除] 移除模块内置黑名单机制
 - [添加] 相机DEBUGUI关闭提示
+- [更改] 移除日志页面加载逻辑,等待页面重新规划
 
 ### 1.2.9
 
