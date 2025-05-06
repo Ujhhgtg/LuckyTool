@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -39,11 +40,13 @@ object HookDeviceProfileOption : YukiBaseHooker() {
 
         //Source OplusInvariantDeviceProfile
         "com.android.launcher3.OplusInvariantDeviceProfile".toClass().apply {
+            val hasFolderColumn = hasField { name = "numFolderColumns" }
             method { name = "injectInitGridForCustomAttr" }.hook {
                 after {
                     if (enableFolder) {
 //                        field { name = "numFolderRows" }.get(instance).set(3)
-                        field { name = "numFolderColumns" }.get(instance).set(folderColumn)
+                        if (hasFolderColumn) field { name = "numFolderColumns" }.get(instance)
+                            .set(folderColumn)
                         if (syncPreview && folderColumn > 3) field {
                             name = "numFolderPreview"
                         }.get(instance).set(folderColumn)
