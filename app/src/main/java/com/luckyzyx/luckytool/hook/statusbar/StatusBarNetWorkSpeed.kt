@@ -14,11 +14,12 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
+import org.lsposed.lsparanoid.Obfuscate
 
 @Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
@@ -118,7 +119,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             //Source NetworkSpeedView
             VariousClass(
                 "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
-                "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14
+                "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14 C15
             ).toClass().apply {
                 val hasUpdate = hasMethod { name = "updateNetworkSpeed" }
                 method { name = "onFinishInflate" }.hook {
@@ -223,70 +224,78 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         @SuppressLint("NewApi")
         private fun getTotalUpSpeed(noSpace: Boolean, noSecond: Boolean): String {
             //换算后的上行速度
-            var totalUpSpeed: String
+            var totalUpSpeed = "0 B/s"
+            return try {
+                /** 当前总的上行流量 */
+                var allTotalUpBytes = TrafficStats.getTotalTxBytes()
+                if (SDK >= A12) allTotalUpBytes -= TrafficStats.getTxBytes(LOOPBACK_IFACE)
+                if (lastTotalUpBytes == 0L) lastTotalUpBytes = allTotalUpBytes
+                val currentTotalUp = allTotalUpBytes - lastTotalUpBytes
 
-            /** 当前总的上行流量 */
-            var allTotalUpBytes = TrafficStats.getTotalTxBytes()
-            if (SDK >= A12) allTotalUpBytes -= TrafficStats.getTxBytes(LOOPBACK_IFACE)
-            if (lastTotalUpBytes == 0L) lastTotalUpBytes = allTotalUpBytes
-            val currentTotalUp = allTotalUpBytes - lastTotalUpBytes
+                /** 当前总的间隔时间 */
+                val currentTotalUpTime = System.currentTimeMillis()
+                if (lastTotalUpTime == 0L) lastTotalUpTime = currentTotalUpTime
+                val timeIntervals = currentTotalUpTime - lastTotalUpTime
 
-            /** 当前总的间隔时间 */
-            val currentTotalUpTime = System.currentTimeMillis()
-            if (lastTotalUpTime == 0L) lastTotalUpTime = currentTotalUpTime
-            val timeIntervals = currentTotalUpTime - lastTotalUpTime
+                //计算上传速度
+                val bytes = (currentTotalUp / (timeIntervals / 1000.0)).toFloat()
+                if (bytes.isInfinite() || bytes.isNaN() || bytes < 0) {
+                    totalUpSpeed = "0 B/s"
+                } else {
+                    totalUpSpeed = getTotalFormatSpeed(bytes)
 
-            //计算上传速度
-            val bytes = (currentTotalUp / (timeIntervals / 1000.0)).toFloat()
-            if (bytes.isInfinite() || bytes.isNaN() || bytes < 0) {
-                totalUpSpeed = "0 B/s"
-            } else {
-                totalUpSpeed = getTotalFormatSpeed(bytes)
+                    //保存当前的流量总和和上次的时间戳
+                    lastTotalUpBytes = allTotalUpBytes
+                    lastTotalUpTime = currentTotalUpTime
+                }
 
-                //保存当前的流量总和和上次的时间戳
-                lastTotalUpBytes = allTotalUpBytes
-                lastTotalUpTime = currentTotalUpTime
+                //输出最终速度字符串
+                if (noSpace) totalUpSpeed = totalUpSpeed.replace(" ", "")
+                if (noSecond) totalUpSpeed = totalUpSpeed.replace("/s", "")
+                totalUpSpeed
+            } catch (t: Throwable) {
+                YLog.debug("StatusBarNetWorkSpeed calc totalUpSpeed error!", t)
+                totalUpSpeed
             }
-
-            //输出最终速度字符串
-            if (noSpace) totalUpSpeed = totalUpSpeed.replace(" ", "")
-            if (noSecond) totalUpSpeed = totalUpSpeed.replace("/s", "")
-            return totalUpSpeed
         }
 
         //获取总的下行速度
         @SuppressLint("NewApi")
         private fun getTotalDownloadSpeed(noSpace: Boolean, noSecond: Boolean): String {
             //换算后的下行速度
-            var totalDownSpeed: String
+            var totalDownSpeed = "0 B/s"
+            return try {
+                /** 当前总的下行流量 */
+                var allTotalDownBytes = TrafficStats.getTotalRxBytes()
+                if (SDK >= A12) allTotalDownBytes -= TrafficStats.getRxBytes(LOOPBACK_IFACE)
+                if (lastTotalDownBytes == 0L) lastTotalDownBytes = allTotalDownBytes
+                val currentTotalDown = allTotalDownBytes - lastTotalDownBytes
 
-            /** 当前总的下行流量 */
-            var allTotalDownBytes = TrafficStats.getTotalRxBytes()
-            if (SDK >= A12) allTotalDownBytes -= TrafficStats.getRxBytes(LOOPBACK_IFACE)
-            if (lastTotalDownBytes == 0L) lastTotalDownBytes = allTotalDownBytes
-            val currentTotalDown = allTotalDownBytes - lastTotalDownBytes
+                /** 当前总的间隔时间 */
+                val currentTotalDownTime = System.currentTimeMillis()
+                if (lastTotalDownTime == 0L) lastTotalDownTime = currentTotalDownTime
+                val timeIntervals = currentTotalDownTime - lastTotalDownTime
 
-            /** 当前总的间隔时间 */
-            val currentTotalDownTime = System.currentTimeMillis()
-            if (lastTotalDownTime == 0L) lastTotalDownTime = currentTotalDownTime
-            val timeIntervals = currentTotalDownTime - lastTotalDownTime
+                //计算下行速度
+                val bytes = (currentTotalDown / (timeIntervals / 1000.0)).toFloat()
+                if (bytes.isInfinite() || bytes.isNaN() || bytes < 0) {
+                    totalDownSpeed = "0 B/s"
+                } else {
+                    totalDownSpeed = getTotalFormatSpeed(bytes)
 
-            //计算下行速度
-            val bytes = (currentTotalDown / (timeIntervals / 1000.0)).toFloat()
-            if (bytes.isInfinite() || bytes.isNaN() || bytes < 0) {
-                totalDownSpeed = "0 B/s"
-            } else {
-                totalDownSpeed = getTotalFormatSpeed(bytes)
+                    //保存当前的流量总和和上次的时间戳
+                    lastTotalDownBytes = allTotalDownBytes
+                    lastTotalDownTime = currentTotalDownTime
+                }
 
-                //保存当前的流量总和和上次的时间戳
-                lastTotalDownBytes = allTotalDownBytes
-                lastTotalDownTime = currentTotalDownTime
+                //输出最终速度字符串
+                if (noSpace) totalDownSpeed = totalDownSpeed.replace(" ", "")
+                if (noSecond) totalDownSpeed = totalDownSpeed.replace("/s", "")
+                totalDownSpeed
+            } catch (t: Throwable) {
+                YLog.debug("StatusBarNetWorkSpeed calc totalDownSpeed error!", t)
+                totalDownSpeed
             }
-
-            //输出最终速度字符串
-            if (noSpace) totalDownSpeed = totalDownSpeed.replace(" ", "")
-            if (noSecond) totalDownSpeed = totalDownSpeed.replace("/s", "")
-            return totalDownSpeed
         }
 
         private fun getTotalFormatSpeed(bytes: Float): String {
