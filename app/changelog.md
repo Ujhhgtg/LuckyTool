@@ -20,6 +20,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 强制显示自启动跳转选项
 - [添加] 检测本地SDCARD目录[disable_lt]文件禁用模块
 - [优化] 处理状态栏网速异常捕获
+- [更改] 更换状态栏支付保护图标Hook点
 
 ### 1.2.9
 
