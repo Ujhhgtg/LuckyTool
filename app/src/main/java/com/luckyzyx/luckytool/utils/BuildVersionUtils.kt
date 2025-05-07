@@ -67,9 +67,21 @@ val getVersionCode get() = BuildConfig.VERSION_CODE
  * V15.0.1
  */
 val getOSVersionName: String
-    get() = safeOf("null") {
-        OplusBuildUtlils(null).getOSVersions?.get(OplusBuild.getOplusOSVERSION() - 1)
-            ?: OplusBuild.VERSIONS[OplusBuild.getOplusOSVERSION() - 1]
+    get() {
+        val buildUtils = OplusBuildUtlils(null)
+        return try {
+            buildUtils.getOSVersions?.get(OplusBuild.getOplusOSVERSION() - 1) ?: throw Throwable()
+        } catch (t: Throwable) {
+            try {
+                OplusBuild.VERSIONS[OplusBuild.getOplusOSVERSION() - 1] ?: throw Throwable()
+            } catch (t: Throwable) {
+                try {
+                    buildUtils.OSVERSIONS[OplusBuild.getOplusOSVERSION() - 1]
+                } catch (t: Throwable) {
+                    "null"
+                }
+            }
+        }
     }
 
 /**
@@ -77,9 +89,21 @@ val getOSVersionName: String
  * @param osCode Int
  * @return String
  */
-fun getOSVersionName(osCode: Int): String = safeOf("null") {
-    OplusBuildUtlils(null).getOSVersions?.get(osCode - 1)
-        ?: OplusBuild.VERSIONS[osCode - 1]
+fun getOSVersionName(osCode: Int): String {
+    val buildUtils = OplusBuildUtlils(null)
+    return try {
+        buildUtils.getOSVersions?.get(osCode - 1) ?: throw Throwable()
+    } catch (t: Throwable) {
+        try {
+            OplusBuild.VERSIONS[osCode - 1] ?: throw Throwable()
+        } catch (t: Throwable) {
+            try {
+                buildUtils.OSVERSIONS[osCode - 1]
+            } catch (t: Throwable) {
+                "null"
+            }
+        }
+    }
 }
 
 /**

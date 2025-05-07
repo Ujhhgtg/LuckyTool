@@ -22,6 +22,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 处理状态栏网速异常捕获
 - [更改] 更换状态栏支付保护图标Hook点
 - [更改] 更换状态栏隐私绿点提示Hook点
+- [修复] 修复模块主页OS系统版本显示问题
+- [优化] 优化模块本地权限请求逻辑
 
 ### 1.2.9
 
