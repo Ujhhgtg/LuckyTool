@@ -16,8 +16,8 @@ import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.type.java.MapClass
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -83,15 +83,39 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
         }.apply {
             checkDataList("RemoveMarketUpdatePageAppRecommend APPUpdateItemHolder")
             single().name.toClass().apply {
-                if (hasMethod {
-                        param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
-                        returnType(UnitType)
-                    }) {
+                val hasMethod = hasMethod {
+                    param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
+                    returnType(UnitType)
+                }
+                if (hasMethod) {
                     method {
                         param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
                         returnType(UnitType)
                     }.hook {
                         intercept()
+                    }
+                }
+            }
+        }
+
+        //Source AppUpdateFragmentV2
+        "com.heytap.cdo.client.ui.upgrademgrv2.AppUpdateFragmentV2".toClassOrNull()?.apply {
+            dexKitBridge.findMethod {
+                matcher {
+                    paramTypes(ListClass)
+                    usingFields {
+                        add { type(BooleanType) }
+                    }
+                    usingNumbers(114.0F)
+                }
+            }.apply {
+                checkDataList("RemoveMarketUpdatePageAppRecommend AppUpdateFragmentV2")
+                method {
+                    name = single().name
+                    param(ListClass)
+                }.hookAll {
+                    before {
+                        args().first().cast<java.util.ArrayList<Any>>()?.clear()
                     }
                 }
             }

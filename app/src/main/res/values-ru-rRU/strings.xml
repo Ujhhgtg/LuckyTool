@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">Официальному установщику Color OS необходимо включить другие функции для использования\nСписок функций-Приложения-Установка приложений</string>
     <string name="corepatch">Патчи ядра</string>
-    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
+    <string name="corepatch_summary">Убрать ограничения на установку, поддерживает Android %1$s</string>
     <string name="downgr">Разрешить понижение версии</string>
     <string name="downgr_summary">Разрешить приложению перезаписывать установку старой версии непосредственно в случае установки новой версии</string>
     <string name="authcreak">Отключить проверку подписи диспетчера пакетов</string>
@@ -550,7 +550,7 @@
     <!--PhoneManager-->
     <string name="remove_virus_risk_notification_in_phone_manager">Удалить уведомление об угрозе вирусов в диспетчере телефона</string>
     <string name="remove_secure_pay_found_virus_dialog">Удалить диалоговое окно с обнаруженным вирусом безопасной оплаты</string>
-    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Убрать обратный отсчет для добавления в белый список антивирусных приложений</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Отпечаток пальца</string>
     <string name="remove_fingerprint_icon_mode">Удалить иконку отпечатка</string>
@@ -675,7 +675,7 @@
     <string name="enable_wifi_details_display_gateway">Включить отображение деталей Wi-Fi шлюза</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Включить функцию отладки</string>
-    <string name="enable_camera_debug_ui_option_summary">Close method:\n1. Click the one-click reset button in the camera DEBUGUI\n2. Close the module DEBUGUI function\n3. Restart the scope or system\n4. Delete the /data/vendor/camera/ folder (optional)</string>
+    <string name="enable_camera_debug_ui_option_summary">Метод закрытия:\n1. Нажмите кнопку сброса одним щелчком в камере DEBUGUI\n2. Закройте функцию DEBUGUI модуля\n3. Перезапустите область действия или систему\n4. Удалите папку /data/vendor/camera/ (необязательно)</string>
     <string name="custom_camera_open_gallery_by_default">Галерея, которая открывается по умолчанию</string>
     <string name="custom_camera_open_gallery_by_default_tips">Разрешить выбор только одного приложения галереи!</string>
     <string name="enable_camera_night_zoom_30x">Включить масштаб 30x для ночных сцен</string>
@@ -853,7 +853,7 @@
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Удалить ограничение по времени beaconlink</string>
     <!--OplusHealth-->
-    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
+    <string name="remove_health_root_check_dialog">Удалить диалоговое окно обнаружения root</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

@@ -675,7 +675,7 @@
     <string name="enable_wifi_details_display_gateway">Povolit zobrazení podrobností Wi-Fi brány</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Povolit možnost DebugUI</string>
-    <string name="enable_camera_debug_ui_option_summary">Close method:\n1. Click the one-click reset button in the camera DEBUGUI\n2. Close the module DEBUGUI function\n3. Restart the scope or system\n4. Delete the /data/vendor/camera/ folder (optional)</string>
+    <string name="enable_camera_debug_ui_option_summary">Metoda zavření:\n1. Klepněte na tlačítko reset kamery v DEBUGUI\n2. Zavřete modul DEBUGUI funkci\n3. Restartujte rozsah nebo systém\n4. Odstraňte /data/prodejce/kamera/složku (volitelné)</string>
     <string name="custom_camera_open_gallery_by_default">Přizpůsobit galerii, která se otevírá ve výchozím nastavení</string>
     <string name="custom_camera_open_gallery_by_default_tips">Povolit výběr pouze jedné galerie!</string>
     <string name="enable_camera_night_zoom_30x">Povolit 30x přiblížení pro noční scény</string>
