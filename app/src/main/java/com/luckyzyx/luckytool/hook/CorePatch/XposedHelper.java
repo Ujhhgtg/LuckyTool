@@ -2,8 +2,9 @@ package com.luckyzyx.luckytool.hook.CorePatch;
 
 import android.util.Log;
 
-import org.lsposed.lsparanoid.Obfuscate;
 import com.luckyzyx.luckytool.BuildConfig;
+
+import org.lsposed.lsparanoid.Obfuscate;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
@@ -50,6 +51,15 @@ public class XposedHelper {
     public void hookAllMethods(Class<?> hookClass, String methodName, XC_MethodHook callback) {
         try {
             XposedBridge.hookAllMethods(hookClass, methodName, callback);
+        } catch (Throwable e) {
+            if (BuildConfig.DEBUG)
+                XposedBridge.log("E/" + TAG + " " + Log.getStackTraceString(e));
+        }
+    }
+    
+    public static void setStaticBooleanField(Class<?> hookClass, String fieldName, boolean value) {
+        try {
+            XposedHelpers.setStaticBooleanField(hookClass, fieldName, value);
         } catch (Throwable e) {
             if (BuildConfig.DEBUG)
                 XposedBridge.log("E/" + TAG + " " + Log.getStackTraceString(e));
