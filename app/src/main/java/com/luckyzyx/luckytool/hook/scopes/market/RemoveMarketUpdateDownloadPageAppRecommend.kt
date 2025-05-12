@@ -109,11 +109,11 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                     usingNumbers(114.0F)
                 }
             }.apply {
-                checkDataList("RemoveMarketUpdatePageAppRecommend AppUpdateFragmentV2")
+                checkDataList("RemoveMarketUpdatePageAppRecommend addDataAndNotifyChanged")
                 method {
                     name = single().name
                     param(ListClass)
-                }.hookAll {
+                }.hook {
                     before {
                         args().first().cast<java.util.ArrayList<Any>>()?.clear()
                     }
