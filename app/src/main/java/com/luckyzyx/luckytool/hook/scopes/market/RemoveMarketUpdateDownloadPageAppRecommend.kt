@@ -119,6 +119,26 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                     }
                 }
             }
+
+            dexKitBridge.findMethod {
+                matcher {
+                    paramTypes(BooleanType)
+                    addCaller {
+                        paramTypes(IntType)
+                        usingNumbers(1002, 1003)
+                    }
+                    usingNumbers(0, 300L)
+                    usingStrings("mRecommendUpdateContainer", "mNormalUpdateContainer")
+                }
+            }.apply {
+                checkDataList("RemoveMarketUpdatePageAppRecommend AutoScrollWhenUpdateAll")
+                method {
+                    name = single().name
+                    param(BooleanType)
+                }.hook {
+                    intercept()
+                }
+            }
         }
     }
 }
