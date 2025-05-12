@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.related
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
@@ -12,6 +11,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class DialogRelated : BaseScopePreferenceFeagment() {
@@ -72,7 +72,7 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.need_restart_system)
                 key = "run_floating_window_tasks_in_foreground"
                 setDefaultValue(false)
-                isVisible = osCode > 26
+                isVisible = osCode in 27..33
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)

@@ -21,9 +21,7 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.android.UserHandleClass
 import com.luckyzyx.luckytool.hook.utils.OplusMirageDisplayManagerUtils
-import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.startMirageWindow
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -34,7 +32,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
 
     override fun onHook() {
         if (prefs(ModulePrefs).getBoolean("run_floating_window_tasks_in_foreground", false)) {
-            if (SDK >= A15) loadHooker(FloatWindowBackRun)
+//            if (SDK >= A15) loadHooker(FloatWindowBackRun)
             loadHooker(MultiAppFloatWindowBackRun)
         }
     }

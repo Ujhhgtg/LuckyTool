@@ -25,6 +25,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 修复模块主页OS系统版本显示问题
 - [优化] 优化模块本地权限请求逻辑
 - [适配] 适配软件商店更新页面底部应用推荐 v12.6.0beta1(7befd97)
+- [更改] 浮窗贴边功能不在支持C15+
 
 ### 1.2.9
 
