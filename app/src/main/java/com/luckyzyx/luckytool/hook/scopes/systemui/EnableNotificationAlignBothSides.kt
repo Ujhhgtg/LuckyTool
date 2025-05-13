@@ -3,15 +3,16 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getScreenOrientation
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object EnableNotificationAlignBothSides : YukiBaseHooker() {
@@ -22,22 +23,46 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         "com.android.systemui.statusbar.notification.row.ExpandableNotificationRow".toClass()
             .apply {
                 method { name = "onFinishInflate" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "ExpandableNotificationRow", method.name
+                        )
+                    }
                 }
                 method { name = "onLayout" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "ExpandableNotificationRow", method.name
+                        )
+                    }
                 }
                 method { name = "reInflateViews" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "ExpandableNotificationRow", method.name
+                        )
+                    }
                 }
                 method { name = "onConfigurationChanged" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "ExpandableNotificationRow", method.name
+                        )
+                    }
                 }
                 method { name = "onUiModeChanged" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "ExpandableNotificationRow", method.name
+                        )
+                    }
                 }
                 method { name = "onNotificationUpdated" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "ExpandableNotificationRow", method.name
+                        )
+                    }
                 }
             }
 
@@ -60,7 +85,9 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                         val visible = args().last().cast<Int>() ?: return@before
                         val count = viewGroup.childCount
                         if ((visible == 0) && (count > 0)) {
-                            if (viewGroup.width != 0) viewGroup.setViewWidth()
+                            if (viewGroup.width != 0) viewGroup.setViewWidth(
+                                "KeyguardMediaController", method.name
+                            )
                         }
                     }
                 }
@@ -72,13 +99,25 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.notification.row.UbiquitousExpandableRow" //C14 or null
             ).toClassOrNull()?.apply {
                 method { name = "onFinishInflate" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "UbiquitousExpandableRow", method.name
+                        )
+                    }
                 }
                 method { name = "onLayout" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "UbiquitousExpandableRow", method.name
+                        )
+                    }
                 }
                 method { name = "reInflateViews" }.hook {
-                    after { instance<ViewGroup>().setViewWidth() }
+                    after {
+                        instance<ViewGroup>().setViewWidth(
+                            "UbiquitousExpandableRow", method.name
+                        )
+                    }
                 }
             }
 
@@ -88,25 +127,25 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                     method { name = "onCreateView" }.hook {
                         after {
                             field { name = "parent" }.get(instance).cast<ViewGroup>()
-                                ?.setViewWidth()
+                                ?.setViewWidth("NotificationSeedingController", method.name)
                         }
                     }
                     method { name = "onUpdate" }.hook {
                         after {
                             field { name = "parent" }.get(instance).cast<ViewGroup>()
-                                ?.setViewWidth()
+                                ?.setViewWidth("NotificationSeedingController", method.name)
                         }
                     }
                     method { name = "refreshNotificationPosition" }.hook {
                         after {
                             field { name = "parent" }.get(instance).cast<ViewGroup>()
-                                ?.setViewWidth()
+                                ?.setViewWidth("NotificationSeedingController", method.name)
                         }
                     }
                     method { name = "updateNotifSeedingViews" }.hook {
                         after {
                             field { name = "parent" }.get(instance).cast<ViewGroup>()
-                                ?.setViewWidth()
+                                ?.setViewWidth("NotificationSeedingController", method.name)
                         }
                     }
                 }
@@ -115,13 +154,13 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
             "com.oplus.systemui.statusbar.notification.customcard.OplusCustomRow".toClassOrNull()
                 ?.apply {
                     method { name = "onFinishInflate" }.hook {
-                        after { instance<ViewGroup>().setViewWidth() }
+                        after { instance<ViewGroup>().setViewWidth("OplusCustomRow", method.name) }
                     }
                     method { name = "onLayout" }.hook {
-                        after { instance<ViewGroup>().setViewWidth() }
+                        after { instance<ViewGroup>().setViewWidth("OplusCustomRow", method.name) }
                     }
                     method { name = "onConfigurationChanged" }.hook {
-                        after { instance<ViewGroup>().setViewWidth() }
+                        after { instance<ViewGroup>().setViewWidth("OplusCustomRow", method.name) }
                     }
                 }
         }
@@ -139,7 +178,9 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
                         val visible = hostView.visibility
                         val count = hostView.childCount
                         if ((visible == 0) && (count > 0)) {
-                            if (hostView.width != 0) hostView.setViewWidth()
+                            if (hostView.width != 0) hostView.setViewWidth(
+                                "OplusMediaHost", method.name
+                            )
                         }
                     }
                 }
@@ -148,14 +189,25 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
     }
 
     @SuppressLint("DiscouragedApi")
-    private fun View.setViewWidth() {
+    private fun View.setViewWidth(cls: String, methodName: String) {
         qsPanelPaddingPx = resources.getDimensionPixelSize(
             resources.getIdentifier("qs_header_panel_side_padding", "dimen", packageName)
         )
         val targetWidth = resources.displayMetrics.widthPixels - (qsPanelPaddingPx * 2)
+
         getScreenOrientation(this) {
-            if (layoutParams != null) layoutParams = ViewGroup.LayoutParams(layoutParams).apply {
-                width = if (it) targetWidth else ViewGroup.LayoutParams.MATCH_PARENT
+            if (layoutParams != null) when (layoutParams) {
+                is FrameLayout.LayoutParams -> {
+                    layoutParams = FrameLayout.LayoutParams(layoutParams).apply {
+                        width = if (it) targetWidth else FrameLayout.LayoutParams.MATCH_PARENT
+                    }
+                }
+
+                else -> {
+                    layoutParams = ViewGroup.LayoutParams(layoutParams).apply {
+                        width = if (it) targetWidth else ViewGroup.LayoutParams.MATCH_PARENT
+                    }
+                }
             }
         }
     }
