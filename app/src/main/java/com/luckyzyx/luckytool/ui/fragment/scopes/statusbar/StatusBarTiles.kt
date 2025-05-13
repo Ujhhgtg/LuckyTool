@@ -242,7 +242,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.fix_tile_align_both_sides_summary)
                 key = "fix_tile_align_both_sides"
                 setDefaultValue(false)
-                isVisible = osCode in 26..33
+                isVisible = osCode >= 26
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

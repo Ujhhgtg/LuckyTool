@@ -42,9 +42,9 @@ object StatusBarTile : YukiBaseHooker() {
         //磁贴布局
         loadHooker(ControlCenterTiles)
 
-        //磁贴两侧对齐
+        //经典控制中心 横屏磁贴两侧对齐
         if (prefs(ModulePrefs).getBoolean("fix_tile_align_both_sides", false)) {
-            if (osCode in 26..33) loadHooker(FixTileAlignBothSides)
+            if (osCode >= 26) loadHooker(FixTileAlignBothSides)
         }
 
         //恢复磁贴编辑页面布局行数
