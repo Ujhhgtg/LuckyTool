@@ -6,6 +6,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -29,8 +30,16 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
                     val context = args().last().cast<Context>() ?: return@replaceUnit
                     method { name = "onUsbSelect" }.get(ins).call(1)
                     method { name = "updateAdbNotification" }.get(ins).call(context)
-                    method { name = "updateUsbNotification" }.get(ins).call(context, 1)
-                    method { name = "changeUsbConfig" }.get(ins).call(context, 1)
+                    method { name = "updateUsbNotification" }.let {
+                        val contextIndex = it.give()?.parameterTypes?.indexOf(ContextClass)
+                        if (contextIndex == 0) it.get(ins).call(context, 1)
+                        else it.get(ins).call(1, context)
+                    }
+                    method { name = "changeUsbConfig" }.let {
+                        val contextIndex = it.give()?.parameterTypes?.indexOf(ContextClass)
+                        if (contextIndex == 0) it.get(ins).call(context, 1)
+                        else it.get(ins).call(1, context)
+                    }
                 }
             }
             method { name = "updateUsbNotification" }.hook {
