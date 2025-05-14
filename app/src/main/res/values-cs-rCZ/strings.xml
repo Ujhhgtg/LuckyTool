@@ -476,7 +476,7 @@
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
     <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat kompletní seznam klonovatelných aplikací a je tak třeba nainstalovat aplikace pro konkrétní modely.</string>
     <string name="remove_multi_app_blacklist">Odstranění černé listiny pro více aplikací</string>
-    <string name="remove_multi_app_created_num_limit">Odstranění omezení počtu vytvořených aplikací</string>
+    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
     <string name="set_wlan_sla_whitelist_mode">Nastavení režimu dvoukanálové akcelerace Wi-Fi</string>
     <string name="remove_wlan_sla_blacklist">Odstranění černé listiny akcelerace duálního připojení Wi-Fi</string>
     <string name="custom_wlan_sla_whitelist">Přizpůsobitelný seznam povolení dvoukanálové akcelerace Wi-Fi</string>

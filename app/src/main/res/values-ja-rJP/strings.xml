@@ -476,7 +476,7 @@
     <string name="set_multi_app_support_mode_all_apps">完全なアプリリスト</string>
     <string name="set_multi_app_support_mode_tips">Some models cannot use the full app clone list, and you need to install the app clone APP for specific models.</string>
     <string name="remove_multi_app_blacklist">マルチアプリのブラックリストを削除</string>
-    <string name="remove_multi_app_created_num_limit">Remove multi app created num limit</string>
+    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
     <string name="set_wlan_sla_whitelist_mode">WLAN デュアルチャンネルアクセラレーションのホワイトリストモードを設定</string>
     <string name="remove_wlan_sla_blacklist">WLAN デュアルチャンネルアクセラレーションブラックリストを削除</string>
     <string name="custom_wlan_sla_whitelist">カスタマイズされた WLAN デュアルチャンネルアクセラレーションのホワイトリスト</string>

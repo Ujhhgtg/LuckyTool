@@ -476,7 +476,7 @@
     <string name="set_multi_app_support_mode_all_apps">Полный список приложений</string>
     <string name="set_multi_app_support_mode_tips">Некоторые модели не могут использовать полный список клонов приложений, и вам необходимо установить приложение \"Клонирование приложений\" для определенных моделей.</string>
     <string name="remove_multi_app_blacklist">Удалить черный список для нескольких приложений</string>
-    <string name="remove_multi_app_created_num_limit">Удалить ограничение на количество созданных приложений</string>
+    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
     <string name="set_wlan_sla_whitelist_mode">Установить режим двухканального ускорения Wi-Fi</string>
     <string name="remove_wlan_sla_blacklist">Удалить черный список двухканального ускорения Wi-Fi</string>
     <string name="custom_wlan_sla_whitelist">Настраиваемый белый список двухканального ускорения Wi-Fi</string>

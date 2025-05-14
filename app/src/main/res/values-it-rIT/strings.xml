@@ -476,7 +476,7 @@
     <string name="set_multi_app_support_mode_all_apps">Elenco completo delle app</string>
     <string name="set_multi_app_support_mode_tips">Alcuni modelli non possono utilizzare l\'elenco completo di cloni di app ed è necessario installare l\'APP clone di app per modelli specifici.</string>
     <string name="remove_multi_app_blacklist">Rimuovi blacklist per app multiple</string>
-    <string name="remove_multi_app_created_num_limit">Rimuovi il limite di numero di app create</string>
+    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
     <string name="set_wlan_sla_whitelist_mode">Imposta la modalità whitelist dell\'accelerazione a doppio canale WLAN</string>
     <string name="remove_wlan_sla_blacklist">Rimuovi la blacklist dell\'accelerazione a doppio canale WLAN</string>
     <string name="custom_wlan_sla_whitelist">Whitelist personalizzata per l\'accelerazione a doppio canalel WLAN</string>
