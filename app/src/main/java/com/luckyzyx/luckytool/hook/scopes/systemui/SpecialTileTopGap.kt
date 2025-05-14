@@ -1,20 +1,23 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
+import android.widget.LinearLayout
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.QSFeatureOptionUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object SpecialTileTopGap : YukiBaseHooker() {
+    @SuppressLint("DiscouragedApi")
     override fun onHook() {
         val osCode = getOSVersionCode
         var top = prefs(ModulePrefs).getInt("control_center_special_tile_top_gap", 10)
@@ -53,13 +56,16 @@ object SpecialTileTopGap : YukiBaseHooker() {
 
         //Source OplusQSBottomImpl C14 C15
         "com.oplus.systemui.qs.OplusQSBottomImpl".toClass().apply {
-            method { name = "updateIndicator" }.hook {
-                before {
-                    if (!smallBrightness) return@before
-                    val view = instance<View>()
-                    getScreenOrientation(view) {
+            method { name = "updateResources" }.hook {
+                after {
+                    if (!smallBrightness) return@after
+                    val mPageIndicator = field { name = "mPageIndicator" }.get(instance)
+                        .cast<View>() ?: return@after
+                    getScreenOrientation(mPageIndicator) {
                         if (it) return@getScreenOrientation
-                        args().first().setTrue()
+                        (mPageIndicator.layoutParams as LinearLayout.LayoutParams).apply {
+                            bottomMargin = 6.dp
+                        }
                     }
                 }
             }
