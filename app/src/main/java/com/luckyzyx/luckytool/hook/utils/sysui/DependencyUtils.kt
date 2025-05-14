@@ -1,22 +1,22 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
-import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class DependencyUtils(val classLoader: ClassLoader?, isEx: Boolean = false) {
 
     val clazz = if (isEx) "com.android.systemui.DependencyEx".toClass(classLoader)
     else "com.android.systemui.Dependency".toClass(classLoader)
 
-    fun get(cls: Class<*>): Any? {
-        return clazz.method {
-//            name = "get"
-            name { it.startsWith("get") }
+    fun getDependency(cls: Class<*>): Any? {
+        val sDependency = clazz.field { type = clazz }.get().any() ?: return null
+        return sDependency.current().method {
+            name = "getDependency"
             param(Class::class.java)
-        }.get().invoke<Any>(cls)
+        }.invoke<Any>(cls)
     }
 
 }

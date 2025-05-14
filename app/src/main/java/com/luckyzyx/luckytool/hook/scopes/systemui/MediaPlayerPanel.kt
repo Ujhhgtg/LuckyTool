@@ -11,13 +11,13 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.DependencyUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object MediaPlayerPanel : YukiBaseHooker() {
@@ -269,7 +269,7 @@ object MediaPlayerPanel : YukiBaseHooker() {
         isEnabled = true
         setOnClickListener {
             val clazz = "com.android.systemui.media.dialog.MediaOutputDialogFactory".toClass()
-            val mMediaOutputDialogFactory = DependencyUtils(appClassLoader).get(clazz)
+            val mMediaOutputDialogFactory = DependencyUtils(appClassLoader).getDependency(clazz)
             mMediaOutputDialogFactory?.current()?.method { name = "create";paramCount = 3 }
                 ?.call("", true, null)
         }
