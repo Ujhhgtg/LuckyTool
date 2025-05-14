@@ -162,7 +162,8 @@
     <string name="statusbar_clock_doublerow_fontsize">Velikost písma dvou řádků</string>
     <string name="statusbar_clock_custom_format">Formát hodin</string>
     <string name="statusbar_clock_custom_fontsize">Velikost písma hodin</string>
-    <string name="statusbar_clock_fontsize_summary">Pokud je 0, velikost písma nebude změněna</string>
+    <string name="statusbar_clock_custom_minimum_width">Clock minimum width</string>
+    <string name="statusbar_clock_if_zero_summary">If 0, this option will not be modified</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">Rychlost sítě ve stavové liště</string>
     <string name="set_network_speed">Nastavit frekvenci obnovení rychlosti stavové lišty na 1 s</string>

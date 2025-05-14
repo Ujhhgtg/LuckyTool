@@ -10,18 +10,17 @@ import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
-import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.is24
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import java.util.Calendar
 import java.util.Date
 import java.util.Timer
@@ -53,6 +52,8 @@ object StatusBarClock : YukiBaseHooker() {
     private var customFormat =
         prefs(ModulePrefs).getString("statusbar_clock_custom_format", "HH:mm:ss")
     private var customFontsize = prefs(ModulePrefs).getInt("statusbar_clock_custom_fontsize", 0)
+    private var customMinimumWidth =
+        prefs(ModulePrefs).getInt("statusbar_clock_custom_minimum_width", 0)
 
     private val userTypeface = prefs(ModulePrefs).getBoolean("statusbar_clock_user_typeface", false)
     private var useBoldFont =
@@ -62,10 +63,13 @@ object StatusBarClock : YukiBaseHooker() {
     private var newline = ""
 
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         if (clockMode.isBlank() || clockMode == "0") return
         dataChannel.wait<String>("statusbar_clock_text_alignment") { clockAlignment = it }
         dataChannel.wait<String>("statusbar_clock_custom_format") { customFormat = it }
         dataChannel.wait<Int>("statusbar_clock_custom_fontsize") { customFontsize = it }
+        dataChannel.wait<Int>("statusbar_clock_custom_minimum_width") { customMinimumWidth = it }
         dataChannel.wait<Int>("statusbar_clock_singlerow_fontsize") { singleRowFontSize = it }
         dataChannel.wait<Int>("statusbar_clock_doublerow_fontsize") { doubleRowFontSize = it }
         dataChannel.wait<Boolean>("statusbar_clock_use_bold_font_style") { useBoldFont = it }
@@ -105,6 +109,18 @@ object StatusBarClock : YukiBaseHooker() {
                     }
                 }
             }
+            method { name = "onMeasure" }.hook {
+                before {
+                    val clockView = instance<TextView>().apply {
+                        val clockName = safeOfNull { resources.getResourceEntryName(id) }
+                        if (clockName != "clock") return@before
+                    }
+                    if (customMinimumWidth > 0) {
+                        clockView.minWidth = customMinimumWidth * 10
+                        clockView.minimumWidth = customMinimumWidth * 10
+                    }
+                }
+            }
         }
 
         //Source StatClock
@@ -112,19 +128,19 @@ object StatusBarClock : YukiBaseHooker() {
             "com.oplusos.systemui.statusbar.widget.StatClock", //C12 C13
             "com.oplus.systemui.statusbar.widget.StatClock" //C14
         ).toClass().apply {
+            val hasUpdateMinWidth = hasMethod { name = "updateMinWidth" }
             method {
-                if (SDK == A11) name = "onConfigChanged"
-                if (SDK > A11) name = "onConfigurationChanged"
+                name { it.startsWith("onConfig") && it.endsWith("Changed") }
             }.hook {
                 intercept()
             }
-            if (getOSVersionCode >= 33) {
+            if (osCode >= 33) {
                 method { name = "onMeasure" }.hook {
                     before {
                         field { name = "mShowSeconds";superClass() }.get(instance).setTrue()
                     }
                 }
-                method { name = "updateMinWidth" }.hook {
+                if (hasUpdateMinWidth) method { name = "updateMinWidth" }.hook {
                     before {
                         field { name = "mShowSeconds";superClass() }.get(instance).setTrue()
                     }

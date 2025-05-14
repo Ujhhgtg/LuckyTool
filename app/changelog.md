@@ -33,6 +33,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 关机菜单SOS紧急按钮 C15.0.1
 - [适配] 关机菜单手动锁定按钮 C15.0.1
 - [适配] 经典控制中心横屏亮度条显示位置
+- [添加] 自定义状态栏时钟最小宽度
 
 ### 1.2.9
 

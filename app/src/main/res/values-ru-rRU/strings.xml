@@ -162,7 +162,8 @@
     <string name="statusbar_clock_doublerow_fontsize">Размер шрифта в две строки</string>
     <string name="statusbar_clock_custom_format">Формат часов</string>
     <string name="statusbar_clock_custom_fontsize">Размер шрифта часов</string>
-    <string name="statusbar_clock_fontsize_summary">Если он равен 0, размер шрифта не будет изменен</string>
+    <string name="statusbar_clock_custom_minimum_width">Clock minimum width</string>
+    <string name="statusbar_clock_if_zero_summary">If 0, this option will not be modified</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">Скорость сети в статусбаре</string>
     <string name="set_network_speed">Установить частоту обновления скорости сети в статусбаре на 1 секунду</string>
@@ -476,7 +477,7 @@
     <string name="set_multi_app_support_mode_all_apps">Полный список приложений</string>
     <string name="set_multi_app_support_mode_tips">Некоторые модели не могут использовать полный список клонов приложений, и вам необходимо установить приложение \"Клонирование приложений\" для определенных моделей.</string>
     <string name="remove_multi_app_blacklist">Удалить черный список для нескольких приложений</string>
-    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
+    <string name="remove_multi_app_created_num_limit">Убрать ограничение на общее количество создаваемых клонов</string>
     <string name="set_wlan_sla_whitelist_mode">Установить режим двухканального ускорения Wi-Fi</string>
     <string name="remove_wlan_sla_blacklist">Удалить черный список двухканального ускорения Wi-Fi</string>
     <string name="custom_wlan_sla_whitelist">Настраиваемый белый список двухканального ускорения Wi-Fi</string>

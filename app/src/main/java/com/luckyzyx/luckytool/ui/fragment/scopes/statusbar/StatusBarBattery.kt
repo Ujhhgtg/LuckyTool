@@ -6,7 +6,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -18,6 +17,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarBattery : BaseScopePreferenceFeagment() {
@@ -68,7 +68,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                 })
                 add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_power_font_size)
-                    summary = getString(R.string.statusbar_clock_fontsize_summary)
+                    summary = getString(R.string.statusbar_clock_if_zero_summary)
                     key = "statusbar_power_font_size"
                     setDefaultValue(0)
                     max = 15

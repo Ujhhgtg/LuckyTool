@@ -134,7 +134,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 })
                 add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_clock_singlerow_fontsize)
-                    summary = getString(R.string.statusbar_clock_fontsize_summary)
+                    summary = getString(R.string.statusbar_clock_if_zero_summary)
                     key = "statusbar_clock_singlerow_fontsize"
                     setDefaultValue(0)
                     max = 28
@@ -149,7 +149,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 })
                 add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_clock_doublerow_fontsize)
-                    summary = getString(R.string.statusbar_clock_fontsize_summary)
+                    summary = getString(R.string.statusbar_clock_if_zero_summary)
                     key = "statusbar_clock_doublerow_fontsize"
                     setDefaultValue(0)
                     max = 20
@@ -217,7 +217,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 })
                 add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_clock_custom_fontsize)
-                    summary = getString(R.string.statusbar_clock_fontsize_summary)
+                    summary = getString(R.string.statusbar_clock_if_zero_summary)
                     key = "statusbar_clock_custom_fontsize"
                     setDefaultValue(0)
                     max = 30
@@ -231,6 +231,21 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     }
                 })
             }
+            add(SeekBarPreference(this@loadPreferences).apply {
+                title = getString(R.string.statusbar_clock_custom_minimum_width)
+                summary = getString(R.string.statusbar_clock_if_zero_summary)
+                key = "statusbar_clock_custom_minimum_width"
+                setDefaultValue(0)
+                max = 40
+                min = 0
+                showSeekBarValue = true
+                updatesContinuously = false
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
             if (getString(ModulePrefs, "statusbar_clock_mode", "0") != "0") {
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.use_user_typeface)
