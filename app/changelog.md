@@ -30,6 +30,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏通知中心两侧对齐 C15.0.1
 - [适配] USB连接对话框调用逻辑 C15.0.1
 - [更改] 更改功能名称(应用分身创建总数限制)
+- [适配] 关机菜单SOS紧急按钮 C15.0.1
 
 ### 1.2.9
 
