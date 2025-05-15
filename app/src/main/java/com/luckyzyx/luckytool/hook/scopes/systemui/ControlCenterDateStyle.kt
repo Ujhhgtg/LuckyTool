@@ -1,22 +1,25 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import android.text.TextUtils
 import android.util.LayoutDirection
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.layoutDirection
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
+import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getScreenOrientation
+import org.lsposed.lsparanoid.Obfuscate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.abs
 
@@ -50,31 +53,45 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             "com.oplusos.systemui.qs.widget.OplusQSDateView", //C13
             "com.oplus.systemui.qs.widget.OplusQSDateView" //C14 C15
         ).toClass().apply {
-            val hasUpdateConsumer = hasMethod {
-                name { it.contains("updateClock") }
-                paramCount = 1
-            }
-            method {
-                if (hasUpdateConsumer) {
-                    name { it.contains("updateClock") };paramCount = 1
-                } else {
-                    name = "updateClock";emptyParam()
-                }
-            }.hook {
-                after {
-                    if (!removeComma && !showLunar) return@after
-                    instance<TextView>().apply {
-                        if (text.isBlank()) return@after
-                        var res = text.toString()
+            method { name = "updateClock";emptyParam() }.hook {
+                replaceUnit {
+                    if (!removeComma && !showLunar) {
+                        invokeOriginal()
+                        return@replaceUnit
+                    }
+
+                    val dateView = instance<TextView>()
+                    val timeInfo = WeatherInfoParseHelper(appClassLoader)
+                        .getLocalTimeInfo(dateView.context)
+                    val mLastText = field { name = "mLastText" }.get(instance).string()
+                    if (timeInfo != null) {
+                        val dateInfo = timeInfo.current().method { name = "getDateInfo" }.string()
+                        if (dateInfo != mLastText && dateInfo.isNotBlank()) dateView.text = dateInfo
+                    } else {
+                        val mDateFormat =
+                            field { type = DateTimeFormatter::class.java }.get(instance)
+                                .cast<DateTimeFormatter>()
+                        if (mDateFormat == null) {
+                            val mDatePattern =
+                                field { name = "mDatePattern" }.get(instance).string()
+                            field { type = DateTimeFormatter::class.java }.get(instance).set(
+                                DateTimeFormatter.ofPattern(mDatePattern, Locale.getDefault())
+                            )
+                        }
+                        val format = LocalDateTime.now().format(mDateFormat)
+                        if (format != mLastText) dateView.text = format
+                    }
+                    if (dateView.text.isNotBlank()) {
+                        var res = dateView.text.toString()
                         if (removeComma) res = res.replace("，", " ")
                         if (showLunar) {
-                            LunarHelperUtils(context, appClassLoader).apply {
+                            LunarHelperUtils(dateView.context, appClassLoader).apply {
                                 if (lunarInstance == null) lunarInstance = getInstance(context)
                                 val lunarInfo = generateLunarDate(2)
                                 if (lunarInfo.isNotBlank()) res += " $lunarInfo"
                             }
                         }
-                        text = res
+                        dateView.text = res
                         field { name = "mLastText" }.get(instance).set(res)
                     }
                 }
@@ -82,6 +99,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         }
 
         if (SDK < A13) return
+
         var translationX = 0
         //Source OplusQSFooterImpl
         VariousClass(
@@ -126,8 +144,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                                 ControlCenterDateStyle.packageName
                             )
                         )
-                        val isRtl =
-                            TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LayoutDirection.RTL
+                        val isRtl = Locale.getDefault().layoutDirection == LayoutDirection.RTL
                         val width = mClockView.width + qs_footer_date_margin_start
                         if (abs(translationX) < abs(width)) translationX =
                             if (!isRtl) (-width) else width

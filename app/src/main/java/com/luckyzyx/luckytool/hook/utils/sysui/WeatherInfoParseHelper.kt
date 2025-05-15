@@ -4,8 +4,10 @@ import android.content.Context
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.hook.hookers.HookSystemUILockScreen.toClass
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -14,18 +16,9 @@ class WeatherInfoParseHelper(val classLoader: ClassLoader?) {
         "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper",  //C13
         "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper"  //C14
     ).toClass(classLoader)
-    val holderInnerClazz = VariousClass(
-        "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper\$HolderInnerClass",  //C13
-        "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper\$HolderInnerClass"  //C14
-    ).toClass(classLoader)
-    val weatherInfoClazz = VariousClass(
-        "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper\$WeatherInfo",  //C13
-        "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper\$WeatherInfo"  //C14
-    ).toClass(classLoader)
-    val timeInfoClazz = VariousClass(
-        "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper\$TimeInfo",  //C13
-        "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper\$TimeInfo"  //C14
-    ).toClass(classLoader)
+    val holderInnerClazz = "${clazz.name}\$HolderInnerClass".toClass(classLoader)
+    val weatherInfoClazz = "${clazz.name}\$WeatherInfo".toClass(classLoader)
+    val timeInfoClazz = "${clazz.name}\$TimeInfo".toClass(classLoader)
 
     fun getInstance(): Any? {
         return holderInnerClazz.field { type = clazz }.get().any()
@@ -34,14 +27,14 @@ class WeatherInfoParseHelper(val classLoader: ClassLoader?) {
     fun getLocalTimeInfo(context: Context): Any? {
         return clazz.method {
             name = "getLocalTimeInfo"
-            paramCount = 1
+            param(ContextClass)
         }.get(getInstance()).call(context)
     }
 
     fun getResidentTimeInfo(context: Context, residentTimeZone: String): Any? {
         return clazz.method {
             name = "getResidentTimeInfo"
-            paramCount = 1
+            param(ContextClass, StringClass)
         }.get(getInstance()).call(context, residentTimeZone)
     }
 }
