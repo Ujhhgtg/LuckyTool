@@ -236,7 +236,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.statusbar_clock_if_zero_summary)
                 key = "statusbar_clock_custom_minimum_width"
                 setDefaultValue(0)
-                max = 40
+                max = 50
                 min = 0
                 showSeekBarValue = true
                 updatesContinuously = false
