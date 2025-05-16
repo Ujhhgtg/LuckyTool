@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.net.TrafficStats
 import android.os.Handler
+import android.os.Message
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
@@ -19,15 +20,99 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
-@Suppress("MemberVisibilityCanBePrivate")
+
 @Obfuscate
+@Suppress("MemberVisibilityCanBePrivate")
 object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
     override fun onHook() {
-        loadHooker(NetWorkSpeedDelay)
-        loadHooker(NetWorkSpeedView)
+        val osCode = getOSVersionCode
+        if (osCode >= 35) {
+            loadHooker(NetWorkSpeedDelayNew)
+        } else {
+            loadHooker(NetWorkSpeedDelay)
+            loadHooker(NetWorkSpeedView)
+        }
+    }
+
+    @Obfuscate
+    object NetWorkSpeedDelayNew : YukiBaseHooker() {
+        override fun onHook() {
+            var networkSpeed = prefs(ModulePrefs).getBoolean("set_network_speed", false)
+            dataChannel.wait<Boolean>("set_network_speed") { networkSpeed = it }
+
+            //Search postUpdateNetworkSpeedDelay
+            VariousClass(
+                "com.oplusos.systemui.statusbar.controller.NetworkSpeedController",
+                "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
+                "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
+            ).toClass().apply {
+                val bgHandler = field { name = "bgHandler" }
+                val uiHandler = field { name = "uiHandler" }
+                val lastTime = field { name = "lastTime" }
+                val lastTotalBytes = field { name = "lastTotalBytes" }
+
+                val hasNetworkSpeed = hasMethod { name = "updateNetworkSpeed" }
+                method {
+                    name {
+                        if (hasNetworkSpeed) it == "updateNetworkSpeed"
+                        else it.contains("updateNetworkSpeed")
+                    }
+                }.hook {
+                    replaceUnit {
+                        val instance = instanceOrNull ?: args().first().any()
+
+                        if (!networkSpeed) {
+                            invokeOriginal()
+                            return@replaceUnit
+                        }
+
+                        val obtain = Message.obtain()
+                        obtain.what = 100000
+                        var finalTotal = 0L
+
+                        val isConnected = field { name = "isConnected" }.get(instance).boolean()
+                        val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()
+
+                        if (isConnected && isSwitchOn) {
+                            val currentTimeMillis = System.currentTimeMillis()
+                            var totalByte = method { name = "getTotalByte" }.get(instance).long()
+                            if (totalByte <= 0) {
+                                lastTime.get(instance).set(0L)
+                                lastTotalBytes.get(instance).set(0L)
+                                totalByte = method { name = "getTotalByte" }.get(instance).long()
+                            }
+                            val time = lastTime.get(instance).long()
+                            if (time in 0..<currentTimeMillis) {
+                                val totalBytes = lastTotalBytes.get(instance).long()
+                                if (totalBytes > 0 && totalByte > 0 && totalByte > totalBytes) {
+                                    finalTotal =
+                                        ((totalByte - totalBytes) * 1000) / (currentTimeMillis - time)
+                                }
+                            }
+                            obtain.arg1 = 1
+                            obtain.obj = finalTotal
+                            uiHandler.get(instance).cast<Handler>()?.removeMessages(100000)
+                            uiHandler.get(instance).cast<Handler>()?.sendMessage(obtain)
+                            lastTime.get(instance).set(currentTimeMillis)
+                            lastTotalBytes.get(instance).set(totalByte)
+                            bgHandler.get(instance).cast<Handler>()?.removeMessages(100001)
+                            bgHandler.get(instance).cast<Handler>()
+                                ?.sendEmptyMessageDelayed(100001, 1000L)
+                            return@replaceUnit
+                        }
+                        obtain.arg1 = 0
+                        uiHandler.get(instance).cast<Handler>()?.removeMessages(100000)
+                        uiHandler.get(instance).cast<Handler>()?.sendMessage(obtain)
+                        lastTime.get(instance).set(0L)
+                        lastTotalBytes.get(instance).set(0L)
+                    }
+                }
+            }
+        }
     }
 
     @Obfuscate
