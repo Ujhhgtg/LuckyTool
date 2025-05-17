@@ -41,7 +41,7 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                             "about_device_top_bg", "id",
                             this@CustomizeDeviceOTACardBackground.packageName
                         )
-                        itemView.findViewById<ImageView>(topId)?.let {
+                        itemView.findViewById<View>(topId)?.let {
                             itemView.removeView(it)
                         }
                         val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after

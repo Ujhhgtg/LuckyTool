@@ -56,7 +56,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             method { name = "updateClock";emptyParam() }.hook {
                 replaceUnit {
                     if (!removeComma && !showLunar) {
-                        invokeOriginal()
+                        callOriginal()
                         return@replaceUnit
                     }
 

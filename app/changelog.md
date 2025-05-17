@@ -37,6 +37,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 自定义 OTA 卡片背景 C15.0.1
 - [适配] 控制中心日期显示农历 C15.0.1
 - [适配] 状态栏网速 1 秒刷新率 C15.0.1
+- [适配] 状态栏双行网速与计算逻辑 C15.0.1
 
 ### 1.2.9
 

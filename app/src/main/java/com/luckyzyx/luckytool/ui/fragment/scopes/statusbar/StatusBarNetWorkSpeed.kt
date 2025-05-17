@@ -5,7 +5,6 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -14,6 +13,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
@@ -57,7 +57,8 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
                 isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, _ ->
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("com.android.systemui", key, newValue)
                     (activity as MainActivity).restart()
                     true
                 }
