@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.3.0_beta
+### 1.3.0
 
 - [修复] 移除模块设置分区重复的功能项
 - [更改] 为部分通知移除功能添加重启提示
@@ -39,6 +39,41 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 状态栏网速 1 秒刷新率 C15.0.1
 - [适配] 状态栏双行网速与计算逻辑 C15.0.1
 - [适配] 游戏助手媒体播放器与弹幕通知 v10.8.4(a11f7ba)
+- [Fix] Remove the function item for the module setting partition duplication
+- [Change] Add a restart prompt for some notification removal
+- [Fix] Fixed the problem of failure of the WIFI display gateway function switch
+- [Add] Remove the Health Root Detection dialog box
+- [Add] Remove Mobile Manager Virus App Add whitelist countdown
+- [Fix] Display of folder preview layout columns
+- [Fix] Issues of repeated display of battery health calculation text
+- [Remove] Remove the built-in blacklisting mechanism of the module
+- [Add] Camera DEBUGUI Close Prompt
+- [Change] Remove log page loading logic and wait for page re-planning
+- [Fix] Fix the shutdown menu manual lock button Hook exception
+- [Add] Force display of self-start jump option
+- [Add] Detect local SDCARD directory [disable_lt] file disable module
+- [Optimize] Handle status bar network speed exception capture
+- [Change] Replace the status bar Payment protection icon Hook click
+- [Change] Replace the status bar privacy green dot tip Hook point
+- [Fix] Fixed the module homepage OS system version display problem
+- [Optimize] Optimize module local permission request logic
+- [Fix] The application recommendation at the bottom of the adapter software store update page
+  v12.6.0beta1 (7befd97)
+- [Change] Floating window grip function is no longer supported C15+
+- [Fix] Classic Control Center Tiles Align on both sides C15.0.1
+- [Fix] Volume dialog background transparency C15.0.1
+- [Fix] Status bar notification center aligned both sides C15.0.1
+- [Fix] USB Connection Dialog Call Logic C15.0.1
+- [Change] Change the function name (apply the total number of palette creation limit)
+- [Fix] Shutdown Menu SOS Emergency Button C15.0.1
+- [Fix] Manual lock button on shutdown menu C15.0.1
+- [Fix] Classic Control Center horizontal brightness bar display position
+- [Add] Customize the minimum width of the status bar clock
+- [Fix] Custom OTA card background C15.0.1
+- [Fix] Control Center date displays lunar calendar C15.0.1
+- [Fix] Status bar network speed 1 second refresh rate C15.0.1
+- [Fix] Status bar dual-line network speed and calculation logic C15.0.1
+- [Fix] Game Assistant Media Player and Barrage Notification v10.8.4 (a11f7ba)
 
 ### 1.2.9
 

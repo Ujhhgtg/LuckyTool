@@ -162,8 +162,8 @@
     <string name="statusbar_clock_doublerow_fontsize">Размер шрифта в две строки</string>
     <string name="statusbar_clock_custom_format">Формат часов</string>
     <string name="statusbar_clock_custom_fontsize">Размер шрифта часов</string>
-    <string name="statusbar_clock_custom_minimum_width">Clock minimum width</string>
-    <string name="statusbar_clock_if_zero_summary">If 0, this option will not be modified</string>
+    <string name="statusbar_clock_custom_minimum_width">Минимальная ширина часов</string>
+    <string name="statusbar_clock_if_zero_summary">Если 0, эта опция не будет изменена</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">Скорость сети в статусбаре</string>
     <string name="set_network_speed">Установить частоту обновления скорости сети в статусбаре на 1 секунду</string>

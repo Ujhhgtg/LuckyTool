@@ -162,8 +162,8 @@
     <string name="statusbar_clock_doublerow_fontsize">Velikost písma dvou řádků</string>
     <string name="statusbar_clock_custom_format">Formát hodin</string>
     <string name="statusbar_clock_custom_fontsize">Velikost písma hodin</string>
-    <string name="statusbar_clock_custom_minimum_width">Clock minimum width</string>
-    <string name="statusbar_clock_if_zero_summary">If 0, this option will not be modified</string>
+    <string name="statusbar_clock_custom_minimum_width">Minimální šířka hodin</string>
+    <string name="statusbar_clock_if_zero_summary">Pokud je 0, tato možnost nebude upravena</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">Rychlost sítě ve stavové liště</string>
     <string name="set_network_speed">Nastavit frekvenci obnovení rychlosti stavové lišty na 1 s</string>
@@ -477,7 +477,7 @@
     <string name="set_multi_app_support_mode_all_apps">Úplný seznam aplikací</string>
     <string name="set_multi_app_support_mode_tips">Některé modely nemohou používat kompletní seznam klonovatelných aplikací a je tak třeba nainstalovat aplikace pro konkrétní modely.</string>
     <string name="remove_multi_app_blacklist">Odstranění černé listiny pro více aplikací</string>
-    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
+    <string name="remove_multi_app_created_num_limit">Odstranění omezení celkového počtu vytvořených klonů</string>
     <string name="set_wlan_sla_whitelist_mode">Nastavení režimu dvoukanálové akcelerace Wi-Fi</string>
     <string name="remove_wlan_sla_blacklist">Odstranění černé listiny akcelerace duálního připojení Wi-Fi</string>
     <string name="custom_wlan_sla_whitelist">Přizpůsobitelný seznam povolení dvoukanálové akcelerace Wi-Fi</string>

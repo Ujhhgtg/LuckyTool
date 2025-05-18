@@ -2,16 +2,16 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toDrawable
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object FingerPrintIconAnim : YukiBaseHooker() {
@@ -63,11 +63,9 @@ object FingerPrintIconAnim : YukiBaseHooker() {
 
     private fun Any.setCustomDrawable(iconPath: String?, update: Boolean) {
         this.current {
-            val context = field { type = ContextClass }.cast<Context>()
-            val getCurrentUserContext =
-                method { name = "getCurrentUserContext" }.invoke<Context>(context) ?: return
+            val context = field { type = ContextClass }.cast<Context>() ?: return
             val drawable = if (iconPath.isNullOrBlank()) null
-            else BitmapDrawable(getCurrentUserContext.resources, BitmapFactory.decodeFile(iconPath))
+            else BitmapFactory.decodeFile(iconPath).toDrawable(context.resources)
             if (drawable == null) {
                 field { name { it.contains("fadeInAnimDrawable", true) } }.setNull()
                 field { name { it.contains("adeOutAnimDrawable", true) } }.setNull()
