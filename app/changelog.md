@@ -6,6 +6,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 ### 1.3.1_beta
 
 - [修复] 核心破解功能介绍字符串显示
+- [修复] 部分设备不支持RGB调色板导致的系统崩溃
 
 ### 1.3.0
 

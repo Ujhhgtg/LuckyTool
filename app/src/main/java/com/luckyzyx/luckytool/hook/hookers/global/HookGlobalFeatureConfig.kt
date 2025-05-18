@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers.global
 
+import android.provider.Settings
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.android.HookFeatureConfigManager
@@ -76,12 +77,18 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             //Source Settings 启用RGB色温球 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_ball", false)
             ) {
-                if (osCode >= 27) put("oplus.software.display.rgb_ball_support", true)
+                val uri = Settings.System.getUriFor("oplus_settings_switch_color_mode")
+                if (osCode >= 27 && uri != null) {
+                    put("oplus.software.display.rgb_ball_support", true)
+                }
             }
             //Source Settings 启用RGB调色板 ColorModeFragment
             if (prefs(ModulePrefs).getBoolean("enable_screen_color_temperature_rgb_space", false)
             ) {
-                if (osCode >= 34) put("oplus.software.display.color_space_support", true)
+                val uri = Settings.System.getUriFor("color_space_adjustment")
+                if (osCode >= 30 && uri != null) {
+                    put("oplus.software.display.color_space_support", true)
+                }
             }
 
             //Source Settings 启用游戏专属内存 GameBounceUtils

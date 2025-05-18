@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.Settings
 import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
@@ -201,6 +202,8 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     )
                     key = "enable_screen_color_temperature_rgb_ball"
                     setDefaultValue(false)
+                    isVisible =
+                        Settings.System.getUriFor("oplus_settings_switch_color_mode") != null
                     isIconSpaceReserved = false
                 })
             }
@@ -213,6 +216,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     )
                     key = "enable_screen_color_temperature_rgb_space"
                     setDefaultValue(false)
+                    isVisible = Settings.System.getUriFor("color_space_adjustment") != null
                     isIconSpaceReserved = false
                 })
             }
@@ -421,7 +425,8 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                             setOnPreferenceClickListener {
                                 val cacheImageFile =
                                     FileUtils.createCacheFile(requireActivity(), "png")
-                                cropImage.launch(key to CropImageContractOptions(
+                                cropImage.launch(
+                                    key to CropImageContractOptions(
                                     null, CropImageOptions().apply {
                                         activityTitle = title?.toString() ?: ""
                                         cropShape = CropImageView.CropShape.RECTANGLE
