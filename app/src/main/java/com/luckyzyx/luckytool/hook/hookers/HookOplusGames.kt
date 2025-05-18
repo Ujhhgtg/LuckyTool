@@ -86,7 +86,6 @@ object HookOplusGames : YukiBaseHooker() {
         }
         //自定义弹幕通知白名单
         loadHooker(CustomBarrageNotificationWhitelist)
-
         //移除游戏助手工具推荐卡片
         if (!isNew && prefs(ModulePrefs).getBoolean("remove_tool_recommendation_card")) {
             if ((appVer?.versionCode ?: 0) >= 90000000) loadHooker(RemoveToolRecommendationCard)

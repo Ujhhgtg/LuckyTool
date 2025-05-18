@@ -17,7 +17,6 @@ import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
-import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.checkResolveActivity
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -204,10 +203,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 key = "custom_barrage_notification_whitelist_list"
                 title = getString(R.string.custom_barrage_notification_whitelist)
                 val value = getStringSet(ModulePrefs, key, ArraySet())
-                summary = arraySummaryLine(
-                    getString(R.string.custom_barrage_notification_whitelist_message),
-                    value.toString()
-                )
+                summary = value.toString()
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     AppInfoSelector(this@loadPreferences, true).apply {
