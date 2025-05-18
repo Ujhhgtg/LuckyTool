@@ -36,7 +36,6 @@ class CorePatch : BaseScopePreferenceFeagment() {
             })
             add(PreferenceCategory(this@loadPreferences).apply {
                 setTitle(R.string.corepatch)
-                setSummary(R.string.corepatch_summary)
                 key = "CorePatch"
                 isIconSpaceReserved = false
             })

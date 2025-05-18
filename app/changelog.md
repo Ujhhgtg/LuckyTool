@@ -3,6 +3,10 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.3.1_beta
+
+- [修复] 核心破解功能介绍字符串显示
+
 ### 1.3.0
 
 - [修复] 移除模块设置分区重复的功能项
