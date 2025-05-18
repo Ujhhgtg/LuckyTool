@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.BitmapFactory
 import android.view.View
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.view.children
@@ -76,7 +75,7 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                         "about_device_top_bg", "id",
                         this@CustomizeDeviceOTACardBackground.packageName
                     )
-                    activity.findViewById<ImageView>(topId)?.let {
+                    activity.findViewById<View>(topId)?.let {
                         relativeLayout.removeView(it)
                     }
                     val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
