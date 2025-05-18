@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.telephony.SubscriptionManager
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -10,12 +11,13 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object MobileDataIconRelated : YukiBaseHooker() {
@@ -31,7 +33,7 @@ object MobileDataIconRelated : YukiBaseHooker() {
     @Obfuscate
     object MobileDataIcon : YukiBaseHooker() {
         override fun onHook() {
-            //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
+//            val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
             val removeInout = prefs(ModulePrefs).getBoolean("remove_mobile_data_inout", false)
             val removeType = prefs(ModulePrefs).getBoolean("remove_mobile_data_type", false)
             val hideNonNetwork = prefs(ModulePrefs).getBoolean("hide_non_network_card_icon", false)
@@ -41,16 +43,18 @@ object MobileDataIconRelated : YukiBaseHooker() {
             //Source OplusStatusBarMobileViewBinder
             "com.oplus.systemui.statusbar.pipeline.mobile.ui.view.OplusStatusBarMobileViewBinder".toClass()
                 .apply {
-                    val hasDataActivity = hasMethod { name = "bindCustEx\$updateDataActivity" }
-                    val hasNetworkType = hasMethod { name = "bindCustEx\$updateNetworkType" }
-                    if (hasDataActivity) method { name = "bindCustEx\$updateDataActivity" }.hook {
-                        before {
-                            if (removeInout) args().last().set(0)
-                        }
-                    }
-                    if (hasNetworkType) method { name = "bindCustEx\$updateNetworkType" }.hook {
-                        before {
-                            if (removeType) args().last().setNull()
+                    method { name { it.startsWith("bindCustEx") } }.hookAll {
+                        after {
+                            args.forEachIndexed { _, any ->
+                                if (any is ImageView) {
+                                    val id =
+                                        safeOfNull { any.resources.getResourceEntryName(any.id) }
+                                    when (id) {
+                                        "data_inout" -> if (removeInout) any.isVisible = false
+                                        "mobile_type" -> if (removeType) any.isVisible = false
+                                    }
+                                }
+                            }
                         }
                     }
                 }
