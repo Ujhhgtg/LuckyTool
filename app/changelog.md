@@ -9,6 +9,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 尝试修复部分设备不支持RGB调色板导致的系统崩溃
 - [适配] 控制中心响铃状态切换磁贴 C15.0.1
 - [适配] 状态栏移动数据图标箭头与类型 C15.0.1
+- [更改] 状态栏隐私图标圆点Hook位置
 
 ### 1.3.0
 
