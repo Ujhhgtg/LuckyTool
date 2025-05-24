@@ -11,7 +11,8 @@ object RemoveFlashlightOpenNotification : YukiBaseHooker() {
         //Source FlashlightNotification
         VariousClass(
             "com.oplusos.systemui.flashlight.FlashlightNotification", //C13
-            "com.oplus.systemui.statusbar.notification.flashlight.FlashlightNotification" //C14
+            "com.oplus.systemui.statusbar.notification.flashlight.FlashlightNotification", //C14
+            "com.oplus.systemui.notification.flashlight.FlashlightNotification" //C15.0.1
         ).toClass().apply {
             method { name = "sendNotification";paramCount = 1 }.hook {
                 intercept()
