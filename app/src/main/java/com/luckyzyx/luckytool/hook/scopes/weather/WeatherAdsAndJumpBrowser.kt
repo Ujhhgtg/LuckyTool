@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.weather
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
@@ -12,14 +12,15 @@ import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.IntentClass
 import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
+import com.highcapable.yukihookapi.hook.type.java.AnyClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 
@@ -42,6 +43,23 @@ class WeatherAdsAndJumpBrowser(
                 prefs(ModulePrefs).getBoolean("remove_weather_some_page_bottom_ads", false)
             val disableJump = prefs(ModulePrefs).getBoolean("disable_weather_jump_browser", false)
             if (!removeAds && !disableJump) return
+
+            //Source OPPOFeedAdManager switchesPopularRecommended
+            "com.oplus.weather.ad.OPPOFeedAdManager".toClassOrNull()?.apply {
+                method { name = "hasOpenPopularRecommended" }.hook {
+                    if (removeAds) replaceToFalse()
+                }
+                method { name = "hasOpenAdSdkShowBannerFromNetwork" }.hook {
+                    if (removeAds) replaceToFalse()
+                }
+            }
+
+            //Source AppFeatureUtils
+            "com.oplus.weather.utils.AppFeatureUtils".toClassOrNull()?.apply {
+                method { name = "isSupportOplusAd" }.hook {
+                    if (removeAds) replaceToFalse()
+                }
+            }
 
             //Source LocalUtils
             "com.oplus.weather.utils.LocalUtils".toClass().apply {
@@ -89,11 +107,11 @@ class WeatherAdsAndJumpBrowser(
                 method {
                     name { it.startsWith("jump") && it.contains("Browser") }
                     param { it.contains(StringClass) && it.contains(BooleanType) }
-                    returnType = IntentClass
+                    returnType { it == IntentClass || it == AnyClass }
                 }.hookAll {
                     after {
                         val intent = result<Intent>() ?: return@after
-                        intent.data = Uri.parse(formatWeatherUrl(intent.data.toString()))
+                        intent.data = formatWeatherUrl(intent.data.toString()).toUri()
                     }
                 }
             }
@@ -120,7 +138,9 @@ class WeatherAdsAndJumpBrowser(
                     param(weatherWrapper, ContextClass)
                     returnType(PendingIntentClass)
                 }.hook {
-                    before { if (disableJump) resultNull() }
+                    before {
+                        if (disableJump) resultNull()
+                    }
                 }
             }
         }
@@ -139,12 +159,7 @@ class WeatherAdsAndJumpBrowser(
                 if (removeAds) args(2).set(formatWeatherUrl(url))
                 if (disableJump) {
                     val newUrl = args(2).string()
-                    startWebActivity(
-                        BrowserCommonUtils.toClass(),
-                        context,
-                        newUrl,
-                        statisticsTag
-                    )
+                    startWebActivity(BrowserCommonUtils.toClass(), context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
