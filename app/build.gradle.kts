@@ -145,7 +145,7 @@ dependencies {
     implementation(libs.markwon.image)
     implementation(libs.markwon.ext.tables)
 
-    implementation(libs.mmkv)
+//    implementation(libs.mmkv)
     implementation(libs.xxpermissions)
     implementation(libs.spiderman)
     implementation(libs.fastscroll)
