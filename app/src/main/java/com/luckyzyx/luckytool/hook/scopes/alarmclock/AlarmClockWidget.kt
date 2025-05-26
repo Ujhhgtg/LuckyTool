@@ -2,11 +2,11 @@ package com.luckyzyx.luckytool.hook.scopes.alarmclock
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.widget.RemoteViews
 import androidx.collection.arrayMapOf
+import androidx.core.graphics.toColorInt
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
@@ -21,46 +21,172 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
-import com.luckyzyx.luckytool.utils.DexkitUtils
+import com.luckyzyx.luckytool.hook.hookers.HookSystemUIDialog.hookAll
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object AlarmClockWidget : YukiBaseHooker() {
+class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
-    private val BaseClockWidget = "com.coloros.widget.smallweather.BaseClockWidget"
-    private val OnePlusWidget = "com.coloros.widget.smallweather.OnePlusWidget"
-    val OppoWeather = "com.coloros.widget.smallweather.OppoWeather"
-    val OppoWeatherSingle = "com.coloros.widget.smallweather.OppoWeatherSingle"
-    val OppoWeatherVertical = "com.coloros.widget.smallweather.OppoWeatherVertical"
-    val OppoWeatherMultiVertical = "com.coloros.widget.smallweather.OppoWeatherMultiVertical"
-    val RealmeWeather = "com.coloros.widget.smallweather.RealmeWeather"
-    val OxygenWeatherSingle = "com.coloros.widget.smallweather.OxygenWeatherSingle"
+    companion object {
+        val packName = "com.coloros.alarmclock"
 
-    private lateinit var redMode: String
+        private lateinit var redMode: String
+
+        private val BaseClockWidget = "com.coloros.widget.smallweather.BaseClockWidget"
+        private val OnePlusWidget = "com.coloros.widget.smallweather.OnePlusWidget"
+        val OppoWeather = "com.coloros.widget.smallweather.OppoWeather"
+        val OppoWeatherSingle = "com.coloros.widget.smallweather.OppoWeatherSingle"
+        val OppoWeatherVertical = "com.coloros.widget.smallweather.OppoWeatherVertical"
+        val OppoWeatherMultiVertical = "com.coloros.widget.smallweather.OppoWeatherMultiVertical"
+        val RealmeWeather = "com.coloros.widget.smallweather.RealmeWeather"
+        val OxygenWeatherSingle = "com.coloros.widget.smallweather.OxygenWeatherSingle"
+
+        fun setCharRedOne(format: CharSequence): CharSequence {
+            val sp = SpannableStringBuilder(format)
+            val length = if (format.contains(":")) format.toString().substringBefore(":").length
+            else if (format.contains("\u2236")) format.toString().substringBefore("\u2236").length
+            else format.length
+            for (i in 0 until length) {
+                if (format[i].toString() == "1") {
+                    val colorRes = "#c41442".toColorInt()
+                    sp.setSpan(ForegroundColorSpan(colorRes), i, i + 1, 34)
+                }
+            }
+            return sp
+        }
+
+        /**
+         * 新版时钟V14+替换RemoteViews
+         * @receiver Class<*>
+         */
+        fun Class<*>.hookBaseClock() {
+            val noContext = hasField { type = ContextClass }.not()
+            method { emptyParam();returnType = RemoteViewsClass }.hookAll {
+                after {
+                    val context = field {
+                        type = ContextClass;superClass(noContext)
+                    }.get(instance).cast<Context>() ?: return@after
+                    context.injectModuleAppResources()
+                    val res = result<RemoteViews>() ?: return@after
+                    val layoutName = safeOfNull {
+                        context.resources.getResourceEntryName(res.layoutId)
+                    } ?: return@after
+                    val replaceLayoutId = getReplaceLayout(context, layoutName, redMode)
+                        ?: return@after
+                    result = RemoteViews(context.packageName, replaceLayoutId)
+                }
+            }
+        }
+
+        /**
+         * 获取要替换的布局
+         * @param context Context
+         * @param layoutName String
+         * @param redMode String
+         * @return Int?
+         */
+        @SuppressLint("DiscouragedApi")
+        fun getReplaceLayout(context: Context, layoutName: String, redMode: String): Int? {
+            val isRedMode = layoutName.contains("red")
+            val replaceLayoutName = when (redMode) {
+                "1" -> if (isRedMode) null else convertLayoutResMap(layoutName, redMode)
+                "2" -> if (isRedMode) convertLayoutResMap(layoutName, redMode) else null
+                else -> null
+            } ?: return null
+            val resId = context.resources.getIdentifier(replaceLayoutName, "layout", packName)
+            return resId.takeIf { it != 0 }
+        }
+
+        /**
+         * 转换布局名
+         * @param layoutName String
+         * @param redMode String
+         * @return String?
+         */
+        fun convertLayoutResMap(layoutName: String, redMode: String): String? {
+            val layouts = arrayMapOf(
+                //OnePlusWidget
+                "op_double_clock_red_widget_land_view" to "op_double_clock_widget_land_view",
+                "op_double_clock_red_widget_view" to "op_double_clock_widget_view",
+                "one_plus_red_widget_land_view" to "one_plus_widget_land_view",
+                "one_plus_red_widget_view" to "one_plus_widget_view",
+                "table_op_double_clock_red_widget_land_view" to "table_op_double_clock_widget_land_view",
+                "table_op_double_clock_red_widget_view" to "table_op_double_clock_widget_view",
+                "table_one_plus_red_widget_land_view" to "table_one_plus_widget_land_view",
+                "table_one_plus_red_widget_view" to "table_one_plus_widget_view",
+                //OppoWeather
+                "hor_double_clock_red_widget_land_view_t" to "hor_double_clock_widget_land_view_t",
+                "hor_double_clock_red_widget_view_t" to "hor_double_clock_widget_view_t",
+                "hor_single_clock_red_widget_land_view_t" to "hor_single_clock_widget_land_view_t",
+                "hor_single_clock_red_widget_view_t" to "hor_single_clock_widget_view_t",
+                "table_hor_double_clock_red_widget_land_view_t" to "table_hor_double_clock_widget_land_view_t",
+                "table_hor_double_clock_red_widget_view_t" to "table_hor_double_clock_widget_view_t",
+                "table_hor_single_clock_red_widget_land_view_t" to "table_hor_single_clock_widget_land_view_t",
+                "table_hor_single_clock_red_widget_view_t" to "table_hor_single_clock_widget_view_t",
+                //OppoWeatherSingle
+                "one_line_double_clock_red_widget_land_view_t" to "one_line_double_clock_widget_land_view_t",
+                "one_line_double_clock_red_widget_view_t" to "one_line_double_clock_widget_view_t",
+                "one_line_hor_single_clock_red_widget_land_view_t" to "one_line_hor_single_clock_widget_land_view_t",
+                "one_line_hor_single_clock_red_widget_view_t" to "one_line_hor_single_clock_widget_view_t",
+                "table_one_line_double_clock_red_widget_land_view_t" to "table_one_line_double_clock_widget_land_view_t",
+                "table_one_line_double_clock_red_widget_view_t" to "table_one_line_double_clock_widget_view_t",
+                "table_one_line_hor_single_clock_red_widget_land_view_t" to "table_one_line_hor_single_clock_widget_land_view_t",
+                "table_one_line_hor_single_clock_red_widget_view_t" to "table_one_line_hor_single_clock_widget_view_t",
+                //OppoWeatherVertical
+                "vertical_double_clock_red_widget_land_view_t" to "vertical_double_clock_widget_land_view_t",
+                "vertical_double_clock_red_widget_view_t" to "vertical_double_clock_widget_view_t",
+                "vertical_single_clock_red_widget_land_view_t" to "vertical_single_clock_widget_land_view_t",
+                "vertical_single_clock_red_widget_view_t" to "vertical_single_clock_widget_view_t",
+                "table_vertical_double_clock_red_widget_land_view_t" to "table_vertical_double_clock_widget_land_view_t",
+                "table_vertical_double_clock_red_widget_view_t" to "table_vertical_double_clock_widget_view_t",
+                "table_vertical_single_clock_red_widget_land_view_t" to "table_vertical_single_clock_widget_land_view_t",
+                //OppoWeatherMultiVertical
+                "hor_double_clock_red_widget_land_view_t" to "hor_double_clock_widget_land_view_t",
+                "hor_double_clock_red_widget_view_t" to "hor_double_clock_widget_view_t",
+                "hor_single_clock_red_widget_land_view_t" to "hor_single_clock_widget_land_view_t",
+                "vertical_multi_clock_red_widget_view_t" to "vertical_multi_clock_widget_view_t",
+                "table_hor_double_clock_red_widget_land_view_t" to "table_hor_double_clock_widget_land_view_t",
+                "table_hor_double_clock_red_widget_view_t" to "table_hor_double_clock_widget_view_t",
+                "table_hor_single_clock_red_widget_land_view_t" to "table_hor_single_clock_widget_land_view_t",
+                "table_vertical_multi_clock_red_widget_view_t" to "table_vertical_multi_clock_widget_view_t",
+                //OxygenWeatherSingle
+
+                //RealmeWeather
+
+            )
+            val filter = layouts.filter { it.key == layoutName || it.value == layoutName }
+            return filter.firstNotNullOfOrNull {
+                when (redMode) {
+                    "1" -> it.key
+                    "2" -> it.value
+                    else -> null
+                }
+            }
+        }
+    }
+
 
     override fun onHook() {
         redMode = prefs(ModulePrefs).getString("alarmclock_widget_redone_mode", "0")
         dataChannel.wait<String>("alarmclock_widget_redone_mode") { redMode = it }
 
         val onePlusWidget = OnePlusWidget.toClassOrNull() ?: return
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            when {
-                onePlusWidget.hasMethod {
-                    param(StringClass, StringClass);returnType = CharSequenceClass
-                } -> loadHooker(AlarmClock12)
+        when {
+            onePlusWidget.hasMethod {
+                param(StringClass, StringClass);returnType = CharSequenceClass
+            } -> loadHooker(AlarmClock12)
 
-                onePlusWidget.hasMethod { returnType(RemoteViewsClass) } ->
-                    loadHooker(AlarmClock130(dexKitBridge))
+            onePlusWidget.hasMethod { returnType(RemoteViewsClass) } ->
+                loadHooker(AlarmClock130(dexKitBridge))
 
-                else -> {
-                    val baseClockWidget = BaseClockWidget.toClassOrNull()
-                    if (baseClockWidget != null) loadHooker(BaseAlarmClock14)
-                    else loadHooker(BaseAlarmClock15(dexKitBridge))
-                }
+            else -> {
+                val baseClockWidget = BaseClockWidget.toClassOrNull()
+                if (baseClockWidget != null) loadHooker(BaseAlarmClock14)
+                else loadHooker(BaseAlarmClock15(dexKitBridge))
             }
         }
     }
@@ -174,126 +300,4 @@ object AlarmClockWidget : YukiBaseHooker() {
         }
     }
 
-    private fun setCharRedOne(format: CharSequence): CharSequence {
-        val sp = SpannableStringBuilder(format)
-        val length = if (format.contains(":")) format.toString().substringBefore(":").length
-        else if (format.contains("\u2236")) format.toString().substringBefore("\u2236").length
-        else format.length
-        for (i in 0 until length) {
-            if (format[i].toString() == "1") {
-                val colorRes = Color.parseColor("#c41442")
-                sp.setSpan(ForegroundColorSpan(colorRes), i, i + 1, 34)
-            }
-        }
-        return sp
-    }
-
-    /**
-     * 新版时钟V14+替换RemoteViews
-     * @receiver Class<*>
-     */
-    fun Class<*>.hookBaseClock() {
-        val noContext = hasField { type = ContextClass }.not()
-        method { emptyParam();returnType = RemoteViewsClass }.hookAll {
-            after {
-                val context = field {
-                    type = ContextClass;superClass(noContext)
-                }.get(instance).cast<Context>() ?: return@after
-                context.injectModuleAppResources()
-                val res = result<RemoteViews>() ?: return@after
-                val layoutName = safeOfNull {
-                    context.resources.getResourceEntryName(res.layoutId)
-                } ?: return@after
-                val replaceLayoutId = getReplaceLayout(context, layoutName, redMode)
-                    ?: return@after
-                result = RemoteViews(context.packageName, replaceLayoutId)
-            }
-        }
-    }
-
-    /**
-     * 获取要替换的布局
-     * @param context Context
-     * @param layoutName String
-     * @param redMode String
-     * @return Int?
-     */
-    @SuppressLint("DiscouragedApi")
-    fun getReplaceLayout(context: Context, layoutName: String, redMode: String): Int? {
-        val isRedMode = layoutName.contains("red")
-        val replaceLayoutName = when (redMode) {
-            "1" -> if (isRedMode) null else convertLayoutResMap(layoutName, redMode)
-            "2" -> if (isRedMode) convertLayoutResMap(layoutName, redMode) else null
-            else -> null
-        } ?: return null
-        val resId = context.resources.getIdentifier(replaceLayoutName, "layout", packageName)
-        return resId.takeIf { it != 0 }
-    }
-
-    /**
-     * 转换布局名
-     * @param layoutName String
-     * @param redMode String
-     * @return String?
-     */
-    private fun convertLayoutResMap(layoutName: String, redMode: String): String? {
-        val layouts = arrayMapOf(
-            //OnePlusWidget
-            "op_double_clock_red_widget_land_view" to "op_double_clock_widget_land_view",
-            "op_double_clock_red_widget_view" to "op_double_clock_widget_view",
-            "one_plus_red_widget_land_view" to "one_plus_widget_land_view",
-            "one_plus_red_widget_view" to "one_plus_widget_view",
-            "table_op_double_clock_red_widget_land_view" to "table_op_double_clock_widget_land_view",
-            "table_op_double_clock_red_widget_view" to "table_op_double_clock_widget_view",
-            "table_one_plus_red_widget_land_view" to "table_one_plus_widget_land_view",
-            "table_one_plus_red_widget_view" to "table_one_plus_widget_view",
-            //OppoWeather
-            "hor_double_clock_red_widget_land_view_t" to "hor_double_clock_widget_land_view_t",
-            "hor_double_clock_red_widget_view_t" to "hor_double_clock_widget_view_t",
-            "hor_single_clock_red_widget_land_view_t" to "hor_single_clock_widget_land_view_t",
-            "hor_single_clock_red_widget_view_t" to "hor_single_clock_widget_view_t",
-            "table_hor_double_clock_red_widget_land_view_t" to "table_hor_double_clock_widget_land_view_t",
-            "table_hor_double_clock_red_widget_view_t" to "table_hor_double_clock_widget_view_t",
-            "table_hor_single_clock_red_widget_land_view_t" to "table_hor_single_clock_widget_land_view_t",
-            "table_hor_single_clock_red_widget_view_t" to "table_hor_single_clock_widget_view_t",
-            //OppoWeatherSingle
-            "one_line_double_clock_red_widget_land_view_t" to "one_line_double_clock_widget_land_view_t",
-            "one_line_double_clock_red_widget_view_t" to "one_line_double_clock_widget_view_t",
-            "one_line_hor_single_clock_red_widget_land_view_t" to "one_line_hor_single_clock_widget_land_view_t",
-            "one_line_hor_single_clock_red_widget_view_t" to "one_line_hor_single_clock_widget_view_t",
-            "table_one_line_double_clock_red_widget_land_view_t" to "table_one_line_double_clock_widget_land_view_t",
-            "table_one_line_double_clock_red_widget_view_t" to "table_one_line_double_clock_widget_view_t",
-            "table_one_line_hor_single_clock_red_widget_land_view_t" to "table_one_line_hor_single_clock_widget_land_view_t",
-            "table_one_line_hor_single_clock_red_widget_view_t" to "table_one_line_hor_single_clock_widget_view_t",
-            //OppoWeatherVertical
-            "vertical_double_clock_red_widget_land_view_t" to "vertical_double_clock_widget_land_view_t",
-            "vertical_double_clock_red_widget_view_t" to "vertical_double_clock_widget_view_t",
-            "vertical_single_clock_red_widget_land_view_t" to "vertical_single_clock_widget_land_view_t",
-            "vertical_single_clock_red_widget_view_t" to "vertical_single_clock_widget_view_t",
-            "table_vertical_double_clock_red_widget_land_view_t" to "table_vertical_double_clock_widget_land_view_t",
-            "table_vertical_double_clock_red_widget_view_t" to "table_vertical_double_clock_widget_view_t",
-            "table_vertical_single_clock_red_widget_land_view_t" to "table_vertical_single_clock_widget_land_view_t",
-            //OppoWeatherMultiVertical
-            "hor_double_clock_red_widget_land_view_t" to "hor_double_clock_widget_land_view_t",
-            "hor_double_clock_red_widget_view_t" to "hor_double_clock_widget_view_t",
-            "hor_single_clock_red_widget_land_view_t" to "hor_single_clock_widget_land_view_t",
-            "vertical_multi_clock_red_widget_view_t" to "vertical_multi_clock_widget_view_t",
-            "table_hor_double_clock_red_widget_land_view_t" to "table_hor_double_clock_widget_land_view_t",
-            "table_hor_double_clock_red_widget_view_t" to "table_hor_double_clock_widget_view_t",
-            "table_hor_single_clock_red_widget_land_view_t" to "table_hor_single_clock_widget_land_view_t",
-            "table_vertical_multi_clock_red_widget_view_t" to "table_vertical_multi_clock_widget_view_t",
-            //OxygenWeatherSingle
-
-            //RealmeWeather
-
-        )
-        val filter = layouts.filter { it.key == layoutName || it.value == layoutName }
-        return filter.firstNotNullOfOrNull {
-            when (redMode) {
-                "1" -> it.key
-                "2" -> it.value
-                else -> null
-            }
-        }
-    }
 }
