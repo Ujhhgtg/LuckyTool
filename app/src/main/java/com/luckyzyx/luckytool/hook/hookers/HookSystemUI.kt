@@ -1,17 +1,21 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.HookSystemUIFeature
+import com.luckyzyx.luckytool.utils.DexkitUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookSystemUI : YukiBaseHooker() {
     override fun onHook() {
-        //系统界面Feature
-        loadHooker(HookSystemUIFeature)
 
-        //状态栏功能
-        loadHooker(HookSystemUIStatusBar)
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //系统界面Feature
+            loadHooker(HookSystemUIFeature(dexKitBridge))
+
+            //状态栏功能
+            loadHooker(HookSystemUIStatusBar(dexKitBridge))
+        }
 
         //锁屏
         loadHooker(HookSystemUILockScreen)

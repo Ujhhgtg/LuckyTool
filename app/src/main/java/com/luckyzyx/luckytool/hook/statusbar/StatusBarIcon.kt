@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.BluetoothIconRelated
 import com.luckyzyx.luckytool.hook.scopes.systemui.CustomFluidCloudIconBackgroundTransparency
 import com.luckyzyx.luckytool.hook.scopes.systemui.HideInActiveSignalLabelsGen2x2
@@ -16,16 +15,18 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object StatusBarIcon : YukiBaseHooker() {
+class StatusBarIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
         //WiFi图标相关
-        loadHooker(WiFiDataIconRelated)
+        loadHooker(WiFiDataIconRelated(dexKitBridge))
         //移动数据图标相关
-        loadHooker(MobileDataIconRelated)
+        loadHooker(MobileDataIconRelated(dexKitBridge))
         //未连接蓝牙时隐藏图标
         loadHooker(BluetoothIconRelated)
 

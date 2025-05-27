@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.CustomMusicFluidCloudWhitelist
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarBattery
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock
@@ -16,9 +15,11 @@ import com.luckyzyx.luckytool.hook.statusbar.StatusBarTile
 import com.luckyzyx.luckytool.hook.statusbar.StatusBarUI
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object HookSystemUIStatusBar : YukiBaseHooker() {
+class HookSystemUIStatusBar(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
@@ -38,7 +39,7 @@ object HookSystemUIStatusBar : YukiBaseHooker() {
         loadHooker(StatusBarNotifiyLimit)
 
         //状态栏图标
-        loadHooker(StatusBarIcon)
+        loadHooker(StatusBarIcon(dexKitBridge))
 
         //状态栏控制中心
         loadHooker(StatusBarControlCenter)
@@ -53,7 +54,7 @@ object HookSystemUIStatusBar : YukiBaseHooker() {
         loadHooker(StatusBarLayout)
 
         //状态栏电池
-        loadHooker(StatusBarBattery)
+        loadHooker(StatusBarBattery(dexKitBridge))
 
         //自定义音乐流体云白名单
         if (prefs(ModulePrefs).getBoolean("custom_music_fluid_cloud_whitelist", false)) {

@@ -5,35 +5,35 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.utils.A13
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object HookSystemUIFeature : YukiBaseHooker() {
-    var callback: ((key: String, value: Any) -> Unit)? = null
+class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+
+    companion object {
+        var callback: ((key: String, value: Any) -> Unit)? = null
+    }
 
     override fun onHook() {
         val osCode = getOSVersionCode
 
         loadHooker(HookGlobalFeatureConfig)
         loadHooker(HookGlobalSystemProperties)
+        loadHooker(HookGlobalFeatureProvider(dexKitBridge))
 
         loadHooker(HookFeatureOption)
         if (osCode < 34) loadHooker(HookStatusBarFeature)
         loadHooker(HookFlavorOneFeature)
         if (osCode >= 30) loadHooker(HookVolumeFeatureOption)
         if (osCode >= 31) loadHooker(HookQSFeatureOption)
-
-        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-            loadHooker(HookGlobalFeatureProvider(dexKitBridge))
-        }
     }
 
     @Obfuscate

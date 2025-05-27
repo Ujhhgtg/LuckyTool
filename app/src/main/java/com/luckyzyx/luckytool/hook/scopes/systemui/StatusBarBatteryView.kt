@@ -7,14 +7,15 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object StatusBarBatteryView : YukiBaseHooker() {
+class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         if (SDK >= A14) loadHooker(StatusBarPowerStyle)
         else loadHooker(StatusBarPowerStyleC13)
@@ -157,17 +158,19 @@ object StatusBarBatteryView : YukiBaseHooker() {
         }
     }
 
-    fun TextView.handBatteryTextView(
-        removePercent: Boolean, userTypeface: Boolean, useBoldFont: Boolean, customFontSize: Int
-    ) {
-        if (removePercent) text = text.toString().replace("%", "")
-        if (userTypeface) {
-            typeface = if (useBoldFont) Typeface.DEFAULT_BOLD
-            else Typeface.DEFAULT
-            setTextSize(
-                TypedValue.COMPLEX_UNIT_DIP,
-                if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
-            )
+    companion object {
+        fun TextView.handBatteryTextView(
+            removePercent: Boolean, userTypeface: Boolean, useBoldFont: Boolean, customFontSize: Int
+        ) {
+            if (removePercent) text = text.toString().replace("%", "")
+            if (userTypeface) {
+                typeface = if (useBoldFont) Typeface.DEFAULT_BOLD
+                else Typeface.DEFAULT
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
+                )
+            }
         }
     }
 }
