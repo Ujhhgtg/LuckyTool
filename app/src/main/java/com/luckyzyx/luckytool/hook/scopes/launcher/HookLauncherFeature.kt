@@ -5,17 +5,15 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 object HookLauncherFeature : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
-        if (osCode < 33) {
-            loadHooker(HookFeatureOption)
-            loadHooker(HookLauncherSettings)
-        }
+        loadHooker(HookFeatureOption)
+        loadHooker(HookLauncherSettings)
         if (osCode >= 34) loadHooker(HookAppFeature)
     }
 
@@ -39,14 +37,23 @@ object HookLauncherFeature : YukiBaseHooker() {
     object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)
+            val disableDockerMax =
+                prefs(ModulePrefs).getBoolean("remove_docker_max_number_limit", false)
 
             //Source FeatureOption
             "com.android.common.config.FeatureOption".toClass().apply {
-                if (hasField { name = "isSupportAppUpdateDotSwitch" }.not()) return@apply
+                val hasAppDotSwitch = hasField { name = "isSupportAppUpdateDotSwitch" }
                 method { name = "initFeature" }.hook {
                     after {
-                        if (appUpdateDot) field { name = "isSupportAppUpdateDotSwitch" }.get()
-                            .setTrue()
+                        if (hasAppDotSwitch && appUpdateDot) field {
+                            name = "isSupportAppUpdateDotSwitch"
+                        }.get().setTrue()
+                    }
+                }
+                val hasDockerMax = hasMethod { name = "isDockerMax5" }
+                if (hasDockerMax && disableDockerMax) {
+                    method { name = "isDockerMax5" }.hook {
+                        replaceToFalse()
                     }
                 }
             }
@@ -60,9 +67,11 @@ object HookLauncherFeature : YukiBaseHooker() {
 
             //Source LauncherSettingsUtils
             "com.android.launcher.settings.LauncherSettingsUtils".toClass().apply {
-                if (hasMethod { name = "isSupportAppUpdateDot" }.not()) return@apply
-                method { name = "isSupportAppUpdateDot" }.hook {
-                    if (appUpdateDot) replaceToTrue()
+                val hasAppDotSwitch = hasField { name = "isSupportAppUpdateDotSwitch" }
+                if (hasAppDotSwitch && appUpdateDot) {
+                    method { name = "isSupportAppUpdateDot" }.hook {
+                        replaceToTrue()
+                    }
                 }
             }
         }

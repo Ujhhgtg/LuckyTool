@@ -162,8 +162,8 @@
     <string name="statusbar_clock_doublerow_fontsize">Cỡ chữ hàng kép</string>
     <string name="statusbar_clock_custom_format">Định dạng đồng hồ</string>
     <string name="statusbar_clock_custom_fontsize">Kích thước phông chữ đồng hồ</string>
-    <string name="statusbar_clock_custom_minimum_width">Clock minimum width</string>
-    <string name="statusbar_clock_if_zero_summary">If 0, this option will not be modified</string>
+    <string name="statusbar_clock_custom_minimum_width">Chiều rộng tối thiểu của đồng hồ</string>
+    <string name="statusbar_clock_if_zero_summary">Nếu 0, tùy chọn này sẽ không được sửa đổi</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">Tốc độ mạng</string>
     <string name="set_network_speed">Đặt tốc độ làm mới thanh trạng thái là 1 giây</string>
@@ -458,6 +458,7 @@
     <string name="enable_drawer_layout_adjustment">Bật điều chỉnh bố cục ngăn ứng dụng</string>
     <string name="set_icon_columns_in_drawer">Đặt số cột biểu tượng ngăn ứng dụng</string>
     <string name="launcher_layout_related">Bố cục màn hình chính</string>
+    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
     <string name="launcher_layout_row_colume">Đặt số lượng hàng và cột tối đa được hỗ trợ bởi bố cục màn hình</string>
     <string name="launcher_layout_enable">Công tắc chung bố trí biểu tượng màn hình chính</string>
     <string name="launcher_layout_max_rows">Số dòng tối đa trong bố cục màn hình chính</string>
@@ -477,7 +478,7 @@
     <string name="set_multi_app_support_mode_all_apps">Danh sách ứng dụng đầy đủ</string>
     <string name="set_multi_app_support_mode_tips">Một số kiểu máy không thể sử dụng danh sách ứng dụng đầy đủ và cần cài đặt APP nhân bản ứng dụng dành riêng cho kiểu máy.</string>
     <string name="remove_multi_app_blacklist">Xóa bản sao ứng dụng khỏi danh sách đen</string>
-    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
+    <string name="remove_multi_app_created_num_limit">Xoá giới hạn tổng số lần tạo bản sao.</string>
     <string name="set_wlan_sla_whitelist_mode">Đặt chế độ danh sách cho phép tăng tốc kênh đôi WLAN</string>
     <string name="remove_wlan_sla_blacklist">Xóa danh sách đen tăng tốc kênh đôi WLAN</string>
     <string name="custom_wlan_sla_whitelist">Tùy chỉnh danh sách cho phép tăng tốc kênh đôi WLAN</string>

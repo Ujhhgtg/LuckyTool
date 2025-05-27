@@ -458,6 +458,7 @@
     <string name="enable_drawer_layout_adjustment">Enable drawer layout adjustments</string>
     <string name="set_icon_columns_in_drawer">Set the number of icon columns in the drawer</string>
     <string name="launcher_layout_related">Układ pulpitu</string>
+    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
     <string name="launcher_layout_row_colume">Umożliwia zwiększenie liczby wierszy i kolumn układu pulpitu</string>
     <string name="launcher_layout_enable">Główny przełącznik</string>
     <string name="launcher_layout_max_rows">Ilość wierszy</string>

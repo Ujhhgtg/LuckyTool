@@ -458,6 +458,7 @@
     <string name="enable_drawer_layout_adjustment">Abilita le regolazioni della disposizione del drawer</string>
     <string name="set_icon_columns_in_drawer">Imposta il numero di colonne di icone nel drawer</string>
     <string name="launcher_layout_related">Layout del Desktop</string>
+    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
     <string name="launcher_layout_row_colume">Imposta il numero massimo di righe e colonne supportate dal layout del desktop</string>
     <string name="launcher_layout_enable">Layout generale delle icone del desktop</string>
     <string name="launcher_layout_max_rows">Numero massimo di righe nel layout del desktop</string>
