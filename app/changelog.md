@@ -13,6 +13,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 天气跳转页面底部信息流广告 v15.16.16(f6d7e14)
 - [适配] 移除手电筒开启通知 C15.0.1
 - [添加] 移除Docker最大数量限制
+- [适配] 通知中心清理全部通知按钮 C15.0.1
 
 ### 1.3.0
 
