@@ -211,6 +211,7 @@
     <string name="StatusBarIcon_summary">Impostazioni Icone nella Barra di Stato</string>
     <string name="StatusBarWIFIIcon">Icona Wi-Fi</string>
     <string name="remove_wifi_data_inout">Rimuovi \"in-out\" Dati Wi-Fi</string>
+    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
     <string name="StatusBarMobileDataIcon">Icona Dati Mobile</string>
     <string name="remove_mobile_data_icon">Rimuovi icona dati mobile</string>
     <string name="remove_mobile_data_inout">Rimuovi \"in-out\" Dati Mobile</string>

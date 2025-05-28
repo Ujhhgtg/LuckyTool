@@ -211,6 +211,7 @@
     <string name="StatusBarIcon_summary">ステータスバーアイコン関連</string>
     <string name="StatusBarWIFIIcon">Wi-Fi アイコン</string>
     <string name="remove_wifi_data_inout">Wi-Fiのインジケーターを削除</string>
+    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
     <string name="StatusBarMobileDataIcon">モバイルデータアイコン</string>
     <string name="remove_mobile_data_icon">モバイルデータアイコンを削除</string>
     <string name="remove_mobile_data_inout">モバイルデータのインジケーターを削除</string>

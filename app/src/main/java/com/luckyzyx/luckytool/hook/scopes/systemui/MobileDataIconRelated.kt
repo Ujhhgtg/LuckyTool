@@ -110,7 +110,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             if (result == null) return@after
 
                             val originalValue =
-                                FlowUtils(appClassLoader).getValue(result!!) as Boolean
+                                FlowUtils(appClassLoader).getValue<Boolean>(result!!) ?: false
                             if (!originalValue) return@after
 
                             val subId = field { name = "subscriptionId" }.get(instance).int()
@@ -136,7 +136,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             if (result == null) return@after
 
                             val originalValue =
-                                FlowUtils(appClassLoader).getValue(result!!) as Boolean
+                                FlowUtils(appClassLoader).getValue<Boolean>(result!!) ?: false
                             if (!originalValue) return@after
 
                             val subId = field { name = "subscriptionId" }.get(instance).int()
@@ -162,7 +162,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             if (result == null) return@after
 
                             val originalValue =
-                                FlowUtils(appClassLoader).getValue(result!!) as Boolean
+                                FlowUtils(appClassLoader).getValue<Boolean>(result!!) ?: false
                             if (!originalValue) return@after
 
                             val subId = field { name = "subscriptionId" }.get(instance).int()

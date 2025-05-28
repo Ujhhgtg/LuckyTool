@@ -16,6 +16,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 通知中心清理全部通知按钮 C15.0.1
 - [更改] 隐藏侧边栏部分功能选项
 - [适配] 状态栏WIFI图标箭头与类型 C15.0.1
+- [添加] 强制显示WIFI信号标准 C15+
 
 ### 1.3.0
 

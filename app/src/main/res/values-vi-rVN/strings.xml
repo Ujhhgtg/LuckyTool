@@ -211,6 +211,7 @@
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
     <string name="StatusBarWIFIIcon">Biểu tượng WIFI</string>
     <string name="remove_wifi_data_inout">Xóa thông tin dữ liệu WiFi</string>
+    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
     <string name="StatusBarMobileDataIcon">Biểu tượng dữ liệu di động</string>
     <string name="remove_mobile_data_icon">Xóa biểu tượng dữ diệu di động</string>
     <string name="remove_mobile_data_inout">Xóa mũi tên dữ liệu di động</string>
@@ -458,7 +459,7 @@
     <string name="enable_drawer_layout_adjustment">Bật điều chỉnh bố cục ngăn ứng dụng</string>
     <string name="set_icon_columns_in_drawer">Đặt số cột biểu tượng ngăn ứng dụng</string>
     <string name="launcher_layout_related">Bố cục màn hình chính</string>
-    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
+    <string name="remove_docker_max_number_limit">Xóa giới hạn số lượng tối đa cho Docker</string>
     <string name="launcher_layout_row_colume">Đặt số lượng hàng và cột tối đa được hỗ trợ bởi bố cục màn hình</string>
     <string name="launcher_layout_enable">Công tắc chung bố trí biểu tượng màn hình chính</string>
     <string name="launcher_layout_max_rows">Số dòng tối đa trong bố cục màn hình chính</string>

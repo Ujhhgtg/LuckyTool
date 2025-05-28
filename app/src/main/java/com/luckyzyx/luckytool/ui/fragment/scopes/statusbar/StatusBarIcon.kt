@@ -5,7 +5,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
@@ -13,6 +12,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.sendPrefsValue
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarIcon : BaseScopePreferenceFeagment() {
@@ -48,6 +48,13 @@ class StatusBarIcon : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_wifi_data_inout)
                 key = "remove_wifi_data_inout"
                 setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.force_display_wifi_standard)
+                key = "force_display_wifi_standard"
+                setDefaultValue(false)
+                isVisible = osCode >= 34
                 isIconSpaceReserved = false
             })
             //移动数据

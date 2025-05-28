@@ -211,6 +211,7 @@
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>
     <string name="StatusBarWIFIIcon">Ikona WIFI</string>
     <string name="remove_wifi_data_inout">Skrýt indikátor využití WiFi</string>
+    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
     <string name="StatusBarMobileDataIcon">Ikona mobilních dat</string>
     <string name="remove_mobile_data_icon">Odstranit ikonu mobilních dat</string>
     <string name="remove_mobile_data_inout">Skrýt indikátor využití mobilních dat</string>
@@ -458,7 +459,7 @@
     <string name="enable_drawer_layout_adjustment">Povolit úpravy rozvržení menu aplikací</string>
     <string name="set_icon_columns_in_drawer">Nastavte počet sloupců ikon ve menu aplikací</string>
     <string name="launcher_layout_related">Nastavení související s rozložením plochy</string>
-    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
+    <string name="remove_docker_max_number_limit">Odstranit maximální limit počtu pro Docker</string>
     <string name="launcher_layout_row_colume">Nastaví maximální počet řádků a sloupců podporovaných rozložením obrazovky</string>
     <string name="launcher_layout_enable">Povolit/zakázat mřížku ikon na ploše</string>
     <string name="launcher_layout_max_rows">Maximální počet řádků v rozvržení plochy</string>

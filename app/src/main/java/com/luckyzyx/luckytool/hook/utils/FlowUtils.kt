@@ -20,10 +20,10 @@ class FlowUtils(val classLoader: ClassLoader?) {
         return flowKtShareKt.method { name = "asStateFlow" }.get().call(mutableStateFlow)
     }
 
-    fun getValue(flow: Any): Any? {
+    inline fun <reified T> getValue(flow: Any): T? {
         val flowCls = flow.javaClass
         val isSuper = flowCls.hasMethod { name = "getValue" }.not()
-        return flow.current().method { name = "getValue";superClass(isSuper) }.call()
+        return flow.current().method { name = "getValue";superClass(isSuper) }.invoke()
     }
 
 }
