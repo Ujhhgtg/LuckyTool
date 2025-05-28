@@ -57,5 +57,11 @@ object UnlockThemeStoreVip : YukiBaseHooker() {
             }
         }
 
+        //Source ThemeTrialExpireReceiver
+        "com.nearme.themespace.trial.ThemeTrialExpireReceiver".toClassOrNull()?.apply {
+            method { name = "onReceive" }.hook {
+                intercept()
+            }
+        }
     }
 }
