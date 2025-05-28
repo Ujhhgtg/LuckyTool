@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">设置网速底部对齐</string>
     <string name="statusbar_network_layout">状态栏网速布局</string>
     <string name="statusbar_network_no_second">移除每秒显示 (/s)</string>
+    <string name="statusbar_network_no_unit">移除网速单位 (B/KB/MB)</string>
     <string name="statusbar_network_no_space">移除网速空格</string>
     <string name="set_network_speed_double_row_spacing">设置网速双行间距</string>
     <!--StatusBarNotify-->

@@ -99,6 +99,16 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
                     }
                 })
                 add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.statusbar_network_no_unit)
+                    key = "statusbar_network_no_unit"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_network_no_space)
                     key = "statusbar_network_no_space"
                     setDefaultValue(false)

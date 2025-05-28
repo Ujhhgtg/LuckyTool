@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Imposta Velocità di Rete In Basso</string>
     <string name="statusbar_network_layout">Disposizione della velocità di rete nella Barra di Stato</string>
     <string name="statusbar_network_no_second">Rimuovi display al secondo(/i)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Rimuovi spazio velocità di rete</string>
     <string name="set_network_speed_double_row_spacing">Imposta spaziatura doppia riga della velocità di rete</string>
     <!--StatusBarNotify-->

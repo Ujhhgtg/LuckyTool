@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Set Network Speed Padding Bottom</string>
     <string name="statusbar_network_layout">Statusbar network speed layout</string>
     <string name="statusbar_network_no_second">Remove display per second(/s)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Remove network speed space</string>
     <string name="set_network_speed_double_row_spacing">Set network speed double row spacing</string>
     <!--StatusBarNotify-->

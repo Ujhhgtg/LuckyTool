@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">ネットワーク速度の下部のパディングを設定</string>
     <string name="statusbar_network_layout">ステータスバーのネットワーク速度レイアウト</string>
     <string name="statusbar_network_no_second">毎秒表示 (/s) を削除する</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">ネットワーク速度のスペースを削除</string>
     <string name="set_network_speed_double_row_spacing">ネットワーク速度の二行の間隔を設定</string>
     <!--StatusBarNotify-->

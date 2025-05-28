@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Смещение нижней границы скорости сети</string>
     <string name="statusbar_network_layout">Расположение скорости сети</string>
     <string name="statusbar_network_no_second">Удалить отображение в секунду (/с)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Удалить пробел из скорости сети</string>
     <string name="set_network_speed_double_row_spacing">Установить интервал между строками скорости сети</string>
     <!--StatusBarNotify-->

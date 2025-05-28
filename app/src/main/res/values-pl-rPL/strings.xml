@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Przesunięcie ikony (dół/góra)</string>
     <string name="statusbar_network_layout">Układ prędkości sieci</string>
     <string name="statusbar_network_no_second">Usuń wyświetlanie „na sekundę” (../s)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Usuń przestrzeń dla prędkości sieci</string>
     <string name="set_network_speed_double_row_spacing">Set network speed double row spacing</string>
     <!--StatusBarNotify-->

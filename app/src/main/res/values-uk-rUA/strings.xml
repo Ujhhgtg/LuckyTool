@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Встановіть швидкість мережі, заповнюючи нижню частину</string>
     <string name="statusbar_network_layout">Швидкість мережі у рядку стану</string>
     <string name="statusbar_network_no_second">Видалити відображення в секунду (/с)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Видалити місце для швидкості мережі</string>
     <string name="set_network_speed_double_row_spacing">Встановити інтервал для подвійного рядка швидкості мережі</string>
     <!--StatusBarNotify-->

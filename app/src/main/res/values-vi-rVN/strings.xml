@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Đặt phần đệm tốc độ mạng dưới cùng</string>
     <string name="statusbar_network_layout">Bố cục tốc độ mạng trên thanh trạng thái</string>
     <string name="statusbar_network_no_second">Xóa hiển thị giây (/s)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Xóa không gian tốc độ internet</string>
     <string name="set_network_speed_double_row_spacing">Đặt khoảng cách tốc độ mạng kép</string>
     <!--StatusBarNotify-->

@@ -172,6 +172,7 @@
     <string name="set_network_speed_padding_bottom">Nastavit dolní odsazení rychlosti sítě</string>
     <string name="statusbar_network_layout">Rozvržení textu rychlosti sítě ve stavové liště</string>
     <string name="statusbar_network_no_second">Odstranit displej za sekundu(/s)</string>
+    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
     <string name="statusbar_network_no_space">Odstranit mezeru v textu rychlosti sítě</string>
     <string name="set_network_speed_double_row_spacing">Nastavení rychlosti sítě s dvojnásobným rozestupem řádků</string>
     <!--StatusBarNotify-->

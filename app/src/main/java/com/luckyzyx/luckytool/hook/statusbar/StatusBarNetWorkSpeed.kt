@@ -117,6 +117,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             prefs(ModulePrefs).getBoolean("statusbar_network_use_bold_font_style", false)
         var noSpace = prefs(ModulePrefs).getBoolean("statusbar_network_no_space", false)
         var noSecond = prefs(ModulePrefs).getBoolean("statusbar_network_no_second", false)
+        var noUnit = prefs(ModulePrefs).getBoolean("statusbar_network_no_unit", false)
         var getDoubleSize = prefs(ModulePrefs).getInt("set_network_speed_font_size", 7)
         var getBottomPadding = prefs(ModulePrefs).getInt("set_network_speed_padding_bottom", 0)
         var setInterval = prefs(ModulePrefs).getInt("set_network_speed_double_row_spacing", -1)
@@ -131,6 +132,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             dataChannel.wait<Boolean>("statusbar_network_use_bold_font_style") { useBoldFont = it }
             dataChannel.wait<Boolean>("statusbar_network_no_space") { noSpace = it }
             dataChannel.wait<Boolean>("statusbar_network_no_second") { noSecond = it }
+            dataChannel.wait<Boolean>("statusbar_network_no_unit") { noUnit = it }
             dataChannel.wait<Int>("set_network_speed_font_size") { getDoubleSize = it }
             dataChannel.wait<Int>("set_network_speed_padding_bottom") { getBottomPadding = it }
             dataChannel.wait<Int>("set_network_speed_double_row_spacing") { setInterval = it }
@@ -215,7 +217,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
                                 mSpeedNumberTv?.apply {
                                     text = getTotalFormatSpeed(
-                                        speedText.toFloat(), noSpace, noSecond
+                                        speedText.toFloat(), noSpace, noUnit, noSecond
                                     )
                                     setTextSize(
                                         TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat() * 2
@@ -232,7 +234,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
                                 mSpeedNumberTv?.apply {
                                     text = getTotalFormatSpeed(
-                                        calcTotalTx().toFloat(), noSpace, noSecond
+                                        calcTotalTx().toFloat(), noSpace, noUnit, noSecond
                                     )
                                     setTextSize(
                                         TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
@@ -244,7 +246,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                 }
                                 mSpeedUnitTv?.apply {
                                     text = getTotalFormatSpeed(
-                                        calcTotalRx().toFloat(), noSpace, noSecond
+                                        calcTotalRx().toFloat(), noSpace, noUnit, noSecond
                                     )
                                     setTextSize(
                                         TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
@@ -331,21 +333,31 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             return if (bytes >= 0L) bytes else 0L
         }
 
-        private fun getTotalFormatSpeed(bytes: Float, noSpace: Boolean, noSecond: Boolean): String {
-            var format = try {
+        private fun getTotalFormatSpeed(
+            bytes: Float, noSpace: Boolean, noUnit: Boolean, noSecond: Boolean
+        ): String {
+            var type = 0
+            val format = try {
                 if (bytes >= (1024 * 1024)) {
-                    "%.1f MB/s".format(bytes / (1024 * 1024))
+                    type = 2
+                    "%.1f".format(bytes / (1024 * 1024))
                 } else if (bytes >= 1024) {
-                    "%.1f KB/s".format(bytes / 1024)
+                    type = 1
+                    "%.1f".format(bytes / 1024)
                 } else {
-                    "%.1f B/s".format(bytes)
+                    type = 0
+                    "%.1f".format(bytes)
                 }
             } catch (t: Throwable) {
-                "0.0 B/s"
+                "0.0"
             }
-            if (noSpace) format = format.replace(" ", "")
-            if (noSecond) format = format.replace("/s", "")
-            return format
+            return format + (if (noSpace) "" else " ") +
+                    if (noUnit) "" else when (type) {
+                        0 -> "B"
+                        1 -> "KB"
+                        2 -> "MB"
+                        else -> "B"
+                    } + if (noSecond) "" else "/s"
         }
     }
 }
