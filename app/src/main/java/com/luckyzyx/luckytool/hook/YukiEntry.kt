@@ -26,6 +26,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookLauncher
 import com.luckyzyx.luckytool.hook.hookers.HookMarket
 import com.luckyzyx.luckytool.hook.hookers.HookMediaController
 import com.luckyzyx.luckytool.hook.hookers.HookMultiApp
+import com.luckyzyx.luckytool.hook.hookers.HookNfc
 import com.luckyzyx.luckytool.hook.hookers.HookNotificationManager
 import com.luckyzyx.luckytool.hook.hookers.HookOplusCosa
 import com.luckyzyx.luckytool.hook.hookers.HookOplusGames
@@ -195,6 +196,8 @@ object YukiEntry {
         loadApp("com.oplus.wirelesssettings", HookWirelessSettings)
         //健康
         loadApp("com.heytap.health", HookHealth)
+        //NFC服务
+        loadApp("com.android.nfc", HookNfc)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)

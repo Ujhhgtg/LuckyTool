@@ -857,6 +857,8 @@
     <string name="remove_beacon_link_time_limit">Удалить ограничение по времени beaconlink</string>
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">Удалить диалоговое окно обнаружения root</string>
+    <!--OplusNfc-->
+    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>

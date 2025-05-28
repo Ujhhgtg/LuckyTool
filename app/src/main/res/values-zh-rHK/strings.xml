@@ -857,6 +857,8 @@
     <string name="remove_beacon_link_time_limit">移除无网畅聊时间限制</string>
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">移除 Root 检测对话框</string>
+    <!--OplusNfc-->
+    <string name="scan_nfc_tag_auto_click">扫描NFC标签自动点击按钮</string>
     <!--Everyimage-->
     <string name="skip_startup_page">跳过启动页</string>
     <string name="vip_download">下载原图</string>

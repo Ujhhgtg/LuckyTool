@@ -17,6 +17,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 隐藏侧边栏部分功能选项
 - [适配] 状态栏WIFI图标箭头与类型 C15.0.1
 - [添加] 强制显示WIFI信号标准 C15+
+- [添加] 扫描NFC标签自动点击按钮
 
 ### 1.3.0
 

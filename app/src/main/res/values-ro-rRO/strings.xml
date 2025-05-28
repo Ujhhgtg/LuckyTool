@@ -857,6 +857,8 @@
     <string name="remove_beacon_link_time_limit">Remove beaconlink time limit</string>
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
+    <!--OplusNfc-->
+    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

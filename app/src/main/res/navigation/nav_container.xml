@@ -502,5 +502,13 @@
                 android:name="title_text"
                 app:argType="string" />
     </fragment>
+    <fragment
+            android:id="@+id/oplusNfc"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusNfc"
+            android:label="{title_text}">
+        <argument
+                android:name="title_text"
+                app:argType="string" />
+    </fragment>
 
 </navigation>

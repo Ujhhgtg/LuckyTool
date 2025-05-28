@@ -857,6 +857,8 @@
     <string name="remove_beacon_link_time_limit">Odstranit časový limit BeaconLinku</string>
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">Odstranit dialogové okno detekce rootu</string>
+    <!--OplusNfc-->
+    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>
