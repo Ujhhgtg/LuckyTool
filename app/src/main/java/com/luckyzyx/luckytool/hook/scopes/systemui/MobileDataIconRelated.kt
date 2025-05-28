@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.telephony.SubscriptionManager
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -11,27 +10,32 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ImageViewClass
+import com.highcapable.yukihookapi.hook.type.defined.VagueType
+import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.luckyzyx.luckytool.utils.safeOfNull
 import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
+import org.luckypray.dexkit.query.enums.StringMatchType
 
 @Obfuscate
-object MobileDataIconRelated : YukiBaseHooker() {
+class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         when (osCode) {
-            in 34..Int.MAX_VALUE -> loadHooker(MobileDataIcon)
+            in 34..Int.MAX_VALUE -> loadHooker(MobileDataIcon(dexKitBridge))
             in 23..33 -> loadHooker(MobileDataIconV14)
             else -> loadHooker(MobileDataIconV120)
         }
     }
 
     @Obfuscate
-    object MobileDataIcon : YukiBaseHooker() {
+    class MobileDataIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
 //            val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
             val removeInout = prefs(ModulePrefs).getBoolean("remove_mobile_data_inout", false)
@@ -41,23 +45,58 @@ object MobileDataIconRelated : YukiBaseHooker() {
             dataChannel.wait<Boolean>("hide_nosim_noservice") { hideNoSS = it }
 
             //Source OplusStatusBarMobileViewBinder
-            "com.oplus.systemui.statusbar.pipeline.mobile.ui.view.OplusStatusBarMobileViewBinder".toClass()
-                .apply {
-                    method { name { it.startsWith("bindCustEx") } }.hookAll {
-                        after {
-                            args.forEachIndexed { _, any ->
-                                if (any is ImageView) {
-                                    val id =
-                                        safeOfNull { any.resources.getResourceEntryName(any.id) }
-                                    when (id) {
-                                        "data_inout" -> if (removeInout) any.isVisible = false
-                                        "mobile_type" -> if (removeType) any.isVisible = false
-                                    }
-                                }
+            dexKitBridge.findClass {
+                matcher {
+                    className(
+                        "com.oplus.systemui.statusbar.pipeline.mobile.ui.view.OplusStatusBarMobileViewBinder",
+                        StringMatchType.StartsWith
+                    )
+                }
+            }.apply {
+                checkDataList("find bindCustEx", onlyOne = false)
+                if (removeInout) findMethod {
+                    matcher {
+                        addUsingField {
+                            name("dataActivity", StringMatchType.Contains)
+                            type(ImageViewClass)
+                        }
+                        usingNumbers(0, 8)
+                    }
+                }.apply {
+                    checkDataList("find dataActivity setVisibility")
+                    single().className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(IntType, VagueType)
+                        }.hook {
+                            before {
+                                args().first().set(0)
                             }
                         }
                     }
                 }
+                if (removeType) findMethod {
+                    matcher {
+                        addUsingField {
+                            name("mobileType", StringMatchType.Contains)
+                            type(ImageViewClass)
+                        }
+                        usingNumbers(0, 8)
+                    }
+                }.apply {
+                    checkDataList("find mobileType setVisibility")
+                    single().className.toClass().apply {
+                        method {
+                            name = single().methodName
+                            param(*single().paramTypeNames.toTypedArray())
+                        }.hook {
+                            before {
+                                args().first().setNull()
+                            }
+                        }
+                    }
+                }
+            }
 
             //Source OplusMobileIconViewModel
             "com.oplus.systemui.statusbar.pipeline.mobile.ui.viewmodel.OplusMobileIconViewModel".toClass()
@@ -66,21 +105,20 @@ object MobileDataIconRelated : YukiBaseHooker() {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
-                        before {
-                            if (!hideNonNetwork) return@before
-                            val field = field { name = "isVisible" }.get(instance).any()
-                            if (field != null) {
-                                val value = field.current().method {
-                                    name = "getValue";superClass()
-                                }.boolean()
-                                if (!value) return@before
-                            }
+                        after {
+                            if (!hideNonNetwork) return@after
+                            if (result == null) return@after
+
+                            val originalValue =
+                                FlowUtils(appClassLoader).getValue(result!!) as Boolean
+                            if (!originalValue) return@after
+
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
                                 val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                    ?: return@before
-                                it.asStateFlow(mutableStateFlow) ?: return@before
+                                    ?: return@after
+                                it.asStateFlow(mutableStateFlow) ?: return@after
                             }
                         }
                     }
@@ -93,21 +131,20 @@ object MobileDataIconRelated : YukiBaseHooker() {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
-                        before {
-                            if (!hideNonNetwork) return@before
-                            val field = field { name = "isVisible" }.get(instance).any()
-                            if (field != null) {
-                                val value = field.current().method {
-                                    name = "getValue";superClass()
-                                }.boolean()
-                                if (!value) return@before
-                            }
+                        after {
+                            if (!hideNonNetwork) return@after
+                            if (result == null) return@after
+
+                            val originalValue =
+                                FlowUtils(appClassLoader).getValue(result!!) as Boolean
+                            if (!originalValue) return@after
+
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
                                 val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                    ?: return@before
-                                it.asStateFlow(mutableStateFlow) ?: return@before
+                                    ?: return@after
+                                it.asStateFlow(mutableStateFlow) ?: return@after
                             }
                         }
                     }
@@ -120,14 +157,20 @@ object MobileDataIconRelated : YukiBaseHooker() {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
-                        before {
-                            if (!hideNonNetwork) return@before
+                        after {
+                            if (!hideNonNetwork) return@after
+                            if (result == null) return@after
+
+                            val originalValue =
+                                FlowUtils(appClassLoader).getValue(result!!) as Boolean
+                            if (!originalValue) return@after
+
                             val subId = field { name = "subscriptionId" }.get(instance).int()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
                                 val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
-                                    ?: return@before
-                                it.asStateFlow(mutableStateFlow) ?: return@before
+                                    ?: return@after
+                                it.asStateFlow(mutableStateFlow) ?: return@after
                             }
                         }
                     }
