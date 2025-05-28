@@ -15,6 +15,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除Docker最大数量限制
 - [适配] 通知中心清理全部通知按钮 C15.0.1
 - [更改] 隐藏侧边栏部分功能选项
+- [适配] 状态栏WIFI图标箭头与类型 C15.0.1
 
 ### 1.3.0
 

@@ -5,36 +5,51 @@ import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object WiFiDataIconRelated : YukiBaseHooker() {
+class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         when (osCode) {
-            in 34..Int.MAX_VALUE -> loadHooker(WiFiDataIcon)
+            in 34..Int.MAX_VALUE -> loadHooker(WiFiDataIcon(dexKitBridge))
             else -> loadHooker(WiFiDataIconV14)
         }
     }
 
     @Obfuscate
-    object WiFiDataIcon : YukiBaseHooker() {
+    class WiFiDataIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             val removeInout = prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)
 
-            //Source OplusWifiSignalExImpl
-            "com.oplus.systemui.statusbar.pipeline.OplusWifiSignalExImpl".toClass().apply {
-                val hasActivityIcon = hasMethod { name = "bindEx\$updateActivityIcon" }
-                if (hasActivityIcon) method { name = "bindEx\$updateActivityIcon" }.hook {
-                    before {
-                        if (removeInout) args().last().set(0)
+            //Source OplusWifiViewModel
+            "com.oplus.systemui.statusbar.pipeline.wifi.ui.viewmodel.OplusWifiViewModel".toClass()
+                .apply {
+                    method {
+                        name = "getWifiActivityResId"
+                        returnType = "kotlinx.coroutines.flow.StateFlow"
+                    }.hook {
+                        after {
+                            if (!removeInout) return@after
+                            if (result == null) return@after
+
+                            val originalValue =
+                                FlowUtils(appClassLoader).getValue(result!!) as Int
+                            if (originalValue <= 0) return@after
+
+                            result = FlowUtils(appClassLoader).let {
+                                val mutableStateFlow = it.MutableStateFlow(-1)
+                                    ?: return@after
+                                it.asStateFlow(mutableStateFlow) ?: return@after
+                            }
+                        }
                     }
                 }
-            }
         }
     }
 
