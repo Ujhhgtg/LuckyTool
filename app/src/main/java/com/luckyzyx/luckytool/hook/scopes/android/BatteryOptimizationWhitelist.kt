@@ -4,8 +4,8 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object BatteryOptimizationWhitelist : YukiBaseHooker() {
@@ -25,7 +25,7 @@ object BatteryOptimizationWhitelist : YukiBaseHooker() {
                 else return
                 paramCount = 1
             }.hook {
-                replaceUnit {
+                before {
                     val whiteListAll = args().first().cast<java.util.ArrayList<String>>()
                     whiteListAll?.clear()
                     val mDefaultWhitelist =
@@ -36,6 +36,7 @@ object BatteryOptimizationWhitelist : YukiBaseHooker() {
                         .call(whiteListAll)
                     method { name = "addNfcJapanFelica" }.get(instance).call(whiteListAll)
 //                    whiteListAll?.add("com.oplus.upgradeguide")
+                    resultNull()
                 }
             }
         }

@@ -25,9 +25,9 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
                     else it.contains("onUsbConnected")
                 }
             }.hook {
-                replaceUnit {
+                before {
                     val instance = instanceOrNull ?: args().first().any()
-                    val context = args().last().cast<Context>() ?: return@replaceUnit
+                    val context = args().last().cast<Context>() ?: return@before
                     method { name = "onUsbSelect" }.get(instance).call(1)
                     method { name = "updateAdbNotification" }.get(instance).call(context)
                     method { name = "updateUsbNotification" }.let {
@@ -40,6 +40,7 @@ object RemoveUSBConnectDialog : YukiBaseHooker() {
                         if (contextIndex == 0) it.get(instance).call(context, 1)
                         else it.get(instance).call(1, context)
                     }
+                    resultNull()
                 }
             }
             method { name = "updateUsbNotification" }.hook {

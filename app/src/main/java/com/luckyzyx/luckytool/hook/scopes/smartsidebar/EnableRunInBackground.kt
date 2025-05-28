@@ -6,10 +6,10 @@ import com.highcapable.yukihookapi.hook.factory.buildOf
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.startMirageWindow
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object EnableRunInBackground : YukiBaseHooker() {
@@ -22,14 +22,15 @@ object EnableRunInBackground : YukiBaseHooker() {
         //Source BackgroundRunTool
         BackgroundRunToolCls.toClass().apply {
             method { name = "handle" }.hook {
-                replaceUnit {
+                before {
                     if (osCode >= 34) {
                         startMirageWindow(null)
                     } else {
                         val context = field { type = ContextClass;superClass() }.get(instance)
-                            .cast<Context>() ?: return@replaceUnit
+                            .cast<Context>() ?: return@before
                         IntentUtils(context).startBackgroundRunServiceV14()
                     }
+                    resultNull()
                 }
             }
             method { name = "isToolAvailable" }.hook {

@@ -40,8 +40,9 @@ class SkipApkScan(private val commit: String?) : YukiBaseHooker() {
         //Search button_type / install_old_version_button
         OPIA.toClass().apply {
             method { name = member[2] }.hook {
-                replaceUnit {
+                before {
                     method { name = member[3] }.get(instance).call()
+                    resultNull()
                 }
             }
         }

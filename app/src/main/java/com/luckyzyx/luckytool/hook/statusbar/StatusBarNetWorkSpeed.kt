@@ -59,13 +59,9 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         else it.contains("updateNetworkSpeed")
                     }
                 }.hook {
-                    replaceUnit {
+                    before {
+                        if (!networkSpeed) return@before
                         val instance = instanceOrNull ?: args().first().any()
-
-                        if (!networkSpeed) {
-                            callOriginal()
-                            return@replaceUnit
-                        }
 
                         val obtain = Message.obtain()
                         obtain.what = 100000
@@ -99,13 +95,14 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             bgHandler.get(instance).cast<Handler>()?.removeMessages(100001)
                             bgHandler.get(instance).cast<Handler>()
                                 ?.sendEmptyMessageDelayed(100001, 1000L)
-                            return@replaceUnit
+                        } else {
+                            obtain.arg1 = 0
+                            uiHandler.get(instance).cast<Handler>()?.removeMessages(100000)
+                            uiHandler.get(instance).cast<Handler>()?.sendMessage(obtain)
+                            lastTime.get(instance).set(0L)
+                            lastTotalBytes.get(instance).set(0L)
                         }
-                        obtain.arg1 = 0
-                        uiHandler.get(instance).cast<Handler>()?.removeMessages(100000)
-                        uiHandler.get(instance).cast<Handler>()?.sendMessage(obtain)
-                        lastTime.get(instance).set(0L)
-                        lastTotalBytes.get(instance).set(0L)
+                        resultNull()
                     }
                 }
             }
@@ -173,18 +170,15 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                     }
                 }
                 method { name = "applyNetworkState" }.hook {
-                    replaceUnit {
-                        if (layoutMode == "0") {
-                            callOriginal()
-                            return@replaceUnit
-                        }
+                    before {
+                        if (layoutMode == "0") return@before
 
                         val viewGroup = instance<ViewGroup>()
                         val state = args().first().any()
                         if (state == null) {
                             viewGroup.isVisible = false
                             mState.get(instance).setNull()
-                            return@replaceUnit
+                            return@before
                         }
 
                         val copy = state.current().method { name = "copy" }.call()
@@ -192,11 +186,11 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         mState.get(instance).set(copy)
                         val visible = getVisible && !mBlocked.get(instance).boolean()
                         if (visible != viewGroup.isVisible) viewGroup.isVisible = visible
-                        if (!visible) return@replaceUnit
+                        if (!visible) return@before
 
                         val speedText = state.current().method { name = "getSpeedText" }.long()
                         if (speedText < 0 || speedText > 1024.0.pow(5.0) * 1000.0) {
-                            return@replaceUnit
+                            return@before
                         }
                         mSpeed.get(instance).set(speedText)
 
@@ -263,6 +257,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             }
                         }
                         viewGroup.requestLayout()
+                        resultNull()
                     }
                 }
             }

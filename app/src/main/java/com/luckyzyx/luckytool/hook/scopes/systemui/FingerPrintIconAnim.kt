@@ -50,8 +50,9 @@ object FingerPrintIconAnim : YukiBaseHooker() {
                 }
             }
             if (hasFadeIn) method { name = "startFadeInAnimation" }.hook {
-                if (isReplaceIcon) replaceUnit {
+                if (isReplaceIcon) before {
                     instance.setCustomDrawable(iconPath, false)
+                    resultNull()
                 } else if (removeMode == "1" || removeMode == "3") intercept()
             }
             if (hasFadeOut) method { name = "startFadeOutAnimation" }.hook {

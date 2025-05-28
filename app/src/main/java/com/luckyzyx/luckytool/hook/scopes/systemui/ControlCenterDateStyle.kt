@@ -54,11 +54,8 @@ object ControlCenterDateStyle : YukiBaseHooker() {
             "com.oplus.systemui.qs.widget.OplusQSDateView" //C14 C15
         ).toClass().apply {
             method { name = "updateClock";emptyParam() }.hook {
-                replaceUnit {
-                    if (!removeComma && !showLunar) {
-                        callOriginal()
-                        return@replaceUnit
-                    }
+                before {
+                    if (!removeComma && !showLunar) return@before
 
                     val dateView = instance<TextView>()
                     val timeInfo = WeatherInfoParseHelper(appClassLoader)
@@ -94,6 +91,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                         dateView.text = res
                         field { name = "mLastText" }.get(instance).set(res)
                     }
+                    resultNull()
                 }
             }
         }

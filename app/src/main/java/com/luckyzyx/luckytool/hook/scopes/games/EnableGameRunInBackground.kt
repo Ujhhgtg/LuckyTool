@@ -7,11 +7,11 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.startMirageWindow
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -47,13 +47,14 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                         replaceToTrue()
                     }
                     method { param(ContextClass);returnType = UnitType }.hook {
-                        replaceUnit {
+                        before {
                             if (osCode >= 34) {
                                 startMirageWindow(null)
                             } else {
-                                val context = args().first().cast<Context>() ?: return@replaceUnit
+                                val context = args().first().cast<Context>() ?: return@before
                                 IntentUtils(context).startBackgroundRunServiceV14()
                             }
+                            resultNull()
                         }
                     }
                 }

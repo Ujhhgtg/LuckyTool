@@ -8,8 +8,8 @@ import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.LinearLayoutClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -51,9 +51,10 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
                     emptyParam()
                     returnType(UnitType)
                 }.hook {
-                    replaceUnit {
+                    before {
                         field { type(LinearLayoutClass) }.get(instance).cast<View>()
                             ?.isVisible = false
+                        resultNull()
                     }
                 }
             }
