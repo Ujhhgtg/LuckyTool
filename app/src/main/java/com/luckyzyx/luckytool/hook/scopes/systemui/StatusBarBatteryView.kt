@@ -44,18 +44,10 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         method { name = "bind\$initView" }.hook {
                             after {
                                 args.filterIsInstance<TextView>().forEachIndexed { _, view ->
-                                    val entryName = safeOfNull {
-                                        view.resources.getResourceEntryName(view.id)
-                                    }
-                                    when (entryName) {
-                                        "battery_text" -> if (applyToIcon) view.handBatteryTextView(
-                                            removePercent, userTypeface, useBoldFont, customFontSize
-                                        )
-
-                                        "battery_percentage_view" -> view.handBatteryTextView(
-                                            removePercent, userTypeface, useBoldFont, customFontSize
-                                        )
-                                    }
+                                    view.handBatteryTextView(
+                                        removePercent, userTypeface, useBoldFont, customFontSize,
+                                        applyToIcon
+                                    )
                                 }
                             }
                         }
@@ -64,18 +56,10 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         method { name = "updateText" }.hook {
                             after {
                                 val view = args().first().cast<TextView>() ?: return@after
-                                val entryName = safeOfNull {
-                                    view.resources.getResourceEntryName(view.id)
-                                }
-                                when (entryName) {
-                                    "battery_text" -> view.handBatteryTextView(
-                                        removePercent, userTypeface, useBoldFont, customFontSize
-                                    )
-
-                                    "battery_percentage_view" -> view.handBatteryTextView(
-                                        removePercent, userTypeface, useBoldFont, customFontSize
-                                    )
-                                }
+                                view.handBatteryTextView(
+                                    removePercent, userTypeface, useBoldFont, customFontSize,
+                                    applyToIcon
+                                )
                             }
                         }
                     }
@@ -83,18 +67,10 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         method { name = "bind\$updateOldHorizontal" }.hook {
                             after {
                                 args.filterIsInstance<TextView>().forEachIndexed { _, view ->
-                                    val entryName = safeOfNull {
-                                        view.resources.getResourceEntryName(view.id)
-                                    }
-                                    when (entryName) {
-                                        "battery_text" -> view.handBatteryTextView(
-                                            removePercent, userTypeface, useBoldFont, customFontSize
-                                        )
-
-                                        "battery_percentage_view" -> view.handBatteryTextView(
-                                            removePercent, userTypeface, useBoldFont, customFontSize
-                                        )
-                                    }
+                                    view.handBatteryTextView(
+                                        removePercent, userTypeface, useBoldFont, customFontSize,
+                                        applyToIcon
+                                    )
                                 }
                             }
                         }
@@ -103,21 +79,21 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         method { name = "bind\$updatePercentOutView" }.hook {
                             after {
                                 args.filterIsInstance<TextView>().forEachIndexed { _, view ->
-                                    val entryName = safeOfNull {
-                                        view.resources.getResourceEntryName(view.id)
-                                    }
-                                    when (entryName) {
-                                        "battery_text" -> view.handBatteryTextView(
-                                            removePercent, userTypeface, useBoldFont, customFontSize
-                                        )
-
-                                        "battery_percentage_view" -> view.handBatteryTextView(
-                                            removePercent, userTypeface, useBoldFont, customFontSize
-                                        )
-                                    }
+                                    view.handBatteryTextView(
+                                        removePercent, userTypeface, useBoldFont, customFontSize,
+                                        applyToIcon
+                                    )
                                 }
                             }
                         }
+                    }
+                }
+
+            //Source StatBatteryMeterView
+            "com.oplus.systemui.statusbar.pipeline.battery.ui.view.StatBatteryMeterView".toClass()
+                .apply {
+                    method { name = "setTextTypeface" }.hook {
+                        if (userTypeface) intercept()
                     }
                 }
         }
@@ -146,11 +122,13 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         if (applyToIcon) field { name = "batteryPercentView" }.get(instance)
                             .cast<TextView>()?.handBatteryTextView(
-                                removePercent, userTypeface, useBoldFont, customFontSize
+                                removePercent, userTypeface, useBoldFont, customFontSize,
+                                true
                             )
                         field { name = "batteryPercentText" }.get(instance).cast<TextView>()
                             ?.handBatteryTextView(
-                                removePercent, userTypeface, useBoldFont, customFontSize
+                                removePercent, userTypeface, useBoldFont, customFontSize,
+                                applyToIcon
                             )
                     }
                 }
@@ -160,12 +138,22 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     companion object {
         fun TextView.handBatteryTextView(
-            removePercent: Boolean, userTypeface: Boolean, useBoldFont: Boolean, customFontSize: Int
+            removePercent: Boolean,
+            userTypeface: Boolean,
+            useBoldFont: Boolean,
+            customFontSize: Int,
+            applyToIcon: Boolean
         ) {
+            val entryName = safeOfNull { resources.getResourceEntryName(id) }
+            when (entryName) {
+                "battery_text" -> if (!applyToIcon) return
+
+                "battery_percentage_view" -> {}
+                else -> return
+            }
             if (removePercent) text = text.toString().replace("%", "")
             if (userTypeface) {
-                typeface = if (useBoldFont) Typeface.DEFAULT_BOLD
-                else Typeface.DEFAULT
+                typeface = if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
                 setTextSize(
                     TypedValue.COMPLEX_UNIT_DIP,
                     if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
