@@ -1,16 +1,17 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.smartsidebar.EnableRunInBackground
 import com.luckyzyx.luckytool.hook.scopes.smartsidebar.ForceEnableBuoyAutomaticallyHides
 import com.luckyzyx.luckytool.hook.scopes.smartsidebar.HookFeatureOption
 import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookSmartSidebar : YukiBaseHooker() {
@@ -23,7 +24,7 @@ object HookSmartSidebar : YukiBaseHooker() {
         val v14 = appVer?.versionCode?.let { it >= 14000000 } ?: false
 
         //HookFeatureOption
-        if (v14) loadHooker(HookFeatureOption)
+        if (SDK == A13 && v14) loadHooker(HookFeatureOption)
 
         if (prefs(ModulePrefs).getBoolean("force_enable_buoy_automatically_hides", false)) {
             if (SDK == A12) loadHooker(ForceEnableBuoyAutomaticallyHides)

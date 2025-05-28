@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A12
@@ -14,6 +13,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusSmartSidebar : BaseScopePreferenceFeagment() {
@@ -54,14 +54,14 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
                 title = getString(R.string.unlock_transfer_dock)
                 key = "unlock_transfer_dock"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
+                isVisible = SDK == A13
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_recent_files)
                 key = "unlock_recent_files"
                 setDefaultValue(false)
-                isVisible = SDK >= A13
+                isVisible = SDK == A13
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
