@@ -405,6 +405,7 @@
     <string name="remove_lock_screen_bottom_sos_button">移除 SOS 紧急联系按钮</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">移除解锁页面底部的 SOS 紧急按钮</string>
     <string name="LockScreenEvent">锁屏事件</string>
+    <string name="auto_wake_up_face_unlock_notification">通知自动唤醒面部解锁</string>
     <string name="remove_72hour_password_verification">移除每 72 小时的密码验证</string>
     <string name="remove_72hour_password_verification_summary">移除开机后 72 小时内不使用密码解锁的安全限制，系统重启生效</string>
     <!--AlarmClock-->

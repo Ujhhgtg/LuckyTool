@@ -6,7 +6,6 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -22,6 +21,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class LockScreenRelated : BaseScopePreferenceFeagment() {
@@ -342,6 +342,12 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.LockScreenEvent)
                 key = "LockScreenEvent"
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.auto_wake_up_face_unlock_notification)
+                key = "auto_wake_up_face_unlock_notification"
+                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

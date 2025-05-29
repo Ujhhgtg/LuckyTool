@@ -405,6 +405,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Удалить кнопку экстренного контакта SOS</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Кнопка экстренного контакта SOS внизу экрана блокировки будет удалена</string>
     <string name="LockScreenEvent">События экрана блокировки</string>
+    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
     <string name="remove_72hour_password_verification">Удаление аутентификации по паролю через 72 часа</string>
     <string name="remove_72hour_password_verification_summary">Удалить ограничение безопасности, запрещающее использовать отпечаток пальца или разблокировку по лицу, после 72 часов работы смартфона. Вступит в силу после перезагрузки системы</string>
     <!--AlarmClock-->

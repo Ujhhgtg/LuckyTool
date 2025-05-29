@@ -405,6 +405,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Remove SOS emergency contact button</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Removed the SOS emergency button at the bottom of the unlock page</string>
     <string name="LockScreenEvent">Lock Screen Event</string>
+    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
     <string name="remove_72hour_password_verification">Remove 72-hour password authentication</string>
     <string name="remove_72hour_password_verification_summary">Removed the security restriction of not using a password to unlock within 72 hours after booting,Effective after system restart</string>
     <!--AlarmClock-->

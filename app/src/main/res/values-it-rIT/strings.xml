@@ -405,6 +405,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Rimuovi il pulsante di contatto di emergenza SOS</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Rimuovi il pulsante di emergenza SOS nella parte inferiore della pagina di sblocco</string>
     <string name="LockScreenEvent">Evento Schermata di Blocco</string>
+    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
     <string name="remove_72hour_password_verification">Rimuovi autenticazione password di 72 ore</string>
     <string name="remove_72hour_password_verification_summary">Rimossa la restrizione di sicurezza di non utilizzare una password per sbloccare entro 72 ore dopo l\'avvio, efficace dopo il riavvio del sistema</string>
     <!--AlarmClock-->

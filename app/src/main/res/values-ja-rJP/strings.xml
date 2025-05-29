@@ -405,6 +405,7 @@
     <string name="remove_lock_screen_bottom_sos_button">SOS緊急連絡先ボタンを削除</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">ロック画面の下部にあるSOS緊急通報ボタンを削除します</string>
     <string name="LockScreenEvent">ロック画面イベント</string>
+    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
     <string name="remove_72hour_password_verification">72時間以内のパスワード認証を削除</string>
     <string name="remove_72hour_password_verification_summary">起動してから72時間毎にパスワードを要求される制限を解除します。システム再起動後に有効化されます</string>
     <!--AlarmClock-->

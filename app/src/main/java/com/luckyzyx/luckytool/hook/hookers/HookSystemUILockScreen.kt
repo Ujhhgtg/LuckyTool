@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
+import com.luckyzyx.luckytool.hook.scopes.systemui.AutoWakeUpFaceUnlockNotification
 import com.luckyzyx.luckytool.hook.scopes.systemui.ForceEnableScreenOffMusicSupport
 import com.luckyzyx.luckytool.hook.scopes.systemui.HideLockScreenStatusBarDisplay
 import com.luckyzyx.luckytool.hook.scopes.systemui.LockScreenBottomButton
@@ -17,6 +17,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookSystemUILockScreen : YukiBaseHooker() {
@@ -61,6 +62,10 @@ object HookSystemUILockScreen : YukiBaseHooker() {
         //强制启用息屏音乐支持
         if (prefs(ModulePrefs).getBoolean("force_enable_screen_off_music_support", false)) {
             if (SDK >= A13) loadHooker(ForceEnableScreenOffMusicSupport)
+        }
+        //通知自动唤醒面部解锁
+        if (prefs(ModulePrefs).getBoolean("auto_wake_up_face_unlock_notification", false)) {
+            loadHooker(AutoWakeUpFaceUnlockNotification)
         }
     }
 }
