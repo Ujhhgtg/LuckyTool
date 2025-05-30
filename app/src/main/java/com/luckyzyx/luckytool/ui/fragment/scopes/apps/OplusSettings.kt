@@ -205,6 +205,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isVisible =
                         Settings.System.getUriFor("oplus_settings_switch_color_mode") != null
                     isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        if (newValue as Boolean) findPreference<SwitchPreference>(
+                            "enable_screen_color_temperature_rgb_space"
+                        )?.isChecked = false
+                        true
+                    }
                 })
             }
             if (osCode >= 30) {
@@ -218,6 +224,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     setDefaultValue(false)
                     isVisible = Settings.System.getUriFor("color_space_adjustment") != null
                     isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        if (newValue as Boolean) findPreference<SwitchPreference>(
+                            "enable_screen_color_temperature_rgb_ball"
+                        )?.isChecked = false
+                        true
+                    }
                 })
             }
             add(SwitchPreference(this@loadPreferences).apply {
@@ -427,18 +439,18 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                                     FileUtils.createCacheFile(requireActivity(), "png")
                                 cropImage.launch(
                                     key to CropImageContractOptions(
-                                    null, CropImageOptions().apply {
-                                        activityTitle = title?.toString() ?: ""
-                                        cropShape = CropImageView.CropShape.RECTANGLE
-                                        guidelines = CropImageView.Guidelines.ON_TOUCH
-                                        aspectRatioX = 624
-                                        aspectRatioY = 352
-                                        fixAspectRatio = true
-                                        customOutputUri = cacheImageFile.getUri
-                                        outputCompressFormat = Bitmap.CompressFormat.PNG
-                                        outputCompressQuality = 100
-                                    }
-                                )
+                                        null, CropImageOptions().apply {
+                                            activityTitle = title?.toString() ?: ""
+                                            cropShape = CropImageView.CropShape.RECTANGLE
+                                            guidelines = CropImageView.Guidelines.ON_TOUCH
+                                            aspectRatioX = 624
+                                            aspectRatioY = 352
+                                            fixAspectRatio = true
+                                            customOutputUri = cacheImageFile.getUri
+                                            outputCompressFormat = Bitmap.CompressFormat.PNG
+                                            outputCompressQuality = 100
+                                        }
+                                    )
                                 )
                                 true
                             }
