@@ -11,8 +11,10 @@ import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
+import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.WifiUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -67,58 +69,46 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         name = "getWifiLeftResId"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
-                        before {
-                            if (!wifiStandard) return@before
+                        after {
+                            if (!wifiStandard) return@after
 
                             val context = field { type = ContextClass }.get(instance)
-                                .cast<Context>() ?: return@before
+                                .cast<Context>() ?: return@after
                             val manager = context.getSystemService(ConnectivityManager::class.java)
                             val capabilities = manager.getNetworkCapabilities(manager.activeNetwork)
-                                ?: return@before
+                                ?: return@after
+
                             val valiNet =
                                 capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
                             val isDual = WifiUtils(appClassLoader).isDualWifiConnected(context)
                             val isAp = WifiUtils(appClassLoader).isPassPointAp(context)
-                            if ((valiNet && isDual) || isAp) return@before
+                            if ((valiNet && isDual) || isAp) return@after
+
                             val technicalEnable = CommonSettingsValueProxy.toClass().method {
                                 name = "getWifiTechnicalStandardState";param(ContextClass)
                             }.get().int(context)
-                            if (technicalEnable != 1) return@before
+                            if (technicalEnable != 1) return@after
 
-                            val wifiInfo = capabilities.transportInfo
-                            if (wifiInfo !is WifiInfo) return@before
-                            val standard = wifiInfo.wifiStandard
-                            val drawable = when (standard) {
+                            val wifiInfo = capabilities.transportInfo ?: return@after
+                            if (wifiInfo !is WifiInfo) return@after
+                            context.injectModuleAppResources()
+                            val drawable = when (wifiInfo.wifiStandard) {
 //                                ScanResult.WIFI_STANDARD_UNKNOWN -> 0
 //                                ScanResult.WIFI_STANDARD_LEGACY -> 0
-                                ScanResult.WIFI_STANDARD_11N -> context.resources.getIdentifier(
-                                    "stat_signal_wifi_4", "id",
-                                    this@WiFiDataIcon.packageName
-                                )
+                                ScanResult.WIFI_STANDARD_11N -> R.drawable.stat_signal_wifi_4
 
-                                ScanResult.WIFI_STANDARD_11AC -> context.resources.getIdentifier(
-                                    "stat_signal_wifi_5", "id",
-                                    this@WiFiDataIcon.packageName
-                                )
+                                ScanResult.WIFI_STANDARD_11AC -> R.drawable.stat_signal_wifi_5
 
-                                ScanResult.WIFI_STANDARD_11AX -> context.resources.getIdentifier(
-                                    "stat_signal_wifi_6", "id",
-                                    this@WiFiDataIcon.packageName
-                                )
+                                ScanResult.WIFI_STANDARD_11AX -> R.drawable.stat_signal_wifi_6
 //                                ScanResult.WIFI_STANDARD_11AD -> 0
-                                ScanResult.WIFI_STANDARD_11BE -> context.resources.getIdentifier(
-                                    "stat_signal_wifi_7", "id",
-                                    this@WiFiDataIcon.packageName
-                                )
+                                ScanResult.WIFI_STANDARD_11BE -> R.drawable.stat_signal_wifi_7
 
-                                else -> 0
+                                else -> return@after
                             }
-                            if (drawable > 0) {
-                                result = FlowUtils(appClassLoader).let {
-                                    val mutableStateFlow = it.MutableStateFlow(drawable)
-                                        ?: return@before
-                                    it.asStateFlow(mutableStateFlow) ?: return@before
-                                }
+                            result = FlowUtils(appClassLoader).let {
+                                val mutableStateFlow = it.MutableStateFlow(drawable)
+                                    ?: return@after
+                                it.asStateFlow(mutableStateFlow) ?: return@after
                             }
                         }
                     }
