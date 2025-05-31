@@ -249,6 +249,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 title = getString(R.string.get_log_cat_log)
                 key = "get_log_cat_log"
                 isPersistent = false
+                isVisible = false
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     val name = "logcat_" + formatDate("yyMMdd_HHmmss") + ".log"
