@@ -600,6 +600,7 @@
     <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
     <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
     <string name="enable_stop_charging_at_80">Povolit zastavení nabíjení na 80 %</string>
+    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
     <string name="remove_battery_temperature_control">Odebrat kontrolu teploty baterie</string>
     <string name="remove_battery_temperature_control_summary">Odstranit omezení, kvůli kterým nelze použít různé funkce, například: fotoaparát, svítilna, hotspot, displej atd.</string>
     <string name="BatteryOptimization">Optimalizace baterie</string>

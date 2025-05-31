@@ -21,6 +21,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除状态栏网速单位
 - [添加] 通知自动唤醒面部解锁 C12+
 - [更改] 为时钟单独建立功能分区
+- [添加] 电池-显示上次屏幕使用时长
 
 ### 1.3.0
 

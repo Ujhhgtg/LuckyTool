@@ -5,7 +5,6 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -19,6 +18,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusBattery : BaseScopePreferenceFeagment() {
@@ -83,6 +83,12 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.enable_stop_charging_at_80)
                     key = "enable_stop_charging_at_80"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.show_phone_usage_screen_time)
+                    key = "show_phone_usage_screen_time"
                     setDefaultValue(false)
                     isIconSpaceReserved = false
                 })

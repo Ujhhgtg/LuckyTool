@@ -600,6 +600,7 @@
     <string name="display_module_calculates_battery_health_data_summary">When turned on, the health data calculated by the module will be displayed below the system data.</string>
     <string name="display_module_calculates_battery_health_data_tips">Calculated Maximum Capacity</string>
     <string name="enable_stop_charging_at_80">Enable stop charging at 80%</string>
+    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
     <string name="remove_battery_temperature_control">Remove battery temperature control</string>
     <string name="remove_battery_temperature_control_summary">Remove the limitation that various functions cannot be used,For example: camera, flashlight, hotspot, screen display engine, etc.</string>
     <string name="BatteryOptimization">Оптимізація батареї</string>

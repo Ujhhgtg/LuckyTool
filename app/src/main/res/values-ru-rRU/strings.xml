@@ -172,7 +172,7 @@
     <string name="set_network_speed_padding_bottom">Смещение нижней границы скорости сети</string>
     <string name="statusbar_network_layout">Расположение скорости сети</string>
     <string name="statusbar_network_no_second">Удалить отображение в секунду (/с)</string>
-    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
+    <string name="statusbar_network_no_unit">Удалить единицу измерения скорости сети</string>
     <string name="statusbar_network_no_space">Удалить пробел из скорости сети</string>
     <string name="set_network_speed_double_row_spacing">Установить интервал между строками скорости сети</string>
     <!--StatusBarNotify-->
@@ -212,7 +212,7 @@
     <string name="StatusBarIcon_summary">Иконки в стоке состояния</string>
     <string name="StatusBarWIFIIcon">Иконка Wi-Fi</string>
     <string name="remove_wifi_data_inout">Удалить стрелки активности Wi-Fi</string>
-    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
+    <string name="force_display_wifi_standard">Принудительное отображение стандартов сигнала Wi-Fi</string>
     <string name="StatusBarMobileDataIcon">Иконка мобильных данных</string>
     <string name="remove_mobile_data_icon">Удалить иконку мобильных данных</string>
     <string name="remove_mobile_data_inout">Удалить стрелки активности мобильных данных</string>
@@ -405,7 +405,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Удалить кнопку экстренного контакта SOS</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Кнопка экстренного контакта SOS внизу экрана блокировки будет удалена</string>
     <string name="LockScreenEvent">События экрана блокировки</string>
-    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
+    <string name="auto_wake_up_face_unlock_notification">Уведомления автоматически активируют функцию разблокировки по лицу</string>
     <string name="remove_72hour_password_verification">Удаление аутентификации по паролю через 72 часа</string>
     <string name="remove_72hour_password_verification_summary">Удалить ограничение безопасности, запрещающее использовать отпечаток пальца или разблокировку по лицу, после 72 часов работы смартфона. Вступит в силу после перезагрузки системы</string>
     <!--AlarmClock-->
@@ -461,7 +461,7 @@
     <string name="enable_drawer_layout_adjustment">Включить корректировку разметки меню приложений</string>
     <string name="set_icon_columns_in_drawer">Задать кол-во столбцов в меню</string>
     <string name="launcher_layout_related">Сетка рабочего стола</string>
-    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
+    <string name="remove_docker_max_number_limit">Убрать ограничение на максимальное количество для док-бара</string>
     <string name="launcher_layout_row_colume">Установите количество строк сетки рабочего стола</string>
     <string name="launcher_layout_enable">Включить/отключить сетку иконок на рабочем столе</string>
     <string name="launcher_layout_max_rows">Количество строк для сетки рабочего стола</string>
@@ -600,6 +600,7 @@
     <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
     <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
     <string name="enable_stop_charging_at_80">Включить остановку зарядки при 80%</string>
+    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
     <string name="remove_battery_temperature_control">Убрать управление температурой батареи</string>
     <string name="remove_battery_temperature_control_summary">Удалить ограничение, которое ограничивает некоторые функции например: камеру, фонарик, точку доступа, механизм отображения экрана и т.д. при перегреве</string>
     <string name="BatteryOptimization">Оптимизация батареи</string>
@@ -860,7 +861,7 @@
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">Удалить диалоговое окно обнаружения root</string>
     <!--OplusNfc-->
-    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
+    <string name="scan_nfc_tag_auto_click">Отсканируйте NFC-метку, чтобы автоматически нажать кнопку</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Пропустить стартовую страницу</string>
     <string name="vip_download">Загрузить исходное изображение</string>
