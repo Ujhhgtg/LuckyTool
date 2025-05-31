@@ -1,12 +1,14 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.Typeface
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.allViews
+import androidx.core.view.isVisible
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
@@ -16,16 +18,17 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.android.TextViewClass
 import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.IChargerUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.BatteryControllerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.createTextDrawable
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.StringReader
 import java.util.Properties
 
+@Suppress("MayBeConstant")
 @Obfuscate
 object LockScreenChargingComponent : YukiBaseHooker() {
     override fun onHook() {
@@ -131,9 +134,18 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     after {
                         val oplusChargeInfo = args().last().any() ?: return@after
 
+                        if (showWattage || drawTechnology) {
+                            field { name = "techWattageLayout" }.get(instance).cast<View>()
+                                ?.isVisible = true
+                        }
+
                         if (showWattage && !hasShowWattage) {
-                            val chargeWattageView =
-                                field { name = "chargeWattage" }.get(instance).cast<TextView>()
+                            val chargeWattageView = field { name = "chargeWattage" }.get(instance)
+                                .cast<TextView>()?.apply {
+                                    isVisible = true
+                                    gravity = Gravity.CENTER
+                                    setPadding(paddingLeft, paddingTop, paddingRight, 3)
+                                }
                             val cpaWattage = oplusChargeInfo.current().method {
                                 name = "getChargeWattageOrigin"
                             }.int()
@@ -145,6 +157,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                 wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
                                 else -> "${wattage}W"
                             }
+
+//                            YLog.debug("ChargeLevelAndLogoView chargeWattage -> ${chargeWattageView?.isVisible}")
+//                            YLog.debug("ChargeLevelAndLogoView $cpaWattage | $wattage")
                         }
 
                         if (drawTechnology && !hasUpdateChargeTechImage) {
@@ -161,10 +176,16 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val text = BatteryControllerUtils(appClassLoader).getTechnologyName(
                                 chargerTechnology, usbFastChgType, ppsMode, isWirelessCharge
                             )
+                            chargeTechLogo?.isVisible = true
                             chargeTechLogo?.setImageDrawable(
                                 createTextDrawable(viewGroup.context, text)
                             )
                         }
+                    }
+                }
+                method { name = "updateAllIconAndBg" }.hook {
+                    before {
+                        if (showWattage) field { name = "isShowWattage" }.get(instance).setTrue()
                     }
                 }
             }
@@ -197,6 +218,11 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     after {
                         val oplusChargeInfo = args().last().any() ?: return@after
 
+                        if (showRealTech || showWattage) {
+                            field { name = "chargeWattageLayout" }.get(instance).cast<View>()
+                                ?.isVisible = true
+                        }
+
                         if (showRealTech && !hasTechnologyStrForFrameCharge) {
                             val textLogoView = field { name = "textLogo" }.get(instance)
                                 .cast<TextView>()
@@ -210,6 +236,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val usbFastChgType =
                                 chargeInfo.getIntProperty("usb_fast_chg_type", 0)
                             val ppsMode = chargeInfo.getIntProperty("battery_ppschg_ing", 0)
+                            textLogoView?.isVisible = true
                             textLogoView?.text =
                                 BatteryControllerUtils(appClassLoader).getTechnologyName(
                                     chargerTechnology, usbFastChgType, ppsMode, isWirelessCharge
@@ -225,11 +252,15 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val wattage = oplusChargeInfo.current().method {
                                 name = "getChargeWattage"
                             }.string().toIntOrNull()
+                            chargeWattageView?.isVisible = true
                             chargeWattageView?.text = when {
                                 wattage == 0 && cpaWattage == 0 -> ""
                                 wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
                                 else -> "${wattage}W"
                             }
+//                            YLog.debug("FrameChargeLevelAndLogoView chargeWattage -> ${chargeWattageView?.isVisible}")
+//                            YLog.debug("FrameChargeLevelAndLogoView $cpaWattage | $wattage")
+
                         }
                     }
                 }
