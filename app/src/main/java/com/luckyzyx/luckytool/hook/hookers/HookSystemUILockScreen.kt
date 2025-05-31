@@ -61,7 +61,7 @@ object HookSystemUILockScreen : YukiBaseHooker() {
         }
         //强制启用息屏音乐支持
         if (prefs(ModulePrefs).getBoolean("force_enable_screen_off_music_support", false)) {
-            if (SDK >= A13) loadHooker(ForceEnableScreenOffMusicSupport)
+            if (osCode in 26..33) loadHooker(ForceEnableScreenOffMusicSupport)
         }
         //通知自动唤醒面部解锁
         if (prefs(ModulePrefs).getBoolean("auto_wake_up_face_unlock_notification", false)) {

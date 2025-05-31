@@ -7,7 +7,6 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -22,6 +21,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class AodRelated : BaseScopePreferenceFeagment() {
@@ -94,6 +94,7 @@ class AodRelated : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.force_enable_screen_off_music_support_summary)
                 key = "force_enable_screen_off_music_support"
                 setDefaultValue(false)
+                isVisible = osCode in 26..33
                 isIconSpaceReserved = false
             })
             //随机一言
