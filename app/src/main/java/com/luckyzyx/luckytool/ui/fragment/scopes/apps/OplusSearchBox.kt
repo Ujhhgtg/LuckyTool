@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -11,6 +10,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusSearchBox : BaseScopePreferenceFeagment() {
@@ -42,6 +42,12 @@ class OplusSearchBox : BaseScopePreferenceFeagment() {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_app_recommend_card)
                 key = "remove_searchbox_app_recommend_card"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_searchbox_uninstalled_app_suggestions)
+                key = "remove_searchbox_uninstalled_app_suggestions"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

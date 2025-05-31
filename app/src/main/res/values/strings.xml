@@ -953,6 +953,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">Remove app recommend card</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
     
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Remove app recommendations from market splash page</string>

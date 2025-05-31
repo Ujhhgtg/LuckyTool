@@ -829,6 +829,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Bắt buộc kích hoạt cuộc gọi qua AI</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang khởi chạy cửa hàng</string>
     <string name="remove_market_update_download_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang tải xuống bản cập nhật cửa hàng</string>

@@ -829,6 +829,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">强制启用小布通话</string>
     <string name="remove_app_recommend_card">移除应用推荐卡片</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">移除未安装的应用建议</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">移除商店启动页应用推荐</string>
     <string name="remove_market_update_download_page_app_recommend">移除商店更新下载页应用推荐</string>

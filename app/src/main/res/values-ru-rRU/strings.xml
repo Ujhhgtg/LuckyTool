@@ -829,6 +829,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Принудительно включить  вызов \"Речевого помощника ИИ\"</string>
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений с заставки в магазине</string>
     <string name="remove_market_update_download_page_app_recommend">Удалить рекомендации приложений со страницы загрузки обновлений магазина</string>

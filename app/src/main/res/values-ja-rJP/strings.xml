@@ -829,6 +829,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Force enable ai speechassise call</string>
     <string name="remove_app_recommend_card">アプリのおすすめカードを削除</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">App Market のスプラッシュページからおすすめアプリを削除</string>
     <string name="remove_market_update_download_page_app_recommend">Remove app recommendations from market update download page</string>

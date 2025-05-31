@@ -829,6 +829,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Vynutit povolení Ai řečového asistenta při volání</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
     <string name="remove_market_update_download_page_app_recommend">Odstraňte doporučení aplikací ze stránky stahování aktualizací v obchodě s aplikacemi</string>
