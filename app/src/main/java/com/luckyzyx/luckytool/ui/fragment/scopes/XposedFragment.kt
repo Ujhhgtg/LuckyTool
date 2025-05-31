@@ -37,6 +37,7 @@ import com.luckyzyx.luckytool.databinding.DialogSearchResultLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutSearchResultItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectSearchResultListener
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusAlarmClock
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBattery
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBeaconLink
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusBrowser
@@ -147,6 +148,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentPreference(this, allPrefs, OplusScreenshot())
         //Battery
         addFragmentPreference(this, allPrefs, OplusBattery())
+        //AlarmClock
+        addFragmentPreference(this, allPrefs, OplusAlarmClock())
         //Settings
         addFragmentPreference(this, allPrefs, OplusSettings())
         //WirelessSettings
@@ -251,6 +254,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(context, allFragmentItem, LockScreenRelated())
         addFragmentItem(context, allFragmentItem, Miscellaneous())
 
+        addFragmentItem(context, allFragmentItem, OplusAlarmClock())
         addFragmentItem(context, allFragmentItem, OplusBattery())
         addFragmentItem(context, allFragmentItem, OplusSpeechAssist())
         addFragmentItem(context, allFragmentItem, OplusDirectUI())

@@ -26,9 +26,7 @@ import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class LauncherRelated : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf(
-        "com.coloros.alarmclock", "com.android.launcher", "com.oppo.launcher"
-    )
+    override val scopes = arrayOf("com.android.launcher", "com.oppo.launcher")
 
     override val isEnableRestartMenu: Boolean = true
 
@@ -55,20 +53,6 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
-            //时钟组件
-            add(DropDownPreference(this@loadPreferences).apply {
-                title = getString(R.string.alarmclock_widget_redone_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
-                key = "alarmclock_widget_redone_mode"
-                setEntries(R.array.statusbar_control_center_clock_red_one_mode_entries)
-                entryValues = arrayOf("0", "1", "2")
-                setDefaultValue("0")
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("com.coloros.alarmclock", key, newValue)
-                    true
-                }
-            })
             //小组件
             if (osCode >= 30) {
                 add(PreferenceCategory(this@loadPreferences).apply {
