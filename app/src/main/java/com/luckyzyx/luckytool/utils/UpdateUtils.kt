@@ -3,10 +3,10 @@ package com.luckyzyx.luckytool.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.provider.Settings
 import android.view.LayoutInflater
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.drake.net.Get
@@ -16,12 +16,12 @@ import com.drake.net.scope.NetCoroutineScope
 import com.drake.net.utils.scopeNet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogDownloadLayoutBinding
 import io.noties.markwon.Markwon
 import org.json.JSONArray
 import org.json.JSONObject
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
 @Obfuscate
@@ -77,7 +77,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
                         }
                         setNeutralButton(context.getString(R.string.go_download_page)) { _, _ ->
                             context.startActivity(
-                                Intent(Intent.ACTION_VIEW, Uri.parse(downloadPage))
+                                Intent(Intent.ACTION_VIEW, downloadPage.toUri())
                             )
                         }
                         show()
@@ -96,15 +96,23 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
             installApk(context, apkFile)
             return
         }
-        val list = arrayOf("Github", "ghproxy mirror", "ghproxy", "Lufs")
-        val cdn = arrayOf(
-            "", "https://mirror.ghproxy.com/", "https://ghproxy.cn/", "https://cors.isteed.cc/"
+        val items = arrayListOf("Github")
+        val cdns = mapOf(
+            "ghfast" to "https://ghfast.top/",
+            "ghproxy" to "https://ghproxy.cn/",
+            "Lufs" to "https://cors.isteed.cc/",
+            "fastgit" to "https://fastgit.cc/"
         )
+//        "https://fastgit.cc/https://github.com/Xposed-Modules-Repo/com.luckyzyx.luckytool/releases/download/19090-1.3.0/LuckyTool_v1.3.0.19090.apk"
+        items.addAll(cdns.keys)
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.select_download_source))
             setCancelable(isDev)
-            setItems(list) { _, which ->
-                downloadFile(context, apkFile, cdn[which] + downloadUrl)
+            setItems(items.toTypedArray()) { _, which ->
+                downloadFile(
+                    context, apkFile,
+                    if (which == 0) downloadUrl else cdns[items[which]] ?: downloadUrl
+                )
             }
         }.show()
     }
@@ -191,7 +199,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
             context.showToast(context.getString(R.string.install_apk_toast))
             val intent = Intent(
                 Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                Uri.parse("package:${context.packageName}")
+                "package:${context.packageName}".toUri()
             )
             context.startActivity(intent)
         }
