@@ -97,6 +97,7 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                         val drawable = getSignalDrawable(
                                             appClassLoader, context, wifiInfo!!.wifiStandard
                                         )
+                                        if (drawable < 0) return
                                         view.findViewById<ImageView>(
                                             context.resources.getIdentifier(
                                                 "wifi_left", "id", this@WiFiDataIcon.packageName
@@ -167,14 +168,14 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             if (technicalEnable != 1) return -1
 
             return when (standard) {
-//                                ScanResult.WIFI_STANDARD_UNKNOWN -> 0
-//                                ScanResult.WIFI_STANDARD_LEGACY -> 0
+//                ScanResult.WIFI_STANDARD_UNKNOWN -> 0
+//                ScanResult.WIFI_STANDARD_LEGACY -> 0
                 ScanResult.WIFI_STANDARD_11N -> R.drawable.stat_signal_wifi_4
 
                 ScanResult.WIFI_STANDARD_11AC -> R.drawable.stat_signal_wifi_5
 
                 ScanResult.WIFI_STANDARD_11AX -> R.drawable.stat_signal_wifi_6
-//                                ScanResult.WIFI_STANDARD_11AD -> 0
+//                ScanResult.WIFI_STANDARD_11AD -> 0
                 ScanResult.WIFI_STANDARD_11BE -> R.drawable.stat_signal_wifi_7
 
                 else -> -1
