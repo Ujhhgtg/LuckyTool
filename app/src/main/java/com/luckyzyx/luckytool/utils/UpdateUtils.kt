@@ -100,10 +100,9 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
         val cdns = mapOf(
             "ghfast" to "https://ghfast.top/",
             "ghproxy" to "https://ghproxy.cn/",
+            "fastgit" to "https://fastgit.cc/",
             "Lufs" to "https://cors.isteed.cc/",
-            "fastgit" to "https://fastgit.cc/"
         )
-//        "https://fastgit.cc/https://github.com/Xposed-Modules-Repo/com.luckyzyx.luckytool/releases/download/19090-1.3.0/LuckyTool_v1.3.0.19090.apk"
         items.addAll(cdns.keys)
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.select_download_source))
@@ -163,11 +162,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
                                 ${context.getString(R.string.remain_size)}: ${p.remainSize()}
                                 ${context.getString(R.string.downloaded)}: ${p.currentSize()} / ${p.totalSize()}
                                 ${context.getString(R.string.used_time)}: ${p.useTime()}
-                                ${
-                                context.getString(
-                                    R.string.remain_time
-                                )
-                            }: ${p.remainTime()}
+                                ${context.getString(R.string.remain_time)}: ${p.remainTime()}
                             """.trimIndent()
                         }
                     }
