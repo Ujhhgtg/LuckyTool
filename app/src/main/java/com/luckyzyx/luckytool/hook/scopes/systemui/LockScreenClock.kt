@@ -2,7 +2,6 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.format.DateFormat
@@ -14,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.graphics.toColorInt
 import androidx.core.view.allViews
 import androidx.core.view.children
 import androidx.core.view.isVisible
@@ -24,7 +24,8 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
@@ -33,6 +34,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 import java.util.Calendar
 
 @Obfuscate
@@ -49,11 +51,18 @@ object LockScreenClock : YukiBaseHooker() {
     @Obfuscate
     object RemoveLockScreenClock : YukiBaseHooker() {
         override fun onHook() {
-            //Source KeyguardStyleClockEnabledSettingsObserver
-            "com.oplus.systemui.keyguard.data.personalise.observer.KeyguardStyleClockEnabledSettingsObserver".toClass()
+            //Source KeyguardStyleClockControllerImpl
+            "com.oplus.systemui.keyguard.clockstyle.KeyguardStyleClockControllerImpl".toClass()
                 .apply {
-                    method { name = "isEnabled" }.hook {
-                        replaceToFalse()
+                    method {
+                        name = "setKeyguardStyleClockVisibility"
+                        param(IntType, BooleanType, BooleanType)
+                    }.hook {
+                        before {
+                            field { name = "keyguardStyleClock" }.get(instance)
+                                .cast<View>()?.isVisible = false
+                            resultNull()
+                        }
                     }
                 }
         }
@@ -425,7 +434,7 @@ object LockScreenClock : YukiBaseHooker() {
         if (redMode == "1") {
             for (i in format.indices) {
                 if (format[i].toString() == "1") {
-                    val color = safeOf(Color.parseColor("#E62F2F")) {
+                    val color = safeOf("#E62F2F".toColorInt()) {
                         context.getColor(
                             resources.getIdentifier(
                                 "red_clock_hour_color", "color", packageName
