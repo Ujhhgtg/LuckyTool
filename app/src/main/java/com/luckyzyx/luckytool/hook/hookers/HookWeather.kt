@@ -1,17 +1,19 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.weather.Enable15DayWeatherExpandList
 import com.luckyzyx.luckytool.hook.scopes.weather.RestoreRainfallCloudMapPage
 import com.luckyzyx.luckytool.hook.scopes.weather.WeatherAdsAndJumpBrowser
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
+import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookWeather : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
@@ -25,7 +27,7 @@ object HookWeather : YukiBaseHooker() {
         }
         //恢复降雨云图页面
         if (prefs(ModulePrefs).getBoolean("restore_rainfall_cloud_map_page", false)) {
-            loadHooker(RestoreRainfallCloudMapPage)
+            if (osCode < 34) loadHooker(RestoreRainfallCloudMapPage)
         }
     }
 }

@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -12,6 +11,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusWeather : BaseScopePreferenceFeagment() {
@@ -63,7 +63,7 @@ class OplusWeather : BaseScopePreferenceFeagment() {
                 title = getString(R.string.restore_rainfall_cloud_map_page)
                 key = "restore_rainfall_cloud_map_page"
                 setDefaultValue(false)
-                isVisible = osCode >= 30
+                isVisible = osCode in 30..34
                 isIconSpaceReserved = false
             })
         }

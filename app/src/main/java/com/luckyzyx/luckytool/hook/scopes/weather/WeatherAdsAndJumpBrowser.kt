@@ -282,10 +282,7 @@ class WeatherAdsAndJumpBrowser(
 
     companion object {
         fun startWebActivity(
-            clazz: Class<*>,
-            context: Any,
-            url: String,
-            statisticsTag: String
+            clazz: Class<*>, context: Any, url: String, statisticsTag: String
         ) {
             //Source BrowserCommonUtils -> startWeatherWebActivity
             clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
@@ -301,6 +298,7 @@ class WeatherAdsAndJumpBrowser(
                 "infoEnable=true", "infoEnable=false"
             )
             if (cacheUrl.contains("infoEnable").not()) cacheUrl += "&infoEnable=false"
+//            YLog.debug("url -> $cacheUrl")
             return cacheUrl
         }
     }
