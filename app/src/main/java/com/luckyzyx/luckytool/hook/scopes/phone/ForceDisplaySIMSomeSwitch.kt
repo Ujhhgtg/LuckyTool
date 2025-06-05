@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.phone
 
-import android.content.DialogInterface
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
@@ -9,9 +8,9 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 
@@ -22,17 +21,17 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         val preferredNetwork =
             prefs(ModulePrefs).getBoolean("force_display_preferred_network_type", false)
 
+        //Source OplusSimInfoActivity
         dexKitBridge.findClass {
             matcher {
                 className(
                     "com.android.simsettings.activity.OplusSimInfoActivity",
-                    StringMatchType.Contains
+                    StringMatchType.StartsWith
                 )
                 addFieldForType(ContextClass)
                 addFieldForType(StringClass)
                 addFieldForType(BooleanType)
                 addFieldForType(ViewClass)
-                addFieldForType(DialogInterface.OnClickListener::class.java)
             }
         }.apply {
             checkDataList("ForceDisplaySIMSomeSwitch Clazz")
