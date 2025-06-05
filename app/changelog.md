@@ -29,6 +29,9 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 锁屏充电动画瓦数显示 C15.0.1
 - [添加] 启用全局通知横幅简洁模式 C12+
 - [更改] 天气降雨云图页面限制为C14
+- [添加] 自定义文件夹布局行数修改 [感谢 Oxygen-Customizer]
+- [修复] 文件夹预览布局行列数显示 [感谢 Oxygen-Customizer]
+- [修复] 自定义抽屉布局列数显示 [感谢 Oxygen-Customizer]
 
 ### 1.3.0
 

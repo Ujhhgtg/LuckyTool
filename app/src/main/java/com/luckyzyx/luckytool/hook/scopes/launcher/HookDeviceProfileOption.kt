@@ -13,6 +13,7 @@ import org.lsposed.lsparanoid.Obfuscate
 object HookDeviceProfileOption : YukiBaseHooker() {
     override fun onHook() {
         val enableFolder = prefs(ModulePrefs).getBoolean("enable_folder_layout_adjustment", false)
+        val folderRow = prefs(ModulePrefs).getInt("set_icon_rows_in_folder", 4)
         val folderColumn = prefs(ModulePrefs).getInt("set_icon_columns_in_folder", 3)
         val syncPreview =
             prefs(ModulePrefs).getBoolean("sync_folder_icon_column_number_preview", false)
@@ -25,11 +26,11 @@ object HookDeviceProfileOption : YukiBaseHooker() {
             constructor { paramCount(2..3) }.hook {
                 after {
                     if (enableFolder) {
-//                        field { name = "numFolderRows" }.get(instance).set(3)
+                        field { name = "numFolderRows" }.get(instance).set(folderRow)
                         field { name = "numFolderColumns" }.get(instance).set(folderColumn)
-                        if (syncPreview && folderColumn > 3) field {
-                            name = "numFolderPreview"
-                        }.get(instance).set(folderColumn)
+                        if (syncPreview && folderColumn > 3) {
+                            field { name = "numFolderPreview" }.get(instance).set(folderColumn)
+                        }
                     }
                     if (enableDrawer) {
                         field { name = "numAllAppsColumns" }.get(instance).set(drawerColumn)
@@ -40,24 +41,58 @@ object HookDeviceProfileOption : YukiBaseHooker() {
 
         //Source OplusInvariantDeviceProfile
         "com.android.launcher3.OplusInvariantDeviceProfile".toClass().apply {
-            val hasFolderColumn = hasField { name = "numFolderColumns" }
             method { name = "injectInitGridForCustomAttr" }.hook {
                 after {
                     if (enableFolder) {
 //                        field { name = "numFolderRows" }.get(instance).set(3)
-                        if (hasFolderColumn) field { name = "numFolderColumns" }.get(instance)
-                            .set(folderColumn)
-                        if (syncPreview && folderColumn > 3) field {
-                            name = "numFolderPreview"
-                        }.get(instance).set(folderColumn)
+                        if (hasField { name = "numFolderRows" }) {
+                            field { name = "numFolderRows" }.get(instance).set(folderRow)
+                        }
+                        if (hasField { name = "numFolderColumns" }) {
+                            field { name = "numFolderColumns" }.get(instance).set(folderColumn)
+                        }
+                        if (syncPreview && folderColumn > 3) {
+                            field { name = "numFolderPreview" }.get(instance).set(folderColumn)
+                        }
                     }
                     if (enableDrawer) {
-                        field { name = "numAllAppsColumns" }.get(instance).set(drawerColumn)
+                        field { name = "numAllAppsColumns";superClass() }.get(instance)
+                            .set(drawerColumn)
                     }
                 }
             }
         }
 
+        //Source FolderInfo
+        "com.android.launcher3.model.data.FolderInfo".toClass().apply {
+            method { name = "getPreviewRow" }.hook {
+                before {
+                    if (!(enableFolder && syncPreview)) return@before
+                    val spanX = field { name = "spanX";superClass() }.get(instance).int()
+                    val spanY = field { name = "spanY";superClass() }.get(instance).int()
+                    if (spanX == 1 && spanY == 1) result = folderRow
+                }
+            }
+            method { name = "getPreviewColumn" }.hook {
+                before {
+                    if (!(enableFolder && syncPreview)) return@before
+                    val spanX = field { name = "spanX";superClass() }.get(instance).int()
+                    val spanY = field { name = "spanY";superClass() }.get(instance).int()
+                    if (spanX == 1 && spanY == 1) result = folderColumn
+                }
+            }
+        }
+
+        //Source AllAppsParam
+        "com.android.launcher.layoutparam.AllAppsParam".toClassOrNull()?.apply {
+            method { name = "getNumAllAppsColumns" }.hook {
+                before {
+                    if (enableDrawer) result = drawerColumn
+                }
+            }
+        }
+
+        return
         //Source OplusFolderUtil C13+
         "com.android.launcher3.folder.OplusFolderUtil".toClassOrNull()?.apply {
             val hasFolderMaxCol = hasMethod { name = "getFolderMaxCol" }

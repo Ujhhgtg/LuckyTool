@@ -200,7 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Отключить уведомления о высокой громкости</string>
     <string name="remove_notification_pin_number_limit">Удалить ограничение на количество закрепленных уведомлений</string>
     <string name="enable_keep_notification_when_app_stop">Включить сохранение уведомлений при остановке приложения</string>
-    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
+    <string name="enable_global_notification_simple_banner_mode">Включить глобальные уведомления в режиме простого баннера</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
@@ -431,6 +431,7 @@
     <string name="enable_auto_close_folder">Включить автоматическое закрытие папок</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
+    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
     <string name="set_icon_columns_in_folder">Задать количество столбцов иконок в папке</string>
     <string name="sync_folder_icon_column_number_preview">Синхронизировать иконку папки с номером столбца для предпросмотра</string>
     <string name="PaginationComponentRelated">Компоненты страницы</string>

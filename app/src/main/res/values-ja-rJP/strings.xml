@@ -431,6 +431,7 @@
     <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">フォルダプレビューの背景を削除</string>
     <string name="enable_folder_layout_adjustment">フォルダレイアウトの調整を有効化</string>
+    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
     <string name="set_icon_columns_in_folder">フォルダ内のアイコン列数を設定</string>
     <string name="sync_folder_icon_column_number_preview">プレビューするフォルダアイコンの列番号を同期する</string>
     <string name="PaginationComponentRelated">ページネーション関連</string>

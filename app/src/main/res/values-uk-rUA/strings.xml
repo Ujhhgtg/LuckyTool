@@ -431,6 +431,7 @@
     <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Увімкнути зміну розташування папок</string>
+    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
     <string name="set_icon_columns_in_folder">Задати кількість стовпців іконок у папці</string>
     <string name="sync_folder_icon_column_number_preview">Sync folder icon column number to preview</string>
     <string name="PaginationComponentRelated">Компоненти сторінки</string>

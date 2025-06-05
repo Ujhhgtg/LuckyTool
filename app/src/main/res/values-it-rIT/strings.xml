@@ -431,6 +431,7 @@
     <string name="enable_auto_close_folder">Abilita la chiusura automatica delle cartelle</string>
     <string name="remove_folder_preview_background">Rimuovi lo sfondo dell\'anteprima della cartella</string>
     <string name="enable_folder_layout_adjustment">Abilita le regolazioni del layout delle cartelle</string>
+    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
     <string name="set_icon_columns_in_folder">Imposta il numero di colonne di icone nella cartella</string>
     <string name="sync_folder_icon_column_number_preview">Sincronizza il numero della colonna dell\'icona della cartella per l\'anteprima</string>
     <string name="PaginationComponentRelated">Componente di impaginazione</string>

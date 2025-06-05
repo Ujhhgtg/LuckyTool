@@ -161,6 +161,16 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
             })
             if (getBoolean(ModulePrefs, "enable_folder_layout_adjustment", false)) {
                 add(SeekBarPreference(this@loadPreferences).apply {
+                    title = getString(R.string.set_icon_rows_in_folder)
+                    key = "set_icon_rows_in_folder"
+                    setDefaultValue(4)
+                    max = 10
+                    min = 4
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                })
+                add(SeekBarPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_icon_columns_in_folder)
                     key = "set_icon_columns_in_folder"
                     setDefaultValue(3)
