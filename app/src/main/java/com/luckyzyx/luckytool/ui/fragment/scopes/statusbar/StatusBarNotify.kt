@@ -130,6 +130,16 @@ class StatusBarNotify : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_global_notification_simple_banner_mode)
+                key = "enable_global_notification_simple_banner_mode"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("android", key, newValue)
+                    true
+                }
+            })
         }
     }
 }

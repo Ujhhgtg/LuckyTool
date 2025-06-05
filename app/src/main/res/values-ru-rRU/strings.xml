@@ -200,6 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Отключить уведомления о высокой громкости</string>
     <string name="remove_notification_pin_number_limit">Удалить ограничение на количество закрепленных уведомлений</string>
     <string name="enable_keep_notification_when_app_stop">Включить сохранение уведомлений при остановке приложения</string>
+    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
     <string name="remove_small_window_reply_whitelist">Удалить белый список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist">Установить черный список ответов в маленьком окне</string>
     <string name="set_small_window_reply_blacklist_message">Введите название пакета, который необходимо добавить в черный список</string>
@@ -600,7 +601,7 @@
     <string name="display_module_calculates_battery_health_data_summary">Когда включено, данные о состоянии здоровья, рассчитываемые модулем, будут отображаться ниже системных данных.</string>
     <string name="display_module_calculates_battery_health_data_tips">-вычисляемая максимальная ёмкость</string>
     <string name="enable_stop_charging_at_80">Включить остановку зарядки при 80%</string>
-    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
+    <string name="show_phone_usage_screen_time">Показать время последнего использования экрана</string>
     <string name="remove_battery_temperature_control">Убрать управление температурой батареи</string>
     <string name="remove_battery_temperature_control_summary">Удалить ограничение, которое ограничивает некоторые функции например: камеру, фонарик, точку доступа, механизм отображения экрана и т.д. при перегреве</string>
     <string name="BatteryOptimization">Оптимизация батареи</string>
@@ -829,7 +830,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Принудительно включить  вызов \"Речевого помощника ИИ\"</string>
     <string name="remove_app_recommend_card">Удалить карточку с рекомендациями приложения</string>
-    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Удаление предложений по удаленным приложениям</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Удалить рекомендации приложений с заставки в магазине</string>
     <string name="remove_market_update_download_page_app_recommend">Удалить рекомендации приложений со страницы загрузки обновлений магазина</string>

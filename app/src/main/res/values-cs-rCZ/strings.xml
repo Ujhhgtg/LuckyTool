@@ -172,7 +172,7 @@
     <string name="set_network_speed_padding_bottom">Nastavit dolní odsazení rychlosti sítě</string>
     <string name="statusbar_network_layout">Rozvržení textu rychlosti sítě ve stavové liště</string>
     <string name="statusbar_network_no_second">Odstranit displej za sekundu(/s)</string>
-    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
+    <string name="statusbar_network_no_unit">Odstranit jednotky rychlosti sítě</string>
     <string name="statusbar_network_no_space">Odstranit mezeru v textu rychlosti sítě</string>
     <string name="set_network_speed_double_row_spacing">Nastavení rychlosti sítě s dvojnásobným rozestupem řádků</string>
     <!--StatusBarNotify-->
@@ -200,6 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Zakázat upozornění na vysokou hlasitost</string>
     <string name="remove_notification_pin_number_limit">Odstranit limit počtu připnutých oznámení</string>
     <string name="enable_keep_notification_when_app_stop">Povolit zachování oznámení při zastavení aplikace</string>
+    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
@@ -212,7 +213,7 @@
     <string name="StatusBarIcon_summary">Související s ikonami ve stavové liště</string>
     <string name="StatusBarWIFIIcon">Ikona WIFI</string>
     <string name="remove_wifi_data_inout">Skrýt indikátor využití WiFi</string>
-    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
+    <string name="force_display_wifi_standard">Vynucené zobrazení standardů WIFI signálu</string>
     <string name="StatusBarMobileDataIcon">Ikona mobilních dat</string>
     <string name="remove_mobile_data_icon">Odstranit ikonu mobilních dat</string>
     <string name="remove_mobile_data_inout">Skrýt indikátor využití mobilních dat</string>
@@ -405,7 +406,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Odstranit SOS tlačítko s nouzovými kontakty</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">V dolní části odemykací stránky odebere nouzové SOS tlačítko</string>
     <string name="LockScreenEvent">Události na zamykací obrazovce</string>
-    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
+    <string name="auto_wake_up_face_unlock_notification">Oznámení automaticky probudí odemknutí obličejem</string>
     <string name="remove_72hour_password_verification">Odstranit 72hodinové ověření hesla</string>
     <string name="remove_72hour_password_verification_summary">Odstranit bezpečnostní omezení z důvodu nepoužití hesla k odemknutí během 72 hodin po spuštění, účinné po restartu systému</string>
     <!--AlarmClock-->
@@ -600,7 +601,7 @@
     <string name="display_module_calculates_battery_health_data_summary">Pokud je tato funkce povolena, zobrazí se pod systémovými údaji údaje o stavu vypočtené modulem.</string>
     <string name="display_module_calculates_battery_health_data_tips">Vypočítaná maximální kapacita</string>
     <string name="enable_stop_charging_at_80">Povolit zastavení nabíjení na 80 %</string>
-    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
+    <string name="show_phone_usage_screen_time">Zobrazit čas posledního použití obrazovky</string>
     <string name="remove_battery_temperature_control">Odebrat kontrolu teploty baterie</string>
     <string name="remove_battery_temperature_control_summary">Odstranit omezení, kvůli kterým nelze použít různé funkce, například: fotoaparát, svítilna, hotspot, displej atd.</string>
     <string name="BatteryOptimization">Optimalizace baterie</string>
@@ -829,7 +830,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Vynutit povolení Ai řečového asistenta při volání</string>
     <string name="remove_app_recommend_card">Odstranit kartu doporučení aplikace</string>
-    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Odstraňování návrhů na odinstalované aplikace</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Odstranit doporučení aplikací ze stránky aktualizace softwaru</string>
     <string name="remove_market_update_download_page_app_recommend">Odstraňte doporučení aplikací ze stránky stahování aktualizací v obchodě s aplikacemi</string>
@@ -862,7 +863,7 @@
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">Odstranit dialogové okno detekce rootu</string>
     <!--OplusNfc-->
-    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
+    <string name="scan_nfc_tag_auto_click">Naskenujte NFC tag pro automatické kliknutí na tlačítko</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Přeskočte úvodní obrazovku</string>
     <string name="vip_download">Stáhnout originál</string>

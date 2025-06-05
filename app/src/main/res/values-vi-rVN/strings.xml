@@ -172,7 +172,7 @@
     <string name="set_network_speed_padding_bottom">Đặt phần đệm tốc độ mạng dưới cùng</string>
     <string name="statusbar_network_layout">Bố cục tốc độ mạng trên thanh trạng thái</string>
     <string name="statusbar_network_no_second">Xóa hiển thị giây (/s)</string>
-    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
+    <string name="statusbar_network_no_unit">Xóa đơn vị tốc độ mạng</string>
     <string name="statusbar_network_no_space">Xóa không gian tốc độ internet</string>
     <string name="set_network_speed_double_row_spacing">Đặt khoảng cách tốc độ mạng kép</string>
     <!--StatusBarNotify-->
@@ -200,6 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Tắt thông báo cảnh báo âm lượng quá lớn</string>
     <string name="remove_notification_pin_number_limit">Xóa giới hạn số lượng thông báo được ghim</string>
     <string name="enable_keep_notification_when_app_stop">Bật tính năng Giữ thông báo khi ứng dụng dừng</string>
+    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
@@ -212,7 +213,7 @@
     <string name="StatusBarIcon_summary">Các biểu tượng thanh trạng thái</string>
     <string name="StatusBarWIFIIcon">Biểu tượng WIFI</string>
     <string name="remove_wifi_data_inout">Xóa thông tin dữ liệu WiFi</string>
-    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
+    <string name="force_display_wifi_standard">Bắt buộc hiện các tiêu chuẩn tín hiệu WIFI</string>
     <string name="StatusBarMobileDataIcon">Biểu tượng dữ liệu di động</string>
     <string name="remove_mobile_data_icon">Xóa biểu tượng dữ diệu di động</string>
     <string name="remove_mobile_data_inout">Xóa mũi tên dữ liệu di động</string>
@@ -405,7 +406,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Xóa nút liên hệ khẩn cấp SOS</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Đã xóa nút khẩn cấp SOS ở cuối trang mở khóa</string>
     <string name="LockScreenEvent">Thành phần màn hình khóa</string>
-    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
+    <string name="auto_wake_up_face_unlock_notification">Thông báo tự động đánh thức mở khóa bằng khuôn mặt</string>
     <string name="remove_72hour_password_verification">Xóa xác thực mật khẩu 72 giờ</string>
     <string name="remove_72hour_password_verification_summary">Đã xóa hạn chế bảo mật không sử dụng mật khẩu để mở khóa trong vòng 72 giờ sau khi khởi động, có hiệu lực sau khi khởi động lại hệ thống</string>
     <!--AlarmClock-->
@@ -600,7 +601,7 @@
     <string name="display_module_calculates_battery_health_data_summary">Khi được bật, dữ liệu sức khỏe do mô-đun tính toán sẽ hiển thị bên dưới dữ liệu hệ thống.</string>
     <string name="display_module_calculates_battery_health_data_tips">Năng lực tính toán</string>
     <string name="enable_stop_charging_at_80">Cho phép dừng khi sạc tới 80%</string>
-    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
+    <string name="show_phone_usage_screen_time">Hiện thời gian sử dụng màn hình cuối cùng</string>
     <string name="remove_battery_temperature_control">Loại bỏ kiểm soát nhiệt độ pin</string>
     <string name="remove_battery_temperature_control_summary">Loại bỏ các hạn chế ngăn cản việc sử dụng một số chức năng, chẳng hạn như máy ảnh, đèn pin, điểm phát sóng, công cụ hiển thị màn hình, v.v.</string>
     <string name="BatteryOptimization">Tối ưu hóa pin</string>
@@ -829,7 +830,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Bắt buộc kích hoạt cuộc gọi qua AI</string>
     <string name="remove_app_recommend_card">Xóa thẻ đề xuất ứng dụng</string>
-    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Gỡ bỏ gợi ý ứng dụng đã gỡ cài đặt</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang khởi chạy cửa hàng</string>
     <string name="remove_market_update_download_page_app_recommend">Xóa đề xuất ứng dụng khỏi trang tải xuống bản cập nhật cửa hàng</string>
@@ -862,7 +863,7 @@
     <!--OplusHealth-->
     <string name="remove_health_root_check_dialog">Xóa hộp thoại phát hiện root</string>
     <!--OplusNfc-->
-    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
+    <string name="scan_nfc_tag_auto_click">Quét thẻ NFC để tự động nhấp vào nút</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Bỏ qua trang khởi động</string>
     <string name="vip_download">Tải xuống bản gốc</string>

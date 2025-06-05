@@ -121,7 +121,7 @@
     <!-- CorePatch -->
     <string name="ColorOSCorePatchTip">L\'installatore ufficiale ColorOS deve abilitare altre funzioni per utilizzare\nFunzione Lista-Applicazioni\nFunzione Installazione</string>
     <string name="corepatch">Core Patch</string>
-    <string name="corepatch_summary">Remove install limits, supports Android %1$s</string>
+    <string name="corepatch_summary">RimuovI i limiti di installazione, supporta Android %1$s</string>
     <string name="downgr">Consenti downgrade app</string>
     <string name="downgr_summary">Consente all\'applicazione di sovrascrivere le versioni precedenti se le nuove versioni sono installate.</string>
     <string name="authcreak">Disabilita convalida firma gestore pacchetti</string>
@@ -162,8 +162,8 @@
     <string name="statusbar_clock_doublerow_fontsize">Dimensione del carattere a doppia riga</string>
     <string name="statusbar_clock_custom_format">Formato orologio</string>
     <string name="statusbar_clock_custom_fontsize">Dimensione carattere orologio</string>
-    <string name="statusbar_clock_custom_minimum_width">Clock minimum width</string>
-    <string name="statusbar_clock_if_zero_summary">If 0, this option will not be modified</string>
+    <string name="statusbar_clock_custom_minimum_width">Larghezza minima dell\'orologio</string>
+    <string name="statusbar_clock_if_zero_summary">Se 0, questa opzione non verrà modificata</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">Velocità Internet nella Barra di Stato</string>
     <string name="set_network_speed">Imposta la velocità di aggiornamento della Barra di Stato 1 s</string>
@@ -172,7 +172,7 @@
     <string name="set_network_speed_padding_bottom">Imposta Velocità di Rete In Basso</string>
     <string name="statusbar_network_layout">Disposizione della velocità di rete nella Barra di Stato</string>
     <string name="statusbar_network_no_second">Rimuovi display al secondo(/i)</string>
-    <string name="statusbar_network_no_unit">Remove the network speed unit</string>
+    <string name="statusbar_network_no_unit">Rimuovi l\'unità di velocità della rete</string>
     <string name="statusbar_network_no_space">Rimuovi spazio velocità di rete</string>
     <string name="set_network_speed_double_row_spacing">Imposta spaziatura doppia riga della velocità di rete</string>
     <!--StatusBarNotify-->
@@ -200,6 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Disattiva le notifiche di avviso ad alto volume</string>
     <string name="remove_notification_pin_number_limit">Rimuovi il limite al numero di notifiche appuntate</string>
     <string name="enable_keep_notification_when_app_stop">Abilita le notifiche di mantenimento quando l\'applicazione si arresta</string>
+    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
@@ -212,7 +213,7 @@
     <string name="StatusBarIcon_summary">Impostazioni Icone nella Barra di Stato</string>
     <string name="StatusBarWIFIIcon">Icona Wi-Fi</string>
     <string name="remove_wifi_data_inout">Rimuovi \"in-out\" Dati Wi-Fi</string>
-    <string name="force_display_wifi_standard">Forced display of WIFI signal standards</string>
+    <string name="force_display_wifi_standard">Visualizzazione forzata degli standard del segnale WIFI</string>
     <string name="StatusBarMobileDataIcon">Icona Dati Mobile</string>
     <string name="remove_mobile_data_icon">Rimuovi icona dati mobile</string>
     <string name="remove_mobile_data_inout">Rimuovi \"in-out\" Dati Mobile</string>
@@ -405,7 +406,7 @@
     <string name="remove_lock_screen_bottom_sos_button">Rimuovi il pulsante di contatto di emergenza SOS</string>
     <string name="remove_lock_screen_bottom_sos_button_summary">Rimuovi il pulsante di emergenza SOS nella parte inferiore della pagina di sblocco</string>
     <string name="LockScreenEvent">Evento Schermata di Blocco</string>
-    <string name="auto_wake_up_face_unlock_notification">Notifications automatically wake up face unlock</string>
+    <string name="auto_wake_up_face_unlock_notification">Le notifiche attivano automaticamente lo sblocco facciale</string>
     <string name="remove_72hour_password_verification">Rimuovi autenticazione password di 72 ore</string>
     <string name="remove_72hour_password_verification_summary">Rimossa la restrizione di sicurezza di non utilizzare una password per sbloccare entro 72 ore dopo l\'avvio, efficace dopo il riavvio del sistema</string>
     <!--AlarmClock-->
@@ -461,7 +462,7 @@
     <string name="enable_drawer_layout_adjustment">Abilita le regolazioni della disposizione del drawer</string>
     <string name="set_icon_columns_in_drawer">Imposta il numero di colonne di icone nel drawer</string>
     <string name="launcher_layout_related">Layout del Desktop</string>
-    <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
+    <string name="remove_docker_max_number_limit">Rimuovi il limite massimo per il numero di Docker</string>
     <string name="launcher_layout_row_colume">Imposta il numero massimo di righe e colonne supportate dal layout del desktop</string>
     <string name="launcher_layout_enable">Layout generale delle icone del desktop</string>
     <string name="launcher_layout_max_rows">Numero massimo di righe nel layout del desktop</string>
@@ -481,7 +482,7 @@
     <string name="set_multi_app_support_mode_all_apps">Elenco completo delle app</string>
     <string name="set_multi_app_support_mode_tips">Alcuni modelli non possono utilizzare l\'elenco completo di cloni di app ed è necessario installare l\'APP clone di app per modelli specifici.</string>
     <string name="remove_multi_app_blacklist">Rimuovi blacklist per app multiple</string>
-    <string name="remove_multi_app_created_num_limit">Remove the total number of clone creation limit</string>
+    <string name="remove_multi_app_created_num_limit">Rimuovi il limite totale di creazione di cloni</string>
     <string name="set_wlan_sla_whitelist_mode">Imposta la modalità whitelist dell\'accelerazione a doppio canale WLAN</string>
     <string name="remove_wlan_sla_blacklist">Rimuovi la blacklist dell\'accelerazione a doppio canale WLAN</string>
     <string name="custom_wlan_sla_whitelist">Whitelist personalizzata per l\'accelerazione a doppio canalel WLAN</string>
@@ -555,7 +556,7 @@
     <!--PhoneManager-->
     <string name="remove_virus_risk_notification_in_phone_manager">Rimuovi la notifica di rischio virus in Gestione Telefono</string>
     <string name="remove_secure_pay_found_virus_dialog">Rimuovi la finestra di dialogo del virus trovato per il \"Pagamento Sicuro\"</string>
-    <string name="remove_countdown_add_virus_app_whitelist">Remove the countdown to add virus app whitelist</string>
+    <string name="remove_countdown_add_virus_app_whitelist">Rimuovi il conto alla rovescia per aggiungere l\'app antivirus alla whitelist</string>
     <!--FingerPrintRelated-->
     <string name="FingerPrintRelated">Impronta Digitale</string>
     <string name="remove_fingerprint_icon_mode">Rimuovi modalità icona impronta digitale</string>
@@ -600,7 +601,7 @@
     <string name="display_module_calculates_battery_health_data_summary">Quando attivato, i dati di salute calcolati dal modulo verranno visualizzati sotto i dati di sistema.</string>
     <string name="display_module_calculates_battery_health_data_tips">Capacità Massima Calcolata</string>
     <string name="enable_stop_charging_at_80">Abilita l\'interruzione della ricarica all\'80%</string>
-    <string name="show_phone_usage_screen_time">Show the last screen usage time</string>
+    <string name="show_phone_usage_screen_time">Mostra l\'ultimo tempo di utilizzo dello schermo</string>
     <string name="remove_battery_temperature_control">Rimuovi controllo temperatura</string>
     <string name="remove_battery_temperature_control_summary">Rimuovi la limitazione che varie funzioni non possono essere utilizzate, Per esempio: fotocamera, torcia, hotspot, motore di visualizzazione dello schermo, ecc.</string>
     <string name="BatteryOptimization">Ottimizzazione batteria</string>
@@ -681,7 +682,7 @@
     <string name="enable_wifi_details_display_gateway">Abilita la visualizzazione dei dettagli Wi-Fi del gateway</string>
     <!--Camera-->
     <string name="enable_camera_debug_ui_option">Abilita opzione DebugUI</string>
-    <string name="enable_camera_debug_ui_option_summary">Close method:\n1. Click the one-click reset button in the camera DEBUGUI\n2. Close the module DEBUGUI function\n3. Restart the scope or system\n4. Delete the /data/vendor/camera/ folder (optional)</string>
+    <string name="enable_camera_debug_ui_option_summary">Metodo di chiusura: n1. Fare clic sul pulsante di ripristino con un clic nella DEBUGUI della telecamera. n2. Chiudere la funzione DEBUGUI del modulo. n3. Riavviare l\'oscilloscopio o il sistema. n4. Eliminare la cartella /data/vendor/camera/ (facoltativo).</string>
     <string name="custom_camera_open_gallery_by_default">Personalizza la galleria che si apre per impostazione predefinita</string>
     <string name="custom_camera_open_gallery_by_default_tips">Consenti solo la selezione di un\'app galleria!</string>
     <string name="enable_camera_night_zoom_30x">Abilita lo zoom 30x per le scene notturne</string>
@@ -829,7 +830,7 @@
     <!--OplusBreeno-->
     <string name="force_enable_ai_speechassist_call">Forza l\'attivazione della chiamata AI SpeechAssis</string>
     <string name="remove_app_recommend_card">Rimuovi app consigliata dalla scheda</string>
-    <string name="remove_searchbox_uninstalled_app_suggestions">Removing uninstalled app suggestions</string>
+    <string name="remove_searchbox_uninstalled_app_suggestions">Rimozione dei suggerimenti delle app disinstallate</string>
     <!--OplusMarket-->
     <string name="remove_market_splash_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
     <string name="remove_market_update_download_page_app_recommend">Rimuovi i consigli sulle app dalla pagina iniziale del market</string>
@@ -860,9 +861,9 @@
     <!--OplusBeaconLink-->
     <string name="remove_beacon_link_time_limit">Rimuovi il limite di tempo del beaconlink</string>
     <!--OplusHealth-->
-    <string name="remove_health_root_check_dialog">Remove the root detection dialog box</string>
+    <string name="remove_health_root_check_dialog">Rimuovi la finestra di dialogo di rilevamento root</string>
     <!--OplusNfc-->
-    <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
+    <string name="scan_nfc_tag_auto_click">Scansiona il tag NFC per fare clic automaticamente sul pulsante</string>
     <!--Everyimage-->
     <string name="skip_startup_page">Salta la pagina iniziale</string>
     <string name="vip_download">Scarica originale</string>

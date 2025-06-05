@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHighVolumeWarningNotifications
+import com.luckyzyx.luckytool.hook.scopes.systemui.EnableGlobalNotificationSimpleBannerMode
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveChargingCompleted
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDanmakuNotificationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveDoNotDisturbModeNotification
@@ -15,6 +15,7 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object StatusBarNotify : YukiBaseHooker() {
@@ -56,6 +57,10 @@ object StatusBarNotify : YukiBaseHooker() {
         //禁用高音量警告通知
         if (prefs(ModulePrefs).getBoolean("disable_high_volume_warning_notifications", false)) {
             loadHooker(DisableHighVolumeWarningNotifications)
+        }
+        //启用全局通知横幅简洁模式
+        if (prefs(ModulePrefs).getBoolean("enable_global_notification_simple_banner_mode", false)) {
+            loadHooker(EnableGlobalNotificationSimpleBannerMode)
         }
     }
 }
