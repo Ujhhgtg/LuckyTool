@@ -6,10 +6,10 @@ import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object BluetoothIconRelated : YukiBaseHooker() {
@@ -50,6 +50,7 @@ object BluetoothIconRelated : YukiBaseHooker() {
                         if (hasUpdateBluetooth) it == "updateBluetooth"
                         else it.contains("updateBluetooth")
                     }
+                    emptyParam()
                 }.hook {
                     before {
                         if (!isHide) return@before
