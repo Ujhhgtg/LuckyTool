@@ -4,14 +4,16 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookDeviceProfileOption : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         val enableFolder = prefs(ModulePrefs).getBoolean("enable_folder_layout_adjustment", false)
         val folderRow = prefs(ModulePrefs).getInt("set_icon_rows_in_folder", 4)
         val folderColumn = prefs(ModulePrefs).getInt("set_icon_columns_in_folder", 3)
@@ -63,6 +65,8 @@ object HookDeviceProfileOption : YukiBaseHooker() {
             }
         }
 
+        if (osCode >= 34) return
+
         //Source FolderInfo
         "com.android.launcher3.model.data.FolderInfo".toClass().apply {
             method { name = "getPreviewRow" }.hook {
@@ -88,18 +92,6 @@ object HookDeviceProfileOption : YukiBaseHooker() {
             method { name = "getNumAllAppsColumns" }.hook {
                 before {
                     if (enableDrawer) result = drawerColumn
-                }
-            }
-        }
-
-        return
-        //Source OplusFolderUtil C13+
-        "com.android.launcher3.folder.OplusFolderUtil".toClassOrNull()?.apply {
-            val hasFolderMaxCol = hasMethod { name = "getFolderMaxCol" }
-            if (hasFolderMaxCol) method { name = "getFolderMaxCol" }.hook {
-                after {
-                    val isBigFolder = args().first().boolean()
-                    if (isBigFolder) result = 3
                 }
             }
         }
