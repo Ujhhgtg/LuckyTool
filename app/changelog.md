@@ -32,6 +32,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 自定义文件夹布局行数修改 [感谢 Oxygen-Customizer]
 - [修复] 文件夹预览布局行列数显示 C15.0.1 [感谢 Oxygen-Customizer]
 - [修复] 自定义抽屉布局列数显示 C15+ [感谢 Oxygen-Customizer]
+- [添加] 重新添加屏幕永不息屏选项
 
 ### 1.3.0
 
