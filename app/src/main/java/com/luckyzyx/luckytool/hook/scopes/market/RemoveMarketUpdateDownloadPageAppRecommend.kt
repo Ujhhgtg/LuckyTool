@@ -10,6 +10,7 @@ import com.highcapable.yukihookapi.hook.type.android.ViewClass
 import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.highcapable.yukihookapi.hook.type.java.FloatType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.highcapable.yukihookapi.hook.type.java.LongType
@@ -100,43 +101,51 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
 
         //Source AppUpdateFragmentV2
         "com.heytap.cdo.client.ui.upgrademgrv2.AppUpdateFragmentV2".toClassOrNull()?.apply {
-            dexKitBridge.findMethod {
+            dexKitBridge.findClass {
                 matcher {
-                    paramTypes(ListClass)
-                    usingFields {
-                        add { type(BooleanType) }
-                    }
-                    usingNumbers(114.0F)
+                    className(name)
                 }
             }.apply {
-                checkDataList("RemoveMarketUpdatePageAppRecommend addDataAndNotifyChanged")
-                method {
-                    name = single().name
-                    param(ListClass)
-                }.hook {
-                    before {
-                        args().first().cast<java.util.ArrayList<Any>>()?.clear()
+                checkDataList("RemoveMarketUpdatePageAppRecommend AppUpdateFragmentV2")
+                findMethod {
+                    matcher {
+                        paramTypes(ListClass)
+                        addInvoke {
+                            paramTypes(ContextClass, FloatType)
+                            returnType(IntType)
+                        }
+                        usingNumbers(114.0F)
+                    }
+                }.apply {
+                    checkDataList("RemoveMarketUpdatePageAppRecommend addDataAndNotifyChanged")
+                    method {
+                        name = single().name
+                        param(ListClass)
+                    }.hook {
+                        before {
+                            args().first().cast<java.util.ArrayList<Any>>()?.clear()
+                        }
                     }
                 }
-            }
 
-            dexKitBridge.findMethod {
-                matcher {
-                    paramTypes(BooleanType)
-                    addCaller {
-                        paramTypes(IntType)
-                        usingNumbers(1002, 1003)
+                findMethod {
+                    matcher {
+                        paramTypes(BooleanType)
+                        addCaller {
+                            paramTypes(IntType)
+                            usingNumbers(1002, 1003)
+                        }
+                        usingNumbers(0, 300L)
+                        usingStrings("mRecommendUpdateContainer", "mNormalUpdateContainer")
                     }
-                    usingNumbers(0, 300L)
-                    usingStrings("mRecommendUpdateContainer", "mNormalUpdateContainer")
-                }
-            }.apply {
-                checkDataList("RemoveMarketUpdatePageAppRecommend AutoScrollWhenUpdateAll")
-                method {
-                    name = single().name
-                    param(BooleanType)
-                }.hook {
-                    intercept()
+                }.apply {
+                    checkDataList("RemoveMarketUpdatePageAppRecommend AutoScrollWhenUpdateAll")
+                    method {
+                        name = single().name
+                        param(BooleanType)
+                    }.hook {
+                        intercept()
+                    }
                 }
             }
         }
