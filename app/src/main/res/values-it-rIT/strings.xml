@@ -636,6 +636,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Abilita la temperatura del colore dello schermo nello spazio RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Può essere revocato dalla funzione DC</string>
     <string name="enable_smart_switching_screen_resolutions">Abilita la commutazione intelligente delle risoluzioni dello schermo</string>
+    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
     <string name="settings_application">Applicazione</string>
     <string name="unlock_default_desktop_limit">Sblocca le restrizioni predefinite del desktop</string>
     <string name="force_display_process_management">Forza visualizzazione della gestione dei processi</string>

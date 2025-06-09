@@ -636,6 +636,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Bật bảng màu RGB nhiệt độ màu màn hình</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Có thể bị ghi đè bởi chức năng DC</string>
     <string name="enable_smart_switching_screen_resolutions">Cho phép chuyển đổi thông minh độ phân giải màn hình</string>
+    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
     <string name="settings_application">Ứng dụng</string>
     <string name="unlock_default_desktop_limit">Mở khóa các hạn chế mặc định của máy tính để bàn</string>
     <string name="force_display_process_management">Buộc hiển thị quản lý quy trình</string>

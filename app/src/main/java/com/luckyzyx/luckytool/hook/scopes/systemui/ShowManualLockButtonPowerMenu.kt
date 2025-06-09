@@ -21,7 +21,6 @@ import com.luckyzyx.luckytool.hook.utils.sysui.FlavorOneFeatureUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
-
 @Obfuscate
 object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
 
@@ -226,6 +225,7 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
         }
     }
 
+    @Suppress("DEPRECATION")
     @SuppressLint("MissingPermission")
     fun manuallyLockCanBeSeen(context: Context): Boolean {
         val currentUserId = OsBinderCacheUtils.toClass().method {

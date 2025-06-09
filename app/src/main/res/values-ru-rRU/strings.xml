@@ -431,7 +431,7 @@
     <string name="enable_auto_close_folder">Включить автоматическое закрытие папок</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
-    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
+    <string name="set_icon_rows_in_folder">Установить количество строк иконок в папке</string>
     <string name="set_icon_columns_in_folder">Задать количество столбцов иконок в папке</string>
     <string name="sync_folder_icon_column_number_preview">Синхронизировать иконку папки с номером столбца для предпросмотра</string>
     <string name="PaginationComponentRelated">Компоненты страницы</string>
@@ -636,6 +636,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Включить цветовую температуру RGB-пространства</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Может быть переопределено функцией DC</string>
     <string name="enable_smart_switching_screen_resolutions">Включить умное переключение разрешения экрана</string>
+    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
     <string name="settings_application">Приложение</string>
     <string name="unlock_default_desktop_limit">Разблокировать ограничения рабочего стола</string>
     <string name="force_display_process_management">Принудительно отображать управление процессами</string>

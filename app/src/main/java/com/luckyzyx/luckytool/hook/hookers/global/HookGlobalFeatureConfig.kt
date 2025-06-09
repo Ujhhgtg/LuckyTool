@@ -108,6 +108,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.display.memc_enable", true)
                 put("oplus.software.display.game.memc_enable", true)
             }
+            //Source Settings ReduceWhitePointPreferenceController 降低白点值
+            if (prefs(ModulePrefs).getBoolean("force_enable_reduce_white_point_value", false)) {
+                put("oplus.software.display.reduce_white_point", true)
+            }
 
             //Source Lanucher 无限屏
 //            put("oplus.software.pocketstudio.support", true)

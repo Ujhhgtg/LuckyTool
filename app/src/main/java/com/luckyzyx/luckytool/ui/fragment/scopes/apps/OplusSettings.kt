@@ -235,6 +235,14 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            if (osCode >= 35) {
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.force_enable_reduce_white_point_value)
+                    key = "force_enable_reduce_white_point_value"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                })
+            }
             //声音
             if (osCode >= 27) {
                 add(PreferenceCategory(this@loadPreferences).apply {

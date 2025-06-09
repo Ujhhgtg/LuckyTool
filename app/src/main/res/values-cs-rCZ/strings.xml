@@ -200,7 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Zakázat upozornění na vysokou hlasitost</string>
     <string name="remove_notification_pin_number_limit">Odstranit limit počtu připnutých oznámení</string>
     <string name="enable_keep_notification_when_app_stop">Povolit zachování oznámení při zastavení aplikace</string>
-    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
+    <string name="enable_global_notification_simple_banner_mode">Povolit globální oznámení v jednoduchém režimu banneru</string>
     <string name="remove_small_window_reply_whitelist">Odstranění whitelist aplikací umožňující odpovědí v malém okně</string>
     <string name="set_small_window_reply_blacklist">Nastavit černou listinu pro odpovědi v malém okně</string>
     <string name="set_small_window_reply_blacklist_message">Vyplňte název balíčku, který má být přidán na černou listinu</string>
@@ -431,7 +431,7 @@
     <string name="enable_auto_close_folder">Povolit automatické zavírání složek</string>
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>
-    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
+    <string name="set_icon_rows_in_folder">Nastavte počet řádků ikon ve složce</string>
     <string name="set_icon_columns_in_folder">Nastavte počet sloupců ikon ve složce</string>
     <string name="sync_folder_icon_column_number_preview">Synchronizace ikony složky s číslem sloupce pro náhled</string>
     <string name="PaginationComponentRelated">Související se stránkováním (plochy spouštěče)</string>
@@ -636,6 +636,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Povolit paletu Rgb teploty barev obrazovky</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
     <string name="enable_smart_switching_screen_resolutions">Povolit chytré přepínání rozlišení obrazovky</string>
+    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
     <string name="settings_application">Aplikace</string>
     <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>
