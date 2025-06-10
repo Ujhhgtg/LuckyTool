@@ -24,6 +24,7 @@ import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
+import com.luckyzyx.luckytool.hook.utils.sysui.AbsSettingsValueProxyUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.WifiUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -44,11 +45,8 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     @Obfuscate
     class WiFiDataIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
-        val CommonSettingsValueProxy =
-            "com.oplusos.systemui.common.settingsvalue.CommonSettingsValueProxy"
-
-        val hasRegisterCallback = false
-        var wifiInfo: WifiInfo? = null
+        private val hasRegisterCallback = false
+        private var wifiInfo: WifiInfo? = null
 
         @SuppressLint("MissingPermission", "DiscouragedApi")
         override fun onHook() {
@@ -162,9 +160,8 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             val isAp = WifiUtils(classLoader).isPassPointAp(context)
             if (isDual || isAp) return -1
 
-            val technicalEnable = CommonSettingsValueProxy.toClass(classLoader).method {
-                name = "getWifiTechnicalStandardState";param(ContextClass)
-            }.get().int(context)
+            val technicalEnable = AbsSettingsValueProxyUtils(appClassLoader)
+                .getGlobalIntValue(context, "wifi_use_technical_standard_icons_switch_on", 0)
             if (technicalEnable != 1) return -1
 
             return when (standard) {
