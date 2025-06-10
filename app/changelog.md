@@ -34,6 +34,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 自定义抽屉布局列数显示 C15+ [感谢 Oxygen-Customizer]
 - [添加] 重新添加屏幕永不息屏选项
 - [添加] 强制启用降低白点值 C15.0.1
+- [适配] 电池温控控制器 v1.2.6(bd45a58)
 
 ### 1.3.0
 

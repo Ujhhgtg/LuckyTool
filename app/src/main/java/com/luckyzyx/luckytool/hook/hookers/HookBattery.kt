@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.battery.DisplayModuleCalculatesBatteryHealthData
 import com.luckyzyx.luckytool.hook.scopes.battery.HookBatteryNotify
@@ -12,6 +11,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookBattery : YukiBaseHooker() {
@@ -32,7 +32,7 @@ object HookBattery : YukiBaseHooker() {
             }
             //移除电池温度控制
             if (prefs(ModulePrefs).getBoolean("remove_battery_temperature_control", false)) {
-                loadHooker(RemoveBatteryTemperatureControl)
+                loadHooker(RemoveBatteryTemperatureControl(dexKitBridge))
                 loadHooker(LauncherHighTempreatureProtection(dexKitBridge))
             }
         }

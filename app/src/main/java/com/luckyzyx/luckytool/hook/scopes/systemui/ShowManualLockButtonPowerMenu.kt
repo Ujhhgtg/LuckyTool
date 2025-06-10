@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
@@ -225,7 +227,6 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
         }
     }
 
-    @Suppress("DEPRECATION")
     @SuppressLint("MissingPermission")
     fun manuallyLockCanBeSeen(context: Context): Boolean {
         val currentUserId = OsBinderCacheUtils.toClass().method {
@@ -242,7 +243,7 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
         val i2 = Settings.Secure.getInt(
             context.contentResolver, "oplus_customize_fingerprint_unlock_switch", -1
         )
-        val fingerprintManager = context.getSystemService("fingerprint") as FingerprintManager
+        val fingerprintManager = context.getSystemService(FingerprintManager::class.java)
         val hasEnrolledFingerprints = fingerprintManager.current().method {
             name = "hasEnrolledFingerprints";param(IntType)
         }.boolean(currentUserId)

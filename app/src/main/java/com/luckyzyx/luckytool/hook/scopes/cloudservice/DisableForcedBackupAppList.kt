@@ -13,7 +13,10 @@ object DisableForcedBackupAppList : YukiBaseHooker() {
         val backupRestoreOptUiStyle =
             "com.heytap.cloud.backuprestore.bswitch.BackupRestoreOptUiStyle"
 
-        val uiStyleEnum = backupRestoreOptUiStyle.toClass()
+        val uiStyleEnum = backupRestoreOptUiStyle.toClassOrNull() ?: run {
+            YLog.debug("DisableForcedBackupAppList clazz is null!")
+            return
+        }
         if (!uiStyleEnum.isEnum) {
             YLog.debug("DisableForcedBackupAppList enum is error!")
             return

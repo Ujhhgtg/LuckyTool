@@ -1,42 +1,105 @@
 package com.luckyzyx.luckytool.hook.scopes.battery
 
+import android.database.ContentObserver
+import android.os.Handler
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
+import com.highcapable.yukihookapi.hook.factory.constructor
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
+import com.highcapable.yukihookapi.hook.type.android.ContextClass
+import com.highcapable.yukihookapi.hook.type.android.HandlerClass
+import com.highcapable.yukihookapi.hook.type.android.LooperClass
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object RemoveBatteryTemperatureControl : YukiBaseHooker() {
+class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
+        //Source ThermalControlHandler / ThermalControllHandler
+        val handlerClazz = dexKitBridge.findClass {
+            matcher {
+                addFieldForType(ContextClass)
+                addFieldForType(LooperClass)
+                addMethod { name("handleMessage") }
+                usingStrings("ThermalControllHandler")
+            }
+        }.apply {
+            checkDataList(
+                "RemoveBatteryTemperatureControl find ThermalControlHandler",
+                isDebug = true
+            )
+        }.single().name
+
         //Source ThermalControllerCenter
-        "com.oplus.thermalcontrol.ThermalControllerCenter".toClass().apply {
-            method { name = "onStart" }.hook {
-                intercept()
+        dexKitBridge.findClass {
+            matcher {
+                usingStrings("ThermalControllerCenter")
             }
-            method { name { it.startsWith("send") } }.hookAll {
-                intercept()
-            }
-            method { name { it.startsWith("start") } }.hookAll {
-                intercept()
+        }.apply {
+            checkDataList(
+                "RemoveBatteryTemperatureControl find ThermalControllerCenter",
+                isDebug = true
+            )
+
+            single().name.toClass().apply {
+                constructor { param(ContextClass) }.hook {
+                    after {
+                        val handler = field { type = handlerClazz }.get(instance).cast<Handler>()
+                            ?: return@after
+                        val newHandler = Handler(handler.looper)
+                        field { type = handlerClazz }.get(instance).set(newHandler)
+                    }
+                }
+                method { param(LooperClass) }.hookAll {
+                    intercept()
+                }
             }
         }
+
         //Source ThermalControlMonitor
-        "com.oplus.thermalcontrol.ThermalControlMonitor".toClass().apply {
-            method { name = "startMonitor" }.hook {
-                intercept()
+        dexKitBridge.findClass {
+            matcher {
+                usingStrings("ThermalControlMonitor")
             }
-            if (hasMethod { name { it.contains("register") } }) method {
-                name { it.startsWith("register") }
-            }.hookAll {
-                intercept()
+        }.apply {
+            checkDataList(
+                "RemoveBatteryTemperatureControl find ThermalControlMonitor",
+                isDebug = true
+            )
+
+            findMethod {
+                matcher {
+                    paramCount(0)
+                    returnType(UnitType)
+                    usingFields {
+                        add { type(BooleanType) }
+                        add { type(HandlerClass) }
+                        add { type(ContentResolverClass) }
+                        add { type(ContentObserver::class.java) }
+                    }
+                    addInvoke {
+                        paramCount(0)
+                        returnType(UnitType)
+                    }
+                }
+            }.apply {
+                checkDataList("RemoveBatteryTemperatureControl find startMonitor", isDebug = true)
+
+                single().className.toClass().apply {
+                    method { name = single().name;emptyParam() }.hook {
+                        intercept()
+                    }
+                }
             }
         }
+
         //Source ThermalControlUtils
         "com.oplus.thermalcontrol.ThermalControlUtils".toClass().apply {
-            method { name = "onStart" }.hook {
-                intercept()
-            }
-            method { name { it.startsWith("register") } }.hookAll {
+            method { param(LooperClass) }.hook {
                 intercept()
             }
         }

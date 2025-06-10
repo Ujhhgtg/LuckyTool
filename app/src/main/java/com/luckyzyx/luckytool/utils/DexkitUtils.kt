@@ -51,8 +51,12 @@ object DexkitUtils {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> $findClass isNullOrEmpty", tag = tag)
             size != 1 && (isDebug || onlyOne) -> {
-                if (isDebug) YLog.debug("$instance -> $findClass size ($size)", tag = tag)
-                else YLog.error("$instance -> $findClass size ($size)", tag = tag)
+                if (isDebug) {
+                    YLog.debug(
+                        "$instance -> $findClass size ($size) | onlyOne: $onlyOne",
+                        tag = tag
+                    )
+                } else YLog.error("$instance -> $findClass size ($size)", tag = tag)
                 if (isDebug) forEachIndexed { index, it ->
                     YLog.debug("$instance -> $findClass ($index) | ${it.name}", tag = tag)
                 }
@@ -79,8 +83,11 @@ object DexkitUtils {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> $findMethod isNullOrEmpty", tag = tag)
             size != 1 && (isDebug || onlyOne) -> {
-                if (isDebug) YLog.debug("$instance -> $findMethod size ($size)", tag = tag)
-                else YLog.error("$instance -> $findMethod size ($size)", tag = tag)
+                if (isDebug) {
+                    YLog.debug(
+                        "$instance -> $findMethod size ($size) | onlyOne: $onlyOne", tag = tag
+                    )
+                } else YLog.error("$instance -> $findMethod size ($size)", tag = tag)
                 if (isDebug) forEachIndexed { index, it ->
                     YLog.debug(
                         "$instance -> $findMethod ($index) | ${it.className} | ${it.methodName}",
@@ -117,8 +124,11 @@ object DexkitUtils {
         when {
             isNullOrEmpty() -> YLog.error("$instance -> $findField isNullOrEmpty", tag = tag)
             size != 1 && (isDebug || onlyOne) -> {
-                if (isDebug) YLog.debug("$instance -> $findField size ($size)", tag = tag)
-                else YLog.error("$instance -> $findField size ($size)", tag = tag)
+                if (isDebug) {
+                    YLog.debug(
+                        "$instance -> $findField size ($size) | onlyOne: $onlyOne", tag = tag
+                    )
+                } else YLog.error("$instance -> $findField size ($size)", tag = tag)
                 if (isDebug) forEachIndexed { index, it ->
                     YLog.debug(
                         "$instance -> $findField ($index) | ${it.className} | ${it.fieldName} | ${it.typeName}",
