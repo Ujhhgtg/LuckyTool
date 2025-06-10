@@ -28,10 +28,7 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
                 usingStrings("ThermalControllHandler")
             }
         }.apply {
-            checkDataList(
-                "RemoveBatteryTemperatureControl find ThermalControlHandler",
-                isDebug = true
-            )
+            checkDataList("RemoveBatteryTemperatureControl find ThermalControlHandler")
         }.single().name
 
         //Source ThermalControllerCenter
@@ -40,10 +37,7 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
                 usingStrings("ThermalControllerCenter")
             }
         }.apply {
-            checkDataList(
-                "RemoveBatteryTemperatureControl find ThermalControllerCenter",
-                isDebug = true
-            )
+            checkDataList("RemoveBatteryTemperatureControl find ThermalControllerCenter")
 
             single().name.toClass().apply {
                 constructor { param(ContextClass) }.hook {
@@ -67,8 +61,7 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
             }
         }.apply {
             checkDataList(
-                "RemoveBatteryTemperatureControl find ThermalControlMonitor",
-                isDebug = true
+                "RemoveBatteryTemperatureControl find ThermalControlMonitor"
             )
 
             findMethod {
@@ -87,7 +80,7 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
                     }
                 }
             }.apply {
-                checkDataList("RemoveBatteryTemperatureControl find startMonitor", isDebug = true)
+                checkDataList("RemoveBatteryTemperatureControl find startMonitor")
 
                 single().className.toClass().apply {
                     method { name = single().name;emptyParam() }.hook {
