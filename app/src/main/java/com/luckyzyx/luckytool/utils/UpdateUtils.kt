@@ -97,21 +97,22 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
             return
         }
         val items = arrayListOf("Github")
-        val cdns = mapOf(
+        val urls = arrayListOf(downloadUrl)
+        mapOf(
             "ghfast" to "https://ghfast.top/",
             "ghproxy" to "https://ghproxy.cn/",
             "fastgit" to "https://fastgit.cc/",
             "Lufs" to "https://cors.isteed.cc/",
-        )
-        items.addAll(cdns.keys)
+        ).forEach { (k, v) ->
+            items.add(k)
+            urls.add(v)
+        }
+
         MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.select_download_source))
             setCancelable(isDev)
             setItems(items.toTypedArray()) { _, which ->
-                downloadFile(
-                    context, apkFile,
-                    if (which == 0) downloadUrl else cdns[items[which]] ?: downloadUrl
-                )
+                downloadFile(context, apkFile, urls[which])
             }
         }.show()
     }
