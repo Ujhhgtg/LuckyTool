@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.3.1_beta
+### 1.3.1
 
 - [修复] 核心破解功能介绍字符串显示
 - [修复] 尝试修复部分设备不支持RGB调色板导致的系统崩溃
@@ -35,6 +35,37 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 重新添加屏幕永不息屏选项
 - [添加] 强制启用降低白点值 C15.0.1
 - [适配] 电池温控控制器 v1.2.6(bd45a58)
+- [Fix] Introduction to string display of core cracking functions
+- [Fix] Try to fix system crashes caused by some devices not supporting RGB palettes
+- [Fix] Control Center ring status switch tile C15.0.1
+- [Fix] Status bar move data icon arrows and type C15.0.1
+- [Change] Status Bar Privacy Icon Dot Hook Location
+- [Fix] Information flow advertisement at the bottom of the weather jump page v15.16.16 (
+  f6d7e14)
+- [Fix] Remove flashlight turn on notification C15.0.1
+- [Add] Remove the maximum number limit for Docker
+- [Fix] Notification Center Cleans All Notification Buttons C15.0.1
+- [Change] Hide part of the sidebar feature options
+- [Fix] Status bar WIFI icon arrow and type C15.0.1
+- [Add] Forced display of WIFI signal standard C15+
+- [Add] Scan the NFC tag to automatically click the button
+- [Add] Remove the status bar speed unit
+- [Add] Notifications automatically wake up face unlock C12+
+- [Change] Create a separate functional partition for the clock
+- [Add] Battery - Shows the last screen usage time
+- [Fix] Remove lock screen clock component C15.0.1
+- [Fix] Remove the unlock icon on the top of the lock screen C15.0.1
+- [Add] Remove global search for uninstalled applications recommended v11.42.3.20 (19da793)
+- [Change] Forced to enable screen-insert music limit to A13 A14
+- [Fix] Lock screen charging animation wattage display C15.0.1
+- [Add] Enable Global Notification Banner Simple Mode C12+
+- [Change] Weather rainfall cloud map page is limited to C14
+- [Add] Custom folder layout line modification [Thanks Oxygen-Customizer]
+- [Fix] Folder Preview Layout Number of Rows and Columns Display C15.0.1 [Thanks Oxygen-Customizer]
+- [Fix] Custom drawer layout column display C15+ [Thanks Oxygen-Customizer]
+- [Add] Re-add the screen option
+- [Add] Forced to enable the reduction of white point value C15.0.1
+- [Fix] Battery Temperature Control Controller v1.2.6 (bd45a58)
 
 ### 1.3.0
 
