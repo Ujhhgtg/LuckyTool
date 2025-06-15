@@ -52,6 +52,9 @@ object HookGMSRestrict : YukiBaseHooker() {
                 method { name = "isGmsRestricted" }.hook {
                     replaceToFalse()
                 }
+                method { name = "registerGmsRestrictObserver" }.hook {
+                    intercept()
+                }
             }
         }
     }
@@ -67,6 +70,12 @@ object HookGMSRestrict : YukiBaseHooker() {
                 }
                 method { name = "isGmsRestricted" }.hook {
                     replaceToFalse()
+                }
+            }
+            //Source OplusHansManager -> HansTrigger -> google_restric_info
+            "com.android.server.am.OplusHansManager\$HansTrigger".toClass().apply {
+                method { name = "registerGmsRestrictObserver" }.hook {
+                    intercept()
                 }
             }
         }
