@@ -636,7 +636,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Povolit paletu Rgb teploty barev obrazovky</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Může být přepsáno DC funkcí</string>
     <string name="enable_smart_switching_screen_resolutions">Povolit chytré přepínání rozlišení obrazovky</string>
-    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
+    <string name="force_enable_reduce_white_point_value">Vynucení povolení snížení hodnoty bílého bodu</string>
     <string name="settings_application">Aplikace</string>
     <string name="unlock_default_desktop_limit">Odemknout výchozí omezení pro plochu</string>
     <string name="force_display_process_management">Vynutit zobrazení řízení procesů</string>
@@ -655,6 +655,7 @@
     <string name="settings_authority_and_privacy">Oprávnění a soukromí</string>
     <string name="enable_vip_mode">Aktivovat VIP režim</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
+    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
     <string name="enable_touch_membrane_protector_mode">Povolit režim ochrany dotykové membrány</string>
     <string name="enable_game_acceleration">Povolit herní zrychlení</string>
     <string name="settings_about_device">O zařízení</string>

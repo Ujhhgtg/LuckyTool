@@ -112,6 +112,10 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("force_enable_reduce_white_point_value", false)) {
                 put("oplus.software.display.reduce_white_point", true)
             }
+            //Source Settings NavBarSettingsValueUtil 启用上滑导航手势
+            if (prefs(ModulePrefs).getBoolean("enable_swipe_up_navigation_gesture", false)) {
+                put("com.android.systemui.keep_swipup_gestures", true)
+            }
 
             //Source Lanucher 无限屏
 //            put("oplus.software.pocketstudio.support", true)

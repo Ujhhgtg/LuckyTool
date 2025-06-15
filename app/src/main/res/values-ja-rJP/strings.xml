@@ -655,6 +655,7 @@
     <string name="settings_authority_and_privacy">権限とプライバシー</string>
     <string name="enable_vip_mode">VIP モードを有効化</string>
     <string name="settings_other_advanced_settings">詳細設定</string>
+    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
     <string name="enable_touch_membrane_protector_mode">タッチメンブレン保護モードを有効化</string>
     <string name="enable_game_acceleration">ゲームアクセラレーションを有効化</string>
     <string name="settings_about_device">デバイス情報</string>

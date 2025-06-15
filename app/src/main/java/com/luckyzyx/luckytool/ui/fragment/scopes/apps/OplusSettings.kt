@@ -353,6 +353,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_swipe_up_navigation_gesture)
+                key = "enable_swipe_up_navigation_gesture"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_touch_membrane_protector_mode)
                 key = "enable_touch_membrane_protector_mode"
                 setDefaultValue(false)

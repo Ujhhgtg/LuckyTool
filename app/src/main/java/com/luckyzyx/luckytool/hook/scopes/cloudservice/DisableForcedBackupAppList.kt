@@ -21,7 +21,7 @@ object DisableForcedBackupAppList : YukiBaseHooker() {
             YLog.debug("DisableForcedBackupAppList enum is error!")
             return
         }
-        val switchStyle = uiStyleEnum.enumConstants.find { it.toString() == "STYLE_SWITCH" }
+        val switchStyle = uiStyleEnum.enumConstants?.find { it.toString() == "STYLE_SWITCH" }
             ?: return
 
         //Source BackupRestoreOpt

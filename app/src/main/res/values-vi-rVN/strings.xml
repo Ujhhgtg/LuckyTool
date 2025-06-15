@@ -200,7 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Tắt thông báo cảnh báo âm lượng quá lớn</string>
     <string name="remove_notification_pin_number_limit">Xóa giới hạn số lượng thông báo được ghim</string>
     <string name="enable_keep_notification_when_app_stop">Bật tính năng Giữ thông báo khi ứng dụng dừng</string>
-    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
+    <string name="enable_global_notification_simple_banner_mode">Bật chế độ biểu ngữ thông báo toàn cầu đơn giản</string>
     <string name="remove_small_window_reply_whitelist">Xóa danh sách trắng trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist">Thiết lập danh sách đen trả lời cửa sổ nổi</string>
     <string name="set_small_window_reply_blacklist_message">Điền tên gói cần thêm vào danh sách đen</string>
@@ -431,7 +431,7 @@
     <string name="enable_auto_close_folder">Bật chức năng đóng thư mục tự động</string>
     <string name="remove_folder_preview_background">Xóa nền xem trước thư mục</string>
     <string name="enable_folder_layout_adjustment">Bật điều chỉnh bố cục thư mục</string>
-    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
+    <string name="set_icon_rows_in_folder">Đặt số hàng biểu tượng trong một thư mục</string>
     <string name="set_icon_columns_in_folder">Đặt số cột biểu tượng trong thư mục</string>
     <string name="sync_folder_icon_column_number_preview">Đồng bộ số cột biểu tượng thư mục để xem trước</string>
     <string name="PaginationComponentRelated">Thành phần phân trang liên quan</string>
@@ -636,7 +636,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Bật bảng màu RGB nhiệt độ màu màn hình</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Có thể bị ghi đè bởi chức năng DC</string>
     <string name="enable_smart_switching_screen_resolutions">Cho phép chuyển đổi thông minh độ phân giải màn hình</string>
-    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
+    <string name="force_enable_reduce_white_point_value">Buộc bật điểm trắng thấp hơn</string>
     <string name="settings_application">Ứng dụng</string>
     <string name="unlock_default_desktop_limit">Mở khóa các hạn chế mặc định của máy tính để bàn</string>
     <string name="force_display_process_management">Buộc hiển thị quản lý quy trình</string>
@@ -655,6 +655,7 @@
     <string name="settings_authority_and_privacy">Quyền và quyền riêng tư</string>
     <string name="enable_vip_mode">Bật chế độ VIP</string>
     <string name="settings_other_advanced_settings">Các thiết lập khác</string>
+    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
     <string name="enable_touch_membrane_protector_mode">Kích hoạt chế độ bảo vệ màn cảm ứng</string>
     <string name="enable_game_acceleration">Bật tính năng tăng tốc trò chơi</string>
     <string name="settings_about_device">Thông tin thiết bị</string>

@@ -655,6 +655,7 @@
     <string name="settings_authority_and_privacy">权限和隐私</string>
     <string name="enable_vip_mode">启用VIP模式</string>
     <string name="settings_other_advanced_settings">其他设置</string>
+    <string name="enable_swipe_up_navigation_gesture">启用上滑导航手势</string>
     <string name="enable_touch_membrane_protector_mode">启用隔膜触控模式</string>
     <string name="enable_game_acceleration">启用游戏加速</string>
     <string name="settings_about_device">关于本机</string>

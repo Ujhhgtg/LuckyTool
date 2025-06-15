@@ -655,6 +655,7 @@
     <string name="settings_authority_and_privacy">Permissions and privacy</string>
     <string name="enable_vip_mode">Enable VIP mode</string>
     <string name="settings_other_advanced_settings">Additional Settings</string>
+    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
     <string name="enable_touch_membrane_protector_mode">Enable touch membrane protection mode</string>
     <string name="enable_game_acceleration">Enable game acceleration</string>
     <string name="settings_about_device">About Device</string>

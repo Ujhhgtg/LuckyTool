@@ -96,6 +96,10 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("disable_otg_auto_off", false)) {
                 if (osCode >= 30) put("com.android.systemui.otg_auto_close_alarm_disable", true)
             }
+            //Source Settings NavBarSettingsValueUtil 启用上滑导航手势
+            if (prefs(ModulePrefs).getBoolean("enable_swipe_up_navigation_gesture", false)) {
+                put("com.android.systemui.keep_swipup_gestures", true)
+            }
 
             //Source Battery 屏幕省电
             if (prefs(ModulePrefs).getBoolean("open_screen_power_save", false)) {

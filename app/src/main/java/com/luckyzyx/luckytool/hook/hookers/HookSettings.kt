@@ -14,6 +14,7 @@ import com.luckyzyx.luckytool.hook.scopes.settings.DisableSettingOtgAutoOff
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableCustomAppLanguage
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableGoogleAutoFill
 import com.luckyzyx.luckytool.hook.scopes.settings.EnableStatusBarClockFormat
+import com.luckyzyx.luckytool.hook.scopes.settings.EnableSwipeUpNavigationGesture
 import com.luckyzyx.luckytool.hook.scopes.settings.FixAppSpecificMediaVolumePage
 import com.luckyzyx.luckytool.hook.scopes.settings.FixDefaultAppJumpProblem
 import com.luckyzyx.luckytool.hook.scopes.settings.ForceDisplayAutoLaunchJumpOption
@@ -153,6 +154,10 @@ object HookSettings : YukiBaseHooker() {
         //自定义处理器页面介绍参数
         if (prefs(ModulePrefs).getString("set_processor_click_page", "0") == "3") {
             loadHooker(CustomProcessorPageIntroductionParameters)
+        }
+        //启用上滑导航手势
+        if (prefs(ModulePrefs).getBoolean("enable_swipe_up_navigation_gesture", false)) {
+            loadHooker(EnableSwipeUpNavigationGesture)
         }
 
         //电源键

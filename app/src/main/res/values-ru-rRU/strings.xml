@@ -655,6 +655,7 @@
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
+    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
     <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
     <string name="enable_game_acceleration">Включить ускорение игры</string>
     <string name="settings_about_device">Об устройстве</string>
