@@ -781,6 +781,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Поддерживаются только некоторые сценарии, пожалуйста, проверьте конкретную ситуацию самостоятельно</string>
     <string name="enable_png_save_format">Включить формат сохранения PNG</string>
     <!--OplusOta-->
+    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
+    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
     <string name="unlock_local_upgrade">Разблокировать локальное обновление</string>
     <string name="unlock_local_upgrade_summary">После нажатия соответствующие операции будут выполняться автоматически, терпеливо подождите несколько секунд</string>
     <string name="remove_ota_local_update_verity">Удалить проверку локального обновления OTA</string>

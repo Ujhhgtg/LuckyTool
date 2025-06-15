@@ -781,6 +781,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Chỉ hỗ trợ một số trường hợp, vui lòng tự kiểm tra các tình huống cụ thể</string>
     <string name="enable_png_save_format">Bật định dạng lưu PNG</string>
     <!--OplusOta-->
+    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
+    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
     <string name="unlock_local_upgrade">Mở khóa nâng cấp cục bộ</string>
     <string name="unlock_local_upgrade_summary">Sau khi nhấp vào, các thao tác liên quan sẽ được thực hiện tự động, hãy kiên nhẫn chờ trong vài giây</string>
     <string name="remove_ota_local_update_verity">Xóa xác minh cập nhật OTA cục bộ</string>

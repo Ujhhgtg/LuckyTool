@@ -1,11 +1,13 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
+import com.luckyzyx.luckytool.hook.scopes.ota.HookNotificationHelper
+import com.luckyzyx.luckytool.hook.scopes.ota.HookOTADialogHelper
 import com.luckyzyx.luckytool.hook.scopes.ota.RemoveOTALocalUpdateVerity
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookOplusOta : YukiBaseHooker() {
@@ -22,11 +24,14 @@ object HookOplusOta : YukiBaseHooker() {
         //unzip_file_failed 解压失败
 
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+            //HookOTANotification
+            loadHooker(HookNotificationHelper(dexKitBridge))
+            //HookOTADialog
+            loadHooker(HookOTADialogHelper(dexKitBridge))
             //移除OTA本地更新校验
             if (prefs(ModulePrefs).getBoolean("remove_ota_local_update_verity", false)) {
                 loadHooker(RemoveOTALocalUpdateVerity(dexKitBridge))
             }
         }
-
     }
 }

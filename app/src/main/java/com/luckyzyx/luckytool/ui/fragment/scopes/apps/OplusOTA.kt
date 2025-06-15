@@ -5,7 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.drake.net.utils.scopeLife
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -18,6 +17,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusOTA : BaseScopePreferenceFeagment() {
@@ -49,6 +49,18 @@ class OplusOTA : BaseScopePreferenceFeagment() {
 
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_ota_notify_install_success)
+                key = "remove_ota_notify_install_success"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_ota_auto_download_dialog)
+                key = "remove_ota_auto_download_dialog"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_local_upgrade)
                 summary = getString(R.string.unlock_local_upgrade_summary)

@@ -9,6 +9,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 优化状态栏网速不更改布局时的字体显示
 - [优化] 优化天气跳转浏览器调用逻辑
 - [更改] 同步上游核心破解 v4.7
+- [添加] 移除OTA安装完成通知
+- [添加] 移除OTA自动下载对话框
 
 ### 1.3.1
 

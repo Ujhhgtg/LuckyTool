@@ -781,6 +781,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">一部の状況にのみ対応しています。どうなるかは自分でテストしてください</string>
     <string name="enable_png_save_format">PNG 保存形式を有効化</string>
     <!--OplusOta-->
+    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
+    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
     <string name="unlock_local_upgrade">ローカルアップグレードを解放</string>
     <string name="unlock_local_upgrade_summary">タップした後に関連する操作が自動的に実行されます。しばらくお待ちください</string>
     <string name="remove_ota_local_update_verity">OTA ローカルアップデート検証を削除</string>

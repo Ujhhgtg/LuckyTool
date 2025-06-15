@@ -781,6 +781,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Jsou podporovány pouze některé scénáře, prosím vyzkoušejte specifickou situaci sami</string>
     <string name="enable_png_save_format">Povolit PNG formát ukládání</string>
     <!--OplusOta-->
+    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
+    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
     <string name="unlock_local_upgrade">Povolit lokální upgrade</string>
     <string name="unlock_local_upgrade_summary">Po kliknutí budou příslušné operace prováděny automaticky, prosím trpělivě počkejte několik sekund</string>
     <string name="remove_ota_local_update_verity">Odstranit ověření místní instalace OTA</string>
