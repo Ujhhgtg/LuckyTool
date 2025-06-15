@@ -19,7 +19,7 @@ object RemoveBottomAppIconOfRecentTaskList : YukiBaseHooker() {
                     instance<View>().isVisible = false
                 }
             }
-            else constructor { }.hookAll {
+            else constructor().hookAll {
                 after {
                     instance<View>().isVisible = false
                 }

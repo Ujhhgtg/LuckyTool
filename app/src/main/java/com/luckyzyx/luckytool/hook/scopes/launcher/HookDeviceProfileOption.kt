@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.constructor
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.hasField
+import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -69,7 +70,9 @@ object HookDeviceProfileOption : YukiBaseHooker() {
 
         //Source FolderInfo
         "com.android.launcher3.model.data.FolderInfo".toClass().apply {
-            method { name = "getPreviewRow" }.hook {
+            val hasRow = hasMethod { name = "getPreviewRow" }
+            val hasCol = hasMethod { name = "getPreviewColumn" }
+            if (hasRow) method { name = "getPreviewRow" }.hook {
                 before {
                     if (!(enableFolder && syncPreview)) return@before
                     val spanX = field { name = "spanX";superClass() }.get(instance).int()
@@ -77,7 +80,7 @@ object HookDeviceProfileOption : YukiBaseHooker() {
                     if (spanX == 1 && spanY == 1) result = folderRow
                 }
             }
-            method { name = "getPreviewColumn" }.hook {
+            if (hasCol) method { name = "getPreviewColumn" }.hook {
                 before {
                     if (!(enableFolder && syncPreview)) return@before
                     val spanX = field { name = "spanX";superClass() }.get(instance).int()
