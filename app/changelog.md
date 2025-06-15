@@ -6,6 +6,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 ### 1.3.2_beta
 
 - [添加] 启用上滑导航手势
+- [优化] 优化状态栏网速不更改布局时的字体显示
 
 ### 1.3.1
 

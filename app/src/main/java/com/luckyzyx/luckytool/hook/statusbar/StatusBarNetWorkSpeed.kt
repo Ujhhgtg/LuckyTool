@@ -171,95 +171,114 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         )
                     }
                 }
-                method { name = "applyNetworkState" }.hook {
-                    before {
-                        if (layoutMode == "0") return@before
-
-                        val viewGroup = instance<ViewGroup>()
-                        val state = args().first().any()
-                        if (state == null) {
-                            viewGroup.isVisible = false
-                            mState.get(instance).setNull()
-                            return@before
+                if (layoutMode == "0") {
+                    method { name = "applyNetworkState" }.hook {
+                        after {
+                            val defaultBoldTypeface =
+                                mDefaultBoldFont.get(instance).cast<Typeface>()
+                            val mSpeedNumberTv = mSpeedNumber.get(instance).cast<TextView>()
+                            val mSpeedUnitTv = mSpeedUnit.get(instance).cast<TextView>()
+                            mSpeedNumberTv?.typeface = if (userTypeface) {
+                                if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                            } else defaultBoldTypeface
+                            mSpeedUnitTv?.typeface = if (userTypeface) {
+                                if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                            } else defaultBoldTypeface
                         }
+                    }
+                } else {
+                    method { name = "applyNetworkState" }.hook {
+                        before {
+                            if (layoutMode == "0") return@before
 
-                        val copy = state.current().method { name = "copy" }.call()
-                        val getVisible = state.current().method { name = "getVisible" }.boolean()
-                        mState.get(instance).set(copy)
-                        val visible = getVisible && !mBlocked.get(instance).boolean()
-                        if (visible != viewGroup.isVisible) viewGroup.isVisible = visible
-                        if (!visible) return@before
+                            val viewGroup = instance<ViewGroup>()
+                            val state = args().first().any()
+                            if (state == null) {
+                                viewGroup.isVisible = false
+                                mState.get(instance).setNull()
+                                return@before
+                            }
 
-                        val speedText = state.current().method { name = "getSpeedText" }.long()
-                        if (speedText < 0 || speedText > 1024.0.pow(5.0) * 1000.0) {
-                            return@before
-                        }
-                        mSpeed.get(instance).set(speedText)
+                            val copy = state.current().method { name = "copy" }.call()
+                            val getVisible =
+                                state.current().method { name = "getVisible" }.boolean()
+                            mState.get(instance).set(copy)
+                            val visible = getVisible && !mBlocked.get(instance).boolean()
+                            if (visible != viewGroup.isVisible) viewGroup.isVisible = visible
+                            if (!visible) return@before
 
-                        viewGroup.apply {
-                            layoutParams?.width = LayoutParams.WRAP_CONTENT
-                            setPadding(0, 0, 0, getBottomPadding.dp)
-                        }
+                            val speedText = state.current().method { name = "getSpeedText" }.long()
+                            if (speedText < 0 || speedText > 1024.0.pow(5.0) * 1000.0) {
+                                return@before
+                            }
+                            mSpeed.get(instance).set(speedText)
 
-                        val defaultBoldTypeface = mDefaultBoldFont.get(instance).cast<Typeface>()
-                        val mSpeedNumberTv = mSpeedNumber.get(instance).cast<TextView>()
-                        val mSpeedUnitTv = mSpeedUnit.get(instance).cast<TextView>()
-                        mSpeedNumberTv?.typeface = if (userTypeface) {
-                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                        } else defaultBoldTypeface
-                        mSpeedUnitTv?.typeface = if (userTypeface) {
-                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                        } else defaultBoldTypeface
+                            viewGroup.apply {
+                                layoutParams?.width = LayoutParams.WRAP_CONTENT
+                                setPadding(0, 0, 0, getBottomPadding.dp)
+                            }
 
-                        when (layoutMode) {
-                            "1" -> {
-                                mSpeedUnitTv?.visibility = View.INVISIBLE
+                            val defaultBoldTypeface =
+                                mDefaultBoldFont.get(instance).cast<Typeface>()
+                            val mSpeedNumberTv = mSpeedNumber.get(instance).cast<TextView>()
+                            val mSpeedUnitTv = mSpeedUnit.get(instance).cast<TextView>()
+                            mSpeedNumberTv?.typeface = if (userTypeface) {
+                                if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                            } else defaultBoldTypeface
+                            mSpeedUnitTv?.typeface = if (userTypeface) {
+                                if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                            } else defaultBoldTypeface
 
-                                mSpeedNumberTv?.apply {
-                                    text = getTotalFormatSpeed(
-                                        speedText.toFloat(), noSpace, noUnit, noSecond
-                                    )
-                                    setTextSize(
-                                        TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat() * 2
-                                    )
-                                    gravity = Gravity.CENTER_VERTICAL or Gravity.END
-                                    layoutParams = LayoutParams(layoutParams).apply {
-                                        height = LayoutParams.MATCH_PARENT
+                            when (layoutMode) {
+                                "1" -> {
+                                    mSpeedUnitTv?.visibility = View.INVISIBLE
+
+                                    mSpeedNumberTv?.apply {
+                                        text = getTotalFormatSpeed(
+                                            speedText.toFloat(), noSpace, noUnit, noSecond
+                                        )
+                                        setTextSize(
+                                            TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat() * 2
+                                        )
+                                        gravity = Gravity.CENTER_VERTICAL or Gravity.END
+                                        layoutParams = LayoutParams(layoutParams).apply {
+                                            height = LayoutParams.MATCH_PARENT
+                                        }
+                                    }
+                                }
+
+                                "2" -> {
+                                    mSpeedUnitTv?.visibility = View.VISIBLE
+
+                                    mSpeedNumberTv?.apply {
+                                        text = getTotalFormatSpeed(
+                                            calcTotalTx().toFloat(), noSpace, noUnit, noSecond
+                                        )
+                                        setTextSize(
+                                            TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
+                                        )
+                                        if (setInterval != -1) layoutParams =
+                                            LayoutParams(layoutParams).apply {
+                                                bottomMargin = bMargin + (setInterval.dp / 2)
+                                            }
+                                    }
+                                    mSpeedUnitTv?.apply {
+                                        text = getTotalFormatSpeed(
+                                            calcTotalRx().toFloat(), noSpace, noUnit, noSecond
+                                        )
+                                        setTextSize(
+                                            TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
+                                        )
+                                        if (setInterval != -1) layoutParams =
+                                            LayoutParams(layoutParams).apply {
+                                                topMargin = tMargin + (setInterval.dp / 2)
+                                            }
                                     }
                                 }
                             }
-
-                            "2" -> {
-                                mSpeedUnitTv?.visibility = View.VISIBLE
-
-                                mSpeedNumberTv?.apply {
-                                    text = getTotalFormatSpeed(
-                                        calcTotalTx().toFloat(), noSpace, noUnit, noSecond
-                                    )
-                                    setTextSize(
-                                        TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
-                                    )
-                                    if (setInterval != -1) layoutParams =
-                                        LayoutParams(layoutParams).apply {
-                                            bottomMargin = bMargin + (setInterval.dp / 2)
-                                        }
-                                }
-                                mSpeedUnitTv?.apply {
-                                    text = getTotalFormatSpeed(
-                                        calcTotalRx().toFloat(), noSpace, noUnit, noSecond
-                                    )
-                                    setTextSize(
-                                        TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
-                                    )
-                                    if (setInterval != -1) layoutParams =
-                                        LayoutParams(layoutParams).apply {
-                                            topMargin = tMargin + (setInterval.dp / 2)
-                                        }
-                                }
-                            }
+                            viewGroup.requestLayout()
+                            resultNull()
                         }
-                        viewGroup.requestLayout()
-                        resultNull()
                     }
                 }
             }
