@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.weather
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
@@ -63,7 +64,7 @@ class WeatherAdsAndJumpBrowser(
 
             //Source LocalUtils
             "com.oplus.weather.utils.LocalUtils".toClass().apply {
-                method { name = "jumpToBrowser" }.hookAll {
+                method { name { it.contains("jumpToBrowser") } }.hookAll {
                     hookBefore(removeAds, disableJump)
                 }
                 method { name = "startBrowserForUrl" }.hookAll {
@@ -149,17 +150,27 @@ class WeatherAdsAndJumpBrowser(
             removeAds: Boolean, disableJump: Boolean
         ) {
             before {
-                val context = args.find { it is Context } ?: return@before
-                val url = args(2).string()
-                val statisticsTag = args(3).string()
+                val context = (args.find { it is Context } ?: return@before) as Context
+                val type = args(args.indexOfFirst { it is Int }).int()
+
+//                var url = args(2).string()
+//                val statisticsTag = args(3).string()
+                val urlIndex = args.indexOfFirst {
+                    it is String && (it.contains("http") || it.contains("://"))
+                }
+                val url = args(urlIndex).string()
+                val tagIndex = args.indexOfFirst {
+                    it is String && (!it.contains("http") && !it.contains("://"))
+                }
+                val statisticsTag = args(tagIndex).string()
 
                 //CCTV
                 if (url.startsWith("heytapbrowser://")) return@before
 
-                if (removeAds) args(2).set(formatWeatherUrl(url))
+                if (removeAds) args(urlIndex).set(formatWeatherUrl(url))
                 if (disableJump) {
-                    val newUrl = args(2).string()
-                    startWebActivity(BrowserCommonUtils.toClass(), context, newUrl, statisticsTag)
+                    val newUrl = args(urlIndex).string()
+                    startWebActivity("", type, context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
@@ -225,13 +236,17 @@ class WeatherAdsAndJumpBrowser(
                             BooleanType
                         )
                         returnType(UnitType)
-                    }.hookAll { hookBefore(removeAds, disableJump) }
+                    }.hookAll {
+                        hookBefore(removeAds, disableJump)
+                    }
                     method {
                         param(
                             ContextClass, IntType, StringClass, StringClass, BooleanType
                         )
                         returnType(UnitType)
-                    }.hookAll { hookBefore(removeAds, disableJump) }
+                    }.hookAll {
+                        hookBefore(removeAds, disableJump)
+                    }
                 }
             }
             dexKitBridge.findClass {
@@ -262,18 +277,27 @@ class WeatherAdsAndJumpBrowser(
             removeAds: Boolean, disableJump: Boolean
         ) {
             before {
-                val context = args.find { it is Context } ?: return@before
-                val url = args(2).string()
-                val statisticsTag = args(3).string()
+                if (startWebView.isBlank()) return@before
+                val context = (args.find { it is Context } ?: return@before) as Context
+//                val url = args(2).string()
+//                val statisticsTag = args(3).string()
+
+                val urlIndex = args.indexOfFirst {
+                    it is String && (it.contains("http") || it.contains("://"))
+                }
+                val url = args(urlIndex).string()
+                val tagIndex = args.indexOfFirst {
+                    it is String && (!it.contains("http") && !it.contains("://"))
+                }
+                val statisticsTag = args(tagIndex).string()
 
                 //CCTV
                 if (url.startsWith("heytapbrowser://")) return@before
 
-                if (removeAds) args(2).set(formatWeatherUrl(url))
+                if (removeAds) args(urlIndex).set(formatWeatherUrl(url))
                 if (disableJump) {
-                    val newUrl = args(2).string()
-                    val clazz = startWebView.takeIf { it.isNotBlank() } ?: return@before
-                    startWebActivity(clazz.toClass(), context, newUrl, statisticsTag)
+                    val newUrl = args(urlIndex).string()
+                    startWebActivity(startWebView.toClass(), context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
@@ -282,7 +306,39 @@ class WeatherAdsAndJumpBrowser(
 
     companion object {
         fun startWebActivity(
-            clazz: Class<*>, context: Any, url: String, statisticsTag: String
+            action: String, browser: Int, context: Context, url: String, statisticsTag: String
+        ) {
+            //Source BrowserCommonUtils -> startWeatherWebActivity
+//            clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
+            val intent = Intent("com.heytap.browser.action.DETAIL_PAGE").apply {
+                if (action.isNotBlank()) setAction(action)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+//                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+                data = url.toUri()
+                when (browser) {
+                    1 -> setPackage("com.android.browser")
+                    2 -> setPackage("com.heytap.browser")
+                    3 -> setPackage("com.coloros.browser")
+                }
+                putExtra("clickTime", System.currentTimeMillis())
+                putExtra("clickType", "weather")
+                putExtra("intent_params_url", url)
+                putExtra("intent_params_isFirst", true)
+                putExtra("intent_params_statistics", statisticsTag)
+            }
+            try {
+                context.startActivity(intent)
+            } catch (t: Throwable) {
+                try {
+                    startWebActivity(Intent.ACTION_VIEW, browser, context, url, statisticsTag)
+                } catch (t: ActivityNotFoundException) {
+                    startWebActivity("", browser - 1, context, url, statisticsTag)
+                }
+            }
+        }
+
+        fun startWebActivity(
+            clazz: Class<*>, context: Context, url: String, statisticsTag: String
         ) {
             //Source BrowserCommonUtils -> startWeatherWebActivity
             clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
@@ -297,7 +353,10 @@ class WeatherAdsAndJumpBrowser(
             if (cacheUrl.contains("infoEnable=true")) cacheUrl = cacheUrl.replace(
                 "infoEnable=true", "infoEnable=false"
             )
-            if (cacheUrl.contains("infoEnable").not()) cacheUrl += "&infoEnable=false"
+            if (cacheUrl.contains("infoEnable").not()) {
+                if (cacheUrl.lastOrNull() != '&') cacheUrl += "&"
+                cacheUrl += "infoEnable=false"
+            }
 //            YLog.debug("url -> $cacheUrl")
             return cacheUrl
         }
