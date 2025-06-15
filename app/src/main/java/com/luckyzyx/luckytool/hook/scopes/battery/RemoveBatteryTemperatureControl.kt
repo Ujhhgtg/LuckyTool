@@ -1,10 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.battery
 
 import android.database.ContentObserver
-import android.os.Handler
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
 import com.highcapable.yukihookapi.hook.type.android.ContextClass
@@ -20,7 +17,7 @@ import org.luckypray.dexkit.DexKitBridge
 class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source ThermalControlHandler / ThermalControllHandler
-        val handlerClazz = dexKitBridge.findClass {
+        dexKitBridge.findClass {
             matcher {
                 addFieldForType(ContextClass)
                 addFieldForType(LooperClass)
@@ -29,7 +26,12 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
             }
         }.apply {
             checkDataList("RemoveBatteryTemperatureControl find ThermalControlHandler")
-        }.single().name
+            single().name.toClass().apply {
+                method { name = "handleMessage" }.hook {
+                    intercept()
+                }
+            }
+        }
 
         //Source ThermalControllerCenter
         dexKitBridge.findClass {
@@ -40,14 +42,6 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
             checkDataList("RemoveBatteryTemperatureControl find ThermalControllerCenter")
 
             single().name.toClass().apply {
-                constructor { param(ContextClass) }.hook {
-                    after {
-                        val handler = field { type = handlerClazz }.get(instance).cast<Handler>()
-                            ?: return@after
-                        val newHandler = Handler(handler.looper)
-                        field { type = handlerClazz }.get(instance).set(newHandler)
-                    }
-                }
                 method { param(LooperClass) }.hookAll {
                     intercept()
                 }
