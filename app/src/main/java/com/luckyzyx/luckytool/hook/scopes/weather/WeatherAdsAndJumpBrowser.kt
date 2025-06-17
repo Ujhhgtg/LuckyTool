@@ -170,7 +170,7 @@ class WeatherAdsAndJumpBrowser(
                 if (removeAds) args(urlIndex).set(formatWeatherUrl(url))
                 if (disableJump) {
                     val newUrl = args(urlIndex).string()
-                    startWebActivity("", type, context, newUrl, statisticsTag)
+                    startWebActivity(type, context, newUrl, statisticsTag)
                     resultNull()
                 }
             }
@@ -305,12 +305,10 @@ class WeatherAdsAndJumpBrowser(
     }
 
     companion object {
-        fun startWebActivity(
-            action: String, browser: Int, context: Context, url: String, statisticsTag: String
-        ) {
-            //Source BrowserCommonUtils -> startWeatherWebActivity
-//            clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
-            val intent = Intent("com.heytap.browser.action.DETAIL_PAGE").apply {
+        private fun getWeatherIntent(
+            action: String, browser: Int, url: String, statisticsTag: String
+        ): Intent {
+            return Intent("com.heytap.browser.action.DETAIL_PAGE").apply {
                 if (action.isNotBlank()) setAction(action)
                 addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
 //                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
@@ -326,14 +324,23 @@ class WeatherAdsAndJumpBrowser(
                 putExtra("intent_params_isFirst", true)
                 putExtra("intent_params_statistics", statisticsTag)
             }
+        }
+
+        fun startWebActivity(browser: Int, context: Context, url: String, statisticsTag: String) {
+            //Source BrowserCommonUtils -> startWeatherWebActivity
+//            clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
+            var intent = getWeatherIntent("", browser, url, statisticsTag)
             try {
                 context.startActivity(intent)
+                return
             } catch (t: Throwable) {
+                intent = getWeatherIntent(Intent.ACTION_VIEW, browser, url, statisticsTag)
                 try {
-                    startWebActivity(Intent.ACTION_VIEW, browser, context, url, statisticsTag)
+                    context.startActivity(intent)
                 } catch (t: ActivityNotFoundException) {
-                    startWebActivity("", browser - 1, context, url, statisticsTag)
+                    startWebActivity(browser - 1, context, url, statisticsTag)
                 }
+                return
             }
         }
 
