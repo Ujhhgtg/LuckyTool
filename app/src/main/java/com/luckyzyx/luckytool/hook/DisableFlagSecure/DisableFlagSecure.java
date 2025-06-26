@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.android;
+package com.luckyzyx.luckytool.hook.DisableFlagSecure;
 
 import static com.luckyzyx.luckytool.utils.SPUtilsKt.ModulePrefs;
 

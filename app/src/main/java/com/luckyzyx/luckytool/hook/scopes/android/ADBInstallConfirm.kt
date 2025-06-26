@@ -1,10 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ADBInstallConfirm : YukiBaseHooker() {
@@ -15,8 +15,8 @@ object ADBInstallConfirm : YukiBaseHooker() {
         VariousClass(
             "com.android.server.pm.ColorPackageInstallInterceptManager", //A11
             "com.android.server.pm.OplusPackageInstallInterceptManager"
-        ).toClass().apply {
-            method { name = "allowInterceptAdbInstallInInstallStage" }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "allowInterceptAdbInstallInInstallStage" }.hook {
                 if (isEnable) replaceToFalse()
             }
         }

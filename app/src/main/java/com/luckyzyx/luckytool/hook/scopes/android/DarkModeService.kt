@@ -2,9 +2,8 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArrayMap
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -39,10 +38,10 @@ object DarkModeService : YukiBaseHooker() {
         loadData()
 
         //Source OplusDarkModeServiceManager
-        "com.android.server.OplusDarkModeServiceManager".toClass().apply {
-            method {
+        "com.android.server.OplusDarkModeServiceManager".toClass().resolve().apply {
+            firstMethod {
                 name { it.startsWith("updateList") }
-                paramCount = 1
+                parameterCount = 1
             }.hook {
                 after {
                     if (!isEnable) return@after
@@ -58,7 +57,7 @@ object DarkModeService : YukiBaseHooker() {
                             mCurType = it.curType
                         }
                     }
-                    field { name = "mRusAppMap" }.get(instance).set(dataMap.toMap())
+                    firstField { name = "mRusAppMap" }.of(instance).set(dataMap.toMap())
 //                    field { name = "mOpenApp" }.get(instance).set(supportlist)
 //                    field { name = "mClickApp" }.get(instance).set(supportlist)
                 }

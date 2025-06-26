@@ -7,15 +7,15 @@ import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 import android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM
 import com.highcapable.yukihookapi.hook.log.YLog
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForR
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForS
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForT
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForU
 import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForV
-import com.luckyzyx.luckytool.hook.scopes.android.DisableFlagSecure
+import com.luckyzyx.luckytool.hook.DisableFlagSecure.DisableFlagSecure
 import com.luckyzyx.luckytool.utils.SDK
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object XposedEntry {

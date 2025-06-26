@@ -1,10 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveVPNActiveNotification : YukiBaseHooker() {
@@ -15,8 +15,8 @@ object RemoveVPNActiveNotification : YukiBaseHooker() {
         VariousClass(
             "com.android.server.connectivity.VpnExtImpl", //C12 C13 C14
             "com.android.server.connectivity.OplusVpnHelper"
-        ).toClass().apply {
-            method { name = "showNotification" }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "showNotification" }.hook {
                 if (isEnable) intercept()
             }
         }

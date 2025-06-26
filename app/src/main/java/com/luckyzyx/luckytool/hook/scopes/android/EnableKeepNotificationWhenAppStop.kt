@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -15,14 +15,15 @@ object EnableKeepNotificationWhenAppStop : YukiBaseHooker() {
         //Source NotificationManagerService -> cancelAllNotificationsInt
         //Source OplusNotificationManagerServiceExtImpl -> shouldKeepNotifcationWhenForceStop
         //Source OplusNotificationCommonPolicy -> shouldKeepNotifcationWhenForceStop
-        "com.android.server.notification.OplusNotificationManagerServiceExtImpl".toClass().apply {
-            method { name = "shouldKeepNotifcationWhenForceStop" }.hook {
-                before {
-                    if (!isEnable) return@before
-                    val reason = args().last().int()
-                    if (reason == 10020 || reason == 10021) resultTrue()
+        "com.android.server.notification.OplusNotificationManagerServiceExtImpl".toClass().resolve()
+            .apply {
+                firstMethod { name = "shouldKeepNotifcationWhenForceStop" }.hook {
+                    before {
+                        if (!isEnable) return@before
+                        val reason = args().last().int()
+                        if (reason == 10020 || reason == 10021) resultTrue()
+                    }
                 }
             }
-        }
     }
 }

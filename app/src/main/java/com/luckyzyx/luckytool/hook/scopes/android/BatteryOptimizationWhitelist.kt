@@ -1,9 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -18,23 +16,19 @@ object BatteryOptimizationWhitelist : YukiBaseHooker() {
 
         //Source oplus-service-jobscheduler -> OplusDeviceIdleHelper
         //Search sys_deviceidle_whitelist
-        "com.android.server.OplusDeviceIdleHelper".toClass().apply {
-            method {
-                name = if (hasMethod { name = "getNewWhiteList" }) "getNewWhiteList"
-                else if (hasMethod { name = "getNewWhiteListLocked" }) "getNewWhiteListLocked"
-                else return
-                paramCount = 1
-            }.hook {
+        "com.android.server.OplusDeviceIdleHelper".toClass().resolve().apply {
+            (method { name = "getNewWhiteList" }.firstOrNull()
+                ?: method { name = "getNewWhiteListLocked" }.firstOrNull())?.hook {
                 before {
                     val whiteListAll = args().first().cast<java.util.ArrayList<String>>()
                     whiteListAll?.clear()
-                    val mDefaultWhitelist =
-                        field { name = "mDefaultWhitelist" }.get().list<String>()
+                    val mDefaultWhitelist = firstField { name = "mDefaultWhitelist" }
+                        .get<List<String>>() ?: listOf()
                     whiteListAll?.addAll(mDefaultWhitelist)
 
-                    if (!disableCustom) method { name = "getCustomizeWhiteList" }.get(instance)
-                        .call(whiteListAll)
-                    method { name = "addNfcJapanFelica" }.get(instance).call(whiteListAll)
+                    if (!disableCustom) firstMethod { name = "getCustomizeWhiteList" }.of(instance)
+                        .invoke(whiteListAll)
+                    firstMethod { name = "addNfcJapanFelica" }.of(instance).invoke(whiteListAll)
 //                    whiteListAll?.add("com.oplus.upgradeguide")
                     resultNull()
                 }

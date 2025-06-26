@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
@@ -13,13 +12,13 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
         dataChannel.wait<Boolean>("force_all_apps_support_split_screen") { isEnable = it }
 
         //Source OplusSplitScreenManagerService
-        "com.android.server.wm.OplusSplitScreenManagerService".toClass().apply {
+        "com.android.server.wm.OplusSplitScreenManagerService".toClass().resolve().apply {
             method {
                 name = "supportsSplitScreenByVendorPolicy"
-                param {
-                    it[0] == StringClass && it[1] == StringClass
+                parameters {
+                    it[0] == String::class && it[1] == String::class
                 }
-                paramCount(3..4)
+                parameterCount { it in 3..4 }
             }.hookAll {
                 before {
                     if (!isEnable) return@before
@@ -29,26 +28,28 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
 
                     if (packageName.isBlank()) return@before
 
-                    val isSafeSenterUI = method {
-                        name = "isSafeSenterUI";paramCount = 1
-                    }.get(instance).boolean(activityName)
+                    val isSafeSenterUI = firstMethod {
+                        name = "isSafeSenterUI"
+                        parameterCount = 1
+                    }.of(instance).invoke<Boolean>(activityName) ?: false
                     if (isSafeSenterUI) return@before
 
                     if (method.parameterCount == 4) {
                         val userId = args().last().int()
-                        val isHidenPackage = method {
-                            name = "isHidenPackage";paramCount = 2
-                        }.get(instance).boolean(packageName, userId)
+                        val isHidenPackage = firstMethod {
+                            name = "isHidenPackage"
+                            parameterCount = 2
+                        }.of(instance).invoke<Boolean>(packageName, userId) ?: false
                         if (isHidenPackage) return@before
                     }
 
                     resultTrue()
                 }
             }
-            method { name = "isInForbidActivityList" }.hook {
+            firstMethod { name = "isInForbidActivityList" }.hook {
                 if (isEnable) replaceToFalse()
             }
-            method { name = "supportsSplitScreenWindowingMode" }.hook {
+            firstMethod { name = "supportsSplitScreenWindowingMode" }.hook {
                 if (isEnable) replaceToTrue()
             }
         }

@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object LTPODynamicRefreshRate : YukiBaseHooker() {
@@ -19,17 +18,17 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
         if (ltpoMode != "1") return
 
         //Source BackLightBean
-        "com.oplus.vrr.OPlusFeatureManager".toClass().apply {
+        "com.oplus.vrr.OPlusFeatureManager".toClass().resolve().apply {
             method {
                 name { it.startsWith("on") }
-                param(BackLightBean)
+                parameters(BackLightBean)
             }.hookAll {
                 before {
                     if (!ltpoMinOne) return@before
                     val bean = args().first().any() ?: return@before
-                    val mNitsToMinFPS = bean.current().field {
+                    val mNitsToMinFPS = bean.resolve().firstField {
                         name = "mNitsToMinFPS"
-                    }.cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
+                    }.get<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()
                     mNitsToMinFPS?.onEach { (fps, list) ->
                         list.forEach { map ->
                             map.keys.forEach {
@@ -43,35 +42,36 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
         }
 
         //Source OPlusOnlineConfigManager
-        "com.oplus.vrr.OPlusOnlineConfigManager".toClass().apply {
-            method { name = "createGameEvent" }.hook {
+        "com.oplus.vrr.OPlusOnlineConfigManager".toClass().resolve().apply {
+            firstMethod { name = "createGameEvent" }.hook {
                 after {
                     val bean = result<Any>() ?: return@after
 
 //                    val mPkgNames = bean.current().method { name = "getPkgNames" }.call()
 //                    YLog.info("GameEventBean ${mPkgNames.toString()}")
 
-                    val mBackLightBean = bean.current().field { name = "mBackLightBean" }.any()
+                    val mBackLightBean = bean.resolve().firstField { name = "mBackLightBean" }.get()
                     if (mBackLightBean != null) {
-                        mBackLightBean.current().field { name = "mEnable" }.setFalse()
-                        mBackLightBean.current().field { name = "mNitsToMinFPS" }
-                            .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
+                        mBackLightBean.resolve().firstField { name = "mEnable" }.set(false)
+                        mBackLightBean.resolve().firstField { name = "mNitsToMinFPS" }
+                            .get<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
                     }
 
                     val mPwmBackLightBean =
-                        bean.current().field { name = "mPwmBackLightBean" }.any()
+                        bean.resolve().firstField { name = "mPwmBackLightBean" }.get()
                     if (mPwmBackLightBean != null) {
-                        mPwmBackLightBean.current().field { name = "mEnable" }.setFalse()
-                        mPwmBackLightBean.current().field { name = "mNitsToMinFPS" }
-                            .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
+                        mPwmBackLightBean.resolve().firstField { name = "mEnable" }.set(false)
+                        mPwmBackLightBean.resolve().firstField { name = "mNitsToMinFPS" }
+                            .get<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
                     }
 
                     val mSinglePulseBackLightBean =
-                        bean.current().field { name = "mBackLightBean" }.any()
+                        bean.resolve().firstField { name = "mBackLightBean" }.get()
                     if (mSinglePulseBackLightBean != null) {
-                        mSinglePulseBackLightBean.current().field { name = "mEnable" }.setFalse()
-                        mSinglePulseBackLightBean.current().field { name = "mNitsToMinFPS" }
-                            .cast<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
+                        mSinglePulseBackLightBean.resolve().firstField { name = "mEnable" }
+                            .set(false)
+                        mSinglePulseBackLightBean.resolve().firstField { name = "mNitsToMinFPS" }
+                            .get<HashMap<Int, ArrayList<HashMap<Float, Float>>>>()?.clear()
                     }
                 }
             }

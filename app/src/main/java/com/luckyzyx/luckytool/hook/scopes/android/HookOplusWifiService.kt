@@ -4,11 +4,11 @@ import android.os.Build
 import android.util.ArraySet
 import com.android.internal.os.ClassLoaderFactory
 import com.android.internal.os.SystemServerClassLoaderFactory
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.ArrayClass
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -29,7 +29,7 @@ object HookOplusWifiService : YukiBaseHooker() {
             finalWifiServiceClassLoader = SystemServerClassLoaderFactory.getOrCreateClassLoader(
                 oplusWifiServicePath, wifiserviceClassLoader, false
             )
-        } catch (t: Throwable) {
+        } catch (_: Throwable) {
             try {
                 wifiserviceClassLoader = ClassLoaderFactory.createClassLoader(
                     wifiServicePath, null, null, null,
@@ -67,11 +67,12 @@ object HookOplusWifiService : YukiBaseHooker() {
     class HookOplusSoftAp(val classLoader: ClassLoader?) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSoftapStatistics
-            "com.oplus.server.wifi.hotspot.OplusSoftapStatistics".toClass(classLoader).apply {
-                method { name = "startSoftapEnableTimer" }.hook {
-                    intercept()
+            "com.oplus.server.wifi.hotspot.OplusSoftapStatistics".toClass(classLoader).resolve()
+                .apply {
+                    firstMethod { name = "startSoftapEnableTimer" }.hook {
+                        intercept()
+                    }
                 }
-            }
         }
     }
 
@@ -124,8 +125,11 @@ object HookOplusWifiService : YukiBaseHooker() {
             VariousClass(
                 "com.oplus.server.wifi.OplusSlaApps", //C13
                 "com.oplus.server.wifi.sla.OplusSlaApps" //C14 C15
-            ).toClass(classLoader).apply {
-                method { name = "getSlaWhiteListAppsFromRus";returnType = StringArrayClass }.hook {
+            ).toClass(classLoader).resolve().apply {
+                firstMethod {
+                    name = "getSlaWhiteListAppsFromRus"
+                    returnType = ArrayClass(String::class.java)
+                }.hook {
                     after {
                         if (mode == "0") return@after
                         val res = result<Array<String>>() ?: return@after
@@ -141,7 +145,10 @@ object HookOplusWifiService : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "getSlaGameAppsFromRus";returnType = StringArrayClass }.hook {
+                firstMethod {
+                    name = "getSlaGameAppsFromRus"
+                    returnType = ArrayClass(String::class.java)
+                }.hook {
                     after {
                         if (mode == "0") return@after
                         val res = result<Array<String>>() ?: return@after
@@ -157,7 +164,7 @@ object HookOplusWifiService : YukiBaseHooker() {
                         }
                     }
                 }
-                method { name = "getSlaBlackListAppsFromRus" }.hook {
+                firstMethod { name = "getSlaBlackListAppsFromRus" }.hook {
                     before {
                         if (mode == "0") return@before
                         if (rmBlack) resultNull()

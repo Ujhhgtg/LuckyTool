@@ -1,15 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.content.ContentResolver
 import android.database.Cursor
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -28,8 +26,8 @@ class HookAppFeatureProvider(
         dexKitBridge.findClass {
             matcher {
 //                addFieldForType(Uri::class.java)
-//                addMethod { paramTypes(ContentResolverClass, null, StringClass) }
-                addMethod { paramTypes(ContentResolverClass, null) }
+//                addMethod { paramTypes(ContentResolverClass, null, String::class.java) }
+                addMethod { paramTypes(ContentResolver::class.java, null) }
                 addMethod {
                     usingStrings("featurename")
                     returnType(Cursor::class.java)
@@ -44,17 +42,17 @@ class HookAppFeatureProvider(
             findMethod {
                 matcher {
 //                    name("isFeatureSupport")
-                    paramTypes(ContentResolverClass, StringClass)
-                    returnType(BooleanType)
+                    paramTypes(ContentResolver::class.java, String::class.java)
+                    returnType(Boolean::class.java)
                 }
             }.apply {
                 if (!isFeatureSupport) isFeatureSupport = singleOrNull() != null
                 singleOrNull()?.let {
-                    it.className.toClass().apply {
-                        method {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(ContentResolverClass, StringClass)
-                            returnType = BooleanType
+                            parameters(ContentResolver::class.java, String::class.java)
+                            returnType = Boolean::class.java
                         }.hook {
                             before {
                                 val key = args().last().cast<String>()
@@ -69,17 +67,17 @@ class HookAppFeatureProvider(
             findMethod {
                 matcher {
 //                    name("isFeatureSupport")
-                    paramTypes(ContentResolverClass, null, StringClass)
-                    returnType(BooleanType)
+                    paramTypes(ContentResolver::class.java, null, String::class.java)
+                    returnType(Boolean::class.java)
                 }
             }.apply {
                 if (!isFeatureSupport) isFeatureSupport = singleOrNull() != null
                 singleOrNull()?.let {
-                    it.className.toClass().apply {
-                        method {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(ContentResolverClass, VagueType, StringClass)
-                            returnType = BooleanType
+                            parameters(ContentResolver::class.java, VagueType, String::class.java)
+                            returnType = Boolean::class.java
                         }.hook {
                             before {
                                 val key = args().last().cast<String>()
@@ -98,17 +96,21 @@ class HookAppFeatureProvider(
             findMethod {
                 matcher {
 //                    name("getBoolean")
-                    paramTypes(ContentResolverClass, StringClass, BooleanType)
-                    returnType(BooleanType)
+                    paramTypes(ContentResolver::class.java, String::class.java, Boolean::class.java)
+                    returnType(Boolean::class.java)
                 }
             }.apply {
                 isGetBoolean = singleOrNull() != null
                 singleOrNull()?.let {
-                    it.className.toClass().apply {
-                        method {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(ContentResolverClass, StringClass, BooleanType)
-                            returnType = BooleanType
+                            parameters(
+                                ContentResolver::class.java,
+                                String::class.java,
+                                Boolean::class.java
+                            )
+                            returnType = Boolean::class.java
                         }.hook {
                             before {
                                 val key = args(1).cast<String>()
@@ -124,17 +126,21 @@ class HookAppFeatureProvider(
             findMethod {
                 matcher {
 //                    name("getString")
-                    paramTypes(ContentResolverClass, StringClass, StringClass)
-                    returnType(StringClass)
+                    paramTypes(ContentResolver::class.java, String::class.java, String::class.java)
+                    returnType(String::class.java)
                 }
             }.apply {
                 isGetString = singleOrNull() != null
                 singleOrNull()?.let {
-                    it.className.toClass().apply {
-                        method {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(ContentResolverClass, StringClass, StringClass)
-                            returnType = StringClass
+                            parameters(
+                                ContentResolver::class.java,
+                                String::class.java,
+                                String::class.java
+                            )
+                            returnType = String::class.java
                         }.hook {
                             before {
                                 val key = args(1).cast<String>()

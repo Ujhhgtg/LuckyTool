@@ -1,12 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveAppUninstallButtonBlackList : YukiBaseHooker() {
@@ -14,14 +12,15 @@ object RemoveAppUninstallButtonBlackList : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_app_uninstall_button_blacklist", false)
 
         //Source OplusUninstallableConfigManager
-        "com.android.server.pm.OplusUninstallableConfigManager".toClass().apply {
-            method { name = "loadUninstallableConfig" }.hook {
+        "com.android.server.pm.OplusUninstallableConfigManager".toClass().resolve().apply {
+            firstMethod { name = "loadUninstallableConfig" }.hook {
                 after {
                     if (!isEnable) return@after
-                    val icon = field { name = "mHideUninstallIcon" }.get(instance).any()
-                    icon?.current()?.field { name = "mList" }?.cast<ArraySet<String>>()?.clear()
-                    val iconSoft = field { name = "mHideUninstallIconSoft" }.get(instance).any()
-                    iconSoft?.current()?.field { name = "mList" }?.cast<ArraySet<String>>()?.clear()
+                    val icon = firstField { name = "mHideUninstallIcon" }.of(instance).get()
+                    icon?.resolve()?.firstField { name = "mList" }?.get<ArraySet<String>>()?.clear()
+                    val iconSoft = firstField { name = "mHideUninstallIconSoft" }.of(instance).get()
+                    iconSoft?.resolve()?.firstField { name = "mList" }?.get<ArraySet<String>>()
+                        ?.clear()
                 }
             }
         }

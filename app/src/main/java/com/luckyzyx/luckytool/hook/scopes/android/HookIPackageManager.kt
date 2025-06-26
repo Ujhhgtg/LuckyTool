@@ -4,13 +4,9 @@ import android.content.Intent
 import android.content.pm.ParceledListSlice
 import android.content.pm.ResolveInfo
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.data.AppIntentInfo
 import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.utils.IntentPrefs
@@ -80,10 +76,10 @@ class HookIPackageManager : YukiBaseHooker() {
     inner class HookQueryIntentActivitie : YukiBaseHooker() {
         override fun onHook() {
             //Source IPackageManagerBase
-            "com.android.server.pm.IPackageManagerBase".toClass().apply {
-                method {
+            "com.android.server.pm.IPackageManagerBase".toClass().resolve().apply {
+                firstMethod {
                     name = "queryIntentActivities"
-                    param(IntentClass, StringClass, LongType, IntType)
+                    parameters(Intent::class, String::class, Long::class, Int::class)
                 }.hook {
                     after {
                         if (!isEnable) return@after

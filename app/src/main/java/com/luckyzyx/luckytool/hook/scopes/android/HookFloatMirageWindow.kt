@@ -11,20 +11,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
 import android.os.UserHandle
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BundleClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.android.UserHandleClass
 import com.luckyzyx.luckytool.hook.utils.OplusMirageDisplayManagerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.startMirageWindow
 import org.lsposed.lsparanoid.Obfuscate
-
 
 @Obfuscate
 @Suppress("LocalVariableName")
@@ -49,45 +41,45 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             var task: Any? = null
 
             //Source FlexibleTaskController
-            "com.android.server.wm.FlexibleTaskController".toClass().apply {
-                method { name = "notifyFlexibleTaskEvent" }.hook {
+            "com.android.server.wm.FlexibleTaskController".toClass().resolve().apply {
+                firstMethod { name = "notifyFlexibleTaskEvent" }.hook {
                     before {
                         taskId = args().first().int()
-                        val mAtms = field { type = ActivityTaskManagerService }.get(instance).any()
-                            ?: return@before
-                        val mRootWindowContainer = mAtms.current().field {
-                            type = RootWindowContainer;superClass()
-                        }.any() ?: return@before
-                        task = mRootWindowContainer.current().method {
+                        val mAtms = firstField { type = ActivityTaskManagerService }.of(instance)
+                            .get() ?: return@before
+                        val mRootWindowContainer = mAtms.resolve().firstField {
+                            type = RootWindowContainer;superclass()
+                        }.get() ?: return@before
+                        task = mRootWindowContainer.resolve().firstMethod {
                             name = "anyTaskForId"
-                            paramCount = 1
-                        }.call(taskId) ?: return@before
+                            parameterCount = 1
+                        }.invoke(taskId) ?: return@before
                     }
                 }
             }
 
             //Source OplusFlexibleDCSManager
-            "com.android.server.wm.OplusFlexibleDCSManager".toClass().apply {
-                val hasFloatHandleEnter = hasMethod { name = "onFloatHandleEnter" }
-                method {
-                    name = if (hasFloatHandleEnter) "onFloatHandleEnter" else "startMinimize"
-                }.hook {
+            "com.android.server.wm.OplusFlexibleDCSManager".toClass().resolve().apply {
+                (method { name = "onFloatHandleEnter" }.firstOrNull()
+                    ?: method { name = "startMinimize" }.firstOrNull())?.hook {
                     after {
                         val info = args().first().any() ?: return@after
-                        val curTaskId = info.current().field { name = "taskId" }.int()
-                        val curUserId = info.current().field { name = "userId" }.int()
+                        val curTaskId = info.resolve().firstField { name = "taskId" }.get<Int>()
+                            ?: -1
+                        val curUserId = info.resolve().firstField { name = "userId" }.get<Int>()
+                            ?: 0
 
                         if (taskId != curTaskId) return@after
                         if (task == null) return@after
 
-                        val taskInfo = task!!.current().method {
+                        val taskInfo = task.resolve().firstMethod {
                             name = "getTaskInfo"
                             returnType = RunningTaskInfo::class.java
                         }.invoke<RunningTaskInfo>() ?: return@after
 
-                        val baseIntent = taskInfo.current().field {
-                            type = IntentClass;superClass()
-                        }.cast<Intent>() ?: return@after
+                        val baseIntent = taskInfo.resolve().firstField {
+                            type = Intent::class;superclass()
+                        }.get<Intent>() ?: return@after
 
                         baseIntent.putExtra("TASKINFO_UID", curUserId)
 
@@ -97,11 +89,12 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             }
 
             //Source OplusMirageWindowManagerService
-            "com.android.server.wm.OplusMirageWindowManagerService".toClass().apply {
-                method { name = "moveTaskToBack" }.hook {
+            "com.android.server.wm.OplusMirageWindowManagerService".toClass().resolve().apply {
+                firstMethod { name = "moveTaskToBack" }.hook {
                     before {
                         val curTask = args().first().any() ?: return@before
-                        val mTaskId = curTask.current().field { name = "mTaskId" }.int()
+                        val mTaskId = curTask.resolve().firstField { name = "mTaskId" }.get<Int>()
+                            ?: -1
                         if (taskId == mTaskId) resultNull()
                     }
                 }
@@ -116,22 +109,22 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             val OPLUS_MIRAGE_CAR_DUMMY_ACTION = "android.intent.action.OPLUS_MIRAGE_CAR_DUMMY"
 
             //Source OplusMirageWindowManagerService
-            "com.android.server.wm.OplusMirageWindowManagerService".toClass().apply {
-                method { name = "startActivityToMirageDisplay" }.hook {
+            "com.android.server.wm.OplusMirageWindowManagerService".toClass().resolve().apply {
+                firstMethod { name = "startActivityToMirageDisplay" }.hook {
                     before {
                         val parcelable = args().first().cast<Parcelable>()
                         val displayId = args(1).int()
                         val startOptions = args().last().cast<Bundle>()
 
-                        val mAtms = field { type = activityTaskManagerService }.get(instance).any()
-                            ?: return@before
-                        val context = mAtms.current().field { type = ContextClass }.cast<Context>()
-                            ?: return@before
+                        val mAtms = firstField { type = activityTaskManagerService }.of(instance)
+                            .get() ?: return@before
+                        val context = mAtms.resolve().firstField { type = Context::class }
+                            .get<Context>() ?: return@before
 
                         val options = startOptions?.let {
-                            ActivityOptions::class.java.method {
-                                name = "fromBundle";param(BundleClass)
-                            }.get().invoke<ActivityOptions>(startOptions)
+                            ActivityOptions::class.resolve().firstMethod {
+                                name = "fromBundle";parameters(Bundle::class)
+                            }.invoke<ActivityOptions>(startOptions)
                         } ?: ActivityOptions.makeBasic()
                         options.setLaunchDisplayId(displayId)
 
@@ -144,9 +137,9 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                                     is Intent -> intent = parcelable
                                     is PendingIntent -> {
                                         pendingIntent = parcelable
-                                        intent = pendingIntent.current().method {
-                                            name = "getIntent";emptyParam()
-                                        }.invoke()
+                                        intent = pendingIntent.resolve().firstMethod {
+                                            name = "getIntent";emptyParameters()
+                                        }.invoke<Intent?>()
                                     }
                                 }
 
@@ -160,13 +153,13 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                                                 if (uid > 0 && uid.toString().startsWith("999")) {
                                                     val userHandle =
                                                         UserHandle.getUserHandleForUid(uid)
-                                                    context.current().method {
+                                                    context.resolve().firstMethod {
                                                         name = "startActivityAsUser"
-                                                        param(
-                                                            IntentClass, BundleClass,
-                                                            UserHandleClass
+                                                        parameters(
+                                                            Intent::class, Bundle::class,
+                                                            UserHandle::class
                                                         )
-                                                    }.call(intent, options.toBundle(), userHandle)
+                                                    }.invoke(intent, options.toBundle(), userHandle)
                                                 } else {
                                                     context.startActivity(
                                                         intent, options.toBundle()
@@ -182,7 +175,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
 
                                         }
                                     } else {
-                                        field { name = "mRealCarDisplayId" }.get(instance)
+                                        firstField { name = "mRealCarDisplayId" }.of(instance)
                                             .set(displayId)
                                     }
                                 }

@@ -1,13 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
@@ -20,26 +16,29 @@ object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
         if (mode == "0") return
 
         //Source PackageManagerServiceExtImpl
-        "com.android.server.pm.PackageManagerServiceExtImpl".toClass().apply {
-            method { name = "handleSuccessAtEndInHPPI";paramCount = 6 }.hook {
+        "com.android.server.pm.PackageManagerServiceExtImpl".toClass().resolve().apply {
+            firstMethod {
+                name = "handleSuccessAtEndInHPPI"
+                parameterCount = 6
+            }.hook {
                 after {
                     val packName = args(2).string()
                     val installSource = args(3).any()
 
                     val isUpdate = args(4).boolean()
-                    val marketList = field {
-                        name = "DEFAULT_MARKET_LIST";type = ListClass
-                    }.get().cast<List<String>>() ?: java.util.ArrayList()
+                    val marketList = firstField {
+                        name = "DEFAULT_MARKET_LIST";type = List::class
+                    }.get<List<String>>() ?: java.util.ArrayList()
 
-                    val installerPackageName = if (installSource is String) installSource
-                    else installSource?.current()?.field { name = "mInstallerPackageName" }
-                        ?.string()
+                    val installerPackageName = installSource as? String
+                        ?: installSource?.resolve()?.firstField { name = "mInstallerPackageName" }
+                            ?.get<String>()
 
                     if (isUpdate || marketList.contains(installerPackageName)) {
                         if (mode == "1") {
-                            OplusPMHelper.toClass().method {
-                                name = "addPkgToNotLaunchedList";param(StringClass)
-                            }.get().call(packName)
+                            OplusPMHelper.toClass().resolve().firstMethod {
+                                name = "addPkgToNotLaunchedList";parameters(String::class)
+                            }.invoke(packName)
                         }
                     }
                 }

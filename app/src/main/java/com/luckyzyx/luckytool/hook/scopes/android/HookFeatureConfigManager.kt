@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -9,8 +9,11 @@ class HookFeatureConfigManager(private val features: Map<String, Boolean>) : Yuk
     override fun onHook() {
         if (features.isEmpty()) return
         //Source OplusFeatureConfigManager
-        "com.oplus.content.OplusFeatureConfigManager".toClassOrNull()?.apply {
-            method { name = "hasFeature";paramCount = 1 }.hook {
+        "com.oplus.content.OplusFeatureConfigManager".toClassOrNull()?.resolve()?.apply {
+            firstMethod {
+                name = "hasFeature"
+                parameterCount = 1
+            }.hook {
                 after {
                     val key = args().first().cast<String>()
                     if (key.isNullOrBlank()) return@after

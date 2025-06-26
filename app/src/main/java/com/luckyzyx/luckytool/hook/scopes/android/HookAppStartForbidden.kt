@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.AESCrypt.baseDetrypt
 import com.luckyzyx.luckytool.utils.CommandUtils
@@ -10,6 +9,7 @@ import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.toStringList
 import org.json.JSONArray
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAppStartForbidden : YukiBaseHooker() {
@@ -35,18 +35,18 @@ object HookAppStartForbidden : YukiBaseHooker() {
         initList(apps)
 
         //Source OplusAppStartupConfig
-        "com.android.server.am.OplusAppStartupConfig".toClassOrNull()?.apply {
-            method { name = "isAppStartForbidden" }.hook {
+        "com.android.server.am.OplusAppStartupConfig".toClassOrNull()?.resolve()?.apply {
+            firstMethod { name = "isAppStartForbidden" }.hook {
                 after {
                     val packName = args().first().string()
                     if (isAppForbidden(packName)) resultTrue()
                 }
             }
-            method { name = "handleAppStartForbidden" }.hook {
+            firstMethod { name = "handleAppStartForbidden" }.hook {
                 after {
                     val packName = args().first().string()
                     if (isAppForbidden(packName)) {
-                        val curLanguage = method { name = "getCurrentLanguage" }.get(instance)
+                        val curLanguage = firstMethod { name = "getCurrentLanguage" }.of(instance)
                             .invoke<String>() ?: ""
                         val dialogText = when (curLanguage) {
                             "zh-CN" -> baseDetrypt(
@@ -69,15 +69,15 @@ object HookAppStartForbidden : YukiBaseHooker() {
 
                             else -> return@after
                         }
-                        method { name = "parseForbidText" }.get(instance).call(dialogText)
+                        firstMethod { name = "parseForbidText" }.of(instance).invoke(dialogText)
                     }
                 }
             }
         }
 
         //Source OplusListManagerImpl
-        "com.android.server.OplusListManagerImpl".toClassOrNull()?.apply {
-            method { name = "isAppStartForbidden" }.hook {
+        "com.android.server.OplusListManagerImpl".toClassOrNull()?.resolve()?.apply {
+            firstMethod { name = "isAppStartForbidden" }.hook {
                 after {
                     val packName = args().first().string()
                     if (isAppForbidden(packName)) resultTrue()

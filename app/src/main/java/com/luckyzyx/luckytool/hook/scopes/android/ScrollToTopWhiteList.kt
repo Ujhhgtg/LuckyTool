@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ScrollToTopWhiteList : YukiBaseHooker() {
@@ -12,14 +11,12 @@ object ScrollToTopWhiteList : YukiBaseHooker() {
         val mode = prefs(ModulePrefs).getString("set_click_statusbar_scroll_to_top_mode", "0")
 
         //Source OplusScrollToTopRusHelper -> OplusScrollToTopSystemManager
-        "com.android.server.OplusScrollToTopRusHelper".toClass().apply {
-            if (hasMethod { name = "isInWhiteList" }) {
-                method { name = "isInWhiteList" }.hook {
-                    before {
-                        when (mode) {
-                            "1" -> resultFalse()
-                            "2" -> resultTrue()
-                        }
+        "com.android.server.OplusScrollToTopRusHelper".toClass().resolve().apply {
+            method { name = "isInWhiteList" }.firstOrNull()?.hook {
+                before {
+                    when (mode) {
+                        "1" -> resultFalse()
+                        "2" -> resultTrue()
                     }
                 }
             }

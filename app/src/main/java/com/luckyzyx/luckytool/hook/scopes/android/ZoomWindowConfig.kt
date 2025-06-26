@@ -1,12 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import android.os.Bundle
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.android.BundleClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
@@ -58,10 +56,10 @@ class ZoomWindowConfig : YukiBaseHooker() {
     inner class HookZoomWindow : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusZoomWindowConfig
-            "com.android.server.wm.OplusZoomWindowConfig".toClass().apply {
-                method {
+            "com.android.server.wm.OplusZoomWindowConfig".toClass().resolve().apply {
+                firstMethod {
                     name = "isSupportZoomMode"
-                    param(StringClass, IntType, StringClass, BundleClass)
+                    parameters(String::class, Int::class, String::class, Bundle::class)
                 }.hook {
                     before {
                         when (mode) {
@@ -84,10 +82,10 @@ class ZoomWindowConfig : YukiBaseHooker() {
     inner class HookFlexibleWindow : YukiBaseHooker() {
         override fun onHook() {
             //Source FlexibleWindowUtils
-            "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.apply {
-                method {
+            "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.resolve()?.apply {
+                firstMethod {
                     name = "isSupportFlexibleWindow"
-                    param(StringClass, StringClass)
+                    parameters(String::class, String::class)
                 }.hook {
                     before {
                         when (mode) {
@@ -105,10 +103,10 @@ class ZoomWindowConfig : YukiBaseHooker() {
             }
 
             //Source FlexibleWindowManagerService
-            "com.android.server.wm.FlexibleWindowManagerService".toClassOrNull()?.apply {
-                method {
+            "com.android.server.wm.FlexibleWindowManagerService".toClassOrNull()?.resolve()?.apply {
+                firstMethod {
                     name = "getMaxWinNum"
-                    returnType = IntType
+                    returnType = Int::class
                 }.hook {
                     after {
                         if (multiWindow && multiNum > 0) result = multiNum

@@ -1,9 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookPowerManager : YukiBaseHooker() {
@@ -13,15 +13,20 @@ object HookPowerManager : YukiBaseHooker() {
         if (!removeThermal) return
 
         //Source PowerManager
-        "android.os.PowerManager".toClass().apply {
-            method { name = "addThermalStatusListener";paramCount = 1 }.hook {
+        "android.os.PowerManager".toClass().resolve().apply {
+            firstMethod {
+                name = "addThermalStatusListener"
+                parameterCount = 1
+            }.hook {
                 after {
                     val listener = args().first().any() ?: return@after
-                    method { name = "removeThermalStatusListener";paramCount = 1 }.get(instance)
-                        .call(listener)
+                    firstMethod {
+                        name = "removeThermalStatusListener"
+                        parameterCount = 1
+                    }.of(instance).invoke(listener)
                 }
             }
-            method { name = "getCurrentThermalStatus" }.hook {
+            firstMethod { name = "getCurrentThermalStatus" }.hook {
                 replaceTo(0)
             }
         }

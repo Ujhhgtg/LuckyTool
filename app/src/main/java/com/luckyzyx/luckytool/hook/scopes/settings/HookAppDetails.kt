@@ -7,14 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.android.PackageInfoClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -24,6 +20,7 @@ import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.isSystem
 import com.luckyzyx.luckytool.utils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAppDetails : YukiBaseHooker() {
@@ -52,18 +49,20 @@ object HookAppDetails : YukiBaseHooker() {
                 prefs(ModulePrefs).getBoolean("enable_long_press_to_copy_in_app_details", false)
 
             //Source AppInfoFeature
-            "com.oplus.settings.feature.appmanager.AppInfoFeature".toClass().apply {
-                method { name = "setAppLabelAndIcon";paramCount = 1 }.hook {
+            "com.oplus.settings.feature.appmanager.AppInfoFeature".toClass().resolve().apply {
+                firstMethod {
+                    name = "setAppLabelAndIcon"
+                    parameterCount = 1
+                }.hook {
                     after {
-                        val mRootView = field { name = "mRootView" }.get(instance).cast<View>()
+                        val mRootView = firstField { name = "mRootView" }.of(instance).get<View>()
                             ?: return@after
                         val appButtonsPreferenceController = args().first().any() ?: return@after
-                        val instrumentedPreferenceFragment =
-                            appButtonsPreferenceController.current().field { name = "mFragment" }
-                                .any() ?: return@after
-                        val packageInfo = instrumentedPreferenceFragment.current().field {
-                            type = PackageInfoClass
-                        }.cast<PackageInfo>() ?: return@after
+                        val instrumentedPreferenceFragment = appButtonsPreferenceController
+                            .resolve().firstField { name = "mFragment" }.get() ?: return@after
+                        val packageInfo = instrumentedPreferenceFragment.resolve().firstField {
+                            type = PackageInfo::class
+                        }.get<PackageInfo>() ?: return@after
                         val appInfo = packageInfo.applicationInfo
 
                         val context = mRootView.context
@@ -144,55 +143,62 @@ object HookAppDetails : YukiBaseHooker() {
             val quickClone = prefs(ModulePrefs).getBoolean("enable_app_clone_quick_jump", false)
 
             //Source AppInfoDashboardFragment
-            "com.android.settings.applications.appinfo.AppInfoDashboardFragment".toClass().apply {
-                method { name = "onCreateOptionsMenu" }.hook {
-                    after {
-                        val menu = args().first().cast<Menu>() ?: return@after
+            "com.android.settings.applications.appinfo.AppInfoDashboardFragment".toClass().resolve()
+                .apply {
+                    firstMethod { name = "onCreateOptionsMenu" }.hook {
+                        after {
+                            val menu = args().first().cast<Menu>() ?: return@after
 //                        val menuInflater = args().last().cast<MenuInflater>() ?: return@after
-                        val context = method { name = "getContext";superClass() }.get(instance)
-                            .invoke<Context>() ?: return@after
-                        val packageInfo = field { type = PackageInfoClass }.get(instance)
-                            .cast<PackageInfo>() ?: return@after
+                            val context = firstMethod {
+                                name = "getContext"
+                                superclass()
+                            }.of(instance).invoke<Context>() ?: return@after
 
-                        if (quickMarket) {
-                            context.injectModuleAppResources()
-                            val openMarketLabel = safeOf("Open Market") {
-                                context.getString(R.string.open_market)
+                            val packageInfo = firstField { type = PackageInfo::class }.of(instance)
+                                .get<PackageInfo>() ?: return@after
+
+                            if (quickMarket) {
+                                context.injectModuleAppResources()
+                                val openMarketLabel = safeOf("Open Market") {
+                                    context.getString(R.string.open_market)
+                                }
+                                menu.add(0, 900, 0, openMarketLabel)
+                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
                             }
-                            menu.add(0, 900, 0, openMarketLabel)
-                                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
-                        }
 
-                        if (osCode >= 27 && quickClone && !packageInfo.isSystem()) {
-                            val multiAppLabel = AppUtils(context).getAppLabel("com.oplus.multiapp")
-                            menu.add(0, 999, 0, multiAppLabel)
-                                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                            if (osCode >= 27 && quickClone && !packageInfo.isSystem()) {
+                                val multiAppLabel =
+                                    AppUtils(context).getAppLabel("com.oplus.multiapp")
+                                menu.add(0, 999, 0, multiAppLabel)
+                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                            }
                         }
                     }
-                }
-                method { name = "onOptionsItemSelected" }.hook {
-                    before {
-                        val menuItem = args().first().cast<MenuItem>() ?: return@before
-                        val context = method { name = "getContext";superClass() }.get(instance)
-                            .invoke<Context>() ?: return@before
-                        val packageInfo = field { type = PackageInfoClass }.get(instance)
-                            .cast<PackageInfo>() ?: return@before
-                        val packName = packageInfo.packageName
+                    firstMethod { name = "onOptionsItemSelected" }.hook {
+                        before {
+                            val menuItem = args().first().cast<MenuItem>() ?: return@before
+                            val context = firstMethod {
+                                name = "getContext"
+                                superclass()
+                            }.invoke<Context>() ?: return@before
+                            val packageInfo = firstField { type = PackageInfo::class }
+                                .get<PackageInfo>() ?: return@before
+                            val packName = packageInfo.packageName
 
-                        when (menuItem.itemId) {
-                            900 -> if (quickMarket) AppUtils(context).openMarketIntent(packName)
-                            999 -> if (osCode >= 27 && quickClone && !packageInfo.isSystem()) {
-                                val appLabel = AppUtils(context).getAppLabel(packName)
-                                try {
-                                    AppUtils(context).openMultiAppIntent(appLabel, packName)
-                                } catch (e: Throwable) {
-                                    YLog.debug("EnableAppCloneQuickJump startActivity error", e)
+                            when (menuItem.itemId) {
+                                900 -> if (quickMarket) AppUtils(context).openMarketIntent(packName)
+                                999 -> if (osCode >= 27 && quickClone && !packageInfo.isSystem()) {
+                                    val appLabel = AppUtils(context).getAppLabel(packName)
+                                    try {
+                                        AppUtils(context).openMultiAppIntent(appLabel, packName)
+                                    } catch (e: Throwable) {
+                                        YLog.debug("EnableAppCloneQuickJump startActivity error", e)
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
         }
     }
 }

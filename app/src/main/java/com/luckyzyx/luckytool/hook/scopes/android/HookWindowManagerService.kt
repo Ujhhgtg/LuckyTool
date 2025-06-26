@@ -2,16 +2,12 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.content.Context
 import android.provider.Settings
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookWindowManagerService : YukiBaseHooker() {
@@ -23,11 +19,11 @@ object HookWindowManagerService : YukiBaseHooker() {
         val windowManagerService = "com.android.server.wm.WindowManagerService"
 
         //Source OplusWindowManagerService
-        "com.android.server.wm.OplusWindowManagerService".toClass().apply {
-            method {
+        "com.android.server.wm.OplusWindowManagerService".toClass().resolve().apply {
+            firstMethod {
                 name = "clearForcedDisplayDensityForUser"
-                paramCount = 2
-                superClass()
+                parameterCount = 2
+                superclass()
             }.hook {
                 before {
 //                    val displayId = args().first().int()
@@ -39,18 +35,21 @@ object HookWindowManagerService : YukiBaseHooker() {
         }
 
         //Source DisplayWindowSettings
-        "com.android.server.wm.DisplayWindowSettings".toClass().apply {
-            method { name = "setForcedDensity";paramCount(2..3) }.hookAll {
+        "com.android.server.wm.DisplayWindowSettings".toClass().resolve().apply {
+            method {
+                name = "setForcedDensity"
+                parameterCount { it in 2..3 }
+            }.hookAll {
                 before {
                     if (!isDpi) return@before
                     val density = args(1).int()
 //                    val userId = if (method.parameterCount == 3) args().last().int() else null
 //                    YLog.debug("${method.name} is call -> $density | $userId")
 
-                    val service = field { type = windowManagerService }.get(instance).any()
+                    val service = firstField { type = windowManagerService }.of(instance).get()
                         ?: return@before
-                    val context = service.current().field { type = ContextClass }.cast<Context>()
-                        ?: return@before
+                    val context = service.resolve().firstField { type = Context::class }
+                        .get<Context>() ?: return@before
                     val resolver = context.contentResolver
                     val forcedDensity = Settings.Secure.getString(
                         resolver, "display_density_forced"
@@ -62,8 +61,11 @@ object HookWindowManagerService : YukiBaseHooker() {
 
         //Source DisplayContentExtImpl
         if (SDK >= A14) {
-            "com.android.server.wm.DisplayContentExtImpl".toClass().apply {
-                method { name = "setForcedDisplayInfoForWmSize";paramCount = 5 }.hook {
+            "com.android.server.wm.DisplayContentExtImpl".toClass().resolve().apply {
+                firstMethod {
+                    name = "setForcedDisplayInfoForWmSize"
+                    parameterCount = 5
+                }.hook {
                     before {
                         if (!isDpi) return@before
 //                    val width = args().first().int()
@@ -73,9 +75,8 @@ object HookWindowManagerService : YukiBaseHooker() {
                         val service = args().last().any() ?: return@before
 //                    YLog.debug("${method.name} is call -> $width | $height | $density | $userId")
 
-                        val context =
-                            service.current().field { type = ContextClass }.cast<Context>()
-                                ?: return@before
+                        val context = service.resolve().firstField { type = Context::class }
+                            .get<Context>() ?: return@before
                         val resolver = context.contentResolver
                         val forcedDensity = Settings.Secure.getString(
                             resolver, "display_density_forced"
@@ -87,24 +88,23 @@ object HookWindowManagerService : YukiBaseHooker() {
         }
 
         //Source OplusResolutionSwitchImpl
-        "com.android.server.wm.OplusResolutionSwitchImpl".toClass().apply {
-            if (hasMethod { name = "resetDensityIfNeed" }) {
-                method { name = "resetDensityIfNeed" }.hook {
-                    before {
-                        if (isDpi) resultNull()
-                    }
+        "com.android.server.wm.OplusResolutionSwitchImpl".toClass().resolve().apply {
+            method { name = "resetDensityIfNeed" }.firstOrNull()?.hook {
+                before {
+                    if (isDpi) resultNull()
                 }
-            } else {
-                method { name = "onResolutionSettingsChange";paramCount = 1 }.hook {
+            } ?: {
+                firstMethod { name = "onResolutionSettingsChange";parameterCount = 1 }.hook {
                     before {
                         if (isDpi) args().first().setFalse()
                     }
                 }
-                if (hasMethod { name = "onFakeResolutionSettingsChange";paramCount = 1 }) {
-                    method { name = "onFakeResolutionSettingsChange";paramCount = 1 }.hook {
-                        before {
-                            if (isDpi) args().first().setFalse()
-                        }
+                method {
+                    name = "onFakeResolutionSettingsChange"
+                    parameterCount = 1
+                }.firstOrNull()?.hook {
+                    before {
+                        if (isDpi) args().first().setFalse()
                     }
                 }
             }

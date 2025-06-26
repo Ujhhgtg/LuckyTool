@@ -1,12 +1,12 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ReplaceSystemRootStateDetection : YukiBaseHooker() {
@@ -16,22 +16,22 @@ object ReplaceSystemRootStateDetection : YukiBaseHooker() {
         if (SDK < A12 || !isEnable) return
 
         //Source HeimdallService
-        if (osCode > 26) "com.android.server.oplus.heimdall.HeimdallService".toClass().apply {
-            method { name = "isRootEnable" }.hook {
+        if (osCode > 26) "com.android.server.oplus.heimdall.HeimdallService".toClass().resolve().apply {
+            firstMethod { name = "isRootEnable" }.hook {
                 replaceToFalse()
             }
         }
 
         //Source RootService
-        "com.android.server.oplus.heimdall.service.RootService".toClass().apply {
-            method { name = "isRoot" }.hook {
+        "com.android.server.oplus.heimdall.service.RootService".toClass().resolve().apply {
+            firstMethod { name = "isRoot" }.hook {
                 replaceToFalse()
             }
         }
 
         //Source HeimdallService
-        "com.android.server.oplus.heimdall.root.RootDetector".toClass().apply {
-            method { name = "checkDeviceRootStatus" }.hook {
+        "com.android.server.oplus.heimdall.root.RootDetector".toClass().resolve().apply {
+            firstMethod { name = "checkDeviceRootStatus" }.hook {
                 intercept()
             }
         }

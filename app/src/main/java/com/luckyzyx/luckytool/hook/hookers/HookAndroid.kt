@@ -12,7 +12,6 @@ import com.luckyzyx.luckytool.hook.scopes.android.EnableKeepNotificationWhenAppS
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
 import com.luckyzyx.luckytool.hook.scopes.android.ForceEnable32BitSupport
-import com.luckyzyx.luckytool.hook.scopes.android.HookAppStartForbidden
 import com.luckyzyx.luckytool.hook.scopes.android.HookFloatMirageWindow
 import com.luckyzyx.luckytool.hook.scopes.android.HookGMSRestrict
 import com.luckyzyx.luckytool.hook.scopes.android.HookIPackageManager
@@ -47,7 +46,7 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(HookGlobalSystemProperties)
 
         //禁止App启动
-        loadHooker(HookAppStartForbidden)
+//        loadHooker(HookAppStartForbidden)
 
         //移除状态栏上层警告
         loadHooker(RemoveStatusBarTopNotification)

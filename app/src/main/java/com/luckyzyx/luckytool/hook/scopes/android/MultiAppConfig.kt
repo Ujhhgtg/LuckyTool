@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -50,14 +50,14 @@ object MultiAppConfig : YukiBaseHooker() {
             loadData()
 
             //Source OplusMultiAppConfig
-            "com.oplus.multiapp.OplusMultiAppConfig".toClass().apply {
-                method { name = "getAllowedPkgList" }.hook {
+            "com.oplus.multiapp.OplusMultiAppConfig".toClass().resolve().apply {
+                firstMethod { name = "getAllowedPkgList" }.hook {
                     before {
                         if (mode != "1" || list.isEmpty()) return@before
                         result = java.util.ArrayList(list)
                     }
                 }
-                method { name = "getMaxCreatedNum" }.hook {
+                firstMethod { name = "getMaxCreatedNum" }.hook {
                     if (limit) replaceTo(1000)
                 }
             }
@@ -68,8 +68,8 @@ object MultiAppConfig : YukiBaseHooker() {
     object MultiAppBlackList : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusMultiAppDataManager
-            "com.android.server.pm.OplusMultiAppDataManager".toClass().apply {
-                method { name = "initBlackAppList" }.hook {
+            "com.android.server.pm.OplusMultiAppDataManager".toClass().resolve().apply {
+                firstMethod { name = "initBlackAppList" }.hook {
                     intercept()
                 }
             }
