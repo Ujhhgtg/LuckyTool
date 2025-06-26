@@ -2,25 +2,17 @@ package com.luckyzyx.luckytool.hook.scopes.alarmclock
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.os.Handler
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.widget.RemoteViews
 import androidx.collection.arrayMapOf
 import androidx.core.graphics.toColorInt
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BitmapClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.HandlerClass
-import com.highcapable.yukihookapi.hook.type.android.RemoteViewsClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.hook.hookers.HookSystemUIDialog.hookAll
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -63,21 +55,25 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
          * 新版时钟V14+替换RemoteViews
          * @receiver Class<*>
          */
-        fun Class<*>.hookBaseClock() {
-            val noContext = hasField { type = ContextClass }.not()
-            method { emptyParam();returnType = RemoteViewsClass }.hookAll {
-                after {
-                    val context = field {
-                        type = ContextClass;superClass(noContext)
-                    }.get(instance).cast<Context>() ?: return@after
-                    context.injectModuleAppResources()
-                    val res = result<RemoteViews>() ?: return@after
-                    val layoutName = safeOfNull {
-                        context.resources.getResourceEntryName(res.layoutId)
-                    } ?: return@after
-                    val replaceLayoutId = getReplaceLayout(context, layoutName, redMode)
-                        ?: return@after
-                    result = RemoteViews(context.packageName, replaceLayoutId)
+        fun hookBaseClock(clazz: String) {
+            clazz.toClass().resolve().apply {
+                method {
+                    emptyParameters()
+                    returnType = RemoteViews::class
+                }.hookAll {
+                    after {
+                        val context = (field { type = Context::class }.firstOrNull()
+                            ?: field { type = Context::class;superclass() }.firstOrNull())
+                            ?.of(instance)?.get<Context>() ?: return@after
+                        context.injectModuleAppResources()
+                        val res = result<RemoteViews>() ?: return@after
+                        val layoutName = safeOfNull {
+                            context.resources.getResourceEntryName(res.layoutId)
+                        } ?: return@after
+                        val replaceLayoutId = getReplaceLayout(context, layoutName, redMode)
+                            ?: return@after
+                        result = RemoteViews(context.packageName, replaceLayoutId)
+                    }
                 }
             }
         }
@@ -176,12 +172,14 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
         val onePlusWidget = OnePlusWidget.toClassOrNull() ?: return
         when {
-            onePlusWidget.hasMethod {
-                param(StringClass, StringClass);returnType = CharSequenceClass
-            } -> loadHooker(AlarmClock12)
+            onePlusWidget.resolve().method {
+                parameters(String::class, String::class)
+                returnType = CharSequence::class
+            }.isNotEmpty() -> loadHooker(AlarmClock12)
 
-            onePlusWidget.hasMethod { returnType(RemoteViewsClass) } ->
-                loadHooker(AlarmClock130(dexKitBridge))
+            onePlusWidget.resolve().method {
+                returnType = RemoteViews::class
+            }.isNotEmpty() -> loadHooker(AlarmClock130(dexKitBridge))
 
             else -> {
                 val baseClockWidget = BaseClockWidget.toClassOrNull()
@@ -199,37 +197,48 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 matcher {
                     fields {
                         addForType(Class::class.java)
-                        addForType(ContextClass)
-                        addForType(BitmapClass)
-                        addForType(BooleanType)
-                        addForType(IntType)
+                        addForType(Context::class.java)
+                        addForType(Bitmap::class.java)
+                        addForType(Boolean::class.java)
+                        addForType(Int::class.java)
                     }
                     methods {
-                        add { paramCount(0);returnType(IntType) }
                         add {
-                            paramTypes(RemoteViewsClass, IntType, StringClass)
+                            paramCount(0)
+                            returnType(Int::class.java)
+                        }
+                        add {
+                            paramTypes(RemoteViews::class.java, Int::class.java, String::class.java)
                             usingStrings("setTimeZone")
                         }
                         add {
-                            paramTypes(RemoteViewsClass, BooleanType, BooleanType)
+                            paramTypes(
+                                RemoteViews::class.java,
+                                Boolean::class.java,
+                                Boolean::class.java
+                            )
 //                            usingStrings(
 //                                "com.oplus.widget.smallweather.WEATHER_CLICK",
 //                                "com.oplus.widget.smallweather.RESIDENT_CITY_CLICK"
 //                            )
                         }
                         add {
-                            paramTypes(RemoteViewsClass, IntType, CharSequenceClass)
+                            paramTypes(
+                                RemoteViews::class.java,
+                                Int::class.java,
+                                CharSequence::class.java
+                            )
                             usingStrings("setFormat24Hour", "setFormat12Hour")
                         }
                         add {
-                            paramTypes(RemoteViewsClass)
+                            paramTypes(RemoteViews::class.java)
                             usingStrings("com.oplus.widget.smallweather.REFRESH_CLICK")
                         }
                     }
                 }
             }.apply {
                 checkDataList("AlarmClock145")
-                single().name.toClass().hookBaseClock()
+                hookBaseClock(single().name)
             }
         }
     }
@@ -237,7 +246,7 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     private object BaseAlarmClock14 : YukiBaseHooker() {
         override fun onHook() {
             //Source BaseClockWidget
-            BaseClockWidget.toClass().hookBaseClock()
+            hookBaseClock(BaseClockWidget)
         }
     }
 
@@ -247,23 +256,31 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(BooleanType)
-                        addForType(HandlerClass)
+                        addForType(Boolean::class.java)
+                        addForType(Handler::class.java)
                     }
                     methods {
-                        add { returnType(BooleanType) }
-                        add { returnType(HandlerClass) }
-                        add { paramTypes(ContextClass) }
-                        add { paramTypes(ContextClass, StringClass) }
-                        add { paramTypes(ContextClass, StringClass, StringClass) }
+                        add { returnType(Boolean::class.java) }
+                        add { returnType(Handler::class.java) }
+                        add { paramTypes(Context::class.java) }
+                        add { paramTypes(Context::class.java, String::class.java) }
+                        add {
+                            paramTypes(
+                                Context::class.java,
+                                String::class.java,
+                                String::class.java
+                            )
+                        }
                     }
                 }
             }.apply {
                 checkDataList("AlarmClock13")
                 single().name.toClass().apply {
-                    method {
-                        param { it[0] == ContextClass && it[1] == StringClass }
-                        paramCount(2..3)
+                    resolve().method {
+                        parameters {
+                            it[0] == Context::class.java && it[1] == String::class.java
+                        }
+                        parameterCount { it in 2..3 }
                     }.hookAll {
                         after {
                             if (redMode == "0") return@after
@@ -283,9 +300,9 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source OnePlusWidget
             "com.coloros.widget.smallweather.OnePlusWidget".toClass().apply {
-                method {
-                    param(StringClass, StringClass)
-                    returnType = CharSequenceClass
+                resolve().firstMethod {
+                    parameters(String::class.java, String::class.java)
+                    returnType = CharSequence::class.java
                 }.hook {
                     after {
                         if (redMode == "0") return@after
