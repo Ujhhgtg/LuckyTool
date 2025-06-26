@@ -1,9 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.audioeffectcenter
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
@@ -13,33 +11,33 @@ object FixRecordCallsOnThirdPartyAppsError : YukiBaseHooker() {
     private const val SpatializerDefine = "com.oplus.audio.effectcenter.manager.SpatializerDefine"
     override fun onHook() {
         //Source com.oplus.audio.effectcenter.manager.SpatializerManager
-        "com.oplus.audio.effectcenter.manager.SpatializerManager".toClassOrNull()?.apply {
-            method { name = "setSpkVolParam" }.hook {
-                before {
-                    val level = args().first().int()
-                    val mSpatializerMode = field {
-                        name = "mSpatializerMode"
-                    }.get(instance).cast<AtomicBoolean>() ?: return@before
-                    val mSpatializerSpkVol = field {
-                        name = "mSpatializerSpkVol"
-                    }.get(instance).cast<AtomicInteger>() ?: return@before
-                    val mSpatDeviceManager = field {
-                        name = "mSpatDeviceManager"
-                    }.get(instance).any() ?: return@before
-                    val getDeviceForMusicStream = mSpatDeviceManager.current().method {
-                        name = "getDeviceForMusicStream"
-                    }.invoke<Int>() ?: return@before
-                    if (level == mSpatializerSpkVol.get()) return@before
-                    if (getDeviceForMusicStream != 2 && mSpatializerMode.get()) return@before
-                    val index = SpatializerDefine.toClass().field {
-                        name = "PARAM_SET_SPAT_VOLUME_INDEX"
-                    }.get().int()
-                    method { name = "setParameterImp";paramCount = 3 }.get(instance).call(
-                        index, level, mSpatializerSpkVol.get()
-                    )
-                    resultNull()
+        "com.oplus.audio.effectcenter.manager.SpatializerManager".toClassOrNull()?.resolve()
+            ?.apply {
+                firstMethod { name = "setSpkVolParam" }.hook {
+                    before {
+                        val level = args().first().int()
+                        val mSpatializerMode = firstField {
+                            name = "mSpatializerMode"
+                        }.of(instance).get<AtomicBoolean>() ?: return@before
+                        val mSpatializerSpkVol = firstField {
+                            name = "mSpatializerSpkVol"
+                        }.of(instance).get<AtomicInteger>() ?: return@before
+                        val mSpatDeviceManager = firstField {
+                            name = "mSpatDeviceManager"
+                        }.of(instance).get() ?: return@before
+                        val getDeviceForMusicStream = mSpatDeviceManager.resolve().firstMethod {
+                            name = "getDeviceForMusicStream"
+                        }.invoke<Int>() ?: return@before
+                        if (level == mSpatializerSpkVol.get()) return@before
+                        if (getDeviceForMusicStream != 2 && mSpatializerMode.get()) return@before
+                        val index = SpatializerDefine.toClass().resolve().firstField {
+                            name = "PARAM_SET_SPAT_VOLUME_INDEX"
+                        }.get<Int>()
+                        firstMethod { name = "setParameterImp";parameterCount = 3 }.of(instance)
+                            .invoke(index, level, mSpatializerSpkVol.get())
+                        resultNull()
+                    }
                 }
             }
-        }
     }
 }
