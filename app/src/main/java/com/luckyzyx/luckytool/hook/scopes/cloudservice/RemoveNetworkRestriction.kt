@@ -1,12 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.cloudservice
 
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -22,30 +20,30 @@ class RemoveNetworkRestriction(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                 methods {
                     add {
                         paramCount(0)
-                        returnType(IntType)
+                        returnType(Int::class.java)
                         usingStrings("connectivity")
                         usingNumbers(0, 1, 2)
                     }
                     add {
-                        paramTypes(IntType)
-                        returnType(BooleanType)
+                        paramTypes(Int::class.java)
+                        returnType(Boolean::class.java)
                     }
                     add {
-                        paramTypes(ContextClass)
-                        returnType(BooleanType)
+                        paramTypes(Context::class.java)
+                        returnType(Boolean::class.java)
                         usingStrings("NetworkUtil", "connectivity", "isMobileDataNetwork")
                     }
                     add {
-                        paramTypes(ContextClass)
-                        returnType(BooleanType)
+                        paramTypes(Context::class.java)
+                        returnType(Boolean::class.java)
                         usingStrings("NetworkUtil", "connectivity", "isNetworkConnected")
                     }
                 }
             }
         }.apply {
             checkDataList("RemoveNetworkRestriction")
-            single().name.toClass().apply {
-                method { emptyParam();returnType = IntType }.hookAll {
+            single().name.toClass().resolve().apply {
+                method { emptyParameters();returnType = Int::class }.hookAll {
                     after { if (result<Int>() == 1) result = 2 }
                 }
             }
