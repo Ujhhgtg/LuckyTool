@@ -55,7 +55,7 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
          * 新版时钟V14+替换RemoteViews
          * @receiver Class<*>
          */
-        fun hookBaseClock(clazz: String) {
+        fun hookBaseClock(clazz: Class<Any>) {
             clazz.toClass().resolve().apply {
                 method {
                     emptyParameters()
@@ -170,16 +170,16 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         redMode = prefs(ModulePrefs).getString("alarmclock_widget_redone_mode", "0")
         dataChannel.wait<String>("alarmclock_widget_redone_mode") { redMode = it }
 
-        val onePlusWidget = OnePlusWidget.toClassOrNull() ?: return
+        val onePlusWidget = OnePlusWidget.toClassOrNull()?.resolve() ?: return
         when {
-            onePlusWidget.resolve().method {
+            onePlusWidget.optional(true).firstMethodOrNull {
                 parameters(String::class, String::class)
                 returnType = CharSequence::class
-            }.isNotEmpty() -> loadHooker(AlarmClock12)
+            } != null -> loadHooker(AlarmClock12)
 
-            onePlusWidget.resolve().method {
+            onePlusWidget.optional(true).firstMethodOrNull {
                 returnType = RemoteViews::class
-            }.isNotEmpty() -> loadHooker(AlarmClock130(dexKitBridge))
+            } != null -> loadHooker(AlarmClock130(dexKitBridge))
 
             else -> {
                 val baseClockWidget = BaseClockWidget.toClassOrNull()
@@ -238,7 +238,7 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("AlarmClock145")
-                hookBaseClock(single().name)
+                hookBaseClock(single().name.toClass())
             }
         }
     }
@@ -246,7 +246,7 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     private object BaseAlarmClock14 : YukiBaseHooker() {
         override fun onHook() {
             //Source BaseClockWidget
-            hookBaseClock(BaseClockWidget)
+            hookBaseClock(BaseClockWidget.toClass())
         }
     }
 
