@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.calendar
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -9,8 +9,8 @@ object RemoveHolidayPageInformationFlow : YukiBaseHooker() {
     override fun onHook() {
         //Source SpecialHolidayWebViewDetailViewModel > V13.9.16
         "com.coloros.calendar.app.specialholiday.SpecialHolidayWebViewDetailViewModel".toClassOrNull()
-            ?.apply {
-                method { name = "buildHolidayH5UrlInner" }.hook {
+            ?.resolve()?.apply {
+                firstMethod { name = "buildHolidayH5UrlInner" }.hook {
                     after {
                         val res = result<String>() ?: return@after
                         result = formatCalendarUrl(res)
