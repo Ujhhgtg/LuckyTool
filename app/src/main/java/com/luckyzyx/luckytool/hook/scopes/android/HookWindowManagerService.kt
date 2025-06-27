@@ -89,7 +89,7 @@ object HookWindowManagerService : YukiBaseHooker() {
 
         //Source OplusResolutionSwitchImpl
         "com.android.server.wm.OplusResolutionSwitchImpl".toClass().resolve().apply {
-            method { name = "resetDensityIfNeed" }.firstOrNull()?.hook {
+            firstMethodOrNull { name = "resetDensityIfNeed" }?.hook {
                 before {
                     if (isDpi) resultNull()
                 }
@@ -99,10 +99,10 @@ object HookWindowManagerService : YukiBaseHooker() {
                         if (isDpi) args().first().setFalse()
                     }
                 }
-                method {
+                firstMethodOrNull {
                     name = "onFakeResolutionSettingsChange"
                     parameterCount = 1
-                }.firstOrNull()?.hook {
+                }?.hook {
                     before {
                         if (isDpi) args().first().setFalse()
                     }

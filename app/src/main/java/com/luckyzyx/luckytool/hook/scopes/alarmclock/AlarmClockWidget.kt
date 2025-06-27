@@ -278,7 +278,7 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 single().name.toClass().apply {
                     resolve().method {
                         parameters {
-                            it[0] == Context::class.java && it[1] == String::class.java
+                            it[0] == Context::class && it[1] == String::class
                         }
                         parameterCount { it in 2..3 }
                     }.hookAll {
@@ -299,10 +299,10 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     private object AlarmClock12 : YukiBaseHooker() {
         override fun onHook() {
             //Source OnePlusWidget
-            "com.coloros.widget.smallweather.OnePlusWidget".toClass().apply {
-                resolve().firstMethod {
-                    parameters(String::class.java, String::class.java)
-                    returnType = CharSequence::class.java
+            "com.coloros.widget.smallweather.OnePlusWidget".toClass().resolve().apply {
+                firstMethod {
+                    parameters(String::class, String::class)
+                    returnType = CharSequence::class
                 }.hook {
                     after {
                         if (redMode == "0") return@after
@@ -316,5 +316,4 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }
     }
-
 }
