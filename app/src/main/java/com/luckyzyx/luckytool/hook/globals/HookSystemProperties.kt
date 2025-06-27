@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.android
+package com.luckyzyx.luckytool.hook.globals
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker

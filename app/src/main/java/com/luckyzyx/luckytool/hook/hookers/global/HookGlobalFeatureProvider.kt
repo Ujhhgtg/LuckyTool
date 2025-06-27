@@ -2,7 +2,7 @@ package com.luckyzyx.luckytool.hook.hookers.global
 
 import android.util.ArrayMap
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.android.HookAppFeatureProvider
+import com.luckyzyx.luckytool.hook.globals.HookAppFeatureProvider
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate

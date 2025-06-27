@@ -1,4 +1,4 @@
-package com.luckyzyx.luckytool.hook.scopes.android
+package com.luckyzyx.luckytool.hook.globals
 
 import android.content.ContentResolver
 import android.database.Cursor
