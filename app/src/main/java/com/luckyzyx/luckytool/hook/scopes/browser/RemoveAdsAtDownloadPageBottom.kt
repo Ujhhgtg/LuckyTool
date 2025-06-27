@@ -1,13 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.browser
 
 import android.view.View
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.LinearLayoutClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
@@ -24,35 +22,35 @@ class RemoveAdsAtDownloadPageBottom(val dexKitBridge: DexKitBridge) : YukiBaseHo
         dexKitBridge.findMethod {
             matcher {
                 paramCount(0)
-                returnType(UnitType)
+                returnType(Void.TYPE)
                 usingNumbers(0, 8, 500L)
                 usingFields {
                     add {
                         type(recommendConfig)
                         addWriteMethod {
                             paramTypes(recommendConfig)
-                            returnType(UnitType)
+                            returnType(Void.TYPE)
                         }
                     }
                     add {
-                        type(LinearLayoutClass)
+                        type(LinearLayout::class.java)
                         addWriteMethod {
                             paramCount(0)
-                            returnType(UnitType)
+                            returnType(Void.TYPE)
                         }
                     }
                 }
             }
         }.apply {
             checkDataList("RemoveAdsAtDownloadPageBottom")
-            single().className.toClass().apply {
-                method {
+            single().className.toClass().resolve().apply {
+                firstMethod {
                     name = single().methodName
-                    emptyParam()
-                    returnType(UnitType)
+                    emptyParameters()
+                    returnType(Void.TYPE)
                 }.hook {
                     before {
-                        field { type(LinearLayoutClass) }.get(instance).cast<View>()
+                        firstField { type(LinearLayout::class) }.of(instance).get<View>()
                             ?.isVisible = false
                         resultNull()
                     }

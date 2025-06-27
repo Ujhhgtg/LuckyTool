@@ -51,8 +51,8 @@ class HookAppFeatureProvider(
                     it.className.toClass().resolve().apply {
                         firstMethod {
                             name = single().methodName
-                            parameters(ContentResolver::class.java, String::class.java)
-                            returnType = Boolean::class.java
+                            parameters(ContentResolver::class, String::class)
+                            returnType = Boolean::class
                         }.hook {
                             before {
                                 val key = args().last().cast<String>()
@@ -76,8 +76,8 @@ class HookAppFeatureProvider(
                     it.className.toClass().resolve().apply {
                         firstMethod {
                             name = single().methodName
-                            parameters(ContentResolver::class.java, VagueType, String::class.java)
-                            returnType = Boolean::class.java
+                            parameters(ContentResolver::class, VagueType, String::class)
+                            returnType = Boolean::class
                         }.hook {
                             before {
                                 val key = args().last().cast<String>()
@@ -106,11 +106,11 @@ class HookAppFeatureProvider(
                         firstMethod {
                             name = single().methodName
                             parameters(
-                                ContentResolver::class.java,
-                                String::class.java,
-                                Boolean::class.java
+                                ContentResolver::class,
+                                String::class,
+                                Boolean::class
                             )
-                            returnType = Boolean::class.java
+                            returnType = Boolean::class
                         }.hook {
                             before {
                                 val key = args(1).cast<String>()
@@ -136,11 +136,11 @@ class HookAppFeatureProvider(
                         firstMethod {
                             name = single().methodName
                             parameters(
-                                ContentResolver::class.java,
-                                String::class.java,
-                                String::class.java
+                                ContentResolver::class,
+                                String::class,
+                                String::class
                             )
-                            returnType = String::class.java
+                            returnType = String::class
                         }.hook {
                             before {
                                 val key = args(1).cast<String>()

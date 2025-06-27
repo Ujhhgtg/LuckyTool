@@ -1,15 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.browser
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -21,8 +15,8 @@ class RemoveBrowserSearchBarAppPromotion(val dexKitBridge: DexKitBridge) : YukiB
         //Source MultiSugItemData
         val app = dexKitBridge.findClass {
             matcher {
-                addFieldForType(StringClass)
-                addMethod { paramCount(0);returnType(StringClass) }
+                addFieldForType(String::class.java)
+                addMethod { paramCount(0);returnType(String::class.java) }
                 usingStrings("res", "initialState", "sugNaturalApp")
             }
         }.checkDataList("RemoveBrowserSearchBarAppPromotion App")
@@ -30,12 +24,12 @@ class RemoveBrowserSearchBarAppPromotion(val dexKitBridge: DexKitBridge) : YukiB
         //Source MultiSugItemData
         val ads = dexKitBridge.findClass {
             matcher {
-                addFieldForType(IntType)
-                addFieldForType(StringClass)
+                addFieldForType(Int::class.java)
+                addFieldForType(String::class.java)
                 addMethod { name("getTitle") }
                 addMethod { name("getCategoryType") }
-                addMethod { paramCount(0);returnType(IntType) }
-                addMethod { paramCount(0);returnType(StringClass) }
+                addMethod { paramCount(0);returnType(Int::class.java) }
+                addMethod { paramCount(0);returnType(String::class.java) }
                 usingStrings("res", "ad", "sugAd")
             }
         }.checkDataList("RemoveBrowserSearchBarAppPromotion Ads")
@@ -44,17 +38,24 @@ class RemoveBrowserSearchBarAppPromotion(val dexKitBridge: DexKitBridge) : YukiB
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ListClass)
-                    addForType(ArrayListClass)
-                    addForType(MapClass)
-                    addForType(IntType)
+                    addForType(List::class.java)
+                    addForType(ArrayList::class.java)
+                    addForType(Map::class.java)
+                    addForType(Int::class.java)
                     addForType(appHostCls)
                 }
                 methods {
-                    add { paramCount(0);returnType(ListClass) }
-                    add { paramTypes(IntType, IntType, IntType, IntType) }
-                    add { paramTypes(ListClass);returnType(UnitType) }
-                    add { paramTypes(appHostCls);returnType(UnitType) }
+                    add { paramCount(0);returnType(List::class.java) }
+                    add {
+                        paramTypes(
+                            Int::class.java,
+                            Int::class.java,
+                            Int::class.java,
+                            Int::class.java
+                        )
+                    }
+                    add { paramTypes(List::class.java);returnType(Void.TYPE) }
+                    add { paramTypes(appHostCls);returnType(Void.TYPE) }
                     add { name("getItemCount") }
                     add { name("getItemViewType") }
                     add { name("onAttachedToRecyclerView") }
@@ -67,21 +68,21 @@ class RemoveBrowserSearchBarAppPromotion(val dexKitBridge: DexKitBridge) : YukiB
             checkDataList("RemoveBrowserSearchBarAppPromotion Adapter")
             findMethod {
                 matcher {
-                    paramTypes(ListClass)
-                    returnType(UnitType)
+                    paramTypes(List::class.java)
+                    returnType(Void.TYPE)
                     usingStrings("linkEdit")
                     addCaller {
-                        paramTypes(ListClass)
-                        returnType(UnitType)
+                        paramTypes(List::class.java)
+                        returnType(Void.TYPE)
                         usingStrings("headerData", "linkEdit")
                     }
                 }
             }.apply {
                 checkDataList("RemoveBrowserSearchBarAppPromotion Method")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = single().methodName
-                        param(ListClass)
+                        parameters(List::class)
                     }.hook {
                         before {
                             val list = args().first().cast<ArrayList<Any>>() ?: return@before

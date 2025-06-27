@@ -95,11 +95,11 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }.apply {
             checkDataList("HookVoipRecorder RecordingFilePrefix")
             single().name.toClass().resolve().apply {
-                method { emptyParameters();returnType = String::class.java }.hookAll {
+                method { emptyParameters();returnType = String::class }.hookAll {
                     after {
                         val fileName = result<String>() ?: return@after
                         val packName = oplusVoipRecorderService.toClass().resolve().firstField {
-                            type = String::class.java
+                            type = String::class
                         }.get<String>() ?: ""
                         val appName = apps.find { it.packName == packName }?.appName ?: return@after
                         result = fileName.replace(filePrefix, appName)
@@ -164,7 +164,10 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             checkDataList("HookVoipRecorder Util")
 
             single().name.toClass().resolve().apply {
-                firstMethod { parameters(List::class.java);returnType = List::class.java }.hook {
+                firstMethod {
+                    parameters(List::class)
+                    returnType = List::class
+                }.hook {
                     before {
                         val list = ArrayList<Any>()
                         var prefsValue = ""
@@ -183,10 +186,10 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             val existApp = enabledApp.contains(it.packName)
 
                             val switchApp = switchAppClazz.toClass().resolve().firstConstructor {
-                                parameters(String::class.java, Boolean::class.java)
+                                parameters(String::class, Boolean::class)
                             }.create(it.packName, existApp).apply {
                                 resolve().firstField {
-                                    name = appNameField;type = String::class.java
+                                    name = appNameField;type = String::class
                                 }.set(it.appName)
                                 val wxIcon = safeOfNull {
                                     context.resources.getIdentifier(
@@ -199,7 +202,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 //                                    val isInstalled = PackageUtils(context.packageManager)
 //                                        .getPackageInfo(it.packName, 0) != null
                                 resolve().firstField {
-                                    name = appStatusField;type = Boolean::class.java
+                                    name = appStatusField;type = Boolean::class
                                 }.set(true)
                             }
 

@@ -1,13 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.browser
 
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -17,11 +14,11 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
         dexKitBridge.findMethod {
             matcher {
                 declaredClass {
-                    addFieldForType(ContextClass)
-                    addFieldForType(StringClass)
+                    addFieldForType(Context::class.java)
+                    addFieldForType(String::class.java)
                     addMethod {
-                        paramTypes(ContextClass, IntType)
-                        returnType(UnitType)
+                        paramTypes(Context::class.java, Int::class.java)
+                        returnType(Void.TYPE)
                     }
                     usingStrings("DownloadCardAdProvider")
                 }
@@ -29,8 +26,8 @@ class RemoveAdsFromDownloadDialog(val dexKitBridge: DexKitBridge) : YukiBaseHook
             }
         }.apply {
             checkDataList("RemoveAdsFromDownloadDialog")
-            single().className.toClass().apply {
-                method {
+            single().className.toClass().resolve().apply {
+                firstMethod {
                     name = single().methodName
                 }.hook {
                     intercept()
