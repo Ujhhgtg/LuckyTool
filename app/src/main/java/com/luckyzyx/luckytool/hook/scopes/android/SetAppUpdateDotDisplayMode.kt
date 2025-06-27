@@ -32,7 +32,7 @@ object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
 
                     val installerPackageName = installSource as? String
                         ?: installSource?.resolve()?.firstField { name = "mInstallerPackageName" }
-                            ?.get<String>()
+                            ?.get<String>() ?: ""
 
                     if (isUpdate || marketList.contains(installerPackageName)) {
                         if (mode == "1") {
