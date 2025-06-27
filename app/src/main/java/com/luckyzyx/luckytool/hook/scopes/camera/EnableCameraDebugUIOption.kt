@@ -1,16 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
 import android.app.Activity
+import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.LongArrayType
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.util.concurrent.ExecutorService
 
@@ -24,20 +21,20 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     addFieldForType(ExecutorService::class.java)
                     addMethod {
                         paramCount(0)
-                        returnType(BooleanType)
+                        returnType(Boolean::class.java)
                     }
                 }
                 paramCount(0)
-                returnType(BooleanType)
+                returnType(Boolean::class.java)
                 usingStrings("iq_config_set", "hal_config_set")
             }
         }.apply {
             checkDataList("EnableCameraDebugUIOption ConfigSet")
-            single().className.toClass().apply {
-                method {
+            single().className.toClass().resolve().apply {
+                firstMethod {
                     name = single().methodName
-                    emptyParam()
-                    returnType = BooleanType
+                    emptyParameters()
+                    returnType = Boolean::class
                 }.hook {
                     replaceToTrue()
                 }
@@ -48,29 +45,30 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         dexKitBridge.findMethod {
             matcher {
                 declaredClass {
-                    addFieldForType(ContextClass)
-                    addFieldForType(LongArrayType)
+                    addFieldForType(Context::class.java)
+                    addFieldForType(LongArray::class.java)
+                    LongArray::class
                     addMethod {
-                        paramTypes(LongType)
-                        returnType(BooleanType)
+                        paramTypes(Long::class.java)
+                        returnType(Boolean::class.java)
                     }
                     addMethod {
-                        paramTypes(StringClass)
-                        returnType(BooleanType)
+                        paramTypes(String::class.java)
+                        returnType(Boolean::class.java)
                     }
                 }
-                paramTypes(LongType)
-                returnType(BooleanType)
+                paramTypes(Long::class.java)
+                returnType(Boolean::class.java)
                 usingNumbers(3600000)
                 usingStrings("NetworkAuthenticationUtils")
             }
         }.apply {
             checkDataList("EnableCameraDebugUIOption NetworkAuthentication")
-            single().className.toClass().apply {
-                method {
+            single().className.toClass().resolve().apply {
+                firstMethod {
                     name = single().methodName
-                    param(LongType)
-                    returnType = BooleanType
+                    parameters(Long::class)
+                    returnType = Boolean::class
                 }.hook {
                     replaceToFalse()
                 }
@@ -78,12 +76,12 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         }
 
         //Source CameraDebugActivity
-        "com.oplus.camera.setting.CameraDebugActivity".toClass().apply {
-            method { name = "onCreate" }.hook {
+        "com.oplus.camera.setting.CameraDebugActivity".toClass().resolve().apply {
+            firstMethod { name = "onCreate" }.hook {
                 before {
                     val activity = instance<Activity>()
                     val sp = PreferenceManager.getDefaultSharedPreferences(activity)
-                    sp.edit().putBoolean("key_has_checked_auth_connection", true).commit()
+                    sp.edit(commit = true) { putBoolean("key_has_checked_auth_connection", true) }
                 }
             }
         }

@@ -2,11 +2,11 @@ package com.luckyzyx.luckytool.hook.scopes.camera
 
 import android.util.ArrayMap
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookCameraConfig : YukiBaseHooker() {
@@ -159,17 +159,19 @@ object HookCameraConfig : YukiBaseHooker() {
     private class HookCameraVendorTag(val tags: Map<String, Any>) : YukiBaseHooker() {
         override fun onHook() {
             //Source CameraAdapterUtils
-            "com.oplus.ocs.camera.appinterface.adapter.CameraAdapterUtils".toClassOrNull()?.apply {
-                method { name = "getVendorTagConfig";paramCount = 1 }.hook {
-                    hookVendorTag(tags)
+            "com.oplus.ocs.camera.appinterface.adapter.CameraAdapterUtils".toClassOrNull()
+                ?.resolve()?.apply {
+                    firstMethod { name = "getVendorTagConfig";parameterCount = 1 }.hook {
+                        hookVendorTag(tags)
+                    }
                 }
-            }
             //Source ApsUtils
-            "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils".toClassOrNull()?.apply {
-                method { name = "getVendorTagConfig";paramCount = 1 }.hook {
-                    hookVendorTag(tags)
+            "com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils".toClassOrNull()?.resolve()
+                ?.apply {
+                    firstMethod { name = "getVendorTagConfig";parameterCount = 1 }.hook {
+                        hookVendorTag(tags)
+                    }
                 }
-            }
         }
 
         companion object {

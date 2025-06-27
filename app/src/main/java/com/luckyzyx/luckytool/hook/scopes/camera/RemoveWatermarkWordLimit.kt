@@ -1,15 +1,12 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
 import android.text.Spanned
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -21,14 +18,14 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
             matcher {
                 name("filter")
                 paramTypes(
-                    CharSequenceClass, IntType, IntType,
-                    Spanned::class.java, IntType, IntType
+                    CharSequence::class.java, Int::class.java, Int::class.java,
+                    Spanned::class.java, Int::class.java, Int::class.java
                 )
-                returnType(CharSequenceClass)
+                returnType(CharSequence::class.java)
                 usingStrings("")
                 addInvoke {
                     paramCount(2..3)
-                    returnType(UnitType)
+                    returnType(Void.TYPE)
                 }
             }
         }.apply {
@@ -36,14 +33,14 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
             checkDataList("RemoveWatermarkWordLimit", onlyOne)
             if (onlyOne.not() && size == 2) {
                 forEach {
-                    it.className.toClass().apply {
-                        method {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
                             name = "filter"
-                            param(
-                                CharSequenceClass, IntType, IntType,
-                                Spanned::class.java, IntType, IntType
+                            parameters(
+                                CharSequence::class, Int::class, Int::class,
+                                Spanned::class, Int::class, Int::class
                             )
-                            returnType = CharSequenceClass
+                            returnType = CharSequence::class
                         }.hook {
                             before {
                                 result = args().first().cast<CharSequence>() ?: return@before
@@ -51,17 +48,19 @@ class RemoveWatermarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
                         }
                     }
                 }
-            } else single().className.toClass().apply {
-                method {
-                    name = "filter"
-                    param(
-                        CharSequenceClass, IntType, IntType,
-                        Spanned::class.java, IntType, IntType
-                    )
-                    returnType = CharSequenceClass
-                }.hook {
-                    before {
-                        result = args().first().cast<CharSequence>() ?: return@before
+            } else {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
+                        name = "filter"
+                        parameters(
+                            CharSequence::class, Int::class, Int::class,
+                            Spanned::class, Int::class, Int::class
+                        )
+                        returnType = CharSequence::class
+                    }.hook {
+                        before {
+                            result = args().first().cast<CharSequence>() ?: return@before
+                        }
                     }
                 }
             }

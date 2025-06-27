@@ -1,16 +1,12 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
-import com.highcapable.yukihookapi.hook.type.java.FloatType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -22,7 +18,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //Source BaseWatermarkPresenter / BaseWatermarkCreator
         dexKitBridge.findMethod {
             matcher {
-                paramTypes(ContextClass, FloatType, null, null)
+                paramTypes(Context::class.java, Float::class.java, null, null)
                 usingStrings(
                     "key_watermark_part_a_line", "key_watermark_part_b_line"
                 )
@@ -30,23 +26,23 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("CustomModelWaterMark Shot")
-            single().className.toClass().apply {
-                method {
+            single().className.toClass().resolve().apply {
+                firstMethod {
                     name(single().methodName)
-                    param(ContextClass, FloatType, VagueType, VagueType)
+                    parameters(Context::class, Float::class, VagueType, VagueType)
                     returnType(single().returnTypeName)
                 }.hook {
                     after {
                         val hashMap = result<HashMap<String, Any>>() ?: return@after
                         hashMap["key_watermark_part_a_line"]?.apply {
-                            javaClass.field { type = ArrayListClass }.get(this)
-                                .cast<ArrayList<String>>()?.apply {
+                            firstField { type = ArrayList::class }.of(this)
+                                .get<ArrayList<String>>()?.apply {
                                     replaceAll { if (it.contains("Shot on OnePlus")) waterMark else it }
                                 }
                         }
                         hashMap["key_watermark_part_b_line"]?.apply {
-                            javaClass.field { type = ArrayListClass }.get(this)
-                                .cast<ArrayList<String>>()?.apply {
+                            firstField { type = ArrayList::class }.of(this)
+                                .get<ArrayList<String>>()?.apply {
                                     replaceAll { if (it.contains("Shot on OnePlus")) waterMark else it }
                                 }
                         }
@@ -59,7 +55,7 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findMethod {
             matcher {
                 paramCount(0)
-                returnType(StringClass)
+                returnType(String::class.java)
                 usingStrings(
                     "", "ro.vendor.oplus.market.enname", "ro.vendor.oplus.market.name"
                 )
@@ -67,11 +63,11 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }.apply {
             checkDataList("CustomModelWaterMark MarketName", false)
             forEach {
-                it.className.toClass().apply {
-                    method {
+                it.className.toClass().resolve().apply {
+                    firstMethod {
                         name = it.methodName
-                        emptyParam()
-                        returnType = StringClass
+                        emptyParameters()
+                        returnType = String::class
                     }.hook {
                         replaceTo(waterMark)
                     }
@@ -82,15 +78,15 @@ class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //Source WatermarkHelper / WatermarkSingleton
         dexKitBridge.findMethod {
             matcher {
-                returnType(StringClass)
+                returnType(String::class.java)
                 usingStrings("[\u4e00-\u9fa5]", "")
             }
         }.apply {
             checkDataList("CustomModelWaterMark RemoveChineseOfString")
-            single().className.toClass().apply {
+            single().className.toClass().resolve().apply {
                 method {
                     name = single().methodName
-                    returnType = StringClass
+                    returnType = String::class
                 }.hookAll {
                     replaceTo(waterMark)
                 }

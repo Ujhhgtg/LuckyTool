@@ -1,11 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -26,17 +24,17 @@ class RemoveCameraFlashLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                 checkDataList("RemoveCameraFlashLimit Clazz")
                 findMethod {
                     matcher {
-                        paramTypes(IntType)
-                        returnType(UnitType)
+                        paramTypes(Int::class.java)
+                        returnType(Void.TYPE)
                         usingNumbers(15, 5, 2)
                     }
                 }.apply {
                     checkDataList("RemoveCameraFlashLimit Method")
-                    single().className.toClass().apply {
-                        method {
+                    single().className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(IntType)
-                            returnType = UnitType
+                            parameters(Int::class)
+                            returnType = Void.TYPE
                         }.hook {
                             before {
                                 args().first().set(100)

@@ -1,13 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.camera
 
 import android.net.Uri
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -20,8 +18,8 @@ class CustomCameraOpenGalleryByDefault(val dexKitBridge: DexKitBridge) : YukiBas
         dexKitBridge.findClass {
             matcher {
                 addFieldForType(Uri::class.java)
-                addFieldForType(BooleanType)
-                addMethod { paramCount(0);returnType(StringClass) }
+                addFieldForType(Boolean::class.java)
+                addMethod { paramCount(0);returnType(String::class.java) }
                 usingStrings("content://com.color.provider.removableapp", "removableapp")
             }
         }.apply {
@@ -29,16 +27,16 @@ class CustomCameraOpenGalleryByDefault(val dexKitBridge: DexKitBridge) : YukiBas
             findMethod {
                 matcher {
                     paramCount(0)
-                    returnType(StringClass)
+                    returnType(String::class.java)
                     usingStrings("com.oplus.gallery.base")
                 }
             }.apply {
                 checkDataList("CustomCameraOpenGalleryByDefault Method")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = single().methodName
-                        emptyParam()
-                        returnType = StringClass
+                        emptyParameters()
+                        returnType = String::class
                     }.hook {
                         before {
                             if (gallery.isNotBlank()) result = gallery
