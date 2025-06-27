@@ -1,14 +1,12 @@
 package com.luckyzyx.luckytool.hook.scopes.battery
 
+import android.content.ContentResolver
+import android.content.Context
 import android.database.ContentObserver
+import android.os.Handler
+import android.os.Looper
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContentResolverClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.HandlerClass
-import com.highcapable.yukihookapi.hook.type.android.LooperClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
@@ -19,15 +17,15 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
         //Source ThermalControlHandler / ThermalControllHandler
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(ContextClass)
-                addFieldForType(LooperClass)
+                addFieldForType(Context::class.java)
+                addFieldForType(Looper::class.java)
                 addMethod { name("handleMessage") }
                 usingStrings("ThermalControllHandler")
             }
         }.apply {
             checkDataList("RemoveBatteryTemperatureControl find ThermalControlHandler")
-            single().name.toClass().apply {
-                method { name = "handleMessage" }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod { name = "handleMessage" }.hook {
                     intercept()
                 }
             }
@@ -41,8 +39,8 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
         }.apply {
             checkDataList("RemoveBatteryTemperatureControl find ThermalControllerCenter")
 
-            single().name.toClass().apply {
-                method { param(LooperClass) }.hookAll {
+            single().name.toClass().resolve().apply {
+                method { parameters(Looper::class) }.hookAll {
                     intercept()
                 }
             }
@@ -61,23 +59,23 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
             findMethod {
                 matcher {
                     paramCount(0)
-                    returnType(UnitType)
+                    returnType(Void.TYPE)
                     usingFields {
-                        add { type(BooleanType) }
-                        add { type(HandlerClass) }
-                        add { type(ContentResolverClass) }
+                        add { type(Boolean::class.java) }
+                        add { type(Handler::class.java) }
+                        add { type(ContentResolver::class.java) }
                         add { type(ContentObserver::class.java) }
                     }
                     addInvoke {
                         paramCount(0)
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }
                 }
             }.apply {
                 checkDataList("RemoveBatteryTemperatureControl find startMonitor")
 
-                single().className.toClass().apply {
-                    method { name = single().name;emptyParam() }.hook {
+                single().className.toClass().resolve().apply {
+                    firstMethod { name = single().name;emptyParameters() }.hook {
                         intercept()
                     }
                 }
@@ -85,8 +83,8 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
         }
 
         //Source ThermalControlUtils
-        "com.oplus.thermalcontrol.ThermalControlUtils".toClass().apply {
-            method { param(LooperClass) }.hook {
+        "com.oplus.thermalcontrol.ThermalControlUtils".toClass().resolve().apply {
+            firstMethod { parameters(Looper::class) }.hook {
                 intercept()
             }
         }

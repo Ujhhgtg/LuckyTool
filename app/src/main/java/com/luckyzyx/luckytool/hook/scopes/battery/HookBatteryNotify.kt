@@ -1,16 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.battery
 
 import android.app.NotificationManager
+import android.content.Context
+import android.os.Handler
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.HandlerClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -30,13 +27,13 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass)
-                    addForType(HandlerClass)
+                    addForType(Context::class.java)
+                    addForType(Handler::class.java)
                     addForType(NotificationManager::class.java)
                 }
                 addMethod {
-                    paramTypes(StringClass, BooleanType)
-                    returnType(UnitType)
+                    paramTypes(String::class.java, Boolean::class.java)
+                    returnType(Void.TYPE)
                 }
                 usingStrings("NotifyUtil")
             }
@@ -47,22 +44,25 @@ class HookBatteryNotify(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 findMethod {
                     matcher {
                         paramCount(0)
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                         usingStrings("high_performance_channel_id", "ACTION_HIGH_PERFORMANCE")
                         usingNumbers(5)
                     }
                 }.apply {
                     checkDataList("HookBatteryNotify HighPerformance")
-                    single().className.toClass().apply {
-                        method { name = single().methodName;emptyParam() }.hook {
+                    single().className.toClass().resolve().apply {
+                        firstMethod { name = single().methodName;emptyParameters() }.hook {
                             intercept()
                         }
                     }
                 }
             }
 
-            if (highBatteryConsumption) single().name.toClass().apply {
-                method { param(StringClass, BooleanType);returnType = UnitType }.hookAll {
+            if (highBatteryConsumption) single().name.toClass().resolve().apply {
+                method {
+                    parameters(String::class, Boolean::class)
+                    returnType = Void.TYPE
+                }.hookAll {
                     intercept()
                 }
             }

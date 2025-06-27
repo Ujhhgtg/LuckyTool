@@ -5,12 +5,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.TextViewClass
-import com.highcapable.yukihookapi.hook.type.android.ViewClass
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.DeviceUtils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -28,8 +25,8 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
             prefs(ModulePrefs).getBoolean("display_module_calculates_battery_health_data", false)
 
         //Source BatteryHealthDataPreference
-        "com.oplus.powermanager.fuelgaue.BatteryHealthDataPreference".toClass().apply {
-            method { param(ViewClass) }.hook {
+        "com.oplus.powermanager.fuelgaue.BatteryHealthDataPreference".toClass().resolve().apply {
+            firstMethod { parameters(View::class) }.hook {
                 after {
                     val view = args().first().cast<View>() ?: return@after
                     val context = view.context
@@ -40,7 +37,7 @@ object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
                             "id", this@DisplayModuleCalculatesBatteryHealthData.packageName
                         )
                     ) ?: return@after
-                    val dataView = field { type = TextViewClass }.get(instance).cast<TextView>()
+                    val dataView = firstField { type = TextView::class }.of(instance).get<TextView>()
                         ?: return@after
                     if (customCalcData.filterNumber.isNotEmpty()) {
                         dataView.text = "${customCalcData.filterNumber}%"

@@ -30,12 +30,12 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
         private val BaseClockWidget = "com.coloros.widget.smallweather.BaseClockWidget"
         private val OnePlusWidget = "com.coloros.widget.smallweather.OnePlusWidget"
-        val OppoWeather = "com.coloros.widget.smallweather.OppoWeather"
-        val OppoWeatherSingle = "com.coloros.widget.smallweather.OppoWeatherSingle"
-        val OppoWeatherVertical = "com.coloros.widget.smallweather.OppoWeatherVertical"
-        val OppoWeatherMultiVertical = "com.coloros.widget.smallweather.OppoWeatherMultiVertical"
-        val RealmeWeather = "com.coloros.widget.smallweather.RealmeWeather"
-        val OxygenWeatherSingle = "com.coloros.widget.smallweather.OxygenWeatherSingle"
+//        val OppoWeather = "com.coloros.widget.smallweather.OppoWeather"
+//        val OppoWeatherSingle = "com.coloros.widget.smallweather.OppoWeatherSingle"
+//        val OppoWeatherVertical = "com.coloros.widget.smallweather.OppoWeatherVertical"
+//        val OppoWeatherMultiVertical = "com.coloros.widget.smallweather.OppoWeatherMultiVertical"
+//        val RealmeWeather = "com.coloros.widget.smallweather.RealmeWeather"
+//        val OxygenWeatherSingle = "com.coloros.widget.smallweather.OxygenWeatherSingle"
 
         fun setCharRedOne(format: CharSequence): CharSequence {
             val sp = SpannableStringBuilder(format)

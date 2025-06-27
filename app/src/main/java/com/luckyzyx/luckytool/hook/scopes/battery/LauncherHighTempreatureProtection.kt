@@ -1,15 +1,14 @@
 package com.luckyzyx.luckytool.hook.scopes.battery
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Handler
+import android.os.PowerManager
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.type.android.BroadcastReceiverClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.HandlerClass
-import com.highcapable.yukihookapi.hook.type.android.PowerManagerClass
-import com.highcapable.yukihookapi.hook.type.android.SharedPreferencesClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -21,23 +20,23 @@ class LauncherHighTempreatureProtection(val dexKitBridge: DexKitBridge) : YukiBa
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(IntType)
-                    addForType(ContextClass)
-                    addForType(HandlerClass)
-                    addForType(PowerManagerClass)
-                    addForType(SharedPreferencesClass)
-                    addForType(BroadcastReceiverClass)
+                    addForType(Int::class.java)
+                    addForType(Context::class.java)
+                    addForType(Handler::class.java)
+                    addForType(PowerManager::class.java)
+                    addForType(SharedPreferences::class.java)
+                    addForType(BroadcastReceiver::class.java)
                 }
                 methods {
                     add { name("handleMessage") }
-                    add { paramTypes(ContextClass) }
-                    add { paramTypes(IntType, IntType) }
+                    add { paramTypes(Context::class.java) }
+                    add { paramTypes(Int::class.java, Int::class.java) }
                 }
             }
         }.apply {
             checkDataList("LauncherHighTempreatureProtection")
-            single().name.toClass().apply {
-                constructor { paramCount = 3 }.hook {
+            single().name.toClass().resolve().apply {
+                firstConstructor { parameterCount = 3 }.hook {
                     intercept()
                 }
             }

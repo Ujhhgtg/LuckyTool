@@ -1,14 +1,12 @@
 package com.luckyzyx.luckytool.hook.scopes.battery
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BundleClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -22,21 +20,25 @@ class UnlockStartupLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findMethod {
             matcher {
                 declaredClass {
-                    addFieldForType(ContextClass)
+                    addFieldForType(Context::class.java)
                     addFieldForType(recordDatabase)
                     usingStrings("StartupManager")
-                    addMethod { paramCount(0);returnType(IntType) }
-                    addMethod { paramTypes(IntentClass);returnType(UnitType) }
-                    addMethod { paramTypes(BundleClass);returnType(UnitType) }
+                    addMethod { paramCount(0);returnType(Int::class.java) }
+                    addMethod { paramTypes(Intent::class.java);returnType(Void.TYPE) }
+                    addMethod { paramTypes(Bundle::class.java);returnType(Void.TYPE) }
                 }
                 paramCount(0)
-                returnType(IntType)
+                returnType(Int::class.java)
                 usingNumbers(5, 20)
             }
         }.apply {
             checkDataList("UnlockStartupLimit")
-            single().className.toClass().apply {
-                method { name = single().methodName;emptyParam();returnType = IntType }.hook {
+            single().className.toClass().resolve().apply {
+                firstMethod {
+                    name = single().methodName
+                    emptyParameters()
+                    returnType = Int::class
+                }.hook {
                     replaceTo(999)
                 }
             }
