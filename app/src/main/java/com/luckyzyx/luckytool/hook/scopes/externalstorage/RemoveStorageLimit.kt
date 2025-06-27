@@ -1,19 +1,15 @@
 package com.luckyzyx.luckytool.hook.scopes.externalstorage
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveStorageLimit : YukiBaseHooker() {
     override fun onHook() {
         //Source ExternalStorageProvider
-        "com.android.externalstorage.ExternalStorageProvider".toClass().apply {
-            val isNew = hasMethod { name = "shouldBlockDirectoryFromTree" }
-            method {
-                name = if (isNew) "shouldBlockDirectoryFromTree" else "shouldBlockFromTree"
-            }.hook {
+        "com.android.externalstorage.ExternalStorageProvider".toClass().resolve().apply {
+            firstMethodOrNull { name = "shouldBlockDirectoryFromTree" }?.hook {
                 replaceToFalse()
             }
         }
