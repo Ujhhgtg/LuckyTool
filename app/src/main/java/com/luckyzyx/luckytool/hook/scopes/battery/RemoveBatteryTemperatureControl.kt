@@ -53,7 +53,7 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
             }
         }.apply {
             checkDataList(
-                "RemoveBatteryTemperatureControl find ThermalControlMonitor"
+                "RemoveBatteryTemperatureControl find ThermalControlMonitor", onlyOne = false
             )
 
             findMethod {
