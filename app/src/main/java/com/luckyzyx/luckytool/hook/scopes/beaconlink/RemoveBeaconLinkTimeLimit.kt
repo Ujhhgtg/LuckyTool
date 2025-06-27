@@ -1,15 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.beaconlink
 
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.HashMapClass
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -18,28 +13,28 @@ class RemoveBeaconLinkTimeLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         //Source IDs
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(StringClass)
-                addFieldForType(LongType)
+                addFieldForType(String::class.java)
+                addFieldForType(Long::class.java)
                 fieldCount(2)
                 addMethod {
-                    paramTypes(StringClass)
-                    returnType(BooleanType)
+                    paramTypes(String::class.java)
+                    returnType(Boolean::class.java)
                     addCaller {
-                        paramTypes(StringClass)
-                        returnType(BooleanType)
+                        paramTypes(String::class.java)
+                        returnType(Boolean::class.java)
                     }
                     addCaller {
-                        paramTypes(ContextClass, ListClass)
-                        returnType(HashMapClass)
+                        paramTypes(Context::class.java, List::class.java)
+                        returnType(HashMap::class.java)
                     }
                 }
             }
         }.apply {
             checkDataList("RemoveBeaconLinkTimeLimit Clazz")
-            single().name.toClass().apply {
-                method {
-                    param(StringClass)
-                    returnType = BooleanType
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(String::class)
+                    returnType = Boolean::class
                 }.hook {
                     replaceToTrue()
                 }
