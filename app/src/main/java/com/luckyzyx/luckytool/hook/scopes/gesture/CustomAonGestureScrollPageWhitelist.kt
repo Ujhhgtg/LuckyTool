@@ -1,19 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.gesture
 
+import android.content.Context
+import android.util.ArrayMap
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ArrayMapClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
-import com.highcapable.yukihookapi.hook.type.java.FloatType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -32,23 +26,26 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass)
-                    addForType(ArrayListClass)
-                    addForType(ArrayMapClass)
-                    addForType(IntType)
-                    addForType(FloatType)
-                    addForType(ListClass)
+                    addForType(Context::class.java)
+                    addForType(ArrayList::class.java)
+                    addForType(ArrayMap::class.java)
+                    addForType(Int::class.java)
+                    addForType(Float::class.java)
+                    addForType(List::class.java)
                 }
                 methods {
-                    add { paramTypes(StringClass);returnType(IntType) }
-                    add { paramTypes(ListClass);returnType(UnitType) }
+                    add { paramTypes(String::class.java);returnType(Int::class.java) }
+                    add { paramTypes(List::class.java);returnType(Void.TYPE) }
                 }
                 usingStrings("com.ss.android.ugc.aweme", "com.smile.gifmaker")
             }
         }.apply {
             checkDataList("CustomAonGestureScrollPageWhitelist")
-            single().name.toClass().apply {
-                method { emptyParam();returnType = ListClass }.hookAll {
+            single().name.toClass().resolve().apply {
+                method {
+                    emptyParameters()
+                    returnType = List::class
+                }.hookAll {
                     after {
                         val res = result<List<String>>() ?: return@after
                         if (res.isEmpty()) return@after
@@ -63,8 +60,8 @@ class CustomAonGestureScrollPageWhitelist(val dexKitBridge: DexKitBridge) : Yuki
         }
 
         //Source GestureUtil
-        "com.oplus.gesture.util.GestureUtil".toClass().apply {
-            method { name = "getLocalAonAppListTurnPage" }.hook {
+        "com.oplus.gesture.util.GestureUtil".toClass().resolve().apply {
+            firstMethod { name = "getLocalAonAppListTurnPage" }.hook {
                 after {
                     val list = result<List<String>>() ?: return@after
                     result = list.toMutableList().apply {
