@@ -18,7 +18,7 @@ object BatteryOptimizationWhitelist : YukiBaseHooker() {
         //Search sys_deviceidle_whitelist
         "com.android.server.OplusDeviceIdleHelper".toClass().resolve().apply {
             (firstMethodOrNull { name = "getNewWhiteList" }
-                ?: firstMethodOrNull { name = "getNewWhiteListLocked" })?.hook {
+                ?: firstMethod { name = "getNewWhiteListLocked" }).hook {
                 before {
                     val whiteListAll = args().first().cast<java.util.ArrayList<String>>()
                     whiteListAll?.clear()
@@ -29,7 +29,7 @@ object BatteryOptimizationWhitelist : YukiBaseHooker() {
                     if (!disableCustom) firstMethod { name = "getCustomizeWhiteList" }.of(instance)
                         .invoke(whiteListAll)
                     firstMethod { name = "addNfcJapanFelica" }.of(instance).invoke(whiteListAll)
-//                    whiteListAll?.add("com.oplus.upgradeguide")
+        //                    whiteListAll?.add("com.oplus.upgradeguide")
                     resultNull()
                 }
             }

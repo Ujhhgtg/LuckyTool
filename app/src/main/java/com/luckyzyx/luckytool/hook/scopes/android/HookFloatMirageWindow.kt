@@ -61,7 +61,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             //Source OplusFlexibleDCSManager
             "com.android.server.wm.OplusFlexibleDCSManager".toClass().resolve().apply {
                 (firstMethodOrNull { name = "onFloatHandleEnter" }
-                    ?: firstMethodOrNull { name = "startMinimize" })?.hook {
+                    ?: firstMethod { name = "startMinimize" }).hook {
                     after {
                         val info = args().first().any() ?: return@after
                         val curTaskId = info.resolve().firstField { name = "taskId" }.get<Int>()
