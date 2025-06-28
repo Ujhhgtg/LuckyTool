@@ -1,14 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.gallery
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -21,25 +17,28 @@ class HookFunctionManager(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(MapClass)
+                    addForType(Map::class.java)
                 }
                 methods {
                     add {
-                        paramTypes(StringClass)
-                        returnType(BooleanType)
+                        paramTypes(String::class.java)
+                        returnType(Boolean::class.java)
                         usingStrings("FunctionSwitchManager", "getGroupName", "spKey")
                     }
                     add {
                         paramCount(1..5)
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }
                 }
                 usingStrings("FunctionSwitchManager")
             }
         }.apply {
             checkDataList("HookFunctionManager")
-            single().name.toClass().apply {
-                method { param(StringClass);returnType(BooleanType) }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(String::class)
+                    returnType(Boolean::class)
+                }.hook {
                     after {
                         when (args().first().string()) {
                             //姜文电影滤镜

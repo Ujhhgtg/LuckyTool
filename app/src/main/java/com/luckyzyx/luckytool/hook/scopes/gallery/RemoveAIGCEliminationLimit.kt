@@ -1,12 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.gallery
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -15,7 +12,7 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         //Source EliminateDetectInfo / PanoramicSegmentationInfo
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(BooleanType)
+                addFieldForType(Boolean::class.java)
                 addMethod { name("equals") }
                 addMethod { name("hashCode") }
                 addMethod { name("toString") }
@@ -24,8 +21,8 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         }.apply {
             checkDataList("EliminateDetectInfo")
 
-            single().name.toClass().apply {
-                constructor { param { it.contains(BooleanType) } }.hook {
+            single().name.toClass().resolve().apply {
+                firstConstructor { parameters { it.contains(Boolean::class.java) } }.hook {
                     before {
                         args.forEachIndexed { index, it ->
                             if (it is Boolean) args(index).setFalse()
@@ -39,9 +36,9 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         //Source EliminateStack / PanoramicSegmentationStack
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(IntType)
-                addFieldForType(StringClass)
-                addFieldForType(BooleanType)
+                addFieldForType(Int::class.java)
+                addFieldForType(String::class.java)
+                addFieldForType(Boolean::class.java)
                 addMethod { name("equals") }
                 addMethod { name("hashCode") }
                 addMethod { name("toString") }
@@ -50,8 +47,8 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         }.apply {
             checkDataList("EliminateSaveEntry")
 
-            single().name.toClass().apply {
-                constructor { param { it.contains(BooleanType) } }.hook {
+            single().name.toClass().resolve().apply {
+                firstConstructor { parameters { it.contains(Boolean::class.java) } }.hook {
                     before {
                         args.forEachIndexed { index, it ->
                             if (it is Boolean) args(index).setFalse()

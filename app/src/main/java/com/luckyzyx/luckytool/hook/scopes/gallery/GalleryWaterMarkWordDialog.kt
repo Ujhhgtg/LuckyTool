@@ -1,13 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.gallery
 
 import android.text.Spanned
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -34,23 +32,23 @@ class GalleryWaterMarkWordDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                 matcher {
                     name("filter")
                     paramTypes(
-                        CharSequenceClass, IntType, IntType,
-                        Spanned::class.java, IntType, IntType
+                        CharSequence::class.java, Int::class.java, Int::class.java,
+                        Spanned::class.java, Int::class.java, Int::class.java
                     )
-                    returnType(CharSequenceClass)
+                    returnType(CharSequence::class.java)
                     usingNumbers(0, 1, 2)
                     usingStrings("")
                 }
             }.apply {
                 checkDataList("RemoveGalleryWaterMarkWordLimit")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = "filter"
-                        param(
-                            CharSequenceClass, IntType, IntType,
-                            Spanned::class.java, IntType, IntType
+                        parameters(
+                            CharSequence::class, Int::class, Int::class,
+                            Spanned::class, Int::class, Int::class
                         )
-                        returnType = CharSequenceClass
+                        returnType = CharSequence::class
                     }.hook {
                         before {
                             result = args().first().cast<CharSequence>() ?: return@before

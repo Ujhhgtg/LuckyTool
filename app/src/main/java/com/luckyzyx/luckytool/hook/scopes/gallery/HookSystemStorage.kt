@@ -2,28 +2,19 @@ package com.luckyzyx.luckytool.hook.scopes.gallery
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
+import com.highcapable.kavaref.extension.JBoolean
+import com.highcapable.kavaref.extension.JInteger
+import com.highcapable.kavaref.extension.JLong
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.BooleanClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.LongClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOf
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -62,26 +53,29 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass)
+                    addForType(Context::class.java)
                 }
                 methods {
-                    add { paramCount(2);returnType(IntClass) }
-                    add { paramCount(2);returnType(LongClass) }
-                    add { paramCount(2);returnType(BooleanClass) }
-                    add { paramCount(2);returnType(StringClass) }
-                    add { paramCount(2);returnType(UnitType) }
-                    add { paramCount(0);returnType(BooleanType) }
-                    add { paramCount(4);returnType(BooleanType) }
+                    add { paramCount(2);returnType(JInteger::class.java) }
+                    add { paramCount(2);returnType(JLong::class.java) }
+                    add { paramCount(2);returnType(JBoolean::class.java) }
+                    add { paramCount(2);returnType(String::class.java) }
+                    add { paramCount(2);returnType(Void.TYPE) }
+                    add { paramCount(0);returnType(Boolean::class.java) }
+                    add { paramCount(4);returnType(Boolean::class.java) }
                 }
                 usingStrings("configNode")
             }
         }.apply {
             checkDataList("HookSystemStorage")
-            single().name.toClass().apply {
-                method { param(VagueType, BooleanType);returnType = BooleanClass }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(VagueType, Boolean::class)
+                    returnType = JBoolean::class
+                }.hook {
                     after {
-                        val context = field { type = ContextClass }.get(instance).cast<Context>()
-                            ?: return@after
+                        val context = firstField { type = Context::class }.of(instance)
+                            .get<Context>() ?: return@after
                         val configNode = args().first().any().toString()
                         when {
                             //com.oplus.camera.support.custom.hasselblad.watermark
@@ -142,22 +136,24 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             //Source WatermarkInfo / WatermarkDevice
             dexKitBridge.findClass {
                 matcher {
-                    addFieldForType(IntType)
-                    addFieldForType(BooleanType)
-                    addFieldForType(StringClass)
+                    addFieldForType(Int::class.java)
+                    addFieldForType(Boolean::class.java)
+                    addFieldForType(String::class.java)
                     usingStrings("WatermarkDevice", "isHasselDevice")
                 }
             }.apply {
                 checkDataList("WatermarkDevice HasselDevice", onlyOne = false)
                 forEachIndexed { _, classData ->
-                    classData.name.toClass().apply {
-                        val hasField = hasField { type = BooleanType }
-                        if (hasField) constructor { }.hookAll {
-                            after {
-                                field { type = BooleanType }.get(instance).setTrue()
+                    classData.name.toClass().resolve().apply {
+                        firstFieldOrNull { type = Boolean::class }?.let {
+                            constructor { }.hookAll {
+                                after {
+                                    it.of(instance).set(true)
+                                }
                             }
+                        } ?: {
+                            YLog.debug("WatermarkDevice HasselDevice hook error! -> ${classData.name}")
                         }
-                        else YLog.debug("WatermarkDevice HasselDevice hook error! -> ${classData.name}")
                     }
                 }
             }
@@ -167,34 +163,37 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass.name)
+                    addForType(Context::class.java)
                 }
                 methods {
                     add { name = "close";paramCount(0) }
-                    add { name = "contains";paramTypes(StringClass) }
+                    add { name = "contains";paramTypes(String::class.java) }
                     add { returnType(AutoCloseable::class.java) }
                     add {
-                        paramTypes(StringClass, IntType)
-                        returnType(IntClass)
+                        paramTypes(String::class.java, Int::class.java)
+                        returnType(JInteger::class.java)
                     }
                     add {
-                        paramTypes(StringClass, LongType)
-                        returnType(LongClass)
+                        paramTypes(String::class.java, Long::class.java)
+                        returnType(JLong::class.java)
                     }
                     add {
-                        paramTypes(StringClass, StringClass)
-                        returnType(StringClass)
+                        paramTypes(String::class.java, String::class.java)
+                        returnType(String::class.java)
                     }
                     add {
-                        paramTypes(StringClass, BooleanType)
-                        returnType(BooleanClass)
+                        paramTypes(String::class.java, Boolean::class.java)
+                        returnType(JBoolean::class.java)
                     }
                 }
             }
         }.apply {
             checkDataList("HookConfigAbility")
-            single().name.toClass().apply {
-                method { param(StringClass, BooleanType);returnType = BooleanClass }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(String::class, Boolean::class)
+                    returnType = JBoolean::class
+                }.hook {
                     after {
                         when (args().first().string()) {
                             "is_oneplus_brand" -> if (notOplus) resultFalse()
