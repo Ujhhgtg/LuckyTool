@@ -22,7 +22,7 @@ lsplugin-lsparanoid = { id = "org.lsposed.lsparanoid", version.ref = "lsparanoid
 xposed-api = { group = "de.robv.android.xposed", name = "api", version = "82" }
 yukihookapi = { group = "com.highcapable.yukihookapi", name = "api", version = "1.3.0" }
 ksp-yukihookapi = { group = "com.highcapable.yukihookapi", name = "ksp-xposed", version = "1.3.0" }
-kavaref-core = { module = "com.highcapable.kavaref:kavaref-core", version = "1.0.0" }
+kavaref-core = { module = "com.highcapable.kavaref:kavaref-core", version = "1.0.0.1" }
 kavaref-extension = { module = "com.highcapable.kavaref:kavaref-extension", version = "1.0.0" }
 dexkit = { group = "org.luckypray", name = "dexkit", version = "2.0.6" }
 

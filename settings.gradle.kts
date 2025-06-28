@@ -23,6 +23,7 @@ dependencyResolutionManagement {
         mavenLocal {
             content { includeGroup("com.highcapable.flexiui") }
             content { includeGroup("com.highcapable.yukihookapi") }
+            content { includeGroup("com.highcapable.kavaref") }
             content { includeGroup("io.github.libxposed") }
             content { includeGroup("id.dhd") }
         }
