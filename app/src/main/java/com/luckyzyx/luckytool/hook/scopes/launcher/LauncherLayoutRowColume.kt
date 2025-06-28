@@ -1,9 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.ArrayClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.IntArrayType
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -11,25 +10,25 @@ import org.lsposed.lsparanoid.Obfuscate
 object LauncherLayoutRowColume : YukiBaseHooker() {
     override fun onHook() {
         //Source UiConfig
-        "com.android.launcher.UiConfig".toClass().apply {
-            method { name = "isSupportLayout" }.hook {
+        "com.android.launcher.UiConfig".toClass().resolve().apply {
+            firstMethod { name = "isSupportLayout" }.hook {
                 replaceToTrue()
             }
         }
         val maxRows = prefs(ModulePrefs).getInt("launcher_layout_max_rows", 6)
         val maxColumns = prefs(ModulePrefs).getInt("launcher_layout_max_columns", 4)
         //Source ToggleBarLayoutAdapter
-        "com.android.launcher.togglebar.adapter.ToggleBarLayoutAdapter".toClass().apply {
-            method { name = "initToggleBarLayoutConfigs" }.hook {
+        "com.android.launcher.togglebar.adapter.ToggleBarLayoutAdapter".toClass().resolve().apply {
+            firstMethod { name = "initToggleBarLayoutConfigs" }.hook {
                 before {
-                    field {
+                    firstField {
                         name = "MIN_MAX_COLUMN"
-                        type = IntArrayType
-                    }.get().cast<IntArray>()?.set(1, maxColumns)
-                    field {
+                        type = ArrayClass(Int::class)
+                    }.get<IntArray>()?.set(1, maxColumns)
+                    firstField {
                         name = "MIN_MAX_ROW"
-                        type = IntArrayType
-                    }.get().cast<IntArray>()?.set(1, maxRows)
+                        type = ArrayClass(Int::class)
+                    }.get<IntArray>()?.set(1, maxRows)
                 }
             }
         }

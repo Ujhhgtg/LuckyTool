@@ -1,9 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveAppUpdateGreenDot : YukiBaseHooker() {
@@ -12,8 +12,8 @@ object RemoveAppUpdateGreenDot : YukiBaseHooker() {
         if (mode != "2") return
 
         //Source BubbleTextView
-        "com.android.launcher3.BubbleTextView".toClass().apply {
-            method { name = "isShouldShowGreenDot" }.hook {
+        "com.android.launcher3.BubbleTextView".toClass().resolve().apply {
+            firstMethod { name = "isShouldShowGreenDot" }.hook {
                 replaceToFalse()
             }
         }

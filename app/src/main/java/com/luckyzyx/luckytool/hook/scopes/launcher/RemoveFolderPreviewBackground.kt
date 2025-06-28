@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -20,10 +19,10 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
     object FolderPreviewBackground : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusPreviewBackground
-            "com.android.launcher3.folder.OplusPreviewBackground".toClass().apply {
-                method { name = "setBackground" }.hook {
+            "com.android.launcher3.folder.OplusPreviewBackground".toClass().resolve().apply {
+                firstMethod { name = "setBackground" }.hook {
                     before {
-                        field { name = "mBgDrawable" }.get(instance).setNull()
+                        firstField { name = "mBgDrawable" }.of(instance).set(null)
                     }
                 }
             }
@@ -34,20 +33,20 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
     object FolderPreviewBackgroundV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusPreviewBackground folder_icon_bg big_folder_bg
-            "com.android.launcher3.folder.OplusPreviewBackground".toClass().apply {
+            "com.android.launcher3.folder.OplusPreviewBackground".toClass().resolve().apply {
                 method { name = "setup" }.hookAll {
                     after {
-                        field { name = "mBgDrawable" }.get(instance).setNull()
+                        firstField { name = "mBgDrawable" }.of(instance).set(null)
                     }
                 }
-                method { name = "drawBackground" }.hook {
+                firstMethod { name = "drawBackground" }.hook {
                     intercept()
                 }
             }
             if (SDK < A13) return
             //Source OplusFolderAnimationManager
-            "com.android.launcher3.folder.OplusFolderAnimationManager".toClass().apply {
-                method { name = "getFolderBackgroundAnimator" }.hook {
+            "com.android.launcher3.folder.OplusFolderAnimationManager".toClass().resolve().apply {
+                firstMethod { name = "getFolderBackgroundAnimator" }.hook {
                     intercept()
                 }
             }

@@ -1,39 +1,39 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object UnlockTaskLocks : YukiBaseHooker() {
     override fun onHook() {
-        val appLockModel = "com.oplus.quickstep.applock.AppLockModel".toClassOrNull()
-        val isNew = appLockModel?.hasField { name = "noDefaultLockedAppLimit" } ?: false
-
-        if (isNew) {
-            appLockModel?.apply {
-                method { name = "initData" }.hook{
-                    after { field { name = "noDefaultLockedAppLimit" }.get(instance).set(999) }
+        //Source AppLockModel
+        "com.oplus.quickstep.applock.AppLockModel".toClassOrNull()?.resolve()?.apply {
+            firstFieldOrNull { name = "noDefaultLockedAppLimit" }?.let {
+                firstMethod { name = "initData" }.hook {
+                    after {
+                        it.of(instance).set(999)
+                    }
                 }
-                method { name = "updateNoDefaultLockAppLimit" }.hook{
-                    after { field { name = "noDefaultLockedAppLimit" }.get(instance).set(999) }
+                firstMethod { name = "updateNoDefaultLockAppLimit" }.hook {
+                    after {
+                        it.of(instance).set(999)
+                    }
                 }
+                return
             }
-            return
         }
 
         //Source OplusLockManager
-        VariousClass(
+        (VariousClass(
             "com.coloros.quickstep.applock.ColorLockManager",
             "com.oplus.quickstep.applock.OplusLockManager"
-        ).toClass().apply {
-            constructor { paramCount = 1 }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstConstructor { parameters(Context::class) }.hook {
                 after {
-                    field { name = "mLockAppLimit" }.get(instance).set(999)
+                    firstField { name = "mLockAppLimit" }.of(instance).set(999)
                 }
             }
         }

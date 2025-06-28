@@ -2,34 +2,37 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 
 import android.view.View
 import android.widget.TextView
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusTaskHeaderView
-        "com.android.quickstep.views.OplusTaskViewImpl".toClass().apply {
-            method { name = "setIcon";paramCount(1..2) }.hook {
+        "com.android.quickstep.views.OplusTaskViewImpl".toClass().resolve().apply {
+            firstMethod {
+                name = "setIcon"
+                parameterCount { it in 1..2 }
+            }.hook {
                 after {
-                    val headerView = method { name = "getHeaderView" }.get(instance).call()
+                    val headerView = firstMethod { name = "getHeaderView" }.of(instance).invoke()
                         ?: return@after
-                    val iconView = headerView.current().method { name = "getTaskIcon" }
+                    val iconView = headerView.resolve().firstMethod { name = "getTaskIcon" }
                         .invoke<View>() ?: return@after
-                    val titleView = headerView.current().field {
+                    val titleView = headerView.resolve().firstField {
                         name = if (SDK >= A13) "titleTv" else "mTitleView"
-                    }.cast<TextView>() ?: return@after
-                    val task = method { name = "getTask";superClass(true) }
-                        .get(instance).call() ?: return@after
-                    val key = task.current().field { name = "key" }.any() ?: return@after
-                    val packName = key.current().method { name = "getPackageName" }.invoke<String>()
-                        ?: return@after
-                    val userId = key.current().field { name = "userId" }.int()
+                    }.get<TextView>() ?: return@after
+                    val task = firstMethod { name = "getTask";superclass() }
+                        .of(instance).invoke() ?: return@after
+                    val key = task.resolve().firstField { name = "key" }.get() ?: return@after
+                    val packName =
+                        key.resolve().firstMethod { name = "getPackageName" }.invoke<String>()
+                            ?: return@after
+                    val userId = key.resolve().firstField { name = "userId" }.get<Int>()
                     iconView.setLongClick(packName, userId)
                     titleView.setLongClick(packName, userId)
                 }
@@ -37,14 +40,18 @@ object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
         }
 
         //Source DockIconView
-        "com.oplus.quickstep.dock.DockIconView".toClass().apply {
-            method { name = "setIcon";paramCount = 1 }.hook {
+        "com.oplus.quickstep.dock.DockIconView".toClass().resolve().apply {
+            firstMethod {
+                name = "setIcon"
+                parameterCount = 1
+            }.hook {
                 after {
-                    val task = method { name = "getTask" }.get(instance).call() ?: return@after
-                    val key = task.current().field { name = "key" }.any() ?: return@after
-                    val packName = key.current().method { name = "getPackageName" }.invoke<String>()
-                        ?: return@after
-                    val userId = key.current().field { name = "userId" }.int()
+                    val task =
+                        firstMethod { name = "getTask" }.of(instance).invoke() ?: return@after
+                    val key = task.resolve().firstField { name = "key" }.get() ?: return@after
+                    val packName = key.resolve().firstMethod { name = "getPackageName" }
+                        .invoke<String>() ?: return@after
+                    val userId = key.resolve().firstField { name = "userId" }.get<Int>()
                     instance<View>().setLongClick(packName, userId)
                 }
             }

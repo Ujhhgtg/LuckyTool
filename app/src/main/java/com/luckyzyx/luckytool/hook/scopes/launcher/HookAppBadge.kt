@@ -1,12 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAppBadge : YukiBaseHooker() {
@@ -22,12 +21,13 @@ object HookAppBadge : YukiBaseHooker() {
             val isClone = prefs(ModulePrefs).getBoolean("remove_app_clone_badge", false)
 
             //Source BitmapInfo
-            "com.android.launcher3.icons.BitmapInfo".toClass().apply {
-                method { name = "applyFlags";paramCount = 3 }.hook {
+            "com.android.launcher3.icons.BitmapInfo".toClass().resolve().apply {
+                firstMethod { name = "applyFlags";parameterCount = 3 }.hook {
                     before {
                         val drawableCreationFlags = args().last().int()
-                        val badgeInfo = field { name = "badgeInfo" }.get(instance).any()
-                        val flag = field { name = "flags" }.get(instance).int()
+                        val badgeInfo = firstField { name = "badgeInfo" }.of(instance).get()
+                        val flag = firstField { name = "flags" }.of(instance).get<Int>()
+                            ?: return@before
                         if ((drawableCreationFlags and 2) == 0) {
                             if (badgeInfo != null) {
                                 if (isShortcut) resultNull()
@@ -59,12 +59,13 @@ object HookAppBadge : YukiBaseHooker() {
             val isClone = prefs(ModulePrefs).getBoolean("remove_app_clone_badge", false)
 
             //Source BitmapInfo
-            "com.android.launcher3.icons.BitmapInfo".toClass().apply {
-                method { name = "applyFlags";paramCount = 3 }.hook {
+            "com.android.launcher3.icons.BitmapInfo".toClass().resolve().apply {
+                firstMethod { name = "applyFlags";parameterCount = 3 }.hook {
                     before {
                         val drawableCreationFlags = args().last().int()
-                        val badgeInfo = field { name = "badgeInfo" }.get(instance).any()
-                        val flag = field { name = "flags" }.get(instance).int()
+                        val badgeInfo = firstField { name = "badgeInfo" }.of(instance).get()
+                        val flag = firstField { name = "flags" }.of(instance).get<Int>()
+                            ?: return@before
                         if ((drawableCreationFlags and 2) == 0) {
                             if (badgeInfo != null) {
                                 if (isShortcut) resultNull()
