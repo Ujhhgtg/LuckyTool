@@ -1,16 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
+import android.content.Context
 import android.media.AudioManager
 import android.media.SoundPool
+import android.util.SparseIntArray
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.SparseIntArrayClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -21,27 +18,27 @@ class CompetitionModeSound(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass)
-                    addForType(BooleanType)
+                    addForType(Context::class.java)
+                    addForType(Boolean::class.java)
                     addForType(SoundPool::class.java)
                     addForType(AudioManager::class.java)
-                    addForType(SparseIntArrayClass)
+                    addForType(SparseIntArray::class.java)
                 }
                 methods {
                     add {
                         paramCount(0)
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }
                     add {
-                        paramTypes(IntType)
-                        returnType(UnitType)
+                        paramTypes(Int::class.java)
+                        returnType(Void.TYPE)
                     }
                 }
             }
         }.apply {
             checkDataList("CompetitionModeSound")
-            single().name.toClass().apply {
-                method { param(IntType) }.hookAll {
+            single().name.toClass().resolve().apply {
+                method { parameters(Int::class) }.hookAll {
                     before {
                         if (args().first().int() == 9) resultNull()
                     }

@@ -1,9 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.AnyClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -13,8 +12,8 @@ object EnableXModeFeature : YukiBaseHooker() {
         VariousClass(
             "business.module.perfmode.CoolingBackClipHelper", //V8
             "business.module.perfmode.CoolingBackClipFeature" //V9.0.0
-        ).toClass().apply {
-            method { paramCount = 1;returnType = AnyClass }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { parameterCount = 1;returnType = Any::class }.hook {
                 after {
                     resultTrue()
                 }

@@ -1,12 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -22,10 +18,10 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         //Source HangUpUtil
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(ListClass)
-                addMethod { paramCount(0);returnType(BooleanType) }
-                addMethod { paramCount(0);returnType(UnitType) }
-                addMethod { paramTypes(ContextClass);returnType(UnitType) }
+                addFieldForType(List::class.java)
+                addMethod { paramCount(0);returnType(Boolean::class.java) }
+                addMethod { paramCount(0);returnType(Void.TYPE) }
+                addMethod { paramTypes(Context::class.java);returnType(Void.TYPE) }
                 usingStrings("HangUpUtil", "isSupportBackgroundHangUp")
             }
         }.apply {
@@ -33,20 +29,23 @@ class EnableGameRunInBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             findMethod {
                 matcher {
                     paramCount(0)
-                    returnType(BooleanType)
+                    returnType(Boolean::class.java)
                     usingStrings("isSupportBackgroundHangUp")
                 }
             }.apply {
                 checkDataList("EnableGameRunInBackground Support")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = single().methodName
-                        emptyParam()
-                        returnType = BooleanType
+                        emptyParameters()
+                        returnType = Boolean::class
                     }.hook {
                         replaceToTrue()
                     }
-                    method { param(ContextClass);returnType = UnitType }.hook {
+                    firstMethod {
+                        parameters(Context::class)
+                        returnType = Void.TYPE
+                    }.hook {
                         before {
                             if (osCode >= 34) {
                                 startMirageWindow(null)

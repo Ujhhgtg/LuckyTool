@@ -1,14 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.os.Bundle
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BundleClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -21,19 +17,22 @@ class RemoveRootCheck(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(StringClass)
-                    addForType(BooleanType)
-                    addForType(IntType)
+                    addForType(String::class.java)
+                    addForType(Boolean::class.java)
+                    addForType(Int::class.java)
                 }
                 methods {
                     add { name = "clear";paramCount(0) }
-                    add { paramCount(0);returnType(BundleClass) }
+                    add { paramCount(0);returnType(Bundle::class.java) }
                 }
             }
         }.apply {
             checkDataList("RemoveRootCheck")
-            single().name.toClass().apply {
-                method { emptyParam();returnType = BundleClass }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    emptyParameters()
+                    returnType = Bundle::class
+                }.hook {
                     after { result<Bundle>()?.putInt("isSafe", 0) }
                 }
             }

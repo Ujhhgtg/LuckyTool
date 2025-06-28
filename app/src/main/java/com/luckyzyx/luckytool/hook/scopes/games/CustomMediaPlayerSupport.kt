@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.util.ArraySet
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ListClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -16,10 +15,10 @@ object CustomMediaPlayerSupport : YukiBaseHooker() {
         VariousClass(
             "business.module.media.MediaSessionHelper", //V8 V9
             "com.oplus.games.musicplayer.main.MediaSessionHelper" //V10
-        ).toClass().apply {
-            method {
-                emptyParam()
-                returnType = ListClass
+        ).toClass().resolve().apply {
+            firstMethod {
+                emptyParameters()
+                returnType = List::class
             }.hook {
                 after {
                     if (set.isEmpty()) return@after

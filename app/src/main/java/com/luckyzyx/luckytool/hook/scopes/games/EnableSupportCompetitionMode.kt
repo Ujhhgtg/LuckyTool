@@ -1,13 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ArrayListClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -18,23 +14,34 @@ class EnableSupportCompetitionMode(val dexKitBridge: DexKitBridge) : YukiBaseHoo
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ListClass)
+                    addForType(List::class.java)
                 }
                 methods {
-                    add { paramCount(0);returnType(ListClass) }
-                    add { paramCount(0);returnType(BooleanType) }
-                    add { paramTypes(StringClass, ArrayListClass) }
+                    add { paramCount(0);returnType(List::class.java) }
+                    add { paramCount(0);returnType(Boolean::class.java) }
+                    add { paramTypes(String::class.java, ArrayList::class.java) }
                 }
             }
         }.apply {
-            checkDataList("EnableSupportCompetitionMode")
-            single().name.toClass().apply {
-                method {
-                    emptyParam()
-                    returnType = BooleanType
-                    order().index(2)
-                }.hook {
-                    replaceToTrue()
+            checkDataList("EnableSupportCompetitionMode find CompetitionModeManager")
+
+            findMethod {
+                matcher {
+                    paramCount(0)
+                    returnType(Boolean::class.java)
+                    usingStrings("isSupportCompetitionMode")
+                }
+            }.apply {
+                checkDataList("EnableSupportCompetitionMode find isSupportCompetitionMode")
+
+                single().className.toClass().resolve().apply {
+                    firstMethod {
+                        name = single().methodName
+                        emptyParameters()
+                        returnType = Boolean::class
+                    }.hook {
+                        replaceToTrue()
+                    }
                 }
             }
         }

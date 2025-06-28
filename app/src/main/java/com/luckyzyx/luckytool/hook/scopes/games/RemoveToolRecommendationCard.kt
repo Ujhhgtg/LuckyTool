@@ -1,22 +1,24 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveToolRecommendationCard : YukiBaseHooker() {
     override fun onHook() {
         //Source ToolsRecommendCardLayout
-        "business.module.toolsrecommend.ToolsRecommendCardLayout".toClassOrNull()?.apply {
-            method { param(ListClass);returnType = UnitType }.hook {
-                before {
-                    args().first().set(ArrayList<Any>())
+        "business.module.toolsrecommend.ToolsRecommendCardLayout".toClassOrNull()?.resolve()
+            ?.apply {
+                firstMethod {
+                    parameters(List::class)
+                    returnType = Void.TYPE
+                }.hook {
+                    before {
+                        args().first().set(ArrayList<Any>())
+                    }
                 }
             }
-        }
 
         //Source GameToolTileAdapter V9.0.0+
 //        "business.toolpanel.adapter.GameToolTileAdapter".toClassOrNull()?.apply {

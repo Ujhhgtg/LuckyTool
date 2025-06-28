@@ -2,16 +2,11 @@ package com.luckyzyx.luckytool.hook.scopes.games
 
 import android.view.View
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -19,15 +14,16 @@ class RemoveWelfarePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val mainPanelView = "business.mainpanel.MainPanelView".toClassOrNull()
         if (mainPanelView == null) {
-            "business.mainpanel.main.MainPanelFragment".toClass().apply {
-                method { name = "addRadioButton" }.hook {
+            "business.mainpanel.main.MainPanelFragment".toClass().resolve().apply {
+                firstMethod { name = "addRadioButton" }.hook {
                     before {
                         if (args().first().string() == "welfare") resultNull()
                     }
                 }
-                method { name = "initView" }.hook {
+                firstMethod { name = "initView" }.hook {
                     after {
-                        field { name = "navButtonMap" }.get(instance).cast<HashMap<String, Any>>()
+                        firstField { name = "navButtonMap" }.of(instance)
+                            .get<HashMap<String, Any>>()
                             ?.remove("welfare")
                     }
                 }
@@ -38,10 +34,10 @@ class RemoveWelfarePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
             }.findField {
                 matcher {
-                    type(StringClass)
+                    type(String::class.java)
                     addReadMethod {
-                        paramTypes(null, BooleanType, BooleanType)
-                        returnType(UnitType)
+                        paramTypes(null, Boolean::class.java, Boolean::class.java)
+                        returnType(Void.TYPE)
                         usingStrings("perf", "tool")
                     }
                     declaredClass {
@@ -50,13 +46,13 @@ class RemoveWelfarePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("RemoveWelfarePage NavigationRadioButton")
-                single().className.toClass().apply {
-                    method {
-                        param(VagueType, BooleanType, BooleanType)
-                        returnType = UnitType
+                single().className.toClass().resolve().apply {
+                    firstMethod {
+                        parameters(VagueType, Boolean::class, Boolean::class)
+                        returnType = Void.TYPE
                     }.hook {
                         before {
-                            val type = field { name = single().fieldName }.get(instance).string()
+                            val type = firstField { name = single().fieldName }.of(instance).get()
                             if (type == "welfare") instance<View>().isVisible = false
                         }
                     }
@@ -66,11 +62,11 @@ class RemoveWelfarePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
 
         //Source MainPanelView
-        mainPanelView.apply {
-            method {
-                param { it[0] == ListClass && it[1] == BooleanType }
-                paramCount(2..3)
-                returnType = UnitType
+        mainPanelView.resolve().apply {
+            firstMethod {
+                parameters { it[0] == List::class && it[1] == Boolean::class }
+                parameterCount { it in 2..3 }
+                returnType = Void.TYPE
             }.hook {
                 before {
                     val list = args().first().list<Any>()

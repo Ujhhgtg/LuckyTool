@@ -1,13 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.AnyClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -47,8 +41,11 @@ class CloudConditionFeature(
             val companion = "com.oplus.addon.OplusFeatureHelper\$Companion".toClassOrNull()
             if (companion == null) {
                 //Source OplusFeatureHelper
-                "com.oplus.addon.OplusFeatureHelper".toClass().apply {
-                    method { param(StringClass, BooleanType);returnType = BooleanType }.hook {
+                "com.oplus.addon.OplusFeatureHelper".toClass().resolve().apply {
+                    firstMethod {
+                        parameters(String::class, Boolean::class)
+                        returnType = Boolean::class
+                    }.hook {
                         after {
                             when (args().first().string()) {
                                 //feature -> isSupportFrameInsert
@@ -84,8 +81,11 @@ class CloudConditionFeature(
                 return
             }
             //Source OplusFeatureHelper
-            "com.oplus.addon.OplusFeatureHelper\$Companion".toClass().apply {
-                method { param(StringClass, BooleanType);returnType = BooleanType }.hook {
+            "com.oplus.addon.OplusFeatureHelper\$Companion".toClass().resolve().apply {
+                firstMethod {
+                    parameters(String::class, Boolean::class)
+                    returnType = Boolean::class
+                }.hook {
                     after {
                         when (args().first().string()) {
                             //feature -> isSupportFrameInsert
@@ -146,10 +146,10 @@ class CloudConditionFeature(
             val aiPlay = prefs(ModulePrefs).getBoolean("enable_game_ai_play", false)
 
             //Source CloudConditionUtil
-            "com.coloros.gamespaceui.config.cloud.CloudConditionUtil".toClass().apply {
-                method {
-                    param(StringClass, MapClass, IntType, AnyClass)
-                    returnType = BooleanType
+            "com.coloros.gamespaceui.config.cloud.CloudConditionUtil".toClass().resolve().apply {
+                firstMethod {
+                    parameters(String::class, Map::class, Int::class, Any::class)
+                    returnType = Boolean::class
                 }.hook {
                     before {
                         when (args().first().string()) {
@@ -172,9 +172,9 @@ class CloudConditionFeature(
                         }
                     }
                 }
-                method {
-                    param(StringClass, MapClass)
-                    returnType = BooleanType
+                firstMethod {
+                    parameters(String::class, Map::class)
+                    returnType = Boolean::class
                 }.hook {
                     before {
                         when (args().first().string()) {
@@ -183,9 +183,9 @@ class CloudConditionFeature(
                         }
                     }
                 }
-                method {
-                    param { it[0] == StringClass && it[1] == MapClass }
-                    paramCount = 3
+                firstMethod {
+                    parameters { it[0] == String::class && it[1] == Map::class }
+                    parameterCount = 3
                 }.hook {
                     after {
                         when (args().first().string()) {
@@ -215,17 +215,17 @@ class CloudConditionFeature(
                 matcher {
                     usingStrings("cloudKey", "defaultDate", "spFileName")
                     methods {
-                        add { paramCount(0);returnType(ListClass) }
-                        add { paramCount(1);returnType(ListClass) }
-                        add { paramCount(2);returnType(BooleanType) }
+                        add { paramCount(0);returnType(List::class.java) }
+                        add { paramCount(1);returnType(List::class.java) }
+                        add { paramCount(2);returnType(Boolean::class.java) }
                     }
                 }
             }.apply {
                 checkDataList("HookCloudApiImpl")
-                single().name.toClass().apply {
-                    method {
+                single().name.toClass().resolve().apply {
+                    firstMethod {
                         name = "isFunctionEnabledFromCloud"
-                        paramCount = 2
+                        parameterCount = 2
                     }.hook {
                         before {
                             when (args().first().string()) {
