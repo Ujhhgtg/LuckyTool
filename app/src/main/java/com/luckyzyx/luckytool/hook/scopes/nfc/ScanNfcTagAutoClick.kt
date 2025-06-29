@@ -3,8 +3,8 @@ package com.luckyzyx.luckytool.hook.scopes.nfc
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -15,8 +15,8 @@ object ScanNfcTagAutoClick : YukiBaseHooker() {
         dataChannel.wait<Boolean>("scan_nfc_tag_auto_click") { isEnable = it }
 
         //Source TagDetectedNotification
-        "com.oplus.nfc.dispatch.TagDetectedNotification".toClass().apply {
-            method { name = "show" }.hook {
+        "com.oplus.nfc.dispatch.TagDetectedNotification".toClass().resolve().apply {
+            firstMethod { name = "show" }.hook {
                 before {
                     if (!isEnable) return@before
                     val context = args().first().cast<Context>() ?: return@before
