@@ -1,11 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.screenshot
 
 import android.graphics.Bitmap
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -16,20 +15,20 @@ class EnablePNGSaveFormat(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(StringClass)
+                    addForType(String::class.java)
                     addForType(Bitmap.CompressFormat::class.java)
                 }
                 methods {
                     add { name("values") }
-                    add { returnType(StringClass) }
+                    add { returnType(String::class.java) }
                     add { returnType(Bitmap.CompressFormat::class.java) }
                 }
                 usingStrings("image/jpeg", "image/png")
             }
         }.apply {
             checkDataList("EnablePNGSaveFormat")
-            single().name.toClass().apply {
-                method { returnType = StringClass }.hookAll {
+            single().name.toClass().resolve().apply {
+                method { returnType = String::class }.hookAll {
                     after {
                         result = when (result<String>()) {
                             "image/jpeg" -> "image/png"
@@ -38,7 +37,7 @@ class EnablePNGSaveFormat(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         }
                     }
                 }
-                method { returnType = Bitmap.CompressFormat::class.java }.hook {
+                firstMethod { returnType = Bitmap.CompressFormat::class.java }.hook {
                     after {
                         result = when (result<Bitmap.CompressFormat>()) {
                             Bitmap.CompressFormat.JPEG -> Bitmap.CompressFormat.PNG

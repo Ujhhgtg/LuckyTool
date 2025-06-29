@@ -1,11 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.screenshot
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -17,29 +15,29 @@ class CustomizeLongScreenshotMaxCapturedPages(val dexKitBridge: DexKitBridge) : 
             matcher {
                 fieldCount(0)
                 methods {
-                    add { returnType(IntType) }
-                    add { returnType(BooleanType) }
+                    add { returnType(Int::class.java) }
+                    add { returnType(Boolean::class.java) }
                     add {
-                        paramTypes(IntType, IntType)
-                        returnType(IntType)
+                        paramTypes(Int::class.java, Int::class.java)
+                        returnType(Int::class.java)
                     }
                 }
                 usingStrings("StitchLimitUtils")
             }
         }.apply {
             checkDataList("CustomizeLongScreenshotMaxCapturedPages")
-            single().name.toClass().apply {
-                method {
-                    param { it[1] == IntType }
-                    paramCount = 2
-                    returnType = BooleanType
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters { it[1] == Int::class }
+                    parameterCount = 2
+                    returnType = Boolean::class
                 }.hook {
                     replaceToFalse()
                 }
-                method {
-                    param { it[1] == IntType && it[2] == IntType }
-                    paramCount = 3
-                    returnType = IntType
+                firstMethod {
+                    parameters { it[1] == Int::class && it[2] == Int::class }
+                    parameterCount = 3
+                    returnType = Int::class
                 }.hook {
                     replaceTo(-1)
                 }
