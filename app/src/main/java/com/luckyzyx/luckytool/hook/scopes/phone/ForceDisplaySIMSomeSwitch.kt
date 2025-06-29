@@ -1,13 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.phone
 
+import android.content.Context
+import android.view.View
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
@@ -28,10 +24,10 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     "com.android.simsettings.activity.OplusSimInfoActivity",
                     StringMatchType.StartsWith
                 )
-                addFieldForType(ContextClass)
-                addFieldForType(StringClass)
-                addFieldForType(BooleanType)
-                addFieldForType(ViewClass)
+                addFieldForType(Context::class.java)
+                addFieldForType(String::class.java)
+                addFieldForType(Boolean::class.java)
+                addFieldForType(View::class.java)
             }
         }.apply {
             checkDataList("ForceDisplaySIMSomeSwitch Clazz")
@@ -39,8 +35,8 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             //Source OplusSimInfoActivity changeVolteSwitchConfig
             findMethod {
                 matcher {
-                    paramTypes(IntType, null, null)
-                    returnType(UnitType)
+                    paramTypes(Int::class.java, null, null)
+                    returnType(Void.TYPE)
                     usingNumbers(1, 2, 3, 4, 7)
                     usingStrings("changeVolteSwitchConfig", "SIMS_OplusSimInfoActivity")
                     addUsingField {
@@ -49,13 +45,15 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 }
             }.apply {
                 checkDataList("ForceDisplaySomeSwitch changeVolteSwitchConfig")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = single().methodName
-                        param {
-                            it[0] == IntType && it.contains(BooleanType) && it.contains(StringClass)
+                        parameters {
+                            it[0] == Int::class && it.contains(Boolean::class.java) && it.contains(
+                                String::class.java
+                            )
                         }
-                        paramCount = 3
+                        parameterCount = 3
                     }.hook {
                         before {
                             if (!volteCall) return@before
@@ -71,8 +69,8 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             //Source OplusSimInfoActivity changeNetworkModeConfig
             findMethod {
                 matcher {
-                    paramTypes(IntType, null, null)
-                    returnType(UnitType)
+                    paramTypes(Int::class.java, null, null)
+                    returnType(Void.TYPE)
                     usingNumbers(1, 2, 5)
                     usingStrings("changeNetworkModeConfig", "SIMS_OplusSimInfoActivity")
                     addUsingField {
@@ -81,13 +79,14 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 }
             }.apply {
                 checkDataList("ForceDisplaySomeSwitch changeNetworkModeConfig")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = single().methodName
-                        param {
-                            it[0] == IntType && it.contains(BooleanType) && it.contains(StringClass)
+                        parameters {
+                            it[0] == Int::class && it.contains(Boolean::class.java)
+                                    && it.contains(String::class.java)
                         }
-                        paramCount = 3
+                        parameterCount = 3
                     }.hook {
                         before {
                             if (!preferredNetwork) return@before
