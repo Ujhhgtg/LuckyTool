@@ -1,16 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.market
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.AtomicBooleanClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
+import java.util.concurrent.atomic.AtomicBoolean
 
 @Obfuscate
 class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -23,27 +18,30 @@ class RemoveMarketSplashPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(IntType)
-                    addForType(LongType)
-                    addForType(BooleanType)
-                    addForType(AtomicBooleanClass)
+                    addForType(Int::class.java)
+                    addForType(Long::class.java)
+                    addForType(Boolean::class.java)
+                    addForType(AtomicBoolean::class.java)
                 }
                 methods {
-                    add { paramTypes(StringClass);returnType(BooleanType) }
-                    add { paramTypes(BooleanType);returnType(splashDto) }
+                    add { paramTypes(String::class.java);returnType(Boolean::class.java) }
+                    add { paramTypes(Boolean::class.java);returnType(splashDto) }
                     add {
-                        paramTypes(BooleanType.name, IntType.name, splashDto)
-                        returnType(UnitType)
+                        paramTypes(Boolean::class.java.name, Int::class.java.name, splashDto)
+                        returnType(Void.TYPE)
                     }
-                    add { paramTypes(splashDto, BooleanType.name, mediaDto) }
-                    add { paramTypes(splashDto, BooleanType.name, imageDto) }
+                    add { paramTypes(splashDto, Boolean::class.java.name, mediaDto) }
+                    add { paramTypes(splashDto, Boolean::class.java.name, imageDto) }
                 }
                 usingStrings("getSplashData")
             }
         }.apply {
             checkDataList("RemoveMarketSplashPageAppRecommend")
-            single().name.toClass().apply {
-                method { param(BooleanType);returnType(splashDto) }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(Boolean::class.java)
+                    returnType(splashDto)
+                }.hook {
                     intercept()
                 }
             }

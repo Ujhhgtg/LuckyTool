@@ -2,15 +2,12 @@ package com.luckyzyx.luckytool.hook.scopes.market
 
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.extends
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -33,66 +30,77 @@ class RemoveMarketSearchPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
             it.findMethod {
                 matcher {
                     paramTypes(cardDto)
-                    returnType(UnitType)
+                    returnType(Void.TYPE)
                 }
             }.checkDataList("RemoveMarketSearchPageAppRecommend CardMethod").single()
         }
 
         //Source HorizontalAppCard
-        "com.nearme.cards.widget.card.impl.horizontalapp.HorizontalAppCard".toClass().apply {
-            method {
-                name { it != cardMethod.methodName }; param(cardDto);returnType = UnitType
-            }.hook {
-                before {
-                    args().first().setNull()
-                }
-            }
-            method {
-                name = cardMethod.methodName; param(cardDto);returnType = UnitType
-            }.hook {
-                after {
-                    val dto = args().first().any() ?: return@after
-                    val viewGroup = field { type = horizontalAppItemView }.get(instance)
-                        .cast<ViewGroup>()
-
-                    YLog.debug("${dto.toString()}")
-
-                    val code = dto.current().method { name = "getCode";superClass() }.int()
-                    val key = dto.current().method { name = "getKey";superClass() }.int()
-                    YLog.debug("code: $code | key: $key")
-
-                    val parent = viewGroup?.parent
-                    when (key) {
-                        //搜索页
-                        56432, 56433 -> {
-                            if (parent is ViewGroup) {
-                                parent.isVisible = false
-                            }
-                        }
-
-                        //详情页
-                        57963, 54067 -> {
-                            if (parent is ViewGroup) {
-                                parent.isVisible = false
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-
-        //热门App合集
-        //Source SearchHotInstallRecycleCard
-        "com.nearme.cards.widget.card.impl.search.SearchHotInstallRecycleCard".toClass().apply {
-            method { param(cardDto);returnType = UnitType }.hook {
-                before {
-                    val dto = args().first().any() ?: return@before
-                    if (dto.javaClass extends appListCardDto.toClass()) {
+        "com.nearme.cards.widget.card.impl.horizontalapp.HorizontalAppCard".toClass().resolve()
+            .apply {
+                firstMethod {
+                    name { it != cardMethod.methodName }
+                    parameters(cardDto)
+                    returnType = Void.TYPE
+                }.hook {
+                    before {
                         args().first().setNull()
                     }
                 }
+                firstMethod {
+                    name = cardMethod.methodName
+                    parameters(cardDto)
+                    returnType = Void.TYPE
+                }.hook {
+                    after {
+                        val dto = args().first().any() ?: return@after
+                        val viewGroup = firstField { type = horizontalAppItemView }.of(instance)
+                            .get<ViewGroup>()
+
+                        YLog.debug("${dto.toString()}")
+
+                        val code =
+                            dto.resolve().firstMethod { name = "getCode";superclass() }.invoke()
+                        val key =
+                            dto.resolve().firstMethod { name = "getKey";superclass() }.invoke()
+                        YLog.debug("code: $code | key: $key")
+
+                        val parent = viewGroup?.parent
+                        when (key) {
+                            //搜索页
+                            56432, 56433 -> {
+                                if (parent is ViewGroup) {
+                                    parent.isVisible = false
+                                }
+                            }
+
+                            //详情页
+                            57963, 54067 -> {
+                                if (parent is ViewGroup) {
+                                    parent.isVisible = false
+                                }
+                            }
+
+                        }
+                    }
+                }
             }
-        }
+
+        //热门App合集
+        //Source SearchHotInstallRecycleCard
+        "com.nearme.cards.widget.card.impl.search.SearchHotInstallRecycleCard".toClass().resolve()
+            .apply {
+                firstMethod {
+                    parameters(cardDto)
+                    returnType = Void.TYPE
+                }.hook {
+                    before {
+                        val dto = args().first().any() ?: return@before
+                        if (dto::class isSubclassOf appListCardDto.toClass()) {
+                            args().first().setNull()
+                        }
+                    }
+                }
+            }
     }
 }

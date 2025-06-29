@@ -1,22 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.market
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.LayoutInflaterClass
-import com.highcapable.yukihookapi.hook.type.android.TextViewClass
-import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import com.highcapable.yukihookapi.hook.type.android.ViewGroupClass
-import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.FloatType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
@@ -35,13 +26,13 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                 addMethod {
                     name("processData")
 //                    paramTypes(ListClass, IntType, null)
-                    returnType(ListClass)
+                    returnType(List::class.java)
                 }
             }
         }.apply {
             checkDataList("RemoveMarketUpdateDownloadPageAppRecommend")
-            single().name.toClass().apply {
-                method { name = "processData" }.hook {
+            single().name.toClass().resolve().apply {
+                firstMethod { name = "processData" }.hook {
                     after {
                         result<ArrayList<Any>>()?.clear()
                     }
@@ -53,74 +44,74 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ViewGroupClass)
-                    addForType(TextViewClass)
+                    addForType(ViewGroup::class.java)
+                    addForType(TextView::class.java)
                     addForType(imageLoader)
                 }
                 methods {
                     add {
-                        paramTypes(ContextClass, IntType)
-                        returnType(UnitType)
+                        paramTypes(Context::class.java, Int::class.java)
+                        returnType(Void.TYPE)
                     }
                     add {
                         paramTypes(
-                            ContextClass, StringClass, IntType, IntType
+                            Context::class.java,
+                            String::class.java,
+                            Int::class.java,
+                            Int::class.java
                         )
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }
                     add {
-                        paramTypes(ViewClass, BooleanType)
-                        returnType(UnitType)
+                        paramTypes(View::class.java, Boolean::class.java)
+                        returnType(Void.TYPE)
                     }
                     add {
                         paramCount(0)
-                        returnType(ViewClass)
+                        returnType(View::class.java)
                     }
                     add {
-                        paramTypes(LayoutInflaterClass);returnType(ViewClass)
+                        paramTypes(LayoutInflater::class.java);returnType(View::class.java)
                     }
                 }
             }
         }.apply {
             checkDataList("RemoveMarketUpdatePageAppRecommend APPUpdateItemHolder")
-            single().name.toClass().apply {
-                val hasMethod = hasMethod {
-                    param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
-                    returnType(UnitType)
-                }
-                if (hasMethod) {
-                    method {
-                        param(cardDto, StringClass, VagueType, MapClass, BooleanType, LongType)
-                        returnType(UnitType)
-                    }.hook {
-                        intercept()
-                    }
+            single().name.toClass().resolve().apply {
+                firstMethodOrNull {
+                    parameters(
+                        cardDto, String::class, VagueType,
+                        Map::class, Boolean::class, Long::class
+                    )
+                    returnType(Void.TYPE)
+                }?.hook {
+                    intercept()
                 }
             }
         }
 
         //Source AppUpdateFragmentV2
-        "com.heytap.cdo.client.ui.upgrademgrv2.AppUpdateFragmentV2".toClassOrNull()?.apply {
+        "com.heytap.cdo.client.ui.upgrademgrv2.AppUpdateFragmentV2".toClassOrNull()?.let {
             dexKitBridge.findClass {
                 matcher {
-                    className(name)
+                    className(it.name)
                 }
             }.apply {
                 checkDataList("RemoveMarketUpdatePageAppRecommend AppUpdateFragmentV2")
                 findMethod {
                     matcher {
-                        paramTypes(ListClass)
+                        paramTypes(List::class.java)
                         addInvoke {
-                            paramTypes(ContextClass, FloatType)
-                            returnType(IntType)
+                            paramTypes(Context::class.java, Float::class.java)
+                            returnType(Int::class.java)
                         }
                         usingNumbers(114.0F)
                     }
                 }.apply {
                     checkDataList("RemoveMarketUpdatePageAppRecommend addDataAndNotifyChanged")
-                    method {
+                    it.resolve().firstMethod {
                         name = single().name
-                        param(ListClass)
+                        parameters(List::class)
                     }.hook {
                         before {
                             args().first().cast<java.util.ArrayList<Any>>()?.clear()
@@ -130,9 +121,9 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
 
                 findMethod {
                     matcher {
-                        paramTypes(BooleanType)
+                        paramTypes(Boolean::class.java)
                         addCaller {
-                            paramTypes(IntType)
+                            paramTypes(Int::class.java)
                             usingNumbers(1002, 1003)
                         }
                         usingNumbers(0, 300L)
@@ -140,9 +131,9 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                     }
                 }.apply {
                     checkDataList("RemoveMarketUpdatePageAppRecommend AutoScrollWhenUpdateAll")
-                    method {
+                    it.resolve().firstMethod {
                         name = single().name
-                        param(BooleanType)
+                        parameters(Boolean::class)
                     }.hook {
                         intercept()
                     }

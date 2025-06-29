@@ -1,16 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.market
 
+import android.content.Context
+import android.os.Bundle
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BundleClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -23,11 +18,11 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(MapClass)
-                    addForType(StringClass)
-                    addForType(BooleanType)
-                    addForType(BundleClass)
-                    addForType(ContextClass)
+                    addForType(Map::class.java)
+                    addForType(String::class.java)
+                    addForType(Boolean::class.java)
+                    addForType(Bundle::class.java)
+                    addForType(Context::class.java)
                     addForType(mineActionBarView)
                 }
                 methods {
@@ -40,30 +35,30 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
 //                    add { returnType(cdoNestedScrollListView) }
                     add {
                         paramTypes(viewLayerWrapDto)
-                        returnType(MapClass)
+                        returnType(Map::class.java)
                     }
                     add {
-                        paramTypes(viewLayerWrapDto, BooleanType.name)
-                        returnType(UnitType)
+                        paramTypes(viewLayerWrapDto, Boolean::class.java.name)
+                        returnType(Void.TYPE)
                     }
                 }
                 usingStrings("MineFragment")
             }
         }.apply {
             checkDataList("MineFragment")
-            single().name.toClass().apply {
-                method {
-                    param(viewLayerWrapDto, BooleanType)
-                    returnType(UnitType)
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(viewLayerWrapDto, Boolean::class)
+                    returnType(Void.TYPE)
                 }.hook {
                     before {
                         val dto = args().first().any() ?: return@before
-                        val cards = dto.current().method {
+                        val cards = dto.resolve().firstMethod {
                             name = "getCards"
                         }.invoke<List<Any>>()?.toMutableList()?.apply {
                             removeIf { indexOf(it) != 0 }
                         } ?: return@before
-                        dto.current().method { name = "setCards" }.call(ArrayList(cards))
+                        dto.resolve().firstMethod { name = "setCards" }.invoke(ArrayList(cards))
                     }
                 }
             }
