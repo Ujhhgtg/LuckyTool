@@ -2,9 +2,8 @@ package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
 import android.view.View
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -12,26 +11,26 @@ object RemoveInstallAds : YukiBaseHooker() {
     override fun onHook() {
         var ins: Any? = null
         //Source InstallAppProgress
-        "com.android.packageinstaller.oplus.InstallAppProgress".toClass().apply {
-            method { name = "initView" }.hook {
+        "com.android.packageinstaller.oplus.InstallAppProgress".toClass().resolve().apply {
+            firstMethod { name = "initView" }.hook {
                 after {
                     ins = instance
-                    ins?.removeViews()
+                    ins.removeViews()
                 }
             }
         }
         //Source InstallAppProgress
-        "com.android.packageinstaller.oplus.InstallAppProgress$1".toClass().apply {
-            method { name = "handleMessage" }.hook {
-                after { ins?.removeViews() }
+        "com.android.packageinstaller.oplus.InstallAppProgress$1".toClass().resolve().apply {
+            firstMethod { name = "handleMessage" }.hook {
+                after {
+                    ins?.removeViews()
+                }
             }
         }
     }
 
     private fun Any.removeViews() {
-        current {
-            field { name = "mSuggestLayoutAScrollView" }.cast<View>()?.isVisible = false
-            field { name = "mSuggestLayoutB" }.cast<View>()?.isVisible = false
-        }
+        resolve().firstField { name = "mSuggestLayoutAScrollView" }.get<View>()?.isVisible = false
+        resolve().firstField { name = "mSuggestLayoutB" }.get<View>()?.isVisible = false
     }
 }

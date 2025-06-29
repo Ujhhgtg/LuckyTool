@@ -8,15 +8,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ShowMoreApkPackageInformation : YukiBaseHooker() {
@@ -26,8 +24,8 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
 
     override fun onHook() {
         //Source ApkInfoView
-        "com.android.packageinstaller.oplus.view.ApkInfoView".toClass().apply {
-            method { name = "loadApkInfo" }.hook {
+        "com.android.packageinstaller.oplus.view.ApkInfoView".toClass().resolve().apply {
+            firstMethod { name = "loadApkInfo" }.hook {
                 after {
                     val apkInfoView = instance<LinearLayout>()
                     val context = apkInfoView.context
@@ -40,13 +38,19 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
 
                     apkInfo = args().first().any() ?: return@after
                     sourceInfo = args().last().any() ?: return@after
-                    val actionType = sourceInfo.current().field { name = "actionType" }.int()
-                    val installSource = sourceInfo.current().field { name = "sourceName" }.string()
+                    val actionType =
+                        sourceInfo.resolve().firstField { name = "actionType" }.get<Int>() ?: -1
+                    val installSource =
+                        sourceInfo.resolve().firstField { name = "sourceName" }.get<String>() ?: ""
 
-                    val packName = apkInfo.current().field { name = "packageName" }.string()
-                    val versionName = apkInfo.current().field { name = "versionName" }.string()
-                    val versionCode = apkInfo.current().field { name = "versionCode" }.int()
-                    val apkFilePath = apkInfo.current().field { name = "apkPath" }.string()
+                    val packName =
+                        apkInfo.resolve().firstField { name = "packageName" }.get<String>() ?: ""
+                    val versionName =
+                        apkInfo.resolve().firstField { name = "versionName" }.get<String>() ?: ""
+                    val versionCode =
+                        apkInfo.resolve().firstField { name = "versionCode" }.get<Int>() ?: -1
+                    val apkFilePath =
+                        apkInfo.resolve().firstField { name = "apkPath" }.get<String>() ?: ""
 
                     val packInfo = PackageUtils(pm).getPackageArchiveInfo(apkFilePath, 1)
                     val newMin = packInfo?.applicationInfo?.minSdkVersion
@@ -74,7 +78,7 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                     }
 
                     val mApkIcon =
-                        field { name = "mAppIcon" }.get(instance).cast<ImageView>()?.apply {
+                        firstField { name = "mAppIcon" }.of(instance).get<ImageView>()?.apply {
                             safeOfNull { parent as ViewGroup }?.removeView(this)
                         } ?: return@after
                     newApkHeaderView.addView(mApkIcon)
@@ -83,7 +87,7 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                         orientation = LinearLayout.VERTICAL
                     }
                     val mApkName =
-                        field { name = "mAppName" }.get(instance).cast<TextView>()?.apply {
+                        firstField { name = "mAppName" }.of(instance).get<TextView>()?.apply {
                             safeOfNull { parent as ViewGroup }?.removeView(this)
                         } ?: return@after
                     mApkName.textSize = 18F
@@ -103,7 +107,7 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                     newApkNameView.addView(mApkPackName)
 
                     val mAppSize =
-                        field { name = "mAppSize" }.get(instance).cast<TextView>()?.apply {
+                        firstField { name = "mAppSize" }.of(instance).get<TextView>()?.apply {
                             safeOfNull { parent as ViewGroup }?.removeView(this)
                         } ?: return@after
                     mAppSize.layoutParams = LinearLayout.LayoutParams(

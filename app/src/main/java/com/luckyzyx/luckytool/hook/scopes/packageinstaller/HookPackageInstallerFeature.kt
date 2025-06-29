@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class HookPackageInstallerFeature(val clazz: Class<*>?) : YukiBaseHooker() {
@@ -13,15 +12,15 @@ class HookPackageInstallerFeature(val clazz: Class<*>?) : YukiBaseHooker() {
         val isAds = prefs(ModulePrefs).getBoolean("remove_install_ads", false)
 
         //Source FeatureOption
-        clazz?.apply {
-            method { name = "init";paramCount = 1 }.hook {
+        clazz?.resolve()?.apply {
+            firstMethod { name = "init";parameterCount = 1 }.hook {
                 after {
-                    if (isAds) field { name = "sIsBusinessCustomProduct" }.get().setFalse()
+                    if (isAds) firstField { name = "sIsBusinessCustomProduct" }.set(false)
                 }
             }
-            method { name = "setIsClosedSuperFirewall";paramCount = 1 }.hook {
+            firstMethod { name = "setIsClosedSuperFirewall";parameterCount = 1 }.hook {
                 after {
-                    if (isAOSP) field { name = "sIsClosedSuperFirewall" }.get().setTrue()
+                    if (isAOSP) firstField { name = "sIsClosedSuperFirewall" }.set(true)
                 }
             }
         }

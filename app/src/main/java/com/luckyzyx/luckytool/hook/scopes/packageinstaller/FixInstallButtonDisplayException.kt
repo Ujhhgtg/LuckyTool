@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 import java.security.SecureRandom
 
@@ -10,32 +9,32 @@ import java.security.SecureRandom
 object FixInstallButtonDisplayException : YukiBaseHooker() {
     override fun onHook() {
         //Source ConfusedButton
-        "com.android.packageinstaller.oplus.view.ConfusedButton".toClass().apply {
-            method { name = "getAccessibilityViewId" }.hook {
+        "com.android.packageinstaller.oplus.view.ConfusedButton".toClass().resolve().apply {
+            firstMethod { name = "getAccessibilityViewId" }.hook {
                 before {
-                    field { name = "mIsCtsTesting" }.get(instance).setTrue()
-                    field { name = "mRandom" }.get(instance).set(SecureRandom())
+                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
+                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
                 }
             }
-            method { name = "getText" }.hook {
+            firstMethod { name = "getText" }.hook {
                 before {
-                    field { name = "mIsCtsTesting" }.get(instance).setTrue()
-                    field { name = "mRandom" }.get(instance).set(SecureRandom())
+                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
+                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
                 }
             }
         }
         //Source ConfusedTextView
-        "com.android.packageinstaller.oplus.view.ConfusedTextView".toClass().apply {
-            method { name = "getAccessibilityViewId" }.hook {
+        "com.android.packageinstaller.oplus.view.ConfusedTextView".toClass().resolve().apply {
+            firstMethod { name = "getAccessibilityViewId" }.hook {
                 before {
-                    field { name = "mIsCtsTesting" }.get(instance).setTrue()
-                    field { name = "mRandom" }.get(instance).set(SecureRandom())
+                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
+                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
                 }
             }
-            method { name = "getText" }.hook {
+            firstMethod { name = "getText" }.hook {
                 before {
-                    field { name = "mIsCtsTesting" }.get(instance).setTrue()
-                    field { name = "mRandom" }.get(instance).set(SecureRandom())
+                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
+                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
                 }
             }
         }

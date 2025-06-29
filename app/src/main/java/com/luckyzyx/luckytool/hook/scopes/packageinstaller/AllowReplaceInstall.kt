@@ -1,17 +1,17 @@
 package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object AllowReplaceInstall : YukiBaseHooker() {
     override fun onHook() {
         //Search ->  currentVersionCode / apkVersioncode -> Method
-        "com.android.packageinstaller.oplus.OPlusPackageInstallerActivity".toClass().apply {
-            method { name = "parseReplaceInstall" }.hook {
+        "com.android.packageinstaller.oplus.OPlusPackageInstallerActivity".toClass().resolve().apply {
+            firstMethod { name = "parseReplaceInstall" }.hook {
                 before {
-                    method { name = "preSafeInstall" }.get(instance).call()
+                    firstMethod { name = "preSafeInstall" }.of(instance).invoke()
                     resultNull()
                 }
             }
