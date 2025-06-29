@@ -1,10 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.quicksearchbox
 
 import android.util.ArrayMap
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
@@ -34,17 +32,17 @@ class HookQuickSearchBoxMMKV(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                 checkDataList("HookMMKV find clazz")
                 findMethod {
                     matcher {
-                        paramTypes(StringClass, StringClass)
-                        returnType(StringClass)
+                        paramTypes(String::class.java, String::class.java)
+                        returnType(String::class.java)
                         usingStrings("getString")
                     }
                 }.apply {
                     checkDataList("HookMMKV find getString")
-                    single().className.toClass().apply {
-                        method {
+                    single().className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(StringClass, StringClass)
-                            returnType = StringClass
+                            parameters(String::class, String::class)
+                            returnType = String::class
                         }.hook {
                             before {
                                 val key = args().first().cast<String>()
@@ -53,7 +51,7 @@ class HookQuickSearchBoxMMKV(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     null -> return@before
                                     is Boolean -> result = value.toString()
                                     is String -> result = value
-                                    is Int -> result = value.toInt()
+                                    is Int -> result = value
                                 }
                             }
                         }
@@ -61,17 +59,17 @@ class HookQuickSearchBoxMMKV(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                 }
                 findMethod {
                     matcher {
-                        paramTypes(StringClass, BooleanType)
-                        returnType(BooleanType)
+                        paramTypes(String::class.java, Boolean::class.java)
+                        returnType(Boolean::class.java)
                         usingStrings("getBoolean")
                     }
                 }.apply {
                     checkDataList("HookMMKV find getBoolean")
-                    single().className.toClass().apply {
-                        method {
+                    single().className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(StringClass, BooleanType)
-                            returnType = BooleanType
+                            parameters(String::class, Boolean::class)
+                            returnType = Boolean::class
                         }.hook {
                             before {
                                 val key = args().first().cast<String>()
