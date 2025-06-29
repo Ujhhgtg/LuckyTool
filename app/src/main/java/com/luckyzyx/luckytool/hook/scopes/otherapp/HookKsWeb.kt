@@ -1,17 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.otherapp
 
+import android.content.Context
+import android.content.SharedPreferences
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.SharedPreferencesClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookKsWeb : YukiBaseHooker() {
@@ -23,15 +19,15 @@ object HookKsWeb : YukiBaseHooker() {
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(IntType)
-                        addForType(BooleanType)
-                        addForType(SharedPreferencesClass)
+                        addForType(Int::class.java)
+                        addForType(Boolean::class.java)
+                        addForType(SharedPreferences::class.java)
                     }
                     methods {
-                        add { paramCount(0);returnType(IntType) }
-                        add { paramCount(0);returnType(BooleanType) }
-                        add { paramTypes(IntType);returnType(UnitType) }
-                        add { paramTypes(ContextClass);returnType(UnitType) }
+                        add { paramCount(0);returnType(Int::class.java) }
+                        add { paramCount(0);returnType(Boolean::class.java) }
+                        add { paramTypes(Int::class.java);returnType(Void.TYPE) }
+                        add { paramTypes(Context::class.java);returnType(Void.TYPE) }
                     }
                     usingStrings(
                         "EXTEND TO PRO VERSION",
@@ -42,11 +38,14 @@ object HookKsWeb : YukiBaseHooker() {
                 }
             }.apply {
                 checkDataList("HookKsWeb")
-                single().name.toClass().apply {
-                    method { emptyParam();returnType = BooleanType }.hookAll {
+                single().name.toClass().resolve().apply {
+                    method {
+                        emptyParameters()
+                        returnType = Boolean::class
+                    }.hookAll {
                         before {
-                            field { type = BooleanType }.get(instance).setTrue()
-                            field { type = IntType }.get(instance).set(2)
+                            firstField { type = Boolean::class }.of(instance).set(true)
+                            firstField { type = Int::class }.of(instance).set(2)
                         }
                     }
                 }
