@@ -1,19 +1,15 @@
 package com.luckyzyx.luckytool.hook.scopes.securepay
 
+import android.content.Context
+import android.content.DialogInterface
+import android.view.View
+import android.widget.CheckBox
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.CheckBoxClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
-import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
@@ -23,29 +19,36 @@ object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(BooleanType)
-                        addForType(CheckBoxClass)
+                        addForType(Boolean::class.java)
+                        addForType(CheckBox::class.java)
                     }
                     methods {
-                        add { paramCount(0);returnType(UnitType) }
-                        add { paramCount(4..8);returnType(UnitType) }
-                        add { paramCount(0);returnType(BooleanType) }
-                        add { paramTypes(ViewClass);returnType(UnitType) }
+                        add { paramCount(0);returnType(Void.TYPE) }
+                        add { paramCount(4..8);returnType(Void.TYPE) }
+                        add { paramCount(0);returnType(Boolean::class.java) }
+                        add { paramTypes(View::class.java);returnType(Void.TYPE) }
                         add {
                             paramTypes(
-                                ContextClass, StringClass, IntType, DialogInterfaceClass, IntType
+                                Context::class.java, String::class.java,
+                                Int::class.java, DialogInterface::class.java, Int::class.java
                             )
-                            returnType(UnitType)
+                            returnType(Void.TYPE)
                         }
                     }
                 }
             }.apply {
                 checkDataList("RemoveSecurePayFoundVirusDialog")
-                single().name.toClass().apply {
-                    method { param(VagueType, StringClass);returnType = UnitType }.hook {
+                single().name.toClass().resolve().apply {
+                    firstMethod {
+                        parameters(VagueType, String::class)
+                        returnType = Void.TYPE
+                    }.hook {
                         intercept()
                     }
-                    method { emptyParam();returnType = UnitType }.hookAll {
+                    method {
+                        emptyParameters()
+                        returnType = Void.TYPE
+                    }.hookAll {
                         intercept()
                     }
                 }
