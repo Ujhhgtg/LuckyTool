@@ -14,12 +14,12 @@ object UnlockTaskLocks : YukiBaseHooker() {
             firstFieldOrNull { name = "noDefaultLockedAppLimit" }?.let {
                 firstMethod { name = "initData" }.hook {
                     after {
-                        it.of(instance).set(999)
+                        it.copy().of(instance).set(999)
                     }
                 }
                 firstMethod { name = "updateNoDefaultLockAppLimit" }.hook {
                     after {
-                        it.of(instance).set(999)
+                        it.copy().of(instance).set(999)
                     }
                 }
                 return

@@ -148,7 +148,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         firstFieldOrNull { type = Boolean::class }?.let {
                             constructor { }.hookAll {
                                 after {
-                                    it.of(instance).set(true)
+                                    it.copy().of(instance).set(true)
                                 }
                             }
                         } ?: {
