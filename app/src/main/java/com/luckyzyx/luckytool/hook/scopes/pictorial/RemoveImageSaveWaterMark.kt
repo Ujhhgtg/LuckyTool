@@ -1,19 +1,15 @@
 package com.luckyzyx.luckytool.hook.scopes.pictorial
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.os.Handler
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BitmapClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.HandlerClass
-import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.FileClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
+import java.io.File
 
 @Obfuscate
 class RemoveImageSaveWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -23,27 +19,27 @@ class RemoveImageSaveWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(FileClass)
-                    addForType(HandlerClass)
-                    addForType(LongType)
-                    addForType(BooleanType)
-                    addForType(StringClass)
+                    addForType(File::class.java)
+                    addForType(Handler::class.java)
+                    addForType(Long::class.java)
+                    addForType(Boolean::class.java)
+                    addForType(String::class.java)
                 }
                 methods {
-                    add { returnType(HandlerClass) }
-                    add { returnType(BitmapClass) }
-                    add { returnType(BooleanType) }
-                    add { paramTypes(ContextClass) }
-                    add { paramCount(5);returnType(BitmapClass) }
+                    add { returnType(Handler::class.java) }
+                    add { returnType(Bitmap::class.java) }
+                    add { returnType(Boolean::class.java) }
+                    add { paramTypes(Context::class.java) }
+                    add { paramCount(5);returnType(Bitmap::class.java) }
                     add { paramTypes("com.heytap.pictorial.core.bean.BasePictorialData") }
                 }
             }
         }.apply {
             checkDataList("RemoveImageSaveWaterMark")
-            single().name.toClass().apply {
-                method {
-                    param(BooleanType, VagueType, BitmapClass, BooleanType)
-                    returnType = BitmapClass
+            single().name.toClass().resolve().apply {
+                firstMethod {
+                    parameters(Boolean::class, VagueType, Bitmap::class, Boolean::class)
+                    returnType = Bitmap::class
                 }.hook {
                     after {
                         result = args(2).cast<Bitmap>() ?: return@after
