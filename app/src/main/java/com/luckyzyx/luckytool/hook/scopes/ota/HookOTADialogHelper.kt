@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.ota
 
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
@@ -16,7 +16,7 @@ class HookOTADialogHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //Source OTADialogHelper
         dexKitBridge.findClass {
             matcher {
-                addMethod { paramTypes(ContextClass) }
+                addMethod { paramTypes(Context::class.java) }
                 usingStrings("OTADialogHelper", "auto_download_network_type")
             }
         }.apply {
@@ -24,14 +24,17 @@ class HookOTADialogHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             if (autoDownload) findMethod {
                 matcher {
-                    paramTypes(ContextClass)
+                    paramTypes(Context::class.java)
                     usingStrings("auto_download_network_type")
                 }
             }.apply {
                 checkDataList("AutoDownloadDialog find method")
 
-                single().className.toClass().apply {
-                    method { name = single().methodName;param(ContextClass) }.hook {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
+                        name = single().methodName
+                        parameters(Context::class)
+                    }.hook {
                         intercept()
                     }
                 }

@@ -1,10 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.ota
 
+import android.app.Notification
 import android.app.NotificationManager
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.Notification_BuilderClass
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
@@ -19,8 +19,8 @@ class HookNotificationHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
         //Source NotificationHelper
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(ContextClass)
-                addFieldForType(Notification_BuilderClass)
+                addFieldForType(Context::class.java)
+                addFieldForType(Notification.Builder::class.java)
                 addFieldForType(NotificationManager::class.java)
                 usingStrings(
                     "NotificationHelper",
@@ -39,8 +39,11 @@ class HookNotificationHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }.apply {
                 checkDataList("notifyInstallSuccess find method")
 
-                single().className.toClass().apply {
-                    method { name = single().methodName;emptyParam() }.hook {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
+                        name = single().methodName
+                        emptyParameters()
+                    }.hook {
                         intercept()
                     }
                 }

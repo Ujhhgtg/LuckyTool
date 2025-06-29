@@ -1,22 +1,14 @@
 package com.luckyzyx.luckytool.hook.scopes.ota
 
+import android.content.Context
 import android.os.SystemProperties
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.ArrayClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.FileClass
-import com.highcapable.yukihookapi.hook.type.java.FloatType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.highcapable.yukihookapi.hook.type.java.MapClass
-import com.highcapable.yukihookapi.hook.type.java.StringArrayClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
+import java.io.File
 
 @Obfuscate
 class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -32,22 +24,25 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(IntType)
-                        addForType(FileClass)
-                        addForType(ListClass)
-                        addForType(MapClass)
+                        addForType(Int::class.java)
+                        addForType(File::class.java)
+                        addForType(List::class.java)
+                        addForType(Map::class.java)
                     }
                     methods {
-                        add { paramCount(0);returnType(IntType) }
-                        add { paramCount(0);returnType(FileClass) }
-                        add { paramCount(0);returnType(ListClass) }
+                        add { paramCount(0);returnType(Int::class.java) }
+                        add { paramCount(0);returnType(File::class.java) }
+                        add { paramCount(0);returnType(List::class.java) }
                     }
                     usingStrings("META-INF/com/android/metadata")
                 }
             }.apply {
                 checkDataList("RemoveOTALocalUpdateVerity MetaData")
-                single().name.toClass().apply {
-                    method { emptyParam();returnType = ListClass }.hook {
+                single().name.toClass().resolve().apply {
+                    firstMethod {
+                        emptyParameters()
+                        returnType = List::class
+                    }.hook {
                         after {
                             result<ArrayList<String>>()?.apply {
                                 removeIf { it.contains("forbid_ota_local_update") }
@@ -68,25 +63,35 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(ContextClass)
-                        addForType(IntType)
-                        addForType(FloatType)
-                        addForType(BooleanType)
+                        addForType(Context::class.java)
+                        addForType(Int::class.java)
+                        addForType(Float::class.java)
+                        addForType(Boolean::class.java)
                         addForType("android.os.UpdateEngine")
                         addForType("android.os.UpdateEngineCallback")
                     }
                     methods {
-                        add { paramCount(0);returnType(IntType) }
-                        add { paramCount(0);returnType(FloatType) }
-                        add { paramCount(0);returnType(UnitType) }
-                        add { paramTypes(StringClass, LongType, LongType, StringArrayClass) }
+                        add { paramCount(0);returnType(Int::class.java) }
+                        add { paramCount(0);returnType(Float::class.java) }
+                        add { paramCount(0);returnType(Void.TYPE) }
+                        add {
+                            paramTypes(
+                                String::class.java, Long::class.java,
+                                Long::class.java, ArrayClass(String::class)
+                            )
+                        }
                     }
                     usingStrings("ABUpdateManager", "payload_properties")
                 }
             }.apply {
                 checkDataList("RemoveOTALocalUpdateVerity Properties")
-                single().name.toClass().apply {
-                    method { param(StringClass, LongType, LongType, StringArrayClass) }.hook {
+                single().name.toClass().resolve().apply {
+                    firstMethod {
+                        parameters(
+                            String::class, Long::class,
+                            Long::class, ArrayClass(String::class)
+                        )
+                    }.hook {
                         before {
                             val headers = args().last().array<String>()
                             headers.toMutableList().apply {
