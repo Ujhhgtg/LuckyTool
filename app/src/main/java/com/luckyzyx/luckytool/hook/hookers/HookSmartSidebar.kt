@@ -26,6 +26,7 @@ object HookSmartSidebar : YukiBaseHooker() {
         //HookFeatureOption
         if (SDK == A13 && v14) loadHooker(HookFeatureOption)
 
+        //强制启用浮标自动隐藏
         if (prefs(ModulePrefs).getBoolean("force_enable_buoy_automatically_hides", false)) {
             if (SDK == A12) loadHooker(ForceEnableBuoyAutomaticallyHides)
         }

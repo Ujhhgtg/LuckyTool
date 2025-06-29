@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.smartsidebar
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookFeatureOption : YukiBaseHooker() {
@@ -14,12 +13,12 @@ object HookFeatureOption : YukiBaseHooker() {
         val fluidCloud = prefs(ModulePrefs).getBoolean("unlock_fluid_cloud", false)
 
         //Source EdgePanelFeatureOption
-        "com.coloros.edgepanel.utils.EdgePanelFeatureOption".toClass().apply {
-            method { name = "loadFeatureOption" }.hook {
+        "com.coloros.edgepanel.utils.EdgePanelFeatureOption".toClass().resolve().apply {
+            firstMethod { name = "loadFeatureOption" }.hook {
                 after {
-                    if (recentFiles) field { name = "IS_SHIELD_FILE_BAG" }.get().setFalse()
-                    if (fluidCloud) field { name = "IS_SHIELD_FLUID_CLOUD" }.get().setFalse()
-                    if (transferDock) field { name = "IS_SHIELD_TRANSFER_DOCK" }.get().setFalse()
+                    if (recentFiles) firstField { name = "IS_SHIELD_FILE_BAG" }.set(false)
+                    if (fluidCloud) firstField { name = "IS_SHIELD_FLUID_CLOUD" }.set(false)
+                    if (transferDock) firstField { name = "IS_SHIELD_TRANSFER_DOCK" }.set(false)
                 }
             }
         }

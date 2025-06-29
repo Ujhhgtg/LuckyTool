@@ -1,11 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.smartsidebar
 
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.startMirageWindow
@@ -20,35 +18,34 @@ object EnableRunInBackground : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         //Source BackgroundRunTool
-        BackgroundRunToolCls.toClass().apply {
-            method { name = "handle" }.hook {
+        BackgroundRunToolCls.toClass().resolve().apply {
+            firstMethod { name = "handle" }.hook {
                 before {
                     if (osCode >= 34) {
                         startMirageWindow(null)
                     } else {
-                        val context = field { type = ContextClass;superClass() }.get(instance)
-                            .cast<Context>() ?: return@before
+                        val context = firstField { type = Context::class;superclass() }.of(instance)
+                            .get<Context>() ?: return@before
                         IntentUtils(context).startBackgroundRunServiceV14()
                     }
                     resultNull()
                 }
             }
-            method { name = "isToolAvailable" }.hook {
+            firstMethod { name = "isToolAvailable" }.hook {
                 replaceToTrue()
             }
         }
 
         //Source ToolEntryHelper
         "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.ToolEntryHelper".toClass()
-            .apply {
-                method { name = "loadTools" }.hook {
+            .resolve().apply {
+                firstMethod { name = "loadTools" }.hook {
                     after {
-                        val context = field { type = ContextClass; superClass() }.get(instance)
-                            .cast<Context>() ?: return@after
-                        val tool = BackgroundRunToolCls.toClass().buildOf(context) {
-                            param(ContextClass)
-                        }
-                        method { name = "put" }.get(instance).call(tool)
+                        val context =
+                            firstField { type = Context::class; superclass() }.of(instance)
+                                .get<Context>() ?: return@after
+                        val tool = BackgroundRunToolCls.toClass().createInstance(context)
+                        firstMethod { name = "put" }.of(instance).invoke(tool)
                     }
                 }
             }
