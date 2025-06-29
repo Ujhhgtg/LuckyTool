@@ -8,14 +8,15 @@ import org.lsposed.lsparanoid.Obfuscate
 object EnableCustomAppLanguage : YukiBaseHooker() {
     override fun onHook() {
         //Source AppLocaleUtil
-        "com.android.settings.applications.AppLocaleUtil".toClass().apply {
-            resolve().firstMethod { name = "canDisplayLocaleUi" }.hook {
+        "com.android.settings.applications.AppLocaleUtil".toClass().resolve().apply {
+            firstMethod { name = "canDisplayLocaleUi" }.hook {
                 replaceToTrue()
             }
         }
         //Source AppLocalePreferenceController
-        "com.android.settings.applications.appinfo.AppLocalePreferenceController".toClass().apply {
-            resolve().firstMethod { name = "getAvailabilityStatus" }.hook {
+        "com.android.settings.applications.appinfo.AppLocalePreferenceController".toClass()
+            .resolve().apply {
+            firstMethod { name = "getAvailabilityStatus" }.hook {
                 replaceTo(0)
             }
         }

@@ -2,18 +2,16 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.InputStreamClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
+import java.io.InputStream
 
 @Obfuscate
 class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -26,16 +24,16 @@ class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHo
             }
         }.findMethod {
             matcher {
-                paramTypes(ContextClass, StringClass, StringClass)
+                paramTypes(Context::class.java, String::class.java, String::class.java)
                 usingStrings(".zip", ".lottie")
             }
         }.apply {
             checkDataList("FixAppSpecificMediaVolumePage")
-            single().className.toClass().apply {
-                method {
+            single().className.toClass().resolve().apply {
+                firstMethod {
                     //fromAssetSync
                     name = single().methodName
-                    param(ContextClass, StringClass, StringClass)
+                    parameters(Context::class, String::class, String::class)
                 }.hook {
                     before {
                         val context = args().first().cast<Context>() ?: return@before
@@ -56,11 +54,11 @@ class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHo
                             val rawInputStream = safeOfNull {
                                 context.resources.openRawResource(resId)
                             } ?: return@before
-                            result = method {
+                            result = firstMethod {
 //                                name = "fromJsonInputStreamSync"
-                                param(InputStreamClass, StringClass)
+                                parameters(InputStream::class, String::class)
                                 returnType = method.returnType
-                            }.get().call(rawInputStream, key) ?: return@before
+                            }.invoke(rawInputStream, key) ?: return@before
                         }
                     }
                 }

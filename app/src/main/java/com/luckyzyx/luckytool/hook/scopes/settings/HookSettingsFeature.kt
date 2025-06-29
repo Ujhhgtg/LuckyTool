@@ -1,16 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import android.content.pm.ApplicationInfo
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ApplicationInfoClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -27,21 +24,24 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             dexKitBridge.findClass {
                 matcher {
                     methods {
-                        add { returnType(StringClass) }
-                        add { returnType(BooleanType) }
-                        add { returnType(ApplicationInfoClass) }
-                        add { paramTypes(StringClass) }
-                        add { paramTypes(IntType) }
-                        add { paramTypes(IntType, StringClass) }
-                        add { paramTypes(StringClass) }
-                        add { paramTypes(StringClass, StringClass) }
+                        add { returnType(String::class.java) }
+                        add { returnType(Boolean::class.java) }
+                        add { returnType(ApplicationInfo::class.java) }
+                        add { paramTypes(String::class.java) }
+                        add { paramTypes(Int::class.java) }
+                        add { paramTypes(Int::class.java, String::class.java) }
+                        add { paramTypes(String::class.java) }
+                        add { paramTypes(String::class.java, String::class.java) }
                     }
                     usingStrings("screen_off_timeout")
                 }
             }.apply {
                 checkDataList("HookExpUst")
-                single().name.toClass().apply {
-                    method { param(IntType);returnType = BooleanType }.hookAll {
+                single().name.toClass().resolve().apply {
+                    method {
+                        parameters(Int::class)
+                        returnType = Boolean::class
+                    }.hookAll {
                         before {
                             when (args().first().int()) {
                                 //Source DisplayTimeOutController -> 永不息屏(24H)

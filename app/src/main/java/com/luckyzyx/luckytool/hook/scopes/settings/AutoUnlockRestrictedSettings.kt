@@ -1,17 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -22,23 +15,23 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(ContextClass)
-                    addForType(StringClass)
-                    addForType(BooleanType)
-                    addForType(IntType)
+                    addForType(Context::class.java)
+                    addForType(String::class.java)
+                    addForType(Boolean::class.java)
+                    addForType(Int::class.java)
                 }
                 methods {
                     add {
                         paramCount(0)
-                        returnType(BooleanType)
+                        returnType(Boolean::class.java)
                     }
                     add {
                         paramCount(0)
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }
                     add {
-                        paramTypes(BooleanType)
-                        returnType(BooleanType)
+                        paramTypes(Boolean::class.java)
+                        returnType(Boolean::class.java)
                     }
                 }
                 usingStrings("RestrictedPreferenceHelper")
@@ -48,16 +41,16 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
             val findMethod = findMethod {
                 matcher {
                     paramCount(0)
-                    returnType(BooleanType)
+                    returnType(Boolean::class.java)
                     addCaller {
                         name("performClick")
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }
                     addUsingField {
-                        field { type(ContextClass) }
-                        field { type(IntType) }
-                        field { type(StringClass) }
-                        field { type(BooleanType) }
+                        field { type(Context::class.java) }
+                        field { type(Int::class.java) }
+                        field { type(String::class.java) }
+                        field { type(Boolean::class.java) }
                     }
                 }
             }.checkDataList("AutoUnlockRestrictedSettings findMethod").single()
@@ -67,49 +60,60 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
                     addReadMethod {
                         name(findMethod.methodName)
                         paramCount(0)
-                        returnType(BooleanType)
+                        returnType(Boolean::class.java)
                     }
                 }
             }.checkDataList("AutoUnlockRestrictedSettings findFields", onlyOne = false)
 
             val appops = findField {
                 matcher {
-                    type(BooleanType)
+                    type(Boolean::class.java)
                     addReadMethod {
                         name(findMethod.methodName)
                         paramCount(0)
-                        returnType(BooleanType)
+                        returnType(Boolean::class.java)
                     }
                     addWriteMethod {
-                        paramTypes(BooleanType.name)
-                        returnType(BooleanType)
+                        paramTypes(Boolean::class.java.name)
+                        returnType(Boolean::class.java)
                     }
                 }
             }.checkDataList("AutoUnlockRestrictedSettings findField AppOps").single()
 
-            val admin = fields.filter { it.typeName == BooleanType.name }.toMutableList().apply {
-                removeIf { it.fieldName == appops.fieldName }
-            }.first()
+            val admin =
+                fields.filter { it.typeName == Boolean::class.java.name }.toMutableList().apply {
+                    removeIf { it.fieldName == appops.fieldName }
+                }.first()
 
-            val uidname = fields.find { it.typeName == IntType.name }?.fieldName ?: "uid"
-            val packname = fields.find { it.typeName == StringClass.name }?.fieldName
+            val uidname = fields.find { it.typeName == Int::class.java.name }?.fieldName ?: "uid"
+            val packname = fields.find { it.typeName == String::class.java.name }?.fieldName
                 ?: "packageName"
 
-            findMethod.className.toClass().apply {
-                method { name = findMethod.methodName;emptyParam();returnType = BooleanType }.hook {
+            findMethod.className.toClass().resolve().apply {
+                firstMethod {
+                    name = findMethod.methodName
+                    emptyParameters()
+                    returnType = Boolean::class
+                }.hook {
                     before {
-                        val context = field { type = ContextClass }.get(instance).cast<Context>()
-                            ?: return@before
-                        val disabledAdmin = field { name = admin.fieldName }.get(instance).boolean()
-                        val disabledAppOps = field { name = appops.fieldName }.get(instance)
-                            .boolean()
+                        val context =
+                            firstField { type = Context::class }.of(instance).get<Context>()
+                                ?: return@before
+                        val disabledAdmin =
+                            firstField { name = admin.fieldName }.of(instance).get<Boolean>()
+                                ?: false
+                        val disabledAppOps = firstField { name = appops.fieldName }.of(instance)
+                            .get<Boolean>() ?: false
                         if (disabledAdmin) return@before
                         if (disabledAppOps) {
-                            val uid = field { name = uidname }.get(instance).int()
-                            val packName = field { name = packname }.get(instance).string()
+                            val uid = firstField { name = uidname }.of(instance).get<Int>() ?: -1
+                            val packName =
+                                firstField { name = packname }.of(instance).get<String>() ?: ""
                             context.setMode(uid, packName, limit)
-                            method { param(BooleanType);returnType = BooleanType }.get(instance)
-                                .call(limit)
+                            firstMethod {
+                                parameters(Boolean::class)
+                                returnType = Boolean::class
+                            }.of(instance).invoke(limit)
                             result = limit
                         }
                     }
@@ -120,7 +124,7 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
 
     private fun Context.setMode(uid: Int, packName: String, limit: Boolean) {
         val appOps = getSystemService(Context.APP_OPS_SERVICE)
-        appOps.current().method { name = "setMode";paramCount = 4 }.call(
+        appOps.resolve().firstMethod { name = "setMode";parameterCount = 4 }.invoke(
             119, uid, packName, if (limit) 1 else 0
         )
     }

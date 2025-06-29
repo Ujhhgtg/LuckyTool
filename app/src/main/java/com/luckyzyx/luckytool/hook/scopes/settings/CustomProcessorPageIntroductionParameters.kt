@@ -8,10 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
@@ -28,11 +26,11 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
 
         //Source ProcessorDetailPreference
         "com.oplus.settings.feature.deviceinfo.processordetail.ProcessorDetailPreference".toClass()
-            .apply {
-                method { name = "onBindViewHolder" }.hook {
+            .resolve().apply {
+                firstMethod { name = "onBindViewHolder" }.hook {
                     after {
                         val viewHolder = args().first().any() ?: return@after
-                        val context = method { name = "getContext";superClass() }.get(instance)
+                        val context = firstMethod { name = "getContext";superclass() }.of(instance)
                             .invoke<Context>() ?: return@after
 
                         if (replaceImage) {
@@ -40,8 +38,8 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                 "iv_top", "id",
                                 this@CustomProcessorPageIntroductionParameters.packageName
                             ).takeIf { e -> e != 0 }?.let {
-                                viewHolder.current().method {
-                                    name = "findViewById";param(IntType)
+                                viewHolder.resolve().firstMethod {
+                                    name = "findViewById";parameters(Int::class)
                                 }.invoke<ImageView>(it)
                             }?.apply {
                                 val bitmap = BitmapFactory.decodeFile(imagePath)
@@ -61,8 +59,8 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                     key, "id",
                                     this@CustomProcessorPageIntroductionParameters.packageName
                                 ).takeIf { e -> e != 0 }?.let {
-                                    viewHolder.current().method {
-                                        name = "findViewById";param(IntType)
+                                    viewHolder.resolve().firstMethod {
+                                        name = "findViewById";parameters(Int::class)
                                     }.invoke<TextView>(it)
                                 }?.setClickInfo(key)
                             }
@@ -72,8 +70,8 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                     key, "id",
                                     this@CustomProcessorPageIntroductionParameters.packageName
                                 ).takeIf { e -> e != 0 }?.let {
-                                    viewHolder.current().method {
-                                        name = "findViewById";param(IntType)
+                                    viewHolder.resolve().firstMethod {
+                                        name = "findViewById";parameters(Int::class)
                                     }.invoke<TextView>(it)
                                 }?.setClickInfo(key)
                             }
@@ -83,8 +81,8 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                     key, "id",
                                     this@CustomProcessorPageIntroductionParameters.packageName
                                 ).takeIf { e -> e != 0 }?.let {
-                                    viewHolder.current().method {
-                                        name = "findViewById";param(IntType)
+                                    viewHolder.resolve().firstMethod {
+                                        name = "findViewById";parameters(Int::class)
                                     }.invoke<TextView>(it)
                                 }?.setClickInfo(key)
                             }

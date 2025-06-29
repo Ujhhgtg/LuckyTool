@@ -1,20 +1,19 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object EnableSwipeUpNavigationGesture : YukiBaseHooker() {
     override fun onHook() {
         //Source NavBarSettingsValueUtil
-        "com.oplus.settings.feature.navbar.NavBarSettingsValueUtil".toClass().apply {
-            method {
+        "com.oplus.settings.feature.navbar.NavBarSettingsValueUtil".toClass().resolve().apply {
+            firstMethod {
                 name = "getGestureUpModeAvailable"
-                param(ContextClass)
-                returnType = IntType
+                parameters(Context::class)
+                returnType = Int::class
             }.hook {
                 replaceTo(0)
             }

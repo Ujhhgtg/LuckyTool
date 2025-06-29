@@ -3,28 +3,18 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ComponentInfo
 import android.content.pm.PackageItemInfo
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.drawable.Drawable
+import android.os.UserHandle
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ComponentInfoClass
-import com.highcapable.yukihookapi.hook.type.android.ComponentNameClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.DrawableClass
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.android.UserHandleClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
@@ -42,35 +32,33 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source OplusDefaultAutofillPicker
             "com.oplus.settings.feature.othersettings.input.OplusDefaultAutofillPicker".toClass()
-                .apply {
-                    method { name = "getCandidates" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "getCandidates" }.hook {
                         before {
                             val list = ArrayList<Any>()
-                            val context = method { name = "getContext";superClass() }.get(instance)
-                                .invoke<Context>() ?: return@before
-                            val pm = field {
-                                type = PackageManager::class.java;superClass()
-                            }.get(instance).cast<PackageManager>() ?: return@before
-                            val allProviders = method {
-                                name = "getAllProviders";superClass()
-                            }.get(instance).list<Any>()
-                            val users = method {
-                                name = "getUser";superClass()
-                            }.get(instance).int()
+                            val context =
+                                firstMethod { name = "getContext";superclass() }.of(instance)
+                                    .invoke<Context>() ?: return@before
+                            val pm = firstField {
+                                type = PackageManager::class;superclass()
+                            }.of(instance).get<PackageManager>() ?: return@before
+                            val allProviders = firstMethod {
+                                name = "getAllProviders";superclass()
+                            }.of(instance).invoke<List<Any>>() ?: listOf()
+                            val users = firstMethod {
+                                name = "getUser";superclass()
+                            }.of(instance).invoke<Int>() ?: -1
                             allProviders.forEachIndexed { _, info ->
                                 val settingsSubtitle =
-                                    info.current().method { name = "getSettingsSubtitle" }.call()
+                                    info.resolve().firstMethod { name = "getSettingsSubtitle" }
+                                        .invoke()
                                 val brandingService =
-                                    info.current().method { name = "getBrandingService" }.call()
-                                val defaultAppInfo = defaultAppInfoClazz.toClass().buildOf(
+                                    info.resolve().firstMethod { name = "getBrandingService" }
+                                        .invoke()
+                                val defaultAppInfo = defaultAppInfoClazz.toClass().createInstance(
                                     context, pm, users, brandingService, settingsSubtitle, true
-                                ) {
-                                    param(
-                                        ContextClass, PackageManager::class.java, IntType,
-                                        PackageItemInfo::class.java, StringClass, BooleanType
-                                    )
-                                }
-                                defaultAppInfo?.let { list.add(it) }
+                                )
+                                list.add(defaultAppInfo)
                             }
                             if (list.isNotEmpty()) result = list
                         }
@@ -114,18 +102,18 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             val defaultAppInfoClazz = dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(IntType)
-                        addForType(StringClass)
-                        addForType(ContextClass)
-                        addForType(ComponentNameClass)
+                        addForType(Int::class.java)
+                        addForType(String::class.java)
+                        addForType(Context::class.java)
+                        addForType(ComponentName::class.java)
                         addForType(PackageManager::class.java)
                         addForType(PackageItemInfo::class.java)
                     }
                     methods {
-                        add { paramCount(0);returnType(StringClass) }
-                        add { paramCount(0);returnType(DrawableClass) }
-                        add { paramCount(0);returnType(CharSequenceClass) }
-                        add { paramCount(0);returnType(ComponentInfoClass) }
+                        add { paramCount(0);returnType(String::class.java) }
+                        add { paramCount(0);returnType(Drawable::class.java) }
+                        add { paramCount(0);returnType(CharSequence::class.java) }
+                        add { paramCount(0);returnType(ComponentInfo::class.java) }
                     }
                 }
             }.let {
@@ -135,52 +123,49 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source OplusDefaultAutofillPicker
             "com.oplus.settings.feature.othersettings.input.OplusDefaultAutofillPicker".toClass()
-                .apply {
-                    method { emptyParam();returnType = ListClass }.hook {
+                .resolve().apply {
+                    firstMethod {
+                        emptyParameters()
+                        returnType = List::class
+                    }.hook {
                         before {
                             val list = ArrayList<Any>()
-                            val context = method { name = "getContext";superClass() }.get(instance)
-                                .invoke<Context>() ?: return@before
-                            val packageManager = field {
-                                type = PackageManager::class.java;superClass()
-                            }.get(instance).cast<PackageManager>() ?: return@before
-                            val intent = field {
-                                type = IntentClass;superClass()
-                            }.get(instance).cast<Intent>() ?: return@before
-                            val users = UserHandleClass.method { name = "myUserId" }.get()
-                                .call()
-                            val queryIntentServicesAsUser = packageManager.current().method {
+                            val context =
+                                firstMethod { name = "getContext";superclass() }.of(instance)
+                                    .invoke<Context>() ?: return@before
+                            val packageManager = firstField {
+                                type = PackageManager::class.java;superclass()
+                            }.of(instance).get<PackageManager>() ?: return@before
+                            val intent = firstField {
+                                type = Intent::class;superclass()
+                            }.of(instance).get<Intent>() ?: return@before
+                            val users =
+                                UserHandle::class.resolve().firstMethod { name = "myUserId" }
+                                    .invoke<Int>()
+                            val queryIntentServicesAsUser = packageManager.resolve().firstMethod {
                                 name = "queryIntentServicesAsUser"
-                                param(IntentClass, IntType, IntType)
+                                parameters(Intent::class, Int::class, Int::class)
                             }.invoke<List<ResolveInfo>>(intent, 128, users) ?: return@before
                             queryIntentServicesAsUser.forEachIndexed { _, resolveInfo ->
                                 val serviceInfo = resolveInfo.serviceInfo
                                 val permission = serviceInfo.permission
                                 if (permission == "android.permission.BIND_AUTOFILL_SERVICE") {
-                                    val defaultAppInfo = defaultAppInfoClazz.toClass().buildOf(
-                                        context, packageManager, users, ComponentName(
-                                            serviceInfo.packageName, serviceInfo.name
+                                    val defaultAppInfo =
+                                        defaultAppInfoClazz.toClass().createInstance(
+                                            context, packageManager, users, ComponentName(
+                                                serviceInfo.packageName, serviceInfo.name
+                                            )
                                         )
-                                    ) {
-                                        param(
-                                            ContextClass, PackageManager::class.java, IntType,
-                                            ComponentNameClass
-                                        )
-                                    }
-                                    defaultAppInfo?.let { list.add(it) }
+                                    list.add(defaultAppInfo)
                                 }
                                 if (permission == "android.permission.BIND_AUTOFILL") {
-                                    val defaultAppInfo = defaultAppInfoClazz.toClass().buildOf(
-                                        context, packageManager, users, ComponentName(
-                                            serviceInfo.packageName, serviceInfo.name
+                                    val defaultAppInfo =
+                                        defaultAppInfoClazz.toClass().createInstance(
+                                            context, packageManager, users, ComponentName(
+                                                serviceInfo.packageName, serviceInfo.name
+                                            )
                                         )
-                                    ) {
-                                        param(
-                                            ContextClass, PackageManager::class.java, IntType,
-                                            ComponentNameClass
-                                        )
-                                    }
-                                    defaultAppInfo?.let { list.add(it) }
+                                    list.add(defaultAppInfo)
                                 }
                             }
                             if (list.isNotEmpty()) result = list

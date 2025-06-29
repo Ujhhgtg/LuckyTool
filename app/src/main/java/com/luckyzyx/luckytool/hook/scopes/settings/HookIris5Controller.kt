@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -15,41 +15,41 @@ object HookIris5Controller : YukiBaseHooker() {
 
         //Source Iris5MotionFluencySwitchController
         "com.oplus.settings.feature.display.controller.Iris5MotionFluencySwitchController".toClass()
-            .apply {
-                method { name = "is2kReject" }.hook {
+            .resolve().apply {
+                firstMethod { name = "is2kReject" }.hook {
                     if (isVideoFrameInsertion) replaceToFalse()
                 }
-                method { name = "isSupport120With2K" }.hook {
+                firstMethod { name = "isSupport120With2K" }.hook {
                     if (isVideoFrameInsertion) replaceToTrue()
                 }
             }
         //Source Iris5MotionFluencyController
         "com.oplus.settings.feature.display.controller.Iris5MotionFluencyController".toClass()
-            .apply {
-                method { name = "is2kReject" }.hook {
+            .resolve().apply {
+                firstMethod { name = "is2kReject" }.hook {
                     if (isVideoFrameInsertion) replaceToFalse()
                 }
-                method { name = "isSupport120With2K" }.hook {
+                firstMethod { name = "isSupport120With2K" }.hook {
                     if (isVideoFrameInsertion) replaceToTrue()
                 }
             }
         //Source Iris5VideoDisplayEnhancementController
         "com.oplus.settings.feature.display.controller.Iris5VideoDisplayEnhancementController".toClass()
-            .apply {
-                method { name = "is2kReject" }.hook {
+            .resolve().apply {
+                firstMethod { name = "is2kReject" }.hook {
                     if (isVideoDisplayEnhancement) replaceToFalse()
                 }
-                method { name = "isSupport120With2K" }.hook {
+                firstMethod { name = "isSupport120With2K" }.hook {
                     if (isVideoDisplayEnhancement) replaceToTrue()
                 }
             }
         //Source Iris5VideoSuperResolutionController
         "com.oplus.settings.feature.display.controller.Iris5VideoSuperResolutionController".toClass()
-            .apply {
-                method { name = "is2kReject" }.hook {
+            .resolve().apply {
+                firstMethod { name = "is2kReject" }.hook {
                     if (isVideoSuperResolution) replaceToFalse()
                 }
-                method { name = "isSupport120With2K" }.hook {
+                firstMethod { name = "isSupport120With2K" }.hook {
                     if (isVideoSuperResolution) replaceToTrue()
                 }
             }

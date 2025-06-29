@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.allViews
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
@@ -18,8 +18,9 @@ object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source ShareAboutPhoneActivity
-        "com.oplus.settings.feature.deviceinfo.aboutphone.ShareAboutPhoneActivity".toClass().apply {
-            method { name = "onCreate" }.hook {
+        "com.oplus.settings.feature.deviceinfo.aboutphone.ShareAboutPhoneActivity".toClass()
+            .resolve().apply {
+            firstMethod { name = "onCreate" }.hook {
                 after {
                     val activity = instance<Activity>()
                     val shareViewId = activity.resources.getIdentifier(

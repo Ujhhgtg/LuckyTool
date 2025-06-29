@@ -1,12 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
@@ -21,8 +18,8 @@ object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
         override fun onHook() {
             //Source PasswordManagerPreferenceController
             "com.oplus.settings.feature.password.controller.PasswordManagerPreferenceController".toClass()
-                .apply {
-                    method { name = "isPreferenceNotAvailable" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "isPreferenceNotAvailable" }.hook {
                         replaceToFalse()
                     }
                 }
@@ -34,30 +31,30 @@ object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
         override fun onHook() {
             //Source PasswordManagerPreferenceController
             "com.oplus.settings.feature.password.controller.PasswordManagerPreferenceController".toClass()
-                .apply {
-                    method { name = "displayPreference" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "displayPreference" }.hook {
                         after {
                             val preferenceScreen = args().first().any() ?: return@after
-                            val preference = preferenceScreen.current().method {
+                            val preference = preferenceScreen.resolve().firstMethod {
                                 name = "findPreference"
-                                param(CharSequenceClass)
-                                superClass()
-                            }.call("key_password_manager") ?: return@after
-                            preference.current().method {
+                                parameters(CharSequence::class)
+                                superclass()
+                            }.invoke("key_password_manager") ?: return@after
+                            preference.resolve().firstMethod {
                                 name = "setVisible"
-                                param(BooleanType)
-                                superClass()
-                            }.call(true)
+                                parameters(Boolean::class)
+                                superclass()
+                            }.invoke(true)
                         }
                     }
-                    method { name = "updateState" }.hook {
+                    firstMethod { name = "updateState" }.hook {
                         after {
                             val preference = args().first().any() ?: return@after
-                            preference.current().method {
+                            preference.resolve().firstMethod {
                                 name = "setVisible"
-                                param(BooleanType)
-                                superClass()
-                            }.call(true)
+                                parameters(Boolean::class)
+                                superclass()
+                            }.invoke(true)
                         }
                     }
                 }
