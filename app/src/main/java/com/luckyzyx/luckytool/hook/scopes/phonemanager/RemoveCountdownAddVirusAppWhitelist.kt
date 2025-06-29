@@ -1,9 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.phonemanager
 
 import android.os.CountDownTimer
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
@@ -19,8 +18,8 @@ class RemoveCountdownAddVirusAppWhitelist(val dexKitBridge: DexKitBridge) : Yuki
         }.apply {
             checkDataList("find clazz DialogCrossActivity")
 
-            val clazz = single().name.toClass()
-            if (!clazz.hasField { type = CountDownTimer::class.java }) return@apply
+            val resolver = single().name.toClass().resolve()
+            resolver.firstFieldOrNull { type = CountDownTimer::class.java } ?: return
 
             findMethod {
                 matcher {
@@ -33,13 +32,11 @@ class RemoveCountdownAddVirusAppWhitelist(val dexKitBridge: DexKitBridge) : Yuki
                 checkDataList("find method CountDownTimer", onlyOne = false)
 
                 forEachIndexed { _: Int, methodData: MethodData ->
-                    clazz.apply {
-                        method {
-                            name = methodData.methodName
-                            paramCount(2..3)
-                        }.hook {
-                            intercept()
-                        }
+                    resolver.firstMethod {
+                        name = methodData.methodName
+                        parameterCount { it in 2..3 }
+                    }.hook {
+                        intercept()
                     }
                 }
             }
