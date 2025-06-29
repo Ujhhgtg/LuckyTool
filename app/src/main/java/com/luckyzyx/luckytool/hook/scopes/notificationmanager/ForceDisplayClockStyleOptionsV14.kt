@@ -2,10 +2,8 @@ package com.luckyzyx.luckytool.hook.scopes.notificationmanager
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -24,41 +22,42 @@ object ForceDisplayClockStyleOptionsV14 : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source KeyguardLauncherPageProvider
-        "com.oplus.keyguard.keyguardsettings.KeyguardLauncherPageProvider".toClass().apply {
-            method { name = "initKeyguardLandClockPf" }.hook {
-                before {
-                    val isFlavorTwoDevice = providerClient.toClass().field {
-                        name = "isFlavorTwoDevice"
-                    }.get().boolean()
-                    if (!isFlavorTwoDevice) return@before
+        "com.oplus.keyguard.keyguardsettings.KeyguardLauncherPageProvider".toClass().resolve()
+            .apply {
+                firstMethod { name = "initKeyguardLandClockPf" }.hook {
+                    before {
+                        val isFlavorTwoDevice = providerClient.toClass().resolve().firstField {
+                            name = "isFlavorTwoDevice"
+                        }.get<Boolean>() ?: false
+                        if (!isFlavorTwoDevice) return@before
 
-                    val list = args().first().cast<ArrayList<Any>>()
-                    val context = method { name = "getContext";superClass() }.get(instance)
-                        .invoke<Context>()
-                    val clockTitle = context?.getString(
-                        context.resources.getIdentifier(
-                            "oplus_keyguard_land_clock_type_title", "string",
-                            this@ForceDisplayClockStyleOptionsV14.packageName
+                        val list = args().first().cast<ArrayList<Any>>()
+                        val context = firstMethod { name = "getContext";superclass() }.of(instance)
+                            .invoke<Context>()
+                        val clockTitle = context?.getString(
+                            context.resources.getIdentifier(
+                                "oplus_keyguard_land_clock_type_title", "string",
+                                this@ForceDisplayClockStyleOptionsV14.packageName
+                            )
                         )
-                    )
-                    val keyguardLandClockPf =
-                        method { name = "createPerfrenceBean";superClass() }.get(instance)
-                            .call(type, key, 70, clockTitle, category)
-                    keyguardLandClockPf?.current()?.method { name = "setIntentPackage" }
-                        ?.call("com.oplus.notificationmanager")
-                    keyguardLandClockPf?.current()?.method { name = "setIntentClass" }
-                        ?.call("com.oplus.keyguard.keyguardsettings.KeyguardLandClockActivity")
+                        val keyguardLandClockPf = firstMethod {
+                            name = "createPerfrenceBean";superclass()
+                        }.of(instance).invoke(type, key, 70, clockTitle, category)
+                        keyguardLandClockPf?.resolve()?.firstMethod { name = "setIntentPackage" }
+                            ?.invoke("com.oplus.notificationmanager")
+                        keyguardLandClockPf?.resolve()?.firstMethod { name = "setIntentClass" }
+                            ?.invoke("com.oplus.keyguard.keyguardsettings.KeyguardLandClockActivity")
 
-                    val hashMap = field { name = "preferenceHashMap" }.get(instance)
-                        .cast<HashMap<String, Any>>()
-                    method { name = "addPreferenceMap" }.get(instance).call(
-                        hashMap, key, keyguardLandClockPf
-                    )
-                    keyguardLandClockPf?.let { list?.add(it) }
-                    resultNull()
+                        val hashMap = firstField { name = "preferenceHashMap" }.of(instance)
+                            .get<HashMap<String, Any>>()
+                        firstMethod { name = "addPreferenceMap" }.of(instance).invoke(
+                            hashMap, key, keyguardLandClockPf
+                        )
+                        keyguardLandClockPf?.let { list?.add(it) }
+                        resultNull()
+                    }
                 }
             }
-        }
 
         //Source KeyguardSettingsSearchProvider
 //        "com.oplus.keyguard.settingsearch.KeyguardSettingsSearchProvider".toClass().apply {

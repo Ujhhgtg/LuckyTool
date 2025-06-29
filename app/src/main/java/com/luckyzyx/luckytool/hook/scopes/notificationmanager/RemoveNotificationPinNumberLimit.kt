@@ -1,9 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.notificationmanager
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.AnyClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -11,16 +9,19 @@ object RemoveNotificationPinNumberLimit : YukiBaseHooker() {
     override fun onHook() {
         //Source AppNotificationTopController
         "com.oplus.notificationmanager.property.uicontroller.AppNotificationTopController".toClass()
-            .apply {
-                method {
-                    param(this@apply, "androidx.preference.Preference", AnyClass)
-                    returnType = BooleanType
-                }.hookAll {
-                    before {
-                        val ins = args().first().any() ?: return@before
-                        val bool = args().last().boolean()
-                        method { name = "onChange";superClass() }.get(ins).call(bool)
-                        resultTrue()
+            .let {
+                it.resolve().apply {
+                    method {
+                        parameters(it, "androidx.preference.Preference", Any::class)
+                        returnType = Boolean::class
+                    }.hookAll {
+                        before {
+                            val controller = args().first().any() ?: return@before
+                            val bool = args().last().boolean()
+                            controller.resolve().firstMethod { name = "onChange";superclass() }
+                                .invoke(bool)
+                            resultTrue()
+                        }
                     }
                 }
             }
