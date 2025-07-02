@@ -3,12 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.uiengine
 import com.drake.net.Get
 import com.drake.net.okhttp.trustSSLCertificate
 import com.drake.net.utils.scopeNet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
 @Obfuscate
@@ -23,8 +21,8 @@ object EnableRandomTextOnAod : YukiBaseHooker() {
         var yiyanTextCache = ""
 
         //Source AodRootLayout
-        "com.oplus.aodimpl.AodRootLayout".toClass().apply {
-            constructor { paramCount = 2 }.hook {
+        "com.oplus.aodimpl.AodRootLayout".toClass().resolve().apply {
+            firstConstructor { parameterCount = 2 }.hook {
                 before {
                     when (mode) {
                         "1" -> {
@@ -53,35 +51,38 @@ object EnableRandomTextOnAod : YukiBaseHooker() {
                     }
                 }
             }
-            method { name = "getCustomView" }.hook {
+            firstMethod { name = "getCustomView" }.hook {
                 before {
                     val viewBean = args().first().any() ?: return@before
-                    val mViewType = viewBean.current().method { name = "getViewType" }.string()
+                    val mViewType =
+                        viewBean.resolve().firstMethod { name = "getViewType" }.invoke<String>()
                     if (mViewType != "AodTextView") return@before
 
-                    val mMethodBeanList = viewBean.current().field { name = "mMethodBeanList" }
-                        .list<Any>()
+                    val mMethodBeanList = viewBean.resolve().firstField { name = "mMethodBeanList" }
+                        .get<List<Any>>() ?: listOf()
                     val textMethod = mMethodBeanList.find {
-                        it.current().method { name = "getXmlAttribute" }.string() == "text" &&
-                                it.current().method { name = "getMethodName" }.string() == "setText"
+                        it.resolve().firstMethod { name = "getXmlAttribute" }
+                            .invoke<String>() == "text" &&
+                                it.resolve().firstMethod { name = "getMethodName" }
+                                    .invoke<String>() == "setText"
                     }
                     if (textMethod != null) {
 
                         when (mode) {
                             "1" -> {
                                 if (yiyanTextArrayCache.isNotEmpty()) {
-                                    textMethod.current().method { name = "setXmlValue" }
-                                        .call(yiyanTextArrayCache.shuffled().first())
-                                    textMethod.current().method { name = "setValue" }
-                                        .call(yiyanTextArrayCache.shuffled().first())
+                                    textMethod.resolve().firstMethod { name = "setXmlValue" }
+                                        .invoke(yiyanTextArrayCache.shuffled().first())
+                                    textMethod.resolve().firstMethod { name = "setValue" }
+                                        .invoke(yiyanTextArrayCache.shuffled().first())
                                 }
                             }
 
                             "2" -> if (yiyanTextCache.isNotBlank()) {
-                                textMethod.current().method { name = "setXmlValue" }
-                                    .call(yiyanTextCache)
-                                textMethod.current().method { name = "setValue" }
-                                    .call(yiyanTextCache)
+                                textMethod.resolve().firstMethod { name = "setXmlValue" }
+                                    .invoke(yiyanTextCache)
+                                textMethod.resolve().firstMethod { name = "setValue" }
+                                    .invoke(yiyanTextCache)
                             }
                         }
                     }

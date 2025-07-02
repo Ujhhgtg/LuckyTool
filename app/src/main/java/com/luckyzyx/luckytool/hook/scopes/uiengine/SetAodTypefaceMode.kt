@@ -3,14 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.uiengine
 import android.graphics.Typeface
 import android.text.TextPaint
 import android.view.View
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object SetAodTypefaceMode : YukiBaseHooker() {
@@ -19,23 +15,29 @@ object SetAodTypefaceMode : YukiBaseHooker() {
         val applyClock = prefs(ModulePrefs).getBoolean("apply_aod_clock_typeface", false)
 
         //Source AodTextView
-        "com.oplus.egview.widget.AodTextView".toClass().apply {
-            constructor { paramCount = 3 }.hook {
+        "com.oplus.egview.widget.AodTextView".toClass().resolve().apply {
+            firstConstructor { parameterCount = 3 }.hook {
                 after {
                     val typeface = when (typefaceMode) {
                         "1" -> Typeface.DEFAULT
                         "2" -> Typeface.DEFAULT_BOLD
                         else -> return@after
                     }
-                    method { name = "setTypeface";param(TypefaceClass);superClass() }.get(instance)
-                        .call(typeface)
+                    firstMethod {
+                        name = "setTypeface"
+                        parameters(Typeface::class)
+                        superclass()
+                    }.of(instance).invoke(typeface)
                 }
             }
         }
 
         //Source TimeView
-        "com.oplus.egview.widget.TimeView".toClass().apply {
-            method { name = "setTextWidget";param(StringClass) }.hook {
+        "com.oplus.egview.widget.TimeView".toClass().resolve().apply {
+            firstMethod {
+                name = "setTextWidget"
+                parameters(String::class)
+            }.hook {
                 after {
                     if (applyClock.not()) return@after
                     val typeface = when (typefaceMode) {
@@ -43,8 +45,8 @@ object SetAodTypefaceMode : YukiBaseHooker() {
                         "2" -> Typeface.DEFAULT_BOLD
                         else -> return@after
                     }
-                    val mTextPaint = field { name = "mTextPaint";superClass() }.get(instance)
-                        .cast<TextPaint>() ?: return@after
+                    val mTextPaint = firstField { name = "mTextPaint";superclass() }.of(instance)
+                        .get<TextPaint>() ?: return@after
                     mTextPaint.typeface = typeface
                     instance<View>().requestLayout()
                 }
