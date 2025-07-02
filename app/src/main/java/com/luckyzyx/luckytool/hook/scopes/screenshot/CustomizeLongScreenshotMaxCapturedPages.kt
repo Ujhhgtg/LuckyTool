@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.screenshot
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
@@ -27,15 +28,17 @@ class CustomizeLongScreenshotMaxCapturedPages(val dexKitBridge: DexKitBridge) : 
         }.apply {
             checkDataList("CustomizeLongScreenshotMaxCapturedPages")
             single().name.toClass().resolve().apply {
+                //isCapturedPagesReachLimit
                 firstMethod {
-                    parameters { it[1] == Int::class }
+                    parameters(VagueType, Int::class)
                     parameterCount = 2
                     returnType = Boolean::class
                 }.hook {
                     replaceToFalse()
                 }
+                //trimToStitchLimit
                 firstMethod {
-                    parameters { it[1] == Int::class && it[2] == Int::class }
+                    parameters(VagueType, Int::class, Int::class)
                     parameterCount = 3
                     returnType = Int::class
                 }.hook {

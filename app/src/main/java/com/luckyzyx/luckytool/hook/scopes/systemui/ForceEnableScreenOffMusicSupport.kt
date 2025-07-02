@@ -2,11 +2,9 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
 import android.provider.Settings
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.SettingsUtils
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -16,24 +14,26 @@ object ForceEnableScreenOffMusicSupport : YukiBaseHooker() {
         val statisticUtil = VariousClass(
             "com.oplusos.systemui.notification.util.NotificationStatisticUtil",  //C13
             "com.oplus.systemui.aod.mediapanel.util.AodMediaStatisticUtil"  //C14
-        ).toClass()
+        )
 
         //Source OplusBlackScreenGestureControllExImpl
-        VariousClass(
+        (VariousClass(
             "com.oplus.systemui.keyguard.OplusBlackScreenGestureControllExImpl", //C13
             "com.oplus.systemui.keyguard.gesture.OplusBlackScreenGestureControllExImpl" //C14
-        ).toClass().apply {
-            val hasReset = hasMethod { name = "resetAodMediaSupportConfig" }
-            method { name = if (hasReset) "resetAodMediaSupportConfig" else "init" }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            (firstMethodOrNull { name = "resetAodMediaSupportConfig" }
+                ?: firstMethod { name = "init" }).hook {
                 after {
-                    val context = field { name = "mContext" }.get(instance).cast<Context>()
+                    val context = firstField { name = "mContext" }.of(instance).get<Context>()
                         ?: return@after
                     SettingsUtils.putIntForUser(
                         Settings.Secure::class.java, context.contentResolver,
                         "aod_media_support", 1, 0
                     )
-                    statisticUtil.method { name = "setAodMediaSupport";paramCount = 1 }
-                        .get().call(true)
+                    statisticUtil.toClass().resolve().firstMethod {
+                        name = "setAodMediaSupport"
+                        parameterCount = 1
+                    }.invoke(true)
                 }
             }
         }

@@ -1,28 +1,26 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DisableHeadphoneHighVolumeWarning : YukiBaseHooker() {
     override fun onHook() {
         //Sourcce VolumeDialogImplEx
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
             "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14
-        ).toClass().apply {
-            method { name = "init" }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod { name = "init" }.hook {
                 after {
-                    val mContext = field { name = "mContext" }.get(instance).cast<Context>()
+                    val mContext = firstField { name = "mContext" }.of(instance).get<Context>()
                         ?: return@after
                     val audioManager = mContext.getSystemService(Context.AUDIO_SERVICE)
                         ?: return@after
-                    audioManager.current().method { name = "disableSafeMediaVolume" }.call()
+                    audioManager.resolve().firstMethod { name = "disableSafeMediaVolume" }.invoke()
                 }
             }
         }

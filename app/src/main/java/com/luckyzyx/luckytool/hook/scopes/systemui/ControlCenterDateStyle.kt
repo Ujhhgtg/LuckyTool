@@ -5,12 +5,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.layoutDirection
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A13
@@ -49,29 +46,31 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         var lunarInstance: Any? = null
 
         //Source OplusQSDateView
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.qs.widget.OplusQSDateView", //C13
             "com.oplus.systemui.qs.widget.OplusQSDateView" //C14 C15
-        ).toClass().apply {
-            method { name = "updateClock";emptyParam() }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod { name = "updateClock";emptyParameters() }.hook {
                 before {
                     if (!removeComma && !showLunar) return@before
 
                     val dateView = instance<TextView>()
                     val timeInfo = WeatherInfoParseHelper(appClassLoader)
                         .getLocalTimeInfo(dateView.context)
-                    val mLastText = field { name = "mLastText" }.get(instance).string()
+                    val mLastText = firstField { name = "mLastText" }.of(instance).get<String>()
                     if (timeInfo != null) {
-                        val dateInfo = timeInfo.current().method { name = "getDateInfo" }.string()
+                        val dateInfo =
+                            timeInfo.resolve().firstMethod { name = "getDateInfo" }.invoke<String>()
+                                ?: ""
                         if (dateInfo != mLastText && dateInfo.isNotBlank()) dateView.text = dateInfo
                     } else {
                         val mDateFormat =
-                            field { type = DateTimeFormatter::class.java }.get(instance)
-                                .cast<DateTimeFormatter>()
+                            firstField { type = DateTimeFormatter::class }.of(instance)
+                                .get<DateTimeFormatter>()
                         if (mDateFormat == null) {
                             val mDatePattern =
-                                field { name = "mDatePattern" }.get(instance).string()
-                            field { type = DateTimeFormatter::class.java }.get(instance).set(
+                                firstField { name = "mDatePattern" }.of(instance).get<String>()
+                            firstField { type = DateTimeFormatter::class }.of(instance).set(
                                 DateTimeFormatter.ofPattern(mDatePattern, Locale.getDefault())
                             )
                         }
@@ -89,7 +88,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             }
                         }
                         dateView.text = res
-                        field { name = "mLastText" }.get(instance).set(res)
+                        firstField { name = "mLastText" }.of(instance).set(res)
                     }
                     resultNull()
                 }
@@ -100,25 +99,25 @@ object ControlCenterDateStyle : YukiBaseHooker() {
 
         var translationX = 0
         //Source OplusQSFooterImpl
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.qs.OplusQSFooterImpl", //C13
             "com.oplus.systemui.qs.OplusQSFooterImpl" //C14
-        ).toClass().apply {
-            if (hasMethod { name = "updateQsDateView" }.not()) return@apply
-            method { name = "updateQsDateView" }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethodOrNull { name = "updateQsDateView" }?.hook {
                 after {
                     val res = instance<ViewGroup>().resources
                     val mTmpConstraintSet =
-                        field { name = "mTmpConstraintSet" }.get(instance).any()
+                        firstField { name = "mTmpConstraintSet" }.of(instance).get()
                             ?: return@after
-                    val mClockView = field { name = "mClockView" }.get(instance).cast<TextView>()
+                    val mClockView = firstField { name = "mClockView" }.of(instance).get<TextView>()
                         ?: return@after
-                    val mQsDateView = field { name = "mQsDateView" }.get(instance).cast<TextView>()
-                        ?: return@after
+                    val mQsDateView =
+                        firstField { name = "mQsDateView" }.of(instance).get<TextView>()
+                            ?: return@after
 
-                    if (disableScroll) mTmpConstraintSet.current().method {
+                    if (disableScroll) mTmpConstraintSet.resolve().firstMethod {
                         name = "constrainWidth"
-                    }.call(mQsDateView.id, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                    }.invoke(mQsDateView.id, ConstraintLayout.LayoutParams.WRAP_CONTENT)
 
                     if (showLunar && (displayMode != "0")) {
                         //162dp
@@ -152,23 +151,27 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             if (it) return@getScreenOrientation
                             if (translationX == 0 || translationY == 0) return@getScreenOrientation
 
-                            when (displayMode) {
-                                "1" -> mTmpConstraintSet.current().method {
-                                    name = "constrainWidth"
-                                }.call(mQsDateView.id, qs_footer_date_width * 2)
-
-                                "2" -> {
-                                    mTmpConstraintSet.current().method {
+                            mTmpConstraintSet.resolve().apply {
+                                firstMethod {  }
+                                when (displayMode) {
+                                    "1" -> firstMethod {
                                         name = "constrainWidth"
-                                    }.call(
-                                        mQsDateView.id, ConstraintLayout.LayoutParams.WRAP_CONTENT
-                                    )
-                                    mTmpConstraintSet.current().method {
-                                        name = "setTranslationX"
-                                    }.call(mQsDateView.id, translationX.toFloat())
-                                    mTmpConstraintSet.current().method {
-                                        name = "setTranslationY"
-                                    }.call(mQsDateView.id, translationY.toFloat())
+                                    }.invoke(mQsDateView.id, qs_footer_date_width * 2)
+
+                                    "2" -> {
+                                        firstMethod {
+                                            name = "constrainWidth"
+                                        }.invoke(
+                                            mQsDateView.id,
+                                            ConstraintLayout.LayoutParams.WRAP_CONTENT
+                                        )
+                                        firstMethod {
+                                            name = "setTranslationX"
+                                        }.invoke(mQsDateView.id, translationX.toFloat())
+                                        firstMethod {
+                                            name = "setTranslationY"
+                                        }.invoke(mQsDateView.id, translationY.toFloat())
+                                    }
                                 }
                             }
                         }

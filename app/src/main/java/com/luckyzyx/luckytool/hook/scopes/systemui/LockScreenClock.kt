@@ -17,15 +17,10 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.allViews
 import androidx.core.view.children
 import androidx.core.view.isVisible
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
+import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.luckyzyx.luckytool.hook.utils.sysui.ClockSwitchHelper
 import com.luckyzyx.luckytool.hook.utils.sysui.WeatherInfoParseHelper
 import com.luckyzyx.luckytool.utils.A14
@@ -53,14 +48,14 @@ object LockScreenClock : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardStyleClockControllerImpl
             "com.oplus.systemui.keyguard.clockstyle.KeyguardStyleClockControllerImpl".toClass()
-                .apply {
-                    method {
+                .resolve().apply {
+                    firstMethod {
                         name = "setKeyguardStyleClockVisibility"
-                        param(IntType, BooleanType, BooleanType)
+                        parameters(Int::class, Boolean::class, Boolean::class)
                     }.hook {
                         before {
-                            field { name = "keyguardStyleClock" }.get(instance)
-                                .cast<View>()?.isVisible = false
+                            firstField { name = "keyguardStyleClock" }.of(instance)
+                                .get<View>()?.isVisible = false
                             resultNull()
                         }
                     }
@@ -72,39 +67,37 @@ object LockScreenClock : YukiBaseHooker() {
     object RemoveLockScreenClockV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardClockSwitch
-            "com.android.keyguard.KeyguardClockSwitch".toClass().apply {
+            "com.android.keyguard.KeyguardClockSwitch".toClass().resolve().apply {
                 if (SDK >= A14) {
-                    method { name = "onFinishInflate" }.hook {
+                    firstMethod { name = "onFinishInflate" }.hook {
                         after {
-                            field { name = "mSmallClockFrame" }.get(instance)
-                                .cast<View>()?.isVisible = false
+                            firstField { name = "mSmallClockFrame" }.of(instance)
+                                .get<View>()?.isVisible = false
                         }
                     }
-                    method { name = "updateClockViews" }.hook {
+                    firstMethod { name = "updateClockViews" }.hook {
                         after {
-                            field { name = "mSmallClockFrame" }.get(instance)
-                                .cast<View>()?.isVisible = false
+                            firstField { name = "mSmallClockFrame" }.of(instance)
+                                .get<View>()?.isVisible = false
                         }
                     }
                 } else {
-                    method { name = "onFinishInflate" }.hook {
+                    firstMethod { name = "onFinishInflate" }.hook {
                         after {
-                            field { name = "mSmallClockFrame" }.get(instance)
-                                .cast<View>()?.isVisible = false
+                            firstField { name = "mSmallClockFrame" }.of(instance)
+                                .get<View>()?.isVisible = false
                         }
                     }
-                    method { name = "setClockPlugin" }.hook {
+                    firstMethod { name = "setClockPlugin" }.hook {
                         after {
-                            field { name = "mSmallClockFrame" }.get(instance)
-                                .cast<View>()?.isVisible = false
+                            firstField { name = "mSmallClockFrame" }.of(instance)
+                                .get<View>()?.isVisible = false
                         }
                     }
-                    if (hasMethod { name = "updateLockScreenMode" }) method {
-                        name = "updateLockScreenMode"
-                    }.hook {
+                    firstMethodOrNull { name = "updateLockScreenMode" }?.hook {
                         after {
-                            field { name = "mSmallClockFrame" }.get(instance)
-                                .cast<View>()?.isVisible = false
+                            firstField { name = "mSmallClockFrame" }.of(instance)
+                                .get<View>()?.isVisible = false
                         }
                     }
                 }
@@ -128,12 +121,11 @@ object LockScreenClock : YukiBaseHooker() {
 
             //OPPO/Realme kgd_single_clock / kgd_dual_clock
             //Source SingleClockView kgd_single_clock
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.keyguard.clock.SingleClockView", //C13
                 "com.oplus.systemui.shared.clocks.SingleClockView" //C14
-            ).toClass().apply {
-                val hasUpdateLand = hasMethod { name = "updateKeyguardLandClock" }
-                method { name = "onFinishInflate" }.hook {
+            ).toClass() as Class<Any>).resolve().apply {
+                firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter && !userTypeface) return@after
                         instance<ViewGroup>().apply {
@@ -150,33 +142,30 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 }
-                method {
-                    name {
-                        if (hasUpdateLand) it == "updateKeyguardLandClock"
-                        else it.contains("updateKeyguardLandClock")
-                    }
-                }.hook {
+                (firstMethodOrNull { name = "updateKeyguardLandClock" }
+                    ?: firstMethod { name { it.contains("updateKeyguardLandClock") } }).hook {
                     after {
                         if (isCenter) instance<ViewGroup>().setPadding(0, 20.dp, 0, 0)
                     }
                 }
-                method { name = "updateTime" }.hook {
+                firstMethod { name = "updateTime" }.hook {
                     after {
                         if (redMode == "0") return@after
-                        val mTimeHour = field { name = "mTimeHour" }.get(instance).cast<TextView>()
-                            ?: return@after
-                        val mHour = field { name = "mHour" }.get(instance).string()
-                            .takeIf { e -> e.isNotBlank() } ?: return@after
+                        val mTimeHour =
+                            firstField { name = "mTimeHour" }.of(instance).get<TextView>()
+                                ?: return@after
+                        val mHour = firstField { name = "mHour" }.of(instance).get<String>()
+                        if (mHour.isNullOrBlank()) return@after
                         mTimeHour.setClockRed(mHour, redMode)
                     }
                 }
             }
             //Source DualClockView kgd_dual_clock
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.keyguard.clock.DualClockView", //C13
                 "com.oplus.systemui.shared.clocks.DualClockView" //C14
-            ).toClass().apply {
-                method { name = "onFinishInflate" }.hook {
+            ).toClass() as Class<Any>).resolve().apply {
+                firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after
                         instance<ViewGroup>().allViews.filter { it is TextView }
@@ -185,7 +174,7 @@ object LockScreenClock : YukiBaseHooker() {
                             }
                     }
                 }
-                method { param { it.contains(weatherInfoClazz) } }.hookAll {
+                method { parameters { it.contains(weatherInfoClazz) } }.hookAll {
                     after {
                         if (!dualClock) return@after
                         val type: String = method.name.let { s ->
@@ -197,22 +186,28 @@ object LockScreenClock : YukiBaseHooker() {
                         else instance
                         when (type) {
                             "LocatedTime" -> {
-                                val mLocatedTimeHour = field { name = "mLocatedTimeHour" }
-                                    .get(view).cast<TextView>() ?: return@after
-                                val mLocatedTimeInfo = field { name = "mLocatedTimeInfo" }
-                                    .get(view).any() ?: return@after
-                                val mHour = mLocatedTimeInfo.current().method { name = "getHour" }
-                                    .invoke<String>() ?: return@after
+                                val mLocatedTimeHour =
+                                    firstField { name = "mLocatedTimeHour" }.of(view)
+                                        .get<TextView>() ?: return@after
+                                val mLocatedTimeInfo =
+                                    firstField { name = "mLocatedTimeInfo" }.of(view).get()
+                                        ?: return@after
+                                val mHour =
+                                    mLocatedTimeInfo.resolve().firstMethod { name = "getHour" }
+                                        .invoke<String>() ?: return@after
                                 mLocatedTimeHour.setClockRed(mHour, redMode)
                             }
 
                             "ResidentTime" -> {
-                                val mResidentTimeHour = field { name = "mResidentTimeHour" }
-                                    .get(view).cast<TextView>() ?: return@after
-                                val mResidentTimeInfo = field { name = "mResidentTimeInfo" }
-                                    .get(view).any() ?: return@after
-                                val mHour = mResidentTimeInfo.current().method { name = "getHour" }
-                                    .invoke<String>() ?: return@after
+                                val mResidentTimeHour =
+                                    firstField { name = "mResidentTimeHour" }.of(view)
+                                        .get<TextView>() ?: return@after
+                                val mResidentTimeInfo =
+                                    firstField { name = "mResidentTimeInfo" }.of(view).get()
+                                        ?: return@after
+                                val mHour =
+                                    mResidentTimeInfo.resolve().firstMethod { name = "getHour" }
+                                        .invoke<String>() ?: return@after
                                 mResidentTimeHour.setClockRed(mHour, redMode)
                             }
                         }
@@ -221,18 +216,19 @@ object LockScreenClock : YukiBaseHooker() {
             }
             //OnePlus kgd_red_horizontal_single_clock / kgd_red_horizontal_dual_clock
             //Source RedTextClock
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedTextClock", //C13
                 "com.oplus.systemui.shared.clocks.RedTextClock" //C14
-            ).toClass().apply {
-                method { name = "onTimeChanged" }.hook {
+            ).toClass() as Class<Any>).resolve().apply {
+                firstMethod { name = "onTimeChanged" }.hook {
                     after {
                         if (redMode == "0") return@after
-                        val mShouldRunTicker = field { name = "mShouldRunTicker" }.get(instance)
-                            .boolean()
+                        val mShouldRunTicker =
+                            firstField { name = "mShouldRunTicker" }.of(instance).get<Boolean>()
+                                ?: false
                         if (!mShouldRunTicker) return@after
-                        val format = field { name = "format" }.get(instance).string()
-                        val mTime = field { name = "mTime" }.get(instance).cast<Calendar>()
+                        val format = firstField { name = "format" }.of(instance).get<String>()
+                        val mTime = firstField { name = "mTime" }.of(instance).get<Calendar>()
                             ?: return@after
                         val mTimeHour = instance<TextView>()
                         val mHour = DateFormat.format(format, mTime) as String
@@ -244,9 +240,8 @@ object LockScreenClock : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedHorizontalSingleClockView", //C13
                 "com.oplus.systemui.shared.clocks.RedHorizontalSingleClockView" //C14
-            ).toClass().apply {
-                val hasTextFont = hasMethod { name = "setTextFont" }
-                method { name = "onFinishInflate" }.hook {
+            ).toClass().resolve().apply {
+                firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter && !userTypeface) return@after
                         instance<ViewGroup>().apply {
@@ -263,21 +258,17 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 }
-                method {
-                    name {
-                        if (hasTextFont) it == "setTextFont"
-                        else it.contains("setTextFont")
-                    }
-                }.hook {
+                (firstMethodOrNull { name = "setTextFont" }
+                    ?: firstMethod { name { it.contains("setTextFont") } }).hook {
                     if (userTypeface) intercept()
                 }
             }
             //Source RedHorizontalDualClockView
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedHorizontalDualClockView", //C13
                 "com.oplus.systemui.shared.clocks.RedHorizontalDualClockView" //C14
-            ).toClassOrNull()?.apply {
-                method { name = "onFinishInflate" }.hook {
+            ).toClassOrNull() as? Class<Any>)?.resolve()?.apply {
+                firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after
                         instance<ViewGroup>().allViews.filter { it is TextView }
@@ -286,8 +277,15 @@ object LockScreenClock : YukiBaseHooker() {
                             }
                     }
                 }
-                if (hasMethod { param { it.contains(timeInfoClazz) };paramCount = 3 }) {
-                    method { param { it.contains(timeInfoClazz) };paramCount = 3 }.hookAll {
+                val locateTime = firstMethodOrNull {
+                    parameters { it.contains(timeInfoClazz) }
+                    parameterCount = 3
+                }
+                if (locateTime != null) {
+                    method {
+                        parameters { it.contains(timeInfoClazz) }
+                        parameterCount = 3
+                    }.hookAll {
                         after {
                             if (!dualClock) return@after
                             val type: String = method.name.let { s ->
@@ -299,23 +297,23 @@ object LockScreenClock : YukiBaseHooker() {
                             else instance
                             when (type) {
                                 "LocateTime" -> {
-                                    val mLocatedTimeHour = view.current().field {
+                                    val mLocatedTimeHour = view.resolve().firstField {
                                         name = "mTvHorizontalLocateClockHour"
-                                    }.cast<TextView>() ?: return@after
+                                    }.get<TextView>() ?: return@after
                                     val mLocatedTimeInfo = args().last().any() ?: return@after
                                     val mHour =
-                                        mLocatedTimeInfo.current().method { name = "getHour" }
+                                        mLocatedTimeInfo.resolve().firstMethod { name = "getHour" }
                                             .invoke<String>() ?: return@after
                                     mLocatedTimeHour.setClockRed(mHour, redMode)
                                 }
 
                                 "ResidentTime" -> {
-                                    val mResidentTimeHour = view.current().field {
+                                    val mResidentTimeHour = view.resolve().firstField {
                                         name = "mTvHorizontalResidentClockHour"
-                                    }.cast<TextView>() ?: return@after
+                                    }.get<TextView>() ?: return@after
                                     val mResidentTimeInfo = args().last().any() ?: return@after
                                     val mHour =
-                                        mResidentTimeInfo.current().method { name = "getHour" }
+                                        mResidentTimeInfo.resolve().firstMethod { name = "getHour" }
                                             .invoke<String>() ?: return@after
                                     mResidentTimeHour.setClockRed(mHour, redMode)
                                 }
@@ -323,53 +321,51 @@ object LockScreenClock : YukiBaseHooker() {
                         }
                     }
                 } else {
-                    method { name = "updateLocateTime" }.hook {
+                    firstMethod { name = "updateLocateTime" }.hook {
                         after {
                             if (!dualClock) return@after
-                            val mContext = field { name = "mContext" }.get(instance).cast<Context>()
-                                ?: return@after
-                            val mLocatedTimeHour = field { name = "mTvHorizontalLocateClockHour" }
-                                .get(instance).cast<TextView>() ?: return@after
+                            val mContext =
+                                firstField { name = "mContext" }.of(instance).get<Context>()
+                                    ?: return@after
+                            val mLocatedTimeHour =
+                                firstField { name = "mTvHorizontalLocateClockHour" }.of(instance)
+                                    .get<TextView>() ?: return@after
                             val mLocatedTimeInfo =
                                 WeatherInfoParseHelper(appClassLoader).getLocalTimeInfo(mContext)
                                     ?: return@after
-                            val mHour =
-                                mLocatedTimeInfo.current().method { name = "getHour" }
-                                    .invoke<String>()
-                                    ?: return@after
+                            val mHour = mLocatedTimeInfo.resolve().firstMethod { name = "getHour" }
+                                .invoke<String>() ?: return@after
                             mLocatedTimeHour.setClockRed(mHour, redMode)
                         }
                     }
-                    method { name = "updateResidentTime" }.hook {
+                    firstMethod { name = "updateResidentTime" }.hook {
                         after {
                             if (!dualClock) return@after
-                            val mContext = field { name = "mContext" }.get(instance).cast<Context>()
-                                ?: return@after
+                            val mContext =
+                                firstField { name = "mContext" }.of(instance).get<Context>()
+                                    ?: return@after
                             val mResidentTimeHour =
-                                field { name = "mTvHorizontalResidentClockHour" }
-                                    .get(instance).cast<TextView>() ?: return@after
+                                firstField { name = "mTvHorizontalResidentClockHour" }.of(instance)
+                                    .get<TextView>() ?: return@after
                             val info = ClockSwitchHelper(appClassLoader).let {
                                 it.getInstance(mContext)
                                     ?.let { its -> it.getResidentWeatherInfo(its) }
-                            } ?: WeatherInfoParseHelper(appClassLoader).weatherInfoClazz.buildOf {
-                                emptyParam()
                             }
+                                ?: WeatherInfoParseHelper(appClassLoader).weatherInfoClazz.createInstance()
                             val timeZone =
-                                info?.current()?.method { name = "getTimeZone" }?.invoke<String>()
+                                info.resolve().firstMethod { name = "getTimeZone" }.invoke<String>()
                                     ?: "0.0"
                             val mResidentTimeInfo =
                                 WeatherInfoParseHelper(appClassLoader).getResidentTimeInfo(
                                     mContext, timeZone
                                 ) ?: return@after
-                            val mHour =
-                                mResidentTimeInfo.current().method { name = "getHour" }
-                                    .invoke<String>()
-                                    ?: return@after
+                            val mHour = mResidentTimeInfo.resolve().firstMethod { name = "getHour" }
+                                .invoke<String>() ?: return@after
                             mResidentTimeHour.setClockRed(mHour, redMode)
                         }
                     }
                 }
-                method { name = "setTextFont" }.hook {
+                firstMethod { name = "setTextFont" }.hook {
                     if (userTypeface) intercept()
                 }
             }

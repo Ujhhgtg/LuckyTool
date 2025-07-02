@@ -1,11 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.util.ArraySet
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.ListClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object CustomMusicFluidCloudWhitelist : YukiBaseHooker() {
@@ -15,22 +14,26 @@ object CustomMusicFluidCloudWhitelist : YukiBaseHooker() {
             prefs(ModulePrefs).getStringSet("set_custom_music_fluid_cloud_whitelist", ArraySet())
 
         //Source OplusMediaRusUpdateManager
-        "com.oplus.systemui.media.seedling.rus.OplusMediaRusUpdateManager".toClass().apply {
-            method { name = "getRusWhiteList";returnType = ListClass }.hook {
-                after {
-                    val originalList = result<java.util.ArrayList<String>>() ?: return@after
-                    if (disabled) {
-                        originalList.clear()
-                    } else if (set.isNotEmpty()) {
-                        val finalList = LinkedHashSet<String>().apply {
-                            addAll(originalList)
-                            addAll(set)
+        "com.oplus.systemui.media.seedling.rus.OplusMediaRusUpdateManager".toClass().resolve()
+            .apply {
+                firstMethod {
+                    name = "getRusWhiteList"
+                    returnType = List::class
+                }.hook {
+                    after {
+                        val originalList = result<java.util.ArrayList<String>>() ?: return@after
+                        if (disabled) {
+                            originalList.clear()
+                        } else if (set.isNotEmpty()) {
+                            val finalList = LinkedHashSet<String>().apply {
+                                addAll(originalList)
+                                addAll(set)
+                            }
+                            originalList.clear()
+                            originalList.addAll(finalList)
                         }
-                        originalList.clear()
-                        originalList.addAll(finalList)
                     }
                 }
             }
-        }
     }
 }

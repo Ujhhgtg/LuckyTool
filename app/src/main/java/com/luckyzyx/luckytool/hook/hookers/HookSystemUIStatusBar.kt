@@ -45,7 +45,7 @@ class HookSystemUIStatusBar(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         loadHooker(StatusBarControlCenter)
 
         //状态栏磁贴
-        loadHooker(StatusBarTile)
+        loadHooker(StatusBarTile(dexKitBridge))
 
         //状态栏滑动条
         loadHooker(StatusBarSilder)

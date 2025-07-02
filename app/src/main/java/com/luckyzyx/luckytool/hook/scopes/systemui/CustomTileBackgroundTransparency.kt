@@ -2,14 +2,13 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.drawable.ShapeDrawable
 import android.view.View
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
 import com.luckyzyx.luckytool.utils.formatColorAlpha
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object CustomTileBackgroundTransparency : YukiBaseHooker() {
@@ -17,8 +16,8 @@ object CustomTileBackgroundTransparency : YukiBaseHooker() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_tile_background_transparency", -1)
 
         //Source OplusQsMediaPanelBgDrawable status_bar_qs_tile_bg_color_inactive
-        "com.oplus.systemui.qs.media.OplusQsMediaPanelBgDrawable".toClass().apply {
-            constructor { paramCount = 5 }.hook {
+        "com.oplus.systemui.qs.media.OplusQsMediaPanelBgDrawable".toClass().resolve().apply {
+            firstConstructor { parameterCount = 5 }.hook {
                 before {
                     if (customAlpha < 0) return@before
                     val value = customAlpha / 10.0F
@@ -36,8 +35,8 @@ object CustomTileBackgroundTransparency : YukiBaseHooker() {
             "com.oplusos.systemui.qs.qstileimpl.OplusQSTileBaseView",  //C13
             "com.oplus.systemui.qs.qstileimpl.OplusQSTileBaseView",  //C14
             "com.oplus.systemui.qs.base.tile.OplusQSTileBaseView"  //C15
-        ).toClass().apply {
-            method { name = "generateDrawable" }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "generateDrawable" }.hook {
                 after {
                     if (customAlpha < 0) return@after
                     val value = customAlpha / 10.0F
@@ -59,8 +58,8 @@ object CustomTileBackgroundTransparency : YukiBaseHooker() {
             "com.oplusos.systemui.qs.qstileimpl.OplusQSHighlightTileView",  //C13
             "com.oplus.systemui.qs.qstileimpl.OplusQSHighlightTileView",  //C14
             "com.oplus.systemui.qs.base.tile.OplusQSHighlightTileView"  //C15
-        ).toClass().apply {
-            method { name = "generateDrawable" }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "generateDrawable" }.hook {
                 after {
                     if (customAlpha < 0) return@after
                     val value = customAlpha / 10.0F

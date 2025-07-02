@@ -3,16 +3,12 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.telephony.SubscriptionManager
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.VagueType
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ImageViewClass
-import com.highcapable.yukihookapi.hook.type.defined.VagueType
-import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -58,16 +54,16 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     matcher {
                         addUsingField {
                             name("dataActivity", StringMatchType.Contains)
-                            type(ImageViewClass)
+                            type(ImageView::class.java)
                         }
                         usingNumbers(0, 8)
                     }
                 }.apply {
                     checkDataList("find dataActivity setVisibility")
-                    single().className.toClass().apply {
-                        method {
+                    single().className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(IntType, VagueType)
+                            parameters(Int::class, VagueType)
                         }.hook {
                             before {
                                 args().first().set(0)
@@ -79,16 +75,16 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     matcher {
                         addUsingField {
                             name("mobileType", StringMatchType.Contains)
-                            type(ImageViewClass)
+                            type(ImageView::class.java)
                         }
                         usingNumbers(0, 8)
                     }
                 }.apply {
                     checkDataList("find mobileType setVisibility")
-                    single().className.toClass().apply {
-                        method {
+                    single().className.toClass().resolve().apply {
+                        firstMethod {
                             name = single().methodName
-                            param(*single().paramTypeNames.toTypedArray())
+                            parameters(*single().paramTypeNames.toTypedArray())
                         }.hook {
                             before {
                                 args().first().setNull()
@@ -100,8 +96,8 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source OplusMobileIconViewModel
             "com.oplus.systemui.statusbar.pipeline.mobile.ui.viewmodel.OplusMobileIconViewModel".toClass()
-                .apply {
-                    method {
+                .resolve().apply {
+                    firstMethod {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
@@ -113,7 +109,8 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                 FlowUtils(appClassLoader).getValue<Boolean>(result!!) ?: false
                             if (!originalValue) return@after
 
-                            val subId = field { name = "subscriptionId" }.get(instance).int()
+                            val subId =
+                                firstField { name = "subscriptionId" }.of(instance).get<Int>()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
                                 val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
@@ -126,8 +123,8 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source MobileIconViewModel
             "com.android.systemui.statusbar.pipeline.mobile.ui.viewmodel.MobileIconViewModel".toClass()
-                .apply {
-                    method {
+                .resolve().apply {
+                    firstMethod {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
@@ -139,7 +136,8 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                 FlowUtils(appClassLoader).getValue<Boolean>(result!!) ?: false
                             if (!originalValue) return@after
 
-                            val subId = field { name = "subscriptionId" }.get(instance).int()
+                            val subId =
+                                firstField { name = "subscriptionId" }.of(instance).get<Int>()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
                                 val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
@@ -152,8 +150,8 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source LocationBasedMobileViewModel
             "com.android.systemui.statusbar.pipeline.mobile.ui.viewmodel.LocationBasedMobileViewModel".toClass()
-                .apply {
-                    method {
+                .resolve().apply {
+                    firstMethod {
                         name = "isVisible"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
@@ -165,7 +163,8 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                 FlowUtils(appClassLoader).getValue<Boolean>(result!!) ?: false
                             if (!originalValue) return@after
 
-                            val subId = field { name = "subscriptionId" }.get(instance).int()
+                            val subId =
+                                firstField { name = "subscriptionId" }.of(instance).get<Int>()
                             val localSubId = SubscriptionManager.getDefaultDataSubscriptionId()
                             result = FlowUtils(appClassLoader).let {
                                 val mutableStateFlow = it.MutableStateFlow(subId == localSubId)
@@ -177,24 +176,24 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
 
             //Source OplusStatusBarSignalPolicy
-            "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicy".toClass().apply {
-                val hasSlotIconVisibility = hasMethod { name = "updateSlotIconVisibility" }
-                method {
-                    name {
-                        if (hasSlotIconVisibility) it == "updateSlotIconVisibility"
-                        else it.contains("updateSlotIconVisibility")
-                    }
-                    paramCount(3..4)
-                }.hook {
-                    before {
-                        if (!hideNoSS) return@before
-                        val keyIndex = if (hasSlotIconVisibility) 0 else 1
-                        val valueIndex = if (hasSlotIconVisibility) 1 else 2
-                        val key = args(keyIndex).string()
-                        if (key == "nosim_all") args(valueIndex).set(0)
+            "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicy".toClass()
+                .resolve().apply {
+                    (firstMethodOrNull {
+                        name = "updateSlotIconVisibility"
+                        parameterCount { it in 3..4 }
+                    } ?: firstMethod {
+                        name { it.contains("updateSlotIconVisibility") }
+                        parameterCount { it in 3..4 }
+                    }).hook {
+                        before {
+                            if (!hideNoSS) return@before
+                            val keys = args.filter { it is String }
+                            if (keys.contains("nosim_all")) {
+                                args(args.indexOfFirst { it is Int }).set(0)
+                            }
+                        }
                     }
                 }
-            }
         }
     }
 
@@ -210,78 +209,71 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             dataChannel.wait<Boolean>("hide_nosim_noservice") { hideNoSS = it }
 
             //Source OplusStatusBarMobileViewExImpl -> initView
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.statusbar.OplusStatusBarMobileView", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarMobileViewExImpl" //C13
-            ).toClass().apply {
-                method { name = "initViewState" }.hook {
+            ).toClass() as Class<Any>).resolve().apply {
+                firstMethod { name = "initViewState" }.hook {
                     after {
                         if (hideNonNetwork) {
                             val state = args().first().any()
-                            val subId = state?.current()?.field { name = "subId" }?.int()
+                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible = subId == subId2
+                            firstField { name = "mMobileGroup" }.of(instance)
+                                .get<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
-                        if (removeInout) field { name = "mDataActivity" }.get(instance)
-                            .cast<View>()?.isVisible = false
-                        if (removeType) field {
+                        if (removeInout) firstField { name = "mDataActivity" }.of(instance)
+                            .get<View>()?.isVisible = false
+                        if (removeType) firstField {
                             name = "mMobileType"
-                            if (SDK < A13) superClass(true)
-                        }.get(instance).cast<View>()?.isVisible = false
+                            if (SDK < A13) superclass()
+                        }.of(instance).get<View>()?.isVisible = false
                     }
                 }
-                method {
-                    name = when (simpleName) {
-                        "OplusStatusBarMobileView" -> "updateMobileViewState"
-                        "OplusStatusBarMobileViewExImpl" -> "updateState"
-                        else -> "updateState"
-                    }
+                firstMethod {
+                    name { it.startsWith("update") && it.endsWith("State") }
                 }.hook {
                     after {
                         if (hideNonNetwork) {
                             val state = args().first().any()
-                            val subId = state?.current()?.field { name = "subId" }?.int()
+                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible = subId == subId2
+                            firstField { name = "mMobileGroup" }.of(instance)
+                                .get<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
-                        if (removeInout) field { name = "mDataActivity" }.get(instance)
-                            .cast<View>()?.isVisible = false
-                        if (removeType) field {
+                        if (removeInout) firstField { name = "mDataActivity" }.of(instance)
+                            .get<View>()?.isVisible = false
+                        if (removeType) firstField {
                             name = "mMobileType"
-                            if (SDK < A13) superClass(true)
-                        }.get(instance).cast<View>()?.isVisible = false
+                            if (SDK < A13) superclass()
+                        }.of(instance).get<View>()?.isVisible = false
                     }
                 }
             }
 
             //Source OplusStatusBarSignalPolicyExImpl
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.ext.StatusBarSignalPolicyExt", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicyExImpl" //C13
-            ).toClass().apply {
-                val hasController = hasMethod { name = "getIconController" }
-                method {
-                    name = "setNoSims"
-                    paramCount = 3
-                }.hook {
+            ).toClass() as Class<Any>).resolve().apply {
+                firstMethod { name = "setNoSims";parameterCount = 3 }.hook {
                     after {
                         if (!hideNoSS) return@after
-                        val iconController = if (hasController) method {
-                            name = "getIconController"
-                        }.get(instance).call()
-                        else field { name = "iconController" }.get(instance).any()
-                        val slotNoSim = field { name = "slotNoSim" }.get(instance).cast<String>()
-                        iconController?.current()?.method {
-                            name = "setIconVisibility"
-                            paramCount = 2
-                            if (simpleName == "StatusBarSignalPolicyExt") superClass()
-                        }?.call(slotNoSim, false)
+                        val iconController = firstMethodOrNull { name = "getIconController" }
+                            ?.of(instance)?.invoke() ?: firstField { name = "iconController" }
+                            .of(instance).get() ?: return@after
+                        val slotNoSim =
+                            firstField { name = "slotNoSim" }.of(instance).get<String>()
+                        iconController.resolve().apply {
+                            firstMethod {
+                                name = "setIconVisibility"
+                                firstMethodOrNull { name = "setIconVisibility" } ?: superclass()
+                            }.invoke(slotNoSim, false)
+                        }
                     }
                 }
             }
@@ -300,50 +292,50 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             dataChannel.wait<Boolean>("hide_nosim_noservice") { hideNoSS = it }
 
             //Source StatusBarMobileView
-            "com.android.systemui.statusbar.StatusBarMobileView".toClass().apply {
-                method { name = "initViewState" }.hook {
+            "com.android.systemui.statusbar.StatusBarMobileView".toClass().resolve().apply {
+                firstMethod { name = "initViewState" }.hook {
                     after {
                         if (hideNonNetwork) {
-                            val state = field { name = "mState" }.get(instance).any()
-                            val subId = state?.current()?.field { name = "subId" }?.int()
+                            val state = firstField { name = "mState" }.of(instance).get()
+                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible = subId == subId2
+                            firstField { name = "mMobileGroup" }.of(instance)
+                                .get<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
-                        if (removeInout) field { name = "mInoutContainer" }.get(instance)
-                            .cast<View>()?.isVisible = false
-                        if (removeType) field { name = "mMobileType" }.get(instance)
-                            .cast<View>()?.isVisible = false
+                        if (removeInout) firstField { name = "mInoutContainer" }.of(instance)
+                            .get<View>()?.isVisible = false
+                        if (removeType) firstField { name = "mMobileType" }.of(instance)
+                            .get<View>()?.isVisible = false
                     }
                 }
-                method { name = "updateState" }.hook {
+                firstMethod { name = "updateState" }.hook {
                     after {
                         if (hideNonNetwork) {
-                            val state = field { name = "mState" }.get(instance).any()
-                            val subId = state?.current()?.field { name = "subId" }?.int()
+                            val state = firstField { name = "mState" }.of(instance).get()
+                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
-                            field { name = "mMobileGroup" }.get(instance)
-                                .cast<ViewGroup>()?.isVisible = subId == subId2
+                            firstField { name = "mMobileGroup" }.of(instance)
+                                .get<ViewGroup>()?.isVisible = subId == subId2
                         }
 //                    if (removeIcon) field { name = "mMobileGroup" }.get(instance)
 //                        .cast<ViewGroup>()?.isVisible = false
-                        if (removeInout) field { name = "mInoutContainer" }.get(instance)
-                            .cast<View>()?.isVisible = false
-                        if (removeType) field { name = "mMobileType" }.get(instance)
-                            .cast<View>()?.isVisible = false
+                        if (removeInout) firstField { name = "mInoutContainer" }.of(instance)
+                            .get<View>()?.isVisible = false
+                        if (removeType) firstField { name = "mMobileType" }.of(instance)
+                            .get<View>()?.isVisible = false
                     }
                 }
             }
 
             //Source SignalClusterView
-            "com.oplusos.systemui.statusbar.widget.SignalClusterView".toClass().apply {
-                method { name = "updateNoSimView" }.hook {
+            "com.oplusos.systemui.statusbar.widget.SignalClusterView".toClass().resolve().apply {
+                firstMethod { name = "updateNoSimView" }.hook {
                     after {
                         if (!hideNoSS) return@after
-                        val mNoSims = field { name = "mNoSims" }.get(instance).cast<View>()
-                        method { name = "animateHide" }.get(instance).call(mNoSims, 8)
+                        val mNoSims = firstField { name = "mNoSims" }.of(instance).get<View>()
+                        firstMethod { name = "animateHide" }.of(instance).invoke(mNoSims, 8)
                     }
                 }
             }

@@ -1,22 +1,22 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import androidx.appcompat.app.AlertDialog
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object AutoTapStartRecordingOrCastingDialog : YukiBaseHooker() {
     override fun onHook() {
         //Source MediaProjectionPermissionActivity
-        VariousClass(
+        (VariousClass(
             "com.android.systemui.media.MediaProjectionPermissionActivity", //C15
             "com.android.systemui.mediaprojection.permission.MediaProjectionPermissionActivity"
-        ).toClass().apply {
-            method { name = "onCreate" }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod { name = "onCreate" }.hook {
                 after {
-                    method { name = "onClick";paramCount = 2 }.get(instance).call(
+                    firstMethod { name = "onClick";parameterCount = 2 }.of(instance).invoke(
                         null, AlertDialog.BUTTON_POSITIVE
                     )
                 }

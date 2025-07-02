@@ -1,21 +1,15 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
-import com.highcapable.yukihookapi.hook.type.android.DialogInterfaceClass
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
@@ -45,132 +39,116 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             if (customAlpha < 0) return
 
             //Source VolumeDialogImplEx
-            VariousClass(
+            val volumnDialogClazz = VariousClass(
                 "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
                 "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14 C15
-            ).toClass().apply {
-                val clazz = this
-                val hasSurrealQuality = hasMethod { name = "isSurrealQualityOn" }
+            ).toClass() as Class<Any>
 
-                val hasVerticalRowsLayerMap = hasField { name = "mVerticalRowsLayerDrawableMap" }
-
-                val hasVerticalRowsLayer = hasField { name = "mVerticalRowsLayerDrawable" }
-                val hasVolumeMoreLayer = hasField { name = "mVolumeMoreLayerDrawable" }
-                val hasCaptionLayer = hasField { name = "mVolumeCaptionLayerDrawable" }
-                val hasAppAdjustLayer = hasField { name = "mVolumeAppAdjustLayerDrawable" }
-                val hasVolumeBtnDrawable = hasField { name = "mVolumeBtnDrawable" }
-                val hasVolumeBackgroundLayer = hasField { name = "mVolumeBackgroundLayerDrawable" }
-
-                val hasUpdateRowsH = hasMethod { name = "updateRowsH" }
-                val hasExpandPanel = hasMethod { name = "expandPanel" }
-
-                if (hasSurrealQuality) method { name = "isSurrealQualityOn" }.hook {
+            volumnDialogClazz.resolve().apply {
+                firstMethodOrNull { name = "isSurrealQualityOn" }?.hook {
                     replaceToFalse()
                 }
 
                 dexKitBridge.findClass {
                     matcher {
-                        className(clazz.name, StringMatchType.StartsWith)
+                        className(volumnDialogClazz.name, StringMatchType.StartsWith)
                         addMethod {
-                            paramTypes(DialogInterfaceClass)
+                            paramTypes(DialogInterface::class.java)
                             usingStrings("initDialog")
                             usingNumbers(0, -1)
                         }
                     }
                 }.apply {
                     checkDataList("VolumeDialogBackground find onShow")
-                    single().name.toClass().apply {
-                        method { param(DialogInterfaceClass) }.hook {
+                    single().name.toClass().resolve().apply {
+                        firstMethod { parameters(DialogInterface::class) }.hook {
                             before {
                                 if (customAlpha < 0) return@before
                                 val value = customAlpha * 25
 
-                                val ins = if (hasField { type = clazz }) {
-                                    field { type = clazz }.get(instance).any() ?: return@before
-                                } else instance
+                                val ins = firstFieldOrNull { type = volumnDialogClazz }?.let {
+                                    it.of(instance).get() ?: return@before
+                                } ?: instance
 
-                                if (hasVerticalRowsLayer) ins.current().field {
+                                ins.resolve().firstFieldOrNull {
                                     name = "mVerticalRowsLayerDrawable"
-                                }.cast<LayerDrawable>()?.apply {
+                                }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
                                     if (blurDrawable is BackgroundBlurDrawable) {
                                         blurDrawable.setBlurRadius(value.dp)
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                if (hasVolumeMoreLayer) ins.current().field {
+                                ins.resolve().firstFieldOrNull {
                                     name = "mVolumeMoreLayerDrawable"
-                                }.cast<LayerDrawable>()?.apply {
+                                }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
                                     if (blurDrawable is BackgroundBlurDrawable) {
                                         blurDrawable.setBlurRadius(value.dp)
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                if (hasAppAdjustLayer) ins.current().field {
+                                ins.resolve().firstFieldOrNull {
                                     name = "mVolumeAppAdjustLayerDrawable"
-                                }.cast<LayerDrawable>()?.apply {
+                                }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
                                     if (blurDrawable is BackgroundBlurDrawable) {
                                         blurDrawable.setBlurRadius(value.dp)
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                if (hasCaptionLayer) ins.current().field {
+                                ins.resolve().firstFieldOrNull {
                                     name = "mVolumeCaptionLayerDrawable"
-                                }.cast<LayerDrawable>()?.apply {
+                                }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
                                     if (blurDrawable is BackgroundBlurDrawable) {
                                         blurDrawable.setBlurRadius(value.dp)
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                if (hasVolumeBackgroundLayer) ins.current().field {
+                                ins.resolve().firstFieldOrNull {
                                     name = "mVolumeBackgroundLayerDrawable"
-                                }.cast<LayerDrawable>()?.apply {
+                                }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
                                     if (blurDrawable is BackgroundBlurDrawable) {
                                         blurDrawable.setBlurRadius(value.dp)
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                if (hasVolumeBtnDrawable) ins.current().field {
+                                ins.resolve().firstFieldOrNull {
                                     name = "mVolumeBtnDrawable"
-                                }.cast<Drawable>()?.apply {
+                                }?.get<Drawable>()?.apply {
                                     alpha = 255 - value
                                 }
                             }
                         }
                     }
                 }
-
-                if (hasVerticalRowsLayerMap) {
-                    if (hasUpdateRowsH) method { name = "updateRowsH" }.hook {
-                        before {
-                            if (customAlpha < 0) return@before
-                            val value = customAlpha * 25
-                            field {
-                                name = "mVerticalRowsLayerDrawableMap"
-                            }.get(instance).cast<HashMap<Int, LayerDrawable>>()?.apply {
-                                forEach { (key, layer) ->
-                                    val blurDrawable = layer.getDrawable(0)
-                                    if (blurDrawable is BackgroundBlurDrawable) {
-                                        blurDrawable.setBlurRadius(value.dp)
-                                    }
-                                    layer.getDrawable(1)?.alpha = value
-                                    put(key, layer)
+                firstMethodOrNull { name = "updateRowsH" }?.hook {
+                    before {
+                        if (customAlpha < 0) return@before
+                        val value = customAlpha * 25
+                        firstFieldOrNull {
+                            name = "mVerticalRowsLayerDrawableMap"
+                        }?.of(instance)?.get<HashMap<Int, LayerDrawable>>()?.apply {
+                            forEach { (key, layer) ->
+                                val blurDrawable = layer.getDrawable(0)
+                                if (blurDrawable is BackgroundBlurDrawable) {
+                                    blurDrawable.setBlurRadius(value.dp)
                                 }
+                                layer.getDrawable(1)?.alpha = value
+                                put(key, layer)
                             }
                         }
                     }
                 }
-                if (hasExpandPanel) method { name = "expandPanel" }.hook {
+                firstMethodOrNull { name = "expandPanel" }?.hook {
                     before {
                         if (customAlpha < 0) return@before
                         val value = customAlpha * 25
-                        if (hasVolumeBackgroundLayer) field {
+                        firstFieldOrNull {
                             name = "mVolumeBackgroundLayerDrawable"
-                        }.get(instance).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
@@ -182,16 +160,16 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }
 
             //Source OplusVolumeSeekBar
-            "com.oplus.systemui.volume.OplusVolumeSeekBar".toClassOrNull()?.apply {
-                constructor().hookAll {
+            "com.oplus.systemui.volume.OplusVolumeSeekBar".toClassOrNull()?.resolve()?.apply {
+                constructor {}.hookAll {
                     after {
                         if (customAlpha < 0) return@after
                         val seekBar = instance<Any>()
-                        seekBar.current().method {
+                        seekBar.resolve().firstMethod {
                             name = "setProgressColor"
-                            param(ColorStateListClass)
-                            superClass()
-                        }.call(
+                            parameters(ColorStateList::class)
+                            superclass()
+                        }.invoke(
                             ColorStateList.valueOf(
                                 formatColorAlpha(Color.WHITE, 0.5F)
                             )
@@ -201,8 +179,8 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }
 
             //Source VolumeBlurManager
-            "com.oplus.systemui.volume.utils.VolumeBlurManager".toClassOrNull()?.apply {
-                method { name = "getBackgroundBlurDrawable" }.hook {
+            "com.oplus.systemui.volume.utils.VolumeBlurManager".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "getBackgroundBlurDrawable" }.hook {
                     after {
                         if (customAlpha < 0) return@after
                         val value = customAlpha * 25
@@ -227,140 +205,116 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             if (customAlpha < 0) return
 
             //Source VolumeDialogImplEx
-            VariousClass(
+            val volumnDialogClazz = VariousClass(
                 "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
                 "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14 C15
-            ).toClass().apply {
-                val clazz = this
-                val hasSurrealQuality = hasMethod { name = "isSurrealQualityOn" }
+            ).toClass() as Class<Any>
 
-                val hasAddVerticalContainerBg = hasMethod { name = "addVerticalContainerBg" }
-                val hasVerticalRowsLayerMap = hasField { name = "mVerticalRowsLayerDrawableMap" }
-
-                val hasVerticalRowsLayer = hasField { name = "mVerticalRowsLayerDrawable" }
-                val hasVolumeMoreLayer = hasField { name = "mVolumeMoreLayerDrawable" }
-                val hasCaptionLayer = hasField { name = "mVolumeCaptionLayerDrawable" }
-                val hasAppAdjustLayer = hasField { name = "mVolumeAppAdjustLayerDrawable" }
-                val hasVolumeBtnDrawable = hasField { name = "mVolumeBtnDrawable" }
-                val hasVolumeBackgroundLayer = hasField { name = "mVolumeBackgroundLayerDrawable" }
-
-                val hasUpdateRowsH = hasMethod { name = "updateRowsH" }
-                val hasExpandPanel = hasMethod { name = "expandPanel" }
-
-                if (hasSurrealQuality) method { name = "isSurrealQualityOn" }.hook {
+            volumnDialogClazz.resolve().apply {
+                firstMethodOrNull { name = "isSurrealQualityOn" }?.hook {
                     replaceToFalse()
                 }
 
-                method { param(DialogInterfaceClass) }.hook {
+                firstMethod { parameters(DialogInterface::class) }.hook {
                     before {
                         if (customAlpha < 0) return@before
                         val value = customAlpha * 25
-                        if (hasVerticalRowsLayer) field {
+                        firstFieldOrNull {
                             name = "mVerticalRowsLayerDrawable"
-                        }.get(
-                            instance
-                        ).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
-                        if (hasVolumeMoreLayer) field {
+                        firstFieldOrNull {
                             name = "mVolumeMoreLayerDrawable"
-                        }.get(instance).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
-                        if (hasAppAdjustLayer) field {
+                        firstFieldOrNull {
                             name = "mVolumeAppAdjustLayerDrawable"
-                        }.get(
-                            instance
-                        ).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
-                        if (hasCaptionLayer) field {
+                        firstFieldOrNull {
                             name = "mVolumeCaptionLayerDrawable"
-                        }.get(instance).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
-                        if (hasVolumeBackgroundLayer) field {
+                        firstFieldOrNull {
                             name = "mVolumeBackgroundLayerDrawable"
-                        }.get(instance).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
                             }
                             getDrawable(1)?.alpha = value
                         }
-                        if (hasVolumeBtnDrawable) field {
+                        firstFieldOrNull {
                             name = "mVolumeBtnDrawable"
-                        }.get(instance)
-                            .cast<Drawable>()?.apply {
-                                alpha = 255 - value
-                            }
-                    }
-                }
-
-                if (hasVerticalRowsLayerMap) {
-                    method {
-                        name = if (hasAddVerticalContainerBg) "addVerticalContainerBg"
-                        else "updateVolumeRowBgForSide"
-                    }.hook {
-                        before {
-                            if (customAlpha < 0) return@before
-                            val value = customAlpha * 25
-                            field {
-                                name = "mVerticalRowsLayerDrawableMap"
-                            }.get(instance).cast<HashMap<Int, LayerDrawable>>()?.apply {
-                                forEach { (key, layer) ->
-                                    val blurDrawable = layer.getDrawable(0)
-                                    if (blurDrawable is BackgroundBlurDrawable) {
-                                        blurDrawable.setBlurRadius(value.dp)
-                                    }
-                                    layer.getDrawable(1)?.alpha = value
-                                    put(key, layer)
-                                }
-                            }
-                        }
-                    }
-                    if (hasUpdateRowsH) method { name = "updateRowsH" }.hook {
-                        before {
-                            if (customAlpha < 0) return@before
-                            val value = customAlpha * 25
-                            field {
-                                name = "mVerticalRowsLayerDrawableMap"
-                            }.get(instance).cast<HashMap<Int, LayerDrawable>>()?.apply {
-                                forEach { (key, layer) ->
-                                    val blurDrawable = layer.getDrawable(0)
-                                    if (blurDrawable is BackgroundBlurDrawable) {
-                                        blurDrawable.setBlurRadius(value.dp)
-                                    }
-                                    layer.getDrawable(1)?.alpha = value
-                                    put(key, layer)
-                                }
-                            }
+                        }?.of(instance)?.get<Drawable>()?.apply {
+                            alpha = 255 - value
                         }
                     }
                 }
-                if (hasExpandPanel) method { name = "expandPanel" }.hook {
+                (firstMethodOrNull { name = "addVerticalContainerBg" }
+                    ?: firstMethod { name = "updateVolumeRowBgForSide" }).hook {
                     before {
                         if (customAlpha < 0) return@before
                         val value = customAlpha * 25
-                        if (hasVolumeBackgroundLayer) field {
+                        firstFieldOrNull {
+                            name = "mVerticalRowsLayerDrawableMap"
+                        }?.of(instance)?.get<HashMap<Int, LayerDrawable>>()?.apply {
+                            forEach { (key, layer) ->
+                                val blurDrawable = layer.getDrawable(0)
+                                if (blurDrawable is BackgroundBlurDrawable) {
+                                    blurDrawable.setBlurRadius(value.dp)
+                                }
+                                layer.getDrawable(1)?.alpha = value
+                                put(key, layer)
+                            }
+                        }
+                    }
+                }
+                firstMethodOrNull { name = "updateRowsH" }?.hook {
+                    before {
+                        if (customAlpha < 0) return@before
+                        val value = customAlpha * 25
+                        firstFieldOrNull {
+                            name = "mVerticalRowsLayerDrawableMap"
+                        }?.of(instance)?.get<HashMap<Int, LayerDrawable>>()?.apply {
+                            forEach { (key, layer) ->
+                                val blurDrawable = layer.getDrawable(0)
+                                if (blurDrawable is BackgroundBlurDrawable) {
+                                    blurDrawable.setBlurRadius(value.dp)
+                                }
+                                layer.getDrawable(1)?.alpha = value
+                                put(key, layer)
+                            }
+                        }
+                    }
+                }
+                firstMethodOrNull { name = "expandPanel" }?.hook {
+                    before {
+                        if (customAlpha < 0) return@before
+                        val value = customAlpha * 25
+                        firstFieldOrNull {
                             name = "mVolumeBackgroundLayerDrawable"
-                        }.get(instance).cast<LayerDrawable>()?.apply {
+                        }?.of(instance)?.get<LayerDrawable>()?.apply {
                             val blurDrawable = getDrawable(0)
                             if (blurDrawable is BackgroundBlurDrawable) {
                                 blurDrawable.setBlurRadius(value.dp)
@@ -372,16 +326,16 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }
 
             //Source OplusVolumeSeekBar
-            "com.oplus.systemui.volume.OplusVolumeSeekBar".toClassOrNull()?.apply {
-                method { name = "init" }.hook {
+            "com.oplus.systemui.volume.OplusVolumeSeekBar".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "init" }.hook {
                     after {
                         if (customAlpha < 0) return@after
                         val seekBar = instance<Any>()
-                        seekBar.current().method {
+                        seekBar.resolve().firstMethod {
                             name = "setProgressColor"
-                            param(ColorStateListClass)
-                            superClass()
-                        }.call(
+                            parameters(ColorStateList::class)
+                            superclass()
+                        }.invoke(
                             ColorStateList.valueOf(
                                 formatColorAlpha(Color.WHITE, 0.5F)
                             )
@@ -391,8 +345,8 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             }
 
             //Source VolumeBlurManager
-            "com.oplus.systemui.volume.utils.VolumeBlurManager".toClassOrNull()?.apply {
-                method { name = "getBackgroundBlurDrawable" }.hook {
+            "com.oplus.systemui.volume.utils.VolumeBlurManager".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "getBackgroundBlurDrawable" }.hook {
                     after {
                         if (customAlpha < 0) return@after
                         val value = customAlpha * 25

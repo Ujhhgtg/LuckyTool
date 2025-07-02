@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
@@ -29,16 +27,16 @@ object FixTileAlignBothSides : YukiBaseHooker() {
         override fun onHook() {
             //Sourcee QuickStatusBarHeader 竖屏溢出
             //Search quick_qs_panel -> qs_header_panel_side_padding 24dp
-            "com.android.systemui.qs.QuickStatusBarHeader".toClass().apply {
-                method { name = "updateHeadersPadding" }.hook {
+            "com.android.systemui.qs.QuickStatusBarHeader".toClass().resolve().apply {
+                firstMethod { name = "updateHeadersPadding" }.hook {
                     after {
-                        field { name = "mHeaderQsPanel" }.get(instance).cast<LinearLayout>()
+                        firstField { name = "mHeaderQsPanel" }.of(instance).get<LinearLayout>()
                             ?.apply {
                                 val qsHeaderPanelSidePadding = safeOfNull {
                                     resources.getDimensionPixelSize(
                                         resources.getIdentifier(
                                             "qs_header_panel_side_padding", "dimen",
-                                            HookTileAlignVertical.packageName
+                                            packageName
                                         )
                                     )
                                 } ?: return@after
@@ -64,15 +62,15 @@ object FixTileAlignBothSides : YukiBaseHooker() {
             VariousClass(
                 "com.oplus.systemui.qs.OplusQSFragment", //C13
                 "com.oplus.systemui.qs.OplusQSImpl" //C14 C15
-            ).toClass().apply {
-                method { name = "updateQsState" }.hook {
+            ).toClass().resolve().apply {
+                firstMethod { name = "updateQsState" }.hook {
                     after {
-                        val qSFragmentHelper = QSFragmentHelperCls.toClass().method {
+                        val qSFragmentHelper = QSFragmentHelperCls.toClass().resolve().firstMethod {
                             name = "getInstance"
-                        }.get().call() ?: return@after
-                        val mQSPanelScrollView = qSFragmentHelper.current().field {
+                        }.invoke() ?: return@after
+                        qSFragmentHelper.resolve().firstField {
                             name = "mQSPanelScrollView"
-                        }.cast<ViewGroup>()?.apply {
+                        }.get<ViewGroup>()?.apply {
                             getScreenOrientation(this) {
                                 if (it) setViewPadding(0)
                                 else {
@@ -81,7 +79,7 @@ object FixTileAlignBothSides : YukiBaseHooker() {
                                             resources.getIdentifier(
                                                 "qs_brightness_mirror_side_padding",
                                                 "dimen",
-                                                HookTileAlignHorizontal.packageName
+                                                packageName
                                             )
                                         )
                                     } ?: return@getScreenOrientation

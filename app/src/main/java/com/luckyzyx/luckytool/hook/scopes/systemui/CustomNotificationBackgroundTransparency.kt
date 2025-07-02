@@ -3,15 +3,13 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.view.View
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNan
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused")
@@ -21,6 +19,11 @@ object CustomNotificationBackgroundTransparency : YukiBaseHooker() {
     private var defaultNotifyPanelElevation = -1f
     private var customAlpha = -1
 
+    val NotificationBackgroundView =
+        "com.android.systemui.statusbar.notification.row.NotificationBackgroundView"
+    val OplusNotificationBackgroundView =
+        "com.oplusos.systemui.statusbar.notification.row.OplusNotificationBackgroundView"
+
     override fun onHook() {
         if (getOSVersionCode < 25) return
         customAlpha = prefs(ModulePrefs).getInt("custom_notification_background_transparency", -1)
@@ -28,50 +31,53 @@ object CustomNotificationBackgroundTransparency : YukiBaseHooker() {
             customAlpha = it
         }
 
-        val isOld =
-            "com.android.systemui.statusbar.notification.row.NotificationBackgroundView".toClassOrNull()
-                ?.hasMethod {
-                    name = "drawCustom"
-                    paramCount = 2
-                } ?: false
+        val isOld = NotificationBackgroundView.toClassOrNull()?.resolve()?.firstMethodOrNull {
+            name = "drawCustom"
+            parameterCount = 2
+        } != null
 
         //Source OplusNotificationBackgroundView
-        if (!isOld) "com.oplusos.systemui.statusbar.notification.row.OplusNotificationBackgroundView".toClass()
-            .apply {
-                method { name = "drawRegionBlur";paramCount = 2 }.remedys {
-                    method { name = "draw";paramCount = 2 }
-                }.hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>())
-                    }
-                }
-                method { name = "draw";paramCount = 2;superClass() }.hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>())
-                    }
+        if (!isOld) OplusNotificationBackgroundView.toClass().resolve().apply {
+            (firstMethodOrNull { name = "drawRegionBlur";parameterCount = 2 }
+                ?: firstMethod { method { name = "draw";parameterCount = 2 } }).hook {
+                before {
+                    if (customAlpha < 0) return@before
+                    modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>())
                 }
             }
+            firstMethod { name = "draw";parameterCount = 2;superclass() }.hook {
+                before {
+                    if (customAlpha < 0) return@before
+                    modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>())
+                }
+            }
+        }
 
         //Source NotificationBackgroundView
-        if (isOld) "com.android.systemui.statusbar.notification.row.NotificationBackgroundView".toClass()
-            .apply {
-                method { name = "draw";paramCount = 2 }.hook {
-                    before { modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>()) }
+        if (isOld) NotificationBackgroundView.toClass().resolve().apply {
+            firstMethod { name = "draw";parameterCount = 2 }.hook {
+                before {
+                    modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>())
                 }
-                method { name = "drawCustom";paramCount = 2 }.hook {
-                    before { modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>()) }
-                }.ignoredHookingFailure()
             }
+            firstMethodOrNull { name = "drawCustom";parameterCount = 2 }?.hook {
+                before {
+                    modifyNotifyPanelAlpha(instance(), args().last().cast<Drawable>())
+                }
+            }
+        }
 
         //Source ExpandableNotificationRow
         "com.android.systemui.statusbar.notification.row.ExpandableNotificationRow".toClass()
-            .apply {
-                method { name = "updateBackgroundForGroupState";emptyParam() }.hook {
+            .resolve().apply {
+                firstMethod {
+                    name = "updateBackgroundForGroupState"
+                    emptyParameters()
+                }.hook {
                     before {
                         if (customAlpha < 0) return@before
-                        field { name = "mShowGroupBackgroundWhenExpanded" }.get(instance).setTrue()
+                        firstField { name = "mShowGroupBackgroundWhenExpanded" }.of(instance)
+                            .set(true)
                     }
                 }
             }

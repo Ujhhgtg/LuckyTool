@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -12,8 +12,8 @@ object DisableSysUIOTGAutoOff : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.notification.helper.OtgHelper", //C13
             "com.oplus.systemui.qs.helper.OtgHelper" //C14
-        ).toClass().apply {
-            method { name = "setAutoCloseAlarm" }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "setAutoCloseAlarm" }.hook {
                 intercept()
             }
         }

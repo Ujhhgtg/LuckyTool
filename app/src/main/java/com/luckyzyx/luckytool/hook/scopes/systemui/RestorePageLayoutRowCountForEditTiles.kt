@@ -3,13 +3,11 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RestorePageLayoutRowCountForEditTiles : YukiBaseHooker() {
@@ -17,19 +15,21 @@ object RestorePageLayoutRowCountForEditTiles : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         //Source OplusQSCustomizer
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.qs.customize.OplusQSCustomizer",  //C13
             "com.oplus.systemui.qs.customize.OplusQSCustomizer"  //C14
-        ).toClass().apply {
-            if (osCode < 34) constructor { paramCount = 2 }.hook {
-                after {
-                    field { name = "mMoreFunctionLabel" }.get(instance).cast<View>()
-                        ?.isVisible = false
+        ).toClass() as Class<Any>).resolve().apply {
+            if (osCode < 34) {
+                firstConstructor { parameterCount = 2 }.hook {
+                    after {
+                        firstField { name = "mMoreFunctionLabel" }.of(instance).get<View>()
+                            ?.isVisible = false
+                    }
                 }
             }
-            method { name = "updateResources" }.hook {
+            firstMethod { name = "updateResources" }.hook {
                 after {
-                    field { name = "mRecyclerViewTop" }.get(instance).cast<View>()?.apply {
+                    firstField { name = "mRecyclerViewTop" }.of(instance).get<View>()?.apply {
                         layoutParams = (layoutParams as LinearLayout.LayoutParams).apply {
                             height = (height / 3) * 4
                         }

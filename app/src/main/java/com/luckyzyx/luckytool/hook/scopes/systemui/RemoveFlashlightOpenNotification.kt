@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -13,8 +13,8 @@ object RemoveFlashlightOpenNotification : YukiBaseHooker() {
             "com.oplusos.systemui.flashlight.FlashlightNotification", //C13
             "com.oplus.systemui.statusbar.notification.flashlight.FlashlightNotification", //C14
             "com.oplus.systemui.notification.flashlight.FlashlightNotification" //C15.0.1
-        ).toClass().apply {
-            method { name = "sendNotification";paramCount = 1 }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "sendNotification";parameterCount = 1 }.hook {
                 intercept()
             }
         }

@@ -1,25 +1,24 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveHighPerformanceModeIcon : YukiBaseHooker() {
     override fun onHook() {
         //Source PhoneStatusBarPolicyEx
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.statusbar.phone.PhoneStatusBarPolicyEx",
             "com.oplus.systemui.statusbar.phone.OplusPhoneStatusBarPolicyExImpl" //C14
-        ).toClass().apply {
-            method {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod {
                 name = "updateHighPerformanceIcon"
-                emptyParam()
+                emptyParameters()
             }.hook {
                 before {
-                    field { name = "highPerformanceMode" }.get(instance).setFalse()
+                    firstField { name = "highPerformanceMode" }.of(instance).set(false)
                 }
             }
         }

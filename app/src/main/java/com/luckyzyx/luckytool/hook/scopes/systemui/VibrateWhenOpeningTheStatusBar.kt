@@ -1,47 +1,46 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
     override fun onHook() {
         //Source PanelViewController -> config_vibrateOnIconAnimation
-        VariousClass(
+        (VariousClass(
             "com.android.systemui.statusbar.phone.PanelViewController", //C13
             "com.android.systemui.shade.NotificationPanelViewController" //C14
-        ).toClass().apply {
-            constructor().hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstConstructor().hook {
                 after {
-                    field { name = "mVibrateOnOpening" }.get(instance).setTrue()
+                    firstField { name = "mVibrateOnOpening" }.of(instance).set(true)
                 }
             }
         }
 
         //Source StatusBarCommandQueueCallbacks -> config_vibrateOnIconAnimation
-        VariousClass(
+        (VariousClass(
             "com.android.systemui.statusbar.phone.StatusBarCommandQueueCallbacks", //C13
             "com.android.systemui.statusbar.phone.CentralSurfacesCommandQueueCallbacks" //C14
-        ).toClass().apply {
-            if (hasField { name = "mVibrateOnOpening" }.not()) return@apply
-            constructor().hook {
-                after {
-                    field { name = "mVibrateOnOpening" }.get(instance).setTrue()
+        ).toClass() as Class<Any>).resolve().apply {
+            firstFieldOrNull { name = "mVibrateOnOpening" }?.let {
+                firstConstructor().hook {
+                    after {
+                        it.copy().of(instance).set(true)
+                    }
                 }
             }
         }
 
         //Source PanelViewController -> config_vibrateOnIconAnimation
-        "com.android.systemui.statusbar.phone.StatusBar".toClassOrNull()?.apply {
-            if (hasField { name = "mVibrateOnOpening" }.not()) return@apply
-            method { name = "start" }.hook {
-                after {
-                    field { name = "mVibrateOnOpening" }.get(instance).setTrue()
+        "com.android.systemui.statusbar.phone.StatusBar".toClassOrNull()?.resolve()?.apply {
+            firstFieldOrNull { name = "mVibrateOnOpening" }?.let {
+                firstMethod { name = "start" }.hook {
+                    after {
+                        it.copy().of(instance).set(true)
+                    }
                 }
             }
         }

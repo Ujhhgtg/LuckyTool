@@ -2,11 +2,8 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.view.View
 import android.view.ViewGroup
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.utils.sysui.MediaPlayerDataUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.QSFeatureOptionUtils
 import com.luckyzyx.luckytool.utils.A13
@@ -14,6 +11,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ControlCenterTiles : YukiBaseHooker() {
@@ -53,19 +51,18 @@ object ControlCenterTiles : YukiBaseHooker() {
             }
 
             //Source QuickQSPanel
-            "com.android.systemui.qs.QuickQSPanel".toClass().apply {
-                method { name = "getNumQuickTiles" }.hook {
+            "com.android.systemui.qs.QuickQSPanel".toClass().resolve().apply {
+                firstMethod { name = "getNumQuickTiles" }.hook {
                     replaceTo(columnUnexpandedVerticalC13)
                 }
             }
 
             //Source TileLayout
-            "com.android.systemui.qs.TileLayout".toClass().apply {
-                val hasUpdateColumns = hasMethod { name = "updateColumns" }
-                method { name = "updateMaxRows" }.hook {
+            "com.android.systemui.qs.TileLayout".toClass().resolve().apply {
+                firstMethod { name = "updateMaxRows" }.hook {
                     before {
                         getScreenOrientation(instance<ViewGroup>()) {
-                            val mRows = field { name = "mRows" }.get(instance).int()
+                            val mRows = firstField { name = "mRows" }.of(instance).get<Int>()
                             val newRows = if (it) rowExpandedVerticalC13
                             else if (autoExpandTile &&
                                 QSFeatureOptionUtils(appClassLoader).isSupportVolumeSeekBar().not()
@@ -79,21 +76,22 @@ object ControlCenterTiles : YukiBaseHooker() {
                                 else -> return@getScreenOrientation
                             }
                             else return@getScreenOrientation
-                            field { name = "mRows" }.get(instance).set(newRows)
+                            firstField { name = "mRows" }.of(instance).set(newRows)
                             result = mRows != newRows
                         }
                     }
                 }
-                method {
-                    name = if (hasUpdateColumns) "updateColumns" else "setMaxColumns"
-                }.hook {
+
+                (firstMethodOrNull { name = "updateColumns" }
+                    ?: firstMethod { name = "setMaxColumns" }).hook {
                     before {
                         instance<ViewGroup>().apply {
                             getScreenOrientation(this) {
-                                val mColumns = field { name = "mColumns" }.get(instance).int()
+                                val mColumns =
+                                    firstField { name = "mColumns" }.of(instance).get<Int>()
                                 val newColumns = if (it) columnExpandedVerticalC13
                                 else columnHorizontal
-                                field { name = "mColumns" }.get(instance).set(newColumns)
+                                firstField { name = "mColumns" }.of(instance).set(newColumns)
                                 result = mColumns != newColumns
                             }
                         }
@@ -116,8 +114,8 @@ object ControlCenterTiles : YukiBaseHooker() {
                 prefs(ModulePrefs).getInt("tile_expanded_columns_horizontal", 6)
 
             //Source QuickQSPanel
-            "com.android.systemui.qs.QuickQSPanel".toClass().apply {
-                method { name = "getNumQuickTiles" }.hook {
+            "com.android.systemui.qs.QuickQSPanel".toClass().resolve().apply {
+                firstMethod { name = "getNumQuickTiles" }.hook {
                     before {
                         getScreenOrientation(instance<View>()) {
                             result = if (it) columnUnexpandedVertical
@@ -128,15 +126,16 @@ object ControlCenterTiles : YukiBaseHooker() {
             }
 
             //Source TileLayout
-            "com.android.systemui.qs.TileLayout".toClass().apply {
-                method { name = "updateColumns" }.hook {
+            "com.android.systemui.qs.TileLayout".toClass().resolve().apply {
+                firstMethod { name = "updateColumns" }.hook {
                     before {
                         instance<ViewGroup>().apply {
                             getScreenOrientation(this) {
-                                val mColumns = field { name = "mColumns" }.get(instance).int()
+                                val mColumns =
+                                    firstField { name = "mColumns" }.of(instance).get<Int>()
                                 val newColumns = if (it) columnExpandedVertical
                                 else columnExpandedHorizontal
-                                field { name = "mColumns" }.get(instance).set(newColumns)
+                                firstField { name = "mColumns" }.of(instance).set(newColumns)
                                 result = mColumns != newColumns
                             }
                         }

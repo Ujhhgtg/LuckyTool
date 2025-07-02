@@ -1,11 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.view.View
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ControlCenterBackgroundTransParency : YukiBaseHooker() {
@@ -17,8 +17,8 @@ object ControlCenterBackgroundTransParency : YukiBaseHooker() {
         }
 
         //Source ScrimController
-        "com.android.systemui.statusbar.phone.ScrimController".toClass().apply {
-            method { name = "updateScrimColor" }.hook {
+        "com.android.systemui.statusbar.phone.ScrimController".toClass().resolve().apply {
+            firstMethod { name = "updateScrimColor" }.hook {
                 before {
                     if (customAlpha < 0) return@before
                     val value = customAlpha / 10.0F

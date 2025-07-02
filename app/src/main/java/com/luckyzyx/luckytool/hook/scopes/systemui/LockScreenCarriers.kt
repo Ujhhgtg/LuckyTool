@@ -3,14 +3,12 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object LockScreenCarriers : YukiBaseHooker() {
@@ -31,44 +29,45 @@ object LockScreenCarriers : YukiBaseHooker() {
 
             //Source OplusCarrierTextCallbackInfo
             "com.oplus.systemui.qs.OplusQSCarrierTextController\$OplusCarrierTextCallbackInfo".toClass()
-                .apply {
-                    constructor().hookAll {
+                .resolve().apply {
+                    constructor {}.hookAll {
                         after {
                             if (customText.isNotBlank()) {
-                                field { name = "carrierText" }.get(instance).set(customText)
+                                firstField { name = "carrierText" }.of(instance).set(customText)
                             }
                         }
                     }
                 }
 
             //Source OplusStatCarrierTextController
-            "com.oplus.systemui.statusbar.widget.OplusStatCarrierTextController".toClass()
+            "com.oplus.systemui.statusbar.widget.OplusStatCarrierTextController".toClass().resolve()
                 .apply {
-                    method { name = "onViewAttached" }.hook {
+                    firstMethod { name = "onViewAttached" }.hook {
                         after {
-                            method { name = "setVisible" }.get(instance).call(false)
+                            firstMethod { name = "setVisible" }.of(instance).invoke(false)
                         }
                     }
-                    method { name = "setVisible" }.hook {
+                    firstMethod { name = "setVisible" }.hook {
                         before {
                             if (isRemove) args().first().setFalse()
                         }
                     }
-                    method { name = "updateCarrierInfo" }.hook {
+                    firstMethod { name = "updateCarrierInfo" }.hook {
                         after {
-                            if (isRemove) method { name = "setVisible" }.get(instance).call(false)
+                            if (isRemove) firstMethod { name = "setVisible" }.of(instance)
+                                .invoke(false)
                         }
                     }
                 }
 
             //Source OplusStatCarrierText
-            "com.oplus.systemui.statusbar.widget.OplusStatCarrierText".toClass().apply {
-                constructor { paramCount = 2 }.hook {
+            "com.oplus.systemui.statusbar.widget.OplusStatCarrierText".toClass().resolve().apply {
+                firstConstructor { parameterCount = 2 }.hook {
                     after {
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
                     }
                 }
-                method { name = "onConfigurationChanged" }.hook {
+                firstMethod { name = "onConfigurationChanged" }.hook {
                     after {
                         if (customText.isNotBlank()) instance<TextView>().text = customText
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
@@ -88,18 +87,18 @@ object LockScreenCarriers : YukiBaseHooker() {
                 prefs(ModulePrefs).getString("statusbar_custom_carrier_display_text", "")
 
             //Source StatOperatorNameView
-            "com.oplusos.systemui.statusbar.widget.StatOperatorNameView".toClass().apply {
-                constructor { paramCount = 3 }.hook {
+            "com.oplusos.systemui.statusbar.widget.StatOperatorNameView".toClass().resolve().apply {
+                firstConstructor { parameterCount = 3 }.hook {
                     after {
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
                     }
                 }
-                method { name = "onConfigurationChanged" }.hook {
+                firstMethod { name = "onConfigurationChanged" }.hook {
                     after {
                         if (userFont) instance<TextView>().typeface = Typeface.DEFAULT_BOLD
                     }
                 }
-                method { name = "updateCarrierInfo";superClass() }.hook {
+                firstMethod { name = "updateCarrierInfo";superclass() }.hook {
                     after {
                         instance<TextView>().apply {
                             if (isRemove) isVisible = false

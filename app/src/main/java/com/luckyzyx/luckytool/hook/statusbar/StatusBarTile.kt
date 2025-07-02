@@ -15,9 +15,10 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-object StatusBarTile : YukiBaseHooker() {
+class StatusBarTile(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
@@ -57,7 +58,7 @@ object StatusBarTile : YukiBaseHooker() {
 
         //移除控制中心磁贴数量限制
         if (prefs(ModulePrefs).getBoolean("remove_control_center_tile_count_limit", false)) {
-            loadHooker(RemoveControlCenterTileCountLimit)
+            loadHooker(RemoveControlCenterTileCountLimit(dexKitBridge))
         }
     }
 }

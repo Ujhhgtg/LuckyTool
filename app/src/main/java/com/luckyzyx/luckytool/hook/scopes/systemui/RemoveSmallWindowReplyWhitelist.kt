@@ -1,12 +1,12 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.util.ArraySet
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
@@ -20,8 +20,8 @@ object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
     object SmallWindowReplyWhitelist : YukiBaseHooker() {
         override fun onHook() {
             //Source HeadsUpToZoomUtils
-            "com.android.systemui.util.HeadsUpToZoomUtils".toClass().apply {
-                method { name { it.startsWith("isZoom") } }.hook {
+            "com.android.systemui.util.HeadsUpToZoomUtils".toClass().resolve().apply {
+                firstMethod { name { it.startsWith("isZoom") } }.hook {
                     replaceToTrue()
                 }
             }
@@ -39,8 +39,8 @@ object RemoveSmallWindowReplyWhitelist : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.notification.base.BaseNotificationContentInflater", //C13
                 "com.oplus.systemui.statusbar.NotificationListenerExtImpl" //C14
-            ).toClass().apply {
-                method { name = "showSmallWindowReply" }.hook {
+            ).toClass().resolve().apply {
+                firstMethod { name = "showSmallWindowReply" }.hook {
                     before {
                         if (set.isEmpty()) return@before
                         val packName = args().first().string()

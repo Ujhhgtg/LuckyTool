@@ -1,9 +1,9 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import android.os.Message
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.MessageClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -13,10 +13,10 @@ object RemoveStatusBarSecurePayment : YukiBaseHooker() {
         VariousClass(
             "com.oplus.systemui.statusbar.phone.securepay.SecurePaymentControllerExImpl", //C12 C13
             "com.oplus.systemui.statusbar.phone.dynamic.SecurePaymentController" //C14
-        ).toClass().apply {
-            method {
+        ).toClass().resolve().apply {
+            firstMethod {
                 name = "handlePaymentDetectionMessage"
-                param(MessageClass)
+                parameters(Message::class)
             }.hook {
                 intercept()
             }

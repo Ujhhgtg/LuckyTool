@@ -4,17 +4,14 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
 import android.widget.CheckBox
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ColorStateListClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatColorAlpha
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ControllerCenterSliderTransparency : YukiBaseHooker() {
@@ -22,39 +19,39 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_control_center_silder_transparency", -1)
 
         //Source OplusToggleSliderView C14.0
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.qs.widget.OplusToggleSliderView", //C13
             "com.oplus.systemui.qs.widget.OplusToggleSliderView", //C14.0
-        ).toClassOrNull()?.apply {
-            method { name = "setupSliderProgressDrawable" }.hook {
+        ).toClassOrNull() as? Class<Any>)?.resolve()?.apply {
+            firstMethod { name = "setupSliderProgressDrawable" }.hook {
                 after {
                     if (customAlpha < 0) return@after
                     val value = customAlpha / 10F
-                    val mSlider = field { name = "mSlider" }.get(instance).any() ?: return@after
-                    val baseProgressColor = mSlider.current().field {
-                        name = "mProgressColor";superClass()
-                    }.int()
-                    mSlider.current().method {
+                    val mSlider = firstField { name = "mSlider" }.of(instance).get() ?: return@after
+                    val baseProgressColor = mSlider.resolve().firstField {
+                        name = "mProgressColor";superclass()
+                    }.get<Int>() ?: return@after
+                    mSlider.resolve().firstMethod {
                         name = "setProgressColor"
-                        param(ColorStateListClass)
-                        superClass()
-                    }.call(
+                        parameters(ColorStateList::class)
+                        superclass()
+                    }.invoke(
                         ColorStateList.valueOf(
                             formatColorAlpha(baseProgressColor, value)
                         )
                     )
-                    mSlider.current().method {
+                    mSlider.resolve().firstMethod {
                         name = "setThumbColor"
-                        param(ColorStateListClass)
-                        superClass()
-                    }.call(ColorStateList.valueOf(Color.TRANSPARENT))
+                        parameters(ColorStateList::class)
+                        superclass()
+                    }.invoke(ColorStateList.valueOf(Color.TRANSPARENT))
                 }
             }
-            method { name = "updateToggleBackground" }.hook {
+            firstMethod { name = "updateToggleBackground" }.hook {
                 after {
                     if (customAlpha < 0) return@after
                     val value = 255 / 10 * customAlpha
-                    val mToggle = field { name = "mToggle" }.get(instance).cast<CheckBox>()
+                    val mToggle = firstField { name = "mToggle" }.of(instance).get<CheckBox>()
                         ?: return@after
                     mToggle.background.alpha = value
                 }
@@ -62,20 +59,22 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
         }
 
         //Source OplusQsToggleSliderLayout C14.0.1 C15.0
-        "com.oplus.systemui.qs.widget.OplusQsToggleSliderLayout".toClassOrNull()?.apply {
-            method {
+        "com.oplus.systemui.qs.widget.OplusQsToggleSliderLayout".toClassOrNull()?.resolve()?.apply {
+            firstMethod {
                 name = "generateSliderView"
-                if (SDK >= A15) superClass()
+                if (SDK >= A15) superclass()
             }.hook {
                 after {
                     if (customAlpha < 0) return@after
                     val value = customAlpha / 10.0F
                     val seekBar = result<View>() ?: return@after
-                    val baseColor = seekBar.current().field { name = "mProgressColor" }.int()
-                    seekBar.current().method {
+                    val baseColor =
+                        seekBar.resolve().firstField { name = "mProgressColor" }.get<Int>()
+                            ?: return@after
+                    seekBar.resolve().firstMethod {
                         name = "setProgressColor"
-                        param(ColorStateListClass)
-                    }.call(
+                        parameters(ColorStateList::class)
+                    }.invoke(
                         ColorStateList.valueOf(
                             formatColorAlpha(baseColor, value)
                         )

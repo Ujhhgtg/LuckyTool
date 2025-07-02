@@ -5,16 +5,12 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.DrawableClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
@@ -40,8 +36,8 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
 
             //Source NotificationBackgroundView
             "com.android.systemui.statusbar.notification.row.NotificationBackgroundView".toClass()
-                .apply {
-                    method { name = "draw";paramCount = 2 }.hook {
+                .resolve().apply {
+                    firstMethod { name = "draw";parameterCount = 2 }.hook {
                         before {
                             if (customAlpha < 0 || enableBlur) return@before
                             val alphaValue = customAlpha * 25
@@ -53,8 +49,8 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
 
             //Source NotificationBackgroundViewExtImp
             "com.oplus.systemui.statusbar.notification.row.NotificationBackgroundViewExtImp".toClass()
-                .apply {
-                    method { name = "getOplusStyle";superClass() }.hook {
+                .resolve().apply {
+                    firstMethod { name = "getOplusStyle";superclass() }.hook {
                         before {
                             if (customAlpha < 0) return@before
                             if (enableBlur) resultTrue() else resultFalse()
@@ -64,12 +60,12 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
 
             //Source ExpandableNotificationRow
             "com.android.systemui.statusbar.notification.row.ExpandableNotificationRow".toClass()
-                .apply {
-                    method { name = "updateBackgroundForGroupState" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "updateBackgroundForGroupState" }.hook {
                         before {
                             if (customAlpha < 0 || !enableBlur) return@before
-                            field { name = "mShowGroupBackgroundWhenExpanded" }.get(instance)
-                                .setTrue()
+                            firstField { name = "mShowGroupBackgroundWhenExpanded" }.of(instance)
+                                .set(true)
                         }
                     }
                 }
@@ -95,8 +91,8 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
 
             //Source NotificationBackgroundView
             "com.android.systemui.statusbar.notification.row.NotificationBackgroundView".toClass()
-                .apply {
-                    method { name = "draw";paramCount = 2 }.hook {
+                .resolve().apply {
+                    firstMethod { name = "draw";parameterCount = 2 }.hook {
                         before {
                             if (customAlpha < 0 || enableBlur) return@before
                             val alphaValue = customAlpha * 25
@@ -108,33 +104,36 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
 
             //Source NotificationBackgroundViewExtImp
             "com.oplus.systemui.statusbar.notification.row.NotificationBackgroundViewExtImp".toClass()
-                .apply {
-                    method { name = "getOplusStyle";superClass() }.hook {
+                .resolve().apply {
+                    firstMethod { name = "getOplusStyle";superclass() }.hook {
                         before {
                             if (customAlpha < 0) return@before
                             if (enableBlur) resultTrue() else resultFalse()
                         }
                     }
-                    method { name = "drawBlur";superClass() }.hook {
+                    firstMethod { name = "drawBlur";superclass() }.hook {
                         before {
                             if (customAlpha < 0) return@before
                             if (enableBlur) resultTrue() else resultFalse()
                         }
                     }
-                    method { name = "decideBlurDrawable" }.hook {
+                    firstMethod { name = "decideBlurDrawable" }.hook {
                         before {
                             if (customAlpha < 0) return@before
-                            if (!disableBlur) method { name = "getRowBlurDelegate";superClass() }
-                                .get(instance).call()?.current()?.method {
-                                    name = "setBlurType";superClass()
-                                }?.call(1)
+                            if (!disableBlur) firstMethod {
+                                name = "getRowBlurDelegate";superclass()
+                            }
+                                .of(instance).invoke()?.resolve()?.firstMethod {
+                                    name = "setBlurType";superclass()
+                                }?.invoke(1)
                         }
                         after {
                             if (customAlpha < 0) return@after
                             val value = customAlpha * 25
                             val res = result<Drawable>() ?: return@after
                             if (res is BackgroundBlurDrawable) {
-                                val mBlurRadius = res.current().field { name = "mBlurRadius" }.int()
+                                val mBlurRadius =
+                                    res.resolve().firstField { name = "mBlurRadius" }.get<Int>()
                                 if (mBlurRadius != value.dp) res.setBlurRadius(value.dp)
                             }
                         }
@@ -142,8 +141,8 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
                 }
 
             //Source OplusRowsBlurManager
-            "com.oplus.systemui.blur.OplusRowsBlurManager".toClass().apply {
-                method { name = "blurMediaPanel" }.hook {
+            "com.oplus.systemui.blur.OplusRowsBlurManager".toClass().resolve().apply {
+                firstMethod { name = "blurMediaPanel" }.hook {
                     before {
                         if (customAlpha < 0) return@before
                         disableBlur = args().first().boolean()
@@ -153,20 +152,20 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
 
             //Source ExpandableNotificationRow
             "com.android.systemui.statusbar.notification.row.ExpandableNotificationRow".toClass()
-                .apply {
-                    method { name = "updateBackgroundForGroupState" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "updateBackgroundForGroupState" }.hook {
                         before {
                             if (customAlpha < 0 || !enableBlur) return@before
-                            field { name = "mShowGroupBackgroundWhenExpanded" }.get(instance)
-                                .setTrue()
+                            firstField { name = "mShowGroupBackgroundWhenExpanded" }.of(instance)
+                                .set(true)
                         }
                     }
                 }
 
             //Source SeedlingItemRow
             "com.oplus.systemui.plugins.seedling.notification.widget.SeedlingItemRow".toClass()
-                .apply {
-                    method { name = "initBackground" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "initBackground" }.hook {
                         after {
                             val view = instance<View>()
                             val drawableId = view.resources.getIdentifier(
@@ -179,14 +178,14 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
                                 alpha = 255 / 10 * customAlpha
                             }
                             val backgroundNormal =
-                                field { name = "mBackgroundNormal" }.get(instance).any()
+                                firstField { name = "mBackgroundNormal" }.of(instance).get()
                                     ?: return@after
-                            backgroundNormal.current().method {
-                                name = "setCustomBackground";param(DrawableClass)
-                            }.call(newDrawable)
-                            backgroundNormal.current().method {
-                                name = "setTint";param(IntType)
-                            }.call(0)
+                            backgroundNormal.resolve().firstMethod {
+                                name = "setCustomBackground";parameters(Drawable::class)
+                            }.invoke(newDrawable)
+                            backgroundNormal.resolve().firstMethod {
+                                name = "setTint";parameters(Int::class)
+                            }.invoke(0)
                         }
                     }
                 }

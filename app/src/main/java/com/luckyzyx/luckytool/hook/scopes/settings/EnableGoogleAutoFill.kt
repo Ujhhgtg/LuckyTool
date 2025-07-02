@@ -47,7 +47,7 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             }.of(instance).invoke<List<Any>>() ?: listOf()
                             val users = firstMethod {
                                 name = "getUser";superclass()
-                            }.of(instance).invoke<Int>() ?: -1
+                            }.of(instance).invoke<Int>() ?: 0
                             allProviders.forEachIndexed { _, info ->
                                 val settingsSubtitle =
                                     info.resolve().firstMethod { name = "getSettingsSubtitle" }

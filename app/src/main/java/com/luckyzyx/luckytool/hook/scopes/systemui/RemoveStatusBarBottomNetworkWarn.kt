@@ -1,12 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveStatusBarBottomNetworkWarn : YukiBaseHooker() {
@@ -23,17 +22,12 @@ object RemoveStatusBarBottomNetworkWarn : YukiBaseHooker() {
             dataChannel.wait<String>("remove_control_center_networkwarn") { removeMode = it }
 
             //Source OplusQSSecurityController
-            "com.oplus.systemui.qs.policy.OplusQSSecurityController".toClass().apply {
-                val hasRefreshState = hasMethod { name = "handleRefreshState" }
-                method { name = "showDeviceMonitoringDialog" }.hook {
+            "com.oplus.systemui.qs.policy.OplusQSSecurityController".toClass().resolve().apply {
+                firstMethod { name = "showDeviceMonitoringDialog" }.hook {
                     if (removeMode == "1" || removeMode == "2") intercept()
                 }
-                method {
-                    name {
-                        if (hasRefreshState) it == "handleRefreshState"
-                        else it.contains("handleRefreshState")
-                    }
-                }.hook {
+                (firstMethodOrNull { name = "handleRefreshState" }
+                    ?: firstMethod { name { it.contains("handleRefreshState") } }).hook {
                     if (removeMode == "2") intercept()
                 }
             }
@@ -50,11 +44,11 @@ object RemoveStatusBarBottomNetworkWarn : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.qs.widget.OplusQSSecurityText", //C13
                 "com.oplus.systemui.qs.widget.OplusQSSecurityText" //C14
-            ).toClass().apply {
-                method { name = "handleClick" }.hook {
+            ).toClass().resolve().apply {
+                firstMethod { name = "handleClick" }.hook {
                     if (removeMode == "1" || removeMode == "2") intercept()
                 }
-                method { name = "handleRefreshState" }.hook {
+                firstMethod { name = "handleRefreshState" }.hook {
                     if (removeMode == "2") intercept()
                 }
             }

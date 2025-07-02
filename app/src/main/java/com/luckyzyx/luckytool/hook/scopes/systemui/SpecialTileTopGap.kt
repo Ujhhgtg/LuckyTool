@@ -4,10 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import com.luckyzyx.luckytool.hook.utils.sysui.QSFeatureOptionUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
@@ -34,19 +33,19 @@ object SpecialTileTopGap : YukiBaseHooker() {
         if (isSupportVolumeSeekBar) return
 
         //Source OplusQSTileMediaContainerController
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.qs.OplusQSTileMediaContainerController", //C13
             "com.oplus.systemui.qs.OplusQSTileMediaContainerController" //C14 C15
-        ).toClass().apply {
-            method { name = "updateResources" }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod { name = "updateResources" }.hook {
                 after {
-                    val context = method {
-                        name = "getContext";superClass()
-                    }.get(instance).invoke<Context>() ?: return@after
+                    val context = firstMethod {
+                        name = "getContext";superclass()
+                    }.of(instance).invoke<Context>() ?: return@after
                     getScreenOrientation(context) {
                         if (it) return@getScreenOrientation
-                        field { name = "mTopGap" }.get(instance).set(top.dp)
-                        field { name = "mBottomGap" }.get(instance).set(bottom.dp)
+                        firstField { name = "mTopGap" }.of(instance).set(top.dp)
+                        firstField { name = "mBottomGap" }.of(instance).set(bottom.dp)
                     }
                 }
             }
@@ -55,12 +54,12 @@ object SpecialTileTopGap : YukiBaseHooker() {
         if (osCode < 30) return
 
         //Source OplusQSBottomImpl C14 C15
-        "com.oplus.systemui.qs.OplusQSBottomImpl".toClass().apply {
-            method { name = "updateResources" }.hook {
+        "com.oplus.systemui.qs.OplusQSBottomImpl".toClass().resolve().apply {
+            firstMethod { name = "updateResources" }.hook {
                 after {
                     if (!smallBrightness) return@after
-                    val mPageIndicator = field { name = "mPageIndicator" }.get(instance)
-                        .cast<View>() ?: return@after
+                    val mPageIndicator = firstField { name = "mPageIndicator" }.of(instance)
+                        .get<View>() ?: return@after
                     getScreenOrientation(mPageIndicator) {
                         if (it) return@getScreenOrientation
                         (mPageIndicator.layoutParams as LinearLayout.LayoutParams).apply {

@@ -1,26 +1,23 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.DrawableClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.closeScreen
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object LockScreenBottomButton : YukiBaseHooker() {
@@ -31,6 +28,9 @@ object LockScreenBottomButton : YukiBaseHooker() {
 
     @Obfuscate
     object LockScreenBottomButton : YukiBaseHooker() {
+        val ViewModel =
+            "com.android.systemui.keyguard.ui.viewmodel.KeyguardQuickAffordanceViewModel"
+
         override fun onHook() {
             var rmLeft =
                 prefs(ModulePrefs).getBoolean("remove_lock_screen_bottom_left_button", false)
@@ -46,38 +46,37 @@ object LockScreenBottomButton : YukiBaseHooker() {
             }
 
             //Source KeyguardBottomAreaViewBinder
-            "com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder".toClass().apply {
-                val hasUpdateButton = hasMethod { name = "updateButton" }
-                method {
-                    name {
-                        if (hasUpdateButton) it == "updateButton"
-                        else it.contains("updateButton")
-                    }
-                }.hook {
-                    before {
-                        val index = if (hasUpdateButton) 1 else 2
-                        val viewModel = args(index).any() ?: return@before
-                        when (viewModel.current().field { name = "slotId" }.string()) {
-                            "bottom_start" -> if (rmLeft) {
-                                viewModel.current().field { name = "isVisible" }.setFalse()
-                            }
+            "com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder".toClass()
+                .resolve().apply {
+                    (firstMethodOrNull { name = "updateButton" }
+                        ?: firstMethod { name { it.endsWith("updateButton") } }).hook {
+                        before {
+                            val viewModel = args.find {
+                                it != null && it::class isSubclassOf ViewModel.toClass()
+                            } ?: return@before
+                            val solt = viewModel.resolve().firstField { name = "slotId" }
+                                .get<String>() ?: ""
+                            when (solt) {
+                                "bottom_start" -> if (rmLeft) {
+                                    viewModel.resolve().firstField { name = "isVisible" }.set(false)
+                                }
 
-                            "bottom_end" -> if (rmRight) {
-                                viewModel.current().field { name = "isVisible" }.setFalse()
+                                "bottom_end" -> if (rmRight) {
+                                    viewModel.resolve().firstField { name = "isVisible" }.set(false)
+                                }
                             }
                         }
                     }
                 }
-            }
 
             //Source OplusFlashlightQuickAffordanceConfig
             "com.oplus.systemui.keyguard.data.quickaffordance.OplusFlashlightQuickAffordanceConfig".toClass()
-                .apply {
-                    method { name = "onTriggered" }.hook {
+                .resolve().apply {
+                    firstMethod { name = "onTriggered" }.hook {
                         after {
                             if (rmLeft || !autoCloseScreen) return@after
-                            val context = field { name = "context";superClass() }.get(instance)
-                                .cast<Context>() ?: return@after
+                            val context = firstField { name = "context";superclass() }.of(instance)
+                                .get<Context>() ?: return@after
                             closeScreen(context)
                         }
                     }
@@ -112,74 +111,80 @@ object LockScreenBottomButton : YukiBaseHooker() {
             }
 
             //Source KeyguardBottomAreaView
-            "com.android.systemui.statusbar.phone.KeyguardBottomAreaView".toClass().apply {
-                method { name = "onFinishInflate" }.hook {
-                    before {
-                        if (!useFlashLight) return@before
-                        instance<ViewGroup>().context.injectModuleAppResources()
-                    }
-                }
-                method { name = "updateLeftAffordanceIcon" }.hook {
-                    after {
-                        if (!useFlashLight) return@after
-                        val context = instance<ViewGroup>().context
-                        method { name = "updateLeftAffordanceVisibility" }.get(instance).call()
-                        val mFlashlightController = field { name = "mFlashlightController" }
-                            .get(instance).any()
-                        val isEnable = mFlashlightController?.current()?.method {
-                            name = "isEnabled"
-                        }?.invoke<Boolean>() ?: false
-                        val resId = if (isEnable) R.drawable.affordance_flashlight_on
-                        else R.drawable.affordance_flashlight
-                        val drawable = safeOfNull {
-                            ResourcesCompat.getDrawable(context.resources, resId, null)
-                        }
-                        field { name = "mLeftAffordanceView";superClass() }.get(instance).any()
-                            ?.current()?.method {
-                                name = "setImageDrawable";param(DrawableClass, BooleanType)
-                                superClass()
-                            }?.call(drawable, !isEnable)
-                    }
-                }
-                method { name = "updateLeftAffordanceVisibility" }.hook {
-                    after {
-                        if (rmLeft) {
-                            field { name = "mLeftAffordanceView";superClass() }.get(instance)
-                                .cast<View>()?.isVisible = false
-                            return@after
-                        }
-                        if (useFlashLight) {
-                            field { name = "mLeftAffordanceView";superClass() }.get(instance)
-                                .cast<ImageView>()?.isVisible = true
+            "com.android.systemui.statusbar.phone.KeyguardBottomAreaView".toClass().resolve()
+                .apply {
+                    firstMethod { name = "onFinishInflate" }.hook {
+                        before {
+                            if (!useFlashLight) return@before
+                            instance<ViewGroup>().context.injectModuleAppResources()
                         }
                     }
-                }
-                method { name = "launchLeftAffordance" }.hook {
-                    before {
-                        if (!useFlashLight) return@before
-                        method { name = "baseLaunchLeftAffordance";superClass() }.get(instance)
-                            .call()
-                        val mFlashlightController =
-                            field { name = "mFlashlightController" }.get(instance).any()
-                        val isEnable = mFlashlightController?.current()?.method {
-                            name = "isEnabled"
-                        }?.invoke<Boolean>() ?: true
-                        mFlashlightController?.current()?.method { name = "setFlashlight" }
-                            ?.call(!isEnable)
-                        method { name = "updateLeftAffordanceIcon" }.get(instance).call()
-                        if (autoCloseScreen) closeScreen(instance<ViewGroup>().context)
-                        resultNull()
+                    firstMethod { name = "updateLeftAffordanceIcon" }.hook {
+                        after {
+                            if (!useFlashLight) return@after
+                            val context = instance<ViewGroup>().context
+                            firstMethod { name = "updateLeftAffordanceVisibility" }.of(instance)
+                                .invoke()
+                            val mFlashlightController =
+                                firstField { name = "mFlashlightController" }.of(instance).get()
+                            val isEnable = mFlashlightController?.resolve()?.firstMethod {
+                                name = "isEnabled"
+                            }?.invoke<Boolean>() ?: false
+                            val resId = if (isEnable) R.drawable.affordance_flashlight_on
+                            else R.drawable.affordance_flashlight
+                            val drawable = safeOfNull {
+                                ResourcesCompat.getDrawable(context.resources, resId, null)
+                            }
+                            firstField { name = "mLeftAffordanceView";superclass() }.of(instance)
+                                .get()?.resolve()?.firstMethod {
+                                    name = "setImageDrawable"
+                                    parameters(Drawable::class, Boolean::class)
+                                    superclass()
+                                }?.invoke(drawable, !isEnable)
+                        }
+                    }
+                    firstMethod { name = "updateLeftAffordanceVisibility" }.hook {
+                        after {
+                            if (rmLeft) {
+                                firstField {
+                                    name = "mLeftAffordanceView";superclass()
+                                }.of(instance).get<View>()?.isVisible = false
+                                return@after
+                            }
+                            if (useFlashLight) {
+                                firstField {
+                                    name = "mLeftAffordanceView";superclass()
+                                }.of(instance).get<ImageView>()?.isVisible = true
+                            }
+                        }
+                    }
+                    firstMethod { name = "launchLeftAffordance" }.hook {
+                        before {
+                            if (!useFlashLight) return@before
+                            firstMethod { name = "baseLaunchLeftAffordance";superclass() }.of(
+                                instance
+                            ).invoke()
+                            val mFlashlightController =
+                                firstField { name = "mFlashlightController" }.of(instance).get()
+                            val isEnable = mFlashlightController?.resolve()?.firstMethod {
+                                name = "isEnabled"
+                            }?.invoke<Boolean>() ?: true
+                            mFlashlightController?.resolve()?.firstMethod { name = "setFlashlight" }
+                                ?.invoke(!isEnable)
+                            firstMethod { name = "updateLeftAffordanceIcon" }.of(instance).invoke()
+                            if (autoCloseScreen) closeScreen(instance<ViewGroup>().context)
+                            resultNull()
+                        }
+                    }
+                    firstMethod { name = "updateCameraVisibility" }.hook {
+                        before {
+                            if (!rmRight) return@before
+                            firstField { name = "mRightAffordanceView";superclass() }.of(instance)
+                                .get<ImageView>()?.isVisible = false
+                            resultNull()
+                        }
                     }
                 }
-                method { name = "updateCameraVisibility" }.hook {
-                    before {
-                        if (!rmRight) return@before
-                        field { name = "mRightAffordanceView";superClass() }.get(instance)
-                            .cast<ImageView>()?.isVisible = false
-                        resultNull()
-                    }
-                }
-            }
         }
     }
 }

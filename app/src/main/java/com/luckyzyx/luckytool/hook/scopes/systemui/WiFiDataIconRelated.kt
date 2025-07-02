@@ -13,15 +13,10 @@ import android.os.HandlerThread
 import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.AbsSettingsValueProxyUtils
@@ -30,7 +25,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
-
 
 @Obfuscate
 class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -60,8 +54,8 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source ModernStatusBarWifiView
             "com.android.systemui.statusbar.pipeline.wifi.ui.view.ModernStatusBarWifiView".toClass()
-                .apply {
-                    constructor().hook {
+                .resolve().apply {
+                    firstConstructor().hook {
                         after {
                             if (!wifiStandard) return@after
                             val view = instance<View>()
@@ -70,12 +64,16 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             if (!hasRegisterCallback) {
                                 val handlerThread = HandlerThread("SysUiNetwork", 10)
                                 handlerThread.start()
-                                handlerThread.looper.current().method {
-                                    name = "setSlowLogThresholdMs";param(LongType, LongType)
-                                }.call(1000L, 1000L)
-                                handlerThread.looper.current().method {
-                                    name = "setTraceTag";param(LongType)
-                                }.call(4096L)
+                                handlerThread.looper.resolve().firstMethod {
+                                    name = "setSlowLogThresholdMs"
+                                    parameters(
+                                        Long::class, Long::class
+                                    )
+                                }.invoke(1000L, 1000L)
+                                handlerThread.looper.resolve().firstMethod {
+                                    name = "setTraceTag"
+                                    parameters(Long::class)
+                                }.invoke(4096L)
                                 val looper = handlerThread.looper
                                 val handler = Handler(looper)
                                 val callback = object : ConnectivityManager.NetworkCallback() {
@@ -84,11 +82,11 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                         networkCapabilities: NetworkCapabilities
                                     ) {
                                         val info = networkCapabilities.transportInfo?.let {
-                                            if (it is WifiInfo) it else null
+                                            it as? WifiInfo
                                         } ?: return
-                                        val isPrimary = info.current().method {
-                                            name = "isPrimary";emptyParam()
-                                        }.boolean()
+                                        val isPrimary = info.resolve().firstMethod {
+                                            name = "isPrimary";emptyParameters()
+                                        }.invoke<Boolean>() ?: false
                                         if (!isPrimary) return
                                         wifiInfo = info
 
@@ -111,8 +109,8 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
             //Source OplusWifiViewModel
             "com.oplus.systemui.statusbar.pipeline.wifi.ui.viewmodel.OplusWifiViewModel".toClass()
-                .apply {
-                    method {
+                .resolve().apply {
+                    firstMethod {
                         name = "getWifiActivityResId"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
@@ -131,15 +129,15 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             }
                         }
                     }
-                    method {
+                    firstMethod {
                         name = "getWifiLeftResId"
                         returnType = "kotlinx.coroutines.flow.StateFlow"
                     }.hook {
                         after {
                             if (!wifiStandard) return@after
 
-                            val context = field { type = ContextClass }.get(instance)
-                                .cast<Context>() ?: return@after
+                            val context = firstField { type = Context::class }.of(instance)
+                                .get<Context>() ?: return@after
                             if (wifiInfo == null) return@after
                             val drawable =
                                 getSignalDrawable(appClassLoader, context, wifiInfo!!.wifiStandard)
@@ -187,21 +185,21 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             val removeInout = prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)
 
             //Source OplusStatusBarWifiView
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.statusbar.OplusStatusBarWifiView",
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarWifiViewExImpl"
-            ).toClass().apply {
-                method { name = "initViewState" }.hook {
+            ).toClass() as Class<Any>).resolve().apply {
+                firstMethod { name = "initViewState" }.hook {
                     after {
                         if (!removeInout) return@after
-                        field { name = "mWifiActivity" }.get(instance).cast<View>()?.isVisible =
+                        firstField { name = "mWifiActivity" }.of(instance).get<View>()?.isVisible =
                             false
                     }
                 }
-                method { name = "updateState" }.hook {
+                firstMethod { name = "updateState" }.hook {
                     after {
                         if (!removeInout) return@after
-                        field { name = "mWifiActivity" }.get(instance).cast<View>()?.isVisible =
+                        firstField { name = "mWifiActivity" }.of(instance).get<View>()?.isVisible =
                             false
                     }
                 }

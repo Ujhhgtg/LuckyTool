@@ -2,15 +2,10 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.app.ActivityManager.RunningTaskInfo
 import android.content.Intent
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.startMirageWindow
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
@@ -20,8 +15,11 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
         var status: Boolean
 
         //Source ZoomStateManager
-        "com.oplus.zoom.zoomstate.ZoomStateManager".toClass().apply {
-            method { name = "requestChangeZoomTask";param(IntType, BooleanType) }.hook {
+        "com.oplus.zoom.zoomstate.ZoomStateManager".toClass().resolve().apply {
+            firstMethod {
+                name = "requestChangeZoomTask"
+                parameters(Int::class, Boolean::class)
+            }.hook {
                 before {
                     flag = args().first().int()
                     status = args().last().boolean()
@@ -31,15 +29,15 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
                     //浮窗退出 flag 6
 
                     if (flag == 5 && status) {
-                        val mTaskInfo = field { name = "mTaskInfo" }.get(instance)
-                            .cast<RunningTaskInfo>() ?: return@before
+                        val mTaskInfo = firstField { name = "mTaskInfo" }.of(instance)
+                            .get<RunningTaskInfo>() ?: return@before
 
-                        val baseIntent = mTaskInfo.current().field {
-                            type = IntentClass;superClass()
-                        }.cast<Intent>() ?: return@before
+                        val baseIntent = mTaskInfo.resolve().firstField {
+                            type = Intent::class;superclass()
+                        }.get<Intent>() ?: return@before
 
-                        val uid = mTaskInfo.current().field { name = "uid";superClass() }
-                            .int()
+                        val uid = mTaskInfo.resolve().firstField { name = "uid";superclass() }
+                            .get<Int>() ?: return@before
                         if (uid > 0) baseIntent.putExtra("TASKINFO_UID", uid)
 
                         startMirageWindow(baseIntent)
@@ -50,8 +48,8 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
         }
 
         //Source FloatHandleController
-        "com.oplus.zoom.ui.floathandle.FloatHandleController".toClass().apply {
-            method { name = "onTaskMovedToFront" }.hook {
+        "com.oplus.zoom.ui.floathandle.FloatHandleController".toClass().resolve().apply {
+            firstMethod { name = "onTaskMovedToFront" }.hook {
                 before {
                     if (flag == 5) resultNull()
                 }

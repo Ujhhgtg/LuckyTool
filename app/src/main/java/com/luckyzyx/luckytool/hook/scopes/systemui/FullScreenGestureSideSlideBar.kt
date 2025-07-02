@@ -1,18 +1,14 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Paint
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.BitmapClass
-import com.highcapable.yukihookapi.hook.type.android.PaintClass
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object FullScreenGestureSideSlideBar : YukiBaseHooker() {
@@ -26,36 +22,34 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
         val isReplace = prefs(ModulePrefs).getBoolean("replace_side_slider_icon_switch", false)
         val leftPath = prefs(ModulePrefs).getString("replace_side_slider_icon_on_left", "")
         val rightPath = prefs(ModulePrefs).getString("replace_side_slider_icon_on_right", "")
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.navbar.gesture.sidegesture.SideGestureNavView", //A11
             "com.oplusos.systemui.navigationbar.gesture.sidegesture.SideGestureNavView",
             "com.oplus.systemui.navigationbar.gesture.sidegesture.SideGestureNavView" //C14
-        ).toClass().apply {
-            val hasInitPaint = hasMethod { name = "initPaint" }
-            method { name = "onDraw";paramCount = 1 }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod { name = "onDraw";parameterCount = 1 }.hook {
                 if (removeView) intercept()
             }
-            if (hasInitPaint) {
-                method { name = "initPaint";emptyParam() }.hook {
-                    after {
-                        if (!removeBackground) return@after
-                        field { name = "mBezierPaint";type = PaintClass }.get(instance)
-                            .cast<Paint>()?.color = Color.TRANSPARENT
-                    }
+            firstMethodOrNull { name = "initPaint";emptyParameters() }?.hook {
+                after {
+                    if (!removeBackground) return@after
+                    firstField { name = "mBezierPaint";type = Paint::class }.of(instance)
+                        .get<Paint>()?.color = Color.TRANSPARENT
                 }
-            } else {
-                constructor().hook {
+            } ?: {
+                firstConstructor().hook {
                     after {
                         if (!removeBackground) return@after
-                        field { name = "mBezierPaint";type = PaintClass }.get(instance)
-                            .cast<Paint>()?.color = Color.TRANSPARENT
+                        firstField { name = "mBezierPaint";type = Paint::class }.of(instance)
+                            .get<Paint>()?.color = Color.TRANSPARENT
                     }
                 }
             }
-            method { name = "setBackIcon";param(BitmapClass) }.hook {
+            firstMethod { name = "setBackIcon";parameters(Bitmap::class) }.hook {
                 before {
                     if (!isReplace) return@before
-                    val bitmap = when (field { name = "mPosition" }.get(instance).int()) {
+                    val type = firstField { name = "mPosition" }.of(instance).get<Int>()
+                    val bitmap = when (type) {
                         0 -> BitmapFactory.decodeFile(leftPath)
                         1 -> BitmapFactory.decodeFile(rightPath)
                         else -> return@before

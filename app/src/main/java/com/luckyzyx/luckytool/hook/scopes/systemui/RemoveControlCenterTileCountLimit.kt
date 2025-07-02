@@ -1,26 +1,24 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
+import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 
 @Obfuscate
-object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
+class RemoveControlCenterTileCountLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         if (osCode < 26) {
-            loadHooker(RemoveReceiveItemLimitV12)
+            loadHooker(RemoveReceiveItemLimitV12(dexKitBridge))
         } else {
             if (osCode >= 34) loadHooker(RemoveLimitNumberHint)
             else loadHooker(RemoveLimitNumberHintV14)
-            loadHooker(RemoveReceiveItemLimit)
+            loadHooker(RemoveReceiveItemLimit(dexKitBridge))
         }
     }
 
@@ -28,46 +26,40 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
     object RemoveLimitNumberHint : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSeparateQSCustomizer
-            "com.oplus.systemui.plugins.qs.customize.OplusSeparateQSCustomizer".toClass().apply {
-                val hasCheckLimit = hasMethod { name = "handleCheckLimitCount" }
-                method {
-                    name {
-                        if (hasCheckLimit) it == "handleCheckLimitCount"
-                        else it.contains("handleCheckLimitCount")
+            "com.oplus.systemui.plugins.qs.customize.OplusSeparateQSCustomizer".toClass().resolve()
+                .apply {
+                    (firstMethodOrNull { name = "handleCheckLimitCount" }
+                        ?: firstMethod { name { it.contains("handleCheckLimitCount") } }).hook {
+                        replaceToFalse()
                     }
-                }.hook {
-                    replaceToFalse()
+                    firstMethod { name = "updateLimitCountTip" }.hook {
+                        intercept()
+                    }
                 }
-                method { name = "updateLimitCountTip" }.hook {
-                    intercept()
-                }
-            }
         }
     }
 
     @Obfuscate
-    object RemoveReceiveItemLimit : YukiBaseHooker() {
+    class RemoveReceiveItemLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer
             val clazz = VariousClass(
                 "com.oplusos.systemui.qs.customize.OplusQSCustomizer", //C12 C13
                 "com.oplus.systemui.qs.customize.OplusQSCustomizer" //C14
-            ).getOrNull(appClassLoader) ?: return
+            ).toClassOrNull(appClassLoader) ?: return
 
-            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-                dexKitBridge.findClass {
-                    matcher {
-                        className(clazz.name, StringMatchType.Contains)
-                        addMethod { name("canReceiveItem");returnType(BooleanType) }
-                        addMethod { name("checkHighLightTileSize");returnType(BooleanType) }
-                    }
-                }.apply {
-                    checkDataList("RemoveReceiveItemLimit clazz", onlyOne = false)
-                    forEachIndexed { _, classData ->
-                        classData.name.toClass().apply {
-                            method { name = "canReceiveItem" }.hook {
-                                replaceToTrue()
-                            }
+            dexKitBridge.findClass {
+                matcher {
+                    className(clazz.name, StringMatchType.Contains)
+                    addMethod { name("canReceiveItem");returnType(Boolean::class.java) }
+                    addMethod { name("checkHighLightTileSize");returnType(Boolean::class.java) }
+                }
+            }.apply {
+                checkDataList("RemoveReceiveItemLimit clazz", onlyOne = false)
+                forEachIndexed { _, classData ->
+                    classData.name.toClass().resolve().apply {
+                        firstMethod { name = "canReceiveItem" }.hook {
+                            replaceToTrue()
                         }
                     }
                 }
@@ -82,11 +74,11 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.qs.customize.OplusQSCustomizer", //C12 C13
                 "com.oplus.systemui.qs.customize.OplusQSCustomizer" //C14
-            ).toClass().apply {
-                method { name = "handleCheckMinCount" }.hook {
+            ).toClass().resolve().apply {
+                firstMethod { name = "handleCheckMinCount" }.hook {
                     replaceToFalse()
                 }
-                method { name = "showMinCountHint" }.hook {
+                firstMethod { name = "showMinCountHint" }.hook {
                     intercept()
                 }
             }
@@ -94,31 +86,29 @@ object RemoveControlCenterTileCountLimit : YukiBaseHooker() {
     }
 
     @Obfuscate
-    object RemoveReceiveItemLimitV12 : YukiBaseHooker() {
+    class RemoveReceiveItemLimitV12(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer
             val clazz = VariousClass(
                 "com.oplusos.systemui.qs.customize.OplusQSCustomizer", //C12 C13
                 "com.oplus.systemui.qs.customize.OplusQSCustomizer" //C14
-            ).getOrNull(appClassLoader) ?: return
+            ).toClassOrNull(appClassLoader) ?: return
 
-            DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
-                dexKitBridge.findClass {
-                    matcher {
-                        className(clazz.name, StringMatchType.Contains)
-                        addMethod { name("canReceiveItem");returnType(BooleanType) }
-                        addMethod { name("onMinCountDrag");paramTypes(BooleanType) }
-                    }
-                }.apply {
-                    checkDataList("RemoveReceiveItemLimit clazz", onlyOne = false)
-                    forEachIndexed { _, classData ->
-                        classData.name.toClass().apply {
-                            method { name = "canReceiveItem" }.hook {
-                                replaceToTrue()
-                            }
-                            method { name = "onMinCountDrag" }.hook {
-                                intercept()
-                            }
+            dexKitBridge.findClass {
+                matcher {
+                    className(clazz.name, StringMatchType.Contains)
+                    addMethod { name("canReceiveItem");returnType(Boolean::class.java) }
+                    addMethod { name("onMinCountDrag");paramTypes(Boolean::class.java) }
+                }
+            }.apply {
+                checkDataList("RemoveReceiveItemLimit clazz", onlyOne = false)
+                forEachIndexed { _, classData ->
+                    classData.name.toClass().resolve().apply {
+                        firstMethod { name = "canReceiveItem" }.hook {
+                            replaceToTrue()
+                        }
+                        firstMethod { name = "onMinCountDrag" }.hook {
+                            intercept()
                         }
                     }
                 }

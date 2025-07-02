@@ -1,9 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -14,10 +13,10 @@ object EnableGlobalNotificationSimpleBannerMode : YukiBaseHooker() {
             "com.oplusos.systemui.notification.helper.FullScreenBannerHelper", //C12.1
             "com.oplus.systemui.statusbar.notification.helper.FullScreenBannerHelper", //C13 C14 C15
             "com.oplus.systemui.notification.interruption.fullscreenbanner.FullScreenBannerHelper" //C15.0.1
-        ).toClass().apply {
-            method {
+        ).toClass().resolve().apply {
+            firstMethod {
                 name = "isSimpleBannerEnable"
-                returnType = BooleanType
+                returnType = Boolean::class
             }.hook {
                 replaceToTrue()
             }

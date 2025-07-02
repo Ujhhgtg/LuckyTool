@@ -1,20 +1,20 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import androidx.core.graphics.toColorInt
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getCharColor
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.safeOfNull
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object ControlCenterClockStyle : YukiBaseHooker() {
@@ -40,8 +40,8 @@ object ControlCenterClockStyle : YukiBaseHooker() {
             }
 
             //Source Clock
-            "com.android.systemui.statusbar.policy.Clock".toClass().apply {
-                method { name = "setShowSecondsAndUpdate" }.hook {
+            "com.android.systemui.statusbar.policy.Clock".toClass().resolve().apply {
+                firstMethod { name = "setShowSecondsAndUpdate" }.hook {
                     before {
                         val view = instance<TextView>()
                         val clockName = safeOfNull {
@@ -61,10 +61,10 @@ object ControlCenterClockStyle : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.ext.BaseClockExt", //C13
                 "com.oplus.systemui.common.clock.OplusClockExImpl" //C14
-            ).toClass().apply {
-                method {
+            ).toClass().resolve().apply {
+                firstMethod {
                     name = "setTextWithRedOneStyle"
-                    paramCount = 2
+                    parameterCount = 2
                 }.hook {
                     after {
                         if (redOneMode == "0" && colonStyle == "0") return@after
@@ -117,7 +117,7 @@ object ControlCenterClockStyle : YukiBaseHooker() {
                         }
 
                         1 -> {
-                            val color = safeOf(Color.parseColor("#c41442")) {
+                            val color = safeOf("#c41442".toColorInt()) {
                                 view.context.getColor(
                                     view.resources.getIdentifier(
                                         "red_clock_hour_color", "color", packageName
@@ -145,17 +145,17 @@ object ControlCenterClockStyle : YukiBaseHooker() {
             }
 
             //Source Clock
-            "com.android.systemui.statusbar.policy.Clock".toClass().apply {
-                method { name = "setShowSecondsAndUpdate" }.hook {
+            "com.android.systemui.statusbar.policy.Clock".toClass().resolve().apply {
+                firstMethod { name = "setShowSecondsAndUpdate" }.hook {
                     before {
                         val view = instance<TextView>()
                         if (view.context.resources.getResourceEntryName(view.id) != "qs_footer_clock") return@before
                         if (showSecond) args().first().setTrue()
                     }
                 }
-                method {
+                firstMethod {
                     name = "setTextWithOpStyle"
-                    paramCount = 1
+                    parameterCount = 1
                 }.hook {
                     after {
                         val view = instance<TextView>()

@@ -2,11 +2,9 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -20,19 +18,19 @@ object ForceDisplayClockStyleOptionsV13 : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source KeyguardLauncherPageProvider
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider", //C13.0
             "com.oplus.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider" //C13.1
-        ).toClass().apply {
-            method { name = "initKeyguardLandClockPf" }.hook {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod { name = "initKeyguardLandClockPf" }.hook {
                 before {
-                    val isFlavorTwoDevice = flavorTwoFeatureOption.toClass().method {
+                    val isFlavorTwoDevice = flavorTwoFeatureOption.toClass().resolve().firstMethod {
                         name = "isFlavorTwoDevice"
-                    }.get().boolean()
+                    }.invoke<Boolean>() ?: false
                     if (!isFlavorTwoDevice) return@before
 
                     val list = args().first().cast<ArrayList<Any>>()
-                    val context = method { name = "getContext";superClass() }.get(instance)
+                    val context = firstMethod { name = "getContext";superclass() }.of(instance)
                         .invoke<Context>()
                     val clockTitle = context?.getString(
                         context.resources.getIdentifier(
@@ -41,16 +39,16 @@ object ForceDisplayClockStyleOptionsV13 : YukiBaseHooker() {
                         )
                     )
                     val keyguardLandClockPf =
-                        method { name = "createPerfrenceBean";superClass() }.get(instance)
-                            .call(type, key, 70, clockTitle, category)
-                    keyguardLandClockPf?.current()?.method { name = "setIntentPackage" }
-                        ?.call("com.android.systemui")
-                    keyguardLandClockPf?.current()?.method { name = "setIntentClass" }
-                        ?.call("com.oplus.systemui.keyguard.keyguardsetting.KeyguardLandClockActivity")
+                        firstMethod { name = "createPerfrenceBean";superclass() }.of(instance)
+                            .invoke(type, key, 70, clockTitle, category)
+                    keyguardLandClockPf?.resolve()?.firstMethod { name = "setIntentPackage" }
+                        ?.invoke("com.android.systemui")
+                    keyguardLandClockPf?.resolve()?.firstMethod { name = "setIntentClass" }
+                        ?.invoke("com.oplus.systemui.keyguard.keyguardsetting.KeyguardLandClockActivity")
 
-                    val hashMap = field { name = "preferenceHashMap" }.get(instance)
-                        .cast<HashMap<String, Any>>()
-                    method { name = "addPreferenceMap" }.get(instance).call(
+                    val hashMap = firstField { name = "preferenceHashMap" }.of(instance)
+                        .get<HashMap<String, Any>>()
+                    firstMethod { name = "addPreferenceMap" }.of(instance).invoke(
                         hashMap, key, keyguardLandClockPf
                     )
                     keyguardLandClockPf?.let { list?.add(it) }

@@ -2,11 +2,10 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.view.View
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RemoveSeparateControlCenterButton : YukiBaseHooker() {
@@ -15,15 +14,16 @@ object RemoveSeparateControlCenterButton : YukiBaseHooker() {
         val hideMore = prefs(ModulePrefs).getBoolean("remove_control_center_more_button", false)
 
         //Source OplusQSBottomViewController
-        "com.oplus.systemui.plugins.qs.bottom.OplusQSBottomViewController".toClass().apply {
-            method { name = "init" }.hook {
-                after {
-                    if (hideEdit) field { name = "editBtn" }.get(instance).cast<View>()
-                        ?.isVisible = false
-                    if (hideMore) field { name = "moreBtn" }.get(instance).cast<View>()
-                        ?.isVisible = false
+        "com.oplus.systemui.plugins.qs.bottom.OplusQSBottomViewController".toClass().resolve()
+            .apply {
+                firstMethod { name = "init" }.hook {
+                    after {
+                        if (hideEdit) firstField { name = "editBtn" }.of(instance).get<View>()
+                            ?.isVisible = false
+                        if (hideMore) firstField { name = "moreBtn" }.of(instance).get<View>()
+                            ?.isVisible = false
+                    }
                 }
             }
-        }
     }
 }

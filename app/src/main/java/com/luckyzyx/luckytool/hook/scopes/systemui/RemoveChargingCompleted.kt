@@ -1,8 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -13,8 +13,8 @@ object RemoveChargingCompleted : YukiBaseHooker() {
             "com.coloros.systemui.notification.power.ColorosPowerNotificationWarnings", //A11
             "com.oplusos.systemui.notification.power.OplusPowerNotificationWarnings",
             "com.oplus.systemui.statusbar.notification.power.OplusPowerNotificationWarnings" //C14
-        ).toClass().apply {
-            method { name = "showChargeErrorDialog";paramCount = 1 }.hook {
+        ).toClass().resolve().apply {
+            firstMethod { name = "showChargeErrorDialog";parameterCount = 1 }.hook {
                 before {
                     if (args().first().int() == 7) resultNull()
                 }

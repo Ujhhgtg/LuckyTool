@@ -2,29 +2,30 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.view.View
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DisableDuplicateFloatingWindow : YukiBaseHooker() {
     override fun onHook() {
-        //Source ClipboardOverlayController
-        val controllerCls = "com.android.systemui.clipboardoverlay.ClipboardOverlayController"
-        val clazz = if (controllerCls.toClass().hasMethod { name = "showSinglePreview" }) {
-            "com.android.systemui.clipboardoverlay.ClipboardOverlayController" //C13
-        } else "com.android.systemui.clipboardoverlay.ClipboardOverlayView" //C14
-        clazz.toClass().apply {
-            method { name = "showSinglePreview" }.hook {
+        //Source ClipboardOverlayController C13
+        "com.android.systemui.clipboardoverlay.ClipboardOverlayController".toClass().resolve()
+            .apply {
+                firstMethodOrNull { name = "showSinglePreview" }?.hook {
+                    after {
+                        args().first().cast<View>()?.isVisible = false
+                        firstField { name = "mView" }.of(instance).get<View>()?.isVisible = false
+                    }
+                }
+            }
+
+        //Source ClipboardOverlayView C14
+        "com.android.systemui.clipboardoverlay.ClipboardOverlayView".toClass().resolve().apply {
+            firstMethodOrNull { name = "showSinglePreview" }?.hook {
                 after {
                     args().first().cast<View>()?.isVisible = false
-                    when (simpleName) {
-                        "ClipboardOverlayView" -> instance<View>().isVisible = false
-                        "ClipboardOverlayController" -> field { name = "mView" }.get(instance)
-                            .cast<View>()?.isVisible = false
-                    }
+                    instance<View>().isVisible = false
                 }
             }
         }

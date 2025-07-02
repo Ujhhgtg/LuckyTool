@@ -1,9 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -13,11 +12,10 @@ object HideInActiveSignalLabelsGen2x2 : YukiBaseHooker() {
         VariousClass(
             "com.oplus.systemui.statusbar.policy.MobileIconSets", //C13 C15
             "com.oplusos.systemui.statusbar.policy.MobileIconSets" //C14
-        ).toClass(initialize = true).apply {
-            if (hasField { name = "VOLTE_ICON" } && hasField { name = "VOLTE_ICON_EX" }) {
-                val volteIconEx = field { name = "VOLTE_ICON_EX" }.get().cast<IntArray>() ?: return
-                field { name = "VOLTE_ICON" }.get().set(volteIconEx)
-            }
+        ).toClass(initialize = true).resolve().apply {
+            val volteIcon = firstFieldOrNull { name = "VOLTE_ICON" } ?: return
+            val volteIconEx = firstFieldOrNull { name = "VOLTE_ICON_EX" } ?: return
+            volteIcon.set(volteIconEx.get<IntArray>() ?: return)
         }
     }
 }

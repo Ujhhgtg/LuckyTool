@@ -1,35 +1,28 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasField
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object AllowLongPressNotificationModifiable : YukiBaseHooker() {
     override fun onHook() {
         //Source NotificationSettingsModel
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.notification.settingspanel.NotificationSettingsModel", //C13
             "com.oplusos.systemui.notification.settingspanel.controller.NotificationController", //C13.1
             "com.oplus.systemui.statusbar.notification.settingspanel.controller.NotificationController" //C14
-        ).toClassOrNull()?.apply {
-            val hasField = hasField { name = "isAppModifiable" }
-            method {
-                name = when (simpleName) {
-                    "NotificationSettingsModel" -> "resolveMode"
-                    "NotificationController" -> "resolveSettingsModel"
-                    else -> "resolveMode"
-                }
-                paramCount = 1
+        ).toClassOrNull() as? Class<Any>)?.resolve()?.apply {
+            firstMethod {
+                name { it.startsWith("resolve") && it.contains("Mode") }
+                parameterCount = 1
             }.hook {
                 before {
-                    if (hasField) field { name = "isAppModifiable" }.get(instance).setTrue()
-                    else args().first().any()?.current()?.field { name = "isAppModifiable" }
-                        ?.setTrue()
+                    firstFieldOrNull { name = "isAppModifiable" }?.of(instance)?.set(true) ?: run {
+                        args().first().any()?.resolve()?.firstField { name = "isAppModifiable" }
+                            ?.set(true)
+                    }
                 }
             }
         }

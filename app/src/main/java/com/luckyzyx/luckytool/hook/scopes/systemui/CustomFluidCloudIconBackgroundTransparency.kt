@@ -1,11 +1,10 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.drawable.Drawable
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object CustomFluidCloudIconBackgroundTransparency : YukiBaseHooker() {
@@ -17,11 +16,11 @@ object CustomFluidCloudIconBackgroundTransparency : YukiBaseHooker() {
         }
 
         //Source CapsuleViewBg
-        "com.oplus.systemui.plugins.seedling.capsule.CapsuleViewBg".toClass().apply {
-            method { name = "onDraw" }.hook {
+        "com.oplus.systemui.plugins.seedling.capsule.CapsuleViewBg".toClass().resolve().apply {
+            firstMethod { name = "onDraw" }.hook {
                 before {
                     if (customAlpha < 0) return@before
-                    field { name = "customDrawable" }.get(instance).cast<Drawable>()?.apply {
+                    firstField { name = "customDrawable" }.of(instance).get<Drawable>()?.apply {
                         alpha = 255 / 10 * customAlpha
                     }
                 }
