@@ -5,13 +5,9 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.wifi.WifiManager
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.luckyzyx.luckytool.hook.utils.preferences.PreferenceReflections
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.formatStringAuto
@@ -37,33 +33,33 @@ class EnableWifiDetailsDisplayGateway(val dexKitBridge: DexKitBridge) : YukiBase
             findMethod {
                 matcher {
                     paramCount(0)
-                    returnType(BooleanType)
+                    returnType(Boolean::class.java)
                     usingStrings("updateIpInfo")
                 }
             }.apply {
                 checkDataList("EnableWifiDetailsDisplayGateway Summary")
-                single().className.toClass().apply {
-                    method {
+                single().className.toClass().resolve().apply {
+                    firstMethod {
                         name = single().methodName
-                        emptyParam()
-                        returnType = BooleanType
+                        emptyParameters()
+                        returnType = Boolean::class
                     }.hook {
                         after {
-                            val context = field { type = ContextClass }.get(instance)
-                                .cast<Context>() ?: return@after
-                            val preferenceScreen = field {
+                            val context = firstField { type = Context::class }.of(instance)
+                                .get<Context>() ?: return@after
+                            val preferenceScreen = firstField {
                                 type = "androidx.preference.PreferenceScreen"
-                                superClass()
-                            }.get(instance).any() ?: return@after
+                                superclass()
+                            }.of(instance).get() ?: return@after
 
                             val connectivityManager =
                                 context.getSystemService(ConnectivityManager::class.java)
                             val wifiManager =
                                 context.applicationContext.getSystemService(WifiManager::class.java)
 
-                            val getCurrentNetwork = wifiManager.current().method {
+                            val getCurrentNetwork = wifiManager.resolve().firstMethod {
                                 name = "getCurrentNetwork"
-                                emptyParam()
+                                emptyParameters()
                                 returnType = Network::class.java
                             }.invoke<Network>() ?: return@after
 
