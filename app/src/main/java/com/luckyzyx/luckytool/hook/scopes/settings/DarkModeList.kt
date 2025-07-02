@@ -73,9 +73,10 @@ class DarkModeList(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         }
                         val dataMap = ArrayMap<String, Any>()
                         enabledDarkMode.forEach {
-                            if (it.curType == 0) dataMap[it.packName] = appEntity.createInstance()
+                            if (it.curType == 0) dataMap[it.packName] =
+                                appEntity.createInstance(isPublic = false)
                             else dataMap[it.packName] =
-                                appEntity.createInstance(0L, 0, it.curType, 0)
+                                appEntity.createInstance(0L, 0, it.curType, 0, isPublic = false)
                         }
                         firstField { type = Map::class }.set(dataMap.toMap())
                     }

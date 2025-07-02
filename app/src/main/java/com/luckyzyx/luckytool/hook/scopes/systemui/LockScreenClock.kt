@@ -351,7 +351,8 @@ object LockScreenClock : YukiBaseHooker() {
                                 it.getInstance(mContext)
                                     ?.let { its -> it.getResidentWeatherInfo(its) }
                             }
-                                ?: WeatherInfoParseHelper(appClassLoader).weatherInfoClazz.createInstance()
+                                ?: WeatherInfoParseHelper(appClassLoader).weatherInfoClazz
+                                    .createInstance(isPublic = false)
                             val timeZone =
                                 info.resolve().firstMethod { name = "getTimeZone" }.invoke<String>()
                                     ?: "0.0"

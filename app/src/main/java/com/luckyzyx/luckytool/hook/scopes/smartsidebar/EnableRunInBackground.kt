@@ -44,7 +44,9 @@ object EnableRunInBackground : YukiBaseHooker() {
                         val context =
                             firstField { type = Context::class; superclass() }.of(instance)
                                 .get<Context>() ?: return@after
-                        val tool = BackgroundRunToolCls.toClass().createInstance(context)
+                        val tool = BackgroundRunToolCls.toClass().createInstance(
+                            context, isPublic = false
+                        )
                         firstMethod { name = "put" }.of(instance).invoke(tool)
                     }
                 }

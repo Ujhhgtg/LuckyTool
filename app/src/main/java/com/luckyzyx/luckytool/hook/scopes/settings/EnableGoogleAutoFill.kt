@@ -55,9 +55,15 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                 val brandingService =
                                     info.resolve().firstMethod { name = "getBrandingService" }
                                         .invoke()
-                                val defaultAppInfo = defaultAppInfoClazz.toClass().createInstance(
-                                    context, pm, users, brandingService, settingsSubtitle, true
-                                )
+                                val defaultAppInfo = defaultAppInfoClazz.toClass().resolve()
+                                    .firstConstructor {
+                                        parameters(
+                                            Context::class, PackageManager::class, Int::class,
+                                            PackageItemInfo::class, String::class, Boolean::class
+                                        )
+                                    }.create(
+                                        context, pm, users, brandingService, settingsSubtitle, true
+                                    )
                                 list.add(defaultAppInfo)
                             }
                             if (list.isNotEmpty()) result = list
@@ -141,7 +147,7 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             }.of(instance).get<Intent>() ?: return@before
                             val users =
                                 UserHandle::class.resolve().firstMethod { name = "myUserId" }
-                                    .invoke<Int>()
+                                    .invoke<Int>() ?: 0
                             val queryIntentServicesAsUser = packageManager.resolve().firstMethod {
                                 name = "queryIntentServicesAsUser"
                                 parameters(Intent::class, Int::class, Int::class)
@@ -154,7 +160,7 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                         defaultAppInfoClazz.toClass().createInstance(
                                             context, packageManager, users, ComponentName(
                                                 serviceInfo.packageName, serviceInfo.name
-                                            )
+                                            ), isPublic = false
                                         )
                                     list.add(defaultAppInfo)
                                 }
@@ -163,7 +169,7 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                         defaultAppInfoClazz.toClass().createInstance(
                                             context, packageManager, users, ComponentName(
                                                 serviceInfo.packageName, serviceInfo.name
-                                            )
+                                            ), isPublic = false
                                         )
                                     list.add(defaultAppInfo)
                                 }

@@ -5,6 +5,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.content.Context
 import android.view.LayoutInflater
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.JInteger
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -62,7 +63,9 @@ object LockScreenComponentStyle : YukiBaseHooker() {
                             else -> return@after
                         }
                         provider.toClassOrNull() ?: return@after
-                        result = clockSettings.toClass().createInstance(provider, null)
+                        result = clockSettings.toClass().resolve().firstConstructor {
+                            parameters(String::class, JInteger::class)
+                        }.create(provider, null)
                     }
                 }
             }
@@ -155,19 +158,31 @@ object LockScreenComponentStyle : YukiBaseHooker() {
                         }
                         val singleClock = Supplier {
                             singleClockController.toClassOrNull()
-                                ?.createInstance(context, layoutInflater, colorExtractor)
+                                ?.createInstance(
+                                    context, layoutInflater, colorExtractor,
+                                    isPublic = false
+                                )
                         }
                         val dualClock = Supplier {
                             dualClockController.toClassOrNull()
-                                ?.createInstance(context, layoutInflater, colorExtractor)
+                                ?.createInstance(
+                                    context, layoutInflater, colorExtractor,
+                                    isPublic = false
+                                )
                         }
                         val redHorizontalSingleClock = Supplier {
                             redHorizontalSingleClockController.toClassOrNull()
-                                ?.createInstance(context, layoutInflater, colorExtractor)
+                                ?.createInstance(
+                                    context, layoutInflater, colorExtractor,
+                                    isPublic = false
+                                )
                         }
                         val redHorizontalDualClock = Supplier {
                             redHorizontalDualClockController.toClassOrNull()
-                                ?.createInstance(context, layoutInflater, colorExtractor)
+                                ?.createInstance(
+                                    context, layoutInflater, colorExtractor,
+                                    isPublic = false
+                                )
                         }
                         arrayListOf(
                             opKeyguardClock, singleClock, dualClock,
