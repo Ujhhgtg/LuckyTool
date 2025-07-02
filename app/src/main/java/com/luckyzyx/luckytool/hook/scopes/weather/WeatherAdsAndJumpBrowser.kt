@@ -1,23 +1,13 @@
 package com.luckyzyx.luckytool.hook.scopes.weather
 
+import android.app.PendingIntent
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.android.PendingIntentClass
-import com.highcapable.yukihookapi.hook.type.java.AnyClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -46,59 +36,57 @@ class WeatherAdsAndJumpBrowser(
             if (!removeAds && !disableJump) return
 
             //Source OPPOFeedAdManager switchesPopularRecommended
-            "com.oplus.weather.ad.OPPOFeedAdManager".toClassOrNull()?.apply {
-                method { name = "hasOpenPopularRecommended" }.hook {
+            "com.oplus.weather.ad.OPPOFeedAdManager".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "hasOpenPopularRecommended" }.hook {
                     if (removeAds) replaceToFalse()
                 }
-                method { name = "hasOpenAdSdkShowBannerFromNetwork" }.hook {
+                firstMethod { name = "hasOpenAdSdkShowBannerFromNetwork" }.hook {
                     if (removeAds) replaceToFalse()
                 }
             }
 
             //Source AppFeatureUtils
-            "com.oplus.weather.utils.AppFeatureUtils".toClassOrNull()?.apply {
-                method { name = "isSupportOplusAd" }.hook {
+            "com.oplus.weather.utils.AppFeatureUtils".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "isSupportOplusAd" }.hook {
                     if (removeAds) replaceToFalse()
                 }
             }
 
             //Source LocalUtils
-            "com.oplus.weather.utils.LocalUtils".toClass().apply {
+            "com.oplus.weather.utils.LocalUtils".toClass().resolve().apply {
                 method { name { it.contains("jumpToBrowser") } }.hookAll {
                     hookBefore(removeAds, disableJump)
                 }
                 method { name = "startBrowserForUrl" }.hookAll {
                     hookBefore(removeAds, disableJump)
                 }
-                if (hasMethod { name = "isBrowserSupportJump" }) {
-                    method { name = "isBrowserSupportJump" }.hook {
-                        replaceToFalse()
-                    }
+                firstMethodOrNull { name = "isBrowserSupportJump" }?.hook {
+                    replaceToFalse()
                 }
             }
 
             //Source NoticeItem C14
-            "com.oplus.weather.main.view.itemview.NoticeItem".toClassOrNull()?.apply {
-                method { name = "showRainfallPanel" }.hook {
+            "com.oplus.weather.main.view.itemview.NoticeItem".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "showRainfallPanel" }.hook {
                     before {
                         if (!disableJump) return@before
                         val wrapper =
-                            field { type = weatherWrapper }.get(instance).any() ?: return@before
-                        wrapper.current().method { name = "setRainFallAdLink" }.call("")
+                            firstField { type = weatherWrapper }.of(instance).get() ?: return@before
+                        wrapper.resolve().firstMethod { name = "setRainFallAdLink" }.invoke("")
                     }
                 }
-                method { name = "showWarnWeatherPanel" }.hook {
+                firstMethod { name = "showWarnWeatherPanel" }.hook {
                     before {
                         if (!disableJump) return@before
                         val warnInfo = args().last().any() ?: return@before
-                        warnInfo.current().field { name = "addLink" }.set("")
+                        warnInfo.resolve().firstField { name = "addLink" }.set("")
                     }
                 }
             }
 
             //Source SecondaryPageUtil
-            "com.oplus.weather.utils.SecondaryPageUtil".toClassOrNull()?.apply {
-                method { name = "newLink" }.hook {
+            "com.oplus.weather.utils.SecondaryPageUtil".toClassOrNull()?.resolve()?.apply {
+                firstMethod { name = "newLink" }.hook {
                     after {
                         if (removeAds) result = formatWeatherUrl(
                             result<String>() ?: return@after
@@ -107,8 +95,8 @@ class WeatherAdsAndJumpBrowser(
                 }
                 method {
                     name { it.startsWith("jump") && it.contains("Browser") }
-                    param { it.contains(StringClass) && it.contains(BooleanType) }
-                    returnType { it == IntentClass || it == AnyClass }
+                    parameters { it.contains(String::class.java) && it.contains(Boolean::class.java) }
+                    returnType { it == Intent::class.java || it == Any::class.java }
                 }.hookAll {
                     after {
                         val intent = result<Intent>() ?: return@after
@@ -118,26 +106,26 @@ class WeatherAdsAndJumpBrowser(
             }
 
             //Source RainReminder -> Channel com.oplus.weather.service.rain
-            "com.oplus.weather.service.service.RainReminder".toClass().apply {
-                method { name = "createIntentOpenWeatherMainActivity" }.hook {
+            "com.oplus.weather.service.service.RainReminder".toClass().resolve().apply {
+                firstMethod { name = "createIntentOpenWeatherMainActivity" }.hook {
                     before {
                         if (disableJump) args().last().set("")
                     }
                 }
             }
             //Source WarnReminder -> Channel oppo.oplus.weather.warnWeather
-            "com.oplus.weather.service.service.WarnReminder".toClass().apply {
-                method { name = "getWarnWeatherIntent" }.hook {
+            "com.oplus.weather.service.service.WarnReminder".toClass().resolve().apply {
+                firstMethod { name = "getWarnWeatherIntent" }.hook {
                     before {
                         if (disableJump) args().last().set("")
                     }
                 }
             }
             //Source MorningReminder -> Channel oppo.oplus.weather.morningWeather C13.1
-            "com.oplus.weather.morning.MorningReminder".toClassOrNull()?.apply {
-                method {
-                    param(weatherWrapper, ContextClass)
-                    returnType(PendingIntentClass)
+            "com.oplus.weather.morning.MorningReminder".toClassOrNull()?.resolve()?.apply {
+                firstMethod {
+                    parameters(weatherWrapper, Context::class)
+                    returnType(PendingIntent::class)
                 }.hook {
                     before {
                         if (disableJump) resultNull()
@@ -191,29 +179,27 @@ class WeatherAdsAndJumpBrowser(
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(BooleanType)
+                        addForType(Boolean::class.java)
                         addForType("java.util.regex.Pattern")
                     }
                     methods {
                         add {
                             paramTypes(
-                                IntType,
-                                ContextClass,
-                                StringClass,
-                                StringClass,
-                                BooleanType,
-                                BooleanType
+                                Int::class.java, Context::class.java,
+                                String::class.java, String::class.java, Boolean::class.java,
+                                Boolean::class.java
                             )
-                            returnType(UnitType)
+                            returnType(Void.TYPE)
                             usingStrings(
                                 "OppoUtils", "frontCode", "infoEnable", "fromWeatherApp"
                             )
                         }
                         add {
                             paramTypes(
-                                ContextClass, IntType, StringClass, StringClass, BooleanType
+                                Context::class.java, Int::class.java,
+                                String::class.java, String::class.java, Boolean::class.java
                             )
-                            returnType(UnitType)
+                            returnType(Void.TYPE)
                             usingStrings(
                                 "com.heytap.browser",
                                 "com.android.browser",
@@ -225,25 +211,25 @@ class WeatherAdsAndJumpBrowser(
                 }
             }.apply {
                 checkDataList("HookWeatherAdsAndJumpC12 OppoUtils")
-                single().name.toClass().apply {
+                single().name.toClass().resolve().apply {
                     method {
-                        param(
-                            IntType,
-                            ContextClass,
-                            StringClass,
-                            StringClass,
-                            BooleanType,
-                            BooleanType
+                        parameters(
+                            Int::class,
+                            Context::class,
+                            String::class,
+                            String::class,
+                            Boolean::class,
+                            Boolean::class
                         )
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }.hookAll {
                         hookBefore(removeAds, disableJump)
                     }
                     method {
-                        param(
-                            ContextClass, IntType, StringClass, StringClass, BooleanType
+                        parameters(
+                            Context::class, Int::class, String::class, String::class, Boolean::class
                         )
-                        returnType(UnitType)
+                        returnType(Void.TYPE)
                     }.hookAll {
                         hookBefore(removeAds, disableJump)
                     }
@@ -256,7 +242,7 @@ class WeatherAdsAndJumpBrowser(
             }.findMethod {
                 matcher {
                     paramCount(5)
-                    returnType(UnitType)
+                    returnType(Void.TYPE)
                     usingNumbers(536870912)
                     usingStrings(
                         "context",
@@ -333,11 +319,11 @@ class WeatherAdsAndJumpBrowser(
             try {
                 context.startActivity(intent)
                 return
-            } catch (t: Throwable) {
+            } catch (_: Throwable) {
                 intent = getWeatherIntent(Intent.ACTION_VIEW, browser, url, statisticsTag)
                 try {
                     context.startActivity(intent)
-                } catch (t: ActivityNotFoundException) {
+                } catch (_: ActivityNotFoundException) {
                     startWebActivity(browser - 1, context, url, statisticsTag)
                 }
                 return
@@ -348,7 +334,8 @@ class WeatherAdsAndJumpBrowser(
             clazz: Class<*>, context: Context, url: String, statisticsTag: String
         ) {
             //Source BrowserCommonUtils -> startWeatherWebActivity
-            clazz.method { paramCount = 5 }.get().call(context, url, true, statisticsTag, true)
+            clazz.resolve().firstMethod { parameterCount = 5 }
+                .invoke(context, url, true, statisticsTag, true)
         }
 
         fun formatWeatherUrl(url: String): String {
