@@ -1,65 +1,67 @@
 package com.luckyzyx.luckytool.hook.scopes.themestore
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object UnlockThemeStoreVip : YukiBaseHooker() {
     override fun onHook() {
         //Source VipUserDto
-        "com.oppo.cdo.card.theme.dto.vip.VipUserDto".toClassOrNull()?.apply {
-            method { name = "getVipStatus" }.hook {
+        "com.oppo.cdo.card.theme.dto.vip.VipUserDto".toClassOrNull()?.resolve()?.apply {
+            firstMethod { name = "getVipStatus" }.hook {
                 replaceTo(1)
             }
-            method { name = "getVipDays" }.hook {
+            firstMethod { name = "getVipDays" }.hook {
                 replaceTo(999)
             }
         }
 
         //Source WeatherPageResponseDto
-        "com.oppo.cdo.card.theme.dto.page.WeatherPageResponseDto".toClassOrNull()?.apply {
-            method { name = "getVipStatus" }.hook {
-                replaceTo(1)
+        "com.oppo.cdo.card.theme.dto.page.WeatherPageResponseDto".toClassOrNull()?.resolve()
+            ?.apply {
+                firstMethod { name = "getVipStatus" }.hook {
+                    replaceTo(1)
+                }
             }
-        }
 
         //Source ResourceItemDto
-        "com.oppo.cdo.theme.domain.dto.response.ResourceItemDto".toClassOrNull()?.apply {
-            method { name = "getIsVip" }.hook {
+        "com.oppo.cdo.theme.domain.dto.response.ResourceItemDto".toClassOrNull()?.resolve()?.apply {
+            firstMethod { name = "getIsVip" }.hook {
                 replaceTo(1)
             }
-            method { name = "getIsVipAvailable" }.hook {
+            firstMethod { name = "getIsVipAvailable" }.hook {
                 replaceTo(1)
             }
         }
 
         //Source PublishProductItemDto
-        "com.oppo.cdo.theme.domain.dto.response.PublishProductItemDto".toClassOrNull()?.apply {
-            method { name = "getPrice" }.hook {
-                replaceTo(0.0)
+        "com.oppo.cdo.theme.domain.dto.response.PublishProductItemDto".toClassOrNull()?.resolve()
+            ?.apply {
+                firstMethod { name = "getPrice" }.hook {
+                    replaceTo(0.0)
+                }
+                firstMethod { name = "getIsVipAvailable" }.hook {
+                    replaceTo(1)
+                }
             }
-            method { name = "getIsVipAvailable" }.hook {
-                replaceTo(1)
-            }
-        }
 
         //Source SplashDto
-        "com.oppo.cdo.card.theme.dto.SplashDto".toClassOrNull()?.apply {
-            method { name = "getAdData" }.hook {
+        "com.oppo.cdo.card.theme.dto.SplashDto".toClassOrNull()?.resolve()?.apply {
+            firstMethod { name = "getAdData" }.hook {
                 replaceTo(null)
             }
-            method { name = "getShowTime" }.hook {
+            firstMethod { name = "getShowTime" }.hook {
                 replaceTo(1)
             }
-            method { name = "getIsSkip" }.hook {
+            firstMethod { name = "getIsSkip" }.hook {
                 replaceToTrue()
             }
         }
 
         //Source ThemeTrialExpireReceiver
-        "com.nearme.themespace.trial.ThemeTrialExpireReceiver".toClassOrNull()?.apply {
-            method { name = "onReceive" }.hook {
+        "com.nearme.themespace.trial.ThemeTrialExpireReceiver".toClassOrNull()?.resolve()?.apply {
+            firstMethod { name = "onReceive" }.hook {
                 intercept()
             }
         }
