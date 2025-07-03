@@ -3,14 +3,9 @@ package com.luckyzyx.luckytool.hook.utils.appcompat.dialog
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.CompoundButton
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.toClass
-import com.highcapable.yukihookapi.hook.type.android.AttributeSetClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.AnyClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.createInstance
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -25,70 +20,64 @@ class COUISwitch {
     constructor(context: Context, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.buildOf(context) {
-            param(ContextClass)
-        }
+        builder = clazz.createInstance(context)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.buildOf(context, attributeSet) {
-            param(ContextClass, AttributeSetClass)
-        }
+        builder = clazz.createInstance(context, attributeSet)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, int: Int, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.buildOf(context, attributeSet, int) {
-            param(ContextClass, AttributeSetClass, IntType)
-        }
+        builder = clazz.createInstance(context, attributeSet, int)
     }
 
     fun setTag(tag: Any): Any? {
-        return builder?.current()?.method {
+        return builder?.resolve()?.firstMethod {
             name = "setTag"
-            param(AnyClass)
-            superClass()
-        }?.call(tag)
+            parameters(Any::class)
+            superclass()
+        }?.invoke(tag)
     }
 
     fun setClickable(clickable: Boolean): Any? {
-        return builder?.current()?.method {
+        return builder?.resolve()?.firstMethod {
             name = "setClickable"
-            param(BooleanType)
-            superClass()
-        }?.call(clickable)
+            parameters(Boolean::class)
+            superclass()
+        }?.invoke(clickable)
     }
 
     fun setChecked(bool: Boolean): Any? {
-        return builder?.current()?.method {
+        return builder?.resolve()?.firstMethod {
             name = "setChecked"
-            param(BooleanType)
-        }?.call(bool)
+            parameters(Boolean::class)
+        }?.invoke(bool)
     }
 
     fun setEnabled(bool: Boolean): Any? {
-        return builder?.current()?.method {
+        return builder?.resolve()?.firstMethod {
             name = "setEnabled"
-            param(BooleanType)
-            superClass()
-        }?.call(bool)
+            parameters(Boolean::class)
+            superclass()
+        }?.invoke(bool)
     }
 
     fun setChecked(bool: Boolean, bool2: Boolean): Any? {
-        return builder?.current()?.method {
+        return builder?.resolve()?.firstMethod {
             name = "setChecked"
-            param(BooleanType, BooleanType)
-        }?.call(bool, bool2)
+            parameters(Boolean::class, Boolean::class)
+        }?.invoke(bool, bool2)
     }
 
     fun setOnCheckedChangeListener(listener: CompoundButton.OnCheckedChangeListener): Any? {
-        return builder?.current()?.method {
+        return builder?.resolve()?.firstMethod {
             name = "setOnCheckedChangeListener"
-            param(CompoundButton.OnCheckedChangeListener::class.java)
-            superClass()
-        }?.call(listener)
+            parameters(CompoundButton.OnCheckedChangeListener::class.java)
+            superclass()
+        }?.invoke(listener)
     }
 }

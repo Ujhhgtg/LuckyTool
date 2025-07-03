@@ -3,12 +3,8 @@ package com.luckyzyx.luckytool.hook.utils.sysui
 import android.content.Context
 import android.os.Build
 import androidx.annotation.DeprecatedSinceApi
-import com.highcapable.yukihookapi.hook.bean.VariousClass
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.luckyzyx.luckytool.hook.hookers.HookAIUnit.toClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
 import org.lsposed.lsparanoid.Obfuscate
@@ -20,31 +16,32 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.charginganim.ChargingAnimationImpl", //C12 C13
         "com.oplusos.systemui.common.battery.OplusBatteryController" //C14
-    ).toClass(classLoader)
+    ).load(classLoader)
 
     fun getInstance(context: Context): Any? {
-        return if (clazz.hasMethod { name = "getInstance";param(ContextClass) })
-            clazz.method { name = "getInstance" }.get().call(context)
-        else clazz.method { name = "getInstance" }.get().call()
+        return clazz.resolve().firstMethod { name = "getInstance" }.let {
+            if (it.self.parameterCount == 0) it.invoke()
+            else it.invoke(context)
+        }
     }
 
     @DeprecatedSinceApi(Build.VERSION_CODES.TIRAMISU, "仅在A13中使用")
     fun getChargerTechnology(instance: Any): Int {
-        return instance.current().method { name = "getChargerTechnology" }.int()
+        return instance.resolve().firstMethod { name = "getChargerTechnology" }.invoke<Int>() ?: 0
     }
 
     @DeprecatedSinceApi(Build.VERSION_CODES.TIRAMISU, "仅在A13中使用")
     fun getPPSMode(instance: Any): Int {
-        return instance.current().field {
+        return instance.resolve().firstField {
             name = if (SDK >= A14) "chargeMode" else "mPPSState"
-        }.int()
+        }.get<Int>() ?: 0
     }
 
     @DeprecatedSinceApi(Build.VERSION_CODES.TIRAMISU, "仅在A13中使用")
     fun isWirelessCharging(instance: Any): Boolean {
-        return instance.current().method {
+        return instance.resolve().firstMethod {
             name = if (SDK >= A14) "getWirelessCharging" else "isWirelessCharging"
-        }.boolean()
+        }.invoke<Boolean>() ?: false
     }
 
     fun getTechnologyName(

@@ -5,29 +5,26 @@ import android.hardware.display.DisplayManager
 import android.view.Display
 import android.view.DisplayAddress
 import android.view.DisplayInfo
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate")
 class DisplayManagerUtils(val classLoader: ClassLoader?) {
 
     val clazz = "android.hardware.display.DisplayManager".toClass(classLoader)
-    val displayClazz = "android.view.Display".toClass(classLoader)
     val displayInfoClazz = "android.view.DisplayInfo".toClass(classLoader)
-    val addressPhysicalClazz = "android.view.DisplayAddress\$Physical".toClass(classLoader)
 
     fun getDisplayManagerService(context: Context): DisplayManager {
-        return context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+        return context.getSystemService(DisplayManager::class.java)
     }
 
     fun Display.getDisplayInfo(outDisplayInfo: DisplayInfo?): Boolean {
-        return displayClazz.method {
+        return resolve().firstMethod {
             name = "getDisplayInfo"
-            param(displayInfoClazz)
-        }.get(this).invoke<Boolean>(outDisplayInfo) ?: false
+            parameters(displayInfoClazz)
+        }.invoke<Boolean>(outDisplayInfo) ?: false
     }
 
     fun getDynamicDisplayInfo(displayInfo: DisplayInfo): Any? {
@@ -55,9 +52,9 @@ class DisplayManagerUtils(val classLoader: ClassLoader?) {
     }
 
     fun getPhysicalDisplayId(address: Any): Long? {
-        return address.current().method {
+        return address.resolve().firstMethod {
             name = "getPhysicalDisplayId"
-            emptyParam()
+            emptyParameters()
         }.invoke<Long>()
     }
 }

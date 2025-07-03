@@ -2,13 +2,9 @@
 
 package com.luckyzyx.luckytool.hook.utils
 
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.FloatType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.luckyzyx.luckytool.hook.hookers.HookSystemUI.toClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.createInstance
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -25,8 +21,8 @@ class RefUtils(val classLoader: ClassLoader?) {
     }
 
     fun BooleanRef(element: Boolean? = null): Any? {
-        return BooleanRefCls.toClass(classLoader).buildOf()?.apply {
-            current().field { name = "element";type = BooleanType }.set(element)
+        return BooleanRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
+            resolve().firstField { name = "element";type = Boolean::class }.set(element)
         }
     }
 
@@ -35,8 +31,8 @@ class RefUtils(val classLoader: ClassLoader?) {
     }
 
     fun FloatRef(element: Float? = null): Any? {
-        return FloatRefCls.toClass(classLoader).buildOf()?.apply {
-            current().field { name = "element";type = FloatType }.set(element)
+        return FloatRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
+            resolve().firstField { name = "element";type = Float::class }.set(element)
         }
     }
 
@@ -45,8 +41,8 @@ class RefUtils(val classLoader: ClassLoader?) {
     }
 
     fun IntRef(element: Int? = null): Any? {
-        return IntRefCls.toClass(classLoader).buildOf()?.apply {
-            current().field { name = "element";type = IntType }.set(element)
+        return IntRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
+            resolve().firstField { name = "element";type = Int::class }.set(element)
         }
     }
 
@@ -55,8 +51,8 @@ class RefUtils(val classLoader: ClassLoader?) {
     }
 
     fun LongRef(element: Long? = null): Any? {
-        return LongRefCls.toClass(classLoader).buildOf()?.apply {
-            current().field { name = "element";type = LongType }.set(element)
+        return LongRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
+            resolve().firstField { name = "element";type = Long::class }.set(element)
         }
     }
 
@@ -65,13 +61,13 @@ class RefUtils(val classLoader: ClassLoader?) {
     }
 
     inline fun <reified T> ObjectRef(element: T? = null): Any? {
-        return ObjectRefCls.toClass(classLoader).buildOf()?.apply {
-            current().field { name = "element";type = T::class.java }.set(element)
+        return ObjectRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
+            resolve().firstField { name = "element";type = T::class.java }.set(element)
         }
     }
 
     inline fun <reified T : Any> getRefElement(ref: Any): T? {
-        return ref.current().field { name = "element";type = T::class.java }.cast<T>()
+        return ref.resolve().firstField { name = "element";type = T::class.java }.get<T>()
     }
 
 }

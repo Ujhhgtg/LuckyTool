@@ -1,12 +1,9 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
 import android.content.Context
-import com.highcapable.yukihookapi.hook.bean.VariousClass
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.luckyzyx.luckytool.hook.hookers.HookSystemUILockScreen.toClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -15,26 +12,27 @@ class WeatherInfoParseHelper(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper",  //C13
         "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper"  //C14
-    ).toClass(classLoader)
+    ).load(classLoader) as Class<Any>
+
     val holderInnerClazz = "${clazz.name}\$HolderInnerClass".toClass(classLoader)
     val weatherInfoClazz = "${clazz.name}\$WeatherInfo".toClass(classLoader)
     val timeInfoClazz = "${clazz.name}\$TimeInfo".toClass(classLoader)
 
     fun getInstance(): Any? {
-        return holderInnerClazz.field { type = clazz }.get().any()
+        return holderInnerClazz.resolve().firstField { type = clazz }.get()
     }
 
     fun getLocalTimeInfo(context: Context): Any? {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getLocalTimeInfo"
-            param(ContextClass)
-        }.get(getInstance()).call(context)
+            parameters(Context::class)
+        }.of(getInstance()).invoke(context)
     }
 
     fun getResidentTimeInfo(context: Context, residentTimeZone: String): Any? {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getResidentTimeInfo"
-            param(ContextClass, StringClass)
-        }.get(getInstance()).call(context, residentTimeZone)
+            parameters(Context::class, String::class)
+        }.of(getInstance()).invoke(context, residentTimeZone)
     }
 }

@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.utils
 
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -14,9 +14,9 @@ class IColorDisplayUtils(val classLoader: ClassLoader?) {
         .toClass(classLoader)
 
     fun getInstance(): Any? {
-        return internal.method {
+        return internal.resolve().firstMethod {
             name = "getInstance"
-            emptyParam()
-        }.get().call()
+            emptyParameters()
+        }.invoke()
     }
 }

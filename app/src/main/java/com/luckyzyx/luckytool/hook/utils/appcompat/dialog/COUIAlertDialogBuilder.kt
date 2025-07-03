@@ -5,14 +5,10 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.View
 import android.widget.EditText
-import com.highcapable.yukihookapi.hook.factory.buildOf
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.toClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.DialogInterface_OnClickListenerClass
-import com.highcapable.yukihookapi.hook.type.android.ViewClass
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
+import com.highcapable.kavaref.extension.createInstance
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -27,170 +23,162 @@ class COUIAlertDialogBuilder {
     constructor(context: Context, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.buildOf(context) {
-            param(ContextClass)
-        }
+        builder = clazz.createInstance(context, isPublic = false)
     }
 
     constructor(context: Context, themeResId: Int, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.buildOf(context, themeResId) {
-            param(ContextClass, IntType)
-        }
+        builder = clazz.createInstance(context, themeResId, isPublic = false)
     }
 
     constructor(context: Context, themeResName: String, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
         val themeResId = getStyle(themeResName)
-        builder = clazz.buildOf(context, themeResId) {
-            param(ContextClass, IntType)
-        }
+        builder = clazz.createInstance(context, themeResId, isPublic = false)
     }
 
     constructor(context: Context, themeResId: Int, themeResId2: Int, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.buildOf(context, themeResId, themeResId2) {
-            param(ContextClass, IntType, IntType)
-        }
+        builder = clazz.createInstance(context, themeResId, themeResId2, isPublic = false)
     }
 
     fun setTitle(charSequence: CharSequence) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setTitle"
-            param(CharSequenceClass)
-        }.call(charSequence)
+            parameters(CharSequence::class)
+        }.invoke(charSequence)
     }
 
     fun setTitle(int: Int) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setTitle"
-            param(IntType)
-        }.call(int)
+            parameters(Int::class)
+        }.invoke(int)
     }
 
     fun setMessage(charSequence: CharSequence) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setMessage"
-            param(CharSequenceClass)
-        }.call(charSequence)
+            parameters(CharSequence::class)
+        }.invoke(charSequence)
     }
 
     fun setMessage(int: Int) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setMessage"
-            param(IntType)
-        }.call(int)
+            parameters(Int::class)
+        }.invoke(int)
     }
 
     fun setPositiveButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
     ) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setPositiveButton"
-            param(CharSequenceClass, DialogInterface_OnClickListenerClass)
-        }.call(charSequence, onClickListener)
+            parameters(CharSequence::class, classOf<DialogInterface.OnClickListener>())
+        }.invoke(charSequence, onClickListener)
     }
 
     fun setPositiveButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setPositiveButton"
-            param(IntType, DialogInterface_OnClickListenerClass)
-        }.call(int, onClickListener)
+            parameters(Int::class, classOf<DialogInterface.OnClickListener>())
+        }.invoke(int, onClickListener)
     }
 
     fun setNeutralButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
     ) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setNeutralButton"
-            param(CharSequenceClass, DialogInterface_OnClickListenerClass)
-        }.call(charSequence, onClickListener)
+            parameters(CharSequence::class, classOf<DialogInterface.OnClickListener>())
+        }.invoke(charSequence, onClickListener)
     }
 
     fun setNeutralButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setNeutralButton"
-            param(IntType, DialogInterface_OnClickListenerClass)
-        }.call(int, onClickListener)
+            parameters(Int::class, classOf<DialogInterface.OnClickListener>())
+        }.invoke(int, onClickListener)
     }
 
     fun setNegativeButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
     ) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setNegativeButton"
-            param(CharSequenceClass, DialogInterface_OnClickListenerClass)
-        }.call(charSequence, onClickListener)
+            parameters(CharSequence::class, classOf<DialogInterface.OnClickListener>())
+        }.invoke(charSequence, onClickListener)
     }
 
     fun setNegativeButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setNegativeButton"
-            param(IntType, DialogInterface_OnClickListenerClass)
-        }.call(int, onClickListener)
+            parameters(Int::class, classOf<DialogInterface.OnClickListener>())
+        }.invoke(int, onClickListener)
     }
 
     fun setView(int: Int) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setView"
-            param(IntType)
-        }.call(int)
+            parameters(Int::class)
+        }.invoke(int)
     }
 
     fun setView(view: View) {
-        if (builder != null) builder!!.current().method {
+        if (builder != null) builder!!.resolve().firstMethod {
             name = "setView"
-            param(ViewClass)
-        }.call(view)
+            parameters(View::class)
+        }.invoke(view)
     }
 
     fun Any.create(): Any? {
-        return this.current().method {
+        return this.resolve().firstMethod {
             name = "create"
-            emptyParam()
-        }.call()
+            emptyParameters()
+        }.invoke()
     }
 
     fun Any.dismiss() {
-        this.current().method {
+        this.resolve().firstMethod {
             name = "dismiss"
-            emptyParam()
-            superClass()
-        }.call()
+            emptyParameters()
+            superclass()
+        }.invoke()
     }
 
     fun Any.show(): Any? {
-        return this.current().method {
+        return this.resolve().firstMethod {
             name = "show"
-            emptyParam()
-        }.call()
+            emptyParameters()
+        }.invoke()
     }
 
     fun Any.findViewById(id: Int): View? {
-        return this.current().method {
+        return this.resolve().firstMethod {
             name = "findViewById"
-            param(IntType)
-            superClass()
+            parameters(Int::class)
+            superclass()
         }.invoke<View>(id)
     }
 
     @SuppressLint("DiscouragedApi")
     fun Any.findViewById(idName: String): View? {
         val id = context.resources.getIdentifier(idName, "id", context.packageName)
-        return this.current().method {
+        return this.resolve().firstMethod {
             name = "findViewById"
-            param(IntType)
-            superClass()
+            parameters(Int::class)
+            superclass()
         }.invoke<View>(id)
     }
 
     fun Any.getEditText(idName: String): EditText? {
-        return findViewById(idName)?.current()?.method {
+        return findViewById(idName)?.resolve()?.firstMethod {
             name = "getEditText"
-            emptyParam()
+            emptyParameters()
         }?.invoke<EditText>()
     }
 

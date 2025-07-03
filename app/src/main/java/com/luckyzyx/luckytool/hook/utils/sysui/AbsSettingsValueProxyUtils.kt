@@ -1,98 +1,95 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
 import android.content.Context
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.FloatType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
+@Suppress("unused")
 class AbsSettingsValueProxyUtils(val classLoader: ClassLoader?) {
 
-    val clazz = "com.oplusos.systemui.common.settingsvalue.AbsSettingsValueProxy"
-        .toClass(classLoader)
+    val clazz =
+        "com.oplusos.systemui.common.settingsvalue.AbsSettingsValueProxy".toClass(classLoader)
 
     fun getGlobalIntValue(context: Context, key: String, defValue: Int): Int {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getGlobalIntValue"
-            param(ContextClass, StringClass, IntType)
-            returnType = IntType
-        }.get().invoke<Int>(context, key, defValue) ?: defValue
+            parameters(Context::class, String::class, Int::class)
+            returnType = Int::class
+        }.invoke<Int>(context, key, defValue) ?: defValue
     }
 
     fun getSecureIntValue(context: Context, key: String, defValue: Int): Int {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSecureIntValue"
-            param(ContextClass, StringClass, IntType)
-            returnType = IntType
-        }.get().invoke<Int>(context, key, defValue) ?: defValue
+            parameters(Context::class, String::class, Int::class)
+            returnType = Int::class
+        }.invoke<Int>(context, key, defValue) ?: defValue
     }
 
     fun getSecureIntValue(context: Context, key: String, defValue: Int, userId: Int): Int {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSecureIntValue"
-            param(ContextClass, StringClass, IntType)
-            returnType = IntType
-        }.get().invoke<Int>(context, key, defValue, userId) ?: defValue
+            parameters(Context::class, String::class, Int::class)
+            returnType = Int::class
+        }.invoke<Int>(context, key, defValue, userId) ?: defValue
     }
 
     fun getSecureStringValue(context: Context, key: String): String {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSecureStringValue"
-            param(ContextClass, StringClass)
-            returnType = StringClass
-        }.get().invoke<String>(context, key) ?: ""
+            parameters(Context::class, String::class)
+            returnType = String::class
+        }.invoke<String>(context, key) ?: ""
     }
 
     fun getSecureStringValue(context: Context, key: String, userId: Int): String {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSecureStringValue"
-            param(ContextClass, StringClass, IntType)
-            returnType = StringClass
-        }.get().invoke<String>(context, key, userId) ?: ""
+            parameters(Context::class, String::class, Int::class)
+            returnType = String::class
+        }.invoke<String>(context, key, userId) ?: ""
     }
 
     fun getSystemFloatValue(context: Context, key: String, defValue: Float): Float {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSystemFloatValue"
-            param(ContextClass, StringClass, FloatType)
-            returnType = FloatType
-        }.get().invoke<Float>(context, key, defValue) ?: defValue
+            parameters(Context::class, String::class, Float::class)
+            returnType = Float::class
+        }.invoke<Float>(context, key, defValue) ?: defValue
     }
 
     fun getSystemIntValue(context: Context, key: String, defValue: Int): Int {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSystemIntValue"
-            param(ContextClass, StringClass, IntType)
-            returnType = IntType
-        }.get().invoke<Int>(context, key, defValue) ?: defValue
+            parameters(Context::class, String::class, Int::class)
+            returnType = Int::class
+        }.invoke<Int>(context, key, defValue) ?: defValue
     }
 
     fun getSystemIntValue(context: Context, key: String, defValue: Int, userId: Int): Int {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSystemIntValue"
-            param(ContextClass, StringClass, IntType, IntType)
-            returnType = IntType
-        }.get().invoke<Int>(context, key, defValue, userId) ?: defValue
+            parameters(Context::class, String::class, Int::class, Int::class)
+            returnType = Int::class
+        }.invoke<Int>(context, key, defValue, userId) ?: defValue
     }
 
     fun getSystemStringValue(context: Context, key: String): String {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSystemStringValue"
-            param(ContextClass, StringClass)
-            returnType = StringClass
-        }.get().invoke<String>(context, key) ?: ""
+            parameters(Context::class, String::class)
+            returnType = String::class
+        }.invoke<String>(context, key) ?: ""
     }
 
     fun getSystemStringValue(context: Context, key: String, userId: Int): String {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getSystemStringValue"
-            param(ContextClass, StringClass, IntType)
-            returnType = StringClass
-        }.get().invoke<String>(context, key, userId) ?: ""
+            parameters(Context::class, String::class, Int::class)
+            returnType = String::class
+        }.invoke<String>(context, key, userId) ?: ""
     }
 
 }

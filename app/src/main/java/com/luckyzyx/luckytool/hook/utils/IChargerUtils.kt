@@ -1,11 +1,11 @@
 package com.luckyzyx.luckytool.hook.utils
 
+import android.os.IBinder
 import android.os.ServiceManager
-import com.highcapable.yukihookapi.hook.bean.VariousClass
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.IBinderClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
-import com.luckyzyx.luckytool.hook.hookers.HookAndroid.toClass
 
 @Obfuscate
 @Suppress("PrivatePropertyName")
@@ -16,22 +16,23 @@ class IChargerUtils(val classLoader: ClassLoader?) {
     private val CHARGER_STUB_CLASS = "vendor.oplus.hardware.charger.ICharger\$Stub"
     private val CHARGER_SERVICE_NAME = "vendor.oplus.hardware.charger.ICharger/default"
 
-    val clazz = VariousClass(CLASS_OPLUS_CHARGER, CLASS_OPLUS_CHARGER_NEW).toClass(classLoader)
+    val clazz = VariousClass(CLASS_OPLUS_CHARGER, CLASS_OPLUS_CHARGER_NEW)
+        .load(classLoader) as Class<Any>
 
     fun getInstance(): Any? {
         return if (clazz.name == CLASS_OPLUS_CHARGER) {
-            clazz.method { name = "getService";emptyParam() }.get().call()
+            clazz.resolve().firstMethod { name = "getService";emptyParameters() }.invoke()
         } else {
             val service = ServiceManager.getService(CHARGER_SERVICE_NAME)
-            CHARGER_STUB_CLASS.toClass(classLoader).method {
-                name = "asInterface";param(IBinderClass)
-            }.get().call(service)
+            CHARGER_STUB_CLASS.toClass(classLoader).resolve().firstMethod {
+                name = "asInterface";parameters(IBinder::class)
+            }.invoke(service)
         }
     }
 
     fun queryChargeInfo(ins: Any?): String? {
-        return clazz.method {
-            name = "queryChargeInfo";emptyParam()
-        }.get(ins).invoke<String>()
+        return clazz.resolve().firstMethod {
+            name = "queryChargeInfo";emptyParameters()
+        }.of(ins).invoke<String>()
     }
 }

@@ -1,30 +1,30 @@
 package com.luckyzyx.luckytool.hook.utils
 
-import com.highcapable.yukihookapi.hook.factory.current
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.luckyzyx.luckytool.data.DisplayMode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class DynamicDisplayInfoUtils(private val dynamicInfo: Any) {
 
     fun getSupportedDisplayModes(): Array<Any> {
-        return dynamicInfo.current().field {
+        return dynamicInfo.resolve().firstField {
             name = "supportedDisplayModes"
-        }.array<Any>()
+        }.get<Array<Any>>() ?: arrayOf()
     }
 
     fun getDisplayMode(modeIns: Any): Pair<Int, DisplayMode>? {
-        val id = modeIns.current().field { name = "id" }.cast<Int>() ?: return null
-        val width = modeIns.current().field { name = "width" }.cast<Int>()
-        val height = modeIns.current().field { name = "height" }.cast<Int>()
-        val xDpi = modeIns.current().field { name = "xDpi" }.cast<Float>()
-        val yDpi = modeIns.current().field { name = "yDpi" }.cast<Float>()
-        val refreshRate = modeIns.current().field {
+        val id = modeIns.resolve().firstField { name = "id" }.get<Int>() ?: return null
+        val width = modeIns.resolve().firstField { name = "width" }.get<Int>()
+        val height = modeIns.resolve().firstField { name = "height" }.get<Int>()
+        val xDpi = modeIns.resolve().firstField { name = "xDpi" }.get<Float>()
+        val yDpi = modeIns.resolve().firstField { name = "yDpi" }.get<Float>()
+        val refreshRate = modeIns.resolve().firstField {
             name {
                 //C15 peakRefreshRate
                 it.contains("refreshRate", true)
             }
-        }.cast<Float>()
+        }.get<Float>()
         val mode = DisplayMode(id, width, height, xDpi, yDpi, refreshRate)
         return Pair(id, mode)
     }

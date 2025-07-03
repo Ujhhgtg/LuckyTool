@@ -1,10 +1,9 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
 import android.content.Context
-import com.highcapable.yukihookapi.hook.bean.VariousClass
-import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import org.lsposed.lsparanoid.Obfuscate
-import com.luckyzyx.luckytool.hook.hookers.HookSystemUILockScreen.toClass
 
 @Obfuscate
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -13,26 +12,26 @@ class ClockSwitchHelper(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.ClockSwitchHelper",  //C12 C13
         "com.oplus.systemui.keyguard.clock.ClockSwitchHelper"  //C14
-    ).toClass(classLoader)
+    ).load(classLoader) as Class<Any>
 
     fun getInstance(context: Context): Any? {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getInstance"
-            paramCount = 1
-        }.get().call(context)
+            parameterCount = 1
+        }.invoke(context)
     }
 
     fun getLocatedWeatherInfo(instance: Any): Any? {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getLocatedWeatherInfo"
-            emptyParam()
-        }.get(instance).call()
+            emptyParameters()
+        }.of(instance).invoke()
     }
 
     fun getResidentWeatherInfo(instance: Any): Any? {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getResidentWeatherInfo"
-            emptyParam()
-        }.get(instance).call()
+            emptyParameters()
+        }.of(instance).invoke()
     }
 }

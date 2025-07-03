@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.toClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -12,10 +11,10 @@ class DependencyUtils(val classLoader: ClassLoader?, isEx: Boolean = false) {
     else "com.android.systemui.Dependency".toClass(classLoader)
 
     fun getDependency(cls: Class<*>): Any? {
-        val sDependency = clazz.field { type = clazz }.get().any() ?: return null
-        return sDependency.current().method {
+        val sDependency = clazz.resolve().firstField { type = clazz }.get() ?: return null
+        return sDependency.resolve().firstMethod {
             name = "getDependency"
-            param(Class::class.java)
+            parameters(Class::class)
         }.invoke<Any>(cls)
     }
 

@@ -3,37 +3,35 @@ package com.luckyzyx.luckytool.hook.utils.preferences
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import com.highcapable.yukihookapi.hook.core.finder.members.MethodFinder
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.android.DrawableClass
-import com.highcapable.yukihookapi.hook.type.android.IntentClass
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.StringClass
-import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.MethodCondition
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
+@Suppress("unused")
 object PreferenceReflections {
 
     @Obfuscate
     object Companion {
 
         fun callFinder(
-            preference: Any, vararg args: Any, finder: MethodFinder.(Boolean) -> Unit
+            preference: Any, vararg args: Any, condition: MethodCondition<Any>.() -> Unit = {}
         ): Any? {
-            val isSuper = preference.javaClass.hasMethod { finder(false) }.not()
-            return preference.current().method { finder(isSuper) }.call(*args)
+            val isSuper = preference.resolve().firstMethodOrNull(condition) == null
+            return preference.resolve().firstMethod {
+                apply(condition)
+                if (isSuper) superclass()
+            }.invoke(*args)
         }
 
         fun <T> invokeFinder(
-            preference: Any, vararg args: Any, finder: MethodFinder.(Boolean) -> Unit
+            preference: Any, vararg args: Any, condition: MethodCondition<Any>.() -> Unit = {}
         ): T? {
-            val isSuper = preference.javaClass.hasMethod { finder(false) }.not()
-            return preference.current().method { finder(isSuper) }.invoke<T>(*args)
+            val isSuper = preference.resolve().firstMethodOrNull(condition) == null
+            return preference.resolve().firstMethod {
+                apply(condition)
+                if (isSuper) superclass()
+            }.invoke<T>(*args)
         }
 
     }
@@ -41,260 +39,231 @@ object PreferenceReflections {
     fun addPreference(preferenceScreen: Any, preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preferenceScreen, preference) {
             name = "addPreference"
-            param("androidx.preference.Preference")
-            returnType = BooleanType
-            if (it) superClass()
+            parameters("androidx.preference.Preference")
+            returnType = Boolean::class
         } ?: false
     }
 
     fun findPreference(preferenceScreen: Any, charSequence: CharSequence): Any? {
         return Companion.callFinder(preferenceScreen, charSequence) {
             name = "findPreference"
-            param(CharSequenceClass)
-            if (it) superClass()
+            parameters(CharSequence::class)
         }
     }
 
     fun getPreferenceCount(preferenceScreen: Any): Any? {
         return Companion.callFinder(preferenceScreen) {
             name = "getPreferenceCount"
-            emptyParam()
-            returnType = IntType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Int::class
         }
     }
 
     fun removeAll(preferenceScreen: Any) {
         Companion.callFinder(preferenceScreen) {
             name = "removeAll"
-            emptyParam()
-            returnType = UnitType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Void.TYPE
         }
     }
 
     fun removePreference(preferenceScreen: Any, preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preferenceScreen, preference) {
             name = "removePreference"
-            param("androidx.preference.Preference")
-            returnType = UnitType
-            if (it) superClass()
+            parameters("androidx.preference.Preference")
+            returnType = Void.TYPE
         } ?: false
     }
 
     fun getContext(preference: Any): Context? {
         return Companion.invokeFinder<Context>(preference) {
             name = "getContext"
-            emptyParam()
-            returnType = ContextClass
-            if (it) superClass()
+            emptyParameters()
+            returnType = Context::class
         }
     }
 
     fun getIcon(preference: Any): Drawable? {
         return Companion.invokeFinder<Drawable>(preference) {
             name = "getIcon"
-            emptyParam()
-            returnType = DrawableClass
-            if (it) superClass()
+            emptyParameters()
+            returnType = Drawable::class
         }
     }
 
     fun setIcon(preference: Any, resId: Int) {
         Companion.callFinder(preference, resId) {
             name = "setIcon"
-            param(IntType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Int::class)
+            returnType = Void.TYPE
         }
     }
 
     fun setIcon(preference: Any, drawable: Drawable) {
         Companion.callFinder(preference, drawable) {
             name = "setIcon"
-            param(DrawableClass)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Drawable::class)
+            returnType = Void.TYPE
         }
     }
 
     fun getIntent(preference: Any): Intent? {
         return Companion.invokeFinder<Intent>(preference) {
             name = "getIntent"
-            emptyParam()
-            returnType = IntentClass
-            if (it) superClass()
+            emptyParameters()
+            returnType = Intent::class
         }
     }
 
     fun setIntent(preference: Any, intent: Intent) {
         Companion.callFinder(preference, intent) {
             name = "setIntent"
-            param(IntentClass)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Intent::class)
+            returnType = Void.TYPE
         }
     }
 
     fun getKey(preference: Any): String {
         return Companion.invokeFinder<String>(preference) {
             name = "getKey"
-            emptyParam()
-            returnType = StringClass
-            if (it) superClass()
+            emptyParameters()
+            returnType = String::class
         } ?: ""
     }
 
     fun setKey(preference: Any, key: String) {
         Companion.callFinder(preference, key) {
             name = "setKey"
-            param(StringClass)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(String::class)
+            returnType = Void.TYPE
         }
     }
 
     fun getSummary(preference: Any): CharSequence? {
         return Companion.invokeFinder<CharSequence>(preference) {
             name = "getSummary"
-            emptyParam()
-            returnType = CharSequenceClass
-            if (it) superClass()
+            emptyParameters()
+            returnType = CharSequence::class
         }
     }
 
     fun setSummary(preference: Any, resId: Int) {
         Companion.callFinder(preference, resId) {
             name = "setSummary"
-            param(IntType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Int::class)
+            returnType = Void.TYPE
         }
     }
 
     fun setSummary(preference: Any, charSequence: CharSequence) {
         Companion.callFinder(preference, charSequence) {
             name = "setSummary"
-            param(CharSequenceClass)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(CharSequence::class)
+            returnType = Void.TYPE
         }
     }
 
     fun isVisible(preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preference) {
             name = "isVisible"
-            emptyParam()
-            returnType = BooleanType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Boolean::class
         } ?: false
     }
 
     fun setVisible(preference: Any, visible: Boolean) {
         Companion.callFinder(preference, visible) {
             name = "setVisible"
-            param(BooleanType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Boolean::class)
+            returnType = Void.TYPE
         }
     }
 
     fun isEnabled(preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preference) {
             name = "isEnabled"
-            emptyParam()
-            returnType = BooleanType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Boolean::class
         } ?: false
     }
 
     fun setEnabled(preference: Any, enable: Boolean) {
         Companion.callFinder(preference, enable) {
             name = "setEnabled"
-            param(BooleanType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Boolean::class)
+            returnType = Void.TYPE
         }
     }
 
     fun isPersistent(preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preference) {
             name = "isPersistent"
-            emptyParam()
-            returnType = BooleanType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Boolean::class
         } ?: false
     }
 
     fun setPersistent(preference: Any, enable: Boolean) {
         Companion.callFinder(preference, enable) {
             name = "setPersistent"
-            param(BooleanType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Boolean::class)
+            returnType = Void.TYPE
         }
     }
 
     fun isSelectable(preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preference) {
             name = "isSelectable"
-            emptyParam()
-            returnType = BooleanType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Boolean::class
         } ?: false
     }
 
     fun setSelectable(preference: Any, enable: Boolean) {
         Companion.callFinder(preference, enable) {
             name = "setSelectable"
-            param(BooleanType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Boolean::class)
+            returnType = Void.TYPE
         }
     }
 
     fun getTitle(preference: Any): CharSequence? {
         return Companion.invokeFinder<CharSequence>(preference) {
             name = "getTitle"
-            emptyParam()
-            returnType = CharSequenceClass
-            if (it) superClass()
+            emptyParameters()
+            returnType = CharSequence::class
         }
     }
 
     fun setTitle(preference: Any, resId: Int) {
         Companion.callFinder(preference, resId) {
             name = "setTitle"
-            param(IntType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Int::class)
+            returnType = Void.TYPE
         }
     }
 
     fun setTitle(preference: Any, charSequence: CharSequence) {
         Companion.callFinder(preference, charSequence) {
             name = "setTitle"
-            param(CharSequenceClass)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(CharSequence::class)
+            returnType = Void.TYPE
         }
     }
 
     fun isCopyingEnabled(preference: Any): Boolean {
         return Companion.invokeFinder<Boolean>(preference) {
             name = "isCopyingEnabled"
-            emptyParam()
-            returnType = BooleanType
-            if (it) superClass()
+            emptyParameters()
+            returnType = Boolean::class
         } ?: false
     }
 
     fun setCopyingEnabled(preference: Any, copy: Boolean) {
         Companion.callFinder(preference, copy) {
             name = "setCopyingEnabled"
-            param(BooleanType)
-            returnType = UnitType
-            if (it) superClass()
+            parameters(Boolean::class)
+            returnType = Void.TYPE
         }
     }
 

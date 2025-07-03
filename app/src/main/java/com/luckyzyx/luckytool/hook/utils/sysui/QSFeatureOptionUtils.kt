@@ -1,9 +1,7 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClassOrNull
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClassOrNull
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -13,14 +11,11 @@ class QSFeatureOptionUtils(val classLoader: ClassLoader?) {
     val clazz = "com.oplusos.systemui.common.feature.QSFeatureOption".toClassOrNull(classLoader)
 
     fun getInstance(): Any? {
-        return clazz?.field { name = "INSTANCE" }?.get()?.any()
+        return clazz?.resolve()?.firstField { name = "INSTANCE" }?.get()
     }
 
     fun isSupportVolumeSeekBar(): Boolean {
-        return if (clazz == null || getInstance() == null) false
-        else if (clazz.hasMethod { name = "isSupportVolumeSeekBar" }) {
-            clazz.method { name = "isSupportVolumeSeekBar" }.get(getInstance())
-                .invoke<Boolean>() ?: false
-        } else false
+        return clazz?.resolve()?.firstMethod { name = "isSupportVolumeSeekBar" }?.of(getInstance())
+            ?.invoke<Boolean>() ?: false
     }
 }

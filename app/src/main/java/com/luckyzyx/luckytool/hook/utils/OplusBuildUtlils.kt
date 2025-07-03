@@ -1,9 +1,8 @@
 package com.luckyzyx.luckytool.hook.utils
 
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
-import com.highcapable.yukihookapi.hook.factory.toClassOrNull
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
+import com.highcapable.kavaref.extension.toClassOrNull
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -31,9 +30,10 @@ class OplusBuildUtlils(val classLoader: ClassLoader? = null) {
         "null"
     )
 
-    val getOSVersions get() = clazz.field { name = "VERSIONS" }.get().cast<Array<String>>()
+    val getOSVersions get() = clazz.resolve().firstField { name = "VERSIONS" }.get<Array<String>>()
 
-    val getOSVersionCode get() = clazz.method { name = "getOplusOSVERSION" }.get().invoke<Int>()
+    val getOSVersionCode
+        get() = clazz.resolve().firstMethod { name = "getOplusOSVERSION" }.invoke<Int>()
 
     val getOSVersionName get() = getOSVersionCode?.let { getOSVersions?.get(it - 1) }
 

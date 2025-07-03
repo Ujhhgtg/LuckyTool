@@ -1,19 +1,16 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
 import android.content.Context
-import com.highcapable.yukihookapi.hook.bean.VariousClass
-import com.highcapable.yukihookapi.hook.factory.buildOf
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
+import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.ContextClass
-import com.highcapable.yukihookapi.hook.type.java.LongType
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.hook.statusbar.StatusBarClock.toClass
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.safeOf
 import com.oplus.util.OplusChineseDateAndSolarDate
+import org.lsposed.lsparanoid.Obfuscate
 import java.util.Date
 
 @Obfuscate
@@ -31,7 +28,7 @@ class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.LunarHelper",  //C13
         "com.oplus.systemui.keyguard.clock.LunarHelper"  //C14 C15
-    ).toClass(classLoader)
+    ).load(classLoader) as Class<Any>
 
     init {
         context.injectModuleAppResources()
@@ -49,7 +46,7 @@ class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
      * @return Any?
      */
     fun getInstance(context: Context): Any? {
-        return clazz.buildOf(context) { param(ContextClass) }
+        return clazz.createInstance(context)
     }
 
     /**
@@ -127,10 +124,10 @@ class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
      * @return String?
      */
     fun getDateToString(instance: Any?, time: Long = System.currentTimeMillis()): String? {
-        return clazz.method {
+        return clazz.resolve().firstMethod {
             name = "getDateToString"
-            param(LongType)
-        }.get(instance).invoke<String>(time)
+            parameters(Long::class)
+        }.of(instance).invoke<String>(time)
     }
 
     /**

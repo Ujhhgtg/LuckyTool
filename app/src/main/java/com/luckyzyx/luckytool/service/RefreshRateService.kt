@@ -6,7 +6,6 @@ import android.os.Parcel
 import android.os.RemoteException
 import android.os.ServiceManager
 import android.view.DisplayInfo
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.hook.utils.DisplayManagerUtils
@@ -14,6 +13,7 @@ import com.luckyzyx.luckytool.hook.utils.DynamicDisplayInfoUtils
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object RefreshRateService : BaseControllerService<IRefreshRateController>() {
@@ -137,7 +137,7 @@ object RefreshRateService : BaseControllerService<IRefreshRateController>() {
             override fun resetRefreshRateMode() {
                 try {
                     setRefreshRateMode(-1)
-                } catch (e: Exception) {
+                } catch (_: Exception) {
 //                LogUtils.e(tag, "resetRefreshRateMode", "$e", true)
                 }
             }

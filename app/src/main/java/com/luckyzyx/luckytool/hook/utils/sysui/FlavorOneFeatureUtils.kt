@@ -1,11 +1,10 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.factory.toClass
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.toClass
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 @Suppress("unused")
@@ -14,10 +13,11 @@ class FlavorOneFeatureUtils(val classLoader: ClassLoader?) {
     val clazz = "com.oplusos.systemui.common.feature.FlavorOneFeatureOption".toClass(classLoader)
 
     fun getInstance(): Any? {
-        return if (SDK >= A14) clazz.field { name = "INSTANCE" }.get().any() else null
+        return if (SDK >= A14) clazz.resolve().firstField { name = "INSTANCE" }.get() else null
     }
 
     fun isFlavorOneDevice(): Boolean? {
-        return clazz.method { name = "isFlavorOneDevice" }.get(getInstance()).invoke<Boolean>()
+        return clazz.resolve().firstMethod { name = "isFlavorOneDevice" }.of(getInstance())
+            .invoke<Boolean>()
     }
 }
