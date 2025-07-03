@@ -15,11 +15,12 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.ArrayMap
 import androidx.core.content.FileProvider
-import org.lsposed.lsparanoid.Obfuscate
+import androidx.core.net.toUri
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.topjohnwu.superuser.ShellUtils
+import org.lsposed.lsparanoid.Obfuscate
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.BufferedReader
@@ -81,7 +82,7 @@ object FileUtils {
                     getMSMCacheFile(context, uri)?.path ?: "null"
                 } else {
                     val contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), ContentUris.parseId(uri)
+                        "content://downloads/public_downloads".toUri(), ContentUris.parseId(uri)
                     )
                     getDataColumn(context, contentUri, null, null)
                 }
@@ -329,7 +330,7 @@ object FileUtils {
     fun checkRWPermission(context: Context) {
         if (!Environment.isExternalStorageManager()) {
             val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-            context.startActivity(intent.setData(Uri.parse("package:${context.packageName}")))
+            context.startActivity(intent.setData("package:${context.packageName}".toUri()))
         }
     }
 
