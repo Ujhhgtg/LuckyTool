@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.games
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -184,7 +185,7 @@ class CloudConditionFeature(
                     }
                 }
                 firstMethod {
-                    parameters { it[0] == String::class && it[1] == Map::class }
+                    parameters { it[0] == classOf<String>() && it[1] == classOf<Map<*, *>>() }
                     parameterCount = 3
                 }.hook {
                     after {

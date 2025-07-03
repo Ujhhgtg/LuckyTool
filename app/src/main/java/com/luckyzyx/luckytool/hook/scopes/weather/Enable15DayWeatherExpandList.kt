@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.weather
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -10,7 +11,7 @@ object Enable15DayWeatherExpandList : YukiBaseHooker() {
         //Source FutureDayWeatherItem
         "com.oplus.weather.main.view.itemview.FutureDayWeatherItem".toClass().resolve().apply {
             firstFieldOrNull { name = "isAllow15DayExpand";type = Boolean::class } ?: return@apply
-            constructor { parameters { it.contains(Boolean::class.java) } }.hookAll {
+            constructor { parameters { it.contains(classOf<Boolean>()) } }.hookAll {
                 before {
                     args(args.indexOfFirst { it is Boolean }).setTrue()
                 }

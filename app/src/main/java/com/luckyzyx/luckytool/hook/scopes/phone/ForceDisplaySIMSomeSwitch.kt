@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.phone
 import android.content.Context
 import android.view.View
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -49,9 +50,9 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     firstMethod {
                         name = single().methodName
                         parameters {
-                            it[0] == Int::class && it.contains(Boolean::class.java) && it.contains(
-                                String::class.java
-                            )
+                            it[0] == classOf<Int>()
+                                    && it.contains(classOf<Boolean>())
+                                    && it.contains(classOf<String>())
                         }
                         parameterCount = 3
                     }.hook {
@@ -83,8 +84,9 @@ class ForceDisplaySIMSomeSwitch(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                     firstMethod {
                         name = single().methodName
                         parameters {
-                            it[0] == Int::class && it.contains(Boolean::class.java)
-                                    && it.contains(String::class.java)
+                            it[0] == classOf<Int>()
+                                    && it.contains(classOf<Boolean>())
+                                    && it.contains(classOf<String>())
                         }
                         parameterCount = 3
                     }.hook {

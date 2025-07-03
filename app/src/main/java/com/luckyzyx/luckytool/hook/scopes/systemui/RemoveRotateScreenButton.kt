@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -17,7 +18,7 @@ object RemoveRotateScreenButton : YukiBaseHooker() {
             "com.android.systemui.navigationbar.gestural.FloatingRotationButton", //A12
             "com.android.systemui.shared.rotation.FloatingRotationButton" //C13 C14
         ).toClass() as Class<Any>).resolve().apply {
-            firstConstructor { parameters { it[0] == Context::class } }.hook {
+            firstConstructor { parameters { it[0] == classOf<Context>() } }.hook {
                 after {
                     firstField { name = "mKeyButtonView" }.of(instance).get<View>()
                         ?.isVisible = false

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.data.AppVerInfo
@@ -95,7 +96,7 @@ class WeatherAdsAndJumpBrowser(
                 }
                 method {
                     name { it.startsWith("jump") && it.contains("Browser") }
-                    parameters { it.contains(String::class.java) && it.contains(Boolean::class.java) }
+                    parameters { it.contains(classOf<String>()) && it.contains(classOf<Boolean>()) }
                     returnType { it == Intent::class.java || it == Any::class.java }
                 }.hookAll {
                     after {

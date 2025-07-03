@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.gallery
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
@@ -22,7 +23,7 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             checkDataList("EliminateDetectInfo")
 
             single().name.toClass().resolve().apply {
-                firstConstructor { parameters { it.contains(Boolean::class.java) } }.hook {
+                firstConstructor { parameters { it.contains(classOf<Boolean>()) } }.hook {
                     before {
                         args.forEachIndexed { index, it ->
                             if (it is Boolean) args(index).setFalse()
@@ -48,7 +49,7 @@ class RemoveAIGCEliminationLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             checkDataList("EliminateSaveEntry")
 
             single().name.toClass().resolve().apply {
-                firstConstructor { parameters { it.contains(Boolean::class.java) } }.hook {
+                firstConstructor { parameters { it.contains(classOf<Boolean>()) } }.hook {
                     before {
                         args.forEachIndexed { index, it ->
                             if (it is Boolean) args(index).setFalse()
