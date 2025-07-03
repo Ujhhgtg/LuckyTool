@@ -15,8 +15,8 @@ import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object NotifyUtils {
@@ -62,7 +62,7 @@ object NotifyUtils {
      */
     fun sendNotification(context: Context, notifyId: Int, notification: Notification) {
         val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(NotificationManager::class.java)
         notificationManager.notify(notifyId, notification)
     }
 
@@ -73,7 +73,7 @@ object NotifyUtils {
      */
     fun clearNotification(context: Context, notifyId: Int) {
         val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(NotificationManager::class.java)
         notificationManager.cancel(notifyId)
     }
 
@@ -84,7 +84,7 @@ object NotifyUtils {
      */
     fun createChannel(context: Context, channel: NotificationChannel) {
         val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -95,7 +95,7 @@ object NotifyUtils {
      */
     fun deleteChannel(context: Context, channelId: String) {
         val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(NotificationManager::class.java)
         notificationManager.deleteNotificationChannel(channelId)
     }
 

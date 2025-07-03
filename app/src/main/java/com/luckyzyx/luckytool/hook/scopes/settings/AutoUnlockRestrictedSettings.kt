@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import android.app.AppOpsManager
 import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -123,7 +124,7 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
     }
 
     private fun Context.setMode(uid: Int, packName: String, limit: Boolean) {
-        val appOps = getSystemService(Context.APP_OPS_SERVICE)
+        val appOps = getSystemService(AppOpsManager::class.java)
         appOps.resolve().firstMethod { name = "setMode";parameterCount = 4 }.invoke(
             119, uid, packName, if (limit) 1 else 0
         )

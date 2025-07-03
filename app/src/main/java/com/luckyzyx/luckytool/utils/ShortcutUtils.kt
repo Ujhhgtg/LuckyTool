@@ -16,7 +16,7 @@ import org.lsposed.lsparanoid.Obfuscate
 @Suppress("unused")
 class ShortcutUtils(val context: Context) {
 
-    var shortcutManager: ShortcutManager = context.getSystemService(ShortcutManager::class.java)
+    var shortcutManager = context.getSystemService(ShortcutManager::class.java)
 
     private val existOplusGame =
         context.checkPackName("com.oplus.games") && context.checkResolveActivity(

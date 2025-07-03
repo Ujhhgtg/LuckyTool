@@ -60,9 +60,8 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.drake.net.utils.withDefault
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.highcapable.yukihookapi.hook.factory.current
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.factory.dataChannel
-import com.highcapable.yukihookapi.hook.type.java.LongType
 import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.IGlobalFuncController
@@ -369,7 +368,7 @@ val Int.sp: Int
  * @param string CharSequence
  */
 fun Context.copyStr(string: CharSequence) {
-    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clipboard = getSystemService(ClipboardManager::class.java)
     val clipData = ClipData.newPlainText(null, string)
     clipboard.setPrimaryClip(clipData)
 }
@@ -816,8 +815,11 @@ val Context.is24
  * @param context Context
  */
 fun closeScreen(context: Context) {
-    val service = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-    service.current().method { name = "goToSleep";param(LongType) }.call(SystemClock.uptimeMillis())
+    val service = context.getSystemService(PowerManager::class.java)
+    service.resolve().firstMethod {
+        name = "goToSleep"
+        parameters(Long::class)
+    }.invoke(SystemClock.uptimeMillis())
 }
 
 /**

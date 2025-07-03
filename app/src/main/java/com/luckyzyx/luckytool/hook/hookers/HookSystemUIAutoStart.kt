@@ -5,8 +5,8 @@ import android.content.Intent
 import android.nfc.NfcAdapter
 import android.os.Handler
 import com.drake.net.utils.scope
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -38,7 +38,7 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
             //监听模块磁贴关闭控制中心
             registerReceiver("LuckyTool_CloseCollapse") { context, _ ->
                 val service = context.getSystemService(StatusBarManager::class.java)
-                service.current().method { name = "collapsePanels" }.call()
+                service.resolve().firstMethod { name = "collapsePanels" }.invoke()
             }
             //监听NFC启用状态
             registerReceiver(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED) { context, intent ->
@@ -53,7 +53,7 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
                 val intExtra = intent.getIntExtra("android.nfc.extra.ADAPTER_STATE", 1)
                 val handler = Handler(context.mainLooper)
                 val runnable = Runnable {
-                    nfcAdapter.current().method { name = "disable" }.call()
+                    nfcAdapter.resolve().firstMethod { name = "disable" }.invoke()
                 }
                 if (nfcAdapter.isEnabled) {
                     try {

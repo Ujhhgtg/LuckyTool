@@ -13,18 +13,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout.LayoutParams
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.android.TypefaceClass
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import org.lsposed.lsparanoid.Obfuscate
 import kotlin.math.pow
-
 
 @Obfuscate
 @Suppress("MemberVisibilityCanBePrivate")
@@ -42,23 +37,18 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             dataChannel.wait<Boolean>("set_network_speed") { networkSpeed = it }
 
             //Search postUpdateNetworkSpeedDelay
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.statusbar.controller.NetworkSpeedController",
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
-            ).toClass().apply {
-                val bgHandler = field { name = "bgHandler" }
-                val uiHandler = field { name = "uiHandler" }
-                val lastTime = field { name = "lastTime" }
-                val lastTotalBytes = field { name = "lastTotalBytes" }
+            ).toClass() as Class<Any>).resolve().apply {
+                val bgHandler = firstField { name = "bgHandler" }
+                val uiHandler = firstField { name = "uiHandler" }
+                val lastTime = firstField { name = "lastTime" }
+                val lastTotalBytes = firstField { name = "lastTotalBytes" }
 
-                val hasNetworkSpeed = hasMethod { name = "updateNetworkSpeed" }
-                method {
-                    name {
-                        if (hasNetworkSpeed) it == "updateNetworkSpeed"
-                        else it.contains("updateNetworkSpeed")
-                    }
-                }.hook {
+                (firstMethodOrNull { name = "updateNetworkSpeed" }
+                    ?: firstMethod { name { it.contains("updateNetworkSpeed") } }).hook {
                     before {
                         if (!networkSpeed) return@before
                         val instance = instanceOrNull ?: args().first().any()
@@ -67,20 +57,24 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         obtain.what = 100000
                         var finalTotal = 0L
 
-                        val isConnected = field { name = "isConnected" }.get(instance).boolean()
-                        val isSwitchOn = field { name = "isSwitchOn" }.get(instance).boolean()
+                        val isConnected = firstField { name = "isConnected" }.of(instance)
+                            .get<Boolean>() ?: false
+                        val isSwitchOn = firstField { name = "isSwitchOn" }.of(instance)
+                            .get<Boolean>() ?: false
 
                         if (isConnected && isSwitchOn) {
                             val currentTimeMillis = System.currentTimeMillis()
-                            var totalByte = method { name = "getTotalByte" }.get(instance).long()
+                            var totalByte = firstMethod { name = "getTotalByte" }.of(instance)
+                                .invoke<Long>() ?: 0
                             if (totalByte <= 0) {
-                                lastTime.get(instance).set(0L)
-                                lastTotalBytes.get(instance).set(0L)
-                                totalByte = method { name = "getTotalByte" }.get(instance).long()
+                                lastTime.copy().of(instance).set(0L)
+                                lastTotalBytes.copy().of(instance).set(0L)
+                                totalByte = firstMethod { name = "getTotalByte" }.of(instance)
+                                    .invoke<Long>() ?: 0
                             }
-                            val time = lastTime.get(instance).long()
+                            val time = lastTime.copy().of(instance).get<Long>() ?: 0
                             if (time in 0..<currentTimeMillis) {
-                                val totalBytes = lastTotalBytes.get(instance).long()
+                                val totalBytes = lastTotalBytes.copy().of(instance).get<Long>() ?: 0
                                 if (totalBytes > 0 && totalByte > 0 && totalByte > totalBytes) {
                                     finalTotal =
                                         ((totalByte - totalBytes) * 1000) / (currentTimeMillis - time)
@@ -88,19 +82,19 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             }
                             obtain.arg1 = 1
                             obtain.obj = finalTotal
-                            uiHandler.get(instance).cast<Handler>()?.removeMessages(100000)
-                            uiHandler.get(instance).cast<Handler>()?.sendMessage(obtain)
-                            lastTime.get(instance).set(currentTimeMillis)
-                            lastTotalBytes.get(instance).set(totalByte)
-                            bgHandler.get(instance).cast<Handler>()?.removeMessages(100001)
-                            bgHandler.get(instance).cast<Handler>()
+                            uiHandler.copy().of(instance).get<Handler>()?.removeMessages(100000)
+                            uiHandler.copy().of(instance).get<Handler>()?.sendMessage(obtain)
+                            lastTime.copy().of(instance).set(currentTimeMillis)
+                            lastTotalBytes.copy().of(instance).set(totalByte)
+                            bgHandler.copy().of(instance).get<Handler>()?.removeMessages(100001)
+                            bgHandler.copy().of(instance).get<Handler>()
                                 ?.sendEmptyMessageDelayed(100001, 1000L)
                         } else {
                             obtain.arg1 = 0
-                            uiHandler.get(instance).cast<Handler>()?.removeMessages(100000)
-                            uiHandler.get(instance).cast<Handler>()?.sendMessage(obtain)
-                            lastTime.get(instance).set(0L)
-                            lastTotalBytes.get(instance).set(0L)
+                            uiHandler.copy().of(instance).get<Handler>()?.removeMessages(100000)
+                            uiHandler.copy().of(instance).get<Handler>()?.sendMessage(obtain)
+                            lastTime.copy().of(instance).set(0L)
+                            lastTotalBytes.copy().of(instance).set(0L)
                         }
                         resultNull()
                     }
@@ -141,18 +135,18 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.phone.netspeed.NetworkSpeedIconState"
 
             //Source NetworkSpeedView
-            VariousClass(
+            (VariousClass(
                 "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
                 "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14 C15
-            ).toClass().apply {
-                val mState = field { type = NetworkSpeedIconState }
-                val mBlocked = field { name = "mBlocked" }
-                val mSpeed = field { name = "mSpeed" }
-                val mSpeedNumber = field { name = "mSpeedNumber" }
-                val mSpeedUnit = field { name = "mSpeedUnit" }
-                val mDefaultBoldFont = field { type = TypefaceClass }
+            ).toClass() as Class<Any>).resolve().apply {
+                val mState = firstField { type = NetworkSpeedIconState }
+                val mBlocked = firstField { name = "mBlocked" }
+                val mSpeed = firstField { name = "mSpeed" }
+                val mSpeedNumber = firstField { name = "mSpeedNumber" }
+                val mSpeedUnit = firstField { name = "mSpeedUnit" }
+                val mDefaultBoldFont = firstField { type = Typeface::class }
 
-                method { name = "onFinishInflate" }.hook {
+                firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         val viewGroup = instance<ViewGroup>()
                         //5.34dp
@@ -172,12 +166,12 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                     }
                 }
                 if (layoutMode == "0") {
-                    method { name = "applyNetworkState" }.hook {
+                    firstMethod { name = "applyNetworkState" }.hook {
                         after {
                             val defaultBoldTypeface =
-                                mDefaultBoldFont.get(instance).cast<Typeface>()
-                            val mSpeedNumberTv = mSpeedNumber.get(instance).cast<TextView>()
-                            val mSpeedUnitTv = mSpeedUnit.get(instance).cast<TextView>()
+                                mDefaultBoldFont.copy().of(instance).get<Typeface>()
+                            val mSpeedNumberTv = mSpeedNumber.copy().of(instance).get<TextView>()
+                            val mSpeedUnitTv = mSpeedUnit.copy().of(instance).get<TextView>()
                             mSpeedNumberTv?.typeface = if (userTypeface) {
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
                             } else defaultBoldTypeface
@@ -187,7 +181,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                         }
                     }
                 } else {
-                    method { name = "applyNetworkState" }.hook {
+                    firstMethod { name = "applyNetworkState" }.hook {
                         before {
                             if (layoutMode == "0") return@before
 
@@ -195,23 +189,26 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             val state = args().first().any()
                             if (state == null) {
                                 viewGroup.isVisible = false
-                                mState.get(instance).setNull()
+                                mState.copy().of(instance).set(null)
                                 return@before
                             }
 
-                            val copy = state.current().method { name = "copy" }.call()
-                            val getVisible =
-                                state.current().method { name = "getVisible" }.boolean()
-                            mState.get(instance).set(copy)
-                            val visible = getVisible && !mBlocked.get(instance).boolean()
+                            val copy = state.resolve().firstMethod { name = "copy" }.invoke()
+                            val getVisible = state.resolve().firstMethod { name = "getVisible" }
+                                .invoke<Boolean>() ?: false
+                            mState.copy().of(instance).set(copy)
+                            val visible =
+                                getVisible && !(mBlocked.copy().of(instance).get<Boolean>()
+                                    ?: false)
                             if (visible != viewGroup.isVisible) viewGroup.isVisible = visible
                             if (!visible) return@before
 
-                            val speedText = state.current().method { name = "getSpeedText" }.long()
+                            val speedText = state.resolve().firstMethod { name = "getSpeedText" }
+                                .invoke<Long>() ?: 0
                             if (speedText < 0 || speedText > 1024.0.pow(5.0) * 1000.0) {
                                 return@before
                             }
-                            mSpeed.get(instance).set(speedText)
+                            mSpeed.copy().of(instance).set(speedText)
 
                             viewGroup.apply {
                                 layoutParams?.width = LayoutParams.WRAP_CONTENT
@@ -219,9 +216,9 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             }
 
                             val defaultBoldTypeface =
-                                mDefaultBoldFont.get(instance).cast<Typeface>()
-                            val mSpeedNumberTv = mSpeedNumber.get(instance).cast<TextView>()
-                            val mSpeedUnitTv = mSpeedUnit.get(instance).cast<TextView>()
+                                mDefaultBoldFont.copy().of(instance).get<Typeface>()
+                            val mSpeedNumberTv = mSpeedNumber.copy().of(instance).get<TextView>()
+                            val mSpeedUnitTv = mSpeedUnit.copy().of(instance).get<TextView>()
                             mSpeedNumberTv?.typeface = if (userTypeface) {
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
                             } else defaultBoldTypeface
@@ -367,7 +364,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                     type = 0
                     "%.1f".format(bytes)
                 }
-            } catch (t: Throwable) {
+            } catch (_: Throwable) {
                 "0.0"
             }
             return format + (if (noSpace) "" else " ") +

@@ -251,7 +251,7 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
     }
 
     private fun isFpDisabledByDPM(context: Context, userId: Int): Boolean {
-        val service = context.getSystemService("device_policy") as DevicePolicyManager
+        val service = context.getSystemService(DevicePolicyManager::class.java)
         val getKeyguardDisabledFeatures = service.resolve().firstMethod {
             name = "getKeyguardDisabledFeatures";parameters(ComponentName::class, Int::class)
         }.invoke<Int>(null, userId) ?: 0

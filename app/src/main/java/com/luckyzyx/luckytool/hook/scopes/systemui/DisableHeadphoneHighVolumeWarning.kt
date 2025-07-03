@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
+import android.media.AudioManager
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -18,7 +19,7 @@ object DisableHeadphoneHighVolumeWarning : YukiBaseHooker() {
                 after {
                     val mContext = firstField { name = "mContext" }.of(instance).get<Context>()
                         ?: return@after
-                    val audioManager = mContext.getSystemService(Context.AUDIO_SERVICE)
+                    val audioManager = mContext.getSystemService(AudioManager::class.java)
                         ?: return@after
                     audioManager.resolve().firstMethod { name = "disableSafeMediaVolume" }.invoke()
                 }

@@ -1,30 +1,29 @@
 package com.luckyzyx.luckytool.hook.hookers
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.factory.method
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAIUnit : YukiBaseHooker() {
     override fun onHook() {
         //Source Router
-        "com.oplus.aiunit.router.Router".toClass().apply {
-            method { name = "getDefaultConfiguration" }.hook {
+        "com.oplus.aiunit.router.Router".toClass().resolve().apply {
+            firstMethod { name = "getDefaultConfiguration" }.hook {
                 after {
                     val list = result<List<Any>>()?.takeIf { it.isNotEmpty() } ?: return@after
                     list.forEachIndexed { _, it ->
 //                            YLog.info("$index -> ${it.toString()}")
-                        val unitName = it.current().method { name = "getUnitName" }.string()
+                        val unitName = it.resolve().firstMethod { name = "getUnitName" }.invoke<String>()
                         when (unitName) {
                             "cloud_aigc_segmentation" -> {
-                                it.current().method { name = "setDisabled" }.call(false)
-                                it.current().method { name = "setWhiteModels" }.call("")
+                                it.resolve().firstMethod { name = "setDisabled" }.invoke(false)
+                                it.resolve().firstMethod { name = "setWhiteModels" }.invoke("")
                             }
 
                             "cloud_aigc_sdinpainting" -> {
-                                it.current().method { name = "setDisabled" }.call(false)
-                                it.current().method { name = "setWhiteModels" }.call("")
+                                it.resolve().firstMethod { name = "setDisabled" }.invoke(false)
+                                it.resolve().firstMethod { name = "setWhiteModels" }.invoke("")
                             }
                         }
                     }
