@@ -50,7 +50,7 @@ object MultiAppConfig : YukiBaseHooker() {
             loadData()
 
             //Source OplusMultiAppConfig
-            "com.oplus.multiapp.OplusMultiAppConfig".toClass().resolve().apply {
+            "com.oplus.multiapp.OplusMultiAppConfig".toClass().resolve().optional().apply {
                 firstMethod { name = "getAllowedPkgList" }.hook {
                     before {
                         if (mode != "1" || list.isEmpty()) return@before
@@ -68,7 +68,7 @@ object MultiAppConfig : YukiBaseHooker() {
     object MultiAppBlackList : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusMultiAppDataManager
-            "com.android.server.pm.OplusMultiAppDataManager".toClass().resolve().apply {
+            "com.android.server.pm.OplusMultiAppDataManager".toClass().resolve().optional().apply {
                 firstMethod { name = "initBlackAppList" }.hook {
                     intercept()
                 }

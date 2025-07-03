@@ -11,6 +11,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 同步上游核心破解 v4.7
 - [添加] 移除OTA安装完成通知
 - [添加] 移除OTA自动下载对话框
+- [更改] 更新并迁移底层HookAPI
 
 ### 1.3.1
 

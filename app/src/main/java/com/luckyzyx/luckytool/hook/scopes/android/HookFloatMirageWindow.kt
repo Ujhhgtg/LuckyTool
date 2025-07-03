@@ -41,7 +41,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             var task: Any? = null
 
             //Source FlexibleTaskController
-            "com.android.server.wm.FlexibleTaskController".toClass().resolve().apply {
+            "com.android.server.wm.FlexibleTaskController".toClass().resolve().optional().apply {
                 firstMethod { name = "notifyFlexibleTaskEvent" }.hook {
                     before {
                         taskId = args().first().int()
@@ -59,7 +59,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             }
 
             //Source OplusFlexibleDCSManager
-            "com.android.server.wm.OplusFlexibleDCSManager".toClass().resolve().apply {
+            "com.android.server.wm.OplusFlexibleDCSManager".toClass().resolve().optional().apply {
                 (firstMethodOrNull { name = "onFloatHandleEnter" }
                     ?: firstMethod { name = "startMinimize" }).hook {
                     after {
@@ -89,16 +89,18 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             }
 
             //Source OplusMirageWindowManagerService
-            "com.android.server.wm.OplusMirageWindowManagerService".toClass().resolve().apply {
-                firstMethod { name = "moveTaskToBack" }.hook {
-                    before {
-                        val curTask = args().first().any() ?: return@before
-                        val mTaskId = curTask.resolve().firstField { name = "mTaskId" }.get<Int>()
-                            ?: -1
-                        if (taskId == mTaskId) resultNull()
+            "com.android.server.wm.OplusMirageWindowManagerService".toClass().resolve().optional()
+                .apply {
+                    firstMethod { name = "moveTaskToBack" }.hook {
+                        before {
+                            val curTask = args().first().any() ?: return@before
+                            val mTaskId =
+                                curTask.resolve().firstField { name = "mTaskId" }.get<Int>()
+                                    ?: -1
+                            if (taskId == mTaskId) resultNull()
+                        }
                     }
                 }
-            }
         }
     }
 
@@ -109,88 +111,96 @@ object HookFloatMirageWindow : YukiBaseHooker() {
             val OPLUS_MIRAGE_CAR_DUMMY_ACTION = "android.intent.action.OPLUS_MIRAGE_CAR_DUMMY"
 
             //Source OplusMirageWindowManagerService
-            "com.android.server.wm.OplusMirageWindowManagerService".toClass().resolve().apply {
-                firstMethod { name = "startActivityToMirageDisplay" }.hook {
-                    before {
-                        val parcelable = args().first().cast<Parcelable>()
-                        val displayId = args(1).int()
-                        val startOptions = args().last().cast<Bundle>()
+            "com.android.server.wm.OplusMirageWindowManagerService".toClass().resolve().optional()
+                .apply {
+                    firstMethod { name = "startActivityToMirageDisplay" }.hook {
+                        before {
+                            val parcelable = args().first().cast<Parcelable>()
+                            val displayId = args(1).int()
+                            val startOptions = args().last().cast<Bundle>()
 
-                        val mAtms = firstField { type = activityTaskManagerService }.of(instance)
-                            .get() ?: return@before
-                        val context = mAtms.resolve().firstField { type = Context::class }
-                            .get<Context>() ?: return@before
+                            val mAtms =
+                                firstField { type = activityTaskManagerService }.of(instance)
+                                    .get() ?: return@before
+                            val context = mAtms.resolve().firstField { type = Context::class }
+                                .get<Context>() ?: return@before
 
-                        val options = startOptions?.let {
-                            ActivityOptions::class.resolve().firstMethod {
-                                name = "fromBundle";parameters(Bundle::class)
-                            }.invoke<ActivityOptions>(startOptions)
-                        } ?: ActivityOptions.makeBasic()
-                        options.setLaunchDisplayId(displayId)
+                            val options = startOptions?.let {
+                                ActivityOptions::class.resolve().firstMethod {
+                                    name = "fromBundle";parameters(Bundle::class)
+                                }.invoke<ActivityOptions>(startOptions)
+                            } ?: ActivityOptions.makeBasic()
+                            options.setLaunchDisplayId(displayId)
 
-                        Handler(Looper.getMainLooper()).post {
-                            var intent: Intent? = null
-                            var pendingIntent: PendingIntent? = null
+                            Handler(Looper.getMainLooper()).post {
+                                var intent: Intent? = null
+                                var pendingIntent: PendingIntent? = null
 
-                            try {
-                                when (parcelable) {
-                                    is Intent -> intent = parcelable
-                                    is PendingIntent -> {
-                                        pendingIntent = parcelable
-                                        intent = pendingIntent.resolve().firstMethod {
-                                            name = "getIntent";emptyParameters()
-                                        }.invoke<Intent?>()
+                                try {
+                                    when (parcelable) {
+                                        is Intent -> intent = parcelable
+                                        is PendingIntent -> {
+                                            pendingIntent = parcelable
+                                            intent = pendingIntent.resolve().firstMethod {
+                                                name = "getIntent";emptyParameters()
+                                            }.invoke<Intent?>()
+                                        }
                                     }
-                                }
 
-                                if (intent != null) {
-                                    if (intent.action != OPLUS_MIRAGE_CAR_DUMMY_ACTION) {
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                        try {
-                                            if (pendingIntent == null) {
+                                    if (intent != null) {
+                                        if (intent.action != OPLUS_MIRAGE_CAR_DUMMY_ACTION) {
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            try {
+                                                if (pendingIntent == null) {
 
-                                                val uid = intent.getIntExtra("TASKINFO_UID", -1)
-                                                if (uid > 0 && uid.toString().startsWith("999")) {
-                                                    val userHandle =
-                                                        UserHandle.getUserHandleForUid(uid)
-                                                    context.resolve().firstMethod {
-                                                        name = "startActivityAsUser"
-                                                        parameters(
-                                                            Intent::class, Bundle::class,
-                                                            UserHandle::class
+                                                    val uid = intent.getIntExtra("TASKINFO_UID", -1)
+                                                    if (uid > 0 && uid.toString()
+                                                            .startsWith("999")
+                                                    ) {
+                                                        val userHandle =
+                                                            UserHandle.getUserHandleForUid(uid)
+                                                        context.resolve().firstMethod {
+                                                            name = "startActivityAsUser"
+                                                            parameters(
+                                                                Intent::class, Bundle::class,
+                                                                UserHandle::class
+                                                            )
+                                                        }.invoke(
+                                                            intent,
+                                                            options.toBundle(),
+                                                            userHandle
                                                         )
-                                                    }.invoke(intent, options.toBundle(), userHandle)
+                                                    } else {
+                                                        context.startActivity(
+                                                            intent, options.toBundle()
+                                                        )
+                                                    }
                                                 } else {
-                                                    context.startActivity(
-                                                        intent, options.toBundle()
+                                                    pendingIntent.send(
+                                                        null, 0, null, null,
+                                                        null, null, options.toBundle()
                                                     )
                                                 }
-                                            } else {
-                                                pendingIntent.send(
-                                                    null, 0, null, null,
-                                                    null, null, options.toBundle()
-                                                )
+                                            } catch (_: Exception) {
+
                                             }
-                                        } catch (_: Exception) {
-
+                                        } else {
+                                            firstField { name = "mRealCarDisplayId" }.of(instance)
+                                                .set(displayId)
                                         }
-                                    } else {
-                                        firstField { name = "mRealCarDisplayId" }.of(instance)
-                                            .set(displayId)
                                     }
-                                }
-                                OplusMirageDisplayManagerUtils(appClassLoader).apply {
-                                    val ins = getInstance() ?: return@post
-                                    notifyCastSuccess(ins, displayId)
-                                }
-                            } catch (_: ActivityNotFoundException) {
+                                    OplusMirageDisplayManagerUtils(appClassLoader).apply {
+                                        val ins = getInstance() ?: return@post
+                                        notifyCastSuccess(ins, displayId)
+                                    }
+                                } catch (_: ActivityNotFoundException) {
 
+                                }
                             }
+                            resultNull()
                         }
-                        resultNull()
                     }
                 }
-            }
         }
     }
 }

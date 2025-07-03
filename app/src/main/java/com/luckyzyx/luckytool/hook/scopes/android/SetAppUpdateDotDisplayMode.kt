@@ -16,7 +16,7 @@ object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
         if (mode == "0") return
 
         //Source PackageManagerServiceExtImpl
-        "com.android.server.pm.PackageManagerServiceExtImpl".toClass().resolve().apply {
+        "com.android.server.pm.PackageManagerServiceExtImpl".toClass().resolve().optional().apply {
             firstMethod {
                 name = "handleSuccessAtEndInHPPI"
                 parameterCount = 6

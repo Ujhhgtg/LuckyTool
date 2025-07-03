@@ -18,7 +18,7 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
         if (ltpoMode != "1") return
 
         //Source BackLightBean
-        "com.oplus.vrr.OPlusFeatureManager".toClass().resolve().apply {
+        "com.oplus.vrr.OPlusFeatureManager".toClass().resolve().optional().apply {
             method {
                 name { it.startsWith("on") }
                 parameters(BackLightBean)
@@ -42,7 +42,7 @@ object LTPODynamicRefreshRate : YukiBaseHooker() {
         }
 
         //Source OPlusOnlineConfigManager
-        "com.oplus.vrr.OPlusOnlineConfigManager".toClass().resolve().apply {
+        "com.oplus.vrr.OPlusOnlineConfigManager".toClass().resolve().optional().apply {
             firstMethod { name = "createGameEvent" }.hook {
                 after {
                     val bean = result<Any>() ?: return@after

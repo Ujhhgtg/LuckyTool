@@ -12,7 +12,7 @@ object RemoveAccessDeviceLogDialog : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_access_device_log_dialog", false)
 
         //Source LogcatManagerService
-        "com.android.server.logcat.LogcatManagerService".toClass().resolve().apply {
+        "com.android.server.logcat.LogcatManagerService".toClass().resolve().optional().apply {
             firstMethod { name = "processNewLogAccessRequest" }.hook {
                 before {
                     if (!isEnable) return@before

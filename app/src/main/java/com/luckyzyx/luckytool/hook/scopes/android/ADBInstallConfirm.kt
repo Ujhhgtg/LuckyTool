@@ -15,7 +15,7 @@ object ADBInstallConfirm : YukiBaseHooker() {
         VariousClass(
             "com.android.server.pm.ColorPackageInstallInterceptManager", //A11
             "com.android.server.pm.OplusPackageInstallInterceptManager"
-        ).toClass().resolve().apply {
+        ).toClass().resolve().optional().apply {
             firstMethod { name = "allowInterceptAdbInstallInInstallStage" }.hook {
                 if (isEnable) replaceToFalse()
             }

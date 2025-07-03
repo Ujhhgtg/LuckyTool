@@ -19,6 +19,7 @@ object HookGMSRestrict : YukiBaseHooker() {
 
         //Source OplusAppStartupManager -> OplusStartupStrategy -> google_restric_info
         "com.android.server.am.OplusAppStartupManager\$OplusStartupStrategy".toClass().resolve()
+            .optional()
             .apply {
                 firstMethod { name = "isGoogleRestricInfoOn" }.hook {
                     replaceToFalse()
@@ -26,7 +27,7 @@ object HookGMSRestrict : YukiBaseHooker() {
             }
 
         //Source OplusHansDBConfig -> sys_elsa_config_list -> Athena
-        "com.android.server.hans.OplusHansDBConfig".toClass().resolve().apply {
+        "com.android.server.hans.OplusHansDBConfig".toClass().resolve().optional().apply {
             firstMethod { name = "updateManagedMap";parameterCount = 3 }.hook {
                 after {
                     firstField { name = "mGMSList" }.of(instance).get<SparseArray<Any>>()?.clear()
@@ -43,41 +44,44 @@ object HookGMSRestrict : YukiBaseHooker() {
     object GMSRestrict : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusBgSceneManager -> google_restric_info
-            "com.android.server.hans.scene.OplusBgSceneManager".toClass().resolve().apply {
-                firstMethod { name = "setGmsRestricted" }.hook {
-                    before {
-                        args().first().setFalse()
+            "com.android.server.hans.scene.OplusBgSceneManager".toClass().resolve().optional()
+                .apply {
+                    firstMethod { name = "setGmsRestricted" }.hook {
+                        before {
+                            args().first().setFalse()
+                        }
+                    }
+                    firstMethod { name = "isGmsRestricted" }.hook {
+                        replaceToFalse()
+                    }
+                    firstMethod { name = "registerGmsRestrictObserver" }.hook {
+                        intercept()
                     }
                 }
-                firstMethod { name = "isGmsRestricted" }.hook {
-                    replaceToFalse()
-                }
-                firstMethod { name = "registerGmsRestrictObserver" }.hook {
-                    intercept()
-                }
-            }
         }
     }
 
     object GMSRestrictV13 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusHansManager -> HansConfig -> google_restric_info
-            "com.android.server.am.OplusHansManager\$HansConfig".toClass().resolve().apply {
-                firstMethod { name = "setGmsRestricted" }.hook {
-                    before {
-                        args().first().setFalse()
+            "com.android.server.am.OplusHansManager\$HansConfig".toClass().resolve().optional()
+                .apply {
+                    firstMethod { name = "setGmsRestricted" }.hook {
+                        before {
+                            args().first().setFalse()
+                        }
+                    }
+                    firstMethod { name = "isGmsRestricted" }.hook {
+                        replaceToFalse()
                     }
                 }
-                firstMethod { name = "isGmsRestricted" }.hook {
-                    replaceToFalse()
-                }
-            }
             //Source OplusHansManager -> HansTrigger -> google_restric_info
-            "com.android.server.am.OplusHansManager\$HansTrigger".toClass().resolve().apply {
-                firstMethod { name = "registerGmsRestrictObserver" }.hook {
-                    intercept()
+            "com.android.server.am.OplusHansManager\$HansTrigger".toClass().resolve().optional()
+                .apply {
+                    firstMethod { name = "registerGmsRestrictObserver" }.hook {
+                        intercept()
+                    }
                 }
-            }
         }
     }
 }

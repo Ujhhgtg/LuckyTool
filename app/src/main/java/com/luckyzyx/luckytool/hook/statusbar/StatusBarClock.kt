@@ -6,13 +6,9 @@ import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.TextView
-import com.highcapable.yukihookapi.hook.bean.VariousClass
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.constructor
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.hasMethod
-import com.highcapable.yukihookapi.hook.factory.method
-import com.highcapable.yukihookapi.hook.type.java.CharSequenceClass
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.formatDate
@@ -75,8 +71,8 @@ object StatusBarClock : YukiBaseHooker() {
         dataChannel.wait<Boolean>("statusbar_clock_use_bold_font_style") { useBoldFont = it }
 
         //Source Clock
-        "com.android.systemui.statusbar.policy.Clock".toClass().apply {
-            constructor { paramCount = 3 }.hook {
+        "com.android.systemui.statusbar.policy.Clock".toClass().resolve().apply {
+            firstConstructor { parameterCount = 3 }.hook {
                 after {
                     val clockView = instance<TextView>().apply {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
@@ -86,13 +82,13 @@ object StatusBarClock : YukiBaseHooker() {
                     Timer().schedule(object : TimerTask() {
                         override fun run() {
                             Handler(clockView.context.mainLooper).post {
-                                method { name = "updateClock" }.get(clockView).call()
+                                firstMethod { name = "updateClock" }.of(clockView).invoke()
                             }
                         }
                     }, 1000 - System.currentTimeMillis() % 1000, 1000)
                 }
             }
-            method { name = "getSmallTime";returnType = CharSequenceClass }.hook {
+            firstMethod { name = "getSmallTime";returnType = CharSequence::class }.hook {
                 after {
                     val clockView = instance<TextView>().apply {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
@@ -100,7 +96,7 @@ object StatusBarClock : YukiBaseHooker() {
                         initView()
                     }
                     val context = clockView.context
-                    val mCalendar = field { name = "mCalendar" }.get(instance).cast<Calendar>()
+                    val mCalendar = firstField { name = "mCalendar" }.of(instance).get<Calendar>()
                     val nowTime = mCalendar?.time ?: Date()
                     result = when (clockMode) {
                         "1" -> getDate(context, nowTime) + newline + getTime(context, nowTime)
@@ -109,7 +105,7 @@ object StatusBarClock : YukiBaseHooker() {
                     }
                 }
             }
-            method { name = "onMeasure" }.hook {
+            firstMethod { name = "onMeasure" }.hook {
                 before {
                     val clockView = instance<TextView>().apply {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
@@ -124,25 +120,24 @@ object StatusBarClock : YukiBaseHooker() {
         }
 
         //Source StatClock
-        VariousClass(
+        (VariousClass(
             "com.oplusos.systemui.statusbar.widget.StatClock", //C12 C13
             "com.oplus.systemui.statusbar.widget.StatClock" //C14
-        ).toClass().apply {
-            val hasUpdateMinWidth = hasMethod { name = "updateMinWidth" }
-            method {
+        ).toClass() as Class<Any>).resolve().apply {
+            firstMethod {
                 name { it.startsWith("onConfig") && it.endsWith("Changed") }
             }.hook {
                 intercept()
             }
             if (osCode >= 33) {
-                method { name = "onMeasure" }.hook {
+                firstMethod { name = "onMeasure" }.hook {
                     before {
-                        field { name = "mShowSeconds";superClass() }.get(instance).setTrue()
+                        firstField { name = "mShowSeconds";superclass() }.of(instance).set(true)
                     }
                 }
-                if (hasUpdateMinWidth) method { name = "updateMinWidth" }.hook {
+                firstMethodOrNull { name = "updateMinWidth" }?.hook {
                     before {
-                        field { name = "mShowSeconds";superClass() }.get(instance).setTrue()
+                        firstField { name = "mShowSeconds";superclass() }.of(instance).set(true)
                     }
                 }
             }

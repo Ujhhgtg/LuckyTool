@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.factory.field
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomCameraOpenGalleryByDefault
 import com.luckyzyx.luckytool.hook.scopes.camera.CustomModelWaterMark
 import com.luckyzyx.luckytool.hook.scopes.camera.EnableCameraDebugUIOption
@@ -16,6 +15,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookCamera : YukiBaseHooker() {
@@ -26,8 +26,8 @@ object HookCamera : YukiBaseHooker() {
         if (appVer?.versionCommit.isNullOrBlank()) return
 
         //Source BuildConfig
-        val brand = "com.oplus.camera.filter.BuildConfig".toClassOrNull()
-            ?.field { name = "FLAVOR_b" }?.get()?.string() ?: ""
+        val brand = "com.oplus.camera.filter.BuildConfig".toClassOrNull()?.resolve()
+            ?.firstField { name = "FLAVOR_b" }?.get<String>() ?: ""
 
         //HookCameraConfig
         if (SDK >= A13) loadHooker(HookCameraConfig)

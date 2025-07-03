@@ -14,7 +14,7 @@ object MediaVolumeLevel : YukiBaseHooker() {
         val minVolumeZero = prefs(ModulePrefs).getBoolean("minimum_volume_level_can_be_zero", false)
 
         //Source AudioServiceExtImpl
-        "com.android.server.audio.AudioServiceExtImpl".toClass().resolve().apply {
+        "com.android.server.audio.AudioServiceExtImpl".toClass().resolve().optional().apply {
             firstMethod { name = "resetSystemVolume" }.hook {
                 after {
                     if (mediaVolumeLevel != 0) {

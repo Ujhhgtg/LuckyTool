@@ -68,6 +68,7 @@ object HookOplusWifiService : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSoftapStatistics
             "com.oplus.server.wifi.hotspot.OplusSoftapStatistics".toClass(classLoader).resolve()
+                .optional()
                 .apply {
                     firstMethod { name = "startSoftapEnableTimer" }.hook {
                         intercept()
@@ -125,7 +126,7 @@ object HookOplusWifiService : YukiBaseHooker() {
             VariousClass(
                 "com.oplus.server.wifi.OplusSlaApps", //C13
                 "com.oplus.server.wifi.sla.OplusSlaApps" //C14 C15
-            ).toClass(classLoader).resolve().apply {
+            ).toClass(classLoader).resolve().optional().apply {
                 firstMethod {
                     name = "getSlaWhiteListAppsFromRus"
                     returnType = ArrayClass(String::class.java)

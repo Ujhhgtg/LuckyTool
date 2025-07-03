@@ -12,7 +12,7 @@ object ForceEnable32BitSupport : YukiBaseHooker() {
         if (!isEnable) return
 
         //Source OplusPackageManagerHelper
-        "com.android.server.pm.OplusPackageManagerHelper".toClass().resolve().apply {
+        "com.android.server.pm.OplusPackageManagerHelper".toClass().resolve().optional().apply {
             firstMethod { name = "allowInstall32BitApp" }.hook {
                 replaceToTrue()
             }

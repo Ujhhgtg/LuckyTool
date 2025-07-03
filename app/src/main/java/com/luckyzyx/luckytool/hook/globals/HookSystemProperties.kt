@@ -9,7 +9,7 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
     override fun onHook() {
         if (props.isEmpty()) return
         //Source SystemProperties
-        "android.os.SystemProperties".toClass().resolve().apply {
+        "android.os.SystemProperties".toClass().resolve().optional().apply {
             method { name = "get";returnType = String::class }.hookAll {
                 after {
                     val key = args().first().cast<String>()

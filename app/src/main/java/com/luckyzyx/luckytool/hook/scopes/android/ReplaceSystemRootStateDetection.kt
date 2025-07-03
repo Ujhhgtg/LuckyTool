@@ -16,21 +16,23 @@ object ReplaceSystemRootStateDetection : YukiBaseHooker() {
         if (SDK < A12 || !isEnable) return
 
         //Source HeimdallService
-        if (osCode > 26) "com.android.server.oplus.heimdall.HeimdallService".toClass().resolve().apply {
+        if (osCode > 26) "com.android.server.oplus.heimdall.HeimdallService".toClass().resolve()
+            .optional().apply {
             firstMethod { name = "isRootEnable" }.hook {
                 replaceToFalse()
             }
         }
 
         //Source RootService
-        "com.android.server.oplus.heimdall.service.RootService".toClass().resolve().apply {
-            firstMethod { name = "isRoot" }.hook {
-                replaceToFalse()
+        "com.android.server.oplus.heimdall.service.RootService".toClass().resolve().optional()
+            .apply {
+                firstMethod { name = "isRoot" }.hook {
+                    replaceToFalse()
+                }
             }
-        }
 
         //Source HeimdallService
-        "com.android.server.oplus.heimdall.root.RootDetector".toClass().resolve().apply {
+        "com.android.server.oplus.heimdall.root.RootDetector".toClass().resolve().optional().apply {
             firstMethod { name = "checkDeviceRootStatus" }.hook {
                 intercept()
             }

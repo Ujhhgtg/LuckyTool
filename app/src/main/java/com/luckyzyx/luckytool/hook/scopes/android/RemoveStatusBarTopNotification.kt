@@ -11,7 +11,7 @@ object RemoveStatusBarTopNotification : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_statusbar_top_notification", false)
 
         //Source AlertWindowNotification
-        "com.android.server.wm.AlertWindowNotification".toClass().resolve().apply {
+        "com.android.server.wm.AlertWindowNotification".toClass().resolve().optional().apply {
             firstMethod { name = "onPostNotification" }.hook {
                 if (isEnable) intercept()
             }

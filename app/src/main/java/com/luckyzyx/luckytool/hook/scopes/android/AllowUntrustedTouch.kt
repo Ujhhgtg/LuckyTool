@@ -13,7 +13,7 @@ object AllowUntrustedTouch : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("allow_untrusted_touch", false)
 
         //Source UntrustedTouchController
-        "com.android.server.input.UntrustedTouchController".toClass().resolve().apply {
+        "com.android.server.input.UntrustedTouchController".toClass().resolve().optional().apply {
             firstMethod { name = "isOplusTrustedApp" }.hook {
                 if (isEnable) replaceToTrue()
             }
@@ -22,14 +22,14 @@ object AllowUntrustedTouch : YukiBaseHooker() {
             }
         }
         //Source WindowStateExtImpl
-        "com.android.server.wm.WindowStateExtImpl".toClass().resolve().apply {
+        "com.android.server.wm.WindowStateExtImpl".toClass().resolve().optional().apply {
             firstMethod { name = "isOplusTrustedWindow" }.hook {
                 if (isEnable) replaceToTrue()
             }
         }
         if (SDK >= A14) return
         //Source InputManager
-        "android.hardware.input.InputManager".toClass().resolve().apply {
+        "android.hardware.input.InputManager".toClass().resolve().optional().apply {
             firstMethod { name = "getBlockUntrustedTouchesMode" }.hook {
                 if (isEnable) replaceTo(0)
             }

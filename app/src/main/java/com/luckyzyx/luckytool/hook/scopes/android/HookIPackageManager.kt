@@ -76,7 +76,7 @@ class HookIPackageManager : YukiBaseHooker() {
     inner class HookQueryIntentActivitie : YukiBaseHooker() {
         override fun onHook() {
             //Source IPackageManagerBase
-            "com.android.server.pm.IPackageManagerBase".toClass().resolve().apply {
+            "com.android.server.pm.IPackageManagerBase".toClass().resolve().optional().apply {
                 firstMethod {
                     name = "queryIntentActivities"
                     parameters(Intent::class, String::class, Long::class, Int::class)
