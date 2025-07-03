@@ -5,7 +5,6 @@ import com.highcapable.kavaref.extension.VariousClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused")
 class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplus.systemui.qs.media.OplusQsMediaCarouselController\$MediaPlayerData",  //C13.0 C13.1

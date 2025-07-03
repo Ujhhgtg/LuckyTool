@@ -11,7 +11,6 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.convertToMillis
-import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.delay
 import org.lsposed.lsparanoid.Obfuscate
 

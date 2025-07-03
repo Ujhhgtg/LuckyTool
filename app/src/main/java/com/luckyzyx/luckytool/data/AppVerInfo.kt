@@ -20,7 +20,7 @@ data class AppVerInfo(
         return safeOfNull { JSONObject(jsonString) }?.let { toAppVerInfo(it) }
     }
 
-    @Suppress("MemberVisibilityCanBePrivate", "MemberVisibilityCanBePrivate")
+    @Suppress("MemberVisibilityCanBePrivate")
     fun toAppVerInfo(jsonObject: JSONObject): AppVerInfo {
         appName = jsonObject.optString("appName")
         packName = jsonObject.optString("packName")

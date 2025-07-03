@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.service
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.os.RemoteException
@@ -9,9 +8,7 @@ import android.os.ServiceManager
 import android.telephony.TelephonyManager
 import com.android.internal.telephony.ITelephony
 import com.android.internal.telephony.RILConstants
-import com.highcapable.yukihookapi.hook.factory.current
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import org.lsposed.lsparanoid.Obfuscate
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.hook.utils.IColorDisplayUtils
 import com.luckyzyx.luckytool.service.base.BaseControllerService
@@ -22,6 +19,7 @@ import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import okhttp3.internal.toHexString
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -50,7 +48,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             //FiveG
             private val telephonyService by lazy {
-                ServiceManager.getService(Context.TELEPHONY_SERVICE)
+                ServiceManager.getService(TELEPHONY_SERVICE)
             }
 
             private val iTelephony by lazy {
@@ -123,10 +121,10 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun getDarkMode(): Boolean {
                 return try {
-                    iColorDisplayManagerInternal?.current()?.method {
+                    iColorDisplayManagerInternal?.resolve()?.firstMethod {
                         name = "isReduceBrightColorsActivated"
-                        emptyParam()
-                    }?.boolean() ?: false
+                        emptyParameters()
+                    }?.invoke<Boolean>() ?: false
                 } catch (e: Throwable) {
                     LogUtils.d(TAG, "getDarkMode", "$e", true)
                     false
@@ -135,10 +133,10 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun setDarkMode(status: Boolean) {
                 try {
-                    iColorDisplayManagerInternal?.current()?.method {
+                    iColorDisplayManagerInternal?.resolve()?.firstMethod {
                         name = "setReduceBrightColorsActivated"
-                        param(BooleanType)
-                    }?.call(status)
+                        parameters(Boolean::class)
+                    }?.invoke(status)
                 } catch (e: Throwable) {
                     LogUtils.d(TAG, "setDarkMode", "$e", true)
                 }

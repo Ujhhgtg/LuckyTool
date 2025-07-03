@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import org.lsposed.lsparanoid.Obfuscate
 import java.io.Serializable
 
-@Suppress("MemberVisibilityCanBePrivate")
 @Obfuscate
 class AppInfo : Serializable {
 

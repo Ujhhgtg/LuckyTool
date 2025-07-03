@@ -6,7 +6,6 @@ import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused")
 class SurfaceControlUtils(val classLoader: ClassLoader?) {
 
     val clazz = "android.view.SurfaceControl".toClass(classLoader)

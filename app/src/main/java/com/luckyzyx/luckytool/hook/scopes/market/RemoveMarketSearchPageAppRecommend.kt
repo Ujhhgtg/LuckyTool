@@ -57,7 +57,7 @@ class RemoveMarketSearchPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
                         val viewGroup = firstField { type = horizontalAppItemView }.of(instance)
                             .get<ViewGroup>()
 
-                        YLog.debug("${dto.toString()}")
+                        YLog.debug("$dto")
 
                         val code =
                             dto.resolve().firstMethod { name = "getCode";superclass() }.invoke()

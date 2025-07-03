@@ -5,7 +5,6 @@ import com.highcapable.kavaref.extension.toClassOrNull
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused")
 class QSFeatureOptionUtils(val classLoader: ClassLoader?) {
 
     val clazz = "com.oplusos.systemui.common.feature.QSFeatureOption".toClassOrNull(classLoader)

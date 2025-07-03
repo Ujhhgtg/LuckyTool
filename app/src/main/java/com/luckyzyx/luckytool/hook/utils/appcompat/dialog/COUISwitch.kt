@@ -9,7 +9,7 @@ import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused")
 class COUISwitch {
 
     private val clazzString = "com.coui.appcompat.couiswitch.COUISwitch"

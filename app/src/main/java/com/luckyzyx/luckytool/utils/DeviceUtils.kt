@@ -109,7 +109,7 @@ object DeviceUtils {
      * 获取PCB信息
      */
     fun getPcbInfo(): String {
-        val command = "echo \$(getprop gsm.serial)\$(getprop vendor.gsm.serial)"
+        val command = "echo $(getprop gsm.serial)$(getprop vendor.gsm.serial)"
         return ShellUtils.fastCmd(command).ifBlank { "null" }
     }
 
@@ -210,7 +210,7 @@ object DeviceUtils {
             val configList = ArrayList<String>()
             val indexList = ArrayList<String>()
             val command1 =
-                "ls -f /data/data/com.tencent.mobileqq/databases/ | egrep 'config_db([0-9]+)\$' | | sed 's/config_db//g'"
+                "ls -f /data/data/com.tencent.mobileqq/databases/ | egrep 'config_db([0-9]+)$' | sed 's/config_db//g'"
             val command2 =
                 "ls -f /data/data/com.tencent.mobileqq/databases/ | egrep '([0-9]+)-IndexQQMsg.db' | sed 's/-IndexQQMsg.db//g'"
             Shell.cmd(command1).to(configList).exec()

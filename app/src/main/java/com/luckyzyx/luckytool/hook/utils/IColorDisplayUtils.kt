@@ -5,7 +5,7 @@ import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused")
 class IColorDisplayUtils(val classLoader: ClassLoader?) {
 
     val serviceName = "color_display"

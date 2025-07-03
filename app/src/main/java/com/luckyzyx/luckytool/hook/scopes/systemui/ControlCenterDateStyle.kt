@@ -124,21 +124,21 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                         val qs_footer_date_width = res.getDimensionPixelSize(
                             res.getIdentifier(
                                 "qs_footer_date_width", "dimen",
-                                ControlCenterDateStyle.packageName
+                                packageName
                             )
                         )
                         //10dp
                         val qs_footer_date_margin_start = res.getDimensionPixelSize(
                             res.getIdentifier(
                                 "qs_footer_date_margin_start", "dimen",
-                                ControlCenterDateStyle.packageName
+                                packageName
                             )
                         )
                         //51dp
                         val qs_footer_date_expand_translation_y = res.getDimensionPixelSize(
                             res.getIdentifier(
                                 "qs_footer_date_expand_translation_y", "dimen",
-                                ControlCenterDateStyle.packageName
+                                packageName
                             )
                         )
                         val isRtl = Locale.getDefault().layoutDirection == LayoutDirection.RTL

@@ -32,7 +32,6 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
         "https://dl.coolapk.com/down?pn=com.coolapk.market&id=NDU5OQ&h=46bb9d98&from=from-web"
 
     @SuppressLint("SetTextI18n")
-    @Suppress("UNUSED_PARAMETER")
     fun checkUpdate(
         versionName: String, versionCode: Int, result: (String, Int, () -> Unit) -> Unit
     ) {
@@ -119,7 +118,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
 
     @SuppressLint("ClickableViewAccessibility")
     fun downloadFile(context: Context, apkFile: File, url: String) {
-        var downloadScope: NetCoroutineScope = scopeNet { }
+        var downloadScope: NetCoroutineScope? = null
         val binding = DialogDownloadLayoutBinding.inflate(LayoutInflater.from(context))
         val downloadDialog = MaterialAlertDialogBuilder(context, dialogCentered).apply {
             setTitle(context.getString(R.string.downloading))
@@ -136,7 +135,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
                 text = context.getString(R.string.cancel_button)
                 setOnClickListener {
                     apkFile.delete()
-                    downloadScope.cancel()
+                    downloadScope?.cancel()
                     downloadDialog.dismiss()
                 }
             }

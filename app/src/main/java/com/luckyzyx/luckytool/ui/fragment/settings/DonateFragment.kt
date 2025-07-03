@@ -11,7 +11,6 @@ import com.drake.net.Get
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.scopeNetLife
 import com.google.android.material.chip.Chip
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.DonateDetailInfo
 import com.luckyzyx.luckytool.data.DonateInfo
@@ -32,6 +31,7 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import org.json.JSONArray
 import org.json.JSONObject
+import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 import java.text.DecimalFormat
 
@@ -285,7 +285,7 @@ class DonateFragment : Fragment() {
             }
             if (isReverse) reverse()
 
-            if (donateList.size > 0 && develop) {
+            if (donateList.isNotEmpty() && develop) {
                 val formatRmb = DecimalFormat("0.00").format(totalRmbCount).toDouble()
                 val formatOth = DecimalFormat("0.00").format(totalOtherCount).toDouble()
 
@@ -369,7 +369,7 @@ class DonateFragment : Fragment() {
             }
             if (isReverse) reverse()
 
-            if (donateList.size > 0 && develop) {
+            if (donateList.isNotEmpty() && develop) {
                 val formatRmb = DecimalFormat("0.00").format(totalRmbCount).toDouble()
                 val formatOth = DecimalFormat("0.00").format(totalOtherCount).toDouble()
 

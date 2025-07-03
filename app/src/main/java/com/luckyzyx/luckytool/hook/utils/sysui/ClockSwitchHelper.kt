@@ -6,7 +6,7 @@ import com.highcapable.kavaref.extension.VariousClass
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused")
 class ClockSwitchHelper(val classLoader: ClassLoader?) {
 
     val clazz = VariousClass(

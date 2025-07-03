@@ -12,7 +12,6 @@ import com.luckyzyx.luckytool.utils.safeOfNan
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused")
 object CustomNotificationBackgroundTransparency : YukiBaseHooker() {
 
     private var defaultNotifyPanelTintList: ColorStateList? = null

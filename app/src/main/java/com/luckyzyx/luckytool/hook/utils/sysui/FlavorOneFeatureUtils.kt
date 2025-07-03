@@ -7,7 +7,6 @@ import com.luckyzyx.luckytool.utils.SDK
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-@Suppress("unused")
 class FlavorOneFeatureUtils(val classLoader: ClassLoader?) {
 
     val clazz = "com.oplusos.systemui.common.feature.FlavorOneFeatureOption".toClass(classLoader)
