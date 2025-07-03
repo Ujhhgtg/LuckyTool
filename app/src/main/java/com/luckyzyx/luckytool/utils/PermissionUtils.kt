@@ -47,7 +47,7 @@ class PermissionUtils(val context: Context) {
     }
 
     private fun refreshNotifyChip(): Boolean {
-        val isGranted = XXPermissions.isGranted(context, Permission.NOTIFICATION_SERVICE)
+        val isGranted = XXPermissions.isGrantedPermissions(context, Permission.NOTIFICATION_SERVICE)
         binding.notifyChip.apply {
             isEnabled = !isGranted
             setOnClickListener {
@@ -62,7 +62,8 @@ class PermissionUtils(val context: Context) {
     }
 
     private fun refreshStorageChip(): Boolean {
-        val isGranted = XXPermissions.isGranted(context, Permission.MANAGE_EXTERNAL_STORAGE)
+        val isGranted =
+            XXPermissions.isGrantedPermissions(context, Permission.MANAGE_EXTERNAL_STORAGE)
         binding.storageChip.apply {
             isEnabled = !isGranted
             setOnClickListener {
@@ -77,7 +78,7 @@ class PermissionUtils(val context: Context) {
     }
 
     private fun refreshAppListChip(): Boolean {
-        val isGranted = XXPermissions.isGranted(context, Permission.GET_INSTALLED_APPS)
+        val isGranted = XXPermissions.isGrantedPermissions(context, Permission.GET_INSTALLED_APPS)
         binding.appListChip.apply {
             isEnabled = !isGranted
             setOnClickListener {
@@ -92,7 +93,8 @@ class PermissionUtils(val context: Context) {
     }
 
     private fun refreshInstallAppChip(): Boolean {
-        val isGranted = XXPermissions.isGranted(context, Permission.REQUEST_INSTALL_PACKAGES)
+        val isGranted =
+            XXPermissions.isGrantedPermissions(context, Permission.REQUEST_INSTALL_PACKAGES)
         binding.installAppChip.apply {
             isEnabled = !isGranted
             setOnClickListener {
