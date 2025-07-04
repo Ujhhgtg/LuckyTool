@@ -15,7 +15,7 @@ object RemoveVPNActiveNotification : YukiBaseHooker() {
         VariousClass(
             "com.android.server.connectivity.VpnExtImpl", //C12 C13 C14
             "com.android.server.connectivity.OplusVpnHelper"
-        ).toClass().resolve().optional().apply {
+        ).toClass().resolve().apply {
             firstMethod { name = "showNotification" }.hook {
                 if (isEnable) intercept()
             }

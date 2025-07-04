@@ -56,7 +56,7 @@ class ZoomWindowConfig : YukiBaseHooker() {
     inner class HookZoomWindow : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusZoomWindowConfig
-            "com.android.server.wm.OplusZoomWindowConfig".toClass().resolve().optional().apply {
+            "com.android.server.wm.OplusZoomWindowConfig".toClass().resolve().apply {
                 firstMethod {
                     name = "isSupportZoomMode"
                     parameters(String::class, Int::class, String::class, Bundle::class)
@@ -82,30 +82,28 @@ class ZoomWindowConfig : YukiBaseHooker() {
     inner class HookFlexibleWindow : YukiBaseHooker() {
         override fun onHook() {
             //Source FlexibleWindowUtils
-            "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.resolve()?.optional()
-                ?.apply {
-                    firstMethod {
-                        name = "isSupportFlexibleWindow"
-                        parameters(String::class, String::class)
-                    }.hook {
-                        before {
-                            when (mode) {
-                                "1" -> resultFalse()
-                                "2" -> resultTrue()
-                                "3" -> {
-                                    val target = args().first().string()
-                                    val packName = if (target.contains("/").not()) target
-                                    else target.split("/")[0]
-                                    if (list.contains(packName)) resultTrue()
-                                }
+            "com.android.server.wm.FlexibleWindowUtils".toClassOrNull()?.resolve()?.apply {
+                firstMethod {
+                    name = "isSupportFlexibleWindow"
+                    parameters(String::class, String::class)
+                }.hook {
+                    before {
+                        when (mode) {
+                            "1" -> resultFalse()
+                            "2" -> resultTrue()
+                            "3" -> {
+                                val target = args().first().string()
+                                val packName = if (target.contains("/").not()) target
+                                else target.split("/")[0]
+                                if (list.contains(packName)) resultTrue()
                             }
                         }
                     }
                 }
+            }
 
             //Source FlexibleWindowManagerService
-            "com.android.server.wm.FlexibleWindowManagerService".toClassOrNull()?.resolve()
-                ?.optional()?.apply {
+            "com.android.server.wm.FlexibleWindowManagerService".toClassOrNull()?.resolve()?.apply {
                 firstMethod {
                     name = "getMaxWinNum"
                     returnType = Int::class

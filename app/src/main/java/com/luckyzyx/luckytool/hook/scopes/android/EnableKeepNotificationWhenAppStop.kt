@@ -16,7 +16,7 @@ object EnableKeepNotificationWhenAppStop : YukiBaseHooker() {
         //Source OplusNotificationManagerServiceExtImpl -> shouldKeepNotifcationWhenForceStop
         //Source OplusNotificationCommonPolicy -> shouldKeepNotifcationWhenForceStop
         "com.android.server.notification.OplusNotificationManagerServiceExtImpl".toClass().resolve()
-            .optional().apply {
+            .apply {
                 firstMethod { name = "shouldKeepNotifcationWhenForceStop" }.hook {
                     before {
                         if (!isEnable) return@before

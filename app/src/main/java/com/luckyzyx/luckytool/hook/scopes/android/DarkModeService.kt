@@ -38,7 +38,7 @@ object DarkModeService : YukiBaseHooker() {
         loadData()
 
         //Source OplusDarkModeServiceManager
-        "com.android.server.OplusDarkModeServiceManager".toClass().resolve().optional().apply {
+        "com.android.server.OplusDarkModeServiceManager".toClass().resolve().apply {
             firstMethod {
                 name { it.startsWith("updateList") }
                 parameterCount = 1

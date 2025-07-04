@@ -30,7 +30,7 @@ object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
             prefs(ModulePrefs).getStringSet("memc_config_activity_list", ArraySet())
 
         //Source OplusMemcHelper
-        "com.android.server.display.memc.OplusMemcHelper".toClass().resolve().optional().apply {
+        "com.android.server.display.memc.OplusMemcHelper".toClass().resolve().apply {
             firstMethod { name = "init" }.hook {
                 after {
                     if (!isEnable) return@after

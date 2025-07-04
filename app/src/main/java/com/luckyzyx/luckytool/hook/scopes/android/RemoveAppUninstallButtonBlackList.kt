@@ -12,20 +12,17 @@ object RemoveAppUninstallButtonBlackList : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_app_uninstall_button_blacklist", false)
 
         //Source OplusUninstallableConfigManager
-        "com.android.server.pm.OplusUninstallableConfigManager".toClass().resolve().optional()
-            .apply {
-                firstMethod { name = "loadUninstallableConfig" }.hook {
-                    after {
-                        if (!isEnable) return@after
-                        val icon = firstField { name = "mHideUninstallIcon" }.of(instance).get()
-                        icon?.resolve()?.firstField { name = "mList" }?.get<ArraySet<String>>()
-                            ?.clear()
-                        val iconSoft =
-                            firstField { name = "mHideUninstallIconSoft" }.of(instance).get()
-                        iconSoft?.resolve()?.firstField { name = "mList" }?.get<ArraySet<String>>()
-                            ?.clear()
-                    }
+        "com.android.server.pm.OplusUninstallableConfigManager".toClass().resolve().apply {
+            firstMethod { name = "loadUninstallableConfig" }.hook {
+                after {
+                    if (!isEnable) return@after
+                    val icon = firstField { name = "mHideUninstallIcon" }.of(instance).get()
+                    icon?.resolve()?.firstField { name = "mList" }?.get<ArraySet<String>>()?.clear()
+                    val iconSoft = firstField { name = "mHideUninstallIconSoft" }.of(instance).get()
+                    iconSoft?.resolve()?.firstField { name = "mList" }?.get<ArraySet<String>>()
+                        ?.clear()
                 }
             }
+        }
     }
 }

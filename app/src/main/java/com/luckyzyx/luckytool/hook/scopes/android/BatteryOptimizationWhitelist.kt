@@ -16,7 +16,7 @@ object BatteryOptimizationWhitelist : YukiBaseHooker() {
 
         //Source oplus-service-jobscheduler -> OplusDeviceIdleHelper
         //Search sys_deviceidle_whitelist
-        "com.android.server.OplusDeviceIdleHelper".toClass().resolve().optional().apply {
+        "com.android.server.OplusDeviceIdleHelper".toClass().resolve().apply {
             (firstMethodOrNull { name = "getNewWhiteList" }
                 ?: firstMethod { name = "getNewWhiteListLocked" }).hook {
                 before {

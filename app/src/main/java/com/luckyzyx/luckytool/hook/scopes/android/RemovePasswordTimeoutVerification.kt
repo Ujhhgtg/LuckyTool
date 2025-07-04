@@ -11,7 +11,7 @@ object RemovePasswordTimeoutVerification : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_72hour_password_verification", false)
 
         //Source LockSettingsStrongAuth -> StrongAuthTimeoutAlarmListener
-        "com.android.server.locksettings.LockSettingsStrongAuth".toClass().resolve().optional().apply {
+        "com.android.server.locksettings.LockSettingsStrongAuth".toClass().resolve().apply {
             firstMethod {
                 name = "rescheduleStrongAuthTimeoutAlarm"
                 parameterCount = 2

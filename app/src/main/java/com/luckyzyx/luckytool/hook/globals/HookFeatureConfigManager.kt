@@ -9,7 +9,7 @@ class HookFeatureConfigManager(private val features: Map<String, Boolean>) : Yuk
     override fun onHook() {
         if (features.isEmpty()) return
         //Source OplusFeatureConfigManager
-        "com.oplus.content.OplusFeatureConfigManager".toClassOrNull()?.resolve()?.optional()?.apply {
+        "com.oplus.content.OplusFeatureConfigManager".toClassOrNull()?.resolve()?.apply {
             firstMethod {
                 name = "hasFeature"
                 parameterCount = 1

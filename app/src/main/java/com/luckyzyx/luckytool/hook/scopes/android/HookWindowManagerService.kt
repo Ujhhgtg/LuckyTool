@@ -19,7 +19,7 @@ object HookWindowManagerService : YukiBaseHooker() {
         val windowManagerService = "com.android.server.wm.WindowManagerService"
 
         //Source OplusWindowManagerService
-        "com.android.server.wm.OplusWindowManagerService".toClass().resolve().optional().apply {
+        "com.android.server.wm.OplusWindowManagerService".toClass().resolve().apply {
             firstMethod {
                 name = "clearForcedDisplayDensityForUser"
                 parameterCount = 2
@@ -35,7 +35,7 @@ object HookWindowManagerService : YukiBaseHooker() {
         }
 
         //Source DisplayWindowSettings
-        "com.android.server.wm.DisplayWindowSettings".toClass().resolve().optional().apply {
+        "com.android.server.wm.DisplayWindowSettings".toClass().resolve().apply {
             method {
                 name = "setForcedDensity"
                 parameterCount { it in 2..3 }
@@ -61,7 +61,7 @@ object HookWindowManagerService : YukiBaseHooker() {
 
         //Source DisplayContentExtImpl
         if (SDK >= A14) {
-            "com.android.server.wm.DisplayContentExtImpl".toClass().resolve().optional().apply {
+            "com.android.server.wm.DisplayContentExtImpl".toClass().resolve().apply {
                 firstMethod {
                     name = "setForcedDisplayInfoForWmSize"
                     parameterCount = 5
@@ -88,7 +88,7 @@ object HookWindowManagerService : YukiBaseHooker() {
         }
 
         //Source OplusResolutionSwitchImpl
-        "com.android.server.wm.OplusResolutionSwitchImpl".toClass().resolve().optional().apply {
+        "com.android.server.wm.OplusResolutionSwitchImpl".toClass().resolve().apply {
             firstMethodOrNull { name = "resetDensityIfNeed" }?.hook {
                 before {
                     if (isDpi) resultNull()
