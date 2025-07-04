@@ -81,8 +81,9 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                         var res = dateView.text.toString()
                         if (removeComma) res = res.replace("，", " ")
                         if (showLunar) {
-                            LunarHelperUtils(dateView.context, appClassLoader).apply {
-                                if (lunarInstance == null) lunarInstance = getInstance(context)
+                            LunarHelperUtils(appClassLoader).apply {
+                                if (lunarInstance == null) lunarInstance =
+                                    getInstance(dateView.context)
                                 val lunarInfo = generateLunarDate(2)
                                 if (lunarInfo.isNotBlank()) res += " $lunarInfo"
                             }
@@ -152,7 +153,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             if (translationX == 0 || translationY == 0) return@getScreenOrientation
 
                             mTmpConstraintSet.resolve().apply {
-                                firstMethod {  }
+                                firstMethod { }
                                 when (displayMode) {
                                     "1" -> firstMethod {
                                         name = "constrainWidth"

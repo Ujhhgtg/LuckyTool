@@ -4,8 +4,6 @@ import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.createInstance
-import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
-import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.safeOf
@@ -15,29 +13,29 @@ import java.util.Date
 
 @Obfuscate
 @Suppress("unused")
-class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
+class LunarHelperUtils(val classLoader: ClassLoader?) {
     private val tags = "LunarHelperUtils"
-
-    private val mLeapMonth: Array<String>
-    private val mAnimals: Array<String>
-    private val mTianGan: Array<String>
-    val mDiZhi: Array<String>
-    private val mChineseMonthTable: Array<String>
-    private val mChineseDayTable: Array<String>
 
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.LunarHelper",  //C13
         "com.oplus.systemui.keyguard.clock.LunarHelper"  //C14 C15
     ).load(classLoader) as Class<Any>
 
-    init {
-        context.injectModuleAppResources()
-        mLeapMonth = context.resources.getStringArray(R.array.kgd_chinese_leap_month)
-        mAnimals = context.resources.getStringArray(R.array.kgd_chinese_animal_year)
-        mTianGan = context.resources.getStringArray(R.array.kgd_chinese_tiangan)
-        mDiZhi = context.resources.getStringArray(R.array.kgd_chinese_dizhi)
-        mChineseMonthTable = context.resources.getStringArray(R.array.kgd_chinese_month_number)
-        mChineseDayTable = context.resources.getStringArray(R.array.kgd_chinese_day_number)
+    companion object {
+        val mLeapMonth = arrayOf("闰", "月")
+        val mAnimals = arrayOf(
+            "鼠年", "牛年", "虎年", "兔年", "龙年", "蛇年",
+            "马年", "羊年", "猴年", "鸡年", "狗年", "猪年"
+        )
+        val mTianGan = arrayOf("甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸")
+        val mDiZhi = arrayOf("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥")
+        val mChineseMonthTable =
+            arrayOf("月", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊")
+        val mChineseDayTable = arrayOf(
+            "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
+            "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
+            "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十",
+        )
     }
 
     /**
@@ -46,7 +44,7 @@ class LunarHelperUtils(val context: Context, val classLoader: ClassLoader?) {
      * @return Any?
      */
     fun getInstance(context: Context): Any? {
-        return clazz.createInstance(context)
+        return clazz.createInstance(context, isPublic = false)
     }
 
     /**

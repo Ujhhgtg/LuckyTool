@@ -20,19 +20,19 @@ class COUISwitch {
     constructor(context: Context, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.createInstance(context)
+        builder = clazz.createInstance(context, isPublic = false)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.createInstance(context, attributeSet)
+        builder = clazz.createInstance(context, attributeSet, isPublic = false)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, int: Int, classloader: ClassLoader?) {
         this.context = context
         this.clazz = clazzString.toClass(classloader)
-        builder = clazz.createInstance(context, attributeSet, int)
+        builder = clazz.createInstance(context, attributeSet, int, isPublic = false)
     }
 
     fun setTag(tag: Any): Any? {

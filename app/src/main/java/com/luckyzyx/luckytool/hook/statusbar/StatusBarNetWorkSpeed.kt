@@ -140,7 +140,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14 C15
             ).toClass() as Class<Any>).resolve().apply {
                 val mState = firstField { type = NetworkSpeedIconState }
-                val mBlocked = firstField { name = "mBlocked" }
+                val mBlocked = firstFieldOrNull { name = "mBlocked" }
                 val mSpeed = firstField { name = "mSpeed" }
                 val mSpeedNumber = firstField { name = "mSpeedNumber" }
                 val mSpeedUnit = firstField { name = "mSpeedUnit" }
@@ -197,9 +197,8 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             val getVisible = state.resolve().firstMethod { name = "getVisible" }
                                 .invoke<Boolean>() ?: false
                             mState.copy().of(instance).set(copy)
-                            val visible =
-                                getVisible && !(mBlocked.copy().of(instance).get<Boolean>()
-                                    ?: false)
+                            val block = mBlocked?.copy()?.of(instance)?.get<Boolean>() ?: false
+                            val visible = getVisible && !block
                             if (visible != viewGroup.isVisible) viewGroup.isVisible = visible
                             if (!visible) return@before
 

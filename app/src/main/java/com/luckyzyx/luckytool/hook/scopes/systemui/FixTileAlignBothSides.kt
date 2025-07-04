@@ -55,17 +55,21 @@ object FixTileAlignBothSides : YukiBaseHooker() {
             val isCustomTile = prefs(ModulePrefs).getBoolean("control_center_tile_enable", false)
             val columnHorizontal = prefs(ModulePrefs).getInt("tile_columns_horizontal_c13", 4)
 
-            val QSFragmentHelperCls = "com.oplus.systemui.qs.helper.QSFragmentHelper"
+            val QSFragmentHelperCls = VariousClass(
+                "com.oplusos.systemui.qs.helper.QSFragmentHelper", //C13
+                "com.oplus.systemui.qs.helper.QSFragmentHelper" //C14
+            ).toClass()
 
             //Source QSFragmentHelper 横屏溢出
             //Search expanded_qs_scroll_view -> qs_brightness_mirror_side_padding / qs_bottom_side_padding 24dp
             VariousClass(
+                "com.android.systemui.qs.QSFragment", //C13
                 "com.oplus.systemui.qs.OplusQSFragment", //C13
                 "com.oplus.systemui.qs.OplusQSImpl" //C14 C15
             ).toClass().resolve().apply {
                 firstMethod { name = "updateQsState" }.hook {
                     after {
-                        val qSFragmentHelper = QSFragmentHelperCls.toClass().resolve().firstMethod {
+                        val qSFragmentHelper = QSFragmentHelperCls.resolve().firstMethod {
                             name = "getInstance"
                         }.invoke() ?: return@after
                         qSFragmentHelper.resolve().firstField {

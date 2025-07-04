@@ -124,20 +124,20 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                         }
                     }
                 }
-                firstMethodOrNull { name = "updateRowsH" }?.hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        val value = customAlpha * 25
-                        firstFieldOrNull {
-                            name = "mVerticalRowsLayerDrawableMap"
-                        }?.of(instance)?.get<HashMap<Int, LayerDrawable>>()?.apply {
-                            forEach { (key, layer) ->
-                                val blurDrawable = layer.getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
+                firstFieldOrNull { name = "mVerticalRowsLayerDrawableMap" }?.let {
+                    firstMethodOrNull { name = "updateRowsH" }?.hook {
+                        before {
+                            if (customAlpha < 0) return@before
+                            val value = customAlpha * 25
+                            it.copy().of(instance).get<HashMap<Int, LayerDrawable>>()?.apply {
+                                forEach { (key, layer) ->
+                                    val blurDrawable = layer.getDrawable(0)
+                                    if (blurDrawable is BackgroundBlurDrawable) {
+                                        blurDrawable.setBlurRadius(value.dp)
+                                    }
+                                    layer.getDrawable(1)?.alpha = value
+                                    put(key, layer)
                                 }
-                                layer.getDrawable(1)?.alpha = value
-                                put(key, layer)
                             }
                         }
                     }
@@ -271,39 +271,39 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                         }
                     }
                 }
-                (firstMethodOrNull { name = "addVerticalContainerBg" }
-                    ?: firstMethod { name = "updateVolumeRowBgForSide" }).hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        val value = customAlpha * 25
-                        firstFieldOrNull {
-                            name = "mVerticalRowsLayerDrawableMap"
-                        }?.of(instance)?.get<HashMap<Int, LayerDrawable>>()?.apply {
-                            forEach { (key, layer) ->
-                                val blurDrawable = layer.getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
+                firstFieldOrNull { name = "mVerticalRowsLayerDrawableMap" }?.let {
+                    (firstMethodOrNull { name = "addVerticalContainerBg" }
+                        ?: firstMethod { name = "updateVolumeRowBgForSide" }).hook {
+                        before {
+                            if (customAlpha < 0) return@before
+                            val value = customAlpha * 25
+                            it.copy().of(instance).get<HashMap<Int, LayerDrawable>>()?.apply {
+                                forEach { (key, layer) ->
+                                    val blurDrawable = layer.getDrawable(0)
+                                    if (blurDrawable is BackgroundBlurDrawable) {
+                                        blurDrawable.setBlurRadius(value.dp)
+                                    }
+                                    layer.getDrawable(1)?.alpha = value
+                                    put(key, layer)
                                 }
-                                layer.getDrawable(1)?.alpha = value
-                                put(key, layer)
                             }
                         }
                     }
                 }
-                firstMethodOrNull { name = "updateRowsH" }?.hook {
-                    before {
-                        if (customAlpha < 0) return@before
-                        val value = customAlpha * 25
-                        firstFieldOrNull {
-                            name = "mVerticalRowsLayerDrawableMap"
-                        }?.of(instance)?.get<HashMap<Int, LayerDrawable>>()?.apply {
-                            forEach { (key, layer) ->
-                                val blurDrawable = layer.getDrawable(0)
-                                if (blurDrawable is BackgroundBlurDrawable) {
-                                    blurDrawable.setBlurRadius(value.dp)
+                firstFieldOrNull { name = "mVerticalRowsLayerDrawableMap" }?.let {
+                    firstMethodOrNull { name = "updateRowsH" }?.hook {
+                        before {
+                            if (customAlpha < 0) return@before
+                            val value = customAlpha * 25
+                            it.copy().of(instance).get<HashMap<Int, LayerDrawable>>()?.apply {
+                                forEach { (key, layer) ->
+                                    val blurDrawable = layer.getDrawable(0)
+                                    if (blurDrawable is BackgroundBlurDrawable) {
+                                        blurDrawable.setBlurRadius(value.dp)
+                                    }
+                                    layer.getDrawable(1)?.alpha = value
+                                    put(key, layer)
                                 }
-                                layer.getDrawable(1)?.alpha = value
-                                put(key, layer)
                             }
                         }
                     }

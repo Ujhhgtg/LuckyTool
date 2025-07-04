@@ -105,7 +105,7 @@ object StatusBarClock : YukiBaseHooker() {
                     }
                 }
             }
-            firstMethod { name = "onMeasure" }.hook {
+            firstMethodOrNull { name = "onMeasure" }?.hook {
                 before {
                     val clockView = instance<TextView>().apply {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
@@ -145,7 +145,7 @@ object StatusBarClock : YukiBaseHooker() {
     }
 
     private fun getLunar(context: Context, level: Int = 4): String {
-        LunarHelperUtils(context, appClassLoader).apply {
+        LunarHelperUtils(appClassLoader).apply {
             if (lunarInstance == null) lunarInstance = getInstance(context)
             return generateLunarDate(level)
         }
@@ -202,7 +202,7 @@ object StatusBarClock : YukiBaseHooker() {
         if (finalFormat.contains("ddd")) finalFormat = finalFormat.replace("ddd", "d号")
         if (finalFormat.contains("FF")) finalFormat = finalFormat.replace("FF", getPeriod(nowTime))
         if (finalFormat.contains("GG")) finalFormat =
-            finalFormat.replace("GG", getDiZhiHour(context, nowTime))
+            finalFormat.replace("GG", getDiZhiHour(nowTime))
         return finalFormat
     }
 
@@ -218,11 +218,9 @@ object StatusBarClock : YukiBaseHooker() {
         }
     }
 
-    private fun getDiZhiHour(context: Context, nowTime: Date): String {
-        val diZhiArr = LunarHelperUtils(context, appClassLoader).let {
-            if (lunarInstance == null) lunarInstance = it.getInstance(context)
-            it.mDiZhi
-        }
+    private fun getDiZhiHour(nowTime: Date): String {
+        val diZhiArr = LunarHelperUtils.mDiZhi
+
         if (diZhiArr.isEmpty()) return ""
         if (diZhiArr.size != 12) return ""
 
@@ -289,7 +287,7 @@ object StatusBarClock : YukiBaseHooker() {
             }
         }
         if (isDoubleHour) {
-            doubleHour = getDiZhiHour(context, nowTime)
+            doubleHour = getDiZhiHour(nowTime)
             if (!isHideSpace) doubleHour = "$doubleHour "
             timeFormat = doubleHour + timeFormat
         }

@@ -122,12 +122,13 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                 findMethod {
                     matcher {
                         paramTypes(Boolean::class.java)
-                        addCaller {
-                            paramTypes(Int::class.java)
-                            usingNumbers(1002, 1003)
-                        }
                         usingNumbers(0, 300L)
-                        usingStrings("mRecommendUpdateContainer", "mNormalUpdateContainer")
+                        addInvoke { paramCount(0) }
+                        usingStrings(
+                            "mRecommendUpdateContainer",
+                            "mNormalUpdateContainer",
+                            "animator"
+                        )
                     }
                 }.apply {
                     checkDataList("RemoveMarketUpdatePageAppRecommend AutoScrollWhenUpdateAll")

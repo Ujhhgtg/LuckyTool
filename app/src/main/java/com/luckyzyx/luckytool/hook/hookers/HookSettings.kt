@@ -157,7 +157,7 @@ object HookSettings : YukiBaseHooker() {
         }
         //启用上滑导航手势
         if (prefs(ModulePrefs).getBoolean("enable_swipe_up_navigation_gesture", false)) {
-            loadHooker(EnableSwipeUpNavigationGesture)
+            if (osCode >= 30) loadHooker(EnableSwipeUpNavigationGesture)
         }
 
         //电源键

@@ -42,7 +42,7 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
                             name = "getCurrentUserId"
                         }.invoke<Int>()
                         val strongAuthForUser =
-                            LockPatternUtils.toClass().createInstance(context).resolve()
+                            LockPatternUtils.toClass().createInstance(context, isPublic = false).resolve()
                                 .firstMethod { name = "getStrongAuthForUser" }
                                 .invoke<Int>(getCurrentUserId)
                         val isChildren = Settings.Global.getInt(
@@ -143,7 +143,7 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
                             name = "getCurrentUserId"
                         }.invoke<Int>()
                         val strongAuthForUser =
-                            LockPatternUtils.toClass().createInstance(context).resolve()
+                            LockPatternUtils.toClass().createInstance(context, isPublic = false).resolve()
                                 .firstMethod { name = "getStrongAuthForUser" }
                                 .invoke<Int>(getCurrentUserId)
                         val isChildren = Settings.Global.getInt(

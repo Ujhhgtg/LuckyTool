@@ -80,14 +80,34 @@ object LockScreenComponentStyle : YukiBaseHooker() {
                         val layoutInflater = LayoutInflater.from(context)
                         val colorExtractor = args().first().any() ?: return@before
                         val singleClock = singleClockProvider.toClassOrNull()
-                            ?.createInstance(context, layoutInflater, colorExtractor)
+                            ?.createInstance(
+                                context,
+                                layoutInflater,
+                                colorExtractor,
+                                isPublic = false
+                            )
                         val dualClock = dualClockProvider.toClassOrNull()
-                            ?.createInstance(context, layoutInflater, colorExtractor)
+                            ?.createInstance(
+                                context,
+                                layoutInflater,
+                                colorExtractor,
+                                isPublic = false
+                            )
                         val redHorizontalSingleClock =
                             redHorizontalSingleClockProvider.toClassOrNull()
-                                ?.createInstance(context, layoutInflater, colorExtractor)
+                                ?.createInstance(
+                                    context,
+                                    layoutInflater,
+                                    colorExtractor,
+                                    isPublic = false
+                                )
                         val redHorizontalDualClock = redHorizontalDualClockProvider.toClassOrNull()
-                            ?.createInstance(context, layoutInflater, colorExtractor)
+                            ?.createInstance(
+                                context,
+                                layoutInflater,
+                                colorExtractor,
+                                isPublic = false
+                            )
                         val list = arrayListOf(
                             singleClock, dualClock,
                             redHorizontalSingleClock, redHorizontalDualClock
