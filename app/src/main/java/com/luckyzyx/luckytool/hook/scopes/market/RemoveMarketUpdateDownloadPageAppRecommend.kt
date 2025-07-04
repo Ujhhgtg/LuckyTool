@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.market
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -123,12 +124,9 @@ class RemoveMarketUpdateDownloadPageAppRecommend(val dexKitBridge: DexKitBridge)
                     matcher {
                         paramTypes(Boolean::class.java)
                         usingNumbers(0, 300L)
+                        addUsingField { type(ValueAnimator::class.java) }
                         addInvoke { paramCount(0) }
-                        usingStrings(
-                            "mRecommendUpdateContainer",
-                            "mNormalUpdateContainer",
-                            "animator"
-                        )
+                        usingStrings("mRecommendUpdateContainer", "mNormalUpdateContainer")
                     }
                 }.apply {
                     checkDataList("RemoveMarketUpdatePageAppRecommend AutoScrollWhenUpdateAll")
