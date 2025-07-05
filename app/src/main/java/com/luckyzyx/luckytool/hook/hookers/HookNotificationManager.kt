@@ -1,8 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
-import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.notificationmanager.ForceDisplayClockStyleOptionsV14
 import com.luckyzyx.luckytool.hook.scopes.notificationmanager.RemoveNotificationManagerLimit
 import com.luckyzyx.luckytool.hook.scopes.notificationmanager.RemoveNotificationPinNumberLimit
@@ -10,6 +9,7 @@ import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookNotificationManager : YukiBaseHooker() {

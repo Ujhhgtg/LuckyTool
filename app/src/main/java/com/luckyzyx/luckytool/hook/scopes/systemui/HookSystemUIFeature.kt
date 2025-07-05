@@ -3,9 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureConfig
-import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalFeatureProvider
-import com.luckyzyx.luckytool.hook.hookers.global.HookGlobalSystemProperties
+import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
+import com.luckyzyx.luckytool.hook.globals.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
