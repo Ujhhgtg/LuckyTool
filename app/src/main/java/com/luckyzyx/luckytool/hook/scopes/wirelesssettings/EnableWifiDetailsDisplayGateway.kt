@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.wifi.WifiManager
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -57,7 +58,7 @@ class EnableWifiDetailsDisplayGateway(val dexKitBridge: DexKitBridge) : YukiBase
                             val wifiManager =
                                 context.applicationContext.getSystemService(WifiManager::class.java)
 
-                            val getCurrentNetwork = wifiManager.resolve().firstMethod {
+                            val getCurrentNetwork = wifiManager.asResolver().firstMethod {
                                 name = "getCurrentNetwork"
                                 emptyParameters()
                                 returnType = Network::class.java

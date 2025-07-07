@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -31,7 +32,8 @@ object SetAppUpdateDotDisplayMode : YukiBaseHooker() {
                     }.get<List<String>>() ?: java.util.ArrayList()
 
                     val installerPackageName = installSource as? String
-                        ?: installSource?.resolve()?.firstField { name = "mInstallerPackageName" }
+                        ?: installSource?.asResolver()
+                            ?.firstField { name = "mInstallerPackageName" }
                             ?.get<String>() ?: ""
 
                     if (isUpdate || marketList.contains(installerPackageName)) {

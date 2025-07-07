@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -28,7 +29,7 @@ object DisableHighVolumeWarningNotifications : YukiBaseHooker() {
                         ?: firstField {
                             name { it.contains("VolumeReceiver", true) }
                         }).of(instance).get() ?: return@after
-                    mVolumeReceiver.resolve().firstMethod { name = "unregister";superclass() }
+                    mVolumeReceiver.asResolver().firstMethod { name = "unregister";superclass() }
                         .invoke(context)
                 }
             }

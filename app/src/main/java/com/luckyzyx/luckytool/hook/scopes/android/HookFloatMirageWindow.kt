@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
 import android.os.UserHandle
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.OplusMirageDisplayManagerUtils
@@ -47,10 +48,10 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                         taskId = args().first().int()
                         val mAtms = firstField { type = ActivityTaskManagerService }.of(instance)
                             .get() ?: return@before
-                        val mRootWindowContainer = mAtms.resolve().firstField {
+                        val mRootWindowContainer = mAtms.asResolver().firstField {
                             type = RootWindowContainer;superclass()
                         }.get() ?: return@before
-                        task = mRootWindowContainer.resolve().firstMethod {
+                        task = mRootWindowContainer.asResolver().firstMethod {
                             name = "anyTaskForId"
                             parameterCount = 1
                         }.invoke(taskId) ?: return@before
@@ -64,20 +65,20 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                     ?: firstMethod { name = "startMinimize" }).hook {
                     after {
                         val info = args().first().any() ?: return@after
-                        val curTaskId = info.resolve().firstField { name = "taskId" }.get<Int>()
+                        val curTaskId = info.asResolver().firstField { name = "taskId" }.get<Int>()
                             ?: -1
-                        val curUserId = info.resolve().firstField { name = "userId" }.get<Int>()
+                        val curUserId = info.asResolver().firstField { name = "userId" }.get<Int>()
                             ?: 0
 
                         if (taskId != curTaskId) return@after
                         if (task == null) return@after
 
-                        val taskInfo = task.resolve().firstMethod {
+                        val taskInfo = task.asResolver().firstMethod {
                             name = "getTaskInfo"
                             returnType = RunningTaskInfo::class.java
                         }.invoke<RunningTaskInfo>() ?: return@after
 
-                        val baseIntent = taskInfo.resolve().firstField {
+                        val baseIntent = taskInfo.asResolver().firstField {
                             type = Intent::class;superclass()
                         }.get<Intent>() ?: return@after
 
@@ -93,7 +94,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                 firstMethod { name = "moveTaskToBack" }.hook {
                     before {
                         val curTask = args().first().any() ?: return@before
-                        val mTaskId = curTask.resolve().firstField { name = "mTaskId" }.get<Int>()
+                        val mTaskId = curTask.asResolver().firstField { name = "mTaskId" }.get<Int>()
                             ?: -1
                         if (taskId == mTaskId) resultNull()
                     }
@@ -118,7 +119,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
 
                         val mAtms = firstField { type = activityTaskManagerService }.of(instance)
                             .get() ?: return@before
-                        val context = mAtms.resolve().firstField { type = Context::class }
+                        val context = mAtms.asResolver().firstField { type = Context::class }
                             .get<Context>() ?: return@before
 
                         val options = startOptions?.let {
@@ -137,7 +138,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                                     is Intent -> intent = parcelable
                                     is PendingIntent -> {
                                         pendingIntent = parcelable
-                                        intent = pendingIntent.resolve().firstMethod {
+                                        intent = pendingIntent.asResolver().firstMethod {
                                             name = "getIntent";emptyParameters()
                                         }.invoke<Intent?>()
                                     }
@@ -153,7 +154,7 @@ object HookFloatMirageWindow : YukiBaseHooker() {
                                                 if (uid > 0 && uid.toString().startsWith("999")) {
                                                     val userHandle =
                                                         UserHandle.getUserHandleForUid(uid)
-                                                    context.resolve().firstMethod {
+                                                    context.asResolver().firstMethod {
                                                         name = "startActivityAsUser"
                                                         parameters(
                                                             Intent::class, Bundle::class,

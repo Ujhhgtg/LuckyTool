@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -213,9 +214,9 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }.hookAll {
                     after {
                         val flag = args().first().any() ?: return@after
-                        val key = flag.resolve().firstField { name = "name" }.get<String>()
+                        val key = flag.asResolver().firstField { name = "name" }.get<String>()
                         val namespace =
-                            flag.resolve().firstField { name = "namespace" }.get<String>()
+                            flag.asResolver().firstField { name = "namespace" }.get<String>()
 //                        YLog.debug("${method.name}(${method.parameterTypes.firstOrNull()?.simpleName}) -> $key | $namespace : $result")
 //                        when (key) {
 //                            "charging_ripple" -> resultTrue()

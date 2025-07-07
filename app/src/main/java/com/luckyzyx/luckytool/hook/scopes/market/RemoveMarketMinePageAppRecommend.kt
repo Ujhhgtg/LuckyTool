@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.market
 
 import android.content.Context
 import android.os.Bundle
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -53,12 +54,12 @@ class RemoveMarketMinePageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBas
                 }.hook {
                     before {
                         val dto = args().first().any() ?: return@before
-                        val cards = dto.resolve().firstMethod {
+                        val cards = dto.asResolver().firstMethod {
                             name = "getCards"
                         }.invoke<List<Any>>()?.toMutableList()?.apply {
                             removeIf { indexOf(it) != 0 }
                         } ?: return@before
-                        dto.resolve().firstMethod { name = "setCards" }.invoke(ArrayList(cards))
+                        dto.asResolver().firstMethod { name = "setCards" }.invoke(ArrayList(cards))
                     }
                 }
             }

@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 
 import android.content.Context
 import android.content.Intent
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.safeOfNull
@@ -16,9 +17,10 @@ object FixDefaultAppJumpProblem : YukiBaseHooker() {
                 firstMethod { name = "handlePreferenceTreeClick" }.hook {
                     before {
                         val preference = args().first().any() ?: return@before
-                        val key = preference.resolve().firstMethod { name = "getKey";superclass() }
+                        val key =
+                            preference.asResolver().firstMethod { name = "getKey";superclass() }
                             .invoke<String>()
-                        val context = preference.resolve().firstField {
+                        val context = preference.asResolver().firstField {
                             type = Context::class;superclass()
                         }.get<Context>() ?: return@before
                         if (key == "default_apps_manager") {

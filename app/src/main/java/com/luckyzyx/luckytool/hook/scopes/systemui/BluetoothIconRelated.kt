@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -32,7 +33,7 @@ object BluetoothIconRelated : YukiBaseHooker() {
                         type = BluetoothController
                         if (SDK < A14) superclass()
                     }.of(instance).get() ?: return@before
-                    val isBluetoothConnected = controller.resolve().firstMethod {
+                    val isBluetoothConnected = controller.asResolver().firstMethod {
                         name = "isBluetoothConnected"
                     }.invoke<Boolean>() ?: return@before
                     args().last().set(isBluetoothEnabled && isBluetoothConnected)
@@ -54,14 +55,14 @@ object BluetoothIconRelated : YukiBaseHooker() {
                         val statusBarIconController = firstField { type = StatusBarIconController }
                             .of(instance).get() ?: return@before
                         val slotBluetooth = firstField { name = "slotBluetooth" }.of(instance).get()
-                        val isBluetoothEnabled = bluetoothController.resolve().firstField {
+                        val isBluetoothEnabled = bluetoothController.asResolver().firstField {
                             name = "mEnabled"
                         }.get<Boolean>() ?: false
-                        val bluetoothConnectionState = bluetoothController.resolve().firstField {
+                        val bluetoothConnectionState = bluetoothController.asResolver().firstField {
                             name = "mConnectionState"
                         }.get<Int>()
                         if (isBluetoothEnabled && bluetoothConnectionState != 2) {
-                            statusBarIconController.resolve().firstMethod {
+                            statusBarIconController.asResolver().firstMethod {
                                 name = "setIconVisibility"
                             }.invoke(slotBluetooth, false)
                             resultNull()

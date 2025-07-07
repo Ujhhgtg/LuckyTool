@@ -13,6 +13,7 @@ import android.os.HandlerThread
 import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -64,13 +65,13 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             if (!hasRegisterCallback) {
                                 val handlerThread = HandlerThread("SysUiNetwork", 10)
                                 handlerThread.start()
-                                handlerThread.looper.resolve().firstMethod {
+                                handlerThread.looper.asResolver().firstMethod {
                                     name = "setSlowLogThresholdMs"
                                     parameters(
                                         Long::class, Long::class
                                     )
                                 }.invoke(1000L, 1000L)
-                                handlerThread.looper.resolve().firstMethod {
+                                handlerThread.looper.asResolver().firstMethod {
                                     name = "setTraceTag"
                                     parameters(Long::class)
                                 }.invoke(4096L)
@@ -84,7 +85,7 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                         val info = networkCapabilities.transportInfo?.let {
                                             it as? WifiInfo
                                         } ?: return
-                                        val isPrimary = info.resolve().firstMethod {
+                                        val isPrimary = info.asResolver().firstMethod {
                                             name = "isPrimary";emptyParameters()
                                         }.invoke<Boolean>() ?: false
                                         if (!isPrimary) return

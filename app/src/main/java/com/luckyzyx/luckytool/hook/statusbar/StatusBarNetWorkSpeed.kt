@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout.LayoutParams
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -193,8 +194,8 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                 return@before
                             }
 
-                            val copy = state.resolve().firstMethod { name = "copy" }.invoke()
-                            val getVisible = state.resolve().firstMethod { name = "getVisible" }
+                            val copy = state.asResolver().firstMethod { name = "copy" }.invoke()
+                            val getVisible = state.asResolver().firstMethod { name = "getVisible" }
                                 .invoke<Boolean>() ?: false
                             mState.copy().of(instance).set(copy)
                             val block = mBlocked?.copy()?.of(instance)?.get<Boolean>() ?: false
@@ -202,7 +203,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                             if (visible != viewGroup.isVisible) viewGroup.isVisible = visible
                             if (!visible) return@before
 
-                            val speedText = state.resolve().firstMethod { name = "getSpeedText" }
+                            val speedText = state.asResolver().firstMethod { name = "getSpeedText" }
                                 .invoke<Long>() ?: 0
                             if (speedText < 0 || speedText > 1024.0.pow(5.0) * 1000.0) {
                                 return@before

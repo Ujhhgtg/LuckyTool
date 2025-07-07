@@ -8,7 +8,7 @@ import android.os.ServiceManager
 import android.telephony.TelephonyManager
 import com.android.internal.telephony.ITelephony
 import com.android.internal.telephony.RILConstants
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.luckyzyx.luckytool.ITileServiceController
 import com.luckyzyx.luckytool.hook.utils.IColorDisplayUtils
 import com.luckyzyx.luckytool.service.base.BaseControllerService
@@ -121,7 +121,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun getDarkMode(): Boolean {
                 return try {
-                    iColorDisplayManagerInternal?.resolve()?.firstMethod {
+                    iColorDisplayManagerInternal?.asResolver()?.firstMethod {
                         name = "isReduceBrightColorsActivated"
                         emptyParameters()
                     }?.invoke<Boolean>() ?: false
@@ -133,7 +133,7 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
             override fun setDarkMode(status: Boolean) {
                 try {
-                    iColorDisplayManagerInternal?.resolve()?.firstMethod {
+                    iColorDisplayManagerInternal?.asResolver()?.firstMethod {
                         name = "setReduceBrightColorsActivated"
                         parameters(Boolean::class)
                     }?.invoke(status)

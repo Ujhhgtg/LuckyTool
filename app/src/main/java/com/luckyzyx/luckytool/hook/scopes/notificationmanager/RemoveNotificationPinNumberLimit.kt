@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.notificationmanager
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
@@ -18,7 +19,7 @@ object RemoveNotificationPinNumberLimit : YukiBaseHooker() {
                         before {
                             val controller = args().first().any() ?: return@before
                             val bool = args().last().boolean()
-                            controller.resolve().firstMethod { name = "onChange";superclass() }
+                            controller.asResolver().firstMethod { name = "onChange";superclass() }
                                 .invoke(bool)
                             resultTrue()
                         }

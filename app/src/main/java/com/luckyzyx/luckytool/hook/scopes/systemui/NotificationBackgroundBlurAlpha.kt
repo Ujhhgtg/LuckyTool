@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -123,7 +124,7 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
                             if (!disableBlur) firstMethod {
                                 name = "getRowBlurDelegate";superclass()
                             }
-                                .of(instance).invoke()?.resolve()?.firstMethod {
+                                .of(instance).invoke()?.asResolver()?.firstMethod {
                                     name = "setBlurType";superclass()
                                 }?.invoke(1)
                         }
@@ -133,7 +134,7 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
                             val res = result<Drawable>() ?: return@after
                             if (res is BackgroundBlurDrawable) {
                                 val mBlurRadius =
-                                    res.resolve().firstField { name = "mBlurRadius" }.get<Int>()
+                                    res.asResolver().firstField { name = "mBlurRadius" }.get<Int>()
                                 if (mBlurRadius != value.dp) res.setBlurRadius(value.dp)
                             }
                         }
@@ -180,10 +181,10 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
                             val backgroundNormal =
                                 firstField { name = "mBackgroundNormal" }.of(instance).get()
                                     ?: return@after
-                            backgroundNormal.resolve().firstMethod {
+                            backgroundNormal.asResolver().firstMethod {
                                 name = "setCustomBackground";parameters(Drawable::class)
                             }.invoke(newDrawable)
-                            backgroundNormal.resolve().firstMethod {
+                            backgroundNormal.asResolver().firstMethod {
                                 name = "setTint";parameters(Int::class)
                             }.invoke(0)
                         }

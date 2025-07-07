@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.content.Context
 import android.provider.Settings
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.A14
@@ -48,7 +49,7 @@ object HookWindowManagerService : YukiBaseHooker() {
 
                     val service = firstField { type = windowManagerService }.of(instance).get()
                         ?: return@before
-                    val context = service.resolve().firstField { type = Context::class }
+                    val context = service.asResolver().firstField { type = Context::class }
                         .get<Context>() ?: return@before
                     val resolver = context.contentResolver
                     val forcedDensity = Settings.Secure.getString(
@@ -75,7 +76,7 @@ object HookWindowManagerService : YukiBaseHooker() {
                         val service = args().last().any() ?: return@before
 //                    YLog.debug("${method.name} is call -> $width | $height | $density | $userId")
 
-                        val context = service.resolve().firstField { type = Context::class }
+                        val context = service.asResolver().firstField { type = Context::class }
                             .get<Context>() ?: return@before
                         val resolver = context.contentResolver
                         val forcedDensity = Settings.Secure.getString(

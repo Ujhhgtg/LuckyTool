@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.kavaref.extension.VariousClass
@@ -217,7 +218,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         if (hideNonNetwork) {
                             val state = args().first().any()
-                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
+                            val subId = state?.asResolver()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
                             firstField { name = "mMobileGroup" }.of(instance)
                                 .get<ViewGroup>()?.isVisible = subId == subId2
@@ -238,7 +239,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         if (hideNonNetwork) {
                             val state = args().first().any()
-                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
+                            val subId = state?.asResolver()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
                             firstField { name = "mMobileGroup" }.of(instance)
                                 .get<ViewGroup>()?.isVisible = subId == subId2
@@ -268,7 +269,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             .of(instance).get() ?: return@after
                         val slotNoSim =
                             firstField { name = "slotNoSim" }.of(instance).get<String>()
-                        iconController.resolve().apply {
+                        iconController.asResolver().apply {
                             firstMethod {
                                 name = "setIconVisibility"
                                 firstMethodOrNull { name = "setIconVisibility" } ?: superclass()
@@ -297,7 +298,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         if (hideNonNetwork) {
                             val state = firstField { name = "mState" }.of(instance).get()
-                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
+                            val subId = state?.asResolver()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
                             firstField { name = "mMobileGroup" }.of(instance)
                                 .get<ViewGroup>()?.isVisible = subId == subId2
@@ -314,7 +315,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     after {
                         if (hideNonNetwork) {
                             val state = firstField { name = "mState" }.of(instance).get()
-                            val subId = state?.resolve()?.firstField { name = "subId" }?.get<Int>()
+                            val subId = state?.asResolver()?.firstField { name = "subId" }?.get<Int>()
                             val subId2 = SubscriptionManager.getDefaultDataSubscriptionId()
                             firstField { name = "mMobileGroup" }.of(instance)
                                 .get<ViewGroup>()?.isVisible = subId == subId2

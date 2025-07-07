@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
@@ -38,7 +39,7 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                 "iv_top", "id",
                                 this@CustomProcessorPageIntroductionParameters.packageName
                             ).takeIf { e -> e != 0 }?.let {
-                                viewHolder.resolve().firstMethod {
+                                viewHolder.asResolver().firstMethod {
                                     name = "findViewById";parameters(Int::class)
                                 }.invoke<ImageView>(it)
                             }?.apply {
@@ -59,7 +60,7 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                     key, "id",
                                     this@CustomProcessorPageIntroductionParameters.packageName
                                 ).takeIf { e -> e != 0 }?.let {
-                                    viewHolder.resolve().firstMethod {
+                                    viewHolder.asResolver().firstMethod {
                                         name = "findViewById";parameters(Int::class)
                                     }.invoke<TextView>(it)
                                 }?.setClickInfo(key)
@@ -70,7 +71,7 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                     key, "id",
                                     this@CustomProcessorPageIntroductionParameters.packageName
                                 ).takeIf { e -> e != 0 }?.let {
-                                    viewHolder.resolve().firstMethod {
+                                    viewHolder.asResolver().firstMethod {
                                         name = "findViewById";parameters(Int::class)
                                     }.invoke<TextView>(it)
                                 }?.setClickInfo(key)
@@ -81,7 +82,7 @@ object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
                                     key, "id",
                                     this@CustomProcessorPageIntroductionParameters.packageName
                                 ).takeIf { e -> e != 0 }?.let {
-                                    viewHolder.resolve().firstMethod {
+                                    viewHolder.asResolver().firstMethod {
                                         name = "findViewById";parameters(Int::class)
                                     }.invoke<TextView>(it)
                                 }?.setClickInfo(key)

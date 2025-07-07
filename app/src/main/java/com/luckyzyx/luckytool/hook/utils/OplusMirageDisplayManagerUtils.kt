@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.utils
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
@@ -16,7 +17,7 @@ class OplusMirageDisplayManagerUtils(val classLoader: ClassLoader?) {
     }
 
     fun notifyCastSuccess(instance: Any, displayId: Int) {
-        instance.resolve().firstMethod { name = "notifyCastSuccess";parameters(Int::class) }
+        instance.asResolver().firstMethod { name = "notifyCastSuccess";parameters(Int::class) }
             .invoke(displayId)
     }
 }

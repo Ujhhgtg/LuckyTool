@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.allViews
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -148,10 +149,10 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                         gravity = Gravity.CENTER
                                         setPadding(paddingLeft, paddingTop, paddingRight, 3)
                                     }
-                            val cpaWattage = oplusChargeInfo.resolve().firstMethod {
+                            val cpaWattage = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargeWattageOrigin"
                             }.invoke<Int>()
-                            val wattage = oplusChargeInfo.resolve().firstMethod {
+                            val wattage = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargeWattage"
                             }.invoke<String>()?.toIntOrNull()
                             chargeWattageView?.text = when {
@@ -230,10 +231,10 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (showRealTech && !hasTechnologyStrForFrameCharge) {
                             val textLogoView =
                                 firstField { name = "textLogo" }.of(instance).get<TextView>()
-                            val isWirelessCharge = oplusChargeInfo.resolve().firstMethod {
+                            val isWirelessCharge = oplusChargeInfo.asResolver().firstMethod {
                                 name = "isWirelessCharge"
                             }.invoke<Boolean>() ?: false
-                            val chargerTechnology = oplusChargeInfo.resolve().firstMethod {
+                            val chargerTechnology = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargerTechnology"
                             }.invoke<Int>() ?: 0
                             val chargeInfo = getChargeInfo()
@@ -249,10 +250,10 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (showWattage && !hasShowWattageForFrameCharge) {
                             val chargeWattageView =
                                 firstField { name = "chargeWattage" }.of(instance).get<TextView>()
-                            val cpaWattage = oplusChargeInfo.resolve().firstMethod {
+                            val cpaWattage = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargeWattageOrigin"
                             }.invoke<Int>() ?: 0
-                            val wattage = oplusChargeInfo.resolve().firstMethod {
+                            val wattage = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargeWattage"
                             }.invoke<String>()?.toIntOrNull()
                             chargeWattageView?.isVisible = true
@@ -321,10 +322,10 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         before {
                             if (!showRealTech) return@before
                             val oplusChargeInfo = args().last().any() ?: return@before
-                            val isWirelessCharge = oplusChargeInfo.resolve().firstMethod {
+                            val isWirelessCharge = oplusChargeInfo.asResolver().firstMethod {
                                 name = "isWirelessCharge"
                             }.invoke<Boolean>() ?: false
-                            val chargerTechnology = oplusChargeInfo.resolve().firstMethod {
+                            val chargerTechnology = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargerTechnology"
                             }.invoke<Int>() ?: 0
 
@@ -412,7 +413,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     before {
                         if (!showWattage) return@before
                         val chargeInfoObserver = args().first().any() ?: return@before
-                        val getChargeWattage = chargeInfoObserver.resolve().firstMethod {
+                        val getChargeWattage = chargeInfoObserver.asResolver().firstMethod {
                             name = "getChargeWattage";emptyParameters()
                         }.invoke<String>()?.toIntOrNull() ?: return@before
                         if (getChargeWattage != 0) resultTrue()
@@ -425,13 +426,13 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     before {
                         if (!showRealTech) return@before
                         val chargeInfoObserver = args().last().any() ?: return@before
-                        val technology = chargeInfoObserver.resolve().firstMethod {
+                        val technology = chargeInfoObserver.asResolver().firstMethod {
                             name = "getmChargerTechnology"
                         }.invoke<Int>() ?: return@before
-                        val ppsMode = chargeInfoObserver.resolve().firstMethod {
+                        val ppsMode = chargeInfoObserver.asResolver().firstMethod {
                             name = "getmPpsState"
                         }.invoke<Int>() ?: return@before
-                        val ismIsWirelessCharge = chargeInfoObserver.resolve().firstMethod {
+                        val ismIsWirelessCharge = chargeInfoObserver.asResolver().firstMethod {
                             name = "ismIsWirelessCharge"
                         }.invoke<Boolean>() ?: return@before
                         result = BatteryControllerUtils(appClassLoader).getTechnologyNameOld(
@@ -447,13 +448,13 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     before {
                         if (!showRealTech) return@before
                         val chargeInfoObserver = args().last().any() ?: return@before
-                        val technology = chargeInfoObserver.resolve().firstMethod {
+                        val technology = chargeInfoObserver.asResolver().firstMethod {
                             name = "getmChargerTechnology"
                         }.invoke<Int>() ?: return@before
-                        val ppsMode = chargeInfoObserver.resolve().firstMethod {
+                        val ppsMode = chargeInfoObserver.asResolver().firstMethod {
                             name = "getmPpsState"
                         }.invoke<Int>() ?: return@before
-                        val ismIsWirelessCharge = chargeInfoObserver.resolve().firstMethod {
+                        val ismIsWirelessCharge = chargeInfoObserver.asResolver().firstMethod {
                             name = "ismIsWirelessCharge"
                         }.invoke<Boolean>() ?: return@before
                         result = BatteryControllerUtils(appClassLoader).getTechnologyNameOld(
@@ -469,13 +470,13 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     before {
                         if (!showRealTech) return@before
                         val chargeInfoObserver = args().first().any() ?: return@before
-                        val technology = chargeInfoObserver.resolve().firstMethod {
+                        val technology = chargeInfoObserver.asResolver().firstMethod {
                             name = "getmChargerTechnology"
                         }.invoke<Int>() ?: return@before
-                        val ppsMode = chargeInfoObserver.resolve().firstMethod {
+                        val ppsMode = chargeInfoObserver.asResolver().firstMethod {
                             name = "getmPpsState"
                         }.invoke<Int>() ?: return@before
-                        val ismIsWirelessCharge = chargeInfoObserver.resolve().firstMethod {
+                        val ismIsWirelessCharge = chargeInfoObserver.asResolver().firstMethod {
                             name = "ismIsWirelessCharge"
                         }.invoke<Boolean>() ?: return@before
                         result = BatteryControllerUtils(appClassLoader).getTechnologyNameOld(

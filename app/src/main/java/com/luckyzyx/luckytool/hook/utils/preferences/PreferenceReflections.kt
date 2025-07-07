@@ -3,7 +3,7 @@ package com.luckyzyx.luckytool.hook.utils.preferences
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.condition.MethodCondition
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -17,8 +17,8 @@ object PreferenceReflections {
         fun callFinder(
             preference: Any, vararg args: Any, condition: MethodCondition<Any>.() -> Unit = {}
         ): Any? {
-            val isSuper = preference.resolve().firstMethodOrNull(condition) == null
-            return preference.resolve().firstMethod {
+            val isSuper = preference.asResolver().firstMethodOrNull(condition) == null
+            return preference.asResolver().firstMethod {
                 apply(condition)
                 if (isSuper) superclass()
             }.invoke(*args)
@@ -27,8 +27,8 @@ object PreferenceReflections {
         fun <T> invokeFinder(
             preference: Any, vararg args: Any, condition: MethodCondition<Any>.() -> Unit = {}
         ): T? {
-            val isSuper = preference.resolve().firstMethodOrNull(condition) == null
-            return preference.resolve().firstMethod {
+            val isSuper = preference.asResolver().firstMethodOrNull(condition) == null
+            return preference.asResolver().firstMethod {
                 apply(condition)
                 if (isSuper) superclass()
             }.invoke<T>(*args)

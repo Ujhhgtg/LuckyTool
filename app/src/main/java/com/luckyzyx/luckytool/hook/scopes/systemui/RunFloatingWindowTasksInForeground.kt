@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.app.ActivityManager.RunningTaskInfo
 import android.content.Intent
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.startMirageWindow
@@ -32,11 +33,11 @@ object RunFloatingWindowTasksInForeground : YukiBaseHooker() {
                         val mTaskInfo = firstField { name = "mTaskInfo" }.of(instance)
                             .get<RunningTaskInfo>() ?: return@before
 
-                        val baseIntent = mTaskInfo.resolve().firstField {
+                        val baseIntent = mTaskInfo.asResolver().firstField {
                             type = Intent::class;superclass()
                         }.get<Intent>() ?: return@before
 
-                        val uid = mTaskInfo.resolve().firstField { name = "uid";superclass() }
+                        val uid = mTaskInfo.asResolver().firstField { name = "uid";superclass() }
                             .get<Int>() ?: return@before
                         if (uid > 0) baseIntent.putExtra("TASKINFO_UID", uid)
 

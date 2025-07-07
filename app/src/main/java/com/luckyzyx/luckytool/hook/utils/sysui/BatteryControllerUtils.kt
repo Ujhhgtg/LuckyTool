@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.utils.sysui
 import android.content.Context
 import android.os.Build
 import androidx.annotation.DeprecatedSinceApi
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.luckyzyx.luckytool.utils.A14
@@ -27,19 +28,19 @@ class BatteryControllerUtils(val classLoader: ClassLoader?) {
 
     @DeprecatedSinceApi(Build.VERSION_CODES.TIRAMISU, "仅在A13中使用")
     fun getChargerTechnology(instance: Any): Int {
-        return instance.resolve().firstMethod { name = "getChargerTechnology" }.invoke<Int>() ?: 0
+        return instance.asResolver().firstMethod { name = "getChargerTechnology" }.invoke<Int>() ?: 0
     }
 
     @DeprecatedSinceApi(Build.VERSION_CODES.TIRAMISU, "仅在A13中使用")
     fun getPPSMode(instance: Any): Int {
-        return instance.resolve().firstField {
+        return instance.asResolver().firstField {
             name = if (SDK >= A14) "chargeMode" else "mPPSState"
         }.get<Int>() ?: 0
     }
 
     @DeprecatedSinceApi(Build.VERSION_CODES.TIRAMISU, "仅在A13中使用")
     fun isWirelessCharging(instance: Any): Boolean {
-        return instance.resolve().firstMethod {
+        return instance.asResolver().firstMethod {
             name = if (SDK >= A14) "getWirelessCharging" else "isWirelessCharging"
         }.invoke<Boolean>() ?: false
     }

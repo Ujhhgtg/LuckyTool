@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
 import android.view.View
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
@@ -30,7 +31,7 @@ object RemoveInstallAds : YukiBaseHooker() {
     }
 
     private fun Any.removeViews() {
-        resolve().firstField { name = "mSuggestLayoutAScrollView" }.get<View>()?.isVisible = false
-        resolve().firstField { name = "mSuggestLayoutB" }.get<View>()?.isVisible = false
+        asResolver<Any>().firstField { name = "mSuggestLayoutAScrollView" }.get<View>()?.isVisible = false
+        asResolver<Any>().firstField { name = "mSuggestLayoutB" }.get<View>()?.isVisible = false
     }
 }

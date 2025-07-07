@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -34,7 +35,7 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                     after {
                         val holder = args().first().any() ?: return@after
                         val itemView =
-                            holder.resolve().firstField { name = "itemView";superclass() }
+                            holder.asResolver().firstField { name = "itemView";superclass() }
                                 .get<View>() ?: return@after
                         if (itemView is RelativeLayout) {
                             val topId = itemView.resources.getIdentifier(

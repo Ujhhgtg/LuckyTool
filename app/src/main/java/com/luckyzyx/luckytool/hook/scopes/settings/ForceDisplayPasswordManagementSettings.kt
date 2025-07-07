@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -35,12 +36,12 @@ object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
                     firstMethod { name = "displayPreference" }.hook {
                         after {
                             val preferenceScreen = args().first().any() ?: return@after
-                            val preference = preferenceScreen.resolve().firstMethod {
+                            val preference = preferenceScreen.asResolver().firstMethod {
                                 name = "findPreference"
                                 parameters(CharSequence::class)
                                 superclass()
                             }.invoke("key_password_manager") ?: return@after
-                            preference.resolve().firstMethod {
+                            preference.asResolver().firstMethod {
                                 name = "setVisible"
                                 parameters(Boolean::class)
                                 superclass()
@@ -50,7 +51,7 @@ object ForceDisplayPasswordManagementSettings : YukiBaseHooker() {
                     firstMethod { name = "updateState" }.hook {
                         after {
                             val preference = args().first().any() ?: return@after
-                            preference.resolve().firstMethod {
+                            preference.asResolver().firstMethod {
                                 name = "setVisible"
                                 parameters(Boolean::class)
                                 superclass()

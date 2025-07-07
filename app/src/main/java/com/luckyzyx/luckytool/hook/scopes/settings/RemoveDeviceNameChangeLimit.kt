@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
@@ -15,7 +16,7 @@ object RemoveDeviceNameChangeLimit : YukiBaseHooker() {
                 firstMethod { name = "activeVerifyPhoneName" }.hook {
                     before {
                         val callback = args().last().any() ?: return@before
-                        callback.resolve().firstMethod { name = "onSuccess" }.invoke(null)
+                        callback.asResolver().firstMethod { name = "onSuccess" }.invoke(null)
                         resultNull()
                     }
                 }
@@ -29,7 +30,7 @@ object RemoveDeviceNameChangeLimit : YukiBaseHooker() {
             firstMethod { name = "activeVerifyPhoneName" }.hook {
                 before {
                     val callback = args().last().any() ?: return@before
-                    callback.resolve().firstMethod { name = "onSuccess" }.invoke(null)
+                    callback.asResolver().firstMethod { name = "onSuccess" }.invoke(null)
                     resultNull()
                 }
             }

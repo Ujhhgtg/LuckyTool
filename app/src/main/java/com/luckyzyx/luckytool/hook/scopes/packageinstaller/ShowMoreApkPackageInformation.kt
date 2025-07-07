@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.PackageUtils
@@ -39,18 +40,18 @@ object ShowMoreApkPackageInformation : YukiBaseHooker() {
                     apkInfo = args().first().any() ?: return@after
                     sourceInfo = args().last().any() ?: return@after
                     val actionType =
-                        sourceInfo.resolve().firstField { name = "actionType" }.get<Int>() ?: -1
+                        sourceInfo.asResolver().firstField { name = "actionType" }.get<Int>() ?: -1
                     val installSource =
-                        sourceInfo.resolve().firstField { name = "sourceName" }.get<String>() ?: ""
+                        sourceInfo.asResolver().firstField { name = "sourceName" }.get<String>() ?: ""
 
                     val packName =
-                        apkInfo.resolve().firstField { name = "packageName" }.get<String>() ?: ""
+                        apkInfo.asResolver().firstField { name = "packageName" }.get<String>() ?: ""
                     val versionName =
-                        apkInfo.resolve().firstField { name = "versionName" }.get<String>() ?: ""
+                        apkInfo.asResolver().firstField { name = "versionName" }.get<String>() ?: ""
                     val versionCode =
-                        apkInfo.resolve().firstField { name = "versionCode" }.get<Int>() ?: -1
+                        apkInfo.asResolver().firstField { name = "versionCode" }.get<Int>() ?: -1
                     val apkFilePath =
-                        apkInfo.resolve().firstField { name = "apkPath" }.get<String>() ?: ""
+                        apkInfo.asResolver().firstField { name = "apkPath" }.get<String>() ?: ""
 
                     val packInfo = PackageUtils(pm).getPackageArchiveInfo(apkFilePath, 1)
                     val newMin = packInfo?.applicationInfo?.minSdkVersion

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.collection.arrayMapOf
 import androidx.core.content.edit
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.ArrayClass
 import com.highcapable.kavaref.extension.JBoolean
@@ -188,7 +189,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             val switchApp = switchAppClazz.toClass().resolve().firstConstructor {
                                 parameters(String::class, Boolean::class)
                             }.create(it.packName, existApp).apply {
-                                resolve().firstField {
+                                asResolver().firstField {
                                     name = appNameField;type = String::class
                                 }.set(it.appName)
                                 val wxIcon = safeOfNull {
@@ -198,10 +199,10 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                         this@VoipRecorderWhitelist.packageName
                                     )
                                 } ?: return@forEachIndexed
-                                resolve().firstField { type = Int::class }.set(wxIcon)
+                                asResolver().firstField { type = Int::class }.set(wxIcon)
 //                                    val isInstalled = PackageUtils(context.packageManager)
 //                                        .getPackageInfo(it.packName, 0) != null
-                                resolve().firstField {
+                                asResolver().firstField {
                                     name = appStatusField;type = Boolean::class
                                 }.set(true)
                             }

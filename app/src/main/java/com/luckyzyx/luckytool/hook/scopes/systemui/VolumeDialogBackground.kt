@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -70,7 +71,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     it.of(instance).get() ?: return@before
                                 } ?: instance
 
-                                ins.resolve().firstFieldOrNull {
+                                ins.asResolver().firstFieldOrNull {
                                     name = "mVerticalRowsLayerDrawable"
                                 }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
@@ -79,7 +80,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                ins.resolve().firstFieldOrNull {
+                                ins.asResolver().firstFieldOrNull {
                                     name = "mVolumeMoreLayerDrawable"
                                 }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
@@ -88,7 +89,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                ins.resolve().firstFieldOrNull {
+                                ins.asResolver().firstFieldOrNull {
                                     name = "mVolumeAppAdjustLayerDrawable"
                                 }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
@@ -97,7 +98,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                ins.resolve().firstFieldOrNull {
+                                ins.asResolver().firstFieldOrNull {
                                     name = "mVolumeCaptionLayerDrawable"
                                 }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
@@ -106,7 +107,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                ins.resolve().firstFieldOrNull {
+                                ins.asResolver().firstFieldOrNull {
                                     name = "mVolumeBackgroundLayerDrawable"
                                 }?.get<LayerDrawable>()?.apply {
                                     val blurDrawable = getDrawable(0)
@@ -115,7 +116,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                                     }
                                     getDrawable(1)?.alpha = value
                                 }
-                                ins.resolve().firstFieldOrNull {
+                                ins.asResolver().firstFieldOrNull {
                                     name = "mVolumeBtnDrawable"
                                 }?.get<Drawable>()?.apply {
                                     alpha = 255 - value
@@ -165,7 +166,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                     after {
                         if (customAlpha < 0) return@after
                         val seekBar = instance<Any>()
-                        seekBar.resolve().firstMethod {
+                        seekBar.asResolver().firstMethod {
                             name = "setProgressColor"
                             parameters(ColorStateList::class)
                             superclass()
@@ -331,7 +332,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                     after {
                         if (customAlpha < 0) return@after
                         val seekBar = instance<Any>()
-                        seekBar.resolve().firstMethod {
+                        seekBar.asResolver().firstMethod {
                             name = "setProgressColor"
                             parameters(ColorStateList::class)
                             superclass()

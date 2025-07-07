@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.layoutDirection
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -60,7 +61,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                     val mLastText = firstField { name = "mLastText" }.of(instance).get<String>()
                     if (timeInfo != null) {
                         val dateInfo =
-                            timeInfo.resolve().firstMethod { name = "getDateInfo" }.invoke<String>()
+                            timeInfo.asResolver().firstMethod { name = "getDateInfo" }.invoke<String>()
                                 ?: ""
                         if (dateInfo != mLastText && dateInfo.isNotBlank()) dateView.text = dateInfo
                     } else {
@@ -116,7 +117,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                         firstField { name = "mQsDateView" }.of(instance).get<TextView>()
                             ?: return@after
 
-                    if (disableScroll) mTmpConstraintSet.resolve().firstMethod {
+                    if (disableScroll) mTmpConstraintSet.asResolver().firstMethod {
                         name = "constrainWidth"
                     }.invoke(mQsDateView.id, ConstraintLayout.LayoutParams.WRAP_CONTENT)
 
@@ -152,7 +153,7 @@ object ControlCenterDateStyle : YukiBaseHooker() {
                             if (it) return@getScreenOrientation
                             if (translationX == 0 || translationY == 0) return@getScreenOrientation
 
-                            mTmpConstraintSet.resolve().apply {
+                            mTmpConstraintSet.asResolver().apply {
                                 firstMethod { }
                                 when (displayMode) {
                                     "1" -> firstMethod {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.widget.ImageView
 import androidx.core.graphics.drawable.toDrawable
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -58,7 +59,7 @@ object FingerPrintIconAnim : YukiBaseHooker() {
     }
 
     private fun Any.setCustomDrawable(iconPath: String?, update: Boolean) {
-        resolve().apply {
+        asResolver<Any>().apply {
             val context = firstField { type = Context::class }.get<Context>() ?: return
             val drawable = if (iconPath.isNullOrBlank()) null
             else BitmapFactory.decodeFile(iconPath).toDrawable(context.resources)
@@ -73,7 +74,7 @@ object FingerPrintIconAnim : YukiBaseHooker() {
     }
 
     private fun Any.removePressAnim() {
-        resolve().firstField { name { it.contains("PressedAnimDrawable", true) } }.set(null)
-        resolve().firstField { name { it.contains("PressedAnimDrawableTmp", true) } }.set(null)
+        asResolver<Any>().firstField { name { it.contains("PressedAnimDrawable", true) } }.set(null)
+        asResolver<Any>().firstField { name { it.contains("PressedAnimDrawableTmp", true) } }.set(null)
     }
 }

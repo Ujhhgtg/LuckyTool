@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.View
 import android.widget.EditText
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.extension.classOf
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.kavaref.extension.toClass
@@ -46,28 +46,28 @@ class COUIAlertDialogBuilder {
     }
 
     fun setTitle(charSequence: CharSequence) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setTitle"
             parameters(CharSequence::class)
         }.invoke(charSequence)
     }
 
     fun setTitle(int: Int) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setTitle"
             parameters(Int::class)
         }.invoke(int)
     }
 
     fun setMessage(charSequence: CharSequence) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setMessage"
             parameters(CharSequence::class)
         }.invoke(charSequence)
     }
 
     fun setMessage(int: Int) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setMessage"
             parameters(Int::class)
         }.invoke(int)
@@ -76,14 +76,14 @@ class COUIAlertDialogBuilder {
     fun setPositiveButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
     ) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setPositiveButton"
             parameters(CharSequence::class, classOf<DialogInterface.OnClickListener>())
         }.invoke(charSequence, onClickListener)
     }
 
     fun setPositiveButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setPositiveButton"
             parameters(Int::class, classOf<DialogInterface.OnClickListener>())
         }.invoke(int, onClickListener)
@@ -92,14 +92,14 @@ class COUIAlertDialogBuilder {
     fun setNeutralButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
     ) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setNeutralButton"
             parameters(CharSequence::class, classOf<DialogInterface.OnClickListener>())
         }.invoke(charSequence, onClickListener)
     }
 
     fun setNeutralButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setNeutralButton"
             parameters(Int::class, classOf<DialogInterface.OnClickListener>())
         }.invoke(int, onClickListener)
@@ -108,42 +108,42 @@ class COUIAlertDialogBuilder {
     fun setNegativeButton(
         charSequence: CharSequence, onClickListener: DialogInterface.OnClickListener?
     ) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setNegativeButton"
             parameters(CharSequence::class, classOf<DialogInterface.OnClickListener>())
         }.invoke(charSequence, onClickListener)
     }
 
     fun setNegativeButton(int: Int, onClickListener: DialogInterface.OnClickListener?) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setNegativeButton"
             parameters(Int::class, classOf<DialogInterface.OnClickListener>())
         }.invoke(int, onClickListener)
     }
 
     fun setView(int: Int) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setView"
             parameters(Int::class)
         }.invoke(int)
     }
 
     fun setView(view: View) {
-        if (builder != null) builder!!.resolve().firstMethod {
+        if (builder != null) builder!!.asResolver().firstMethod {
             name = "setView"
             parameters(View::class)
         }.invoke(view)
     }
 
     fun Any.create(): Any? {
-        return this.resolve().firstMethod {
+        return asResolver().firstMethod {
             name = "create"
             emptyParameters()
         }.invoke()
     }
 
     fun Any.dismiss() {
-        this.resolve().firstMethod {
+        asResolver().firstMethod {
             name = "dismiss"
             emptyParameters()
             superclass()
@@ -151,14 +151,14 @@ class COUIAlertDialogBuilder {
     }
 
     fun Any.show(): Any? {
-        return this.resolve().firstMethod {
+        return asResolver().firstMethod {
             name = "show"
             emptyParameters()
         }.invoke()
     }
 
     fun Any.findViewById(id: Int): View? {
-        return this.resolve().firstMethod {
+        return asResolver().firstMethod {
             name = "findViewById"
             parameters(Int::class)
             superclass()
@@ -168,7 +168,7 @@ class COUIAlertDialogBuilder {
     @SuppressLint("DiscouragedApi")
     fun Any.findViewById(idName: String): View? {
         val id = context.resources.getIdentifier(idName, "id", context.packageName)
-        return this.resolve().firstMethod {
+        return asResolver().firstMethod {
             name = "findViewById"
             parameters(Int::class)
             superclass()
@@ -176,7 +176,7 @@ class COUIAlertDialogBuilder {
     }
 
     fun Any.getEditText(idName: String): EditText? {
-        return findViewById(idName)?.resolve()?.firstMethod {
+        return findViewById(idName)?.asResolver()?.firstMethod {
             name = "getEditText"
             emptyParameters()
         }?.invoke<EditText>()

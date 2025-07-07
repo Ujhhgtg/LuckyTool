@@ -4,6 +4,7 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.content.Context
 import android.view.LayoutInflater
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.JInteger
 import com.highcapable.kavaref.extension.VariousClass
@@ -54,7 +55,7 @@ object LockScreenComponentStyle : YukiBaseHooker() {
                         if (mode == "0") return@after
                         val res = result<Any>() ?: return@after
                         val clockId =
-                            res.resolve().firstMethod { name = "getClockId" }.invoke<String>()
+                            res.asResolver().firstMethod { name = "getClockId" }.invoke<String>()
                                 ?: return@after
                         val isSingle = !clockId.contains("DualClock")
                         val provider = when (mode) {

@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.notificationmanager
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
@@ -43,9 +44,9 @@ object ForceDisplayClockStyleOptionsV14 : YukiBaseHooker() {
                         val keyguardLandClockPf = firstMethod {
                             name = "createPerfrenceBean";superclass()
                         }.of(instance).invoke(type, key, 70, clockTitle, category)
-                        keyguardLandClockPf?.resolve()?.firstMethod { name = "setIntentPackage" }
+                        keyguardLandClockPf?.asResolver()?.firstMethod { name = "setIntentPackage" }
                             ?.invoke("com.oplus.notificationmanager")
-                        keyguardLandClockPf?.resolve()?.firstMethod { name = "setIntentClass" }
+                        keyguardLandClockPf?.asResolver()?.firstMethod { name = "setIntentClass" }
                             ?.invoke("com.oplus.keyguard.keyguardsettings.KeyguardLandClockActivity")
 
                         val hashMap = firstField { name = "preferenceHashMap" }.of(instance)

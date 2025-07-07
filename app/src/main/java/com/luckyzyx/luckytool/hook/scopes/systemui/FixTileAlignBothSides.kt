@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -72,7 +73,7 @@ object FixTileAlignBothSides : YukiBaseHooker() {
                         val qSFragmentHelper = QSFragmentHelperCls.resolve().firstMethod {
                             name = "getInstance"
                         }.invoke() ?: return@after
-                        qSFragmentHelper.resolve().firstField {
+                        qSFragmentHelper.asResolver().firstField {
                             name = "mQSPanelScrollView"
                         }.get<ViewGroup>()?.apply {
                             getScreenOrientation(this) {

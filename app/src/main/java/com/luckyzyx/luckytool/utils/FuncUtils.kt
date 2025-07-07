@@ -60,7 +60,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.drake.net.utils.withDefault
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.yukihookapi.hook.factory.dataChannel
 import com.highcapable.yukihookapi.hook.xposed.prefs.YukiHookPrefsBridge
 import com.luckyzyx.luckytool.BuildConfig
@@ -816,7 +816,7 @@ val Context.is24
  */
 fun closeScreen(context: Context) {
     val service = context.getSystemService(PowerManager::class.java)
-    service.resolve().firstMethod {
+    service.asResolver().firstMethod {
         name = "goToSleep"
         parameters(Long::class)
     }.invoke(SystemClock.uptimeMillis())

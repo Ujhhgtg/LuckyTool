@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.market
 
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -60,9 +61,9 @@ class RemoveMarketSearchPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiB
                         YLog.debug("$dto")
 
                         val code =
-                            dto.resolve().firstMethod { name = "getCode";superclass() }.invoke()
+                            dto.asResolver().firstMethod { name = "getCode";superclass() }.invoke()
                         val key =
-                            dto.resolve().firstMethod { name = "getKey";superclass() }.invoke()
+                            dto.asResolver().firstMethod { name = "getKey";superclass() }.invoke()
                         YLog.debug("code: $code | key: $key")
 
                         val parent = viewGroup?.parent

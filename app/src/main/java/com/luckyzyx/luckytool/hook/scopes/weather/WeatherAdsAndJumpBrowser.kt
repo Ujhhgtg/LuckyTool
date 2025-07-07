@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
@@ -73,14 +74,14 @@ class WeatherAdsAndJumpBrowser(
                         if (!disableJump) return@before
                         val wrapper =
                             firstField { type = weatherWrapper }.of(instance).get() ?: return@before
-                        wrapper.resolve().firstMethod { name = "setRainFallAdLink" }.invoke("")
+                        wrapper.asResolver().firstMethod { name = "setRainFallAdLink" }.invoke("")
                     }
                 }
                 firstMethod { name = "showWarnWeatherPanel" }.hook {
                     before {
                         if (!disableJump) return@before
                         val warnInfo = args().last().any() ?: return@before
-                        warnInfo.resolve().firstField { name = "addLink" }.set("")
+                        warnInfo.asResolver().firstField { name = "addLink" }.set("")
                     }
                 }
             }

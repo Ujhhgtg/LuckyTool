@@ -5,7 +5,7 @@ import android.hardware.display.DisplayManager
 import android.view.Display
 import android.view.DisplayAddress
 import android.view.DisplayInfo
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -21,7 +21,7 @@ class DisplayManagerUtils(val classLoader: ClassLoader?) {
     }
 
     fun Display.getDisplayInfo(outDisplayInfo: DisplayInfo?): Boolean {
-        return resolve().firstMethod {
+        return asResolver<Display>().firstMethod {
             name = "getDisplayInfo"
             parameters(displayInfoClazz)
         }.invoke<Boolean>(outDisplayInfo) ?: false
@@ -52,7 +52,7 @@ class DisplayManagerUtils(val classLoader: ClassLoader?) {
     }
 
     fun getPhysicalDisplayId(address: Any): Long? {
-        return address.resolve().firstMethod {
+        return address.asResolver().firstMethod {
             name = "getPhysicalDisplayId"
             emptyParameters()
         }.invoke<Long>()

@@ -17,6 +17,7 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.allViews
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.createInstance
@@ -193,7 +194,7 @@ object LockScreenClock : YukiBaseHooker() {
                                     firstField { name = "mLocatedTimeInfo" }.of(view).get()
                                         ?: return@after
                                 val mHour =
-                                    mLocatedTimeInfo.resolve().firstMethod { name = "getHour" }
+                                    mLocatedTimeInfo.asResolver().firstMethod { name = "getHour" }
                                         .invoke<String>() ?: return@after
                                 mLocatedTimeHour.setClockRed(mHour, redMode)
                             }
@@ -206,7 +207,7 @@ object LockScreenClock : YukiBaseHooker() {
                                     firstField { name = "mResidentTimeInfo" }.of(view).get()
                                         ?: return@after
                                 val mHour =
-                                    mResidentTimeInfo.resolve().firstMethod { name = "getHour" }
+                                    mResidentTimeInfo.asResolver().firstMethod { name = "getHour" }
                                         .invoke<String>() ?: return@after
                                 mResidentTimeHour.setClockRed(mHour, redMode)
                             }
@@ -297,23 +298,25 @@ object LockScreenClock : YukiBaseHooker() {
                             else instance
                             when (type) {
                                 "LocateTime" -> {
-                                    val mLocatedTimeHour = view.resolve().firstField {
+                                    val mLocatedTimeHour = view.asResolver().firstField {
                                         name = "mTvHorizontalLocateClockHour"
                                     }.get<TextView>() ?: return@after
                                     val mLocatedTimeInfo = args().last().any() ?: return@after
                                     val mHour =
-                                        mLocatedTimeInfo.resolve().firstMethod { name = "getHour" }
+                                        mLocatedTimeInfo.asResolver()
+                                            .firstMethod { name = "getHour" }
                                             .invoke<String>() ?: return@after
                                     mLocatedTimeHour.setClockRed(mHour, redMode)
                                 }
 
                                 "ResidentTime" -> {
-                                    val mResidentTimeHour = view.resolve().firstField {
+                                    val mResidentTimeHour = view.asResolver().firstField {
                                         name = "mTvHorizontalResidentClockHour"
                                     }.get<TextView>() ?: return@after
                                     val mResidentTimeInfo = args().last().any() ?: return@after
                                     val mHour =
-                                        mResidentTimeInfo.resolve().firstMethod { name = "getHour" }
+                                        mResidentTimeInfo.asResolver()
+                                            .firstMethod { name = "getHour" }
                                             .invoke<String>() ?: return@after
                                     mResidentTimeHour.setClockRed(mHour, redMode)
                                 }
@@ -333,7 +336,8 @@ object LockScreenClock : YukiBaseHooker() {
                             val mLocatedTimeInfo =
                                 WeatherInfoParseHelper(appClassLoader).getLocalTimeInfo(mContext)
                                     ?: return@after
-                            val mHour = mLocatedTimeInfo.resolve().firstMethod { name = "getHour" }
+                            val mHour =
+                                mLocatedTimeInfo.asResolver().firstMethod { name = "getHour" }
                                 .invoke<String>() ?: return@after
                             mLocatedTimeHour.setClockRed(mHour, redMode)
                         }
@@ -354,13 +358,14 @@ object LockScreenClock : YukiBaseHooker() {
                                 ?: WeatherInfoParseHelper(appClassLoader).weatherInfoClazz
                                     .createInstance(isPublic = false)
                             val timeZone =
-                                info.resolve().firstMethod { name = "getTimeZone" }.invoke<String>()
+                                info.asResolver().firstMethod { name = "getTimeZone" }.invoke<String>()
                                     ?: "0.0"
                             val mResidentTimeInfo =
                                 WeatherInfoParseHelper(appClassLoader).getResidentTimeInfo(
                                     mContext, timeZone
                                 ) ?: return@after
-                            val mHour = mResidentTimeInfo.resolve().firstMethod { name = "getHour" }
+                            val mHour =
+                                mResidentTimeInfo.asResolver().firstMethod { name = "getHour" }
                                 .invoke<String>() ?: return@after
                             mResidentTimeHour.setClockRed(mHour, redMode)
                         }

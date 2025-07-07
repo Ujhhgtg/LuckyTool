@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -57,7 +58,7 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
 //                            name = "mThreeStageRingerModeTileProvider"
                             name { it.contains("RingerModeTileProvider") }
                         }.of(instance).get() ?: return@before
-                        result = provider.resolve().firstMethod {
+                        result = provider.asResolver().firstMethod {
                             name = "get";returnType = Any::class
                         }.invoke()
                     }

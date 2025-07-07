@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
@@ -59,8 +60,8 @@ object HookAppDetails : YukiBaseHooker() {
                             ?: return@after
                         val appButtonsPreferenceController = args().first().any() ?: return@after
                         val instrumentedPreferenceFragment = appButtonsPreferenceController
-                            .resolve().firstField { name = "mFragment" }.get() ?: return@after
-                        val packageInfo = instrumentedPreferenceFragment.resolve().firstField {
+                            .asResolver().firstField { name = "mFragment" }.get() ?: return@after
+                        val packageInfo = instrumentedPreferenceFragment.asResolver().firstField {
                             type = PackageInfo::class
                         }.get<PackageInfo>() ?: return@after
                         val appInfo = packageInfo.applicationInfo

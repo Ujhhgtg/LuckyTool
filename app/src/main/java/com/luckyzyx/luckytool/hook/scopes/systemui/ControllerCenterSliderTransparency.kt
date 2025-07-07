@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
 import android.widget.CheckBox
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -28,10 +29,10 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
                     if (customAlpha < 0) return@after
                     val value = customAlpha / 10F
                     val mSlider = firstField { name = "mSlider" }.of(instance).get() ?: return@after
-                    val baseProgressColor = mSlider.resolve().firstField {
+                    val baseProgressColor = mSlider.asResolver().firstField {
                         name = "mProgressColor";superclass()
                     }.get<Int>() ?: return@after
-                    mSlider.resolve().firstMethod {
+                    mSlider.asResolver().firstMethod {
                         name = "setProgressColor"
                         parameters(ColorStateList::class)
                         superclass()
@@ -40,7 +41,7 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
                             formatColorAlpha(baseProgressColor, value)
                         )
                     )
-                    mSlider.resolve().firstMethod {
+                    mSlider.asResolver().firstMethod {
                         name = "setThumbColor"
                         parameters(ColorStateList::class)
                         superclass()
@@ -69,9 +70,9 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
                     val value = customAlpha / 10.0F
                     val seekBar = result<View>() ?: return@after
                     val baseColor =
-                        seekBar.resolve().firstField { name = "mProgressColor" }.get<Int>()
+                        seekBar.asResolver().firstField { name = "mProgressColor" }.get<Int>()
                             ?: return@after
-                    seekBar.resolve().firstMethod {
+                    seekBar.asResolver().firstMethod {
                         name = "setProgressColor"
                         parameters(ColorStateList::class)
                     }.invoke(

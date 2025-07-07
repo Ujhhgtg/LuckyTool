@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -20,7 +21,7 @@ object AllowLongPressNotificationModifiable : YukiBaseHooker() {
             }.hook {
                 before {
                     firstFieldOrNull { name = "isAppModifiable" }?.of(instance)?.set(true) ?: run {
-                        args().first().any()?.resolve()?.firstField { name = "isAppModifiable" }
+                        args().first().any()?.asResolver()?.firstField { name = "isAppModifiable" }
                             ?.set(true)
                     }
                 }

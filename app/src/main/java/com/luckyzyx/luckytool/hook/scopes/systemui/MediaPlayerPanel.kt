@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -57,7 +58,8 @@ object MediaPlayerPanel : YukiBaseHooker() {
                                 val mediaModeChangeListener =
                                     firstField { name = "mediaModeChangeListener" }.of(instance)
                                         .get() ?: return@after
-                                mediaModeChangeListener.resolve().firstMethod { name = "onChanged" }
+                                mediaModeChangeListener.asResolver()
+                                    .firstMethod { name = "onChanged" }
                                     .invoke(status)
                             }
                             firstMethodOrNull { name = "setMediaModeChangeListener" }?.hook {
@@ -70,7 +72,7 @@ object MediaPlayerPanel : YukiBaseHooker() {
                                     }
                                     val mediaModeChangeListener =
                                         args().first().any() ?: return@after
-                                    mediaModeChangeListener.resolve()
+                                    mediaModeChangeListener.asResolver()
                                         .firstMethod { name = "onChanged" }.invoke(status)
                                 }
                             }
@@ -224,21 +226,21 @@ object MediaPlayerPanel : YukiBaseHooker() {
     }
 
     fun Any.connectSet(startId: Int, startSide: Int, endId: Int, endSide: Int, margin: Int) {
-        resolve().firstMethod {
+        asResolver<Any>().firstMethod {
             name = "connect"
             parameterCount = 5
         }.invoke(startId, startSide, endId, endSide, margin)
     }
 
     fun Any.constrainHeightSet(viewId: Int, height: Int) {
-        resolve().firstMethod {
+        asResolver<Any>().firstMethod {
             name = "constrainHeight"
             parameterCount = 2
         }.invoke(viewId, height)
     }
 
     fun Any.setVisibilitySet(viewId: Int, visibility: Int) {
-        resolve().firstMethod {
+        asResolver<Any>().firstMethod {
             name = "setVisibility"
             parameterCount = 2
         }.invoke(viewId, visibility)
@@ -273,7 +275,8 @@ object MediaPlayerPanel : YukiBaseHooker() {
         setOnClickListener {
             val clazz = "com.android.systemui.media.dialog.MediaOutputDialogFactory".toClass()
             val mMediaOutputDialogFactory = DependencyUtils(appClassLoader).getDependency(clazz)
-            mMediaOutputDialogFactory?.resolve()?.firstMethod { name = "create";parameterCount = 3 }
+            mMediaOutputDialogFactory?.asResolver()
+                ?.firstMethod { name = "create";parameterCount = 3 }
                 ?.invoke("", true, null)
         }
     }

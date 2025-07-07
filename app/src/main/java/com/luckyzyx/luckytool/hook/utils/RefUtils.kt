@@ -2,7 +2,7 @@
 
 package com.luckyzyx.luckytool.hook.utils
 
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.kavaref.extension.toClass
 import org.lsposed.lsparanoid.Obfuscate
@@ -22,7 +22,7 @@ class RefUtils(val classLoader: ClassLoader?) {
 
     fun BooleanRef(element: Boolean? = null): Any? {
         return BooleanRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
-            resolve().firstField { name = "element";type = Boolean::class }.set(element)
+            asResolver().firstField { name = "element";type = Boolean::class }.set(element)
         }
     }
 
@@ -32,7 +32,7 @@ class RefUtils(val classLoader: ClassLoader?) {
 
     fun FloatRef(element: Float? = null): Any? {
         return FloatRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
-            resolve().firstField { name = "element";type = Float::class }.set(element)
+            asResolver().firstField { name = "element";type = Float::class }.set(element)
         }
     }
 
@@ -42,7 +42,7 @@ class RefUtils(val classLoader: ClassLoader?) {
 
     fun IntRef(element: Int? = null): Any? {
         return IntRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
-            resolve().firstField { name = "element";type = Int::class }.set(element)
+            asResolver().firstField { name = "element";type = Int::class }.set(element)
         }
     }
 
@@ -52,7 +52,7 @@ class RefUtils(val classLoader: ClassLoader?) {
 
     fun LongRef(element: Long? = null): Any? {
         return LongRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
-            resolve().firstField { name = "element";type = Long::class }.set(element)
+            asResolver().firstField { name = "element";type = Long::class }.set(element)
         }
     }
 
@@ -62,12 +62,12 @@ class RefUtils(val classLoader: ClassLoader?) {
 
     inline fun <reified T> ObjectRef(element: T? = null): Any? {
         return ObjectRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
-            resolve().firstField { name = "element";type = T::class.java }.set(element)
+            asResolver().firstField { name = "element";type = T::class.java }.set(element)
         }
     }
 
     inline fun <reified T : Any> getRefElement(ref: Any): T? {
-        return ref.resolve().firstField { name = "element";type = T::class.java }.get<T>()
+        return ref.asResolver().firstField { name = "element";type = T::class.java }.get<T>()
     }
 
 }

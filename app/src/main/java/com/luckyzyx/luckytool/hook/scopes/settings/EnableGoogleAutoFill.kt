@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
 import android.os.UserHandle
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -50,10 +51,10 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             }.of(instance).invoke<Int>() ?: 0
                             allProviders.forEachIndexed { _, info ->
                                 val settingsSubtitle =
-                                    info.resolve().firstMethod { name = "getSettingsSubtitle" }
+                                    info.asResolver().firstMethod { name = "getSettingsSubtitle" }
                                         .invoke()
                                 val brandingService =
-                                    info.resolve().firstMethod { name = "getBrandingService" }
+                                    info.asResolver().firstMethod { name = "getBrandingService" }
                                         .invoke()
                                 val defaultAppInfo = defaultAppInfoClazz.toClass().resolve()
                                     .firstConstructor {
@@ -148,10 +149,11 @@ class EnableGoogleAutoFill(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             val users =
                                 UserHandle::class.resolve().firstMethod { name = "myUserId" }
                                     .invoke<Int>() ?: 0
-                            val queryIntentServicesAsUser = packageManager.resolve().firstMethod {
-                                name = "queryIntentServicesAsUser"
-                                parameters(Intent::class, Int::class, Int::class)
-                            }.invoke<List<ResolveInfo>>(intent, 128, users) ?: return@before
+                            val queryIntentServicesAsUser =
+                                packageManager.asResolver().firstMethod {
+                                    name = "queryIntentServicesAsUser"
+                                    parameters(Intent::class, Int::class, Int::class)
+                                }.invoke<List<ResolveInfo>>(intent, 128, users) ?: return@before
                             queryIntentServicesAsUser.forEachIndexed { _, resolveInfo ->
                                 val serviceInfo = resolveInfo.serviceInfo
                                 val permission = serviceInfo.permission

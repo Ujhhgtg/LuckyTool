@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -54,15 +55,15 @@ object LockScreenBottomButton : YukiBaseHooker() {
                             val viewModel = args.find {
                                 it != null && it::class isSubclassOf ViewModel.toClass()
                             } ?: return@before
-                            val solt = viewModel.resolve().firstField { name = "slotId" }
+                            val solt = viewModel.asResolver().firstField { name = "slotId" }
                                 .get<String>() ?: ""
                             when (solt) {
                                 "bottom_start" -> if (rmLeft) {
-                                    viewModel.resolve().firstField { name = "isVisible" }.set(false)
+                                    viewModel.asResolver().firstField { name = "isVisible" }.set(false)
                                 }
 
                                 "bottom_end" -> if (rmRight) {
-                                    viewModel.resolve().firstField { name = "isVisible" }.set(false)
+                                    viewModel.asResolver().firstField { name = "isVisible" }.set(false)
                                 }
                             }
                         }
@@ -127,7 +128,7 @@ object LockScreenBottomButton : YukiBaseHooker() {
                                 .invoke()
                             val mFlashlightController =
                                 firstField { name = "mFlashlightController" }.of(instance).get()
-                            val isEnable = mFlashlightController?.resolve()?.firstMethod {
+                            val isEnable = mFlashlightController?.asResolver()?.firstMethod {
                                 name = "isEnabled"
                             }?.invoke<Boolean>() ?: false
                             val resId = if (isEnable) R.drawable.affordance_flashlight_on
@@ -136,7 +137,7 @@ object LockScreenBottomButton : YukiBaseHooker() {
                                 ResourcesCompat.getDrawable(context.resources, resId, null)
                             }
                             firstField { name = "mLeftAffordanceView";superclass() }.of(instance)
-                                .get()?.resolve()?.firstMethod {
+                                .get()?.asResolver()?.firstMethod {
                                     name = "setImageDrawable"
                                     parameters(Drawable::class, Boolean::class)
                                     superclass()
@@ -166,10 +167,11 @@ object LockScreenBottomButton : YukiBaseHooker() {
                             ).invoke()
                             val mFlashlightController =
                                 firstField { name = "mFlashlightController" }.of(instance).get()
-                            val isEnable = mFlashlightController?.resolve()?.firstMethod {
+                            val isEnable = mFlashlightController?.asResolver()?.firstMethod {
                                 name = "isEnabled"
                             }?.invoke<Boolean>() ?: true
-                            mFlashlightController?.resolve()?.firstMethod { name = "setFlashlight" }
+                            mFlashlightController?.asResolver()
+                                ?.firstMethod { name = "setFlashlight" }
                                 ?.invoke(!isEnable)
                             firstMethod { name = "updateLeftAffordanceIcon" }.of(instance).invoke()
                             if (autoCloseScreen) closeScreen(instance<ViewGroup>().context)

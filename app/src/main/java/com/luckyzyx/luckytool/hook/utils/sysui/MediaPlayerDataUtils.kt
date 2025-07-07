@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.utils.sysui
 
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import org.lsposed.lsparanoid.Obfuscate
@@ -17,17 +18,17 @@ class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
     }
 
     private fun getFirstActiveMediaSortKey(mediaPlayerData: Any?): Any? {
-        return mediaPlayerData?.resolve()?.let {
+        return mediaPlayerData?.asResolver()?.let {
             (it.firstMethodOrNull { name = "getFirstActiveMediaSortKey" }
                 ?: it.firstMethod { name = "firstActiveMedia" }).invoke()
         }
     }
 
     private fun getMediaData(mediaPlayerData: Any?, firstActiveMediaSortKey: Any?): Any? {
-        mediaPlayerData?.resolve()?.firstMethodOrNull {
+        mediaPlayerData?.asResolver()?.firstMethodOrNull {
             name = "getMediaDataKey";parameterCount = 1
         }?.invoke(firstActiveMediaSortKey) ?: return null
-        val getData = firstActiveMediaSortKey?.resolve()?.firstMethod {
+        val getData = firstActiveMediaSortKey?.asResolver()?.firstMethod {
             name = "getData";emptyParameters()
         }?.invoke()
         return getData
