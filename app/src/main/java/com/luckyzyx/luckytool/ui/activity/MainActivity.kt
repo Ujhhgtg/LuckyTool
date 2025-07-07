@@ -31,7 +31,7 @@ import com.luckyzyx.luckytool.service.UserService
 import com.luckyzyx.luckytool.ui.activity.base.BaseActivity
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
-import com.luckyzyx.luckytool.utils.CommandUtils
+import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -43,8 +43,6 @@ import com.luckyzyx.luckytool.utils.exitModule
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.verityPackage
-import com.topjohnwu.superuser.Shell
-import com.topjohnwu.superuser.ShellUtils
 import org.lsposed.lsparanoid.Obfuscate
 import kotlin.system.exitProcess
 
@@ -96,11 +94,7 @@ open class MainActivity : BaseActivity() {
     }
 
     private fun checkSu() {
-        var isSu = Shell.getShell().isRoot
-        ShellUtils.fastCmd(CommandUtils.suCId).split(" ").apply {
-            isSu = isSu && contains(CommandUtils.rootUid) && contains(CommandUtils.rootGid)
-                    && contains(CommandUtils.rootGroup)
-        }
+        val isSu = DeviceUtils.getRootStatus()
         putBoolean(SettingsPrefs, "is_su", isSu)
         putBoolean(SettingsPrefs, "settings_prefs", isSu)
         putBoolean(ModulePrefs, "module_prefs", isSu)

@@ -50,39 +50,38 @@ val getVersionCode get() = BuildConfig.VERSION_CODE
 
 /**
  * 获取OS版本名
+ *
  * V12
+ *
  * V12.1
+ *
  * V12.2
+ *
  * V13.0
+ *
  * V13.1
+ *
  * V13.1.1
+ *
  * V13.2
+ *
  * V14.0
+ *
  * V14.0.1
+ *
  * V14.0.2
+ *
  * V14.1.0
+ *
  * V15.0.0
+ *
  * V15.0.1
+ *
  * V15.0.2
+ *
  * V16.0
  */
-val getOSVersionName: String
-    get() {
-        val buildUtils = OplusBuildUtlils(null)
-        return try {
-            buildUtils.getOSVersions?.get(OplusBuild.getOplusOSVERSION() - 1) ?: throw Throwable()
-        } catch (t: Throwable) {
-            try {
-                OplusBuild.VERSIONS[OplusBuild.getOplusOSVERSION() - 1] ?: throw Throwable()
-            } catch (t: Throwable) {
-                try {
-                    buildUtils.OSVERSIONS[OplusBuild.getOplusOSVERSION() - 1]
-                } catch (t: Throwable) {
-                    "null"
-                }
-            }
-        }
-    }
+val getOSVersionName get() = getOSVersionName(OplusBuild.getOplusOSVERSION())
 
 /**
  * 获取指定OS版本名
@@ -93,35 +92,46 @@ fun getOSVersionName(osCode: Int): String {
     val buildUtils = OplusBuildUtlils(null)
     return try {
         buildUtils.getOSVersions?.get(osCode - 1) ?: throw Throwable()
-    } catch (t: Throwable) {
+    } catch (_: Throwable) {
         try {
-            OplusBuild.VERSIONS[osCode - 1] ?: throw Throwable()
-        } catch (t: Throwable) {
-            try {
-                buildUtils.OSVERSIONS[osCode - 1]
-            } catch (t: Throwable) {
-                "null"
-            }
+            buildUtils.OSVERSIONS[osCode - 1]
+        } catch (_: Throwable) {
+            "null"
         }
     }
 }
 
 /**
  * 获取OS版本号
+ *
  * 23 -> (c12)
+ *
  * 24 -> (c12.1)
+ *
  * 25 -> (c12.2)
+ *
  * 26 -> (c13.0)
+ *
  * 27 -> (c13.1)
+ *
  * 28 -> (c13.1.1)
+ *
  * 29 -> (c13.2)
+ *
  * 30 -> (c14.0)
+ *
  * 31 -> (c14.0.1)
+ *
  * 32 -> (c14.0.2)
+ *
  * 33 -> (c14.1.0)
+ *
  * 34 -> (c15.0.0)
+ *
  * 35 -> (c15.0.1)
+ *
  * 36 -> (c15.0.2)
+ *
  * 37 -> (c16.0)
  */
 val getOSVersionCode get() = safeOf(0) { OplusBuild.getOplusOSVERSION() }

@@ -13,6 +13,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除OTA自动下载对话框
 - [更改] 更新并迁移底层HookAPI
 - [适配] 软件商店更新页面信息流 v12.9.0beta2(e182e2f)
+- [优化] 优化SU与OS检测
 
 ### 1.3.1
 

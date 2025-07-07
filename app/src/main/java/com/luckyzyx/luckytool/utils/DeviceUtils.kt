@@ -139,16 +139,40 @@ object DeviceUtils {
     }
 
     /**
+     * 获取Root状态
+     * @return Boolean
+     */
+    fun getRootStatus(): Boolean {
+        val isSu = Shell.getShell().isRoot
+        return isSu && ShellUtils.fastCmd(CommandUtils.id).split(" ").let {
+            it.contains(CommandUtils.rootUid) && it.contains(CommandUtils.rootGid)
+                    && it.contains(CommandUtils.rootGroup)
+        }
+    }
+
+    /**
      * 获取Root来源与版本
      * @param context Context
      * @return String
      */
     fun getRootVersion(context: Context): String {
-        val rootSource = if (Shell.cmd("magisk").exec().isSuccess) {
-            ShellUtils.fastCmd("magisk -v") + " (" + ShellUtils.fastCmd("magisk -V") + ")"
-        } else if (Shell.cmd("su -h").exec().isSuccess) {
-            ShellUtils.fastCmd("su -v") + " (" + ShellUtils.fastCmd("su -V") + ")"
-        } else "Other or Error"
+        val magisk = Shell.cmd("magisk").exec()
+        val magiskv = ShellUtils.fastCmd("magisk -v")
+        val magiskV = ShellUtils.fastCmd("magisk -V")
+        val suh = Shell.cmd("su -h").exec()
+        val suv = Shell.cmd("su -v").exec()
+        val suV = Shell.cmd("su -V").exec()
+
+        val rootSource = when {
+            magisk.isSuccess -> "$magiskv ($magiskV)"
+            suh.isSuccess -> {
+                if (suv.isSuccess || suV.isSuccess) {
+                    "${suv.out.firstOrNull()} (${suV.out.firstOrNull()})"
+                } else "SuperSu?"
+            }
+
+            else -> "Other Or Error"
+        }
         return "${context.getString(R.string.root_source)} $rootSource"
     }
 

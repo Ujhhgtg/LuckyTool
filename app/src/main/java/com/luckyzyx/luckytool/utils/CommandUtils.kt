@@ -11,7 +11,7 @@ object CommandUtils {
     val otaCryptKey = "otatoolsotatools"
     val sunshineTool = "com.Sunshine.ToolBox"
 
-    val suCId = "su -c id"
+    val id = "id"
     val uid = "uid"
     val gid = "gid"
     val groups = "groups"

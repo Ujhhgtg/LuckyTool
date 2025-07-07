@@ -5,7 +5,7 @@ package com.oplus.os;
  */
 public class OplusBuild {
     
-    public static String[] VERSIONS;
+    private static String[] VERSIONS;
     
     public static int getOplusOSVERSION() {
         throw new RuntimeException("STUB");

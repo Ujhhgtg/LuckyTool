@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
     namespace = "com.android.internal"
     kotlin {
         jvmToolchain(17)
