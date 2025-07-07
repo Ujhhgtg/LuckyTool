@@ -17,7 +17,7 @@ class IChargerUtils(val classLoader: ClassLoader?) {
     private val CHARGER_SERVICE_NAME = "vendor.oplus.hardware.charger.ICharger/default"
 
     val clazz = VariousClass(CLASS_OPLUS_CHARGER, CLASS_OPLUS_CHARGER_NEW)
-        .load(classLoader) as Class<Any>
+        .load(classLoader)
 
     fun getInstance(): Any? {
         return if (clazz.name == CLASS_OPLUS_CHARGER) {

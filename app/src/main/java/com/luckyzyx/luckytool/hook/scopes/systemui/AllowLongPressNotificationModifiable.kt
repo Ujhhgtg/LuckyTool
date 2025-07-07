@@ -10,11 +10,11 @@ import org.lsposed.lsparanoid.Obfuscate
 object AllowLongPressNotificationModifiable : YukiBaseHooker() {
     override fun onHook() {
         //Source NotificationSettingsModel
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.notification.settingspanel.NotificationSettingsModel", //C13
             "com.oplusos.systemui.notification.settingspanel.controller.NotificationController", //C13.1
             "com.oplus.systemui.statusbar.notification.settingspanel.controller.NotificationController" //C14
-        ).toClassOrNull() as? Class<Any>)?.resolve()?.apply {
+        ).loadOrNull(appClassLoader)?.resolve()?.apply {
             firstMethod {
                 name { it.startsWith("resolve") && it.contains("Mode") }
                 parameterCount = 1

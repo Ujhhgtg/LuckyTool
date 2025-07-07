@@ -19,10 +19,10 @@ object ForceDisplayClockStyleOptionsV13 : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {
         //Source KeyguardLauncherPageProvider
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider", //C13.0
             "com.oplus.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider" //C13.1
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "initKeyguardLandClockPf" }.hook {
                 before {
                     val isFlavorTwoDevice = flavorTwoFeatureOption.toClass().resolve().firstMethod {

@@ -9,10 +9,10 @@ import org.lsposed.lsparanoid.Obfuscate
 object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
     override fun onHook() {
         //Source PanelViewController -> config_vibrateOnIconAnimation
-        (VariousClass(
+        VariousClass(
             "com.android.systemui.statusbar.phone.PanelViewController", //C13
             "com.android.systemui.shade.NotificationPanelViewController" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstConstructor().hook {
                 after {
                     firstField { name = "mVibrateOnOpening" }.of(instance).set(true)
@@ -21,10 +21,10 @@ object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
         }
 
         //Source StatusBarCommandQueueCallbacks -> config_vibrateOnIconAnimation
-        (VariousClass(
+        VariousClass(
             "com.android.systemui.statusbar.phone.StatusBarCommandQueueCallbacks", //C13
             "com.android.systemui.statusbar.phone.CentralSurfacesCommandQueueCallbacks" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstFieldOrNull { name = "mVibrateOnOpening" }?.let {
                 firstConstructor().hook {
                     after {

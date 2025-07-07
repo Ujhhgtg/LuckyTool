@@ -11,10 +11,10 @@ import org.lsposed.lsparanoid.Obfuscate
 object ShowChargingRipple : YukiBaseHooker() {
     override fun onHook() {
         //Source WiredChargingRippleController -> flag_charging_ripple
-        (VariousClass(
+        VariousClass(
             "com.android.systemui.statusbar.charging.WiredChargingRippleController", //C13
             "com.android.systemui.charging.WiredChargingRippleController" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstConstructor().hook {
                 after {
                     firstField { name = "rippleEnabled" }.of(instance).set(true)

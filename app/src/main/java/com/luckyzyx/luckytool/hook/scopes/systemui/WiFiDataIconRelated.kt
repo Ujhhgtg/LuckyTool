@@ -186,10 +186,10 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             val removeInout = prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)
 
             //Source OplusStatusBarWifiView
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.statusbar.OplusStatusBarWifiView",
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarWifiViewExImpl"
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "initViewState" }.hook {
                     after {
                         if (!removeInout) return@after

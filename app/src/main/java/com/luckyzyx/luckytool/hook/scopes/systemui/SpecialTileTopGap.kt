@@ -33,10 +33,10 @@ object SpecialTileTopGap : YukiBaseHooker() {
         if (isSupportVolumeSeekBar) return
 
         //Source OplusQSTileMediaContainerController
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.OplusQSTileMediaContainerController", //C13
             "com.oplus.systemui.qs.OplusQSTileMediaContainerController" //C14 C15
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "updateResources" }.hook {
                 after {
                     val context = firstMethod {

@@ -21,10 +21,10 @@ object BluetoothIconRelated : YukiBaseHooker() {
         dataChannel.wait<Boolean>("hide_icon_when_bluetooth_not_connected") { isHide = it }
 
         //Source PhoneStatusBarPolicyEx
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.statusbar.phone.PhoneStatusBarPolicyEx", //C13
             "com.oplus.systemui.statusbar.phone.OplusPhoneStatusBarPolicyExImpl" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethodOrNull { name = "updateBluetoothIcon";parameterCount = 4 }?.hook {
                 before {
                     if (!isHide) return@before

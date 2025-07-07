@@ -120,10 +120,10 @@ object StatusBarClock : YukiBaseHooker() {
         }
 
         //Source StatClock
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.statusbar.widget.StatClock", //C12 C13
             "com.oplus.systemui.statusbar.widget.StatClock" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod {
                 name { it.startsWith("onConfig") && it.endsWith("Changed") }
             }.hook {

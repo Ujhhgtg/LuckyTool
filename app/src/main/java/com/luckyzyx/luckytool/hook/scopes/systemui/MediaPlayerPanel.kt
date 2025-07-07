@@ -123,10 +123,10 @@ object MediaPlayerPanel : YukiBaseHooker() {
             }
 
             //Source updateQsMediaPanelView
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.qs.OplusQSTileMediaContainer", //C13.1
                 "com.oplus.systemui.qs.OplusQSTileMediaContainer" //C14
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "setListening" }.hook {
                     after {
                         firstMethod { name = "updateResources" }.of(instance).invoke()

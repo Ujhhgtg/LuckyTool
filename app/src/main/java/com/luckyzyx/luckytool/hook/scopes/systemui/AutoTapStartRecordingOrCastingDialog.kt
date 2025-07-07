@@ -10,10 +10,10 @@ import org.lsposed.lsparanoid.Obfuscate
 object AutoTapStartRecordingOrCastingDialog : YukiBaseHooker() {
     override fun onHook() {
         //Source MediaProjectionPermissionActivity
-        (VariousClass(
+        VariousClass(
             "com.android.systemui.media.MediaProjectionPermissionActivity", //C15
             "com.android.systemui.mediaprojection.permission.MediaProjectionPermissionActivity"
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "onCreate" }.hook {
                 after {
                     firstMethod { name = "onClick";parameterCount = 2 }.of(instance).invoke(

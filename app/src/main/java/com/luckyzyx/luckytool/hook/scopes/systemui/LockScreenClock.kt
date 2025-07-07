@@ -122,10 +122,10 @@ object LockScreenClock : YukiBaseHooker() {
 
             //OPPO/Realme kgd_single_clock / kgd_dual_clock
             //Source SingleClockView kgd_single_clock
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.keyguard.clock.SingleClockView", //C13
                 "com.oplus.systemui.shared.clocks.SingleClockView" //C14
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter && !userTypeface) return@after
@@ -162,10 +162,10 @@ object LockScreenClock : YukiBaseHooker() {
                 }
             }
             //Source DualClockView kgd_dual_clock
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.keyguard.clock.DualClockView", //C13
                 "com.oplus.systemui.shared.clocks.DualClockView" //C14
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after
@@ -217,10 +217,10 @@ object LockScreenClock : YukiBaseHooker() {
             }
             //OnePlus kgd_red_horizontal_single_clock / kgd_red_horizontal_dual_clock
             //Source RedTextClock
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedTextClock", //C13
                 "com.oplus.systemui.shared.clocks.RedTextClock" //C14
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "onTimeChanged" }.hook {
                     after {
                         if (redMode == "0") return@after
@@ -265,10 +265,10 @@ object LockScreenClock : YukiBaseHooker() {
                 }
             }
             //Source RedHorizontalDualClockView
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedHorizontalDualClockView", //C13
                 "com.oplus.systemui.shared.clocks.RedHorizontalDualClockView" //C14
-            ).toClassOrNull() as? Class<Any>)?.resolve()?.apply {
+            ).loadOrNull(appClassLoader)?.resolve()?.apply {
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after

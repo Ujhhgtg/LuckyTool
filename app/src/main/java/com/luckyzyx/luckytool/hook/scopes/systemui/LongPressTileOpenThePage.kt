@@ -57,10 +57,10 @@ object LongPressTileOpenThePage : YukiBaseHooker() {
     object HookCellularTileIntent : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusCellularTile
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.qs.tiles.OplusCellularTile", //C13
                 "com.oplus.systemui.qs.tiles.OplusCellularTile" //C14
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "getLongClickIntent" }.hook {
                     before {
                         val mLockSimState =

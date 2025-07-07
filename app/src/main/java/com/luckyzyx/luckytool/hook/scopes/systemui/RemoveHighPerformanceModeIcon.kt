@@ -9,10 +9,10 @@ import org.lsposed.lsparanoid.Obfuscate
 object RemoveHighPerformanceModeIcon : YukiBaseHooker() {
     override fun onHook() {
         //Source PhoneStatusBarPolicyEx
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.statusbar.phone.PhoneStatusBarPolicyEx",
             "com.oplus.systemui.statusbar.phone.OplusPhoneStatusBarPolicyExImpl" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod {
                 name = "updateHighPerformanceIcon"
                 emptyParameters()

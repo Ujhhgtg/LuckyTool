@@ -15,10 +15,10 @@ object RestorePageLayoutRowCountForEditTiles : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         //Source OplusQSCustomizer
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.customize.OplusQSCustomizer",  //C13
             "com.oplus.systemui.qs.customize.OplusQSCustomizer"  //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             if (osCode < 34) {
                 firstConstructor { parameterCount = 2 }.hook {
                     after {

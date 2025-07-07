@@ -12,10 +12,10 @@ import org.lsposed.lsparanoid.Obfuscate
 object DisableHeadphoneHighVolumeWarning : YukiBaseHooker() {
     override fun onHook() {
         //Sourcce VolumeDialogImplEx
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
             "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "init" }.hook {
                 after {
                     val mContext = firstField { name = "mContext" }.of(instance).get<Context>()

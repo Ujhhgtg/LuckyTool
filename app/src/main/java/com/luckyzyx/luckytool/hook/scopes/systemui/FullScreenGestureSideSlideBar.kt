@@ -22,11 +22,11 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
         val isReplace = prefs(ModulePrefs).getBoolean("replace_side_slider_icon_switch", false)
         val leftPath = prefs(ModulePrefs).getString("replace_side_slider_icon_on_left", "")
         val rightPath = prefs(ModulePrefs).getString("replace_side_slider_icon_on_right", "")
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.navbar.gesture.sidegesture.SideGestureNavView", //A11
             "com.oplusos.systemui.navigationbar.gesture.sidegesture.SideGestureNavView",
             "com.oplus.systemui.navigationbar.gesture.sidegesture.SideGestureNavView" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "onDraw";parameterCount = 1 }.hook {
                 if (removeView) intercept()
             }

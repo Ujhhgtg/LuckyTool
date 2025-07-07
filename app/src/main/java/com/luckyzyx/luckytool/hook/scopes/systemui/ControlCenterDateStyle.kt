@@ -47,10 +47,10 @@ object ControlCenterDateStyle : YukiBaseHooker() {
         var lunarInstance: Any? = null
 
         //Source OplusQSDateView
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.widget.OplusQSDateView", //C13
             "com.oplus.systemui.qs.widget.OplusQSDateView" //C14 C15
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "updateClock";emptyParameters() }.hook {
                 before {
                     if (!removeComma && !showLunar) return@before
@@ -101,10 +101,10 @@ object ControlCenterDateStyle : YukiBaseHooker() {
 
         var translationX = 0
         //Source OplusQSFooterImpl
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.OplusQSFooterImpl", //C13
             "com.oplus.systemui.qs.OplusQSFooterImpl" //C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethodOrNull { name = "updateQsDateView" }?.hook {
                 after {
                     val res = instance<ViewGroup>().resources

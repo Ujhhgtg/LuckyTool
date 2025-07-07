@@ -20,10 +20,10 @@ object ControllerCenterSliderTransparency : YukiBaseHooker() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_control_center_silder_transparency", -1)
 
         //Source OplusToggleSliderView C14.0
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.widget.OplusToggleSliderView", //C13
             "com.oplus.systemui.qs.widget.OplusToggleSliderView", //C14.0
-        ).toClassOrNull() as? Class<Any>)?.resolve()?.apply {
+        ).loadOrNull(appClassLoader)?.resolve()?.apply {
             firstMethod { name = "setupSliderProgressDrawable" }.hook {
                 after {
                     if (customAlpha < 0) return@after

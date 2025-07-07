@@ -12,7 +12,7 @@ class WeatherInfoParseHelper(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.WeatherInfoParseHelper",  //C13
         "com.oplus.systemui.keyguard.clock.WeatherInfoParseHelper"  //C14
-    ).load(classLoader) as Class<Any>
+    ).load(classLoader)
 
     val holderInnerClazz = "${clazz.name}\$HolderInnerClass".toClass(classLoader)
     val weatherInfoClazz = "${clazz.name}\$WeatherInfo".toClass(classLoader)

@@ -26,11 +26,11 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         }
 
         //Source RingerModeTile
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.tiles.FlavorOneRingerModeTile",  //C13
             "com.oplus.systemui.qs.tiles.FlavorOneRingerModeTile",  //C14.0 C14.0.1
             "com.oplus.systemui.qs.tiles.ThreeStageRingerModeTile" //C14.1
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             //修复实例为Null无法获取spec问题
             firstConstructor().hook {
                 after {
@@ -44,11 +44,11 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         }
 
         //Source OplusQSFactoryImpl
-        (VariousClass(
+        VariousClass(
             "com.oplusos.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C13
             "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C14
             "com.oplus.systemui.qs.tileimpl.OplusQSFactoryImpl"  //C15
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethod { name = "createTile";parameters(String::class) }.hook {
                 before {
                     val key = args().first().string()

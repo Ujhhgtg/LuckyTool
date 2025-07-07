@@ -27,10 +27,10 @@ object UnlockTaskLocks : YukiBaseHooker() {
         }
 
         //Source OplusLockManager
-        (VariousClass(
+        VariousClass(
             "com.coloros.quickstep.applock.ColorLockManager",
             "com.oplus.quickstep.applock.OplusLockManager"
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstConstructor { parameters(Context::class) }.hook {
                 after {
                     firstField { name = "mLockAppLimit" }.of(instance).set(999)

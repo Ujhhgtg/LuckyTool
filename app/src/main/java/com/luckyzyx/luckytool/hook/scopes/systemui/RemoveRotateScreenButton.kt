@@ -13,11 +13,11 @@ import org.lsposed.lsparanoid.Obfuscate
 object RemoveRotateScreenButton : YukiBaseHooker() {
     override fun onHook() {
         //Source FloatingRotationButton
-        (VariousClass(
+        VariousClass(
             "com.android.systemui.statusbar.phone.FloatingRotationButton", //A11
             "com.android.systemui.navigationbar.gestural.FloatingRotationButton", //A12
             "com.android.systemui.shared.rotation.FloatingRotationButton" //C13 C14
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstConstructor { parameters { it[0] == classOf<Context>() } }.hook {
                 after {
                     firstField { name = "mKeyButtonView" }.of(instance).get<View>()

@@ -11,10 +11,10 @@ import org.lsposed.lsparanoid.Obfuscate
 object RemoveLockScreenBottomSOSButton : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusEmergencyButtonControllExImpl
-        (VariousClass(
+        VariousClass(
             "com.oplus.systemui.keyguard.OplusEmergencyButtonControllExImpl", //C13
             "com.oplus.keyguard.OplusEmergencyButtonExImpl" //C14 C15
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             firstMethodOrNull { name = "disableShowEmergencyButton" }?.hook {
                 replaceToTrue()
             } ?: firstMethodOrNull { name = "shouldUpdateEmergencyCallButton" }?.hook {

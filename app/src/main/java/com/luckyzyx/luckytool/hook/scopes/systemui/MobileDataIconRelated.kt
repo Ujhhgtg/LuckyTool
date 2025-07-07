@@ -210,10 +210,10 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             dataChannel.wait<Boolean>("hide_nosim_noservice") { hideNoSS = it }
 
             //Source OplusStatusBarMobileViewExImpl -> initView
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.statusbar.OplusStatusBarMobileView", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarMobileViewExImpl" //C13
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "initViewState" }.hook {
                     after {
                         if (hideNonNetwork) {
@@ -257,10 +257,10 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
 
             //Source OplusStatusBarSignalPolicyExImpl
-            (VariousClass(
+            VariousClass(
                 "com.oplusos.systemui.ext.StatusBarSignalPolicyExt", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicyExImpl" //C13
-            ).toClass() as Class<Any>).resolve().apply {
+            ).load(appClassLoader).resolve().apply {
                 firstMethod { name = "setNoSims";parameterCount = 3 }.hook {
                     after {
                         if (!hideNoSS) return@after

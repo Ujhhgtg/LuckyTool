@@ -19,7 +19,7 @@ class LunarHelperUtils(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.LunarHelper",  //C13
         "com.oplus.systemui.keyguard.clock.LunarHelper"  //C14 C15
-    ).load(classLoader) as Class<Any>
+    ).load(classLoader)
 
     companion object {
         val mLeapMonth = arrayOf("闰", "月")

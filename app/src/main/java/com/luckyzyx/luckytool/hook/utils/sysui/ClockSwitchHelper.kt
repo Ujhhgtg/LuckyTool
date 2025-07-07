@@ -12,7 +12,7 @@ class ClockSwitchHelper(val classLoader: ClassLoader?) {
     val clazz = VariousClass(
         "com.oplusos.systemui.keyguard.clock.ClockSwitchHelper",  //C12 C13
         "com.oplus.systemui.keyguard.clock.ClockSwitchHelper"  //C14
-    ).load(classLoader) as Class<Any>
+    ).load(classLoader)
 
     fun getInstance(context: Context): Any? {
         return clazz.resolve().firstMethod {

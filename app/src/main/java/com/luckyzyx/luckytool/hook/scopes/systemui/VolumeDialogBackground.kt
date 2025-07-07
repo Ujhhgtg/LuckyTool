@@ -43,7 +43,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             val volumnDialogClazz = VariousClass(
                 "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
                 "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14 C15
-            ).toClass() as Class<Any>
+            ).load(appClassLoader)
 
             volumnDialogClazz.resolve().apply {
                 firstMethodOrNull { name = "isSurrealQualityOn" }?.hook {
@@ -209,7 +209,7 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
             val volumnDialogClazz = VariousClass(
                 "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
                 "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14 C15
-            ).toClass() as Class<Any>
+            ).load(appClassLoader)
 
             volumnDialogClazz.resolve().apply {
                 firstMethodOrNull { name = "isSurrealQualityOn" }?.hook {

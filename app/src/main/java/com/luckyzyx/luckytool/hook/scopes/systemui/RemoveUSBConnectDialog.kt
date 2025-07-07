@@ -10,11 +10,11 @@ import org.lsposed.lsparanoid.Obfuscate
 object RemoveUSBConnectDialog : YukiBaseHooker() {
     override fun onHook() {
         //Source UsbService
-        (VariousClass(
+        VariousClass(
             "com.coloros.systemui.notification.usb.UsbService", //A11
             "com.oplusos.systemui.notification.usb.UsbService",
             "com.oplus.systemui.usb.UsbService" //C14 C15
-        ).toClass() as Class<Any>).resolve().apply {
+        ).load(appClassLoader).resolve().apply {
             (firstMethodOrNull { name = "onUsbConnected" }
                 ?: firstMethod { name { it.contains("onUsbConnected") } }).hook {
                 before {
