@@ -14,6 +14,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 更新并迁移底层HookAPI
 - [适配] 软件商店更新页面信息流 v12.9.0beta2(e182e2f)
 - [优化] 优化SU与OS检测
+- [修复] 文件夹图标预览行列数
 
 ### 1.3.1
 

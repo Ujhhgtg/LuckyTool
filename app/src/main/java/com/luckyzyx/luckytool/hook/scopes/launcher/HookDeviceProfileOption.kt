@@ -3,14 +3,11 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookDeviceProfileOption : YukiBaseHooker() {
     override fun onHook() {
-        val osCode = getOSVersionCode
-
         val enableFolder = prefs(ModulePrefs).getBoolean("enable_folder_layout_adjustment", false)
         val folderRow = prefs(ModulePrefs).getInt("set_icon_rows_in_folder", 4)
         val folderColumn = prefs(ModulePrefs).getInt("set_icon_columns_in_folder", 3)
@@ -21,6 +18,21 @@ object HookDeviceProfileOption : YukiBaseHooker() {
         val drawerColumn = prefs(ModulePrefs).getInt("set_icon_columns_in_drawer", 4)
 
         //Source InvariantDeviceProfile
+        "com.android.launcher3.InvariantDeviceProfile".toClass().resolve().apply {
+            method { name = "initGrid" }.hookAll {
+                after {
+                    if (enableFolder) {
+                        firstField { name = "numFolderRows" }.of(instance).set(folderRow)
+                        firstField { name = "numFolderColumns" }.of(instance).set(folderColumn)
+                    }
+                    if (enableDrawer) {
+                        firstField { name = "numAllAppsColumns" }.of(instance).set(drawerColumn)
+                    }
+                }
+            }
+        }
+
+        //Source InvariantDeviceProfile GridOption
         "com.android.launcher3.InvariantDeviceProfile\$GridOption".toClass().resolve().apply {
             firstConstructor { parameterCount { it in 2..3 } }.hook {
                 after {
@@ -40,12 +52,16 @@ object HookDeviceProfileOption : YukiBaseHooker() {
 
         //Source OplusInvariantDeviceProfile
         "com.android.launcher3.OplusInvariantDeviceProfile".toClass().resolve().apply {
-            firstMethod { name = "injectInitGridForCustomAttr" }.hook {
+            method { name { it.startsWith("injectInitGrid") } }.hookAll {
                 after {
                     if (enableFolder) {
 //                        field { name = "numFolderRows" }.get(instance).set(3)
-                        firstFieldOrNull { name = "numFolderRows" }?.of(instance)?.set(folderRow)
-                        firstFieldOrNull { name = "numFolderColumns" }?.of(instance)?.set(folderRow)
+                        (firstFieldOrNull { name = "numFolderRows" } ?: firstField {
+                            name = "numFolderRows";superclass()
+                        }).of(instance).set(folderRow)
+                        (firstFieldOrNull { name = "numFolderColumns" } ?: firstField {
+                            name = "numFolderColumns";superclass()
+                        }).of(instance).set(folderRow)
                         if (syncPreview && folderColumn > 3) {
                             firstField { name = "numFolderPreview" }.of(instance).set(folderColumn)
                         }
@@ -57,8 +73,6 @@ object HookDeviceProfileOption : YukiBaseHooker() {
                 }
             }
         }
-
-        if (osCode >= 34) return
 
         //Source FolderInfo
         "com.android.launcher3.model.data.FolderInfo".toClass().resolve().apply {

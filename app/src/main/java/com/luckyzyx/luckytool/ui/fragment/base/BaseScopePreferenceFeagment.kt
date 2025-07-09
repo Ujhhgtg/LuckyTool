@@ -87,7 +87,10 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
                 is MainActivity -> context.navController
                 else -> safeOfNull { findNavController() }
             }
-            navController?.navigatePage(navigateFragmentId, title)
+            val bundle = Bundle().apply {
+                if (!title.isNullOrBlank()) putCharSequence("title_text", title)
+            }
+            navController?.navigatePage(navigateFragmentId, bundle)
             true
         }
     }
