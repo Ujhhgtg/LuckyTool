@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.android
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.lsposed.lsparanoid.Obfuscate
@@ -15,9 +16,7 @@ object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
         "com.android.server.wm.OplusSplitScreenManagerService".toClass().resolve().apply {
             method {
                 name = "supportsSplitScreenByVendorPolicy"
-                parameters {
-                    it[0] == String::class && it[1] == String::class
-                }
+                parameters { it[0] == classOf<String>() && it[1] == classOf<String>() }
                 parameterCount { it in 3..4 }
             }.hookAll {
                 before {

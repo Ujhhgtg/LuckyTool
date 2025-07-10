@@ -10,6 +10,7 @@ import android.widget.RemoteViews
 import androidx.collection.arrayMapOf
 import androidx.core.graphics.toColorInt
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.kavaref.extension.toClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
@@ -277,9 +278,7 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 checkDataList("AlarmClock13")
                 single().name.toClass().apply {
                     resolve().method {
-                        parameters {
-                            it[0] == Context::class && it[1] == String::class
-                        }
+                        parameters { it[0] == classOf<Context>() && it[1] == classOf<String>() }
                         parameterCount { it in 2..3 }
                     }.hookAll {
                         after {
