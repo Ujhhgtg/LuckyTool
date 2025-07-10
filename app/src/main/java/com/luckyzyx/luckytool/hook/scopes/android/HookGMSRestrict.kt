@@ -14,9 +14,6 @@ object HookGMSRestrict : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_gms_usage_restrictions", false)
         if (!isEnable) return
 
-        if (osCode >= 30) loadHooker(GMSRestrict)
-        else loadHooker(GMSRestrictV13)
-
         //Source OplusAppStartupManager -> OplusStartupStrategy -> google_restric_info
         "com.android.server.am.OplusAppStartupManager\$OplusStartupStrategy".toClass().resolve()
             .apply {
@@ -27,7 +24,7 @@ object HookGMSRestrict : YukiBaseHooker() {
 
         //Source OplusHansDBConfig -> sys_elsa_config_list -> Athena
         "com.android.server.hans.OplusHansDBConfig".toClass().resolve().apply {
-            firstMethod { name = "updateManagedMap";parameterCount = 3 }.hook {
+            method { name = "updateManagedMap" }.hookAll {
                 after {
                     firstField { name = "mGMSList" }.of(instance).get<SparseArray<Any>>()?.clear()
                 }
@@ -38,8 +35,12 @@ object HookGMSRestrict : YukiBaseHooker() {
                 }
             }
         }
+
+        if (osCode > 30) loadHooker(GMSRestrict)
+        else loadHooker(GMSRestrictV13)
     }
 
+    @Obfuscate
     object GMSRestrict : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusBgSceneManager -> google_restric_info
@@ -59,6 +60,7 @@ object HookGMSRestrict : YukiBaseHooker() {
         }
     }
 
+    @Obfuscate
     object GMSRestrictV13 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusHansManager -> HansConfig -> google_restric_info

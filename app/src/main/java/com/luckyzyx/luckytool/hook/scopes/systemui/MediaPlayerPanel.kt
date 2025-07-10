@@ -222,30 +222,31 @@ object MediaPlayerPanel : YukiBaseHooker() {
     }
 
     fun getMediaData(): Any? {
-        return MediaPlayerDataUtils(appClassLoader).checkMediaDataStatus()
+        return MediaPlayerDataUtils(appClassLoader).getMediaDataStatus()
     }
 
     fun Any.connectSet(startId: Int, startSide: Int, endId: Int, endSide: Int, margin: Int) {
-        asResolver<Any>().firstMethod {
+        asResolver().firstMethod {
             name = "connect"
             parameterCount = 5
         }.invoke(startId, startSide, endId, endSide, margin)
     }
 
     fun Any.constrainHeightSet(viewId: Int, height: Int) {
-        asResolver<Any>().firstMethod {
+        asResolver().firstMethod {
             name = "constrainHeight"
             parameterCount = 2
         }.invoke(viewId, height)
     }
 
     fun Any.setVisibilitySet(viewId: Int, visibility: Int) {
-        asResolver<Any>().firstMethod {
+        asResolver().firstMethod {
             name = "setVisibility"
             parameterCount = 2
         }.invoke(viewId, visibility)
     }
 
+    @Obfuscate
     object ForceEnableMediaToggleButton : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQsMediaPanelView

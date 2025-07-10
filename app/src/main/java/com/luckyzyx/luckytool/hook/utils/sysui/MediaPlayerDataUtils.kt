@@ -13,30 +13,14 @@ class MediaPlayerDataUtils(val classLoader: ClassLoader?) {
         "com.oplus.systemui.media.OplusMediaControllerImpl\$MediaPlayerData"  //C14
     ).load(classLoader)
 
-    private fun getMediaPlayerData(): Any? {
-        return clazz.resolve().firstField { name = "INSTANCE" }.get()
-    }
-
-    private fun getFirstActiveMediaSortKey(mediaPlayerData: Any?): Any? {
-        return mediaPlayerData?.asResolver()?.let {
+    fun getMediaDataStatus(): Any? {
+        val mediaPlayerData = clazz.resolve().firstField { name = "INSTANCE" }.get() ?: return null
+        val firstActiveMediaKey = mediaPlayerData.asResolver().let {
             (it.firstMethodOrNull { name = "getFirstActiveMediaSortKey" }
                 ?: it.firstMethod { name = "firstActiveMedia" }).invoke()
-        }
-    }
-
-    private fun getMediaData(mediaPlayerData: Any?, firstActiveMediaSortKey: Any?): Any? {
-        mediaPlayerData?.asResolver()?.firstMethodOrNull {
-            name = "getMediaDataKey";parameterCount = 1
-        }?.invoke(firstActiveMediaSortKey) ?: return null
-        val getData = firstActiveMediaSortKey?.asResolver()?.firstMethod {
-            name = "getData";emptyParameters()
-        }?.invoke()
-        return getData
-    }
-
-    fun checkMediaDataStatus(): Any? {
-        val mediaPlayerData = getMediaPlayerData()
-        val firstActiveMediaKey = getFirstActiveMediaSortKey(mediaPlayerData)
-        return getMediaData(mediaPlayerData, firstActiveMediaKey)
+        } ?: return null
+        val mediaDataKey = mediaPlayerData.asResolver().firstMethod { name = "getMediaDataKey" }
+            .invoke(firstActiveMediaKey) ?: return null
+        return firstActiveMediaKey.asResolver().firstMethod { name = "getData" }.invoke()
     }
 }

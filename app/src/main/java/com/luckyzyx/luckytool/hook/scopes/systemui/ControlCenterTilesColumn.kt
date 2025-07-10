@@ -69,7 +69,7 @@ object ControlCenterTiles : YukiBaseHooker() {
                             ) when (mediaMode) {
                                 "2" -> 2
                                 "3" -> {
-                                    if (MediaPlayerDataUtils(appClassLoader).checkMediaDataStatus() == null) 2
+                                    if (MediaPlayerDataUtils(appClassLoader).getMediaDataStatus() == null) 2
                                     else return@getScreenOrientation
                                 }
 

@@ -22,6 +22,7 @@ object HookADM : YukiBaseHooker() {
         loadHooker(UnlockAdmThreads)
     }
 
+    @Obfuscate
     object UnlockAdmPro : YukiBaseHooker() {
         override fun onHook() {
             //Search Beta / Pro -> EVENT_DISA / hua_voices

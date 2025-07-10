@@ -14,7 +14,7 @@ class QSFeatureOptionUtils(val classLoader: ClassLoader?) {
     }
 
     fun isSupportVolumeSeekBar(): Boolean {
-        return clazz?.resolve()?.firstMethod { name = "isSupportVolumeSeekBar" }?.of(getInstance())
-            ?.invoke<Boolean>() ?: false
+        return clazz?.resolve()?.firstMethodOrNull { name = "isSupportVolumeSeekBar" }
+            ?.of(getInstance())?.invoke<Boolean>() ?: false
     }
 }
