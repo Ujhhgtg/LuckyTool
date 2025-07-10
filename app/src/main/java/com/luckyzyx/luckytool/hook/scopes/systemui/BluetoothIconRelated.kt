@@ -48,13 +48,13 @@ object BluetoothIconRelated : YukiBaseHooker() {
                 }).hook {
                     before {
                         if (!isHide) return@before
-                        val bluetoothController = firstField {
-                            type = BluetoothController
-                            if (SDK < A14) superclass()
-                        }.of(instance).get() ?: return@before
+                        val bluetoothController = (firstFieldOrNull { type = BluetoothController }
+                            ?: firstField { type = BluetoothController }).of(instance).get()
+                            ?: return@before
                         val statusBarIconController = firstField { type = StatusBarIconController }
                             .of(instance).get() ?: return@before
-                        val slotBluetooth = firstField { name = "slotBluetooth" }.of(instance).get()
+                        val slotBluetooth =
+                            firstField { name = "slotBluetooth" }.of(instance).get<String>()
                         val isBluetoothEnabled = bluetoothController.asResolver().firstField {
                             name = "mEnabled"
                         }.get<Boolean>() ?: false
