@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
+import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowAppNamesDisplayMultipleLines
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableAutoCloseFolder
@@ -9,7 +10,6 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDi
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeature
-import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeatureFlags
 import com.luckyzyx.luckytool.hook.scopes.launcher.LauncherLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.LongPressAppIconOpenAppDetails
 import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
@@ -20,6 +20,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveWidgetsAddRequestWhitelist
 import com.luckyzyx.luckytool.hook.scopes.launcher.UnlockTaskLocks
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -32,11 +33,17 @@ object HookLauncher : YukiBaseHooker() {
 
         loadHooker(HookGlobalFeatureConfig)
 
+        DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->
+
+            loadHooker(HookGlobalFeatureProvider(dexKitBridge))
+
+        }
+
         //HookLauncherFeature
         loadHooker(HookLauncherFeature)
 
         //HookLauncherFeatureFlags
-        if (osCode >= 27) loadHooker(HookLauncherFeatureFlags)
+//        if (osCode >= 27) loadHooker(HookLauncherFeatureFlags)
 
         //HookDeviceProfileOption
         loadHooker(HookDeviceProfileOption)
@@ -86,7 +93,7 @@ object HookLauncher : YukiBaseHooker() {
         }
         //允许桌面App名称多行显示
         if (prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)) {
-            loadHooker(AllowAppNamesDisplayMultipleLines)
+            if (osCode < 26) loadHooker(AllowAppNamesDisplayMultipleLines)
         }
         //启用自动关闭文件夹
         if (prefs(ModulePrefs).getBoolean("enable_auto_close_folder", false)) {

@@ -116,6 +116,12 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             if (prefs(ModulePrefs).getBoolean("show_phone_usage_screen_time", false)) {
                 put("com.oplus.battery.phoneusage.screenon.hide", false)
             }
+
+            //Source Launcher
+            if (prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)) {
+                put("com.android.launcher.APP_NAME_SHOW_IN_TWO_LINES", true)
+            }
+
             //Source OplusGame  AI辅助
 //            if (prefs(ModulePrefs).getBoolean("enable_game_ai_play", false)) {
 //                put("feature.support.game.AI_PLAY", true)

@@ -15,6 +15,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 软件商店更新页面信息流 v12.9.0beta2(e182e2f)
 - [优化] 优化SU与OS检测
 - [修复] 文件夹图标预览行列数
+- [更改] 桌面App名称双行显示功能位置与逻辑
 
 ### 1.3.1
 

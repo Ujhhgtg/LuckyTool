@@ -67,6 +67,18 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            //应用图标
+            add(PreferenceCategory(this@loadPreferences).apply {
+                title = getString(R.string.AppIcon)
+                key = "AppIcon"
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.allow_app_names_display_multiple_lines)
+                key = "allow_app_names_display_multiple_lines"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             //应用徽标
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppBadgeRelated)
@@ -103,12 +115,6 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     (activity as MainActivity).restart()
                     true
                 }
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.allow_app_names_display_multiple_lines)
-                key = "allow_app_names_display_multiple_lines"
-                setDefaultValue(false)
-                isIconSpaceReserved = false
             })
             if (SDK >= A13) {
                 add(SwitchPreference(this@loadPreferences).apply {
@@ -367,13 +373,6 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.launcher_drawer_layout_related)
                 key = "DrawerLayoutRelated"
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_drawer_layout_double_line_names)
-                key = "enable_drawer_layout_double_line_names"
-                setDefaultValue(false)
-                isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

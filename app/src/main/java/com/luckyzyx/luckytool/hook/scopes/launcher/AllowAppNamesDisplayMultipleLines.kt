@@ -10,9 +10,13 @@ object AllowAppNamesDisplayMultipleLines : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusBubbleTextView
         "com.android.launcher3.OplusBubbleTextView".toClass().resolve().apply {
-            firstMethod { name = "setTextVisibility";parameterCount = 1 }.hook{
+            firstMethod {
+                name = "setMaxLines"
+                parameters(Int::class)
+            }.hook {
                 before {
-                    instance<TextView>().isSingleLine = false
+                    instance<TextView>().maxLines = 2
+                    resultNull()
                 }
             }
         }

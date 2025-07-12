@@ -25,7 +25,6 @@ dependencyResolutionManagement {
             content { includeGroup("com.highcapable.yukihookapi") }
             content { includeGroup("com.highcapable.kavaref") }
             content { includeGroup("io.github.libxposed") }
-            content { includeGroup("id.dhd") }
         }
         maven("https://jitpack.io")
         maven("https://api.xposed.info")
