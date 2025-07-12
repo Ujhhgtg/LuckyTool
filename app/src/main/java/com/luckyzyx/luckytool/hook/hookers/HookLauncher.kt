@@ -16,6 +16,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
 import com.luckyzyx.luckytool.hook.scopes.launcher.RecentTaskListClearButton
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveAppUpdateGreenDot
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
+import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderNameInputLimit
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveWidgetsAddRequestWhitelist
 import com.luckyzyx.luckytool.hook.scopes.launcher.UnlockTaskLocks
@@ -60,6 +61,10 @@ object HookLauncher : YukiBaseHooker() {
         //设置桌面布局行列数
         if (prefs(ModulePrefs).getBoolean("launcher_layout_enable", false)) {
             loadHooker(LauncherLayoutRowColume)
+        }
+        //移除文件夹名称输入限制
+        if (prefs(ModulePrefs).getBoolean("remove_folder_name_input_limit", false)) {
+            loadHooker(RemoveFolderNameInputLimit)
         }
         //移除文件夹预览背景
         if (prefs(ModulePrefs).getBoolean("remove_folder_preview_background", false)) {

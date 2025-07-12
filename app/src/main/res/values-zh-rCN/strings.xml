@@ -418,8 +418,9 @@
     <string name="Desktop">桌面相关</string>
     <string name="WidgetRelated">小组件相关</string>
     <string name="remove_widgets_add_request_whitelist">移除组件添加请求白名单</string>
-    <string name="AppBadgeRelated">应用徽标相关</string>
+    <string name="AppIcon">应用图标</string>
     <string name="allow_app_names_display_multiple_lines">允许桌面App名称多行显示</string>
+    <string name="AppBadgeRelated">应用徽标相关</string>
     <string name="enable_display_app_update_dot">启用App更新圆点开关</string>
     <string name="enable_display_app_update_dot_summary">功能位置：设置-桌面与锁屏</string>
     <string name="set_app_update_dot_display_mode">设置App图标更新圆点显示模式</string>
@@ -428,6 +429,7 @@
     <string name="remove_app_clone_badge">移除应用分身徽标</string>
     <string name="remove_app_update_green_dot">移除 App 更新圆点</string>
     <string name="FolderLayoutRelated">文件夹布局相关</string>
+    <string name="remove_folder_name_input_limit">移除文件夹名称输入限制</string>
     <string name="enable_auto_close_folder">启用文件夹自动关闭</string>
     <string name="remove_folder_preview_background">移除文件夹预览背景</string>
     <string name="enable_folder_layout_adjustment">启用文件夹布局调整</string>

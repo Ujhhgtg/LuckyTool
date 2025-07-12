@@ -418,8 +418,9 @@
     <string name="Desktop">Рабочий стол</string>
     <string name="WidgetRelated">Виджеты</string>
     <string name="remove_widgets_add_request_whitelist">Удалить виджеты, чтобы добавить запрос в белый список</string>
-    <string name="AppBadgeRelated">Иконка приложения</string>
+    <string name="AppIcon">App icon</string>
     <string name="allow_app_names_display_multiple_lines">Разрешить отображать названия приложений в несколько строк</string>
+    <string name="AppBadgeRelated">Иконка приложения</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
     <string name="enable_display_app_update_dot_summary">Расположение функции: Настройки - Рабочий стол и экран блокировки</string>
     <string name="set_app_update_dot_display_mode">Установить режим отображения точки на иконке после обновления приложения</string>
@@ -428,6 +429,7 @@
     <string name="remove_app_clone_badge">Удалить метку клонированного приложения</string>
     <string name="remove_app_update_green_dot">Удалить зеленую точку после обновления приложения</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
+    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
     <string name="enable_auto_close_folder">Включить автоматическое закрытие папок</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>
@@ -655,7 +657,7 @@
     <string name="settings_authority_and_privacy">Разрешения и конфиденциальность</string>
     <string name="enable_vip_mode">Включить VIP-режим</string>
     <string name="settings_other_advanced_settings">Дополнительные настройки</string>
-    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
+    <string name="enable_swipe_up_navigation_gesture">Включить жест навигации свайпом вверх</string>
     <string name="enable_touch_membrane_protector_mode">Включить адаптацию касаний</string>
     <string name="enable_game_acceleration">Включить ускорение игры</string>
     <string name="settings_about_device">Об устройстве</string>
@@ -781,8 +783,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Поддерживаются только некоторые сценарии, пожалуйста, проверьте конкретную ситуацию самостоятельно</string>
     <string name="enable_png_save_format">Включить формат сохранения PNG</string>
     <!--OplusOta-->
-    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
-    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
+    <string name="remove_ota_notify_install_success">Удалить уведомление об успешной установке OTA</string>
+    <string name="remove_ota_auto_download_dialog">Удалить диалоговое окно автоматической загрузки OTA</string>
     <string name="unlock_local_upgrade">Разблокировать локальное обновление</string>
     <string name="unlock_local_upgrade_summary">После нажатия соответствующие операции будут выполняться автоматически, терпеливо подождите несколько секунд</string>
     <string name="remove_ota_local_update_verity">Удалить проверку локального обновления OTA</string>

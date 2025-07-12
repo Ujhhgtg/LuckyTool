@@ -418,8 +418,9 @@
     <string name="Desktop">Desktop Related</string>
     <string name="WidgetRelated">Widget Related</string>
     <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
-    <string name="AppBadgeRelated">App badge related</string>
+    <string name="AppIcon">App icon</string>
     <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
+    <string name="AppBadgeRelated">App badge related</string>
     <string name="enable_display_app_update_dot">Enable display app update dot switch</string>
     <string name="enable_display_app_update_dot_summary">Function location: Settings - Desktop and Lock screen</string>
     <string name="set_app_update_dot_display_mode">Set App icon update dot display mode</string>
@@ -428,6 +429,7 @@
     <string name="remove_app_clone_badge">Remove app clone badge</string>
     <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     <string name="FolderLayoutRelated">Folder Layout Related</string>
+    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
     <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Enable folder layout adjustments</string>

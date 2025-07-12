@@ -418,8 +418,9 @@
     <string name="Desktop">Màn hình chính</string>
     <string name="WidgetRelated">Tiện ích</string>
     <string name="remove_widgets_add_request_whitelist">Xóa tiện ích để thêm yêu cầu danh sách cho phép</string>
-    <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
+    <string name="AppIcon">App icon</string>
     <string name="allow_app_names_display_multiple_lines">Cho phép tên ứng dụng trên màn hình hiện nhiều dòng</string>
+    <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
     <string name="enable_display_app_update_dot_summary">Vị trí chức năng: Cài đặt - Màn hình và màn hình khóa</string>
     <string name="set_app_update_dot_display_mode">Đặt chế độ hiển thị dấu chấm cập nhật biểu tượng ứng dụng</string>
@@ -428,6 +429,7 @@
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_update_green_dot">Xóa dấu chấm cập nhật ứng dụng</string>
     <string name="FolderLayoutRelated">Bố cục gạch liên quan</string>
+    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
     <string name="enable_auto_close_folder">Bật chức năng đóng thư mục tự động</string>
     <string name="remove_folder_preview_background">Xóa nền xem trước thư mục</string>
     <string name="enable_folder_layout_adjustment">Bật điều chỉnh bố cục thư mục</string>
@@ -655,7 +657,7 @@
     <string name="settings_authority_and_privacy">Quyền và quyền riêng tư</string>
     <string name="enable_vip_mode">Bật chế độ VIP</string>
     <string name="settings_other_advanced_settings">Các thiết lập khác</string>
-    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
+    <string name="enable_swipe_up_navigation_gesture">Bật cử chỉ điều hướng vuốt lên</string>
     <string name="enable_touch_membrane_protector_mode">Kích hoạt chế độ bảo vệ màn cảm ứng</string>
     <string name="enable_game_acceleration">Bật tính năng tăng tốc trò chơi</string>
     <string name="settings_about_device">Thông tin thiết bị</string>
@@ -781,8 +783,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Chỉ hỗ trợ một số trường hợp, vui lòng tự kiểm tra các tình huống cụ thể</string>
     <string name="enable_png_save_format">Bật định dạng lưu PNG</string>
     <!--OplusOta-->
-    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
-    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
+    <string name="remove_ota_notify_install_success">Xóa thông báo cài đặt OTA thành công</string>
+    <string name="remove_ota_auto_download_dialog">Xóa hộp thoại tải xuống tự động OTA</string>
     <string name="unlock_local_upgrade">Mở khóa nâng cấp cục bộ</string>
     <string name="unlock_local_upgrade_summary">Sau khi nhấp vào, các thao tác liên quan sẽ được thực hiện tự động, hãy kiên nhẫn chờ trong vài giây</string>
     <string name="remove_ota_local_update_verity">Xóa xác minh cập nhật OTA cục bộ</string>

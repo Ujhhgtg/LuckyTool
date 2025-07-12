@@ -143,6 +143,12 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_folder_name_input_limit)
+                key = "remove_folder_name_input_limit"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_auto_close_folder)
                 key = "enable_auto_close_folder"
                 setDefaultValue(false)

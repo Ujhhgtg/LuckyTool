@@ -486,6 +486,7 @@
     <string name="remove_app_update_green_dot">Remove the green dot after app update</string>
     
     <string name="FolderLayoutRelated">Folder Layout Related</string>
+    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
     <string name="enable_auto_close_folder">Enable automatic closing of folders</string>
     <string name="remove_folder_preview_background">Remove folder preview background</string>
     <string name="enable_folder_layout_adjustment">Enable folder layout adjustments</string>

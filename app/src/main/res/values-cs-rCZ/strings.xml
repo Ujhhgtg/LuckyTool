@@ -418,8 +418,9 @@
     <string name="Desktop">Plocha</string>
     <string name="WidgetRelated">Související s widgety</string>
     <string name="remove_widgets_add_request_whitelist">Odeberte widgety a přidejte požadavek na bílou listinu</string>
-    <string name="AppBadgeRelated">Odznaky aplikací</string>
+    <string name="AppIcon">App icon</string>
     <string name="allow_app_names_display_multiple_lines">Povolit na domovské obrazovce zobrazení názvů aplikací ve více řádcích</string>
+    <string name="AppBadgeRelated">Odznaky aplikací</string>
     <string name="enable_display_app_update_dot">Povolit přepínač aktualizací aplikace</string>
     <string name="enable_display_app_update_dot_summary">Umístění funkce: Nastavení - Desktop a zamykací obrazovka</string>
     <string name="set_app_update_dot_display_mode">Nastavení režimu zobrazení bodu na ikoně po aktualizaci aplikace</string>
@@ -428,6 +429,7 @@
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
     <string name="remove_app_update_green_dot">Odstranit zelenou tečku po aktualizaci aplikace</string>
     <string name="FolderLayoutRelated">Rozvržení složky</string>
+    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
     <string name="enable_auto_close_folder">Povolit automatické zavírání složek</string>
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>
@@ -655,7 +657,7 @@
     <string name="settings_authority_and_privacy">Oprávnění a soukromí</string>
     <string name="enable_vip_mode">Aktivovat VIP režim</string>
     <string name="settings_other_advanced_settings">Další nastavení</string>
-    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
+    <string name="enable_swipe_up_navigation_gesture">Povolit gesto přejetí prstem nahoru</string>
     <string name="enable_touch_membrane_protector_mode">Povolit režim ochrany dotykové membrány</string>
     <string name="enable_game_acceleration">Povolit herní zrychlení</string>
     <string name="settings_about_device">O zařízení</string>
@@ -781,8 +783,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Jsou podporovány pouze některé scénáře, prosím vyzkoušejte specifickou situaci sami</string>
     <string name="enable_png_save_format">Povolit PNG formát ukládání</string>
     <!--OplusOta-->
-    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
-    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
+    <string name="remove_ota_notify_install_success">Odstranit oznámení o úspěšné instalaci OTA</string>
+    <string name="remove_ota_auto_download_dialog">Odstranit dialogové okno automatického stahování OTA</string>
     <string name="unlock_local_upgrade">Povolit lokální upgrade</string>
     <string name="unlock_local_upgrade_summary">Po kliknutí budou příslušné operace prováděny automaticky, prosím trpělivě počkejte několik sekund</string>
     <string name="remove_ota_local_update_verity">Odstranit ověření místní instalace OTA</string>

@@ -200,7 +200,7 @@
     <string name="disable_high_volume_warning_notifications">Disattiva le notifiche di avviso ad alto volume</string>
     <string name="remove_notification_pin_number_limit">Rimuovi il limite al numero di notifiche appuntate</string>
     <string name="enable_keep_notification_when_app_stop">Abilita le notifiche di mantenimento quando l\'applicazione si arresta</string>
-    <string name="enable_global_notification_simple_banner_mode">Enable global notifications simple banner mode</string>
+    <string name="enable_global_notification_simple_banner_mode">Abilita la modalità banner semplice delle notifiche globali</string>
     <string name="remove_small_window_reply_whitelist">Rimuovi la finestra piccola di risposta dalla Lista bianca</string>
     <string name="set_small_window_reply_blacklist">Imposta la finestra piccola di risposta dalla Lista nera</string>
     <string name="set_small_window_reply_blacklist_message">Inserisci il nome del pacchetto che deve essere aggiunto alla lista nera</string>
@@ -418,8 +418,9 @@
     <string name="Desktop">Launcher/Desktop</string>
     <string name="WidgetRelated">Widget correlati</string>
     <string name="remove_widgets_add_request_whitelist">Rimuovi i widget per aggiungere la richiesta alla whitelist</string>
-    <string name="AppBadgeRelated">Badge delle App</string>
+    <string name="AppIcon">App icon</string>
     <string name="allow_app_names_display_multiple_lines">Consenti la visualizzazione dei nomi delle app desktop su più righe</string>
+    <string name="AppBadgeRelated">Badge delle App</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
     <string name="enable_display_app_update_dot_summary">Posizione della funzione: Impostazioni - Desktop e schermata di blocco</string>
     <string name="set_app_update_dot_display_mode">Imposta la modalità di visualizzazione dei punti di aggiornamento delle icone dell\'app</string>
@@ -428,10 +429,11 @@
     <string name="remove_app_clone_badge">Rimuovi badge clona app</string>
     <string name="remove_app_update_green_dot">Rimuovi il punto verde dopo l\'aggiornamento dell\'app</string>
     <string name="FolderLayoutRelated">Stile Tile</string>
+    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
     <string name="enable_auto_close_folder">Abilita la chiusura automatica delle cartelle</string>
     <string name="remove_folder_preview_background">Rimuovi lo sfondo dell\'anteprima della cartella</string>
     <string name="enable_folder_layout_adjustment">Abilita le regolazioni del layout delle cartelle</string>
-    <string name="set_icon_rows_in_folder">Set the number of icon rows in the folder</string>
+    <string name="set_icon_rows_in_folder">Imposta il numero di righe di icone nella cartella</string>
     <string name="set_icon_columns_in_folder">Imposta il numero di colonne di icone nella cartella</string>
     <string name="sync_folder_icon_column_number_preview">Sincronizza il numero della colonna dell\'icona della cartella per l\'anteprima</string>
     <string name="PaginationComponentRelated">Componente di impaginazione</string>
@@ -636,7 +638,7 @@
     <string name="enable_screen_color_temperature_rgb_space">Abilita la temperatura del colore dello schermo nello spazio RGB</string>
     <string name="enable_screen_color_temperature_rgb_palette_summary">Può essere revocato dalla funzione DC</string>
     <string name="enable_smart_switching_screen_resolutions">Abilita la commutazione intelligente delle risoluzioni dello schermo</string>
-    <string name="force_enable_reduce_white_point_value">Forced to enable reduce white point value</string>
+    <string name="force_enable_reduce_white_point_value">Obbligato ad abilitare la riduzione del valore del punto bianco</string>
     <string name="settings_application">Applicazione</string>
     <string name="unlock_default_desktop_limit">Sblocca le restrizioni predefinite del desktop</string>
     <string name="force_display_process_management">Forza visualizzazione della gestione dei processi</string>
@@ -655,7 +657,7 @@
     <string name="settings_authority_and_privacy">Autorizzazioni e privacy</string>
     <string name="enable_vip_mode">Abilita modalità VIP</string>
     <string name="settings_other_advanced_settings">Impostazioni Aggiuntive</string>
-    <string name="enable_swipe_up_navigation_gesture">Enable swipe-up navigation gesture</string>
+    <string name="enable_swipe_up_navigation_gesture">Abilita il gesto di navigazione con scorrimento verso l\'alto</string>
     <string name="enable_touch_membrane_protector_mode">Abilita la modalità di protezione della membrana touch</string>
     <string name="enable_game_acceleration">Abilita accelerazione gioco</string>
     <string name="settings_about_device">Informazioni sul dispositivo</string>
@@ -781,8 +783,8 @@
     <string name="remove_page_limit_for_long_screenshots_summary">Solo alcuni scenari sono supportati, si prega di verificare la situazione specifica da soli</string>
     <string name="enable_png_save_format">Abilita formato di salvataggio PNG</string>
     <!--OplusOta-->
-    <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
-    <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
+    <string name="remove_ota_notify_install_success">Rimuovere la notifica di successo dell\'installazione OTA</string>
+    <string name="remove_ota_auto_download_dialog">Rimuovi la finestra di dialogo di download automatico OTA</string>
     <string name="unlock_local_upgrade">Sblocca aggiornamento locale</string>
     <string name="unlock_local_upgrade_summary">Dopo aver cliccato, le operazioni rilevanti verranno eseguite automaticamente, si prega di attendere pazientemente per alcuni secondi</string>
     <string name="remove_ota_local_update_verity">Rimuovi verifica dell\'aggiornamento locale OTA</string>
