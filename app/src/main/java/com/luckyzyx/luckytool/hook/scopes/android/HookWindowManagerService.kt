@@ -94,7 +94,7 @@ object HookWindowManagerService : YukiBaseHooker() {
                 before {
                     if (isDpi) resultNull()
                 }
-            } ?: {
+            } ?: run {
                 firstMethod { name = "onResolutionSettingsChange";parameterCount = 1 }.hook {
                     before {
                         if (isDpi) args().first().setFalse()

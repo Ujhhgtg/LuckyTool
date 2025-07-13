@@ -206,7 +206,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             else -> return@before
                         }
                     }
-                } ?: {
+                } ?: run {
                     firstMethod { name = "updateTextLogo" }.hook {
                         before {
                             when (textLogo) {

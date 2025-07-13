@@ -15,7 +15,7 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
 
     override fun onHook() {
         //Source SideGestureViewManager
-        //Source SideGestureNavView
+        //Source SideGestureNavView navbar_gesture_background
         val removeView = prefs(ModulePrefs).getBoolean("remove_side_slider", false)
         val removeBackground =
             prefs(ModulePrefs).getBoolean("remove_side_slider_black_background", false)
@@ -30,19 +30,11 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
             firstMethod { name = "onDraw";parameterCount = 1 }.hook {
                 if (removeView) intercept()
             }
-            firstMethodOrNull { name = "initPaint";emptyParameters() }?.hook {
+            (firstMethodOrNull { name = "initPaint" } ?: firstConstructor()).hook {
                 after {
                     if (!removeBackground) return@after
                     firstField { name = "mBezierPaint";type = Paint::class }.of(instance)
                         .get<Paint>()?.color = Color.TRANSPARENT
-                }
-            } ?: {
-                firstConstructor().hook {
-                    after {
-                        if (!removeBackground) return@after
-                        firstField { name = "mBezierPaint";type = Paint::class }.of(instance)
-                            .get<Paint>()?.color = Color.TRANSPARENT
-                    }
                 }
             }
             firstMethod { name = "setBackIcon";parameters(Bitmap::class) }.hook {

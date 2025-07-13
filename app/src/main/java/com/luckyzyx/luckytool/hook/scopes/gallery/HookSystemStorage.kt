@@ -151,7 +151,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                                     it.copy().of(instance).set(true)
                                 }
                             }
-                        } ?: {
+                        } ?: run {
                             YLog.debug("WatermarkDevice HasselDevice hook error! -> ${classData.name}")
                         }
                     }

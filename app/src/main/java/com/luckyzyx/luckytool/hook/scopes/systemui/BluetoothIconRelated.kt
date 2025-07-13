@@ -38,7 +38,7 @@ object BluetoothIconRelated : YukiBaseHooker() {
                     }.invoke<Boolean>() ?: return@before
                     args().last().set(isBluetoothEnabled && isBluetoothConnected)
                 }
-            } ?: {
+            } ?: run {
                 (firstMethodOrNull {
                     name = "updateBluetooth"
                     emptyParameters()
