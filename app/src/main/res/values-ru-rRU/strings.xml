@@ -207,6 +207,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Пользовательский белый список fluid cloud</string>
     <string name="disable_music_fluid_cloud_display">Отключить отображение fluid cloud музыки</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Настроить белый список fluid cloud</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Принудительно включить отображение fluid cloud музыки</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в статусбаре</string>
@@ -418,7 +419,7 @@
     <string name="Desktop">Рабочий стол</string>
     <string name="WidgetRelated">Виджеты</string>
     <string name="remove_widgets_add_request_whitelist">Удалить виджеты, чтобы добавить запрос в белый список</string>
-    <string name="AppIcon">App icon</string>
+    <string name="AppIcon">Иконка приложения</string>
     <string name="allow_app_names_display_multiple_lines">Разрешить отображать названия приложений в несколько строк</string>
     <string name="AppBadgeRelated">Иконка приложения</string>
     <string name="enable_display_app_update_dot">Показывать точку над иконкой приложения после обновления</string>
@@ -429,7 +430,7 @@
     <string name="remove_app_clone_badge">Удалить метку клонированного приложения</string>
     <string name="remove_app_update_green_dot">Удалить зеленую точку после обновления приложения</string>
     <string name="FolderLayoutRelated">Разметка папки</string>
-    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
+    <string name="remove_folder_name_input_limit">Убрать ограничение на ввод имени папки</string>
     <string name="enable_auto_close_folder">Включить автоматическое закрытие папок</string>
     <string name="remove_folder_preview_background">Удалить фон предпросмотра папки</string>
     <string name="enable_folder_layout_adjustment">Включить изменение расположения папок</string>

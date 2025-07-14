@@ -207,6 +207,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Tùy chỉnh danh sách cho phép Music Fluid Cloud</string>
     <string name="disable_music_fluid_cloud_display">Tắt hiển thị dòng chảy âm nhạc đám mây</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Thiết lập danh sách cho phép Music Fluid Cloud</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Buộc kích hoạt phương tiện truyền thông âm nhạc đám mây gợn sóng</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
@@ -418,7 +419,7 @@
     <string name="Desktop">Màn hình chính</string>
     <string name="WidgetRelated">Tiện ích</string>
     <string name="remove_widgets_add_request_whitelist">Xóa tiện ích để thêm yêu cầu danh sách cho phép</string>
-    <string name="AppIcon">App icon</string>
+    <string name="AppIcon">Biểu tượng ứng dụng</string>
     <string name="allow_app_names_display_multiple_lines">Cho phép tên ứng dụng trên màn hình hiện nhiều dòng</string>
     <string name="AppBadgeRelated">Liên quan đến huy hiệu ứng dụng</string>
     <string name="enable_display_app_update_dot">Bật chuyển đổi dấu chấm cập nhật ứng dụng</string>
@@ -429,7 +430,7 @@
     <string name="remove_app_clone_badge">Xóa huy hiệu lối tắt ứng dụng</string>
     <string name="remove_app_update_green_dot">Xóa dấu chấm cập nhật ứng dụng</string>
     <string name="FolderLayoutRelated">Bố cục gạch liên quan</string>
-    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
+    <string name="remove_folder_name_input_limit">Bỏ giới hạn nhập tên thư mục</string>
     <string name="enable_auto_close_folder">Bật chức năng đóng thư mục tự động</string>
     <string name="remove_folder_preview_background">Xóa nền xem trước thư mục</string>
     <string name="enable_folder_layout_adjustment">Bật điều chỉnh bố cục thư mục</string>

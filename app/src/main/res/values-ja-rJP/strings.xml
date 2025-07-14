@@ -207,6 +207,7 @@
     <string name="custom_music_fluid_cloud_whitelist">music fluid cloud ホワイトリストをカスタマイズ</string>
     <string name="disable_music_fluid_cloud_display">music fluid cloud の表示を無効化</string>
     <string name="set_custom_music_fluid_cloud_whitelist">music fluid cloud のホワイトリストを設定</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">強制的にメディア音楽のライブアラートを有効化</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">ステータスバーアイコン</string>

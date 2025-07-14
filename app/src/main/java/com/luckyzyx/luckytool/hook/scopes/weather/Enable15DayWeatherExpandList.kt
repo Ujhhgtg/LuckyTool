@@ -11,7 +11,9 @@ object Enable15DayWeatherExpandList : YukiBaseHooker() {
         //Source FutureDayWeatherItem
         "com.oplus.weather.main.view.itemview.FutureDayWeatherItem".toClass().resolve().apply {
             firstFieldOrNull { name = "isAllow15DayExpand";type = Boolean::class } ?: return@apply
-            constructor { parameters { it.contains(classOf<Boolean>()) } }.hookAll {
+            constructor {
+                parameters { it.contains(classOf<Boolean>()) }
+            }.hookAll {
                 before {
                     args(args.indexOfFirst { it is Boolean }).setTrue()
                 }
@@ -22,7 +24,9 @@ object Enable15DayWeatherExpandList : YukiBaseHooker() {
         "com.oplus.weather.uiconfig.UIConfigManager".toClass().resolve().apply {
             optional(true).method {
                 name { it.startsWith("get") && it.contains("Day15ExpandConfig") }
-            }.ifEmpty { return@apply }
+            }.ifEmpty {
+                return@apply
+            }
             method {
                 name { it.startsWith("get") && it.contains("Day15ExpandConfig") }
             }.hookAll {

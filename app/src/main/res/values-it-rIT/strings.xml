@@ -207,6 +207,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Personalizza whitelist Music Fluid nel cloud</string>
     <string name="disable_music_fluid_cloud_display">Disattiva display cloud fluido musicale</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Configura la whitelist cloud music fluid</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Forza l\'attivazione dell\'increspatura delle nuvole Fluid Music</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Icona Barra di Stato</string>

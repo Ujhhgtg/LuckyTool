@@ -6,7 +6,6 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
@@ -31,6 +30,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarRelated : BaseScopePreferenceFeagment() {
@@ -152,6 +152,13 @@ class StatusBarRelated : BaseScopePreferenceFeagment() {
                             }
                             true
                         }
+                    })
+                    add(SwitchPreference(this@loadPreferences).apply {
+                        title = getString(R.string.disable_media_music_fluid_cloud_blacklist)
+                        key = "disable_media_music_fluid_cloud_blacklist"
+                        setDefaultValue(false)
+                        isVisible = osCode >= 35
+                        isIconSpaceReserved = false
                     })
                 }
                 add(SwitchPreference(this@loadPreferences).apply {

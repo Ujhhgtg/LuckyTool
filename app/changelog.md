@@ -17,6 +17,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 文件夹图标预览行列数
 - [更改] 桌面App名称双行显示功能位置与逻辑 C12+
 - [添加] 移除文件夹名称输入限制 C12+
+- [添加] 禁用音乐流体云黑名单 C15.0.1+
 
 ### 1.3.1
 
