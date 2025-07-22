@@ -22,6 +22,7 @@
     <string name="privacy_agreement">Соглашение о конфиденциальности</string>
     <string name="auto_check_update">Автоматически проверять наличие обновлений</string>
     <string name="auto_check_update_summary">Автоматически проверять наличие обновлений при открытии главной страницы модуля</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">Разрешить автоматический запуск плиток</string>
     <string name="tile_auto_start_summary">Выбранные плитки для быстрых настроек в модуле будут автоматически активированы после разблокировки экрана.\n Если триггер не сработал, перезапустите область и проверьте права root</string>
     <string name="read_agreement">Вам нужно прочитать и согласиться со следующим содержимым, прежде чем использовать этот модуль</string>
@@ -207,7 +208,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Пользовательский белый список fluid cloud</string>
     <string name="disable_music_fluid_cloud_display">Отключить отображение fluid cloud музыки</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Настроить белый список fluid cloud</string>
-    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Отключить черный список музыки fluid cloud</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Принудительно включить отображение fluid cloud музыки</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Иконки в статусбаре</string>
@@ -816,6 +817,7 @@
     <string name="remove_side_slider">Удалить боковую панель</string>
     <string name="remove_side_slider_black_background">Убрать черный фон боковой панели</string>
     <string name="remove_rotate_screen_button">Удалить кнопку поворота экрана</string>
+    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
     <string name="CustomSideSliderIcon">Пользовательская иконка боковой панели</string>
     <string name="replace_side_slider_icon_switch">Заменить иконку боковой панели</string>
     <string name="replace_side_slider_icon_switch_summary">Ширина иконки рекомендуется около 100px</string>

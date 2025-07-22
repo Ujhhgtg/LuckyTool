@@ -22,6 +22,7 @@
     <string name="privacy_agreement">Acord de confidențialitate</string>
     <string name="auto_check_update">Verifică automat actualizările</string>
     <string name="auto_check_update_summary">Verifică automat actualizările la deschiderea paginii principale a modulului</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">Permite pornirea automată a pieselor încorporate</string>
     <string name="tile_auto_start_summary">Funcțiile dale activate vor fi declanșate automat după deblocarea ecranului.\nDacă declanșatorul eșuează, vă rugăm să reporniți scopul și să verificați permisiunile Root</string>
     <string name="read_agreement">Trebuie să citiți și să acceptați următorul conținut înainte de a putea utiliza acest modul</string>
@@ -816,6 +817,7 @@
     <string name="remove_side_slider">Remove side slider</string>
     <string name="remove_side_slider_black_background">Remove the black background of the side slider</string>
     <string name="remove_rotate_screen_button">Remove the rotate screen button</string>
+    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
     <string name="CustomSideSliderIcon">Custom side slider icon</string>
     <string name="replace_side_slider_icon_switch">Replace side slider icon switch</string>
     <string name="replace_side_slider_icon_switch_summary">The icon width is recommended to be around 100px</string>

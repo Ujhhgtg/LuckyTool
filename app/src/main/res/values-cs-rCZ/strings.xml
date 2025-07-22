@@ -22,6 +22,7 @@
     <string name="privacy_agreement">Zásady ochrany soukromí</string>
     <string name="auto_check_update">Automaticky vyhledávat aktualizace</string>
     <string name="auto_check_update_summary">Automaticky kontrolovat aktualizace při otevírání domovské stránky modulu</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">Povolit automatické spuštění vestavěných dlaždic rychlého nastavení</string>
     <string name="tile_auto_start_summary">Povolené funkce dlaždic se automaticky aktivují po odemknutí obrazovky.\nPokud spuštění nefunguje, restartujte oblast a zkontrolujte oprávnění root</string>
     <string name="read_agreement">Před použitím tohoto modulu musíte přečíst a souhlasit s následujícím obsahem</string>
@@ -207,7 +208,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Vlastním seznam povolených pro \"Music Fluid Cloud\"</string>
     <string name="disable_music_fluid_cloud_display">Zakázat zobrazení hudby ve Fluid Cloud</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Nastavit seznam povolených pro \"Music Fluid Cloud\"</string>
-    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Zakázat černou listinu Fluid Cloud</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Vynutit povolení mediálního přehrávače ve Fluid cloudu</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Ikony ve stavové liště</string>
@@ -419,7 +420,7 @@
     <string name="Desktop">Plocha</string>
     <string name="WidgetRelated">Související s widgety</string>
     <string name="remove_widgets_add_request_whitelist">Odeberte widgety a přidejte požadavek na bílou listinu</string>
-    <string name="AppIcon">App icon</string>
+    <string name="AppIcon">Ikona aplikace</string>
     <string name="allow_app_names_display_multiple_lines">Povolit na domovské obrazovce zobrazení názvů aplikací ve více řádcích</string>
     <string name="AppBadgeRelated">Odznaky aplikací</string>
     <string name="enable_display_app_update_dot">Povolit přepínač aktualizací aplikace</string>
@@ -430,7 +431,7 @@
     <string name="remove_app_clone_badge">Odstranit odznak na klonované ikoně aplikace</string>
     <string name="remove_app_update_green_dot">Odstranit zelenou tečku po aktualizaci aplikace</string>
     <string name="FolderLayoutRelated">Rozvržení složky</string>
-    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
+    <string name="remove_folder_name_input_limit">Odstranit limit názvu složky</string>
     <string name="enable_auto_close_folder">Povolit automatické zavírání složek</string>
     <string name="remove_folder_preview_background">Odstranit náhled pozadí složky</string>
     <string name="enable_folder_layout_adjustment">Povolit úpravu rozložení složek</string>
@@ -816,6 +817,7 @@
     <string name="remove_side_slider">Odstranit boční posuvník</string>
     <string name="remove_side_slider_black_background">Odstranit černé pozadí bočního posuvníku</string>
     <string name="remove_rotate_screen_button">Odebrat tlačítko otáčení obrazovky</string>
+    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
     <string name="CustomSideSliderIcon">Vlastní ikona bočního posuvníku</string>
     <string name="replace_side_slider_icon_switch">Nahradit přepínač bočních ikon posuvníku</string>
     <string name="replace_side_slider_icon_switch_summary">Je doporučeno mít šířku ikony okolo 100px</string>

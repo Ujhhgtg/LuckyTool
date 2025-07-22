@@ -22,6 +22,7 @@
     <string name="privacy_agreement">プライバシーポリシー</string>
     <string name="auto_check_update">自動でアップデートの確認をする</string>
     <string name="auto_check_update_summary">モジュールのホームページを開くと自動的にアップデートを確認します</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">内蔵タイルの自動起動を許可する</string>
     <string name="tile_auto_start_summary">有効にしたタイル機能は画面ロック解除後に自動的にトリガーされます。\nトリガーに失敗した場合は、スコープを再起動し、root 権限を許可したか確認してください</string>
     <string name="read_agreement">このモジュールを使用する前に以下の内容に同意をする必要があります</string>
@@ -816,6 +817,7 @@
     <string name="remove_side_slider">サイドスライダーを削除</string>
     <string name="remove_side_slider_black_background">サイドスライダーの黒い背景を削除</string>
     <string name="remove_rotate_screen_button">画面回転のボタンを削除</string>
+    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
     <string name="CustomSideSliderIcon">サイドスライダーのアイコンをカスタム</string>
     <string name="replace_side_slider_icon_switch">サイドスライダーの切り替えを置き換え</string>
     <string name="replace_side_slider_icon_switch_summary">アイコンの幅は約100px程を推奨します</string>

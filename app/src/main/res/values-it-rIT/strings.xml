@@ -22,6 +22,7 @@
     <string name="privacy_agreement">Accordo sulla privacy</string>
     <string name="auto_check_update">Controlla automaticamente gli aggiornamenti</string>
     <string name="auto_check_update_summary">Controlla automaticamente gli aggiornamenti quando apri il modulo</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">Consenti ai tile integrati di partire automaticamente</string>
     <string name="tile_auto_start_summary">Le funzioni dei tile abilitate verranno attivate automaticamente dopo che lo schermo sarà sbloccato.\nSe il trigger fallisce, riavviare l\'ambito e controllare i permessi di root</string>
     <string name="read_agreement">Devi leggere e accettare i seguenti contenuti prima di poter utilizzare questo modulo</string>
@@ -207,7 +208,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Personalizza whitelist Music Fluid nel cloud</string>
     <string name="disable_music_fluid_cloud_display">Disattiva display cloud fluido musicale</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Configura la whitelist cloud music fluid</string>
-    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Disabilita blacklist cloud Music Fluid</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Forza l\'attivazione dell\'increspatura delle nuvole Fluid Music</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Icona Barra di Stato</string>
@@ -419,7 +420,7 @@
     <string name="Desktop">Launcher/Desktop</string>
     <string name="WidgetRelated">Widget correlati</string>
     <string name="remove_widgets_add_request_whitelist">Rimuovi i widget per aggiungere la richiesta alla whitelist</string>
-    <string name="AppIcon">App icon</string>
+    <string name="AppIcon">Icona dell\'app</string>
     <string name="allow_app_names_display_multiple_lines">Consenti la visualizzazione dei nomi delle app desktop su più righe</string>
     <string name="AppBadgeRelated">Badge delle App</string>
     <string name="enable_display_app_update_dot">Abilita visualizzazione del pallino di aggiornamento dell\'app</string>
@@ -430,7 +431,7 @@
     <string name="remove_app_clone_badge">Rimuovi badge clona app</string>
     <string name="remove_app_update_green_dot">Rimuovi il punto verde dopo l\'aggiornamento dell\'app</string>
     <string name="FolderLayoutRelated">Stile Tile</string>
-    <string name="remove_folder_name_input_limit">Remove folder name input limit</string>
+    <string name="remove_folder_name_input_limit">Rimuovi limite di inserimento nome cartella</string>
     <string name="enable_auto_close_folder">Abilita la chiusura automatica delle cartelle</string>
     <string name="remove_folder_preview_background">Rimuovi lo sfondo dell\'anteprima della cartella</string>
     <string name="enable_folder_layout_adjustment">Abilita le regolazioni del layout delle cartelle</string>
@@ -816,6 +817,7 @@
     <string name="remove_side_slider">Rimuovi cursore laterale</string>
     <string name="remove_side_slider_black_background">Rimuovi lo sfondo nero del cursore laterale</string>
     <string name="remove_rotate_screen_button">Rimuovi il pulsante rotazione dello schermo</string>
+    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
     <string name="CustomSideSliderIcon">Icona cursore laterale personalizzata</string>
     <string name="replace_side_slider_icon_switch">Sostituisci l\'icona del dispositivo di scorrimento laterale</string>
     <string name="replace_side_slider_icon_switch_summary">La larghezza dell\'icona è consigliabile essere di circa 100px</string>

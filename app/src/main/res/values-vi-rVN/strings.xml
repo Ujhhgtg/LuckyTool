@@ -22,6 +22,7 @@
     <string name="privacy_agreement">Thỏa thuận bảo mật</string>
     <string name="auto_check_update">Tự động kiểm tra cập nhật</string>
     <string name="auto_check_update_summary">Tự động kiểm tra cập nhật khi mở trang chủ module</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">Cho phép các ô tích hợp tự động bắt đầu</string>
     <string name="tile_auto_start_summary">Chức năng ô đã bật sẽ tự động được kích hoạt sau khi màn hình được mở khóa\nNếu kích hoạt không thành công, vui lòng khởi động lại phạm vi và kiểm tra quyền Root</string>
     <string name="read_agreement">Bạn cần đọc và đồng ý với các nội dung sau trước khi có thể sử dụng mô-đun này</string>
@@ -207,7 +208,7 @@
     <string name="custom_music_fluid_cloud_whitelist">Tùy chỉnh danh sách cho phép Music Fluid Cloud</string>
     <string name="disable_music_fluid_cloud_display">Tắt hiển thị dòng chảy âm nhạc đám mây</string>
     <string name="set_custom_music_fluid_cloud_whitelist">Thiết lập danh sách cho phép Music Fluid Cloud</string>
-    <string name="disable_media_music_fluid_cloud_blacklist">Disable music fluid cloud blacklist</string>
+    <string name="disable_media_music_fluid_cloud_blacklist">Tắt danh sách đen nhạc nền đám mây</string>
     <string name="force_enable_media_music_fluid_cloud_ripple">Buộc kích hoạt phương tiện truyền thông âm nhạc đám mây gợn sóng</string>
     <!--StatusBarIcon-->
     <string name="StatusBarIcon">Biểu tượng thanh trạng thái</string>
@@ -816,6 +817,7 @@
     <string name="remove_side_slider">Xóa thanh trượt bên</string>
     <string name="remove_side_slider_black_background">Xóa nền đen của thanh trượt bên</string>
     <string name="remove_rotate_screen_button">Tắt nút xoay màn hình</string>
+    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
     <string name="CustomSideSliderIcon">Tùy chỉnh biểu tượng thanh trượt bên</string>
     <string name="replace_side_slider_icon_switch">Thay thế công tắc biểu tượng thanh trượt bên</string>
     <string name="replace_side_slider_icon_switch_summary">Chiều rộng biểu tượng được khuyến nghị là khoảng 100px</string>
