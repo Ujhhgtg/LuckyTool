@@ -8,7 +8,6 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
@@ -32,6 +31,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusGesture : BaseScopePreferenceFeagment() {
@@ -191,6 +191,13 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_rotate_screen_button)
                 key = "remove_rotate_screen_button"
                 setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_back_gesture_confirmation_limit)
+                key = "remove_back_gesture_confirmation_limit"
+                setDefaultValue(false)
+                isVisible = osCode >= 35
                 isIconSpaceReserved = false
             })
             //自定义侧滑条图标

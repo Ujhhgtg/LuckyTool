@@ -1,8 +1,5 @@
 package com.oplus.os;
 
-/**
- * @noinspection ALL
- */
 public class OplusBuild {
     
     private static String[] VERSIONS;

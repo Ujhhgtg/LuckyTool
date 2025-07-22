@@ -30,7 +30,7 @@ class WeatherAdsAndJumpBrowser(
     @Obfuscate
     object HookWeatherAdsAndJump : YukiBaseHooker() {
         private const val weatherWrapper = "com.oplus.weather.main.model.WeatherWrapper"
-        private const val BrowserCommonUtils = "com.oplus.weather.plugin.webview.BrowserCommonUtils"
+//        private const val BrowserCommonUtils = "com.oplus.weather.plugin.webview.BrowserCommonUtils"
         override fun onHook() {
             val removeAds =
                 prefs(ModulePrefs).getBoolean("remove_weather_some_page_bottom_ads", false)
@@ -64,6 +64,13 @@ class WeatherAdsAndJumpBrowser(
                 }
                 firstMethodOrNull { name = "isBrowserSupportJump" }?.hook {
                     replaceToFalse()
+                }
+                firstMethod { name = "getH5StringBuffer" }.hook {
+                    after {
+                        val stringBuffer = result<StringBuffer>() ?: return@after
+                        val url = formatWeatherUrl(stringBuffer.toString())
+                        result = StringBuffer(url)
+                    }
                 }
             }
 
