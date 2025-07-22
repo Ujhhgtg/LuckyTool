@@ -1,10 +1,12 @@
 package com.luckyzyx.luckytool.ui.activity
 
+import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import androidx.activity.enableEdgeToEdge
+import androidx.biometric.BiometricPrompt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
@@ -31,8 +33,10 @@ import com.luckyzyx.luckytool.service.UserService
 import com.luckyzyx.luckytool.ui.activity.base.BaseActivity
 import com.luckyzyx.luckytool.ui.fragment.home.HomeFragment
 import com.luckyzyx.luckytool.utils.A12
+import com.luckyzyx.luckytool.utils.BiometricUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.IntentPrefs
+import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -40,6 +44,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.exitModule
+import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.verityPackage
@@ -76,6 +81,7 @@ open class MainActivity : BaseActivity() {
         verityPackage()
         checkXposed()
         checkOs()
+        checkBiometric()
     }
 
     private fun checkXposed() {
@@ -125,6 +131,37 @@ open class MainActivity : BaseActivity() {
             setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
             if (osCode > 0) setNeutralButton(getString(R.string.common_words_ignore), null)
             if (osCode < 23 && current.contains(HomeFragment::class.java.simpleName)) show()
+        }
+    }
+
+    private fun checkBiometric() {
+        val enable = getBoolean(SettingsPrefs, "enable_biometric_unlock_verification", false)
+        val manager = getSystemService(KeyguardManager::class.java)
+        if (enable && manager.isDeviceSecure) {
+            BiometricUtils.showBiometricPrompt(
+                this, object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(
+                        errorCode: Int, errString: CharSequence
+                    ) {
+                        finish()
+                        LogUtils.d(
+                            "checkBiometric", "onAuthenticationError",
+                            "$errorCode, $errString", true
+                        )
+                    }
+
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        LogUtils.d(
+                            "checkBiometric", "onAuthenticationSucceeded",
+                            "${result.authenticationType}", true
+                        )
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        finish()
+                        LogUtils.d("checkBiometric", "onAuthenticationFailed", "", true)
+                    }
+                })
         }
     }
 

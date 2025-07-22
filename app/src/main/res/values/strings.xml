@@ -25,6 +25,7 @@
     <string name="privacy_agreement">Privacy Agreement</string>
     <string name="auto_check_update">Automatically check for updates</string>
     <string name="auto_check_update_summary">Automatically check for updates when opening the module home page</string>
+    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
     <string name="tile_auto_start">Allow built-in tiles to start automatically</string>
     <string name="tile_auto_start_summary">Enabled tile features will be automatically triggered after the screen is unlocked.\nIf the trigger fails,please restart the scope and check Root permissions</string>
     

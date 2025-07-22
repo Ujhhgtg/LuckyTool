@@ -118,6 +118,7 @@ dependencies {
 
 //    implementation(libs.androidx.core)
     implementation(libs.material)
+    implementation(libs.androidx.biometric)
     implementation(libs.constraintlayout)
     implementation(libs.preference.ktx)
     implementation(libs.swiperefreshlayout)

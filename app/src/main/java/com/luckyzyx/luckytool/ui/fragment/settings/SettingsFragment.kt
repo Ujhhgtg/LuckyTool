@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.ui.fragment.settings
 
+import android.app.KeyguardManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.ArraySet
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.biometric.BiometricPrompt
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
@@ -19,10 +21,12 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.application.MyApplication
 import com.luckyzyx.luckytool.utils.AppUtils
+import com.luckyzyx.luckytool.utils.BiometricUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.IntentUtils
+import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -208,10 +212,51 @@ class SettingsFragment : ModulePreferenceFragment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
-                key = "enable_module_unlock_verification"
-                title = "启用模块解锁校验"
-                setDefaultValue(true)
+                key = "enable_biometric_unlock_verification"
+                title = getString(R.string.enable_biometric_unlock_verification)
+                setDefaultValue(false)
+                isVisible =
+                    requireActivity().getSystemService(KeyguardManager::class.java).isDeviceSecure
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, any ->
+                    val enable = any as Boolean
+                    if (enable) {
+                        val executor = requireActivity().mainExecutor
+                        BiometricUtils.showBiometricPrompt(
+                            this@SettingsFragment, executor,
+                            object : BiometricPrompt.AuthenticationCallback() {
+                                override fun onAuthenticationError(
+                                    errorCode: Int, errString: CharSequence
+                                ) {
+                                    isChecked = false
+                                    LogUtils.d(
+                                        "setOnPreferenceChangeListener", "onAuthenticationError",
+                                        "$errorCode, $errString", true
+                                    )
+                                }
+
+                                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                                    isChecked = true
+                                    requireActivity().putBoolean(SettingsPrefs, key, true)
+                                    LogUtils.d(
+                                        "setOnPreferenceChangeListener",
+                                        "onAuthenticationSucceeded",
+                                        "${result.authenticationType}",
+                                        true
+                                    )
+                                }
+
+                                override fun onAuthenticationFailed() {
+                                    isChecked = false
+                                    LogUtils.d(
+                                        "setOnPreferenceChangeListener", "onAuthenticationFailed",
+                                        "", true
+                                    )
+                                }
+                            })
+                        false
+                    } else true
+                }
             })
             addPreference(SwitchPreference(context).apply {
                 key = "tile_auto_start"
