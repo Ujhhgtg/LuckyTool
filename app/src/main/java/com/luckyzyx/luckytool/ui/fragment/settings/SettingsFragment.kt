@@ -208,6 +208,12 @@ class SettingsFragment : ModulePreferenceFragment() {
                 isIconSpaceReserved = false
             })
             addPreference(SwitchPreference(context).apply {
+                key = "enable_module_unlock_verification"
+                title = "启用模块解锁校验"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
+            })
+            addPreference(SwitchPreference(context).apply {
                 key = "tile_auto_start"
                 title = getString(R.string.tile_auto_start)
                 summary = getString(R.string.tile_auto_start_summary)
