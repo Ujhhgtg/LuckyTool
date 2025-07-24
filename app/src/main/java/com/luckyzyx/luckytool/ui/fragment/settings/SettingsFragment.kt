@@ -15,6 +15,7 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.yukihookapi.hook.xposed.prefs.ui.ModulePreferenceFragment
 import com.luckyzyx.luckytool.R
@@ -177,9 +178,10 @@ class SettingsFragment : ModulePreferenceFragment() {
             })
             addPreference(SwitchPreference(context).apply {
                 key = "use_dynamic_color"
-                setTitle(R.string.use_dynamic_color)
-                setSummary(R.string.use_dynamic_color_summary)
+                title = getString(R.string.use_dynamic_color)
+                summary = getString(R.string.use_dynamic_color_summary)
                 setDefaultValue(true)
+                isVisible = DynamicColors.isDynamicColorAvailable()
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, _ ->
                     (requireActivity().application as MyApplication).reloadAllActivities()
