@@ -518,5 +518,13 @@
                 android:name="title_text"
                 app:argType="string" />
     </fragment>
+    <fragment
+            android:id="@+id/batteryInfoFragment"
+            android:name="com.luckyzyx.luckytool.ui.fragment.extension.BatteryInfoFragment"
+            android:label="{title_text}">
+        <argument
+                android:name="title_text"
+                app:argType="string" />
+    </fragment>
 
 </navigation>

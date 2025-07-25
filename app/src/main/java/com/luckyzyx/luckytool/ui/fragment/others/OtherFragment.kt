@@ -97,13 +97,24 @@ class OtherFragment : Fragment() {
             }
         }
 
-        binding.fpsTitle.text = getString(R.string.fps_title)
-        binding.fpsSummary.text = getString(R.string.fps_summary)
         binding.fps.apply {
+            binding.fpsTitle.text = getString(R.string.fps_title)
+            binding.fpsSummary.text = getString(R.string.fps_summary)
             setOnClickListener {
                 findNavController().navigatePage(
                     R.id.forceFpsFragment,
                     getString(R.string.fps_title)
+                )
+            }
+        }
+
+        binding.batteryInfo.apply {
+            binding.batteryInfoTitle.text = "电池信息与参数"
+            binding.batteryInfoSummary.text = "监听电池信息与充放电参数"
+            setOnClickListener {
+                findNavController().navigatePage(
+                    R.id.batteryInfoFragment,
+                    "电池信息与参数"
                 )
             }
         }
@@ -117,6 +128,7 @@ class OtherFragment : Fragment() {
         binding.tileList.apply {
             isVisible = SDK >= A13
             setOnClickListener {
+                requireActivity().showToast(context.getString(R.string.tile_list_click_tips))
                 val info = PackageUtils(context.packageManager).getPackageInfo(
                     context.packageName, PackageManager.GET_SERVICES
                 ) ?: return@setOnClickListener

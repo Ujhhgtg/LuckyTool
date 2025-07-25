@@ -1087,6 +1087,7 @@
     <string name="quick_entry_summary">e.g. System UI reconciliation tools, process management, engineering mode, etc.</string>
     <string name="tile_list">Module built-in tile list</string>
     <string name="tile_list_summary">Quickly add tile to the control center</string>
+    <string name="tile_list_click_tips">Click add to control center</string>
     
     <string name="SystemDebuggingRelated">System Debugging Related</string>
     <string name="engineering_mode">Engineering Mode</string>
