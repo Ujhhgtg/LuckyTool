@@ -109,6 +109,7 @@ android {
 dependencies {
     compileOnly(projects.hiddenApiStub)
 
+    //XPosed or API
     compileOnly(libs.xposed.api)
     implementation(libs.yukihookapi)
     ksp(libs.ksp.yukihookapi)
@@ -116,14 +117,17 @@ dependencies {
     implementation(libs.kavaref.extension)
     implementation(libs.dexkit)
 
-//    implementation(libs.androidx.core)
-    implementation(libs.material)
+    //AndroidX
     implementation(libs.androidx.biometric)
-    implementation(libs.constraintlayout)
-    implementation(libs.preference.ktx)
-    implementation(libs.swiperefreshlayout)
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    //Android UI
+    implementation(libs.material)
     implementation(libs.betterandroid.ui.component)
     implementation(libs.betterandroid.ui.extension)
     implementation(libs.betterandroid.system.extension)
@@ -132,23 +136,26 @@ dependencies {
     implementation(libs.hikage.extension.betterandroid)
     implementation(libs.hikage.widget.material)
 
-    implementation(libs.lifecycle.viewmodel.ktx)
+    //KotlinX
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    implementation(libs.okhttp)
+    //OkHttp3
+    implementation(libs.okhttp3)
     implementation(libs.net)
 
+    //LibSU
     implementation(libs.libsu.core)
     implementation(libs.libsu.service)
     implementation(libs.libsu.io)
 
+    //MarkDown
     implementation(libs.markwon.core)
     implementation(libs.markwon.html)
     implementation(libs.markwon.image)
     implementation(libs.markwon.ext.tables)
 
-//    implementation(libs.mmkv)
+    //Tools
     implementation(libs.xxpermissions)
     implementation(libs.spiderman)
     implementation(libs.fastscroll)
