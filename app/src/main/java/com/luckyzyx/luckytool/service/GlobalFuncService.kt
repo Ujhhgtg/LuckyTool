@@ -60,7 +60,7 @@ object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
             override fun getSnInfo(): String {
                 val sn = SystemProperties.get("ro.serialno", "")
                 val chipid = SystemProperties.get("ro.boot.chipid")
-                return listOf(sn, chipid).filter { it.isNotEmpty() }  // 过滤掉空字符串
+                return listOf(sn, chipid).filter { it.isNotBlank() }  // 过滤掉空字符串
                     .minByOrNull { it.length }  // 找出最短的
                     ?: "null"  // 如果全部为空，则返回空字符串
             }
