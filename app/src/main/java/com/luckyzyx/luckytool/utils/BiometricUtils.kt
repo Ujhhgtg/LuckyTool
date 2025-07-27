@@ -1,12 +1,10 @@
 package com.luckyzyx.luckytool.utils
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.luckyzyx.luckytool.BuildConfig
 import org.lsposed.lsparanoid.Obfuscate
-import java.util.concurrent.Executor
 
 @Obfuscate
 object BiometricUtils {
@@ -26,17 +24,32 @@ object BiometricUtils {
     }
 
     fun showBiometricPrompt(
-        activity: AppCompatActivity, callback: BiometricPrompt.AuthenticationCallback
+        activity: FragmentActivity, onSucceed: ((BiometricPrompt.AuthenticationResult) -> Unit)? = null,
+        onError: ((Int, CharSequence) -> Unit)? = null, onFailed: (() -> Unit)? = null
+    ) {
+        return BiometricPrompt(
+            activity, activity.mainExecutor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    onSucceed?.let { it(result) }
+                }
+
+                override fun onAuthenticationFailed() {
+                    onFailed?.let { it() }
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    onError?.let { it(errorCode, errString) }
+                }
+            }).authenticate(createPromptInfo())
+    }
+
+    fun showBiometricPrompt(
+        activity: FragmentActivity, callback: BiometricPrompt.AuthenticationCallback
     ) {
         return BiometricPrompt(activity, activity.mainExecutor, callback).authenticate(
             createPromptInfo()
         )
-    }
-
-    fun showBiometricPrompt(
-        fragemnt: Fragment, executor: Executor, callback: BiometricPrompt.AuthenticationCallback
-    ) {
-        return BiometricPrompt(fragemnt, executor, callback).authenticate(createPromptInfo())
     }
 
 }

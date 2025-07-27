@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Process
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
-import androidx.biometric.BiometricPrompt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
@@ -37,7 +36,6 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.BiometricUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.IntentPrefs
-import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PermissionUtils
@@ -141,29 +139,9 @@ open class MainActivity : BaseActivity() {
         val manager = getSystemService(KeyguardManager::class.java)
         if (enable && manager.isDeviceSecure) {
             BiometricUtils.showBiometricPrompt(
-                this, object : BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationError(
-                        errorCode: Int, errString: CharSequence
-                    ) {
-                        finish()
-                        LogUtils.d(
-                            "checkBiometric", "onAuthenticationError",
-                            "$errorCode, $errString", true
-                        )
-                    }
-
-                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                        LogUtils.d(
-                            "checkBiometric", "onAuthenticationSucceeded",
-                            "${result.authenticationType}", true
-                        )
-                    }
-
-                    override fun onAuthenticationFailed() {
-                        finish()
-                        LogUtils.d("checkBiometric", "onAuthenticationFailed", "", true)
-                    }
-                })
+                this,
+                onError = { _, _ -> finish() },
+                onFailed = { finish() })
         }
     }
 

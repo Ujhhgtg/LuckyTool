@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.ArraySet
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.biometric.BiometricPrompt
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
@@ -223,39 +222,13 @@ class SettingsFragment : ModulePreferenceFragment() {
                 setOnPreferenceChangeListener { _, any ->
                     val enable = any as Boolean
                     if (enable) {
-                        val executor = requireActivity().mainExecutor
-                        BiometricUtils.showBiometricPrompt(
-                            this@SettingsFragment, executor,
-                            object : BiometricPrompt.AuthenticationCallback() {
-                                override fun onAuthenticationError(
-                                    errorCode: Int, errString: CharSequence
-                                ) {
-                                    isChecked = false
-                                    LogUtils.d(
-                                        "setOnPreferenceChangeListener", "onAuthenticationError",
-                                        "$errorCode, $errString", true
-                                    )
-                                }
-
-                                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                                    isChecked = true
-                                    requireActivity().putBoolean(SettingsPrefs, key, true)
-                                    LogUtils.d(
-                                        "setOnPreferenceChangeListener",
-                                        "onAuthenticationSucceeded",
-                                        "${result.authenticationType}",
-                                        true
-                                    )
-                                }
-
-                                override fun onAuthenticationFailed() {
-                                    isChecked = false
-                                    LogUtils.d(
-                                        "setOnPreferenceChangeListener", "onAuthenticationFailed",
-                                        "", true
-                                    )
-                                }
-                            })
+                        BiometricUtils.showBiometricPrompt(requireActivity(), onSucceed = {
+                            isChecked = requireActivity().putBoolean(SettingsPrefs, key, true)
+                            LogUtils.d(
+                                "setOnPreferenceChangeListener", "showSucceedBiometric",
+                                "${it.authenticationType}", true
+                            )
+                        })
                         false
                     } else true
                 }
