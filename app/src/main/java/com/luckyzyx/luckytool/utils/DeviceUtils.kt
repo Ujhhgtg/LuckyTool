@@ -117,8 +117,13 @@ object DeviceUtils {
      * 获取SN信息
      */
     fun getSnInfo(): String {
-        val command = "getprop ro.serialno"
-        return ShellUtils.fastCmd(command).ifBlank { "null" }
+        val command1 = "getprop ro.serialno"
+        val sn = ShellUtils.fastCmd(command1)
+        val command2 = "getprop ro.boot.chipid"
+        val chipid = ShellUtils.fastCmd(command2)
+        return listOf(sn, chipid).filter { it.isNotEmpty() }  // 过滤掉空字符串
+            .minByOrNull { it.length }  // 找出最短的
+            ?: "null"  // 如果全部为空，则返回空字符串
     }
 
     /**
