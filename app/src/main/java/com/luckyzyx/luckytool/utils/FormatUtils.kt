@@ -9,7 +9,6 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
-import java.util.regex.Pattern
 import kotlin.math.roundToInt
 
 /**
@@ -46,13 +45,29 @@ fun Number.formatDecimals(decimals: Int): String {
 
 /**
  * 利用正则移除字符串前空格
- * @param string String
+ * @param input String
  */
-fun formatSpace(string: String): String {
-    val pattern = Pattern.compile("\\p{Alpha}")
-    val matcher = pattern.matcher(string)
-    if (!matcher.find()) return string
-    return string.substring(matcher.start())
+fun formatSpace(input: String): String {
+    return input.asSequence()
+        .dropWhile { !it.isLetter() }
+        .filter { it != '\r' }  // 移除\r
+        .map { if (it.isWhitespace()) ' ' else it }  // 所有空白转为空格
+        .windowed(2)
+        .fold(StringBuilder()) { acc, (prev, curr) ->
+            // 不连续添加空格
+            if (!(prev == ' ' && curr == ' ')) {
+                acc.append(curr)
+            }
+            acc
+        }
+        .toString()
+        .trim()
+    //\\p{Alpha} 匹配任何字母字符（包括大写和小写），等价于 [a-zA-Z]
+    //\\p{L}  // 匹配任何语言的字母
+//    val pattern = Pattern.compile("\\p{L}")
+//    val matcher = pattern.matcher(input)
+//    if (!matcher.find()) return input
+//    return input.substring(matcher.start())
 }
 
 /**

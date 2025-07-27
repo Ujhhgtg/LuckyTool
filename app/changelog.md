@@ -13,7 +13,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除OTA自动下载对话框
 - [更改] 更新并迁移底层HookAPI
 - [适配] 软件商店更新页面信息流 v12.9.0beta2(e182e2f)
-- [优化] 优化SU与OS检测
+- [优化] 优化Su与OS检测
 - [修复] 文件夹图标预览行列数
 - [更改] 桌面App名称双行显示功能位置与逻辑 C12+
 - [添加] 移除文件夹名称输入限制 C12+
@@ -23,6 +23,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除返回手势确认限制 C15.0.1+
 - [适配] 自动解锁受限制的应用权限 C15+
 - [添加] 启用模块生物识别解锁校验
+- [优化] Su权限与Dex优化对话框显示逻辑
 
 ### 1.3.1
 

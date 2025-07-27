@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.biometric.BiometricPrompt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -63,6 +64,8 @@ open class MainActivity : BaseActivity() {
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
 
+    private var checkSuDialog: AlertDialog? = null
+
     private fun newIntent(context: Context): Intent {
         return Intent(context, MainActivity::class.java)
     }
@@ -106,15 +109,14 @@ open class MainActivity : BaseActivity() {
         putBoolean(ModulePrefs, "module_prefs", isSu)
         putBoolean(IntentPrefs, "intent_prefs", isSu)
         putBoolean(OtherPrefs, "other_prefs", isSu)
-        if (!isSu) {
-            MaterialAlertDialogBuilder(this, dialogCentered).apply {
+        if (!isSu && (checkSuDialog == null || !checkSuDialog!!.isShowing)) {
+            checkSuDialog = MaterialAlertDialogBuilder(this, dialogCentered).apply {
                 setCancelable(false)
                 setTitle(getString(R.string.no_root))
                 setMessage(getString(R.string.no_root_summary))
                 setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
                 setOnDismissListener { exitModule() }
-                show()
-            }
+            }.show()
             return
         }
         putBoolean(SettingsPrefs, "enable_module_print_logs", BuildConfig.DEBUG)

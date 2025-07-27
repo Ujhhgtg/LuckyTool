@@ -12,6 +12,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -55,6 +56,8 @@ class HomeFragment : Fragment(), MenuProvider {
     private lateinit var binding: FragmentHomeBinding
 
     private var enableModule: Boolean = false
+
+    var dexOptimizeDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -183,17 +186,17 @@ class HomeFragment : Fragment(), MenuProvider {
         val getOs = requireActivity().getString(SettingsPrefs, "current_os_version", "")
         val curOs = controller?.otaVersion ?: DeviceUtils.getOtaVersion()
             .takeIf { e -> e != "null" } ?: ""
-        if (getOs != curOs) {
-            MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
-                setMessage(R.string.optimize_dex_after_system_update)
-                setCancelable(false)
-                setPositiveButton(android.R.string.ok) { _, _ ->
-                    RestartMenuUtils.showOptimizeAllDexDialog(context, true)
-                    requireActivity().putString(SettingsPrefs, "current_os_version", curOs)
-                }
-                setNeutralButton(R.string.common_words_ignore, null)
-                show()
-            }
+        if (getOs != curOs && (dexOptimizeDialog == null || !dexOptimizeDialog!!.isShowing)) {
+            dexOptimizeDialog =
+                MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
+                    setMessage(R.string.optimize_dex_after_system_update)
+                    setCancelable(false)
+                    setPositiveButton(android.R.string.ok) { _, _ ->
+                        RestartMenuUtils.showOptimizeAllDexDialog(context, true)
+                        requireActivity().putString(SettingsPrefs, "current_os_version", curOs)
+                    }
+                    setNeutralButton(R.string.common_words_ignore, null)
+                }.show()
         }
     }
 
