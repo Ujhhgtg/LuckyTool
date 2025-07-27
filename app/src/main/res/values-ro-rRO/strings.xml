@@ -787,6 +787,9 @@
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
     <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
+    <!--OplusOta-->
+    <string name="get_ota_verify_result">Changed partition</string>
+    <string name="get_ota_verify_result_summary">To perform incremental updates, restore the following partitions to the official image\n[%1$s]</string>
     <string name="unlock_local_upgrade">Unlock local upgrade</string>
     <string name="unlock_local_upgrade_summary">After clicking, relevant operations will be performed automatically, please wait patiently for a few seconds</string>
     <string name="remove_ota_local_update_verity">Remove OTA local update verification</string>
@@ -946,6 +949,7 @@
     <string name="quick_entry_summary">e.g. System UI reconciliation tools, process management, engineering mode, etc.</string>
     <string name="tile_list">Module built-in tile list</string>
     <string name="tile_list_summary">Quickly add tile to the control center</string>
+    <string name="tile_list_click_tips">Click add to control center</string>
     <string name="SystemDebuggingRelated">System Debugging Related</string>
     <string name="engineering_mode">Engineering Mode</string>
     <string name="charging_test">Charging Test</string>

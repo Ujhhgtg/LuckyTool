@@ -787,6 +787,9 @@
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>
     <string name="remove_ota_auto_download_dialog">Remove the OTA auto download dialog</string>
+    <!--OplusOta-->
+    <string name="get_ota_verify_result">Changed partition</string>
+    <string name="get_ota_verify_result_summary">To perform incremental updates, restore the following partitions to the official image\n[%1$s]</string>
     <string name="unlock_local_upgrade">ローカルアップグレードを解放</string>
     <string name="unlock_local_upgrade_summary">タップした後に関連する操作が自動的に実行されます。しばらくお待ちください</string>
     <string name="remove_ota_local_update_verity">OTA ローカルアップデート検証を削除</string>
@@ -946,6 +949,7 @@
     <string name="quick_entry_summary">例: システムUI調整ツール、プロセスマネージャー、エンジニアリングモードなど</string>
     <string name="tile_list">Module built-in tile list</string>
     <string name="tile_list_summary">Quickly add tile to the control center</string>
+    <string name="tile_list_click_tips">Click add to control center</string>
     <string name="SystemDebuggingRelated">システムデバッグ関連</string>
     <string name="engineering_mode">エンジニアリングモード</string>
     <string name="charging_test">充電テスト</string>

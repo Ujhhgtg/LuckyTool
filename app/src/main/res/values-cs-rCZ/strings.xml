@@ -22,7 +22,7 @@
     <string name="privacy_agreement">Zásady ochrany soukromí</string>
     <string name="auto_check_update">Automaticky vyhledávat aktualizace</string>
     <string name="auto_check_update_summary">Automaticky kontrolovat aktualizace při otevírání domovské stránky modulu</string>
-    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
+    <string name="enable_biometric_unlock_verification">Povolit ověření odemknutí biometrií</string>
     <string name="tile_auto_start">Povolit automatické spuštění vestavěných dlaždic rychlého nastavení</string>
     <string name="tile_auto_start_summary">Povolené funkce dlaždic se automaticky aktivují po odemknutí obrazovky.\nPokud spuštění nefunguje, restartujte oblast a zkontrolujte oprávnění root</string>
     <string name="read_agreement">Před použitím tohoto modulu musíte přečíst a souhlasit s následujícím obsahem</string>
@@ -787,6 +787,9 @@
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">Odstranit oznámení o úspěšné instalaci OTA</string>
     <string name="remove_ota_auto_download_dialog">Odstranit dialogové okno automatického stahování OTA</string>
+    <!--OplusOta-->
+    <string name="get_ota_verify_result">Changed partition</string>
+    <string name="get_ota_verify_result_summary">To perform incremental updates, restore the following partitions to the official image\n[%1$s]</string>
     <string name="unlock_local_upgrade">Povolit lokální upgrade</string>
     <string name="unlock_local_upgrade_summary">Po kliknutí budou příslušné operace prováděny automaticky, prosím trpělivě počkejte několik sekund</string>
     <string name="remove_ota_local_update_verity">Odstranit ověření místní instalace OTA</string>
@@ -817,7 +820,7 @@
     <string name="remove_side_slider">Odstranit boční posuvník</string>
     <string name="remove_side_slider_black_background">Odstranit černé pozadí bočního posuvníku</string>
     <string name="remove_rotate_screen_button">Odebrat tlačítko otáčení obrazovky</string>
-    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
+    <string name="remove_back_gesture_confirmation_limit">Odstranění limitu potvrzení gesta zpět</string>
     <string name="CustomSideSliderIcon">Vlastní ikona bočního posuvníku</string>
     <string name="replace_side_slider_icon_switch">Nahradit přepínač bočních ikon posuvníku</string>
     <string name="replace_side_slider_icon_switch_summary">Je doporučeno mít šířku ikony okolo 100px</string>
@@ -946,6 +949,7 @@
     <string name="quick_entry_summary">například nástroje pro přizpůsobení systémového rozhraní, řízení procesů, engineering mode, atd.</string>
     <string name="tile_list">Modul seznam vestavěných dlaždic</string>
     <string name="tile_list_summary">Rychle přidat dlaždici do ovládacího centra</string>
+    <string name="tile_list_click_tips">Click add to control center</string>
     <string name="SystemDebuggingRelated">Nastavení související s laděním systému</string>
     <string name="engineering_mode">Engineering mode</string>
     <string name="charging_test">Zkouška nabíjení</string>

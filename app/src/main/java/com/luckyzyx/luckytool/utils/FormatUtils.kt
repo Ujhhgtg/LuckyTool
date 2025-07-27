@@ -129,15 +129,33 @@ fun formatStringAuto(
     formats: List<CharSequence?>, text: String,
     allowNull: Boolean = true, allowRepeat: Boolean = true
 ): String {
-    var finalText = ""
-    if (formats.isEmpty()) return finalText
+    if (formats.isEmpty()) return ""
+    require(text.isNotEmpty()) { "Separator text cannot be empty" }  // 改为检查empty而不是blank
+
+    val builder = StringBuilder()
+    var previousElementAdded = false
+
     formats.forEachIndexed { index, str ->
-        if (str.isNullOrBlank() && allowNull.not()) return@forEachIndexed
-        finalText += str
-        if (str == text && allowRepeat.not()) return@forEachIndexed
-        if (index != formats.lastIndex) finalText += text
+        // 检查是否应该跳过当前元素
+        val shouldSkip = when {
+            str == null -> !allowNull
+            str.isBlank() -> !allowNull  // 对blank元素使用allowNull规则
+            !allowRepeat && str == text -> true
+            else -> false
+        }
+
+        if (shouldSkip) return@forEachIndexed
+
+        // 如果不是第一个元素且前一个元素已添加，才添加分隔符
+        if (previousElementAdded) {
+            builder.append(text)
+        }
+
+        builder.append(str)
+        previousElementAdded = true
     }
-    return finalText
+
+    return builder.toString()
 }
 
 /**

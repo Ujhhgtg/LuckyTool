@@ -22,7 +22,7 @@
     <string name="privacy_agreement">Соглашение о конфиденциальности</string>
     <string name="auto_check_update">Автоматически проверять наличие обновлений</string>
     <string name="auto_check_update_summary">Автоматически проверять наличие обновлений при открытии главной страницы модуля</string>
-    <string name="enable_biometric_unlock_verification">Enable biometric unlock verification</string>
+    <string name="enable_biometric_unlock_verification">Включить проверку разблокировки по биометрии</string>
     <string name="tile_auto_start">Разрешить автоматический запуск плиток</string>
     <string name="tile_auto_start_summary">Выбранные плитки для быстрых настроек в модуле будут автоматически активированы после разблокировки экрана.\n Если триггер не сработал, перезапустите область и проверьте права root</string>
     <string name="read_agreement">Вам нужно прочитать и согласиться со следующим содержимым, прежде чем использовать этот модуль</string>
@@ -787,6 +787,9 @@
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">Удалить уведомление об успешной установке OTA</string>
     <string name="remove_ota_auto_download_dialog">Удалить диалоговое окно автоматической загрузки OTA</string>
+    <!--OplusOta-->
+    <string name="get_ota_verify_result">Changed partition</string>
+    <string name="get_ota_verify_result_summary">To perform incremental updates, restore the following partitions to the official image\n[%1$s]</string>
     <string name="unlock_local_upgrade">Разблокировать локальное обновление</string>
     <string name="unlock_local_upgrade_summary">После нажатия соответствующие операции будут выполняться автоматически, терпеливо подождите несколько секунд</string>
     <string name="remove_ota_local_update_verity">Удалить проверку локального обновления OTA</string>
@@ -817,7 +820,7 @@
     <string name="remove_side_slider">Удалить боковую панель</string>
     <string name="remove_side_slider_black_background">Убрать черный фон боковой панели</string>
     <string name="remove_rotate_screen_button">Удалить кнопку поворота экрана</string>
-    <string name="remove_back_gesture_confirmation_limit">Remove the back gesture confirmation limit</string>
+    <string name="remove_back_gesture_confirmation_limit">Убрать ограничение на количество подтверждений жестом \"Назад\"</string>
     <string name="CustomSideSliderIcon">Пользовательская иконка боковой панели</string>
     <string name="replace_side_slider_icon_switch">Заменить иконку боковой панели</string>
     <string name="replace_side_slider_icon_switch_summary">Ширина иконки рекомендуется около 100px</string>
@@ -946,6 +949,7 @@
     <string name="quick_entry_summary">Например, инструменты настройки системного интерфейса, управление процессами, режим проекта и т.д.</string>
     <string name="tile_list">Модуль встроенного списка плиток</string>
     <string name="tile_list_summary">Быстрое добавление плитки в центр управления</string>
+    <string name="tile_list_click_tips">Click add to control center</string>
     <string name="SystemDebuggingRelated">Отладка системы</string>
     <string name="engineering_mode">Инженерный режим</string>
     <string name="charging_test">Тест зарядки</string>

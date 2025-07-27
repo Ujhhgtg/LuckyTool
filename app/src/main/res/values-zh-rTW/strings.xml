@@ -787,6 +787,9 @@
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">移除OTA安装成功通知</string>
     <string name="remove_ota_auto_download_dialog">移除OTA自动下载对话框</string>
+    <!--OplusOta-->
+    <string name="get_ota_verify_result">已更改分区</string>
+    <string name="get_ota_verify_result_summary">若要进行增量更新，请将以下分区恢复到官方镜像\n%1$s</string>
     <string name="unlock_local_upgrade">解锁本地安装</string>
     <string name="unlock_local_upgrade_summary">点击后将自动执行相关操作，请耐心等待几秒</string>
     <string name="remove_ota_local_update_verity">移除OTA本地更新校验</string>
@@ -946,6 +949,7 @@
     <string name="quick_entry_summary">例如系统界面调节工具,进程管理,工程模式等</string>
     <string name="tile_list">模块内置磁贴列表</string>
     <string name="tile_list_summary">快速添加磁贴到控制中心</string>
+    <string name="tile_list_click_tips">点击添加到控制中心</string>
     <string name="SystemDebuggingRelated">系统调试相关</string>
     <string name="engineering_mode">工程模式</string>
     <string name="charging_test">充电测试</string>

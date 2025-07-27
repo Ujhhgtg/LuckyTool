@@ -787,6 +787,9 @@
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">Rimuovere la notifica di successo dell\'installazione OTA</string>
     <string name="remove_ota_auto_download_dialog">Rimuovi la finestra di dialogo di download automatico OTA</string>
+    <!--OplusOta-->
+    <string name="get_ota_verify_result">Changed partition</string>
+    <string name="get_ota_verify_result_summary">To perform incremental updates, restore the following partitions to the official image\n[%1$s]</string>
     <string name="unlock_local_upgrade">Sblocca aggiornamento locale</string>
     <string name="unlock_local_upgrade_summary">Dopo aver cliccato, le operazioni rilevanti verranno eseguite automaticamente, si prega di attendere pazientemente per alcuni secondi</string>
     <string name="remove_ota_local_update_verity">Rimuovi verifica dell\'aggiornamento locale OTA</string>
@@ -946,6 +949,7 @@
     <string name="quick_entry_summary">es. Strumenti di riconciliazione dell\'interfaccia utente di sistema, gestione dei processi, modalità ingegneristica, ecc.</string>
     <string name="tile_list">Elenco tile incorporato nel modulo</string>
     <string name="tile_list_summary">Aggiungi rapidamente il riquadro al centro di controllo</string>
+    <string name="tile_list_click_tips">Click add to control center</string>
     <string name="SystemDebuggingRelated">Debug di Sistema</string>
     <string name="engineering_mode">Modalità Ingegnere</string>
     <string name="charging_test">Test di Ricarica</string>

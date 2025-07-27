@@ -42,6 +42,7 @@ object CommandUtils {
 
     val otaVerityMode = "ro.boot.veritymode"
     val otaVbmetaState = "ro.boot.vbmeta.device_state"
+    val otaVerifyResult = "persist.vendor.oplus.verify_result"
 
     val killSysui = "kill -9 `pgrep systemui`"
     val pkill9 = "pkill -9"

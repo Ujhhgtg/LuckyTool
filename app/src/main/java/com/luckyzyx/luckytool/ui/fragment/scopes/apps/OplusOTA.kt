@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.drake.net.utils.scopeLife
+import com.drake.net.utils.withDefault
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -14,6 +16,7 @@ import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
+import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
@@ -61,6 +64,23 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            //OTA
+            add(PreferenceCategory(this@loadPreferences).apply {
+                title = "OTA"
+                key = "OTAUpdate"
+                isIconSpaceReserved = false
+            })
+            add(Preference(this@loadPreferences).apply {
+                title = getString(R.string.get_ota_verify_result)
+                val list = ShellUtils.fastCmd(
+                    "${CommandUtils.getprop} ${CommandUtils.otaVerifyResult}"
+                ).split(",")
+                val imgs = formatStringAuto(list, ",", false)
+                summary = getString(R.string.get_ota_verify_result_summary, imgs)
+                key = "get_ota_verify_result"
+                isPersistent = false
+                isIconSpaceReserved = false
+            })
             add(Preference(this@loadPreferences).apply {
                 title = getString(R.string.unlock_local_upgrade)
                 summary = getString(R.string.unlock_local_upgrade_summary)
@@ -76,7 +96,7 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                             "am broadcast --user all -a android.intent.action.AIRPLANE_MODE --ez 'state' 'true'",
                             "am start com.oplus.ota/com.oplus.otaui.activity.EntryActivity"
                         )
-                        com.drake.net.utils.withDefault { ShellUtils.fastCmd(*command) }
+                        withDefault { ShellUtils.fastCmd(*command) }
                     }
                     true
                 }
