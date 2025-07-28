@@ -44,24 +44,36 @@ fun Number.formatDecimals(decimals: Int): String {
 }
 
 /**
- * 利用正则移除字符串前空格
+ * 清理不可见字符
+ */
+fun cleanInvisibleChars(input: String): String {
+    // 只移除开头的不可见字符，保留中间和末尾的空格
+    return input.replace(Regex("[\u0000-\u001F\u007F]"), "")
+}
+
+/**
+ * 格式化字符串空格显示
  * @param input String
  */
 fun formatSpace(input: String): String {
-    return input.asSequence()
-        .dropWhile { !it.isLetter() }
-        .filter { it != '\r' }  // 移除\r
-        .map { if (it.isWhitespace()) ' ' else it }  // 所有空白转为空格
-        .windowed(2)
-        .fold(StringBuilder()) { acc, (prev, curr) ->
-            // 不连续添加空格
-            if (!(prev == ' ' && curr == ' ')) {
-                acc.append(curr)
+    return input
+        // 1. 移除所有控制字符(0x00-0x1F和0x7F)
+        .replace(Regex("[\u0000-\u001F\u007F]"), "")
+        // 2. 找到第一个可见字符位置并截取
+        .let { cleaned ->
+            cleaned.indexOfFirst { it.isDefined() && !it.isWhitespace() }.let { firstVisibleIndex ->
+                when {
+                    firstVisibleIndex == -1 -> ""  // 如果没有可见字符，返回空字符串
+                    else -> cleaned.substring(firstVisibleIndex)
+                }
             }
-            acc
         }
-        .toString()
-        .trim()
+        // 3. 合并中间多个空格为单个空格
+        .replace(Regex("\\s{2,}"), " ")
+        // 4. 移除结尾空格
+        .replace(Regex("\\s+$"), "")
+        // 5. 移除开头空格（确保前面步骤没有遗漏）
+        .replace(Regex("^\\s+"), "")
     //\\p{Alpha} 匹配任何字母字符（包括大写和小写），等价于 [a-zA-Z]
     //\\p{L}  // 匹配任何语言的字母
 //    val pattern = Pattern.compile("\\p{L}")
