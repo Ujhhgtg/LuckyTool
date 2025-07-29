@@ -12,6 +12,7 @@ import org.lsposed.lsparanoid.Obfuscate
 class PermissionUtils(val context: Context) {
 
     fun start() {
+        XXPermissions.setCheckMode(false)
         XXPermissions.with(context).apply {
             permission(PermissionLists.getManageExternalStoragePermission())
             permission(PermissionLists.getRequestInstallPackagesPermission())
