@@ -25,6 +25,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用模块生物识别解锁校验
 - [优化] Su权限与Dex优化对话框显示逻辑
 - [添加] OTA增量更新安装提示
+- [修复] 修复电量过低对话框导致崩溃问题
 
 ### 1.3.1
 
