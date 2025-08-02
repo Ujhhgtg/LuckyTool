@@ -9,7 +9,6 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
-import java.io.InputStream
 
 @Obfuscate
 class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -28,28 +27,15 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                     addFieldForType(java.util.ArrayList::class.java)
                     methods {
                         add { paramCount(0);returnType(Boolean::class.java) }
-                        add {
-                            addParamType(InputStream::class.java)
-                            returnType(java.util.ArrayList::class.java)
-                        }
-                        add {
-                            paramTypes(File::class.java, String::class.java)
-                            returnType(java.util.ArrayList::class.java)
-                        }
-                        add {
-                            paramTypes(List::class.java)
-                            returnType(HashMap::class.java)
-                        }
+                        add { paramTypes(File::class.java, String::class.java) }
+                        add { paramTypes(List::class.java) }
                     }
-                    usingStrings("ABUpdateUtils", "META-INF/com/android/metadata")
+                    usingStrings("ABUpdateUtils")
                 }
             }.apply {
                 checkDataList("RemoveOTALocalUpdateVerity find ABUpdateUtils")
                 single().name.toClass().resolve().apply {
-                    firstMethod {
-                        parameters(File::class, String::class)
-                        returnType = ArrayList::class
-                    }.hook {
+                    firstMethod { parameters(File::class, String::class) }.hook {
                         after {
                             val file = args().first().cast<File>() ?: return@after
                             val list = result<java.util.ArrayList<String>>() ?: return@after
@@ -86,14 +72,7 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                             returnType(String::class.java)
                         }
                         add {
-                            paramTypes(Context::class.java, String::class.java)
-                            returnType(java.util.ArrayList::class.java)
-                        }
-                        add {
-                            paramTypes(
-                                java.util.ArrayList::class.java, Long::class.java,
-                                Int::class.java, Context::class.java
-                            )
+                            paramCount(4)
                             returnType(Int::class.java)
                         }
                     }
@@ -104,10 +83,10 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                 single().name.toClass().resolve().apply {
                     firstMethod {
                         parameters { it.contains(Context::class.java) && it.contains(String::class.java) }
-                        returnType = ArrayList::class
+                        parameterCount(2)
                     }.hook {
                         after {
-                            val filePath = args().last().string()
+                            val filePath = args(args.indexOfFirst { it is String }).string()
                             val list = result<java.util.ArrayList<String>>() ?: return@after
 
                             if (filePath.contains("downgrade")) {
@@ -165,6 +144,7 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                             val headers = args().last().array<String>()
                             headers.toMutableList().apply {
                                 removeIf { it.contains("forbid_ota_local_update") }
+                                removeIf { it.contains("ota_root_or_debug") }
 //                                removeIf { it.contains("oplus_update_engine_verify_disable") }
                             }
                             SystemProperties.set("sys.ota.grant_ota_local_update", "true")
