@@ -73,6 +73,10 @@ object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
                 return SystemProperties.get("ro.boot.slot_suffix", "").replace("_", "")
                     .takeIf { e -> e.isNotBlank() }?.uppercase() ?: "NonAB"
             }
+
+            override fun getCpuInfo(): String {
+                return SystemProperties.get("ro.product.oplus.cpuinfo", "null")
+            }
         }
     }
 }

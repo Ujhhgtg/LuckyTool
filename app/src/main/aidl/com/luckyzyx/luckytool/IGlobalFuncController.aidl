@@ -10,4 +10,5 @@ interface IGlobalFuncController {
     String getSnInfo();
     String getPrjNameInfo();
     String getSlotInfo();
+    String getCpuInfo();
 }

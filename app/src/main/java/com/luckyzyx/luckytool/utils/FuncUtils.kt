@@ -110,7 +110,7 @@ fun Context.getDeviceInfo(
             add("${getString(R.string.framework_version)} ${DeviceUtils.getFrameWorkVersion(this@getDeviceInfo)}")
         }
         add("${getString(R.string.model)}: $getFingerPrintBrand $getFingerPrintModel ${getModelMarketName()}")
-        add("${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.prjNameInfo} ${controller?.slotInfo}")
+        add("${getString(R.string.product)}: ${Build.PRODUCT} ${Build.DEVICE} ${controller?.cpuInfo} ${controller?.prjNameInfo} ${controller?.slotInfo}")
         add("${getString(R.string.system)}: $androidVer $osVer")
         add(
             "${getString(R.string.build_version)}: ${Build.DISPLAY} ${
