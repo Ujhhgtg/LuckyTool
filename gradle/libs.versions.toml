@@ -1,9 +1,9 @@
 [versions]
-agp = "8.11.1"
+agp = "8.12.0"
 kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2"
 
-navigation = "2.9.2"
+navigation = "2.9.3"
 kotlinx-coroutines = "1.10.2"
 libsu = "6.0.0"
 markwon = "4.6.2"
