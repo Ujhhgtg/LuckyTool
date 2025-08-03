@@ -27,6 +27,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] OTA增量更新安装提示
 - [修复] 修复电量过低对话框导致崩溃问题
 - [添加] 模块主页显示设备CPU型号
+- [添加] 启用Opex本地安装 C14+
 
 ### 1.3.1
 

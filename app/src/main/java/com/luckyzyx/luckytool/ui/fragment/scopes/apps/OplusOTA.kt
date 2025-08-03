@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 
 import android.content.Context
+import android.os.SystemProperties
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -105,6 +106,13 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_ota_local_update_verity)
                 key = "remove_ota_local_update_verity"
                 setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_opex_local_install)
+                key = "enable_opex_local_install"
+                setDefaultValue(false)
+                isVisible = osCode >= 30 && SystemProperties.getBoolean("oplus.opex.merge", false)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

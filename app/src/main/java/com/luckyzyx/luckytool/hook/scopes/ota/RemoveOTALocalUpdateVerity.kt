@@ -44,10 +44,12 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                                 list.removeIf { it.contains("forbid_ota_local_update") }
                                 list.removeIf { it.contains("ota_root_or_debug") }
                             } else {
-                                list[list.indexOfFirst { it.contains("forbid_ota_local_update") }] =
-                                    "forbid_ota_local_update=false"
-                                list[list.indexOfFirst { it.contains("ota_root_or_debug") }] =
-                                    "ota_root_or_debug=false"
+                                list.indexOfFirst { it.contains("forbid_ota_local_update") }
+                                    .takeIf { it != -1 }
+                                    ?.let { list[it] = "forbid_ota_local_update=false" }
+                                list.indexOfFirst { it.contains("ota_root_or_debug") }
+                                    .takeIf { it != -1 }
+                                    ?.let { list[it] = "ota_root_or_debug=false" }
                                 list.removeIf { it.contains("from_version") }
                             }
                             SystemProperties.set("sys.ota.grant_ota_local_update", "true")
@@ -93,10 +95,12 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                                 list.removeIf { it.contains("forbid_ota_local_update") }
                                 list.removeIf { it.contains("ota_root_or_debug") }
                             } else {
-                                list[list.indexOfFirst { it.contains("forbid_ota_local_update") }] =
-                                    "forbid_ota_local_update=false"
-                                list[list.indexOfFirst { it.contains("ota_root_or_debug") }] =
-                                    "ota_root_or_debug=false"
+                                list.indexOfFirst { it.contains("forbid_ota_local_update") }
+                                    .takeIf { it != -1 }
+                                    ?.let { list[it] = "forbid_ota_local_update=false" }
+                                list.indexOfFirst { it.contains("ota_root_or_debug") }
+                                    .takeIf { it != -1 }
+                                    ?.let { list[it] = "ota_root_or_debug=false" }
                                 list.removeIf { it.contains("from_version") }
                             }
                             SystemProperties.set("sys.ota.grant_ota_local_update", "true")

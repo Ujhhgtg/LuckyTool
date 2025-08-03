@@ -53,13 +53,13 @@ object FileUtils {
      * @return String 文件Path
      */
     fun getDocumentPath(context: Context, uri: Uri): String? {
-        if (ContentResolver.SCHEME_CONTENT != uri.scheme) return "null"
-        if (!DocumentsContract.isDocumentUri(context, uri)) return "null"
+        if (ContentResolver.SCHEME_CONTENT != uri.scheme) return null
+        if (!DocumentsContract.isDocumentUri(context, uri)) return null
         val authority = when (uri.authority) {
             "com.android.externalstorage.documents" -> "ExternalStorageDocument"
             "com.android.providers.downloads.documents" -> "DownloadsDocument"
             "com.android.providers.media.documents" -> "MediaDocument"
-            else -> "null"
+            else -> null
         }
         when (authority) {
             "ExternalStorageDocument" -> {
@@ -103,7 +103,7 @@ object FileUtils {
                 return getDataColumn(context, contentUri, selection, selectionArgs)
             }
         }
-        return "null"
+        return null
     }
 
     /**
@@ -548,4 +548,16 @@ object FileUtils {
         return path
     }
 
+    /**
+    * 循环遍历删除文件
+     */
+    fun deleteFile(file: File) {
+        if (file.exists().not()) return
+        if (file.isDirectory) {
+            file.listFiles()?.onEach(::deleteFile)
+            file.delete()
+        } else {
+            file.delete()
+        }
+    }
 }
