@@ -23,6 +23,8 @@ object EnableOpexLocalInstall : YukiBaseHooker() {
     val OpexCopyResultCode =
         "com.oplus.ota.opex.OpexPackageHelper\$OpexCopyResultCode"
 
+    val OpexMenuItemCode = 10000
+
     override fun onHook() {
         //Source EntryActivity
         "com.oplus.otaui.activity.EntryActivity".toClass().resolve().apply {
@@ -34,16 +36,15 @@ object EnableOpexLocalInstall : YukiBaseHooker() {
                 after {
                     val activity = instance<Activity>()
                     val menu = args().first().cast<Menu>() ?: return@after
-                    menu.add(0, 666, 0, "Opex")
-                    menu.findItem(666).apply {
-                        setOnMenuItemClickListener {
-                            val intent = Intent("android.intent.action.OPEN_DOCUMENT")
-                            intent.addCategory("android.intent.category.OPENABLE")
-                            intent.setType("*/*")
-                            activity.startActivityForResult(intent, 10000)
-                            true
-                        }
+                    menu.add(0, OpexMenuItemCode, 0, "Opex")
+                    menu.findItem(OpexMenuItemCode)?.setOnMenuItemClickListener {
+                        val intent = Intent("android.intent.action.OPEN_DOCUMENT")
+                        intent.addCategory("android.intent.category.OPENABLE")
+                        intent.setType("*/*")
+                        activity.startActivityForResult(intent, OpexMenuItemCode)
+                        true
                     }
+
                 }
             }
             firstMethod {
@@ -56,7 +57,7 @@ object EnableOpexLocalInstall : YukiBaseHooker() {
                     val requestCode = args().first().int()
                     val resultCode = args(1).int()
                     val intent = args().last().cast<Intent>() ?: return@before
-                    if (requestCode == 10000 && resultCode == Activity.RESULT_OK) {
+                    if (requestCode == OpexMenuItemCode && resultCode == Activity.RESULT_OK) {
                         try {
                             val sp =
                                 activity.getSharedPreferences("state_info", Context.MODE_PRIVATE)
@@ -81,7 +82,8 @@ object EnableOpexLocalInstall : YukiBaseHooker() {
 
                         val name = uri.path?.substringAfterLast("/") ?: return@before
 
-                        val opexDir = File(activity.cacheDir, "opexs")
+                        val opexDir = File(activity.cacheDir, "opexs_cache")
+                        if (opexDir.exists()) FileUtils.deleteFile(opexDir)
                         if (!opexDir.exists()) opexDir.mkdirs()
 
                         val opexFile = File(opexDir, name)
@@ -89,7 +91,6 @@ object EnableOpexLocalInstall : YukiBaseHooker() {
                         FileUtils.copyUriToFile(activity, uri, opexFile)
 
                         val fileSize = opexDir.listFiles {
-                            YLog.debug("listFiles -> ${it}")
                             it.name.startsWith("ovl_update")
                         } ?: arrayOf()
 
