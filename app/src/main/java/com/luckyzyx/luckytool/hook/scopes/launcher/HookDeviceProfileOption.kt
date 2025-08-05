@@ -61,7 +61,7 @@ object HookDeviceProfileOption : YukiBaseHooker() {
                         }).of(instance).set(folderRow)
                         (firstFieldOrNull { name = "numFolderColumns" } ?: firstField {
                             name = "numFolderColumns";superclass()
-                        }).of(instance).set(folderRow)
+                        }).of(instance).set(folderColumn)
                         if (syncPreview && folderColumn > 3) {
                             firstField { name = "numFolderPreview" }.of(instance).set(folderColumn)
                         }
