@@ -11,8 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -167,29 +165,18 @@ open class MainActivity : BaseActivity() {
         window.isNavigationBarContrastEnforced = false
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, 0, systemBars.right, 0)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        val navFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
+        navHostFragment = navFragment as NavHostFragment
         navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.nav_other,
-            R.id.nav_function,
-            R.id.nav_home,
-            R.id.nav_log,
-            R.id.nav_setting,
-        ).build()
         setSupportActionBar(binding.toolbar)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        setupActionBarWithNavController(navController)
+        binding.toolbar.setupWithNavController(navController)
         binding.navView.apply {
             labelVisibilityMode = BottomNavigationView.LABEL_VISIBILITY_SELECTED
             setupWithNavController(navController)
-            setOnItemSelectedListener {
-                NavigationUI.onNavDestinationSelected(it, navController)
-                true
-            }
         }
     }
 
