@@ -4,10 +4,15 @@ import android.annotation.SuppressLint
 import android.app.StatusBarManager
 import android.content.ComponentName
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
@@ -15,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.forEach
 import androidx.core.util.size
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,33 +29,40 @@ import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.luckyzyx.luckytool.IAdbDebugController
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
+import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
+import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.service.AdbService
 import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.OtherPrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
+import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ShortcutUtils
+import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.copyStr
 import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
+import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class OtherFragment : Fragment() {
+class OtherFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentOtherBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        setupMenuProvider(this)
         binding = FragmentOtherBinding.inflate(inflater)
         return binding.root
     }
@@ -285,5 +298,33 @@ class OtherFragment : Fragment() {
         super.onResume()
         initAdbDebugView()
         initTouchPanelView()
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menu.add(0, 0, 0, "优化App").apply {
+            setIcon(R.drawable.ic_baseline_extension_24)
+            setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            if (ThemeUtils.isNightMode(resources.configuration)) {
+                iconTintList = ColorStateList.valueOf(Color.WHITE)
+            }
+        }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            0 -> {
+                AppInfoSelector(requireActivity(), true).apply {
+                    setDefaultShowSystem(true)
+                    setOnSelectAppListener(object : OnSelectAppInfoListener {
+                        override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
+                            val apps = list.map { it.packageName }
+                            RestartMenuUtils.optimizeScope(context, apps.toTypedArray())
+                        }
+                    })
+                    show()
+                }
+            }
+        }
+        return true
     }
 }
