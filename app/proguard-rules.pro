@@ -81,16 +81,16 @@
 # 崩溃日志手机端显示
 -keep class com.simple.spiderman.** { *; }
 -keepnames class com.simple.spiderman.** { *; }
-
-# XXPermissions
--keep class com.hjq.permissions.** {*;}
-
-# Kotlin
--assumenosideeffects class kotlin.jvm.internal.Intrinsics {
-    public static void check*(...);
-    public static void throw*(...);
+-keep public class * extends android.app.Activity
+-keep class * implements Android.os.Parcelable {
+    public static final Android.os.Parcelable$Creator *;
 }
+# androidx
+-keep public class * extends androidx.annotation.** { *; }
+-keep public class * extends androidx.core.content.FileProvider
 
+# BetterAndroid 使用了反射功能来装载 ViewBinding，所以你需要确保 ViewBinding 相关功能不被混淆，否则会无法装载
+# 如果你引用了 ui-component 或 ui-extension 相关功能，请添加以下混淆规则
 -keep class * extends android.app.Activity
 -keep class * implements androidx.viewbinding.ViewBinding {
     <init>();

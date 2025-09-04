@@ -158,6 +158,7 @@ dependencies {
     implementation(libs.markwon.ext.tables)
 
     //Tools
+    implementation(libs.deviceCompat)
     implementation(libs.xxpermissions)
     implementation(libs.spiderman)
     implementation(libs.fastscroll)
