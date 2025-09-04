@@ -1,8 +1,10 @@
 package com.luckyzyx.luckytool.ui.application
 
 import android.app.Activity
+import org.lsposed.lsparanoid.Obfuscate
 import java.lang.ref.WeakReference
 
+@Obfuscate
 object ActivityLifecycleManager {
 
     private val activities = mutableListOf<WeakReference<Activity>>()

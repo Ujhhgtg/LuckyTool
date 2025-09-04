@@ -2,20 +2,17 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.databinding.FragmentFpsBinding
 import com.luckyzyx.luckytool.service.RefreshRateService
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsAutoStart
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyFpsCur
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -23,11 +20,11 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getInt
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putInt
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class ForceFpsFragment : Fragment() {
+class ForceFpsFragment : BaseFragment<FragmentFpsBinding>() {
 
-    private lateinit var binding: FragmentFpsBinding
     private var controller: IRefreshRateController? = null
 
     private var allRefreshData = ArrayList<DisplayMode>()
@@ -38,13 +35,6 @@ class ForceFpsFragment : Fragment() {
 
     private var fpsAutostart = false
     private var fpsCur = -1
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFpsBinding.inflate(inflater)
-        return binding.root
-    }
 
     fun init(context: Context, controller: IRefreshRateController?) {
         if (controller == null) return
@@ -106,6 +96,7 @@ class ForceFpsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.swipeRefreshLayout.setOnRefreshListener {
             init(requireActivity(), controller)
         }

@@ -20,7 +20,6 @@ import androidx.collection.arraySetOf
 import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
@@ -36,6 +35,7 @@ import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.listener.OnSelectIntentInfoListener
 import com.luckyzyx.luckytool.selector.IntentInfoSelector
 import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
 import com.luckyzyx.luckytool.utils.PackageUtils
@@ -56,9 +56,8 @@ import org.json.JSONObject
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class HideAppIntentFragment : Fragment(), MenuProvider {
+class HideAppIntentFragment : BaseFragment<FragmentHideIntentApplistLayoutBinding>(), MenuProvider {
 
-    private lateinit var binding: FragmentHideIntentApplistLayoutBinding
     private var appIntentAdapter: AppIntentAdapter? = null
     private lateinit var sortFilterSelector: SortFilterSelector
     private var isReverse = false
@@ -77,13 +76,13 @@ class HideAppIntentFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setupMenuProvider(this)
-        binding = FragmentHideIntentApplistLayoutBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val context = requireContext()
         sortFilterSelector = SortFilterSelector(context).apply {
             setReverse(true) { _, isChecked ->

@@ -17,7 +17,6 @@ import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
-import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.highcapable.yukihookapi.YukiHookAPI
@@ -27,6 +26,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.GlobalFuncService
 import com.luckyzyx.luckytool.ui.activity.MainActivity
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -51,9 +51,7 @@ import com.luckyzyx.luckytool.utils.showToast
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class HomeFragment : Fragment(), MenuProvider {
-
-    private lateinit var binding: FragmentHomeBinding
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
 
     private var enableModule: Boolean = false
 
@@ -61,14 +59,14 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setupMenuProvider(this)
-        binding = FragmentHomeBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         enableModule = requireActivity().getBoolean(ModulePrefs, "enable_module", false)
 
         binding.enableModule.apply {

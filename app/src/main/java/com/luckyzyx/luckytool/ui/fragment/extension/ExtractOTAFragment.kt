@@ -3,15 +3,13 @@ package com.luckyzyx.luckytool.ui.fragment.extension
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.database.getStringOrNull
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
 import com.luckyzyx.luckytool.databinding.FragmentExtractOtaBinding
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.DeviceUtils
@@ -30,16 +28,7 @@ import com.topjohnwu.superuser.ShellUtils
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class ExtractOTAFragment : Fragment() {
-
-    private lateinit var binding: FragmentExtractOtaBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentExtractOtaBinding.inflate(inflater)
-        return binding.root
-    }
+class ExtractOTAFragment : BaseFragment<FragmentExtractOtaBinding>() {
 
     @SuppressLint("SdCardPath")
     fun init(context: Context) {
@@ -121,6 +110,7 @@ class ExtractOTAFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         init(requireActivity())
     }
 }

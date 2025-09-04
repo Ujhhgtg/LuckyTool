@@ -17,7 +17,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
@@ -29,6 +28,7 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
@@ -43,9 +43,8 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class MultiAppFragment : Fragment(), MenuProvider {
+class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), MenuProvider {
 
-    private lateinit var binding: FragmentMutliAppApplistLayoutBinding
     private var multiAppAdapter: MultiAppAdapter? = null
 
     private var allAppInfos = ArrayList<AppInfo>()
@@ -62,14 +61,14 @@ class MultiAppFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setupMenuProvider(this)
         showSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
-        binding = FragmentMutliAppApplistLayoutBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         sortFilterSelector = SortFilterSelector(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked

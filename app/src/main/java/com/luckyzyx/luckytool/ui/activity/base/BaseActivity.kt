@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.ui.activity.base
 
 import android.os.Bundle
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.color.DynamicColors
@@ -26,7 +27,8 @@ abstract class BaseActivity<VH : ViewBinding> : AppBindingActivity<VH>() {
 
         systemBars.init(binding.root, edgeToEdgeInsets = { systemBars })
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            v.updatePadding(bottom = 0)
+            val statusBar = insets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.statusBars())
+            v.updatePadding(top = statusBar.top, bottom = 0)
             insets
         }
 

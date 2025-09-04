@@ -42,6 +42,7 @@ import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.ActivityInfoSelector
 import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.GlobalKeyValue
@@ -59,8 +60,7 @@ import org.lsposed.lsparanoid.Obfuscate
 import java.io.InputStream
 
 @Obfuscate
-class MemcConfigFragment : Fragment(), MenuProvider {
-    private lateinit var binding: FragmentMemcLayoutBinding
+class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvider {
     private var memcPagerAdapter: MemcPagerAdapter? = null
 
     private lateinit var memcPackageFragment: MemcPackageFragment
@@ -71,13 +71,13 @@ class MemcConfigFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setupMenuProvider(this)
-        binding = FragmentMemcLayoutBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         loadData()
     }
 

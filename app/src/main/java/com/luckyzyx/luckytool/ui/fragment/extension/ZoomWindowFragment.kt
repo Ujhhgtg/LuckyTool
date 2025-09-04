@@ -15,7 +15,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scopeLife
@@ -27,6 +26,7 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentZoomWindowApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.getBoolean
@@ -39,9 +39,8 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class ZoomWindowFragment : Fragment(), MenuProvider {
+class ZoomWindowFragment : BaseFragment<FragmentZoomWindowApplistLayoutBinding>(), MenuProvider {
 
-    private lateinit var binding: FragmentZoomWindowApplistLayoutBinding
     private var zoomWindowAdapter: ZoomWindowAdapter? = null
 
     private var allAppInfos = ArrayList<AppInfo>()
@@ -58,14 +57,14 @@ class ZoomWindowFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setupMenuProvider(this)
         showSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
-        binding = FragmentZoomWindowApplistLayoutBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         sortFilterSelector = SortFilterSelector(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked

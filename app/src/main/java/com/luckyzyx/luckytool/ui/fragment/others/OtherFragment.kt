@@ -22,7 +22,6 @@ import androidx.core.util.forEach
 import androidx.core.util.size
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.withDefault
@@ -36,6 +35,7 @@ import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.AppInfoSelector
 import com.luckyzyx.luckytool.service.AdbService
 import com.luckyzyx.luckytool.service.TilesService
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.keyTouchSamplingRateLevel
 import com.luckyzyx.luckytool.utils.OtherPrefs
@@ -55,16 +55,13 @@ import com.luckyzyx.luckytool.utils.showToast
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class OtherFragment : Fragment(), MenuProvider {
-
-    private lateinit var binding: FragmentOtherBinding
+class OtherFragment : BaseFragment<FragmentOtherBinding>(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setupMenuProvider(this)
-        binding = FragmentOtherBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     fun init() {

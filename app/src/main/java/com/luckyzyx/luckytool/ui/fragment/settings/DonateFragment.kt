@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import com.drake.net.Get
 import com.drake.net.utils.scopeLife
 import com.drake.net.utils.scopeNetLife
@@ -16,6 +15,7 @@ import com.luckyzyx.luckytool.data.DonateDetailInfo
 import com.luckyzyx.luckytool.data.DonateInfo
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
 import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.SettingsPrefs
@@ -36,9 +36,7 @@ import java.io.File
 import java.text.DecimalFormat
 
 @Obfuscate
-class DonateFragment : Fragment() {
-
-    private lateinit var binding: FragmentDonateListBinding
+class DonateFragment : BaseFragment<FragmentDonateListBinding>() {
 
     private lateinit var donateDataTempFile: File
     private lateinit var donateDataFile: File
@@ -56,10 +54,9 @@ class DonateFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         showDetail = requireActivity().getBoolean(SettingsPrefs, showDetailedKey, false)
-        binding = FragmentDonateListBinding.inflate(inflater)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,33 +110,34 @@ class DonateFragment : Fragment() {
                 sortMode = checkedIds.firstOrNull() ?: 0
                 loadJson(context, donateDataFile)
             }
-            setFilterChips(true, arrayOf(
-                Chip(context).apply {
-                    text = getString(R.string.donate_detailed_data)
-                    isCheckable = true
-                    isClickable = true
-                    isChecked = showDetail
-                    setOnCheckedChangeListener { buttonView, isChecked ->
-                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                        showDetail = isChecked
-                        context.putBoolean(SettingsPrefs, showDetailedKey, showDetail)
-                        dismiss()
-                        initSortFilterSelector()
-                        show()
-                        loadJson(context, donateDataFile)
-                    }
-                }, Chip(context).apply {
-                    text = getString(R.string.donate_other_currency)
-                    isCheckable = true
-                    isClickable = true
-                    isChecked = otherCurrency
-                    setOnCheckedChangeListener { buttonView, isChecked ->
-                        if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
-                        otherCurrency = isChecked
-                        context.putBoolean(SettingsPrefs, showOtherCurrencyKey, otherCurrency)
-                        loadJson(context, donateDataFile)
-                    }
-                })
+            setFilterChips(
+                true, arrayOf(
+                    Chip(context).apply {
+                        text = getString(R.string.donate_detailed_data)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = showDetail
+                        setOnCheckedChangeListener { buttonView, isChecked ->
+                            if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                            showDetail = isChecked
+                            context.putBoolean(SettingsPrefs, showDetailedKey, showDetail)
+                            dismiss()
+                            initSortFilterSelector()
+                            show()
+                            loadJson(context, donateDataFile)
+                        }
+                    }, Chip(context).apply {
+                        text = getString(R.string.donate_other_currency)
+                        isCheckable = true
+                        isClickable = true
+                        isChecked = otherCurrency
+                        setOnCheckedChangeListener { buttonView, isChecked ->
+                            if (buttonView.isPressed.not()) return@setOnCheckedChangeListener
+                            otherCurrency = isChecked
+                            context.putBoolean(SettingsPrefs, showOtherCurrencyKey, otherCurrency)
+                            loadJson(context, donateDataFile)
+                        }
+                    })
             )
         }
     }

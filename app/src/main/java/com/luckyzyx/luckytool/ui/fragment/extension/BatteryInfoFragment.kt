@@ -5,20 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.luckyzyx.luckytool.databinding.FragmentBatteryInfoBinding
+import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.LogUtils
 import org.lsposed.lsparanoid.Obfuscate
 import java.util.Properties
 
 @Obfuscate
-class BatteryInfoFragment : Fragment() {
-
-    private lateinit var binding: FragmentBatteryInfoBinding
+class BatteryInfoFragment : BaseFragment<FragmentBatteryInfoBinding>() {
 
     companion object {
         val TAG = "BatteryInfoFragment"
@@ -82,14 +78,8 @@ class BatteryInfoFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentBatteryInfoBinding.inflate(inflater)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val intentFilter = IntentFilter().apply {
             addAction(Intent.ACTION_BATTERY_CHANGED)
             addAction("android.intent.action.ADDITIONAL_BATTERY_CHANGED")
