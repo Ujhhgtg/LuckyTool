@@ -37,7 +37,7 @@ import org.lsposed.lsparanoid.Obfuscate
  * @constructor
  */
 @Obfuscate
-class AppInfoSelector(private val context: Context, private val multiMode: Boolean) {
+class AppInfoSelector(val context: Context, private val multiMode: Boolean = false) {
 
     private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
     private var singleSelectorAdapter: AppInfoSingleSelectorAdapter? = null

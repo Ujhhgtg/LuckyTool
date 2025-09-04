@@ -1,15 +1,20 @@
 package com.luckyzyx.luckytool.ui.activity.base
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.color.DynamicColors
+import com.highcapable.betterandroid.ui.component.activity.AppBindingActivity
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.application.ActivityLifecycleManager
 import com.luckyzyx.luckytool.utils.ThemeUtils
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<VH : ViewBinding> : AppBindingActivity<VH>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         if (ThemeUtils.isDynamicColorsEnabled(this)) {
             setTheme(R.style.Theme_Luckyzyx_NoActionBar_DynamicColors)
             DynamicColors.applyToActivityIfAvailable(this)
@@ -19,7 +24,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
         ThemeUtils.initTheme(this)
 
-        super.onCreate(savedInstanceState)
+        systemBars.init(binding.root, edgeToEdgeInsets = { systemBars })
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            v.updatePadding(bottom = 0)
+            insets
+        }
+
         ActivityLifecycleManager.registerActivity(this)
     }
 

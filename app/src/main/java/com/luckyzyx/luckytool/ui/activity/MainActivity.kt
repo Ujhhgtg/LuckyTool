@@ -5,10 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -50,13 +47,12 @@ import kotlin.system.exitProcess
 
 @Obfuscate
 @Suppress("PrivatePropertyName")
-open class MainActivity : BaseActivity() {
+open class MainActivity : BaseActivity<ActivityMainBinding>() {
     //检测Prefs状态
     private var isModuleActive = YukiHookAPI.Status.isXposedModuleActive
     private val KEY_PREFIX = MainActivity::class.java.name + '.'
     private val EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE"
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
 
@@ -72,8 +68,6 @@ open class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         initNavigationFragment()
 
@@ -161,13 +155,6 @@ open class MainActivity : BaseActivity() {
     }
 
     private fun initNavigationFragment() {
-        enableEdgeToEdge()
-        window.isNavigationBarContrastEnforced = false
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            insets
-        }
         val navFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
         navHostFragment = navFragment as NavHostFragment
         navController = navHostFragment.navController

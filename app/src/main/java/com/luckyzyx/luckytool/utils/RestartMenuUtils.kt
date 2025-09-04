@@ -173,7 +173,7 @@ object RestartMenuUtils {
      * @receiver Context
      * @param scopes Array<String>
      */
-    private fun optimizeScope(context: Context, scopes: Array<String>) {
+    fun optimizeScope(context: Context, scopes: Array<String>) {
         val scopeMaps = arrayMapOf<String, CharSequence>()
         scopes.toMutableList().apply {
             removeIf { it == "android" || it == "system" }

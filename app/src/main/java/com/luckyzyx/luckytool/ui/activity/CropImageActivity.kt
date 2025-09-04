@@ -26,10 +26,9 @@ import com.luckyzyx.luckytool.utils.ThemeUtils
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class CropImageActivity : BaseActivity(), MenuProvider,
+class CropImageActivity : BaseActivity<ActivityCropImageBinding>(), MenuProvider,
     OnSetImageUriCompleteListener, OnCropImageCompleteListener {
 
-    private lateinit var binding: ActivityCropImageBinding
     private var cropImageView: CropImageView? = null
 
     private var cropImageUri: Uri? = null
@@ -47,8 +46,6 @@ class CropImageActivity : BaseActivity(), MenuProvider,
 
         addMenuProvider(this, this, Lifecycle.State.RESUMED)
 
-        binding = ActivityCropImageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
         cropImageView = binding.cropImageView
