@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.android.server.OplusBatteryServiceFeature
 import com.luckyzyx.luckytool.databinding.FragmentBatteryInfoBinding
 import com.luckyzyx.luckytool.utils.LogUtils
 import org.lsposed.lsparanoid.Obfuscate
@@ -78,8 +77,8 @@ class BatteryInfoFragment : Fragment() {
     }
 
     fun init() {
-        val instance = OplusBatteryServiceFeature.getInstance()
-        LogUtils.d(TAG, "init", "${instance != null}", true)
+//        val instance = OplusBatteryServiceFeature.getInstance()
+//        LogUtils.d(TAG, "init", "${instance != null}", true)
 
     }
 

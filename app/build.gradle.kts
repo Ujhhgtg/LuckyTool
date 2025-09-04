@@ -129,11 +129,13 @@ dependencies {
     //Android UI
     implementation(libs.material)
     implementation(libs.betterandroid.ui.component)
+    implementation(libs.betterandroid.ui.component.adapter)
     implementation(libs.betterandroid.ui.extension)
     implementation(libs.betterandroid.system.extension)
     implementation(libs.hikage.core)
     implementation(libs.hikage.extension)
     implementation(libs.hikage.extension.betterandroid)
+    implementation(libs.hikage.widget.androidx)
     implementation(libs.hikage.widget.material)
 
     //KotlinX
