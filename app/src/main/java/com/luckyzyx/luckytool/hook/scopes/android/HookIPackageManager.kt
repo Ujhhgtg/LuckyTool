@@ -5,12 +5,14 @@ import android.content.pm.ParceledListSlice
 import android.content.pm.ResolveInfo
 import android.util.ArraySet
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.data.AppIntentInfo
 import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOf
 import org.json.JSONObject
 import org.lsposed.lsparanoid.Obfuscate
@@ -30,10 +32,13 @@ class HookIPackageManager : YukiBaseHooker() {
     )
 
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         initData()
         initDataChannel()
 
-        loadHooker(HookQueryIntentActivitie())
+        if (osCode >= 26) loadHooker(HookQueryIntentActivitie())
+        else loadHooker(HookQueryIntentActivitieV12())
     }
 
     private fun initData() {
@@ -72,6 +77,47 @@ class HookIPackageManager : YukiBaseHooker() {
         }
     }
 
+    fun YukiMemberHookCreator.MemberHookCreator.hookAfter() {
+        after {
+            if (!isEnable) return@after
+            val intent = args().first().cast<Intent>() ?: return@after
+            val action = intent.action ?: return@after
+//                        val data = if (action == Intent.ACTION_VIEW)
+
+            val isOrigin = intent.getBooleanExtra("result_origin_data", false)
+            if (isOrigin) return@after
+
+            val res = result<ParceledListSlice<ResolveInfo>>() ?: return@after
+            val list = res.list ?: return@after
+            types.forEachIndexed { _, intentType ->
+                val filte = getIntentFilter(intentType)
+                val intents = allIntent.filter(filte)
+                list.removeIf {
+                    val packName = it.activityInfo.packageName
+                    val activity = it.activityInfo.name
+                    intents.find { info ->
+                        info.action == action && info.packName == packName && info.activity == activity
+                    } != null
+                }
+            }
+        }
+    }
+
+    @Obfuscate
+    inner class HookQueryIntentActivitieV12 : YukiBaseHooker() {
+        override fun onHook() {
+            //Source PackageManagerService
+            "com.android.server.pm.PackageManagerService".toClass().resolve().apply {
+                firstMethod {
+                    name = "queryIntentActivities"
+                    parameters(Intent::class, String::class, Int::class, Int::class)
+                }.hook {
+                    hookAfter()
+                }
+            }
+        }
+    }
+
     @Obfuscate
     inner class HookQueryIntentActivitie : YukiBaseHooker() {
         override fun onHook() {
@@ -81,29 +127,7 @@ class HookIPackageManager : YukiBaseHooker() {
                     name = "queryIntentActivities"
                     parameters(Intent::class, String::class, Long::class, Int::class)
                 }.hook {
-                    after {
-                        if (!isEnable) return@after
-                        val intent = args().first().cast<Intent>() ?: return@after
-                        val action = intent.action ?: return@after
-//                        val data = if (action == Intent.ACTION_VIEW)
-
-                        val isOrigin = intent.getBooleanExtra("result_origin_data", false)
-                        if (isOrigin) return@after
-
-                        val res = result<ParceledListSlice<ResolveInfo>>() ?: return@after
-                        val list = res.list ?: return@after
-                        types.forEachIndexed { _, intentType ->
-                            val filte = getIntentFilter(intentType)
-                            val intents = allIntent.filter(filte)
-                            list.removeIf {
-                                val packName = it.activityInfo.packageName
-                                val activity = it.activityInfo.name
-                                intents.find { info ->
-                                    info.action == action && info.packName == packName && info.activity == activity
-                                } != null
-                            }
-                        }
-                    }
+                    hookAfter()
                 }
             }
         }
