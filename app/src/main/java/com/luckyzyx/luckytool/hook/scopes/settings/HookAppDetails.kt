@@ -181,8 +181,8 @@ object HookAppDetails : YukiBaseHooker() {
                             val context = firstMethod {
                                 name = "getContext"
                                 superclass()
-                            }.invoke<Context>() ?: return@before
-                            val packageInfo = firstField { type = PackageInfo::class }
+                            }.of(instance).invoke<Context>() ?: return@before
+                            val packageInfo = firstField { type = PackageInfo::class }.of(instance)
                                 .get<PackageInfo>() ?: return@before
                             val packName = packageInfo.packageName
 
