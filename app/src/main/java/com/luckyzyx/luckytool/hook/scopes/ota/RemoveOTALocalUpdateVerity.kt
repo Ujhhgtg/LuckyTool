@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.hook.scopes.ota
 import android.content.Context
 import android.os.SystemProperties
 import com.highcapable.kavaref.KavaRef.Companion.resolve
-import com.highcapable.kavaref.extension.ArrayClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
@@ -24,7 +23,6 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             //Source ABUpdateUtils
             dexKitBridge.findClass {
                 matcher {
-                    addFieldForType(java.util.ArrayList::class.java)
                     methods {
                         add { paramCount(0);returnType(Boolean::class.java) }
                         add { paramTypes(File::class.java, String::class.java) }
@@ -66,7 +64,6 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             //Source LocalPcakgeInfoUtil
             dexKitBridge.findClass {
                 matcher {
-                    fieldCount(0)
                     methods {
                         add { returnType(Boolean::class.java) }
                         add {
@@ -84,8 +81,10 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                 checkDataList("RemoveOTALocalUpdateVerity find LocalPcakgeInfoUtil")
                 single().name.toClass().resolve().apply {
                     firstMethod {
+//                        parameters(Context::class, String::class)
                         parameters { it.contains(Context::class.java) && it.contains(String::class.java) }
                         parameterCount(2)
+                        returnType { it == List::class.java || it == ArrayList::class.java }
                     }.hook {
                         after {
                             val filePath = args(args.indexOfFirst { it is String }).string()
@@ -127,31 +126,42 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                         add { paramCount(0);returnType(Float::class.java) }
                         add { paramCount(0);returnType(Void.TYPE) }
                         add {
-                            paramTypes(
-                                String::class.java, Long::class.java,
-                                Long::class.java, ArrayClass(String::class)
-                            )
+//                            paramTypes(
+//                                String::class.java, Long::class.java,
+//                                Long::class.java, ArrayClass(String::class)
+//                            )
+                            paramCount(4..5)
+                            returnType(Void.TYPE)
+                            usingStrings("SWITCH_SLOT_ON_REBOOT")
                         }
                     }
                     usingStrings("ABUpdateManager", "payload_properties")
                 }
             }.apply {
                 checkDataList("RemoveOTALocalUpdateVerity Properties")
-                single().name.toClass().resolve().apply {
-                    firstMethod {
-                        parameters(
-                            String::class, Long::class,
-                            Long::class, ArrayClass(String::class)
-                        )
-                    }.hook {
-                        before {
-                            val headers = args().last().array<String>()
-                            headers.toMutableList().apply {
-                                removeIf { it.contains("forbid_ota_local_update") }
-                                removeIf { it.contains("ota_root_or_debug") }
+                findMethod {
+                    matcher {
+                        paramCount(4..5)
+                        returnType(Void.TYPE)
+                        usingStrings("SWITCH_SLOT_ON_REBOOT")
+                    }
+                }.apply {
+                    checkDataList("RemoveOTALocalUpdateVerity Properties applyPayload")
+                    single().className.toClass().resolve().apply {
+                        firstMethod {
+                            name = single().name
+                            parameterCount = single().paramCount
+                            returnType(Void.TYPE)
+                        }.hook {
+                            before {
+                                val headers = args().last().array<String>()
+                                headers.toMutableList().apply {
+                                    removeIf { it.contains("forbid_ota_local_update") }
+                                    removeIf { it.contains("ota_root_or_debug") }
 //                                removeIf { it.contains("oplus_update_engine_verify_disable") }
+                                }
+                                SystemProperties.set("sys.ota.grant_ota_local_update", "true")
                             }
-                            SystemProperties.set("sys.ota.grant_ota_local_update", "true")
                         }
                     }
                 }
