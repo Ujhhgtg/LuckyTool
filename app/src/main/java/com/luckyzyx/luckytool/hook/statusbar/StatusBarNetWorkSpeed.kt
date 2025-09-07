@@ -132,8 +132,10 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             dataChannel.wait<Int>("set_network_speed_padding_bottom") { getBottomPadding = it }
             dataChannel.wait<Int>("set_network_speed_double_row_spacing") { setInterval = it }
 
-            val NetworkSpeedIconState =
+            val NetworkSpeedIconState = VariousClass(
+                "com.oplusos.systemui.ext.BaseNetworkControllerImplExt\$NetworkSpeedIconState", //C12
                 "com.oplus.systemui.statusbar.phone.netspeed.NetworkSpeedIconState"
+            ).load(appClassLoader)
 
             //Source NetworkSpeedView
             VariousClass(
