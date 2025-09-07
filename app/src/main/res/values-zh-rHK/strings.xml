@@ -879,6 +879,7 @@
     <!--OplusNfc-->
     <string name="scan_nfc_tag_auto_click">扫描NFC标签自动点击按钮</string>
     <!--Everyimage-->
+    <string name="remove_oshare_close_countdown">移除互传关闭倒计时</string>
     <string name="skip_startup_page">跳过启动页</string>
     <string name="vip_download">下载原图</string>
     <!--AlphaBackupPro-->

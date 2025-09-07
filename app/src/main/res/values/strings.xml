@@ -1016,6 +1016,9 @@
     <!--OplusNfc-->
     <string name="scan_nfc_tag_auto_click">Scan the NFC tag to automatically click the button</string>
     
+    <!--OplusOShare-->
+    <string name="remove_oshare_close_countdown">Remove oshare close countdown</string>
+    
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

@@ -28,6 +28,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookMediaController
 import com.luckyzyx.luckytool.hook.hookers.HookMultiApp
 import com.luckyzyx.luckytool.hook.hookers.HookNfc
 import com.luckyzyx.luckytool.hook.hookers.HookNotificationManager
+import com.luckyzyx.luckytool.hook.hookers.HookOShare
 import com.luckyzyx.luckytool.hook.hookers.HookOplusCosa
 import com.luckyzyx.luckytool.hook.hookers.HookOplusGames
 import com.luckyzyx.luckytool.hook.hookers.HookOplusMMS
@@ -198,6 +199,8 @@ object YukiEntry {
         loadApp("com.heytap.health", HookHealth)
         //NFC服务
         loadApp("com.android.nfc", HookNfc)
+        //互传
+        loadApp("com.coloros.oshare", HookOShare)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)

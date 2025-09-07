@@ -35,6 +35,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.ArrayMap
 import android.util.ArraySet
 import android.util.Base64
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -339,25 +340,25 @@ fun TileService.closeCollapse() {
  * 其中[dp]/[sp] 会根据系统分辨率将输入的dp/sp值转换为对应的px
  */
 val Float.dp: Float // [xxhdpi](360 -> 1080)
-    get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics
     )
 
 val Int.dp: Int
-    get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP,
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
         this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
 
 val Float.sp: Float // [xxhdpi](360 -> 1080)
-    get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_SP, this, Resources.getSystem().displayMetrics
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP, this, Resources.getSystem().displayMetrics
     )
 
 val Int.sp: Int
-    get() = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_SP,
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
         this.toFloat(),
         Resources.getSystem().displayMetrics
     ).toInt()
@@ -411,11 +412,13 @@ fun Preference.setPrefsIconRes(resource: Any?, result: (Drawable?, Boolean) -> U
         result(icon, true)
         return
     }
-    val bitmap = image.toBitmapOrNull()
+
+    val bitmap = image.toBitmapOrNull(48.dp, 48.dp, null)
     if (bitmap == null) {
         result(null, false)
         return
     }
+
     val drawable = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
     drawable.setAntiAlias(true)
     drawable.cornerRadius = 30F
