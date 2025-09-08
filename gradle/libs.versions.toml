@@ -20,7 +20,7 @@ lsplugin-lsparanoid = { id = "org.lsposed.lsparanoid", version.ref = "lsparanoid
 
 [libraries]
 xposed-api = { group = "de.robv.android.xposed", name = "api", version = "82" }
-yukihookapi = { group = "com.highcapable.yukihookapi", name = "api", version = "1.3.0" }
+yukihookapi = { group = "com.highcapable.yukihookapi", name = "api", version = "1.3.0.1" }
 ksp-yukihookapi = { group = "com.highcapable.yukihookapi", name = "ksp-xposed", version = "1.3.0" }
 kavaref-core = { group = "com.highcapable.kavaref", name = "kavaref-core", version = "1.0.1.1" }
 kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extension", version = "1.0.1" }
