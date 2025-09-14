@@ -7,13 +7,6 @@ pluginManagement {
         // 详情请前往：https://github.com/HighCapable/maven-repository
         // 中国大陆用户请将下方的 "raw.githubusercontent.com" 修改为 "raw.gitmirror.com"
         maven("https://raw.githubusercontent.com/HighCapable/maven-repository/main/repository/releases")
-        maven("https://maven.aliyun.com/repository/releases")
-        maven("https://maven.aliyun.com/repository/google")
-        maven("https://maven.aliyun.com/repository/central")
-        maven("https://maven.aliyun.com/repository/gradle-plugin")
-        maven("https://maven.aliyun.com/repository/public")
-        maven("https://maven.aliyun.com/repository/jcenter")
-        maven("https://maven.aliyun.com/repository/apache-snapshots")
         gradlePluginPortal()
         google()
         mavenCentral()
@@ -34,13 +27,6 @@ dependencyResolutionManagement {
         // 详情请前往：https://github.com/HighCapable/maven-repository
         // 中国大陆用户请将下方的 "raw.githubusercontent.com" 修改为 "raw.gitmirror.com"
         maven("https://raw.githubusercontent.com/HighCapable/maven-repository/main/repository/releases")
-        maven("https://maven.aliyun.com/repository/releases")
-        maven("https://maven.aliyun.com/repository/google")
-        maven("https://maven.aliyun.com/repository/central")
-        maven("https://maven.aliyun.com/repository/gradle-plugin")
-        maven("https://maven.aliyun.com/repository/public")
-        maven("https://maven.aliyun.com/repository/jcenter")
-        maven("https://maven.aliyun.com/repository/apache-snapshots")
         google()
         mavenCentral()
     }
