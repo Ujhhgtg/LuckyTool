@@ -6,12 +6,14 @@ val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
-    alias(libs.plugins.agp.app)
-    alias(libs.plugins.kotlin)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.lsplugin.resopt)
     alias(libs.plugins.lsplugin.lsparanoid)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.navigation.safe.args)
 }
 
 apksign {
@@ -111,9 +113,7 @@ dependencies {
 
     //XPosed or API
     compileOnly(libs.xposed.api)
-    implementation(libs.yukihookapi){
-
-    }
+    implementation(libs.yukihookapi)
     ksp(libs.ksp.yukihookapi)
     implementation(libs.kavaref.core)
     implementation(libs.kavaref.extension)
@@ -143,6 +143,7 @@ dependencies {
     //KotlinX
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.json)
 
     //OkHttp3
     implementation(libs.okhttp3)
