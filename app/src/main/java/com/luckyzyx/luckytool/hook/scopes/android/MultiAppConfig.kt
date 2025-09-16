@@ -37,10 +37,10 @@ object MultiAppConfig : YukiBaseHooker() {
             list.clear()
             list.addAll(prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet()))
             dataChannel.wait("multi_app_custom_list") {
-                list.clear()
                 val new = prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet())
-                list.addAll(new)
                 YLog.debug("update multi app whitelist configs -> ${list.size} | ${new.size}")
+                list.clear()
+                list.addAll(new)
             }
             limit = prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)
             YLog.debug("init multi app configs success")
