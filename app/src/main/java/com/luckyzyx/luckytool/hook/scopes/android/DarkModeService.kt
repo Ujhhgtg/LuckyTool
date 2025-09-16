@@ -7,14 +7,16 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.safeOfNull
 import com.oplus.darkmode.OplusDarkModeData
+import kotlinx.serialization.json.Json
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DarkModeService : YukiBaseHooker() {
 
     var isEnable = false
-    val list = ArraySet<String>()
+    val list = ArraySet<DarkModeInfo>()
 
     fun loadData() {
         isEnable = prefs(ModulePrefs).getBoolean("dark_mode_list_enable", false)
@@ -24,13 +26,17 @@ object DarkModeService : YukiBaseHooker() {
         }
 
         list.clear()
-        list.addAll(prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet()))
-        dataChannel.wait<Set<String>>("dark_mode_support_list") {
+        val enabled = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
+        list.addAll(enabled.mapNotNull {
+            safeOfNull { Json.decodeFromString<DarkModeInfo>(it) }
+        })
         dataChannel.wait("dark_mode_support_list") {
-            list.clear()
             val new = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
-            list.addAll(new)
             YLog.debug("update dark mode service whitelist configs -> ${list.size} | ${new.size}")
+            list.clear()
+            list.addAll(new.mapNotNull {
+                safeOfNull { Json.decodeFromString<DarkModeInfo>(it) }
+            })
         }
         YLog.debug("init dark mode service configs success")
     }
@@ -46,13 +52,8 @@ object DarkModeService : YukiBaseHooker() {
             }.hook {
                 after {
                     if (!isEnable) return@after
-                    val enabledDarkMode = ArrayList<DarkModeInfo>()
-                    list.forEach {
-                        val darkModeInfo = DarkModeInfo().toDarkModeInfo(it)
-                        if (darkModeInfo != null) enabledDarkMode.add(darkModeInfo)
-                    }
                     val dataMap = ArrayMap<String, OplusDarkModeData>()
-                    enabledDarkMode.forEach {
+                    list.forEach {
                         if (it.curType == 0) dataMap[it.packName] = OplusDarkModeData()
                         else dataMap[it.packName] = OplusDarkModeData().apply {
                             mCurType = it.curType

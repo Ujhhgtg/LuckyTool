@@ -4,14 +4,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
     
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/appinfo_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/listPreferredItemHeight"
-            android:paddingVertical="12dp"
             android:paddingHorizontal="16dp">
         
         <com.google.android.material.imageview.ShapeableImageView
