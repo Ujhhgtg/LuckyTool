@@ -4,10 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.CheckedTextView
 import android.widget.ListView
 import androidx.core.view.isVisible
 import com.drake.net.utils.scopeLife
+import com.highcapable.betterandroid.ui.component.adapter.factory.bindAdapter
 import com.luckyzyx.luckytool.IRefreshRateController
 import com.luckyzyx.luckytool.data.DisplayMode
 import com.luckyzyx.luckytool.databinding.FragmentFpsBinding
@@ -31,30 +32,24 @@ class ForceFpsFragment : BaseFragment<FragmentFpsBinding>() {
     private var fpsIds = ArrayList<Int>()
     private var fpsDatas = ArrayList<String>()
 
-    private var fpsAdapter: ArrayAdapter<String>? = null
-
     private var fpsAutostart = false
     private var fpsCur = -1
 
     fun init(context: Context, controller: IRefreshRateController?) {
-        if (controller == null) return
         scopeLife {
-            binding.swipeRefreshLayout.isRefreshing = true
 
             clearAllData()
             @Suppress("UNCHECKED_CAST")
             allRefreshData =
-                (this@ForceFpsFragment.controller?.supportModes
-                    ?: ArrayList<DisplayMode>()) as ArrayList<DisplayMode>
+                (controller?.supportModes ?: ArrayList<DisplayMode>()) as ArrayList<DisplayMode>
             initFpsData(allRefreshData)
 
             fpsCur = context.getInt(SettingsPrefs, keyFpsCur, -1)
             fpsAutostart = context.getBoolean(SettingsPrefs, keyFpsAutoStart, false)
-            fpsAdapter = ArrayAdapter(
-                context, android.R.layout.simple_list_item_single_choice, fpsDatas
-            )
+
             val isUnsupport = allRefreshData.isEmpty()
             val fpsSelfStart = binding.fpsSelfStart.apply {
+                isEnabled = controller != null
                 isChecked = fpsAutostart
                 isEnabled = !isUnsupport && fpsCur != -1
                 setOnCheckedChangeListener { _, isChecked ->
@@ -65,42 +60,41 @@ class ForceFpsFragment : BaseFragment<FragmentFpsBinding>() {
             binding.fpsList.apply {
                 isVisible = !isUnsupport
                 choiceMode = ListView.CHOICE_MODE_SINGLE
-                if (!isUnsupport) adapter = fpsAdapter
+                bindAdapter<String> {
+                    onBindData { fpsDatas }
+                    onBindItemView(android.R.layout.simple_list_item_single_choice) { view, data, position ->
+                        (view as CheckedTextView).text = data
+                    }
+                }
                 val curFpsId = fpsIds.indexOf(fpsCur)
                 if (curFpsId != -1) setItemChecked(curFpsId, fpsCur != -1)
                 onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                     fpsSelfStart.isEnabled = true
                     val curId = fpsIds[position]
                     context.putInt(SettingsPrefs, keyFpsCur, curId)
-                    this@ForceFpsFragment.controller?.setRefreshRateMode(curId)
+                    controller?.setRefreshRateMode(curId)
                 }
             }
             binding.fpsShow.apply {
-                isEnabled = this@ForceFpsFragment.controller != null
-                isChecked = this@ForceFpsFragment.controller?.refreshRateDisplay == true
+                isEnabled = controller != null
+                isChecked = controller?.refreshRateDisplay == true
                 setOnCheckedChangeListener { buttonView, isChecked ->
-                    if (buttonView.isPressed) this@ForceFpsFragment.controller?.refreshRateDisplay =
-                        isChecked
+                    if (buttonView.isPressed) controller?.refreshRateDisplay = isChecked
                 }
             }
             binding.fpsRecover.apply {
-                isEnabled = this@ForceFpsFragment.controller != null
+                isEnabled = controller != null
                 setOnClickListener {
                     fpsSelfStart.isChecked = false
                     fpsSelfStart.isEnabled = false
                     context.resetRefreshRate()
                 }
             }
-            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            init(requireActivity(), controller)
-        }
-
         RefreshRateService.get(activity) {
             controller = it
             init(requireActivity(), controller)
