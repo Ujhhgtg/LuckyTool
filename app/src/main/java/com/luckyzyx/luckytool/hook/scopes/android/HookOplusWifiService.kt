@@ -98,7 +98,7 @@ object HookOplusWifiService : YukiBaseHooker() {
 
             whitelist.clear()
             whitelist.addAll(prefs(ModulePrefs).getStringSet(whitelistKey, ArraySet()))
-            dataChannel.wait<Set<String>>(whitelistKey) {
+            dataChannel.wait(whitelistKey) {
                 whitelist.clear()
                 val new = prefs(ModulePrefs).getStringSet(whitelistKey, ArraySet())
                 whitelist.addAll(new)
@@ -107,7 +107,7 @@ object HookOplusWifiService : YukiBaseHooker() {
 
             gameWhitelist.clear()
             gameWhitelist.addAll(prefs(ModulePrefs).getStringSet(gameWhitelistKey, ArraySet()))
-            dataChannel.wait<Set<String>>(gameWhitelistKey) {
+            dataChannel.wait(gameWhitelistKey) {
                 gameWhitelist.clear()
                 val new = prefs(ModulePrefs).getStringSet(gameWhitelistKey, ArraySet())
                 gameWhitelist.addAll(new)

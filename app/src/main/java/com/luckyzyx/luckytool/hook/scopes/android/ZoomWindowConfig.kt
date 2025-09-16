@@ -29,7 +29,7 @@ class ZoomWindowConfig : YukiBaseHooker() {
             YLog.debug("update zoom window configs status -> $it")
         }
 
-        dataChannel.wait<Set<String>>("zoom_window_support_list") {
+        dataChannel.wait("zoom_window_support_list") {
             list.clear()
             val new = prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
             list.addAll(new)

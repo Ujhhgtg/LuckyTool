@@ -32,6 +32,7 @@ class DarkModeList(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         list.clear()
         list.addAll(prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet()))
         dataChannel.wait<Set<String>>("dark_mode_support_list") {
+        dataChannel.wait("dark_mode_support_list") {
             list.clear()
             val new = prefs(ModulePrefs).getStringSet("dark_mode_support_list", ArraySet())
             list.addAll(new)

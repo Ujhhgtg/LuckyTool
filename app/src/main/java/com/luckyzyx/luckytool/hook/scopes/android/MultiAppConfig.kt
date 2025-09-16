@@ -36,7 +36,7 @@ object MultiAppConfig : YukiBaseHooker() {
 
             list.clear()
             list.addAll(prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet()))
-            dataChannel.wait<Set<String>>("multi_app_custom_list") {
+            dataChannel.wait("multi_app_custom_list") {
                 list.clear()
                 val new = prefs(ModulePrefs).getStringSet("multi_app_custom_list", ArraySet())
                 list.addAll(new)
