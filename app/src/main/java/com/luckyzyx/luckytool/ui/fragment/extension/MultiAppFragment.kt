@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.ui.fragment.extension
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -11,18 +10,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.drake.net.utils.scopeLife
-import com.drake.net.utils.withDefault
-import com.google.android.material.chip.Chip
-import com.google.android.material.materialswitch.MaterialSwitch
+import com.highcapable.betterandroid.ui.component.adapter.factory.bindAdapter
+import com.highcapable.betterandroid.ui.component.adapter.recycler.factory.notifyDataSetChangedIgnore
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
@@ -33,9 +24,7 @@ import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
-import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.setupMenuProvider
@@ -45,17 +34,16 @@ import org.lsposed.lsparanoid.Obfuscate
 @Obfuscate
 class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), MenuProvider {
 
-    private var multiAppAdapter: MultiAppAdapter? = null
+    private val TAG = "MultiAppFragment"
 
     private var allAppInfos = ArrayList<AppInfo>()
+    private var filterAppInfos = ArrayList<AppInfo>()
     private var allEnabledInfos = ArrayList<AppInfo>()
 
-    private val showSystemAppKey = "show_system_app_multi_app"
     private val supportListKey = "multi_app_custom_list"
 
     private var isReverse = false
     private var sortMode = 0
-    private var showSystemApp = false
 
     private lateinit var sortFilterSelector: SortFilterSelector
 
@@ -63,7 +51,6 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         setupMenuProvider(this)
-        showSystemApp = requireActivity().getBoolean(ModulePrefs, showSystemAppKey, false)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -80,17 +67,6 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
                 sortMode = checkedIds.firstOrNull() ?: 0
                 loadData()
             }
-            setFilterChips(true, arrayOf(Chip(context).apply {
-                text = context.getString(R.string.appinfo_system_app)
-                isCheckable = true
-                isClickable = true
-                isChecked = showSystemApp
-                setOnCheckedChangeListener { _, isChecked ->
-                    showSystemApp = isChecked
-                    context.putBoolean(ModulePrefs, showSystemAppKey, showSystemApp)
-                    loadData()
-                }
-            }))
         }
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
@@ -100,7 +76,16 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
         }
         binding.searchView.apply {
             addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                multiAppAdapter?.getFilter?.filter(text)
+                val query = text?.toString() ?: ""
+                filterAppInfos = if (query.isBlank()) allAppInfos
+                else {
+                    val newList = allAppInfos.filter {
+                        it.name.lowercase().contains(query)
+                                || it.packageName.lowercase().contains(query)
+                    }
+                    ArrayList(newList)
+                }
+                binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
             })
         }
         binding.swipeRefreshLayout.apply {
@@ -109,63 +94,90 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
             }
         }
 
+        binding.recyclerView.apply {
+            adapter = bindAdapter<AppInfo> {
+                onBindData { filterAppInfos }
+                onBindItemView<LayoutAppinfoSwitchItemBinding> { item, info, position ->
+                    item.appIcon.setImageDrawable(info.icon)
+                    item.appName.text = info.name
+                    item.packName.text = info.packageName
+
+                    item.root.setOnClickListener(null)
+                    item.root.setOnClickListener {
+                        item.switchview.isChecked = !item.switchview.isChecked
+                    }
+
+                    item.switchview.setOnCheckedChangeListener(null)
+                    item.switchview.isChecked = allEnabledInfos.contains(info)
+                    item.switchview.setOnCheckedChangeListener { _, isChecked ->
+                        allEnabledInfos.remove(info)
+                        if (isChecked) allEnabledInfos.add(info)
+                        saveEnableList()
+                    }
+                }
+            }
+            FastScrollerBuilder(this).useMd2Style().build()
+        }
+
         if (allAppInfos.isEmpty()) loadData()
     }
 
     private fun loadData() {
-        scopeLife {
-            allAppInfos.clear()
-            allEnabledInfos.clear()
+        allAppInfos.clear()
+        filterAppInfos.clear()
+        allEnabledInfos.clear()
 
-            binding.swipeRefreshLayout.isRefreshing = true
-            binding.searchViewLayout.isEnabled = false
-            binding.searchView.text = null
+        binding.swipeRefreshLayout.isRefreshing = true
+        binding.searchViewLayout.isEnabled = false
+        binding.searchView.text = null
 
-            val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
-                .toMutableList()
+        val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
 
-            withDefault {
-                val packageManager = requireActivity().packageManager
-                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
-                enableData.forEach { its ->
-                    val find = allAppInfos.find { it.packageName == its }
-                    if (find != null) allEnabledInfos.add(find)
-                }
-                allAppInfos.apply {
-                    if (!showSystemApp) removeIf { it.isSystem }
-                    when (sortMode) {
-                        0 -> sortBy { it.name }
-                        1 -> sortBy { it.packageName }
-                        2 -> sortBy { it.size }
-                        3 -> sortBy { it.installTime }
-                        4 -> sortBy { it.lastInstallTime }
-                        5 -> sortBy { it.target }
-                    }
-                    if (isReverse) reverse()
-                }
-                allEnabledInfos.apply {
-                    when (sortMode) {
-                        0 -> sortBy { it.name }
-                        1 -> sortBy { it.packageName }
-                        2 -> sortBy { it.size }
-                        3 -> sortBy { it.installTime }
-                        4 -> sortBy { it.lastInstallTime }
-                        5 -> sortBy { it.target }
-                    }
-                    if (isReverse) reverse()
-                }
-            }
+        val packageManager = requireActivity().packageManager
+        allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
+        allAppInfos.removeIf { it.isOverlay }
 
-            binding.recyclerView.apply {
-                multiAppAdapter = MultiAppAdapter()
-                adapter = multiAppAdapter
-                layoutManager = LinearLayoutManager(context)
-                FastScrollerBuilder(this).useMd2Style().build()
-            }
-
-            binding.swipeRefreshLayout.isRefreshing = false
-            binding.searchViewLayout.isEnabled = true
+        enableData.forEach { its ->
+            val find = allAppInfos.find { it.packageName == its }
+            if (find != null) allEnabledInfos.add(find)
         }
+        allAppInfos.apply {
+            when (sortMode) {
+                0 -> sortBy { it.name }
+                1 -> sortBy { it.packageName }
+                2 -> sortBy { it.size }
+                3 -> sortBy { it.installTime }
+                4 -> sortBy { it.lastInstallTime }
+                5 -> sortBy { it.target }
+            }
+            if (isReverse) reverse()
+        }
+        allEnabledInfos.apply {
+            when (sortMode) {
+                0 -> sortBy { it.name }
+                1 -> sortBy { it.packageName }
+                2 -> sortBy { it.size }
+                3 -> sortBy { it.installTime }
+                4 -> sortBy { it.lastInstallTime }
+                5 -> sortBy { it.target }
+            }
+            if (isReverse) reverse()
+        }
+
+        filterAppInfos = allAppInfos
+        filterAppInfos.removeAll(allEnabledInfos)
+        filterAppInfos.addAll(0, allEnabledInfos)
+
+        binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
+
+        binding.swipeRefreshLayout.isRefreshing = false
+        binding.searchViewLayout.isEnabled = true
+    }
+
+    private fun saveEnableList() {
+        val data = allEnabledInfos.map { it.packageName }
+        requireActivity().putStringSet(ModulePrefs, supportListKey, data.toSet())
+        requireActivity().sendPrefsKey("android", supportListKey)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -181,106 +193,5 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == 1) IntentUtils(requireActivity()).jumpMultiApp()
         return true
-    }
-
-    @Obfuscate
-    inner class MultiAppAdapter : RecyclerView.Adapter<ViewHolder>() {
-
-        private var filterDatas = ArrayList<AppInfo>()
-        private var enabledDatas = ArrayList<AppInfo>()
-
-        init {
-            filterDatas.clear()
-            enabledDatas.clear()
-
-            filterDatas = allAppInfos
-
-            allEnabledInfos.forEach {
-                enabledDatas.add(it)
-                filterDatas.remove(it)
-            }
-            filterDatas.addAll(0, enabledDatas)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding = LayoutAppinfoSwitchItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            return ViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val appInfo = filterDatas[position]
-            val appIcon = appInfo.icon
-            val appName = appInfo.name
-            val packName = appInfo.packageName
-
-            holder.appIcon.setImageDrawable(appIcon)
-            holder.appName.text = appName
-            holder.packName.text = packName
-            holder.appInfoView.setOnClickListener(null)
-            holder.switchview.setOnCheckedChangeListener(null)
-
-            holder.switchview.isChecked = enabledDatas.contains(appInfo)
-            holder.appInfoView.setOnClickListener {
-                holder.switchview.performClick()
-            }
-            holder.switchview.setOnCheckedChangeListener { _, isChecked ->
-                enabledDatas.remove(appInfo)
-                if (isChecked) enabledDatas.add(appInfo)
-                saveEnableList()
-            }
-        }
-
-        override fun getItemCount(): Int = filterDatas.size
-
-        val getFilter = object : Filter() {
-            override fun performFiltering(constraint: CharSequence): FilterResults {
-                val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allAppInfos
-                else {
-                    val filterlist = ArrayList<AppInfo>()
-                    allAppInfos.forEach {
-                        if (it.name.lowercase().contains(filterStr)
-                            || it.packageName.lowercase().contains(filterStr)
-                        ) filterlist.add(it)
-                    }
-                    filterlist
-                }
-                val filterResults = FilterResults()
-                filterResults.values = filterDatas
-                return filterResults
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                filterDatas = results.values as ArrayList<AppInfo>
-                refreshDatas()
-            }
-        }
-
-        private fun saveEnableList() {
-            val data = ArrayList<String>()
-            enabledDatas.forEach {
-                data.add(it.packageName)
-            }
-            requireActivity().putStringSet(ModulePrefs, supportListKey, data.toSet())
-            requireActivity().sendPrefsKey("android", supportListKey)
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        fun refreshDatas() {
-            notifyDataSetChanged()
-        }
-    }
-
-    @Obfuscate
-    class ViewHolder(binding: LayoutAppinfoSwitchItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val appInfoView: ConstraintLayout = binding.root
-        val appIcon: ImageView = binding.appIcon
-        val appName: TextView = binding.appName
-        val packName: TextView = binding.packName
-        val switchview: MaterialSwitch = binding.switchview
     }
 }
