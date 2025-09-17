@@ -30,10 +30,10 @@ class ZoomWindowConfig : YukiBaseHooker() {
         }
 
         dataChannel.wait("zoom_window_support_list") {
-            list.clear()
             val new = prefs(ModulePrefs).getStringSet("zoom_window_support_list", ArraySet())
-            list.addAll(new)
             YLog.debug("update zoom window whitelist configs -> ${list.size} | ${new.size}")
+            list.clear()
+            list.addAll(new)
         }
 
         multiWindow = prefs(ModulePrefs).getBoolean("force_enable_multi_window_mode", false)

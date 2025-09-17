@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
+import com.drake.net.utils.scopeLife
+import com.drake.net.utils.withDefault
 import com.highcapable.betterandroid.ui.component.adapter.factory.bindAdapter
 import com.highcapable.betterandroid.ui.component.adapter.recycler.factory.notifyDataSetChangedIgnore
 import com.luckyzyx.luckytool.R
@@ -123,55 +125,59 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
     }
 
     private fun loadData() {
-        allAppInfos.clear()
-        filterAppInfos.clear()
-        allEnabledInfos.clear()
+        scopeLife {
+            allAppInfos.clear()
+            filterAppInfos.clear()
+            allEnabledInfos.clear()
 
-        binding.swipeRefreshLayout.isRefreshing = true
-        binding.searchViewLayout.isEnabled = false
-        binding.searchView.text = null
+            binding.swipeRefreshLayout.isRefreshing = true
+            binding.searchViewLayout.isEnabled = false
+            binding.searchView.text = null
 
-        val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+            withDefault {
+                val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
 
-        val packageManager = requireActivity().packageManager
-        allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
-        allAppInfos.removeIf { it.isOverlay }
+                val packageManager = requireActivity().packageManager
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
+                allAppInfos.removeIf { it.isOverlay }
 
-        enableData.forEach { its ->
-            val find = allAppInfos.find { it.packageName == its }
-            if (find != null) allEnabledInfos.add(find)
-        }
-        allAppInfos.apply {
-            when (sortMode) {
-                0 -> sortBy { it.name }
-                1 -> sortBy { it.packageName }
-                2 -> sortBy { it.size }
-                3 -> sortBy { it.installTime }
-                4 -> sortBy { it.lastInstallTime }
-                5 -> sortBy { it.target }
+                enableData.forEach { its ->
+                    val find = allAppInfos.find { it.packageName == its }
+                    if (find != null) allEnabledInfos.add(find)
+                }
+                allAppInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packageName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
+                allEnabledInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packageName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
+
+                filterAppInfos = allAppInfos
+                filterAppInfos.removeAll(allEnabledInfos)
+                filterAppInfos.addAll(0, allEnabledInfos)
             }
-            if (isReverse) reverse()
+
+            binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
+
+            binding.swipeRefreshLayout.isRefreshing = false
+            binding.searchViewLayout.isEnabled = true
         }
-        allEnabledInfos.apply {
-            when (sortMode) {
-                0 -> sortBy { it.name }
-                1 -> sortBy { it.packageName }
-                2 -> sortBy { it.size }
-                3 -> sortBy { it.installTime }
-                4 -> sortBy { it.lastInstallTime }
-                5 -> sortBy { it.target }
-            }
-            if (isReverse) reverse()
-        }
-
-        filterAppInfos = allAppInfos
-        filterAppInfos.removeAll(allEnabledInfos)
-        filterAppInfos.addAll(0, allEnabledInfos)
-
-        binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
-
-        binding.swipeRefreshLayout.isRefreshing = false
-        binding.searchViewLayout.isEnabled = true
     }
 
     private fun saveEnableList() {

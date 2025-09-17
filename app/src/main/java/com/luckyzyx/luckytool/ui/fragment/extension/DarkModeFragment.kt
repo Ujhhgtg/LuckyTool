@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.drake.net.utils.scopeLife
+import com.drake.net.utils.withDefault
 import com.highcapable.betterandroid.ui.component.adapter.factory.bindAdapter
 import com.highcapable.betterandroid.ui.component.adapter.recycler.factory.notifyDataSetChangedIgnore
 import com.luckyzyx.luckytool.R
@@ -162,62 +164,66 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
     }
 
     private fun loadData() {
-        allAppInfos.clear()
-        filterAppInfos.clear()
-        allEnabledInfos.clear()
+        scopeLife {
+            allAppInfos.clear()
+            filterAppInfos.clear()
+            allEnabledInfos.clear()
 
-        binding.swipeRefreshLayout.isRefreshing = true
-        binding.searchViewLayout.isEnabled = false
-        binding.searchView.text = null
+            binding.swipeRefreshLayout.isRefreshing = true
+            binding.searchViewLayout.isEnabled = false
+            binding.searchView.text = null
 
-        val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+            withDefault {
+                val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
 
-        val packageManager = requireActivity().packageManager
-        allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
-        allAppInfos.removeIf { it.isOverlay }
+                val packageManager = requireActivity().packageManager
+                allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
+                allAppInfos.removeIf { it.isOverlay }
 
-        enableData.forEach { its ->
-            val info = safeOfNull { Json.decodeFromString<DarkModeInfo>(its) }
-            if (info != null && allAppInfos.find { it.packageName == info.packName } != null) {
-                allEnabledInfos[info.packName] = info
+                enableData.forEach { its ->
+                    val info = safeOfNull { Json.decodeFromString<DarkModeInfo>(its) }
+                    if (info != null && allAppInfos.find { it.packageName == info.packName } != null) {
+                        allEnabledInfos[info.packName] = info
+                    }
+                }
+                allAppInfos.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packageName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
+
+                val sortDatas = ArrayList<AppInfo>()
+                allEnabledInfos.forEach { k, v ->
+                    val find = allAppInfos.find { it.packageName == k } ?: return@forEach
+                    sortDatas.add(find)
+                }
+                sortDatas.apply {
+                    when (sortMode) {
+                        0 -> sortBy { it.name }
+                        1 -> sortBy { it.packageName }
+                        2 -> sortBy { it.size }
+                        3 -> sortBy { it.installTime }
+                        4 -> sortBy { it.lastInstallTime }
+                        5 -> sortBy { it.target }
+                    }
+                    if (isReverse) reverse()
+                }
+                filterAppInfos = allAppInfos
+                filterAppInfos.removeAll(sortDatas)
+                filterAppInfos.addAll(0, sortDatas)
             }
-        }
-        allAppInfos.apply {
-            when (sortMode) {
-                0 -> sortBy { it.name }
-                1 -> sortBy { it.packageName }
-                2 -> sortBy { it.size }
-                3 -> sortBy { it.installTime }
-                4 -> sortBy { it.lastInstallTime }
-                5 -> sortBy { it.target }
-            }
-            if (isReverse) reverse()
-        }
 
-        val sortDatas = ArrayList<AppInfo>()
-        allEnabledInfos.forEach { k, v ->
-            val find = allAppInfos.find { it.packageName == k } ?: return@forEach
-            sortDatas.add(find)
-        }
-        sortDatas.apply {
-            when (sortMode) {
-                0 -> sortBy { it.name }
-                1 -> sortBy { it.packageName }
-                2 -> sortBy { it.size }
-                3 -> sortBy { it.installTime }
-                4 -> sortBy { it.lastInstallTime }
-                5 -> sortBy { it.target }
-            }
-            if (isReverse) reverse()
-        }
-        filterAppInfos = allAppInfos
-        filterAppInfos.removeAll(sortDatas)
-        filterAppInfos.addAll(0, sortDatas)
+            binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
 
-        binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
-
-        binding.swipeRefreshLayout.isRefreshing = false
-        binding.searchViewLayout.isEnabled = true
+            binding.swipeRefreshLayout.isRefreshing = false
+            binding.searchViewLayout.isEnabled = true
+        }
     }
 
     private fun saveEnableList(infos: ArrayMap<String, DarkModeInfo>) {
