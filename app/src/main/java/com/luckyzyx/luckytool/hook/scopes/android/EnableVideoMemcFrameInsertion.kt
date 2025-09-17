@@ -7,6 +7,8 @@ import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.safeOfNull
+import kotlinx.serialization.json.Json
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -74,11 +76,15 @@ object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
         allConfigPackages.clear()
         allConfigActivitys.clear()
         configPackages.forEach {
-            val configPackageInfo = MemcConfigPackage().toMemcConfigPackage(it)
+            val configPackageInfo = safeOfNull {
+                Json.decodeFromString<MemcConfigPackage>(it)
+            }
             if (configPackageInfo != null) allConfigPackages.add(configPackageInfo)
         }
         configActivitys.forEach {
-            val configActivityInfo = MemcConfigActivity().toMemcConfigActivity(it)
+            val configActivityInfo = safeOfNull {
+                Json.decodeFromString<MemcConfigActivity>(it)
+            }
             if (configActivityInfo != null) allConfigActivitys.add(configActivityInfo)
         }
 
