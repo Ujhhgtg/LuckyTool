@@ -44,7 +44,6 @@ import org.lsposed.lsparanoid.Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.android.settings",
-        "com.android.permissioncontroller",
         "com.oplus.safecenter",
         "com.oplus.notificationmanager"
     )
@@ -272,12 +271,6 @@ class OplusSettings : BaseScopePreferenceFeagment() {
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.settings_application)
                 key = "settings_application"
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.unlock_default_desktop_limit)
-                key = "unlock_default_desktop_limit"
-                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

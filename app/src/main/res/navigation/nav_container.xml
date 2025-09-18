@@ -534,5 +534,13 @@
                 android:name="title_text"
                 app:argType="string" />
     </fragment>
+    <fragment
+            android:id="@+id/oplusPermissionController"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusPermissionController"
+            android:label="{title_text}">
+        <argument
+                android:name="title_text"
+                app:argType="string" />
+    </fragment>
 
 </navigation>
