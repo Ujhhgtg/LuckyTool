@@ -1,9 +1,9 @@
 package com.luckyzyx.luckytool.ui.activity.base
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.color.DynamicColors
 import com.highcapable.betterandroid.ui.component.activity.AppBindingActivity
@@ -25,10 +25,12 @@ abstract class BaseActivity<VH : ViewBinding> : AppBindingActivity<VH>() {
 
         ThemeUtils.initTheme(this)
 
-        systemBars.init(binding.root, edgeToEdgeInsets = { systemBars })
+        systemBars.destroy()
+        enableEdgeToEdge()
+        window.isNavigationBarContrastEnforced = false
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val statusBar = insets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.statusBars())
-            v.updatePadding(top = statusBar.top, bottom = 0)
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(0, systemBars.top, 0, 0)
             insets
         }
 

@@ -178,7 +178,7 @@ open class MainActivity : BaseActivity<ActivityMainBinding>() {
                 finish()
                 startActivity(newIntent(savedInstanceState, this))
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            } catch (e: Throwable) {
+            } catch (_: Throwable) {
                 recreate()
             }
         }
