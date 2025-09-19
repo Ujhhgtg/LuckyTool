@@ -25,8 +25,6 @@ import org.luckypray.dexkit.DexKitBridge
 class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     companion object {
-        val packName = "com.coloros.alarmclock"
-
         private lateinit var redMode: String
 
         private val BaseClockWidget = "com.coloros.widget.smallweather.BaseClockWidget"
@@ -94,7 +92,8 @@ class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 "2" -> if (isRedMode) convertLayoutResMap(layoutName, redMode) else null
                 else -> null
             } ?: return null
-            val resId = context.resources.getIdentifier(replaceLayoutName, "layout", packName)
+            val resId =
+                context.resources.getIdentifier(replaceLayoutName, "layout", context.packageName)
             return resId.takeIf { it != 0 }
         }
 

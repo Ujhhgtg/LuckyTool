@@ -1,24 +1,17 @@
 package com.luckyzyx.luckytool.selector
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.drake.net.utils.scope
 import com.drake.net.utils.withDefault
-import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
+import com.highcapable.betterandroid.ui.component.adapter.factory.bindAdapter
+import com.highcapable.betterandroid.ui.component.adapter.recycler.factory.notifyDataSetChangedIgnore
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.DialogAppInfoSelectorLayoutBinding
@@ -40,8 +33,6 @@ import org.lsposed.lsparanoid.Obfuscate
 class AppInfoSelector(val context: Context, private val multiMode: Boolean = false) {
 
     private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
-    private var singleSelectorAdapter: AppInfoSingleSelectorAdapter? = null
-    private var multiSelectorAdapter: AppInfoMultiSelectorAdapter? = null
     private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
 //        setCancelable(false)
         setView(binding.root)
@@ -49,6 +40,7 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
     private lateinit var dialog: AlertDialog
 
     private var allAppInfos = ArrayList<AppInfo>()
+    private var filterAppInfos = ArrayList<AppInfo>()
     private var allEnabledInfos = ArrayList<AppInfo>()
     private var enabledList = ArrayList<String>()
 
@@ -67,8 +59,16 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
         initSearchViewLayout()
         binding.searchView.apply {
             addTextChangedListener(onTextChanged = { text: CharSequence?, _: Int, _: Int, _: Int ->
-                singleSelectorAdapter?.getFilter?.filter(text)
-                multiSelectorAdapter?.getFilter?.filter(text)
+                val query = text?.toString() ?: ""
+                filterAppInfos = if (query.isBlank()) allAppInfos
+                else {
+                    val newList = allAppInfos.filter {
+                        it.name.contains(query) ||
+                                it.packageName.lowercase().contains(query)
+                    }
+                    ArrayList(newList)
+                }
+                binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
             })
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -78,9 +78,46 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
             isVisible = multiMode
             setOnClickListener {
                 dialog.dismiss()
-                val infos = multiSelectorAdapter?.getEnabledInfos() ?: arrayListOf()
-                onSelectAppInfoListener?.resultSelectAppInfos(infos)
+                onSelectAppInfoListener?.resultSelectAppInfos(allEnabledInfos)
             }
+        }
+
+        binding.recyclerView.apply {
+            adapter = bindAdapter<AppInfo> {
+                onBindData { filterAppInfos }
+                if (!multiMode) {
+                    onBindItemView<LayoutAppinfoItemBinding> { item, info, position ->
+                        item.appIcon.setImageDrawable(info.icon)
+                        item.appName.text = info.name
+                        item.packName.text = info.packageName
+
+                        item.root.setOnClickListener(null)
+                        item.root.setOnClickListener {
+                            dialog.dismiss()
+                            onSelectAppInfoListener?.resultSelectAppInfos(arrayListOf(info))
+                        }
+                    }
+                } else {
+                    onBindItemView<LayoutAppinfoCheckboxItemBinding> { item, info, position ->
+                        item.appIcon.setImageDrawable(info.icon)
+                        item.appName.text = info.name
+                        item.packName.text = info.packageName
+
+                        item.root.setOnClickListener(null)
+                        item.checkboxView.setOnCheckedChangeListener(null)
+
+                        item.checkboxView.isChecked = allEnabledInfos.contains(info)
+                        item.root.setOnClickListener {
+                            item.checkboxView.isChecked = !item.checkboxView.isChecked
+                        }
+                        item.checkboxView.setOnCheckedChangeListener { _, isChecked ->
+                            allEnabledInfos.remove(info)
+                            if (isChecked) allEnabledInfos.add(info)
+                        }
+                    }
+                }
+            }
+            FastScrollerBuilder(this).useMd2Style().build()
         }
     }
 
@@ -114,11 +151,10 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
         binding.btnSelectAll.apply {
             isVisible = multiMode && selectAllMode
             setOnClickListener {
-                val isAll = allAppInfos.size == multiSelectorAdapter?.getEnabledInfos()?.size
-                multiSelectorAdapter?.setEnabledInfos(
-                    if (isAll) arrayListOf() else allAppInfos
-                )
-                multiSelectorAdapter?.refreshDatas()
+                val isAll = allAppInfos.size == allEnabledInfos.size
+                if (isAll) allAppInfos.clear() else allEnabledInfos = allAppInfos
+                filterAppInfos = allAppInfos
+                binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
             }
         }
     }
@@ -166,6 +202,7 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
     private fun loadData() {
         scope {
             allAppInfos.clear()
+            filterAppInfos.clear()
             allEnabledInfos.clear()
 
             binding.swipeRefreshLayout.isRefreshing = true
@@ -175,10 +212,13 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
             withDefault {
                 val packageManager = context.packageManager
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)
+                allAppInfos.removeIf { it.isOverlay }
+
                 enabledList.forEach { its ->
                     val find = allAppInfos.find { it.packageName == its }
                     if (find != null) allEnabledInfos.add(find)
                 }
+
                 allAppInfos.apply {
                     if (!showSystemApp) removeIf { it.isSystem }
                     when (sortMode) {
@@ -202,198 +242,15 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
                     }
                     if (isReverse) reverse()
                 }
+                allAppInfos.removeAll(allEnabledInfos)
+                allAppInfos.addAll(0, allEnabledInfos)
+                filterAppInfos = allAppInfos
             }
 
-            binding.recyclerView.apply {
-                singleSelectorAdapter = AppInfoSingleSelectorAdapter()
-                multiSelectorAdapter = AppInfoMultiSelectorAdapter()
-                adapter = if (multiMode.not()) singleSelectorAdapter
-                else multiSelectorAdapter
-                layoutManager = LinearLayoutManager(context)
-                FastScrollerBuilder(this).useMd2Style().build()
-            }
+            binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
 
             binding.swipeRefreshLayout.isRefreshing = false
             binding.searchViewLayout.isEnabled = true
         }
-    }
-
-    @Obfuscate
-    inner class AppInfoSingleSelectorAdapter : RecyclerView.Adapter<SingleViewHolder>() {
-
-        private var filterDatas = ArrayList<AppInfo>()
-
-        init {
-            filterDatas.clear()
-            filterDatas = allAppInfos
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-            val binding = LayoutAppinfoItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            return SingleViewHolder(binding)
-        }
-
-        override fun getItemCount(): Int {
-            return filterDatas.size
-        }
-
-        override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
-            val appInfo = filterDatas[position]
-            val appIcon = appInfo.icon
-            val appName = appInfo.name
-            val packName = appInfo.packageName
-
-            holder.appIcon.setImageDrawable(appIcon)
-            holder.appName.text = appName
-            holder.packName.text = packName
-            holder.appInfoView.setOnClickListener(null)
-
-            holder.appInfoView.setOnClickListener {
-                dialog.dismiss()
-                onSelectAppInfoListener?.resultSelectAppInfos(arrayListOf(appInfo))
-            }
-        }
-
-        val getFilter = object : Filter() {
-            override fun performFiltering(constraint: CharSequence): FilterResults {
-                val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allAppInfos
-                else {
-                    val filterlist = ArrayList<AppInfo>()
-                    allAppInfos.forEach {
-                        if (it.name.lowercase().contains(filterStr)
-                            || it.packageName.lowercase().contains(filterStr)
-                        ) filterlist.add(it)
-                    }
-                    filterlist
-                }
-                val filterResults = FilterResults()
-                filterResults.values = filterDatas
-                return filterResults
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                filterDatas = results.values as ArrayList<AppInfo>
-                refreshDatas()
-            }
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        fun refreshDatas() {
-            notifyDataSetChanged()
-        }
-    }
-
-    @Obfuscate
-    inner class AppInfoMultiSelectorAdapter : RecyclerView.Adapter<MultiViewHolder>() {
-
-        private var filterDatas = ArrayList<AppInfo>()
-        private var enabledDatas = ArrayList<AppInfo>()
-
-        init {
-            filterDatas.clear()
-            enabledDatas.clear()
-
-            filterDatas = allAppInfos
-
-            allEnabledInfos.forEach {
-                enabledDatas.add(it)
-                filterDatas.remove(it)
-            }
-            filterDatas.addAll(0, enabledDatas)
-        }
-
-        fun setEnabledInfos(list: ArrayList<AppInfo>) {
-            enabledDatas = list
-        }
-
-        fun getEnabledInfos(): ArrayList<AppInfo> {
-            return enabledDatas
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiViewHolder {
-            val binding = LayoutAppinfoCheckboxItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            return MultiViewHolder(binding)
-        }
-
-        override fun getItemCount(): Int {
-            return filterDatas.size
-        }
-
-        override fun onBindViewHolder(holder: MultiViewHolder, position: Int) {
-            val appInfo = filterDatas[position]
-            val appIcon = appInfo.icon
-            val appName = appInfo.name
-            val packName = appInfo.packageName
-
-            holder.appIcon.setImageDrawable(appIcon)
-            holder.appName.text = appName
-            holder.packName.text = packName
-            holder.appInfoView.setOnClickListener(null)
-            holder.checkbox.setOnCheckedChangeListener(null)
-
-            holder.checkbox.isChecked = enabledDatas.contains(appInfo)
-            holder.appInfoView.setOnClickListener {
-                holder.checkbox.performClick()
-            }
-            holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
-                enabledDatas.remove(appInfo)
-                if (isChecked) enabledDatas.add(appInfo)
-            }
-        }
-
-        val getFilter = object : Filter() {
-            override fun performFiltering(constraint: CharSequence): FilterResults {
-                val filterStr = constraint.toString().lowercase()
-                filterDatas = if (constraint.isBlank()) allAppInfos
-                else {
-                    val filterlist = ArrayList<AppInfo>()
-                    allAppInfos.forEach {
-                        if (it.name.lowercase().contains(filterStr)
-                            || it.packageName.lowercase().contains(filterStr)
-                        ) filterlist.add(it)
-                    }
-                    filterlist
-                }
-                val filterResults = FilterResults()
-                filterResults.values = filterDatas
-                return filterResults
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                filterDatas = results.values as ArrayList<AppInfo>
-                refreshDatas()
-            }
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        fun refreshDatas() {
-            notifyDataSetChanged()
-        }
-    }
-
-    @Obfuscate
-    class SingleViewHolder(binding: LayoutAppinfoItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val appInfoView: ConstraintLayout = binding.root
-        val appIcon: ImageView = binding.appIcon
-        val appName: TextView = binding.appName
-        val packName: TextView = binding.packName
-    }
-
-    @Obfuscate
-    class MultiViewHolder(binding: LayoutAppinfoCheckboxItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val appInfoView: ConstraintLayout = binding.root
-        val appIcon: ImageView = binding.appIcon
-        val appName: TextView = binding.appName
-        val packName: TextView = binding.packName
-        val checkbox: MaterialCheckBox = binding.checkboxView
     }
 }

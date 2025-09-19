@@ -9,16 +9,4 @@ enum class IntentType {
     CONTENT, FILE,
     HTTP_LINK, HTTPS_LINK,
     UNKNOWN;
-
-    companion object {
-
-        fun fromString(value: String): IntentType {
-            return try {
-                enumValueOf(value.uppercase())
-            } catch (e: IllegalArgumentException) {
-                UNKNOWN
-            }
-        }
-
-    }
 }

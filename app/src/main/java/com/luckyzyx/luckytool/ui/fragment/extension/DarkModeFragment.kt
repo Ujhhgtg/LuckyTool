@@ -23,7 +23,6 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
-import com.luckyzyx.luckytool.hook.scopes.alarmclock.AlarmClockWidget.Companion.packName
 import com.luckyzyx.luckytool.selector.SortFilterSelector
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentUtils
@@ -152,7 +151,7 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
                     item.slider.value = data?.curType?.toFloat() ?: 0F
                     item.slider.addOnChangeListener { slider, value, fromUser ->
                         if (!fromUser) return@addOnChangeListener
-                        allEnabledInfos[packName]?.curType = value.toInt()
+                        allEnabledInfos[appInfo.packageName]?.curType = value.toInt()
                         saveEnableList(allEnabledInfos)
                     }
                 }
@@ -174,7 +173,8 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
             binding.searchView.text = null
 
             withDefault {
-                val enableData = requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
+                val enableData =
+                    requireActivity().getStringSet(ModulePrefs, supportListKey, ArraySet())
 
                 val packageManager = requireActivity().packageManager
                 allAppInfos = PackageUtils(packageManager).getInstalledAppInfos(0)

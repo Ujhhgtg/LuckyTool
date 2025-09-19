@@ -99,19 +99,19 @@ object HookOplusWifiService : YukiBaseHooker() {
             whitelist.clear()
             whitelist.addAll(prefs(ModulePrefs).getStringSet(whitelistKey, ArraySet()))
             dataChannel.wait(whitelistKey) {
-                whitelist.clear()
                 val new = prefs(ModulePrefs).getStringSet(whitelistKey, ArraySet())
-                whitelist.addAll(new)
                 YLog.debug("update oplus wifi whitelist configs -> ${whitelist.size} | ${new.size}")
+                whitelist.clear()
+                whitelist.addAll(new)
             }
 
             gameWhitelist.clear()
             gameWhitelist.addAll(prefs(ModulePrefs).getStringSet(gameWhitelistKey, ArraySet()))
             dataChannel.wait(gameWhitelistKey) {
-                gameWhitelist.clear()
                 val new = prefs(ModulePrefs).getStringSet(gameWhitelistKey, ArraySet())
-                gameWhitelist.addAll(new)
                 YLog.debug("update oplus wifi game whitelist configs -> ${gameWhitelist.size} | ${new.size}")
+                gameWhitelist.clear()
+                gameWhitelist.addAll(new)
             }
             YLog.debug("init oplus wifi configs success")
         }

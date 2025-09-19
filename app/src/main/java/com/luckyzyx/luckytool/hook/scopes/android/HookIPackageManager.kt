@@ -13,8 +13,8 @@ import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import com.luckyzyx.luckytool.utils.safeOf
-import org.json.JSONObject
+import com.luckyzyx.luckytool.utils.safeOfNull
+import kotlinx.serialization.json.Json
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -48,8 +48,9 @@ class HookIPackageManager : YukiBaseHooker() {
         allEnabledApps.addAll(prefs(IntentPrefs).getStringSet("enable_app_hide_list", ArraySet()))
         allEnabledApps.forEachIndexed { _, packName ->
             prefs(IntentPrefs).getStringSet(packName, ArraySet()).forEachIndexed { _, js ->
-                val jsonObject = safeOf(JSONObject()) { JSONObject(js) }
-                allIntent.add(AppIntentInfo().toAppIntentInfo(jsonObject))
+                val info = safeOfNull { Json.decodeFromString<AppIntentInfo>(js) }
+                    ?: return@forEachIndexed
+                allIntent.add(info)
             }
         }
         YLog.debug("init app intent configs success")
@@ -66,8 +67,9 @@ class HookIPackageManager : YukiBaseHooker() {
 
             allIntent.removeIf { it.packName == its }
             new.forEachIndexed { _, js ->
-                val jsonObject = safeOf(JSONObject()) { JSONObject(js) }
-                allIntent.add(AppIntentInfo().toAppIntentInfo(jsonObject))
+                val info = safeOfNull { Json.decodeFromString<AppIntentInfo>(js) }
+                    ?: return@forEachIndexed
+                allIntent.add(info)
             }
             YLog.debug("update $its configs -> ${old.size} | ${new.size}")
         }
@@ -82,7 +84,7 @@ class HookIPackageManager : YukiBaseHooker() {
             if (!isEnable) return@after
             val intent = args().first().cast<Intent>() ?: return@after
             val action = intent.action ?: return@after
-//                        val data = if (action == Intent.ACTION_VIEW)
+//            val data = if (action == Intent.ACTION_VIEW)
 
             val isOrigin = intent.getBooleanExtra("result_origin_data", false)
             if (isOrigin) return@after
