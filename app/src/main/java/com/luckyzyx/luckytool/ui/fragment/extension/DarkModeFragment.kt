@@ -23,7 +23,7 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.data.DarkModeInfo
 import com.luckyzyx.luckytool.databinding.FragmentDarkModeApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemDarkmodeBinding
-import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.selector.SortFilterBottomSheetDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -59,7 +59,7 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
     private var isReverse = false
     private var sortMode = 0
 
-    private lateinit var sortFilterSelector: SortFilterSelector
+    private lateinit var sortFilterBottomSheetDialog: SortFilterBottomSheetDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,7 +70,7 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+        sortFilterBottomSheetDialog = SortFilterBottomSheetDialog(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
                 loadData()
@@ -96,7 +96,7 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                sortFilterSelector.show()
+                sortFilterBottomSheetDialog.show()
             }
         }
         binding.searchView.apply {

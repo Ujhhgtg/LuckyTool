@@ -48,7 +48,7 @@ class AppInfoSelectDialog(context: Context, private val multiMode: Boolean = fal
     private var selectAllMode = false
     private var showSystemApp = false
 
-    private lateinit var sortFilterSelector: SortFilterSelector
+    private lateinit var sortFilterBottomSheetDialog: SortFilterBottomSheetDialog
 
     private var onSelectAppInfoListener: OnSelectAppInfoListener? = null
 
@@ -159,7 +159,7 @@ class AppInfoSelectDialog(context: Context, private val multiMode: Boolean = fal
     }
 
     private fun initSortFilterSelector() {
-        sortFilterSelector = SortFilterSelector(context).apply {
+        sortFilterBottomSheetDialog = SortFilterBottomSheetDialog(context).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
                 loadData()
@@ -190,7 +190,7 @@ class AppInfoSelectDialog(context: Context, private val multiMode: Boolean = fal
                 endIconMode = TextInputLayout.END_ICON_CUSTOM
                 setEndIconDrawable(R.drawable.baseline_filter_list_24)
                 setEndIconOnClickListener {
-                    sortFilterSelector.show()
+                    sortFilterBottomSheetDialog.show()
                 }
             } else {
                 endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT

@@ -20,7 +20,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentMutliAppApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
-import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.selector.SortFilterBottomSheetDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -47,7 +47,7 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
     private var isReverse = false
     private var sortMode = 0
 
-    private lateinit var sortFilterSelector: SortFilterSelector
+    private lateinit var sortFilterBottomSheetDialog: SortFilterBottomSheetDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -58,7 +58,7 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+        sortFilterBottomSheetDialog = SortFilterBottomSheetDialog(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
                 loadData()
@@ -73,7 +73,7 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                sortFilterSelector.show()
+                sortFilterBottomSheetDialog.show()
             }
         }
         binding.searchView.apply {

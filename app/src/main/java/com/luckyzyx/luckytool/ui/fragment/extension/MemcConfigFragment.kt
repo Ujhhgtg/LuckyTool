@@ -37,7 +37,7 @@ import com.luckyzyx.luckytool.databinding.LayoutMemcActivityItemBinding
 import com.luckyzyx.luckytool.databinding.LayoutMemcPackageItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
-import com.luckyzyx.luckytool.selector.ActivityInfoSelector
+import com.luckyzyx.luckytool.selector.ActivityInfoSelectDialog
 import com.luckyzyx.luckytool.selector.AppInfoSelectDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.CommandUtils
@@ -554,7 +554,7 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
                         context.showToast("App data is null!")
                         return@setOnClickListener
                     }
-                    ActivityInfoSelector(context, false, packInfo.activities).apply {
+                    ActivityInfoSelectDialog(context, false, packInfo.activities).apply {
                         setOnSelectActivityListener(object : OnSelectActivityInfoListener {
                             override fun resultSelectActivityInfos(list: ArrayList<ActivityInfo>) {
                                 if (list.isEmpty()) return

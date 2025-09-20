@@ -34,7 +34,7 @@ import com.luckyzyx.luckytool.databinding.LayoutIntentAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.listener.OnSelectIntentInfoListener
 import com.luckyzyx.luckytool.selector.IntentInfoSelector
-import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.selector.SortFilterBottomSheetDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentPrefs
 import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
@@ -57,7 +57,7 @@ class HideAppIntentFragment : BaseFragment<FragmentHideIntentApplistLayoutBindin
 
     private val TAG = "HideAppIntentFragment"
 
-    private lateinit var sortFilterSelector: SortFilterSelector
+    private lateinit var sortFilterBottomSheetDialog: SortFilterBottomSheetDialog
 
     private var isReverse = false
     private var sortMode = 0
@@ -86,7 +86,7 @@ class HideAppIntentFragment : BaseFragment<FragmentHideIntentApplistLayoutBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val context = requireActivity()
-        sortFilterSelector = SortFilterSelector(context).apply {
+        sortFilterBottomSheetDialog = SortFilterBottomSheetDialog(context).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
                 loadData()
@@ -172,7 +172,7 @@ class HideAppIntentFragment : BaseFragment<FragmentHideIntentApplistLayoutBindin
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                sortFilterSelector.show()
+                sortFilterBottomSheetDialog.show()
             }
         }
         binding.searchView.apply {

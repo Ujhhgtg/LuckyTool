@@ -7,19 +7,18 @@ import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.databinding.DialogSortFilterSelectorLayoutBinding
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class SortFilterSelector(val context: Context) {
+class SortFilterBottomSheetDialog(context: Context) : BottomSheetDialog(context) {
 
     private var binding =
         DialogSortFilterSelectorLayoutBinding.inflate(LayoutInflater.from(context))
-    private var bottomSheet: BottomSheetDialog = BottomSheetDialog(context).apply {
-        setContentView(binding.root)
-    }
 
     init {
+        setContentView(binding.root)
+
         binding.sortReverse.isVisible = false
         binding.sortLayout.isVisible = false
         binding.filterLayout.isVisible = false
@@ -62,13 +61,5 @@ class SortFilterSelector(val context: Context) {
                 addView(chip)
             }
         }
-    }
-
-    fun show() {
-        bottomSheet.show()
-    }
-
-    fun dismiss() {
-        bottomSheet.dismiss()
     }
 }

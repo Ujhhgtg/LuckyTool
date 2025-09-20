@@ -14,7 +14,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.DonateDetailInfo
 import com.luckyzyx.luckytool.data.DonateInfo
 import com.luckyzyx.luckytool.databinding.FragmentDonateListBinding
-import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.selector.SortFilterBottomSheetDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.AESCrypt
 import com.luckyzyx.luckytool.utils.LogUtils
@@ -46,7 +46,7 @@ class DonateFragment : BaseFragment<FragmentDonateListBinding>() {
 
     private var filterString: CharSequence = ""
 
-    private lateinit var sortFilterSelector: SortFilterSelector
+    private lateinit var sortFilterBottomSheetDialog: SortFilterBottomSheetDialog
     private var isReverse = false
     private var sortMode = 0
     private var showDetail = false
@@ -77,7 +77,7 @@ class DonateFragment : BaseFragment<FragmentDonateListBinding>() {
         binding.searchViewLayout.apply {
             hint = "Name"
             setEndIconOnClickListener {
-                sortFilterSelector.show()
+                sortFilterBottomSheetDialog.show()
             }
         }
 
@@ -101,7 +101,7 @@ class DonateFragment : BaseFragment<FragmentDonateListBinding>() {
             getString(R.string.donate_info_order)
         )
         if (showDetail) sorts.removeLastOrNull()
-        sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+        sortFilterBottomSheetDialog = SortFilterBottomSheetDialog(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
                 loadJson(context, donateDataFile)

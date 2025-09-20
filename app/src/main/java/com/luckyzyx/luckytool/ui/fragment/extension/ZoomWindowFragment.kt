@@ -18,7 +18,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.FragmentZoomWindowApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutAppinfoSwitchItemBinding
-import com.luckyzyx.luckytool.selector.SortFilterSelector
+import com.luckyzyx.luckytool.selector.SortFilterBottomSheetDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.PackageUtils
@@ -43,7 +43,7 @@ class ZoomWindowFragment : BaseFragment<FragmentZoomWindowApplistLayoutBinding>(
     private var isReverse = false
     private var sortMode = 0
 
-    private lateinit var sortFilterSelector: SortFilterSelector
+    private lateinit var sortFilterBottomSheetDialog: SortFilterBottomSheetDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,7 +54,7 @@ class ZoomWindowFragment : BaseFragment<FragmentZoomWindowApplistLayoutBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sortFilterSelector = SortFilterSelector(requireActivity()).apply {
+        sortFilterBottomSheetDialog = SortFilterBottomSheetDialog(requireActivity()).apply {
             setReverse(true) { _, isChecked ->
                 isReverse = isChecked
                 loadData()
@@ -69,7 +69,7 @@ class ZoomWindowFragment : BaseFragment<FragmentZoomWindowApplistLayoutBinding>(
         binding.searchViewLayout.apply {
             hint = "Name / PackageName"
             setEndIconOnClickListener {
-                sortFilterSelector.show()
+                sortFilterBottomSheetDialog.show()
             }
         }
         binding.searchView.apply {
