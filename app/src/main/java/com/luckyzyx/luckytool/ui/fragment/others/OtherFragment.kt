@@ -32,7 +32,7 @@ import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.databinding.DialogAdbLayoutBinding
 import com.luckyzyx.luckytool.databinding.FragmentOtherBinding
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
-import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.selector.AppInfoSelectDialog
 import com.luckyzyx.luckytool.service.AdbService
 import com.luckyzyx.luckytool.service.TilesService
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
@@ -310,7 +310,7 @@ class OtherFragment : BaseFragment<FragmentOtherBinding>(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             0 -> {
-                AppInfoSelector(requireActivity(), true).apply {
+                AppInfoSelectDialog(requireActivity(), true).apply {
                     setDefaultShowSystem(true)
                     setOnSelectAppListener(object : OnSelectAppInfoListener {
                         override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {

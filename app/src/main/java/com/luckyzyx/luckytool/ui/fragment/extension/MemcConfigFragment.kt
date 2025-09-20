@@ -38,7 +38,7 @@ import com.luckyzyx.luckytool.databinding.LayoutMemcPackageItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.selector.ActivityInfoSelector
-import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.selector.AppInfoSelectDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.FileUtils
@@ -339,7 +339,7 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
 
             binding.packageView.apply {
                 setOnClickListener {
-                    AppInfoSelector(context, false).apply {
+                    AppInfoSelectDialog(context, false).apply {
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 if (list.isEmpty()) return
@@ -520,7 +520,7 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
 
             binding.packageView.apply {
                 setOnClickListener {
-                    AppInfoSelector(context, false).apply {
+                    AppInfoSelectDialog(context, false).apply {
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
                                 if (list.isEmpty()) return

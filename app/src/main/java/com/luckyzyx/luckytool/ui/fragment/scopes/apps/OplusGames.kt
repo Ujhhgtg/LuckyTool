@@ -9,7 +9,7 @@ import androidx.preference.SwitchPreference
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.AppInfo
 import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
-import com.luckyzyx.luckytool.selector.AppInfoSelector
+import com.luckyzyx.luckytool.selector.AppInfoSelectDialog
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A14
@@ -181,7 +181,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 summary = value.toString()
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    AppInfoSelector(this@loadPreferences, true).apply {
+                    AppInfoSelectDialog(this@loadPreferences, true).apply {
                         setEnabledList(ArrayList(value))
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {
@@ -206,7 +206,7 @@ class OplusGames : BaseScopePreferenceFeagment() {
                 summary = value.toString()
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
-                    AppInfoSelector(this@loadPreferences, true).apply {
+                    AppInfoSelectDialog(this@loadPreferences, true).apply {
                         setEnabledList(ArrayList(value))
                         setOnSelectAppListener(object : OnSelectAppInfoListener {
                             override fun resultSelectAppInfos(list: ArrayList<AppInfo>) {

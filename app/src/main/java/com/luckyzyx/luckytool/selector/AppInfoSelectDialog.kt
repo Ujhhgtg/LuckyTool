@@ -30,14 +30,12 @@ import org.lsposed.lsparanoid.Obfuscate
  * @constructor
  */
 @Obfuscate
-class AppInfoSelector(val context: Context, private val multiMode: Boolean = false) {
+class AppInfoSelectDialog(context: Context, private val multiMode: Boolean = false) :
+    MaterialAlertDialogBuilder(context, dialogCentered) {
 
     private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
-    private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
-//        setCancelable(false)
-        setView(binding.root)
-    }
-    private lateinit var dialog: AlertDialog
+
+    private var dialog: AlertDialog? = null
 
     private var allAppInfos = ArrayList<AppInfo>()
     private var filterAppInfos = ArrayList<AppInfo>()
@@ -55,6 +53,8 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
     private var onSelectAppInfoListener: OnSelectAppInfoListener? = null
 
     init {
+        setView(binding.root)
+
         initSortFilterSelector()
         initSearchViewLayout()
         binding.searchView.apply {
@@ -77,7 +77,6 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
         binding.btnOk.apply {
             isVisible = multiMode
             setOnClickListener {
-                dialog.dismiss()
                 onSelectAppInfoListener?.resultSelectAppInfos(allEnabledInfos)
             }
         }
@@ -93,7 +92,7 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
 
                         item.root.setOnClickListener(null)
                         item.root.setOnClickListener {
-                            dialog.dismiss()
+                            dialog?.dismiss()
                             onSelectAppInfoListener?.resultSelectAppInfos(arrayListOf(info))
                         }
                     }
@@ -121,10 +120,10 @@ class AppInfoSelector(val context: Context, private val multiMode: Boolean = fal
         }
     }
 
-    fun show() {
+    override fun show(): AlertDialog? {
         if (allAppInfos.isEmpty()) loadData()
-
-        dialog = dialogBuilder.show()
+        dialog = super.show()
+        return dialog
     }
 
     fun setOnSelectAppListener(onSelectAppInfoListener: OnSelectAppInfoListener) {
