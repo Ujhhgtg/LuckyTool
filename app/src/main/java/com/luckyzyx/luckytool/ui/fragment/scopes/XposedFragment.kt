@@ -386,7 +386,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             xposedScope.forEach {
                 val appVerInfo = AppUtils(this@showBottomDialog).getAppVerInfo(it)
                     ?: return@forEach
-                list.add("| ${appVerInfo.appName} | $it |  ${appVerInfo.versionName}(${appVerInfo.versionCode})[${appVerInfo.versionCommit}] |")
+                list.add("| ${appVerInfo.name} | $it |  ${appVerInfo.versionName}(${appVerInfo.versionCode})[${appVerInfo.versionCommit}] |")
             }
             markwon.setMarkdown(dialogBinding.tv, formatStringAuto(list, "\n"))
         }

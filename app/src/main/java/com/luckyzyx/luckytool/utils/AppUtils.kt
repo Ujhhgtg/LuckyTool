@@ -17,6 +17,7 @@ import android.provider.Settings
 import android.util.ArraySet
 import androidx.core.net.toUri
 import com.luckyzyx.luckytool.data.AppVerInfo
+import kotlinx.serialization.json.Json
 import org.lsposed.lsparanoid.Obfuscate
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -59,7 +60,7 @@ class AppUtils(val context: Context) {
             val packageInfo = packageUtils.getPackageInfo(packName, PackageManager.GET_META_DATA)
                 ?: return null
             val appInfo = packageInfo.applicationInfo ?: return null
-            val appName = packageUtils.getApplicationLabel(appInfo)
+            val appName = packageUtils.getApplicationLabel(appInfo).toString()
             val versionName = packageInfo.versionName ?: ""
             val versionCode = packageInfo.longVersionCode
             //修复versionCommit获取null
@@ -68,9 +69,12 @@ class AppUtils(val context: Context) {
             //Fix the camera's commit is empty
             val commit = versionCommit.ifBlank { versionDate }
             val appVerInfo = AppVerInfo(appName, packName, versionName, versionCode, commit)
-            if (save) context.putStringSet(ModulePrefs, packName, ArraySet<String>().apply {
-                add(appVerInfo.toJSONObject().toString())
-            })
+            if (save) {
+                context.putStringSet(
+                    ModulePrefs, packName, listOf(
+                        safeOfNull { Json.encodeToString(appVerInfo) } ?: ""
+                    ).toSet())
+            }
             appVerInfo
         }
     }
@@ -88,7 +92,7 @@ class AppUtils(val context: Context) {
                         packageUtils.getPackageInfo(packName, PackageManager.GET_META_DATA)
                             ?: return@forEachIndexed
                     val appInfo = packageInfo.applicationInfo ?: return@forEachIndexed
-                    val appName = packageUtils.getApplicationLabel(appInfo)
+                    val appName = packageUtils.getApplicationLabel(appInfo).toString()
                     val versionName = packageInfo.versionName ?: ""
                     val versionCode = packageInfo.longVersionCode
                     //修复versionCommit获取null
@@ -97,9 +101,12 @@ class AppUtils(val context: Context) {
                     //Fix the camera's commit is empty
                     val commit = versionCommit.ifBlank { versionDate }
                     val appVerInfo = AppVerInfo(appName, packName, versionName, versionCode, commit)
-                    if (save) context.putStringSet(ModulePrefs, packName, ArraySet<String>().apply {
-                        add(appVerInfo.toJSONObject().toString())
-                    })
+                    if (save) {
+                        context.putStringSet(
+                            ModulePrefs, packName, listOf(
+                                safeOfNull { Json.encodeToString(appVerInfo) } ?: ""
+                            ).toSet())
+                    }
                     appVerInfo
                 }?.let { add(it) }
             }

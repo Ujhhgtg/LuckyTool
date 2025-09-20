@@ -75,6 +75,7 @@ import com.oplus.miragewindow.OplusMirageWindowManager
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
+import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import java.io.File
 import java.util.regex.Pattern
@@ -86,11 +87,13 @@ import kotlin.system.exitProcess
  * 获取APP版本数组
  * @receiver YukiHookPrefsBridge
  * @param packName String
- * @return Array<String>
+ * @return AppVerInfo
  */
 fun YukiHookPrefsBridge.getAppVerInfo(packName: String): AppVerInfo? {
     return getStringSet(packName, ArraySet()).let {
-        if (it.isEmpty()) null else AppVerInfo().toAppVerInfo(it.firstOrNull() ?: return null)
+        if (it.isEmpty()) null else safeOfNull {
+            Json.decodeFromString(it.firstOrNull() ?: "")
+        }
     }
 }
 
