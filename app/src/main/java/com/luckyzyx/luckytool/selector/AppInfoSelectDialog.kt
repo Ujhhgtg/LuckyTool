@@ -30,8 +30,10 @@ import org.lsposed.lsparanoid.Obfuscate
  * @constructor
  */
 @Obfuscate
-class AppInfoSelectDialog(context: Context, private val multiMode: Boolean = false) :
+class AppInfoSelectDialog(context: Context, val multiMode: Boolean = false) :
     MaterialAlertDialogBuilder(context, dialogCentered) {
+
+    private val TAG = "AppInfoSelectDialog"
 
     private val binding = DialogAppInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
 

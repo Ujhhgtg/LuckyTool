@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.drake.net.utils.scope
+import com.drake.net.utils.withDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.highcapable.betterandroid.ui.component.adapter.factory.bindAdapter
@@ -25,20 +26,17 @@ import org.lsposed.lsparanoid.Obfuscate
 
 @SuppressLint("SetTextI18n")
 @Obfuscate
-class IntentInfoSelector(
-    val context: Context, private val multiMode: Boolean,
-    private val appIntentInfos: List<AppIntentInfo>,
-    private val appResolveInfos: Map<AppIntentInfo, ResolveInfo>
-) {
+class IntentInfoSelectDialog(
+    context: Context, val multiMode: Boolean,
+    val appIntentInfos: List<AppIntentInfo>,
+    val appResolveInfos: Map<AppIntentInfo, ResolveInfo>
+) : MaterialAlertDialogBuilder(context, dialogCentered) {
 
-    private val TAG = "IntentInfoSelector"
+    private val TAG = "IntentInfoSelectDialog"
 
     private val binding =
         DialogActivityInfoSelectorLayoutBinding.inflate(LayoutInflater.from(context))
-    private val dialogBuilder = MaterialAlertDialogBuilder(context, dialogCentered).apply {
-//        setCancelable(false)
-        setView(binding.root)
-    }
+
     private lateinit var dialog: AlertDialog
 
     private var allIntentInfos = ArrayList<AppIntentInfo>()
@@ -51,6 +49,8 @@ class IntentInfoSelector(
     private var showAppIcon = true
 
     init {
+        setView(binding.root)
+
         binding.searchViewLayout.apply {
             hint = "ActivityName"
             endIconMode = TextInputLayout.END_ICON_CLEAR_TEXT
@@ -135,10 +135,10 @@ class IntentInfoSelector(
         }
     }
 
-    fun show() {
+    override fun show(): AlertDialog? {
         if (allIntentInfos.isEmpty()) loadData()
-
-        dialog = dialogBuilder.show()
+        dialog = super.show()
+        return dialog
     }
 
     fun setOnSelectIntentInfoListener(onSelectIntentInfoListener: OnSelectIntentInfoListener) {
@@ -177,15 +177,17 @@ class IntentInfoSelector(
             binding.searchViewLayout.isEnabled = false
             binding.searchView.text = null
 
-            allIntentInfos.addAll(appIntentInfos)
-            allIntentInfos.forEach {
-                if (enabledList.contains(it)) {
-                    allEnabledInfos.add(it)
+            withDefault {
+                allIntentInfos.addAll(appIntentInfos)
+                allIntentInfos.forEach {
+                    if (enabledList.contains(it)) {
+                        allEnabledInfos.add(it)
+                    }
                 }
+                allIntentInfos.removeAll(allEnabledInfos)
+                allIntentInfos.addAll(0, allEnabledInfos)
+                filterIntentInfos = allIntentInfos
             }
-            allIntentInfos.removeAll(allEnabledInfos)
-            allIntentInfos.addAll(0,allEnabledInfos)
-            filterIntentInfos = allIntentInfos
 
             binding.recyclerView.adapter?.notifyDataSetChangedIgnore()
 

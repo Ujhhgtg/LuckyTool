@@ -33,7 +33,7 @@ import com.luckyzyx.luckytool.databinding.FragmentHideIntentApplistLayoutBinding
 import com.luckyzyx.luckytool.databinding.LayoutIntentAppinfoSwitchItemBinding
 import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.listener.OnSelectIntentInfoListener
-import com.luckyzyx.luckytool.selector.IntentInfoSelector
+import com.luckyzyx.luckytool.selector.IntentInfoSelectDialog
 import com.luckyzyx.luckytool.selector.SortFilterBottomSheetDialog
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.IntentPrefs
@@ -424,7 +424,7 @@ class HideAppIntentFragment : BaseFragment<FragmentHideIntentApplistLayoutBindin
         appEnabled: List<AppIntentInfo>, types: Array<IntentType>, position: Int
     ) {
         val appResolveInfos = allResolveInfoMap.filterKeys { it.packName == packName }
-        IntentInfoSelector(
+        IntentInfoSelectDialog(
             requireActivity(), true, appInfos, appResolveInfos
         ).apply {
             setEnabledList(ArrayList(appEnabled))
