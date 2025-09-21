@@ -54,19 +54,26 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             //小组件
-            if (osCode >= 30) {
-                add(PreferenceCategory(this@loadPreferences).apply {
-                    title = getString(R.string.WidgetRelated)
-                    key = "WidgetRelated"
-                    isIconSpaceReserved = false
-                })
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.remove_widgets_add_request_whitelist)
-                    key = "remove_widgets_add_request_whitelist"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
-            }
+            add(PreferenceCategory(this@loadPreferences).apply {
+                title = getString(R.string.WidgetRelated)
+                key = "WidgetRelated"
+                isVisible = osCode >= 26
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_launcher_card_name)
+                key = "remove_launcher_card_name"
+                setDefaultValue(false)
+                isVisible = osCode >= 26
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_widgets_add_request_whitelist)
+                key = "remove_widgets_add_request_whitelist"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+            })
             //应用图标
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppIcon)

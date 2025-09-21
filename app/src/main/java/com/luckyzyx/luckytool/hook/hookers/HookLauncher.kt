@@ -18,6 +18,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveAppUpdateGreenDot
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderNameInputLimit
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
+import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveLauncherCardName
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveWidgetsAddRequestWhitelist
 import com.luckyzyx.luckytool.hook.scopes.launcher.UnlockTaskLocks
 import com.luckyzyx.luckytool.utils.A13
@@ -107,6 +108,10 @@ object HookLauncher : YukiBaseHooker() {
         //移除小组件添加请求白名单
         if (prefs(ModulePrefs).getBoolean("remove_widgets_add_request_whitelist", false)) {
             if (osCode >= 30) loadHooker(RemoveWidgetsAddRequestWhitelist)
+        }
+        //移除桌面卡片名称
+        if (prefs(ModulePrefs).getBoolean("remove_launcher_card_name", false)) {
+            if (osCode >= 26) loadHooker(RemoveLauncherCardName)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl

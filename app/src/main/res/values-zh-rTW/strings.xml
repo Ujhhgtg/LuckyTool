@@ -419,6 +419,7 @@
     <!--Launcher-->
     <string name="Desktop">桌面相关</string>
     <string name="WidgetRelated">小组件相关</string>
+    <string name="remove_launcher_card_name">移除桌面卡片名称</string>
     <string name="remove_widgets_add_request_whitelist">移除组件添加请求白名单</string>
     <string name="AppIcon">应用图标</string>
     <string name="allow_app_names_display_multiple_lines">允许桌面App名称多行显示</string>

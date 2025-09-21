@@ -473,6 +473,7 @@
     <string name="Desktop">Desktop Related</string>
     
     <string name="WidgetRelated">Widget Related</string>
+    <string name="remove_launcher_card_name">Remove desktop card name</string>
     <string name="remove_widgets_add_request_whitelist">Remove widgets to add request whitelist</string>
     
     <string name="AppIcon">App icon</string>
