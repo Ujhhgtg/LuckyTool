@@ -33,6 +33,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除存储权限异常对话框
 - [优化] App意图数据存储逻辑(建议重新配置意图数据)
 - [添加] 移除桌面卡片名称 C13+
+- [添加] 移除短信底部输入框菜单
 
 ### 1.3.1
 

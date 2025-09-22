@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
@@ -13,6 +12,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusMMS : BaseScopePreferenceFeagment() {
@@ -45,6 +45,12 @@ class OplusMMS : BaseScopePreferenceFeagment() {
                 key = "remove_verification_code_floating_window"
                 setDefaultValue(false)
                 isVisible = SDK >= A13
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_mms_bottom_input_box_menu)
+                key = "remove_mms_bottom_input_box_menu"
+                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
         }
