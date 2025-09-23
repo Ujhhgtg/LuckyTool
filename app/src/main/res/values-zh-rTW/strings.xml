@@ -832,6 +832,7 @@
     <string name="remove_verification_code_floating_window">移除验证码悬浮窗</string>
     <!--OplusPhone-->
     <string name="remove_mms_bottom_input_box_menu">移除短信底部输入框菜单</string>
+    <string name="remove_mms_card_marketing_button">移除短信卡片底部营销按钮</string>
     <string name="force_display_five_g_switch">强制显示 5G 开关</string>
     <string name="force_display_preferred_network_type">强制显示首选网络类型</string>
     <string name="force_display_volte_calls">强制显示 VoLTE 高清通话</string>

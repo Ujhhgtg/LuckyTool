@@ -193,11 +193,11 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
             }
 
             packages.forEachIndexed { _, info ->
-                val sp = safeOfNull { Json { }.encodeToString(info) } ?: ""
+                val sp = safeOfNull { Json.encodeToString(info) } ?: ""
                 if (sp.isNotBlank()) packageSet.add(sp)
             }
             activitys.forEachIndexed { _, info ->
-                val sp = safeOfNull { Json { }.encodeToString(info) } ?: ""
+                val sp = safeOfNull { Json.encodeToString(info) } ?: ""
                 if (sp.isNotBlank()) activitySet.add(sp)
             }
             if (packageSet.isNotEmpty() && activitySet.isNotEmpty()) {

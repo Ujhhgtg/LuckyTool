@@ -53,6 +53,12 @@ class OplusMMS : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_mms_card_marketing_button)
+                key = "remove_mms_card_marketing_button"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }
