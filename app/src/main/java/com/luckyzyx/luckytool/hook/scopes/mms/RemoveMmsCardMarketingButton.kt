@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.mms
 import androidx.collection.arrayMapOf
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.utils.safeOfNull
 import org.json.JSONArray
 import org.json.JSONObject
 import org.lsposed.lsparanoid.Obfuscate
@@ -25,49 +26,32 @@ object RemoveMmsCardMarketingButton : YukiBaseHooker() {
     )
 
     override fun onHook() {
-        //Source BubbleEntity
-//        if (false) "com.ted.android.data.BubbleEntity".toClass().resolve().apply {
-//            firstMethod {
-//                name = "getActions"
-//                returnType = List::class
-//            }.hook {
-//                after {
-//                    val list = result<java.util.ArrayList<Any>>() ?: return@after
-//                    list.removeIf {
-//                        val action = it.asResolver().firstField { name = "action";superclass() }
-//                            .get<Int>()
-//                        SKIP_ACTION.keys.contains(action)
-//                    }
-//                }
-//            }
-//        }
-
         //Source JSONObject
         JSONObject::class.resolve().apply {
             firstConstructor { parameters(String::class) }.hook {
                 after {
                     val js = instance<JSONObject>()
-                    formatJson(js)
+                    safeOfNull {  formatJson(js) }
                 }
             }
         }
     }
 
     fun formatJson(jsonObject: JSONObject) {
-        if (jsonObject.isNull(ENTITIES)) {
+        if (!jsonObject.has(ENTITIES)) {
             return
         }
-        if (jsonObject.isNull(MSG_ID)) {
+        if (!jsonObject.has(MSG_ID)) {
             return
         }
-        if (jsonObject.isNull(DATE)) {
+        if (!jsonObject.has(DATE)) {
             return
         }
         val entitiesArray = jsonObject.optJSONArray(ENTITIES) ?: JSONArray()
         if (entitiesArray.length() > 0) {
             for (i in 0 until entitiesArray.length()) {
                 val entity = entitiesArray.getJSONObject(i)
-                if (entity.isNull(ACTIONS)) {
+                if (!entity.has(ACTIONS)) {
                     continue
                 }
                 val actionsArray = entity.optJSONArray(ACTIONS) ?: JSONArray()
@@ -79,9 +63,9 @@ object RemoveMmsCardMarketingButton : YukiBaseHooker() {
                         val type = action.optInt(ACTION, -1)
                         if (SKIP_ACTION.keys.contains(type)) {
 //                            try {
-//                                throw Throwable("$type | $buttonText")
+//                                throw Throwable()
 //                            } catch (t: Throwable) {
-//                                YLog.debug("throw Throwable", t)
+//                                YLog.debug("$type | $buttonText", t)
 //                            }
                             continue
                         }
