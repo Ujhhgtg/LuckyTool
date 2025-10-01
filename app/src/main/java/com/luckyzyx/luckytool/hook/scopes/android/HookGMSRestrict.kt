@@ -14,30 +14,39 @@ object HookGMSRestrict : YukiBaseHooker() {
         val isEnable = prefs(ModulePrefs).getBoolean("remove_gms_usage_restrictions", false)
         if (!isEnable) return
 
-        //Source OplusAppStartupManager -> OplusStartupStrategy -> google_restric_info
-        "com.android.server.am.OplusAppStartupManager\$OplusStartupStrategy".toClass().resolve()
-            .apply {
-                firstMethod { name = "isGoogleRestricInfoOn" }.hook {
-                    replaceToFalse()
-                }
-            }
-
-        //Source OplusHansDBConfig -> sys_elsa_config_list -> Athena
-        "com.android.server.hans.OplusHansDBConfig".toClass().resolve().apply {
-            method { name = "updateManagedMap" }.hookAll {
-                after {
-                    firstField { name = "mGMSList" }.of(instance).get<SparseArray<Any>>()?.clear()
-                }
-            }
-            firstMethod { name = "updateTargetList" }.hook {
-                after {
-                    firstField { name = "mGMSList" }.of(instance).get<SparseArray<Any>>()?.clear()
-                }
-            }
-        }
+        loadHooker(GMSRestrictCommon)
 
         if (osCode > 30) loadHooker(GMSRestrict)
         else loadHooker(GMSRestrictV13)
+    }
+
+    @Obfuscate
+    object GMSRestrictCommon : YukiBaseHooker() {
+        override fun onHook() {
+            //Source OplusAppStartupManager -> OplusStartupStrategy -> google_restric_info
+            "com.android.server.am.OplusAppStartupManager\$OplusStartupStrategy".toClass().resolve()
+                .apply {
+                    firstMethod { name = "isGoogleRestricInfoOn" }.hook {
+                        replaceToFalse()
+                    }
+                }
+
+            //Source OplusHansDBConfig -> sys_elsa_config_list -> Athena
+            "com.android.server.hans.OplusHansDBConfig".toClass().resolve().apply {
+                method { name = "updateManagedMap" }.hookAll {
+                    after {
+                        firstField { name = "mGMSList" }.of(instance).get<SparseArray<Any>>()
+                            ?.clear()
+                    }
+                }
+                firstMethod { name = "updateTargetList" }.hook {
+                    after {
+                        firstField { name = "mGMSList" }.of(instance).get<SparseArray<Any>>()
+                            ?.clear()
+                    }
+                }
+            }
+        }
     }
 
     @Obfuscate
