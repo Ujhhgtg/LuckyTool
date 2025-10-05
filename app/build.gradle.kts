@@ -97,14 +97,6 @@ android {
         jniLibs {
             useLegacyPackaging = false
         }
-        resources {
-            excludes += "META-INF/**"
-            excludes += "okhttp3/**"
-            excludes += "kotlin/**"
-            excludes += "**.properties"
-            excludes += "**.bin"
-            excludes += "kotlin-tooling-metadata.json"
-        }
     }
 }
 
