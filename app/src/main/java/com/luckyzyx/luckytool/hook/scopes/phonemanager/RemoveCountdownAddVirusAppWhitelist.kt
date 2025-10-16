@@ -16,7 +16,7 @@ class RemoveCountdownAddVirusAppWhitelist(val dexKitBridge: DexKitBridge) : Yuki
                 className("com.oplus.phonemanager.common.DialogCrossActivity")
             }
         }.apply {
-            checkDataList("find clazz DialogCrossActivity")
+            checkDataList("DialogCrossActivity")
 
             val resolver = single().name.toClass().resolve()
             resolver.firstFieldOrNull { type = CountDownTimer::class.java } ?: return
@@ -29,7 +29,7 @@ class RemoveCountdownAddVirusAppWhitelist(val dexKitBridge: DexKitBridge) : Yuki
                     }
                 }
             }.apply {
-                checkDataList("find method CountDownTimer", onlyOne = false)
+                checkDataList("CountDownTimer", onlyOne = false)
 
                 forEachIndexed { _: Int, methodData: MethodData ->
                     resolver.firstMethod {

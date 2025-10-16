@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook
 
+import android.os.Build.VERSION_CODES.BAKLAVA
 import android.os.Build.VERSION_CODES.R
 import android.os.Build.VERSION_CODES.S
 import android.os.Build.VERSION_CODES.S_V2
@@ -27,11 +28,8 @@ object XposedEntry {
                 S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
                 TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
                 UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
-                VANILLA_ICE_CREAM -> CorePatchForV().handleLoadPackage(lpparam)
-                else -> {
-                    YLog.error("[CorePatch] Unsupported Version of Android -> $SDK, use latest version configs")
-                    CorePatchForV().handleLoadPackage(lpparam)
-                }
+                VANILLA_ICE_CREAM, BAKLAVA -> CorePatchForV().handleLoadPackage(lpparam)
+                else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK, use latest version configs")
             }
         }
         DisableFlagSecure().handleLoadPackage(lpparam)

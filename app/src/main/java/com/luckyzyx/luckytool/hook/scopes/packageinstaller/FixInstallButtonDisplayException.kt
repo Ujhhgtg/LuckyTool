@@ -12,14 +12,14 @@ object FixInstallButtonDisplayException : YukiBaseHooker() {
         "com.android.packageinstaller.oplus.view.ConfusedButton".toClass().resolve().apply {
             firstMethod { name = "getAccessibilityViewId" }.hook {
                 before {
-                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
-                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
+                    firstMethod { name = "setCts" }.of(instance).invoke(true)
+                    firstField { type = SecureRandom::class }.of(instance).set(SecureRandom())
                 }
             }
             firstMethod { name = "getText" }.hook {
                 before {
-                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
-                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
+                    firstMethod { name = "setCts" }.of(instance).invoke(true)
+                    firstField { type = SecureRandom::class }.of(instance).set(SecureRandom())
                 }
             }
         }
@@ -27,14 +27,14 @@ object FixInstallButtonDisplayException : YukiBaseHooker() {
         "com.android.packageinstaller.oplus.view.ConfusedTextView".toClass().resolve().apply {
             firstMethod { name = "getAccessibilityViewId" }.hook {
                 before {
-                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
-                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
+                    firstMethod { name = "setCts" }.of(instance).invoke(true)
+                    firstField { type = SecureRandom::class }.of(instance).set(SecureRandom())
                 }
             }
-            firstMethod { name = "getText" }.hook {
+            firstMethodOrNull { name = "getText" }?.hook {
                 before {
-                    firstField { name = "mIsCtsTesting" }.of(instance).set(true)
-                    firstField { name = "mRandom" }.of(instance).set(SecureRandom())
+                    firstMethod { name = "setCts" }.of(instance).invoke(true)
+                    firstField { type = SecureRandom::class }.of(instance).set(SecureRandom())
                 }
             }
         }

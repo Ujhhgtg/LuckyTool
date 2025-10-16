@@ -27,7 +27,7 @@ class RemoveOShareCloseCountDown(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                     usingStrings("OShareFeatureConfig")
                 }
             }.apply {
-                checkDataList("findClass OShareFeatureConfig")
+                checkDataList("OShareFeatureConfig")
                 findMethod {
                     matcher {
                         paramTypes(Context::class.java)
@@ -35,7 +35,7 @@ class RemoveOShareCloseCountDown(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                         usingStrings("getSwitchTimeOut")
                     }
                 }.apply {
-                    checkDataList("findMethod OShareFeatureConfig getSwitchTimeOut")
+                    checkDataList("OShareFeatureConfig getSwitchTimeOut")
                     single().className.toClass().resolve().apply {
                         firstMethod {
                             name = single().name
@@ -59,14 +59,14 @@ class RemoveOShareCloseCountDown(val dexKitBridge: DexKitBridge) : YukiBaseHooke
                     usingStrings("SpUtils", "share_config")
                 }
             }.apply {
-                checkDataList("findClass SpUtils")
+                checkDataList("SpUtils")
                 findMethod {
                     matcher {
                         paramTypes(Context::class.java, Long::class.java)
                         usingStrings("updateLastTurnOnTime", "key_last_turn_on_time")
                     }
                 }.apply {
-                    checkDataList("findMethod SpUtils updateLastTurnOnTime")
+                    checkDataList("SpUtils updateLastTurnOnTime")
                     single().className.toClass().resolve().apply {
                         firstMethod {
                             parameters(Context::class, Long::class)

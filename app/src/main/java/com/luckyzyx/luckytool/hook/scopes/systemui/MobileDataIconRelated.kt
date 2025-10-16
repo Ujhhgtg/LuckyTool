@@ -50,7 +50,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     )
                 }
             }.apply {
-                checkDataList("find bindCustEx", onlyOne = false)
+                checkDataList("bindCustEx", onlyOne = false)
                 if (removeInout) findMethod {
                     matcher {
                         addUsingField {
@@ -60,7 +60,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         usingNumbers(0, 8)
                     }
                 }.apply {
-                    checkDataList("find dataActivity setVisibility")
+                    checkDataList("dataActivity setVisibility")
                     single().className.toClass().resolve().apply {
                         firstMethod {
                             name = single().methodName
@@ -81,7 +81,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         usingNumbers(0, 8)
                     }
                 }.apply {
-                    checkDataList("find mobileType setVisibility")
+                    checkDataList("mobileType setVisibility")
                     single().className.toClass().resolve().apply {
                         firstMethod {
                             name = single().methodName
