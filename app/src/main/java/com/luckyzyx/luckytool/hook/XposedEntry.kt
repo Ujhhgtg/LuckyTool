@@ -23,12 +23,15 @@ object XposedEntry {
     fun onLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName == "android") {
             if (lpparam.processName == "android") when (SDK) {
-                VANILLA_ICE_CREAM -> CorePatchForV().handleLoadPackage(lpparam)
-                UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
-                TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
-                S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
                 R -> CorePatchForR().handleLoadPackage(lpparam)
-                else -> YLog.error("[CorePatch] Unsupported Version of Android -> $SDK")
+                S, S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
+                TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
+                UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
+                VANILLA_ICE_CREAM -> CorePatchForV().handleLoadPackage(lpparam)
+                else -> {
+                    YLog.error("[CorePatch] Unsupported Version of Android -> $SDK, use latest version configs")
+                    CorePatchForV().handleLoadPackage(lpparam)
+                }
             }
         }
         DisableFlagSecure().handleLoadPackage(lpparam)
