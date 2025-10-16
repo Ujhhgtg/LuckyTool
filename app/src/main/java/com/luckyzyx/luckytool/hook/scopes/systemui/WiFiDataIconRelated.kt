@@ -9,7 +9,7 @@ import android.net.NetworkRequest
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.os.Handler
-import android.os.HandlerThread
+import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
@@ -63,20 +63,7 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                             val context = view.context
                             val manager = context.getSystemService(ConnectivityManager::class.java)
                             if (!hasRegisterCallback) {
-                                val handlerThread = HandlerThread("SysUiNetwork", 10)
-                                handlerThread.start()
-                                handlerThread.looper.asResolver().firstMethod {
-                                    name = "setSlowLogThresholdMs"
-                                    parameters(
-                                        Long::class, Long::class
-                                    )
-                                }.invoke(1000L, 1000L)
-                                handlerThread.looper.asResolver().firstMethod {
-                                    name = "setTraceTag"
-                                    parameters(Long::class)
-                                }.invoke(4096L)
-                                val looper = handlerThread.looper
-                                val handler = Handler(looper)
+                                val handler = Handler(Looper.getMainLooper())
                                 val callback = object : ConnectivityManager.NetworkCallback() {
                                     override fun onCapabilitiesChanged(
                                         network: Network,
