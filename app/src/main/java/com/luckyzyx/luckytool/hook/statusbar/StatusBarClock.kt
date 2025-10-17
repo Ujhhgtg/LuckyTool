@@ -107,6 +107,7 @@ object StatusBarClock : YukiBaseHooker() {
             }
             firstMethodOrNull { name = "onMeasure" }?.hook {
                 before {
+                    val height = args().last().int()
                     val clockView = instance<TextView>().apply {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
                         if (clockName != "clock") return@before
@@ -114,6 +115,8 @@ object StatusBarClock : YukiBaseHooker() {
                     if (customMinimumWidth > 0) {
                         clockView.minWidth = customMinimumWidth * 10
                         clockView.minimumWidth = customMinimumWidth * 10
+                        firstMethod { name = "setMeasuredDimension";superclass() }.of(instance)
+                            .invoke(customMinimumWidth * 10, height)
                     }
                 }
             }
@@ -131,8 +134,19 @@ object StatusBarClock : YukiBaseHooker() {
             }
             if (osCode >= 33) {
                 firstMethod { name = "onMeasure" }.hook {
-                    before {
-                        firstField { name = "mShowSeconds";superclass() }.of(instance).set(true)
+                    after {
+                        val height = args().last().int()
+                        val clockView = instance<TextView>().apply {
+                            val clockName = safeOfNull { resources.getResourceEntryName(id) }
+                            if (clockName != "clock") return@after
+                            initView()
+                        }
+                        if (customMinimumWidth > 0) {
+                            clockView.minWidth = customMinimumWidth * 10
+                            clockView.minimumWidth = customMinimumWidth * 10
+                            firstMethod { name = "setMeasuredDimension";superclass() }.of(instance)
+                                .invoke(customMinimumWidth * 10, height)
+                        }
                     }
                 }
                 firstMethodOrNull { name = "updateMinWidth" }?.hook {
