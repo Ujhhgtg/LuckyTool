@@ -3,7 +3,7 @@ agp = "8.13.0"
 kotlin = "2.2.20"
 ksp = "2.2.20-2.0.3"
 
-navigation = "2.9.4"
+navigation = "2.9.5"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
 libsu = "6.0.0"
@@ -55,7 +55,7 @@ androidx-biometric = { group = "androidx.biometric", name = "biometric", version
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.9.1" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.9.4" }
 
-mmkv = { group = "com.tencent", name = "mmkv", version = "2.2.3" }
+mmkv = { group = "com.tencent", name = "mmkv", version = "2.2.4" }
 deviceCompat = { group = "com.github.getActivity", name = "DeviceCompat", version = "1.5" }
 xxpermissions = { group = "com.github.getActivity", name = "XXPermissions", version = "26.5" }
 spiderman = { group = "com.github.simplepeng.SpiderMan", name = "spiderman", version = "v1.2.3" }
