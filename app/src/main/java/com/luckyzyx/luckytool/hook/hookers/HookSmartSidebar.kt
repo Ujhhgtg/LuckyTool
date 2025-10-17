@@ -33,7 +33,7 @@ object HookSmartSidebar : YukiBaseHooker() {
 
         //启用后台挂机
         if (prefs(ModulePrefs).getBoolean("enable_run_in_background", false)) {
-            if (osCode >= 27) loadHooker(EnableRunInBackground)
+            if (osCode in 27..36) loadHooker(EnableRunInBackground)
         }
     }
 }
