@@ -35,6 +35,9 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除桌面卡片名称 C13+
 - [添加] 移除短信底部输入框菜单 (感谢[myflavor](https://github.com/myflavor))
 - [添加] 移除短信卡片底部营销按钮 (感谢[myflavor](https://github.com/myflavor))
+- [适配] 应用安装器扫描与降级 C16
+- [适配] 状态栏时钟宽度异常 C16
+- [适配] 打开任务列表自动切换上个任务 C16
 
 ### 1.3.1
 

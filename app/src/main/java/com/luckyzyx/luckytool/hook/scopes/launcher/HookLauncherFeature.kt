@@ -23,7 +23,10 @@ object HookLauncherFeature : YukiBaseHooker() {
             //Source AppFeatureUtils
             "com.android.common.util.AppFeatureUtils".toClass().resolve().apply {
                 //Source OplusGridRecentsConfig isEnable
-                firstMethod { name = "isSupportAutoFocusToNextPageInOverviewState" }.hook {
+                (firstMethodOrNull {
+                    name = "isSupportAutoFocusToNextPageInOverviewState"
+                    parameters(Boolean::class)
+                } ?: firstMethod { name = "isSupportAutoFocusToNextPageInOverviewState" }).hook {
                     if (disableAutoSwitch) replaceToFalse()
                 }
             }
