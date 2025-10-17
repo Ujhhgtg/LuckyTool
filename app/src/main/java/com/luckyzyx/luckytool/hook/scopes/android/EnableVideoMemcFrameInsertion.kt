@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.android
 
 import android.util.ArraySet
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.data.MemcConfigActivity
 import com.luckyzyx.luckytool.data.MemcConfigPackage
@@ -32,7 +33,10 @@ object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
             prefs(ModulePrefs).getStringSet("memc_config_activity_list", ArraySet())
 
         //Source OplusMemcHelper
-        "com.android.server.display.memc.OplusMemcHelper".toClass().resolve().apply {
+        VariousClass(
+            "com.android.server.display.memc.OplusMemcHelper", //C14
+            "com.android.server.display.feature.vrr.memc.OplusMemcHelper" //C16
+        ).toClass().resolve().apply {
             firstMethod { name = "init" }.hook {
                 after {
                     if (!isEnable) return@after
