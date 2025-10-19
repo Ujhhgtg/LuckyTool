@@ -18,6 +18,7 @@ class HookAppFeatureProvider(
     private var isFeatureSupport = false
     private var isGetBoolean = false
     private var isGetString = false
+    private var isGetInt = false
 
     override fun onHook() {
         if (features.isEmpty()) return
@@ -147,6 +148,36 @@ class HookAppFeatureProvider(
                                 if (key.isNullOrBlank()) return@before
                                 val value = features[key]
                                 if (value != null && value is String) result = value
+                            }
+                        }
+                    }
+                }
+            }
+
+            findMethod {
+                matcher {
+//                    name("getInt")
+                    paramTypes(ContentResolver::class.java, String::class.java, Int::class.java)
+                    returnType(Int::class.java)
+                }
+            }.apply {
+                isGetInt = singleOrNull() != null
+                singleOrNull()?.let {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
+                            name = single().methodName
+                            parameters(
+                                ContentResolver::class,
+                                String::class,
+                                Int::class
+                            )
+                            returnType = Int::class
+                        }.hook {
+                            before {
+                                val key = args(1).cast<String>()
+                                if (key.isNullOrBlank()) return@before
+                                val value = features[key]
+                                if (value != null && value is Int) result = value
                             }
                         }
                     }

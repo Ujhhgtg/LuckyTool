@@ -423,6 +423,7 @@
     <string name="remove_widgets_add_request_whitelist">移除组件添加请求白名单</string>
     <string name="AppIcon">应用图标</string>
     <string name="allow_app_names_display_multiple_lines">允许桌面App名称多行显示</string>
+    <string name="custom_app_icon_name_line_height">自定义App图标名称行高</string>
     <string name="AppBadgeRelated">应用徽标相关</string>
     <string name="enable_display_app_update_dot">启用App更新圆点开关</string>
     <string name="enable_display_app_update_dot_summary">功能位置：设置-桌面与锁屏</string>

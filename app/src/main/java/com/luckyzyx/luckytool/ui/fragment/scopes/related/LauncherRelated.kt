@@ -85,7 +85,23 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 key = "allow_app_names_display_multiple_lines"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
+            if (getBoolean(ModulePrefs, "allow_app_names_display_multiple_lines", false)) {
+                add(SeekBarPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_app_icon_name_line_height)
+                    key = "custom_app_icon_name_line_height"
+                    setDefaultValue(-1)
+                    max = 15
+                    min = -1
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                })
+            }
             //应用徽标
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppBadgeRelated)

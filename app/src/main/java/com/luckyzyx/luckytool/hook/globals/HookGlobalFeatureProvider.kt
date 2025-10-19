@@ -120,6 +120,7 @@ class HookGlobalFeatureProvider(val dexKitBridge: DexKitBridge) : YukiBaseHooker
             //Source Launcher
             if (prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)) {
                 put("com.android.launcher.APP_NAME_SHOW_IN_TWO_LINES", true)
+//                put("com.android.launcher.two_lines_all_show_textheightdp", -1)
             }
 
             //Source OplusGame  AI辅助

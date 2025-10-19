@@ -41,6 +41,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 移除智能侧边栏后台挂机 C16
 - [适配] 应用安装器显示更多Apk信息 C16
 - [适配] 应用安装器自动安装与卸载 C16
+- [添加] 自定义App图标名称行高
 
 ### 1.3.1
 
