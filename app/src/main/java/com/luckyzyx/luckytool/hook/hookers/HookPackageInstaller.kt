@@ -52,7 +52,6 @@ object HookPackageInstaller : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("auto_click_uninstall_button", false)) {
                 loadHooker(AutoClickUnInstallButton)
             }
-            return@create
             //显示更多Apk包信息
             if (prefs(ModulePrefs).getBoolean("show_more_apk_package_information", false)) {
                 loadHooker(ShowMoreApkPackageInformation(dexKitBridge))
