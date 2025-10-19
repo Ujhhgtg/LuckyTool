@@ -81,7 +81,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
         allPrefsItems.clear()
         allPrefsItems.addAll(getAllPrefsItem(context))
 
-        isVisible = allPrefsItems.any { it.isVisible == true }
+        isVisible = isVisible && allPrefsItems.any { it.isVisible == true }
         setOnPreferenceClickListener {
             val navController = when (context) {
                 is MainActivity -> context.navController
