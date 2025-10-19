@@ -277,6 +277,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.fix_install_button_display_exception)
+                summary = getString(R.string.fix_install_button_display_exception_summary)
                 key = "fix_install_button_display_exception"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
