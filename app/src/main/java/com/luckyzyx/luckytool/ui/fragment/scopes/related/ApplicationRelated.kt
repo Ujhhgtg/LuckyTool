@@ -15,7 +15,6 @@ import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
-import com.luckyzyx.luckytool.utils.CommandUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
@@ -28,7 +27,6 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import com.topjohnwu.superuser.ShellUtils
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -263,22 +261,15 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.disable_customized_app_installer)
-                summary = "com.oplus.appdetail"
-                key = "disable_customized_app_installer"
-                isChecked =
-                    ShellUtils.fastCmd("${CommandUtils.pmlist} -d | ${CommandUtils.grep} $summary")
-                        .contains(summary.toString())
-                isPersistent = false
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    ShellUtils.fastCmdResult("${CommandUtils.pm} ${if (newValue as Boolean) "disable" else "enable"} $summary")
-                }
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.fix_install_button_display_exception)
                 summary = getString(R.string.fix_install_button_display_exception_summary)
                 key = "fix_install_button_display_exception"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.dsiable_start_app_detail)
+                key = "dsiable_start_app_detail"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

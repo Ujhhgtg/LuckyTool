@@ -505,6 +505,7 @@
     <string name="disable_customized_app_installer">禁用定制版应用安装器</string>
     <string name="fix_install_button_display_exception">修复安装按钮异常显示</string>
     <string name="fix_install_button_display_exception_summary">主要解决安装按钮显示异常以及安装时崩溃等问题</string>
+    <string name="dsiable_start_app_detail">禁止启动AppDetail</string>
     <string name="skip_apk_scan">跳过 APK 扫描</string>
     <string name="skip_apk_scan_summary">APK 病毒扫描相关</string>
     <string name="allow_downgrade_install">允许降级安装</string>

@@ -40,6 +40,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 打开任务列表自动切换上个任务 C16
 - [更改] 移除智能侧边栏后台挂机 C16
 - [适配] 应用安装器显示更多Apk信息 C16
+- [适配] 应用安装器自动安装与卸载 C16
 
 ### 1.3.1
 
