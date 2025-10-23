@@ -204,6 +204,7 @@ object RestartMenuUtils {
 
         coroutineScope.launch {
             progressDialog.show()
+            AppUtils(context).getAllAppVerInfo(scopes.keys.toTypedArray(), true)
             val failedApps = optimizeApps(controller, scopes, textView)
             progressDialog.dismiss()
             if (failedApps.isNotEmpty()) {

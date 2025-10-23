@@ -501,7 +501,6 @@
     <string name="AppInstallationRelated">Установка приложения</string>
     <string name="PackageInstaller_summary">Необходимо использовать с патчем ядра</string>
     <string name="force_enable_32_bit_support">Принудительно включить поддержку 32-бит</string>
-    <string name="disable_customized_app_installer">Отключить настраиваемые установщики приложений</string>
     <string name="fix_install_button_display_exception">Исправить ненормальное отображение кнопки установки</string>
     <string name="skip_apk_scan">Пропустить сканирование APK</string>
     <string name="skip_apk_scan_summary">Сканирование APK на наличие вирусов</string>

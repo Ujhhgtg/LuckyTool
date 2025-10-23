@@ -501,7 +501,6 @@
     <string name="AppInstallationRelated">Nastavení týkající se instalace aplikací</string>
     <string name="PackageInstaller_summary">Je potřeba použití s hlavním patchem</string>
     <string name="force_enable_32_bit_support">Vynutit povolení podpory 32-bit</string>
-    <string name="disable_customized_app_installer">Zakázat vlastní instalátory aplikací</string>
     <string name="fix_install_button_display_exception">Opravit abnormální zobrazení instalačního tlačítka</string>
     <string name="skip_apk_scan">Přeskočit skenování souborů APK</string>
     <string name="skip_apk_scan_summary">Nastavení související se skenováním virusů</string>

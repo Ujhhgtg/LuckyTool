@@ -501,7 +501,6 @@
     <string name="AppInstallationRelated">Instalowanie aplikacji</string>
     <string name="PackageInstaller_summary">Wymagane stosowanie z główną łatką</string>
     <string name="force_enable_32_bit_support">Force enable 32-bit support</string>
-    <string name="disable_customized_app_installer">Disable customized app installers</string>
     <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="skip_apk_scan">Pomiń skanowanie aplikacji</string>
     <string name="skip_apk_scan_summary">Pomija skanowanie antywirusowe instalowanej aplikacji</string>

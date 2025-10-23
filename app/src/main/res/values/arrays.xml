@@ -55,6 +55,8 @@
         <item>com.heytap.health</item>
         <item>com.android.nfc</item>
         <item>com.coloros.oshare</item>
+        <item>com.android.bluetooth</item>
+        <item>com.android.contacts</item>
         
         <item>ru.kslabs.ksweb</item>
         <item>com.dv.adm</item>

@@ -1027,6 +1027,9 @@
     <!--OplusPermissionController-->
     <string name="remove_storage_permission_exception_dialog">Remove storage permission exception prompt dialog</string>
     
+    <!--OplusLinker-->
+    <string name="force_enable_iphone_shared_support">Force enable iPhone shared support</string>
+    
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>
     <string name="vip_download">Download original</string>

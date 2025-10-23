@@ -42,6 +42,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 应用安装器显示更多Apk信息 C16
 - [适配] 应用安装器自动安装与卸载 C16
 - [添加] 自定义App图标名称行高
+- [添加] 强制启用iPhone互联 C16
 
 ### 1.3.1
 

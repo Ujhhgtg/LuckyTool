@@ -43,6 +43,13 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.multiapp_max_open_number_limited", false)
             }
 
+            //Source Android OemTelephonyUtils isHfpCommSharedSupported IPhone互联
+            if (prefs(ModulePrefs).getBoolean("force_enable_iphone_shared_support", false)) {
+                put("oplus.software.radio.hfp_comm_shared_support", true)
+                put("oplus.software.radio.hfp_sms_shared_not_support", false)
+                put("oplus.software.radio.hfp_call_shared_not_support", false)
+            }
+
             //Source SystemUI 强制启用高斯模糊
             if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
                 put("oplus.software.display.osie_aisdr2hdr_support", false) //C12
