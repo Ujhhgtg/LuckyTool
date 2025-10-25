@@ -10,11 +10,13 @@ import com.luckyzyx.luckytool.hook.hookers.HookAudioEffectCenter
 import com.luckyzyx.luckytool.hook.hookers.HookAudioMonitor
 import com.luckyzyx.luckytool.hook.hookers.HookBattery
 import com.luckyzyx.luckytool.hook.hookers.HookBeaconLink
+import com.luckyzyx.luckytool.hook.hookers.HookBluetooth
 import com.luckyzyx.luckytool.hook.hookers.HookBrowser
 import com.luckyzyx.luckytool.hook.hookers.HookCalendar
 import com.luckyzyx.luckytool.hook.hookers.HookCallUI
 import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
+import com.luckyzyx.luckytool.hook.hookers.HookContacts
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
@@ -201,6 +203,10 @@ object YukiEntry {
         loadApp("com.android.nfc", HookNfc)
         //互传
         loadApp("com.coloros.oshare", HookOShare)
+        //蓝牙
+        loadApp("com.android.bluetooth", HookBluetooth)
+        //电话本
+        loadApp("com.android.contacts", HookContacts)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
