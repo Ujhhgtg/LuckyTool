@@ -43,7 +43,7 @@ object MultiAppConfig : YukiBaseHooker() {
                 list.addAll(new)
             }
             limit = prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)
-            YLog.debug("init multi app configs success")
+            YLog.debug("init multi app configs success -> ${list.size}")
         }
 
         override fun onHook() {

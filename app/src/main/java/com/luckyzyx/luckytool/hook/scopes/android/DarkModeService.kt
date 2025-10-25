@@ -38,7 +38,7 @@ object DarkModeService : YukiBaseHooker() {
                 safeOfNull { Json.decodeFromString<DarkModeInfo>(it) }
             })
         }
-        YLog.debug("init dark mode service configs success")
+        YLog.debug("init dark mode service configs success -> ${list.size}")
     }
 
     override fun onHook() {

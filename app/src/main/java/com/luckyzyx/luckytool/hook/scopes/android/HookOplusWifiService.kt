@@ -113,7 +113,7 @@ object HookOplusWifiService : YukiBaseHooker() {
                 gameWhitelist.clear()
                 gameWhitelist.addAll(new)
             }
-            YLog.debug("init oplus wifi configs success")
+            YLog.debug("init oplus wifi configs success -> ${whitelist.size} | ${gameWhitelist.size}")
         }
 
         override fun onHook() {

@@ -53,7 +53,7 @@ class HookIPackageManager : YukiBaseHooker() {
                 allIntent.add(info)
             }
         }
-        YLog.debug("init app intent configs success")
+        YLog.debug("init app intent configs success -> ${allEnabledApps.size}")
     }
 
     private fun initDataChannel() {

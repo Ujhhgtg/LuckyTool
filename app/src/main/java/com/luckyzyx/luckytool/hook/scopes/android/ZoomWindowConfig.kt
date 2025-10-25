@@ -41,7 +41,7 @@ class ZoomWindowConfig : YukiBaseHooker() {
         multiNum = prefs(ModulePrefs).getInt("custom_multi_window_display_upper_limit", 2)
         dataChannel.wait<Int>("custom_multi_window_display_upper_limit") { multiNum = it }
 
-        YLog.debug("init zoom window configs success")
+        YLog.debug("init zoom window configs success -> ${list.size}")
     }
 
     override fun onHook() {
