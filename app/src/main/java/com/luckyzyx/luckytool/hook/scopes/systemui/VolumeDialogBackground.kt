@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.res.ColorStateList
@@ -23,15 +22,103 @@ import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
 class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
-    @SuppressLint("UseCompatLoadingForDrawables")
+
     override fun onHook() {
         val osCode = getOSVersionCode
-        if (osCode >= 35) loadHooker(VolumeDialog(dexKitBridge))
+        if (osCode >= 37) loadHooker(VolumeDialog)
+        else if (osCode >= 35) loadHooker(VolumeDialogV15(dexKitBridge))
         else loadHooker(VolumeDialogV14)
     }
 
     @Obfuscate
-    class VolumeDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+    object VolumeDialog : YukiBaseHooker() {
+        override fun onHook() {
+            var customAlpha =
+                prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
+            dataChannel.wait<Int>("custom_volume_dialog_background_transparency") {
+                customAlpha = it
+            }
+            if (customAlpha < 0) return
+
+            //Source OplusVolumeDialogView
+            "com.oplus.systemui.volume.view.OplusVolumeDialogView".toClass().resolve().apply {
+                firstMethod { name = "initDialog" }.hook {
+                    after {
+                        if (customAlpha < 0) return@after
+                        val value = customAlpha * 25
+
+                        firstField { name = "mMoreRowStreamLl" }.of(instance).get<View>()
+                            ?.background?.alpha = 255 - value
+                        firstField { name = "mAppVolumeAdjustFl" }.of(instance).get<View>()
+                            ?.background?.alpha = 255 - value
+                    }
+                }
+            }
+
+            //Source OplusVolumeSeekBar
+            "com.oplus.systemui.volume.OplusVolumeSeekBar".toClassOrNull()?.resolve()?.apply {
+                constructor {}.hookAll {
+                    after {
+                        if (customAlpha < 0) return@after
+                        val seekBar = instance<Any>()
+                        seekBar.asResolver().firstMethod {
+                            name = "setProgressColor"
+                            parameters(ColorStateList::class)
+                            superclass()
+                        }.invoke(
+                            ColorStateList.valueOf(
+                                formatColorAlpha(Color.WHITE, 0.5F)
+                            )
+                        )
+                    }
+                }
+            }
+
+            //Source VolumeBlurManager
+            "com.oplus.systemui.volume.utils.VolumeBlurManager".toClassOrNull()?.resolve()?.apply {
+                firstMethodOrNull { name = "getBackgroundBlurDrawable" }?.hook {
+                    after {
+                        if (customAlpha < 0) return@after
+                        val value = customAlpha * 25
+                        val drawable = result<Drawable>()
+                        if (drawable is BackgroundBlurDrawable) {
+                            drawable.setBlurRadius(value.dp)
+                        }
+                    }
+                } ?: run {
+                    firstMethod { name = "getVolumeBarBackground" }.hook {
+                        after {
+                            if (customAlpha < 0) return@after
+                            val value = customAlpha * 25
+                            val drawable = result<Drawable>()
+                            if (drawable is LayerDrawable) {
+                                val blurDrawable = drawable.getDrawable(0)
+                                if (blurDrawable is BackgroundBlurDrawable) {
+                                    blurDrawable.setBlurRadius(value.dp)
+                                }
+                                drawable.getDrawable(1)?.alpha = value
+                            } else drawable?.alpha = value
+                        }
+                    }
+                    firstMethod { name = "getVolumePanelBackground" }.hook {
+                        after {
+                            if (customAlpha < 0) return@after
+                            val value = customAlpha * 25
+                            val drawable = result<Drawable>()
+                            if (drawable is BackgroundBlurDrawable) {
+                                drawable.setBlurRadius(value.dp)
+                            } else {
+                                drawable?.alpha = value
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Obfuscate
+    class VolumeDialogV15(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             var customAlpha =
                 prefs(ModulePrefs).getInt("custom_volume_dialog_background_transparency", -1)
