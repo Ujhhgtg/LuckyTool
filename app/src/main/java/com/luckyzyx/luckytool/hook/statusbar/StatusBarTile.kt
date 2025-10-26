@@ -58,7 +58,7 @@ class StatusBarTile(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
         //移除控制中心磁贴数量限制
         if (prefs(ModulePrefs).getBoolean("remove_control_center_tile_count_limit", false)) {
-            loadHooker(RemoveControlCenterTileCountLimit(dexKitBridge))
+            if (osCode < 37) loadHooker(RemoveControlCenterTileCountLimit(dexKitBridge))
         }
     }
 }

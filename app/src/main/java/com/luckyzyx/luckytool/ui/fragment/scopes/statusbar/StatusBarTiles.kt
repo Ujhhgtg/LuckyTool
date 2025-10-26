@@ -256,6 +256,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_control_center_tile_count_limit)
                 key = "remove_control_center_tile_count_limit"
                 setDefaultValue(false)
+                isVisible = osCode < 37
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
