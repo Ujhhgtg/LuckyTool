@@ -46,6 +46,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除分离式控制中心编辑与更多按钮 C16
 - [更改] 取消锁屏底部按钮相关Hook C16
 - [更改] 取消控制中心磁贴数量限制Hook C16
+- [适配] 移除侧滑条与侧滑条背景 C16
 
 ### 1.3.1
 

@@ -25,22 +25,27 @@ object FullScreenGestureSideSlideBar : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.navbar.gesture.sidegesture.SideGestureNavView", //A11
             "com.oplusos.systemui.navigationbar.gesture.sidegesture.SideGestureNavView",
-            "com.oplus.systemui.navigationbar.gesture.sidegesture.SideGestureNavView" //C14
-        ).load(appClassLoader).resolve().apply {
+            "com.oplus.systemui.navigationbar.gesture.sidegesture.SideGestureNavView", //C14 C15
+            "com.oplus.systemui.navigationbar.gesture.sidegesture.view.SideGestureNavView" //C16
+        ).toClass().resolve().apply {
             firstMethod { name = "onDraw";parameterCount = 1 }.hook {
                 if (removeView) intercept()
             }
             (firstMethodOrNull { name = "initPaint" } ?: firstConstructor()).hook {
                 after {
                     if (!removeBackground) return@after
-                    firstField { name = "mBezierPaint";type = Paint::class }.of(instance)
-                        .get<Paint>()?.color = Color.TRANSPARENT
+                    firstField {
+                        name { it.contains("bezierPaint", true) }
+                        type = Paint::class
+                    }.of(instance).get<Paint>()?.color = Color.TRANSPARENT
                 }
             }
             firstMethod { name = "setBackIcon";parameters(Bitmap::class) }.hook {
                 before {
                     if (!isReplace) return@before
-                    val type = firstField { name = "mPosition" }.of(instance).get<Int>()
+                    val type = firstField {
+                        name { it.contains("position", true) }
+                    }.of(instance).get<Int>()
                     val bitmap = when (type) {
                         0 -> BitmapFactory.decodeFile(leftPath)
                         1 -> BitmapFactory.decodeFile(rightPath)

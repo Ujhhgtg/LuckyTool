@@ -197,7 +197,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_back_gesture_confirmation_limit)
                 key = "remove_back_gesture_confirmation_limit"
                 setDefaultValue(false)
-                isVisible = osCode >= 35
+                isVisible = osCode in 35..36
                 isIconSpaceReserved = false
             })
             //自定义侧滑条图标

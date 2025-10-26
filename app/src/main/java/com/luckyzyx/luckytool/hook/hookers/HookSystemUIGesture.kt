@@ -22,7 +22,7 @@ object HookSystemUIGesture : YukiBaseHooker() {
         }
         //移除返回手势确认限制
         if (prefs(ModulePrefs).getBoolean("remove_back_gesture_confirmation_limit", false)) {
-            if (osCode >= 35) loadHooker(RemoveBackGestureConfirmationLimit)
+            if (osCode in 35..36) loadHooker(RemoveBackGestureConfirmationLimit)
         }
     }
 }
