@@ -292,9 +292,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.lock_screen_bottom_left_button_replace_with_flashlight)
                 key = "lock_screen_bottom_left_button_replace_with_flashlight"
                 setDefaultValue(false)
-                isVisible = SDK < A14 && getBoolean(
-                    ModulePrefs, "remove_lock_screen_bottom_left_button", false
-                ) == false
+                isVisible = SDK < A14
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
@@ -305,9 +303,6 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.lock_screen_switch_flashlight_auto_close_screen)
                 key = "lock_screen_switch_flashlight_auto_close_screen"
                 setDefaultValue(false)
-                isVisible = getBoolean(
-                    ModulePrefs, "remove_lock_screen_bottom_left_button", false
-                ) == false
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)

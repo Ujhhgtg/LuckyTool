@@ -34,7 +34,7 @@ object HookSystemUILockScreen : YukiBaseHooker() {
         loadHooker(LockScreenChargingComponent)
 
         //锁屏底部按钮
-        if (osCode < 37) loadHooker(LockScreenBottomButton)
+        loadHooker(LockScreenBottomButton)
 
         //锁屏状态栏运营商
         loadHooker(LockScreenCarriers)

@@ -13,22 +13,48 @@ import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.luckyzyx.luckytool.R
-import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.closeScreen
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object LockScreenBottomButton : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK >= A14) loadHooker(LockScreenBottomButton)
-        else loadHooker(LockScreenBottomButtonC13)
+        val osCode = getOSVersionCode
+        if (osCode >= 37) loadHooker(FlashlightQuickCloseScreen)
+        else if (osCode >= 30) loadHooker(LockScreenBottomButtonV14)
+        else loadHooker(LockScreenBottomButtonV13)
     }
 
     @Obfuscate
-    object LockScreenBottomButton : YukiBaseHooker() {
+    object FlashlightQuickCloseScreen : YukiBaseHooker() {
+        override fun onHook() {
+            var autoCloseScreen = prefs(ModulePrefs).getBoolean(
+                "lock_screen_switch_flashlight_auto_close_screen", false
+            )
+            dataChannel.wait<Boolean>("lock_screen_switch_flashlight_auto_close_screen") {
+                autoCloseScreen = it
+            }
+
+            //Source OplusFlashlightQuickAffordanceConfig
+            "com.oplus.systemui.keyguard.data.quickaffordance.OplusFlashlightQuickAffordanceConfig".toClass()
+                .resolve().apply {
+                    firstMethod { name = "onTriggered" }.hook {
+                        after {
+                            if (!autoCloseScreen) return@after
+                            val context = firstField { name = "context";superclass() }.of(instance)
+                                .get<Context>() ?: return@after
+                            closeScreen(context)
+                        }
+                    }
+                }
+        }
+    }
+
+    @Obfuscate
+    object LockScreenBottomButtonV14 : YukiBaseHooker() {
         val ViewModel =
             "com.android.systemui.keyguard.ui.viewmodel.KeyguardQuickAffordanceViewModel"
 
@@ -59,11 +85,13 @@ object LockScreenBottomButton : YukiBaseHooker() {
                                 .get<String>() ?: ""
                             when (solt) {
                                 "bottom_start" -> if (rmLeft) {
-                                    viewModel.asResolver().firstField { name = "isVisible" }.set(false)
+                                    viewModel.asResolver().firstField { name = "isVisible" }
+                                        .set(false)
                                 }
 
                                 "bottom_end" -> if (rmRight) {
-                                    viewModel.asResolver().firstField { name = "isVisible" }.set(false)
+                                    viewModel.asResolver().firstField { name = "isVisible" }
+                                        .set(false)
                                 }
                             }
                         }
@@ -86,7 +114,7 @@ object LockScreenBottomButton : YukiBaseHooker() {
     }
 
     @Obfuscate
-    object LockScreenBottomButtonC13 : YukiBaseHooker() {
+    object LockScreenBottomButtonV13 : YukiBaseHooker() {
         override fun onHook() {
             //affordance_magazine
             var rmLeft =
