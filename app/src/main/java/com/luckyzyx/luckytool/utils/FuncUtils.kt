@@ -124,6 +124,7 @@ fun Context.getDeviceInfo(
         add("${getString(R.string.version)}: ${controller?.otaVersion}")
         add("${getString(R.string.flash)}: ${controller?.flashInfo}")
         add("PAS: ${controller?.pcbInfo} ${controller?.snInfo}")
+        add("SAS: ${controller?.pcbInfo} ${controller?.snInfo}")
         if (isLog) {
             add(getMyManifesstVersion())
             add(DeviceUtils.getGuid())
