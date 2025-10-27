@@ -64,7 +64,7 @@ object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
             override fun getChipInfo(): String {
                 val chipid = SystemProperties.get("ro.boot.chipid", "null")
                 val chipecid = SystemProperties.get("ro.boot.chipecid", "null")
-                return chipid + "_" + chipecid
+                return chipid
             }
 
             override fun getPrjNameInfo(): String {
