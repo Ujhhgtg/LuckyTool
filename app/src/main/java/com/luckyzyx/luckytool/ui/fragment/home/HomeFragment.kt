@@ -25,11 +25,9 @@ import com.luckyzyx.luckytool.IGlobalFuncController
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentHomeBinding
 import com.luckyzyx.luckytool.service.GlobalFuncService
-import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.DeviceUtils
 import com.luckyzyx.luckytool.utils.DonateUtils
-import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.RestartMenuUtils
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils
@@ -53,8 +51,6 @@ import org.lsposed.lsparanoid.Obfuscate
 @Obfuscate
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
 
-    private var enableModule: Boolean = false
-
     var dexOptimizeDialog: AlertDialog? = null
 
     override fun onCreateView(
@@ -67,19 +63,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        enableModule = requireActivity().getBoolean(ModulePrefs, "enable_module", false)
 
-        binding.enableModule.apply {
-            text = context.getString(R.string.enable_module)
-            isChecked = enableModule
-            setOnCheckedChangeListener { buttonView, isChecked ->
-                if (buttonView.isPressed) {
-                    context.putBoolean(ModulePrefs, "enable_module", isChecked)
-                    (activity as MainActivity).restart()
-                }
-            }
-        }
-//        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true)) {
+//        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true))
         val isDev = requireActivity().getBoolean(SettingsPrefs, "hidden_function")
         UpdateUtils(requireActivity(), isDev).checkUpdate(
             getVersionName, getVersionCode
@@ -246,7 +231,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
     @SuppressLint("SetTextI18n")
     fun refreshModuleStatus() {
         when {
-            YukiHookAPI.Status.isXposedModuleActive && enableModule -> {
+            YukiHookAPI.Status.isXposedModuleActive -> {
                 binding.moduleStatusIcon.setImageResource(R.drawable.ic_round_check_24)
             }
 
@@ -256,7 +241,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
             }
         }
         binding.moduleStatus.text = when {
-            YukiHookAPI.Status.isXposedModuleActive && enableModule.not() -> getString(R.string.module_is_disabled)
+            YukiHookAPI.Status.isXposedModuleActive.not() -> getString(R.string.module_is_disabled)
             YukiHookAPI.Status.isXposedModuleActive -> getString(R.string.module_isactivated)
             else -> getString(R.string.module_notactive)
         }

@@ -57,7 +57,6 @@ import com.luckyzyx.luckytool.hook.hookers.HookWirelessSettings
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookADM
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookAlphaBackupPro
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookKsWeb
-import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SettingsPrefs
 import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
@@ -76,7 +75,6 @@ object YukiEntry {
     }
 
     fun PackageParam.onHookEntry() {
-        if (prefs(ModulePrefs).getBoolean("enable_module", false).not()) return
         if (prefs(SettingsPrefs).getBoolean("is_su", false).not()) return
 
         try {
