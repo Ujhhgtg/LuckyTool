@@ -280,6 +280,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_lock_screen_bottom_left_button)
                 key = "remove_lock_screen_bottom_left_button"
                 setDefaultValue(false)
+                isVisible = osCode < 37
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
@@ -317,6 +318,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_lock_screen_bottom_right_camera)
                 key = "remove_lock_screen_bottom_right_camera"
                 setDefaultValue(false)
+                isVisible = osCode < 37
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)
