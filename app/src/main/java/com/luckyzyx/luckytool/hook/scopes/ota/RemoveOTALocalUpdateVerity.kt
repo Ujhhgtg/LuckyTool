@@ -1,6 +1,7 @@
 package com.luckyzyx.luckytool.hook.scopes.ota
 
 import android.content.Context
+import android.os.PowerManager
 import android.os.SystemProperties
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -117,13 +118,15 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
             dexKitBridge.findClass {
                 matcher {
                     fields {
-                        addForType(Context::class.java)
+//                        addForType(Context::class.java)
                         addForType("android.os.UpdateEngine")
-                        addForType("android.os.UpdateEngineCallback")
+//                        addForType("android.os.UpdateEngineCallback")
+                        addForType(PowerManager.WakeLock::class.java)
+
                     }
                     methods {
                         add { paramCount(0);returnType(Int::class.java) }
-                        add { paramCount(0);returnType(Float::class.java) }
+//                        add { paramCount(0);returnType(Float::class.java) }
                         add { paramCount(0);returnType(Void.TYPE) }
                         add {
 //                            paramTypes(

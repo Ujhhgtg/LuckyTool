@@ -1,8 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.ota
 
-import android.app.Notification
-import android.app.NotificationManager
-import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -19,9 +16,9 @@ class HookNotificationHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
         //Source NotificationHelper
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(Context::class.java)
-                addFieldForType(Notification.Builder::class.java)
-                addFieldForType(NotificationManager::class.java)
+//                addFieldForType(Context::class.java)
+//                addFieldForType(Notification.Builder::class.java)
+//                addFieldForType(NotificationManager::class.java)
                 usingStrings(
                     "NotificationHelper",
                     "ota_notify_new_channel_id",
@@ -29,7 +26,7 @@ class HookNotificationHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                 )
             }
         }.apply {
-            checkDataList("NotificationHelper find clazz")
+            checkDataList("NotificationHelper")
 
             if (notifySuccess) findMethod {
                 matcher {
@@ -37,7 +34,7 @@ class HookNotificationHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
                     usingStrings("notifyInstallSuccess")
                 }
             }.apply {
-                checkDataList("notifyInstallSuccess find method")
+                checkDataList("notifyInstallSuccess")
 
                 single().className.toClass().resolve().apply {
                     firstMethod {
