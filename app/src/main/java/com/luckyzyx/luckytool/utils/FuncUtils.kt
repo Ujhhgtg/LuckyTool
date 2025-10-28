@@ -123,8 +123,14 @@ fun Context.getDeviceInfo(
         )
         add("${getString(R.string.version)}: ${controller?.otaVersion}")
         add("${getString(R.string.flash)}: ${controller?.flashInfo}")
-        add("PAS: ${controller?.pcbInfo}")
-        add("SAS: ${controller?.snInfo} ${controller?.chipInfo}")
+
+        if (controller?.snInfo == controller?.chipInfo) {
+            add("PAS: ${controller?.pcbInfo} controller?.snInfo")
+        } else {
+            add("PAS: ${controller?.pcbInfo}")
+            add("SAS: ${controller?.snInfo} ${controller?.chipInfo}")
+        }
+
         if (isLog) {
             add(getMyManifesstVersion())
             add(DeviceUtils.getGuid())
