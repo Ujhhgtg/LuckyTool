@@ -269,6 +269,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.dsiable_start_app_detail)
+                summary = getString(R.string.dsiable_start_app_detail_summary)
                 key = "dsiable_start_app_detail"
                 setDefaultValue(false)
                 isIconSpaceReserved = false

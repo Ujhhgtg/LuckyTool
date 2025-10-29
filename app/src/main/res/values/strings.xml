@@ -574,6 +574,7 @@
     <string name="fix_install_button_display_exception">Fix the abnormal display of installation button</string>
     <string name="fix_install_button_display_exception_summary">Mainly solve the problems such as abnormal display of installation buttons and crashes during installation.</string>
     <string name="dsiable_start_app_detail">Dsiable start app detail</string>
+    <string name="dsiable_start_app_detail_summary">Skip scanning of app detail</string>
     <string name="skip_apk_scan">Skip Apkscan</string>
     <string name="skip_apk_scan_summary">Apk virus scanning related</string>
     <string name="allow_downgrade_install">Allow downgrade installation</string>
