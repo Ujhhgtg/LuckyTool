@@ -5,6 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.battery.DisplayModuleCalculatesBatteryHealthData
 import com.luckyzyx.luckytool.hook.scopes.battery.HookBatteryNotify
 import com.luckyzyx.luckytool.hook.scopes.battery.LauncherHighTempreatureProtection
+import com.luckyzyx.luckytool.hook.scopes.battery.RemoveBatteryRestrictPlugin
 import com.luckyzyx.luckytool.hook.scopes.battery.RemoveBatteryTemperatureControl
 import com.luckyzyx.luckytool.hook.scopes.battery.UnlockStartupLimit
 import com.luckyzyx.luckytool.utils.A13
@@ -34,6 +35,10 @@ object HookBattery : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_battery_temperature_control", false)) {
                 loadHooker(RemoveBatteryTemperatureControl(dexKitBridge))
                 loadHooker(LauncherHighTempreatureProtection(dexKitBridge))
+            }
+            //移除电池限制插件
+            if (prefs(ModulePrefs).getBoolean("remove_battery_restrict_plugin", false)) {
+                loadHooker(RemoveBatteryRestrictPlugin(dexKitBridge))
             }
         }
 

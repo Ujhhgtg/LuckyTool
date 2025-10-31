@@ -114,6 +114,12 @@ class OplusBattery : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_battery_restrict_plugin)
+                key = "remove_battery_restrict_plugin"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.restore_default_battery_optimization_whitelist)
                 key = "restore_default_battery_optimization_whitelist"
                 setDefaultValue(false)
