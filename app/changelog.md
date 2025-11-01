@@ -52,6 +52,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 移除模块主页启用模块选项
 - [添加] 移除电池限制插件 C16
 - [添加] 移除控制中心时钟 C15+
+- [更改] 取消存储权限异常提示对话框 C16
 
 ### 1.3.1
 

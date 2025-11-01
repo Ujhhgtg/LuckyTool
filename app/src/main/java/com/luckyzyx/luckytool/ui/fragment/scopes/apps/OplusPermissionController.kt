@@ -50,6 +50,7 @@ class OplusPermissionController : BaseScopePreferenceFeagment() {
                 title = getString(R.string.remove_storage_permission_exception_dialog)
                 key = "remove_storage_permission_exception_dialog"
                 setDefaultValue(false)
+                isVisible = osCode < 37
                 isIconSpaceReserved = false
             })
         }
