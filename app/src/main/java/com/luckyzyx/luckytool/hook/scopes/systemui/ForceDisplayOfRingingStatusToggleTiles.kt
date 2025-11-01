@@ -12,7 +12,7 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         //Source QSTileHostHelper
         VariousClass(
             "com.oplusos.systemui.qs.helper.QSTileHostHelper",  //C13
-            "com.oplus.systemui.qs.helper.QSTileHostHelper"  //C14
+            "com.oplus.systemui.qs.helper.QSTileHostHelper"  //C14 C15 C16
         ).toClass().resolve().apply {
             firstMethod { name = "getDfltUnsupportedTileString" }.hook {
                 after {
@@ -29,16 +29,16 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.qs.tiles.FlavorOneRingerModeTile",  //C13
             "com.oplus.systemui.qs.tiles.FlavorOneRingerModeTile",  //C14.0 C14.0.1
-            "com.oplus.systemui.qs.tiles.ThreeStageRingerModeTile" //C14.1
-        ).load(appClassLoader).resolve().apply {
+            "com.oplus.systemui.qs.tiles.ThreeStageRingerModeTile" //C14.1 C15 C16
+        ).toClass().resolve().apply {
             //修复实例为Null无法获取spec问题
             firstConstructor().hook {
                 after {
-                    firstMethod { name = "setTileSpec";superclass() }.of(instance)
+                    firstMethod { name = "setTileSpec"; superclass() }.of(instance)
                         .invoke("ringermode")
                 }
             }
-            firstMethod { name = "isAvailable";superclass() }.hook {
+            firstMethod { name = "isAvailable"; superclass() }.hook {
                 replaceToTrue()
             }
         }
@@ -47,9 +47,12 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C13
             "com.oplus.systemui.qs.qstileimpl.OplusQSFactoryImpl",  //C14
-            "com.oplus.systemui.qs.tileimpl.OplusQSFactoryImpl"  //C15
-        ).load(appClassLoader).resolve().apply {
-            firstMethod { name = "createTile";parameters(String::class) }.hook {
+            "com.oplus.systemui.qs.tileimpl.OplusQSFactoryImpl"  //C15 C16
+        ).toClass().resolve().apply {
+            firstMethod {
+                name = "createTile"
+                parameters(String::class)
+            }.hook {
                 before {
                     val key = args().first().string()
                     if (key == "ringermode") {
@@ -59,7 +62,7 @@ object ForceDisplayOfRingingStatusToggleTiles : YukiBaseHooker() {
                             name { it.contains("RingerModeTileProvider") }
                         }.of(instance).get() ?: return@before
                         result = provider.asResolver().firstMethod {
-                            name = "get";returnType = Any::class
+                            name = "get"; returnType = Any::class
                         }.invoke()
                     }
                 }
