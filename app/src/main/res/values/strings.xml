@@ -264,6 +264,7 @@
     <string name="StatusBarControlCenter">StatusBar ControlCenter</string>
     
     <string name="ControlCenter_Clock_Related">Control Center Clock Related</string>
+    <string name="remove_control_center_clock_view">Remove the control center clock</string>
     <string name="control_center_clock_show_second">Control center clock show second</string>
     <string name="statusbar_control_center_clock_colon_style">Control center clock colon style</string>
     <string name="fix_clock_colon_style">Fix clock colon style</string>

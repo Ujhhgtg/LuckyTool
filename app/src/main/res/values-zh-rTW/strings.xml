@@ -237,6 +237,7 @@
     <!--StatusBarControlCenter-->
     <string name="StatusBarControlCenter">状态栏控制中心</string>
     <string name="ControlCenter_Clock_Related">控制中心时钟相关</string>
+    <string name="remove_control_center_clock_view">移除控制中心时钟</string>
     <string name="control_center_clock_show_second">控制中心时钟显秒</string>
     <string name="statusbar_control_center_clock_colon_style">控制中心时钟冒号样式</string>
     <string name="fix_clock_colon_style">修复时钟冒号样式</string>

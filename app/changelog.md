@@ -51,6 +51,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除OTA本地安装校验 C16
 - [更改] 移除模块主页启用模块选项
 - [添加] 移除电池限制插件 C16
+- [添加] 移除控制中心时钟 C15+
 
 ### 1.3.1
 

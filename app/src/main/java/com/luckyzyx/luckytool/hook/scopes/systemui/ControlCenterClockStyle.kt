@@ -12,6 +12,7 @@ import com.luckyzyx.luckytool.utils.A11
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getCharColor
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.lsposed.lsparanoid.Obfuscate
@@ -19,8 +20,33 @@ import org.lsposed.lsparanoid.Obfuscate
 @Obfuscate
 object ControlCenterClockStyle : YukiBaseHooker() {
     override fun onHook() {
-        if (SDK == A11) loadHooker(ControlCenterClockStyleA11)
-        else loadHooker(ControlCenterClock)
+        val osCode = getOSVersionCode
+
+        val rmClock = prefs(ModulePrefs).getBoolean("remove_control_center_clock_view", false)
+        if (rmClock) {
+            loadHooker(RemoveControlCenterClock)
+        }
+
+        if (osCode < 34 || !rmClock) {
+            if (SDK == A11) loadHooker(ControlCenterClockStyleA11)
+            else loadHooker(ControlCenterClock)
+        }
+    }
+
+    @Obfuscate
+    object RemoveControlCenterClock : YukiBaseHooker() {
+        override fun onHook() {
+            //Source OplusSeparateQSQuickEntranceManager QSQuickEntranceImpl
+            "com.oplus.systemui.separate.OplusSeparateQSQuickEntranceManager\$QSQuickEntranceImpl"
+                .toClass().resolve().apply {
+                    firstMethod {
+                        name = "getClockView"
+                        returnType = TextView::class
+                    }.hook {
+                        intercept()
+                    }
+                }
+        }
     }
 
     @Obfuscate
