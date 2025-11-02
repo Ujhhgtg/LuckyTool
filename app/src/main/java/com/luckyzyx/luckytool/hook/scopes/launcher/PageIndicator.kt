@@ -23,8 +23,8 @@ object PageIndicator : YukiBaseHooker() {
 
         //Source OplusPageIndicator
         "com.android.launcher.pageindicators.OplusPageIndicator".toClass().resolve().apply {
-            (firstMethodOrNull { name = "dispatchDraw";parameters(Canvas::class) }
-                ?: firstMethod { name = "onDraw";parameters(Canvas::class) }).hook {
+            (firstMethodOrNull { name = "dispatchDraw"; parameters(Canvas::class) }
+                ?: firstMethod { name = "onDraw"; parameters(Canvas::class) }).hook {
                 before {
                     val view = instance<View>()
                     val parentView = if (view.parent != null) view.parent as View else return@before
@@ -49,15 +49,14 @@ object PageIndicator : YukiBaseHooker() {
         if (SDK < A13) return
 
         //Source PageIndicatorTouchHelper
-        "com.android.launcher.pageindicators.PageIndicatorTouchHelper".toClassOrNull()?.resolve()
-            ?.apply {
-                firstMethod {
-                    name = "dispatchTouchEvent"
-                    parameters(MotionEvent::class)
-                }.hook {
-                    if (disableSliding) replaceToFalse()
-                }
+        "com.android.launcher.pageindicators.PageIndicatorTouchHelper".toClass().resolve().apply {
+            firstMethod {
+                name = "onActionMove"
+                parameters(MotionEvent::class)
+            }.hook {
+                if (disableSliding) intercept()
             }
+        }
 
         //Source BigFolderIcon
         "com.android.launcher3.folder.big.BigFolderIcon".toClassOrNull()?.resolve()?.apply {

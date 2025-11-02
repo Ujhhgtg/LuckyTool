@@ -10,12 +10,13 @@ import org.lsposed.lsparanoid.Obfuscate
 @Obfuscate
 object RemoveTopLockScreenIcon : YukiBaseHooker() {
     override fun onHook() {
-        val LockIconView = VariousClass(
+        //Source LockIconView
+        val lockIconView = VariousClass(
             "com.android.keyguard.LockIconView",
             "com.android.keyguard.OplusLockIconView" //C16
         ).toClass()
 
-        //Source LockIcon
+        //Source LockIcon C14-
         "com.android.systemui.statusbar.phone.LockIcon".toClassOrNull()?.resolve()?.apply {
             firstMethod { name = "updateIconVisibility" }.hook {
                 before {
@@ -24,8 +25,8 @@ object RemoveTopLockScreenIcon : YukiBaseHooker() {
             }
         }
 
-        //Source LockIcon C14
-        LockIconView.resolve().apply {
+        //Source LockIcon C14 C15+
+        lockIconView.resolve().apply {
             firstMethod { name = "updateColorAndBackgroundVisibility" }.hook {
                 after {
                     firstField { name = "mLockIcon" }.of(instance).get<View>()?.isVisible = false
@@ -37,7 +38,7 @@ object RemoveTopLockScreenIcon : YukiBaseHooker() {
         "com.android.keyguard.LegacyLockIconViewController".toClassOrNull()?.resolve()?.apply {
             firstMethod { name { it.startsWith("updateVisibility") } }.hook {
                 before {
-                    firstField { type = LockIconView }.of(instance).get<View>()?.isVisible = false
+                    firstField { type = lockIconView }.of(instance).get<View>()?.isVisible = false
                     resultNull()
                 }
             }
