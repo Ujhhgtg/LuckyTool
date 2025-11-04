@@ -125,7 +125,7 @@ fun Context.getDeviceInfo(
         add("${getString(R.string.flash)}: ${controller?.flashInfo}")
 
         if (controller?.snInfo == controller?.chipInfo) {
-            add("PAS: ${controller?.pcbInfo} controller?.snInfo")
+            add("PAS: ${controller?.pcbInfo} ${controller?.snInfo}")
         } else {
             add("PAS: ${controller?.pcbInfo}")
             add("SAS: ${controller?.snInfo} ${controller?.chipInfo}")
