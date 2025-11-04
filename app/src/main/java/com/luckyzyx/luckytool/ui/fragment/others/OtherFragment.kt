@@ -119,6 +119,7 @@ class OtherFragment : BaseFragment<FragmentOtherBinding>(), MenuProvider {
         }
 
         binding.batteryInfo.apply {
+            isVisible = false
             binding.batteryInfoTitle.text = "电池信息与参数"
             binding.batteryInfoSummary.text = "监听电池信息与充放电参数"
             setOnClickListener {
