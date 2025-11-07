@@ -23,14 +23,12 @@ object ControlCenterClockStyle : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         val rmClock = prefs(ModulePrefs).getBoolean("remove_control_center_clock_view", false)
-        if (rmClock) {
+        if (osCode >= 34 && rmClock) {
             loadHooker(RemoveControlCenterClock)
         }
 
-        if (osCode < 34 || !rmClock) {
-            if (SDK == A11) loadHooker(ControlCenterClockStyleA11)
-            else loadHooker(ControlCenterClock)
-        }
+        if (SDK == A11) loadHooker(ControlCenterClockStyleA11)
+        else loadHooker(ControlCenterClock)
     }
 
     @Obfuscate
