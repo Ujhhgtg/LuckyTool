@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
 import android.content.Context
 import androidx.preference.DropDownPreference
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
@@ -13,8 +14,10 @@ import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import com.luckyzyx.luckytool.utils.setSummaryProvider
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -47,7 +50,25 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
                 key = "remove_gms_usage_restrictions"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
+            if (getBoolean(ModulePrefs, "remove_gms_usage_restrictions", false)) {
+                add(EditTextPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_remote_provisioning_hostname)
+                    dialogTitle = title
+                    dialogMessage = arraySummaryLine(
+                        getString(R.string.custom_remote_provisioning_hostname_summary),
+                        getString(R.string.need_restart_system)
+                    )
+                    key = "custom_remote_provisioning_hostname"
+                    setDefaultValue("remoteprovisioning.grapheneos.org")
+                    setSummaryProvider(this)
+                    isIconSpaceReserved = false
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.replace_system_root_state_detection)
                 summary = getString(R.string.need_restart_system)

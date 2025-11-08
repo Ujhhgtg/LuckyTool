@@ -123,6 +123,8 @@
     
     <!--Android-->
     <string name="remove_gms_usage_restrictions">Remove GMS usage restrictions</string>
+    <string name="custom_remote_provisioning_hostname">Custom remote provisioning hostname</string>
+    <string name="custom_remote_provisioning_hostname_summary">Set the proxy host used to obtain attestation certificates</string>
     <string name="replace_system_root_state_detection">Replace system root state detection</string>
     <string name="allow_untrusted_touch">Allow untrusted touch</string>
     <string name="allow_untrusted_touch_summary">Solve the problem that some windows or pages are blocked and cannot be touched</string>

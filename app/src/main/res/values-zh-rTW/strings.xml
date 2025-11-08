@@ -110,6 +110,7 @@
     <string name="version">版本</string>
     <!--Android-->
     <string name="remove_gms_usage_restrictions">移除GMS使用限制</string>
+    <string name="custom_remote_provisioning_hostname_summary">设置用于获取attestation证书的代理主机</string>
     <string name="replace_system_root_state_detection">替换系统Root状态检测</string>
     <string name="allow_untrusted_touch">允許不受信任的觸控</string>
     <string name="allow_untrusted_touch_summary">解决部分窗口或页面被遮挡导致无法触摸问题</string>
@@ -1108,4 +1109,5 @@
     <string name="net_error">未知网络错误</string>
     <string name="net_other_error">未知错误</string>
     <string name="no_error_message">无错误信息</string>
+    <string name="custom_remote_provisioning_hostname">自定义远程资源调配主机名</string>
 </resources>

@@ -205,6 +205,8 @@ object YukiEntry {
         loadApp("com.android.bluetooth", HookBluetooth)
         //电话本
         loadApp("com.android.contacts", HookContacts)
+        //远程配置器
+        loadApp("com.android.rkpdapp", HookContacts)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)

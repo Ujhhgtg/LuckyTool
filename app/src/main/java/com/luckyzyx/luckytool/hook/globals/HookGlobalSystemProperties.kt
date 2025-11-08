@@ -100,6 +100,12 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
 //            put("persist.vendor.oplus.verify_result", "")
             }
 
+            //Source RkpdApp Settings
+            if (prefs(ModulePrefs).getBoolean("remove_gms_usage_restrictions", false)) {
+                val host = prefs(ModulePrefs).getString("custom_remote_provisioning_hostname")
+                if (host.isNotBlank()) put("remote_provisioning.hostname", host)
+            }
+
             //Source COSA
 //            if (packageName == "com.oplus.cosa") {
 //                put("ro.product.brand", "realme")
