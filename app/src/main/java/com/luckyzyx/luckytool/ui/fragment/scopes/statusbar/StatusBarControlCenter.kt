@@ -60,42 +60,39 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                     true
                 }
             })
-            if (osCode < 34 || !getBoolean(ModulePrefs, "remove_control_center_clock_view", false)
-            ) {
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.control_center_clock_show_second)
-                    key = "control_center_clock_show_second"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
-                add(DropDownPreference(this@loadPreferences).apply {
-                    title = getString(R.string.statusbar_control_center_clock_red_one_mode)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
-                    key = "statusbar_control_center_clock_red_one_mode"
-                    setEntries(R.array.statusbar_control_center_clock_red_one_mode_entries)
-                    entryValues = arrayOf("0", "1", "2")
-                    setDefaultValue("0")
-                    isIconSpaceReserved = false
-                    setOnPreferenceChangeListener { _, newValue ->
-                        sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
-                })
-                add(DropDownPreference(this@loadPreferences).apply {
-                    title = getString(R.string.statusbar_control_center_clock_colon_style)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
-                    key = "statusbar_control_center_clock_colon_style"
-                    setEntries(R.array.statusbar_control_center_clock_colon_style_entries)
-                    entryValues = arrayOf("0", "1", "2")
-                    setDefaultValue("0")
-                    isIconSpaceReserved = false
-                    isVisible = SDK >= A13
-                    setOnPreferenceChangeListener { _, newValue ->
-                        sendPrefsValue("com.android.systemui", key, newValue)
-                        true
-                    }
-                })
-            }
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.control_center_clock_show_second)
+                key = "control_center_clock_show_second"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(DropDownPreference(this@loadPreferences).apply {
+                title = getString(R.string.statusbar_control_center_clock_red_one_mode)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "statusbar_control_center_clock_red_one_mode"
+                setEntries(R.array.statusbar_control_center_clock_red_one_mode_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
+            add(DropDownPreference(this@loadPreferences).apply {
+                title = getString(R.string.statusbar_control_center_clock_colon_style)
+                summary = getString(R.string.common_words_current_mode) + ": %s"
+                key = "statusbar_control_center_clock_colon_style"
+                setEntries(R.array.statusbar_control_center_clock_colon_style_entries)
+                entryValues = arrayOf("0", "1", "2")
+                setDefaultValue("0")
+                isIconSpaceReserved = false
+                isVisible = SDK >= A13
+                setOnPreferenceChangeListener { _, newValue ->
+                    sendPrefsValue("com.android.systemui", key, newValue)
+                    true
+                }
+            })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_control_center_date_comma)
                 key = "remove_control_center_date_comma"
