@@ -41,6 +41,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookPhone
 import com.luckyzyx.luckytool.hook.hookers.HookPhoneManager
 import com.luckyzyx.luckytool.hook.hookers.HookPictorial
 import com.luckyzyx.luckytool.hook.hookers.HookQuickSearchBox
+import com.luckyzyx.luckytool.hook.hookers.HookRkpdApp
 import com.luckyzyx.luckytool.hook.hookers.HookSAU
 import com.luckyzyx.luckytool.hook.hookers.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hookers.HookScreenshot
@@ -206,7 +207,7 @@ object YukiEntry {
         //电话本
         loadApp("com.android.contacts", HookContacts)
         //远程配置器
-        loadApp("com.android.rkpdapp", HookContacts)
+        loadApp("com.android.rkpdapp", HookRkpdApp)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
