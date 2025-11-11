@@ -189,6 +189,29 @@ class PackageUtils(private val packageManager: PackageManager) {
         else packageManager.queryIntentActivities(intent, ResolveInfoFlags.of(int.toLong()))
     }
 
+    fun getSupportedAbis(packageName: String): Array<String>? {
+        return try {
+            val packageInfo = getPackageInfo(packageName, 0)
+                ?: return null
+            packageInfo.applicationInfo?.nativeLibraryDir?.let { dir ->
+                // 解析目录路径获取 ABI
+                val abis = mutableListOf<String>()
+                when {
+                    dir.contains("arm64") -> abis.add("arm64-v8a")
+                    dir.contains("arm") -> abis.add("armeabi-v7a")
+                    dir.contains("x86_64") -> abis.add("x86_64")
+                    dir.contains("x86") -> abis.add("x86")
+                    dir.contains("mips64") -> abis.add("mips64")
+                    dir.contains("mips") -> abis.add("mips")
+                }
+                abis.toTypedArray()
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
     fun getInstalledAppInfo(packName: String, flag: Int): AppInfo? {
         return getPackageInfo(packName, flag)?.toAppInfo(packageManager)
     }
