@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageInfo
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.collection.ArrayMap
@@ -13,7 +14,6 @@ import com.highcapable.hikage.widget.android.widget.LinearLayout
 import com.highcapable.hikage.widget.android.widget.TextView
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.safeOf
@@ -22,6 +22,7 @@ import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.result.ClassData
 import org.luckypray.dexkit.result.MethodData
+import java.io.File
 
 @Obfuscate
 class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -32,7 +33,7 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
     var cacheApkInfoMap = ArrayMap<Any, ArrayMap<String, Any>>()
     var cacheSourceInfoMap = ArrayMap<Any, ArrayMap<String, Any>>()
 
-    @SuppressLint("DiscouragedApi")
+    @SuppressLint("DiscouragedApi", "SetTextI18n")
     override fun onHook() {
         //Source ApkInfoView
         apkInfoViewCls = dexKitBridge.findClass {
@@ -94,14 +95,11 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
                     val context = apkInfoView.context
                     val pm = context.packageManager
 
-                    val apkInfo = args().first().any() ?: return@after
-                    val sourceInfo = args().last().any() ?: return@after
+                    val apkInfo = args().first().any()
+                    val sourceInfo = args().last().any()
 
                     val cacheApkInfo = cacheApkInfoMap[apkInfo] ?: return@after
-                    YLog.debug("cacheApkInfo ${cacheApkInfo.toString()}")
-
                     val cacheSourceInfo = cacheSourceInfoMap[sourceInfo] ?: return@after
-                    YLog.debug("cacheSourceInfo ${cacheSourceInfo.toString()}")
 
                     val actionType = cacheSourceInfo["actionType"] as? Int ?: -1
                     val installSource = cacheSourceInfo["sourceName"] as? String
@@ -167,8 +165,8 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
                                 id = "app_size",
                                 lparams = LayoutParams(),
                                 init = {
-                                    val format = if (apkSize <= 0) ""
-                                    else OplusUnitConversionUtils(context).getUnitValue(apkSize)
+                                    val format =
+                                        getApkSizeFormat(context, curPackInfo, apkSize, isUninstall)
                                     text = "${getApkSizeText(context)} $format"
                                     setTextIsSelectable(true)
                                 }
@@ -216,6 +214,16 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
                 }
             }
         }
+    }
+
+    private fun getApkSizeFormat(
+        context: Context, packInfo: PackageInfo?, size: Long, isUninstall: Boolean
+    ): String {
+        val apkSize = if (isUninstall) {
+            val sourceDir = packInfo?.applicationInfo?.sourceDir
+            if (sourceDir.isNullOrBlank()) size else File(sourceDir).length()
+        } else size
+        return OplusUnitConversionUtils(context).getUnitValue(apkSize)
     }
 
     @SuppressLint("DiscouragedApi")
