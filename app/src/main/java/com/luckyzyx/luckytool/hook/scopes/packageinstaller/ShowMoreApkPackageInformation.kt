@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
-import androidx.core.view.updatePadding
+import com.highcapable.betterandroid.ui.extension.view.updatePadding
 import com.highcapable.hikage.core.base.Hikageable
 import com.highcapable.hikage.widget.android.widget.ImageView
 import com.highcapable.hikage.widget.android.widget.LinearLayout
@@ -134,7 +134,7 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
                             init = {
                                 orientation = LinearLayout.VERTICAL
                                 gravity = Gravity.CENTER_HORIZONTAL
-                                updatePadding(top = 10.dp)
+                                updatePadding(horizontal = 10.dp, vertical = 10.dp)
                             }
                         ) {
                             ImageView(
@@ -177,7 +177,10 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
                                 init = {
                                     text = if (isInstalled) {
                                         if (isUninstall) "$versionName($versionCode)"
-                                        else "$curVersionName($curVersionCode) → $versionName($versionCode)"
+                                        else """
+                                            Old: $curVersionName($curVersionCode)
+                                            New: $versionName($versionCode)
+                                        """.trimIndent()
                                     } else "$versionName($versionCode)"
                                     setTextIsSelectable(true)
                                 }
