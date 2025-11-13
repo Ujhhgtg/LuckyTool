@@ -21,7 +21,9 @@ object HookGlobalPmsSystemFeature : YukiBaseHooker() {
             }
         }
         loadHooker(PmSystemFeature(list))
-        loadHooker(PmsSystemFeature(list))
+        if (packageName == "android") {
+            loadHooker(PmsSystemFeature(list))
+        }
     }
 
     @Obfuscate
