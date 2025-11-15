@@ -127,7 +127,7 @@ fun Context.getDeviceInfo(
         if (controller?.snInfo == controller?.chipInfo) {
             add("PAS: ${controller?.pcbInfo} ${controller?.snInfo}")
         } else {
-            add("PAS: ${controller?.pcbInfo}")
+            add("POS: ${controller?.pcbInfo}")
             add("SAS: ${controller?.snInfo} ${controller?.chipInfo}")
         }
 
