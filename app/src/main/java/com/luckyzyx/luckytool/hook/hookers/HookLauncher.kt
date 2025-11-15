@@ -3,13 +3,13 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
-import com.luckyzyx.luckytool.hook.scopes.launcher.AllowAppNamesDisplayMultipleLines
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableAutoCloseFolder
 import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDisplay
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookLauncherFeature
+import com.luckyzyx.luckytool.hook.scopes.launcher.HookOplusBubbleTextView
 import com.luckyzyx.luckytool.hook.scopes.launcher.LauncherLayoutRowColume
 import com.luckyzyx.luckytool.hook.scopes.launcher.LongPressAppIconOpenAppDetails
 import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
@@ -56,6 +56,9 @@ object HookLauncher : YukiBaseHooker() {
         //堆叠布局
 //        loadHooker(StackedTaskLayout)
 
+        //桌面图标相关
+        loadHooker(HookOplusBubbleTextView)
+
         //应用徽章
         if (SDK >= A13) loadHooker(HookAppBadge)
 
@@ -96,10 +99,6 @@ object HookLauncher : YukiBaseHooker() {
         //强制启用最近任务内存显示
         if (prefs(ModulePrefs).getBoolean("force_enable_recent_task_memory_display", false)) {
             if (osCode >= 30) loadHooker(ForceEnableRecentTaskMemoryDisplay)
-        }
-        //允许桌面App名称多行显示
-        if (prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)) {
-            loadHooker(AllowAppNamesDisplayMultipleLines)
         }
         //启用自动关闭文件夹
         if (prefs(ModulePrefs).getBoolean("enable_auto_close_folder", false)) {

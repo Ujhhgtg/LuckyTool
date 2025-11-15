@@ -102,6 +102,17 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
+            add(SeekBarPreference(this@loadPreferences).apply {
+                title = getString(R.string.custom_launcher_app_icon_size)
+                summary = getString(R.string.statusbar_clock_if_zero_summary)
+                key = "custom_launcher_app_icon_size"
+                setDefaultValue(65)
+                max = 100
+                min = 0
+                showSeekBarValue = true
+                updatesContinuously = false
+                isIconSpaceReserved = false
+            })
             //应用徽标
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppBadgeRelated)

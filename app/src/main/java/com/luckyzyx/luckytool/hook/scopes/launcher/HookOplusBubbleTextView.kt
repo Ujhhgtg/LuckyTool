@@ -9,16 +9,19 @@ import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-object AllowAppNamesDisplayMultipleLines : YukiBaseHooker() {
-
-    val textLineHeight = prefs(ModulePrefs).getInt("custom_app_icon_name_line_height", -1)
+object HookOplusBubbleTextView : YukiBaseHooker() {
 
     override fun onHook() {
         val osCode = getOSVersionCode
 
+        val multiLine =
+            prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)
+        val textLineHeight = prefs(ModulePrefs).getInt("custom_app_icon_name_line_height", -1)
+        val iconSize = prefs(ModulePrefs).getInt("custom_launcher_app_icon_size", 65)
+
         //Source OplusBubbleTextView
         "com.android.launcher3.OplusBubbleTextView".toClass().resolve().apply {
-            if (osCode < 26) {
+            if (osCode < 26 && multiLine) {
                 firstMethod {
                     name = "setMaxLines"
                     parameters(Int::class)
@@ -29,12 +32,25 @@ object AllowAppNamesDisplayMultipleLines : YukiBaseHooker() {
                     }
                 }
             }
-            if (textLineHeight > -1) {
+            if (multiLine && textLineHeight > -1) {
                 firstConstructor { parameterCount = 3 }.hook {
                     after {
                         instance<TextView>().apply {
                             lineHeight = textLineHeight.dp
                         }
+                    }
+                }
+            }
+            if (iconSize > 0) {
+                constructor { }.hookAll {
+                    after {
+                        firstField { name = "mIconSize"; superclass() }.of(instance)
+                            .set(iconSize.dp)
+                    }
+                }
+                firstMethodOrNull { name = "setIconSize" }?.hook {
+                    before {
+                        args().first().set(iconSize.dp)
                     }
                 }
             }
