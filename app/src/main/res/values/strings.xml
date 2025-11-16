@@ -541,6 +541,7 @@
     <string name="launcher_layout_related">Desktop Layout Related</string>
     <string name="enable_docker_blur_background">Enable Docker background display</string>
     <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
+    <string name="remove_docker_max_number_limit_summary">Same number of columns as desktop layout</string>
     <string name="launcher_layout_row_colume">Sets the maximum number of rows and columns supported by the desktop layout</string>
     <string name="launcher_layout_enable">Desktop icon layout general switch</string>
     <string name="launcher_layout_max_rows">Maximum number of lines in desktop layout</string>
