@@ -170,11 +170,13 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     add { name = "contains";paramTypes(String::class.java) }
                     add { returnType(AutoCloseable::class.java) }
                     add {
-                        paramTypes(String::class.java, Int::class.java)
+//                        paramTypes(String::class.java, Int::class.java)
+                        paramCount(2)
                         returnType(JInteger::class.java)
                     }
                     add {
-                        paramTypes(String::class.java, Long::class.java)
+//                        paramTypes(String::class.java, Long::class.java)
+                        paramCount(2)
                         returnType(JLong::class.java)
                     }
                     add {
@@ -182,10 +184,12 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         returnType(String::class.java)
                     }
                     add {
-                        paramTypes(String::class.java, Boolean::class.java)
+//                        paramTypes(String::class.java, Boolean::class.java)
+                        paramCount(2)
                         returnType(JBoolean::class.java)
                     }
                 }
+                usingStrings("ConfigAbilityImpl")
             }
         }.apply {
             checkDataList("HookConfigAbility")
