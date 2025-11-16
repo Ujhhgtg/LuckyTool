@@ -17,7 +17,7 @@ object HookOplusBubbleTextView : YukiBaseHooker() {
         val multiLine =
             prefs(ModulePrefs).getBoolean("allow_app_names_display_multiple_lines", false)
         val textLineHeight = prefs(ModulePrefs).getInt("custom_app_icon_name_line_height", -1)
-        val iconSize = prefs(ModulePrefs).getInt("custom_launcher_app_icon_size", 65)
+        val iconSize = prefs(ModulePrefs).getInt("custom_launcher_app_icon_size", 0)
 
         //Source OplusBubbleTextView
         "com.android.launcher3.OplusBubbleTextView".toClass().resolve().apply {

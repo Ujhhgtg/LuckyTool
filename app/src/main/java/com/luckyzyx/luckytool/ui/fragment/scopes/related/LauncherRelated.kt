@@ -106,7 +106,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.custom_launcher_app_icon_size)
                 summary = getString(R.string.statusbar_clock_if_zero_summary)
                 key = "custom_launcher_app_icon_size"
-                setDefaultValue(65)
+                setDefaultValue(0)
                 max = 100
                 min = 0
                 showSeekBarValue = true
