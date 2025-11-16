@@ -29,8 +29,10 @@ lsparanoid {
 }
 
 android {
-    compileSdk = 36
     namespace = "com.luckyzyx.luckytool"
+    compileSdk {
+        version = release(36)
+    }
     defaultConfig {
         applicationId = "com.luckyzyx.luckytool"
         minSdk = 30
