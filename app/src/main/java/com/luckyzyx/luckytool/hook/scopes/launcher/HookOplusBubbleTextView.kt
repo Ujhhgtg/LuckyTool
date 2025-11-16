@@ -41,17 +41,13 @@ object HookOplusBubbleTextView : YukiBaseHooker() {
                     }
                 }
             }
-            if (iconSize > 0) {
-                constructor { }.hookAll {
-                    after {
-                        firstField { name = "mIconSize"; superclass() }.of(instance)
-                            .set(iconSize.dp)
-                    }
-                }
-                firstMethodOrNull { name = "setIconSize" }?.hook {
-                    before {
-                        args().first().set(iconSize.dp)
-                    }
+        }
+
+        //Source IconParam
+        "com.android.launcher.layoutparam.IconParam".toClass().resolve().apply {
+            firstMethod { name = "getIconSizePx" }.hook {
+                before {
+                    if (iconSize > 0) result = iconSize.dp
                 }
             }
         }
