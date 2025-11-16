@@ -28,7 +28,7 @@ class HookSystemUIStatusBar(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         loadHooker(StatusBarUI)
 
         //状态栏时钟
-        loadHooker(StatusBarClock)
+        loadHooker(StatusBarClock())
 
         //状态栏网速
         loadHooker(StatusBarNetWorkSpeed)

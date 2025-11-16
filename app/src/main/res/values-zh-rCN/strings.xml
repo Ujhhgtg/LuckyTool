@@ -165,6 +165,7 @@
     <string name="statusbar_clock_custom_format">时钟格式</string>
     <string name="statusbar_clock_custom_fontsize">时钟字体大小</string>
     <string name="statusbar_clock_custom_minimum_width">时钟最小宽度</string>
+    <string name="statusbar_clock_custom_right_padding">时钟右边距</string>
     <string name="statusbar_clock_if_zero_summary">若为0，则该选项将不进行修改</string>
     <!-- StatusBarNetWorkSpeed -->
     <string name="StatusBarNetWorkSpeed">状态栏网速</string>
@@ -1111,4 +1112,8 @@
     <string name="net_other_error">未知错误</string>
     <string name="no_error_message">无错误信息</string>
     <string name="custom_remote_provisioning_hostname">自定义远程资源调配主机名</string>
+    <string name="statusbar_clock_custom_top_padding">时钟上边距</string>
+    <string name="statusbar_clock_custom_bottom_padding">时钟下边距</string>
+    <string name="statusbar_clock_custom_left_padding">时钟左边距</string>
+    <string name="statusbar_clock_custom_padding">自定义状态栏时钟间距</string>
 </resources>

@@ -231,22 +231,94 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                     }
                 })
             }
-            add(SeekBarPreference(this@loadPreferences).apply {
-                title = getString(R.string.statusbar_clock_custom_minimum_width)
-                summary = getString(R.string.statusbar_clock_if_zero_summary)
-                key = "statusbar_clock_custom_minimum_width"
-                setDefaultValue(0)
-                max = 50
-                min = 0
-                showSeekBarValue = true
-                updatesContinuously = false
-                isIconSpaceReserved = false
-                setOnPreferenceChangeListener { _, newValue ->
-                    sendPrefsValue("com.android.systemui", key, newValue)
-                    true
-                }
-            })
             if (getString(ModulePrefs, "statusbar_clock_mode", "0") != "0") {
+                add(SeekBarPreference(this@loadPreferences).apply {
+                    title = getString(R.string.statusbar_clock_custom_minimum_width)
+                    summary = getString(R.string.statusbar_clock_if_zero_summary)
+                    key = "statusbar_clock_custom_minimum_width"
+                    setDefaultValue(0)
+                    max = 50
+                    min = 0
+                    showSeekBarValue = true
+                    updatesContinuously = false
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+                add(SwitchPreference(this@loadPreferences).apply {
+                    title = getString(R.string.statusbar_clock_custom_padding)
+                    key = "statusbar_clock_custom_padding"
+                    setDefaultValue(false)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, _ ->
+                        (activity as MainActivity).restart()
+                        true
+                    }
+                })
+                if (getBoolean(ModulePrefs, "statusbar_clock_custom_padding", false)) {
+                    add(SeekBarPreference(this@loadPreferences).apply {
+                        title = getString(R.string.statusbar_clock_custom_top_padding)
+                        summary = getString(R.string.statusbar_clock_if_zero_summary)
+                        key = "statusbar_clock_custom_top_padding"
+                        setDefaultValue(0)
+                        max = 30
+                        min = -30
+                        showSeekBarValue = true
+                        updatesContinuously = false
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
+                    add(SeekBarPreference(this@loadPreferences).apply {
+                        title = getString(R.string.statusbar_clock_custom_bottom_padding)
+                        summary = getString(R.string.statusbar_clock_if_zero_summary)
+                        key = "statusbar_clock_custom_bottom_padding"
+                        setDefaultValue(0)
+                        max = 30
+                        min = -30
+                        showSeekBarValue = true
+                        updatesContinuously = false
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
+                    add(SeekBarPreference(this@loadPreferences).apply {
+                        title = getString(R.string.statusbar_clock_custom_left_padding)
+                        summary = getString(R.string.statusbar_clock_if_zero_summary)
+                        key = "statusbar_clock_custom_left_padding"
+                        setDefaultValue(0)
+                        max = 30
+                        min = -30
+                        showSeekBarValue = true
+                        updatesContinuously = false
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
+                    add(SeekBarPreference(this@loadPreferences).apply {
+                        title = getString(R.string.statusbar_clock_custom_right_padding)
+                        summary = getString(R.string.statusbar_clock_if_zero_summary)
+                        key = "statusbar_clock_custom_right_padding"
+                        setDefaultValue(0)
+                        max = 30
+                        min = -30
+                        showSeekBarValue = true
+                        updatesContinuously = false
+                        isIconSpaceReserved = false
+                        setOnPreferenceChangeListener { _, newValue ->
+                            sendPrefsValue("com.android.systemui", key, newValue)
+                            true
+                        }
+                    })
+                }
                 add(SwitchPreference(this@loadPreferences).apply {
                     title = getString(R.string.use_user_typeface)
                     key = "statusbar_clock_user_typeface"

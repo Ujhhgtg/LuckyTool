@@ -11,6 +11,7 @@ import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.sysui.LunarHelperUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
+import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.formatDate
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.is24
@@ -23,40 +24,46 @@ import java.util.Timer
 import java.util.TimerTask
 
 @Obfuscate
-object StatusBarClock : YukiBaseHooker() {
+class StatusBarClock : YukiBaseHooker() {
 
-    private val clockMode = prefs(ModulePrefs).getString("statusbar_clock_mode", "0")
-    private val isYear = prefs(ModulePrefs).getBoolean("statusbar_clock_show_year", false)
-    private val isMonth = prefs(ModulePrefs).getBoolean("statusbar_clock_show_month", false)
-    private val isDay = prefs(ModulePrefs).getBoolean("statusbar_clock_show_day", false)
-    private val isWeek = prefs(ModulePrefs).getBoolean("statusbar_clock_show_week", false)
-    private val isPeriod = prefs(ModulePrefs).getBoolean("statusbar_clock_show_period", false)
-    private val isDoubleHour =
+    val clockMode = prefs(ModulePrefs).getString("statusbar_clock_mode", "0")
+    val isYear = prefs(ModulePrefs).getBoolean("statusbar_clock_show_year", false)
+    val isMonth = prefs(ModulePrefs).getBoolean("statusbar_clock_show_month", false)
+    val isDay = prefs(ModulePrefs).getBoolean("statusbar_clock_show_day", false)
+    val isWeek = prefs(ModulePrefs).getBoolean("statusbar_clock_show_week", false)
+    val isPeriod = prefs(ModulePrefs).getBoolean("statusbar_clock_show_period", false)
+    val isDoubleHour =
         prefs(ModulePrefs).getBoolean("statusbar_clock_show_double_hour", false)
-    private val isSecond = prefs(ModulePrefs).getBoolean("statusbar_clock_show_second", false)
-    private val isHideSpace = prefs(ModulePrefs).getBoolean("statusbar_clock_hide_spaces", false)
-    private val isDoubleRow = prefs(ModulePrefs).getBoolean("statusbar_clock_show_doublerow", false)
+    val isSecond = prefs(ModulePrefs).getBoolean("statusbar_clock_show_second", false)
+    val isHideSpace = prefs(ModulePrefs).getBoolean("statusbar_clock_hide_spaces", false)
+    val isDoubleRow = prefs(ModulePrefs).getBoolean("statusbar_clock_show_doublerow", false)
 
-    private var clockAlignment =
+    var clockAlignment =
         prefs(ModulePrefs).getString("statusbar_clock_text_alignment", "center")
 
-    private var singleRowFontSize =
+    var singleRowFontSize =
         prefs(ModulePrefs).getInt("statusbar_clock_singlerow_fontsize", 0)
-    private var doubleRowFontSize =
+    var doubleRowFontSize =
         prefs(ModulePrefs).getInt("statusbar_clock_doublerow_fontsize", 0)
 
-    private var customFormat =
+    var customFormat =
         prefs(ModulePrefs).getString("statusbar_clock_custom_format", "HH:mm:ss")
-    private var customFontsize = prefs(ModulePrefs).getInt("statusbar_clock_custom_fontsize", 0)
-    private var customMinimumWidth =
+    var customFontsize = prefs(ModulePrefs).getInt("statusbar_clock_custom_fontsize", 0)
+    var customMinimumWidth =
         prefs(ModulePrefs).getInt("statusbar_clock_custom_minimum_width", 0)
 
-    private val userTypeface = prefs(ModulePrefs).getBoolean("statusbar_clock_user_typeface", false)
-    private var useBoldFont =
+    val userTypeface = prefs(ModulePrefs).getBoolean("statusbar_clock_user_typeface", false)
+    var useBoldFont =
         prefs(ModulePrefs).getBoolean("statusbar_clock_use_bold_font_style", false)
 
-    private var lunarInstance: Any? = null
-    private var newline = ""
+    val customPadding = prefs(ModulePrefs).getBoolean("statusbar_clock_custom_padding", false)
+    var customTopPadding = prefs(ModulePrefs).getInt("statusbar_clock_custom_top_padding", 0)
+    var customBottomPadding = prefs(ModulePrefs).getInt("statusbar_clock_custom_bottom_padding", 0)
+    var customLeftPadding = prefs(ModulePrefs).getInt("statusbar_clock_custom_left_padding", 0)
+    var customRightPadding = prefs(ModulePrefs).getInt("statusbar_clock_custom_right_padding", 0)
+
+    var lunarInstance: Any? = null
+    var newline = ""
 
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -69,6 +76,10 @@ object StatusBarClock : YukiBaseHooker() {
         dataChannel.wait<Int>("statusbar_clock_singlerow_fontsize") { singleRowFontSize = it }
         dataChannel.wait<Int>("statusbar_clock_doublerow_fontsize") { doubleRowFontSize = it }
         dataChannel.wait<Boolean>("statusbar_clock_use_bold_font_style") { useBoldFont = it }
+        dataChannel.wait<Int>("statusbar_clock_custom_top_padding") { customTopPadding = it }
+        dataChannel.wait<Int>("statusbar_clock_custom_bottom_padding") { customBottomPadding = it }
+        dataChannel.wait<Int>("statusbar_clock_custom_left_padding") { customLeftPadding = it }
+        dataChannel.wait<Int>("statusbar_clock_custom_right_padding") { customRightPadding = it }
 
         //Source Clock
         "com.android.systemui.statusbar.policy.Clock".toClass().resolve().apply {
@@ -88,7 +99,7 @@ object StatusBarClock : YukiBaseHooker() {
                     }, 1000 - System.currentTimeMillis() % 1000, 1000)
                 }
             }
-            firstMethod { name = "getSmallTime";returnType = CharSequence::class }.hook {
+            firstMethod { name = "getSmallTime"; returnType = CharSequence::class }.hook {
                 after {
                     val clockView = instance<TextView>().apply {
                         val clockName = safeOfNull { resources.getResourceEntryName(id) }
@@ -115,7 +126,7 @@ object StatusBarClock : YukiBaseHooker() {
                     if (customMinimumWidth > 0) {
                         clockView.minWidth = customMinimumWidth * 10
                         clockView.minimumWidth = customMinimumWidth * 10
-                        firstMethod { name = "setMeasuredDimension";superclass() }.of(instance)
+                        firstMethod { name = "setMeasuredDimension"; superclass() }.of(instance)
                             .invoke(customMinimumWidth * 10, height)
                     }
                 }
@@ -144,14 +155,14 @@ object StatusBarClock : YukiBaseHooker() {
                         if (customMinimumWidth > 0) {
                             clockView.minWidth = customMinimumWidth * 10
                             clockView.minimumWidth = customMinimumWidth * 10
-                            firstMethod { name = "setMeasuredDimension";superclass() }.of(instance)
+                            firstMethod { name = "setMeasuredDimension"; superclass() }.of(instance)
                                 .invoke(customMinimumWidth * 10, height)
                         }
                     }
                 }
                 firstMethodOrNull { name = "updateMinWidth" }?.hook {
                     before {
-                        firstField { name = "mShowSeconds";superclass() }.of(instance).set(true)
+                        firstField { name = "mShowSeconds"; superclass() }.of(instance).set(true)
                     }
                 }
             }
@@ -166,6 +177,14 @@ object StatusBarClock : YukiBaseHooker() {
     }
 
     private fun TextView.initView() {
+        if (customPadding) {
+            setPadding(
+                if (customLeftPadding != 0) customLeftPadding.dp else paddingLeft,
+                if (customTopPadding != 0) customTopPadding.dp else paddingTop,
+                if (customRightPadding != 0) customRightPadding.dp else paddingRight,
+                if (customBottomPadding != 0) customBottomPadding.dp else paddingBottom,
+            )
+        }
         if (userTypeface) typeface = if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
         if (clockMode == "1") {
             isSingleLine = !isDoubleRow
