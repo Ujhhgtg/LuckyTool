@@ -60,6 +60,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 自定义桌面应用图标大小 C12+
 - [添加] 自定义状态栏时钟边距
 - [添加] 启用Docker背景显示 C13+
+- [添加] 强制启用设备控制器磁贴
 
 ### 1.3.1
 

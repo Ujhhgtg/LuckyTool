@@ -283,6 +283,7 @@
     <string name="enable_nfc_delay_shutdown">启用 NFC 延迟关闭</string>
     <string name="custom_nfc_delay_shutdown_time">自定义 NFC 关闭延迟</string>
     <string name="force_display_of_ringing_status_toggle_tiles">强制显示响铃状态切换磁贴</string>
+    <string name="force_display_of_device_controls_tiles">强制启用设备控制器磁贴</string>
     <string name="SpecialTiles">特殊磁贴</string>
     <string name="classic_control_center_mode_only">仅限经典控制中心模式</string>
     <string name="separate_control_center_mode_only">仅限分离控制中心模式</string>

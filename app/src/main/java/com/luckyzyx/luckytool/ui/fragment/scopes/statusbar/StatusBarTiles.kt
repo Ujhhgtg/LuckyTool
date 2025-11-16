@@ -84,6 +84,13 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            //设备控制器
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.force_display_of_device_controls_tiles)
+                key = "force_display_of_device_controls_tiles"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
             //特殊磁贴
             if (SDK >= A13) {
                 add(PreferenceCategory(this@loadPreferences).apply {

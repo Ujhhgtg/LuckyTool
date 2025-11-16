@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.CustomTileBackgroundTransparency
 import com.luckyzyx.luckytool.hook.scopes.systemui.FixTileAlignBothSides
+import com.luckyzyx.luckytool.hook.scopes.systemui.ForceDisplayOfDeviceControlsTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.ForceDisplayOfRingingStatusToggleTiles
 import com.luckyzyx.luckytool.hook.scopes.systemui.LongPressTileOpenThePage
 import com.luckyzyx.luckytool.hook.scopes.systemui.MediaPlayerPanel
@@ -25,6 +26,11 @@ class StatusBarTile(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //强制显示响铃状态切换磁贴
         if (prefs(ModulePrefs).getBoolean("force_display_of_ringing_status_toggle_tiles", false)) {
             loadHooker(ForceDisplayOfRingingStatusToggleTiles)
+        }
+
+        //强制启用设备控制器磁贴
+        if (prefs(ModulePrefs).getBoolean("force_display_of_device_controls_tiles", false)) {
+            loadHooker(ForceDisplayOfDeviceControlsTiles)
         }
 
         //磁贴长按跳转事件
