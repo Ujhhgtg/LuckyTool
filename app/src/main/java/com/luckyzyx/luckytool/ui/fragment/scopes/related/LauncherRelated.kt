@@ -444,6 +444,13 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_docker_blur_background)
+                key = "enable_docker_blur_background"
+                setDefaultValue(false)
+                isVisible = osCode >= 26
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_docker_max_number_limit)
                 key = "remove_docker_max_number_limit"
                 setDefaultValue(false)

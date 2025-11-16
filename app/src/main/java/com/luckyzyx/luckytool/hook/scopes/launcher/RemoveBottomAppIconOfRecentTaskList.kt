@@ -22,6 +22,11 @@ object RemoveBottomAppIconOfRecentTaskList : YukiBaseHooker() {
                     }
                 }
             }
+            firstMethodOrNull { name = "hideDockView" }?.hook {
+                before {
+                    args().first().setTrue()
+                }
+            }
         }
 
         //Source DockViewController C14+

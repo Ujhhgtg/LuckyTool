@@ -539,6 +539,7 @@
     <string name="set_icon_columns_in_drawer">Set the number of icon columns in the drawer</string>
     
     <string name="launcher_layout_related">Desktop Layout Related</string>
+    <string name="enable_docker_blur_background">Enable Docker background display</string>
     <string name="remove_docker_max_number_limit">Remove max number limit for Docker</string>
     <string name="launcher_layout_row_colume">Sets the maximum number of rows and columns supported by the desktop layout</string>
     <string name="launcher_layout_enable">Desktop icon layout general switch</string>
