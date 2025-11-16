@@ -877,6 +877,7 @@
     <string name="unlock_recent_files">解锁最近文件</string>
     <string name="unlock_fluid_cloud">解锁流体云</string>
     <string name="enable_run_in_background">启用后台挂机</string>
+    <string name="enable_run_in_background_summary">可能需要安装旧版本侧边栏</string>
     <string name="enable_game_ai_play">启用AI游戏辅助</string>
     <!--OplusSoundRecorder-->
     <string name="enable_record_calls_on_third_party_apps">启用三方应用通话录音</string>

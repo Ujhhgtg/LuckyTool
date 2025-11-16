@@ -66,6 +66,7 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_run_in_background)
+                if (osCode >= 37) summary = getString(R.string.enable_run_in_background_summary)
                 key = "enable_run_in_background"
                 setDefaultValue(false)
                 isVisible = osCode >= 27

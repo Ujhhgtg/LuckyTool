@@ -18,7 +18,7 @@ object EnableRunInBackground : YukiBaseHooker() {
         val osCode = getOSVersionCode
 
         //Source BackgroundRunTool
-        BackgroundRunToolCls.toClass().resolve().apply {
+        BackgroundRunToolCls.toClassOrNull()?.resolve()?.apply {
             firstMethod { name = "handle" }.hook {
                 before {
                     if (osCode >= 34) {
@@ -34,7 +34,7 @@ object EnableRunInBackground : YukiBaseHooker() {
             firstMethod { name = "isToolAvailable" }.hook {
                 replaceToTrue()
             }
-        }
+        } ?: return
 
         //Source ToolEntryHelper
         "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.ToolEntryHelper".toClass()
