@@ -12,6 +12,9 @@ object EnableDockerBlurBackground : YukiBaseHooker() {
             firstMethod { name = "isSupportDockerExpandScreen" }.hook {
                 replaceToTrue()
             }
+            firstMethod { name = "hasLargeDisplayFeatures" }.hook {
+                replaceToTrue()
+            }
         }
     }
 }
