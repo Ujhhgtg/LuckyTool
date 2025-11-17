@@ -4,6 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
+import com.luckyzyx.luckytool.hook.scopes.launcher.DisableLongPressAppIconSecondaryMenu
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableAutoCloseFolder
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableDockerBackground
 import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableDockerBackgroundBlur
@@ -121,6 +122,11 @@ object HookLauncher : YukiBaseHooker() {
         //移除桌面卡片名称
         if (prefs(ModulePrefs).getBoolean("remove_launcher_card_name", false)) {
             if (osCode >= 26) loadHooker(RemoveLauncherCardName)
+        }
+
+        //禁用长按应用图标二级菜单
+        if (prefs(ModulePrefs).getBoolean("disable_long_press_app_icon_secondary_menu", false)) {
+            if (osCode >= 37) loadHooker(DisableLongPressAppIconSecondaryMenu)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl

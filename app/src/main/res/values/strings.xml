@@ -489,6 +489,7 @@
     <string name="allow_app_names_display_multiple_lines">Allow desktop app names to be displayed in multiple lines</string>
     <string name="custom_app_icon_name_line_height">Custom app icon name line height</string>
     <string name="custom_launcher_app_icon_size">Custom desktop app icon size</string>
+    <string name="disable_long_press_app_icon_secondary_menu">Disable long-press app icon secondary menu</string>
     
     <string name="AppBadgeRelated">App badge related</string>
     <string name="enable_display_app_update_dot">Enable display app update dot switch</string>

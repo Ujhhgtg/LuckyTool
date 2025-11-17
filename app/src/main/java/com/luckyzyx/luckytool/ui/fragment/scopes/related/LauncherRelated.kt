@@ -113,6 +113,13 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 updatesContinuously = false
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_long_press_app_icon_secondary_menu)
+                key = "disable_long_press_app_icon_secondary_menu"
+                setDefaultValue(false)
+                isVisible = osCode >= 37
+                isIconSpaceReserved = false
+            })
             //应用徽标
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.AppBadgeRelated)
