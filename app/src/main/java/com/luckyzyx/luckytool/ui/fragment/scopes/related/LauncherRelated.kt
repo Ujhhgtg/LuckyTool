@@ -444,10 +444,17 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.enable_docker_blur_background)
-                key = "enable_docker_blur_background"
+                title = getString(R.string.enable_docker_background)
+                key = "enable_docker_background"
                 setDefaultValue(false)
                 isVisible = osCode >= 26
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.force_enable_docker_background_blur)
+                key = "force_enable_docker_background_blur"
+                setDefaultValue(false)
+                isVisible = osCode >= 37
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

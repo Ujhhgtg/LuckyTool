@@ -5,7 +5,8 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.scopes.launcher.AllowLockingUnLockingOfExcludedActivity
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableAutoCloseFolder
-import com.luckyzyx.luckytool.hook.scopes.launcher.EnableDockerBlurBackground
+import com.luckyzyx.luckytool.hook.scopes.launcher.EnableDockerBackground
+import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableDockerBackgroundBlur
 import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDisplay
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookDeviceProfileOption
@@ -88,8 +89,12 @@ object HookLauncher : YukiBaseHooker() {
             loadHooker(RemoveBottomAppIconOfRecentTaskList)
         }
         //启用Docker背景显示
-        if (prefs(ModulePrefs).getBoolean("enable_docker_blur_background", false)) {
-            if (osCode >= 26) loadHooker(EnableDockerBlurBackground)
+        if (prefs(ModulePrefs).getBoolean("enable_docker_background", false)) {
+            if (osCode >= 26) loadHooker(EnableDockerBackground)
+        }
+        //强制启用Docker背景模糊
+        if (prefs(ModulePrefs).getBoolean("force_enable_docker_background_blur", false)) {
+            if (osCode >= 37) loadHooker(ForceEnableDockerBackgroundBlur)
         }
         //解锁后台任务锁定限制
         if (prefs(ModulePrefs).getBoolean("unlock_task_locks", false)) {

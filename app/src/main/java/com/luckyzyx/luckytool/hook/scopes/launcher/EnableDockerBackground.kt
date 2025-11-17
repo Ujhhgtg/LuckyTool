@@ -5,16 +5,17 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-object EnableDockerBlurBackground : YukiBaseHooker() {
+object EnableDockerBackground : YukiBaseHooker() {
     override fun onHook() {
         //Source ScreenUtils
         "com.android.common.util.ScreenUtils".toClass().resolve().apply {
             firstMethod { name = "isSupportDockerExpandScreen" }.hook {
                 replaceToTrue()
             }
-            firstMethod { name = "hasLargeDisplayFeatures" }.hook {
-                replaceToTrue()
-            }
+            //OplusTaskHeaderView showSplitWindowIcon
+//            firstMethod { name = "hasLargeDisplayFeatures" }.hook {
+//                replaceToTrue()
+//            }
         }
     }
 }
