@@ -219,7 +219,7 @@
                 android:name=".service.tiles.RunInBackgroundTile"
                 android:exported="true"
                 android:icon="@drawable/ic_flip_24"
-                android:label="@string/enable_run_in_background"
+                android:label="@string/run_in_background"
                 android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

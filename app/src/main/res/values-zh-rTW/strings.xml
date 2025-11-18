@@ -1018,6 +1018,7 @@
     <string name="google_service">Google 服務</string>
     <string name="bypass_power">旁路供电</string>
     <!--Service-->
+    <string name="run_in_background">后台挂机</string>
     <string name="auto_start_service_channel_name">自启功能服务</string>
     <string name="auto_start_service_channel_title">自启功能运行中…</string>
     <string name="service_auto_start_controller_not_allow_tips">自启服务运行异常，请勿限制模块后台</string>

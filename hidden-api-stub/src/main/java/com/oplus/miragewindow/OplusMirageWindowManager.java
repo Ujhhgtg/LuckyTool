@@ -26,6 +26,10 @@ public class OplusMirageWindowManager {
         throw new RuntimeException("STUB");
     }
     
+    public void stopMirageWindowMode() {
+        throw new RuntimeException("STUB");
+    }
+    
     public void stopMirageWindowMode(Bundle options) {
         throw new RuntimeException("STUB");
     }

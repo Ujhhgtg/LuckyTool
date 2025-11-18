@@ -16,7 +16,8 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.replaceSpace
-import com.luckyzyx.luckytool.utils.startMirageWindow
+import com.oplus.miragewindow.OplusMirageOptions
+import com.oplus.miragewindow.OplusMirageWindowManager
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import okhttp3.internal.toHexString
@@ -114,8 +115,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun checkDarkMode(): Boolean {
                 return try {
                     iColorDisplayManagerInternal != null
-                } catch (e: Throwable) {
-                    LogUtils.d(TAG, "checkDarkMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.d(TAG, "checkDarkMode", "$t", true)
                     false
                 }
             }
@@ -126,8 +127,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         name = "isReduceBrightColorsActivated"
                         emptyParameters()
                     }?.invoke<Boolean>() ?: false
-                } catch (e: Throwable) {
-                    LogUtils.d(TAG, "getDarkMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.d(TAG, "getDarkMode", "$t", true)
                     false
                 }
             }
@@ -138,8 +139,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         name = "setReduceBrightColorsActivated"
                         parameters(Boolean::class)
                     }?.invoke(status)
-                } catch (e: Throwable) {
-                    LogUtils.d(TAG, "setDarkMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.d(TAG, "setDarkMode", "$t", true)
                 }
             }
 
@@ -201,8 +202,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun checkGlobalDCMode(): Boolean {
                 return try {
                     oppoFile.exists() || oplusFile.exists()
-                } catch (e: Throwable) {
-                    LogUtils.d(TAG, "checkGlobalDCMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.d(TAG, "checkGlobalDCMode", "$t", true)
                     false
                 }
             }
@@ -218,8 +219,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         1 -> true
                         else -> false
                     }
-                } catch (e: Throwable) {
-                    LogUtils.d(TAG, "getGlobalDCMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.d(TAG, "getGlobalDCMode", "$t", true)
                     false
                 }
             }
@@ -230,8 +231,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                     else if (oplusFile.exists()) oplusFile
                     else null) ?: return
                     file.writeText(if (status) "1" else "0")
-                } catch (e: Throwable) {
-                    LogUtils.d(TAG, "setGlobalDCMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.d(TAG, "setGlobalDCMode", "$t", true)
                 }
             }
 
@@ -240,8 +241,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                     val result = ShellUtils.fastCmd("settings get system $key")
                     LogUtils.d(TAG, "getGoogleStatus", "result -> $result")
                     result.toIntOrNull() == 1
-                } catch (e: Exception) {
-                    LogUtils.d(TAG, "getGoogleStatus", "$e", true)
+                } catch (t: Exception) {
+                    LogUtils.d(TAG, "getGoogleStatus", "$t", true)
                     false
                 }
             }
@@ -252,16 +253,16 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         "settings put system $key ${if (status) 1 else 0}"
                     )
                     LogUtils.d(TAG, "setGoogleStatus", "$status -> $result")
-                } catch (e: Exception) {
-                    LogUtils.d(TAG, "setGoogleStatus", "$e", true)
+                } catch (t: Exception) {
+                    LogUtils.d(TAG, "setGoogleStatus", "$t", true)
                 }
             }
 
             override fun checkHighBrightnessMode(): Boolean {
                 return try {
                     highBrightnessFile.exists()
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "checkHighBrightnessMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "checkHighBrightnessMode", "$t", true)
                     false
                 }
             }
@@ -274,8 +275,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         1 -> true
                         else -> false
                     }
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "getHighBrightnessMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "getHighBrightnessMode", "$t", true)
                     false
                 }
             }
@@ -283,8 +284,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun setHighBrightnessMode(status: Boolean) {
                 try {
                     if (highBrightnessFile.exists()) highBrightnessFile.writeText(if (status) "1" else "0")
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "setHighBrightnessMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "setHighBrightnessMode", "$t", true)
                 }
             }
 
@@ -297,8 +298,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
 
                         else -> false
                     }
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "checkTouchMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "checkTouchMode", "$t", true)
                     false
                 }
             }
@@ -310,8 +311,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         2 -> ShellUtils.fastCmd(readTouch).substringBefore(",").toIntOrNull() ?: 0
                         else -> 0
                     }
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "getTouchMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "getTouchMode", "$t", true)
                     0
                 }
             }
@@ -323,16 +324,16 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         1 -> touchPanel.writeText(int16)
                         2 -> ShellUtils.fastCmd("$writeTouch $int16")
                     }
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "setTouchMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "setTouchMode", "$t", true)
                 }
             }
 
             override fun checkBypassMode(): Boolean {
                 return try {
                     bypassPowerFile.exists()
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "checkBypassMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "checkBypassMode", "$t", true)
                     false
                 }
             }
@@ -345,8 +346,8 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                         0 -> true
                         else -> false
                     }
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "getBypassMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "getBypassMode", "$t", true)
                     false
                 }
             }
@@ -354,15 +355,22 @@ object TilesService : BaseControllerService<ITileServiceController>() {
             override fun setBypassMode(status: Boolean) {
                 try {
                     if (bypassPowerFile.exists()) bypassPowerFile.writeText(if (status) "0" else "1")
-                } catch (e: Throwable) {
-                    LogUtils.e(TAG, "setBypassMode", "$e", true)
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "setBypassMode", "$t", true)
                 }
             }
 
-            override fun setRunInBackground() {
-                startMirageWindow(null)
+            override fun startMirageWindowMode(): Int {
+                return try {
+                    val makeBasic = OplusMirageOptions.makeBackgroundStreamModeOptions()
+                    OplusMirageWindowManager.getInstance().startMirageWindowMode(
+                        null, makeBasic.toBundle()
+                    )
+                } catch (t: Throwable) {
+                    LogUtils.e(TAG, "startMirageWindowMode", "$t", true)
+                    -1
+                }
             }
         }
-
     }
 }

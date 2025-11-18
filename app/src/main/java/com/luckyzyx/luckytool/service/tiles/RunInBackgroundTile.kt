@@ -23,12 +23,10 @@ class RunInBackgroundTile : TileService() {
         when (qsTile.state) {
             Tile.STATE_INACTIVE -> {
                 closeCollapse()
-                controller?.setRunInBackground()
+                controller?.startMirageWindowMode()
             }
 
-            Tile.STATE_ACTIVE -> {
-
-            }
+            Tile.STATE_ACTIVE -> {}
 
             Tile.STATE_UNAVAILABLE -> {}
         }

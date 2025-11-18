@@ -1178,6 +1178,7 @@
     <string name="display_refresh_rate">Show/Hide Refresh Rate</string>
     <string name="google_service">Google Service</string>
     <string name="bypass_power">Bypass Power</string>
+    <string name="run_in_background">Run in background</string>
     
     <!--Service-->
     <string name="auto_start_service_channel_name">Self-starting function service</string>
