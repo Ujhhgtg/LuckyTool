@@ -29,4 +29,5 @@ interface ITileServiceController {
     boolean getBypassMode();
     void setBypassMode(boolean status);
 
+    void setRunInBackground();
 }

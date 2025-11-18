@@ -16,6 +16,7 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.replaceSpace
+import com.luckyzyx.luckytool.utils.startMirageWindow
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.ipc.RootService
 import okhttp3.internal.toHexString
@@ -356,6 +357,10 @@ object TilesService : BaseControllerService<ITileServiceController>() {
                 } catch (e: Throwable) {
                     LogUtils.e(TAG, "setBypassMode", "$e", true)
                 }
+            }
+
+            override fun setRunInBackground() {
+                startMirageWindow(null)
             }
         }
 
