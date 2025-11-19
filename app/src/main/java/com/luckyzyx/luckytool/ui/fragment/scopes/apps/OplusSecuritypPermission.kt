@@ -12,8 +12,8 @@ import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-class OplusPermissionController : BaseScopePreferenceFeagment() {
-    override val scopes = arrayOf("com.android.permissioncontroller")
+class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
+    override val scopes = arrayOf("com.oplus.securitypermission")
 
     override val isEnableRestartMenu: Boolean = true
 
@@ -25,15 +25,14 @@ class OplusPermissionController : BaseScopePreferenceFeagment() {
 
     override fun Context.loadRootPreference(): Preference {
         return Preference(this).apply {
-            key = "com.android.permissioncontroller"
+            key = "com.oplus.securitypermission"
             setPrefsIconRes(key) { resource, show ->
                 icon = resource
                 isIconSpaceReserved = show
             }
             title = AppUtils(context).getAppLabel(key)
             summary = arraySummaryLine(
-                getString(R.string.unlock_default_desktop_limit),
-                getString(R.string.remove_storage_permission_exception_dialog)
+                getString(R.string.app_start_dialog_use_old_version)
             )
         }
     }
@@ -41,16 +40,9 @@ class OplusPermissionController : BaseScopePreferenceFeagment() {
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.unlock_default_desktop_limit)
-                key = "unlock_default_desktop_limit"
+                title = getString(R.string.app_start_dialog_use_old_version)
+                key = "app_start_dialog_use_old_version"
                 setDefaultValue(false)
-                isIconSpaceReserved = false
-            })
-            add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.remove_storage_permission_exception_dialog)
-                key = "remove_storage_permission_exception_dialog"
-                setDefaultValue(false)
-                isVisible = osCode < 37
                 isIconSpaceReserved = false
             })
         }

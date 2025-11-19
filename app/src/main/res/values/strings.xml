@@ -1045,6 +1045,9 @@
     <!--OplusPermissionController-->
     <string name="remove_storage_permission_exception_dialog">Remove storage permission exception prompt dialog</string>
     
+    <!--OplusSecuritypPermission-->
+    <string name="app_start_dialog_use_old_version">Use the old version of the app start dialog</string>
+    
     <!--OplusLinker-->
     <string name="force_enable_iphone_shared_support">Force enable iPhone shared support</string>
     

@@ -61,6 +61,7 @@ import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusPhoneManager
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusPictorial
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusScreenshot
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSearchBox
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSecuritypPermission
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSettings
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSmartSidebar
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusSoundRecorder
@@ -211,6 +212,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentPreference(this, allPrefs, OplusPermissionController())
         //Linker
         addFragmentPreference(this, allPrefs, OplusLinker())
+        //SecuritypPermission
+        addFragmentPreference(this, allPrefs, OplusSecuritypPermission())
 
         //Other App
         addFragmentPreference(this, allPrefs, AlphaBackupPro())
@@ -296,6 +299,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(context, allFragmentItem, OplusOShare())
         addFragmentItem(context, allFragmentItem, OplusPermissionController())
         addFragmentItem(context, allFragmentItem, OplusLinker())
+        addFragmentItem(context, allFragmentItem, OplusSecuritypPermission())
 
         addFragmentItem(context, allFragmentItem, ADM())
         addFragmentItem(context, allFragmentItem, AlphaBackupPro())

@@ -46,6 +46,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookSAU
 import com.luckyzyx.luckytool.hook.hookers.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hookers.HookScreenshot
 import com.luckyzyx.luckytool.hook.hookers.HookSecurePay
+import com.luckyzyx.luckytool.hook.hookers.HookSecuritypPermission
 import com.luckyzyx.luckytool.hook.hookers.HookSettings
 import com.luckyzyx.luckytool.hook.hookers.HookSmartSidebar
 import com.luckyzyx.luckytool.hook.hookers.HookSoundRecorder
@@ -208,6 +209,8 @@ object YukiEntry {
         loadApp("com.android.contacts", HookContacts)
         //远程配置器
         loadApp("com.android.rkpdapp", HookRkpdApp)
+        //权限管理
+        loadApp("com.oplus.securitypermission", HookSecuritypPermission)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
