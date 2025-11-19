@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.related
 import android.content.Context
 import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
@@ -21,6 +22,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.topjohnwu.superuser.ShellUtils
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -448,6 +450,14 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.launcher_layout_related)
                 key = "DesktopLayoutRelated"
+                isIconSpaceReserved = false
+            })
+            add(EditTextPreference(this@loadPreferences).apply {
+                title = getString(R.string.custom_desktop_default_home_page)
+                dialogTitle = title
+                key = "custom_desktop_default_home_page"
+                setDefaultValue("0")
+                setSummaryProvider(this)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
