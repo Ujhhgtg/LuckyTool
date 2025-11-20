@@ -66,6 +66,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用后台挂机磁贴
 - [添加] 自定义桌面默认主页 C12+
 - [添加] 使用旧版跳转应用对话框
+- [添加] 启用始终允许启动应用对话框
 
 ### 1.3.1
 

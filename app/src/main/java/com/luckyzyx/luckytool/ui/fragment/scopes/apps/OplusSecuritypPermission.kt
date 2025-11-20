@@ -21,7 +21,7 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
 
     override val currentPrefsName: String = ModulePrefs
 
-    override val navigateFragmentId: Int = R.id.oplusPermissionController
+    override val navigateFragmentId: Int = R.id.oplusSecuritypPermission
 
     override fun Context.loadRootPreference(): Preference {
         return Preference(this).apply {
@@ -32,7 +32,8 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
             }
             title = AppUtils(context).getAppLabel(key)
             summary = arraySummaryLine(
-                getString(R.string.app_start_dialog_use_old_version)
+                getString(R.string.app_start_dialog_use_old_version),
+                getString(R.string.enable_always_allow_app_start_dialog),
             )
         }
     }
@@ -42,6 +43,12 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.app_start_dialog_use_old_version)
                 key = "app_start_dialog_use_old_version"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_always_allow_app_start_dialog)
+                key = "enable_always_allow_app_start_dialog"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
