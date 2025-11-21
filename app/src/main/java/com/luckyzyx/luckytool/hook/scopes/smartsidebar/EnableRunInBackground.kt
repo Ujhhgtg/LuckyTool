@@ -2,8 +2,11 @@ package com.luckyzyx.luckytool.hook.scopes.smartsidebar
 
 import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
+import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.startMirageWindow
@@ -11,21 +14,42 @@ import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object EnableRunInBackground : YukiBaseHooker() {
-    private const val BackgroundRunToolCls =
-        "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.BackgroundRunTool"
 
     override fun onHook() {
         val osCode = getOSVersionCode
 
-        //Source BackgroundRunTool
-        BackgroundRunToolCls.toClassOrNull()?.resolve()?.apply {
+        val targetTool = VariousClass(
+            "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.BackgroundRunTool", //C15-
+            "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.GTModelTool" //C16
+        ).toClass()
+
+        //Source BackgroundRunTool or GTModelTool
+        targetTool.resolve().apply {
+            if (targetTool.simpleName == "GTModelTool") {
+                firstMethod { name = "getIconRes" }.hook {
+                    before {
+                        val context = firstField { type = Context::class; superclass() }
+                            .of(instance).get<Context>() ?: return@before
+                        context.injectModuleAppResources()
+                        result = R.drawable.ic_flip_24
+                    }
+                }
+                firstMethod { name = "getNameRes" }.hook {
+                    before {
+                        val context = firstField { type = Context::class; superclass() }
+                            .of(instance).get<Context>() ?: return@before
+                        context.injectModuleAppResources()
+                        result = R.string.run_in_background
+                    }
+                }
+            }
             firstMethod { name = "handle" }.hook {
                 before {
                     if (osCode >= 34) {
                         startMirageWindow(null)
                     } else {
-                        val context = firstField { type = Context::class;superclass() }.of(instance)
-                            .get<Context>() ?: return@before
+                        val context = firstField { type = Context::class; superclass() }
+                            .of(instance).get<Context>() ?: return@before
                         IntentUtils(context).startBackgroundRunServiceV14()
                     }
                     resultNull()
@@ -34,7 +58,7 @@ object EnableRunInBackground : YukiBaseHooker() {
             firstMethod { name = "isToolAvailable" }.hook {
                 replaceToTrue()
             }
-        } ?: return
+        }
 
         //Source ToolEntryHelper
         "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.ToolEntryHelper".toClass()
@@ -44,9 +68,7 @@ object EnableRunInBackground : YukiBaseHooker() {
                         val context =
                             firstField { type = Context::class; superclass() }.of(instance)
                                 .get<Context>() ?: return@after
-                        val tool = BackgroundRunToolCls.toClass().createInstance(
-                            context, isPublic = false
-                        )
+                        val tool = targetTool.createInstance(context, isPublic = false)
                         firstMethod { name = "put" }.of(instance).invoke(tool)
                     }
                 }
