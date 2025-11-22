@@ -73,7 +73,7 @@
     <string name="open_source">Cod sursă public</string>
     <string name="open_source_summary">Apasă pentru a vedea lista cu cod sursă deschis</string>
     <string name="participate_translation">Participă în traducerile modulelor</string>
-    <string name="participate_translation_summary">Du-te la Crowdin pentru a contribui cu traducerea</string>
+    <string name="participate_translation_summary">Du-te la Github pentru a contribui cu traducerea</string>
     <!-- check lsposed -->
     <string name="system_not_support">Sistemul actual nu acceptă!</string>
     <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>

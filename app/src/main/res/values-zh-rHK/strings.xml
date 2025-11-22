@@ -73,7 +73,7 @@
     <string name="open_source">开放源代码</string>
     <string name="open_source_summary">点击查看开放源代码列表</string>
     <string name="participate_translation">参与模块翻译</string>
-    <string name="participate_translation_summary">前往Crowdin贡献你的翻译</string>
+    <string name="participate_translation_summary">前往 Github 贡献您的翻译</string>
     <!-- check lsposed -->
     <string name="system_not_support">当前系统不支持!</string>
     <string name="unsupported_xposed">检测到模块未激活\n请使用LSPosed框架进行激活后重试!</string>

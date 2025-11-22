@@ -73,7 +73,7 @@
     <string name="open_source">Mã nguồn mở</string>
     <string name="open_source_summary">Bấm để xem danh sách mã nguồn mở</string>
     <string name="participate_translation">Tham gia dịch module</string>
-    <string name="participate_translation_summary">Truy cập Crowdin để đóng góp bản dịch của bạn</string>
+    <string name="participate_translation_summary">Truy cập Github để đóng góp bản dịch của bạn</string>
     <!-- check lsposed -->
     <string name="system_not_support">Hệ thống hiện tại không hỗ trợ!</string>
     <string name="unsupported_xposed">Phát hiện mô-đun chưa được kích hoạt\nVui lòng sử dụng khung LSPosed để kích hoạt mô-đun và thử lại!</string>

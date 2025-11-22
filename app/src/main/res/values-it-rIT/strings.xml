@@ -73,7 +73,7 @@
     <string name="open_source">Open Source</string>
     <string name="open_source_summary">Fare clic per visualizzare l\'elenco open source</string>
     <string name="participate_translation">Partecipa alle traduzioni del modulo</string>
-    <string name="participate_translation_summary">Vai su Crowdin per contribuire alla traduzione</string>
+    <string name="participate_translation_summary">Vai su Github per contribuire alla traduzione</string>
     <!-- check lsposed -->
     <string name="system_not_support">Il sistema attuale non è supportato!</string>
     <string name="unsupported_xposed">Rilevato modulo non attivato.\nUtilizzare il framework LSPosed per l\'attivazione dopo l\'attivazione!</string>

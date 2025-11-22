@@ -82,7 +82,7 @@
     <string name="open_source">Open Source</string>
     <string name="open_source_summary">Click to view the open source list</string>
     <string name="participate_translation">Participate in module translations</string>
-    <string name="participate_translation_summary">Go to Crowdin to contribute your translation</string>
+    <string name="participate_translation_summary">Go to Github to contribute your translation</string>
     
     <!-- check lsposed -->
     <string name="system_not_support">The current system does not support!</string>

@@ -73,7 +73,7 @@
     <string name="open_source">Otevřený zdrojový kód</string>
     <string name="open_source_summary">Kliknutím zobrazíte seznam otevřených zdrojů</string>
     <string name="participate_translation">Účast na překladu modulu</string>
-    <string name="participate_translation_summary">Přejděte na Crowdin a přispějte svým překladem</string>
+    <string name="participate_translation_summary">Přejděte na Github a přispějte svým překladem</string>
     <!-- check lsposed -->
     <string name="system_not_support">Aktuální systém není podporován!</string>
     <string name="unsupported_xposed">Modul nebyl aktivován.\nProsím použijte LSPosed framework pro aktivaci po aktivaci!</string>

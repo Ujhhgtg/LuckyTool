@@ -73,7 +73,7 @@
     <string name="open_source">Відкритий програмний код</string>
     <string name="open_source_summary">Клацніть, щоб переглянути список з відкритим кодом</string>
     <string name="participate_translation">Взяти участь у перекладі модуля</string>
-    <string name="participate_translation_summary">Перейдіть в Crowdin, щоб додати свій переклад</string>
+    <string name="participate_translation_summary">Перейдіть в Github, щоб додати свій переклад</string>
     <!-- check lsposed -->
     <string name="system_not_support">Поточна система не підтримується!</string>
     <string name="unsupported_xposed">Module not activated detected.\nPlease use the LSPosed framework for activation after activation!</string>

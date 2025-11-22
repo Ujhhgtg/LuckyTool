@@ -419,7 +419,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 setOnPreferenceClickListener {
                     startActivity(
                         Intent(
-                            Intent.ACTION_VIEW, "https://crwd.in/luckytool".toUri()
+                            Intent.ACTION_VIEW, "https://github.com/luckyzyx/LuckyTool-Localization".toUri()
                         )
                     )
                     true
