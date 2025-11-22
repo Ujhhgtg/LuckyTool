@@ -22,5 +22,9 @@ object HookSecuritypPermission : YukiBaseHooker() {
         if (prefs(ModulePrefs).getBoolean("app_start_dialog_use_old_version", false)) {
             loadHooker(AppStartDialogUseOldVersion)
         }
+        //使用旧版跳转应用对话框
+        if (prefs(ModulePrefs).getBoolean("auto_unlock_app_ecm_permission_restrict", false)) {
+            loadHooker(AppStartDialogUseOldVersion)
+        }
     }
 }

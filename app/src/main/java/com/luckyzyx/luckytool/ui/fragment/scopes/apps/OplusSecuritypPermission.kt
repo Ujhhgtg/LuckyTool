@@ -52,6 +52,12 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.auto_unlock_app_ecm_permission_restrict)
+                key = "auto_unlock_app_ecm_permission_restrict"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }
