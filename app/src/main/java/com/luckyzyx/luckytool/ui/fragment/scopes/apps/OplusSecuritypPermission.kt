@@ -3,11 +3,18 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.apps
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.highcapable.betterandroid.ui.extension.view.toast
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.service.UserService
+import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.dialogCentered
+import com.luckyzyx.luckytool.utils.getBoolean
+import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -48,10 +55,56 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_always_allow_app_start_dialog)
+                summary = getString(R.string.need_restart_system)
                 key = "enable_always_allow_app_start_dialog"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
+            if (getBoolean(ModulePrefs, "enable_always_allow_app_start_dialog", false)) {
+                add(Preference(this@loadPreferences).apply {
+                    title = getString(R.string.remove_always_allow_app_start_list)
+                    key = "remove_always_allow_app_start_list"
+                    isPersistent = false
+                    isIconSpaceReserved = false
+                    setOnPreferenceClickListener {
+                        UserService.get(context) {
+                            val users = it?.users
+                            if (users.isNullOrEmpty()) {
+                                toast("userId is null")
+                                return@get
+                            }
+
+                            val items = arrayListOf(Pair("All", -1))
+                            users.map { info ->
+                                val pair = Pair("${info.name} [${info.id}]", info.id)
+                                items.add(pair)
+                            }
+
+                            var curUserId = arrayListOf<Int>()
+                            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                                setTitle(title)
+                                setSingleChoiceItems(
+                                    items.map { i -> i.first }.toTypedArray(), 0,
+                                ) { _, which ->
+                                    curUserId = when (which) {
+                                        0 -> ArrayList(users.map { info -> info.id })
+                                        else -> ArrayList(items[which].second)
+                                    }
+                                }
+                                setNeutralButton(android.R.string.cancel, null)
+                                setPositiveButton(android.R.string.ok) { _, _ ->
+                                    sendPrefsValue("android", key, curUserId)
+                                }
+                            }.show()
+                        }
+                        true
+                    }
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.auto_unlock_app_ecm_permission_restrict)
                 key = "auto_unlock_app_ecm_permission_restrict"

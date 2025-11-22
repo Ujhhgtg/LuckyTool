@@ -69,6 +69,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用始终允许启动应用对话框
 - [适配] 启用侧边栏后台挂机 C16
 - [添加] 自动解锁应用权限管理授权限制
+- [添加] 移除始终允许启动应用列表
 
 ### 1.3.1
 
