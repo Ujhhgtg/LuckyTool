@@ -16,7 +16,7 @@ object FixInstallButtonDisplayException : YukiBaseHooker() {
                     firstField { type = SecureRandom::class }.of(instance).set(SecureRandom())
                 }
             }
-            firstMethod { name = "getText" }.hook {
+            firstMethodOrNull { name = "getText" }?.hook {
                 before {
                     firstMethod { name = "setCts" }.of(instance).invoke(true)
                     firstField { type = SecureRandom::class }.of(instance).set(SecureRandom())
