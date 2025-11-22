@@ -31,7 +31,7 @@ object EnableRunInBackground : YukiBaseHooker() {
                         val context = firstField { type = Context::class; superclass() }
                             .of(instance).get<Context>() ?: return@before
                         context.injectModuleAppResources()
-                        result = R.drawable.ic_flip_24
+                        result = R.drawable.background_run
                     }
                 }
                 firstMethod { name = "getNameRes" }.hook {
