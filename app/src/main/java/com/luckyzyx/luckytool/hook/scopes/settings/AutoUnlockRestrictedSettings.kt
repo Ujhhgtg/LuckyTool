@@ -1,12 +1,11 @@
 package com.luckyzyx.luckytool.hook.scopes.settings
 
-import android.app.AppOpsManager
 import android.content.Context
 import android.content.Intent
-import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
+import com.luckyzyx.luckytool.utils.EcmUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
@@ -18,15 +17,6 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
 
         if (osCode >= 34) loadHooker(RestrictedSettings)
         else loadHooker(RestrictedSettingsV14(dexKitBridge))
-    }
-
-    companion object {
-        private fun Context.setMode(uid: Int, packName: String, limit: Boolean) {
-            val appOps = getSystemService(AppOpsManager::class.java)
-            appOps.asResolver().firstMethod { name = "setMode";parameterCount = 4 }.invoke(
-                119, uid, packName, if (limit) 1 else 0
-            )
-        }
     }
 
     @Obfuscate
@@ -50,8 +40,8 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
                                     ?: return@before
 //                        val permissionName = intent.getStringExtra("android.intent.extra.SUBJECT")
 //                            ?: return@before
-                            val uid = intent.getIntExtra("android.intent.extra.UID", -1)
-                            context.setMode(uid, packName, false)
+//                            val uid = intent.getIntExtra("android.intent.extra.UID", -1)
+                            EcmUtils(context).autoUnlockRestrictedSettings(packName)
                             firstMethod {
                                 name = "setDisabledByEcm"
                                 parameters(Intent::class)
@@ -143,8 +133,8 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
                             removeIf { it.fieldName == appops.fieldName }
                         }.first()
 
-                val uidname =
-                    fields.find { it.typeName == Int::class.java.name }?.fieldName ?: "uid"
+//                val uidname =
+//                    fields.find { it.typeName == Int::class.java.name }?.fieldName ?: "uid"
                 val packname = fields.find { it.typeName == String::class.java.name }?.fieldName
                     ?: "packageName"
 
@@ -165,11 +155,11 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
                                 .get<Boolean>() ?: false
                             if (disabledAdmin) return@before
                             if (disabledAppOps) {
-                                val uid =
-                                    firstField { name = uidname }.of(instance).get<Int>() ?: -1
+//                                val uid =
+//                                    firstField { name = uidname }.of(instance).get<Int>() ?: -1
                                 val packName =
                                     firstField { name = packname }.of(instance).get<String>() ?: ""
-                                context.setMode(uid, packName, limit)
+                                EcmUtils(context).autoUnlockRestrictedSettings(packName)
                                 firstMethod {
                                     parameters(Boolean::class)
                                     returnType = Boolean::class
