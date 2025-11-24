@@ -23,6 +23,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.LTPODynamicRefreshRate
 import com.luckyzyx.luckytool.hook.scopes.android.MediaVolumeLevel
 import com.luckyzyx.luckytool.hook.scopes.android.MultiAppConfig
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveAccessDeviceLogDialog
+import com.luckyzyx.luckytool.hook.scopes.android.RemoveAlwaysAllowAppStartList
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveAppUninstallButtonBlackList
 import com.luckyzyx.luckytool.hook.scopes.android.RemovePasswordTimeoutVerification
 import com.luckyzyx.luckytool.hook.scopes.android.RemoveStatusBarTopNotification
@@ -133,6 +134,8 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(EnableKeepNotificationWhenAppStop)
 
         loadHooker(HookIPackageManager())
+
+        loadHooker(RemoveAlwaysAllowAppStartList)
 
         //三段式按键
 //        loadHooker(HookAlertSlider)

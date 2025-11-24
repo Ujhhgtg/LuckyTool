@@ -84,7 +84,7 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
                                 items.add(pair)
                             }
 
-                            var curUserId = arrayListOf<Int>()
+                            var curUserId = ArrayList(users.map { info -> info.id })
                             MaterialAlertDialogBuilder(context, dialogCentered).apply {
                                 setTitle(title)
                                 setSingleChoiceItems(
@@ -92,7 +92,7 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
                                 ) { _, which ->
                                     curUserId = when (which) {
                                         0 -> ArrayList(users.map { info -> info.id })
-                                        else -> ArrayList(items[which].second)
+                                        else -> arrayListOf(items[which].second)
                                     }
                                 }
                                 setNeutralButton(android.R.string.cancel, null)
