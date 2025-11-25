@@ -27,12 +27,16 @@ object HookSystemUIAutoStart : YukiBaseHooker() {
             registerReceiver(Intent.ACTION_USER_PRESENT) { context, _ ->
                 scope {
                     delay(200)
-                    context.startForegroundService(Intent().apply {
-                        action = "${BuildConfig.APPLICATION_ID}.AutoStartControllerService"
-                        setPackage(BuildConfig.APPLICATION_ID)
-                    })
+                    try {
+                        context.startForegroundService(Intent().apply {
+                            action = "${BuildConfig.APPLICATION_ID}.AutoStartControllerService"
+                            setPackage(BuildConfig.APPLICATION_ID)
+                        })
+                    } catch (t: Throwable) {
+                        YLog.debug("AutoStartService try sthrow", t)
+                    }
                 }.catch {
-                    YLog.debug("AutoStartService throw", it)
+                    YLog.debug("AutoStartService scope throw", it)
                 }
             }
             //监听模块磁贴关闭控制中心
