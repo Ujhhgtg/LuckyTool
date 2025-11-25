@@ -506,8 +506,10 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 filterDatas = if (constraint.isNotBlank()) {
                     ArrayList(allDatas.filter {
-                        it.title?.contains(constraint, true) == true &&
-                                it.isVisible == true && it.fragmentResId != -1
+                        ((it.key?.contains(constraint, true) == true)
+                                || (it.title?.contains(constraint, true) == true)
+                                || (it.summary?.contains(constraint, true) == true))
+                                && it.isVisible == true && it.fragmentResId != -1
                     })
                 } else arrayListOf()
 //                LogUtils.d("SearchResultAdapter", "getFilter", filterDatas.size.toString(), true)
