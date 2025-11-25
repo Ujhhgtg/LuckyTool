@@ -452,6 +452,13 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 key = "DesktopLayoutRelated"
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_assistant_button_below_launcher)
+                key = "disable_assistant_button_below_launcher"
+                setDefaultValue(false)
+                isVisible = osCode >= 37
+                isIconSpaceReserved = false
+            })
             add(EditTextPreference(this@loadPreferences).apply {
                 title = getString(R.string.custom_desktop_default_home_page)
                 dialogTitle = title
