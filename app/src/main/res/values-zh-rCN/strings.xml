@@ -865,6 +865,7 @@
     <string name="remove_app_recommend_card">移除应用推荐卡片</string>
     <string name="remove_searchbox_uninstalled_app_suggestions">移除未安装的应用建议</string>
     <!--OplusMarket-->
+    <string name="searchbox_default_search_local_tab">默认搜索本地Tab</string>
     <string name="remove_market_splash_page_app_recommend">移除商店启动页应用推荐</string>
     <string name="remove_market_update_download_page_app_recommend">移除商店更新下载页应用推荐</string>
     <string name="remove_market_mine_page_app_recommend">移除商店我的页面应用推荐</string>

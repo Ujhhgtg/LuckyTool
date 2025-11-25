@@ -71,6 +71,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 自动解锁应用权限管理授权限制
 - [添加] 移除始终允许启动应用列表
 - [添加] 禁用桌面下方小布助手按钮 C16+
+- [添加] 全局搜索默认搜索本地Tab
 
 ### 1.3.1
 

@@ -12,9 +12,12 @@ import org.luckypray.dexkit.DexKitBridge
 class HookQuickSearchBoxMMKV(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val map = ArrayMap<String, Any>().apply {
-            if (prefs(ModulePrefs)
+            if (
+                prefs(ModulePrefs)
                     .getBoolean("remove_searchbox_uninstalled_app_suggestions", false)
-            ) put("new_suggest_app_card", false)
+            ) {
+                put("new_suggest_app_card", false)
+            }
         }
         loadHooker(HookMMKVManager(dexKitBridge, map))
     }

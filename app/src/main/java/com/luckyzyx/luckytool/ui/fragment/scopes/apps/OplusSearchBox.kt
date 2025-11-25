@@ -51,6 +51,12 @@ class OplusSearchBox : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.searchbox_default_search_local_tab)
+                key = "searchbox_default_search_local_tab"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }
