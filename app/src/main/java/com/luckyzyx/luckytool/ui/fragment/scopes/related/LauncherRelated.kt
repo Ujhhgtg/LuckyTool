@@ -453,8 +453,8 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.replace_bottom_voice_assistant_with_searchbox)
-                key = "replace_bottom_voice_assistant_with_searchbox"
+                title = getString(R.string.enable_launcher_indicator_entry)
+                key = "enable_launcher_indicator_entry"
                 setDefaultValue(false)
                 isVisible = osCode >= 37
                 isIconSpaceReserved = false

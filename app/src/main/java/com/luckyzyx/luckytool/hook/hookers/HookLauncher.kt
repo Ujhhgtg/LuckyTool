@@ -8,6 +8,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.CustomDesktopDefaultHomePage
 import com.luckyzyx.luckytool.hook.scopes.launcher.DisableLongPressAppIconSecondaryMenu
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableAutoCloseFolder
 import com.luckyzyx.luckytool.hook.scopes.launcher.EnableDockerBackground
+import com.luckyzyx.luckytool.hook.scopes.launcher.EnableLauncherIndicatorEntry
 import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableDockerBackgroundBlur
 import com.luckyzyx.luckytool.hook.scopes.launcher.ForceEnableRecentTaskMemoryDisplay
 import com.luckyzyx.luckytool.hook.scopes.launcher.HookAppBadge
@@ -130,6 +131,10 @@ object HookLauncher : YukiBaseHooker() {
         }
         //自定义桌面默认主页
         loadHooker(CustomDesktopDefaultHomePage)
+        //启用桌面下方按钮选择项
+        if (prefs(ModulePrefs).getBoolean("enable_launcher_indicator_entry", false)) {
+            if (osCode >= 37) loadHooker(EnableLauncherIndicatorEntry)
+        }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl
         //res/layout/oplus_task_menu_option.xml
