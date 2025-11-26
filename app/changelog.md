@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.3.2_beta
+### 1.3.2
 
 - [添加] 启用上滑导航手势
 - [优化] 优化状态栏网速不更改布局时的字体显示
@@ -72,6 +72,74 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 移除始终允许启动应用列表
 - [添加] 全局搜索默认搜索本地Tab
 - [添加] 启用桌面下方按钮选择项 C16+
+
+- [Add] Enable swipe-up navigation gesture
+- [Optimize] Improved font display in status bar when network speed doesn't alter layout
+- [Optimize] Enhanced weather browser navigation logic
+- [Change] Synchronized upstream core crack v4.7
+- [Add] Removed OTA installation completion notification
+- [Add] Removed OTA auto-download dialog
+- [Change] Updated and migrated underlying Hook API
+- [Fix] Updated app store feed information stream v12.9.0beta2(e182e2f)
+- [Optimize] Improved Su and OS detection
+- [Fixed] Folder icon preview row/column count
+- [Change] Position and logic for dual-line app name display on desktop C12+
+- [Add] Removed folder name input restriction C12+
+- [Optimize] Improved module permission request logic
+- [Add] Disabled Music Fluid Cloud blacklist C15.0.1+
+- [Fix] Custom volume bar background transparency v15.99.13(159913) C15.0.1+
+- [Add] Removed return gesture confirmation restriction C15.0.1+
+- [Fix] Automatically unlock restricted app permissions C15+
+- [Add] Enabled module biometric unlock verification
+- [Optimize] Su permission and Dex optimization dialog display logic
+- [Add] OTA incremental update installation prompt
+- [Fixed] Resolved crash caused by low battery dialog
+- [Add] Module home screen displays device CPU model
+- [Add] Enabled Opex local installation C14+
+- [Fix] Custom app intent list C12
+- [Add] Removed Mutual Transfer shutdown countdown
+- [Add] Removed storage permission exception dialog
+- [Optimize] App intent data storage logic (recommended to reconfigure intent data)
+- [Add] Removed desktop card name C13+
+- [Add] Removed bottom input box menu in SMS (Thanks to [myflavor](https://github.com/myflavor))
+- [Add] Removed marketing button at bottom of SMS card (Thanks to [myflavor](https://github.com/myflavor))
+- [Fix] App Installer scan and downgrade C16
+- [Fix] Status bar clock width anomaly C16
+- [Fix] Automatically switch to previous task when opening task list C16
+- [Change] Removed background idle mode for Smart Sidebar C16
+- [Fix] App Installer displays more APK information C16
+- [Fix] Auto-install/uninstall in App Installer C16
+- [Add] Customizable app icon name row height
+- [Add] Force enable iPhone Interconnect C16
+- [Fix] Removed split Control Center edit/more buttons C16
+- [Change] Removed lock screen bottom button hook C16
+- [Change] Disabled hook for limiting Control Center tile count C16
+- [Fix] Removed sidebar slider and its background C16
+- [Fix] Customizable volume slider background transparency C16
+- [Fix] Removed OTA local installation verification C16
+- [Change] Removed module activation option from module homepage
+- [Add] Battery restriction plugin removal C16
+- [Add] Control Center clock removal C15+
+- [Change] Storage permission exception dialog removal C16
+- [Fix] Top lock screen unlock icon removal C16
+- [Optimize] Fixed issue where desktop tab indicator swipe disabled affected XiaoBu Assistant
+- [Add] Customize remote resource allocation hostname
+- [Fix] Customize desktop layout row/column count C16
+- [Add] Customize desktop app icon size C12+
+- [Add] Customize status bar clock margins
+- [Add] Enable Docker background display C13+
+- [Add] Force enable device controller tile
+- [Add] Force enable Docker background blur (C16+)
+- [Add] Disable long-press app icon secondary menu (C16+)
+- [Add] Enable background idle tile
+- [Add] Customize desktop default homepage (C12+)
+- [Add] Use legacy app jump dialog
+- [Add] Enable “Always Allow Launching Apps” dialog
+- [Fix] Enable sidebar background idle mode C16
+- [Add] Auto-unlock app permission management restrictions
+- [Add] Remove “Always Allow Launching Apps” list
+- [Add] Global search defaults to local tabs
+- [Add] Enable desktop bottom button options C16+
 
 ### 1.3.1
 
@@ -2191,7 +2259,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [Add] Camera Hasselblad watermark support
 - [Add] Fix Hasselblad custom watermark crash
 - [Fix] OnePlus package name camera function entry
-- [Added] Enable stacked task layout
+- [Add] Enable stacked task layout
 - [Optimize] Stack layout task top
 - [Add] High performance mode tile
 - [Fix] The clock alignment of the status bar is abnormal
