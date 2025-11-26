@@ -2,6 +2,7 @@ package com.luckyzyx.luckytool.hook.scopes.smartsidebar
 
 import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.Modifiers
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -26,21 +27,18 @@ object EnableRunInBackground : YukiBaseHooker() {
         //Source BackgroundRunTool or GTModelTool
         targetTool.resolve().apply {
             if (targetTool.simpleName == "GTModelTool") {
-                firstMethod { name = "getIconRes" }.hook {
+                var context: Context?
+                firstConstructor { parameters(Context::class) }.hook {
                     before {
-                        val context = firstField { type = Context::class; superclass() }
-                            .of(instance).get<Context>() ?: return@before
+                        context = args().first().cast<Context>() ?: return@before
                         context.injectModuleAppResources()
-                        result = R.drawable.background_run
                     }
                 }
+                firstMethod { name = "getIconRes" }.hook {
+                    replaceTo(R.drawable.background_run)
+                }
                 firstMethod { name = "getNameRes" }.hook {
-                    before {
-                        val context = firstField { type = Context::class; superclass() }
-                            .of(instance).get<Context>() ?: return@before
-                        context.injectModuleAppResources()
-                        result = R.string.run_in_background
-                    }
+                    replaceTo(R.string.run_in_background)
                 }
             }
             firstMethod { name = "handle" }.hook {
@@ -70,6 +68,20 @@ object EnableRunInBackground : YukiBaseHooker() {
                                 .get<Context>() ?: return@after
                         val tool = targetTool.createInstance(context, isPublic = false)
                         firstMethod { name = "put" }.of(instance).invoke(tool)
+                    }
+                }
+            }
+
+        //Source ImageDataHandleImpl
+        "com.oplus.smartsidebar.panelview.edgepanel.data.viewdatahandlers.ImageDataHandleImpl".toClass()
+            .resolve().apply {
+                firstMethod { name = "getToolAppIcon" }.hook {
+                    before {
+                        "com.coloros.common.App".toClass().resolve().firstField {
+//                            name = "sContext"
+                            modifiers(Modifiers.STATIC)
+                            type = Context::class
+                        }.get<Context>()?.injectModuleAppResources()
                     }
                 }
             }
