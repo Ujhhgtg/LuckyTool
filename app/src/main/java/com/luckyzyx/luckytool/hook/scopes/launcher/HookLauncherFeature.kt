@@ -39,8 +39,8 @@ object HookLauncherFeature : YukiBaseHooker() {
             val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)
             val disableDockerMax =
                 prefs(ModulePrefs).getBoolean("remove_docker_max_number_limit", false)
-            val disableBreeno =
-                prefs(ModulePrefs).getBoolean("disable_assistant_button_below_launcher", false)
+            val replaceBreeno =
+                prefs(ModulePrefs).getBoolean("replace_bottom_voice_assistant_with_searchbox", false)
 
             //Source FeatureOption
             "com.android.common.config.FeatureOption".toClass().resolve().apply {
@@ -56,9 +56,12 @@ object HookLauncherFeature : YukiBaseHooker() {
                         replaceToFalse()
                     }
                 }
-                if (disableBreeno) {
+                if (replaceBreeno) {
                     firstMethod { name = "getSIsSupportBreenoEntry" }.hook {
                         replaceToFalse()
+                    }
+                    firstMethod { name = "getSIsSupportBranchSearch" }.hook {
+                        replaceToTrue()
                     }
                 }
             }
