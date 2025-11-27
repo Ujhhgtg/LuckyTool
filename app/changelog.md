@@ -7,6 +7,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 - [更改] 移除模块内置TG群组链接
 - [适配] 移除电源菜单SOS按钮 C13
+- [适配] 跳过AppDetail安装扫描 C13
 
 ### 1.3.2
 

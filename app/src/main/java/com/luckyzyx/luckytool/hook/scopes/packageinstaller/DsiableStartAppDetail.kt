@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
-import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -18,18 +17,20 @@ class DsiableStartAppDetail(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             }
         }.apply {
             checkDataList("AppDetailRedirectionUtils")
+
             findMethod {
                 matcher {
-                    paramTypes(Context::class.java, String::class.java)
+//                    paramTypes(Context::class.java, String::class.java)
                     returnType(Int::class.java)
                     usingStrings("count_canceled_by_app_detail", "com.oplus.appdetail")
                 }
             }.apply {
                 checkDataList("checkCommon")
+
                 single().className.toClass().resolve().apply {
                     firstMethod {
                         name = single().methodName
-                        parameters(Context::class, String::class)
+//                        parameters(Context::class, String::class)
                         returnType = Int::class
                     }.hook {
                         replaceTo(9)
