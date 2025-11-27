@@ -395,7 +395,6 @@ class SettingsFragment : ModulePreferenceFragment() {
                         getString(R.string.qq_chat_group),
                         getString(R.string.qq_channel),
                         getString(R.string.telegram_channel),
-                        getString(R.string.telegram_group),
                         getString(R.string.lsposed_repo)
                     )
                     MaterialAlertDialogBuilder(context).setItems(updatelist) { _, which ->
@@ -405,8 +404,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                             2 -> context.openUrl("http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=3fYu6lT8IHrBPKAfFTNSHbd8wcWX0oGs&authKey=dyIpjTWH8KWHMU3v6gI05T0bAzr6XigJKasMiCwmco1%2F8BRtPCN%2B1zOGgXyK7IUB&noverify=0&group_code=663884734")
                             3 -> context.openUrl("https://pd.qq.com/s/ahjm4zyxb")
                             4 -> context.openUrl("https://t.me/LuckyTool")
-                            5 -> context.openUrl("https://t.me/+F42pfv-c0h4zNDc9")
-                            6 -> context.openUrl("https://modules.lsposed.org/module/com.luckyzyx.luckytool")
+                            5 -> context.openUrl("https://modules.lsposed.org/module/com.luckyzyx.luckytool")
                         }
                     }.show()
                     true
