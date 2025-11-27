@@ -3,6 +3,11 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.3.3_beta
+
+- [更改] 移除模块内置TG群组链接
+- [适配] 移除电源菜单SOS按钮 C13
+
 ### 1.3.2
 
 - [添加] 启用上滑导航手势

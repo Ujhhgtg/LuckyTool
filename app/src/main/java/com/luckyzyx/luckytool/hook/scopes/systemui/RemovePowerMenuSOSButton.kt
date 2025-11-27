@@ -19,7 +19,10 @@ object RemovePowerMenuSOSButton : YukiBaseHooker() {
         }
 
         //Source OplusShutdownView
-        "com.oplus.systemui.shutdown.OplusShutdownView".toClass().resolve().apply {
+        VariousClass(
+            "com.oplusos.systemui.controls.OplusShutdownView", //C13
+            "com.oplus.systemui.shutdown.OplusShutdownView"
+        ).toClass().resolve().apply {
             firstMethod { name = "isShowEmergency" }.hook {
                 replaceToFalse()
             }
