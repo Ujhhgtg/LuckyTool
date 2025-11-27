@@ -4,11 +4,14 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object DisableDuplicateFloatingWindow : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
+
         //Source ClipboardOverlayController C13
         "com.android.systemui.clipboardoverlay.ClipboardOverlayController".toClass().resolve()
             .apply {
@@ -19,6 +22,8 @@ object DisableDuplicateFloatingWindow : YukiBaseHooker() {
                     }
                 }
             }
+
+        if (osCode < 30) return
 
         //Source ClipboardOverlayView C14
         "com.android.systemui.clipboardoverlay.ClipboardOverlayView".toClass().resolve().apply {

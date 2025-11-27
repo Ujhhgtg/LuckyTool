@@ -16,7 +16,6 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
-import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
@@ -257,7 +256,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                 setEntries(R.array.set_full_screen_charging_animation_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
                 setDefaultValue("0")
-                isVisible = getOSVersionCode in 27..29
+                isVisible = osCode in 27..29
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     sendPrefsValue("com.android.systemui", key, newValue)

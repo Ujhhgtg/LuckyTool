@@ -8,10 +8,8 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveUSBConnectDialog
 import com.luckyzyx.luckytool.hook.scopes.systemui.RunFloatingWindowTasksInForeground
 import com.luckyzyx.luckytool.hook.scopes.systemui.VolumeDialogBackground
-import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -29,7 +27,7 @@ object HookSystemUIDialog : YukiBaseHooker() {
 
         //禁用复制悬浮窗
         if (prefs(ModulePrefs).getBoolean("disable_duplicate_floating_window", false)) {
-            if (SDK >= A13) loadHooker(DisableDuplicateFloatingWindow)
+            loadHooker(DisableDuplicateFloatingWindow)
         }
         //禁用耳机高音量警告
         if (prefs(ModulePrefs).getBoolean("disable_headphone_high_volume_warning", false)) {

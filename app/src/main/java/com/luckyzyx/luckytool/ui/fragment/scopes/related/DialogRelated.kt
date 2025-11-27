@@ -9,7 +9,6 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
-import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -42,7 +41,7 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.disable_duplicate_floating_window_summary)
                 key = "disable_duplicate_floating_window"
                 setDefaultValue(false)
-                isVisible = getOSVersionCode >= 26
+                isVisible = osCode >= 26
                 isIconSpaceReserved = false
 
             })

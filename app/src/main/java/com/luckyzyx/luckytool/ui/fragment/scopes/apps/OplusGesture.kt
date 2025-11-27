@@ -25,7 +25,6 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.getBoolean
-import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putString
@@ -92,7 +91,7 @@ class OplusGesture : BaseScopePreferenceFeagment() {
                 )
                 key = "enable_volume_key_control_flashlight"
                 setDefaultValue(false)
-                isVisible = getOSVersionCode >= 27
+                isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
             //隔空手势
