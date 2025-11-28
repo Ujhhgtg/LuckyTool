@@ -11,11 +11,11 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
         //Source SystemProperties
         "android.os.SystemProperties".toClass().resolve().apply {
             method { name = "get";returnType = String::class }.hookAll {
-                after {
+                before {
                     val key = args().first().cast<String>()
-                    if (key.isNullOrBlank()) return@after
+                    if (key.isNullOrBlank()) return@before
                     when (val value = props[key]) {
-                        null -> return@after
+                        null -> return@before
                         is Boolean -> result = value.toString()
                         is String -> result = value
                         is Int -> result = value
@@ -23,11 +23,11 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                 }
             }
             firstMethod { name = "getBoolean";returnType = Boolean::class }.hook {
-                after {
+                before {
                     val key = args().first().cast<String>()
-                    if (key.isNullOrBlank()) return@after
+                    if (key.isNullOrBlank()) return@before
                     when (val value = props[key]) {
-                        null -> return@after
+                        null -> return@before
                         "1" -> resultTrue()
                         "0" -> resultFalse()
                         "true" -> resultTrue()
@@ -37,22 +37,22 @@ class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker
                 }
             }
             firstMethod { name = "getInt";returnType = Int::class }.hook {
-                after {
+                before {
                     val key = args().first().cast<String>()
-                    if (key.isNullOrBlank()) return@after
+                    if (key.isNullOrBlank()) return@before
                     when (val value = props[key]) {
-                        null -> return@after
+                        null -> return@before
                         is Long -> result = value.toInt()
                         is Int -> result = value
                     }
                 }
             }
             firstMethod { name = "getLong";returnType = Long::class }.hook {
-                after {
+                before {
                     val key = args().first().cast<String>()
-                    if (key.isNullOrBlank()) return@after
+                    if (key.isNullOrBlank()) return@before
                     when (val value = props[key]) {
-                        null -> return@after
+                        null -> return@before
                         is Int -> result = value.toLong()
                         is Long -> result = value
                     }

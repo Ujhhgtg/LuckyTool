@@ -46,7 +46,9 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_gms_usage_restrictions)
-                summary = getString(R.string.need_restart_system)
+                summary = arraySummaryLine(
+                    getString(R.string.need_restart_system)
+                )
                 key = "remove_gms_usage_restrictions"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
