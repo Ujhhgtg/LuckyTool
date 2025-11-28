@@ -41,7 +41,6 @@ import com.luckyzyx.luckytool.hook.hookers.HookPhone
 import com.luckyzyx.luckytool.hook.hookers.HookPhoneManager
 import com.luckyzyx.luckytool.hook.hookers.HookPictorial
 import com.luckyzyx.luckytool.hook.hookers.HookQuickSearchBox
-import com.luckyzyx.luckytool.hook.hookers.HookRkpdApp
 import com.luckyzyx.luckytool.hook.hookers.HookSAU
 import com.luckyzyx.luckytool.hook.hookers.HookSafeCenter
 import com.luckyzyx.luckytool.hook.hookers.HookScreenshot
@@ -207,8 +206,6 @@ object YukiEntry {
         loadApp("com.android.bluetooth", HookBluetooth)
         //电话本
         loadApp("com.android.contacts", HookContacts)
-        //远程配置器
-        loadApp("com.android.rkpdapp", HookRkpdApp)
         //权限管理
         loadApp("com.oplus.securitypermission", HookSecuritypPermission)
 
