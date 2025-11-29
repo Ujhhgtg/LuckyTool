@@ -11,6 +11,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [优化] 移除GMS限制扩展CN GMS
 - [更改] 移除RKP作用域
 - [适配] 无网畅聊时间限制 C16
+- [添加] 启用最近任务钉到流体云 C16
 
 ### 1.3.2
 

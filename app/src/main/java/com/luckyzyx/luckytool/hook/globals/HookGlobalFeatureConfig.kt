@@ -129,6 +129,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
 //            put("oplus.software.display.google_extension_layout", true)
 //            put("oplus.software.display.oplus_activity_embedding", true)
 
+            //Source Launcher 钉流体云
+            if (prefs(ModulePrefs).getBoolean("enable_recent_task_pin_capsule", false)) {
+                if (osCode >= 37) put("oplus.software.systemui.pin_task", true)
+            }
+
             //Source Mms 移除验证码悬浮窗 FeatureOption.java / com.oplus.common -> C12
             if (prefs(ModulePrefs).getBoolean("remove_verification_code_floating_window", false)) {
                 put("oplus.software.inputmethod.verify_code_enable", false)
