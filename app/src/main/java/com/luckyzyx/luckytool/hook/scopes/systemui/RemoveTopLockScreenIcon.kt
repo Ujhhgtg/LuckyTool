@@ -23,13 +23,15 @@ object RemoveTopLockScreenIcon : YukiBaseHooker() {
         val lockIconView = VariousClass(
             "com.android.keyguard.LockIconView",
             "com.android.keyguard.OplusLockIconView" //C16
-        ).toClassOrNull()?.resolve()?.apply {
+        ).toClassOrNull() ?: return
+
+        lockIconView.resolve().apply {
             firstMethod { name = "updateColorAndBackgroundVisibility" }.hook {
                 after {
                     firstField { name = "mLockIcon" }.of(instance).get<View>()?.isVisible = false
                 }
             }
-        } ?: return
+        }
 
         //Source LegacyLockIconViewController C15+
         "com.android.keyguard.LegacyLockIconViewController".toClassOrNull()?.resolve()?.apply {
