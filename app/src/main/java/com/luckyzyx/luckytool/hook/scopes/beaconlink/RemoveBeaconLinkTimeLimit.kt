@@ -10,33 +10,45 @@ import org.luckypray.dexkit.DexKitBridge
 @Obfuscate
 class RemoveBeaconLinkTimeLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
-        //Source IDs
+        //Source IDs.java
         dexKitBridge.findClass {
             matcher {
-                addFieldForType(String::class.java)
-                addFieldForType(Long::class.java)
-                fieldCount(2)
-                addMethod {
-                    paramTypes(String::class.java)
-                    returnType(Boolean::class.java)
-                    addCaller {
-                        paramTypes(String::class.java)
-                        returnType(Boolean::class.java)
+                fields {
+                    add {
+                        type(String::class.java)
+                        addReadMethod {
+                            returnType(HashMap::class.java)
+                        }
                     }
-                    addCaller {
-                        paramTypes(Context::class.java, List::class.java)
-                        returnType(HashMap::class.java)
+                    add {
+                        type(Long::class.java)
+                        addWriteMethod {
+                            paramTypes(Context::class.java, String::class.java, String::class.java)
+                        }
+                        addReadMethod {
+                            paramTypes(Context::class.java, String::class.java, String::class.java)
+                        }
                     }
                 }
+                fieldCount(2)
             }
         }.apply {
-            checkDataList("RemoveBeaconLinkTimeLimit Clazz")
+            checkDataList("IDs")
+
             single().name.toClass().resolve().apply {
-                firstMethod {
+                firstMethodOrNull {
                     parameters(String::class)
                     returnType = Boolean::class
-                }.hook {
+                }?.hook {
                     replaceToTrue()
+                } ?: run {
+                    firstConstructor {
+                        parameters(String::class, Long::class)
+                    }.hook {
+                        before {
+                            args().last().set(0L)
+                        }
+                    }
                 }
             }
         }
