@@ -8,14 +8,16 @@ import android.view.LayoutInflater
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.core.widget.NestedScrollView
 import com.drake.net.Get
 import com.drake.net.component.Progress
 import com.drake.net.interfaces.ProgressListener
 import com.drake.net.scope.NetCoroutineScope
 import com.drake.net.utils.scopeNet
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textview.MaterialTextView
+import com.highcapable.betterandroid.ui.extension.view.updatePadding
+import com.highcapable.hikage.extension.setView
+import com.highcapable.hikage.widget.androidx.core.widget.NestedScrollView
+import com.highcapable.hikage.widget.com.google.android.material.textview.MaterialTextView
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogDownloadLayoutBinding
 import io.noties.markwon.Markwon
@@ -56,28 +58,34 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
                     MaterialAlertDialogBuilder(context, dialogCentered).apply {
                         setTitle(context.getString(R.string.check_update_hint))
                         setCancelable(isDev)
-                        setView(NestedScrollView(context).apply {
-                            addView(MaterialTextView(context).apply {
-                                setPadding(20.dp, 0, 20.dp, 0)
-                                val version =
-                                    "${context.getString(R.string.version_name)}: $name($code)"
-                                val count =
-                                    "${context.getString(R.string.download_count)}: $downloadCount"
-                                val size = "${context.getString(R.string.file_size)}: " +
-                                        formatFileSize(fileSize)
-                                val time = "${context.getString(R.string.update_time)}: $updateTime"
-                                val finalText =
-                                    "# LuckyTool v$name\r\n- $version\r\n- $count\r\n- $size\r\n- $time\r\n$changeLog"
-                                Markwon.create(context).setMarkdown(this, finalText)
-                            })
-                        })
-                        setPositiveButton(context.getString(R.string.direct_update)) { _, _ ->
-                            readyDownload(context, fileName, downloadUrl)
+                        setView {
+                            NestedScrollView {
+                                MaterialTextView(
+                                    lparams = LayoutParams(widthMatchParent = true),
+                                    init = {
+                                        updatePadding(horizontal = 20.dp)
+                                        val version =
+                                            "${context.getString(R.string.version_name)}: $name($code)"
+                                        val count =
+                                            "${context.getString(R.string.download_count)}: $downloadCount"
+                                        val size = "${context.getString(R.string.file_size)}: " +
+                                                formatFileSize(fileSize)
+                                        val time =
+                                            "${context.getString(R.string.update_time)}: $updateTime"
+                                        val finalText =
+                                            "# LuckyTool v$name\r\n- $version\r\n- $count\r\n- $size\r\n- $time\r\n$changeLog"
+                                        Markwon.create(context).setMarkdown(this, finalText)
+                                    }
+                                )
+                            }
                         }
                         setNeutralButton(context.getString(R.string.go_download_page)) { _, _ ->
                             context.startActivity(
                                 Intent(Intent.ACTION_VIEW, downloadPage.toUri())
                             )
+                        }
+                        setPositiveButton(context.getString(R.string.direct_update)) { _, _ ->
+                            readyDownload(context, fileName, downloadUrl)
                         }
                         show()
                     }
@@ -86,21 +94,16 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
         }.catch { context.showToast(context.getString(R.string.check_update_error)) }
     }
 
-    private fun readyDownload(context: Context, fileName: String, downloadUrl: String) {
-        val toolDir = FileUtils.checkDownloadDir(context, "LuckyTool")
-        val apkFile = File(toolDir, fileName).apply {
-            if (isDirectory) delete()
-        }
-        if (apkFile.exists()) {
-            installApk(context, apkFile)
-            return
-        }
+    private fun showDownloadItems(context: Context, apkFile: File, downloadUrl: String) {
         val items = arrayListOf("Github")
         val urls = arrayListOf(downloadUrl)
+        //https://github.com/Xposed-Modules-Repo/com.luckyzyx.luckytool/releases/download/20457-1.3.2/LuckyTool_v1.3.2.20457.apk
         mapOf(
             "ghfast" to "https://ghfast.top/",
-            "ghproxy" to "https://ghproxy.cn/",
-            "fastgit" to "https://fastgit.cc/",
+            "ghproxy.cn" to "https://ghproxy.cn/",
+            "ghproxy.com" to "https://ghproxy.com/",
+            "fastgit.cc" to "https://fastgit.cc/",
+            "GitMirror" to "https://hub.gitmirror.com/",
             "Lufs" to "https://cors.isteed.cc/",
         ).forEach { (k, v) ->
             items.add(k)
@@ -114,6 +117,32 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
                 downloadFile(context, apkFile, urls[which])
             }
         }.show()
+    }
+
+    private fun readyDownload(context: Context, fileName: String, downloadUrl: String) {
+        val toolDir = FileUtils.checkDownloadDir(context, "LuckyTool")
+        val apkFile = File(toolDir, fileName).apply {
+            if (isDirectory) delete()
+        }
+        if (apkFile.exists()) {
+            val size = FileUtils.getFileSize(apkFile)
+            val formatSize = formatFileSize(size.toFloat())
+
+            MaterialAlertDialogBuilder(context, dialogCentered).apply {
+                setTitle(R.string.downloaded)
+                setMessage("${apkFile.name}\n${formatSize}")
+                setNeutralButton(context.getString(R.string.download_again)) { _, _ ->
+                    apkFile.delete()
+                    showDownloadItems(context, apkFile, downloadUrl)
+                }
+                setPositiveButton(context.getString(R.string.install)) { _, _ ->
+                    installApk(context, apkFile)
+                }
+                show()
+            }
+            return
+        }
+        showDownloadItems(context, apkFile, downloadUrl)
     }
 
     @SuppressLint("ClickableViewAccessibility")

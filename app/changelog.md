@@ -13,6 +13,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 无网畅聊时间限制 C16
 - [添加] 启用最近任务钉到流体云 C16
 - [更改] 移除提取OTA信息功能 C16+
+- [更改] 更换内置CDN下载信息
 
 ### 1.3.2
 
