@@ -153,6 +153,7 @@ class OplusOTA : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.extract_ota_information_summary)
                 key = "extract_ota_information"
                 setDefaultValue(false)
+                isVisible = osCode < 37
                 isIconSpaceReserved = false
                 setOnPreferenceClickListener {
                     findNavController().navigatePage(R.id.extractOTAFragment, title)
