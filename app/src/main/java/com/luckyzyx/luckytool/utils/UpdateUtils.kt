@@ -34,9 +34,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
         "https://dl.coolapk.com/down?pn=com.coolapk.market&id=NDU5OQ&h=46bb9d98&from=from-web"
 
     @SuppressLint("SetTextI18n")
-    fun checkUpdate(
-        versionName: String, versionCode: Int, result: (String, Int, () -> Unit) -> Unit
-    ) {
+    fun checkUpdate(result: (String, Int, () -> Unit) -> Unit) {
         scopeNet {
             val latestUrl =
                 "https://api.github.com/repos/Xposed-Modules-Repo/com.luckyzyx.luckytool/releases/latest"

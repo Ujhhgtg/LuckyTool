@@ -66,9 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
 
 //        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true))
         val isDev = requireActivity().getBoolean(SettingsPrefs, "hidden_function")
-        UpdateUtils(requireActivity(), isDev).checkUpdate(
-            getVersionName, getVersionCode
-        ) { versionName, versionCode, function ->
+        UpdateUtils(requireActivity(), isDev).checkUpdate { versionName, versionCode, function ->
             if (getVersionCode < versionCode) {
                 function()
                 binding.updateView.apply {
