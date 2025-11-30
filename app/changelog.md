@@ -14,6 +14,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 启用最近任务钉到流体云 C16
 - [更改] 移除提取OTA信息功能 C16+
 - [更改] 更换内置CDN下载信息
+- [优化] 优化状态栏网速数值计算逻辑
 
 ### 1.3.2
 

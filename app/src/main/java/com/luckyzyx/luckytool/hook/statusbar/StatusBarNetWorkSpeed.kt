@@ -6,6 +6,7 @@ import android.net.TrafficStats
 import android.os.Build
 import android.os.Handler
 import android.os.Message
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -249,9 +250,11 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                 "2" -> {
                                     mSpeedUnitTv?.visibility = View.VISIBLE
 
+                                    val (rx, tx) = calcTotal()
+
                                     mSpeedNumberTv?.apply {
                                         text = getTotalFormatSpeed(
-                                            calcTotalTx().toFloat(), noSpace, noUnit, noSecond
+                                            tx.toFloat(), noSpace, noUnit, noSecond
                                         )
                                         setTextSize(
                                             TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
@@ -263,7 +266,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                     }
                                     mSpeedUnitTv?.apply {
                                         text = getTotalFormatSpeed(
-                                            calcTotalRx().toFloat(), noSpace, noUnit, noSecond
+                                            rx.toFloat(), noSpace, noUnit, noSecond
                                         )
                                         setTextSize(
                                             TypedValue.COMPLEX_UNIT_DIP, getDoubleSize.toFloat()
@@ -275,7 +278,6 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                     }
                                 }
                             }
-                            viewGroup.requestLayout()
                             resultNull()
                         }
                     }
@@ -283,72 +285,52 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             }
         }
 
-        var lastTxTime = 0L
+        var lastRxTotalBytes = 0L
         var lastTxTotalBytes = 0L
 
-        private fun calcTotalTx(): Long {
-            var totalTx = 0L
-            val currentTimeMillis = System.currentTimeMillis()
-            var totalByte = getTotalTxByte()
-            if (totalByte <= 0) {
-                lastTxTime = 0L
-                lastTxTotalBytes = 0L
-                totalByte = getTotalTxByte()
-            }
-            if (lastTxTime in 0..<currentTimeMillis) {
-                if (lastTxTotalBytes > 0 && totalByte > 0 && totalByte > lastTxTotalBytes) {
-                    totalTx =
-                        ((totalByte - lastTxTotalBytes) * 1000) / (currentTimeMillis - lastTxTime)
-                }
-            }
-            lastTxTime = currentTimeMillis
-            lastTxTotalBytes = totalByte
-            return totalTx
-        }
+        var lastCalcTime = 0L
+        var lastCalcTotal = Pair(0L, 0L)
 
-        var lastRxTime = 0L
-        var lastRxTotalBytes = 0L
+        private fun calcTotal(): Pair<Long, Long> {
+            val currentTime = SystemClock.elapsedRealtimeNanos()
 
-        private fun calcTotalRx(): Long {
-            var totalRx = 0L
-            val currentTimeMillis = System.currentTimeMillis()
-            var totalByte = getTotalRxByte()
-            if (totalByte <= 0) {
-                lastRxTime = 0L
-                lastRxTotalBytes = 0L
-                totalByte = getTotalRxByte()
+            val currentRxBytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val txBytes = TrafficStats.getRxBytes("lo")
+                TrafficStats.getTotalRxBytes() - txBytes
+            } else {
+                TrafficStats.getTotalRxBytes()
             }
-            if (lastRxTime in 0..<currentTimeMillis) {
-                if (lastRxTotalBytes > 0 && totalByte > 0 && totalByte > lastRxTotalBytes) {
-                    totalRx =
-                        ((totalByte - lastRxTotalBytes) * 1000) / (currentTimeMillis - lastRxTime)
-                }
-            }
-            lastRxTime = currentTimeMillis
-            lastRxTotalBytes = totalByte
-            return totalRx
-        }
-
-        private fun getTotalTxByte(): Long {
-            val totalTxBytes = TrafficStats.getTotalTxBytes()
-            val bytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val currentTxBytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 val txBytes = TrafficStats.getTxBytes("lo")
-                totalTxBytes - txBytes
+                TrafficStats.getTotalTxBytes() - txBytes
             } else {
-                totalTxBytes
+                TrafficStats.getTotalTxBytes()
             }
-            return if (bytes >= 0L) bytes else 0L
-        }
 
-        private fun getTotalRxByte(): Long {
-            val totalRxBytes = TrafficStats.getTotalRxBytes()
-            val bytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val rxBytes = TrafficStats.getRxBytes("lo")
-                totalRxBytes - rxBytes
-            } else {
-                totalRxBytes
+            if (lastCalcTime == 0L) {
+                lastCalcTime = currentTime
+                lastRxTotalBytes = currentRxBytes
+                lastTxTotalBytes = currentTxBytes
+                return Pair(0L, 0L)
             }
-            return if (bytes >= 0L) bytes else 0L
+
+            val dtNanos = currentTime - lastCalcTime
+
+            if (dtNanos >= 20L * 1_000_000) {
+                val dtSeconds = dtNanos / 1e9
+                if (dtSeconds > 0.1) {
+                    val rxSpeed = ((currentRxBytes - lastRxTotalBytes) / dtSeconds)
+                        .toLong().coerceAtLeast(0)
+                    val txSpeed = ((currentTxBytes - lastTxTotalBytes) / dtSeconds)
+                        .toLong().coerceAtLeast(0)
+                    lastCalcTotal = Pair(rxSpeed, txSpeed)
+                }
+
+                lastCalcTime = currentTime
+                lastRxTotalBytes = currentRxBytes
+                lastTxTotalBytes = currentTxBytes
+            }
+            return lastCalcTotal
         }
 
         private fun getTotalFormatSpeed(
