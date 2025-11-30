@@ -14,7 +14,7 @@ object ShowChargingRipple : YukiBaseHooker() {
         VariousClass(
             "com.android.systemui.statusbar.charging.WiredChargingRippleController", //C13
             "com.android.systemui.charging.WiredChargingRippleController" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstConstructor().hook {
                 after {
                     firstField { name = "rippleEnabled" }.of(instance).set(true)

@@ -15,7 +15,7 @@ object DisableHeadphoneHighVolumeWarning : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.volume.VolumeDialogImplEx", //C13
             "com.oplus.systemui.volume.OplusVolumeDialogImpl" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethod { name = "init" }.hook {
                 after {
                     val mContext = firstField { name = "mContext" }.of(instance).get<Context>()

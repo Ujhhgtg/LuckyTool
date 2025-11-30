@@ -137,7 +137,7 @@ class StatusBarClock : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.statusbar.widget.StatClock", //C12 C13
             "com.oplus.systemui.statusbar.widget.StatClock" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethod {
                 name { it.startsWith("onConfig") && it.endsWith("Changed") }
             }.hook {

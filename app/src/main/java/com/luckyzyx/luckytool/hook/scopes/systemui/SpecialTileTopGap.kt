@@ -36,7 +36,7 @@ object SpecialTileTopGap : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.qs.OplusQSTileMediaContainerController", //C13
             "com.oplus.systemui.qs.OplusQSTileMediaContainerController" //C14 C15
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethod { name = "updateResources" }.hook {
                 after {
                     val context = firstMethod {

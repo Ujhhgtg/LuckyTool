@@ -12,7 +12,7 @@ object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
         VariousClass(
             "com.android.systemui.statusbar.phone.PanelViewController", //C13
             "com.android.systemui.shade.NotificationPanelViewController" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstConstructor().hook {
                 after {
                     firstField { name = "mVibrateOnOpening" }.of(instance).set(true)
@@ -24,7 +24,7 @@ object VibrateWhenOpeningTheStatusBar : YukiBaseHooker() {
         VariousClass(
             "com.android.systemui.statusbar.phone.StatusBarCommandQueueCallbacks", //C13
             "com.android.systemui.statusbar.phone.CentralSurfacesCommandQueueCallbacks" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstFieldOrNull { name = "mVibrateOnOpening" }?.let {
                 firstConstructor().hook {
                     after {

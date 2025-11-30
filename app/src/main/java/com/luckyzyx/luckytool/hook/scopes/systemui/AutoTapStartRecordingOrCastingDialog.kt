@@ -13,7 +13,7 @@ object AutoTapStartRecordingOrCastingDialog : YukiBaseHooker() {
         VariousClass(
             "com.android.systemui.media.MediaProjectionPermissionActivity", //C15
             "com.android.systemui.mediaprojection.permission.MediaProjectionPermissionActivity"
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethod { name = "onCreate" }.hook {
                 after {
                     firstMethod { name = "onClick";parameterCount = 2 }.of(instance).invoke(

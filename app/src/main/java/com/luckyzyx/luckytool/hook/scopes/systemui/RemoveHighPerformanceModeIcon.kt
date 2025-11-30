@@ -12,7 +12,7 @@ object RemoveHighPerformanceModeIcon : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.statusbar.phone.PhoneStatusBarPolicyEx",
             "com.oplus.systemui.statusbar.phone.OplusPhoneStatusBarPolicyExImpl" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethod {
                 name = "updateHighPerformanceIcon"
                 emptyParameters()

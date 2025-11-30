@@ -22,7 +22,7 @@ object ForceDisplayClockStyleOptionsV13 : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider", //C13.0
             "com.oplus.systemui.keyguard.keyguardsetting.KeyguardLauncherPageProvider" //C13.1
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethod { name = "initKeyguardLandClockPf" }.hook {
                 before {
                     val isFlavorTwoDevice = flavorTwoFeatureOption.toClass().resolve().firstMethod {

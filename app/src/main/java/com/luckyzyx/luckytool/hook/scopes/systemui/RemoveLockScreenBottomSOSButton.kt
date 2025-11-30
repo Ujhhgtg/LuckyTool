@@ -14,7 +14,7 @@ object RemoveLockScreenBottomSOSButton : YukiBaseHooker() {
         VariousClass(
             "com.oplus.systemui.keyguard.OplusEmergencyButtonControllExImpl", //C13
             "com.oplus.keyguard.OplusEmergencyButtonExImpl" //C14 C15
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             firstMethodOrNull { name = "disableShowEmergencyButton" }?.hook {
                 replaceToTrue()
             } ?: firstMethodOrNull { name = "shouldUpdateEmergencyCallButton" }?.hook {

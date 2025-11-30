@@ -213,7 +213,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.statusbar.OplusStatusBarMobileView", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarMobileViewExImpl" //C13
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 firstMethod { name = "initViewState" }.hook {
                     after {
                         if (hideNonNetwork) {
@@ -260,7 +260,7 @@ class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.ext.StatusBarSignalPolicyExt", //C12.1
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarSignalPolicyExImpl" //C13
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 firstMethod { name = "setNoSims";parameterCount = 3 }.hook {
                     after {
                         if (!hideNoSS) return@after

@@ -18,7 +18,7 @@ object RestorePageLayoutRowCountForEditTiles : YukiBaseHooker() {
         VariousClass(
             "com.oplusos.systemui.qs.customize.OplusQSCustomizer",  //C13
             "com.oplus.systemui.qs.customize.OplusQSCustomizer"  //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             if (osCode < 34) {
                 firstConstructor { parameterCount = 2 }.hook {
                     after {

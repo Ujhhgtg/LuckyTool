@@ -125,7 +125,7 @@ object LockScreenClock : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.keyguard.clock.SingleClockView", //C13
                 "com.oplus.systemui.shared.clocks.SingleClockView" //C14
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!isCenter && !userTypeface) return@after
@@ -165,7 +165,7 @@ object LockScreenClock : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.keyguard.clock.DualClockView", //C13
                 "com.oplus.systemui.shared.clocks.DualClockView" //C14
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after
@@ -220,7 +220,7 @@ object LockScreenClock : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedTextClock", //C13
                 "com.oplus.systemui.shared.clocks.RedTextClock" //C14
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 firstMethod { name = "onTimeChanged" }.hook {
                     after {
                         if (redMode == "0") return@after
@@ -268,7 +268,7 @@ object LockScreenClock : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.keyguard.clock.RedHorizontalDualClockView", //C13
                 "com.oplus.systemui.shared.clocks.RedHorizontalDualClockView" //C14
-            ).loadOrNull(appClassLoader)?.resolve()?.apply {
+            ).toClassOrNull()?.resolve()?.apply {
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
                         if (!userTypeface) return@after

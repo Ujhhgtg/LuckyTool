@@ -42,7 +42,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplusos.systemui.statusbar.controller.NetworkSpeedController",
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllExImpl", //C13
                 "com.oplus.systemui.statusbar.phone.netspeed.OplusNetworkSpeedControllerExImpl" //C14 C15
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 val bgHandler = firstField { name = "bgHandler" }
                 val uiHandler = firstField { name = "uiHandler" }
                 val lastTime = firstField { name = "lastTime" }
@@ -135,13 +135,13 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
             val NetworkSpeedIconState = VariousClass(
                 "com.oplusos.systemui.ext.BaseNetworkControllerImplExt\$NetworkSpeedIconState", //C12
                 "com.oplus.systemui.statusbar.phone.netspeed.NetworkSpeedIconState"
-            ).load(appClassLoader)
+            ).toClass()
 
             //Source NetworkSpeedView
             VariousClass(
                 "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
                 "com.oplus.systemui.statusbar.phone.netspeed.widget.NetworkSpeedView" //C14 C15
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 val mState = firstField { type = NetworkSpeedIconState }
                 val mBlocked = firstFieldOrNull { name = "mBlocked" }
                 val mSpeed = firstField { name = "mSpeed" }

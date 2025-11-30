@@ -176,7 +176,7 @@ class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             VariousClass(
                 "com.oplusos.systemui.statusbar.OplusStatusBarWifiView",
                 "com.oplus.systemui.statusbar.phone.signal.OplusStatusBarWifiViewExImpl"
-            ).load(appClassLoader).resolve().apply {
+            ).toClass().resolve().apply {
                 firstMethod { name = "initViewState" }.hook {
                     after {
                         if (!removeInout) return@after

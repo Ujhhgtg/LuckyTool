@@ -20,7 +20,7 @@ object ForceEnableScreenOffMusicSupport : YukiBaseHooker() {
         VariousClass(
             "com.oplus.systemui.keyguard.OplusBlackScreenGestureControllExImpl", //C13
             "com.oplus.systemui.keyguard.gesture.OplusBlackScreenGestureControllExImpl" //C14
-        ).load(appClassLoader).resolve().apply {
+        ).toClass().resolve().apply {
             (firstMethodOrNull { name = "resetAodMediaSupportConfig" }
                 ?: firstMethod { name = "init" }).hook {
                 after {
