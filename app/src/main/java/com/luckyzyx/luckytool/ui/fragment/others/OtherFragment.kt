@@ -162,15 +162,15 @@ class OtherFragment : BaseFragment<FragmentOtherBinding>(), MenuProvider {
                         ) { resultCallback ->
                             when (resultCallback) {
                                 StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_NOT_ADDED -> {
-                                    context.showToast("$label ${getString(R.string.common_add_fail)}")
+                                    context.showToast("$label ${getString(R.string.add_fail)}")
                                 }
 
                                 StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_ALREADY_ADDED -> {
-                                    context.showToast("$label ${getString(R.string.common_add_repeat)}")
+                                    context.showToast("$label ${getString(R.string.add_repeat)}")
                                 }
 
                                 StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_ADDED -> {
-                                    context.showToast("$label ${getString(R.string.common_add_success)}")
+                                    context.showToast("$label ${getString(R.string.add_success)}")
                                 }
                             }
                         }

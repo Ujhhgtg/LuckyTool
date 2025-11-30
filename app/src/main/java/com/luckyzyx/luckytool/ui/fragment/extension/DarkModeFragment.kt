@@ -243,7 +243,7 @@ class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), M
                 iconTintList = ColorStateList.valueOf(Color.WHITE)
             }
         }
-        menu.add(0, 2, 0, getString(R.string.common_words_open)).apply {
+        menu.add(0, 2, 0, getString(R.string.open)).apply {
             setIcon(R.drawable.baseline_open_in_new_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             if (ThemeUtils.isNightMode(resources.configuration)) {

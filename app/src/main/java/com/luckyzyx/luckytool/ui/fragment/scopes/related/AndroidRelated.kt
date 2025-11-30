@@ -105,7 +105,7 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.customized_gaussian_blur_effect_level)
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.need_restart_system)
                 )
                 key = "customized_gaussian_blur_effect_level"
@@ -127,7 +127,7 @@ class AndroidRelated : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_ltpo_refresh_rate_mode)
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.need_restart_system)
                 )
                 key = "set_ltpo_refresh_rate_mode"

@@ -51,7 +51,7 @@ class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_network_layout)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "statusbar_network_layout"
                 setEntries(R.array.statusbar_network_layout_entries)
                 entryValues = arrayOf("0", "1", "2")

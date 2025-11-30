@@ -178,7 +178,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
                         RestartMenuUtils.showOptimizeAllDexDialog(context, true)
                         requireActivity().putString(SettingsPrefs, "current_os_version", curOs)
                     }
-                    setNeutralButton(R.string.common_words_ignore, null)
+                    setNeutralButton(R.string.ignore, null)
                 }.show()
         }
     }

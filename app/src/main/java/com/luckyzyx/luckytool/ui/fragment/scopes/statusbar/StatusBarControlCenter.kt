@@ -68,7 +68,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_control_center_clock_red_one_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "statusbar_control_center_clock_red_one_mode"
                 setEntries(R.array.statusbar_control_center_clock_red_one_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -81,7 +81,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_control_center_clock_colon_style)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "statusbar_control_center_clock_colon_style"
                 setEntries(R.array.statusbar_control_center_clock_colon_style_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -129,7 +129,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title =
                     getString(R.string.statusbar_control_center_date_set_display_mode_horizontal)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "statusbar_control_center_date_set_display_mode_horizontal"
                 setEntries(R.array.statusbar_control_center_date_fix_lunar_horizontal_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -225,7 +225,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_control_center_volume_seekbar_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_control_center_volume_seekbar_mode"
                 setEntries(R.array.set_control_center_volume_seekbar_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -251,7 +251,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_auto_brightness_button_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_auto_brightness_button_mode"
                 setEntries(R.array.statusbar_control_center_auto_brightness_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -274,7 +274,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_control_center_search_button_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_control_center_search_button_mode"
                 setEntries(R.array.set_control_center_search_button_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -288,7 +288,7 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_control_center_networkwarn)
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.remove_control_center_networkwarn_summary)
                 )
                 key = "remove_control_center_networkwarn"

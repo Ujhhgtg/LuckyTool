@@ -10,7 +10,6 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.contract.CropImageContract
 import com.luckyzyx.luckytool.data.CropImageContractOptions
@@ -25,6 +24,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.getUri
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class FingerPrintRelated : BaseScopePreferenceFeagment() {
@@ -67,7 +67,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
         return ArrayList<Preference>().apply {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_fingerprint_icon_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "remove_fingerprint_icon_mode"
                 setEntries(R.array.remove_fingerprint_icon_mode_entries)
                 entryValues = arrayOf("0", "1", "2", "3")

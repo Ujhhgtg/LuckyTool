@@ -95,7 +95,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.battery_information_display_mode)
                     summary = arraySummaryLine(
-                        getString(R.string.common_words_current_mode) + ": %s",
+                        getString(R.string.current_mode) + ": %s",
                         getString(R.string.battery_information_display_mode_summary)
                     )
                     key = "battery_information_display_mode"
@@ -127,7 +127,7 @@ class StatusBarBattery : BaseScopePreferenceFeagment() {
                     add(DropDownPreference(this@loadPreferences).apply {
                         title = getString(R.string.battery_information_voltage_display_mode)
                         summary =
-                            arraySummaryLine(getString(R.string.common_words_current_mode) + ": %s")
+                            arraySummaryLine(getString(R.string.current_mode) + ": %s")
                         key = "battery_information_voltage_display_mode"
                         setEntries(R.array.battery_information_voltage_display_mode_entries)
                         entryValues = arrayOf("0", "1", "2")

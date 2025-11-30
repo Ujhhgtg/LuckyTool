@@ -187,7 +187,7 @@ class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), M
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.add(0, 1, 0, getString(R.string.common_words_open)).apply {
+        menu.add(0, 1, 0, getString(R.string.open)).apply {
             setIcon(R.drawable.baseline_open_in_new_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             if (ThemeUtils.isNightMode(resources.configuration)) {

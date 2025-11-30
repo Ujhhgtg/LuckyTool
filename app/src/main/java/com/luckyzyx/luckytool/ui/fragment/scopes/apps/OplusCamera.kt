@@ -78,7 +78,7 @@ class OplusCamera : BaseScopePreferenceFeagment() {
                 title = getString(R.string.custom_camera_open_gallery_by_default)
                 key = "custom_camera_open_gallery_by_default"
                 summary = arraySummaryLine(getString(ModulePrefs, key, "").ifBlank {
-                    getString(R.string.common_words_not_set)
+                    getString(R.string.not_set)
                 })
                 isVisible = osCode >= 26
                 isIconSpaceReserved = false

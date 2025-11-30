@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -14,6 +13,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusBrowser : BaseScopePreferenceFeagment() {
@@ -70,7 +70,7 @@ class OplusBrowser : BaseScopePreferenceFeagment() {
                 }
             })
             add(PreferenceCategory(this@loadPreferences).apply {
-                title = getString(R.string.common_words_ads)
+                title = getString(R.string.ads)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

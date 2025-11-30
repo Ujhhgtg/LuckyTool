@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -13,6 +12,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class ADM : BaseScopePreferenceFeagment() {
@@ -51,7 +51,7 @@ class ADM : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.adm_unlock_more_threads)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "adm_unlock_more_threads"
                 setEntries(R.array.adm_unlock_more_threads_entries)
                 entryValues = arrayOf("0", "32", "64", "128")

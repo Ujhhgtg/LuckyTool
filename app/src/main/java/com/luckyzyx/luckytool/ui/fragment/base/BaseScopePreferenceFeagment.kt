@@ -203,7 +203,7 @@ abstract class BaseScopePreferenceFeagment : ModulePreferenceFragment(), MenuPro
                 iconTintList = ColorStateList.valueOf(Color.WHITE)
             }
         }
-        if (isEnableOpenMenu) menu.add(0, 2, 0, getString(R.string.common_words_open)).apply {
+        if (isEnableOpenMenu) menu.add(0, 2, 0, getString(R.string.open)).apply {
             setIcon(R.drawable.baseline_open_in_new_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
             if (ThemeUtils.isNightMode(resources.configuration)) {

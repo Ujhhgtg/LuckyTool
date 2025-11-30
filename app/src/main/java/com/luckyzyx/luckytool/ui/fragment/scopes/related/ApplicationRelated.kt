@@ -119,7 +119,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.set_multi_app_support_mode)
                 key = "set_multi_app_support_mode"
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.need_restart_system),
                     getString(R.string.set_multi_app_support_mode_tips)
                 )
@@ -169,7 +169,7 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.set_wlan_sla_whitelist_mode)
                 key = "set_wlan_sla_whitelist_mode"
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.need_restart_system)
                 )
                 setEntries(R.array.set_wlan_sla_whitelist_mode_entries)

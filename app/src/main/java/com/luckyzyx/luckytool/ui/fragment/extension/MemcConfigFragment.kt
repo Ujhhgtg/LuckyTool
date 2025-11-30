@@ -121,14 +121,14 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.add(0, 1, 0, getString(R.string.common_words_import) + "Xml").apply {
+        menu.add(0, 1, 0, getString(R.string.import_) + "Xml").apply {
 //            setIcon(R.drawable.ic_baseline_refresh_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
             if (ThemeUtils.isNightMode(resources.configuration)) {
                 iconTintList = ColorStateList.valueOf(Color.WHITE)
             }
         }
-        menu.add(0, 2, 0, getString(R.string.common_words_reset)).apply {
+        menu.add(0, 2, 0, getString(R.string.reset)).apply {
 //            setIcon(R.drawable.ic_baseline_refresh_24)
             setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
             if (ThemeUtils.isNightMode(resources.configuration)) {
@@ -369,7 +369,7 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
                     } else context.showToast("Data is incomplete!")
                 }
                 if (config != null) {
-                    setNeutralButton(R.string.common_words_remove) { _, _ ->
+                    setNeutralButton(R.string.remove) { _, _ ->
                         MaterialAlertDialogBuilder(context, dialogCentered).apply {
                             val msg = context.getString(
                                 R.string.confirm_to_delete_this_configuration, config.packName
@@ -578,7 +578,7 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
                     } else context.showToast("Data is incomplete!")
                 }
                 if (config != null) {
-                    setNeutralButton(R.string.common_words_remove) { _, _ ->
+                    setNeutralButton(R.string.remove) { _, _ ->
                         MaterialAlertDialogBuilder(context, dialogCentered).apply {
                             val msg = context.getString(
                                 R.string.confirm_to_delete_this_configuration,

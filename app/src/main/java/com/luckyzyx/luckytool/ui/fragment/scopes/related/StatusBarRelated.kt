@@ -96,7 +96,7 @@ class StatusBarRelated : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_click_statusbar_scroll_to_top_mode)
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.need_restart_system)
                 )
                 key = "set_click_statusbar_scroll_to_top_mode"

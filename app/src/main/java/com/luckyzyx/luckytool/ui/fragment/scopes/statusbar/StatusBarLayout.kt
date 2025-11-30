@@ -5,7 +5,6 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -14,6 +13,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class StatusBarLayout : BaseScopePreferenceFeagment() {
@@ -43,7 +43,7 @@ class StatusBarLayout : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_layout_mode)
                 summary =
-                    getString(R.string.common_words_current_mode) + ": %s"
+                    getString(R.string.current_mode) + ": %s"
                 key = "statusbar_layout_mode"
                 setEntries(R.array.statusbar_layout_mode_entries)
                 entryValues = arrayOf("0", "1")

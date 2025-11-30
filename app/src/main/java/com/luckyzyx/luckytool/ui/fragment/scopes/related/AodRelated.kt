@@ -81,7 +81,7 @@ class AodRelated : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_aod_notification_icon_style)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_aod_notification_icon_style"
                 setEntries(R.array.set_aod_notification_icon_style_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -107,7 +107,7 @@ class AodRelated : BaseScopePreferenceFeagment() {
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_random_text_display_mode)
                     summary = arraySummaryLine(
-                        getString(R.string.common_words_current_mode) + ": %s",
+                        getString(R.string.current_mode) + ": %s",
                         getString(R.string.set_random_text_display_mode_tips1),
                         getString(R.string.set_random_text_display_mode_tips2)
                     )
@@ -154,7 +154,7 @@ class AodRelated : BaseScopePreferenceFeagment() {
                 })
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_aod_typeface_mode)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    summary = getString(R.string.current_mode) + ": %s"
                     key = "set_aod_typeface_mode"
                     setEntries(R.array.set_aod_typeface_mode_entries)
                     entryValues = arrayOf("0", "1", "2")

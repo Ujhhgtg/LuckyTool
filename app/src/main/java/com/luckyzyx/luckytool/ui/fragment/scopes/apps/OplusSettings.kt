@@ -415,7 +415,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     add(SwitchPreference(this@loadPreferences).apply {
                         title = getString(R.string.custom_processor_image_path_switch)
                         summary = getColonSummary(
-                            getString(R.string.common_recommended_size), "624x352"
+                            getString(R.string.recommended_size), "624x352"
                         )
                         key = "custom_processor_image_path_switch"
                         setDefaultValue(false)

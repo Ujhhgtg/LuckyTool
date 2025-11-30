@@ -101,7 +101,7 @@ class StatusBarTiles : BaseScopePreferenceFeagment() {
                 })
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.set_media_player_display_mode)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    summary = getString(R.string.current_mode) + ": %s"
                     key = "set_media_player_display_mode"
                     setEntries(R.array.set_media_player_display_mode_entries)
                     entryValues = arrayOf("0", "1", "2", "3")

@@ -105,7 +105,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
             if (getBoolean(ModulePrefs, "remove_lock_screen_clock_component").not()) {
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.lock_screen_clock_redone_mode)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    summary = getString(R.string.current_mode) + ": %s"
                     key = "lock_screen_clock_redone_mode"
                     setEntries(R.array.statusbar_control_center_clock_red_one_mode_entries)
                     entryValues = arrayOf("0", "1", "2")
@@ -130,7 +130,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
                     })
                     add(DropDownPreference(this@loadPreferences).apply {
                         title = getString(R.string.lock_screen_custom_clock_component_style)
-                        summary = getString(R.string.common_words_current_mode) + ": %s"
+                        summary = getString(R.string.current_mode) + ": %s"
                         key = "lock_screen_custom_clock_component_style"
                         setEntries(R.array.lock_screen_custom_clock_component_style_entries)
                         entryValues = arrayOf("0", "1", "2")
@@ -174,7 +174,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_lock_screen_warp_charging_style)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_lock_screen_warp_charging_style"
                 setEntries(R.array.set_lock_screen_warp_charging_style_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -189,7 +189,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_lock_screen_charging_text_logo_style)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_lock_screen_charging_text_logo_style"
                 setEntries(R.array.set_lock_screen_charging_text_logo_style_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -249,7 +249,7 @@ class LockScreenRelated : BaseScopePreferenceFeagment() {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_full_screen_charging_animation_mode)
                 summary = arraySummaryLine(
-                    getString(R.string.common_words_current_mode) + ": %s",
+                    getString(R.string.current_mode) + ": %s",
                     getString(R.string.need_restart_scope)
                 )
                 key = "set_full_screen_charging_animation_mode"

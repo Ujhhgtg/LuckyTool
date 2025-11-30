@@ -128,7 +128,7 @@ class SettingsFragment : ModulePreferenceFragment() {
                 """.trimIndent()
                 )
                 setPositiveButton(android.R.string.ok, null)
-                setNeutralButton(R.string.common_words_ignore) { _, _ ->
+                setNeutralButton(R.string.ignore) { _, _ ->
                     writeRestoreData(context, json)
                 }
                 show()

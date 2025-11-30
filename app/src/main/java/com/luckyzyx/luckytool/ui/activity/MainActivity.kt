@@ -121,7 +121,7 @@ open class MainActivity : BaseActivity<ActivityMainBinding>() {
             setTitle(getString(R.string.unsupported_os))
             setMessage(getString(R.string.unsupported_os_summary))
             setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
-            if (osCode > 0) setNeutralButton(getString(R.string.common_words_ignore), null)
+            if (osCode > 0) setNeutralButton(getString(R.string.ignore), null)
             if (osCode < 23 && current.contains(HomeFragment::class.java.simpleName)) show()
         }
     }

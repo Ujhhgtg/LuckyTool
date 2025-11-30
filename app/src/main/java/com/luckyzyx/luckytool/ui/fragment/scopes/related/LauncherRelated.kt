@@ -140,7 +140,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                 title = getString(R.string.set_app_update_dot_display_mode)
                 key = "set_app_update_dot_display_mode"
                 val summaryLines = arrayListOf(
-                    getString(R.string.common_words_current_mode) + ": %s"
+                    getString(R.string.current_mode) + ": %s"
                 )
                 val value = getString(ModulePrefs, key, "0")
                 when (value) {
@@ -357,7 +357,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.custom_app_floating_window_display_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "custom_app_floating_window_display_mode"
                 setEntries(R.array.custom_app_floating_window_display_mode_entries)
                 entryValues = arrayOf("0", "1", "2", "3")

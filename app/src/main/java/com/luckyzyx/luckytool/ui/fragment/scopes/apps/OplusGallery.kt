@@ -5,7 +5,6 @@ import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A15
@@ -17,6 +16,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 class OplusGallery : BaseScopePreferenceFeagment() {
@@ -134,7 +134,7 @@ class OplusGallery : BaseScopePreferenceFeagment() {
             })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_photo_view_thumb_line_display_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "set_photo_view_thumb_line_display_mode"
                 setEntries(R.array.universal_switch_entries)
                 entryValues = arrayOf("0", "1", "2")

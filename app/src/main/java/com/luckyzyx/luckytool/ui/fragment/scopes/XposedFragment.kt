@@ -227,7 +227,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         if (loadDialog == null) {
             val binding = DialogLoadingLayoutBinding.inflate(layoutInflater)
             loadDialog = MaterialAlertDialogBuilder(requireActivity(), dialogCentered).apply {
-                setTitle(getString(R.string.common_words_loading))
+                setTitle(getString(R.string.loading))
                 setView(binding.root)
             }.create()
         }

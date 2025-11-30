@@ -47,7 +47,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
         return ArrayList<Preference>().apply {
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.statusbar_clock_mode)
-                summary = getString(R.string.common_words_current_mode) + ": %s"
+                summary = getString(R.string.current_mode) + ": %s"
                 key = "statusbar_clock_mode"
                 setEntries(R.array.statusbar_clock_mode_entries)
                 entryValues = arrayOf("0", "1", "2")
@@ -119,7 +119,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 })
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_clock_text_alignment)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    summary = getString(R.string.current_mode) + ": %s"
                     key = "statusbar_clock_text_alignment"
                     setEntries(R.array.statusbar_clock_text_alignment_entries)
                     entryValues = arrayOf("left", "center", "right")
@@ -200,7 +200,7 @@ class StatusBarClock : BaseScopePreferenceFeagment() {
                 })
                 add(DropDownPreference(this@loadPreferences).apply {
                     title = getString(R.string.statusbar_clock_text_alignment)
-                    summary = getString(R.string.common_words_current_mode) + ": %s"
+                    summary = getString(R.string.current_mode) + ": %s"
                     key = "statusbar_clock_text_alignment"
                     setEntries(R.array.statusbar_clock_text_alignment_entries)
                     entryValues = arrayOf("left", "center", "right")
