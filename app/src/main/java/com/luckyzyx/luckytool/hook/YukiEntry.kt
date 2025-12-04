@@ -20,6 +20,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookContacts
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
+import com.luckyzyx.luckytool.hook.hookers.HookFileManager
 import com.luckyzyx.luckytool.hook.hookers.HookGallery
 import com.luckyzyx.luckytool.hook.hookers.HookGesture
 import com.luckyzyx.luckytool.hook.hookers.HookHealth
@@ -208,6 +209,8 @@ object YukiEntry {
         loadApp("com.android.contacts", HookContacts)
         //权限管理
         loadApp("com.oplus.securitypermission", HookSecuritypPermission)
+        //文件管理
+        loadApp("com.coloros.filemanager", HookFileManager)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
