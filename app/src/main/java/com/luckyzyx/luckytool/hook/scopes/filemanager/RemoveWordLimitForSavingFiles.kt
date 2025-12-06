@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.scopes.filemanager
 
-import androidx.lifecycle.Lifecycle
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -25,8 +24,9 @@ class RemoveWordLimitForSavingFiles(val dexKitBridge: DexKitBridge) : YukiBaseHo
                         paramCount(0)
                         returnType(Void.TYPE)
                     }
-                    addWriteMethod {
-                        paramTypes(Lifecycle::class.java)
+                    addReadMethod {
+                        paramCount(4)
+                        returnType(Void.TYPE)
                     }
                 }
             }.apply {
