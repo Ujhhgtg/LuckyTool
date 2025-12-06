@@ -52,6 +52,11 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
                 key = "app_start_dialog_use_old_version"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, newValue ->
+                    findPreference<SwitchPreference>("enable_always_allow_app_start_dialog")
+                        ?.isEnabled = !(newValue as Boolean)
+                    true
+                }
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_always_allow_app_start_dialog)
