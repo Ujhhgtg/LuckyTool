@@ -9,6 +9,18 @@ import org.luckypray.dexkit.DexKitBridge
 @Obfuscate
 class RemoveWordLimitForSavingFiles(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
+        //Source COUIInputView
+        "com.coui.appcompat.edittext.COUIInputView".toClass().resolve().apply {
+            firstMethod {
+                name = "setMaxCount"
+                parameters(Int::class)
+            }.hook {
+                before {
+                    args().first().set(9999)
+                }
+            }
+        }
+
         //Source ActionModeController
         dexKitBridge.findClass {
             matcher {
