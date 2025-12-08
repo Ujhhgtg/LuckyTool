@@ -1059,6 +1059,8 @@
     
     <!--OplusFileManager-->
     <string name="remove_word_limit_for_saving_files">Remove the word limit for saving files</string>
+    <string name="remove_word_limit_for_compress_files">Remove word limit for compressed files</string>
+    <string name="remove_word_limit_for_label_name_files">Remove character limit on renamed files</string>
 
     <!--Everyimage-->
     <string name="skip_startup_page">Skip startup page</string>

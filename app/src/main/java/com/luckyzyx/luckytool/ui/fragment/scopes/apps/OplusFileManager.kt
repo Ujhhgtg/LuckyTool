@@ -46,6 +46,20 @@ class OplusFileManager : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 37
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_word_limit_for_compress_files)
+                key = "remove_word_limit_for_compress_files"
+                setDefaultValue(false)
+                isVisible = osCode >= 37
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_word_limit_for_label_name_files)
+                key = "remove_word_limit_for_label_name_files"
+                setDefaultValue(false)
+                isVisible = osCode >= 37
+                isIconSpaceReserved = false
+            })
         }
     }
 }
