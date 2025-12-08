@@ -36,12 +36,12 @@ object HookOplusOta : YukiBaseHooker() {
             if (prefs(ModulePrefs).getBoolean("remove_ota_local_update_verity", false)) {
                 loadHooker(RemoveOTALocalUpdateVerity(dexKitBridge))
             }
+            //启用Opex本地安装
+            if (prefs(ModulePrefs).getBoolean("enable_opex_local_install", false)) {
+                val opex = SystemProperties.getBoolean("oplus.opex.merge", false)
+                if (osCode >= 30 && opex) loadHooker(EnableOpexLocalInstall(dexKitBridge))
+            }
         }
 
-        //启用Opex本地安装
-        if (prefs(ModulePrefs).getBoolean("enable_opex_local_install", false)) {
-            val opex = SystemProperties.getBoolean("oplus.opex.merge", false)
-            if (osCode >= 30 && opex) loadHooker(EnableOpexLocalInstall)
-        }
     }
 }
