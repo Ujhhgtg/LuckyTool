@@ -137,6 +137,7 @@ dependencies {
     implementation(libs.betterandroid.ui.extension)
     implementation(libs.betterandroid.system.extension)
     implementation(libs.hikage.core)
+    implementation(libs.hikage.compiler)
     implementation(libs.hikage.extension)
     implementation(libs.hikage.extension.betterandroid)
     implementation(libs.hikage.widget.androidx)
