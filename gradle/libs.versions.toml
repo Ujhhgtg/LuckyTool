@@ -39,10 +39,10 @@ betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "
 betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version = "1.0.1" }
 betterandroid-ui-extension = { group = "com.highcapable.betterandroid", name = "ui-extension", version = "1.0.9" }
 betterandroid-system-extension = { group = "com.highcapable.betterandroid", name = "system-extension", version = "1.0.4" }
-hikage-core = { group = "com.highcapable.hikage", name = "hikage-core", version = "1.0.3" }
-hikage-compiler = { group = "com.highcapable.hikage", name = "hikage-compiler", version = "1.0.3" }
-hikage-extension = { group = "com.highcapable.hikage", name = "hikage-extension", version = "1.0.2" }
-hikage-extension-betterandroid = { group = "com.highcapable.hikage", name = "hikage-extension-betterandroid", version = "1.0.2" }
+hikage-core = { group = "com.highcapable.hikage", name = "hikage-core", version = "1.0.4" }
+hikage-compiler = { group = "com.highcapable.hikage", name = "hikage-compiler", version = "1.0.4" }
+hikage-extension = { group = "com.highcapable.hikage", name = "hikage-extension", version = "1.0.3" }
+hikage-extension-betterandroid = { group = "com.highcapable.hikage", name = "hikage-extension-betterandroid", version = "1.0.3" }
 hikage-widget-androidx = { group = "com.highcapable.hikage", name = "hikage-widget-androidx", version = "1.0.1" }
 hikage-widget-material = { group = "com.highcapable.hikage", name = "hikage-widget-material", version = "1.0.1" }
 
