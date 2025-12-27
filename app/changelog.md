@@ -19,6 +19,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 启用Opex本地安装 C16
 - [添加] 移除压缩文件字数限制 C16
 - [添加] 移除重命名文件字数限制 C16
+- [更改] 同步上游核心破解v4.8
 
 ### 1.3.2
 
