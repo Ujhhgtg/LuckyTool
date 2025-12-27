@@ -24,16 +24,9 @@ class KeyGuardcLockRedMode(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 matcher {
                     type(Boolean::class.java)
                     addReadMethod {
-                        paramTypes(Int::class.java, Int::class.java)
-                        returnType(Void.TYPE)
-                    }
-                    addReadMethod {
                         paramTypes(CharSequence::class.java)
                         returnType(Void.TYPE)
-                    }
-                    addReadMethod {
-                        paramCount(0)
-                        returnType(Void.TYPE)
+                        usingStrings("1")
                     }
                 }
             }.apply {
