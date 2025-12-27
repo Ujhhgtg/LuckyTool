@@ -50,7 +50,7 @@ class CorePatch : BaseScopePreferenceFeagment() {
                 setTitle(R.string.authcreak)
                 setSummary(R.string.authcreak_summary)
                 key = "authcreak"
-                setDefaultValue(true)
+                setDefaultValue(false)
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
@@ -61,10 +61,17 @@ class CorePatch : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                setTitle(R.string.exactSigCheck)
+                setSummary(R.string.exactSigCheck_summary)
+                key = "exactSigCheck"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 setTitle(R.string.UsePreSig)
                 setSummary(R.string.UsePreSig_summary)
                 key = "UsePreSig"
-                setDefaultValue(true)
+                setDefaultValue(false)
                 isIconSpaceReserved = false
                 setOnPreferenceChangeListener { _, newValue ->
                     if (newValue == true) {
@@ -76,6 +83,13 @@ class CorePatch : BaseScopePreferenceFeagment() {
                     }
                     true
                 }
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                setTitle(R.string.bypassBlock)
+                setSummary(R.string.bypassBlock_summary)
+                key = "bypassBlock"
+                setDefaultValue(true)
+                isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 setTitle(R.string.shared_user_title)

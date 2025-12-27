@@ -65,9 +65,10 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if (BuildConfig.DEBUG) {
             XposedBridge.log("D/" + TAG + " downgrade=" + prefs.getBoolean("downgrade", true));
-            XposedBridge.log("D/" + TAG + " authcreak=" + prefs.getBoolean("authcreak", true));
+            XposedBridge.log("D/" + TAG + " authcreak=" + prefs.getBoolean("authcreak", false));
             XposedBridge.log("D/" + TAG + " digestCreak=" + prefs.getBoolean("digestCreak", true));
-            XposedBridge.log("D/" + TAG + " UsePreSig=" + prefs.getBoolean("UsePreSig", true));
+            XposedBridge.log("D/" + TAG + " exactSigCheck=" + prefs.getBoolean("exactSigCheck", false));
+            XposedBridge.log("D/" + TAG + " UsePreSig=" + prefs.getBoolean("UsePreSig", false));
             XposedBridge.log("D/" + TAG + " bypassBlock=" + prefs.getBoolean("bypassBlock", true));
             XposedBridge.log("D/" + TAG + " sharedUser=" + prefs.getBoolean("sharedUser", false));
             XposedBridge.log("D/" + TAG + " disableVerificationAgent=" + prefs.getBoolean("disableVerificationAgent", true));
@@ -405,6 +406,15 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
                 }
         );
         hookAllMethods(getIsVerificationEnabledClass(loadPackageParam.classLoader), "isVerificationEnabled", new ReturnConstant(prefs, "disableVerificationAgent", false));
+        
+        // Allow apk splits with different signatures to be installed together
+        hookAllMethods(signingDetails, "signaturesMatchExactly", new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+                if (prefs.getBoolean("exactSigCheck", false))
+                    param.setResult(true);
+            }
+        });
         
         if (BuildConfig.DEBUG) initializeDebugHook(loadPackageParam);
     }
