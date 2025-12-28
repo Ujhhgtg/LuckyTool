@@ -50,6 +50,11 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
                 put("oplus.software.radio.hfp_call_shared_not_support", false)
             }
 
+            //Source Android OplusFeatureAntiDizzy 晕动舒缓显示
+            if (prefs(ModulePrefs).getBoolean("force_enable_motion_sickness_anti_dizzy", false)) {
+                if (osCode >= 37) put("oplus.hardware.display.motion_sickness", true)
+            }
+
             //Source SystemUI 强制启用高斯模糊
             if (prefs(ModulePrefs).getBoolean("force_enable_systemui_blur_feature", false)) {
                 put("oplus.software.display.osie_aisdr2hdr_support", false) //C12
