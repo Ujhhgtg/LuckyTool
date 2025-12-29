@@ -4,12 +4,14 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
+import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.contract.CropImageContract
 import com.luckyzyx.luckytool.data.CropImageContractOptions
@@ -21,7 +23,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
-import com.luckyzyx.luckytool.utils.getUri
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.showToast
 import org.lsposed.lsparanoid.Obfuscate
@@ -99,6 +100,10 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                     }
                     setOnPreferenceClickListener {
                         val cacheImageFile = FileUtils.createCacheFile(requireActivity(), "png")
+                        val cacheImageUri = FileProvider.getUriForFile(
+                            context, "${BuildConfig.APPLICATION_ID}.FileProvider",
+                            cacheImageFile
+                        )
                         cropImage.launch(key to CropImageContractOptions(
                             null, CropImageOptions().apply {
                                 activityTitle = title?.toString() ?: ""
@@ -109,7 +114,7 @@ class FingerPrintRelated : BaseScopePreferenceFeagment() {
                                 maxCropResultWidth = 216
                                 maxCropResultHeight = 216
                                 fixAspectRatio = true
-                                customOutputUri = cacheImageFile.getUri
+                                customOutputUri = cacheImageUri
                                 outputCompressFormat = Bitmap.CompressFormat.PNG
                                 outputCompressQuality = 100
                             }

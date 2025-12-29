@@ -22,6 +22,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [更改] 同步上游核心破解v4.8
 - [适配] 自定义锁屏时钟红一显示 v16.00.01(ac0a4b5)
 - [添加] 强制启用晕动舒缓显示 C16
+- [修复] 自定义图片裁剪后崩溃
 
 ### 1.3.2
 

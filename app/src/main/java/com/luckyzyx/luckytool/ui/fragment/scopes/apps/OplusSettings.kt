@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.Settings
+import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.findNavController
 import androidx.preference.DropDownPreference
@@ -13,6 +14,7 @@ import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreference
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
+import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.contract.CropImageContract
 import com.luckyzyx.luckytool.data.CropImageContractOptions
@@ -30,7 +32,6 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getColonSummary
 import com.luckyzyx.luckytool.utils.getString
-import com.luckyzyx.luckytool.utils.getUri
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.openApp
@@ -51,8 +52,8 @@ class OplusSettings : BaseScopePreferenceFeagment() {
     private val cropImage = registerForActivityResult(CropImageContract()) {
         if (it.second.isSuccessful) {
             val uri = it.second.uriContent
+            val path = uri?.path ?: ""
             if (uri == null || uri == Uri.EMPTY) return@registerForActivityResult
-            val path = uri.path ?: ""
             if (path.isNotBlank()) {
                 requireActivity().showToast(path)
                 requireActivity().putString(ModulePrefs, it.first, path)
@@ -448,8 +449,11 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                                 isCopyingEnabled = true
                             }
                             setOnPreferenceClickListener {
-                                val cacheImageFile =
-                                    FileUtils.createCacheFile(requireActivity(), "png")
+                                val cacheImageFile = FileUtils.createCacheFile(requireActivity(), "png")
+                                val cacheImageUri = FileProvider.getUriForFile(
+                                    context, "${BuildConfig.APPLICATION_ID}.FileProvider",
+                                    cacheImageFile
+                                )
                                 cropImage.launch(
                                     key to CropImageContractOptions(
                                         null, CropImageOptions().apply {
@@ -459,7 +463,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                                             aspectRatioX = 624
                                             aspectRatioY = 352
                                             fixAspectRatio = true
-                                            customOutputUri = cacheImageFile.getUri
+                                            customOutputUri = cacheImageUri
                                             outputCompressFormat = Bitmap.CompressFormat.PNG
                                             outputCompressQuality = 100
                                         }
@@ -534,6 +538,10 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                         }
                         setOnPreferenceClickListener {
                             val cacheImageFile = FileUtils.createCacheFile(requireActivity(), "png")
+                            val cacheImageUri = FileProvider.getUriForFile(
+                                context, "${BuildConfig.APPLICATION_ID}.FileProvider",
+                                cacheImageFile
+                            )
                             cropImage.launch(
                                 key to CropImageContractOptions(
                                     null, CropImageOptions().apply {
@@ -548,7 +556,7 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                                             aspectRatioY = 124
                                         }
                                         fixAspectRatio = true
-                                        customOutputUri = cacheImageFile.getUri
+                                        customOutputUri = cacheImageUri
                                         outputCompressFormat = Bitmap.CompressFormat.PNG
                                         outputCompressQuality = 100
                                     }

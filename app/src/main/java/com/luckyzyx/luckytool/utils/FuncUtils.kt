@@ -20,7 +20,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -951,8 +950,6 @@ fun String.convertList(): ArrayList<String> {
     }
     return list
 }
-
-val File.getUri: Uri get() = Uri.fromFile(this)
 
 fun setSummaryProvider(preference: Preference) {
     when (preference) {

@@ -549,7 +549,7 @@ object FileUtils {
     }
 
     /**
-    * 循环遍历删除文件
+     * 循环遍历删除文件
      */
     fun deleteFile(file: File) {
         if (file.exists().not()) return
