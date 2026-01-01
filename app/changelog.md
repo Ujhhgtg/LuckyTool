@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.3.3_beta
+### 1.3.3
 
 - [更改] 移除模块内置TG群组链接
 - [适配] 移除电源菜单SOS按钮 C13
@@ -26,6 +26,27 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除电池温度控制 v1.2.8(d7509ad)
 - [适配] 移除锁屏时钟组件 C16
 - [适配] 移除移动数据箭头与类型 C16
+- [Change] Remove the built-in TG group link in the module
+- [Fix] Remove SOS button from power menu C13
+- [Fix] Skip AppDetail installation scan C13
+- [Optimize] Remove GMS restrictions and expand CN GMS
+- [Change] Remove RKP scope
+- [Fix] Time limit for chatting without internet connection C16
+- [Add] Enable recent tasks pinning to Fluid Cloud C16
+- [Change] Remove the function of extracting OTA information C16+
+- [Change] Replace built-in CDN download information
+- [Optimize] Optimize the calculation logic of network speed value in status bar
+- [Add] Remove file saving word limit C16
+- [Fix] Enable Opex local installation C16
+- [Add] Remove word limit for compressed files C16
+- [Add] Remove character limit for renamed files C16
+- [Change] Sync upstream core crack v4.8
+- [Fix] Customize lock screen clock red display v16.00.01(ac0a4b5)
+- [Add] Forced enable motion sickness relief display C16
+- [Fix] Crash after custom picture cropping
+- [Fix] Remove battery temperature control v1.2.8(d7509ad)
+- [Fix] Remove lock screen clock component C16
+- [Fix] Remove mobile data arrow and type C16
 
 ### 1.3.2
 
@@ -126,7 +147,8 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [Optimize] App intent data storage logic (recommended to reconfigure intent data)
 - [Add] Removed desktop card name C13+
 - [Add] Removed bottom input box menu in SMS (Thanks to [myflavor](https://github.com/myflavor))
-- [Add] Removed marketing button at bottom of SMS card (Thanks to [myflavor](https://github.com/myflavor))
+- [Add] Removed marketing button at bottom of SMS card (Thanks
+  to [myflavor](https://github.com/myflavor))
 - [Fix] App Installer scan and downgrade C16
 - [Fix] Status bar clock width anomaly C16
 - [Fix] Automatically switch to previous task when opening task list C16
