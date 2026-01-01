@@ -50,10 +50,7 @@ object LockScreenClock : YukiBaseHooker() {
             //Source KeyguardStyleClockControllerImpl
             "com.oplus.systemui.keyguard.clockstyle.KeyguardStyleClockControllerImpl".toClass()
                 .resolve().apply {
-                    firstMethod {
-                        name = "setKeyguardStyleClockVisibility"
-                        parameters(Int::class, Boolean::class, Boolean::class)
-                    }.hook {
+                    firstMethod { name = "setKeyguardStyleClockVisibility" }.hook {
                         before {
                             firstField { name = "keyguardStyleClock" }.of(instance)
                                 .get<View>()?.isVisible = false
