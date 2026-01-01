@@ -18,9 +18,10 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
         dexKitBridge.findClass {
             matcher {
                 addFieldForType(Context::class.java)
-                addFieldForType(Looper::class.java)
+//                addFieldForType(Looper::class.java)
                 addMethod { name("handleMessage") }
-                usingStrings("ThermalControllHandler")
+//                usingStrings("ThermalControllHandler")
+                usingStrings("ThermalControl", "Handler")
             }
         }.apply {
             checkDataList("RemoveBatteryTemperatureControl find ThermalControlHandler")
@@ -75,7 +76,7 @@ class RemoveBatteryTemperatureControl(val dexKitBridge: DexKitBridge) : YukiBase
                 checkDataList("RemoveBatteryTemperatureControl find startMonitor")
 
                 single().className.toClass().resolve().apply {
-                    firstMethod { name = single().name;emptyParameters() }.hook {
+                    firstMethod { name = single().name; emptyParameters() }.hook {
                         intercept()
                     }
                 }
