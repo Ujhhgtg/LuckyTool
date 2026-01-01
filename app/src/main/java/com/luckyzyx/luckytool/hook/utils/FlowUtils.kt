@@ -11,7 +11,7 @@ class FlowUtils(val classLoader: ClassLoader?) {
     val stateFlowKt = "kotlinx.coroutines.flow.StateFlowKt".toClass(classLoader)
     val flowKtShareKt = "kotlinx.coroutines.flow.FlowKt__ShareKt".toClass(classLoader)
 
-    fun MutableStateFlow(any: Any): Any? {
+    fun MutableStateFlow(any: Any?): Any? {
         return stateFlowKt.resolve().firstMethod { name = "MutableStateFlow" }.invoke(any)
     }
 
