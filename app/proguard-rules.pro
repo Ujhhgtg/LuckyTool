@@ -43,9 +43,9 @@
 # 这个过滤器是谷歌推荐的算法，一般不改变
 #-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
--adaptclassstrings
--adaptresourcefilenames
--adaptresourcefilecontents
+#-adaptclassstrings
+#-adaptresourcefilenames
+#-adaptresourcefilecontents
 
 #将文件来源重命名为“SourceFile”字符串
 -renamesourcefileattribute SourceFile
