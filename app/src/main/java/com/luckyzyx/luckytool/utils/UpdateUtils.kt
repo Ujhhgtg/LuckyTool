@@ -89,7 +89,10 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
                     }
                 }
             }
-        }.catch { context.showToast(context.getString(R.string.check_update_error)) }
+        }.catch {
+            it.printStackTrace()
+            context.showToast(context.getString(R.string.check_update_error))
+        }
     }
 
     private fun showDownloadItems(context: Context, apkFile: File, downloadUrl: String) {

@@ -102,7 +102,7 @@ android {
         resources {
             excludes += "META-INF/**"
             excludes += "okhttp3/**"
-            excludes += "kotlin/**"
+//            excludes += "kotlin/**"
             excludes += "**.properties"
             excludes += "**.bin"
 //            excludes += "kotlin-tooling-metadata.json"
@@ -151,9 +151,7 @@ dependencies {
 
     //OkHttp3
     implementation(libs.okhttp3)
-//    implementation(libs.net)
-//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
+    implementation(libs.net)
 
     //LibSU
     implementation(libs.libsu.core)

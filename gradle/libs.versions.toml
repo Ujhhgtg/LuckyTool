@@ -34,7 +34,6 @@ kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extensi
 dexkit = { group = "org.luckypray", name = "dexkit", version = "2.0.7" }
 bcpkix = { group = "org.bouncycastle", name = "bcpkix-jdk18on", version = "1.83" }
 
-material = { group = "com.google.android.material", name = "material", version = "1.13.0" }
 betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version = "1.0.10" }
 betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version = "1.0.1" }
 betterandroid-ui-extension = { group = "com.highcapable.betterandroid", name = "ui-extension", version = "1.0.9" }
@@ -46,6 +45,7 @@ hikage-extension-betterandroid = { group = "com.highcapable.hikage", name = "hik
 hikage-widget-androidx = { group = "com.highcapable.hikage", name = "hikage-widget-androidx", version = "1.0.1" }
 hikage-widget-material = { group = "com.highcapable.hikage", name = "hikage-widget-material", version = "1.0.1" }
 
+material = { group = "com.google.android.material", name = "material", version = "1.13.0" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.2.1" }
 androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version = "1.2.1" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version = "1.2.0" }
