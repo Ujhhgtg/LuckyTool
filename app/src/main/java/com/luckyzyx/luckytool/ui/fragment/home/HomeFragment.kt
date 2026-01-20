@@ -64,26 +64,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true))
         val isDev = requireActivity().getBoolean(SettingsPrefs, "hidden_function")
-        UpdateUtils(requireActivity(), isDev).checkUpdate { versionName, versionCode, function ->
-            if (getVersionCode < versionCode) {
-                function()
-                binding.updateView.apply {
-                    isVisible = true
-                    setOnClickListener { function() }
+        if (requireActivity().getBoolean(SettingsPrefs, "auto_check_update", true)) {
+            UpdateUtils(requireActivity(), isDev)
+                .checkUpdate { versionName, versionCode, function ->
+                    if (getVersionCode < versionCode) {
+                        function()
+                        binding.updateView.apply {
+                            isVisible = true
+                            setOnClickListener { function() }
+                        }
+                        binding.updateInfo.apply {
+                            text =
+                                getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
+                        }
+                    }
+                    binding.statusCard.apply {
+                        if (isDev) setOnLongClickListener {
+                            function()
+                            true
+                        }
+                    }
                 }
-                binding.updateInfo.apply {
-                    text =
-                        getString(R.string.check_update_hint) + "  -->  $versionName($versionCode)"
-                }
-            }
-            binding.statusCard.apply {
-                if (isDev) setOnLongClickListener {
-                    function()
-                    true
-                }
-            }
         }
 
         binding.systemInfo.apply {
