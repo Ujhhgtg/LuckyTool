@@ -661,7 +661,6 @@
     <string name="enable_screen_color_temperature_rgb_palette_summary">可能会被DC功能覆盖</string>
     <string name="enable_smart_switching_screen_resolutions">启用智能切换屏幕分辨率</string>
     <string name="force_enable_reduce_white_point_value">强制启用降低白点值</string>
-    <string name="force_enable_motion_sickness_anti_dizzy">强制启用晕动舒缓显示</string>
     <string name="settings_application">应用</string>
     <string name="unlock_default_desktop_limit">解锁默认桌面限制</string>
     <string name="force_display_process_management">强制显示进程管理</string>

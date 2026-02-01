@@ -243,15 +243,6 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                     isIconSpaceReserved = false
                 })
             }
-            if (osCode >= 37) {
-                add(SwitchPreference(this@loadPreferences).apply {
-                    title = getString(R.string.force_enable_motion_sickness_anti_dizzy)
-                    summary = getString(R.string.need_restart_system)
-                    key = "force_enable_motion_sickness_anti_dizzy"
-                    setDefaultValue(false)
-                    isIconSpaceReserved = false
-                })
-            }
             //声音
             if (osCode >= 27) {
                 add(PreferenceCategory(this@loadPreferences).apply {
