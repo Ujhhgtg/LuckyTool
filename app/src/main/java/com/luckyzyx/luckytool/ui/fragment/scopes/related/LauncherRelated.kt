@@ -403,7 +403,7 @@ class LauncherRelated : BaseScopePreferenceFeagment() {
                     title = getString(R.string.custom_multi_window_display_upper_limit)
                     key = "custom_multi_window_display_upper_limit"
                     setDefaultValue(2)
-                    max = 200
+                    max = 20
                     min = 0
                     showSeekBarValue = true
                     updatesContinuously = false
