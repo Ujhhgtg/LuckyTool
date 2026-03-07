@@ -668,6 +668,7 @@
     <string name="force_display_process_management">强制显示进程管理</string>
     <string name="force_display_disabled_apps_manager">强制显示已停用应用管理器</string>
     <string name="auto_unlock_restricted_settings">自动解锁受限制的设置</string>
+    <string name="auto_jump_accessibility_settings">自动跳转无障碍设置</string>
     <string name="auto_unlock_restricted_settings_summary">点击灰色选项时自动解锁此限制</string>
     <string name="enable_dedicated_ram_for_games">启用游戏专属内存</string>
     <string name="settings_sound">声音</string>

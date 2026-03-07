@@ -8,6 +8,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 模块内置检测更新异常
 - [修复] 自动检测更新开关异常
 - [更改] 更改多浮窗最大数量为20
+- [添加] 自动跳转无障碍设置
 
 ### 1.3.3
 

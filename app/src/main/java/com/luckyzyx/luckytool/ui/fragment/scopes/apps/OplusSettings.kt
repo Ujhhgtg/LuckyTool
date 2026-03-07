@@ -295,6 +295,12 @@ class OplusSettings : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.auto_jump_accessibility_settings)
+                key = "auto_jump_accessibility_settings"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.enable_dedicated_ram_for_games)
                 key = "enable_dedicated_ram_for_games"
                 setDefaultValue(false)

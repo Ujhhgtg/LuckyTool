@@ -5,6 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureProvider
 import com.luckyzyx.luckytool.hook.globals.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.settings.AllowDisablingSystemApps
+import com.luckyzyx.luckytool.hook.scopes.settings.AutoJumpAccessibilitySettings
 import com.luckyzyx.luckytool.hook.scopes.settings.AutoUnlockRestrictedSettings
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomProcessorPageIntroductionParameters
 import com.luckyzyx.luckytool.hook.scopes.settings.CustomizeDeviceOTACardBackground
@@ -158,6 +159,10 @@ object HookSettings : YukiBaseHooker() {
         //启用上滑导航手势
         if (prefs(ModulePrefs).getBoolean("enable_swipe_up_navigation_gesture", false)) {
             if (osCode >= 30) loadHooker(EnableSwipeUpNavigationGesture)
+        }
+        //自动跳转无障碍设置
+        if (prefs(ModulePrefs).getBoolean("auto_jump_accessibility_settings", false)) {
+            loadHooker(AutoJumpAccessibilitySettings)
         }
 
         //电源键
