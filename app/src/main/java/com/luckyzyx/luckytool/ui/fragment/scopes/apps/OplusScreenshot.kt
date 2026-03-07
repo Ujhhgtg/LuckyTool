@@ -83,6 +83,12 @@ class OplusScreenshot : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_screenshot_packagename_md5_encrypt)
+                key = "disable_screenshot_packagename_md5_encrypt"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }

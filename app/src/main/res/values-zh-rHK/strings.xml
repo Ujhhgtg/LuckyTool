@@ -808,6 +808,7 @@
     <string name="remove_page_limit_for_long_screenshots_summary">仅支持部分场景，具体情况请自行测试</string>
     <string name="enable_png_save_format">启用 PNG 保存格式</string>
     <!--OplusOta-->
+    <string name="disable_screenshot_packagename_md5_encrypt">禁用截图包名MD5加密</string>
     <string name="remove_ota_notify_install_success">移除OTA安装成功通知</string>
     <string name="remove_ota_auto_download_dialog">移除OTA自动下载对话框</string>
     <!--OplusOta-->

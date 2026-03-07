@@ -927,6 +927,7 @@
     <string name="remove_page_limit_for_long_screenshots">Remove the page limit for long screenshots</string>
     <string name="remove_page_limit_for_long_screenshots_summary">Only some scenarios are supported, please test the specific situation by yourself</string>
     <string name="enable_png_save_format">Enable PNG save format</string>
+    <string name="disable_screenshot_packagename_md5_encrypt">Disable MD5 encryption of screenshot package name</string>
     
     <!--OplusOta-->
     <string name="remove_ota_notify_install_success">Remove the OTA installation success notification</string>

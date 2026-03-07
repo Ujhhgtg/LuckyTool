@@ -1,12 +1,13 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.screenshot.CustomizeLongScreenshotMaxCapturedPages
+import com.luckyzyx.luckytool.hook.scopes.screenshot.DisableScreenshotPackageNameMd5Encrypt
 import com.luckyzyx.luckytool.hook.scopes.screenshot.EnablePNGSaveFormat
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookScreenshot : YukiBaseHooker() {
@@ -22,6 +23,12 @@ object HookScreenshot : YukiBaseHooker() {
             //启用PNG保存格式
             if (prefs(ModulePrefs).getBoolean("enable_png_save_format", false)) {
                 loadHooker(EnablePNGSaveFormat(dexKitBridge))
+            }
+            //禁用截图包名MD5加密
+            val disableMd5 =
+                prefs(ModulePrefs).getBoolean("disable_screenshot_packagename_md5_encrypt", false)
+            if (disableMd5) {
+                loadHooker(DisableScreenshotPackageNameMd5Encrypt(dexKitBridge))
             }
         }
     }
