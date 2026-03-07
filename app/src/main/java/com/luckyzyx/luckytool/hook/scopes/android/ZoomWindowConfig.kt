@@ -109,9 +109,9 @@ class ZoomWindowConfig : YukiBaseHooker() {
                     returnType = Int::class
                 }.hook {
                     after {
-                        val scenario = args().first().int()
-                        val num = result<Int>() ?: -1
-                        YLog.debug("${method.name} -> $scenario -> $num")
+//                        val scenario = args().first().int()
+//                        val num = result<Int>() ?: -1
+//                        YLog.debug("${method.name} -> $scenario -> $num")
                         if (multiWindow && multiNum > 0) result = multiNum
                     }
                 }

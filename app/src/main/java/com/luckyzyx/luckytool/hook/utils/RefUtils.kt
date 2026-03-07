@@ -16,11 +16,11 @@ class RefUtils(val classLoader: ClassLoader?) {
     val LongRefCls = "kotlin.jvm.internal.Ref\$LongRef"
     val ObjectRefCls = "kotlin.jvm.internal.Ref\$ObjectRef"
 
-    fun BooleanRef(): Any? {
+    fun BooleanRef(): Any {
         return BooleanRef(null)
     }
 
-    fun BooleanRef(element: Boolean? = null): Any? {
+    fun BooleanRef(element: Boolean? = null): Any {
         return BooleanRefCls.toClass(classLoader).createInstance(isPublic = false).apply {
             asResolver().firstField { name = "element";type = Boolean::class }.set(element)
         }
