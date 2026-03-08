@@ -79,8 +79,8 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 }
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.auto_tap_start_recording_or_casting_dialog)
-                key = "auto_tap_start_recording_or_casting_dialog"
+                title = getString(R.string.remove_start_recording_or_casting_dialog)
+                key = "remove_start_recording_or_casting_dialog"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

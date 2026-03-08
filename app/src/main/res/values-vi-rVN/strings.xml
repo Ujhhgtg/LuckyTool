@@ -556,7 +556,6 @@
     <string name="run_floating_window_tasks_in_foreground">Chạy các tác vụ cửa sổ nổi ở phía trước</string>
     <string name="custom_volume_dialog_background_transparency">Tùy chỉnh độ trong suốt của nền hộp thoại âm lượng</string>
     <string name="reduce_power_menu_display_delay">Giảm độ trễ hiển thị menu nguồn</string>
-    <string name="auto_tap_start_recording_or_casting_dialog">Tự động nhấp để bắt đầu ghi hoặc truyền hộp thoại</string>
     <!--PhoneManager-->
     <string name="remove_virus_risk_notification_in_phone_manager">Xóa thông báo nguy cơ vi-rút trong Trình quản lý điện thoại</string>
     <string name="remove_secure_pay_found_virus_dialog">Đã xóa hộp thoại vi-rút tìm thấy thanh toán an toàn</string>
