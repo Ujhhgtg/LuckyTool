@@ -84,6 +84,12 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.force_show_toast_icon)
+                key = "force_show_toast_icon"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
 //            add(SwitchPreference(this@loadPreferences).apply {
 //                title = getString(R.string.reduce_power_menu_display_delay)
 //                key = "reduce_power_menu_display_delay"

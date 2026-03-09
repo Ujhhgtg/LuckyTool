@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableDuplicateFloatingWindow
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHeadphoneHighVolumeWarning
+import com.luckyzyx.luckytool.hook.scopes.systemui.ForceShowToastIcon
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStartRecordingOrCastingDialog
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveUSBConnectDialog
@@ -48,6 +49,10 @@ object HookSystemUIDialog : YukiBaseHooker() {
         //浮窗贴边前台运行
         if (prefs(ModulePrefs).getBoolean("run_floating_window_tasks_in_foreground", false)) {
             if (osCode in 26..33) loadHooker(RunFloatingWindowTasksInForeground)
+        }
+        //强制显示Toast提示图标
+        if (prefs(ModulePrefs).getBoolean("force_show_toast_icon", false)) {
+            loadHooker(ForceShowToastIcon)
         }
     }
 }
