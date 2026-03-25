@@ -12,6 +12,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 禁用截图包名MD5加密
 - [添加] 移除开始录制或投射对话框
 - [添加] 强制显示Toast提示图标
+- [适配] 自定义OTA更新卡片背景 v16.0.0[ec38064]
 
 ### 1.3.3
 

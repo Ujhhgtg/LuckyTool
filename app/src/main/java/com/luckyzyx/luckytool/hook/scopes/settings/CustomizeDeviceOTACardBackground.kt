@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.BitmapFactory
 import android.view.View
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.view.children
@@ -35,27 +36,46 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                     after {
                         val holder = args().first().any() ?: return@after
                         val itemView =
-                            holder.asResolver().firstField { name = "itemView";superclass() }
+                            holder.asResolver().firstField { name = "itemView"; superclass() }
                                 .get<View>() ?: return@after
                         if (itemView is RelativeLayout) {
                             val topId = itemView.resources.getIdentifier(
                                 "about_device_top_bg", "id",
                                 this@CustomizeDeviceOTACardBackground.packageName
                             )
-                            itemView.findViewById<View>(topId)?.let {
-                                itemView.removeView(it)
-                            }
+                            val maskId = itemView.resources.getIdentifier(
+                                "about_device_top_video_mask", "id",
+                                this@CustomizeDeviceOTACardBackground.packageName
+                            )
                             val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
-                            val drawableFactory = RoundedBitmapDrawableFactory.create(
+                            val drawable = RoundedBitmapDrawableFactory.create(
                                 itemView.resources, bitmap
                             )
-                            drawableFactory.cornerRadius = 12F.dp
-                            itemView.background = drawableFactory
+                            drawable.cornerRadius = 12F.dp
+
+                            itemView.findViewById<ImageView>(topId)?.setImageDrawable(drawable)
+                            itemView.findViewById<ImageView>(maskId)?.setImageDrawable(drawable)
 
                             if (hideText) itemView.children.forEach {
                                 it.isVisible = false
                             }
                         }
+                    }
+                }
+                firstMethod { name = "isSupportTopVideo" }.hook {
+                    replaceToFalse()
+                }
+                firstMethod { name = "isSupportEasterEggVideo" }.hook {
+                    replaceToFalse()
+                }
+                if (false) firstMethod { name = "applyVideoTransform" }.hook {
+                    before {
+                        args().first().setNull()
+                    }
+                }
+                if (false) firstMethod { name = "getColorOSVideoPath" }.hook {
+                    after {
+                        result = "/sdcard/DNA/1.mp4"
                     }
                 }
             }
@@ -65,30 +85,30 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
         //Source ShareAboutPhoneActivity parent_relativeLayout
         "com.oplus.settings.feature.deviceinfo.aboutphone.ShareAboutPhoneActivity".toClass()
             .resolve().apply {
-            firstMethod { name = "updateOsVersion" }.hook {
-                after {
-                    val activity = instance<Activity>()
-                    val viewId = activity.resources.getIdentifier(
-                        "parent_relativeLayout", "id",
-                        this@CustomizeDeviceOTACardBackground.packageName
-                    )
-                    val relativeLayout = activity.findViewById<RelativeLayout>(viewId)
-                        ?: return@after
-                    val topId = activity.resources.getIdentifier(
-                        "about_device_top_bg", "id",
-                        this@CustomizeDeviceOTACardBackground.packageName
-                    )
-                    activity.findViewById<View>(topId)?.let {
-                        relativeLayout.removeView(it)
+                firstMethod { name = "updateOsVersion" }.hook {
+                    after {
+                        val activity = instance<Activity>()
+                        val viewId = activity.resources.getIdentifier(
+                            "parent_relativeLayout", "id",
+                            this@CustomizeDeviceOTACardBackground.packageName
+                        )
+                        val relativeLayout = activity.findViewById<RelativeLayout>(viewId)
+                            ?: return@after
+                        val topId = activity.resources.getIdentifier(
+                            "about_device_top_bg", "id",
+                            this@CustomizeDeviceOTACardBackground.packageName
+                        )
+                        activity.findViewById<View>(topId)?.let {
+                            relativeLayout.removeView(it)
+                        }
+                        val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
+                        val drawableFactory = RoundedBitmapDrawableFactory.create(
+                            relativeLayout.resources, bitmap
+                        )
+                        drawableFactory.cornerRadius = 12F.dp
+                        relativeLayout.background = drawableFactory
                     }
-                    val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
-                    val drawableFactory = RoundedBitmapDrawableFactory.create(
-                        relativeLayout.resources, bitmap
-                    )
-                    drawableFactory.cornerRadius = 12F.dp
-                    relativeLayout.background = drawableFactory
                 }
             }
-        }
     }
 }
