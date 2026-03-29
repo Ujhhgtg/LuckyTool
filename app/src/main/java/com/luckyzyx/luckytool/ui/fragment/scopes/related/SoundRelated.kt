@@ -91,6 +91,13 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 isVisible = osCode >= 27
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_volume_bar_thickness_effect)
+                key = "disable_volume_bar_thickness_effect"
+                setDefaultValue(false)
+                isVisible = osCode >= 30
+                isIconSpaceReserved = false
+            })
             add(DropDownPreference(this@loadPreferences).apply {
                 title = getString(R.string.set_volume_bar_display_position)
                 summary = getString(R.string.current_mode) + ": %s"

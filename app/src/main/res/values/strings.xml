@@ -698,6 +698,7 @@
     <string name="open_screen_power_save_summary">Settings - Battery - More settings - Screen Power Saving</string>
     <string name="open_battery_health">Open battery health entrance</string>
     <string name="open_battery_health_summary">Settings - Battery - Battery Health</string>
+    <string name="disable_volume_bar_thickness_effect">Disable volume bar thickness effect</string>
     <string name="set_volume_bar_display_position">Set the volume bar display position</string>
     <string name="force_enable_systemui_blur_feature">Force enable the systemui blur feature</string>
     <string name="force_enable_systemui_blur_feature_tips">Preconditions: You need to turn on the option to “force enable the blur feature of the systemui”\nFunctional location: Miscellaneous</string>

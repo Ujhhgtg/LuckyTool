@@ -616,6 +616,7 @@
     <string name="open_screen_power_save_summary">设置-电池-更多设置-屏幕省电</string>
     <string name="open_battery_health">打开电池健康入口</string>
     <string name="open_battery_health_summary">设置-电池-电池健康</string>
+    <string name="disable_volume_bar_thickness_effect">禁用音量条粗细效果</string>
     <string name="set_volume_bar_display_position">设置音量条显示位置</string>
     <string name="force_enable_systemui_blur_feature">强制启用系统界面模糊特性</string>
     <string name="force_enable_systemui_blur_feature_tips">前提条件：需要开启选项“强制启用系统模糊特性”\n功能位置：杂项</string>

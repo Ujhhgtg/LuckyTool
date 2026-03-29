@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook.hookers
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableDuplicateFloatingWindow
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableHeadphoneHighVolumeWarning
+import com.luckyzyx.luckytool.hook.scopes.systemui.DisableVolumeBarThicknessEffect
 import com.luckyzyx.luckytool.hook.scopes.systemui.ForceShowToastIcon
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveLowBatteryDialogWarning
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStartRecordingOrCastingDialog
@@ -24,6 +25,11 @@ object HookSystemUIDialog : YukiBaseHooker() {
             //音量对话框背景透明度
             loadHooker(VolumeDialogBackground(dexKitBridge))
 
+        }
+
+        //禁用音量条粗细效果
+        if (prefs(ModulePrefs).getBoolean("disable_volume_bar_thickness_effect", false)) {
+            if (osCode >= 30) loadHooker(DisableVolumeBarThicknessEffect)
         }
 
         //禁用复制悬浮窗
