@@ -566,12 +566,4 @@
                 android:name="title_text"
                 app:argType="string" />
     </fragment>
-    <fragment
-            android:id="@+id/bili"
-            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.others.Bili"
-            android:label="{title_text}">
-        <argument
-                android:name="title_text"
-                app:argType="string" />
-    </fragment>
 </navigation>

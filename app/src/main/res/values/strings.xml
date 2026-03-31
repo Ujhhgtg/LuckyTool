@@ -1078,8 +1078,6 @@
     <!--ADM-->
     <string name="adm_unlock_pro">Unlock Pro</string>
     <string name="adm_unlock_more_threads">Unlock more download threads</string>
-    <!--Bili-->
-    <string name="remove_bili_splash_ads">Remove splash ads</string>
     
     <!--Home-->
     <string name="fps_title">Force refresh rate</string>
