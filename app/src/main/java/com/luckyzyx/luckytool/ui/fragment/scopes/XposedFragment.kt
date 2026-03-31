@@ -484,18 +484,21 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             return SearchResultItemHolder(binding)
         }
 
+        @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: SearchResultItemHolder, position: Int) {
             val prefsItem = filterDatas[position]
             val icon = prefsItem.icon
             val title = prefsItem.title
             val summary = prefsItem.summary
             val fragmentId = prefsItem.fragmentResId
+            val fragmentTitle = prefsItem.fragmentTitle
             val fragmentItem = allFragmentItemDatas[fragmentId]!!
 
             holder.item.setOnClickListener(null)
             holder.itemIcon.setImageDrawable(null)
             holder.itemTitle.text = null
             holder.itemSummary.text = null
+            holder.itemRootTitle.text = null
 
             holder.item.setOnClickListener {
                 onSelectSearchResultListener.resultItem(fragmentItem, prefsItem)
@@ -505,6 +508,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             holder.itemTitle.text = title
             if (summary.isNullOrBlank()) holder.itemSummary.isVisible = false
             else holder.itemSummary.text = summary
+            if (summary.isNullOrBlank()) holder.itemRootTitle.isVisible = false
+            else holder.itemRootTitle.text = "From: $fragmentTitle"
         }
 
         override fun getItemCount(): Int = filterDatas.size
@@ -544,6 +549,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             val itemIcon: ImageView = binding.itemIcon
             val itemTitle: TextView = binding.itemTitle
             val itemSummary: TextView = binding.itemSummary
+            val itemRootTitle: TextView = binding.resultItemRootTitle
         }
     }
 }
