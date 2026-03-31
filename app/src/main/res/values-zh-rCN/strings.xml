@@ -924,6 +924,7 @@
     <string name="adm_unlock_pro">解锁 Pro</string>
     <string name="adm_unlock_more_threads">解锁更多下载线程</string>
     <!--Home-->
+    <string name="remove_bili_splash_ads">移除开屏广告</string>
     <string name="fps_title">强制刷新率</string>
     <string name="fps_summary">与其他动态刷新率进程冲突，例如 dfps</string>
     <string name="brand">品牌</string>
