@@ -123,6 +123,12 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_volume_bar_percent_display)
+                key = "enable_volume_bar_percent_display"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
         }
     }
 }

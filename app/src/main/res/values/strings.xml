@@ -657,6 +657,7 @@
     <string name="reduce_power_menu_display_delay">Reduce power menu display delay</string>
     <string name="remove_start_recording_or_casting_dialog">remove start recording or casting dialog</string>
     <string name="force_show_toast_icon">Force display of toast prompt icon</string>
+    <string name="enable_volume_bar_percent_display">Enable volume bar percentage display</string>
     
     <!--PhoneManager-->
     <string name="remove_virus_risk_notification_in_phone_manager">Remove the virus risk notification in Phone Manager</string>

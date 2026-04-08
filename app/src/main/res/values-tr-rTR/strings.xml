@@ -655,7 +655,6 @@
     <string name="run_floating_window_tasks_in_foreground">Kayan pencere görevlerini ön planda çalıştır</string>
     <string name="custom_volume_dialog_background_transparency">Özel ses paneli arka plan şeffaflığı</string>
     <string name="reduce_power_menu_display_delay">Güç menüsü görüntüleme gecikmesini azalt</string>
-    <string name="auto_tap_start_recording_or_casting_dialog">Kaydı başlat ve ekran yansıtma izinlerine otomatik tıkla</string>
     
     <!--PhoneManager-->
     <string name="remove_virus_risk_notification_in_phone_manager">Telefon Yöneticisindeki virüs riski bildirimini kaldır</string>
@@ -752,7 +751,6 @@
     <string name="enable_screen_color_temperature_rgb_palette_summary">DC (titreme önleme) işlevi tarafından geçersiz kılınabilir</string>
     <string name="enable_smart_switching_screen_resolutions">Ekran çözünürlüklerinin akıllı (otomatik) değişimini etkinleştir</string>
     <string name="force_enable_reduce_white_point_value">Beyaz nokta değerini düşürmeyi zorla etkinleştir (Ekranı sarartma)</string>
-    <string name="force_enable_motion_sickness_anti_dizzy">Hareket ipuçları, araç tutması, baş dönmesi, yorgunluk hissi özelliklerini zorla etkinleştir</string>
     
     <string name="settings_application">Uygulamalar</string>
     <string name="unlock_default_desktop_limit">Varsayılan masaüstü (Launcher) kısıtlamalarını kaldır</string>
