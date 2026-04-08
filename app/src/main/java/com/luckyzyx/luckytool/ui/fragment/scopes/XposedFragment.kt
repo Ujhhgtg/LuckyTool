@@ -45,6 +45,7 @@ import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCalendar
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCamera
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusCloudService
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusDirectUI
+import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusEngineerMode
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusEyeProtect
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusFileManager
 import com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusGallery
@@ -217,6 +218,8 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentPreference(this, allPrefs, OplusSecuritypPermission())
         //FileManager
         addFragmentPreference(this, allPrefs, OplusFileManager())
+        //EngineerMode
+        addFragmentPreference(this, allPrefs, OplusEngineerMode())
 
         //Other App
         addFragmentPreference(this, allPrefs, AlphaBackupPro())
@@ -304,6 +307,7 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         addFragmentItem(context, allFragmentItem, OplusLinker())
         addFragmentItem(context, allFragmentItem, OplusSecuritypPermission())
         addFragmentItem(context, allFragmentItem, OplusFileManager())
+        addFragmentItem(context, allFragmentItem, OplusEngineerMode())
 
         addFragmentItem(context, allFragmentItem, ADM())
         addFragmentItem(context, allFragmentItem, AlphaBackupPro())
