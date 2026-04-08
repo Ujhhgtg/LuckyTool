@@ -566,4 +566,12 @@
                 android:name="title_text"
                 app:argType="string" />
     </fragment>
+    <fragment
+            android:id="@+id/oplusEngineerMode"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.apps.OplusEngineerMode"
+            android:label="{title_text}">
+        <argument
+                android:name="title_text"
+                app:argType="string" />
+    </fragment>
 </navigation>

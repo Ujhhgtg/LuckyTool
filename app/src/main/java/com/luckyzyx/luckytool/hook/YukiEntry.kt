@@ -18,6 +18,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookCamera
 import com.luckyzyx.luckytool.hook.hookers.HookCloudService
 import com.luckyzyx.luckytool.hook.hookers.HookContacts
 import com.luckyzyx.luckytool.hook.hookers.HookDirectUI
+import com.luckyzyx.luckytool.hook.hookers.HookEngineerMode
 import com.luckyzyx.luckytool.hook.hookers.HookExternalStorage
 import com.luckyzyx.luckytool.hook.hookers.HookEyeProtect
 import com.luckyzyx.luckytool.hook.hookers.HookFileManager
@@ -211,6 +212,8 @@ object YukiEntry {
         loadApp("com.oplus.securitypermission", HookSecuritypPermission)
         //文件管理
         loadApp("com.coloros.filemanager", HookFileManager)
+        //工程模式
+        loadApp("com.oplus.engineermode", HookEngineerMode)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)
