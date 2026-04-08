@@ -1,10 +1,15 @@
 package com.luckyzyx.luckytool.hook.CorePatch;
 
+import static de.robv.android.xposed.XposedHelpers.findField;
+import static de.robv.android.xposed.XposedHelpers.getIntField;
+import static de.robv.android.xposed.XposedHelpers.setIntField;
+
 import android.util.Log;
 
 import org.lsposed.lsparanoid.Obfuscate;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
@@ -27,7 +32,14 @@ public class CorePatchForU extends CorePatchForT {
         
         // https://cs.android.com/android/platform/superproject/+/android-14.0.0_r60:frameworks/base/services/core/java/com/android/server/pm/ReconcilePackageUtils.java;l=61;bpv=1;bpt=0
         if (prefs.getBoolean("digestCreak", true) && prefs.getBoolean("sharedUser", false)) {
-            setStaticBooleanField(utilClass, "ALLOW_NON_PRELOADS_SYSTEM_SHAREDUIDS", true);
+            try {
+                var field = findField(utilClass, "ALLOW_NON_PRELOADS_SYSTEM_SHAREDUIDS");
+                var accessFlags = getIntField(field, "accessFlags");
+                setIntField(field, "accessFlags", accessFlags & ~Modifier.FINAL);
+                field.set(null, true);
+            } catch (Throwable e) {
+                XposedBridge.log("E/" + TAG + " ALLOW_NON_PRELOADS_SYSTEM_SHAREDUIDS failed" + Log.getStackTraceString(e));
+            }
         }
         
         // ee11a9c (Rename AndroidPackageApi to AndroidPackage)
