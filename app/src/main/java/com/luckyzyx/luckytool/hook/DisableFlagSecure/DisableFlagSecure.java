@@ -210,25 +210,30 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
     @SuppressLint("ObsoleteSdkInt")
     private void hookWindowState(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var windowStateClazz = classLoader.loadClass("com.android.server.wm.WindowState");
+        var systemServerCl = windowStateClazz.getClassLoader();
         Method isSecureLockedMethod = windowStateClazz.getDeclaredMethod("isSecureLocked");
         XposedBridge.hookMethod(isSecureLockedMethod, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    var walker = StackWalker.getInstance();
+                    var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
                     var match = walker.walk(frames -> frames
-                            .map(StackWalker.StackFrame::getMethodName)
-                            .limit(6)
-                            .skip(2)
-                            .anyMatch(s -> s.equals("setInitialSurfaceControlProperties") || s.equals("createSurfaceLocked")));
+                            .anyMatch(frame -> frame.getDeclaringClass() != null &&
+                                    frame.getDeclaringClass().getClassLoader() == systemServerCl &&
+                                    (frame.getMethodName().equals("setInitialSurfaceControlProperties") ||
+                                            frame.getMethodName().equals("createSurfaceLocked"))));
                     if (match) return;
                 } else {
                     var stackTrace = new Throwable().getStackTrace();
-                    for (int i = 4; i < stackTrace.length && i < 8; i++) {
-                        var name = stackTrace[i].getMethodName();
-                        if (name.equals("setInitialSurfaceControlProperties") ||
-                                name.equals("createSurfaceLocked")) {
-                            return;
+                    for (var frame : stackTrace) {
+                        var name = frame.getMethodName();
+                        try {
+                            if ((name.equals("setInitialSurfaceControlProperties") ||
+                                    name.equals("createSurfaceLocked")) &&
+                                    classLoader.loadClass(frame.getClassName()).getClassLoader() == systemServerCl) {
+                                return;
+                            }
+                        } catch (ClassNotFoundException ignored) {
                         }
                     }
                 }
@@ -292,6 +297,7 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
     private void hookDisplayControl(ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException {
         var displayControlClazz = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE ?
                 classLoader.loadClass("com.android.server.display.DisplayControl") : SurfaceControl.class;
+        var systemServerCl = displayControlClazz.getClassLoader();
         var method = displayControlClazz.getDeclaredMethod(
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM ?
                         "createVirtualDisplay" :
@@ -302,10 +308,14 @@ public class DisableFlagSecure implements IXposedHookLoadPackage {
                 super.beforeHookedMethod(param);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                     var stackTrace = new Throwable().getStackTrace();
-                    for (int i = 4; i < stackTrace.length && i < 8; i++) {
-                        var name = stackTrace[i].getMethodName();
-                        if (name.equals("createVirtualDisplayLocked")) {
-                            return;
+                    for (var frame : stackTrace) {
+                        var name = frame.getMethodName();
+                        try {
+                            if (name.equals("createVirtualDisplayLocked") &&
+                                    classLoader.loadClass(frame.getClassName()).getClassLoader() == systemServerCl) {
+                                return;
+                            }
+                        } catch (ClassNotFoundException ignored) {
                         }
                     }
                 }
