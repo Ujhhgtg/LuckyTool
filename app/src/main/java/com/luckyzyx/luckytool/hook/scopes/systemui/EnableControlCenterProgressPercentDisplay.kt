@@ -12,11 +12,14 @@ import com.luckyzyx.luckytool.utils.dp
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
-object EnableVolumeBarPercentDisplay : YukiBaseHooker() {
+object EnableControlCenterProgressPercentDisplay : YukiBaseHooker() {
     override fun onHook() {
-        //Source OplusVolumeSeekBar
-        "com.oplus.systemui.volume.OplusVolumeSeekBar".toClass().resolve().apply {
-            firstMethod { name = "drawActiveTrack" }.hook {
+        //Source OplusQsVerticalSeekBar
+        "com.oplus.systemui.qs.base.seek.OplusQsVerticalSeekBar".toClass().resolve().apply {
+            firstMethod {
+                name = "onDraw"
+                parameters(Canvas::class)
+            }.hook {
                 after {
                     val view = instance<View>()
                     val canvas = args().first().cast<Canvas>() ?: return@after
@@ -42,7 +45,7 @@ object EnableVolumeBarPercentDisplay : YukiBaseHooker() {
                     val x = width / 2.0F
                     val y = (height * 0.25F) - (view.resources.displayMetrics.density * 10)
                     val safeY = if (y < textPaint.textSize) textPaint.textSize else y
-                    canvas.drawText("$percentage%", x, safeY, textPaint)
+                    canvas.drawText("$percentage%",x,safeY,textPaint)
                 }
             }
         }

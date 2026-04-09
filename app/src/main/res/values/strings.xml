@@ -304,6 +304,7 @@
     <string name="set_media_player_display_mode_hide_when_no_meida_player">Hide when no media is playing</string>
     <string name="force_enable_media_toggle_button">Force enable media toggle button</string>
     <string name="set_control_center_volume_seekbar_mode">Set control center volume bar mode</string>
+    <string name="enable_control_center_progress_percent_display">Enable control center progress bar percentage display</string>
     <string name="remove_control_center_edit_button">Remove control center edit button</string>
     <string name="remove_control_center_more_button">Remove control center more button</string>
     <string name="set_auto_brightness_button_mode">Set auto-brightness button mode</string>

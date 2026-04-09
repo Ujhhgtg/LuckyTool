@@ -1,10 +1,10 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterBackgroundTransParency
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterClockStyle
 import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterDateStyle
+import com.luckyzyx.luckytool.hook.scopes.systemui.EnableControlCenterProgressPercentDisplay
 import com.luckyzyx.luckytool.hook.scopes.systemui.EnableNotificationAlignBothSides
 import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundBlurAlpha
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterUserSwitcher
@@ -12,6 +12,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSeparateControlCenterBu
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object StatusBarControlCenter : YukiBaseHooker() {
@@ -45,5 +46,9 @@ object StatusBarControlCenter : YukiBaseHooker() {
         //移除分离式控制中心按钮
         if (osCode >= 34) loadHooker(RemoveSeparateControlCenterButton)
 
+        //启用控制中心进度条百分比显示
+        if (prefs(ModulePrefs).getBoolean("enable_control_center_progress_percent_display", false)) {
+            loadHooker(EnableControlCenterProgressPercentDisplay)
+        }
     }
 }

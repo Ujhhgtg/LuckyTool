@@ -16,8 +16,9 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 禁用音量条粗细效果 C14+
 - [更改] 同步上游核心破解v4.9
 - [更改] 同步上游DisableFlagSecure v5.0.1
-- [添加] 解锁部分隐藏选项
+- [添加] 解锁工程模式部分隐藏选项
 - [添加] 启用音量条百分比显示
+- [添加] 启用控制中心进度条百分比显示
 
 ### 1.3.3
 

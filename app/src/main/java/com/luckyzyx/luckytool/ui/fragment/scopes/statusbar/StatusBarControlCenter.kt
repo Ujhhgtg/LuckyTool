@@ -234,6 +234,12 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.enable_control_center_progress_percent_display)
+                key = "enable_control_center_progress_percent_display"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_control_center_edit_button)
                 summary = getString(R.string.separate_control_center_mode_only)
                 key = "remove_control_center_edit_button"
