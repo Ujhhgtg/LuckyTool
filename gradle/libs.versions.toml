@@ -1,11 +1,11 @@
 [versions]
 agp = "8.13.2"
-kotlin = "2.3.10"
+kotlin = "2.3.20"
 ksp = "2.3.6"
 
 navigation = "2.9.7"
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.10.0"
+kotlinx-serialization = "1.11.0"
 libsu = "6.0.0"
 glide = "5.0.5"
 markwon = "4.6.2"
@@ -31,7 +31,7 @@ ksp-yukihookapi = { group = "com.highcapable.yukihookapi", name = "ksp-xposed", 
 kavaref-core = { group = "com.highcapable.kavaref", name = "kavaref-core", version = "1.0.2.1" }
 kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extension", version = "1.0.2" }
 
-dexkit = { group = "org.luckypray", name = "dexkit", version = "2.0.7" }
+dexkit = { group = "org.luckypray", name = "dexkit", version = "2.1.0" }
 
 betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version = "1.0.10" }
 betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version = "1.0.1" }
@@ -41,8 +41,8 @@ hikage-core = { group = "com.highcapable.hikage", name = "hikage-core", version 
 hikage-compiler = { group = "com.highcapable.hikage", name = "hikage-compiler", version = "1.0.4" }
 hikage-extension = { group = "com.highcapable.hikage", name = "hikage-extension", version = "1.0.3" }
 hikage-extension-betterandroid = { group = "com.highcapable.hikage", name = "hikage-extension-betterandroid", version = "1.0.3" }
-hikage-widget-androidx = { group = "com.highcapable.hikage", name = "hikage-widget-androidx", version = "1.0.1" }
-hikage-widget-material = { group = "com.highcapable.hikage", name = "hikage-widget-material", version = "1.0.1" }
+hikage-widget-androidx = { group = "com.highcapable.hikage", name = "hikage-widget-androidx", version = "1.0.2" }
+hikage-widget-material = { group = "com.highcapable.hikage", name = "hikage-widget-material", version = "1.0.2" }
 
 material = { group = "com.google.android.material", name = "material", version = "1.13.0" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.2.1" }
@@ -52,7 +52,7 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 androidx-biometric = { group = "androidx.biometric", name = "biometric", version = "1.1.0" }
-androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.9.1" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.10.0" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.10.0" }
 
 deviceCompat = { group = "com.github.getActivity", name = "DeviceCompat", version = "2.3" }
