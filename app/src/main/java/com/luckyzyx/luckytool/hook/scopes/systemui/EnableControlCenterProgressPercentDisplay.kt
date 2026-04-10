@@ -40,7 +40,6 @@ object EnableControlCenterProgressPercentDisplay : YukiBaseHooker() {
                         textSize = 12F.dp
                         textAlign = Paint.Align.CENTER
                         typeface = Typeface.DEFAULT_BOLD
-//                        setShadowLayer(8F,0F,2F, "#ec3e50".toColorInt())
                     }
                     val x = width / 2.0F
                     val y = (height * 0.25F) - (view.resources.displayMetrics.density * 10)

@@ -32,7 +32,6 @@ kavaref-core = { group = "com.highcapable.kavaref", name = "kavaref-core", versi
 kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extension", version = "1.0.2" }
 
 dexkit = { group = "org.luckypray", name = "dexkit", version = "2.0.7" }
-bcpkix = { group = "org.bouncycastle", name = "bcpkix-jdk18on", version = "1.83" }
 
 betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version = "1.0.10" }
 betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version = "1.0.1" }
@@ -56,7 +55,6 @@ androidx-biometric = { group = "androidx.biometric", name = "biometric", version
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.9.1" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.10.0" }
 
-mmkv = { group = "com.tencent", name = "mmkv", version = "2.3.0" }
 deviceCompat = { group = "com.github.getActivity", name = "DeviceCompat", version = "2.3" }
 xxpermissions = { group = "com.github.getActivity", name = "XXPermissions", version = "26.5" }
 spiderman = { group = "com.github.simplepeng.SpiderMan", name = "spiderman", version = "v1.2.3" }
