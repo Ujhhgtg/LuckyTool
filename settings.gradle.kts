@@ -29,7 +29,6 @@ dependencyResolutionManagement {
         mavenLocal {
             content { includeGroup("com.highcapable.kavaref") }
             content { includeGroup("com.highcapable.hikage") }
-            content { includeGroup("io.github.libxposed") }
         }
         google()
         mavenCentral()

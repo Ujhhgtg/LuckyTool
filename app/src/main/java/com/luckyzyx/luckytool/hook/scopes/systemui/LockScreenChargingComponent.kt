@@ -30,7 +30,7 @@ import java.util.Properties
 object LockScreenChargingComponent : YukiBaseHooker() {
     override fun onHook() {
         when (getOSVersionCode) {
-            in 34..Int.MAX_VALUE -> loadHooker(ChargingComponentC15)
+            in 34..Int.MAX_VALUE -> loadHooker(ChargingComponent)
             in 30..33 -> loadHooker(ChargingComponentC14)
             in 26..29 -> loadHooker(ChargingComponentC13)
             else -> loadHooker(ChargingComponentC12)
@@ -49,7 +49,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
 
     @Obfuscate
     @Suppress("LocalVariableName")
-    private object ChargingComponentC15 : YukiBaseHooker() {
+    private object ChargingComponent : YukiBaseHooker() {
 
         private var oplusCharger: Any? = null
 
@@ -134,7 +134,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                 }
                 firstMethod { name = "updateChargeAnim" }.hook {
                     after {
-                        val oplusChargeInfo = args().last().any() ?: return@after
+                        val oplusChargeInfo = args.firstOrNull {
+                            it?.javaClass?.simpleName == "OplusChargeInfo"
+                        } ?: return@after
 
                         if (showWattage || drawTechnology) {
                             firstField { name = "techWattageLayout" }.of(instance)
@@ -155,9 +157,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             val wattage = oplusChargeInfo.asResolver().firstMethod {
                                 name = "getChargeWattage"
                             }.invoke<String>()?.toIntOrNull()
-                            chargeWattageView?.text = when {
-                                wattage == 0 && cpaWattage == 0 -> ""
-                                wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                            chargeWattageView?.text = when (wattage) {
+                                0 if cpaWattage == 0 -> ""
+                                0 if cpaWattage != 0 -> "${cpaWattage}W"
                                 else -> "${wattage}W"
                             }
 
@@ -257,9 +259,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                                 name = "getChargeWattage"
                             }.invoke<String>()?.toIntOrNull()
                             chargeWattageView?.isVisible = true
-                            chargeWattageView?.text = when {
-                                wattage == 0 && cpaWattage == 0 -> ""
-                                wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                            chargeWattageView?.text = when (wattage) {
+                                0 if cpaWattage == 0 -> ""
+                                0 if true -> "${cpaWattage}W"
                                 else -> "${wattage}W"
                             }
 //                            YLog.debug("FrameChargeLevelAndLogoView chargeWattage -> ${chargeWattageView?.isVisible}")
@@ -284,7 +286,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                     }
                 }
                 if (hasShowWattage) {
-                    firstMethod { name = "getShowWattage";parameterCount = 3 }.hook {
+                    firstMethod { name = "getShowWattage"; parameterCount = 3 }.hook {
                         before {
                             if (!showWattage) return@before
                             val cpaWattage = args().first().int()
@@ -292,9 +294,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
 //                        val wattage = args(1).string()
 //                        val isWireless = args().last().boolean()
 //                        YLog.debug("ChargeUtil getShowWattage -> $origin | $wattage | $isWireless")
-                            result = when {
-                                wattage == 0 && cpaWattage == 0 -> ""
-                                wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                            result = when (wattage) {
+                                0 if cpaWattage == 0 -> ""
+                                0 if true -> "${cpaWattage}W"
                                 else -> "${wattage}W"
                             }
                         }
@@ -309,9 +311,9 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                             if (!showWattage) return@before
                             val cpaWattage = args().first().int()
                             val wattage = args(1).string().toIntOrNull() ?: return@before
-                            result = when {
-                                wattage == 0 && cpaWattage == 0 -> ""
-                                wattage == 0 && cpaWattage != 0 -> "${cpaWattage}W"
+                            result = when (wattage) {
+                                0 if cpaWattage == 0 -> ""
+                                0 if true -> "${cpaWattage}W"
                                 else -> "${wattage}W"
                             }
                         }
@@ -414,7 +416,7 @@ object LockScreenChargingComponent : YukiBaseHooker() {
                         if (!showWattage) return@before
                         val chargeInfoObserver = args().first().any() ?: return@before
                         val getChargeWattage = chargeInfoObserver.asResolver().firstMethod {
-                            name = "getChargeWattage";emptyParameters()
+                            name = "getChargeWattage"; emptyParameters()
                         }.invoke<String>()?.toIntOrNull() ?: return@before
                         if (getChargeWattage != 0) resultTrue()
                     }
