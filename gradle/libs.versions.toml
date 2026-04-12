@@ -31,7 +31,7 @@ ksp-yukihookapi = { group = "com.highcapable.yukihookapi", name = "ksp-xposed", 
 kavaref-core = { group = "com.highcapable.kavaref", name = "kavaref-core", version = "1.0.2.1" }
 kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extension", version = "1.0.2" }
 
-dexkit = { group = "org.luckypray", name = "dexkit", version = "2.1.0" }
+dexkit = { group = "org.luckypray", name = "dexkit", version = "2.2.0" }
 
 betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version = "1.0.10" }
 betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version = "1.0.1" }
