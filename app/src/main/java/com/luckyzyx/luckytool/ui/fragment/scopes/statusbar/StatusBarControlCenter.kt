@@ -1,11 +1,13 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.statusbar
 
 import android.content.Context
+import android.graphics.Color
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
+import com.luckyzyx.colorpicker.ColorPickerPreference
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
@@ -238,7 +240,23 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 key = "enable_control_center_progress_percent_display"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
+            if (getBoolean(ModulePrefs, "enable_control_center_progress_percent_display", false)) {
+                add(ColorPickerPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_control_center_progress_percent_color)
+                    key = "custom_control_center_progress_percent_color"
+                    setDefaultValue(Color.WHITE)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+            }
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_control_center_edit_button)
                 summary = getString(R.string.separate_control_center_mode_only)

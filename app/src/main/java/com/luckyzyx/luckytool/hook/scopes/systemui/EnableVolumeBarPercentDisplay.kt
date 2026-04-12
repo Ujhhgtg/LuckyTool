@@ -1,19 +1,23 @@
 package com.luckyzyx.luckytool.hook.scopes.systemui
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.text.TextPaint
 import android.view.View
+import androidx.core.graphics.toColorInt
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object EnableVolumeBarPercentDisplay : YukiBaseHooker() {
     override fun onHook() {
+        var color = prefs(ModulePrefs).getString("custom_volume_bar_percent_color", "#FFFFFFFF")
+        dataChannel.wait<String>("custom_volume_bar_percent_color") { color = it }
+
         //Source OplusVolumeSeekBar
         "com.oplus.systemui.volume.OplusVolumeSeekBar".toClass().resolve().apply {
             firstMethod {
@@ -36,7 +40,7 @@ object EnableVolumeBarPercentDisplay : YukiBaseHooker() {
                     val percentage = (progress * 100) / max
                     val textPaint = TextPaint().apply {
                         isAntiAlias = true
-                        setColor(Color.WHITE)
+                        setColor(color.toColorInt())
                         textSize = 12F.dp
                         textAlign = Paint.Align.CENTER
                         typeface = Typeface.DEFAULT_BOLD

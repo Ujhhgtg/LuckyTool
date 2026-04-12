@@ -104,6 +104,7 @@ android {
 
 dependencies {
     compileOnly(projects.hiddenApiStub)
+    implementation(projects.colorpicker)
 
     //XPosed or API
     compileOnly(libs.xposed.api)
@@ -161,7 +162,6 @@ dependencies {
     implementation(libs.xxpermissions)
     implementation(libs.spiderman)
     implementation(libs.fastscroll)
-    implementation(libs.colorpicker)
     implementation(libs.android.image.cropper)
 }
 

@@ -1,11 +1,15 @@
 package com.luckyzyx.luckytool.ui.fragment.scopes.related
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import androidx.preference.DropDownPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
+import com.luckyzyx.colorpicker.ColorPickerPreference
 import com.luckyzyx.luckytool.R
+import com.luckyzyx.luckytool.ui.activity.MainActivity
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.A13
@@ -13,6 +17,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
+import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -38,6 +43,7 @@ class SoundRelated : BaseScopePreferenceFeagment() {
         }
     }
 
+    @SuppressLint("ResourceType")
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
@@ -128,7 +134,23 @@ class SoundRelated : BaseScopePreferenceFeagment() {
                 key = "enable_volume_bar_percent_display"
                 setDefaultValue(false)
                 isIconSpaceReserved = false
+                setOnPreferenceChangeListener { _, _ ->
+                    (activity as MainActivity).restart()
+                    true
+                }
             })
+            if (getBoolean(ModulePrefs, "enable_volume_bar_percent_display", false)) {
+                add(ColorPickerPreference(this@loadPreferences).apply {
+                    title = getString(R.string.custom_volume_bar_percent_color)
+                    key = "custom_volume_bar_percent_color"
+                    setDefaultValue(Color.WHITE)
+                    isIconSpaceReserved = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        sendPrefsValue("com.android.systemui", key, newValue)
+                        true
+                    }
+                })
+            }
         }
     }
 }
