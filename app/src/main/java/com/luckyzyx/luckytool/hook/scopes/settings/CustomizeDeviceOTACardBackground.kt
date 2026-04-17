@@ -2,19 +2,26 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.graphics.BitmapFactory
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import com.highcapable.betterandroid.ui.extension.component.startActivity
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getOSVersionCode
+import com.luckyzyx.luckytool.utils.safeOfNull
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
@@ -57,30 +64,91 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                             itemView.findViewById<ImageView>(maskId)?.setImageDrawable(drawable)
 
                             if (hideText) itemView.children.forEach {
-                                it.isVisible = false
+                                val id = safeOfNull { it.resources.getResourceEntryName(it.id) }
+                                    ?: return@forEach
+                                val hidelist = arrayOf(
+                                    "logo_view",
+                                    "linearLayout",
+                                    "model_name",
+                                    "model_ai",
+                                    "model_description",
+                                    "coloros_logo",
+                                    "model_number",
+                                    "img_intent_ota",
+                                    "update_linear",
+                                    "lin_center",
+                                    "device_market_name",
+                                    "update_text",
+                                    "update_find",
+                                )
+                                if (id in hidelist) it.isVisible = false
                             }
                         }
                     }
                 }
-                firstMethod { name = "isSupportTopVideo" }.hook {
-                    replaceToFalse()
-                }
-                firstMethod { name = "isSupportEasterEggVideo" }.hook {
-                    replaceToFalse()
-                }
-                if (false) firstMethod { name = "applyVideoTransform" }.hook {
-                    before {
-                        args().first().setNull()
+                if (false) {
+                    firstMethod { name = "isSupportTopVideo" }.hook {
+                        replaceToFalse()
                     }
-                }
-                if (false) firstMethod { name = "getColorOSVideoPath" }.hook {
-                    after {
-                        result = "/sdcard/DNA/1.mp4"
+                    firstMethod { name = "isSupportEasterEggVideo" }.hook {
+                        replaceToFalse()
+                    }
+                    firstMethod { name = "applyVideoTransform" }.hook {
+                        before {
+                            args().first().setNull()
+                        }
+                    }
+                    firstMethod { name = "getColorOSVideoPath" }.hook {
+                        after {
+                            result = "/sdcard/DNA/1.mp4"
+                        }
                     }
                 }
             }
 
         if (osCode < 34 || !applySharePage) return
+
+        //Source DeviceInfoFragment
+        if (false) "com.oplus.settings.feature.deviceinfo.aboutphone.DeviceInfoFragment".toClass()
+            .resolve().apply {
+                firstMethod {
+                    name = "onCreateOptionsMenu"
+                    parameters(Menu::class, MenuInflater::class)
+                }.hook {
+                    after {
+                        val context = firstMethod { name = "getContext"; superclass() }
+                            .of(instance).invoke<Context>() ?: return@after
+                        val menu = args().first().cast<Menu>() ?: return@after
+                        val menuInflater = args().last().cast<MenuInflater>() ?: return@after
+                        val menuId = context.resources.getIdentifier(
+                            "about_device_share_menu", "menu",
+                            this@CustomizeDeviceOTACardBackground.packageName
+                        )
+                        menuInflater.inflate(menuId, menu)
+                    }
+                }
+                firstMethod {
+                    name = "onOptionsItemSelected"
+                    parameters(MenuItem::class)
+                    returnType = Boolean::class
+                }.hook {
+                    after {
+                        val context = firstMethod { name = "getContext"; superclass() }
+                            .of(instance).invoke<Context>() ?: return@after
+                        val menuItem = args().first().cast<MenuItem>() ?: return@after
+                        val shareId = context.resources.getIdentifier(
+                            "about_share", "id",
+                            this@CustomizeDeviceOTACardBackground.packageName
+                        )
+                        if (menuItem.itemId != shareId) return@after
+                        context.startActivity(
+                            "com.android.settings",
+                            "com.oplus.settings.feature.deviceinfo.aboutphone.ShareAboutPhoneActivity",
+                            false
+                        )
+                    }
+                }
+            }
 
         //Source ShareAboutPhoneActivity parent_relativeLayout
         "com.oplus.settings.feature.deviceinfo.aboutphone.ShareAboutPhoneActivity".toClass()
@@ -93,20 +161,31 @@ object CustomizeDeviceOTACardBackground : YukiBaseHooker() {
                             this@CustomizeDeviceOTACardBackground.packageName
                         )
                         val relativeLayout = activity.findViewById<RelativeLayout>(viewId)
-                            ?: return@after
-                        val topId = activity.resources.getIdentifier(
-                            "about_device_top_bg", "id",
-                            this@CustomizeDeviceOTACardBackground.packageName
-                        )
-                        activity.findViewById<View>(topId)?.let {
-                            relativeLayout.removeView(it)
-                        }
+
                         val bitmap = BitmapFactory.decodeFile(backgroundPath) ?: return@after
                         val drawableFactory = RoundedBitmapDrawableFactory.create(
                             relativeLayout.resources, bitmap
                         )
                         drawableFactory.cornerRadius = 12F.dp
-                        relativeLayout.background = drawableFactory
+
+                        if (relativeLayout != null) {
+                            val topId = activity.resources.getIdentifier(
+                                "about_device_top_bg", "id",
+                                this@CustomizeDeviceOTACardBackground.packageName
+                            )
+                            activity.findViewById<View>(topId)?.let {
+                                relativeLayout.removeView(it)
+                            }
+
+                            relativeLayout.background = drawableFactory
+                        } else {
+                            val linId = activity.resources.getIdentifier(
+                                "lin_button", "id",
+                                this@CustomizeDeviceOTACardBackground.packageName
+                            )
+                            (activity.findViewById<LinearLayout>(linId)?.parent as? RelativeLayout)
+                                ?.background = drawableFactory
+                        }
                     }
                 }
             }
