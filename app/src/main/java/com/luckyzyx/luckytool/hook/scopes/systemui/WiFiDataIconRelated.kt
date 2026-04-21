@@ -25,20 +25,19 @@ import com.luckyzyx.luckytool.hook.utils.sysui.WifiUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
-import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-class WiFiDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+object WiFiDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         when (osCode) {
-            in 34..Int.MAX_VALUE -> loadHooker(WiFiDataIcon(dexKitBridge))
+            in 34..Int.MAX_VALUE -> loadHooker(WiFiDataIcon)
             else -> loadHooker(WiFiDataIconV14)
         }
     }
 
     @Obfuscate
-    class WiFiDataIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+    object WiFiDataIcon : YukiBaseHooker() {
 
         private val hasRegisterCallback = false
         private var wifiInfo: WifiInfo? = null

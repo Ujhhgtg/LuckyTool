@@ -14,21 +14,20 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
-import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-class MobileDataIconRelated(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+object MobileDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         when (osCode) {
-            in 34..Int.MAX_VALUE -> loadHooker(MobileDataIcon(dexKitBridge))
+            in 34..Int.MAX_VALUE -> loadHooker(MobileDataIcon)
             in 23..33 -> loadHooker(MobileDataIconV14)
             else -> loadHooker(MobileDataIconV120)
         }
     }
 
     @Obfuscate
-    class MobileDataIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+    object MobileDataIcon : YukiBaseHooker() {
         override fun onHook() {
 //            val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
             val removeInout = prefs(ModulePrefs).getBoolean("remove_mobile_data_inout", false)

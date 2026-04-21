@@ -9,10 +9,9 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.lsposed.lsparanoid.Obfuscate
-import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+object StatusBarBatteryView : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         if (osCode >= 30) loadHooker(StatusBarPowerStyle)
@@ -138,26 +137,24 @@ class StatusBarBatteryView(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
-    companion object {
-        fun TextView.handBatteryTextView(
-            removePercent: Boolean, userTypeface: Boolean, useBoldFont: Boolean,
-            customFontSize: Int, applyToIcon: Boolean
-        ) {
-            val entryName = safeOfNull { resources.getResourceEntryName(id) }
-            when (entryName) {
-                "battery_text" -> if (!applyToIcon) return
+    fun TextView.handBatteryTextView(
+        removePercent: Boolean, userTypeface: Boolean, useBoldFont: Boolean,
+        customFontSize: Int, applyToIcon: Boolean
+    ) {
+        val entryName = safeOfNull { resources.getResourceEntryName(id) }
+        when (entryName) {
+            "battery_text" -> if (!applyToIcon) return
 
-                "battery_percentage_view" -> {}
-                else -> return
-            }
-            if (removePercent) text = text.toString().replace("%", "")
-            if (userTypeface) {
-                typeface = if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                setTextSize(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
-                )
-            }
+            "battery_percentage_view" -> {}
+            else -> return
+        }
+        if (removePercent) text = text.toString().replace("%", "")
+        if (userTypeface) {
+            typeface = if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+            setTextSize(
+                TypedValue.COMPLEX_UNIT_DIP,
+                if (customFontSize == 0) 12F else customFontSize.toFloat() * 2
+            )
         }
     }
 }

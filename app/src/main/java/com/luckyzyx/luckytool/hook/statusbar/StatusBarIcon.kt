@@ -16,17 +16,16 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
-import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-class StatusBarIcon(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+object StatusBarIcon : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
         //WiFi图标相关
-        loadHooker(WiFiDataIconRelated(dexKitBridge))
+        loadHooker(WiFiDataIconRelated)
         //移动数据图标相关
-        loadHooker(MobileDataIconRelated(dexKitBridge))
+        loadHooker(MobileDataIconRelated)
         //未连接蓝牙时隐藏图标
         loadHooker(BluetoothIconRelated)
 

@@ -40,7 +40,7 @@ class HookSystemUIStatusBar(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         loadHooker(StatusBarNotifiyLimit)
 
         //状态栏图标
-        loadHooker(StatusBarIcon(dexKitBridge))
+        loadHooker(StatusBarIcon)
 
         //状态栏控制中心
         loadHooker(StatusBarControlCenter)
@@ -55,7 +55,7 @@ class HookSystemUIStatusBar(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         loadHooker(StatusBarLayout)
 
         //状态栏电池
-        loadHooker(StatusBarBattery(dexKitBridge))
+        loadHooker(StatusBarBattery)
 
         //自定义音乐流体云白名单
         if (osCode >= 33) {
