@@ -5,11 +5,13 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
+import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
 
 @Obfuscate
 object HookAppBadge : YukiBaseHooker() {
     override fun onHook() {
+        val osCode = getOSVersionCode
         if (SDK >= A14) loadHooker(AppBadge) else loadHooker(AppBadgeC13)
     }
 
@@ -22,12 +24,16 @@ object HookAppBadge : YukiBaseHooker() {
 
             //Source BitmapInfo
             "com.android.launcher3.icons.BitmapInfo".toClass().resolve().apply {
-                firstMethod { name = "applyFlags";parameterCount = 3 }.hook {
+                firstMethod { name = "applyFlags" }.hook {
                     before {
-                        val drawableCreationFlags = args().last().int()
+                        val drawableCreationFlags = args(args.indexOfFirst { it is Int }).int()
                         val badgeInfo = firstField { name = "badgeInfo" }.of(instance).get()
                         val flag = firstField { name = "flags" }.of(instance).get<Int>()
                             ?: return@before
+                        //flag & 2 != 0 -> ic_instant_app_badge 即时应用程序
+                        //flag & 16 != 0 -> ic_archive_app_badge 存档应用程序
+                        //flag & 4 != 0 -> ic_oplus_clone_app_badge 分身应用程序
+                        //flag & 1 != 0 -> ic_work_app_badge 工作应用程序
                         if ((drawableCreationFlags and 2) == 0) {
                             if (badgeInfo != null) {
                                 if (isShortcut) resultNull()
