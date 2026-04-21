@@ -133,6 +133,12 @@ fun getOSVersionName(osCode: Int): String {
  * 36 -> (c15.0.2)
  *
  * 37 -> (c16.0.0)
+ *
+ * 38 -> (c16.1.0)
+ *
+ * 38 -> (c16.2.0)
+ *
+ * 40 -> (c17.0.0)
  */
 val getOSVersionCode get() = safeOf(0) { OplusBuild.getOplusOSVERSION() }
 
