@@ -20,26 +20,31 @@ class RemoveBatteryRestrictPlugin(val dexKitBridge: DexKitBridge) : YukiBaseHook
                 addFieldForType(String::class.java)
                 addMethod { paramTypes(Int::class.java, Bundle::class.java) }
                 addMethod { paramTypes(Int::class.java, Intent::class.java) }
-                addMethod { usingStrings("loadRestrictPlugin", "battery_restrict_plugin") }
-                addMethod { usingStrings("loadConfigPlugin", "battery_secret_plugin") }
-                addMethod { usingStrings("onPluginConnected") }
+                usingStrings(
+                    "loadRestrictPlugin",
+                    "loadConfigPlugin",
+                    "onPluginConnected"
+                )
             }
         }.apply {
             checkDataList("PluginSupporter")
 
             findMethod {
                 matcher {
-                    usingStrings("loadRestrictPlugin", "battery_restrict_plugin")
+                    usingStrings("loadRestrictPlugin")
+//                    usingStrings("loadRestrictPlugin", "battery_restrict_plugin")
                 }
             }.apply {
-                checkDataList("loadRestrictPlugin")
+                checkDataList("loadRestrictPlugin", onlyOne = false)
 
-                single().className.toClass().resolve().apply {
-                    firstMethod {
-                        name = single().methodName
-                        parameterCount = single().paramCount
-                    }.hook {
-                        intercept()
+                forEach {
+                    it.className.toClass().resolve().apply {
+                        firstMethod {
+                            name = single().methodName
+                            parameterCount = single().paramCount
+                        }.hook {
+                            intercept()
+                        }
                     }
                 }
             }
