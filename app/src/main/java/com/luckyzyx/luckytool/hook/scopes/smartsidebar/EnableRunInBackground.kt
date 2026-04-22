@@ -21,12 +21,13 @@ object EnableRunInBackground : YukiBaseHooker() {
 
         val targetTool = VariousClass(
             "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.BackgroundRunTool", //C15-
-            "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.GTModelTool" //C16
+            "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.GTModelTool", //C16
+            "com.oplus.smartsidebar.panelview.edgepanel.data.entrybeans.models.tools.CleanStorageTool" //C16.1
         ).toClass()
 
         //Source BackgroundRunTool or GTModelTool
         targetTool.resolve().apply {
-            if (targetTool.simpleName == "GTModelTool") {
+            if (targetTool.simpleName != "BackgroundRunTool") {
                 var context: Context?
                 firstConstructor { parameters(Context::class) }.hook {
                     before {
