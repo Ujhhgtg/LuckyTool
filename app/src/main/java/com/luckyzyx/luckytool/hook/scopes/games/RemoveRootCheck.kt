@@ -17,14 +17,15 @@ class RemoveRootCheck(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         dexKitBridge.findClass {
             matcher {
                 fields {
-                    addForType(String::class.java)
+//                    addForType(String::class.java)
                     addForType(Boolean::class.java)
                     addForType(Int::class.java)
                 }
                 methods {
-                    add { name = "clear";paramCount(0) }
-                    add { paramCount(0);returnType(Bundle::class.java) }
+//                    add { name = "clear"; paramCount(0) }
+                    add { paramCount(0); returnType(Bundle::class.java) }
                 }
+                usingStrings("COSASDKManager")
             }
         }.apply {
             checkDataList("RemoveRootCheck")
@@ -33,7 +34,9 @@ class RemoveRootCheck(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     emptyParameters()
                     returnType = Bundle::class
                 }.hook {
-                    after { result<Bundle>()?.putInt("isSafe", 0) }
+                    after {
+                        result<Bundle>()?.putInt("isSafe", 0)
+                    }
                 }
             }
         }
