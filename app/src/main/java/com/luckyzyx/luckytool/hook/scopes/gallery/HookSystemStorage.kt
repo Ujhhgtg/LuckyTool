@@ -59,7 +59,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     add { paramCount(2);returnType(String::class.java) }
                     add { paramCount(2);returnType(Void.TYPE) }
                     add { paramCount(0);returnType(Boolean::class.java) }
-                    add { paramCount(4);returnType(Boolean::class.java) }
+//                    add { paramCount(4);returnType(Boolean::class.java) }
                 }
                 usingStrings("configNode")
             }
@@ -159,9 +159,9 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         //Source ConfigAbilityImpl
         dexKitBridge.findClass {
             matcher {
-                fields {
-                    addForType(Context::class.java)
-                }
+//                fields {
+//                    addForType(Context::class.java)
+//                }
                 methods {
                     add { name = "close";paramCount(0) }
                     add { name = "contains";paramTypes(String::class.java) }
@@ -180,11 +180,11 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                         paramTypes(String::class.java, String::class.java)
                         returnType(String::class.java)
                     }
-                    add {
+//                    add {
 //                        paramTypes(String::class.java, Boolean::class.java)
-                        paramCount(2)
-                        returnType(Boolean::class.javaObjectType)
-                    }
+//                        paramCount(2)
+//                        returnType(Boolean::class.javaObjectType)
+//                    }
                 }
                 usingStrings("ConfigAbilityImpl")
             }
