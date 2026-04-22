@@ -277,7 +277,7 @@ object MediaPlayerPanel : YukiBaseHooker() {
             val clazz = "com.android.systemui.media.dialog.MediaOutputDialogFactory".toClass()
             val mMediaOutputDialogFactory = DependencyUtils(appClassLoader).getDependency(clazz)
             mMediaOutputDialogFactory?.asResolver()
-                ?.firstMethod { name = "create";parameterCount = 3 }
+                ?.firstMethod { name = "create"; parameterCount = 3 }
                 ?.invoke("", true, null)
         }
     }

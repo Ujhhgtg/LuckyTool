@@ -44,7 +44,7 @@ class StatusBarTile(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
 
         //媒体播放器
-        if (SDK >= A13) loadHooker(MediaPlayerPanel)
+        if (osCode in 26..37) loadHooker(MediaPlayerPanel)
 
         //磁贴布局
         loadHooker(ControlCenterTiles)
