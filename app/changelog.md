@@ -25,6 +25,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 隐藏OTA卡片顶层文本 v16.0.0(ec38064)
 - [适配] ColorOS V16.1.0, V17.0.0 版本名称显示
 - [适配] 移除桌面图标徽标 v16.6.5(37c6638)
+- [适配] 软件商店启动页广告 v26.1.2_CN(60d4105)
 
 ### 1.3.3
 
