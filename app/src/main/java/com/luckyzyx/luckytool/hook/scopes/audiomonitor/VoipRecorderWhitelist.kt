@@ -7,7 +7,6 @@ import androidx.core.content.edit
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.ArrayClass
-import com.highcapable.kavaref.extension.JBoolean
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.data.VoipRecorder
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -157,7 +156,7 @@ class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                 }
                 addMethod {
                     paramTypes(String::class.java)
-                    returnType(JBoolean::class.java)
+                    returnType(Boolean::class.javaObjectType)
                 }
                 usingStrings(qqPackName, wxPackName)
             }

@@ -4,9 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.condition.type.VagueType
-import com.highcapable.kavaref.extension.JBoolean
-import com.highcapable.kavaref.extension.JInteger
-import com.highcapable.kavaref.extension.JLong
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
@@ -56,9 +53,9 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     addForType(Context::class.java)
                 }
                 methods {
-                    add { paramCount(2);returnType(JInteger::class.java) }
-                    add { paramCount(2);returnType(JLong::class.java) }
-                    add { paramCount(2);returnType(JBoolean::class.java) }
+                    add { paramCount(2);returnType(Int::class.javaObjectType) }
+                    add { paramCount(2);returnType(Long::class.javaObjectType) }
+                    add { paramCount(2);returnType(Boolean::class.javaObjectType) }
                     add { paramCount(2);returnType(String::class.java) }
                     add { paramCount(2);returnType(Void.TYPE) }
                     add { paramCount(0);returnType(Boolean::class.java) }
@@ -71,7 +68,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             single().name.toClass().resolve().apply {
                 firstMethod {
                     parameters(VagueType, Boolean::class)
-                    returnType = JBoolean::class
+                    returnType = Boolean::class.javaObjectType
                 }.hook {
                     after {
                         val context = firstField { type = Context::class }.of(instance)
@@ -172,12 +169,12 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     add {
 //                        paramTypes(String::class.java, Int::class.java)
                         paramCount(2)
-                        returnType(JInteger::class.java)
+                        returnType(Int::class.javaObjectType)
                     }
                     add {
 //                        paramTypes(String::class.java, Long::class.java)
                         paramCount(2)
-                        returnType(JLong::class.java)
+                        returnType(Long::class.javaObjectType)
                     }
                     add {
                         paramTypes(String::class.java, String::class.java)
@@ -186,7 +183,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
                     add {
 //                        paramTypes(String::class.java, Boolean::class.java)
                         paramCount(2)
-                        returnType(JBoolean::class.java)
+                        returnType(Boolean::class.javaObjectType)
                     }
                 }
                 usingStrings("ConfigAbilityImpl")
@@ -196,7 +193,7 @@ class HookSystemStorage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
             single().name.toClass().resolve().apply {
                 firstMethod {
                     parameters(String::class, Boolean::class)
-                    returnType = JBoolean::class
+                    returnType = Boolean::class.javaObjectType
                 }.hook {
                     after {
                         when (args().first().string()) {
