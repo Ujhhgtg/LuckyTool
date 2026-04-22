@@ -138,6 +138,8 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 "com.oplus.systemui.statusbar.phone.netspeed.NetworkSpeedIconState"
             ).toClass()
 
+            var defaultTypeface: Typeface? = null
+
             //Source NetworkSpeedView
             VariousClass(
                 "com.oplusos.systemui.statusbar.widget.NetworkSpeedView",
@@ -148,7 +150,7 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                 val mSpeed = firstField { name = "mSpeed" }
                 val mSpeedNumber = firstField { name = "mSpeedNumber" }
                 val mSpeedUnit = firstField { name = "mSpeedUnit" }
-                val mDefaultBoldFont = firstField { type = Typeface::class }
+                val mDefaultBoldFont = firstFieldOrNull { type = Typeface::class }
 
                 firstMethod { name = "onFinishInflate" }.hook {
                     after {
@@ -167,21 +169,28 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                 "dimen", this@NetWorkSpeedView.packageName
                             )
                         )
+
+                        defaultTypeface = if (mDefaultBoldFont != null) {
+                            mDefaultBoldFont.copy().of(instance).get<Typeface>()
+                        } else {
+                            mSpeedNumber.copy().of(instance).get<TextView>()?.typeface
+                        }
+                        if (defaultTypeface == null) {
+                            if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+                        }
                     }
                 }
                 if (layoutMode == "0") {
                     firstMethod { name = "applyNetworkState" }.hook {
                         after {
-                            val defaultBoldTypeface =
-                                mDefaultBoldFont.copy().of(instance).get<Typeface>()
                             val mSpeedNumberTv = mSpeedNumber.copy().of(instance).get<TextView>()
                             val mSpeedUnitTv = mSpeedUnit.copy().of(instance).get<TextView>()
                             mSpeedNumberTv?.typeface = if (userTypeface) {
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                            } else defaultBoldTypeface
+                            } else defaultTypeface
                             mSpeedUnitTv?.typeface = if (userTypeface) {
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                            } else defaultBoldTypeface
+                            } else defaultTypeface
                         }
                     }
                 } else {
@@ -218,16 +227,14 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
                                 setPadding(0, 0, 0, getBottomPadding.dp)
                             }
 
-                            val defaultBoldTypeface =
-                                mDefaultBoldFont.copy().of(instance).get<Typeface>()
                             val mSpeedNumberTv = mSpeedNumber.copy().of(instance).get<TextView>()
                             val mSpeedUnitTv = mSpeedUnit.copy().of(instance).get<TextView>()
                             mSpeedNumberTv?.typeface = if (userTypeface) {
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                            } else defaultBoldTypeface
+                            } else defaultTypeface
                             mSpeedUnitTv?.typeface = if (userTypeface) {
                                 if (useBoldFont) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-                            } else defaultBoldTypeface
+                            } else defaultTypeface
 
                             when (layoutMode) {
                                 "1" -> {
