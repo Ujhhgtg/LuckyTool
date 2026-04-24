@@ -28,6 +28,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 软件商店启动页广告 v26.1.2_CN(60d4105)
 - [适配] 移除电池限制插件 v1.2.8(aeabc11)
 - [适配] 智能侧边栏后台挂机 v16.12.2(3fd0d0c)
+- [适配] 显示更多安装信息 v16.0.3(a6eac93)
 
 ### 1.3.3
 

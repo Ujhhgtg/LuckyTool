@@ -20,33 +20,33 @@ import com.luckyzyx.luckytool.utils.safeOf
 import com.oplus.util.OplusUnitConversionUtils
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
-import org.luckypray.dexkit.result.ClassData
 import org.luckypray.dexkit.result.MethodData
 import java.io.File
 
 @Obfuscate
 class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
-    lateinit var apkInfoViewCls: ClassData
     lateinit var loadApkInfo: MethodData
 
     var cacheApkInfoMap = ArrayMap<Any, ArrayMap<String, Any>>()
     var cacheSourceInfoMap = ArrayMap<Any, ArrayMap<String, Any>>()
 
-    @SuppressLint("DiscouragedApi", "SetTextI18n")
+    @SuppressLint("SetTextI18n")
     override fun onHook() {
+        val apkInfoViewClazz = "com.android.packageinstaller.oplus.view.ApkInfoView"
+        val apkInfoClazz = "com.android.packageinstaller.oplus.common.ApkInfo"
+        val sourceInfoClazz = "com.android.packageinstaller.oplus.common.SourceInfo"
+
         //Source ApkInfoView
-        apkInfoViewCls = dexKitBridge.findClass {
+        dexKitBridge.findClass {
             matcher {
-                className("com.android.packageinstaller.oplus.view.ApkInfoView")
+                className(apkInfoViewClazz)
             }
         }.apply {
             checkDataList("ApkInfoView")
             loadApkInfo = findMethod {
                 matcher {
-                    paramCount(2)
-                    returnType(Void.TYPE)
-                    usingNumbers(0, 1, 8)
+                    usingStrings("loadApkInfo")
                 }
             }.apply {
                 checkDataList("loadApkInfo")
@@ -54,7 +54,7 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
         }.singleOrNull() ?: return
 
         //Source ApkInfo
-        "com.android.packageinstaller.oplus.common.ApkInfo".toClass().resolve().apply {
+        apkInfoClazz.toClass().resolve().apply {
             firstConstructor { parameterCount = 7 }.hook {
                 after {
                     cacheApkInfoMap[instance] = arrayMapOf(
@@ -71,7 +71,7 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
         }
 
         //Source SourceInfo
-        "com.android.packageinstaller.oplus.common.SourceInfo".toClass().resolve().apply {
+        sourceInfoClazz.toClass().resolve().apply {
             firstConstructor { parameterCount = 4 }.hook {
                 after {
                     cacheSourceInfoMap[instance] = arrayMapOf(
@@ -85,18 +85,20 @@ class ShowMoreApkPackageInformation(val dexKitBridge: DexKitBridge) : YukiBaseHo
         }
 
         //Source ApkInfoView
-        apkInfoViewCls.name.toClass().resolve().apply {
+        apkInfoViewClazz.toClass().resolve().apply {
             firstMethod {
                 name = loadApkInfo.name
-                parameterCount = 2
+                parameterCount = loadApkInfo.paramCount
             }.hook {
                 after {
                     val apkInfoView = instance<LinearLayout>()
                     val context = apkInfoView.context
                     val pm = context.packageManager
 
-                    val apkInfo = args().first().any()
-                    val sourceInfo = args().last().any()
+                    val apkInfo =
+                        args(args.indexOfFirst { it?.javaClass?.name == apkInfoClazz }).any()
+                    val sourceInfo =
+                        args(args.indexOfFirst { it?.javaClass?.name == sourceInfoClazz }).any()
 
                     val cacheApkInfo = cacheApkInfoMap[apkInfo] ?: return@after
                     val cacheSourceInfo = cacheSourceInfoMap[sourceInfo] ?: return@after
