@@ -13,7 +13,7 @@ object MultiAppConfig : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
 
-        loadHooker(MultiAppAllowList)
+        loadHooker(MultiAppAllowList(osCode))
 
         if (prefs(ModulePrefs).getBoolean("remove_multi_app_blacklist", false)) {
             if (osCode >= 31) loadHooker(MultiAppBlackList)
@@ -21,7 +21,7 @@ object MultiAppConfig : YukiBaseHooker() {
     }
 
     @Obfuscate
-    object MultiAppAllowList : YukiBaseHooker() {
+    class MultiAppAllowList(val osCode: Int) : YukiBaseHooker() {
 
         var mode = "0"
         val list = ArrayList<String>()
@@ -55,6 +55,11 @@ object MultiAppConfig : YukiBaseHooker() {
                     before {
                         if (mode != "1" || list.isEmpty()) return@before
                         result = java.util.ArrayList(list)
+                    }
+                }
+                if (osCode >= 38) {
+                    firstMethod { name = "getMaxCloneUserNum" }.hook {
+                        if (limit) replaceTo(1000)
                     }
                 }
                 firstMethod { name = "getMaxCreatedNum" }.hook {
