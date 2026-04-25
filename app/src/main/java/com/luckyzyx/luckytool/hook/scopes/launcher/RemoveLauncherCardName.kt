@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
+import android.widget.TextView
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -16,10 +17,12 @@ object RemoveLauncherCardName : YukiBaseHooker() {
     @Obfuscate
     object LauncherCardName : YukiBaseHooker() {
         override fun onHook() {
-            //Source CardNameHelper
-            "com.android.launcher3.card.utils.CardNameHelper".toClass().resolve().apply {
-                firstMethod { name = "initCardName" }.hook {
-                    intercept()
+            //Source LauncherCardView
+            "com.android.launcher3.card.LauncherCardView".toClass().resolve().apply {
+                firstMethod { name = "getLauncherCardName" }.hook {
+                    after {
+                        result<TextView>()?.text = null
+                    }
                 }
             }
         }
