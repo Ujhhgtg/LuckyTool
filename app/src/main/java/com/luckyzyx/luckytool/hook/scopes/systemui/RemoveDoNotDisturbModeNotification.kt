@@ -14,10 +14,7 @@ object RemoveDoNotDisturbModeNotification : YukiBaseHooker() {
             "com.coloros.systemui.notification.helper.DndAlertHelper",
             "com.oplus.systemui.statusbar.notification.helper.DndAlertHelper" //C14
         ).toClass().resolve().apply {
-            firstMethod {
-                name = "operateNotification"
-                parameterCount = 3
-            }.hook {
+            firstMethod { name = "operateNotification" }.hook {
                 intercept()
             }
         }
