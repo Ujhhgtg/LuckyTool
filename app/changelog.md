@@ -32,6 +32,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 应用分身最大数量限制 C16.1
 - [修复] 桌面卡片名称崩溃问题
 - [适配] 移除免打扰模式通知 C16.1
+- [适配] 移除锁屏时钟红一 C16.1
 
 ### 1.3.3
 
