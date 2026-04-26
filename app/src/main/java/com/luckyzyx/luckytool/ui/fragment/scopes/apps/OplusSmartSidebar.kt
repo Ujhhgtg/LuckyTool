@@ -34,8 +34,7 @@ class OplusSmartSidebar : BaseScopePreferenceFeagment() {
             }
             title = AppUtils(context).getAppLabel(key)
             summary = arraySummaryLine(
-                getString(R.string.unlock_transfer_dock),
-                getString(R.string.unlock_recent_files)
+                getString(R.string.enable_run_in_background),
             )
             isVisible = SDK >= A12 && checkPackName(key)
         }

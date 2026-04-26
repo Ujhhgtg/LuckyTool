@@ -100,12 +100,11 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
         val urls = arrayListOf(downloadUrl)
         //https://github.com/Xposed-Modules-Repo/com.luckyzyx.luckytool/releases/download/20457-1.3.2/LuckyTool_v1.3.2.20457.apk
         mapOf(
-            "ghfast" to "https://ghfast.top/",
-            "ghproxy.cn" to "https://ghproxy.cn/",
-            "ghproxy.com" to "https://ghproxy.com/",
-            "fastgit.cc" to "https://fastgit.cc/",
-            "GitMirror" to "https://hub.gitmirror.com/",
-            "Lufs" to "https://cors.isteed.cc/",
+            "Ucdn" to "https://wget.la/",
+            "Catmak" to "https://gh.catmak.name/",
+            "Fastly" to "https://cdn.gh-proxy.org/",
+            "JSDelivr" to "https://fastly.jsdelivr.net/gh/",
+            "FastGit.cc" to "https://fastgit.cc/",
         ).forEach { (k, v) ->
             items.add(k)
             urls.add(v)
