@@ -1,6 +1,8 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
-import android.widget.TextView
+import android.view.View
+import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.getOSVersionCode
@@ -17,11 +19,21 @@ object RemoveLauncherCardName : YukiBaseHooker() {
     @Obfuscate
     object LauncherCardName : YukiBaseHooker() {
         override fun onHook() {
-            //Source LauncherCardView
-            "com.android.launcher3.card.LauncherCardView".toClass().resolve().apply {
-                firstMethod { name = "getLauncherCardName" }.hook {
+            //Source CardNameHelper
+            "com.android.launcher3.card.utils.CardNameHelper".toClass().resolve().apply {
+                firstMethod { name = "initCardName" }.hook {
                     after {
-                        result<TextView>()?.text = null
+                        val cardName = args().first().cast<View>() ?: return@after
+                        cardName.isVisible = false
+                        cardName.asResolver().firstMethod {
+                            name = "setTextVisibility"; parameters(Boolean::class)
+                        }.invoke(false)
+
+                        val card = firstField { name = "card" }.of(instance).get<View>()
+                            ?: return@after
+                        card.asResolver().firstMethodOrNull {
+                            name = "setTextVisible"; superclass()
+                        }?.invoke(false)
                     }
                 }
             }
@@ -34,14 +46,28 @@ object RemoveLauncherCardName : YukiBaseHooker() {
             //Source TitleCardView
             "com.android.launcher3.card.TitleCardView".toClass().resolve().apply {
                 firstMethod { name = "initCardName" }.hook {
-                    intercept()
+                    after {
+                        val cardName = firstField { name = "cardName" }.of(instance).get<View>()
+                            ?: return@after
+                        cardName.isVisible = false
+                        cardName.asResolver().firstMethod {
+                            name = "setTextVisibility"; parameters(Boolean::class)
+                        }.invoke(false)
+                    }
                 }
             }
 
             //Source USCardContainerView
             "com.android.launcher3.card.uscard.USCardContainerView".toClass().resolve().apply {
                 firstMethod { name = "initCardName" }.hook {
-                    intercept()
+                    after {
+                        val cardName = firstField { name = "cardName" }.of(instance).get<View>()
+                            ?: return@after
+                        cardName.isVisible = false
+                        cardName.asResolver().firstMethod {
+                            name = "setTextVisibility"; parameters(Boolean::class)
+                        }.invoke(false)
+                    }
                 }
             }
         }
