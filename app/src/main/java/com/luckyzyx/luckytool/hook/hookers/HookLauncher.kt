@@ -21,6 +21,7 @@ import com.luckyzyx.luckytool.hook.scopes.launcher.PageIndicator
 import com.luckyzyx.luckytool.hook.scopes.launcher.RecentTaskListClearButton
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveAppUpdateGreenDot
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveBottomAppIconOfRecentTaskList
+import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveDockerMaxNumberLimit
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderNameInputLimit
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveFolderPreviewBackground
 import com.luckyzyx.luckytool.hook.scopes.launcher.RemoveLauncherCardName
@@ -134,6 +135,10 @@ object HookLauncher : YukiBaseHooker() {
         //启用桌面下方按钮选择项
         if (prefs(ModulePrefs).getBoolean("enable_launcher_indicator_entry", false)) {
             if (osCode >= 37) loadHooker(EnableLauncherIndicatorEntry)
+        }
+        //移除Docker最大数量限制
+        if (prefs(ModulePrefs).getBoolean("remove_docker_max_number_limit", false)) {
+            if (osCode >= 38) loadHooker(RemoveDockerMaxNumberLimit)
         }
 
         //com.android.quickstep.views.OplusTaskMenuViewImpl

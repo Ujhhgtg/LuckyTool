@@ -57,17 +57,17 @@ object HookDeviceProfileOption : YukiBaseHooker() {
                     if (enableFolder) {
 //                        field { name = "numFolderRows" }.get(instance).set(3)
                         (firstFieldOrNull { name = "numFolderRows" } ?: firstField {
-                            name = "numFolderRows";superclass()
+                            name = "numFolderRows"; superclass()
                         }).of(instance).set(folderRow)
                         (firstFieldOrNull { name = "numFolderColumns" } ?: firstField {
-                            name = "numFolderColumns";superclass()
+                            name = "numFolderColumns"; superclass()
                         }).of(instance).set(folderColumn)
                         if (syncPreview && folderColumn > 3) {
                             firstField { name = "numFolderPreview" }.of(instance).set(folderColumn)
                         }
                     }
                     if (enableDrawer) {
-                        firstField { name = "numAllAppsColumns";superclass() }.of(instance)
+                        firstField { name = "numAllAppsColumns"; superclass() }.of(instance)
                             .set(drawerColumn)
                     }
                 }
@@ -79,16 +79,16 @@ object HookDeviceProfileOption : YukiBaseHooker() {
             firstMethodOrNull { name = "getPreviewRow" }?.hook {
                 before {
                     if (!(enableFolder && syncPreview)) return@before
-                    val spanX = firstField { name = "spanX";superclass() }.of(instance).get<Int>()
-                    val spanY = firstField { name = "spanY";superclass() }.of(instance).get<Int>()
+                    val spanX = firstField { name = "spanX"; superclass() }.of(instance).get<Int>()
+                    val spanY = firstField { name = "spanY"; superclass() }.of(instance).get<Int>()
                     if (spanX == 1 && spanY == 1) result = folderRow
                 }
             }
             firstMethodOrNull { name = "getPreviewColumn" }?.hook {
                 before {
                     if (!(enableFolder && syncPreview)) return@before
-                    val spanX = firstField { name = "spanX";superclass() }.of(instance).get<Int>()
-                    val spanY = firstField { name = "spanY";superclass() }.of(instance).get<Int>()
+                    val spanX = firstField { name = "spanX"; superclass() }.of(instance).get<Int>()
+                    val spanY = firstField { name = "spanY"; superclass() }.of(instance).get<Int>()
                     if (spanX == 1 && spanY == 1) result = folderColumn
                 }
             }

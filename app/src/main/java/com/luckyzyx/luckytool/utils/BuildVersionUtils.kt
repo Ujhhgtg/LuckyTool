@@ -136,7 +136,7 @@ fun getOSVersionName(osCode: Int): String {
  *
  * 38 -> (c16.1.0)
  *
- * 38 -> (c16.2.0)
+ * 39 -> (c16.2.0)
  *
  * 40 -> (c17.0.0)
  */
