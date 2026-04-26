@@ -104,7 +104,7 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
             "Catmak" to "https://gh.catmak.name/",
             "Fastly" to "https://cdn.gh-proxy.org/",
             "JSDelivr" to "https://fastly.jsdelivr.net/gh/",
-            "FastGit.cc" to "https://fastgit.cc/",
+            "FastGit" to "https://fastgit.cc/",
         ).forEach { (k, v) ->
             items.add(k)
             urls.add(v)

@@ -3,7 +3,7 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
-### 1.3.4_beta
+### 1.3.4
 
 - [修复] 模块内置检测更新异常
 - [修复] 自动检测更新开关异常
@@ -34,6 +34,35 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [适配] 移除免打扰模式通知 C16.1
 - [适配] 移除锁屏时钟红一 C16.1
 - [适配] 移除Docker数量限制 C16.1
+- [Fix] Module built-in detection update abnormality
+- [Fix] Automatically detect update switch abnormality
+- [Change] Change the maximum number of multi-floating windows to 20
+- [Add] Automatically jump to accessibility settings
+- [Add] Disable MD5 encryption of screenshot package name
+- [Add] Remove start recording or casting dialog
+- [Add] Forced display of Toast prompt icon
+- [Fix] Customize OTA update card background v16.0.0(ec38064)
+- [Add] Disable volume bar thickness effect C14+
+- [Change] Sync upstream core crack v4.9
+- [Change] Sync upstream DisableFlagSecure v5.0.1
+- [Add] Unlock some hidden options in engineering mode
+- [Add] Enable volume bar percentage display
+- [Add] Enable control center progress bar percentage display
+- [Fix] Lock screen charging component wattage display v16.00.12(160012)
+- [Add] Custom volume bar percentage color
+- [Add] Customize control center progress bar percentage color
+- [Fix] Hide OTA card top text v16.0.0(ec38064)
+- [Fix] ColorOS V16.1.0, V17.0.0 version name display
+- [Fix] Remove desktop icon logo v16.6.5(37c6638)
+- [Fix] Software store startup page advertisement v26.1.2_CN(60d4105)
+- [Fix] Remove battery limit plug-in v1.2.8(aeabc11)
+- [Fix] Smart sidebar background hangup v16.12.2 (3fd0d0c)
+- [Fix] Show more installation information of Apk v16.0.3(a6eac93)
+- [Fix] Limit on the maximum number of application clones C16.1
+- [Fix] Desktop card name crash issue
+- [Fix] Remove Do Not Disturb mode notification C16.1
+- [Fix] Remove lock screen clock red one C16.1
+- [Fix] Remove Docker quantity limit C16.1
 
 ### 1.3.3
 
