@@ -7,7 +7,7 @@ import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 @Obfuscate
-class DsiableStartAppDetail(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
+class DisableStartAppDetail(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
         //Source AppDetailRedirectionUtils

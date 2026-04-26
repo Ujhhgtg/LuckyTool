@@ -594,8 +594,6 @@
     <string name="force_enable_32_bit_support">32-bit desteğini zorla etkinleştir</string>
     <string name="fix_install_button_display_exception">Yükleme düğmesi görünümü hatasını düzelt</string>
     <string name="fix_install_button_display_exception_summary">Esas olarak yükleme sırasında düğmelerin düzgün görünmemesi ve çökmelerle ilgili sorunları çözer.</string>
-    <string name="dsiable_start_app_detail">Uygulama detayları ekranını devre dışı bırak</string>
-    <string name="dsiable_start_app_detail_summary">Uygulama taramasını ve detaylarını atla</string>
     <string name="skip_apk_scan">APk virüs taramasını atla</string>
     <string name="skip_apk_scan_summary">APk virüs taramasıyla ilgili işlemi atlar</string>
     <string name="allow_downgrade_install">Eski sürüm (downgrade) yüklemeye izin ver</string>

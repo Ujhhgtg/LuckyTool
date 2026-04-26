@@ -1,7 +1,7 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.luckyzyx.luckytool.hook.scopes.packageinstaller.DsiableStartAppDetail
+import com.luckyzyx.luckytool.hook.scopes.packageinstaller.DisableStartAppDetail
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.FixInstallButtonDisplayException
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.HookInstallAppProgress
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.HookOPlusUninstallAppProgress
@@ -41,8 +41,8 @@ object HookPackageInstaller : YukiBaseHooker() {
             loadHooker(HookOPlusUninstallAppProgress(dexKitBridge))
 
             //禁止启动AppDetail
-            if (prefs(ModulePrefs).getBoolean("dsiable_start_app_detail", false)) {
-                loadHooker(DsiableStartAppDetail(dexKitBridge))
+            if (prefs(ModulePrefs).getBoolean("disable_start_app_detail", false)) {
+                loadHooker(DisableStartAppDetail(dexKitBridge))
             }
             //修复App安装页面底部按钮异常
             if (prefs(ModulePrefs).getBoolean("fix_install_button_display_exception", false)) {

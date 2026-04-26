@@ -522,8 +522,7 @@
     <string name="force_enable_32_bit_support">强制启用 32 位支持</string>
     <string name="fix_install_button_display_exception">修复安装按钮异常显示</string>
     <string name="fix_install_button_display_exception_summary">主要解决安装按钮显示异常以及安装时崩溃等问题</string>
-    <string name="dsiable_start_app_detail">禁止启动AppDetail</string>
-    <string name="dsiable_start_app_detail_summary">跳过定制安装器AppDetail扫描</string>
+    <string name="disable_start_app_detail_summary">跳过定制安装器AppDetail扫描</string>
     <string name="skip_apk_scan">跳过 APK 扫描</string>
     <string name="skip_apk_scan_summary">APK 病毒扫描相关</string>
     <string name="allow_downgrade_install">允许降级安装</string>
@@ -1152,4 +1151,5 @@
     <string name="remove_word_limit_for_compress_files">移除压缩文件字数限制</string>
     <string name="exactSigCheck">禁用唯一签名匹配</string>
     <string name="bypassBlock">绕过黑名单</string>
+    <string name="disable_start_app_detail">禁用启动AppDetail</string>
 </resources>

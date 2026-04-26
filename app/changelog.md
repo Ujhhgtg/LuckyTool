@@ -3,6 +3,9 @@
 **The beta test version is only released for testing
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
+### 1.3.5_beta
+
+
 ### 1.3.4
 
 - [修复] 模块内置检测更新异常
