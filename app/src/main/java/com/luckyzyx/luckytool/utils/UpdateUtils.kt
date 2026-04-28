@@ -98,7 +98,6 @@ class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
     private fun showDownloadItems(context: Context, apkFile: File, downloadUrl: String) {
         val items = arrayListOf("Github")
         val urls = arrayListOf(downloadUrl)
-        //https://github.com/Xposed-Modules-Repo/com.luckyzyx.luckytool/releases/download/20457-1.3.2/LuckyTool_v1.3.2.20457.apk
         mapOf(
             "Ucdn" to "https://wget.la/",
             "Catmak" to "https://gh.catmak.name/",
