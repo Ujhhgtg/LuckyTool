@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.scopes.launcher
 
 import android.graphics.drawable.Drawable
-import android.os.UserHandle
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
@@ -67,7 +66,6 @@ object HookAppBadge : YukiBaseHooker() {
             "com.android.common.util.CacheUtils".toClass().resolve().apply {
                 firstMethod {
                     name = "getCloneAppDrawable"
-                    parameters(UserHandle::class)
                     returnType = Drawable::class
                 }.hook {
                     after {

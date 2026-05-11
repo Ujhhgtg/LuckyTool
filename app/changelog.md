@@ -4,7 +4,7 @@
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.3.5_beta
-
+- [修复] 分身应用徽标hook异常
 
 ### 1.3.4
 
