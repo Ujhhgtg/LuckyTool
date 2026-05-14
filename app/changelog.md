@@ -4,7 +4,10 @@
 in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 
 ### 1.3.5_beta
+
 - [修复] 分身应用徽标hook异常
+- [添加] 自定义音乐歌词显示白名单
+- [添加] 自定义歌词显示读取目录
 
 ### 1.3.4
 

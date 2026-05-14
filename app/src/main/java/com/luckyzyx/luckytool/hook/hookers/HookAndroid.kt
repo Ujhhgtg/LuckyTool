@@ -1,5 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
+import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalPmsFeature
@@ -138,6 +139,32 @@ object HookAndroid : YukiBaseHooker() {
         loadHooker(HookIPackageManager())
 
         loadHooker(RemoveAlwaysAllowAppStartList)
+
+
+        //Source OplusMediaControlService
+        "com.android.server.media.OplusMediaControlService".toClass().resolve().apply {
+            firstMethod {
+                name = "setMediaControlDenyList"
+                parameters("java.util.List")
+            }.hook {
+                intercept()
+            }
+            firstMethod {
+                name = "isInHistoryPlayInfoWhiteList"
+                parameters(String::class)
+                returnType = Boolean::class
+            }.hook {
+                replaceToTrue()
+            }
+            firstMethod {
+                name = "isInMediaBlackList"
+                parameters(String::class)
+                returnType = Boolean::class
+            }.hook {
+                replaceToFalse()
+            }
+        }
+
 
         //三段式按键
 //        loadHooker(HookAlertSlider)
