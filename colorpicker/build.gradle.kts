@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -8,12 +7,10 @@ android {
     compileSdk {
         version = release(36)
     }
-
     defaultConfig {
         minSdk = 30
         consumerProguardFiles("consumer-rules.pro")
     }
-
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -27,13 +24,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlin {
-        jvmToolchain(21)
-    }
     buildFeatures {
         viewBinding = true
         buildConfig = true
     }
+}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 dependencies {

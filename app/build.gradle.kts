@@ -7,7 +7,6 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.lsplugin.resopt)
@@ -42,7 +41,6 @@ android {
         versionName = "1.3.5_beta"
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))
     }
-
     signingConfigs {
         all {
             enableV1Signing = true
@@ -51,7 +49,6 @@ android {
             enableV4Signing = null
         }
     }
-
     buildTypes {
         release {
             isDebuggable = false
@@ -72,26 +69,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlin {
-        jvmToolchain(21)
-    }
     buildFeatures {
         aidl = true
         viewBinding = true
         buildConfig = true
-    }
-    applicationVariants.all {
-        val buildType = buildType.name
-        val version = "$versionName($versionCode)"
-        println("buildVersion -> $version ($buildType)")
-        outputs.all {
-            @Suppress("DEPRECATION")
-            if (this is com.android.build.gradle.api.ApkVariantOutput) {
-                if (buildType == "release") outputFileName = "LuckyTool_v${version}.apk"
-                if (buildType == "debug") outputFileName = "LuckyTool_v${version}_debug.apk"
-                println("outputFileName -> $outputFileName")
-            }
-        }
     }
     androidResources.additionalParameters.addAll(
         arrayOf("--allow-reserved-package-id", "--package-id", "0x64")
@@ -99,6 +80,26 @@ android {
     packaging {
         jniLibs {
             useLegacyPackaging = false
+        }
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+}
+
+@Suppress("UnstableApiUsage")
+androidComponents {
+    onVariants { variant ->
+        val buildType = variant.buildType ?: "None"
+        variant.outputs.forEach { output ->
+            val versionName = output.versionName.get()
+            val versionCode = output.versionCode.get()
+            val version = "$versionName($versionCode)"
+            println("buildVersion -> $version ($buildType)")
+
+            output.outputFileName.set("LuckyTool_v${version}_${buildType}.apk")
+            println("outputFileName -> ${output.outputFileName.get()}")
         }
     }
 }
