@@ -5,10 +5,12 @@ plugins {
 android {
     namespace = "com.luckyzyx.colorpicker"
     compileSdk {
-        version = release(36)
+        version = release(rootProject.extra.get("compileSdkVersion") as Int) {
+//            minorApiLevel = 1
+        }
     }
     defaultConfig {
-        minSdk = 30
+        minSdk = rootProject.extra.get("minSdkVersion") as Int
         consumerProguardFiles("consumer-rules.pro")
     }
     buildTypes {
@@ -31,7 +33,7 @@ android {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(rootProject.extra.get("jdkVersion") as Int)
 }
 
 dependencies {

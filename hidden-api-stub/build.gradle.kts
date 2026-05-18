@@ -5,12 +5,18 @@ plugins {
 android {
     namespace = "com.luckyzyx.internal"
     compileSdk {
-        version = release(36)
+        version = release(rootProject.extra.get("compileSdkVersion") as Int) {
+//            minorApiLevel = 1
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(rootProject.extra.get("jdkVersion") as Int)
 }
 
 dependencies {

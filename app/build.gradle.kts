@@ -30,13 +30,16 @@ lsparanoid {
 android {
     namespace = "com.luckyzyx.luckytool"
     compileSdk {
-        version = release(36)
+        version = release(rootProject.extra.get("compileSdkVersion") as Int) {
+//            minorApiLevel = 1
+        }
     }
     defaultConfig {
         applicationId = "com.luckyzyx.luckytool"
-        minSdk = 30
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk = 28
+
+        minSdk = rootProject.extra.get("minSdkVersion") as Int
+        targetSdk = rootProject.extra.get("targetSdkVersion") as Int
+
         versionCode = getVersionCode()
         versionName = "1.3.5_beta"
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))
@@ -85,7 +88,7 @@ android {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(rootProject.extra.get("jdkVersion") as Int)
 }
 
 @Suppress("UnstableApiUsage")
