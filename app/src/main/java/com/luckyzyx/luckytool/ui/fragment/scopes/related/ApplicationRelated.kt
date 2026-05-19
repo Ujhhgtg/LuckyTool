@@ -159,8 +159,22 @@ class ApplicationRelated : BaseScopePreferenceFeagment() {
             })
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.remove_multi_app_created_num_limit)
-                summary = getString(R.string.need_restart_system)
-                key = "remove_multi_app_created_num_limit"
+                summary = arraySummaryLine(
+                    getString(R.string.remove_multi_app_created_num_limit_for_users),
+                    getString(R.string.need_restart_system)
+                )
+                key = "remove_multi_app_created_num_limit_for_users"
+                setDefaultValue(false)
+                isVisible = osCode >= 38
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_multi_app_created_num_limit)
+                summary = arraySummaryLine(
+                    getString(R.string.remove_multi_app_created_num_limit_for_apps),
+                    getString(R.string.need_restart_system)
+                )
+                key = "remove_multi_app_created_num_limit_for_apps"
                 setDefaultValue(false)
                 isVisible = osCode >= 31
                 isIconSpaceReserved = false

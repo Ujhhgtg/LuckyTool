@@ -507,6 +507,7 @@
     <string name="set_multi_app_support_mode_tips">部分机型无法使用全应用列表，需安装特定机型应用分身APP</string>
     <string name="remove_multi_app_blacklist">移除应用分身黑名单</string>
     <string name="remove_multi_app_created_num_limit">移除分身创建总数限制</string>
+    <string name="remove_multi_app_created_num_limit_for_apps">可以分身多少个应用</string>
     <string name="set_wlan_sla_whitelist_mode">设置 WLAN 双通道加速白名单模式</string>
     <string name="remove_wlan_sla_blacklist">移除 WLAN 双通道加速黑名单</string>
     <string name="custom_wlan_sla_whitelist">自定义 WLAN 双通道加速白名单</string>
@@ -1152,4 +1153,5 @@
     <string name="exactSigCheck">禁用唯一签名匹配</string>
     <string name="bypassBlock">绕过黑名单</string>
     <string name="disable_start_app_detail">禁用启动AppDetail</string>
+    <string name="remove_multi_app_created_num_limit_for_users">单个应用可以分身的数量</string>
 </resources>

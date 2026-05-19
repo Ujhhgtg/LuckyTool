@@ -25,7 +25,8 @@ object MultiAppConfig : YukiBaseHooker() {
 
         var mode = "0"
         val list = ArrayList<String>()
-        var limit = false
+        var limitUser = false
+        var limitApp = false
 
         private fun loadData() {
             mode = prefs(ModulePrefs).getString("set_multi_app_support_mode", "0")
@@ -42,7 +43,10 @@ object MultiAppConfig : YukiBaseHooker() {
                 list.clear()
                 list.addAll(new)
             }
-            limit = prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)
+            limitUser =
+                prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit_for_users", false)
+            limitApp =
+                prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit_for_users", false)
             YLog.debug("init multi app configs success -> ${list.size}")
         }
 
@@ -59,13 +63,33 @@ object MultiAppConfig : YukiBaseHooker() {
                 }
                 if (osCode >= 38) {
                     firstMethod { name = "getMaxCloneUserNum" }.hook {
-                        if (limit) replaceTo(1000)
+                        if (limitUser) replaceTo(10)
                     }
                 }
-                firstMethod { name = "getMaxCreatedNum" }.hook {
-                    if (limit) replaceTo(1000)
+                if (osCode >= 31) {
+                    firstMethod { name = "getMaxCreatedNum" }.hook {
+                        if (limitApp) replaceTo(1000)
+                    }
                 }
             }
+
+            //Source UserManagerService
+//            "com.android.server.pm.UserManagerService".toClass().resolve().apply {
+//                firstMethod { name = "isUserLimitReached" }.hook {
+//                    replaceToFalse()
+//                }
+//                firstMethod { name = "canAddMoreManagedProfiles" }.hook {
+//                    replaceToTrue()
+//                }
+//                firstMethod { name = "canAddMoreProfilesToUser" }.hook {
+//                    replaceToTrue()
+//                }
+//                if (osCode >= 30) {
+//                    firstMethod { name = "isCreationOverrideEnabled" }.hook {
+//                        replaceToTrue()
+//                    }
+//                }
+//            }
         }
     }
 

@@ -39,7 +39,7 @@ object HookGlobalFeatureConfig : YukiBaseHooker() {
             }
 
             //Source Android OplusMultiAppDataManager getMaxCreatedNum 分身创建数量限制
-            if (prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit", false)) {
+            if (prefs(ModulePrefs).getBoolean("remove_multi_app_created_num_limit_for_users", false)) {
                 put("oplus.software.multiapp_max_open_number_limited", false)
             }
 
