@@ -30,6 +30,7 @@ import com.luckyzyx.luckytool.hook.hookers.HookLauncher
 import com.luckyzyx.luckytool.hook.hookers.HookMarket
 import com.luckyzyx.luckytool.hook.hookers.HookMediaController
 import com.luckyzyx.luckytool.hook.hookers.HookMultiApp
+import com.luckyzyx.luckytool.hook.hookers.HookMyDevices
 import com.luckyzyx.luckytool.hook.hookers.HookNfc
 import com.luckyzyx.luckytool.hook.hookers.HookNotificationManager
 import com.luckyzyx.luckytool.hook.hookers.HookOShare
@@ -214,6 +215,8 @@ object YukiEntry {
         loadApp("com.coloros.filemanager", HookFileManager)
         //工程模式
         loadApp("com.oplus.engineermode", HookEngineerMode)
+        //设备空间
+        loadApp("com.heytap.mydevices", HookMyDevices)
 
         //其他APP
         loadApp("com.ruet_cse_1503050.ragib.appbackup.pro", HookAlphaBackupPro)

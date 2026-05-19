@@ -1074,6 +1074,9 @@
     <!--OplusEngineerMode-->
     <string name="unlock_some_hidden_options">Unlock some hidden options</string>
     
+    <!--OplusMyDevices-->
+    <string name="force_enable_feiniu_cloud_nas_option">Force enable Feiniu Cloud NAS option</string>
+    
     <!--OplusFileManager-->
     <string name="remove_word_limit_for_saving_files">Remove the word limit for saving files</string>
     <string name="remove_word_limit_for_compress_files">Remove word limit for compressed files</string>
