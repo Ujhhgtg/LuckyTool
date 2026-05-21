@@ -457,11 +457,11 @@ fun arraySummaryDot(vararg string: String?): String {
 
 /**
  * 格式化Summary添加换行
- * @param string Array<out String?>
+ * @param strings Array<out String?>
  * @return String
  */
-fun arraySummaryLine(vararg string: String?): String {
-    return formatStringAuto(string.toList(), "\n", false)
+fun arraySummaryLine(vararg strings: String?): String {
+    return formatStringAuto(strings.toList(), "\n", false)
 }
 
 /**

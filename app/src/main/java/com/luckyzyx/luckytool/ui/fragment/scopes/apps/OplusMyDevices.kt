@@ -8,6 +8,7 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
+import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import org.lsposed.lsparanoid.Obfuscate
 
@@ -42,6 +43,18 @@ class OplusMyDevices : BaseScopePreferenceFeagment() {
             add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.force_enable_feiniu_cloud_nas_option)
                 key = "force_enable_feiniu_cloud_nas_option"
+                summary = arraySummaryLine(
+                    *arrayOf(
+                        "com.heytap.mydevices",
+                        "com.heytap.accessory",
+                        "com.android.systemui",
+                        "com.coloros.gallery3d"
+                    ).map { s ->
+                        val label = AppUtils(context).getAppLabel(s)
+                        val stat = AppUtils(context).getAppMeta(s, "support_fn_nas", "null")
+                        "$label: $stat"
+                    }.toTypedArray()
+                )
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })

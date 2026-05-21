@@ -51,6 +51,18 @@ class AppUtils(val context: Context) {
     }
 
     /**
+     * 获取APP Meta键值
+     * @param packName String
+     * @param key String
+     * @return String
+     */
+    fun getAppMeta(packName: String, key: String, default: String = ""): String {
+        val appInfo = packageUtils.getApplicationInfo(packName, PackageManager.GET_META_DATA)
+        @Suppress("DEPRECATION")
+        return appInfo?.metaData?.get(key)?.toString() ?: default
+    }
+
+    /**
      * 获取APP版本/版本号/Commit
      * 写入SP xml文件内
      * @return [ArraySet]

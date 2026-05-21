@@ -106,6 +106,11 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 if (host.isNotBlank()) put("remote_provisioning.hostname", host)
             }
 
+            //Source FNOsUtils isSupportedFeiNiuNas
+            if (prefs(ModulePrefs).getBoolean("force_enable_feiniu_cloud_nas_option", false)) {
+                put("ro.oplus.feiniunas.support", true)
+            }
+
             //Source COSA
 //            if (packageName == "com.oplus.cosa") {
 //                put("ro.product.brand", "realme")
