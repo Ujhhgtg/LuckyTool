@@ -63,12 +63,31 @@ object MultiAppConfig : YukiBaseHooker() {
                 }
                 if (osCode >= 38) {
                     firstMethod { name = "getMaxCloneUserNum" }.hook {
-                        if (limitUser) replaceTo(10)
+                        if (limitUser) replaceTo(30)
                     }
                 }
                 if (osCode >= 31) {
                     firstMethod { name = "getMaxCreatedNum" }.hook {
                         if (limitApp) replaceTo(1000)
+                    }
+                }
+            }
+
+            if (osCode < 38) return
+
+            //Source OplusMultiAppManagerService
+            "com.android.server.am.OplusMultiAppManagerService".toClass().resolve().apply {
+                firstMethod {
+                    name = "isValidMultiAppUserId"
+                    parameters(Int::class)
+                    returnType = Boolean::class
+                }.hook {
+                    before {
+                        val userId = args().first().int()
+                        val maxNum = firstMethod { name = "getMaxCloneUserNum" }.of(instance)
+                            .invoke<Int>() ?: return@before
+                        result = if (userId !in 970..999) false
+                        else maxNum == 0 || 999 - userId < maxNum
                     }
                 }
             }
