@@ -63,7 +63,7 @@ object MultiAppConfig : YukiBaseHooker() {
                 }
                 if (osCode >= 38) {
                     firstMethod { name = "getMaxCloneUserNum" }.hook {
-                        if (limitUser) replaceTo(30)
+                        if (limitUser) replaceTo(10)
                     }
                 }
                 if (osCode >= 31) {
@@ -73,24 +73,24 @@ object MultiAppConfig : YukiBaseHooker() {
                 }
             }
 
-            if (osCode < 38) return
+//            if (osCode < 38) return
 
             //Source OplusMultiAppManagerService
-            "com.android.server.am.OplusMultiAppManagerService".toClass().resolve().apply {
-                firstMethod {
-                    name = "isValidMultiAppUserId"
-                    parameters(Int::class)
-                    returnType = Boolean::class
-                }.hook {
-                    before {
-                        val userId = args().first().int()
-                        val maxNum = firstMethod { name = "getMaxCloneUserNum" }.of(instance)
-                            .invoke<Int>() ?: return@before
-                        result = if (userId !in 970..999) false
-                        else maxNum == 0 || 999 - userId < maxNum
-                    }
-                }
-            }
+//            "com.android.server.am.OplusMultiAppManagerService".toClass().resolve().apply {
+//                firstMethod {
+//                    name = "isValidMultiAppUserId"
+//                    parameters(Int::class)
+//                    returnType = Boolean::class
+//                }.hook {
+//                    before {
+//                        val userId = args().first().int()
+//                        val maxNum = firstMethod { name = "getMaxCloneUserNum" }.of(instance)
+//                            .invoke<Int>() ?: return@before
+//                        result = if (userId !in 970..999) false
+//                        else maxNum == 0 || 999 - userId < maxNum
+//                    }
+//                }
+//            }
 
             //Source UserManagerService
 //            "com.android.server.pm.UserManagerService".toClass().resolve().apply {
