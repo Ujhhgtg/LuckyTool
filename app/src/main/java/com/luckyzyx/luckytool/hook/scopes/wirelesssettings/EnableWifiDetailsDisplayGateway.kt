@@ -34,7 +34,7 @@ class EnableWifiDetailsDisplayGateway(val dexKitBridge: DexKitBridge) : YukiBase
             findMethod {
                 matcher {
                     paramCount(0)
-                    returnType(Boolean::class.java)
+//                    returnType(Boolean::class.java)
                     usingStrings("updateIpInfo")
                 }
             }.apply {
@@ -43,7 +43,7 @@ class EnableWifiDetailsDisplayGateway(val dexKitBridge: DexKitBridge) : YukiBase
                     firstMethod {
                         name = single().methodName
                         emptyParameters()
-                        returnType = Boolean::class
+//                        returnType = Boolean::class
                     }.hook {
                         after {
                             val context = firstField { type = Context::class }.of(instance)

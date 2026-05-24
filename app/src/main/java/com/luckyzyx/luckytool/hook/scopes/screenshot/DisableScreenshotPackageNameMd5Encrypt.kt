@@ -16,7 +16,7 @@ class DisableScreenshotPackageNameMd5Encrypt(val dexKitBridge: DexKitBridge) : Y
                 usingStrings("EncryptUtils", "encryptToMd5", "queryEncryptName")
             }
         }.apply {
-            checkDataList("DisableScreenshotPackageNameMd5Encrypt", isDebug = true)
+            checkDataList("DisableScreenshotPackageNameMd5Encrypt")
 
             findMethod {
                 matcher {
