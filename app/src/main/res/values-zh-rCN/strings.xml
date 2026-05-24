@@ -920,6 +920,7 @@
     <string name="force_enable_iphone_shared_support">强制启用iPhone互联</string>
     <string name="unlock_some_hidden_options">解锁部分隐藏选项</string>
     <string name="force_enable_feiniu_cloud_nas_option">强制启用飞牛云NAS选项</string>
+    <string name="custom_system_message_region_defaults">自定义系统消息地区预设</string>
     <string name="remove_word_limit_for_saving_files">移除文件保存字数限制</string>
     <string name="remove_word_limit_for_label_name_files">移除重命名文件字数限制</string>
     <string name="skip_startup_page">跳过启动页</string>

@@ -111,6 +111,13 @@ object HookGlobalSystemProperties : YukiBaseHooker() {
                 put("ro.oplus.feiniunas.support", true)
             }
 
+            //Source Mcs
+            if (packageName == "com.heytap.mcs") {
+                val region =
+                    prefs(ModulePrefs).getString("custom_system_message_region_defaults", "")
+                if (region.isNotBlank()) put("ro.vendor.oplus.regionmark", region)
+            }
+
             //Source COSA
 //            if (packageName == "com.oplus.cosa") {
 //                put("ro.product.brand", "realme")

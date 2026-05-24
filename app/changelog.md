@@ -8,6 +8,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [修复] 分身应用徽标hook异常
 - [优化] 应用分身数量限制描述
 - [添加] 强制启用飞牛云NAS选项
+- [添加] 自定义系统消息地区预设
 
 
 - [添加] 自定义音乐歌词显示白名单

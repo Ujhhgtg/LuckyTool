@@ -402,5 +402,12 @@
         <item>64</item>
         <item>128</item>
     </string-array>
+    
+    <string-array name="custom_system_message_region_defaults_entries">
+        <item>@string/default_</item>
+        <item>CN</item>
+        <item>IN</item>
+        <item>US</item>
+    </string-array>
 
 </resources>
