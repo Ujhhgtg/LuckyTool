@@ -1,10 +1,6 @@
 import java.io.FileInputStream
 import java.util.Properties
 
-val keystorePropertiesFile: File = rootProject.file("keystore/keystore.properties")
-val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
@@ -16,10 +12,10 @@ plugins {
 }
 
 apksign {
-    storeFileProperty = keystoreProperties["storeFile"] as String
-    storePasswordProperty = keystoreProperties["storePassword"] as String
-    keyAliasProperty = keystoreProperties["keyAlias"] as String
-    keyPasswordProperty = keystoreProperties["keyPassword"] as String
+    storeFileProperty = rootProject.extra.get("storeFile") as String
+    storePasswordProperty = rootProject.extra.get("storePassword") as String
+    keyAliasProperty = rootProject.extra.get("keyAlias") as String
+    keyPasswordProperty = rootProject.extra.get("keyPassword") as String
 }
 
 lsparanoid {
