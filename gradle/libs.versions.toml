@@ -3,6 +3,7 @@ agp = "9.2.1"
 kotlin = "2.3.21"
 ksp = "2.3.7"
 
+betterandroid = "1.1.0"
 navigation = "2.9.8"
 kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
@@ -31,10 +32,10 @@ kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extensi
 
 dexkit = { group = "org.luckypray", name = "dexkit", version = "2.2.0" }
 
-betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version = "1.0.10" }
-betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version = "1.0.1" }
-betterandroid-ui-extension = { group = "com.highcapable.betterandroid", name = "ui-extension", version = "1.0.9" }
-betterandroid-system-extension = { group = "com.highcapable.betterandroid", name = "system-extension", version = "1.0.4" }
+betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version.ref = "betterandroid" }
+betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version.ref = "betterandroid" }
+betterandroid-ui-extension = { group = "com.highcapable.betterandroid", name = "ui-extension", version.ref = "betterandroid" }
+betterandroid-system-extension = { group = "com.highcapable.betterandroid", name = "system-extension", version.ref = "betterandroid" }
 hikage-core = { group = "com.highcapable.hikage", name = "hikage-core", version = "1.0.4" }
 hikage-compiler = { group = "com.highcapable.hikage", name = "hikage-compiler", version = "1.0.4" }
 hikage-extension = { group = "com.highcapable.hikage", name = "hikage-extension", version = "1.0.3" }
