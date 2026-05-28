@@ -19,7 +19,6 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin" }
 
-lsplugin-apksign = { id = "org.lsposed.lsplugin.apksign", version = "1.4" }
 lsplugin-resopt = { id = "org.lsposed.lsplugin.resopt", version = "1.6" }
 lsplugin-lsparanoid = { id = "org.lsposed.lsparanoid", version.ref = "lsparanoid" }
 

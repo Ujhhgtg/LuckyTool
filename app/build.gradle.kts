@@ -4,18 +4,10 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.lsplugin.resopt)
     alias(libs.plugins.lsplugin.lsparanoid)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.navigation.safe.args)
-}
-
-apksign {
-    storeFileProperty = rootProject.extra.get("storeFile") as String
-    storePasswordProperty = rootProject.extra.get("storePassword") as String
-    keyAliasProperty = rootProject.extra.get("keyAlias") as String
-    keyPasswordProperty = rootProject.extra.get("keyPassword") as String
 }
 
 lsparanoid {
@@ -46,6 +38,11 @@ android {
             enableV2Signing = true
             enableV3Signing = true
             enableV4Signing = null
+
+            storeFile = file(rootProject.extra.get("storeFile") as String)
+            storePassword = rootProject.extra.get("storePassword") as String
+            keyAlias = rootProject.extra.get("keyAlias") as String
+            keyPassword = rootProject.extra.get("keyPassword") as String
         }
     }
     buildTypes {
@@ -56,12 +53,14 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
         debug {
             isDebuggable = false
             isMinifyEnabled = false
             //noinspection NotShrinkingResources
             isShrinkResources = false
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
