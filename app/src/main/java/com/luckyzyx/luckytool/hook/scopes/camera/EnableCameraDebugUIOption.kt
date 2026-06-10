@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import org.lsposed.lsparanoid.Obfuscate
@@ -18,14 +19,14 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         dexKitBridge.findMethod {
             matcher {
                 declaredClass {
-                    addFieldForType(ExecutorService::class.java)
+                    addFieldForType(classOf<ExecutorService>())
                     addMethod {
                         paramCount(0)
-                        returnType(Boolean::class.java)
+                        returnType(classOf<Boolean>())
                     }
                 }
                 paramCount(0)
-                returnType(Boolean::class.java)
+                returnType(classOf<Boolean>())
                 usingStrings("iq_config_set", "hal_config_set")
             }
         }.apply {
@@ -45,19 +46,19 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
         dexKitBridge.findMethod {
             matcher {
                 declaredClass {
-                    addFieldForType(Context::class.java)
-                    addFieldForType(LongArray::class.java)
+                    addFieldForType(classOf<Context>())
+                    addFieldForType(classOf<LongArray>())
                     addMethod {
-                        paramTypes(Long::class.java)
-                        returnType(Boolean::class.java)
+                        paramTypes(classOf<Long>())
+                        returnType(classOf<Boolean>())
                     }
                     addMethod {
-                        paramTypes(String::class.java)
-                        returnType(Boolean::class.java)
+                        paramTypes(classOf<String>())
+                        returnType(classOf<Boolean>())
                     }
                 }
-                paramTypes(Long::class.java)
-                returnType(Boolean::class.java)
+                paramTypes(classOf<Long>())
+                returnType(classOf<Boolean>())
                 usingNumbers(3600000)
                 usingStrings("NetworkAuthenticationUtils")
             }
