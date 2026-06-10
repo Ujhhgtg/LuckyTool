@@ -47,7 +47,6 @@ class EnableCameraDebugUIOption(val dexKitBridge: DexKitBridge) : YukiBaseHooker
                 declaredClass {
                     addFieldForType(Context::class.java)
                     addFieldForType(LongArray::class.java)
-                    LongArray::class
                     addMethod {
                         paramTypes(Long::class.java)
                         returnType(Boolean::class.java)
