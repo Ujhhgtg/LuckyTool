@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
-import android.hardware.fingerprint.FingerprintManager
 import android.os.Handler
 import android.provider.Settings
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.kavaref.extension.createInstance
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.sysui.DependencyUtils
@@ -247,18 +247,21 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
         val i2 = Settings.Secure.getInt(
             context.contentResolver, "oplus_customize_fingerprint_unlock_switch", -1
         )
-        val fingerprintManager = context.getSystemService(FingerprintManager::class.java)
+        val fingerprintManager = context.getSystemService("fingerprint")
+        val isHardwareDetected = fingerprintManager.asResolver().firstMethod {
+            name = "isHardwareDetected";emptyParameters()
+        }.invoke<Boolean>() ?: false
         val hasEnrolledFingerprints = fingerprintManager.asResolver().firstMethod {
             name = "hasEnrolledFingerprints";parameters(Int::class)
         }.invoke<Boolean>(currentUserId) ?: false
-        return z || (fingerprintManager.isHardwareDetected && hasEnrolledFingerprints && i2 == 1 && !isFpDisabledByDPM(
+        return z || (isHardwareDetected && hasEnrolledFingerprints && i2 == 1 && !isFpDisabledByDPM(
             context,
             currentUserId
         ))
     }
 
     private fun isFpDisabledByDPM(context: Context, userId: Int): Boolean {
-        val service = context.getSystemService(DevicePolicyManager::class.java)
+        val service = context.getSystemService(classOf<DevicePolicyManager>())
         val getKeyguardDisabledFeatures = service.asResolver().firstMethod {
             name = "getKeyguardDisabledFeatures";parameters(ComponentName::class, Int::class)
         }.invoke<Int>(null, userId) ?: 0
