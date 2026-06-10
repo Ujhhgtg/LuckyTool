@@ -111,6 +111,7 @@ dependencies {
     implementation(libs.yukihookapi)
     ksp(libs.ksp.yukihookapi)
     implementation(libs.kavaref.core)
+    implementation(libs.kavaref.android)
     implementation(libs.kavaref.extension)
     implementation(libs.dexkit)
 
