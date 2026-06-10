@@ -11,6 +11,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.AllowUntrustedTouch
 import com.luckyzyx.luckytool.hook.scopes.android.AppSplashScreen
 import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
+import com.luckyzyx.luckytool.hook.scopes.android.DisableMaliciousAppIntercept
 import com.luckyzyx.luckytool.hook.scopes.android.EnableKeepNotificationWhenAppStop
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
 import com.luckyzyx.luckytool.hook.scopes.android.ForceAllAppsSupportSplitScreen
@@ -36,6 +37,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.SetAppUpdateDotDisplayMode
 import com.luckyzyx.luckytool.hook.scopes.android.SystemEnableVolumeKeyControlFlashlight
 import com.luckyzyx.luckytool.hook.scopes.android.ZoomWindowConfig
 import com.luckyzyx.luckytool.utils.A13
+import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
@@ -140,9 +142,13 @@ object HookAndroid : YukiBaseHooker() {
 
         loadHooker(RemoveAlwaysAllowAppStartList)
 
+        //禁用风险应用拦截
+        if (prefs(ModulePrefs).getBoolean("disable_malicious_app_intercept", false)) {
+            loadHooker(DisableMaliciousAppIntercept)
+        }
 
         //Source OplusMediaControlService
-        "com.android.server.media.OplusMediaControlService".toClass().resolve().apply {
+        if (false) "com.android.server.media.OplusMediaControlService".toClass().resolve().apply {
             firstMethod {
                 name = "setMediaControlDenyList"
                 parameters("java.util.List")

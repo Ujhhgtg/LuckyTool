@@ -10,6 +10,7 @@ in [TG Channel’s associated groups](https://t.me/LuckyTool)**
 - [添加] 强制启用飞牛云NAS选项
 - [添加] 自定义系统消息地区预设
 - [适配] WIFI详情显示网关 C16.1
+- [添加] 禁用恶意风险应用拦截
 
 
 - [添加] 自定义音乐歌词显示白名单

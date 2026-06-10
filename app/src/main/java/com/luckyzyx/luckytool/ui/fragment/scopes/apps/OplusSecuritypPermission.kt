@@ -48,6 +48,13 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
     override fun Context.loadPreferences(): ArrayList<Preference> {
         return ArrayList<Preference>().apply {
             add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_malicious_app_intercept)
+                summary = getString(R.string.need_restart_system)
+                key = "disable_malicious_app_intercept"
+                setDefaultValue(false)
+                isIconSpaceReserved = false
+            })
+            add(SwitchPreference(this@loadPreferences).apply {
                 title = getString(R.string.app_start_dialog_use_old_version)
                 key = "app_start_dialog_use_old_version"
                 setDefaultValue(false)
@@ -84,7 +91,7 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
                             }
 
                             val items = arrayListOf(Pair("All", -1))
-                            users.map { info ->
+                            users.forEach { info ->
                                 val pair = Pair("${info.name} [${info.id}]", info.id)
                                 items.add(pair)
                             }
