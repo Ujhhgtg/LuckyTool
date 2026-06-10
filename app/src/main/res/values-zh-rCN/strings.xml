@@ -25,6 +25,7 @@
     <string name="enable_biometric_unlock_verification">启用生物识别解锁验证</string>
     <string name="tile_auto_start">允许内置磁贴自动启动</string>
     <string name="tile_auto_start_summary">屏幕解锁后将自动触发已启用的磁贴功能\n若触发失败，请重启作用域和检查Root权限</string>
+    <string name="check_app_userid">无法在分身用户使用</string>
     <string name="read_agreement">您需要阅读并同意以下内容后才能使用本模块</string>
     <string name="clear_all_data">清除所有数据</string>
     <string name="clear_all_data_summary">清除模块所有功能的数据</string>

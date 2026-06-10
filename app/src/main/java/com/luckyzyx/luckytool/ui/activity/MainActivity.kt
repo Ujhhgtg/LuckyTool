@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.highcapable.betterandroid.system.extension.component.Intent
 import com.highcapable.betterandroid.ui.extension.component.fragmentManager
+import com.highcapable.betterandroid.ui.extension.view.toast
 import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.factory.prefs
@@ -77,7 +78,15 @@ open class MainActivity : BaseActivity<ActivityMainBinding>() {
         verityPackage()
         checkXposed()
         checkOs()
+        checkUserId()
         checkBiometric()
+    }
+
+    private fun checkUserId() {
+        if ((Process.myUid() / 100000) != 0) {
+            toast(getString(R.string.check_app_userid))
+            finish()
+        }
     }
 
     private fun checkXposed() {
