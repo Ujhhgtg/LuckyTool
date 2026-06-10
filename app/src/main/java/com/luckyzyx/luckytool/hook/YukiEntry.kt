@@ -3,6 +3,7 @@ package com.luckyzyx.luckytool.hook
 import android.annotation.SuppressLint
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.param.PackageParam
+import com.luckyzyx.luckytool.hook.hookers.HookAccessory
 import com.luckyzyx.luckytool.hook.hookers.HookAlarmClock
 import com.luckyzyx.luckytool.hook.hookers.HookAndroid
 import com.luckyzyx.luckytool.hook.hookers.HookAtlasService
@@ -218,6 +219,8 @@ object YukiEntry {
         loadApp("com.oplus.engineermode", HookEngineerMode)
         //设备空间
         loadApp("com.heytap.mydevices", HookMyDevices)
+        //设备快连
+        loadApp("com.heytap.accessory", HookAccessory)
         //系统消息
         loadApp("com.heytap.mcs", HookMcs)
 

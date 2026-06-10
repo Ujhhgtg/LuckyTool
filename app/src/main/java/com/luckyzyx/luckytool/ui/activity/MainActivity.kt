@@ -12,6 +12,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.highcapable.betterandroid.system.extension.component.Intent
+import com.highcapable.betterandroid.ui.extension.component.fragmentManager
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.hook.factory.prefs
 import com.luckyzyx.luckytool.BuildConfig
@@ -50,7 +53,7 @@ import kotlin.system.exitProcess
 open class MainActivity : BaseActivity<ActivityMainBinding>() {
     //检测Prefs状态
     private var isModuleActive = YukiHookAPI.Status.isXposedModuleActive
-    private val KEY_PREFIX = MainActivity::class.java.name + '.'
+    private val KEY_PREFIX = classOf<MainActivity>().name + '.'
     private val EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE"
 
     private lateinit var navHostFragment: NavHostFragment
@@ -59,7 +62,7 @@ open class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var checkSuDialog: AlertDialog? = null
 
     private fun newIntent(context: Context): Intent {
-        return Intent(context, MainActivity::class.java)
+        return Intent<MainActivity>(context)
     }
 
     private fun newIntent(savedInstanceState: Bundle, context: Context): Intent {
@@ -122,13 +125,13 @@ open class MainActivity : BaseActivity<ActivityMainBinding>() {
             setMessage(getString(R.string.unsupported_os_summary))
             setPositiveButton(android.R.string.ok) { _, _ -> exitProcess(0) }
             if (osCode > 0) setNeutralButton(getString(R.string.ignore), null)
-            if (osCode < 23 && current.contains(HomeFragment::class.java.simpleName)) show()
+            if (osCode < 23 && current.contains(classOf<HomeFragment>().simpleName)) show()
         }
     }
 
     private fun checkBiometric() {
         val enable = getBoolean(SettingsPrefs, "enable_biometric_unlock_verification", false)
-        val manager = getSystemService(KeyguardManager::class.java)
+        val manager = getSystemService(classOf<KeyguardManager>())
         if (enable && manager.isDeviceSecure) {
             BiometricUtils.showBiometricPrompt(
                 this,
@@ -155,7 +158,7 @@ open class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun initNavigationFragment() {
-        val navFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container)
+        val navFragment = fragmentManager().findFragmentById(R.id.nav_host_fragment_container)
         navHostFragment = navFragment as NavHostFragment
         navController = navHostFragment.navController
         setSupportActionBar(binding.toolbar)
