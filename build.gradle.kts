@@ -9,11 +9,12 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.lsplugin.lsparanoid) apply false
 }
 
-extra["compileSdkVersion"] = 36
+extra["compileSdkVersion"] = 37
 extra["targetSdkVersion"] = 28
 extra["minSdkVersion"] = 30
 
