@@ -34,6 +34,7 @@ kavaref-android = { group = "com.highcapable.kavaref", name = "kavaref-android",
 kavaref-extension = { group = "com.highcapable.kavaref", name = "kavaref-extension", version = "1.1.0" }
 
 dexkit = { group = "org.luckypray", name = "dexkit", version = "2.2.0" }
+hiddenapibypass = { group = "org.lsposed.hiddenapibypass", name = "hiddenapibypass", version = "6.1" }
 
 betterandroid-ui-component = { group = "com.highcapable.betterandroid", name = "ui-component", version.ref = "betterandroid" }
 betterandroid-ui-component-adapter = { group = "com.highcapable.betterandroid", name = "ui-component-adapter", version.ref = "betterandroid" }
@@ -55,7 +56,7 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 androidx-navigation-safe-args-gradle-plugin = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 androidx-biometric = { group = "androidx.biometric", name = "biometric", version = "1.1.0" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.10.0" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.10.0" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.11.0" }
 
 deviceCompat = { group = "com.github.getActivity", name = "DeviceCompat", version = "2.3" }
 xxpermissions = { group = "com.github.getActivity", name = "XXPermissions", version = "26.5" }
