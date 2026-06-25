@@ -52,6 +52,7 @@ class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
                 summary = getString(R.string.need_restart_system)
                 key = "disable_malicious_app_intercept"
                 setDefaultValue(false)
+                isVisible = osCode >= 38
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {

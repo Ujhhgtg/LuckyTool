@@ -664,6 +664,7 @@
     <string name="force_show_toast_icon">Force display of toast prompt icon</string>
     <string name="enable_volume_bar_percent_display">Enable volume bar percentage display</string>
     <string name="custom_volume_bar_percent_color">Customize volume bar percentage color</string>
+    <string name="disable_accessibility_warning_dialog">Disable accessibility warning dialog</string>
     
     <!--PhoneManager-->
     <string name="remove_virus_risk_notification_in_phone_manager">Remove the virus risk notification in Phone Manager</string>

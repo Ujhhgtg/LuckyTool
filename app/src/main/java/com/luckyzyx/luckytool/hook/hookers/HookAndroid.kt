@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.hookers
 
-import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalPmsFeature
@@ -11,6 +10,7 @@ import com.luckyzyx.luckytool.hook.scopes.android.AllowUntrustedTouch
 import com.luckyzyx.luckytool.hook.scopes.android.AppSplashScreen
 import com.luckyzyx.luckytool.hook.scopes.android.BatteryOptimizationWhitelist
 import com.luckyzyx.luckytool.hook.scopes.android.DarkModeService
+import com.luckyzyx.luckytool.hook.scopes.android.DisableAccessibilityWarningDialog
 import com.luckyzyx.luckytool.hook.scopes.android.DisableMaliciousAppIntercept
 import com.luckyzyx.luckytool.hook.scopes.android.EnableKeepNotificationWhenAppStop
 import com.luckyzyx.luckytool.hook.scopes.android.EnableVideoMemcFrameInsertion
@@ -144,32 +144,39 @@ object HookAndroid : YukiBaseHooker() {
 
         //禁用风险应用拦截
         if (prefs(ModulePrefs).getBoolean("disable_malicious_app_intercept", false)) {
-            loadHooker(DisableMaliciousAppIntercept)
+            if (osCode >= 38) loadHooker(DisableMaliciousAppIntercept)
+        }
+
+        //禁用无障碍警告对话框
+        if (prefs(ModulePrefs).getBoolean("disable_accessibility_warning_dialog", false)) {
+            if (osCode >= 38) loadHooker(DisableAccessibilityWarningDialog)
         }
 
         //Source OplusMediaControlService
-        if (false) "com.android.server.media.OplusMediaControlService".toClass().resolve().apply {
-            firstMethod {
-                name = "setMediaControlDenyList"
-                parameters("java.util.List")
-            }.hook {
-                intercept()
-            }
-            firstMethod {
-                name = "isInHistoryPlayInfoWhiteList"
-                parameters(String::class)
-                returnType = Boolean::class
-            }.hook {
-                replaceToTrue()
-            }
-            firstMethod {
-                name = "isInMediaBlackList"
-                parameters(String::class)
-                returnType = Boolean::class
-            }.hook {
-                replaceToFalse()
-            }
-        }
+//        if (false) {
+//            "com.android.server.media.OplusMediaControlService".toClass().resolve().apply {
+//                firstMethod {
+//                    name = "setMediaControlDenyList"
+//                    parameters("java.util.List")
+//                }.hook {
+//                    intercept()
+//                }
+//                firstMethod {
+//                    name = "isInHistoryPlayInfoWhiteList"
+//                    parameters(String::class)
+//                    returnType = Boolean::class
+//                }.hook {
+//                    replaceToTrue()
+//                }
+//                firstMethod {
+//                    name = "isInMediaBlackList"
+//                    parameters(String::class)
+//                    returnType = Boolean::class
+//                }.hook {
+//                    replaceToFalse()
+//                }
+//            }
+//        }
 
 
         //三段式按键

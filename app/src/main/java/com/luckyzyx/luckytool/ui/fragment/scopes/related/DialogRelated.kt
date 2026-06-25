@@ -90,6 +90,14 @@ class DialogRelated : BaseScopePreferenceFeagment() {
                 setDefaultValue(false)
                 isIconSpaceReserved = false
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.disable_accessibility_warning_dialog)
+                summary = getString(R.string.need_restart_system)
+                key = "disable_accessibility_warning_dialog"
+                setDefaultValue(false)
+                isVisible = osCode >= 38
+                isIconSpaceReserved = false
+            })
 //            add(SwitchPreference(this@loadPreferences).apply {
 //                title = getString(R.string.reduce_power_menu_display_delay)
 //                key = "reduce_power_menu_display_delay"
