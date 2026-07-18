@@ -3,8 +3,10 @@ package com.luckyzyx.luckytool.hook.scopes.systemui
 import android.annotation.SuppressLint
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
+import androidx.core.view.isVisible
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
@@ -34,16 +36,35 @@ object ControlCenterClockStyle : YukiBaseHooker() {
     @Obfuscate
     object RemoveControlCenterClock : YukiBaseHooker() {
         override fun onHook() {
-            //Source OplusSeparateQSQuickEntranceManager QSQuickEntranceImpl
-            "com.oplus.systemui.separate.OplusSeparateQSQuickEntranceManager\$QSQuickEntranceImpl"
-                .toClass().resolve().apply {
-                    firstMethod {
-                        name = "getClockView"
-                        returnType = TextView::class
-                    }.hook {
-                        intercept()
+            val newQsClock =
+                "com.oplus.systemui.plugins.qs.quickentrance.OplusQSQuickEntranceComponent"
+                    .toClassOrNull()?.resolve()
+                    ?.method { name = "updateClockViewLayoutByOrientation" }
+                    ?.isEmpty() == false
+
+            if (newQsClock) {
+                //Source OplusQSQuickEntranceComponent
+                "com.oplus.systemui.plugins.qs.quickentrance.OplusQSQuickEntranceComponent".toClass()
+                    .resolve().apply {
+                        firstMethod { name = "updateClockViewLayoutByOrientation" }.hook {
+                            before {
+                                firstField { name = "clockView" }.of(instance).get<View>()
+                                    ?.isVisible = false
+                            }
+                        }
                     }
-                }
+            } else {
+                //Source OplusSeparateQSQuickEntranceManager QSQuickEntranceImpl
+                "com.oplus.systemui.separate.OplusSeparateQSQuickEntranceManager\$QSQuickEntranceImpl"
+                    .toClass().resolve().apply {
+                        firstMethod {
+                            name = "getClockView"
+                            returnType = TextView::class
+                        }.hook {
+                            intercept()
+                        }
+                    }
+            }
         }
     }
 
