@@ -7,6 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.ControlCenterDateStyle
 import com.luckyzyx.luckytool.hook.scopes.systemui.EnableControlCenterProgressPercentDisplay
 import com.luckyzyx.luckytool.hook.scopes.systemui.EnableNotificationAlignBothSides
 import com.luckyzyx.luckytool.hook.scopes.systemui.NotificationBackgroundBlurAlpha
+import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterCarriers
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveControlCenterUserSwitcher
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSeparateControlCenterButton
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
@@ -49,6 +50,11 @@ object StatusBarControlCenter : YukiBaseHooker() {
         //启用控制中心进度条百分比显示
         if (prefs(ModulePrefs).getBoolean("enable_control_center_progress_percent_display", false)) {
             loadHooker(EnableControlCenterProgressPercentDisplay)
+        }
+
+        //移除控制中心运营商
+        if (prefs(ModulePrefs).getBoolean("remove_control_center_carriers", false)) {
+            loadHooker(RemoveControlCenterCarriers)
         }
     }
 }

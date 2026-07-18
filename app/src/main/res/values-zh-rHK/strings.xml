@@ -255,6 +255,7 @@
     <string name="remove_control_center_date_comma">移除控制中心日期逗号</string>
     <string name="fix_control_center_date_display">修复控制中心日期显示</string>
     <string name="fix_control_center_date_display_suammry">修复日期无法完整显示的问题</string>
+    <string name="remove_control_center_carriers">移除控制中心运营商</string>
     <string name="ControlCenterNotificationCenter">控制中心通知中心</string>
     <string name="enable_notification_align_both_sides">启用通知两侧对齐</string>
     <string name="remove_notification_cleanup_button">移除通知清理按钮</string>

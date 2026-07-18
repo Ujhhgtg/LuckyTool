@@ -145,6 +145,13 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                     true
                 }
             })
+            add(SwitchPreference(this@loadPreferences).apply {
+                title = getString(R.string.remove_control_center_carriers)
+                key = "remove_control_center_carriers"
+                setDefaultValue(false)
+                isVisible = osCode >= 38
+                isIconSpaceReserved = false
+            })
             //通知中心
             add(PreferenceCategory(this@loadPreferences).apply {
                 title = getString(R.string.ControlCenterNotificationCenter)

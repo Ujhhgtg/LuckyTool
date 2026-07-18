@@ -289,6 +289,7 @@
     <string name="statusbar_control_center_date_set_display_mode_horizontal" translatable="false">设置横屏日期显示模式</string>
     <string name="fix_control_center_date_display">Fix control center date display</string>
     <string name="fix_control_center_date_display_suammry">Fix the problem that the date cannot be displayed completely</string>
+    <string name="remove_control_center_carriers">Remove control center carriers</string>
     
     <string name="ControlCenterNotificationCenter">Control Center Notification Center</string>
     <string name="enable_notification_align_both_sides">Enable notification align both sides</string>
