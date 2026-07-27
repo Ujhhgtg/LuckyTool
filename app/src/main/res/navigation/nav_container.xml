@@ -590,4 +590,12 @@
                 android:name="title_text"
                 app:argType="string" />
     </fragment>
+    <fragment
+            android:id="@+id/gpsJoyStick"
+            android:name="com.luckyzyx.luckytool.ui.fragment.scopes.others.GpsJoyStick"
+            android:label="{title_text}">
+        <argument
+                android:name="title_text"
+                app:argType="string" />
+    </fragment>
 </navigation>

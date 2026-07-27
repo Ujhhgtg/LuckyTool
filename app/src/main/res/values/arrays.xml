@@ -67,6 +67,7 @@
         <item>ru.kslabs.ksweb</item>
         <item>com.dv.adm</item>
         <item>com.ruet_cse_1503050.ragib.appbackup.pro</item>
+        <item>com.theappninjas.fakegpsjoystick</item>
     </string-array>
     
     <array name="kgd_chinese_leap_month">
