@@ -99,6 +99,8 @@ jobs:
           gh api -X DELETE repos/${{ github.repository }}/git/refs/tags/CI || true
 
       - name: Prepare release body
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message || '手动构建' }}
         run: |
           if [[ "${{ github.ref }}" == refs/tags/* ]]; then
             printf 'Release %s\n' "${{ github.ref_name }}" > body.md
@@ -110,7 +112,7 @@ jobs:
               echo ''
               echo '提交消息:'
               echo '```'
-              echo '${{ github.event.head_commit.message || "手动构建" }}'
+              echo "$COMMIT_MSG"
               echo '```'
             } > body.md
           fi
