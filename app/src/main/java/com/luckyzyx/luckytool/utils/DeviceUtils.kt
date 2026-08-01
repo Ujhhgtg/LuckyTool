@@ -7,13 +7,11 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.R
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import kotlin.math.roundToInt
 
-@Obfuscate
 object DeviceUtils {
 
     /**

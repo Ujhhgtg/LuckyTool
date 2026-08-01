@@ -8,9 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.luckyzyx.luckytool.databinding.DialogSortFilterSelectorLayoutBinding
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class SortFilterBottomSheetDialog(context: Context) : BottomSheetDialog(context) {
 
     private var binding =

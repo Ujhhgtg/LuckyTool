@@ -46,9 +46,7 @@ import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), MenuProvider {
 
     var dexOptimizeDialog: AlertDialog? = null

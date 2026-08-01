@@ -4,9 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.wirelesssettings.EnableWifiDetailsDisplayGateway
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookWirelessSettings : YukiBaseHooker() {
     override fun onHook() {
 

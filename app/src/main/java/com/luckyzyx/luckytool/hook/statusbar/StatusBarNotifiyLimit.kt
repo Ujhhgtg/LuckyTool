@@ -1,12 +1,10 @@
 package com.luckyzyx.luckytool.hook.statusbar
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.AllowLongPressNotificationModifiable
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
-@Obfuscate
 object StatusBarNotifiyLimit : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

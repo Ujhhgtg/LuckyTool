@@ -12,12 +12,10 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.preferences.PreferenceReflections
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.formatStringAuto
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.net.Inet4Address
 import java.net.Inet6Address
 
-@Obfuscate
 class EnableWifiDetailsDisplayGateway(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source WifiAddressController

@@ -30,10 +30,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.safeOf
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.Calendar
 
-@Obfuscate
 object LockScreenClock : YukiBaseHooker() {
 
     override fun onHook() {
@@ -44,7 +42,6 @@ object LockScreenClock : YukiBaseHooker() {
         } else loadHooker(LockScreenClockStyleV14)
     }
 
-    @Obfuscate
     object RemoveLockScreenClock : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardStyleClockControllerImpl
@@ -61,7 +58,6 @@ object LockScreenClock : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object RemoveLockScreenClockV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardClockSwitch
@@ -103,7 +99,6 @@ object LockScreenClock : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LockScreenClockStyleV14 : YukiBaseHooker() {
         override fun onHook() {
             var redMode = prefs(ModulePrefs).getString("lock_screen_clock_redone_mode", "0")

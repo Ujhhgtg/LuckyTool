@@ -1,13 +1,11 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.calendar.RemoveAlmanacPageInformationFlow
 import com.luckyzyx.luckytool.hook.scopes.calendar.RemoveHolidayPageInformationFlow
 import com.luckyzyx.luckytool.hook.scopes.calendar.RemoveHoroscopePageInformationFlow
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
-@Obfuscate
 object HookCalendar : YukiBaseHooker() {
     override fun onHook() {
         //移除节假日页面信息流

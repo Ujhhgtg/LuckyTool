@@ -9,9 +9,7 @@ import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusLinker : BaseScopePreferenceFeagment() {
     override val scopes =
         arrayOf("com.oplus.linker", "com.android.contacts", "com.android.bluetooth")

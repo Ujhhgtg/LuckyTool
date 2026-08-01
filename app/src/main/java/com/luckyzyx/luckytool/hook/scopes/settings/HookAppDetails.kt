@@ -21,9 +21,7 @@ import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.isSystem
 import com.luckyzyx.luckytool.utils.safeOf
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookAppDetails : YukiBaseHooker() {
 
     override fun onHook() {
@@ -32,7 +30,6 @@ object HookAppDetails : YukiBaseHooker() {
         loadHooker(HookAppInfoDashboard)
     }
 
-    @Obfuscate
     object HookAppInfos : YukiBaseHooker() {
 
         @SuppressLint("DiscouragedApi")
@@ -135,7 +132,6 @@ object HookAppDetails : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object HookAppInfoDashboard : YukiBaseHooker() {
         @SuppressLint("DiscouragedApi")
         override fun onHook() {

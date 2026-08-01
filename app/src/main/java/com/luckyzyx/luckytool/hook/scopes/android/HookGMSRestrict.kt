@@ -5,9 +5,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookGMSRestrict : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -20,7 +18,6 @@ object HookGMSRestrict : YukiBaseHooker() {
         else loadHooker(GMSRestrictV13)
     }
 
-    @Obfuscate
     object GMSRestrictCommon : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusAppStartupManager -> OplusStartupStrategy -> google_restric_info
@@ -49,7 +46,6 @@ object HookGMSRestrict : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object GMSRestrict : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusBgSceneManager -> google_restric_info
@@ -69,7 +65,6 @@ object HookGMSRestrict : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object GMSRestrictV13 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusHansManager -> HansConfig -> google_restric_info

@@ -46,10 +46,8 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.verityPackage
-import org.lsposed.lsparanoid.Obfuscate
 import kotlin.system.exitProcess
 
-@Obfuscate
 @Suppress("PrivatePropertyName")
 open class MainActivity : BaseActivity<ActivityMainBinding>() {
     //检测Prefs状态

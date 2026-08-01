@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookBattery : YukiBaseHooker() {
     override fun onHook() {
         if (SDK < A13) try {

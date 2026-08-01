@@ -49,13 +49,11 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.showToast
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.system.exitProcess
 
-@Obfuscate
 class SettingsFragment : ModulePreferenceFragment() {
     private val backupData = registerForActivityResult(
         ActivityResultContracts.CreateDocument("application/json")

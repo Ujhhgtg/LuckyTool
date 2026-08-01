@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.browser.RemoveAdsAtDownloadPageBottom
 import com.luckyzyx.luckytool.hook.scopes.browser.RemoveAdsFromDownloadDialog
 import com.luckyzyx.luckytool.hook.scopes.browser.RemoveBrowserSearchBarAppPromotion
@@ -9,7 +8,6 @@ import com.luckyzyx.luckytool.hook.scopes.browser.RemoveBrowserWindowLimitNumber
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 
-@Obfuscate
 object HookBrowser : YukiBaseHooker() {
     override fun onHook() {
         DexkitUtils.create(appInfo.sourceDir) { dexKitBridge ->

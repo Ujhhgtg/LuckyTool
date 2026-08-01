@@ -7,7 +7,6 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
 class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
@@ -15,7 +14,6 @@ class HookSettingsFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         if (SDK < A13) loadHooker(HookExpUst(dexKitBridge))
     }
 
-    @Obfuscate
     class HookExpUst(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             val neverTimeout = prefs(ModulePrefs).getBoolean("enable_show_never_timeout", false)

@@ -17,9 +17,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.OplusMirageDisplayManagerUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.startMirageWindow
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("LocalVariableName")
 object HookFloatMirageWindow : YukiBaseHooker() {
 
@@ -30,7 +28,6 @@ object HookFloatMirageWindow : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object FloatWindowBackRun : YukiBaseHooker() {
 
         private val Task = "com.android.server.wm.Task"
@@ -103,7 +100,6 @@ object HookFloatMirageWindow : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MultiAppFloatWindowBackRun : YukiBaseHooker() {
         override fun onHook() {
             val activityTaskManagerService = "com.android.server.wm.ActivityTaskManagerService"

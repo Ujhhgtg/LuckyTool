@@ -6,9 +6,7 @@ import com.luckyzyx.luckytool.utils.A12
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ReplaceSystemRootStateDetection : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

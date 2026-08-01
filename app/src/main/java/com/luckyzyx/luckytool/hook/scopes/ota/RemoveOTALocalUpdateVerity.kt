@@ -6,11 +6,9 @@ import android.os.SystemProperties
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
 
-@Obfuscate
 class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookABUpdateUtils(dexKitBridge))
@@ -18,7 +16,6 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         loadHooker(HookPayloadProperties(dexKitBridge))
     }
 
-    @Obfuscate
     class HookABUpdateUtils(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source ABUpdateUtils
@@ -59,7 +56,6 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         }
     }
 
-    @Obfuscate
     class HookLocalPcakgeInfoUtil(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source LocalPcakgeInfoUtil
@@ -111,7 +107,6 @@ class RemoveOTALocalUpdateVerity(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         }
     }
 
-    @Obfuscate
     class HookPayloadProperties(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source ABUpdateManager

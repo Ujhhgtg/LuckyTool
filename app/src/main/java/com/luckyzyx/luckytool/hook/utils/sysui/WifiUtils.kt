@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.hook.utils.sysui
 import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.toClass
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class WifiUtils(val classLoader: ClassLoader?) {
 
     val clazz = "com.oplus.systemui.statusbar.util.WifiUtils".toClass(classLoader)

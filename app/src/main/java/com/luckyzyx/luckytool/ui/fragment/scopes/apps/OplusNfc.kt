@@ -9,9 +9,7 @@ import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusNfc : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.nfc")
 

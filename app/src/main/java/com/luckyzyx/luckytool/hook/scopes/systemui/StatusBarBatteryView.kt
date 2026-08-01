@@ -8,9 +8,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object StatusBarBatteryView : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -18,7 +16,6 @@ object StatusBarBatteryView : YukiBaseHooker() {
         else loadHooker(StatusBarPowerStyleC13)
     }
 
-    @Obfuscate
     object StatusBarPowerStyle : YukiBaseHooker() {
         override fun onHook() {
             val removePercent =
@@ -99,7 +96,6 @@ object StatusBarBatteryView : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object StatusBarPowerStyleC13 : YukiBaseHooker() {
         override fun onHook() {
             val removePercent =

@@ -4,9 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.oshare.RemoveOShareCloseCountDown
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookOShare : YukiBaseHooker() {
     override fun onHook() {
 

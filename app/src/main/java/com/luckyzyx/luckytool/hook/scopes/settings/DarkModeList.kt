@@ -12,13 +12,11 @@ import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
 import kotlinx.serialization.json.Json
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.io.InputStream
 import java.io.Reader
 import java.util.concurrent.atomic.AtomicBoolean
 
-@Obfuscate
 class DarkModeList(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     var isEnable = false

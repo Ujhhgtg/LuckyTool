@@ -17,10 +17,8 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.formatColorAlpha
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     override fun onHook() {
@@ -30,7 +28,6 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
         else loadHooker(VolumeDialogV14)
     }
 
-    @Obfuscate
     object VolumeDialog : YukiBaseHooker() {
         override fun onHook() {
             var customAlpha =
@@ -117,7 +114,6 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
         }
     }
 
-    @Obfuscate
     class VolumeDialogV15(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             var customAlpha =
@@ -330,7 +326,6 @@ class VolumeDialogBackground(val dexKitBridge: DexKitBridge) : YukiBaseHooker() 
         }
     }
 
-    @Obfuscate
     object VolumeDialogV14 : YukiBaseHooker() {
         override fun onHook() {
             var customAlpha =

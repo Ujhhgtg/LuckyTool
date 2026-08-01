@@ -6,9 +6,7 @@ import com.luckyzyx.luckytool.hook.scopes.quicksearchbox.RemoveSearchBoxAppRecom
 import com.luckyzyx.luckytool.hook.scopes.quicksearchbox.SearchboxDefaultSearchLocalTab
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookQuickSearchBox : YukiBaseHooker() {
     override fun onHook() {
 

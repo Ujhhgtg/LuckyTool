@@ -8,9 +8,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object LongPressAppIconOpenAppDetails : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusTaskHeaderView

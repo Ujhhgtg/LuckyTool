@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.sendPrefsValue
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class StatusBarIcon : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
 

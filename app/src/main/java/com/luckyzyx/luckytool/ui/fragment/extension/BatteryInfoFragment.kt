@@ -10,10 +10,8 @@ import androidx.core.content.ContextCompat
 import com.luckyzyx.luckytool.databinding.FragmentBatteryInfoBinding
 import com.luckyzyx.luckytool.ui.fragment.base.BaseFragment
 import com.luckyzyx.luckytool.utils.LogUtils
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.Properties
 
-@Obfuscate
 class BatteryInfoFragment : BaseFragment<FragmentBatteryInfoBinding>() {
 
     companion object {

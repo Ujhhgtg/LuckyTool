@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.hook.scopes.packageinstaller.HookUninstallerActivi
 import com.luckyzyx.luckytool.hook.scopes.packageinstaller.ShowMoreApkPackageInformation
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookPackageInstaller : YukiBaseHooker() {
     override fun onHook() {
 

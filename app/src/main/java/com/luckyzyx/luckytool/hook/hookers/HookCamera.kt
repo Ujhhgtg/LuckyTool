@@ -15,9 +15,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getAppVerInfo
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookCamera : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

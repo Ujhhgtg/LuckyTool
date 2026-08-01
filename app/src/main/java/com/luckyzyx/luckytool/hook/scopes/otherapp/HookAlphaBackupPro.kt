@@ -4,9 +4,7 @@ import android.app.Activity
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookAlphaBackupPro : YukiBaseHooker() {
     override fun onHook() {
         val isPro = prefs(ModulePrefs).getBoolean("remove_check_license", false)

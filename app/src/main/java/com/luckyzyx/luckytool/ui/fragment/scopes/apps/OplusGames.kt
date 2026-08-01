@@ -24,9 +24,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusGames : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.games", "com.oplus.cosa")
 

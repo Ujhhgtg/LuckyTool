@@ -4,9 +4,7 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object LTPODynamicRefreshRate : YukiBaseHooker() {
 
     private const val BackLightBean = "com.oplus.vrr.bean.BackLightBean"

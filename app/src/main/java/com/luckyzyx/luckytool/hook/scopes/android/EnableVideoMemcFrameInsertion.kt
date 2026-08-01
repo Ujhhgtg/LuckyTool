@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
 import kotlinx.serialization.json.Json
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object EnableVideoMemcFrameInsertion : YukiBaseHooker() {
 
     private val allConfigPackages = ArrayList<MemcConfigPackage>()

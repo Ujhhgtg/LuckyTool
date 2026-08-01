@@ -4,7 +4,6 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
 object HookLauncherFeature : YukiBaseHooker() {
     override fun onHook() {
@@ -14,7 +13,6 @@ object HookLauncherFeature : YukiBaseHooker() {
         if (osCode >= 34) loadHooker(HookAppFeature)
     }
 
-    @Obfuscate
     object HookAppFeature : YukiBaseHooker() {
         override fun onHook() {
             val disableAutoSwitch =
@@ -33,7 +31,6 @@ object HookLauncherFeature : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)
@@ -58,7 +55,6 @@ object HookLauncherFeature : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object HookLauncherSettings : YukiBaseHooker() {
         override fun onHook() {
             val appUpdateDot = prefs(ModulePrefs).getBoolean("enable_display_app_update_dot", false)

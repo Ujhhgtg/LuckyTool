@@ -4,9 +4,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveBottomAppIconOfRecentTaskList : YukiBaseHooker() {
     override fun onHook() {
         //Source DockView

@@ -17,9 +17,7 @@ import com.luckyzyx.luckytool.utils.getCharColor
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOf
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ControlCenterClockStyle : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -33,7 +31,6 @@ object ControlCenterClockStyle : YukiBaseHooker() {
         else loadHooker(ControlCenterClock)
     }
 
-    @Obfuscate
     object RemoveControlCenterClock : YukiBaseHooker() {
         override fun onHook() {
             val newQsClock =
@@ -68,7 +65,6 @@ object ControlCenterClockStyle : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object ControlCenterClock : YukiBaseHooker() {
         override fun onHook() {
             val showSecond =
@@ -178,7 +174,6 @@ object ControlCenterClockStyle : YukiBaseHooker() {
         } else view.text = sb
     }
 
-    @Obfuscate
     object ControlCenterClockStyleA11 : YukiBaseHooker() {
         override fun onHook() {
             val showSecond =

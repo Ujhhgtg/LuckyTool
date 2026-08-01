@@ -4,9 +4,7 @@ import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.toClass
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("MemberVisibilityCanBePrivate")
 class WeatherInfoParseHelper(val classLoader: ClassLoader?) {
     val clazz = VariousClass(

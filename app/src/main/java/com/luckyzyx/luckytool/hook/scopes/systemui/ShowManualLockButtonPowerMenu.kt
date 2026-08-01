@@ -14,9 +14,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.sysui.DependencyUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.FlavorOneFeatureUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
 
     val OsBinderCacheUtils = "com.android.systemui.oplusutils.OsBinderCacheUtils"
@@ -28,7 +26,6 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
         else loadHooker(ManualLockButtonV14)
     }
 
-    @Obfuscate
     object ManualLockButton : YukiBaseHooker() {
         @SuppressLint("MissingPermission")
         override fun onHook() {
@@ -130,7 +127,6 @@ object ShowManualLockButtonPowerMenu : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object ManualLockButtonV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source ShutdownViewControl

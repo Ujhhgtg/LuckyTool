@@ -40,9 +40,7 @@ import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import kotlinx.serialization.json.Json
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class DarkModeFragment : BaseFragment<FragmentDarkModeApplistLayoutBinding>(), MenuProvider {
 
     private val TAG = "DarkModeFragment"

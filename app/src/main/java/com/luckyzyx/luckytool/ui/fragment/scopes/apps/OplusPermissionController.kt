@@ -9,9 +9,7 @@ import com.luckyzyx.luckytool.utils.AppUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusPermissionController : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.permissioncontroller")
 

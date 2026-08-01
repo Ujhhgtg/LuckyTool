@@ -6,9 +6,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookFakeGpsJoyStick : YukiBaseHooker() {
     override fun onHook() {
         if (!prefs(ModulePrefs).getBoolean("gps_joystick_unlock_pro", false)) return

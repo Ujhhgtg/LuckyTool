@@ -33,9 +33,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusCamera : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.camera", "com.oneplus.camera")
 

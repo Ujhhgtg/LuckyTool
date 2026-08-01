@@ -6,10 +6,8 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.data.AppVerInfo
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class CloudConditionFeature(
     private val appVer: AppVerInfo?, val dexKitBridge: DexKitBridge
 ) : YukiBaseHooker() {
@@ -21,7 +19,6 @@ class CloudConditionFeature(
         if (versionCode > 80130000) loadHooker(HookCloudApiImpl(dexKitBridge))
     }
 
-    @Obfuscate
     private object HookOplusFeature : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper
@@ -122,7 +119,6 @@ class CloudConditionFeature(
         }
     }
 
-    @Obfuscate
     private object HookCloudCondition : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper
@@ -199,7 +195,6 @@ class CloudConditionFeature(
         }
     }
 
-    @Obfuscate
     private class HookCloudApiImpl(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source GpuSettingHelper

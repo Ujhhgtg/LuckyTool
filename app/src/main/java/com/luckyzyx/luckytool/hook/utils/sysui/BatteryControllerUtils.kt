@@ -8,9 +8,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("unused")
 class BatteryControllerUtils(val classLoader: ClassLoader?) {
 

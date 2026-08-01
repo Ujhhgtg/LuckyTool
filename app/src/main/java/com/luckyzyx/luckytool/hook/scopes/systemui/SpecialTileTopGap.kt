@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object SpecialTileTopGap : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {

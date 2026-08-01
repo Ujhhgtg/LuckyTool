@@ -8,10 +8,8 @@ import com.highcapable.kavaref.extension.isSubclassOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class RemoveMarketSearchPageAppRecommend(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val cardDto = "com.heytap.cdo.card.domain.dto.CardDto"

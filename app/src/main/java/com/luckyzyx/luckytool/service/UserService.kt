@@ -14,10 +14,8 @@ import com.luckyzyx.luckytool.IUserServiceController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.LinkedList
 
-@Obfuscate
 object UserService : BaseControllerService<IUserServiceController>() {
     override val TAG: String = "UserService"
     override var controllerService: Class<*> = UserControllerService::class.java
@@ -38,7 +36,6 @@ object UserService : BaseControllerService<IUserServiceController>() {
         return IUserServiceController.Stub.asInterface(iBinder)
     }
 
-    @Obfuscate
     class UserControllerService : RootService() {
         override fun onBind(intent: Intent) = object : IUserServiceController.Stub() {
             override fun getUsers(): MutableList<UserInfo> {

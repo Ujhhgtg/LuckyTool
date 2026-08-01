@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.oplus.darkmode.OplusDarkModeData
 import kotlinx.serialization.json.Json
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object DarkModeService : YukiBaseHooker() {
 
     var isEnable = false

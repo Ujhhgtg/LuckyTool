@@ -21,9 +21,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class AodRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.oplus.aod", "com.oplus.uiengine")
 

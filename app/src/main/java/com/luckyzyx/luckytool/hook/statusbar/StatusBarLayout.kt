@@ -14,9 +14,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("UNUSED_VARIABLE", "DiscouragedApi")
 object StatusBarLayout : YukiBaseHooker() {
     private var statusBarLeftMargin: Int = 0

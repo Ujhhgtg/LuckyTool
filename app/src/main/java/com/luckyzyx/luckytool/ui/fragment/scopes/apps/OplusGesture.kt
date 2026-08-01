@@ -30,9 +30,7 @@ import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusGesture : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.oplus.gesture")
 

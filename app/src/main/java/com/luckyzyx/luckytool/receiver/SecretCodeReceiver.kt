@@ -3,11 +3,9 @@ package com.luckyzyx.luckytool.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.ui.activity.MainActivity
 
 @Suppress("PrivatePropertyName")
-@Obfuscate
 class SecretCodeReceiver : BroadcastReceiver() {
     private val SECRET_CODE_ACTION = "android.provider.Telephony.SECRET_CODE"
     override fun onReceive(context: Context?, intent: Intent?) {

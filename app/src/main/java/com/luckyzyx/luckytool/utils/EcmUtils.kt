@@ -6,9 +6,7 @@ import android.content.Intent
 import com.android.internal.hidden_from_bootclasspath.android.permission.flags.Flags
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.luckyzyx.luckytool.utils.CommandUtils.uid
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class EcmUtils(val context: Context) {
 
     val bindAccessibilityService = "android:bind_accessibility_service"

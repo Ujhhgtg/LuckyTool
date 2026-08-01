@@ -2,9 +2,7 @@ package com.luckyzyx.luckytool.hook.globals
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class HookSystemProperties(private val props: Map<String, Any>) : YukiBaseHooker() {
     override fun onHook() {
         if (props.isEmpty()) return

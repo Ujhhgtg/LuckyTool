@@ -5,9 +5,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveFolderPreviewBackground : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -15,7 +13,6 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
         else loadHooker(FolderPreviewBackgroundV14)
     }
 
-    @Obfuscate
     object FolderPreviewBackground : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusPreviewBackground
@@ -29,7 +26,6 @@ object RemoveFolderPreviewBackground : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object FolderPreviewBackgroundV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusPreviewBackground folder_icon_bg big_folder_bg

@@ -18,9 +18,7 @@ import com.luckyzyx.luckytool.databinding.LayoutActivityinfoItemBinding
 import com.luckyzyx.luckytool.listener.OnSelectActivityInfoListener
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class ActivityInfoSelectDialog(
     context: Context, val multiMode: Boolean, val activitys: Array<ActivityInfo>?
 ) : MaterialAlertDialogBuilder(context, dialogCentered) {

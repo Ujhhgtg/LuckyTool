@@ -4,9 +4,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ForceAllAppsSupportSplitScreen : YukiBaseHooker() {
     override fun onHook() {
         var isEnable = prefs(ModulePrefs).getBoolean("force_all_apps_support_split_screen", false)

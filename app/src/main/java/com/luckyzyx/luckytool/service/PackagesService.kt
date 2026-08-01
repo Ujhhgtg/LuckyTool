@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.IPackageServiceController
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object PackagesService : BaseControllerService<IPackageServiceController>() {
     override val TAG = "PackageService"
     override var controllerService: Class<*> = PackageControllerService::class.java
@@ -33,7 +31,6 @@ object PackagesService : BaseControllerService<IPackageServiceController>() {
         return IPackageServiceController.Stub.asInterface(iBinder)
     }
 
-    @Obfuscate
     class PackageControllerService : RootService() {
         override fun onBind(intent: Intent) = object : IPackageServiceController.Stub() {
             override fun clearApplicationProfileData(packageName: String) {

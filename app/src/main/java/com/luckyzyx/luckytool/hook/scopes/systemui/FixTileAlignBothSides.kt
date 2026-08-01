@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object FixTileAlignBothSides : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -22,7 +20,6 @@ object FixTileAlignBothSides : YukiBaseHooker() {
         loadHooker(HookTileAlignHorizontal)
     }
 
-    @Obfuscate
     private object HookTileAlignVertical : YukiBaseHooker() {
         @SuppressLint("DiscouragedApi")
         override fun onHook() {
@@ -49,7 +46,6 @@ object FixTileAlignBothSides : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object HookTileAlignHorizontal : YukiBaseHooker() {
         @SuppressLint("DiscouragedApi")
         override fun onHook() {

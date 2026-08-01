@@ -7,9 +7,7 @@ import android.view.DisplayAddress
 import android.view.DisplayInfo
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.extension.toClass
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("MemberVisibilityCanBePrivate")
 class DisplayManagerUtils(val classLoader: ClassLoader?) {
 

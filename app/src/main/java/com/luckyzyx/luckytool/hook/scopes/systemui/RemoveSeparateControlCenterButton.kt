@@ -6,9 +6,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveSeparateControlCenterButton : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -16,7 +14,6 @@ object RemoveSeparateControlCenterButton : YukiBaseHooker() {
         else loadHooker(SeparateControlCenterButtonV15)
     }
 
-    @Obfuscate
     object SeparateControlCenterButton : YukiBaseHooker() {
         override fun onHook() {
             val hideEdit = prefs(ModulePrefs).getBoolean("remove_control_center_edit_button", false)
@@ -61,7 +58,6 @@ object RemoveSeparateControlCenterButton : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object SeparateControlCenterButtonV15 : YukiBaseHooker() {
         override fun onHook() {
             val hideEdit = prefs(ModulePrefs).getBoolean("remove_control_center_edit_button", false)

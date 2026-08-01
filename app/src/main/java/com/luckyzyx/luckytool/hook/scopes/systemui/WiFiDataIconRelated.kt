@@ -24,9 +24,7 @@ import com.luckyzyx.luckytool.hook.utils.sysui.AbsSettingsValueProxyUtils
 import com.luckyzyx.luckytool.hook.utils.sysui.WifiUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object WiFiDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -36,7 +34,6 @@ object WiFiDataIconRelated : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object WiFiDataIcon : YukiBaseHooker() {
 
         private val hasRegisterCallback = false
@@ -166,7 +163,6 @@ object WiFiDataIconRelated : YukiBaseHooker() {
 
     }
 
-    @Obfuscate
     object WiFiDataIconV14 : YukiBaseHooker() {
         override fun onHook() {
             val removeInout = prefs(ModulePrefs).getBoolean("remove_wifi_data_inout", false)

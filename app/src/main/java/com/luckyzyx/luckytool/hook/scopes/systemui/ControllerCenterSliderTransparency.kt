@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.formatColorAlpha
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ControllerCenterSliderTransparency : YukiBaseHooker() {
     override fun onHook() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_control_center_silder_transparency", -1)

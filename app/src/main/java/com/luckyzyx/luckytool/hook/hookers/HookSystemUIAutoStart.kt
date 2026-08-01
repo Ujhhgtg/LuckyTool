@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.convertToMillis
 import kotlinx.coroutines.delay
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookSystemUIAutoStart : YukiBaseHooker() {
     override fun onHook() {
         var nfcEnable = prefs(ModulePrefs).getBoolean("enable_nfc_delay_shutdown", false)

@@ -6,9 +6,7 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ForceDisplayClockStyleOptionsV13 : YukiBaseHooker() {
     private const val flavorTwoFeatureOption =
         "com.oplusos.systemui.common.feature.FlavorTwoFeatureOption"

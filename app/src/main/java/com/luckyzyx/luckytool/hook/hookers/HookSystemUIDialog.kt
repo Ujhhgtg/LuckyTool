@@ -14,9 +14,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.VolumeDialogBackground
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookSystemUIDialog : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

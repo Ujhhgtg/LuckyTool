@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusSmartSidebar : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.coloros.smartsidebar")
 

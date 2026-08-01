@@ -4,9 +4,7 @@ import android.content.Context
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.toClass
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class LauncherAppStateUtils(val classLoader: ClassLoader?) {
 
     val clazz = "com.android.launcher3.LauncherAppState".toClass(classLoader)

@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.hook.scopes.ota.RemoveOTALocalUpdateVerity
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookOplusOta : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

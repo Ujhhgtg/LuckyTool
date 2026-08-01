@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookGlobalFeatureConfig : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

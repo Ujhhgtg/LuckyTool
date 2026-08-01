@@ -6,7 +6,6 @@ import static de.robv.android.xposed.XposedHelpers.setIntField;
 
 import android.util.Log;
 
-import org.lsposed.lsparanoid.Obfuscate;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -16,7 +15,6 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-@Obfuscate
 public class CorePatchForU extends CorePatchForT {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws IllegalAccessException, InvocationTargetException, InstantiationException {

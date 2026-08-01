@@ -5,9 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.soundrecorder.HookBaseUtil
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookSoundRecorder : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.settings
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookSettingsPreferenceFragment : YukiBaseHooker() {
     override fun onHook() {
         //启用应用专属媒体音量

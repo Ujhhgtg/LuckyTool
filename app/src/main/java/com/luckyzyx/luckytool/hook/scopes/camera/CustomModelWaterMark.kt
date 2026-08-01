@@ -6,10 +6,8 @@ import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class CustomModelWaterMark(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val waterMark = prefs(ModulePrefs).getString("custom_model_watermark", "None")

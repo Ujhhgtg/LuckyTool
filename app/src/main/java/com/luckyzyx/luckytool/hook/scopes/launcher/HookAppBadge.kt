@@ -5,16 +5,13 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookAppBadge : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
         if (osCode >= 30) loadHooker(AppBadge) else loadHooker(AppBadgeC13)
     }
 
-    @Obfuscate
     object AppBadge : YukiBaseHooker() {
         override fun onHook() {
             val isShortcut = prefs(ModulePrefs).getBoolean("remove_app_shortcut_badge", false)
@@ -76,7 +73,6 @@ object HookAppBadge : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object AppBadgeC13 : YukiBaseHooker() {
         override fun onHook() {
             val isShortcut = prefs(ModulePrefs).getBoolean("remove_app_shortcut_badge", false)

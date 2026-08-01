@@ -23,9 +23,7 @@ import com.canhub.cropper.parcelable
 import com.luckyzyx.luckytool.databinding.ActivityCropImageBinding
 import com.luckyzyx.luckytool.ui.activity.base.BaseActivity
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class CropImageActivity : BaseActivity<ActivityCropImageBinding>(), MenuProvider,
     OnSetImageUriCompleteListener, OnCropImageCompleteListener {
 

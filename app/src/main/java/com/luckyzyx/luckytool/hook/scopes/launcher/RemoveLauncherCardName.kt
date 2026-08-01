@@ -6,9 +6,7 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveLauncherCardName : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -16,7 +14,6 @@ object RemoveLauncherCardName : YukiBaseHooker() {
         else loadHooker(LauncherCardNameV13)
     }
 
-    @Obfuscate
     object LauncherCardName : YukiBaseHooker() {
         override fun onHook() {
             //Source CardNameHelper
@@ -40,7 +37,6 @@ object RemoveLauncherCardName : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LauncherCardNameV13 : YukiBaseHooker() {
         override fun onHook() {
             //Source TitleCardView

@@ -7,9 +7,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookKsWeb : YukiBaseHooker() {
     override fun onHook() {
         val isPro = prefs(ModulePrefs).getBoolean("ksweb_remove_check_license", false)

@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi;
 
 import com.luckyzyx.luckytool.BuildConfig;
 
-import org.lsposed.lsparanoid.Obfuscate;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +28,6 @@ import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-@Obfuscate
 @SuppressLint("PrivateApi")
 public class DisableFlagSecure implements IXposedHookLoadPackage {
     private static final String SYSTEMUI = "com.android.systemui";

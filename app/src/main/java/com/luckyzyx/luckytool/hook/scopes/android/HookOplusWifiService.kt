@@ -10,9 +10,7 @@ import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookOplusWifiService : YukiBaseHooker() {
 
     private var wifiserviceClassLoader: ClassLoader? = null
@@ -63,7 +61,6 @@ object HookOplusWifiService : YukiBaseHooker() {
         loadHooker(HookSlaAppList(finalWifiServiceClassLoader))
     }
 
-    @Obfuscate
     class HookOplusSoftAp(val classLoader: ClassLoader?) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSoftapStatistics
@@ -76,7 +73,6 @@ object HookOplusWifiService : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     class HookSlaAppList(val classLoader: ClassLoader?) : YukiBaseHooker() {
 
         private val whitelistKey = "custom_wlan_sla_whitelist"

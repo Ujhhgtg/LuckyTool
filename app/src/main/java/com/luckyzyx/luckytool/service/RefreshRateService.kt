@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.hook.utils.DynamicDisplayInfoUtils
 import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.LogUtils
 import com.topjohnwu.superuser.ipc.RootService
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RefreshRateService : BaseControllerService<IRefreshRateController>() {
     override val TAG = "RefreshRateService"
     override var controllerService: Class<*> = RefreshRateControllerService::class.java
@@ -24,7 +22,6 @@ object RefreshRateService : BaseControllerService<IRefreshRateController>() {
         return IRefreshRateController.Stub.asInterface(iBinder)
     }
 
-    @Obfuscate
     @Suppress("PrivatePropertyName", "ConstPropertyName")
     class RefreshRateControllerService : RootService() {
         private val TAG = "RefreshRateControllerService"

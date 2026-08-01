@@ -10,9 +10,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object EnableVolumeBarPercentDisplay : YukiBaseHooker() {
     override fun onHook() {
         var color = prefs(ModulePrefs).getString("custom_volume_bar_percent_color", "#FFFFFFFF")

@@ -23,10 +23,8 @@ import com.luckyzyx.luckytool.databinding.DialogDownloadLayoutBinding
 import io.noties.markwon.Markwon
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
-@Obfuscate
 class UpdateUtils(val context: Context, private val isDev: Boolean = false) {
 
     @Suppress("unused")

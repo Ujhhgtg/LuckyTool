@@ -1,11 +1,9 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.keyguardclock.KeyGuardcLockRedMode
 import com.luckyzyx.luckytool.utils.DexkitUtils
 
-@Obfuscate
 object HookKeyguardClock : YukiBaseHooker() {
     override fun onHook() {
 

@@ -5,9 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.mms.RemoveMmsBottomInputBoxMenu
 import com.luckyzyx.luckytool.hook.scopes.mms.RemoveMmsCardMarketingButton
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookOplusMMS : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookGlobalFeatureConfig)

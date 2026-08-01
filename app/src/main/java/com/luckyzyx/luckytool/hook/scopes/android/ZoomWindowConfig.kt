@@ -7,9 +7,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class ZoomWindowConfig : YukiBaseHooker() {
 
     var callback: ((key: String, value: Any) -> Unit)? = null
@@ -52,7 +50,6 @@ class ZoomWindowConfig : YukiBaseHooker() {
         if (osCode >= 33) loadHooker(HookFlexibleWindow())
     }
 
-    @Obfuscate
     inner class HookZoomWindow : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusZoomWindowConfig
@@ -78,7 +75,6 @@ class ZoomWindowConfig : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     inner class HookFlexibleWindow : YukiBaseHooker() {
         override fun onHook() {
             //Source FlexibleWindowUtils

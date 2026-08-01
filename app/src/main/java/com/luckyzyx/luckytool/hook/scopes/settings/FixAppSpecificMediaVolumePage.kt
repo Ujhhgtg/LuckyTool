@@ -8,12 +8,10 @@ import com.highcapable.yukihookapi.hook.factory.injectModuleAppResources
 import com.luckyzyx.luckytool.BuildConfig
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 import java.io.InputStream
 
-@Obfuscate
 class FixAppSpecificMediaVolumePage(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     @SuppressLint("DiscouragedApi")
     override fun onHook() {

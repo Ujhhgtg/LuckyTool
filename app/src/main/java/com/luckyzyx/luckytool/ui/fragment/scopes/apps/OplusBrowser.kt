@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusBrowser : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.heytap.browser")
 

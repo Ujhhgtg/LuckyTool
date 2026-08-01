@@ -5,9 +5,7 @@ import android.os.customize.OplusCustomizeRestrictionManager
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object DisableSettingOtgAutoOff : YukiBaseHooker() {
     override fun onHook() {
         //Source OtgConnectionOpenedPreferenceController

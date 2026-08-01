@@ -10,9 +10,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusPhoneManager : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.coloros.phonemanager", "com.coloros.securepay")
 

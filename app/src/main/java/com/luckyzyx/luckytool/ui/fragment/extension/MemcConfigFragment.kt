@@ -54,10 +54,8 @@ import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
 import kotlinx.serialization.json.Json
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.InputStream
 
-@Obfuscate
 class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvider {
 
     private val TAG = "MemcConfigFragment"
@@ -207,12 +205,10 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
         }
     }
 
-    @Obfuscate
     object MemcCallback {
         var callback: ((key: String, value: ArrayList<*>) -> Unit)? = null
     }
 
-    @Obfuscate
     class MemcPackageFragment : BaseFragment<FragmentMemcPackageLayoutBinding>() {
 
         private val TAG = "MemcPackageFragment"
@@ -394,7 +390,6 @@ class MemcConfigFragment : BaseFragment<FragmentMemcLayoutBinding>(), MenuProvid
         }
     }
 
-    @Obfuscate
     class MemcActivityFragment : BaseFragment<FragmentMemcActivityLayoutBinding>() {
 
         private val TAG = "MemcActivityFragment"

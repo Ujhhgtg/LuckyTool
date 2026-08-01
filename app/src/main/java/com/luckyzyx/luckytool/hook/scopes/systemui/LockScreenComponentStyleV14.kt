@@ -14,10 +14,8 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A14
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.function.Supplier
 
-@Obfuscate
 object LockScreenComponentStyle : YukiBaseHooker() {
     override fun onHook() {
         if (SDK == A14) loadHooker(LockScreenComponentStyleV14)
@@ -27,7 +25,6 @@ object LockScreenComponentStyle : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LockScreenComponentStyleV14 : YukiBaseHooker() {
         private const val singleClockProvider =
             "com.oplus.systemui.shared.clocks.SingleClockProvider" //C14
@@ -125,7 +122,6 @@ object LockScreenComponentStyle : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LockScreenComponentStyleV13 : YukiBaseHooker() {
         private const val singleClockController =
             "com.oplusos.systemui.keyguard.clock.SingleClockController"

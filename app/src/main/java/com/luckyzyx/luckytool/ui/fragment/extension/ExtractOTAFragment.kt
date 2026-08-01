@@ -25,9 +25,7 @@ import com.luckyzyx.luckytool.utils.getModelMarketName
 import com.luckyzyx.luckytool.utils.isZh
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.topjohnwu.superuser.ShellUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class ExtractOTAFragment : BaseFragment<FragmentExtractOtaBinding>() {
 
     @SuppressLint("SdCardPath")

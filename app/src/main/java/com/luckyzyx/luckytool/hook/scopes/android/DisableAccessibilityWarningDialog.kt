@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.android
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object DisableAccessibilityWarningDialog : YukiBaseHooker() {
     override fun onHook() {
         //Source FraudBehaviorDetectManager

@@ -21,12 +21,10 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.createTextDrawable
 import com.luckyzyx.luckytool.utils.getIntProperty
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.StringReader
 import java.util.Properties
 
 @Suppress("MayBeConstant")
-@Obfuscate
 object LockScreenChargingComponent : YukiBaseHooker() {
     override fun onHook() {
         when (getOSVersionCode) {
@@ -47,7 +45,6 @@ object LockScreenChargingComponent : YukiBaseHooker() {
     val ChargeLevelAndLogoFlavorOneView =
         "com.oplus.systemui.keyguard.charginganim.siphonanim.view.ChargeLevelAndLogoFlavorOneView"
 
-    @Obfuscate
     @Suppress("LocalVariableName")
     private object ChargingComponent : YukiBaseHooker() {
 
@@ -361,7 +358,6 @@ object LockScreenChargingComponent : YukiBaseHooker() {
 
     }
 
-    @Obfuscate
     private object ChargingComponentC14 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =
@@ -513,7 +509,6 @@ object LockScreenChargingComponent : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object ChargingComponentC13 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =
@@ -647,7 +642,6 @@ object LockScreenChargingComponent : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object ChargingComponentC12 : YukiBaseHooker() {
         override fun onHook() {
             var userTypeface =

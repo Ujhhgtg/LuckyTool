@@ -5,14 +5,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
     alias(libs.plugins.lsplugin.resopt)
-    alias(libs.plugins.lsplugin.lsparanoid)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.navigation.safe.args)
-}
-
-lsparanoid {
-    includeDependencies = false
-    variantFilter = { variant -> variant.name == "release" }
 }
 
 android {
@@ -31,19 +25,6 @@ android {
         versionCode = getVersionCode()
         versionName = "1.3.5_beta"
         ndk.abiFilters.addAll(arrayOf("arm64-v8a"/*, "armeabi-v7a", "x86", "x86_64"*/))
-    }
-    signingConfigs {
-        all {
-            enableV1Signing = true
-            enableV2Signing = true
-            enableV3Signing = true
-            enableV4Signing = null
-
-            storeFile = file(rootProject.extra.get("storeFile") as String)
-            storePassword = rootProject.extra.get("storePassword") as String
-            keyAlias = rootProject.extra.get("keyAlias") as String
-            keyPassword = rootProject.extra.get("keyPassword") as String
-        }
     }
     buildTypes {
         release {

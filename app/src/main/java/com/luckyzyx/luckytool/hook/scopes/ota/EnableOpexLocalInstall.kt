@@ -13,11 +13,9 @@ import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.FileUtils
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import java.io.File
 
-@Obfuscate
 class EnableOpexLocalInstall(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     val packageListInfo = "com.oplus.ota.db.PackageListInfo"

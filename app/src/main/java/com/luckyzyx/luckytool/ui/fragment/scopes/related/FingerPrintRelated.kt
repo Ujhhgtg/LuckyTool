@@ -25,9 +25,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class FingerPrintRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
 

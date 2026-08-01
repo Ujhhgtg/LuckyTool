@@ -20,10 +20,8 @@ import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
-import org.lsposed.lsparanoid.Obfuscate
 import kotlin.math.pow
 
-@Obfuscate
 @Suppress("MemberVisibilityCanBePrivate")
 object StatusBarNetWorkSpeed : YukiBaseHooker() {
 
@@ -32,7 +30,6 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         loadHooker(NetWorkSpeedView)
     }
 
-    @Obfuscate
     object NetWorkSpeedDelay : YukiBaseHooker() {
         override fun onHook() {
             var networkSpeed = prefs(ModulePrefs).getBoolean("set_network_speed", false)
@@ -105,7 +102,6 @@ object StatusBarNetWorkSpeed : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object NetWorkSpeedView : YukiBaseHooker() {
         var layoutMode = prefs(ModulePrefs).getString("statusbar_network_layout", "0")
         var userTypeface = prefs(ModulePrefs).getBoolean("statusbar_network_user_typeface", false)

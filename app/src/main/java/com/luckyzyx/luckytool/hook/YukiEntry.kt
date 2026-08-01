@@ -65,10 +65,8 @@ import com.luckyzyx.luckytool.hook.scopes.otherapp.HookAlphaBackupPro
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookFakeGpsJoyStick
 import com.luckyzyx.luckytool.hook.scopes.otherapp.HookKsWeb
 import com.luckyzyx.luckytool.utils.SettingsPrefs
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
-@Obfuscate
 object YukiEntry {
 
     val configs = YukiHookAPI.configs {

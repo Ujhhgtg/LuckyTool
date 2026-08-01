@@ -17,10 +17,8 @@ import com.luckyzyx.luckytool.utils.GlobalKeyValue.qywxPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.timPackName
 import com.luckyzyx.luckytool.utils.GlobalKeyValue.wxPackName
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class VoipRecorderWhitelist(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     private val audioApplication = "com.oplus.audiomonitor.AudioApplication"

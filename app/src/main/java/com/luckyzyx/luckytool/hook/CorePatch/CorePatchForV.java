@@ -1,6 +1,5 @@
 package com.luckyzyx.luckytool.hook.CorePatch;
 
-import org.lsposed.lsparanoid.Obfuscate;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -8,7 +7,6 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-@Obfuscate
 public class CorePatchForV extends CorePatchForU {
     
     @Override

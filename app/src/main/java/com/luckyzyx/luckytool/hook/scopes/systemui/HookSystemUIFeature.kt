@@ -11,10 +11,8 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     companion object {
@@ -36,7 +34,6 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         if (osCode >= 31) loadHooker(HookQSFeatureOption)
     }
 
-    @Obfuscate
     private object HookFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             //音量条位置
@@ -100,7 +97,6 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object HookStatusBarFeature : YukiBaseHooker() {
         override fun onHook() {
             //隐藏未使用信号标签 config_isSystemUiExpSignalUi
@@ -123,7 +119,6 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object HookFlavorOneFeature : YukiBaseHooker() {
         override fun onHook() {
             //全局搜索按钮
@@ -164,7 +159,6 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object HookVolumeFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             //音量对话框背景透明度
@@ -183,7 +177,6 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object HookQSFeatureOption : YukiBaseHooker() {
         override fun onHook() {
             //自定义控制中心音量条模式
@@ -202,7 +195,6 @@ class HookSystemUIFeature(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object HookFeatureFlags : YukiBaseHooker() {
         override fun onHook() {
             //Source FeatureFlagsClassicRelease

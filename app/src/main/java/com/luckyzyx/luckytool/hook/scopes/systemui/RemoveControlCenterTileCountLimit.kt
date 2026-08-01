@@ -5,11 +5,9 @@ import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.StringMatchType
 
-@Obfuscate
 class RemoveControlCenterTileCountLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -22,7 +20,6 @@ class RemoveControlCenterTileCountLimit(val dexKitBridge: DexKitBridge) : YukiBa
         }
     }
 
-    @Obfuscate
     object RemoveLimitNumberHint : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusSeparateQSCustomizer
@@ -39,7 +36,6 @@ class RemoveControlCenterTileCountLimit(val dexKitBridge: DexKitBridge) : YukiBa
         }
     }
 
-    @Obfuscate
     class RemoveReceiveItemLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer
@@ -67,7 +63,6 @@ class RemoveControlCenterTileCountLimit(val dexKitBridge: DexKitBridge) : YukiBa
         }
     }
 
-    @Obfuscate
     object RemoveLimitNumberHintV14 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer
@@ -85,7 +80,6 @@ class RemoveControlCenterTileCountLimit(val dexKitBridge: DexKitBridge) : YukiBa
         }
     }
 
-    @Obfuscate
     class RemoveReceiveItemLimitV12(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQSCustomizer

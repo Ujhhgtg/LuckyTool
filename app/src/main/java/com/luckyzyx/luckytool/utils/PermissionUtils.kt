@@ -4,9 +4,7 @@ import android.app.Activity
 import com.hjq.permissions.XXPermissions
 import com.hjq.permissions.permission.PermissionLists
 import com.luckyzyx.luckytool.R
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class PermissionUtils(val activity: Activity) {
 
     fun start() {

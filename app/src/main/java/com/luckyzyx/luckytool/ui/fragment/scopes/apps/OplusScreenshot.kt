@@ -11,9 +11,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusScreenshot : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.screenshot")
 

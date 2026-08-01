@@ -2,10 +2,8 @@ package com.luckyzyx.luckytool.hook.scopes.packageinstaller
 
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import java.security.SecureRandom
 
-@Obfuscate
 object FixInstallButtonDisplayException : YukiBaseHooker() {
     override fun onHook() {
         //Source ConfusedButton

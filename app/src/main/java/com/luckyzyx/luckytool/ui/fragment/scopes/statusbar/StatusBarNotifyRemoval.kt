@@ -8,9 +8,7 @@ import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class StatusBarNotifyRemoval : BaseScopePreferenceFeagment() {
     override val scopes =
         arrayOf("com.android.systemui", "com.oplus.battery", "com.coloros.phonemanager")

@@ -6,9 +6,7 @@ import com.highcapable.kavaref.extension.ArrayClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object LauncherLayoutRowColume : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -16,7 +14,6 @@ object LauncherLayoutRowColume : YukiBaseHooker() {
         else loadHooker(LayoutRowColumeV15)
     }
 
-    @Obfuscate
     object LayoutRowColume : YukiBaseHooker() {
         override fun onHook() {
             val maxRows = prefs(ModulePrefs).getInt("launcher_layout_max_rows", 6)
@@ -42,7 +39,6 @@ object LauncherLayoutRowColume : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LayoutRowColumeV15 : YukiBaseHooker() {
         override fun onHook() {
             //Source UiConfig

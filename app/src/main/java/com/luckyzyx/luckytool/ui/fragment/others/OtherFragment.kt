@@ -52,9 +52,7 @@ import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OtherFragment : BaseFragment<FragmentOtherBinding>(), MenuProvider {
 
     override fun onCreateView(

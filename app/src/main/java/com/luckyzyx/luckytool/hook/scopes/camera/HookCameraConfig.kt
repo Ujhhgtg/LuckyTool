@@ -6,9 +6,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.core.YukiMemberHookCreator
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookCameraConfig : YukiBaseHooker() {
     override fun onHook() {
         val list = ArrayMap<String, Any>().apply {
@@ -155,7 +153,6 @@ object HookCameraConfig : YukiBaseHooker() {
         loadHooker(HookCameraVendorTag(list))
     }
 
-    @Obfuscate
     private class HookCameraVendorTag(val tags: Map<String, Any>) : YukiBaseHooker() {
         override fun onHook() {
             //Source CameraAdapterUtils

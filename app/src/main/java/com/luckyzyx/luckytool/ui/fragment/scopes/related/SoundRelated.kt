@@ -19,9 +19,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.sendPrefsValue
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class SoundRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui", "com.android.settings")
 

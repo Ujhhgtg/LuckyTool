@@ -24,9 +24,7 @@ import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
 import com.topjohnwu.superuser.ShellUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class LauncherRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.launcher", "com.oppo.launcher")
 

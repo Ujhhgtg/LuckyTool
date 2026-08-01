@@ -1,13 +1,11 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.beaconlink.RemoveBeaconLinkTimeLimit
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
-@Obfuscate
 object HookBeaconLink : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

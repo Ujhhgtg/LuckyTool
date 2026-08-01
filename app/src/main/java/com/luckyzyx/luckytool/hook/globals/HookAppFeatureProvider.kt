@@ -7,10 +7,8 @@ import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class HookAppFeatureProvider(
     val dexKitBridge: DexKitBridge, private val features: Map<String, Any>
 ) : YukiBaseHooker() {

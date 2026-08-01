@@ -21,7 +21,6 @@ import com.luckyzyx.luckytool.listener.OnSelectAppInfoListener
 import com.luckyzyx.luckytool.utils.PackageUtils
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 
 /**
  * AppInfo选择器
@@ -29,7 +28,6 @@ import org.lsposed.lsparanoid.Obfuscate
  * @property multiMode Boolean 多选模式
  * @constructor
  */
-@Obfuscate
 class AppInfoSelectDialog(context: Context, val multiMode: Boolean = false) :
     MaterialAlertDialogBuilder(context, dialogCentered) {
 

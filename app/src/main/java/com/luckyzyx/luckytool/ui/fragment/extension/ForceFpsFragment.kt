@@ -21,9 +21,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getInt
 import com.luckyzyx.luckytool.utils.putBoolean
 import com.luckyzyx.luckytool.utils.putInt
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class ForceFpsFragment : BaseFragment<FragmentFpsBinding>() {
 
     private var controller: IRefreshRateController? = null

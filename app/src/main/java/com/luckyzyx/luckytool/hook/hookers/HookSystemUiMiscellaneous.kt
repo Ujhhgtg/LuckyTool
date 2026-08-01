@@ -1,7 +1,6 @@
 package com.luckyzyx.luckytool.hook.hookers
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.hook.scopes.systemui.DisableSysUIOTGAutoOff
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemovePowerMenuSOSButton
 import com.luckyzyx.luckytool.hook.scopes.systemui.ShowChargingRipple
@@ -13,7 +12,6 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 
-@Obfuscate
 object HookSystemUiMiscellaneous : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

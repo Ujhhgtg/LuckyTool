@@ -22,10 +22,8 @@ import com.luckyzyx.luckytool.enums.IntentType
 import com.luckyzyx.luckytool.listener.OnSelectIntentInfoListener
 import com.luckyzyx.luckytool.utils.dialogCentered
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 
 @SuppressLint("SetTextI18n")
-@Obfuscate
 class IntentInfoSelectDialog(
     context: Context, val multiMode: Boolean,
     val appIntentInfos: List<AppIntentInfo>,

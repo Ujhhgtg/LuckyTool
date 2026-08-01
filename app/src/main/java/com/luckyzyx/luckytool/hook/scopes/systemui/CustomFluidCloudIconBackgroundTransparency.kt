@@ -4,9 +4,7 @@ import android.graphics.drawable.Drawable
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object CustomFluidCloudIconBackgroundTransparency : YukiBaseHooker() {
     override fun onHook() {
         var customAlpha =

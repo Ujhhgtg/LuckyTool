@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.smartsidebar
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookFeatureOption : YukiBaseHooker() {
     override fun onHook() {
         val transferDock = prefs(ModulePrefs).getBoolean("unlock_transfer_dock", false)

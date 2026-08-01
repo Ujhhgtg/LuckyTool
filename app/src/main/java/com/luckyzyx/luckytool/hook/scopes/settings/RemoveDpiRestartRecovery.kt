@@ -5,12 +5,10 @@ import android.provider.Settings
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import kotlin.math.max
 import kotlin.math.min
 
-@Obfuscate
 class RemoveDpiRestartRecovery(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusDensityPreference
@@ -38,7 +36,6 @@ class RemoveDpiRestartRecovery(val dexKitBridge: DexKitBridge) : YukiBaseHooker(
         loadHooker(HookSettingsUtils(dexKitBridge))
     }
 
-    @Obfuscate
     class HookSettingsUtils(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source SettingsUtils

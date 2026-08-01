@@ -10,9 +10,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object CustomizeDeviceSharingPageParameters : YukiBaseHooker() {
 
     @SuppressLint("DiscouragedApi")

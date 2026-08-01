@@ -3,7 +3,6 @@ package com.luckyzyx.luckytool.ui.fragment.scopes.others
 import android.content.Context
 import androidx.preference.Preference
 import androidx.preference.SwitchPreference
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.ui.fragment.base.BaseScopePreferenceFeagment
 import com.luckyzyx.luckytool.utils.AppUtils
@@ -13,7 +12,6 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.openApp
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 
-@Obfuscate
 class AlphaBackupPro : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.ruet_cse_1503050.ragib.appbackup.pro")
 

@@ -8,10 +8,8 @@ import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.SDK
-import org.lsposed.lsparanoid.Obfuscate
 import java.lang.ref.WeakReference
 
-@Obfuscate
 object LongPressTileOpenThePage : YukiBaseHooker() {
     override fun onHook() {
         if (SDK == A13) loadHooker(LongPressTileV13)
@@ -20,7 +18,6 @@ object LongPressTileOpenThePage : YukiBaseHooker() {
         loadHooker(HookCellularTileIntent)
     }
 
-    @Obfuscate
     object LongPressTile : YukiBaseHooker() {
         override fun onHook() {
             //QSTileImpl
@@ -37,7 +34,6 @@ object LongPressTileOpenThePage : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LongPressTileV13 : YukiBaseHooker() {
         override fun onHook() {
             //QSTileImpl
@@ -53,7 +49,6 @@ object LongPressTileOpenThePage : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object HookCellularTileIntent : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusCellularTile

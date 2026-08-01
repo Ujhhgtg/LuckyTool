@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookLauncherFeatureFlags : YukiBaseHooker() {
     override fun onHook() {
         val twoLine = prefs(ModulePrefs).getBoolean("enable_drawer_layout_double_line_names", false)

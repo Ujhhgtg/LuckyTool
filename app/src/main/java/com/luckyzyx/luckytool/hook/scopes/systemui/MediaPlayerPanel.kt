@@ -15,9 +15,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object MediaPlayerPanel : YukiBaseHooker() {
     override fun onHook() {
         //自动显示媒体播放器
@@ -37,7 +35,6 @@ object MediaPlayerPanel : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MediaPlayerDisplayMode : YukiBaseHooker() {
         override fun onHook() {
             var mode = prefs(ModulePrefs).getString("set_media_player_display_mode", "0")
@@ -112,7 +109,6 @@ object MediaPlayerPanel : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MediaPlayerDisplayModePermanent : YukiBaseHooker() {
         @SuppressLint("DiscouragedApi")
         override fun onHook() {
@@ -246,7 +242,6 @@ object MediaPlayerPanel : YukiBaseHooker() {
         }.invoke(viewId, visibility)
     }
 
-    @Obfuscate
     object ForceEnableMediaToggleButton : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusQsMediaPanelView

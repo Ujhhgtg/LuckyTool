@@ -15,13 +15,11 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getScreenOrientation
-import org.lsposed.lsparanoid.Obfuscate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.abs
 
-@Obfuscate
 @Suppress("LocalVariableName", "DiscouragedApi")
 object ControlCenterDateStyle : YukiBaseHooker() {
     override fun onHook() {

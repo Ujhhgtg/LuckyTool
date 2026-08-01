@@ -9,9 +9,7 @@ import com.luckyzyx.luckytool.utils.SettingsPrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
 import com.luckyzyx.luckytool.utils.toStringList
 import org.json.JSONArray
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookAppStartForbidden : YukiBaseHooker() {
     private val forbiddenApps = ArrayList<String>()
 

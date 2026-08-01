@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.hook.scopes.launcher
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object DisableLongPressAppIconSecondaryMenu : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusPopupContainerWithArrow -> PopupDataProvider

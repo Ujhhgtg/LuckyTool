@@ -11,9 +11,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryLine
 import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.fixIconSize
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusWeather : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.coloros.weather2")
 

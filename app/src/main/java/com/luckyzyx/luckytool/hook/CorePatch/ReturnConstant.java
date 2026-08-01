@@ -1,11 +1,9 @@
 package com.luckyzyx.luckytool.hook.CorePatch;
 
-import org.lsposed.lsparanoid.Obfuscate;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 
-@Obfuscate
 public class ReturnConstant extends XC_MethodHook {
     private final XSharedPreferences prefs;
     private final String prefsKey;

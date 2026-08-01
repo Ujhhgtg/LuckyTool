@@ -9,9 +9,7 @@ import com.highcapable.kavaref.condition.type.VagueType
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveSecurePayFoundVirusDialog : YukiBaseHooker() {
     override fun onHook() {
         //Source RiskDialogWrapper

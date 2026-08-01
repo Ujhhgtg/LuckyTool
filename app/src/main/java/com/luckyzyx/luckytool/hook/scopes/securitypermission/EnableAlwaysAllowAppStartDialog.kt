@@ -9,17 +9,14 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class EnableAlwaysAllowAppStartDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookAlwaysAllowButton(dexKitBridge))
         loadHooker(HookValidTime(dexKitBridge))
     }
 
-    @Obfuscate
     class HookAlwaysAllowButton(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source COUIAlertDialogBuilder
@@ -82,7 +79,6 @@ class EnableAlwaysAllowAppStartDialog(val dexKitBridge: DexKitBridge) : YukiBase
         }
     }
 
-    @Obfuscate
     class HookValidTime(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusPermissionManager

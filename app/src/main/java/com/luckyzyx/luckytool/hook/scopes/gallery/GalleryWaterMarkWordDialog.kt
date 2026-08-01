@@ -5,10 +5,8 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class GalleryWaterMarkWordDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -16,7 +14,6 @@ class GalleryWaterMarkWordDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         else loadHooker(WaterMarkWordLimit(dexKitBridge))
     }
 
-    @Obfuscate
     class WaterMarkWordDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source CustomInfoEditDialogHelper
@@ -24,7 +21,6 @@ class GalleryWaterMarkWordDialog(val dexKitBridge: DexKitBridge) : YukiBaseHooke
         }
     }
 
-    @Obfuscate
     class WaterMarkWordLimit(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             //Source CustomInfoEditDialogHelper -> picture_editor_text_watermark_character_limit_toast

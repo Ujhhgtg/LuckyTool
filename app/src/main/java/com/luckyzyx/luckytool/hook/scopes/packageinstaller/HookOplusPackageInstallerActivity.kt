@@ -11,11 +11,9 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.result.MethodData
 
-@Obfuscate
 class HookOplusPackageInstallerActivity(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     val disableScan = prefs(ModulePrefs).getBoolean("skip_apk_scan", false)

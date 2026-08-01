@@ -18,9 +18,7 @@ import com.luckyzyx.luckytool.utils.checkPackName
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusBattery : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.battery")
 

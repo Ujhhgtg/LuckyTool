@@ -15,9 +15,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.FragmentLogsBinding
 import com.luckyzyx.luckytool.utils.ThemeUtils
 import com.luckyzyx.luckytool.utils.setupMenuProvider
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class LoggerFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentLogsBinding

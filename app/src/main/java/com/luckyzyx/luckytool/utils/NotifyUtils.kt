@@ -16,9 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.luckyzyx.luckytool.R
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object NotifyUtils {
     /**通知权限*/
     private const val POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"

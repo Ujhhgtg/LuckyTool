@@ -5,9 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.globals.HookGlobalSystemProperties
 import com.luckyzyx.luckytool.hook.scopes.phone.ForceDisplaySIMSomeSwitch
 import com.luckyzyx.luckytool.utils.DexkitUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookPhone : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookGlobalFeatureConfig)

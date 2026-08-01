@@ -4,9 +4,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ForceEnableMediaMusicFluidCloudRipple : YukiBaseHooker() {
     override fun onHook() {
         var isEnable =

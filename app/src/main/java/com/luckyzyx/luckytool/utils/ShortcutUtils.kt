@@ -10,9 +10,7 @@ import android.graphics.drawable.Icon
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.data.ShortcutBean
 import com.luckyzyx.luckytool.ui.activity.ShortcutActivity
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("unused")
 class ShortcutUtils(val context: Context) {
 

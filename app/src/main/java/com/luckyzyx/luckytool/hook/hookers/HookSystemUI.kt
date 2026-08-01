@@ -8,10 +8,8 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.scopes.systemui.HookSystemUIFeature
 import com.luckyzyx.luckytool.utils.DexkitUtils
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
-@Obfuscate
 object HookSystemUI : YukiBaseHooker() {
     override fun onHook() {
 

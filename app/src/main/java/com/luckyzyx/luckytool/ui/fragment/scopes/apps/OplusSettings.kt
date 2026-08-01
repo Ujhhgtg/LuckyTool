@@ -39,9 +39,7 @@ import com.luckyzyx.luckytool.utils.putString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.showToast
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusSettings : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.android.settings",

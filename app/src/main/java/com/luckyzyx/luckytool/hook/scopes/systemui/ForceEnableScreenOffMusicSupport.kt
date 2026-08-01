@@ -6,9 +6,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.SettingsUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ForceEnableScreenOffMusicSupport : YukiBaseHooker() {
     override fun onHook() {
         val statisticUtil = VariousClass(

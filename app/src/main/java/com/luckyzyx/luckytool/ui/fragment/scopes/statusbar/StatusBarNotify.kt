@@ -17,9 +17,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getStringSet
 import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsValue
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class StatusBarNotify : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.android.systemui",

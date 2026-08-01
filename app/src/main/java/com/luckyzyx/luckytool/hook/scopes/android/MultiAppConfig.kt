@@ -6,9 +6,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object MultiAppConfig : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -20,7 +18,6 @@ object MultiAppConfig : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     class MultiAppAllowList(val osCode: Int) : YukiBaseHooker() {
 
         var mode = "0"
@@ -112,7 +109,6 @@ object MultiAppConfig : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MultiAppBlackList : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusMultiAppDataManager

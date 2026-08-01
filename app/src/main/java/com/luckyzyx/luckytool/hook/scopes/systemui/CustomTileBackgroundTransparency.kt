@@ -8,9 +8,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
 import com.luckyzyx.luckytool.utils.formatColorAlpha
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object CustomTileBackgroundTransparency : YukiBaseHooker() {
     override fun onHook() {
         val customAlpha = prefs(ModulePrefs).getInt("custom_tile_background_transparency", -1)

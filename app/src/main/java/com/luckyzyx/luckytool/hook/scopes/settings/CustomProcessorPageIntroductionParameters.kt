@@ -14,9 +14,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.appcompat.dialog.COUIAlertDialogBuilder
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @SuppressLint("DiscouragedApi")
 object CustomProcessorPageIntroductionParameters : YukiBaseHooker() {
     override fun onHook() {

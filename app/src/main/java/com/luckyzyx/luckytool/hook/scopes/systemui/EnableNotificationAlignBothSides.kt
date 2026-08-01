@@ -12,9 +12,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.A15
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getScreenOrientation
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object EnableNotificationAlignBothSides : YukiBaseHooker() {
 
     private var qsPanelPaddingPx = 0
@@ -69,7 +67,6 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         if (SDK >= A13) loadHooker(OtherNotification) else loadHooker(OtherNotificationC12)
     }
 
-    @Obfuscate
     private object OtherNotification : YukiBaseHooker() {
         override fun onHook() {
             //Source KeyguardMediaController -> MediaHost -> HostView -> parent
@@ -166,7 +163,6 @@ object EnableNotificationAlignBothSides : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     private object OtherNotificationC12 : YukiBaseHooker() {
         override fun onHook() {
             //Source OplusMediaHost

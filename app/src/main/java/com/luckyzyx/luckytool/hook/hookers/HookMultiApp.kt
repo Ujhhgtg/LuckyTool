@@ -5,9 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.multiapp.RemoveMultiAppBlacklist
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookMultiApp : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

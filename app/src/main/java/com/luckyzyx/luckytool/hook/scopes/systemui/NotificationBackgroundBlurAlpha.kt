@@ -11,9 +11,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.dp
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -21,7 +19,6 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
         else loadHooker(NotificationBackgroundBlurAlphaV14)
     }
 
-    @Obfuscate
     object NotificationBackgroundBlurAlphaV15 : YukiBaseHooker() {
         override fun onHook() {
             var customAlpha =
@@ -73,7 +70,6 @@ object NotificationBackgroundBlurAlpha : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object NotificationBackgroundBlurAlphaV14 : YukiBaseHooker() {
         private var disableBlur = false
 

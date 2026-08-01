@@ -16,9 +16,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setSummaryProvider
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class StatusBarClock : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
 

@@ -15,9 +15,7 @@ import com.luckyzyx.luckytool.utils.IntentUtils.Companion.getIntentFilter
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
 import kotlinx.serialization.json.Json
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class HookIPackageManager : YukiBaseHooker() {
 
     val allIntent = ArraySet<AppIntentInfo>()
@@ -105,7 +103,6 @@ class HookIPackageManager : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     inner class HookQueryIntentActivitieV12 : YukiBaseHooker() {
         override fun onHook() {
             //Source PackageManagerService
@@ -120,7 +117,6 @@ class HookIPackageManager : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     inner class HookQueryIntentActivitie : YukiBaseHooker() {
         override fun onHook() {
             //Source IPackageManagerBase

@@ -4,9 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveFolderNameInputLimit : YukiBaseHooker() {
     override fun onHook() {
         //Source OplusFolder

@@ -18,10 +18,8 @@ import android.util.ArraySet
 import androidx.core.net.toUri
 import com.luckyzyx.luckytool.data.AppVerInfo
 import kotlinx.serialization.json.Json
-import org.lsposed.lsparanoid.Obfuscate
 
 @Suppress("MemberVisibilityCanBePrivate")
-@Obfuscate
 class AppUtils(val context: Context) {
 
     val packageUtils = PackageUtils(context.packageManager)

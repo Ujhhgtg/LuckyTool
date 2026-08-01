@@ -24,9 +24,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RestartMenuUtils {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())

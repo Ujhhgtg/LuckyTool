@@ -18,10 +18,8 @@ import com.luckyzyx.luckytool.hook.hookers.HookSystemUIDialog.hookAll
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class AlarmClockWidget(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     companion object {

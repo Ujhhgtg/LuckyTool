@@ -113,10 +113,8 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import kotlinx.coroutines.Dispatchers
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.Arrays
 
-@Obfuscate
 class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
 
     override val currentPrefsName: String = ModulePrefs
@@ -463,7 +461,6 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
         }
     }
 
-    @Obfuscate
     class SearchResultAdapter(
         allFragmentItem: ArrayList<FragmentItem>,
         private val onSelectSearchResultListener: OnSelectSearchResultListener
@@ -554,7 +551,6 @@ class XposedFragment : BaseScopePreferenceFeagment(), MenuProvider {
             notifyDataSetChanged()
         }
 
-        @Obfuscate
         class SearchResultItemHolder(binding: LayoutSearchResultItemBinding) :
             RecyclerView.ViewHolder(binding.root) {
             val item: ConstraintLayout = binding.root

@@ -16,9 +16,7 @@ import com.luckyzyx.luckytool.utils.dialogCentered
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusSecuritypPermission : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.securitypermission")
 

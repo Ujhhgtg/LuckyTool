@@ -16,9 +16,7 @@ import com.luckyzyx.luckytool.hook.CorePatch.CorePatchForV
 import com.luckyzyx.luckytool.hook.DisableFlagSecure.DisableFlagSecure
 import com.luckyzyx.luckytool.utils.SDK
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object XposedEntry {
 
     fun onLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {

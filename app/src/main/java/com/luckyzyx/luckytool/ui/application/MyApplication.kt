@@ -3,9 +3,7 @@ package com.luckyzyx.luckytool.ui.application
 import com.google.android.material.color.DynamicColors
 import com.highcapable.yukihookapi.hook.xposed.application.ModuleApplication
 import com.luckyzyx.luckytool.utils.ThemeUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class MyApplication : ModuleApplication() {
 
     override fun onCreate() {

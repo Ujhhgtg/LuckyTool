@@ -7,10 +7,8 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
-@Obfuscate
 object EnableRandomTextOnAod : YukiBaseHooker() {
     override fun onHook() {
         val mode = prefs(ModulePrefs).getString("set_random_text_display_mode", "0")

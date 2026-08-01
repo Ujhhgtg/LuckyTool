@@ -17,9 +17,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.closeScreen
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNull
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object LockScreenBottomButton : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -28,7 +26,6 @@ object LockScreenBottomButton : YukiBaseHooker() {
         else loadHooker(LockScreenBottomButtonV13)
     }
 
-    @Obfuscate
     object FlashlightQuickCloseScreen : YukiBaseHooker() {
         override fun onHook() {
             var autoCloseScreen = prefs(ModulePrefs).getBoolean(
@@ -53,7 +50,6 @@ object LockScreenBottomButton : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LockScreenBottomButtonV14 : YukiBaseHooker() {
         val ViewModel =
             "com.android.systemui.keyguard.ui.viewmodel.KeyguardQuickAffordanceViewModel"
@@ -113,7 +109,6 @@ object LockScreenBottomButton : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object LockScreenBottomButtonV13 : YukiBaseHooker() {
         override fun onHook() {
             //affordance_magazine

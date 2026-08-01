@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.utils.A13
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object MobileDataIconRelated : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -26,7 +24,6 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MobileDataIcon : YukiBaseHooker() {
         override fun onHook() {
 //            val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
@@ -163,7 +160,6 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MobileDataIconV14 : YukiBaseHooker() {
         override fun onHook() {
             //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)
@@ -248,7 +244,6 @@ object MobileDataIconRelated : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object MobileDataIconV120 : YukiBaseHooker() {
         override fun onHook() {
 //        val removeIcon = prefs(ModulePrefs).getBoolean("remove_mobile_data_icon", false)

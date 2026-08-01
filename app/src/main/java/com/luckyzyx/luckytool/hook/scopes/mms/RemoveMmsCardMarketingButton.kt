@@ -6,9 +6,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.safeOfNull
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveMmsCardMarketingButton : YukiBaseHooker() {
 
     const val ENTITIES: String = "entities"

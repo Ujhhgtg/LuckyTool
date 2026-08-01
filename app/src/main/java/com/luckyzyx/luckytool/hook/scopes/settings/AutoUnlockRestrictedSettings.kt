@@ -7,10 +7,8 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.EcmUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -19,7 +17,6 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
         else loadHooker(RestrictedSettingsV14(dexKitBridge))
     }
 
-    @Obfuscate
     object RestrictedSettings : YukiBaseHooker() {
         override fun onHook() {
             //Source RestrictedPreferenceHelper
@@ -54,7 +51,6 @@ class AutoUnlockRestrictedSettings(val dexKitBridge: DexKitBridge) : YukiBaseHoo
         }
     }
 
-    @Obfuscate
     class RestrictedSettingsV14(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
         override fun onHook() {
             val limit = false

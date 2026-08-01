@@ -21,9 +21,7 @@ import com.luckyzyx.luckytool.utils.formatStringAuto
 import com.luckyzyx.luckytool.utils.navigatePage
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.topjohnwu.superuser.ShellUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class OplusOTA : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.oplus.ota")
 

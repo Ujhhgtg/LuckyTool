@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveSeparateControlCenterBu
 import com.luckyzyx.luckytool.hook.scopes.systemui.RemoveStatusBarBottomNetworkWarn
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object StatusBarControlCenter : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode

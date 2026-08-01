@@ -11,9 +11,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.SDK
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.getScreenOrientation
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ControlCenterTiles : YukiBaseHooker() {
     var callback: ((key: String, value: String) -> Unit)? = null
 
@@ -24,7 +22,6 @@ object ControlCenterTiles : YukiBaseHooker() {
         else loadHooker(ControlCenterTilesLayoutC12)
     }
 
-    @Obfuscate
     object ControlCenterTilesLayout : YukiBaseHooker() {
         override fun onHook() {
             val osCode = getOSVersionCode
@@ -101,7 +98,6 @@ object ControlCenterTiles : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object ControlCenterTilesLayoutC12 : YukiBaseHooker() {
         override fun onHook() {
             val columnUnexpandedVertical =

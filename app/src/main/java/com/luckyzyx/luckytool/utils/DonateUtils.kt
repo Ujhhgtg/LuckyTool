@@ -3,12 +3,10 @@ package com.luckyzyx.luckytool.utils
 import android.content.Context
 import android.view.LayoutInflater
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.lsposed.lsparanoid.Obfuscate
 import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.databinding.DialogDonateLayoutBinding
 
 @Suppress("unused")
-@Obfuscate
 object DonateUtils {
     private val CNU = "Null"
     private val CQQ = "QQ"

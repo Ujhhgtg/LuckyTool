@@ -27,9 +27,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class ZoomWindowFragment : BaseFragment<FragmentZoomWindowApplistLayoutBinding>(), MenuProvider {
 
     private val TAG = "ZoomWindowFragment"

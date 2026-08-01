@@ -31,11 +31,9 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.ext.tables.TablePlugin
 import org.json.JSONArray
 import org.json.JSONObject
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 import java.text.DecimalFormat
 
-@Obfuscate
 class DonateFragment : BaseFragment<FragmentDonateListBinding>() {
 
     private lateinit var donateDataTempFile: File

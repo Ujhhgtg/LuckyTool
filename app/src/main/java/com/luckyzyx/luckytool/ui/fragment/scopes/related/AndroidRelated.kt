@@ -18,9 +18,7 @@ import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class AndroidRelated : BaseScopePreferenceFeagment() {
 
     override val currentPrefsName: String = ModulePrefs

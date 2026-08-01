@@ -5,9 +5,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object SystemEnableVolumeKeyControlFlashlight : YukiBaseHooker() {
     override fun onHook() {
         if (getOSVersionCode < 27) return

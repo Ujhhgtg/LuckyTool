@@ -7,9 +7,7 @@ import com.luckyzyx.luckytool.hook.scopes.screenshot.EnablePNGSaveFormat
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getAppVerInfo
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookScreenshot : YukiBaseHooker() {
     override fun onHook() {
         val appVer = prefs(ModulePrefs).getAppVerInfo(packageName)

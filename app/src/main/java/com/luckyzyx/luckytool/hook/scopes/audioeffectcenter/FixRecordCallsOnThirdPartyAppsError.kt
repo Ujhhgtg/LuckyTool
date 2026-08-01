@@ -3,11 +3,9 @@ package com.luckyzyx.luckytool.hook.scopes.audioeffectcenter
 import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import org.lsposed.lsparanoid.Obfuscate
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
-@Obfuscate
 object FixRecordCallsOnThirdPartyAppsError : YukiBaseHooker() {
     private const val SpatializerDefine = "com.oplus.audio.effectcenter.manager.SpatializerDefine"
     override fun onHook() {

@@ -10,9 +10,7 @@ import com.canhub.cropper.CropImageView
 import com.canhub.cropper.parcelable
 import com.luckyzyx.luckytool.data.CropImageContractOptions
 import com.luckyzyx.luckytool.ui.activity.CropImageActivity
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class CropImageContract :
     ActivityResultContract<Pair<String, CropImageContractOptions>, Pair<String, CropImageView.CropResult>>() {
 

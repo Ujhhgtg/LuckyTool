@@ -7,11 +7,9 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.result.MethodData
 
-@Obfuscate
 class HookOPlusUninstallAppProgress(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
 
     val autoDone = prefs(ModulePrefs).getBoolean("auto_click_uninstall_button", false)

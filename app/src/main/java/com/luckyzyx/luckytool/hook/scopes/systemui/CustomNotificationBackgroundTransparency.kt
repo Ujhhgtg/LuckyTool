@@ -9,9 +9,7 @@ import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.ThemeUtils.isNightMode
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.safeOfNan
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object CustomNotificationBackgroundTransparency : YukiBaseHooker() {
 
     private var defaultNotifyPanelTintList: ColorStateList? = null

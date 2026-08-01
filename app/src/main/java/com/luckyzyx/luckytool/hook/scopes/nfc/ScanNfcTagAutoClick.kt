@@ -6,9 +6,7 @@ import android.content.Intent
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ScanNfcTagAutoClick : YukiBaseHooker() {
     override fun onHook() {
         var isEnable = prefs(ModulePrefs).getBoolean("scan_nfc_tag_auto_click", false)

@@ -20,9 +20,7 @@ import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
 import com.luckyzyx.luckytool.utils.setPrefsIconRes
 import com.luckyzyx.luckytool.utils.setSummaryProvider
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class LockScreenRelated : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf(
         "com.android.systemui",

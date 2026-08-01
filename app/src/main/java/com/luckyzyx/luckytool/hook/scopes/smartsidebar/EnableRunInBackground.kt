@@ -11,9 +11,7 @@ import com.luckyzyx.luckytool.R
 import com.luckyzyx.luckytool.utils.IntentUtils
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import com.luckyzyx.luckytool.utils.startMirageWindow
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object EnableRunInBackground : YukiBaseHooker() {
 
     override fun onHook() {

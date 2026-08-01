@@ -5,9 +5,7 @@ import com.luckyzyx.luckytool.hook.globals.HookGlobalFeatureConfig
 import com.luckyzyx.luckytool.hook.scopes.gesture.CustomAonGestureScrollPageWhitelist
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookGesture : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookGlobalFeatureConfig)

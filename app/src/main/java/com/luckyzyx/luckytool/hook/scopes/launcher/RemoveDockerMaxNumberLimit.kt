@@ -4,9 +4,7 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.hook.utils.launcher.LauncherAppStateUtils
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object RemoveDockerMaxNumberLimit : YukiBaseHooker() {
     override fun onHook() {
         //Source ExpandConfig

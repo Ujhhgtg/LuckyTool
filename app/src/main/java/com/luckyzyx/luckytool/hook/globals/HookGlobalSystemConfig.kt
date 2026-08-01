@@ -5,9 +5,7 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookGlobalSystemConfig : YukiBaseHooker() {
     override fun onHook() {
         val osCode = getOSVersionCode
@@ -24,7 +22,6 @@ object HookGlobalSystemConfig : YukiBaseHooker() {
         loadHooker(SystemConfigFeature(list))
     }
 
-    @Obfuscate
     class SystemConfigFeature(private val features: ArrayList<String>) : YukiBaseHooker() {
         override fun onHook() {
             //Source SystemConfig

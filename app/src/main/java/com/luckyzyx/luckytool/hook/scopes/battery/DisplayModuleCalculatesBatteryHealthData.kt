@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.utils.DeviceUtils.calcLocalHealth
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.filterNumber
 import com.luckyzyx.luckytool.utils.safeOf
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object DisplayModuleCalculatesBatteryHealthData : YukiBaseHooker() {
     @SuppressLint("SetTextI18n", "DiscouragedApi")
     override fun onHook() {

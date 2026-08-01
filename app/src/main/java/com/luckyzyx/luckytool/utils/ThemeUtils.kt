@@ -6,9 +6,7 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object ThemeUtils {
 
     fun isDynamicColorsEnabled(context: Context): Boolean {

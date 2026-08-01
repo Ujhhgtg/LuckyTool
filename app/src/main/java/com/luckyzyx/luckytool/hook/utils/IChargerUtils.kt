@@ -5,9 +5,7 @@ import android.os.ServiceManager
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.kavaref.extension.VariousClass
 import com.highcapable.kavaref.extension.toClass
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @Suppress("PrivatePropertyName")
 class IChargerUtils(val classLoader: ClassLoader?) {
 

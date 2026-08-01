@@ -7,10 +7,8 @@ import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 class HookOTADialogHelper(val dexKitBridge: DexKitBridge) : YukiBaseHooker() {
     override fun onHook() {
         val autoDownload = prefs(ModulePrefs).getBoolean("remove_ota_auto_download_dialog", false)

@@ -6,9 +6,7 @@ import com.luckyzyx.luckytool.hook.scopes.securitypermission.AutoUnlockAppEcmPer
 import com.luckyzyx.luckytool.hook.scopes.securitypermission.EnableAlwaysAllowAppStartDialog
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookSecuritypPermission : YukiBaseHooker() {
     override fun onHook() {
 

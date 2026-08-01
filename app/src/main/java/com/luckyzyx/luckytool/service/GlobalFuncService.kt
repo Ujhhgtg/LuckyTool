@@ -8,10 +8,8 @@ import com.luckyzyx.luckytool.service.base.BaseControllerService
 import com.luckyzyx.luckytool.utils.formatSpace
 import com.luckyzyx.luckytool.utils.replaceSpace
 import com.topjohnwu.superuser.ipc.RootService
-import org.lsposed.lsparanoid.Obfuscate
 import java.io.File
 
-@Obfuscate
 object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
     override val TAG = "GlobalFuncService"
     override var controllerService: Class<*> = GlobalFuncControllerService::class.java
@@ -20,7 +18,6 @@ object GlobalFuncService : BaseControllerService<IGlobalFuncController>() {
         return IGlobalFuncController.Stub.asInterface(iBinder)
     }
 
-    @Obfuscate
     class GlobalFuncControllerService : RootService() {
         override fun onBind(intent: Intent) = object : IGlobalFuncController.Stub() {
 

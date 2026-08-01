@@ -8,10 +8,8 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.DexkitUtils.checkDataList
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.query.enums.StringMatchType
 
-@Obfuscate
 object HookADM : YukiBaseHooker() {
     override fun onHook() {
         //解锁Pro
@@ -22,7 +20,6 @@ object HookADM : YukiBaseHooker() {
         loadHooker(UnlockAdmThreads)
     }
 
-    @Obfuscate
     object UnlockAdmPro : YukiBaseHooker() {
         override fun onHook() {
             //Search Beta / Pro -> EVENT_DISA / hua_voices
@@ -41,7 +38,6 @@ object HookADM : YukiBaseHooker() {
         }
     }
 
-    @Obfuscate
     object UnlockAdmThreads : YukiBaseHooker() {
         override fun onHook() {
             val threads = prefs(ModulePrefs).getString("adm_unlock_more_threads", "0")

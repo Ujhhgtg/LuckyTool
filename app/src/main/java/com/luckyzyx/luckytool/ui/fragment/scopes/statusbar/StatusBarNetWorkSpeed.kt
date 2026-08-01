@@ -13,9 +13,7 @@ import com.luckyzyx.luckytool.utils.arraySummaryDot
 import com.luckyzyx.luckytool.utils.getBoolean
 import com.luckyzyx.luckytool.utils.getString
 import com.luckyzyx.luckytool.utils.sendPrefsValue
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class StatusBarNetWorkSpeed : BaseScopePreferenceFeagment() {
     override val scopes = arrayOf("com.android.systemui")
 

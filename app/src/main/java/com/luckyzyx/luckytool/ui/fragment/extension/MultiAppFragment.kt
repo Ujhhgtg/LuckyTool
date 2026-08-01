@@ -31,9 +31,7 @@ import com.luckyzyx.luckytool.utils.putStringSet
 import com.luckyzyx.luckytool.utils.sendPrefsKey
 import com.luckyzyx.luckytool.utils.setupMenuProvider
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 class MultiAppFragment : BaseFragment<FragmentMutliAppApplistLayoutBinding>(), MenuProvider {
 
     private val TAG = "MultiAppFragment"

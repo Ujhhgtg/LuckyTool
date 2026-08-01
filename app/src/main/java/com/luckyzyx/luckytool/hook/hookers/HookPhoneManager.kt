@@ -6,9 +6,7 @@ import com.luckyzyx.luckytool.hook.scopes.phonemanager.RemoveCountdownAddVirusAp
 import com.luckyzyx.luckytool.hook.scopes.phonemanager.RemoveVirusRiskNotificationInPhoneManager
 import com.luckyzyx.luckytool.utils.DexkitUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 object HookPhoneManager : YukiBaseHooker() {
     override fun onHook() {
         loadHooker(HookGlobalFeatureConfig)
