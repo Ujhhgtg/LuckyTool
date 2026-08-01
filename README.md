@@ -41,3 +41,9 @@ AlphaBackupPro,KSWeb,ADM
 ## Lsposed Repo
 
 [LuckyTool](https://github.com/Xposed-Modules-Repo/com.luckyzyx.luckytool)
+
+## 题外话
+
+仓库目前拥有完整的commit记录，任何他人歪曲捏造事实的行为都将受到谴责，包括但不限于 [Evil-LuckyTool](https://github.com/Chen-qing31/Evil-LuckyTool) [https://github.com/Qing0721/LuckyTool-Foss](https://github.com/Qing0721/LuckyTool-Foss)
+
+之前确实有黑名单机制，我并没有否认，但是早已删除，其次作者有繁忙的工作并不靠模块赚钱，现在AI兴起，其他比LT更好的模块很多，特此开源提供模块开发入门支持
