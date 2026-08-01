@@ -1,0 +1,135 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - '.editorconfig'
+      - '.gitignore'
+      - '.idea/**'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - '.editorconfig'
+      - '.gitignore'
+      - '.idea/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      !startsWith(github.event.head_commit.message, '[skip ci]')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Cache Gradle build cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/configuration-cache
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/gradle.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Install Android SDK components
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0" \
+            || "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37" "build-tools;37.0.0" \
+            || echo "SDK components already available"
+
+      - name: Build Debug (compile check)
+        if: github.event_name != 'push'
+        run: ./gradlew :app:compileDebugKotlin --console=plain
+
+      - name: Build Release APK
+        if: github.event_name == 'push'
+        run: ./gradlew :app:assembleRelease --console=plain
+
+      - name: Collect APK
+        if: github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp app/build/outputs/apk/release/*.apk dist/
+          ls -lh dist
+
+      - name: Upload APK artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v7
+        with:
+          name: luckytool-apk
+          path: dist/*.apk
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ always() && needs.build.result == 'success' && github.event_name == 'push' }}
+    permissions:
+      contents: write
+    steps:
+      - name: Download APK artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: luckytool-apk
+          path: artifacts
+
+      - name: Delete existing CI release (if exists)
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete CI --yes || true
+          gh api -X DELETE repos/${{ github.repository }}/git/refs/tags/CI || true
+
+      - name: Prepare release body
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            printf 'Release %s\n' "${{ github.ref_name }}" > body.md
+          else
+            {
+              echo '本 Release 始终包含最新的 CI 构建产物'
+              echo ''
+              echo '提交 SHA: `${{ github.sha }}`'
+              echo ''
+              echo '提交消息:'
+              echo '```'
+              echo '${{ github.event.head_commit.message || "手动构建" }}'
+              echo '```'
+            } > body.md
+          fi
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'CI' }}
+          name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'CI' }}
+          body_path: body.md
+          files: artifacts/*
+          generate_release_notes: ${{ startsWith(github.ref, 'refs/tags/') }}
+          prerelease: ${{ !startsWith(github.ref, 'refs/tags/') }}
