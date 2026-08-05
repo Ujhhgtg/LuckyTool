@@ -15,7 +15,7 @@ class FlowUtils(val classLoader: ClassLoader?) {
         return stateFlowKt.resolve().firstMethod { name = "MutableStateFlow" }.invoke(any)
     }
 
-    fun asStateFlow(mutableStateFlow: Any): Any? {
+    fun asStateFlow(mutableStateFlow: Any?): Any? {
         return flowKtShareKt.resolve().firstMethod { name = "asStateFlow" }.invoke(mutableStateFlow)
     }
 

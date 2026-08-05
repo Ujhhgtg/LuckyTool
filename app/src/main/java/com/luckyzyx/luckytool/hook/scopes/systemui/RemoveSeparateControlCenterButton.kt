@@ -4,6 +4,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.luckyzyx.luckytool.hook.utils.FlowUtils
 import com.luckyzyx.luckytool.utils.ModulePrefs
 import com.luckyzyx.luckytool.utils.getOSVersionCode
 import org.lsposed.lsparanoid.Obfuscate
@@ -14,6 +15,31 @@ object RemoveSeparateControlCenterButton : YukiBaseHooker() {
         val osCode = getOSVersionCode
         if (osCode >= 37) loadHooker(SeparateControlCenterButton)
         else loadHooker(SeparateControlCenterButtonV15)
+
+        if (prefs(ModulePrefs).getBoolean("remove_control_center_settings_button", false)) {
+            loadHooker(RemoveSeparateControlCenterSettingsButton)
+        }
+    }
+
+    @Obfuscate
+    object RemoveSeparateControlCenterSettingsButton : YukiBaseHooker() {
+        override fun onHook() {
+            //Source OplusSeparateSettingsEntranceInteractor
+            "com.oplus.systemui.plugins.qs.quickentrance.domain.interactor.OplusSeparateSettingsEntranceInteractor".toClass()
+                .resolve().apply {
+                    firstMethod {
+                        name = "isHideSettingsEntrance"
+                        emptyParameters()
+                        returnType = "kotlinx.coroutines.flow.StateFlow"
+                    }.hook {
+                        before {
+                            result = FlowUtils(appClassLoader).let {
+                                it.asStateFlow(it.MutableStateFlow(true))
+                            }
+                        }
+                    }
+                }
+        }
     }
 
     @Obfuscate
