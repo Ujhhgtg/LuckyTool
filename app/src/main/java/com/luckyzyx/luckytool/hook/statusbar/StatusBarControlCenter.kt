@@ -46,7 +46,9 @@ object StatusBarControlCenter : YukiBaseHooker() {
         if (osCode >= 34) loadHooker(RemoveSeparateControlCenterButton)
 
         //启用控制中心进度条百分比显示
-        if (prefs(ModulePrefs).getBoolean("enable_control_center_progress_percent_display", false)) {
+        val enableProgressPercent =
+            prefs(ModulePrefs).getBoolean("enable_control_center_progress_percent_display", false)
+        if (enableProgressPercent) {
             loadHooker(EnableControlCenterProgressPercentDisplay)
         }
 

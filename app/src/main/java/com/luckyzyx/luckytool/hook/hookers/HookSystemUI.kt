@@ -40,7 +40,7 @@ object HookSystemUI : YukiBaseHooker() {
         loadHooker(HookSystemUIAutoStart)
 
         //Source MediaActionPrioritySelectorImpl
-        "com.oplus.systemui.media.controls.pipeline.MediaActionPrioritySelectorImpl".toClass()
+        if (false) "com.oplus.systemui.media.controls.pipeline.MediaActionPrioritySelectorImpl".toClass()
             .resolve().apply {
                 firstMethod {
                     name = "getLyricEntrance"
@@ -60,8 +60,8 @@ object HookSystemUI : YukiBaseHooker() {
         val DIR = "/sdcard/Musics/"
 
         //Source OplusMediaDataManagerExImpl
-        "com.oplus.systemui.media.controls.pipeline.OplusMediaDataManagerExImpl".toClass().resolve()
-            .apply {
+        if (false) "com.oplus.systemui.media.controls.pipeline.OplusMediaDataManagerExImpl".toClass()
+            .resolve().apply {
                 firstMethod { name = "loadLyricInBg" }.hook {
                     before {
                         val context = firstField { type = Context::class }.of(instance)
