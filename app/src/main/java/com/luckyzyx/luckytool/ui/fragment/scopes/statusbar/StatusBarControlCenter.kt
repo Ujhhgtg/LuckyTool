@@ -273,9 +273,9 @@ class StatusBarControlCenter : BaseScopePreferenceFeagment() {
                 isIconSpaceReserved = false
             })
             add(SwitchPreference(this@loadPreferences).apply {
-                title = getString(R.string.remove_control_center_edit_button)
+                title = getString(R.string.remove_control_center_more_button)
                 summary = getString(R.string.separate_control_center_mode_only)
-                key = "remove_control_center_edit_button"
+                key = "remove_control_center_more_button"
                 setDefaultValue(false)
                 isVisible = osCode >= 34
                 isIconSpaceReserved = false
